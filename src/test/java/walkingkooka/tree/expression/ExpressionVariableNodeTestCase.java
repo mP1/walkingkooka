@@ -18,21 +18,24 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariableNode> extends  ExpressionParentNodeTestCase<N> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullFails() {
-        this.createExpressionNode((List<ExpressionNode>)null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createExpressionNode((List<ExpressionNode>)null);
+        });
     }
 
     @Test
@@ -67,13 +70,13 @@ public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariabl
         final N different = expression.setChildren(differentChildren).cast();
         assertNotSame(expression, different);
 
-        assertEquals("name", expression.name(), different.name());
+        assertEquals(expression.name(), different.name(),"name");
 
         this.checkChildren(different, differentChildren);
         this.checkChildren(expression, children);
 
-        assertSame("original children", children, expression.children());
-        assertNotSame("updated children", differentChildren, different.children());
+        assertSame(children, expression.children(), "original children");
+        assertNotSame(differentChildren, different.children(), "updated children");
     }
 
     @Test

@@ -18,7 +18,7 @@
 
 package walkingkooka.collect;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
@@ -27,8 +27,8 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Collection;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class CollectionTestCase<C extends Collection<E>, E> extends ClassTestCase<C> {
 
@@ -57,18 +57,17 @@ public abstract class CollectionTestCase<C extends Collection<E>, E> extends Cla
     protected abstract C createCollection();
 
     protected void containsAndCheck(final Collection<E> collection, final E element) {
-        assertTrue(collection + " should contain " + CharSequences.quoteIfChars(element),
-                collection.contains(element));
-        assertTrue(collection + " should contain Collection of " + CharSequences.quoteIfChars(element),
-                collection.containsAll(Lists.of(element)));
+        assertTrue(collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
+        assertTrue(collection.containsAll(Lists.of(element)),
+                () -> collection + " should contain Collection of " + CharSequences.quoteIfChars(element));
     }
 
     protected void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
-        assertEquals("isEmpty of " + collection, empty, collection.isEmpty());
+        assertEquals(empty, collection.isEmpty(), ()-> "isEmpty of " + collection);
     }
 
     protected void sizeAndCheck(final Collection<?> collection, final int size) {
-        assertEquals("size of " + collection, size, collection.size());
+        assertEquals(size, collection.size(), () -> "size of " + collection);
         this.isEmptyAndCheck(collection, 0 == size);
     }
 

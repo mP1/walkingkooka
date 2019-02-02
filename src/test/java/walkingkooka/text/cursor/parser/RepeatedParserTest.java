@@ -16,14 +16,15 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<ParserContext>,
         RepeatedParserToken> {
@@ -31,9 +32,11 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Pa
     private final static String TEXT = "abc";
     private final static Parser<ParserToken, ParserContext> PARSER = CaseSensitivity.SENSITIVE.parser(TEXT).cast();
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullParserFails() {
-        RepeatedParser.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            RepeatedParser.with(null);
+        });
     }
 
     @Test

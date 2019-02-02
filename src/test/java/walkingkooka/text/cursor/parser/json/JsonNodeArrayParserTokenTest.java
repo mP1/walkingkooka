@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
@@ -26,7 +26,7 @@ import walkingkooka.tree.json.JsonNode;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserTokenTestCase<JsonNodeArrayParserToken> {
 
@@ -34,7 +34,7 @@ public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserToke
     public void testWithoutWhitespace() {
         final JsonNodeArrayParserToken array = array(arrayBegin(), whitespace(), string("abc"), arrayEnd()).cast();
         final JsonNodeArrayParserToken without = array.withoutSymbols().get().cast();
-        assertEquals("value", Lists.of(string("abc")), without.value());
+        assertEquals(Lists.of(string("abc")), without.value(), "value");
     }
 
     @Test

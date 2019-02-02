@@ -18,13 +18,13 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETagListHeaderParser> {
 
@@ -108,15 +108,15 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     final void parseAndCheck2(final String text, final ETag... tags) {
-        assertEquals("Incorrect result parsing " + CharSequences.quote(text),
-                Lists.of(tags),
-                ETagListHeaderParser.parseList(text));
+        assertEquals(Lists.of(tags),
+                ETagListHeaderParser.parseList(text),
+                "Incorrect result parsing " + CharSequences.quote(text));
     }
 
     @Override
     ETag parse(final String text) {
         final List<ETag> tags = ETagListHeaderParser.parseList(text);
-        assertEquals("expected one tag =" + CharSequences.quote(text) + "=" + tags, 1, tags.size());
+        assertEquals( 1, tags.size(), "expected one tag =" + CharSequences.quote(text) + "=" + tags);
         return tags.get(0);
     }
 

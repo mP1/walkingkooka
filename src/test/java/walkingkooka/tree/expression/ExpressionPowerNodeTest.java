@@ -1,13 +1,13 @@
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ExpressionPowerNodeTest extends ExpressionArithmeticBinaryNodeTestCase2<ExpressionPowerNode>{
 
@@ -56,12 +56,12 @@ public final class ExpressionPowerNodeTest extends ExpressionArithmeticBinaryNod
             }
         }.accept(power);
         assertEquals("1315215242", b.toString());
-        assertEquals("visited",
-                Lists.of(power, power,
+        assertEquals(Lists.of(power, power,
                         text1, text1, text1,
                         text2, text2, text2,
                         power, power),
-                visited);
+                visited,
+                "visited");
     }
 
     // toBoolean...............................................................................................

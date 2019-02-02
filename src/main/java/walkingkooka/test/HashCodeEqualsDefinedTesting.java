@@ -18,11 +18,13 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Base class for testing a {@link HashCodeEqualsDefined} with mostly parameter checking tests.
@@ -32,16 +34,16 @@ public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> {
     @Test
     default void testHashCode() {
         final Object object = this.createObject();
-        assertEquals("repeated calls to hashCode should return same value",
+        assertEquals(object.hashCode(),
                 object.hashCode(),
-                object.hashCode());
+                () -> "repeated calls to hashCode should return same value: " + object);
     }
 
     @Test
     default void testEqualsNullIsFalse() {
         final T object = this.createObject();
         if (object.equals(null)) {
-            assertEquals(null, object, null);
+            assertEquals(object, null);
         }
     }
 
@@ -70,14 +72,14 @@ public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> {
     }
 
     default void checkEquals(final Object expected, final Object actual) {
-        assertNotNull("Expected is null", expected);
-        assertNotNull("Actual is null", actual);
+        assertNotNull(expected, "Expected is null");
+        assertNotNull(actual,"Actual is null");
 
         if (false == expected.equals(actual)) {
-            assertEquals(null, expected, actual);
+            assertEquals(expected, actual);
         }
         if (false == actual.equals(expected)) {
-            assertEquals(null, expected, actual);
+            assertEquals(expected, actual);
         }
     }
 
@@ -103,14 +105,10 @@ public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> {
     }
 
     default void checkNotEquals(final Object expected, final Object actual) {
-        assertNotNull("Expected is null", expected);
-        assertNotNull("Actual is null", expected);
+        Objects.requireNonNull(expected, "expected");
+        Objects.requireNonNull(actual, "actual");
 
-        if (expected.equals(actual)) {
-            Assert.fail(expected + " should not be equal to " + actual);
-        }
-        if (actual.equals(expected)) {
-            Assert.fail(actual + " should not be equal to " + expected);
-        }
+        assertNotEquals(expected, actual);
+        assertNotEquals(actual, expected);
     }
 }

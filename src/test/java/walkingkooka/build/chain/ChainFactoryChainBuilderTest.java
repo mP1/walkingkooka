@@ -17,8 +17,7 @@
 
 package walkingkooka.build.chain;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.collect.set.Sets;
@@ -27,9 +26,10 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ChainFactoryChainBuilderTest
         extends ChainBuilderTestCase<ChainFactoryChainBuilder<Fake>, Fake> {
@@ -47,217 +47,211 @@ final public class ChainFactoryChainBuilderTest
         }
     };
 
-    private final static Fake A = ChainFactoryChainBuilderTest.createFake(1);
+    private final static Fake A = createFake(1);
 
-    private final static Fake B = ChainFactoryChainBuilderTest.createFake(2);
+    private final static Fake B = createFake(2);
 
-    private final static Fake C = ChainFactoryChainBuilderTest.createFake(3);
+    private final static Fake C = createFake(3);
 
     // tests
     @Test
     public void testWithNullChainTypeFails() {
-        this.withFails(null, ChainFactoryChainBuilderTest.FACTORY);
+        assertThrows(NullPointerException.class, () -> {
+            ChainFactoryChainBuilder.with(null, FACTORY);
+        });
     }
 
     @Test
     public void testWithNullChainFactoryFails() {
-        this.withFails(ChainFactoryChainBuilderTest.TYPE, null);
-    }
-
-    private void withFails(final ChainType type, final ChainFactory<Fake> factory) {
-        try {
-            ChainFactoryChainBuilder.with(type, factory);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            ChainFactoryChainBuilder.with(TYPE, null);
+        });
     }
 
     @Test
     public void testWith() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertEquals("factory", ChainFactoryChainBuilderTest.FACTORY, builder.factory);
-        assertEquals("all", Sets.empty(), builder.all);
+        assertEquals(FACTORY, builder.factory, "factory");
+        assertEquals(Sets.empty(), builder.all, "all");
     }
 
     @Test
     public void testAddOneAndBuild() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(ChainFactoryChainBuilderTest.A, builder.build());
+        assertSame(builder, builder.add(A));
+        assertSame(A, builder.build());
     }
 
     @Test
     public void testAddOneThenDuplicateIgnoredAndBuild() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(ChainFactoryChainBuilderTest.A, builder.build());
+        assertSame(builder, builder.add(A));
+        assertSame(builder, builder.add(A));
+        assertSame(A, builder.build());
     }
 
     @Test
     public void testAdd() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.B));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.C));
-        assertEquals("all",
-                Sets.of(ChainFactoryChainBuilderTest.A,
-                        ChainFactoryChainBuilderTest.B,
-                        ChainFactoryChainBuilderTest.C),
-                builder.all);
+        assertSame(builder, builder.add(A));
+        assertSame(builder, builder.add(B));
+        assertSame(builder, builder.add(C));
+        assertEquals(Sets.of(A,
+                        B,
+                        C),
+                builder.all,
+                "all");
     }
 
     @Test
     public void testAddDuplicateIgnored() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.B));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.C));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertEquals("all",
-                Sets.of(ChainFactoryChainBuilderTest.A,
-                        ChainFactoryChainBuilderTest.B,
-                        ChainFactoryChainBuilderTest.C),
-                builder.all);
+        assertSame(builder, builder.add(A));
+        assertSame(builder, builder.add(B));
+        assertSame(builder, builder.add(C));
+        assertSame(builder, builder.add(A));
+        assertEquals(Sets.of(A,
+                        B,
+                        C),
+                builder.all,
+                "all");
     }
 
     @Test
     public void testAddDifferentChained() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
         final FakeChain chain = new FakeChain(ChainType.with("different"),
-                ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+                A,
+                B);
         assertSame(builder, builder.add(chain));
-        assertEquals("all should only contain of not its items", Sets.of(chain), builder.all);
+        assertEquals(Sets.of(chain), builder.all, "all should only contain of not its items");
     }
 
     @Test
     public void testAddChained() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+        final FakeChain chain = new FakeChain(A,
+                B);
         assertSame(builder, builder.add(chain));
 
-        assertEquals("chain not returned", chain, builder.build());
+        assertEquals(chain, builder.build(), "builder product");
     }
 
     @Test
     public void testAddChainedDuplicateIgnored() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+        final FakeChain chain = new FakeChain(A,
+                B);
         assertSame(builder, builder.add(chain));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
+        assertSame(builder, builder.add(A));
 
-        assertSame("chain not returned", chain, builder.build());
+        assertSame(chain, builder.build(), "builder product");
     }
 
     @Test
     public void testAddChainedDuplicateIgnored2() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+        final FakeChain chain = new FakeChain(A,
+                B);
         assertSame(builder, builder.add(chain));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.B));
+        assertSame(builder, builder.add(B));
 
-        assertSame("chain not returned", chain, builder.build());
+        assertSame(chain, builder.build(), "builder product");
     }
 
     @Test
     public void testAddChainedDuplicateIgnored3() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+        final FakeChain chain = new FakeChain(A,
+                B);
         assertSame(builder, builder.add(chain));
         assertSame(builder, builder.add(chain));
 
-        assertSame("chain not returned", chain, builder.build());
+        assertSame(chain, builder.build(), "builder product");
     }
 
     @Test
     public void testAddChainedDuplicateIgnored4() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+        final FakeChain chain = new FakeChain(A,
+                B);
         assertSame(builder, builder.add(chain));
         assertSame(builder,
-                builder.add(new FakeChain(ChainFactoryChainBuilderTest.B,
-                        ChainFactoryChainBuilderTest.A)));
+                builder.add(new FakeChain(B,
+                        A)));
 
-        assertSame("chain not returned", chain, builder.build());
+        assertSame(chain, builder.build(), "builder product");
     }
 
     @Test
     public void testAddChained2() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
+        assertSame(builder, builder.add(A));
         assertSame(builder,
-                builder.add(new FakeChain(ChainFactoryChainBuilderTest.B,
-                        ChainFactoryChainBuilderTest.C)));
+                builder.add(new FakeChain(B,
+                        C)));
 
-        assertEquals("all",
-                Sets.of(ChainFactoryChainBuilderTest.A,
-                        ChainFactoryChainBuilderTest.B,
-                        ChainFactoryChainBuilderTest.C),
-                builder.all);
+        assertEquals(Sets.of(A,
+                        B,
+                        C),
+                builder.all,
+                "all");
     }
 
     @Test
     public void testAddChainedDuplicatesIgnored2() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
+        assertSame(builder, builder.add(A));
         assertSame(builder,
-                builder.add(new FakeChain(ChainFactoryChainBuilderTest.A,
-                        ChainFactoryChainBuilderTest.A,
-                        ChainFactoryChainBuilderTest.B,
-                        ChainFactoryChainBuilderTest.B,
-                        ChainFactoryChainBuilderTest.C)));
+                builder.add(new FakeChain(A,
+                        A,
+                        B,
+                        B,
+                        C)));
 
-        assertEquals("all",
-                Sets.of(ChainFactoryChainBuilderTest.A,
-                        ChainFactoryChainBuilderTest.B,
-                        ChainFactoryChainBuilderTest.C),
-                builder.all);
+        assertEquals(Sets.of(A,
+                        B,
+                        C),
+                builder.all,
+                "all");
     }
 
     @Override
     @Test
     public void testBuildWithoutAdds() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        try {
+        assertThrows(BuilderException.class, () -> {
             builder.build();
-            Assert.fail();
-        } catch (final BuilderException expected) {
-        }
+        });
     }
 
     @Test
     public void testBuild() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.B));
+        assertSame(builder, builder.add(A));
+        assertSame(builder, builder.add(B));
         final FakeChain chain = Cast.to(builder.build());
-        assertArrayEquals("chain",
-                new Fake[]{ChainFactoryChainBuilderTest.A, ChainFactoryChainBuilderTest.B},
-                chain.chained());
+        assertArrayEquals(new Fake[]{A, B},
+                chain.chained(),
+                "chain");
     }
 
     @Test
     public void testBuildAfterAddingDuplicate() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
+        assertSame(builder, builder.add(A));
+        assertSame(builder, builder.add(A));
 
-        assertSame(ChainFactoryChainBuilderTest.A, builder.build());
+        assertSame(A, builder.build());
     }
 
     @Test
     public void testBuildAfterAddingDuplicate2() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+        final FakeChain chain = new FakeChain(A,
+                B);
         assertSame(builder, builder.add(chain));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
+        assertSame(builder, builder.add(A));
 
         assertSame(chain, builder.build());
     }
@@ -265,9 +259,9 @@ final public class ChainFactoryChainBuilderTest
     @Test
     public void testBuildAfterAddingChainedIncludedPrevious() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+        assertSame(builder, builder.add(A));
+        final FakeChain chain = new FakeChain(A,
+                B);
         assertSame(builder, builder.add(chain));
 
         assertSame(chain, builder.build());
@@ -276,10 +270,10 @@ final public class ChainFactoryChainBuilderTest
     @Test
     public void testBuildAfterAddingChainedIncludedPrevious2() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.B));
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B);
+        assertSame(builder, builder.add(A));
+        assertSame(builder, builder.add(B));
+        final FakeChain chain = new FakeChain(A,
+                B);
         assertSame(builder, builder.add(chain));
 
         assertSame(chain, builder.build());
@@ -288,11 +282,11 @@ final public class ChainFactoryChainBuilderTest
     @Test
     public void testBuildAfterAddingChainedIncludedPrevious3() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.B));
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B,
-                ChainFactoryChainBuilderTest.C);
+        assertSame(builder, builder.add(A));
+        assertSame(builder, builder.add(B));
+        final FakeChain chain = new FakeChain(A,
+                B,
+                C);
         assertSame(builder, builder.add(chain));
 
         assertSame(chain, builder.build());
@@ -301,11 +295,11 @@ final public class ChainFactoryChainBuilderTest
     @Test
     public void testBuildAfterAddingChainedIncludedPrevious4() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.A));
-        final FakeChain chain = new FakeChain(ChainFactoryChainBuilderTest.A,
-                ChainFactoryChainBuilderTest.B,
-                ChainFactoryChainBuilderTest.C);
-        assertSame(builder, builder.add(ChainFactoryChainBuilderTest.B));
+        assertSame(builder, builder.add(A));
+        final FakeChain chain = new FakeChain(A,
+                B,
+                C);
+        assertSame(builder, builder.add(B));
         assertSame(builder, builder.add(chain));
 
         assertSame(chain, builder.build());
@@ -319,13 +313,13 @@ final public class ChainFactoryChainBuilderTest
 
     @Override
     protected Fake createAdded() {
-        return ChainFactoryChainBuilderTest.createFake(1);
+        return createFake(1);
     }
 
     @Override
     protected ChainFactoryChainBuilder<Fake> createBuilder() {
-        return ChainFactoryChainBuilder.with(ChainFactoryChainBuilderTest.TYPE,
-                ChainFactoryChainBuilderTest.FACTORY);
+        return ChainFactoryChainBuilder.with(TYPE,
+                FACTORY);
     }
 
     @Override
@@ -356,7 +350,7 @@ final public class ChainFactoryChainBuilderTest
     static private class FakeChain implements Chained<Fake>, Fake {
 
         private FakeChain(final Fake... chain) {
-            this(ChainFactoryChainBuilderTest.TYPE, chain);
+            this(TYPE, chain);
         }
 
         private FakeChain(final ChainType type, final Fake... chain) {

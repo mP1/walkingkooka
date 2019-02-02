@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.color.Color;
 import walkingkooka.text.cursor.parser.Parser;
@@ -29,7 +29,8 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ColorSpreadsheetTextFormatter<String>,
         String,
@@ -37,9 +38,11 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
 
     private final static String TEXT_PATTERN = "@@";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullWrappedFormatterFails() {
-        ColorSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), null);
+        assertThrows(NullPointerException.class, () -> {
+            ColorSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), null);
+        });
     }
 
     @Test
@@ -65,7 +68,7 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
                 new FakeSpreadsheetTextFormatContext() {
                     @Override
                     public Color colorName(final String name) {
-                        assertEquals("color name", "RED", name);
+                        assertEquals("RED", name, "color name");
                         return color;
                     }
                 },

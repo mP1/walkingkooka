@@ -18,11 +18,12 @@
 
 package walkingkooka.collect.map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MapsEntryTest extends EntryTestCase<MapsEntry<String, Integer>, String, Integer>
         implements HashCodeEqualsDefinedTesting<MapsEntry<String, Integer>> {
@@ -30,9 +31,11 @@ public final class MapsEntryTest extends EntryTestCase<MapsEntry<String, Integer
     private final static String KEY = "Key123";
     private final static Integer VALUE = 123;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullKeyFails() {
-        MapsEntry.with(null, VALUE);
+        assertThrows(NullPointerException.class, () -> {
+            MapsEntry.with(null, VALUE);
+        });
     }
 
     @Test
@@ -45,9 +48,11 @@ public final class MapsEntryTest extends EntryTestCase<MapsEntry<String, Integer
         this.getKeyAndValueAndCheck(MapsEntry.with(KEY, null), KEY, null);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testSetValueFails() {
-        this.createEntry().setValue(null);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createEntry().setValue(null);
+        });
     }
 
     @Test

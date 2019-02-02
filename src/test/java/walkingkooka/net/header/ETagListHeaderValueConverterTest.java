@@ -18,10 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ETagListHeaderValueConverter, List<ETag>> {
@@ -43,14 +45,18 @@ public final class ETagListHeaderValueConverterTest extends
                 ETag.with("456", ETagValidator.WEAK)), "W/\"123\", W/\"456\"");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesNullFails() {
-        this.check(Lists.of(this.etag(), null));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.etag(), null));
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesWrongTypeFails() {
-        this.check(Lists.of(this.etag(), "WRONG!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.etag(), "WRONG!"));
+        });
     }
 
     private ETag etag() {

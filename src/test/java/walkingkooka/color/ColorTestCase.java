@@ -18,7 +18,7 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Equality;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -26,9 +26,10 @@ import walkingkooka.test.SerializationTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>,
@@ -65,8 +66,11 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
 
     abstract public void testHasAlpha();
 
-    @Test(expected = NullPointerException.class) public final void testSetNullFails() {
-        this.createObject().set(null);
+    @Test
+    public final void testSetNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createObject().set(null);
+        });
     }
 
     // red
@@ -84,10 +88,10 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
         final RedColorComponent different = ColorComponent.red((byte) 0xFF);
         final Color color = first.set(different);
 
-        assertSame("red", different, color.red());
-        assertSame("green", GREEN, color.green());
-        assertSame("blue", BLUE, color.blue());
-        assertSame("alpha", first.alpha(), color.alpha());
+        assertSame(different, color.red(), "red");
+        assertSame(GREEN, color.green(), "green");
+        assertSame(BLUE, color.blue(), "blue");
+        assertSame(first.alpha(), color.alpha(), "alpha");
     }
 
     // green
@@ -99,15 +103,11 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
 
     @Test
     public final void testSetDifferentGreen() {
-        final C first = this.createObject(RED, GREEN, BLUE);
+        final C color = this.createObject(RED, GREEN, BLUE);
 
         final GreenColorComponent different = ColorComponent.green((byte) 0xFF);
-        final Color color = first.set(different);
-
-        assertSame("red", RED, color.red());
-        assertSame("green", different, color.green());
-        assertSame("blue", BLUE, color.blue());
-        assertSame("alpha", first.alpha(), color.alpha());
+        this.check(color.set(different), RED, different, BLUE, color.alpha());
+        this.check(color, RED, GREEN, BLUE, color.alpha());
     }
 
     // blue
@@ -119,42 +119,45 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
 
     @Test
     public final void testSetDifferentBlue() {
-        final C first = this.createObject(RED, GREEN, BLUE);
+        final C color = this.createObject(RED, GREEN, BLUE);
 
         final BlueColorComponent different = ColorComponent.blue((byte) 0xFF);
-        final Color color = first.set(different);
 
-        assertSame("red", RED, color.red());
-        assertSame("green", GREEN, color.green());
-        assertSame("blue", different, color.blue());
-        assertSame("alpha", first.alpha(), color.alpha());
+        this.check(color.set(different),
+                RED,
+                GREEN,
+                different,
+                color.alpha());
+        this.check(color, RED, GREEN, BLUE, color.alpha());
     }
 
     // alpha
 
     @Test
     public final void testSetDifferentAlpha() {
-        final C first = this.createObject(RED, GREEN, BLUE);
+        final C color = this.createObject(RED, GREEN, BLUE);
 
         final AlphaColorComponent different = AlphaColorComponent.with((byte) 0xFF);
-        final Color color = first.set(different);
 
-        assertSame("red", RED, color.red());
-        assertSame("green", GREEN, color.green());
-        assertSame("blue", BLUE, color.blue());
-        assertSame("alpha", different, color.alpha());
+        this.check(color.set(different),
+                RED,
+                GREEN,
+                BLUE,
+                different);
+        this.check(color, RED, GREEN, BLUE, color.alpha());
     }
 
     @Test
     public final void testSetRedGreenBlue() {
         final byte zero = 0;
-        final C color = this.createObject(ColorComponent.red(zero), ColorComponent.green(zero),
+        final C color = this.createObject(ColorComponent.red(zero),
+                ColorComponent.green(zero),
                 ColorComponent.blue(zero));
-        final Color updated = color.set(RED).set(BLUE).setGreen(GREEN);
-        assertSame("red", RED, updated.red());
-        assertSame("green", GREEN, updated.green());
-        assertSame("blue", BLUE, updated.blue());
-        assertSame("alpha", color.alpha(), updated.alpha());
+        this.check(color.set(RED).set(BLUE).setGreen(GREEN),
+                RED,
+                GREEN,
+                BLUE,
+                color.alpha());
     }
 
     @Test
@@ -162,29 +165,46 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
         final byte zero = 0;
         final C color = this.createObject(ColorComponent.red(zero), ColorComponent.green(zero),
                 ColorComponent.blue(zero));
-        final Color updated = color.set(RED).set(BLUE).setGreen(GREEN)
-                .setAlpha(ALPHA);
-        assertSame("red", RED, updated.red());
-        assertSame("green", GREEN, updated.green());
-        assertSame("blue", BLUE, updated.blue());
-        assertSame("alpha", ALPHA, updated.alpha());
+        this.check(color.set(RED).set(BLUE).setGreen(GREEN)
+                        .setAlpha(ALPHA),
+                RED,
+                GREEN,
+                BLUE,
+                ALPHA);
+    }
+
+    private void check(final Color color,
+                       final RedColorComponent red,
+                       final GreenColorComponent green,
+                       final BlueColorComponent blue,
+                       final AlphaColorComponent alpha) {
+        assertSame(red, color.red(), "red");
+        assertSame(green, color.green(), "green");
+        assertSame(blue, color.blue(), "blue");
+        assertSame(alpha, color.alpha(), "alpha");
     }
 
     // mix
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testMixNullComponentFails() {
-        this.createObject().mix(null, 1.0f);
+        assertThrows(NullPointerException.class, () -> {
+            this.createObject().mix(null, 1.0f);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMixInvalidAmountBelowZeroFails() {
-        this.createObject().mix(RED, -0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createObject().mix(RED, -0.1f);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMixInvalidAmountAboveOneFails() {
-        this.createObject().mix(RED, +1.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createObject().mix(RED, +1.1f);
+        });
     }
 
     // mix red
@@ -569,10 +589,10 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
         final Color result = color.mix(mixed, amount);
         if (color != result) {
             assertSame(
-                    "mixing " + color + " with " + toString(mixed) + " amount=" + amount
-                            + " did not return the original color",
                     color,
-                    result);
+                    result,
+                    "mixing " + color + " with " + toString(mixed) + " amount=" + amount
+                            + " did not return the original color");
         }
     }
 
@@ -634,7 +654,7 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
                            final BlueColorComponent blue,
                            final AlphaColorComponent alpha) {
         final Color mixedColor = color.mix(mixed, amount);
-        assertNotSame("mix should not return this but another Color", color, mixedColor);
+        assertNotSame(color, mixedColor, "mix should not return this but another Color");
 
         checkComponent(red, mixedColor.red(), "red", color, mixed, amount);
         checkComponent(green, mixedColor.green(), "green", color, mixed, amount);

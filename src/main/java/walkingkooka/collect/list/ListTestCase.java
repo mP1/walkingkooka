@@ -18,13 +18,13 @@
 
 package walkingkooka.collect.list;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.CollectionTestCase;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ListTestCase<L extends List<E>, E> extends CollectionTestCase<L, E> {
 
@@ -53,13 +53,12 @@ public abstract class ListTestCase<L extends List<E>, E> extends CollectionTestC
     protected abstract L createList();
 
     protected void getAndCheck(final List<E> list, final int index, final E element) {
-        assertEquals("get " + index + " from " + list, element, list.get(index));
+        assertEquals(element, list.get(index), () -> "get " + index + " from " + list);
     }
 
     protected void getFails(final List<E> list, final int index) {
-        try {
-            fail("list get " + index + " should have failed but returned=" + list.get(index));
-        } catch (final IndexOutOfBoundsException expected) {
-        }
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            list.get(index);
+        });
     }
 }

@@ -18,19 +18,25 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CaseSensitivity;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SearchAttributeLeafQueryTestCase<Q extends SearchAttributeLeafQuery> extends SearchQueryTestCase<Q> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullAttributeNameFails() {
-        this.createSearchQuery(this.queryValue(), null, CaseSensitivity.SENSITIVE);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSearchQuery(this.queryValue(), null, CaseSensitivity.SENSITIVE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullCaseSensitivityFails() {
-        this.createSearchQuery(this.queryValue(), this.attributeName(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSearchQuery(this.queryValue(), this.attributeName(), null);
+        });
     }
 
     final Q createSearchQuery() {

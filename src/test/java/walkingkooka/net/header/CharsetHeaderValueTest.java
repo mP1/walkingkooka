@@ -18,14 +18,15 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestCase<CharsetHeaderValue,
         CharsetHeaderValueParameterName<?>> {
@@ -36,9 +37,11 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     // with.........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullValueFails() {
-        CharsetHeaderValue.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharsetHeaderValue.with(null);
+        });
     }
 
     @Test
@@ -49,9 +52,11 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     // setValue ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetValueNullFails() {
-        this.charsetHeaderValue().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.charsetHeaderValue().setValue(null);
+        });
     }
 
     @Test
@@ -70,9 +75,11 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     // setParameters ...........................................................................................
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetParametersInvalidParameterValueFails() {
-        this.charsetHeaderValue().setParameters(this.parameters("Q", "INVALID!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.charsetHeaderValue().setParameters(this.parameters("Q", "INVALID!"));
+        });
     }
 
     @Test
@@ -169,7 +176,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     }
 
     private void toStringAndCheck(final CharsetHeaderValue token, final String toString) {
-        assertEquals("toString", toString, token.toString());
+        assertEquals(toString, token.toString(), "toString");
     }
 
     // toHeaderTextList ...........................................................................................
@@ -247,8 +254,8 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     private void check(final CharsetHeaderValue charsetHeaderValue,
                        final CharsetName value,
                        final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        assertEquals("value", value, charsetHeaderValue.value());
-        assertEquals("parameters", parameters, charsetHeaderValue.parameters());
+        assertEquals(value, charsetHeaderValue.value(), "value");
+        assertEquals(parameters, charsetHeaderValue.parameters(), "parameters");
     }
 
     @Override

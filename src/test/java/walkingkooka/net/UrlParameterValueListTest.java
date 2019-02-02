@@ -18,7 +18,7 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.ListTestCase;
 
 public final class UrlParameterValueListTest extends ListTestCase<UrlParameterValueList, String> {

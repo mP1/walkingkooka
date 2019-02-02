@@ -18,7 +18,7 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -29,15 +29,18 @@ import walkingkooka.type.MemberVisibility;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlQueryStringTest extends ClassTestCase<UrlQueryString> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        UrlQueryString.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            UrlQueryString.with(null);
+        });
     }
 
     @Test
@@ -45,8 +48,8 @@ public final class UrlQueryStringTest extends ClassTestCase<UrlQueryString> {
         final UrlQueryString queryString = UrlQueryString.with("");
         assertSame(UrlQueryString.EMPTY, queryString);
 
-        assertEquals("parameters", Maps.empty(), queryString.parameters());
-        assertEquals("parameters.keySet", Sets.empty(), queryString.parameters().keySet());
+        assertEquals(Maps.empty(), queryString.parameters(), "parameters");
+        assertEquals(Sets.empty(), queryString.parameters().keySet(), "parameters.keySet");
 
         this.parameterAbsent(queryString, "abc");
     }
@@ -434,7 +437,9 @@ public final class UrlQueryStringTest extends ClassTestCase<UrlQueryString> {
     }
 
     private void parameterAndCheck0(final UrlQueryString queryString, final String key, final Optional<String> value){
-        assertEquals("UrlQueryString.parameter(" + CharSequences.quote(key) + ") in: " + queryString, value, queryString.parameter(this.name(key)));
+        assertEquals(value,
+                queryString.parameter(this.name(key)),
+                "UrlQueryString.parameter(" + CharSequences.quote(key) + ") in: " + queryString);
     }
 
     // UrlQueryString.parameterValues(String) -> List<String> never null.
@@ -444,7 +449,9 @@ public final class UrlQueryStringTest extends ClassTestCase<UrlQueryString> {
     }
 
     private void parameterValuesAndCheck0(final UrlQueryString queryString, final String key, final List<String> values){
-        assertEquals("UrlQueryString.parameterValues(" + CharSequences.quote(key) + ") in: " + queryString, values, queryString.parameterValues(this.name(key)));
+        assertEquals(values,
+                queryString.parameterValues(this.name(key)),
+                "UrlQueryString.parameterValues(" + CharSequences.quote(key) + ") in: " + queryString);
     }
 
     // UrlQueryString.parameters().get() -> List
@@ -458,7 +465,9 @@ public final class UrlQueryStringTest extends ClassTestCase<UrlQueryString> {
     }
 
     private void parametersGetAndCheck0(final UrlQueryString queryString, final String key, final List<String> values) {
-        assertEquals("UrlQueryString.parameters().get(" + CharSequences.quote(key) + ") in: " + queryString, values, queryString.parameters().get(this.name(key)));
+        assertEquals(values,
+                queryString.parameters().get(this.name(key)),
+                "UrlQueryString.parameters().get(" + CharSequences.quote(key) + ") in: " + queryString);
     }
 
     private UrlParameterName name(final String name) {
@@ -466,7 +475,7 @@ public final class UrlQueryStringTest extends ClassTestCase<UrlQueryString> {
     }
 
     private void checkToString(final UrlQueryString queryString, final String toString) {
-        assertEquals("UrlQueryString.toString failure", toString, queryString.toString());
+        assertEquals(toString, queryString.toString(), "UrlQueryString.toString failure");
     }
 
     @Override

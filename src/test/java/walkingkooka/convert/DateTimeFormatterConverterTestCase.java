@@ -18,15 +18,19 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.format.DateTimeFormatter;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class DateTimeFormatterConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<S, T>, S, T> extends FixedTypeConverterTestCase<C, T> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullFormatterFails() {
-        this.createConverter(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createConverter(null);
+        });
     }
 
     @Override

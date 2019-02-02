@@ -17,28 +17,35 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineTest extends CharSequenceTestCase<Line>
         implements SerializationTesting<Line> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTextFails() {
-        Line.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            Line.with(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithCrTextFails() {
-        Line.with("abc \r");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Line.with("abc \r");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNlTextFails() {
-        Line.with("abc \n");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Line.with("abc \n");
+        });
     }
 
     @Test
@@ -58,7 +65,7 @@ final public class LineTest extends CharSequenceTestCase<Line>
 
     private void createAndCheck(final String text) {
         final Line line = Line.with(text);
-        assertEquals("text value", text, line.value());
+        assertEquals(text, line.value(), "text value");
     }
 
     @Test

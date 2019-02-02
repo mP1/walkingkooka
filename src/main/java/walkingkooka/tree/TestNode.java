@@ -19,7 +19,7 @@
 package walkingkooka.tree;
 
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -58,7 +58,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
 
     public static TestNode with(final String name, final TestNode... children) {
         if(!names.add(name)) {
-            Assert.fail("Name " + CharSequences.quote(name)+ " must be unique per test");
+            Assertions.fail("Name " + CharSequences.quote(name)+ " must be unique per test");
         }
 
         return new TestNode(Names.string(name),

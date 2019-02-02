@@ -17,16 +17,15 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<Object>, Object> {
 
@@ -34,11 +33,9 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
 
     @Test
     public void testWithNullIteratorFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ReverseIterator.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -48,11 +45,7 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
 
     @Test
     public void testNextWhenEmpty() {
-        try {
-            this.iterator().next();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        this.checkNextFails(this.iterator());
     }
 
     @Test
@@ -68,9 +61,8 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
     @Test
     public void testReverseReversedIterator() {
         final Iterator<String> iterator = ReverseIterator.with(this.iterator("1", "2", "3"));
-        assertFalse(
-                "Iterator should not be a ReverseIterator=" + iterator.getClass().getName(),
-                iterator instanceof ReverseIterator);
+        assertFalse(iterator instanceof ReverseIterator,
+                "Iterator should not be a ReverseIterator=" + iterator.getClass().getName());
         this.iterateAndCheck(iterator, "1", "2", "3");
     }
 

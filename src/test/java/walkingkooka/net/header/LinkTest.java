@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.AbsoluteUrl;
@@ -35,16 +35,19 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         LinkParameterName<?>> implements HasJsonNodeTesting<Link> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        Link.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            Link.with(null);
+        });
     }
 
     @Test
@@ -59,9 +62,11 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         this.check(Link.with(url), url, Link.NO_PARAMETERS);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetValueNullFails() {
-        this.createLink().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createLink().setValue(null);
+        });
     }
 
     @Test
@@ -110,8 +115,8 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     final void check(final Link language,
                      final Url value,
                      final Map<LinkParameterName<?>, Object> parameters) {
-        assertEquals("value", value, language.value());
-        assertEquals("parameters", parameters, language.parameters());
+        assertEquals(value, language.value(), "value");
+        assertEquals(parameters, language.parameters(), "parameters");
     }
 
     // toHeaderTextList.......................................................................................
@@ -168,9 +173,9 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     private void toXmlNodeAndCheck(final String link, final String xml) throws Exception {
-        assertEquals("toXmlNode doesnt match=" + CharSequences.quoteAndEscape(link),
-                XmlNode.fromXml(documentBuilder(), new StringReader(xml)).element().get(),
-                Link.parse(link).get(0).toXmlNode());
+        assertEquals(XmlNode.fromXml(documentBuilder(), new StringReader(xml)).element().get(),
+                Link.parse(link).get(0).toXmlNode(),
+                "toXmlNode doesnt match=" + CharSequences.quoteAndEscape(link));
     }
 
     private DocumentBuilder documentBuilder() {
@@ -232,9 +237,9 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     private void parseAndCheck(final String text, final Link... links) {
-        assertEquals("Failed to parse " + CharSequences.quote(text),
-                Lists.of(links),
-                Link.parse(text));
+        assertEquals(Lists.of(links),
+                Link.parse(text),
+                "Failed to parse " + CharSequences.quote(text));
     }
 
     // helpers.......................................................................................

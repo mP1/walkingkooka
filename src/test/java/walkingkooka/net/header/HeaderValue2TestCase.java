@@ -18,10 +18,10 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class HeaderValue2TestCase<H extends HeaderValue2<V>, V> extends HeaderValueTestCase<H>
         implements HashCodeEqualsDefinedTesting<H> {
@@ -34,14 +34,14 @@ public abstract class HeaderValue2TestCase<H extends HeaderValue2<V>, V> extends
     public final void testWith() {
         final V value = this.value();
         final H headerValue = this.createHeaderValue(value);
-        assertEquals("value", value, headerValue.value());
+        assertEquals(value, headerValue.value(), "value");
     }
 
     @Test
     public void testWith2() {
         final V value = this.differentValue();
         final H headerValue = this.createHeaderValue(value);
-        assertEquals("value", value, headerValue.value());
+        assertEquals(value, headerValue.value(), "value");
     }
 
     @Test

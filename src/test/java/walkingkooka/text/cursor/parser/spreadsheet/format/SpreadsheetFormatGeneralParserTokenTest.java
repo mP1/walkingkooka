@@ -18,23 +18,23 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetFormatGeneralParserTokenTest extends SpreadsheetFormatParentParserTokenTestCase<SpreadsheetFormatGeneralParserToken> {
 
     private final static String GENERAL = "GENeral";
 
     @Test
-    @Ignore("setTextFromValues fails when values is empty.")
+    @Disabled("setTextFromValues fails when values is empty.")
     public void testWithoutSymbolsPropertiesNullCheck() {
         throw new UnsupportedOperationException();
     }
@@ -105,12 +105,12 @@ public final class SpreadsheetFormatGeneralParserTokenTest extends SpreadsheetFo
             }
         }.accept(token);
         assertEquals("7137152871628428", b.toString());
-        assertEquals("visited",
-                Lists.of(token, token, token,
+        assertEquals(Lists.of(token, token, token,
                         general, general, general, general, general,
                         whitespace, whitespace, whitespace, whitespace, whitespace,
                         token, token, token),
-                visited);
+                visited,
+                "visited");
     }
 
     @Override

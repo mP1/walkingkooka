@@ -18,28 +18,38 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class QuotedStringHeaderValueConverterTest extends StringHeaderValueConverterTestCase<QuotedStringHeaderValueConverter> {
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseControlCharacterFails() {
-        this.parse("a\\0");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("a\\0");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseNonAsciiFails() {
-        this.parse("a\u0080");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("a\u0080");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseMissingOpeningDoubleQuoteFails() {
-        this.parse("abc\"");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("abc\"");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseUnsupportedBackslashFails() {
-        this.parse("a\\bc");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("a\\bc");
+        });
     }
 
     @Test

@@ -18,25 +18,32 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFunctionTestCase<ExpressionNormalizeSpaceFunction, String> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testZeroParametersFails() {
-        this.apply2();
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testOnlyThisParametersFails() {
-        this.apply2(this);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTwoParametersFails() {
-        this.apply2(this, "a1", "b2");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this, "a1", "b2");
+        });
     }
 
     @Test

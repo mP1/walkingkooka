@@ -17,14 +17,14 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStringCharPredicate>
         implements HashCodeEqualsDefinedTesting<ToStringCharPredicate>, SerializationTesting<ToStringCharPredicate> {
@@ -44,30 +44,30 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
 
     @Test
     public void testWrapNullPredicateFails() {
-        this.wrapFails(null, TOSTRING);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringCharPredicate.wrap(null, TOSTRING);
+        });
     }
 
     @Test
     public void testWrapNullToStringFails() {
-        this.wrapFails(PREDICATE, null);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringCharPredicate.wrap(PREDICATE, null);
+        });
     }
 
     @Test
     public void testWrapEmptyPredicateFails() {
-        this.wrapFails(PREDICATE, "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ToStringCharPredicate.wrap(PREDICATE, "");
+        });
     }
 
     @Test
     public void testWrapWhitespacePredicateFails() {
-        this.wrapFails(PREDICATE, "   ");
-    }
-
-    private void wrapFails(final CharPredicate predicate, final String toString) {
-        try {
-            ToStringCharPredicate.wrap(predicate, toString);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            ToStringCharPredicate.wrap(PREDICATE, " \t");
+        });
     }
 
     @Test
@@ -75,8 +75,8 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
         final ToStringCharPredicate predicate
                 = Cast.to(ToStringCharPredicate.wrap(PREDICATE,
                 TOSTRING));
-        assertSame("predicate", PREDICATE, predicate.predicate);
-        assertSame("toString", TOSTRING, predicate.toString);
+        assertSame(PREDICATE, predicate.predicate, "predicate");
+        assertSame(TOSTRING, predicate.toString, "toString");
     }
 
     @Test
@@ -84,8 +84,8 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
         final ToStringCharPredicate predicate
                 = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicate.wrap(PREDICATE,
                 "different"), TOSTRING));
-        assertSame("predicate", PREDICATE, predicate.predicate);
-        assertSame("toString", TOSTRING, predicate.toString);
+        assertSame(PREDICATE, predicate.predicate, "predicate");
+        assertSame(TOSTRING, predicate.toString, "toString");
     }
 
     @Test

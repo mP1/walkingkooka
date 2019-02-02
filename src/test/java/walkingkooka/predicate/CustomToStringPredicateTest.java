@@ -16,17 +16,17 @@
  */
 package walkingkooka.predicate;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>
         implements HashCodeEqualsDefinedTesting<CustomToStringPredicate<String>>,
@@ -36,24 +36,32 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     private final static Predicate<String> WRAPPED = Predicates.is(STRING);
     private final static String CUSTOM_TO_STRING = "!!abc!!";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWrapNullPredicateFails() {
-        CustomToStringPredicate.wrap(null, CUSTOM_TO_STRING);
+        assertThrows(NullPointerException.class, () -> {
+            CustomToStringPredicate.wrap(null, CUSTOM_TO_STRING);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWrapNullToStringFails() {
-        CustomToStringPredicate.wrap(WRAPPED, null);
+        assertThrows(NullPointerException.class, () -> {
+            CustomToStringPredicate.wrap(WRAPPED, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrapEmptyToStringFails() {
-        CustomToStringPredicate.wrap(WRAPPED, "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CustomToStringPredicate.wrap(WRAPPED, "");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrapWhitespaceToStringFails() {
-        CustomToStringPredicate.wrap(WRAPPED, " \t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CustomToStringPredicate.wrap(WRAPPED, " \t");
+        });
     }
 
     @Test
@@ -66,13 +74,10 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
         final Predicate<String> first = CustomToStringPredicate.wrap(WRAPPED, "different");
         final CustomToStringPredicate<String> wrapped = Cast.to(CustomToStringPredicate.wrap(first, CUSTOM_TO_STRING));
         assertNotSame(first, wrapped);
-        assertSame("wrapped predicate", WRAPPED, wrapped.predicate);
-        assertSame("wrapped toString", CUSTOM_TO_STRING, wrapped.toString);
+        assertSame(WRAPPED, wrapped.predicate,"wrapped predicate");
+        assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
     }
 
-
-    @Test
-    @Ignore
     @Override
     public void testTestNullFails() {
         throw new UnsupportedOperationException();

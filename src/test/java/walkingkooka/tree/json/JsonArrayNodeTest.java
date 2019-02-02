@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
@@ -30,11 +30,11 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNode, List<JsonNode>> {
 
@@ -83,7 +83,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         for(int i = 0; i < 2; i++) {
             final JsonStringNode element = array.children().get(i).cast();
-            assertEquals("value", values[i], element.value());
+            assertEquals(values[i], element.value(), "value");
         }
 
         // verify originals were not mutated.
@@ -147,8 +147,8 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         assertNotSame(array, different);
         this.childrenCheck(different);
-        assertEquals("child[0].value", values[0], JsonStringNode.class.cast(different.children().get(0)).value());
-        assertEquals("child[1].value", differentValue, JsonStringNode.class.cast(different.children().get(1)).value());
+        assertEquals(values[0], JsonStringNode.class.cast(different.children().get(0)).value(), "child[0].value");
+        assertEquals(differentValue, JsonStringNode.class.cast(different.children().get(1)).value(), "child[1].value");
 
         // verify originals were not mutated.
         this.checkWithoutParent(first);
@@ -158,14 +158,18 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     // remove
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveNegativeIndexFails() {
-        this.createJsonNode().remove(-1);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            this.createJsonNode().remove(-1);
+        });
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveInvalidIndexFails() {
-        this.createJsonNode().remove(0);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            this.createJsonNode().remove(0);
+        });
     }
 
     @Test
@@ -179,7 +183,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         assertNotSame(array, removed);
         this.childrenCheck(removed);
-        assertEquals("child[0].value", "B2", JsonStringNode.class.cast(removed.children().get(0)).value());
+        assertEquals("B2", JsonStringNode.class.cast(removed.children().get(0)).value(), "child[0].value");
 
         // verify originals were not mutated.
         this.checkWithoutParent(first);
@@ -193,12 +197,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         final JsonNode second = JsonNode.string(values[1]);
 
         final JsonArrayNode array = JsonNode.array().appendChild(first).appendChild(second);
-        try {
+        final IndexOutOfBoundsException expected = assertThrows(IndexOutOfBoundsException.class, () -> {
             array.remove(2);
-            fail("Expected an exception to be thrown");
-        } catch (final IndexOutOfBoundsException expected){
-
-        }
+        });
         this.childrenCheck(array);
         this.checkChildCount(array, 2);
     }
@@ -234,12 +235,12 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         
         final JsonArrayNode updatedRoot = updatedChild.parent().get().cast();
         this.checkChildCount(updatedRoot, 2);
-        assertEquals("updatedRoot",
-                JsonNode.array()
+        assertEquals(JsonNode.array()
                         .appendChild(child1)
                         .appendChild(JsonNode.array()
                                 .appendChild(grandChild1New)),
-                updatedRoot);
+                updatedRoot,
+                "updatedRoot");
     }
 
     @Test
@@ -289,12 +290,12 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
             }
         }.accept(array);
         assertEquals("1517217262", b.toString());
-        assertEquals("visited",
-                Lists.of(array, array,
+        assertEquals(Lists.of(array, array,
                         string1, string1, string1,
                         string2, string2, string2,
                         array, array),
-                visited);
+                visited,
+                "visited");
     }
 
     @Test
@@ -334,7 +335,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 all.add(node);
             }
         });
-        assertEquals("selected nodes", Sets.of(selected), all);
+        assertEquals(Sets.of(selected), all, "selected nodes");
     }
 
     // toSearchNode .......................................................................................
@@ -407,13 +408,13 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     protected JsonArrayNode appendChildAndCheck(final JsonNode parent,
                                                 final JsonNode child) {
         final JsonArrayNode newParent = parent.appendChild(child).cast();
-        assertNotSame("appendChild must not return the same node", newParent, parent);
+        assertNotSame(newParent, parent, "appendChild must not return the same node");
 
         final List<JsonNode> children = newParent.children();
-        assertNotEquals("children must have at least 1 child", 0, children.size());
+        assertNotEquals(0, children.size(), "children must have at least 1 child");
 
         final int lastIndex = children.size() - 1;
-        assertEquals("last child must be the added child", JsonNodeName.index(lastIndex), children.get(lastIndex).name());
+        assertEquals(JsonNodeName.index(lastIndex), children.get(lastIndex).name(), "last child must be the added child");
 
         this.checkParentOfChildren(newParent);
         this.checkWithoutParent(child);

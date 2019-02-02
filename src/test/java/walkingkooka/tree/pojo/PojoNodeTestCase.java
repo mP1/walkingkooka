@@ -16,7 +16,7 @@
  */
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -28,10 +28,10 @@ import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCase<PojoNode, PojoName, PojoNodeAttributeName, Object> {
 
@@ -68,9 +68,11 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
         assertEquals(Maps.one(PojoNodeAttributeName.CLASS, node.value().getClass().getName()), node.attributes());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testSetAttributesFails() {
-        this.createNode().setAttributes(Maps.empty());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNode().setAttributes(Maps.empty());
+        });
     }
 
     @Test
@@ -95,24 +97,16 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
 
     abstract void checkValue(V expected, V actual);
 
-    final void parentAbsentCheck(final PojoNode node){
-        assertEquals("parent of " + node, PojoNode.NO_PARENT, node.parent());
-    }
-
-    final void parentPresentCheck(final PojoNode node){
-        assertNotEquals("parent missing for " + node, PojoNode.NO_PARENT, node.parent());
-    }
-
     final void childrenAndCheckNames(final PojoNode node, final PojoName...properties) {
         this.childrenAndCheckNames(node, Lists.of(properties));
     }
 
     final void childrenAndCheckNames(final PojoNode node, final List<PojoName> properties) {
         final List<PojoNode> children = node.children();
-        assertEquals("children count=" + children, properties.size(), children.size());
-        assertEquals("properties of " + node + "=" + children,
-                new TreeSet<PojoName>(properties),
-                children.stream().map(n -> n.name()).collect(Collectors.toCollection(TreeSet::new)));
+        assertEquals(properties.size(), children.size(), () -> "children count=" + children);
+        assertEquals(new TreeSet<PojoName>(properties),
+                children.stream().map(n -> n.name()).collect(Collectors.toCollection(TreeSet::new)),
+                () -> "properties of " + node + "=" + children);
         this.childrenCheck(node);
     }
 
@@ -121,7 +115,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
                 .stream()
                 .filter(n -> n.name().equals(name))
                 .findFirst();
-        assertEquals("Unable to find property with name " + name + " in " + node, true, property.isPresent());
+        assertEquals(true, property.isPresent(), "Unable to find property with name " + name + " in " + node);
         return property.get();
     }
 

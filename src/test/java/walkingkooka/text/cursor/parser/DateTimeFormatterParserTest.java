@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
@@ -26,7 +26,7 @@ import walkingkooka.type.MemberVisibility;
 import java.time.ZoneId;
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class DateTimeFormatterParserTest extends ClassTestCase<DateTimeFormatterParser> {
 
@@ -43,7 +43,8 @@ public final class DateTimeFormatterParserTest extends ClassTestCase<DateTimeFor
     private void checkAllZoneIds(final Predicate<Character> predicate) {
         for(String zoneId : ZoneId.getAvailableZoneIds()){
             for(char c : zoneId.toCharArray()){
-                assertTrue("Chars " + CharSequences.quoteAndEscape(c) + " of zoneId " + CharSequences.quote(zoneId) + " failed", predicate.test(c));
+                assertTrue(predicate.test(c),
+                        () -> "Chars " + CharSequences.quoteAndEscape(c) + " of zoneId " + CharSequences.quote(zoneId) + " failed");
             }
         }
     }

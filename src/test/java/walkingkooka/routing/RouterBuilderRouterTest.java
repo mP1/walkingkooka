@@ -18,7 +18,7 @@
 
 package walkingkooka.routing;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
@@ -26,7 +26,7 @@ import walkingkooka.naming.StringName;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderRouter<StringName, String>, StringName, String> {
 

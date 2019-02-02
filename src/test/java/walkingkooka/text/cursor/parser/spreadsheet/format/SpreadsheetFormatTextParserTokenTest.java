@@ -18,33 +18,29 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetFormatTextParserTokenTest extends SpreadsheetFormatParentParserTokenTestCase<SpreadsheetFormatTextParserToken> {
 
-    @Test
-    @Ignore
+    @Override
     public void testWithEmptyTokensFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testWithEmptyTextFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testSetTextEmptyFails() {
         throw new UnsupportedOperationException();
     }
@@ -144,12 +140,12 @@ public final class SpreadsheetFormatTextParserTokenTest extends SpreadsheetForma
             }
         }.accept(token);
         assertEquals("7137152871628428", b.toString());
-        assertEquals("visited",
-                Lists.of(token, token, token,
+        assertEquals(Lists.of(token, token, token,
                         text, text, text, text, text,
                         placeholder, placeholder, placeholder, placeholder, placeholder,
                         token, token, token),
-                visited);
+                visited,
+                "visited");
     }
 
     @Override

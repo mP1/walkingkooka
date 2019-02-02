@@ -17,16 +17,19 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RangeCharPredicateTest extends CharPredicateTestCase<RangeCharPredicate> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithStartAfterEndFails() {
-        this.createCharPredicate('z', 'a');
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createCharPredicate('z', 'a');
+        });
     }
 
     @Test

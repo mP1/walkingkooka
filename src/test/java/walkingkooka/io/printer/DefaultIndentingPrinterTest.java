@@ -17,7 +17,7 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.Indentation;
 
 final public class DefaultIndentingPrinterTest

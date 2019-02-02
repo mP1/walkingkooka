@@ -18,10 +18,10 @@
 
 package walkingkooka.type;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class MemberVisibilityTest extends ClassTestCase<MemberVisibility> {
 
@@ -40,8 +40,8 @@ public final class MemberVisibilityTest extends ClassTestCase<MemberVisibility> 
         check(MemberVisibility.PACKAGE_PRIVATE, PackagePrivateClass.class);
     }
 
-    private void check(final MemberVisibility visibility, final Class<?> classs) {
-        assertEquals(classs + "", visibility, MemberVisibility.get(classs));
+    private void check(final MemberVisibility visibility, final Class<?> klass) {
+        assertEquals(visibility, MemberVisibility.get(klass), klass.getName());
     }
 
     protected class ProtectedClass {

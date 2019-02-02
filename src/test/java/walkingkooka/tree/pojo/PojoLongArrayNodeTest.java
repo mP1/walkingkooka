@@ -17,16 +17,16 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongArrayNode, long[]> {
 
@@ -44,7 +44,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
 
         this.childrenAndCheckNames(node2, INDEX0);
         this.childrenValuesCheck(node2, ELEMENT0);
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
 
         this.childrenAndCheckNames(node, INDEX0, INDEX1);
         this.childrenValuesCheck(node, ELEMENT0, ELEMENT1);
@@ -67,7 +67,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
 
         this.childrenAndCheckNames(childNode2, INDEX0, INDEX1, INDEX2);
         this.childrenValuesCheck(childNode2, ELEMENT0, ELEMENT1, ELEMENT2);
-        this.parentPresentCheck(childNode2);
+        this.checkWithParent(childNode2);
 
         assertSame(parentNode, childNode2.parent().get());
 
@@ -92,7 +92,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
 
         this.childrenAndCheckNames(childNode2, INDEX0, INDEX1, INDEX2);
         this.childrenValuesCheck(childNode2, ELEMENT0, ELEMENT1, ELEMENT2);
-        this.parentPresentCheck(childNode2);
+        this.checkWithParent(childNode2);
 
         assertNotSame(parentNode, childNode2.parent().get());
 
@@ -117,7 +117,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
 
         this.childrenAndCheckNames(childNode2, INDEX0, INDEX1, INDEX2);
         this.childrenValuesCheck(childNode2, ELEMENT0, ELEMENT1, ELEMENT2);
-        this.parentPresentCheck(childNode2);
+        this.checkWithParent(childNode2);
 
         assertNotSame(parentNode, childNode2.parent().get());
 
@@ -147,7 +147,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
 
     @Override
     void checkValue(final long[] expected, final long[] actual) {
-        Assert.assertArrayEquals(expected, actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     private PojoLongArrayNode createPojoNode(final long[] values){

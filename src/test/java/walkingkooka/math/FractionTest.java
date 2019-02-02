@@ -18,7 +18,7 @@
 
 package walkingkooka.math;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
@@ -26,7 +26,8 @@ import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FractionTest extends ClassTestCase<Fraction>
         implements HashCodeEqualsDefinedTesting<Fraction>, SerializationTesting<Fraction> {
@@ -35,26 +36,32 @@ public final class FractionTest extends ClassTestCase<Fraction>
     private final static BigInteger DENOMINATOR = BigInteger.TEN;
     private final static BigInteger DIFFERENT = BigInteger.valueOf(2);
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullNumeratorFails() {
-        Fraction.with(null, DENOMINATOR);
+        assertThrows(NullPointerException.class, () -> {
+            Fraction.with(null, DENOMINATOR);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullDenominatorFails() {
-        Fraction.with(NUMERATOR, null);
+        assertThrows(NullPointerException.class, () -> {
+            Fraction.with(NUMERATOR, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithZeroDenominatorFails() {
-        Fraction.with(NUMERATOR, BigInteger.ZERO);
+        assertThrows(IllegalArgumentException.class, () -> {
+            Fraction.with(NUMERATOR, BigInteger.ZERO);
+        });
     }
 
     @Test
     public void testWith() {
         final Fraction fraction = Fraction.with(NUMERATOR, DENOMINATOR);
-        assertEquals("numerator", NUMERATOR, fraction.numerator());
-        assertEquals("denominator", DENOMINATOR, fraction.denominator());
+        assertEquals(NUMERATOR, fraction.numerator(), "numerator");
+        assertEquals(DENOMINATOR, fraction.denominator(), "denominator");
     }
 
     @Test

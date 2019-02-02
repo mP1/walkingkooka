@@ -18,16 +18,17 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
@@ -46,82 +47,95 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPathFails() {
-        ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                null,
-                COMMENT,
-                MAXAGE,
-                SECURE,
-                HTTPONLY,
-                VERSION);
+        assertThrows(NullPointerException.class, () -> {
+            ServerCookie.with(NAME,
+                    VALUE,
+                    DOMAIN,
+                    null,
+                    COMMENT,
+                    MAXAGE,
+                    SECURE,
+                    HTTPONLY,
+                    VERSION);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCommentFails() {
-        ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                PATH,
-                null,
-                MAXAGE,
-                SECURE,
-                HTTPONLY,
-                VERSION);
+        assertThrows(NullPointerException.class, () -> {
+            ServerCookie.with(NAME,
+                    VALUE,
+                    DOMAIN,
+                    PATH,
+                    null,
+                    MAXAGE,
+                    SECURE,
+                    HTTPONLY,
+                    VERSION);
+
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullDeletionFails() {
-        ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                PATH,
-                COMMENT,
-                null,
-                SECURE,
-                HTTPONLY,
-                VERSION);
+        assertThrows(NullPointerException.class, () -> {
+            ServerCookie.with(NAME,
+                    VALUE,
+                    DOMAIN,
+                    PATH,
+                    COMMENT,
+                    null,
+                    SECURE,
+                    HTTPONLY,
+                    VERSION);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSecureFails() {
-        ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                PATH,
-                COMMENT,
-                MAXAGE,
-                null,
-                HTTPONLY,
-                VERSION);
+        assertThrows(NullPointerException.class, () -> {
+            ServerCookie.with(NAME,
+                    VALUE,
+                    DOMAIN,
+                    PATH,
+                    COMMENT,
+                    MAXAGE,
+                    null,
+                    HTTPONLY,
+                    VERSION);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullHttpOnlyFails() {
-        ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                PATH,
-                COMMENT,
-                MAXAGE,
-                SECURE,
-                null,
-                VERSION);
+        assertThrows(NullPointerException.class, () -> {
+            ServerCookie.with(NAME,
+                    VALUE,
+                    DOMAIN,
+                    PATH,
+                    COMMENT,
+                    MAXAGE,
+                    SECURE,
+                    null,
+                    VERSION);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullVersionFails() {
-        ServerCookie.with(NAME,
-                VALUE,
-                DOMAIN,
-                PATH,
-                COMMENT,
-                MAXAGE,
-                SECURE,
-                HTTPONLY,
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            ServerCookie.with(NAME,
+                    VALUE,
+                    DOMAIN,
+                    PATH,
+                    COMMENT,
+                    MAXAGE,
+                    SECURE,
+                    HTTPONLY,
+                    null);
+        });
     }
 
     @Test
@@ -426,9 +440,11 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     // from javax.servlet.http.Cookie......................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFromNullCookieFails() {
-        ServerCookie.from(null);
+        assertThrows(NullPointerException.class, () -> {
+            ServerCookie.from(null);
+        });
     }
 
     @Test
@@ -491,9 +507,11 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         checkVersion(cookie);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testToJavaxServletHttpCookieWithNullNowFails() {
-        this.createCookie().toJavaxServletCookie(null);
+    @Test
+    public void testToJavaxServletHttpCookieWithNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createCookie().toJavaxServletCookie(null);
+        });
     }
 
     @Test
@@ -535,15 +553,19 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     // parseServerHeader.......................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseServerHeaderNullFails() {
-        Cookie.parseServerHeader(null);
+        assertThrows(NullPointerException.class, () -> {
+            Cookie.parseServerHeader(null);
+        });
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseServerHeaderEmptyFails() {
-        Cookie.parseServerHeader("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Cookie.parseServerHeader("");
+        });
     }
 
     @Test
@@ -1138,7 +1160,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkDomain(final ServerCookie cookie, final Optional<String> expected) {
-        assertEquals(cookie + " domain", expected, cookie.domain());
+        assertEquals(expected, cookie.domain(), () -> cookie + " domain");
     }
 
     private void checkPath(final ServerCookie cookie) {
@@ -1146,7 +1168,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkPath(final ServerCookie cookie, final Optional<String> expected) {
-        assertEquals(cookie + " path", expected, cookie.path());
+        assertEquals(expected, cookie.path(), () ->cookie + " path");
     }
 
     private void checkComment(final ServerCookie cookie) {
@@ -1154,7 +1176,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkComment(final ServerCookie cookie, final Optional<String> expected) {
-        assertEquals(cookie + " comment", expected, cookie.comment());
+        assertEquals(expected, cookie.comment(), () -> cookie + " comment");
     }
 
     private void checkDeletion(final ServerCookie cookie) {
@@ -1162,7 +1184,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkDeletion(final ServerCookie cookie, final Optional<CookieDeletion> expected) {
-        assertEquals(cookie + " deletion", expected, cookie.deletion());
+        assertEquals(expected, cookie.deletion(), () -> cookie + " deletion");
     }
 
     private void checkSecure(final ServerCookie cookie) {
@@ -1170,7 +1192,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkSecure(final ServerCookie cookie, final CookieSecure expected) {
-        assertEquals(cookie + " secure", expected, cookie.secure());
+        assertEquals(expected, cookie.secure(), () -> cookie + " secure");
     }
 
     private void checkHttpOnly(final ServerCookie cookie) {
@@ -1178,7 +1200,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkHttpOnly(final ServerCookie cookie, final CookieHttpOnly expected) {
-        assertEquals(cookie + " httpOnly", expected, cookie.httpOnly());
+        assertEquals(expected, cookie.httpOnly(), () -> cookie + " httpOnly");
     }
 
     private void checkVersion(final ServerCookie cookie) {
@@ -1186,7 +1208,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkVersion(final ServerCookie cookie, final CookieVersion expected) {
-        assertEquals(cookie + " version", expected, cookie.version());
+        assertEquals(expected, cookie.version(), () -> cookie + " version");
     }
 
     final void checkName(final javax.servlet.http.Cookie cookie) {
@@ -1194,7 +1216,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     final void checkName(final javax.servlet.http.Cookie cookie, final CookieName name) {
-        assertEquals("name", name.value(), cookie.getName());
+        assertEquals(name.value(), cookie.getName(), () -> cookie + " name");
     }
 
     final void checkValue(final javax.servlet.http.Cookie cookie) {
@@ -1202,7 +1224,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     final void checkValue(final javax.servlet.http.Cookie cookie, final String value) {
-        assertEquals("value", value, cookie.getValue());
+        assertEquals(value, cookie.getValue(), () -> cookie + " value");
     }
 
     private void checkDomain(final javax.servlet.http.Cookie cookie) {
@@ -1210,7 +1232,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkDomain(final javax.servlet.http.Cookie cookie, final String expected) {
-        assertEquals(cookie + " domain", expected, cookie.getDomain());
+        assertEquals(expected, cookie.getDomain(), () -> cookie + " domain");
     }
 
     private void checkPath(final javax.servlet.http.Cookie cookie) {
@@ -1218,7 +1240,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkPath(final javax.servlet.http.Cookie cookie, final String expected) {
-        assertEquals(cookie + " path", expected, cookie.getPath());
+        assertEquals(expected, cookie.getPath(), () -> cookie + " path");
     }
 
     private void checkComment(final javax.servlet.http.Cookie cookie) {
@@ -1226,7 +1248,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkComment(final javax.servlet.http.Cookie cookie, final String expected) {
-        assertEquals(cookie + " comment", expected, cookie.getComment());
+        assertEquals(expected, cookie.getComment(), cookie + " comment");
     }
 
     private void checkDeletion(final javax.servlet.http.Cookie cookie) {
@@ -1234,7 +1256,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkDeletion(final javax.servlet.http.Cookie cookie, final int expected) {
-        assertEquals(cookie + " deletion", expected, cookie.getMaxAge());
+        assertEquals(expected, cookie.getMaxAge(), () -> cookie + " deletion");
     }
 
     private void checkSecure(final javax.servlet.http.Cookie cookie) {
@@ -1242,15 +1264,11 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkSecure(final javax.servlet.http.Cookie cookie, final CookieSecure expected) {
-        assertEquals(cookie + " secure", expected.toJavaxServletCookieSecure(), cookie.getSecure());
-    }
-
-    private void checkHttpOnly(final javax.servlet.http.Cookie cookie) {
-        checkHttpOnly(cookie, HTTPONLY);
+        assertEquals(expected.toJavaxServletCookieSecure(), cookie.getSecure(), () -> cookie + " secure");
     }
 
     private void checkHttpOnly(final javax.servlet.http.Cookie cookie, final CookieHttpOnly expected) {
-        assertEquals(cookie + " httpOnly", expected.toJavaxServletCookieHttpOnly(), cookie.isHttpOnly());
+        assertEquals(expected.toJavaxServletCookieHttpOnly(), cookie.isHttpOnly(), () -> cookie + " httpOnly");
     }
 
     final void checkVersion(final javax.servlet.http.Cookie cookie) {
@@ -1258,7 +1276,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     final void checkVersion(final javax.servlet.http.Cookie cookie, final CookieVersion version) {
-        assertEquals("version", version.value(), cookie.getVersion());
+        assertEquals(version.value(), cookie.getVersion(), () -> cookie + " version");
     }
 
     @Override

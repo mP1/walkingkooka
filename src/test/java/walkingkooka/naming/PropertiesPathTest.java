@@ -17,26 +17,30 @@
 
 package walkingkooka.naming;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class PropertiesPathTest extends PathTestCase<PropertiesPath, PropertiesName>
         implements SerializationTesting<PropertiesPath> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseWithLeadingDot() {
-        PropertiesPath.parse(".with-leading-dot");
+        assertThrows(IllegalArgumentException.class, () -> {
+            PropertiesPath.parse(".with-leading-dot");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyComponent() {
-        PropertiesPath.parse("before..after");
+        assertThrows(IllegalArgumentException.class, () -> {
+            PropertiesPath.parse("before..after");
+        });
     }
 
     @Test
@@ -58,8 +62,7 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
         this.checkParent(path, "ab");
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testAppendNameToRoot() {
         // nop
     }

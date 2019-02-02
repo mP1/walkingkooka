@@ -18,7 +18,7 @@
 
 package walkingkooka.collect.map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
@@ -27,9 +27,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCase<M> {
 
@@ -91,8 +91,8 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     }
 
     protected void containsKeyAndCheck(final Map<K, V> map, final K key) {
-        assertTrue(map + " should contain key " + CharSequences.quoteIfChars(key),
-                map.containsKey(key));
+        assertTrue(map.containsKey(key),
+                () -> map + " should contain key " + CharSequences.quoteIfChars(key));
     }
 
     protected void containsKeyAndCheckAbsent(final Object key) {
@@ -100,8 +100,8 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     }
 
     protected void containsKeyAndCheckAbsent(final Map<K, V> map, final Object key) {
-        assertFalse(map + " should contain key " + CharSequences.quoteIfChars(key),
-                map.containsKey(key));
+        assertFalse(map.containsKey(key),
+                () -> map + " should contain key " + CharSequences.quoteIfChars(key));
     }
 
     protected void containsValueAndCheck(final V value) {
@@ -109,8 +109,8 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     }
 
     protected void containsValueAndCheck(final Map<K, V> map, final V value) {
-        assertTrue(map + " should contain value " + CharSequences.quoteIfChars(value),
-                map.containsValue(value));
+        assertTrue(map.containsValue(value),
+                () -> map + " should contain value " + CharSequences.quoteIfChars(value));
     }
 
     protected void getAndCheck(final K key, final V value) {
@@ -118,9 +118,9 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     }
 
     protected void getAndCheck(final Map<K, V> map, final K key, final V value) {
-        assertEquals("get " + CharSequences.quoteIfChars(key) + " from " + map,
-                value,
-                map.get(key));
+        assertEquals(value,
+                map.get(key),
+                () -> "get " + CharSequences.quoteIfChars(key) + " from " + map);
         this.containsKeyAndCheck(map, key);
         this.containsValueAndCheck(map, value);
     }
@@ -130,18 +130,18 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     }
 
     protected void getAndCheckAbsent(final Map<K, V> map, final Object key) {
-        assertEquals("get " + CharSequences.quoteIfChars(key) + " from " + map,
-                null,
-                map.get(key));
+        assertEquals(null,
+                map.get(key),
+                () -> "get " + CharSequences.quoteIfChars(key) + " from " + map);
         this.containsKeyAndCheckAbsent(map, key);
     }
 
     protected void isEmptyAndCheck(final Map<K, V> map, final boolean empty) {
-        assertEquals("isEmpty of " + map, empty, map.isEmpty());
+        assertEquals(empty, map.isEmpty(), () -> "isEmpty of " + map);
     }
 
     protected void sizeAndCheck(final Map<K, V> map, final int size) {
-        assertEquals("size of " + map, size, map.size());
+        assertEquals(size, map.size(), () -> "size of " + map);
         this.isEmptyAndCheck(map, 0 == size);
     }
 

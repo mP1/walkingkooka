@@ -18,24 +18,30 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
 import walkingkooka.tree.Node;
 
 import java.math.BigInteger;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class HateosDeleteHandlerTestCase<H extends HateosDeleteHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTestCase<H, N> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testDeleteNullIdFails() {
-        this.delete(null,
-                this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.delete(null,
+                    this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testDeleteNullContextFails() {
-        this.delete(this.id(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            this.delete(this.id(),
+                    null);
+        });
     }
 
     protected void delete(final BigInteger id,
@@ -43,16 +49,20 @@ public abstract class HateosDeleteHandlerTestCase<H extends HateosDeleteHandler<
         this.createHandler().delete(id, context);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testDeleteCollectionNullIdRangeFails() {
-        this.deleteCollection(null,
-                this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.deleteCollection(null,
+                    this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testDeleteCollectionNullContextFails() {
-        this.deleteCollection(this.collection(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            this.deleteCollection(this.collection(),
+                    null);
+        });
     }
 
     protected void deleteCollection(final Range<BigInteger> collection,

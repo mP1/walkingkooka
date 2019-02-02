@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CaseSensitivity;
 
 public final class SearchLessThanQueryTest extends SearchValueComparisonLeafQueryTestCase<SearchLessThanQuery> {

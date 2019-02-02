@@ -16,41 +16,50 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParserTokenNodeNameTest extends ClassTestCase<ParserTokenNodeName> 
         implements NameTesting<ParserTokenNodeName, ParserTokenNodeName> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFromClassNullFails() {
-        ParserTokenNodeName.fromClass(null);
+        assertThrows(NullPointerException.class, () -> {
+            ParserTokenNodeName.fromClass(null);
+        });
     }
 
     @Test
     public void testFromClass() {
         final ParserTokenNodeName name = ParserTokenNodeName.fromClass(StringParserToken.class);
-        assertEquals("name.value", "String", name.value());
+        assertEquals("String", name.value(), "name.value");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidInitialFails() {
-        ParserTokenNodeName.with("1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ParserTokenNodeName.with("1");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPartFails() {
-        ParserTokenNodeName.with("Hello Goodbye");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ParserTokenNodeName.with("Hello Goodbye");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNegativeIndexFails() {
-        ParserTokenNodeName.with(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ParserTokenNodeName.with(-1);
+        });
     }
 
     @Test
@@ -62,7 +71,7 @@ public final class ParserTokenNodeNameTest extends ClassTestCase<ParserTokenNode
     @Test
     public void testToString() {
         final ParserTokenNodeName name = ParserTokenNodeName.with("Hello");
-        assertEquals("name.value", "Hello", name.toString());
+        assertEquals("Hello", name.toString(), "name.value");
     }
 
     @Override

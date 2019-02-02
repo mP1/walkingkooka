@@ -18,18 +18,21 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderValueWithParametersTestCase<V extends HeaderValueWithParameters<N>,
         N extends HeaderParameterName<?>> extends HeaderValueTestCase<V> {
 
     // setParameters ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetParametersNullFails() {
-        this.createHeaderValueWithParameters().setParameters(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createHeaderValueWithParameters().setParameters(null);
+        });
     }
 
     @Test

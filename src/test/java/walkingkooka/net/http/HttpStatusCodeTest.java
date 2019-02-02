@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
@@ -28,10 +28,11 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> implements ConstantsTesting<HttpStatusCode> {
 
@@ -39,7 +40,7 @@ public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> impl
     public void testStatusDefaultMessageUnique() {
         final Map<String, HttpStatusCode> intToCode = Maps.ordered();
         for (HttpStatusCode code : HttpStatusCode.values()) {
-            assertNull("Default message is not unique " + code.message + "=" + code, intToCode.put(code.message, code));
+            assertNull(intToCode.put(code.message, code), "Default message is not unique " + code.message + "=" + code);
         }
     }
 
@@ -47,9 +48,9 @@ public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> impl
     public void testStatus() {
         for (HttpStatusCode code : HttpStatusCode.values()) {
             final HttpStatus status = code.status();
-            assertSame("status not cached", status, code.status());
-            assertSame("code", code, status.value());
-            assertNotEquals("message", "", status.message());
+            assertSame(status, code.status(), "status not cached");
+            assertSame(code, status.value(), "code");
+            assertNotEquals( "", status.message(), "message");
         }
     }
 
@@ -81,31 +82,37 @@ public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> impl
     }
 
     private void categoryAndCheck(final HttpStatusCode code, final HttpStatusCodeCategory category) {
-        assertSame("category for status code: " + code, category, code.category());
+        assertSame(category, code.category(), "category for status code: " + code);
     }
 
     // setMessage..............................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetMessageNullFails() {
-        HttpStatusCode.OK.setMessage(null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpStatusCode.OK.setMessage(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetMessageEmptyFails() {
-        HttpStatusCode.OK.setMessage("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpStatusCode.OK.setMessage("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetMessageWhitespaceFails() {
-        HttpStatusCode.OK.setMessage("  ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpStatusCode.OK.setMessage("  ");
+        });
     }
 
     @Test
     public void testSetMessageDefault() {
-        assertSame("set message with default should return constant",
-                HttpStatusCode.OK.status(),
-                HttpStatusCode.OK.setMessage(HttpStatusCode.OK.message));
+        assertSame(HttpStatusCode.OK.status(),
+                HttpStatusCode.OK.setMessage(HttpStatusCode.OK.message),
+                "set message with default should return constant");
     }
 
     @Test
@@ -113,8 +120,8 @@ public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> impl
         final String message = "Message something something2";
         final HttpStatusCode code = HttpStatusCode.MOVED_TEMPORARILY;
         final HttpStatus status = code.setMessage(message);
-        assertEquals("code", code, status.value());
-        assertEquals("message", message, status.message());
+        assertEquals(code, status.value(), "code");
+        assertEquals(message, status.message(), "message");
     }
 
     @Override

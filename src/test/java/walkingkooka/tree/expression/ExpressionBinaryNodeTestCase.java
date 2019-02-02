@@ -18,16 +18,17 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionBinaryNodeTestCase<N extends ExpressionBinaryNode> extends ExpressionParentFixedNodeTestCase<N> {
 
@@ -37,29 +38,39 @@ public abstract class ExpressionBinaryNodeTestCase<N extends ExpressionBinaryNod
     final static CharSequence LEFT_TO_STRING = CharSequences.quoteAndEscape(LEFT);
     final static CharSequence RIGHT_TO_STRING = CharSequences.quoteAndEscape(RIGHT);
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullLeftFails() {
-        this.createExpressionNode(null, this.right());
+        assertThrows(NullPointerException.class, () -> {
+            this.createExpressionNode(null, this.right());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullRightFails() {
-        this.createExpressionNode(this.left(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createExpressionNode(this.left(), null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetChildrenZeroFails() {
-        this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetChildrenOneFails() {
-        this.createExpressionNode().setChildren(Lists.of(left()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createExpressionNode().setChildren(Lists.of(left()));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetChildrenThreeFails() {
-        this.createExpressionNode().setChildren(Lists.of(left(), right(), text("third")));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createExpressionNode().setChildren(Lists.of(left(), right(), text("third")));
+        });
     }
 
     @Test
@@ -74,8 +85,8 @@ public abstract class ExpressionBinaryNodeTestCase<N extends ExpressionBinaryNod
         this.checkChildren(different, differentChildren);
         this.checkChildren(expression, children);
 
-        assertSame("original children", children, expression.children());
-        assertNotSame("updated children", differentChildren, different.children());
+        assertSame(children, expression.children(), "original children");
+        assertNotSame(differentChildren, different.children(), "updated children");
     }
 
     @Test

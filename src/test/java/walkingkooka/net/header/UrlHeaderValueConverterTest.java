@@ -18,8 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -32,8 +31,7 @@ public final class UrlHeaderValueConverterTest extends
         return Url.class.getSimpleName();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testInvalidHeaderValueFails() {
         throw new UnsupportedOperationException();
     }

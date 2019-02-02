@@ -18,11 +18,8 @@
 
 package walkingkooka.tree;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.StringName;
@@ -35,11 +32,11 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName, Object> {
 
-    @Before
+    @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
     }
@@ -56,6 +53,15 @@ public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName
         assertEquals(root, child2.root());
         assertEquals(root, parent2.root());
         assertEquals(root, root);
+    }
+
+    @Test
+    @Override
+    public void testEquals() {
+        final TestNode node1 = TestNode.with(this.currentTestName() + "-" + this.i);
+        TestNode.clear(); // required to reset cache which verifies uniqueness of nodes.
+        final TestNode node2 = TestNode.with(this.currentTestName() + "-" + this.i);
+        checkEqualsAndHashCode(node1, node2);
     }
 
     @Test
@@ -135,23 +141,19 @@ public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName
             AVALUE2> void traverseAndCheck(final N2 node) {
         final NodePointer<N2, NAME2, ANAME2, AVALUE2> pointer = node.pointer();
 
-        assertEquals("pointer returned wrong node",
-                Optional.of(node),
-                pointer.traverse(node.root()));
+        assertEquals(Optional.of(node),
+                pointer.traverse(node.root()),
+                "pointer returned wrong node");
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChildDifferentParent() {
         throw new UnsupportedOperationException();
     }
 
-    @Rule
-    public TestName name = new TestName();
-
     @Override
     protected TestNode createNode() {
-        return TestNode.with(this.name.getMethodName() + "-" + this.i++);
+        return TestNode.with(this.currentTestName() + "-" + this.i++);
     }
 
     private int i = 0;

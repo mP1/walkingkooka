@@ -18,13 +18,14 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.EntryTestCase;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryTest extends
         EntryTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry,
@@ -57,9 +58,11 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
         assertSame(entry.getValue(), entry.getValue());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testSetValueFails() {
-        this.createEntry().setValue(99L);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createEntry().setValue(99L);
+        });
     }
 
     @Test
@@ -86,7 +89,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
                 new FakeHttpServletRequest() {
                     @Override
                     public String getHeader(final String header) {
-                        assertEquals("header", HEADER_NAME, header);
+                        assertEquals(HEADER_NAME, header, "header");
                         return "" + CONTENT_LENGTH;
                     }
                 });
@@ -108,7 +111,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
                 new FakeHttpServletRequest() {
                     @Override
                     public String getHeader(final String header) {
-                        assertEquals("header", headerName, header);
+                        assertEquals(headerName, header,"header");
                         return value;
                     }
                 });

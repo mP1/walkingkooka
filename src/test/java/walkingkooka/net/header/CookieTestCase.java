@@ -18,11 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCase<C> {
 
@@ -37,26 +38,34 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullNameFails() {
-        this.createCookie(null, CookieTestCase.VALUE);
+        assertThrows(NullPointerException.class, () -> {
+            this.createCookie(null, CookieTestCase.VALUE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullValueFails() {
-        this.createCookie(CookieTestCase.NAME, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createCookie(CookieTestCase.NAME, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithInvalidValueFails() {
-        this.createCookie(CookieTestCase.NAME, "  ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createCookie(CookieTestCase.NAME, "  ");
+        });
     }
 
     // setName ......................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetNameNullFails() {
-        this.createCookie().setName(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createCookie().setName(null);
+        });
     }
 
     @Test
@@ -67,9 +76,11 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
 
     // setValue ................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetValueNullFails() {
-        this.createCookie().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createCookie().setValue(null);
+        });
     }
 
     @Test
@@ -108,7 +119,7 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
     }
 
     final void checkName(final Cookie cookie, final CookieName name) {
-        assertEquals("name", name, cookie.name());
+        assertEquals(name, cookie.name(), "name");
     }
 
     final void checkValue(final Cookie cookie) {
@@ -116,7 +127,7 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
     }
 
     final void checkValue(final Cookie cookie, final String value) {
-        assertEquals("value", value, cookie.value());
+        assertEquals(value, cookie.value(),"value");
     }
 
     @Override

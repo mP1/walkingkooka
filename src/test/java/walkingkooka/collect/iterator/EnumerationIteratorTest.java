@@ -17,8 +17,7 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
@@ -26,18 +25,17 @@ import walkingkooka.collect.list.Lists;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EnumerationIteratorTest
         extends IteratorTestCase<EnumerationIterator<Integer>, Integer> {
 
     @Test
-    public void testWithNullEnumeration() {
-        try {
+    public void testWithNullEnumerationFails() {
+        assertThrows(NullPointerException.class, () -> {
             EnumerationIterator.adapt(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test

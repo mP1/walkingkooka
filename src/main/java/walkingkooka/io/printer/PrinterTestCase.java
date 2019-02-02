@@ -17,14 +17,14 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for testing a {@link Printer} with mostly parameter checking tests.
@@ -42,7 +42,10 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
 
     @Test
     public void testPrintNullFails() {
-        this.printFails();
+        final P printer = this.createPrinter();
+        assertThrows(NullPointerException.class, () -> {
+            printer.print(null);
+        });
     }
 
     @Test
@@ -59,32 +62,29 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
     public void testPrintAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
 
-        try {
+        assertThrows(PrinterException.class, () -> {
             printer.print("print should have been failed because is already closed");
-            Assert.fail();
-        } catch (final PrinterException ignored) {
-        }
+        });
     }
 
     @Test
     public void testLineEndingAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
 
-        try {
+        assertThrows(PrinterException.class, () -> {
             printer.lineEnding();
-            Assert.fail();
-        } catch (final PrinterException ignored) {
-        }
+        });
+
     }
 
     @Test
     public void testFlushAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
-        try {
+
+        assertThrows(PrinterException.class, () -> {
             printer.flush();
-            Assert.fail();
-        } catch (final PrinterException ignored) {
-        }
+        });
+
     }
 
     @Test
@@ -140,25 +140,16 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
         };
     }
 
-    final protected void printFails() {
-        this.printFails(this.createPrinter());
-    }
-
-    final protected void printFails(final Printer printer) {
-        try {
-            printer.print(null);
-            Assert.fail();
-        } catch (final RuntimeException ignored) {
-        }
-    }
-
     static public void checkEquals(final CharSequence expected, final CharSequence actual) {
         checkEquals(null, expected, actual);
     }
 
-    static public void checkEquals(final String message, final CharSequence expected,
+    static public void checkEquals(final String message,
+                                   final CharSequence expected,
                                    final CharSequence actual) {
-        assertEquals(CharSequences.escape(expected).toString(), CharSequences.escape(actual).toString());
+        assertEquals(CharSequences.escape(expected).toString(),
+                CharSequences.escape(actual).toString(),
+                message);
     }
 
     @Override

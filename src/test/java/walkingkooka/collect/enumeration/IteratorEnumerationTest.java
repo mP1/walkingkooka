@@ -17,19 +17,18 @@
 
 package walkingkooka.collect.enumeration;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class IteratorEnumerationTest
         extends EnumerationTestCase<IteratorEnumeration<Object>, Object> {
@@ -46,11 +45,9 @@ final public class IteratorEnumerationTest
 
     @Test
     public void testNullIteratorFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             IteratorEnumeration.adapt(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -65,13 +62,9 @@ final public class IteratorEnumerationTest
         assertTrue(enumeration.hasMoreElements());
         assertSame(IteratorEnumerationTest.THIRD, enumeration.nextElement());
 
-        assertFalse("enumeration(iterator) should be empty", enumeration.hasMoreElements());
+        assertFalse(enumeration.hasMoreElements(), "enumeration(iterator) should be empty");
 
-        try {
-            enumeration.nextElement();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        this.checkNextElementFails(enumeration);
     }
 
     @Test

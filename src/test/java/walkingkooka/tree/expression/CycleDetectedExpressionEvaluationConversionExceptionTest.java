@@ -18,15 +18,19 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class CycleDetectedExpressionEvaluationConversionExceptionTest extends ClassTestCase<CycleDetectedExpressionEvaluationConversionException> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCreateNullReferenceFails() {
-        new CycleDetectedExpressionEvaluationConversionException("message123", null);
+        assertThrows(NullPointerException.class, () -> {
+            new CycleDetectedExpressionEvaluationConversionException("message123", null);
+        });
     }
 
     @Test

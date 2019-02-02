@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import walkingkooka.collect.list.Lists;
@@ -29,7 +29,8 @@ import walkingkooka.tree.search.SearchNodeName;
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentType> {
 
@@ -57,11 +58,14 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
         this.checkName(node, TYPE);
     }
 
-    @Test(expected = XmlException.class)
+    @Test
     public void testAppendChild() {
         final XmlDocumentType node = this.createNode(TYPE, null, SYSTEM_ID_STRING);
-        final XmlText text = node.createText("text123");
-        node.appendChild(text);
+        final XmlNode text = XmlNode.wrap(this.document().createTextNode("text123"));
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            node.appendChild(text);
+        });
     }
 
     // parent..............................................................................................

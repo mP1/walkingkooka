@@ -17,11 +17,11 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.Ascii;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final public class AsciiPrintableCharPredicateTest
         extends CharPredicateTestCase<AsciiPrintableCharPredicate> implements SerializationTesting<AsciiPrintableCharPredicate> {

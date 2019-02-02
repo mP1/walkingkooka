@@ -18,18 +18,24 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UnquotedStringHeaderValueConverterTest extends StringHeaderValueConverterTestCase<UnquotedStringHeaderValueConverter> {
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseOpeningDoubleQuoteFails() {
-        this.parse("\"abc");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("\"abc");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseBackslashFails() {
-        this.parse("a\\bc");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("a\\bc");
+        });
     }
 
     @Test

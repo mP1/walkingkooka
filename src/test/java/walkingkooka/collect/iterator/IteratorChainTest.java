@@ -17,19 +17,18 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class IteratorChainTest extends IteratorTestCase<IteratorChain<String>, String> {
 
@@ -49,26 +48,21 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
     @Test
     public void testWrapNullFirstFails() {
-        this.wrapFails(null, IteratorChainTest.SECOND);
+        assertThrows(NullPointerException.class, () -> {
+            IteratorChain.wrap(null, SECOND);
+        });
     }
 
     @Test
     public void testWrapNullSecondFails() {
-        this.wrapFails(IteratorChainTest.FIRST, null);
-    }
-
-    private void wrapFails(final Iterator<String> first, final Iterator<String> second) {
-        try {
-            IteratorChain.wrap(first, second);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            IteratorChain.wrap(FIRST, null);
+        });
     }
 
     @Test
     public void testDoesntWrapEqualFirstAndSecond() {
-        assertSame(IteratorChainTest.FIRST,
-                IteratorChain.wrap(IteratorChainTest.FIRST, IteratorChainTest.FIRST));
+        assertSame(FIRST, IteratorChain.wrap(FIRST, FIRST));
     }
 
     @Test
@@ -82,24 +76,21 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
         final IteratorChain<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
-        assertTrue("hasNext from 1st iterator", iterator.hasNext());
-        assertSame("next from 1st iterator", "1", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
+        assertSame("1", iterator.next(), "next from 1st iterator");
 
-        assertTrue("hasNext from 1st iterator", iterator.hasNext());
-        assertSame("next from 1st iterator", "2", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
+        assertSame("2", iterator.next(), "next from 1st iterator");
 
-        assertTrue("hasNext from last iterator", iterator.hasNext());
-        assertSame("next from last iterator", "3", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from last iterator");
+        assertSame("3", iterator.next());
 
-        assertTrue("hasNext from last iterator", iterator.hasNext());
-        assertSame("next from last iterator", "4", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from last iterator");
+        assertSame("4", iterator.next(), "next from last iterator");
 
-        assertFalse("hasNext should be false when empty", iterator.hasNext());
-        try {
-            iterator.next();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        assertFalse(iterator.hasNext(), "hasNext should be false when empty");
+
+        this.checkNextFails(iterator);
     }
 
     @Test
@@ -111,12 +102,11 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         second.add("3");
         second.add("4");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
-                second.iterator());
-        assertSame("next from 1st iterator", "1", iterator.next());
-        assertSame("next from 1st iterator", "2", iterator.next());
-        assertSame("next from last iterator", "3", iterator.next());
-        assertSame("next from last iterator", "4", iterator.next());
+        final IteratorChain<String> iterator = this.createIterator(first.iterator(), second.iterator());
+        assertSame("1", iterator.next(), "next from 1st iterator");
+        assertSame("2", iterator.next(), "next from 1st iterator");
+        assertSame( "3", iterator.next(), "next from last iterator");
+        assertSame("4", iterator.next(), "next from last iterator");
     }
 
     @Test
@@ -135,22 +125,12 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         iterator.next();
         iterator.next();
 
-        try {
-            iterator.next();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        this.checkNextFails(iterator);
     }
 
     @Test
     public void testRemoveWithoutNext() {
-        final IteratorChain<String> iterator = this.createIterator(Iterators.fake(),
-                Iterators.fake());
-        try {
-            iterator.remove();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        this.checkRemoveFails(this.createIterator());
     }
 
     @Test
@@ -164,27 +144,27 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
         final IteratorChain<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
-        assertTrue("hasNext from 1st iterator", iterator.hasNext());
-        assertSame("next from 1st iterator", "1", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
+        assertSame("1", iterator.next(), "next from 1st iterator");
         iterator.remove();
-        assertEquals("element not removed from first iterator", Lists.of("2"), first);
-        assertEquals("second iterator should remain unmodified", Lists.of("3", "4"), second);
+        assertEquals(Lists.of("2"), first, "element not removed from first iterator");
+        assertEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
 
-        assertTrue("hasNext from 1st iterator", iterator.hasNext());
-        assertSame("next from 1st iterator", "2", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
+        assertSame("2", iterator.next(), "next from 1st iterator");
         iterator.remove();
-        assertEquals("element not removed from first iterator", Lists.empty(), first);
-        assertEquals("second iterator should remain unmodified", Lists.of("3", "4"), second);
+        assertEquals(Lists.empty(), first, "element not removed from first iterator");
+        assertEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
 
-        assertTrue("hasNext from last iterator", iterator.hasNext());
-        assertSame("next from last iterator", "3", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from last iterator");
+        assertSame("3", iterator.next(), "next from last iterator");
         iterator.remove();
-        assertEquals("element not removed from second iterator", Lists.of("4"), second);
+        assertEquals(Lists.of("4"), second, "element not removed from second iterator");
 
-        assertTrue("hasNext from last iterator", iterator.hasNext());
-        assertSame("next from last iterator", "4", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from last iterator");
+        assertSame("4", iterator.next(), "next from last iterator");
         iterator.remove();
-        assertEquals("element not removed from second iterator", Lists.empty(), second);
+        assertEquals(Lists.empty(), second, "element not removed from second iterator");
     }
 
     @Test
@@ -193,12 +173,8 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         final List<String> second = Lists.empty();
 
         final Iterator<String> iterator = IteratorChain.wrap(first.iterator(), second.iterator());
-        assertFalse("hasNext from 1st iterator", iterator.hasNext());
-        try {
-            iterator.next();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        this.checkHasNextFalse(iterator);
+        this.checkNextFails(iterator);
     }
 
     @Test
@@ -208,15 +184,11 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
         final IteratorChain<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
-        assertTrue("hasNext from 2nd iterator", iterator.hasNext());
-        assertSame("next from 2nd iterator", "1", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from 2nd iterator");
+        assertSame("1", iterator.next(), "next from 2nd iterator");
 
-        assertFalse("hasNext from empty 2nd iterator", iterator.hasNext());
-        try {
-            iterator.next();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        assertFalse(iterator.hasNext(), "hasNext from empty 2nd iterator");
+        this.checkNextFails(iterator);
     }
 
     @Test
@@ -226,14 +198,10 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
         final IteratorChain<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
-        assertSame("next from 2nd iterator", "1", iterator.next());
+        assertSame("1", iterator.next(), "next from 2nd iterator");
 
-        assertFalse("hasNext from empty 2nd iterator", iterator.hasNext());
-        try {
-            iterator.next();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        assertFalse(iterator.hasNext(), "hasNext from empty 2nd iterator");
+        this.checkNextFails(iterator);
     }
 
     @Test
@@ -251,12 +219,8 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         iterator.next();
 
         iterator.remove();
-        assertEquals("second iterator source was not removed", Lists.of("3"), second);
-        try {
-            iterator.remove();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        assertEquals(Lists.of("3"), second, "second iterator source was not removed");
+        this.checkRemoveFails(iterator);
     }
 
     @Test
@@ -270,39 +234,30 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
         final IteratorChain<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
-        assertTrue("hasNext from 1st iterator", iterator.hasNext());
-        assertSame("next from 1st iterator", "1", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
+        assertSame("1", iterator.next(), "next from 1st iterator");
 
-        assertTrue("hasNext from 1st iterator", iterator.hasNext());
-        assertSame("next from 1st iterator", "2", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
+        assertSame("2", iterator.next(), "next from 1st iterator");
         iterator.remove();
-        assertEquals("element not removed from first iterator", Lists.of("1"), first);
-        assertEquals("second iterator should remain unmodified", Lists.of("3", "4"), second);
+        assertEquals(Lists.of("1"), first, "element not removed from first iterator");
+        assertEquals(Lists.of("3", "4"), second, "second iterator should remain unmodified");
 
-        assertTrue("hasNext from last iterator", iterator.hasNext());
-        assertSame("next from last iterator", "3", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from last iterator");
+        assertSame("3", iterator.next(), "next from last iterator");
 
-        assertTrue("hasNext from last iterator", iterator.hasNext());
-        assertSame("next from last iterator", "4", iterator.next());
+        assertTrue(iterator.hasNext(), "hasNext from last iterator");
+        assertSame( "4", iterator.next(), "next from last iterator");
         iterator.remove();
-        assertEquals("element not removed from second iterator", Lists.of("3"), second);
+        assertEquals(Lists.of("3"), second, "element not removed from second iterator");
 
-        try {
-            iterator.next();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
-
-        try {
-            iterator.remove();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        this.checkNextFails(iterator);
+        this.checkRemoveFails(iterator);
     }
 
     @Test
     public void testToString() {
-        assertEquals(IteratorChainTest.FIRST + "...", this.createIterator().toString());
+        assertEquals(FIRST + "...", this.createIterator().toString());
     }
 
     @Test
@@ -335,7 +290,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
     @Override
     protected IteratorChain<String> createIterator() {
-        return this.createIterator(IteratorChainTest.FIRST, IteratorChainTest.SECOND);
+        return this.createIterator(FIRST, SECOND);
     }
 
     private IteratorChain<String> createIterator(final Iterator<String> first,

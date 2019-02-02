@@ -18,17 +18,20 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlTest extends ClassTestCase<Url> {
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullFails() {
-        Url.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            Url.parse(null);
+        });
     }
     
     @Test
@@ -36,7 +39,7 @@ public final class UrlTest extends ClassTestCase<Url> {
         final String text = "http://example.com";
         final Url url = Url.parse(text);
         final AbsoluteUrl absoluteUrl = Url.parseAbsolute(text);
-        assertEquals(text, absoluteUrl, url);
+        assertEquals(absoluteUrl, url, text);
     }
 
     @Test
@@ -44,7 +47,7 @@ public final class UrlTest extends ClassTestCase<Url> {
         final String text = "/path123?query456";
         final Url url = Url.parse(text);
         final RelativeUrl relativeUrl = Url.parseRelative(text);
-        assertEquals(text, relativeUrl, url);
+        assertEquals(relativeUrl, url, text);
     }
 
     @Test
@@ -52,7 +55,7 @@ public final class UrlTest extends ClassTestCase<Url> {
         final String text = "";
         final Url url = Url.parse(text);
         final RelativeUrl relativeUrl = Url.parseRelative(text);
-        assertEquals(text, relativeUrl, url);
+        assertEquals(relativeUrl, url, text);
     }
     
     @Override

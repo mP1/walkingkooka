@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.visit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
@@ -29,7 +29,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class VisitorTestCase<V extends Visitor<T>, T>
         extends
@@ -56,9 +57,11 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
 
     abstract protected String requiredNameSuffix();
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testAcceptNullFails() {
-        this.createVisitor().accept(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createVisitor().accept(null);
+        });
     }
 
     @Test
@@ -68,7 +71,9 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
                .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals("visitor " + this.type().getName() + " should have only 1 public accept method=" + publicAcceptMethods, 2, publicAcceptMethods.size());
+        assertEquals(2,
+                publicAcceptMethods.size(),
+                ()-> "visitor " + this.type().getName() + " should have only 1 public accept method=" + publicAcceptMethods);
     }
 
     // all visit methods are protected..
@@ -97,7 +102,7 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
                 .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals("all " + name + " methods in " + this.type().getName() + " should be protected=" + wrong, Lists.empty(), wrong);
+        assertEquals(Lists.empty(), wrong, ()-> "all " + name + " methods in " + this.type().getName() + " should be protected=" + wrong);
     }
 
     // all visit methods have a single parameter.
@@ -127,7 +132,7 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
                 .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals("all " + name + " methods in " + this.type().getName() + " should have 1 parameter=" + wrong, Lists.empty(), wrong);
+        assertEquals(Lists.empty(), wrong, ()-> "all " + name + " methods in " + this.type().getName() + " should have 1 parameter=" + wrong);
     }
 
     private List<Method> allMethods() {

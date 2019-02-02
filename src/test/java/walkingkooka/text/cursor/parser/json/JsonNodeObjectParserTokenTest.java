@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonArrayNode;
@@ -29,43 +29,58 @@ import walkingkooka.tree.json.JsonObjectNode;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTokenTestCase<JsonNodeObjectParserToken> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithArrayKeyFails() {
-        JsonNodeObjectParserToken.with(Lists.of(array()), "{[]}");
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNodeObjectParserToken.with(Lists.of(array()), "{[]}");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithBooleanKeyFails() {
-        JsonNodeObjectParserToken.with(Lists.of(booleanToken(true)), "{true}");
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNodeObjectParserToken.with(Lists.of(booleanToken(true)), "{true}");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNullKeyFails() {
-        JsonNodeObjectParserToken.with(Lists.of(nul()), "{null}");
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNodeObjectParserToken.with(Lists.of(nul()), "{null}");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithMNumberKeyFails() {
-        JsonNodeObjectParserToken.with(Lists.of(number(123)), "{123}");
+    @Test
+    public void testWithIndexKeyFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNodeObjectParserToken.with(Lists.of(number(123)), "{123}");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithObjectKeyFails() {
-        JsonNodeObjectParserToken.with(Lists.of(object()), "{{}}");
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNodeObjectParserToken.with(Lists.of(object()), "{{}}");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingValueFails() {
-        JsonNodeObjectParserToken.with(Lists.of(string("key")), "{\"key\":}");
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNodeObjectParserToken.with(Lists.of(string("key")), "{\"key\":}");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingValueFails2() {
-        JsonNodeObjectParserToken.with(Lists.of(string("key1"), number(123), string("key2")), "{\"key1\":123,\"key2\"}");
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNodeObjectParserToken.with(Lists.of(string("key1"), number(123), string("key2")), "{\"key1\":123,\"key2\"}");
+        });
     }
 
     @Test
@@ -74,7 +89,7 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
         final JsonNodeParserToken value = string("value");
         final JsonNodeObjectParserToken object = object(objectBegin(), whitespace(), key, objectAssignment(), value, objectEnd()).cast();
         final JsonNodeObjectParserToken without = object.withoutSymbols().get().cast();
-        assertEquals("value", Lists.of(key, value), without.value());
+        assertEquals(Lists.of(key, value), without.value(),"value");
     }
 
     @Test

@@ -18,10 +18,11 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHeaderValueUnit> {
 
@@ -34,19 +35,25 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
 
     // parse ..................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullFails() {
-        RangeHeaderValueUnit.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            RangeHeaderValueUnit.parse(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyFails() {
-        RangeHeaderValueUnit.parse("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            RangeHeaderValueUnit.parse("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseUnknownFails() {
-        RangeHeaderValueUnit.parse("unknown");
+        assertThrows(IllegalArgumentException.class, () -> {
+            RangeHeaderValueUnit.parse("unknown");
+        });
     }
 
     @Test

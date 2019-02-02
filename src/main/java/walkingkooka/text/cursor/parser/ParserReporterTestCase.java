@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
@@ -26,25 +26,32 @@ import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T extends ParserToken, C extends ParserContext> extends ClassTestCase<R> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testNullTextCursorFails() {
-        this.report(null, this.createContext(), this.parser());
+        assertThrows(NullPointerException.class, () -> {
+            this.report(null, this.createContext(), this.parser());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testNullContextFails() {
-        this.report(TextCursors.fake(), null, this.parser());
+        assertThrows(NullPointerException.class, () -> {
+            this.report(TextCursors.fake(), null, this.parser());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testNullParserFails() {
-        this.report(TextCursors.fake(), this.createContext(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.report(TextCursors.fake(), this.createContext(), null);
+        });
     }
 
     protected abstract R createParserReporter();
@@ -86,7 +93,7 @@ public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T e
                         final C context,
                         final Parser<T, C> parser,
                         final String messageContains) {
-        assertFalse("messageContains must not be null or empty", CharSequences.isNullOrEmpty(messageContains));
+        assertFalse(CharSequences.isNullOrEmpty(messageContains), "messageContains must not be null or empty");
 
         final TextCursorSavePoint save = cursor.save();
         try {
@@ -95,7 +102,8 @@ public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T e
         } catch (final ParserReporterException expected) {
             save.restore();
             final String message = expected.getMessage();
-            assertTrue("report message: " + CharSequences.quoteAndEscape(message) + " missing contains: " + CharSequences.quoteAndEscape(messageContains), message.contains(messageContains));
+            assertTrue(message.contains(messageContains),
+                    () -> "report message: " + CharSequences.quoteAndEscape(message) + " missing contains: " + CharSequences.quoteAndEscape(messageContains));
         }
     }
 

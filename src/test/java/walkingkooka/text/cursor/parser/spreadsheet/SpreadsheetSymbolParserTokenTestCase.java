@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public abstract class SpreadsheetSymbolParserTokenTestCase<T extends SpreadsheetSymbolParserToken> extends SpreadsheetLeafParserTokenTestCase<T, String>{
 

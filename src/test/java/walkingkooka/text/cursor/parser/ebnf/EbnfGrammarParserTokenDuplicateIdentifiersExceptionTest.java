@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
@@ -26,18 +26,23 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest extends ClassTestCase<EbnfGrammarParserTokenDuplicateIdentifiersException> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullDuplicatesFails() {
-        new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", null);
+        assertThrows(NullPointerException.class, () -> {
+            new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyDuplicatesFails() {
-        new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", Sets.empty());
+        assertThrows(IllegalArgumentException.class, () -> {
+            new EbnfGrammarParserTokenDuplicateIdentifiersException("message 123", Sets.empty());
+        });
     }
 
     @Test
@@ -45,8 +50,8 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest exten
         final String message = "message 123";
         final Set<EbnfRuleParserToken> duplicates = this.duplicates();
         final EbnfGrammarParserTokenDuplicateIdentifiersException exception = new EbnfGrammarParserTokenDuplicateIdentifiersException(message, duplicates);
-        assertEquals("message", message, exception.getMessage());
-        assertEquals("duplicates", duplicates, exception.duplicates());
+        assertEquals(message, exception.getMessage(), "message");
+        assertEquals(duplicates, exception.duplicates(), "duplicates");
     }
 
     @Test

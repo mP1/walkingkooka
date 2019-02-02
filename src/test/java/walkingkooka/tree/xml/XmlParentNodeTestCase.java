@@ -18,14 +18,14 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class XmlParentNodeTestCase<N extends XmlParentNode> extends XmlNodeTestCase<N> {
 
@@ -45,26 +45,26 @@ public abstract class XmlParentNodeTestCase<N extends XmlParentNode> extends Xml
 
     final void checkChildren(final String label, final int count, final XmlNode parent) {
         if (null != parent.node) {
-            assertEquals(label + " child node count=" + parent, count, parent.node.getChildNodes().getLength());
+            assertEquals(count, parent.node.getChildNodes().getLength(), label + " child node count=" + parent);
         }
-        assertEquals(label + " child XmlNode count=" + parent, count, parent.children().size());
+        assertEquals(count, parent.children().size(), label + " child XmlNode count=" + parent);
 
         final org.w3c.dom.Node parentNode = parent.node;
 
         final List<XmlNode> children = parent.children();
         for (int i = 0; i < count; i++) {
             final XmlNode child = children.get(i);
-            assertSame("child of " + label + " has wrong parent", parent, child.parent().get());
+            assertSame(parent, child.parent().get(), "child of " + label + " has wrong parent");
             if (null != parentNode) {
-                assertSame("parent node of child is wrong", parentNode, child.node.getParentNode());
+                assertSame(parentNode, child.node.getParentNode(), "parent node of child is wrong");
             }
-            assertEquals("child index=" + child, i, child.index());
+            assertEquals(i, child.index(), "child index=" + child);
         }
-        assertEquals("children of " + label, children, parent.children());
+        assertEquals(children, parent.children(), "children of " + label);
     }
 
     final void checkNotAdopted(final String label, final XmlNode node) {
-        assertEquals(label + " should still have no parent", XmlNode.NO_PARENT, node.parent());
-        assertEquals(label + " should still have no parent node", null, node.node.getParentNode());
+        assertEquals(XmlNode.NO_PARENT, node.parent(), label + " should still have no parent");
+        assertEquals(null, node.node.getParentNode(), label + " should still have no parent node");
     }
 }

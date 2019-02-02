@@ -18,33 +18,41 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.Node;
 
 import java.math.BigInteger;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class HateosPostHandlerTestCase<H extends HateosPostHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTestCase<H, N> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullIdFails() {
-        this.post(null,
-                this.resource(),
-                this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.post(null,
+                    this.resource(),
+                    this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullResourceFails() {
-        this.post(this.id(),
-                null,
-                this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.post(this.id(),
+                    null,
+                    this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullContextFails() {
-        this.post(this.id(),
-                this.resource(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            this.post(this.id(),
+                    this.resource(),
+                    null);
+        });
     }
 
     protected N post(final Optional<BigInteger> id,

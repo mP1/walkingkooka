@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -26,30 +26,39 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetFormatConditionParserTokenTestCase<T extends SpreadsheetFormatConditionParserToken<T>> extends SpreadsheetFormatParentParserTokenTestCase<T> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithMissingNumberTokenFails() {
-        this.createToken("", this.whitespace());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken("", this.whitespace());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithMissingNumberTokenFails2() {
-        this.createToken("", this.whitespace(), this.whitespace());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken("", this.whitespace(), this.whitespace());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueMissingNumberTokenFails2() {
-        this.createToken().setValue(Lists.of(this.whitespace()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(this.whitespace()));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueWrongCountFails2() {
-        this.createToken().setValue(Lists.of(this.number1(), this.number2()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(this.number1(), this.number2()));
+        });
     }
 
     @Test
@@ -82,7 +91,9 @@ public abstract class SpreadsheetFormatConditionParserTokenTestCase<T extends Sp
     public final void testRelation() {
         final T token = this.createToken();
         final String symbol = this.operatorSymbol().value();
-        assertEquals("Wrong relation for token " + token, ComparisonRelation.findWithSymbol(symbol), token.relation());
+        assertEquals(ComparisonRelation.findWithSymbol(symbol),
+                token.relation(),
+                () -> "Wrong relation for token " + token);
     }
 
     abstract T createToken(final String text, final List<ParserToken> tokens);

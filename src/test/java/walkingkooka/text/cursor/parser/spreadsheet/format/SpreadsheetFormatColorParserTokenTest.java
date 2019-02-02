@@ -18,26 +18,31 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatColorParserTokenTest extends SpreadsheetFormatParentParserTokenTestCase<SpreadsheetFormatColorParserToken> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingColorNameOrColorNumberFails() {
-        SpreadsheetFormatColorParserToken.with(this.missingColorNameOrColorNumber(), "[RED]");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SpreadsheetFormatColorParserToken.with(this.missingColorNameOrColorNumber(), "[RED]");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValuesMissingColorNameOrColorNumberFails() {
-        this.createToken().setValue(this.missingColorNameOrColorNumber());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(this.missingColorNameOrColorNumber());
+        });
     }
 
     private List<ParserToken> missingColorNameOrColorNumber() {
@@ -126,14 +131,14 @@ public final class SpreadsheetFormatColorParserTokenTest extends SpreadsheetForm
             }
         }.accept(token);
         assertEquals("9139152A9162A9172A9182A42A", b.toString());
-        assertEquals("visited",
-                Lists.of(token, token, token,
+        assertEquals(Lists.of(token, token, token,
                         open, open, open, open, open,
                         name, name, name, name, name,
                         whitespace, whitespace, whitespace, whitespace, whitespace,
                         close, close, close, close, close,
                         token, token, token),
-                visited);
+                visited,
+                "visited");
     }
 
     @Override

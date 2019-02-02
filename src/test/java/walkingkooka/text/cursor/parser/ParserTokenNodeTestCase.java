@@ -16,21 +16,24 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.NodeTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends NodeTestCase<ParserTokenNode,
         ParserTokenNodeName,
         ParserTokenNodeAttributeName,
         String> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetAttributeNullFails() {
-        this.createNode().setAttributes(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createNode().setAttributes(null);
+        });
     }
 
     @Test

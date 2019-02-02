@@ -19,34 +19,43 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class TokenHeaderValueParameterNameTest extends HeaderParameterNameTestCase<TokenHeaderValueParameterName<?>,
         TokenHeaderValueParameterName<?>> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithControlCharacterFails() {
-        TokenHeaderValueParameterName.with("parameter\u0001;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            TokenHeaderValueParameterName.with("parameter\u0001;");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithSpaceFails() {
-        TokenHeaderValueParameterName.with("parameter ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            TokenHeaderValueParameterName.with("parameter ");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithTabFails() {
-        TokenHeaderValueParameterName.with("parameter\t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            TokenHeaderValueParameterName.with("parameter\t");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNonAsciiFails() {
-        TokenHeaderValueParameterName.with("parameter\u0100;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            TokenHeaderValueParameterName.with("parameter\u0100;");
+        });
     }
 
     @Test

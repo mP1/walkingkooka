@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTestCase;
@@ -29,7 +29,7 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends
         SetTestCase<HttpServletRequestHttpRequestHeadersMapEntrySet,
@@ -61,7 +61,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends
         expected.put(HEADER1, VALUE1);
         expected.put(HEADER2, VALUE2);
 
-        assertEquals("iterator entries", expected, entries);
+        assertEquals(expected, entries, "iterator entries");
     }
 
     @Test

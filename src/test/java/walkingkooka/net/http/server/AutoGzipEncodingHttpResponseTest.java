@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
@@ -28,16 +28,19 @@ import walkingkooka.test.Latch;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<AutoGzipEncodingHttpResponse> {
 
     private final static String GZIP = "gzip";
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testAddEntityRequestMissingAcceptEncodingFails() {
-        this.createResponse().addEntity(HttpEntity.with(HttpEntity.NO_HEADERS, new byte[0]));
+        assertThrows(HeaderValueException.class, () -> {
+            this.createResponse().addEntity(HttpEntity.with(HttpEntity.NO_HEADERS, new byte[0]));
+        });
     }
 
     @Test
@@ -128,9 +131,9 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
                     
                     @Test
                     public void addEntity(final HttpEntity e) {
-                        assertEquals("entity",
-                                HttpEntity.with(expectedHeaders, expectedBody),
-                                e);
+                        assertEquals(HttpEntity.with(expectedHeaders, expectedBody),
+                                e,
+                                "entity");
                         set.set("addEntity");
                     }
                 });
@@ -138,7 +141,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
             headers.put(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse(contentEncoding));
         }
         response.addEntity(HttpEntity.with(headers, body));
-        assertTrue("wrapped response addEntity(body) not called", set.value());
+        assertTrue(set.value(), "wrapped response addEntity(body) not called");
     }
 
     private AutoGzipEncodingHttpResponse createResponse(final String acceptCharset, final HttpResponse response) {

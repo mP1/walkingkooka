@@ -18,42 +18,53 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTestCase;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionEvaluationContextTestCase<C extends ExpressionEvaluationContext> extends ContextTestCase<C> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFunctionNullNameFails() {
-        this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS);
+        assertThrows(NullPointerException.class, () -> {
+            this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFunctionNullParametersFails() {
-        this.createContext().function(ExpressionNodeName.with("sum"), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createContext().function(ExpressionNodeName.with("sum"), null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testReferenceNullReferenceFails() {
-        this.createContext().reference(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createContext().reference(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testConvertNullValueFails() {
-        this.createContext().convert(null, Object.class);
+        assertThrows(NullPointerException.class, () -> {
+            this.createContext().convert(null, Object.class);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testConvertNullTargetTypeFails() {
-        this.createContext().convert("value", null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createContext().convert("value", null);
+        });
     }
 
     protected void toValueAndCheck(final ExpressionNode node, final ExpressionEvaluationContext context, final Object value) {
-        assertEquals("ExpressionNode.toValue failed, node=" + node + " context=" + context,
-                value,
-                node.toValue(context));
+        assertEquals(value,
+                node.toValue(context),
+                ()-> "ExpressionNode.toValue failed, node=" + node + " context=" + context);
     }
 
     @Override

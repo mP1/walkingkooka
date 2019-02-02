@@ -18,37 +18,31 @@
 
 package walkingkooka.compare;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTestCase;
 
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class ComparisonRelationTest extends PredicateTestCase<ComparisonRelation, Integer> {
 
-    @Test
-    @Ignore
     @Override
     public void testCheckNaming() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testClassVisibility() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testAllMethodsVisibility() {
         throw new UnsupportedOperationException();
@@ -259,14 +253,14 @@ public final class ComparisonRelationTest extends PredicateTestCase<ComparisonRe
     }
 
     private void symbolAndCheck(final ComparisonRelation relation, final String pattern) {
-        assertEquals("pattern for " + relation, pattern, relation.symbol());
+        assertEquals(pattern, relation.symbol(), () -> "pattern for " + relation);
     }
 
     @Test
     public void testPredicate() {
         final Predicate<String> predicate = ComparisonRelation.EQ.predicate("M");
-        assertTrue("EQ \"M\"", predicate.test("M"));
-        assertFalse("EQ \"Z\"", predicate.test("Z"));
+        assertTrue(predicate.test("M"), "EQ \"M\"");
+        assertFalse(predicate.test("Z"), "EQ \"Z\"");
     }
 
     @Test
@@ -283,7 +277,7 @@ public final class ComparisonRelationTest extends PredicateTestCase<ComparisonRe
         final ComparisonRelation inverted = relation.invert();
         final boolean invertedResult = inverted.predicate(value).test(value2);
 
-        assertNotEquals(result + " inverted " + inverted + " " + value + " " + value2,result, invertedResult);
+        assertNotEquals(result, invertedResult, ()-> result + " inverted " + inverted + " " + value + " " + value2);
     }
 
     @Test
@@ -308,7 +302,7 @@ public final class ComparisonRelationTest extends PredicateTestCase<ComparisonRe
         final boolean result = relation.predicate(value).test(value2);
         final boolean swappedResult = relation.swap().predicate(value2).test(value);
 
-        assertEquals(value + " " + relation + " " + value2, result, swappedResult);
+        assertEquals(result, swappedResult, ()-> value + " " + relation + " " + value2);
     }
 
     @Test
@@ -318,14 +312,18 @@ public final class ComparisonRelationTest extends PredicateTestCase<ComparisonRe
         }
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFindWithSymbolNullFails() {
-        ComparisonRelation.findWithSymbol(null);
+        assertThrows(NullPointerException.class, () -> {
+            ComparisonRelation.findWithSymbol(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFindWithSymbolUnknownFails() {
-        ComparisonRelation.findWithSymbol("?");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ComparisonRelation.findWithSymbol("?");
+        });
     }
 
     @Test

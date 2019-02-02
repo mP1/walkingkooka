@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
@@ -28,6 +28,8 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * In expectations all symbols are doubled, as a means to verify the context is supplying the values.
@@ -1168,14 +1170,18 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
         this.parseFormatAndCheck("#.#.", 1.5, "1!5!");
     }
 
-    @Test(expected = ParserReporterException.class)
+    @Test
     public void testExponentDecimalFails() {
-        this.createFormatter("#E#.");
+        assertThrows(ParserReporterException.class, () -> {
+            this.createFormatter("#E#.");
+        });
     }
 
-    @Test(expected = ParserReporterException.class)
+    @Test
     public void testExponentExponentFails() {
-        this.createFormatter("#E0E0");
+        assertThrows(ParserReporterException.class, () -> {
+            this.createFormatter("#E0E0");
+        });
     }
 
     //helpers .......................................................................................................

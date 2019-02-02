@@ -18,10 +18,10 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRelationRegular, String> {
 
@@ -44,7 +44,7 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
 
     private void createAndCheck(final String text) {
         final LinkRelationRegular linkRelation = LinkRelationRegular.regular(text);
-        assertEquals("value", text, linkRelation.value());
+        assertEquals(text, linkRelation.value(),"value");
     }
 
     @Test

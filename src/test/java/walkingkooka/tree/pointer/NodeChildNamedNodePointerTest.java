@@ -18,13 +18,13 @@
 
 package walkingkooka.tree.pointer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class NodeChildNamedNodePointerTest extends ClassTestCase<NodeChildNamedNodePointer<?, ?, ?, ?>> {
 

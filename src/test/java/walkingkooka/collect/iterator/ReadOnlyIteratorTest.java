@@ -17,16 +17,16 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterator<Object>, Object> {
 
@@ -38,18 +38,16 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
 
     @Test
     public void testWrapNullIteratorFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ReadOnlyIterator.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
     public void testWrap() {
         final Iterator<Void> iterator = Iterators.fake();
         final ReadOnlyIterator<Void> readOnly = ReadOnlyIterator.wrap(iterator);
-        assertSame("iterator", iterator, readOnly.iterator);
+        assertSame(iterator, readOnly.iterator, "iterator");
     }
 
     @Test
@@ -57,7 +55,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
         final Iterator<Void> iterator = Iterators.fake();
         final ReadOnlyIterator<Void> readOnly
                 = ReadOnlyIterator.wrap(ReadOnlyIterator.wrap(iterator));
-        assertSame("iterator", iterator, readOnly.iterator);
+        assertSame(iterator, readOnly.iterator, "iterator");
     }
 
     @Test

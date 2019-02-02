@@ -18,12 +18,12 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class NodeSelectorToStringBuilderTest extends BuilderTestCase<NodeSelectorToStringBuilder, String> {
 

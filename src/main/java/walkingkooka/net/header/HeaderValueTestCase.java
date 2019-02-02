@@ -18,14 +18,14 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTestCase<V>
         implements HashCodeEqualsDefinedTesting<V> {
@@ -64,15 +64,15 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTe
     }
 
     protected void toHeaderTextAndCheck(final HeaderValue headerValue, final String expected) {
-        assertEquals("headerText of " + headerValue, expected, headerValue.toHeaderText());
+        assertEquals(expected, headerValue.toHeaderText(), () -> "headerText of " + headerValue);
         this.isWildcardAndCheck0(headerValue, String.valueOf(HeaderValue.WILDCARD).equals(expected));
     }
 
     protected void toHeaderTextListAndCheck(final String toString,
                                             final HeaderValue... headerValues) {
-        assertEquals("toHeaderTextList returned wrong toString " + Arrays.toString(headerValues),
-                toString,
-                HeaderValue.toHeaderTextList(Lists.of(headerValues), HeaderValue.SEPARATOR.string().concat(" ")));
+        assertEquals(toString,
+                HeaderValue.toHeaderTextList(Lists.of(headerValues), HeaderValue.SEPARATOR.string().concat(" ")),
+                () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headerValues));
     }
 
     protected void isWildcardAndCheck(final boolean expected) {
@@ -87,7 +87,7 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTe
     }
 
     private void isWildcardAndCheck0(final HeaderValue headerValue, final boolean expected) {
-        assertEquals("header " + headerValue, expected, headerValue.isWildcard());
+        assertEquals(expected, headerValue.isWildcard(), () -> "header " + headerValue);
     }
 
     @Override

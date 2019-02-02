@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.NamedNodeMap;
 import walkingkooka.Cast;

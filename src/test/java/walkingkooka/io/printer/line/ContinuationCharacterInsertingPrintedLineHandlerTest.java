@@ -17,11 +17,11 @@
 
 package walkingkooka.io.printer.line;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ContinuationCharacterInsertingPrintedLineHandlerTest
         extends PrintedLineHandlerTestCase<ContinuationCharacterInsertingPrintedLineHandler> {
@@ -36,35 +36,30 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest
 
     @Test
     public void testWithInvalidWidthFails() {
-        this.withFails(0, ContinuationCharacterInsertingPrintedLineHandlerTest.CONTINUATION);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContinuationCharacterInsertingPrintedLineHandler.with(0, CONTINUATION);
+        });
     }
 
     @Test
     public void testWithCarriageReturnContinuationCharacterFails() {
-        this.withFails(ContinuationCharacterInsertingPrintedLineHandlerTest.WIDTH, '\r');
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+            ContinuationCharacterInsertingPrintedLineHandler.with(WIDTH, '\r');
+        });
+        assertEquals(
+                ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter('\r'),
+                expected.getMessage(),
+                "message");
     }
 
     @Test
     public void testWithNewLineContinuationCharacterFails() {
-        this.withFails(ContinuationCharacterInsertingPrintedLineHandlerTest.WIDTH, '\n');
-    }
-
-    private void withFails(final int width, final char c) {
-        this.withFails(width, c, null);
-    }
-
-    private void withFails(final int width, final char c, final String message) {
-        try {
-            ContinuationCharacterInsertingPrintedLineHandler.with(width, c);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-            if (null != message) {
-                assertEquals("message",
-                        ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter(
-                                c),
-                        expected.getMessage());
-            }
-        }
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+            ContinuationCharacterInsertingPrintedLineHandler.with(WIDTH, '\n');
+        });
+        assertEquals(ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter('\n'),
+                expected.getMessage(),
+                "message");
     }
 
     @Test
@@ -134,28 +129,28 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest
 
     @Test
     public void testToString() {
-        assertEquals("lines > " + ContinuationCharacterInsertingPrintedLineHandlerTest.WIDTH
+        assertEquals("lines > " + WIDTH
                         + " continue w/ '"
-                        + ContinuationCharacterInsertingPrintedLineHandlerTest.CONTINUATION + "'",
+                        + CONTINUATION + "'",
                 this.createLineHandler().toString());
     }
 
     @Override
     protected ContinuationCharacterInsertingPrintedLineHandler createLineHandler() {
         return ContinuationCharacterInsertingPrintedLineHandler.with(
-                ContinuationCharacterInsertingPrintedLineHandlerTest.WIDTH,
-                ContinuationCharacterInsertingPrintedLineHandlerTest.CONTINUATION);
+                WIDTH,
+                CONTINUATION);
     }
 
     private void linePrintedAndCheck(final int width, final CharSequence line,
                                      final LineEnding lineEnding, final String expected) {
         this.linePrintedAndCheck(//
                 ContinuationCharacterInsertingPrintedLineHandler.with(width,
-                        ContinuationCharacterInsertingPrintedLineHandlerTest.CONTINUATION), //
-                ContinuationCharacterInsertingPrintedLineHandlerTest.replacePlaceHolder(line,
+                        CONTINUATION), //
+                replacePlaceHolder(line,
                         lineEnding), //
                 lineEnding, //
-                ContinuationCharacterInsertingPrintedLineHandlerTest.replacePlaceHolder(expected,
+                replacePlaceHolder(expected,
                         lineEnding), //
                 null);
     }

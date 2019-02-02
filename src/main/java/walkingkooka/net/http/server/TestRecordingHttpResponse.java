@@ -27,7 +27,7 @@ import walkingkooka.net.http.HttpStatus;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * A response that records all parameters set up on it for later verification by calling {@link #check(HttpRequest, HttpStatus, HttpEntity...)}.
@@ -79,9 +79,9 @@ public final class TestRecordingHttpResponse implements HttpResponse {
     public void check(final HttpRequest request,
                final HttpStatus status,
                final HttpEntity...entities) {
-        assertEquals(request.toString(),
-                new TestRecordingHttpResponse(status, Lists.of(entities)),
-                this);
+        assertEquals(new TestRecordingHttpResponse(status, Lists.of(entities)),
+                this,
+                () -> request.toString());
     }
 
     @Override

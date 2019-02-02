@@ -18,14 +18,15 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
@@ -82,9 +83,11 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         assertFalse(cookie.isServer());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFromNullCookieFails() {
-        ClientCookie.from((javax.servlet.http.Cookie) null);
+        assertThrows(NullPointerException.class, () -> {
+            ClientCookie.from((javax.servlet.http.Cookie) null);
+        });
     }
 
     @Test
@@ -111,15 +114,17 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testToJavaxServletHttpCookie() {
         final javax.servlet.http.Cookie cookie = ClientCookie.with(NAME, VALUE)
                 .toJavaxServletCookie();
-        assertEquals("name", NAME.value(), cookie.getName());
-        assertEquals("value", VALUE, cookie.getValue());
+        assertEquals(NAME.value(), cookie.getName(),"name");
+        assertEquals(VALUE, cookie.getValue(),"value");
     }
 
     // parseClientHeader................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseClientHeaderNulFails() {
-        Cookie.parseClientHeader(null);
+        assertThrows(NullPointerException.class, () -> {
+            Cookie.parseClientHeader(null);
+        });
     }
 
     @Test
@@ -167,7 +172,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     }
 
     private void parseHeaderAndCheck(final String header, final ClientCookie... cookies) {
-        assertEquals(header, Lists.of(cookies), ClientCookie.parseHeader(header));
+        assertEquals(Lists.of(cookies), ClientCookie.parseHeader(header), header);
     }
 
     // header ....................................................................................
@@ -186,9 +191,11 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     // toHeaderTextList ................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testToHeaderTextListNullFails() {
-        ClientCookie.toHeaderTextList(null);
+        assertThrows(NullPointerException.class, () -> {
+            ClientCookie.toHeaderTextList(null);
+        });
     }
 
     @Test
@@ -205,9 +212,9 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     private void toHeaderTextListAndCheck(final String toString,
                                           final ClientCookie... cookies) {
-        assertEquals("format " + Arrays.toString(cookies),
-                toString,
-                ClientCookie.toHeaderTextList(Lists.of(cookies)));
+        assertEquals(toString,
+                ClientCookie.toHeaderTextList(Lists.of(cookies)),
+                "format " + Arrays.toString(cookies));
     }
 
     // toString.................................................................

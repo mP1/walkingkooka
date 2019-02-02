@@ -17,8 +17,7 @@
 
 package walkingkooka.io.printstream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.test.Latch;
@@ -28,10 +27,11 @@ import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream> {
     // constants
@@ -44,26 +44,21 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
 
     @Test
     public void testWrapNullFirstPrintStreamFails() {
-        this.wrapFails(null, TeePrintStreamTest.SECOND);
+        assertThrows(NullPointerException.class, () -> {
+            TeePrintStream.wrap(null, SECOND);
+        });
     }
 
     @Test
     public void testWrapNullSecondPrintStreamFails() {
-        this.wrapFails(TeePrintStreamTest.FIRST, null);
-    }
-
-    private void wrapFails(final PrintStream first, final PrintStream second) {
-        try {
-            TeePrintStream.wrap(first, second);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            TeePrintStream.wrap(FIRST, null);
+        });
     }
 
     @Test
     public void testDoesntWrapSame() {
-        assertSame(TeePrintStreamTest.FIRST,
-                TeePrintStream.wrap(TeePrintStreamTest.FIRST, TeePrintStreamTest.FIRST));
+        assertSame(FIRST, TeePrintStream.wrap(FIRST, FIRST));
     }
 
     @Test
@@ -369,8 +364,8 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
                         flushed2.set("Already flushed");
                     }
                 }).flush();
-        assertTrue("First PrintStream was NOT flushed", flushed1.value());
-        assertTrue("Second PrintStream was NOT flushed", flushed1.value());
+        assertTrue(flushed1.value(), "First PrintStream was NOT flushed");
+        assertTrue(flushed1.value(), "Second PrintStream was NOT flushed");
     }
 
     @Test
@@ -390,8 +385,8 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
                         closed2.set("Already closed");
                     }
                 }).flush();
-        assertTrue("First PrintStream was NOT closed", closed1.value());
-        assertTrue("Second PrintStream was NOT closed", closed1.value());
+        assertTrue(closed1.value(), "First PrintStream was NOT closed");
+        assertTrue(closed1.value(), "Second PrintStream was NOT closed");
     }
 
     @Test
@@ -430,13 +425,13 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
 
     @Test
     public void testToString() {
-        assertEquals(TeePrintStreamTest.FIRST + " " + TeePrintStreamTest.SECOND,
+        assertEquals(FIRST + " " + SECOND,
                 this.createPrintStream().toString());
     }
 
     @Override
     protected TeePrintStream createPrintStream() {
-        return Cast.to(TeePrintStream.wrap(TeePrintStreamTest.FIRST, TeePrintStreamTest.SECOND));
+        return Cast.to(TeePrintStream.wrap(FIRST, SECOND));
     }
 
     private TeePrintStream wrap(final StringBuilder b1, final StringBuilder b2) {

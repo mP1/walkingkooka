@@ -17,11 +17,11 @@
 
 package walkingkooka.util.variable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.util.Waiter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 final public class ThreadLocalVariableTest extends VariableTestCase<ThreadLocalVariable<Object>, Object> {
 

@@ -17,14 +17,14 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPredicate>
         implements HashCodeEqualsDefinedTesting<NotCharPredicate>, SerializationTesting<NotCharPredicate> {
@@ -37,11 +37,9 @@ final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPre
 
     @Test
     public void testWrapNullPredicateFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             NotCharPredicate.wrap(null);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        });
     }
 
     @Test

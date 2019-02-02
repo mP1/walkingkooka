@@ -18,8 +18,8 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
@@ -141,7 +141,7 @@ public final class HttpHeaderScopeTest extends ClassTestCase<HttpHeaderScope> {
             } else {
                 try {
                     scope.check(header, value);
-                    Assert.fail(header + " check " + CharSequences.quoteIfChars(value) + " should have failed");
+                    Assertions.fail(header + " check " + CharSequences.quoteIfChars(value) + " should have failed");
                 } catch (final NotAcceptableHeaderException cause) {
                 }
             }
@@ -159,7 +159,7 @@ public final class HttpHeaderScopeTest extends ClassTestCase<HttpHeaderScope> {
             } else {
                 try {
                     scope.check(header);
-                    Assert.fail(header + " checked should have failed");
+                    Assertions.fail(header + " checked should have failed");
                 } catch (final NotAcceptableHeaderException cause) {
                 }
             }

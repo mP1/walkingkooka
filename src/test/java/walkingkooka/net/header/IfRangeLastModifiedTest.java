@@ -18,17 +18,20 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastModified, LocalDateTime, ETag> {
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testETag() {
-        this.createHeaderValue().etag();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderValue().etag();
+        });
     }
 
     @Test

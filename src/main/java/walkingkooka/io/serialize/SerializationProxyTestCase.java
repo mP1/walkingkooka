@@ -17,11 +17,11 @@
 
 package walkingkooka.io.serialize;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Base class for testing a {@link SerializationProxy} with mostly parameter checking tests.
@@ -54,7 +54,9 @@ abstract public class SerializationProxyTestCase<P extends SerializationProxy>
                 break;
             }
         }
-        assertTrue("Unable to find no args readResolve method on " + type, found);
+
+        final Class<?> type2 = type;
+        assertTrue(found, () -> "Unable to find no args readResolve method on " + type2.getName());
     }
 
     @Test

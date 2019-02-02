@@ -16,15 +16,16 @@
  */
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNodeTestCase<N, V>{
 
@@ -32,11 +33,6 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
     public final void testChildren() {
         final N node = this.createPojoNode();
         this.childrenValuesCheck(node, this.childrenValues(node));
-    }
-
-    @Test(expected = NullPointerException.class)
-    public final void testSetChildrenNullFails() {
-        this.createNode().setChildren(null);
     }
 
     @Test
@@ -48,13 +44,13 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
     @Test
     public final void testSetChildrenDifferent() {
         final N node = this.createPojoNode();
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
         final List<Object> children = node.childrenValues();
 
         final PojoNode node2 = node.setChildren(this.differentChildren(node));
 
         assertNotSame(node, node2);
-        this.parentAbsentCheck(node2);
+        this.checkWithoutParent(node2);
         this.childrenCheck(node2);
         this.childrenValuesCheck(node2, this.differentChildrenValues(node));
 
@@ -65,13 +61,13 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
     @Test
     public final void testSetChildrenWritableDifferent() {
         final N node = this.createPojoNode();
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
         final List<Object> children = node.childrenValues();
 
         final PojoNode node2 = node.setChildren(this.writableDifferentChildren(node));
 
         assertNotSame(node, node2);
-        this.parentAbsentCheck(node2);
+        this.checkWithoutParent(node2);
         this.childrenCheck(node2);
         this.childrenValuesCheck(node2, this.differentChildrenValues(node));
 
@@ -79,9 +75,11 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
         this.childrenValuesCheck(node, children);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetChildrenValuesNullFails() {
-        this.createNode().setChildrenValues(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createNode().setChildrenValues(null);
+        });
     }
 
     @Test
@@ -99,13 +97,13 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
     @Test
     public final void testSetChildrenValuesDifferent() {
         final N node = this.createPojoNode();
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
         final List<Object> childrenValues = node.childrenValues();
 
         final PojoNode node2 = node.setChildrenValues(this.differentChildrenValues(node));
 
         assertNotSame(node, node2);
-        this.parentAbsentCheck(node2);
+        this.checkWithoutParent(node2);
         this.childrenCheck(node2);
         this.childrenValuesCheck(node2, this.differentChildrenValues(node));
 
@@ -116,13 +114,13 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
     @Test
     public final void testSetChildrenValuesWritableDifferent() {
         final N node = this.createPojoNode();
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
         final List<Object> childrenValues = node.childrenValues();
 
         final PojoNode node2 = node.setChildrenValues(this.differentWritableChildrenValues(node));
 
         assertNotSame(node, node2);
-        this.parentAbsentCheck(node2);
+        this.checkWithoutParent(node2);
         this.childrenCheck(node2);
         this.childrenValuesCheck(node2, this.differentChildrenValues(node));
 
@@ -135,12 +133,12 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
     }
 
     final void childrenValuesCheck(final PojoNode node, final List<?> values){
-        assertEquals("children values not equal to childrenValues()",
-                values,
-                node.childrenValues());
-        assertEquals("children values not equal to values from children()",
-                values,
-                values(node.children()));
+        assertEquals(values,
+                node.childrenValues(),
+                "children values not equal to childrenValues()");
+        assertEquals(values,
+                values(node.children()),
+                "children values not equal to values from children()");
     }
 
     abstract List<PojoNode> writableChildren(final N firstNode);

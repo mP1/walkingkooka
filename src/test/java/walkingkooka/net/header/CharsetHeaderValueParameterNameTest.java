@@ -19,34 +19,43 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNameTestCase<CharsetHeaderValueParameterName<?>,
         CharsetHeaderValueParameterName<?>> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testControlCharacterFails() {
-        CharsetHeaderValueParameterName.with("parameter\u0001;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetHeaderValueParameterName.with("parameter\u0001;");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSpaceFails() {
-        CharsetHeaderValueParameterName.with("parameter ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetHeaderValueParameterName.with("parameter ");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTabFails() {
-        CharsetHeaderValueParameterName.with("parameter\t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetHeaderValueParameterName.with("parameter\t");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNonAsciiFails() {
-        CharsetHeaderValueParameterName.with("parameter\u0100;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetHeaderValueParameterName.with("parameter\u0100;");
+        });
     }
 
     @Test

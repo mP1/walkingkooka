@@ -17,17 +17,18 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class CharPredicateBuilderTest
         extends BuilderTestCase<CharPredicateBuilder, CharPredicate> {
@@ -41,7 +42,7 @@ final public class CharPredicateBuilderTest
     @Test
     public void testCreate() {
         final CharPredicateBuilder builder = this.createBuilder();
-        assertNull("predicate", builder.predicate);
+        assertNull(builder.predicate, "predicate");
     }
 
     // or
@@ -49,13 +50,11 @@ final public class CharPredicateBuilderTest
     @Test
     public void testOrNullPredicateFails() {
         final CharPredicateBuilder builder = this.createBuilder();
-        builder.predicate = CharPredicateBuilderTest.PREDICATE;
-        try {
+        builder.predicate = PREDICATE;
+        assertThrows(NullPointerException.class, () -> {
             builder.or(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
-        assertSame("predicate", CharPredicateBuilderTest.PREDICATE, builder.predicate);
+        });
+        assertSame(PREDICATE, builder.predicate,"predicate");
     }
 
     @Test
@@ -82,13 +81,11 @@ final public class CharPredicateBuilderTest
     @Test
     public void testAnyNullStringFails() {
         final CharPredicateBuilder builder = this.createBuilder();
-        builder.predicate = CharPredicateBuilderTest.PREDICATE;
-        try {
+        builder.predicate = PREDICATE;
+        assertThrows(NullPointerException.class, () -> {
             builder.any((String) null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
-        assertSame("predicate", CharPredicateBuilderTest.PREDICATE, builder.predicate);
+        });
+        assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
     @Test
@@ -119,13 +116,11 @@ final public class CharPredicateBuilderTest
     @Test
     public void testAnyNullCharsFails() {
         final CharPredicateBuilder builder = this.createBuilder();
-        builder.predicate = CharPredicateBuilderTest.PREDICATE;
-        try {
+        builder.predicate = PREDICATE;
+        assertThrows(NullPointerException.class, () -> {
             builder.any((char[]) null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
-        assertSame("predicate", CharPredicateBuilderTest.PREDICATE, builder.predicate);
+        });
+        assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
     @Test
@@ -156,13 +151,11 @@ final public class CharPredicateBuilderTest
     @Test
     public void testAndNullPredicate() {
         final CharPredicateBuilder builder = this.createBuilder();
-        builder.predicate = CharPredicateBuilderTest.PREDICATE;
-        try {
+        builder.predicate = PREDICATE;
+        assertThrows(NullPointerException.class, () -> {
             builder.and(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
-        assertSame("predicate", CharPredicateBuilderTest.PREDICATE, builder.predicate);
+        });
+        assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
     @Test
@@ -193,13 +186,13 @@ final public class CharPredicateBuilderTest
                 case 'D':
                 case 'E':
                     if (false == predicate.test(c)) {
-                        Assert.fail("Failed to predicate " + CharSequences.quoteAndEscape(c) + "="
+                        Assertions.fail("Failed to predicate " + CharSequences.quoteAndEscape(c) + "="
                                 + predicate);
                     }
                     break;
                 default:
                     if (predicate.test(c)) {
-                        Assert.fail(
+                        Assertions.fail(
                                 "Should not have matched " + CharSequences.quoteAndEscape(c) + "="
                                         + predicate);
                     }
@@ -212,13 +205,11 @@ final public class CharPredicateBuilderTest
     @Test
     public void testAndNotNullPredicate() {
         final CharPredicateBuilder builder = this.createBuilder();
-        builder.predicate = CharPredicateBuilderTest.PREDICATE;
-        try {
+        builder.predicate = PREDICATE;
+        assertThrows(NullPointerException.class, () -> {
             builder.andNot(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
-        assertSame("predicate", CharPredicateBuilderTest.PREDICATE, builder.predicate);
+        });
+        assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
     @Test
@@ -228,10 +219,10 @@ final public class CharPredicateBuilderTest
         builder.andNot(CharPredicates.is('A'));
 
         final CharPredicate predicate = builder.build();
-        assertEquals("'A' should not be matched", false, predicate.test('A'));
-        assertEquals("'B' should be matched", true, predicate.test('B'));
-        assertEquals("'C' should be matched", true, predicate.test('C'));
-        assertEquals("'Z' should be matched", false, predicate.test('Z'));
+        assertEquals(false, predicate.test('A'), "'A' should not be matched");
+        assertEquals(true, predicate.test('B'), "'B' should be matched");
+        assertEquals(true, predicate.test('C'), "'C' should be matched");
+        assertEquals(false, predicate.test('Z'), "'Z' should be matched");
     }
 
     // negate
@@ -240,7 +231,7 @@ final public class CharPredicateBuilderTest
     public void testInvertWithoutPredicate() {
         final CharPredicateBuilder builder = this.createBuilder();
         assertSame(builder, builder.negate());
-        assertSame("predicate", null, builder.predicate);
+        assertSame(null, builder.predicate, "predicate");
     }
 
     @Test
@@ -250,10 +241,10 @@ final public class CharPredicateBuilderTest
         builder.or(CharPredicates.is(c));
         assertSame(builder, builder.negate());
         final CharPredicate predicate = builder.build();
-        assertFalse("testing with 'z' should fail", predicate.test(c));
+        assertFalse(predicate.test(c), "testing with 'z' should fail");
 
         final CharPredicate predicate2 = builder.negate().build();
-        assertTrue("testing with 'z' should fail", predicate2.test(c));
+        assertTrue(predicate2.test(c), "testing with 'z' should fail");
     }
 
     // range
@@ -276,7 +267,12 @@ final public class CharPredicateBuilderTest
     
     @Test
     public void testNullStringFails() {
-        this.toStringFails(null);
+        final CharPredicateBuilder builder = this.createBuilder();
+        builder.predicate = PREDICATE;
+        assertThrows(NullPointerException.class, () -> {
+            builder.toString(null);
+        });
+        assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
     @Test
@@ -291,13 +287,11 @@ final public class CharPredicateBuilderTest
 
     private void toStringFails(final String toString) {
         final CharPredicateBuilder builder = this.createBuilder();
-        builder.predicate = CharPredicateBuilderTest.PREDICATE;
-        try {
+        builder.predicate = PREDICATE;
+        assertThrows(IllegalArgumentException.class, () -> {
             builder.toString(toString);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
-        assertSame("predicate", CharPredicateBuilderTest.PREDICATE, builder.predicate);
+        });
+        assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
     @Test
@@ -328,7 +322,7 @@ final public class CharPredicateBuilderTest
     @Test
     public void testCopyEmpty() {
         final CharPredicateBuilder builder = this.createBuilder();
-        assertNull("predicate", builder.predicate);
+        assertNull(builder.predicate, "predicate");
     }
 
     @Test
@@ -337,7 +331,7 @@ final public class CharPredicateBuilderTest
         builder.any('a');
 
         final CharPredicateBuilder copy = builder.copy();
-        assertSame("predicate", builder.predicate, copy.predicate);
+        assertSame(builder.predicate, copy.predicate, "predicate");
     }
 
     @Override

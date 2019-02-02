@@ -17,10 +17,10 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>, String> {
 
@@ -34,37 +34,37 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
 
     @Test
     public void testNullValueHasNext() {
-        this.iterateUsingHasNextAndCheck(OneIterator.with(OneIteratorTest.NULL),
-                OneIteratorTest.NULL);
+        this.iterateUsingHasNextAndCheck(OneIterator.with(NULL),
+                NULL);
     }
 
     @Test
     public void testNullValueNext() {
-        this.iterateAndCheck(OneIterator.with(OneIteratorTest.NULL), OneIteratorTest.NULL);
+        this.iterateAndCheck(OneIterator.with(NULL), NULL);
     }
 
     @Test
     public void testNonNullValueHasNext() {
-        this.iterateUsingHasNextAndCheck(OneIterator.with(OneIteratorTest.VALUE),
-                OneIteratorTest.VALUE);
+        this.iterateUsingHasNextAndCheck(OneIterator.with(VALUE),
+                VALUE);
     }
 
     @Test
     public void testNonNullValueNext() {
-        this.iterateAndCheck(OneIterator.with(OneIteratorTest.VALUE), OneIteratorTest.VALUE);
+        this.iterateAndCheck(OneIterator.with(VALUE), VALUE);
     }
 
     @Test
     public void testNonNullValueToString() {
-        final OneIterator<String> iterator = OneIterator.with(OneIteratorTest.VALUE);
-        assertEquals("toString", OneIteratorTest.VALUE, iterator.toString());
+        final OneIterator<String> iterator = OneIterator.with(VALUE);
+        assertEquals(VALUE, iterator.toString());
     }
 
     @Test
     public void testEmptyToString() {
         final OneIterator<String> iterator = OneIterator.with(null);
         iterator.next();
-        assertEquals("toString", "<empty>", iterator.toString());
+        assertEquals("<empty>", iterator.toString());
     }
 
     @Test

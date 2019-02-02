@@ -18,8 +18,7 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.SearchNode;
@@ -28,12 +27,11 @@ import walkingkooka.tree.search.SearchNodeName;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class XmlNotationTest extends XmlLeafNodeTestCase<XmlNotation> {
 
-    @Test
-    @Ignore
+    @Override
     public void testParentWith() {
         // n/a
     }

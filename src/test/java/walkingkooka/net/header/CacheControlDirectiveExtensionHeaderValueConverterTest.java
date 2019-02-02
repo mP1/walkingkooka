@@ -18,8 +18,10 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CacheControlDirectiveExtensionHeaderValueConverterTest extends
         HeaderValueConverterTestCase<CacheControlDirectiveExtensionHeaderValueConverter, Object> {
@@ -54,11 +56,13 @@ public final class CacheControlDirectiveExtensionHeaderValueConverterTest extend
         this.toTextAndCheck("abc123", "abc123");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testToTextInvalidValueFail() {
-        CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE
-                .toText(this,
-                        CacheControlDirectiveName.MAX_STALE);
+        assertThrows(HeaderValueException.class, () -> {
+            CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE
+                    .toText(this,
+                            CacheControlDirectiveName.MAX_STALE);
+        });
     }
 
     @Override

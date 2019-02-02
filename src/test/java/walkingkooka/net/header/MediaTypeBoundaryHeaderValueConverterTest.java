@@ -18,10 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
-import java.time.OffsetDateTime;
+import org.junit.jupiter.api.Test;
 
 public final class MediaTypeBoundaryHeaderValueConverterTest extends
         HeaderValueConverterTestCase<MediaTypeBoundaryHeaderValueConverter, MediaTypeBoundary> {
@@ -33,8 +30,7 @@ public final class MediaTypeBoundaryHeaderValueConverterTest extends
         return MediaTypeBoundary.class.getSimpleName();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testInvalidHeaderValueFails() {
         throw new UnsupportedOperationException();
     }

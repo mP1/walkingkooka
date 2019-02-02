@@ -17,15 +17,15 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class LowerCasingCharPredicateTest
         extends CharPredicateTestCase<LowerCasingCharPredicate>
@@ -33,19 +33,17 @@ final public class LowerCasingCharPredicateTest
 
     @Test
     public void testWrapNullPredicateFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             LowerCasingCharPredicate.wrap(null);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        });
     }
 
     @Test
     public void testDoesNotReWrapLowerCasingCharPredicate() {
         final CharPredicate predicate = LowerCasingCharPredicate.wrap(CharPredicates.is('x'));
-        assertSame("should not have rewrapped",
-                predicate,
-                LowerCasingCharPredicate.wrap(predicate));
+        assertSame(predicate,
+                LowerCasingCharPredicate.wrap(predicate),
+                "should not have rewrapped");
     }
 
     @Test
@@ -82,13 +80,7 @@ final public class LowerCasingCharPredicateTest
 
     @Override
     protected LowerCasingCharPredicate createCharPredicate() {
-        return Cast.to(LowerCasingCharPredicate.wrap(new CharPredicate() {
-
-            @Override
-            public boolean test(final char c) {
-                return 'x' == c;
-            }
-        }));
+        return Cast.to(LowerCasingCharPredicate.wrap(CharPredicates.is('x')));
     }
 
     @Override

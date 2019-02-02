@@ -18,14 +18,15 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HslTest extends ClassTestCase<Hsl> implements HashCodeEqualsDefinedTesting<Hsl>, SerializationTesting<Hsl> {
 
@@ -37,86 +38,94 @@ public final class HslTest extends ClassTestCase<Hsl> implements HashCodeEqualsD
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullHueFails() {
-        Hsl.with(null, SATURATION, LIGHTNESS);
+        assertThrows(NullPointerException.class, () -> {
+            Hsl.with(null, SATURATION, LIGHTNESS);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSaturationFails() {
-        Hsl.with(HUE, null, LIGHTNESS);
+        assertThrows(NullPointerException.class, () -> {
+            Hsl.with(HUE, null, LIGHTNESS);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullLightnessFails() {
-        Hsl.with(HUE, SATURATION, null);
+        assertThrows(NullPointerException.class, () -> {
+            Hsl.with(HUE, SATURATION, null);
+        });
     }
 
     @Test
     public void testWith() {
         final Hsl hsl = Hsl.with(HUE, SATURATION, LIGHTNESS);
-        assertSame("hue", HUE, hsl.hue);
-        assertSame("saturation", SATURATION, hsl.saturation);
-        assertSame("lightness", LIGHTNESS, hsl.lightness);
+        assertSame(HUE, hsl.hue, "hue");
+        assertSame(SATURATION, hsl.saturation, "saturation");
+        assertSame(LIGHTNESS, hsl.lightness, "lightness");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetNullComponentFails() {
-        Hsl.with(HUE, SATURATION, LIGHTNESS).set(null);
+        assertThrows(NullPointerException.class, () -> {
+            Hsl.with(HUE, SATURATION, LIGHTNESS).set(null);
+        });
     }
 
     @Test
     public void testSetSameHue() {
         final Hsl hsl = Hsl.with(HUE, SATURATION, LIGHTNESS);
         assertSame(hsl, hsl.set(HUE));
-        assertSame("hue", HUE, hsl.hue);
-        assertSame("saturation", SATURATION, hsl.saturation);
-        assertSame("lightness", LIGHTNESS, hsl.lightness);
+        assertSame(HUE, hsl.hue, "hue");
+        assertSame(SATURATION, hsl.saturation, "saturation");
+        assertSame(LIGHTNESS, hsl.lightness, "lightness");
     }
 
     @Test
     public void testSetDifferentHue() {
         final HueHslComponent different = HueHslComponent.with(180);
         final Hsl hsl = Hsl.with(HUE, SATURATION, LIGHTNESS).set(different);
-        assertSame("hue", different, hsl.hue);
-        assertSame("saturation", SATURATION, hsl.saturation);
-        assertSame("lightness", LIGHTNESS, hsl.lightness);
+        assertSame(different, hsl.hue, "hue");
+        assertSame(SATURATION, hsl.saturation, "saturation");
+        assertSame(LIGHTNESS, hsl.lightness, "lightness");
     }
 
     @Test
     public void testSetSameSaturation() {
         final Hsl hsl = Hsl.with(HUE, SATURATION, LIGHTNESS);
         assertSame(hsl, hsl.set(SATURATION));
-        assertSame("hue", HUE, hsl.hue);
-        assertSame("saturation", SATURATION, hsl.saturation);
-        assertSame("lightness", LIGHTNESS, hsl.lightness);
+        assertSame(HUE, hsl.hue, "hue");
+        assertSame(SATURATION, hsl.saturation, "saturation");
+        assertSame(LIGHTNESS, hsl.lightness, "lightness");
     }
 
     @Test
     public void testSetDifferentSaturation() {
         final HslComponent different = SaturationHslComponent.with(0.5f);
         final Hsl hsl = Hsl.with(HUE, SATURATION, LIGHTNESS).set(different);
-        assertSame("hue", HUE, hsl.hue);
-        assertSame("saturation", different, hsl.saturation);
-        assertSame("lightness", LIGHTNESS, hsl.lightness);
+        assertSame(HUE, hsl.hue, "hue");
+        assertSame(different, hsl.saturation, "saturation");
+        assertSame(LIGHTNESS, hsl.lightness, "lightness");
     }
 
     @Test
     public void testSetSameLightness() {
         final Hsl hsl = Hsl.with(HUE, SATURATION, LIGHTNESS);
         assertSame(hsl, hsl.set(LIGHTNESS));
-        assertSame("hue", HUE, hsl.hue);
-        assertSame("saturation", SATURATION, hsl.saturation);
-        assertSame("lightness", LIGHTNESS, hsl.lightness);
+        assertSame(HUE, hsl.hue, "hue");
+        assertSame(SATURATION, hsl.saturation, "saturation");
+        assertSame(LIGHTNESS, hsl.lightness, "lightness");
     }
 
     @Test
     public void testSetDifferentLightness() {
         final HslComponent different = LightnessHslComponent.with(0.5f);
         final Hsl hsl = Hsl.with(HUE, SATURATION, LIGHTNESS).set(different);
-        assertSame("hue", HUE, hsl.hue);
-        assertSame("saturation", SATURATION, hsl.saturation);
-        assertSame("lightness", different, hsl.lightness);
+        assertSame(HUE, hsl.hue, "hue");
+        assertSame(SATURATION, hsl.saturation, "saturation");
+        assertSame(different, hsl.lightness, "lightness");
     }
 
     // toHsl http://web.forret.com/tools/color.asp
@@ -205,7 +214,7 @@ public final class HslTest extends ClassTestCase<Hsl> implements HashCodeEqualsD
         if ((false == this.isEquals(expected.red, actual.red)) || //
                 (false == this.isEquals(expected.green, actual.green)) || //
                 (false == this.isEquals(expected.blue, actual.blue))) {
-            assertEquals("failed to convert " + hsl + " to a Color", expected, actual);
+            assertEquals(expected, actual, "failed to convert " + hsl + " to a Color");
         }
     }
 

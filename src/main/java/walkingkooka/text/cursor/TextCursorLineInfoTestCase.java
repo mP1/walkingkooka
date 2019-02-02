@@ -17,7 +17,7 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 

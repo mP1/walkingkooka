@@ -18,15 +18,15 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetFormatFractionParserTokenTest extends SpreadsheetFormatParentParserTokenTestCase<SpreadsheetFormatFractionParserToken> {
 
@@ -96,13 +96,13 @@ public final class SpreadsheetFormatFractionParserTokenTest extends SpreadsheetF
             }
         }.accept(token);
         assertEquals("713715287162871528428", b.toString());
-        assertEquals("visited",
-                Lists.of(token, token, token,
-                        digit1, digit1, digit1, digit1, digit1,
-                        symbol, symbol, symbol, symbol, symbol,
-                        digit2, digit2, digit2, digit2, digit2,
-                        token, token, token),
-                visited);
+        assertEquals(Lists.of(token, token, token,
+                digit1, digit1, digit1, digit1, digit1,
+                symbol, symbol, symbol, symbol, symbol,
+                digit2, digit2, digit2, digit2, digit2,
+                token, token, token),
+                visited,
+                "visited");
     }
 
     @Override

@@ -17,23 +17,28 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> implements SerializationTesting<Whitespace> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullFails() {
-        Whitespace.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            Whitespace.with(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludesNonWhitespaceCharacterFails() {
-        Whitespace.with(" !");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Whitespace.with(" !");
+        });
     }
 
     @Test
@@ -45,7 +50,7 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> imple
     public void testWith() {
         final String content = "   ";
         final Whitespace whitespace = Whitespace.with(content);
-        assertSame("toString", content, whitespace.toString());
+        assertSame(content, whitespace.toString(),"toString");
     }
     @Test
     public void testCharAt() {
@@ -92,9 +97,9 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> imple
     }
 
     private void hasAndCheck(final String text, final boolean has) {
-        assertEquals(CharSequences.quoteAndEscape(text) + " has whitespace",
-                has,
-                Whitespace.has(text));
+        assertEquals(has,
+                Whitespace.has(text),
+                CharSequences.quoteAndEscape(text) + " has whitespace");
     }
 
     @Test
@@ -126,8 +131,6 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> imple
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
-
-
 
     @Override
     public Whitespace serializableInstance() {

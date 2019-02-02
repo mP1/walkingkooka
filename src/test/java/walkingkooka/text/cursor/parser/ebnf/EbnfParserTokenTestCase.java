@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
@@ -25,7 +25,8 @@ import walkingkooka.type.MethodAttributes;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends ParserTokenTestCase<T> {
 
@@ -34,17 +35,19 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
         this.publicStaticFactoryCheck(EbnfParserToken.class, "Ebnf", ParserToken.class);
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
     public final void testEmptyTextFails() {
-        this.createToken("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken("");
+        });
     }
 
     @Test
     public void testIsMethods() throws Exception {
         final T token = this.createToken();
         final String name = token.getClass().getSimpleName();
-        assertEquals(name + " starts with Ebnf", true, name.startsWith("Ebnf"));
-        assertEquals(name + " ends with ParserToken", true, name.endsWith("ParserToken"));
+        assertEquals(true, name.startsWith("Ebnf"), name + " starts with Ebnf");
+        assertEquals(true, name.endsWith("ParserToken"), name + " ends with ParserToken");
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(4, name.length() - "ParserToken".length()));
 
@@ -60,9 +63,9 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
             if(!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(token));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(token),
+                    method + " returned");
         }
     }
 

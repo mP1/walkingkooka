@@ -16,16 +16,17 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParserTokenTestCase<T> {
 
@@ -37,14 +38,18 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
     final static String WHITESPACE = "   ";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullTokensFails() {
-        this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithEmptyTokensFails() {
-        this.createToken(this.text(), Lists.empty());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), Lists.empty());
+        });
     }
 
     @Test
@@ -54,7 +59,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
         this.checkValue(token, tokens);
-        assertEquals("tokens not copied", tokens, token.value());
+        assertEquals(tokens, token.value(), "tokens");
     }
 
     @Test
@@ -80,18 +85,20 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
         final String differentText = "different";
         final T different = token.setText(differentText).cast();
-        assertEquals("text", differentText, different.text());
+        assertEquals(differentText, different.text(), "text");
         this.checkValue(Cast.<T>to(different.withoutCommentsSymbolsOrWhitespace().get()), valueWithout);
 
-        assertEquals("original name", originalText, token.text());
+        assertEquals(originalText, token.text(), "original name");
         this.checkValue(different.withoutCommentsSymbolsOrWhitespace().get().cast(), valueWithout);
 
-        assertNotEquals("original token should have some comments/symbols/whitespace", token.value().size(), valueWithout.size());
+        assertNotEquals(token.value().size(), valueWithout.size(), "original token should have some comments/symbols/whitespace");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetValueNullFails() {
-        this.createToken().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken().setValue(null);
+        });
     }
 
     @Test
@@ -186,6 +193,6 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
     }
 
     final void checkValue(final EbnfParentParserToken parent, final List<ParserToken> values) {
-        assertEquals("value", values, parent.value());
+        assertEquals(values, parent.value(), "value");
     }
 }

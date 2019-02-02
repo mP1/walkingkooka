@@ -17,32 +17,38 @@
 
 package walkingkooka.text;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
 import java.io.StringReader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<ReaderConsumingCharSequence> {
 
     private final static int BUFFER_SIZE = 5;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullReaderFails() {
-        ReaderConsumingCharSequence.with(null, BUFFER_SIZE);
+        assertThrows(NullPointerException.class, () -> {
+            ReaderConsumingCharSequence.with(null, BUFFER_SIZE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidBufferSizeFails() {
-        ReaderConsumingCharSequence.with(new StringReader("a"), -1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ReaderConsumingCharSequence.with(new StringReader("a"), -1);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidBufferSizeFails2() {
-        ReaderConsumingCharSequence.with(new StringReader(""), 0);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ReaderConsumingCharSequence.with(new StringReader(""), 0);
+        });
     }
 
     @Test
@@ -50,7 +56,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.checkCharAt(chars, text);
-        assertEquals("eof", true, chars.eof);
+        assertEquals(true, chars.eof, "eof");
 
         this.checkCharAt(chars, 1, 'b');
     }
@@ -60,7 +66,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.checkSubSequence(chars, 0, 5, text.substring(0, 5));
-        assertEquals("eof", false, chars.eof);
+        assertEquals(false, chars.eof, "eof");
     }
 
     @Test
@@ -68,7 +74,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.checkSubSequence(chars, 4, 7, text.substring(4, 7));
-        assertSame("eof", false, chars.eof);
+        assertSame(false, chars.eof, "eof");
     }
 
     @Test
@@ -77,17 +83,15 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.checkCharAt(chars, 13, text.charAt(13));
         this.checkSubSequence(chars, 0, 5, text.substring(0, 5));
-        assertSame("eof", false, chars.eof);
+        assertSame(false, chars.eof, "eof");
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testSubSequenceWithSameFromAndToReturnsThis() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testEmptySubSequence2() {
         //nop
     }
@@ -106,13 +110,17 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
                 read.append(chars.charAt(read.length()));
             }
 
-            assertEquals("text", text, read.toString());
+            assertEquals(text, read.toString(), "text");
         }
     }
 
+    /**
+     * Both {@link ReaderConsumingCharSequence} have the same fill content. Equals does not consume any of their
+     * respective {@link StringReader readers}.
+     */
     @Test
     public void testDifferentText() {
-        this.checkNotEquals(ReaderConsumingCharSequence.with(new StringReader("different"), 100));
+        this.checkEquals(ReaderConsumingCharSequence.with(new StringReader("different"), 100));
     }
 
     @Test
@@ -138,8 +146,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         assertEquals("abcde", chars.toString());
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testToStringCached() {
         throw new UnsupportedOperationException();
     }

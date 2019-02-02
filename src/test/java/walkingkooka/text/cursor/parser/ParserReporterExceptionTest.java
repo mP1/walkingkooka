@@ -18,47 +18,54 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.cursor.TextCursorLineInfos;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParserReporterExceptionTest extends ClassTestCase<ParserReporterException> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullMessageFails() {
-        new ParserReporterException(null, TextCursorLineInfos.fake());
+        assertThrows(NullPointerException.class, () -> {
+            new ParserReporterException(null, TextCursorLineInfos.fake());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyMessageFails() {
-        new ParserReporterException("", TextCursorLineInfos.fake());
+        assertThrows(IllegalArgumentException.class, () -> {
+            new ParserReporterException("", TextCursorLineInfos.fake());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithBlankMessageFails() {
-        new ParserReporterException("   ", TextCursorLineInfos.fake());
+        assertThrows(IllegalArgumentException.class, () -> {
+            new ParserReporterException("   ", TextCursorLineInfos.fake());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullLineInfoFails() {
-        new ParserReporterException("message!", null);
+        assertThrows(NullPointerException.class, () -> {
+            new ParserReporterException("message!", null);
+        });
     }
 
     @Test
     public void testWith() {
         final TextCursorLineInfo info = TextCursors.charSequence("").lineInfo();
         final ParserReporterException exception = new ParserReporterException("message", info);
-        assertEquals("lineInfo", info, exception.lineInfo());
+        assertEquals(info, exception.lineInfo(), "lineInfo");
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testAllConstructorsVisibility() {
         throw new UnsupportedOperationException();
     }

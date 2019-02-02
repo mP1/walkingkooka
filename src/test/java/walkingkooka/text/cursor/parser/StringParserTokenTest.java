@@ -16,17 +16,20 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.visit.Visiting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class StringParserTokenTest extends ParserTokenTestCase<StringParserToken> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullContentFails() {
-        StringParserToken.with(null, "\"abc\"");
+        assertThrows(NullPointerException.class, () -> {
+            StringParserToken.with(null, "\"abc\"");
+        });
     }
 
     @Test

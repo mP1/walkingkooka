@@ -16,16 +16,17 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCase<EbnfRangeParserToken> {
 
@@ -33,20 +34,26 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
 
     private final static String WHITESPACE = "   ";
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMissingBeginTokenFails() {
         final EbnfParserToken identifier1 = this.identifier1();
-        this.createToken(this.text(), EbnfParserToken.optional(Lists.of(identifier1), "{" + identifier1 + "}"), between(), terminal2());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), EbnfParserToken.optional(Lists.of(identifier1), "{" + identifier1 + "}"), between(), terminal2());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMissingRangeBetweenFails() {
-        this.createToken(this.text(), identifier1(), terminal2(), terminal2());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), identifier1(), terminal2(), terminal2());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMissingEndTokenFails2() {
-        this.createToken(this.text(), terminal1(), between(), comment1());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), terminal1(), between(), comment1());
+        });
     }
 
     @Test
@@ -56,8 +63,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfRangeParserToken token = this.createToken(
                 TERMINAL_TEXT1 + BETWEEN + TERMINAL_TEXT2,
                 terminal1, between(), terminal2);
-        assertSame("begin", terminal1, token.begin());
-        assertSame("end", terminal2, token.end());
+
+        this.check(token, terminal1, terminal2);
     }
 
     @Test
@@ -67,8 +74,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfRangeParserToken token = this.createToken(
                 TERMINAL_TEXT1 + BETWEEN + TERMINAL_TEXT2,
                 identifier1, between(), identifier2);
-        assertSame("begin", identifier1, token.begin());
-        assertSame("end", identifier2, token.end());
+
+        this.check(token, identifier1, identifier2);
     }
 
     @Test
@@ -78,8 +85,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfRangeParserToken token = this.createToken(
                 TERMINAL_TEXT1 + WHITESPACE + BETWEEN + TERMINAL_TEXT2,
                 terminal1, whitespace("   "), between(), terminal2);
-        assertSame("begin", terminal1, token.begin());
-        assertSame("end", terminal2, token.end());
+
+        this.check(token, terminal1, terminal2);
     }
 
     @Test
@@ -89,8 +96,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfRangeParserToken token = this.createToken(
                 TERMINAL_TEXT1 + COMMENT1 + BETWEEN + TERMINAL_TEXT2,
                 terminal1, comment1(), between(), terminal2);
-        assertSame("begin", terminal1, token.begin());
-        assertSame("end", terminal2, token.end());
+
+        this.check(token, terminal1, terminal2);
     }
 
     @Test
@@ -100,8 +107,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfRangeParserToken token = this.createToken(
                 TERMINAL_TEXT1 + BETWEEN + WHITESPACE + TERMINAL_TEXT2,
                 terminal1, between(), whitespace(), terminal2);
-        assertSame("begin", terminal1, token.begin());
-        assertSame("end", terminal2, token.end());
+
+        this.check(token, terminal1, terminal2);
     }
 
     @Test
@@ -111,8 +118,14 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfRangeParserToken token = this.createToken(
                 TERMINAL_TEXT1 + BETWEEN + COMMENT1 +TERMINAL_TEXT2,
                 terminal1, between(), comment1(), terminal2);
-        assertSame("begin", terminal1, token.begin());
-        assertSame("end", terminal2, token.end());
+
+        this.check(token, terminal1, terminal2);
+    }
+
+    private void check(final EbnfRangeParserToken token,
+                       final EbnfParserToken begin,final EbnfParserToken end) {
+        assertSame(begin, token.begin(), "begin");
+        assertSame(end, token.end());
     }
 
     @Test
@@ -186,19 +199,19 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
             }
         }.accept(range);
         assertEquals("135138421374213842642", b.toString());
-        assertEquals("visited",
-                Lists.<Object>of(range, range, range,
+        assertEquals(Lists.<Object>of(range, range, range,
                         terminal1, terminal1, terminal1, terminal1, terminal1,
                         between, between, between, between, between,
                         terminal2, terminal2, terminal2, terminal2, terminal2,
                         range, range, range),
-                visited);
+                visited,
+                "visited");
     }
 
     @Test
     public final void testToSearchNode() {
         final EbnfRangeParserToken token = this.createToken();
-        assertEquals("text", token.text(), token.toSearchNode().text());
+        assertEquals(token.text(), token.toSearchNode().text(), "text");
     }
 
     @Override

@@ -18,34 +18,43 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelectorBinaryParserToken<T>> extends NodeSelectorParentParserTokenTestCase<T> {
 
-    @Test(expected = IllegalArgumentException.class)
+    NodeSelectorBinaryParserTokenTestCase(){
+        super();
+    }
+
+    @Test
     public final void testWithLeftMissingFails() {
         final NodeSelectorParserToken whitespace = this.whitespace();
         final NodeSelectorParserToken symbol = this.operatorSymbol();
         final NodeSelectorParserToken right = this.rightToken();
 
-        this.createToken(whitespace.text() + symbol.text() + right.text(), whitespace, symbol, right);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(whitespace.text() + symbol.text() + right.text(), whitespace, symbol, right);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithRightMissingFails() {
         final NodeSelectorParserToken left = this.leftToken();
         final NodeSelectorParserToken symbol = this.operatorSymbol();
         final NodeSelectorParserToken whitespace = this.whitespace();
 
-        this.createToken(left.text() + symbol.text() + whitespace.text(), left, symbol, whitespace);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(left.text() + symbol.text() + whitespace.text(), left, symbol, whitespace);
+        });
     }
 
     @Test
@@ -91,14 +100,18 @@ public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelect
         this.checkValue(without, left, right);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValueWrongCountFails() {
-        this.createToken().setValue(Lists.of(this.leftToken()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(this.leftToken()));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValueWrongCountFails2() {
-        this.createToken().setValue(Lists.of(this.leftToken(), this.rightToken(), this.rightToken()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(this.leftToken(), this.rightToken(), this.rightToken()));
+        });
     }
 
     final NodeSelectorParserToken leftToken() {

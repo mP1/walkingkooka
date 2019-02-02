@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
@@ -33,53 +33,65 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionEvaluationContextTest extends  ExpressionEvaluationContextTestCase<BasicExpressionEvaluationContext> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFunctionsFails() {
-        BasicExpressionEvaluationContext.with(null,
-                this.references(),
-                this.mathContext(),
-                this.converter(),
-                this.decimalNumberContext());
+        assertThrows(NullPointerException.class, () -> {
+            BasicExpressionEvaluationContext.with(null,
+                    this.references(),
+                    this.mathContext(),
+                    this.converter(),
+                    this.decimalNumberContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullReferencesFails() {
-        BasicExpressionEvaluationContext.with(this.functions(),
-                null,
-                this.mathContext(),
-                this.converter(),
-                this.decimalNumberContext());
+        assertThrows(NullPointerException.class, () -> {
+            BasicExpressionEvaluationContext.with(this.functions(),
+                    null,
+                    this.mathContext(),
+                    this.converter(),
+                    this.decimalNumberContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullMathContextFails() {
-        BasicExpressionEvaluationContext.with(this.functions(),
-                this.references(),
-                null,
-                this.converter(),
-                this.decimalNumberContext());
+        assertThrows(NullPointerException.class, () -> {
+            BasicExpressionEvaluationContext.with(this.functions(),
+                    this.references(),
+                    null,
+                    this.converter(),
+                    this.decimalNumberContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullConverterFails() {
-        BasicExpressionEvaluationContext.with(this.functions(),
-                this.references(),
-                this.mathContext(),
-                null,
-                this.decimalNumberContext());
+        assertThrows(NullPointerException.class, () -> {
+            BasicExpressionEvaluationContext.with(this.functions(),
+                    this.references(),
+                    this.mathContext(),
+                    null,
+                    this.decimalNumberContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullDecimalNumberContextFails() {
-        BasicExpressionEvaluationContext.with(this.functions(),
-                this.references(),
-                this.mathContext(),
-                this.converter(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            BasicExpressionEvaluationContext.with(this.functions(),
+                    this.references(),
+                    this.mathContext(),
+                    this.converter(),
+                    null);
+
+        });
     }
 
 
@@ -117,8 +129,8 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
             Objects.requireNonNull(functionName, "functionName");
             Objects.requireNonNull(parameters, "parameters");
 
-            assertEquals("functionName", this.functionName(), functionName);
-            assertEquals("parameters", this.parameters(), parameters);
+            assertEquals(this.functionName(), functionName, "functionName");
+            assertEquals(this.parameters(), parameters, "parameters");
             return this.functionValue();
         };
     }
@@ -138,7 +150,7 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
     private Function<ExpressionReference, Optional<ExpressionNode>> references() {
         return (r -> {
             Objects.requireNonNull(r, "references");
-            assertEquals("reference", this.expressionReference(), r);
+            assertEquals(this.expressionReference(), r, "reference");
             return Optional.of(this.expressionNode());
         });
     }

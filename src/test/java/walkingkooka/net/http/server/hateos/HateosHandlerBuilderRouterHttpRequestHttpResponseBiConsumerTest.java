@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;

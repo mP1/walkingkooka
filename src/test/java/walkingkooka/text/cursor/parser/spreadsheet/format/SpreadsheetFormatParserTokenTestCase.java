@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
@@ -26,7 +26,8 @@ import walkingkooka.type.MethodAttributes;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetFormatParserTokenTestCase<T extends SpreadsheetFormatParserToken> extends ParserTokenTestCase<T> {
 
@@ -35,9 +36,11 @@ public abstract class SpreadsheetFormatParserTokenTestCase<T extends Spreadsheet
         this.publicStaticFactoryCheck(SpreadsheetFormatParserToken.class, "SpreadsheetFormat", ParserToken.class);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyTextFails() {
-        this.createToken("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken("");
+        });
     }
 
     @Test
@@ -47,9 +50,11 @@ public abstract class SpreadsheetFormatParserTokenTestCase<T extends Spreadsheet
         this.checkText(token, text);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTextEmptyFails() {
-        this.createToken().setText("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setText("");
+        });
     }
 
     @Test
@@ -59,8 +64,8 @@ public abstract class SpreadsheetFormatParserTokenTestCase<T extends Spreadsheet
 
         final T token = this.createToken();
         final String name = token.getClass().getSimpleName();
-        assertEquals(name + " starts with " + prefix, true, name.startsWith(prefix));
-        assertEquals(name + " ends with " + suffix, true, name.endsWith(suffix));
+        assertEquals(true, name.startsWith(prefix), name + " starts with " + prefix);
+        assertEquals(true, name.endsWith(suffix), name + " ends with " + suffix);
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
 
@@ -82,9 +87,9 @@ public abstract class SpreadsheetFormatParserTokenTestCase<T extends Spreadsheet
             if (!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(token));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(token),
+                    method + " returned");
         }
     }
 

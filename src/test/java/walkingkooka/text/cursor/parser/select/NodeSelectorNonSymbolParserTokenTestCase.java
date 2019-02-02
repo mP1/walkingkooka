@@ -17,11 +17,11 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class NodeSelectorNonSymbolParserTokenTestCase<T extends NodeSelectorLeafParserToken, V> extends NodeSelectorLeafParserTokenTestCase<T, V> {
 

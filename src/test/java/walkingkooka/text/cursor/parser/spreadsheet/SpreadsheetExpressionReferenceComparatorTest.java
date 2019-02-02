@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparatorTestCase;
@@ -26,7 +26,7 @@ import walkingkooka.compare.ComparatorTestCase;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class SpreadsheetExpressionReferenceComparatorTest extends ComparatorTestCase<SpreadsheetExpressionReferenceComparator, SpreadsheetExpressionReference> {
 

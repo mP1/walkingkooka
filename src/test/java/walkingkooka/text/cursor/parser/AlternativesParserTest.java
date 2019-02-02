@@ -16,16 +16,17 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<ParserContext>,
         ParserToken> {
@@ -35,14 +36,18 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     private final static Parser<ParserToken, ParserContext> PARSER1 = parser(TEXT1);
     private final static Parser<ParserToken, ParserContext> PARSER2 = parser(TEXT2);
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullParsersFails() {
-        AlternativesParser.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            AlternativesParser.with(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithZeroParsersFails() {
-        AlternativesParser.with(Lists.empty());
+        assertThrows(IllegalArgumentException.class, () -> {
+            AlternativesParser.with(Lists.empty());
+        });
     }
 
     @Test
@@ -63,8 +68,8 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
         final List<Parser<ParserToken, ParserContext>> parsers = Lists.of(PARSER1.setToString("1"), PARSER2.setToString("2"));
         final CustomToStringParser<ParserToken, ParserContext> custom = AlternativesParser.with(parsers).cast();
         final AlternativesParser<ParserContext> alt = custom.parser.cast();
-        assertEquals("parsers", Lists.of(PARSER1, PARSER2), alt.parsers);
-        assertEquals("custom toString", "(1 | 2)", custom.toString());
+        assertEquals(Lists.of(PARSER1, PARSER2), alt.parsers, "parsers");
+        assertEquals("(1 | 2)", custom.toString(), "custom toString");
     }
 
     @Test

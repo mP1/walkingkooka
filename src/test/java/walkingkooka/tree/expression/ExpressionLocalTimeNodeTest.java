@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.visit.Visiting;
@@ -26,8 +26,9 @@ import walkingkooka.tree.visit.Visiting;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCase<ExpressionLocalTimeNode, LocalTime>{
 
@@ -92,9 +93,11 @@ public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCas
         this.evaluateAndCheckDouble(this.createExpressionNode(), VALUE);
     }
 
-    @Test(expected = ExpressionEvaluationException.class)
+    @Test
     public void testToLocalDate() {
-        this.createExpressionNode().toLocalDate(this.context());
+        assertThrows(ExpressionEvaluationException.class, () -> {
+            this.createExpressionNode().toLocalDate(this.context());
+        });
     }
 
     @Test

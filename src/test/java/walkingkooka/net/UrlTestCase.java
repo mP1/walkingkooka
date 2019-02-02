@@ -18,14 +18,15 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
@@ -49,19 +50,25 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implem
         this.checkNaming(Url.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullPathFails() {
-        this.createUrl(null, QUERY, FRAGMENT);
+        assertThrows(NullPointerException.class, () -> {
+            this.createUrl(null, QUERY, FRAGMENT);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullQueryFails() {
-        this.createUrl(PATH, null, FRAGMENT);
+        assertThrows(NullPointerException.class, () -> {
+            this.createUrl(PATH, null, FRAGMENT);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullFragmentFails() {
-        this.createUrl(PATH, QUERY, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createUrl(PATH, QUERY, null);
+        });
     }
 
     public void testWith() {
@@ -75,32 +82,34 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implem
     public void testOnlySlash() {
         final UrlPath path = UrlPath.parse("" + Url.PATH_START);
         final U url = this.createUrl(path, QUERY, FRAGMENT);
-        assertSame("path", path, url.path());
+        assertSame(path, url.path(), "path");
     }
 
     @Test
     public void testWithoutQuery() {
         final U url = this.createUrl(PATH, UrlQueryString.EMPTY, FRAGMENT);
-        assertSame("path", PATH, url.path());
-        assertSame("query", UrlQueryString.EMPTY, url.query());
+        assertSame(PATH, url.path(), "path");
+        assertSame(UrlQueryString.EMPTY, url.query(), "query");
         this.checkFragment(url, FRAGMENT);
     }
 
     @Test
     public void testWithoutFragment() {
         final U url = this.createUrl(PATH, QUERY, UrlFragment.EMPTY);
-        assertSame("path", PATH, url.path());
+        assertSame(PATH, url.path(), "path");
         this.checkQueryString(url, QUERY);
-        assertSame("fragment", UrlFragment.EMPTY, url.fragment());
+        assertSame(UrlFragment.EMPTY, url.fragment(), "fragment");
     }
 
     // would be setters
     
     // setPath .......................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetPathNullFails() {
-        this.createUrl().setPath(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createUrl().setPath(null);
+        });
     }
 
     @Test
@@ -121,9 +130,11 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implem
 
     // setQuery .......................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetQueryNullFails() {
-        this.createUrl().setQuery(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createUrl().setQuery(null);
+        });
     }
 
     @Test
@@ -144,9 +155,11 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implem
 
     // setFragment .......................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetFragmentNullFails() {
-        this.createUrl().setFragment(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createUrl().setFragment(null);
+        });
     }
 
     @Test
@@ -212,19 +225,19 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implem
     abstract U createUrl(UrlPath path, UrlQueryString query, UrlFragment fragment);
 
     static void checkToString(final Url url, final String expected) {
-        assertEquals("Url.value", expected, url.toString());
+        assertEquals(expected, url.toString(), "Url.value");
     }
     
     final void checkPath(final Url url, final UrlPath path) {
-        assertEquals("path", path, url.path());
+        assertEquals(path, url.path(), "path");
     }
 
     final void checkQueryString(final Url url, final UrlQueryString queryString) {
-        assertEquals("queryString", queryString, url.query());
+        assertEquals(queryString, url.query(), "queryString");
     }
 
     final void checkFragment(final Url url, final UrlFragment fragment) {
-        assertEquals("fragment", fragment, url.fragment());
+        assertEquals(fragment, url.fragment(),"fragment");
     }
 
     @Override

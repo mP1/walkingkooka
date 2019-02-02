@@ -18,13 +18,13 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HateosHandlerBuilderRouterKeyTest extends ClassTestCase<HateosHandlerBuilderRouterKey> implements ComparableTesting<HateosHandlerBuilderRouterKey> {
 

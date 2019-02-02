@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -37,9 +37,10 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase<HttpServletRequestHttpRequest> {
 
@@ -65,9 +66,11 @@ public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase
 
     private final static byte[] BYTES = new byte[]{ 1, 2, 3};
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullHttpServletRequestFails() {
-        HttpServletRequestHttpRequest.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpServletRequestHttpRequest.with(null);
+        });
     }
 
     @Test

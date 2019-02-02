@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
@@ -27,8 +27,8 @@ import walkingkooka.tree.visit.Visiting;
 import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryParserTokenTestCase<SpreadsheetNegativeParserToken> {
 
@@ -96,12 +96,12 @@ public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryPa
             }
         }.accept(unary);
         assertEquals("7137162871528428", b.toString());
-        assertEquals("visited",
-                Lists.of(unary, unary, unary,
-                        symbol, symbol, symbol, symbol, symbol,
-                        parameter, parameter, parameter, parameter, parameter,
-                        unary, unary, unary),
-                visited);
+        assertEquals(Lists.of(unary, unary, unary,
+                symbol, symbol, symbol, symbol, symbol,
+                parameter, parameter, parameter, parameter, parameter,
+                unary, unary, unary),
+                visited,
+                "visited");
     }
 
     @Test

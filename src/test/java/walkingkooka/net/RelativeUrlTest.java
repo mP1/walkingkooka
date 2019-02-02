@@ -18,25 +18,30 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements SerializationTesting<RelativeUrl> {
 
     // parseRelative..........................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testParseNullFails() {
-        RelativeUrl.parse(null);
+    @Test
+    public void testParseNullFails() { ;
+        assertThrows(NullPointerException.class, () -> {
+            RelativeUrl.parse(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseAbsoluteUrlFails() {
-        RelativeUrl.parse("http://example.com");
+        assertThrows(IllegalArgumentException.class, () -> {
+            RelativeUrl.parse("http://example.com");
+        });
     }
 
     @Test

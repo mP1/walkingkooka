@@ -18,19 +18,23 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPredicates> {
 
     // failIfNullOrFalse .............................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrFalseNullCharSequenceFails() {
-        CharPredicates.failIfNullOrFalse(null, "TEXT", predicate());
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrFalse(null, "TEXT", predicate());
+        });
     }
 
     @Test
@@ -38,24 +42,32 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
         CharPredicates.failIfNullOrFalse("", "TEXT", predicate());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrFalseNullLabelFails() {
-        CharPredicates.failIfNullOrFalse("ABC", null, predicate());
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrFalse("ABC", null, predicate());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFailIfNullOrFalseEmptyLabelFails() {
-        CharPredicates.failIfNullOrFalse("ABC", "", predicate());
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharPredicates.failIfNullOrFalse("ABC", "", predicate());
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testFailIfNullOrFalseTestFails() {
-        this.failIfNullOrFalse("98");
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.failIfNullOrFalse("98");
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testFailIfNullOrFalseTestFails2() {
-        this.failIfNullOrFalse("A1");
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.failIfNullOrFalse("A1");
+        });
     }
 
     @Test
@@ -84,39 +96,53 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
 
     // failIfNullOrEmptyOrFalse ............................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrEmptyOrFalseNullCharSequenceFails() {
-        CharPredicates.failIfNullOrEmptyOrFalse(null, "TEXT", predicate());
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrFalse(null, "TEXT", predicate());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFailIfNullOrEmptyOrFalseEmptyCharSequenceFails() {
-        CharPredicates.failIfNullOrEmptyOrFalse("", "TEXT", predicate());
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrFalse("", "TEXT", predicate());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrEmptyOrFalseNullLabelFails() {
-        CharPredicates.failIfNullOrEmptyOrFalse("ABC", null, predicate());
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrFalse("ABC", null, predicate());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFailIfNullOrEmptyOrFalseEmptyLabelFails() {
-        CharPredicates.failIfNullOrEmptyOrFalse("ABC", "", predicate());
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrFalse("ABC", "", predicate());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrEmptyOrFalseNullPredicateFails() {
-        CharPredicates.failIfNullOrEmptyOrFalse("ABC", "TEXT", null);
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrFalse("ABC", "TEXT", null);
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testFailIfNullOrEmptyOrFalseTestFails() {
-        this.failIfNullOrEmptyOrFalse("98");
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.failIfNullOrEmptyOrFalse("98");
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testFailIfNullOrEmptyOrFalseTestFails2() {
-        this.failIfNullOrEmptyOrFalse("A1");
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.failIfNullOrEmptyOrFalse("A1");
+        });
     }
 
     @Test
@@ -142,50 +168,65 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
         return CharPredicates.letter();
     }
 
-    // 
 
     // fail ..............................................................
 
     private final static CharPredicate PREDICATE = CharPredicates.fake();
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalseNullCharSequenceFails() {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(null, "TEXT", PREDICATE, PREDICATE);
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(null, "TEXT", PREDICATE, PREDICATE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalseEmptyCharSequenceFails() {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("", "TEXT", PREDICATE, PREDICATE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("", "TEXT", PREDICATE, PREDICATE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalseNullLabelFails() {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", null, PREDICATE, PREDICATE);
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", null, PREDICATE, PREDICATE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalseEmptyLabelFails() {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "", PREDICATE, PREDICATE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "", PREDICATE, PREDICATE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalseNullInitialFails() {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", null, PREDICATE);
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", null, PREDICATE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalseNullPartFails() {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", PREDICATE, null);
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", PREDICATE, null);
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalseInitialTestFails() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("98");
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("98");
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testFailIfNullOrEmptyOrInitialAndPartFalsePartTestFails() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("AB");
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("AB");
+        });
     }
 
     @Test

@@ -20,7 +20,7 @@ package walkingkooka.tree.pojo;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class PojoPropertyTestCase<P extends PojoProperty> extends ClassTestCase<P> {
 
@@ -29,7 +29,7 @@ public abstract class PojoPropertyTestCase<P extends PojoProperty> extends Class
     }
 
     final protected void getAndCheck(final P property, final Object instance, final Object value){
-        assertEquals("wrong value returned when calling " + property + " get", value, property.get(instance));
+        assertEquals(value, property.get(instance), ()-> "wrong value returned when calling " + property + " get");
     }
 
     final protected Object setAndCheck(final Object instance, final Object value){

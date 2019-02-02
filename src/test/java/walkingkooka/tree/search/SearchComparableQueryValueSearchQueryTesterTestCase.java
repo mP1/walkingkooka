@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public abstract class SearchComparableQueryValueSearchQueryTesterTestCase<T extends SearchComparableQueryValueSearchQueryTester<V>,
         V extends Comparable<V>>

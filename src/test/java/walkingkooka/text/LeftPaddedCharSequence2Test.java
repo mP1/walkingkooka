@@ -17,12 +17,12 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 final public class LeftPaddedCharSequence2Test extends CharSequenceTestCase<LeftPaddedCharSequence2>
         implements SerializationTesting<LeftPaddedCharSequence2> {
@@ -65,21 +65,19 @@ final public class LeftPaddedCharSequence2Test extends CharSequenceTestCase<Left
     public void testSubSequencePaddingOnly() {
         final LeftPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 1);
-        assertNotEquals("class", LeftPaddedCharSequence2.class, sub.getClass());
+        assertNotEquals(LeftPaddedCharSequence2.class, sub.getClass(), "class");
         this.checkEquals2(sub, PADDING);
-        assertEquals("sub.toString", ".", sub.toString());
     }
 
     @Test
     public void testSubSequencePaddingOnly2() {
         final LeftPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 3);
-        assertNotEquals("class", LeftPaddedCharSequence2.class, sub.getClass());
+        assertNotEquals(LeftPaddedCharSequence2.class, sub.getClass(), "class");
         this.checkEquals2(sub,
                 PADDING,
                 PADDING,
                 PADDING);
-        assertEquals("sub.toString", "...", sub.toString());
     }
 
     @Test
@@ -93,7 +91,6 @@ final public class LeftPaddedCharSequence2Test extends CharSequenceTestCase<Left
         final LeftPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(4, LENGTH);
         this.checkEquals2(sub, "bcde".toCharArray());
-        assertEquals("sub.toString", "bcde", sub.toString());
     }
 
     @Test
@@ -101,7 +98,6 @@ final public class LeftPaddedCharSequence2Test extends CharSequenceTestCase<Left
         final LeftPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, LENGTH);
         this.checkEquals2(sub, "..abcde".toCharArray());
-        assertEquals("sub.toString", "..abcde", sub.toString());
     }
 
     @Test
@@ -109,7 +105,6 @@ final public class LeftPaddedCharSequence2Test extends CharSequenceTestCase<Left
         final LeftPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 7);
         this.checkSubSequence(sequence, 1, 7, "..abcd");
-        assertEquals("sub.toString", "..abcd", sub.toString());
     }
 
     @Test
@@ -117,7 +112,6 @@ final public class LeftPaddedCharSequence2Test extends CharSequenceTestCase<Left
         final LeftPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 7).subSequence(1, 5);
         this.checkEquals2(sub, ".abc");
-        assertEquals("sub.toString", ".abc", sub.toString());
     }
 
     @Test

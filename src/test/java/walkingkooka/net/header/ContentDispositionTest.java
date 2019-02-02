@@ -18,14 +18,15 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentDispositionTest extends HeaderValueWithParametersTestCase<ContentDisposition,
         ContentDispositionParameterName<?>> {
@@ -35,9 +36,11 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     // with.........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullValueFails() {
-        ContentDisposition.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            ContentDisposition.with(null);
+        });
     }
 
     @Test
@@ -48,9 +51,11 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     // setType ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetTypeNullFails() {
-        this.createHeaderValueWithParameters().setType(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createHeaderValueWithParameters().setType(null);
+        });
     }
 
     @Test
@@ -149,7 +154,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     }
 
     private void toStringAndCheck(final ContentDisposition token, final String toString) {
-        assertEquals("toString", toString, token.toString());
+        assertEquals(toString, token.toString(), "toString");
     }
 
     // helpers ...........................................................................................
@@ -200,8 +205,8 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     private void check(final ContentDisposition token,
                        final ContentDispositionType type,
                        final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        assertEquals("type", type, token.type());
-        assertEquals("parameters", parameters, token.parameters());
+        assertEquals(type, token.type(), "type");
+        assertEquals(parameters, token.parameters(), "parameters");
     }
 
     @Override

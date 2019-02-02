@@ -18,13 +18,14 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionReferenceTestCase<SpreadsheetCellReference>
         implements ComparableTesting<SpreadsheetCellReference>,
@@ -33,14 +34,18 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     private final static int COLUMN = 123;
     private final static int ROW = 456;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullColumnFails() {
-        SpreadsheetCellReference.with(null, row());
+        assertThrows(NullPointerException.class, () -> {
+            SpreadsheetCellReference.with(null, row());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullRowFails() {
-        SpreadsheetCellReference.with(column(), null);
+        assertThrows(NullPointerException.class, () -> {
+            SpreadsheetCellReference.with(column(), null);
+        });
     }
 
     @Test
@@ -54,9 +59,11 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     
     // setColumn..................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetColumnNullFails() {
-        this.createReference().setColumn(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createReference().setColumn(null);
+        });
     }
 
     @Test
@@ -76,9 +83,11 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
 
     // setRow..................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetRowNullFails() {
-        this.createReference().setRow(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createReference().setRow(null);
+        });
     }
 
     @Test
@@ -194,7 +203,9 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     private void lowerAndCheck(final SpreadsheetCellReference reference,
                                 final SpreadsheetCellReference other,
                                 final SpreadsheetCellReference lower) {
-        assertEquals(reference + " lower " + other +" expected " + lower, lower, reference.lower(other));
+        assertEquals(lower,
+                reference.lower(other),
+                reference + " lower " + other +" expected " + lower);
     }
 
     // upper..........................................................................................
@@ -256,7 +267,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     private void upperAndCheck(final SpreadsheetCellReference reference,
                                final SpreadsheetCellReference other,
                                final SpreadsheetCellReference upper) {
-        assertEquals(reference + " upper " + other +" expected " + upper, upper, reference.upper(other));
+        assertEquals(upper, reference.upper(other), () -> reference + " upper " + other +" expected " + upper);
     }
 
     @Test
@@ -334,11 +345,11 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     }
 
     private void checkColumn(final SpreadsheetCellReference cell, final SpreadsheetColumnReference column) {
-        assertEquals("column", column, cell.column());
+        assertEquals(column, cell.column(),"column");
     }
 
     private void checkRow(final SpreadsheetCellReference cell, final SpreadsheetRowReference row) {
-        assertEquals("row", row, cell.row());
+        assertEquals(row, cell.row(),"row");
     }
 
     @Override

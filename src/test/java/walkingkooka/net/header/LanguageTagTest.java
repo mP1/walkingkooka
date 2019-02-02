@@ -18,23 +18,26 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class LanguageTagTest extends HeaderValueWithParametersTestCase<LanguageTag,
         LanguageTagParameterName<?>> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        LanguageTag.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            LanguageTag.with(null);
+        });
     }
 
     @Test
@@ -48,9 +51,11 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
         assertSame(LanguageTag.with(LanguageTagName.WILDCARD), LanguageTag.with(LanguageTagName.WILDCARD));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetValueNullFails() {
-        LanguageTag.WILDCARD.setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            LanguageTag.WILDCARD.setValue(null);
+        });
     }
 
     @Test
@@ -125,8 +130,8 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     final void check(final LanguageTag language,
                      final LanguageTagName value,
                      final Map<LanguageTagParameterName<?>, Object> parameters) {
-        assertEquals("value", value, language.value());
-        assertEquals("parameters", parameters, language.parameters());
+        assertEquals(value, language.value(), "value");
+        assertEquals(parameters, language.parameters(), "parameters");
     }
 
     // toHeaderTextList.......................................................................................
@@ -163,14 +168,18 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
         assertTrue(LanguageTag.WILDCARD.isMatch(this.en075WithParameters()));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testIsMatchNullFails() {
-        this.createHeaderValueWithParameters().isMatch(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createHeaderValueWithParameters().isMatch(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIsMatchWildcardWildcardFails() {
-        LanguageTag.WILDCARD.isMatch(LanguageTag.WILDCARD);
+        assertThrows(IllegalArgumentException.class, () -> {
+            LanguageTag.WILDCARD.isMatch(LanguageTag.WILDCARD);
+        });
     }
 
     @Test
@@ -204,9 +213,9 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     final void isMatchAndCheck(final LanguageTag tag,
                                final LanguageTag other,
                                final boolean expected) {
-        assertEquals(tag + " isMatch " + other,
-                expected,
-                tag.isMatch(other));
+        assertEquals(expected,
+                tag.isMatch(other),
+                () -> tag + " isMatch " + other);
     }
 
     private LanguageTag en075WithParameters() {

@@ -19,37 +19,46 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<CacheControlDirectiveName<?>,
         CacheControlDirectiveName<?>> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithControlCharacterFails() {
-        CacheControlDirectiveName.with("x\u0001;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CacheControlDirectiveName.with("x\u0001;");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithSpaceFails() {
-        CacheControlDirectiveName.with("x ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CacheControlDirectiveName.with("x ");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithTabFails() {
-        CacheControlDirectiveName.with("x\t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CacheControlDirectiveName.with("x\t");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNonAsciiFails() {
-        CacheControlDirectiveName.with("x\u0100;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CacheControlDirectiveName.with("x\u0100;");
+        });
     }
 
     @Test
@@ -81,7 +90,7 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
     }
 
     private void isExtensionAndCheck(final CacheControlDirectiveName<?> name, final boolean expected) {
-        assertEquals(name.toString(), expected, name.isExtension());
+        assertEquals(expected, name.isExtension(), name.toString());
     }
 
     // scope .............................................................................................
@@ -172,24 +181,28 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
     private void checkScope(final CacheControlDirectiveName directiveName, final HttpHeaderScope... scopes) {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
-        assertEquals(directiveName + " isRequest",
-                scopesSet.contains(HttpHeaderScope.REQUEST),
-                directiveName.isRequest());
-        assertEquals(directiveName + " isResponse",
-                scopesSet.contains(HttpHeaderScope.RESPONSE),
-                directiveName.isResponse());
+        assertEquals(scopesSet.contains(HttpHeaderScope.REQUEST),
+                directiveName.isRequest(),
+                directiveName + " isRequest");
+        assertEquals(scopesSet.contains(HttpHeaderScope.RESPONSE),
+                directiveName.isResponse(),
+                directiveName + " isResponse");
     }
 
     // setParameter .......................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetParameterNullFails() {
-        CacheControlDirectiveName.MAX_AGE.setParameter(null);
+        assertThrows(NullPointerException.class, () -> {
+            CacheControlDirectiveName.MAX_AGE.setParameter(null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetParameterInvalidFails() {
-        CacheControlDirectiveName.MAX_AGE.setParameter(Optional.empty());
+        assertThrows(HeaderValueException.class, () -> {
+            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.empty());
+        });
     }
 
     @Test
@@ -197,8 +210,8 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
         final CacheControlDirectiveName<Long> name = CacheControlDirectiveName.MAX_AGE;
         final Optional<Long> parameter = Optional.of(123L);
         final CacheControlDirective<Long> directive = name.setParameter(parameter);
-        assertEquals("value", name, directive.value());
-        assertEquals("parameter", parameter, directive.parameter());
+        assertEquals(name, directive.value(), "value");
+        assertEquals(parameter, directive.parameter(), "parameter");
     }
 
     // toString.................................................................................

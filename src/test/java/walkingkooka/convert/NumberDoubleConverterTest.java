@@ -18,8 +18,7 @@
 
 package walkingkooka.convert;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -64,18 +63,6 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
     @Test
     public void testInteger() {
         this.convertAndCheck(123, 123.0);
-    }
-
-    @Test
-    @Ignore
-    public void testLongMaxValueFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    @Ignore
-    public void testLongMinValueFails() {
-        throw new UnsupportedOperationException();
     }
 
     @Test
@@ -133,32 +120,27 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
         this.convert(Double.MIN_VALUE);
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testDoubleNanFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testDoublePositiveInfinityFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testDoubleNegativeInfinityFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testDoubleMaxFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testDoubleMinFails() {
         throw new UnsupportedOperationException();
     }

@@ -16,32 +16,34 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.cursor.TextCursors;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FixedParserTest extends ParserTestCase2<FixedParser<StringParserToken, ParserContext>, StringParserToken> {
 
     private final static StringParserToken RESULT = ParserTokens.string("abc", "");
 
-    @Test
-    @Ignore
+    @Override
     public void testNullCursorFail() {
         // nop
     }
 
+    @Override
     public void testEmptyCursorFail() {
         // nop
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullParserTokenFails() {
-        FixedParser.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            FixedParser.with(null);
+        });
     }
 
     @Test

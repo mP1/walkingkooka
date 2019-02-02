@@ -17,17 +17,16 @@
 
 package walkingkooka.collect.stack;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>, Object> {
 
@@ -39,11 +38,9 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
 
     @Test
     public void testWithNullStackFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ReadOnlyStack.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -55,7 +52,7 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     @Test
     public void testPeek() {
         final ReadOnlyStack<Object> stack = this.createStack();
-        assertSame(ReadOnlyStackTest.ITEM, stack.peek());
+        assertSame(ITEM, stack.peek());
     }
 
     @Test
@@ -67,33 +64,28 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     @Test
     public void testIsEmpty() {
         final ReadOnlyStack<Object> stack = this.createStack();
-        assertFalse("stack should NOT be empty it has of item", stack.isEmpty());
-        assertEquals("size when with of item", 1, stack.size());
+        assertFalse(stack.isEmpty(), "stack should NOT be empty it has of item");
+        assertEquals(1, stack.size(), "size when with of item");
 
         stack.pop();
-        assertTrue("stack should be empty after pop", stack.isEmpty());
-        assertEquals("size when empty", 0, stack.size());
+        this.checkSize(stack, 0);
+
     }
 
     @Test
     public void testPushFails() {
         final ReadOnlyStack<Object> readOnly = ReadOnlyStack.wrap(Stacks.fake());
-        try {
-            readOnly.push(ReadOnlyStackTest.ITEM);
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        assertThrows(UnsupportedOperationException.class, () -> {
+            readOnly.push(ITEM);
+        });
     }
 
     @Test
     public void testPushAllFails() {
         final ReadOnlyStack<Object> readOnly = ReadOnlyStack.wrap(Stacks.fake());
-
-        try {
-            readOnly.pushAll(Iterators.one(ReadOnlyStackTest.ITEM));
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        assertThrows(UnsupportedOperationException.class, () -> {
+            readOnly.pushAll(Iterators.one(ITEM));
+        });
     }
 
     @Test

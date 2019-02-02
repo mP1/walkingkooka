@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.file;
 
-import org.junit.Ignore;
-import org.junit.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
@@ -28,20 +26,17 @@ import walkingkooka.type.MemberVisibility;
 public final class FilesystemNodeAttributeNameTest extends ClassTestCase<FilesystemNodeAttributeName> 
         implements NameTesting<FilesystemNodeAttributeName, FilesystemNodeAttributeName> {
 
-    @Test
-    @Ignore
+    @Override
     public void testNullFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testEmptyFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testCompareDifferentCase() {
         throw new UnsupportedOperationException();
     }

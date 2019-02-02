@@ -18,25 +18,26 @@
 
 package walkingkooka.convert;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ConverterCollectionTest extends ConverterTestCase<ConverterCollection> {
 
-    @Test
-    @Ignore
+    @Override
     public void testCheckNaming() {
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithZeroConvertersFails() {
-        ConverterCollection.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            ConverterCollection.with(null);
+        });
     }
 
     @Test

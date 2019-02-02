@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTestCase;
 import walkingkooka.net.RelativeUrl;
@@ -37,8 +37,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RouterHttpRequestParametersMapEntrySetTest extends
         SetTestCase<RouterHttpRequestParametersMapEntrySet,
@@ -148,15 +148,15 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
     private void checkEntry(final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator,
                             final HttpRequestAttribute<?> key,
                             final Object value) {
-        assertTrue("has next", iterator.hasNext());
+        assertTrue(iterator.hasNext(), "has next");
         this.checkEntry0(iterator.next(), key, value);
     }
 
     private void checkEntry0(final Entry<HttpRequestAttribute<?>, Object> entry,
                              final HttpRequestAttribute<?> key,
                              final Object value) {
-        assertEquals("entry key", key, entry.getKey());
-        assertEquals("entry value", value, entry.getValue());
+        assertEquals(key, entry.getKey(), "entry key");
+        assertEquals(value, entry.getValue(), "entry value");
     }
 
     // helpers ...........................................................................................

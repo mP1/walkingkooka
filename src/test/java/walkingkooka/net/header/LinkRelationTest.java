@@ -18,36 +18,33 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object> {
 
     private final static String TEXT = "abc123";
     private final static String URL_TEXT = "http://example.com";
 
-    @Test
-    @Ignore
     @Override
     public void testWith2() {
-
+        // ignored
     }
 
     @Test
     public void testWithText() {
         final LinkRelation<?> linkRelation = LinkRelation.with(TEXT);
-        assertEquals("value", TEXT, linkRelation.value());
+        assertEquals(TEXT, linkRelation.value(), "value");
     }
 
     @Test
     public void testWithUrl() {
         final LinkRelation<?> linkRelation = LinkRelation.with(URL_TEXT);
-        assertEquals("value", AbsoluteUrl.parse(URL_TEXT), linkRelation.value());
+        assertEquals(AbsoluteUrl.parse(URL_TEXT), linkRelation.value(), "value");
     }
 
     @Test

@@ -17,12 +17,15 @@
 
 package walkingkooka.collect.stack;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for testing a {@link Stack}.
@@ -39,10 +42,11 @@ abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, 
         this.checkNaming(Stack.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPushAllNullIteratorFails() {
-        final S stack = this.createStack();
-        stack.pushAll(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createStack().pushAll(null);
+        });
     }
 
     @Test
@@ -51,6 +55,11 @@ abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, 
     }
 
     abstract protected S createStack();
+
+    protected void checkSize(final Stack<?> stack, final int size) {
+        assertEquals(0 == size, stack.isEmpty(), () -> stack + " isEmpty");
+        assertEquals(size, stack.size(), () -> stack + " size");
+    }
 
     @Override
     protected final MemberVisibility typeVisibility() {

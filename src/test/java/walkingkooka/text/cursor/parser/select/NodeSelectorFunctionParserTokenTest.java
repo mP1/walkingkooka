@@ -18,23 +18,27 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParentParserTokenTestCase<NodeSelectorFunctionParserToken> {
 
     // [ends-with(@href, '/')]
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingFunctionNameFails() {
-        NodeSelectorFunctionParserToken.with(Lists.of(number()), number().text());
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodeSelectorFunctionParserToken.with(Lists.of(number()), number().text());
+        });
     }
 
     @Test
@@ -68,15 +72,15 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
     private void check(final NodeSelectorFunctionParserToken function,
                        final NodeSelectorFunctionName functionName,
                        final ParserToken... parameters) {
-        assertEquals("functionName", functionName, function.functionName());
-        assertEquals("parameters", Lists.of(parameters), function.parameters());
+        assertEquals(functionName, function.functionName(), "functionName");
+        assertEquals(Lists.of(parameters), function.parameters(), "parameters");
     }
 
     @Test
     public void testWithoutSymbols() {
         final NodeSelectorFunctionParserToken expression = this.createToken();
         final NodeSelectorFunctionParserToken without = expression.withoutSymbols().get().cast();
-        assertEquals("value", Lists.of(functionName(), quotedText()), without.value());
+        assertEquals(Lists.of(functionName(), quotedText()), without.value(), "value");
     }
 
     @Test
@@ -149,14 +153,14 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
             }
         }.accept(function);
         assertEquals("1315216217218242", b.toString());
-        assertEquals("visited",
-                Lists.<Object>of(function, function,
+        assertEquals(Lists.<Object>of(function, function,
                         functionName, functionName, functionName,
                         parenOpen, parenOpen, parenOpen,
                         quotedText, quotedText, quotedText,
                         parenClose, parenClose, parenClose,
                         function, function),
-                visited);
+                visited,
+                "visited");
     }
 
     @Override

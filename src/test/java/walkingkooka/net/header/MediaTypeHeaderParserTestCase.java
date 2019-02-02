@@ -18,12 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderParser, V> extends HeaderParserWithParametersTestCase<P,
         V> {
@@ -537,9 +537,9 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
                      final String type,
                      final String subtype,
                      final Map<MediaTypeParameterName<?>, Object> parameters) {
-        assertEquals("type=" + mediaType, type, mediaType.type());
-        assertEquals("subType=" + mediaType, subtype, mediaType.subType());
-        assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());
+        assertEquals(type, mediaType.type(), "type=" + mediaType);
+        assertEquals(subtype, mediaType.subType(), "subType=" + mediaType);
+        assertEquals(parameters, mediaType.parameters(), "parameters=" + mediaType);
     }
 
     @Override final String valueLabel() {

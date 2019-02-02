@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSelectorParserToken, NodeSelectorParserContext>,
         NodeSelectorParserToken,
@@ -1523,7 +1523,7 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
         final List<ParserToken> list = Lists.of(tokens);
         final String text = ParserToken.text(list);
 
-        assertEquals("text should be all upper case", text, text);
+        assertEquals(text, text, "text should be all upper case");
 
         final Parser<NodeSelectorParserToken, NodeSelectorParserContext> parser = this.createParser();
         this.parseAndCheck(parser,

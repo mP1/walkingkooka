@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.FakeParserContext;
@@ -26,16 +26,22 @@ import walkingkooka.text.cursor.parser.ParserTokens;
 
 import java.math.BigInteger;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunctionTestCase2<PrefixedNumberParserTokenBiFunction<FakeParserContext>, BigIntegerParserToken> {
 
-    @Test(expected = ParserException.class)
+    @Test
     public void testInvalidFirstToken() {
-        this.applyAndCheck(this.invalidFirstToken(), this.secondToken(), null);
+        assertThrows(ParserException.class, () -> {
+            this.applyAndCheck(this.invalidFirstToken(), this.secondToken(), null);
+        });
     }
 
-    @Test(expected = ParserException.class)
+    @Test
     public void testInvalidSecondToken() {
-        this.applyAndCheck(this.firstToken(), this.invalidSecondToken(), null);
+        assertThrows(ParserException.class, () -> {
+            this.applyAndCheck(this.firstToken(), this.invalidSecondToken(), null);
+        });
     }
 
     @Test

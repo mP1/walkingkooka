@@ -16,7 +16,7 @@
  */
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
@@ -25,8 +25,9 @@ import walkingkooka.tree.TestNode;
 
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class AbsoluteNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
@@ -34,9 +35,11 @@ final public class AbsoluteNodeSelectorTest extends
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
     private final static Predicate<TestNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPathSeparatorFails() {
-        AbsoluteNodeSelector.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            AbsoluteNodeSelector.with(null);
+        });
     }
 
     @Test

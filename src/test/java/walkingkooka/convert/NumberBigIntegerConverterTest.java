@@ -18,8 +18,7 @@
 
 package walkingkooka.convert;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -56,8 +55,7 @@ public final class NumberBigIntegerConverterTest extends NumberConverterTestCase
         this.convertFails(Double.valueOf(123.75));
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testDoubleMaxFails() {
         throw new UnsupportedOperationException();
     }

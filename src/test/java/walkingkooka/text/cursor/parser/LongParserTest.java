@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
@@ -25,20 +25,25 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.math.BigInteger;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserContext>, LongParserToken> {
 
     private final static int RADIX = 10;
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNegativeRadixFails() {
-        LongParser.with(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            LongParser.with(-1);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithZeroRadixFails() {
-        LongParser.with(0);
+        assertThrows(IllegalArgumentException.class, () -> {
+            LongParser.with(0);
+        });
     }
 
     @Test
@@ -157,23 +162,29 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserCont
         this.parseAndCheck3(10, text + after, Long.MIN_VALUE, text, after);
     }
 
-    @Test(expected = ParserException.class)
+    @Test
     public void testGreaterMaxValueFails() {
         final BigInteger bigInteger = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
 
-        this.parseFailAndCheck(LongParser.with(10), bigInteger.toString());
+        assertThrows(ParserException.class, () -> {
+            this.parseFailAndCheck(LongParser.with(10), bigInteger.toString());
+        });
     }
 
-    @Test(expected = ParserException.class)
+    @Test
     public void testLessMinValueFails() {
         final BigInteger bigInteger = BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE);
 
-        this.parseFailAndCheck(LongParser.with(10), bigInteger.toString());
+        assertThrows(ParserException.class, () -> {
+            this.parseFailAndCheck(LongParser.with(10), bigInteger.toString());
+        });
     }
 
-    @Test(expected = ParserException.class)
+    @Test
     public void testGreaterMaxValueHexFails() {
-        this.parseFailAndCheck(LongParser.with(16), "8fffffffffffffff");
+        assertThrows(ParserException.class, () -> {
+            this.parseFailAndCheck(LongParser.with(16), "8fffffffffffffff");
+        });
     }
 
     @Test

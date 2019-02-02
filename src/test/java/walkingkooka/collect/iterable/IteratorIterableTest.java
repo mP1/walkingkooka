@@ -17,25 +17,23 @@
 
 package walkingkooka.collect.iterable;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IteratorIterableTest extends IterableTestCase<IteratorIterable<Object>, Object> {
 
     @Test
     public void testWithNullIteratorFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             IteratorIterable.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -49,11 +47,10 @@ final public class IteratorIterableTest extends IterableTestCase<IteratorIterabl
     public void testIterableTwiceFails() {
         final Iterable<Object> iterable = this.createIterable();
         iterable.iterator();
-        try {
+
+        assertThrows(IllegalStateException.class, () -> {
             iterable.iterator();
-            Assert.fail();
-        } catch (final IllegalStateException expected) {
-        }
+        });
     }
 
     @Test

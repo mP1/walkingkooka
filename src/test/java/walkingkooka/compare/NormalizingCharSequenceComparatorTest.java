@@ -17,15 +17,15 @@
 
 package walkingkooka.compare;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NormalizingCharSequenceComparatorTest
         extends ComparatorTestCase<NormalizingCharSequenceComparator<String>, String>
@@ -40,11 +40,9 @@ final public class NormalizingCharSequenceComparatorTest
 
     @Test
     public void testWithNullCharPredicateFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             NormalizingCharSequenceComparator.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test

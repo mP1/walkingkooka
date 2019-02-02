@@ -18,14 +18,14 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderParserTestCase<P extends HeaderParser, V>
         extends ClassTestCase<P> {
@@ -41,20 +41,24 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
 
     // parse ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testNullFails() {
-        this.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.parse(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testEmpty() {
-        this.parse("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.parse("");
+        });
     }
 
     final void parseAndCheck(final String text, final V expected) {
-        assertEquals("Incorrect result parsing " + CharSequences.quote(text),
-                expected,
-                this.parse(text));
+        assertEquals(expected,
+                this.parse(text),
+                "Incorrect result parsing " + CharSequences.quote(text));
     }
 
     final void parseInvalidCharacterFails(final String text) {
@@ -103,15 +107,12 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
     }
 
     final void parseFails(final String text, final String message) {
-        try {
+        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
             this.parse(text);
-            fail();
-        } catch (final HeaderValueException expected) {
-            expected.printStackTrace();
-            assertEquals("Incorrect failure message for " + CharSequences.quoteAndEscape(text),
-                    message,
-                    expected.getMessage());
-        }
+        });
+        assertEquals(message,
+                expected.getMessage(),
+                "Incorrect failure message for " + CharSequences.quoteAndEscape(text));
     }
 
     abstract V parse(final String text);

@@ -17,19 +17,14 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
 public abstract class SpreadsheetFormatDateDateTimeExpressionTimeParserTokenTestCase<T extends SpreadsheetFormatParentParserToken<T>> extends SpreadsheetFormatParentParserTokenTestCase<T> {
 
-    @Test
-    @Ignore
+    @Override
     public void testWithEmptyTextFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testSetTextEmptyFails() {
         throw new UnsupportedOperationException();
     }

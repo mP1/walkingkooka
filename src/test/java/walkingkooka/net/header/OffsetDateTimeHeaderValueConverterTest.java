@@ -18,27 +18,35 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class OffsetDateTimeHeaderValueConverterTest extends
         HeaderValueConverterTestCase<OffsetDateTimeHeaderValueConverter, OffsetDateTime> {
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testyParseEmptyFails() {
-        this.parse("");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testyParseMissingOpeningDoubleQuoteFails() {
-        this.parse("abc\"");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("abc\"");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testyParseMissingClosingDoubleQuoteFails() {
-        this.parse("\"abc");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("\"abc");
+        });
     }
 
     @Override
@@ -46,10 +54,12 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
         return OffsetDateTime.class.getSimpleName();
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testDateWithGmtFails() {
-        OffsetDateTimeHeaderValueConverter.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\"",
-                ContentDispositionParameterName.CREATION_DATE);
+        assertThrows(HeaderValueException.class, () -> {
+            OffsetDateTimeHeaderValueConverter.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\"",
+                    ContentDispositionParameterName.CREATION_DATE);
+        });
     }
 
     @Test

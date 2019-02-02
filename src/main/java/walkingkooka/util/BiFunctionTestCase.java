@@ -22,7 +22,7 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.function.BiFunction;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class BiFunctionTestCase<F extends BiFunction<T, U, R>, T, U, R> extends ClassTestCase<F> {
 
@@ -31,9 +31,9 @@ public abstract class BiFunctionTestCase<F extends BiFunction<T, U, R>, T, U, R>
     }
 
     protected <TT, UU, RR> void applyAndCheck(final BiFunction<TT, UU, RR> function, final TT in1, final UU in2, final RR result) {
-        assertEquals("Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(in1) + "," + CharSequences.quoteIfChars(in2),
-                result,
-                function.apply(in1, in2));
+        assertEquals(result,
+                function.apply(in1, in2),
+                () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(in1) + "," + CharSequences.quoteIfChars(in2));
     }
 
     protected abstract F createBiFunction();

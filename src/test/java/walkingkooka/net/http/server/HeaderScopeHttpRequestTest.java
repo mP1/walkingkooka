@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -31,10 +31,11 @@ import walkingkooka.net.http.HttpTransport;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<HeaderScopeHttpRequest> {
 
@@ -74,9 +75,11 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
         assertNotSame(HEADERS, this.createRequest().url());
     }
 
-    @Test(expected = NotAcceptableHeaderException.class)
+    @Test
     public void testHeadersContainsKeyResponseScopeHeader() {
-        this.createRequest().headers().containsKey(HttpHeaderName.SET_COOKIE);
+        assertThrows(NotAcceptableHeaderException.class, () -> {
+            this.createRequest().headers().containsKey(HttpHeaderName.SET_COOKIE);
+        });
     }
 
     @Test
@@ -96,14 +99,16 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
     private void containsKeyAndCheck(final HeaderScopeHttpRequest request,
                                      final Object key,
                                      final boolean containsKey) {
-        assertEquals("request containsKey " + key + " returned wrong value",
-                containsKey,
-                request.headers().containsKey(key));
+        assertEquals(containsKey,
+                request.headers().containsKey(key),
+                "request containsKey " + key + " returned wrong value");
     }
 
-    @Test(expected = NotAcceptableHeaderException.class)
+    @Test
     public void testHeadersGetResponseScopeHeader() {
-        this.createRequest().headers().get(HttpHeaderName.SET_COOKIE);
+        assertThrows(NotAcceptableHeaderException.class, () -> {
+            this.createRequest().headers().get(HttpHeaderName.SET_COOKIE);
+        });
     }
 
     @Test
@@ -123,9 +128,9 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
     private void getAndCheck(final HeaderScopeHttpRequest request,
                              final Object key,
                              final Object value) {
-        assertEquals("request get " + key + " returned wrong value",
-                value,
-                request.headers().get(key));
+        assertEquals(value,
+                request.headers().get(key),
+                "request get " + key + " returned wrong value");
     }
 
     @Test

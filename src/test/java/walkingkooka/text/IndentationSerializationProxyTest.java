@@ -17,11 +17,11 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.io.serialize.SerializationProxyTestCase;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 final public class IndentationSerializationProxyTest
         extends SerializationProxyTestCase<IndentationSerializationProxy> {
@@ -29,7 +29,7 @@ final public class IndentationSerializationProxyTest
     @Test
     public void testToString() {
         final Indentation indentation = Indentation.with('\t', 10);
-        assertNotSame("indentation instance is a constant", indentation, Indentation.with('\t', 10));
+        assertNotSame(indentation, Indentation.with('\t', 10), "indentation instance is a constant");
 
         assertEquals(indentation.toString(), indentation.writeReplace().toString());
     }

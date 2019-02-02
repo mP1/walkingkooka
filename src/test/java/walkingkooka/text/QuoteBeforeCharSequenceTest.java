@@ -17,11 +17,12 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class QuoteBeforeCharSequenceTest extends CharSequenceTestCase<QuoteBeforeCharSequence>
         implements SerializationTesting<QuoteBeforeCharSequence> {
@@ -32,9 +33,11 @@ final public class QuoteBeforeCharSequenceTest extends CharSequenceTestCase<Quot
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-       QuoteBeforeCharSequence.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            QuoteBeforeCharSequence.with(null);
+        });
     }
 
     @Test
@@ -86,21 +89,18 @@ final public class QuoteBeforeCharSequenceTest extends CharSequenceTestCase<Quot
     public void testSubSequenceZeroToSecondLast() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 4);
         this.checkEquals2(sub, "\"ABC");
-        assertEquals("sub.toString", "\"ABC", sub.toString());
     }
 
     @Test
     public void testSubSequenceIncludesQuote() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 3);
         this.checkEquals2(sub, "\"AB");
-        assertEquals("sub.toString", "\"AB", sub.toString());
     }
 
     @Test
     public void testSubSequenceIncludesQuote2() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 2);
         this.checkEquals2(sub, "\"A");
-        assertEquals("sub.toString", "\"A", sub.toString());
     }
 
     @Test

@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.MapTestCase;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
@@ -27,7 +27,8 @@ import walkingkooka.net.header.NotAcceptableHeaderException;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderScopeHttpRequestHeadersMapTest extends MapTestCase<HeaderScopeHttpRequestHeadersMap,
         HttpHeaderName<?>,
@@ -37,9 +38,11 @@ public final class HeaderScopeHttpRequestHeadersMapTest extends MapTestCase<Head
     private final static Long HEADER_VALUE = 123L;
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HEADER, HEADER_VALUE);
 
-    @Test(expected = NotAcceptableHeaderException.class)
+    @Test
     public void testContainsKeyResponseScopeHeader() {
-        this.createMap().containsKey(HttpHeaderName.SET_COOKIE);
+        assertThrows(NotAcceptableHeaderException.class, () -> {
+            this.createMap().containsKey(HttpHeaderName.SET_COOKIE);
+        });
     }
 
     @Test
@@ -56,14 +59,16 @@ public final class HeaderScopeHttpRequestHeadersMapTest extends MapTestCase<Head
 
     private void containsKeyAndCheck(final Object key,
                                      final boolean containsKey) {
-        assertEquals("request containsKey " + key + " returned wrong value",
-                containsKey,
-                this.createMap().containsKey(key));
+        assertEquals(containsKey,
+                this.createMap().containsKey(key),
+                "request containsKey " + key + " returned wrong value");
     }
 
-    @Test(expected = NotAcceptableHeaderException.class)
+    @Test
     public void testGetResponseScopeHeader() {
-        this.createMap().get(HttpHeaderName.SET_COOKIE);
+        assertThrows(NotAcceptableHeaderException.class, () -> {
+            this.createMap().get(HttpHeaderName.SET_COOKIE);
+        });
     }
 
     @Test

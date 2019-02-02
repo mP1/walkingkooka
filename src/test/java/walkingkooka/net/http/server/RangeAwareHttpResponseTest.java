@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
@@ -40,7 +40,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestCase<RangeAwareHttpResponse> {
 
@@ -61,18 +62,22 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     private final static long BODY_LENGTH = BODY.length;
     private final static byte[] NO_BODY = new byte[0];
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullRequestFails() {
-        RangeAwareHttpResponse.with(null,
-                HttpResponses.fake(),
-                BOUNDARY_CHARACTERS);
+        assertThrows(NullPointerException.class, () -> {
+            RangeAwareHttpResponse.with(null,
+                    HttpResponses.fake(),
+                    BOUNDARY_CHARACTERS);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullBoundaryCharactersFails() {
-        RangeAwareHttpResponse.with(HttpRequests.fake(),
-                HttpResponses.fake(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            RangeAwareHttpResponse.with(HttpRequests.fake(),
+                    HttpResponses.fake(),
+                    null);
+        });
     }
 
     @Test

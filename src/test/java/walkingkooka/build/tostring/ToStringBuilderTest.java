@@ -17,7 +17,7 @@
 
 package walkingkooka.build.tostring;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
@@ -25,9 +25,10 @@ import walkingkooka.text.CharSequences;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, String> {
     // constants
@@ -45,8 +46,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testClassIsFinal() {
-        assertTrue(ToStringBuilder.class.toString(),
-                Modifier.isFinal(ToStringBuilder.class.getModifiers()));
+        assertTrue(Modifier.isFinal(ToStringBuilder.class.getModifiers()), ToStringBuilder.class.toString());
     }
 
     @Test
@@ -54,45 +54,60 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         this.checkToStringOverridden(ToStringBuilder.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullLabelFails() {
-        ToStringBuilder.empty().label(null);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.empty().label(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullLabelSeparatorFails() {
-        ToStringBuilder.empty().labelSeparator(null);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.empty().labelSeparator(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullValueSeparatorFails() {
-        ToStringBuilder.empty().valueSeparator(null);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.empty().valueSeparator(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullSeparatorFails() {
-        ToStringBuilder.empty().separator(null);
-
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.empty().separator(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullDisableFails() {
-        ToStringBuilder.empty().disable(null);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.empty().disable(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullEnableFails() {
-        ToStringBuilder.empty().enable(null);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.empty().enable(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSurroundValuesNullBeforeFails() {
-        ToStringBuilder.empty().surroundValues(null, "after");
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.empty().surroundValues(null, "after");
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSurroundValuesNullAfterFails() {
-        ToStringBuilder.empty().surroundValues("before", null);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.empty().surroundValues("before", null);
+        });
     }
 
     // UsesToStringBuilder
@@ -221,9 +236,11 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     // valueLength and globalLength
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidValueLengthFails() {
-        ToStringBuilder.empty().valueLength(0);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ToStringBuilder.empty().valueLength(0);
+        });
     }
 
     @Test
@@ -239,7 +256,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     private void valueLengthAndCheck(final int length) {
         final ToStringBuilder builder = ToStringBuilder.empty();
         builder.valueLength(length);
-        assertEquals("valueLength", length, builder.valueLength);
+        assertEquals(length, builder.valueLength, "valueLength");
     }
 
     @Test
@@ -283,9 +300,11 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         assertEquals("x12", builder.build());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidGlobalLengthFails() {
-        ToStringBuilder.empty().globalLength(0);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ToStringBuilder.empty().globalLength(0);
+        });
     }
 
     @Test
@@ -301,7 +320,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     private void globalLengthAndCheck(final int length) {
         final ToStringBuilder builder = ToStringBuilder.empty();
         builder.globalLength(length);
-        assertEquals("globalLength", length, builder.globalLength);
+        assertEquals(length, builder.globalLength, "globalLength");
     }
 
     // UsesToStringBuilder
@@ -319,15 +338,15 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
             @Override
             public void buildToString(final ToStringBuilder builder) {
-                assertSame("no parent", null, builder.parent());
+                assertSame(null, builder.parent(), "no parent");
                 builder.value("1");
                 builder.value(new UsesToStringBuilder() {
 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
-                        assertSame("parent should be outer UsesToStringBuilder",
-                                uses[0],
-                                builder.parent());
+                        assertSame(uses[0],
+                                builder.parent(),
+                                "parent should be outer UsesToStringBuilder");
                         builder.value("2");
                     }
                 });
@@ -347,7 +366,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.globalLength(5);
-                        assertEquals("globalLength", 5, builder.globalLength);
+                        assertEquals(5, builder.globalLength, "globalLength");
                         builder.value("IGNORED!");
                     }
                 }));
@@ -363,9 +382,9 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.globalLength(100);
-                        assertEquals("globalLength",
-                                builder.buffer.length() + 100,
-                                builder.globalLength);
+                        assertEquals(builder.buffer.length() + 100,
+                                builder.globalLength,
+                                "globalLength");
                         builder.value("abcdefghij");
                         builder.value("ignored");
                     }
@@ -382,14 +401,14 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.globalLength(5);
-                        assertEquals("globalLength",
-                                builder.buffer.length() + 5,
-                                builder.globalLength);
+                        assertEquals(builder.buffer.length() + 5,
+                                builder.globalLength,
+                                "globalLength");
 
                         builder.globalLength(100);
-                        assertEquals("globalLength",
-                                builder.buffer.length() + 100,
-                                builder.globalLength);
+                        assertEquals(builder.buffer.length() + 100,
+                                builder.globalLength,
+                                "globalLength");
 
                         builder.value("abcdefghij");
                         builder.value("ignored");
@@ -405,8 +424,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(10);
-                        assertEquals("globalLength", 5, builder.globalLength);
-                        assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals(5, builder.globalLength, "globalLength");
+                        assertEquals(5, builder.valueLength, "valueLength");
                         builder.value("abcdefghij");
                     }
                 }), "abcde");
@@ -421,8 +440,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(5);
-                        assertEquals("globalLength", 10, builder.globalLength);
-                        assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals(10, builder.globalLength, "globalLength");
+                        assertEquals(5, builder.valueLength, "valueLength");
 
                         builder.value("abcdefghij");
                     }
@@ -438,8 +457,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(5);
-                        assertEquals("globalLength", 10, builder.globalLength);
-                        assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals(10, builder.globalLength, "globalLength");
+                        assertEquals(5, builder.valueLength, "valueLength");
 
                         builder.value("abcdefghij");
                         builder.value("12345678");
@@ -457,8 +476,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(4);
                         builder.valueLength(5);
-                        assertEquals("globalLength", 10, builder.globalLength);
-                        assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals(10, builder.globalLength, "globalLength");
+                        assertEquals(5, builder.valueLength, "valueLength");
 
                         builder.value("abcdefghij");
                         builder.value("12345678");
@@ -477,8 +496,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                         builder.valueLength(4);
                         builder.valueLength(3);
                         builder.valueLength(5);
-                        assertEquals("globalLength", 10, builder.globalLength);
-                        assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals(10, builder.globalLength, "globalLength");
+                        assertEquals(5, builder.valueLength, "valueLength");
 
                         builder.value("abcdefghij");
                         builder.value("12345678");
@@ -496,10 +515,10 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
-                        assertEquals("valueLength", 5, builder.valueLength);
-                        assertEquals("globalLength",
-                                builder.buffer.length() + 5,
-                                builder.globalLength);
+                        assertEquals(5, builder.valueLength, "valueLength");
+                        assertEquals(builder.buffer.length() + 5,
+                                builder.globalLength,
+                                "globalLength");
 
                         builder.value("abcdefghij"); // expected "abcde" to be added.
                         builder.value("IGNORED");
@@ -519,13 +538,9 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(6); //
-                        assertEquals("valueLength",
-                                5,
-                                builder.valueLength); // increase ignored.
+                        assertEquals(5, builder.valueLength, "valueLength"); // increase ignored.
 
-                        assertEquals("globalLength",
-                                builder.buffer.length() + 5,
-                                builder.globalLength);
+                        assertEquals(builder.buffer.length() + 5, builder.globalLength, "globalLength");
 
                         builder.value("abcdefghij"); // expected "abcde" to be added.
                         builder.value("IGNORED");
@@ -545,9 +560,11 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     // buildFrom
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testBuildFromNullFails() {
-        ToStringBuilder.buildFrom(null);
+        assertThrows(NullPointerException.class, () -> {
+            ToStringBuilder.buildFrom(null);
+        });
     }
 
     @Test

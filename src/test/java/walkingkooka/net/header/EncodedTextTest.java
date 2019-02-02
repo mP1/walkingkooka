@@ -18,28 +18,35 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCharsetFails() {
-        EncodedText.with(null, EncodedText.NO_LANGUAGE, "");
+        assertThrows(NullPointerException.class, () -> {
+            EncodedText.with(null, EncodedText.NO_LANGUAGE, "");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithWildcardCharsetFails() {
-        EncodedText.with(CharsetName.WILDCARD_CHARSET, EncodedText.NO_LANGUAGE, "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            EncodedText.with(CharsetName.WILDCARD_CHARSET, EncodedText.NO_LANGUAGE, "");
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullLanguageFails() {
-        EncodedText.with(this.charset(), null, "");
+        assertThrows(NullPointerException.class, () -> {
+            EncodedText.with(this.charset(), null, "");
+        });
     }
 
     @Test
@@ -75,9 +82,9 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
                        final CharsetName charset,
                        final Optional<LanguageTagName> language,
                        final String value) {
-        assertEquals("charset", charset, encodedText.charset());
-        assertEquals("language", language, encodedText.language());
-        assertEquals("value", value, encodedText.value());
+        assertEquals(charset, encodedText.charset(),"charset");
+        assertEquals(language, encodedText.language(),"language");
+        assertEquals(value, encodedText.value(),"value");
     }
 
     @Test

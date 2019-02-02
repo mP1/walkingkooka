@@ -18,9 +18,11 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TokenHeaderValueHeaderValueConverterTest extends
         HeaderValueConverterTestCase<TokenHeaderValueHeaderValueConverter, TokenHeaderValue> {
@@ -42,14 +44,18 @@ public final class TokenHeaderValueHeaderValueConverterTest extends
     }
 
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesNullFails() {
-        this.check(Lists.of(en(), null));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(en(), null));
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesWrongTypeFails() {
-        this.check(Lists.of(en(), "WRONG!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(en(), "WRONG!"));
+        });
     }
 
     @Test

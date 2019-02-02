@@ -16,15 +16,16 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CaseSensitivity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, ParserContext>, StringParserToken>
         implements HashCodeEqualsDefinedTesting<CustomToStringParser<StringParserToken, ParserContext>> {
@@ -33,24 +34,32 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
     private final static Parser<StringParserToken, ParserContext> WRAPPED = CaseSensitivity.SENSITIVE.parser(STRING);
     private final static String CUSTOM_TO_STRING = "!!abc!!";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWrapNullParserFails() {
-        CustomToStringParser.wrap(null, CUSTOM_TO_STRING);
+        assertThrows(NullPointerException.class, () -> {
+            CustomToStringParser.wrap(null, CUSTOM_TO_STRING);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWrapNullToStringFails() {
-        CustomToStringParser.wrap(WRAPPED, null);
+        assertThrows(NullPointerException.class, () -> {
+            CustomToStringParser.wrap(WRAPPED, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrapEmptyToStringFails() {
-        CustomToStringParser.wrap(WRAPPED, "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CustomToStringParser.wrap(WRAPPED, "");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrapWhitespaceToStringFails() {
-        CustomToStringParser.wrap(WRAPPED, " \t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CustomToStringParser.wrap(WRAPPED, " \t");
+        });
     }
 
     @Test
@@ -63,8 +72,8 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
         final Parser<StringParserToken, ParserContext> first = CustomToStringParser.wrap(WRAPPED, "different");
         final CustomToStringParser<StringParserToken, ParserContext> wrapped = Cast.to(CustomToStringParser.wrap(first, CUSTOM_TO_STRING));
         assertNotSame(first, wrapped);
-        assertSame("wrapped parser", WRAPPED, wrapped.parser);
-        assertSame("wrapped toString", CUSTOM_TO_STRING, wrapped.toString);
+        assertSame(WRAPPED, wrapped.parser, "wrapped parser");
+        assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
     }
 
     @Test

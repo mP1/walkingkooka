@@ -17,12 +17,13 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class RepeatingCharSequenceTest extends CharSequenceTestCase<RepeatingCharSequence>
         implements SerializationTesting<RepeatingCharSequence> {
@@ -35,9 +36,11 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
 
     // tests
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidLengthFails() {
-        RepeatingCharSequence.with(CHAR, -1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            RepeatingCharSequence.with(CHAR, -1);
+        });
     }
 
     @Test
@@ -65,7 +68,7 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
                 CHAR,
                 LENGTH);
         final CharSequence sub = sequence.subSequence(1, 2);
-        assertEquals("class", RepeatingCharSequence.class, sub.getClass());
+        assertEquals(RepeatingCharSequence.class, sub.getClass(), "class");
         this.checkEquals2(sub, CHAR);
     }
 

@@ -18,31 +18,39 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionStartsWithFunctionTest extends ExpressionFunctionTestCase<ExpressionStartsWithFunction, Boolean> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testZeroParametersFails() {
-        this.apply2();
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testOnlyThisParameterFails() {
-        this.apply2(this);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testOneParametersFails() {
-        this.apply2(this, "a1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this, "a1");
+        });
     }
 
-
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testThreeParametersFails() {
-        this.apply2(this, "a1", 2, 3);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this, "a1", 2, 3);
+        });
     }
 
     @Test

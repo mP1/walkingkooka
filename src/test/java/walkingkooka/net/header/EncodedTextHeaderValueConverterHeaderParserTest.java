@@ -18,7 +18,9 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EncodedTextHeaderValueConverterHeaderParserTest extends HeaderParserTestCase<EncodedTextHeaderValueConverterHeaderParser,
         EncodedText> {
@@ -30,44 +32,60 @@ public final class EncodedTextHeaderValueConverterHeaderParserTest extends Heade
         this.parseAndCheck("UTF-8''abc%20123", EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"));
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testKeyValueSeparatorFails() {
-        this.createHeaderParser().keyValueSeparator();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().keyValueSeparator();
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testMissingValueFails() {
-        this.createHeaderParser().missingValue();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().missingValue();
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testMultiValueSeparatorFails() {
-        this.createHeaderParser().multiValueSeparator();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().multiValueSeparator();
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testQuotedTextSeparatorFails() {
-        this.createHeaderParser().quotedText();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().quotedText();
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSlashFails() {
-        this.createHeaderParser().slash();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().slash();
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testTokenSeparatorFails() {
-        this.createHeaderParser().tokenSeparator();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().tokenSeparator();
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testWhitespaceFails() {
-        this.createHeaderParser().whitespace();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().whitespace();
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testWildcardFails() {
-        this.createHeaderParser().wildcard();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().wildcard();
+        });
     }
 
     private EncodedTextHeaderValueConverterHeaderParser createHeaderParser() {

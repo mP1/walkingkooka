@@ -17,8 +17,7 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
@@ -33,8 +32,10 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Base class for testing a {@link PublicStaticHelper} with tests mostly concerned with visibility
@@ -53,14 +54,14 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
     @Test
     final public void testClassIsFinal() {
         final Class<H> type = this.type();
-        assertTrue(type + " is NOT final", Modifier.isFinal(type.getModifiers()));
+        assertTrue(Modifier.isFinal(type.getModifiers()), () -> type.getName() + " is NOT final");
     }
 
     @Test
     final public void testOnlyConstructorIsPrivate() throws Exception {
         final Class<H> type = this.type();
         final Constructor<H> constructor = type.getDeclaredConstructor();
-        assertTrue(type + " is NOT private", Modifier.isPrivate(constructor.getModifiers()));
+        assertTrue(Modifier.isPrivate(constructor.getModifiers()), () -> type.getName() + " is NOT private");
     }
 
     @Test
@@ -69,14 +70,11 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
         final Constructor<H> constructor = type.getDeclaredConstructor();
         constructor.setAccessible(true);
 
-        try {
+        final InvocationTargetException cause = assertThrows(InvocationTargetException.class, () -> {
             constructor.newInstance();
-            Assert.fail();
-        } catch (final InvocationTargetException expected) {
-            final Throwable target = expected.getTargetException();
-            assertTrue("Expected UnsupportedOperationException but got " + target,
-                    target instanceof UnsupportedOperationException);
-        }
+        });
+        final Throwable target = cause.getTargetException();
+        assertTrue(target instanceof UnsupportedOperationException, "Expected UnsupportedOperationException but got " + target);
     }
 
     @Test
@@ -110,12 +108,12 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
     }
 
     private void methodAndCheck(final Predicate<Method> predicate, final String message) {
-        assertEquals(message,
-                Lists.empty(),
+        assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getDeclaredMethods())
                         .filter(m -> !m.getName().startsWith("$")) // filter out any special methods like Jacoco's
                         .filter(predicate)
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()),
+                message);
     }
 
     /**
@@ -153,9 +151,7 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
                 }
             }
 
-            if (0 == count) {
-                Assert.fail("No public static fields/methods found");
-            }
+            assertNotEquals(0, count, "No public static fields/methods found");
         }
     }
 

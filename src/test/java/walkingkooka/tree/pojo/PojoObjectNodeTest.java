@@ -17,16 +17,17 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, Object> {
 
@@ -40,7 +41,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
     @Test
     public void testParent() {
-        this.parentAbsentCheck(this.createPojoNode());
+        this.checkWithoutParent(this.createPojoNode());
     }
 
     @Test
@@ -49,20 +50,24 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         node.createNode(Z, STRING2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetChildrenUnknownPropertyFails() {
-        final PojoObjectNode node = this.createPojoNode(new TestMutableLeaf(STRING0));
-        node.setChildren(Lists.of(node.createNode(Z, STRING2)));
+        assertThrows(IllegalArgumentException.class, () -> {
+            final PojoObjectNode node = this.createPojoNode(new TestMutableLeaf(STRING0));
+            node.setChildren(Lists.of(node.createNode(Z, STRING2)));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetChildrenUnknownProperty2Fails() {
         final PojoObjectNode node = this.createPojoNode(new TestMutableLeaf(STRING0));
         final List<PojoNode> children = Lists.array();
         children.addAll(node.children());
         children.add(node.createNode(Z, STRING2));
 
-        node.setChildren(children);
+        assertThrows(IllegalArgumentException.class, () -> {
+            node.setChildren(children);
+        });
     }
 
     @Test
@@ -100,7 +105,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         final PojoNode childNode2 = childNode.setChildren(Lists.of(
                 parentNode.createNode(X, STRING2)
         ));
-        assertSame(childNode2.toString(), childNode, childNode2);
+        assertSame(childNode, childNode2, childNode2.toString());
 
         this.childrenValuesCheck(childNode2, STRING2);
 
@@ -121,7 +126,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         final PojoNode childNode2 = childNode.setChildren(Lists.of(
                 parentNode.createNode(X, STRING2)
         ));
-        assertNotSame(childNode2.toString(), childNode, childNode2);
+        assertNotSame(childNode, childNode2, childNode2.toString());
 
         this.childrenValuesCheck(childNode2, STRING2);
 
@@ -129,13 +134,13 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         final PojoNode parentNode2 = childNode2.parent().get();
         this.childrenValuesCheck(parentNode2, new TestImmutableLeaf(STRING2), null);
 
-        assertEquals("parentNode2 after set",
-                new TestImmutableBranch(new TestImmutableLeaf(STRING2), null),
-                parentNode2.value());
+        assertEquals(new TestImmutableBranch(new TestImmutableLeaf(STRING2), null),
+                parentNode2.value(),
+                "parentNode2 after set");
 
-        assertEquals("original parentNode should remain unchanged",
-                new TestImmutableBranch(new TestImmutableLeaf(STRING0), null),
-                parentNode.value());
+        assertEquals(new TestImmutableBranch(new TestImmutableLeaf(STRING0), null),
+                parentNode.value(),
+                "original parentNode should remain unchanged");
     }
 
     @Test
@@ -152,7 +157,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         final PojoNode childNode2 = childNode.setChildren(Lists.of(
                 parentNode.createNode(X, STRING2)
         ));
-        assertNotSame(childNode2.toString(), childNode, childNode2);
+        assertNotSame(childNode, childNode2, childNode2.toString());
 
         // check
         final PojoNode parentNode2 = childNode2.parent().get();
@@ -164,18 +169,20 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         final TestImmutableBranch parent2 = new TestImmutableBranch(child2, null);
         final TestImmutableBranch grandParent2 = new TestImmutableBranch(null, parent2);
 
-        assertEquals("parentNode2 after set",
-                grandParent2,
-                grandParentNode2.value());
+        assertEquals(grandParent2,
+                grandParentNode2.value(),
+                "parentNode2 after set");
 
-        assertEquals("original parentNode should remain unchanged",
-                grandParent,
-                grandParentNode.value());
+        assertEquals(grandParent,
+                grandParentNode.value(),
+                "original parentNode should remain unchanged");
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRemoveChild() {
-        this.createPojoNode().removeChild(0);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createPojoNode().removeChild(0);
+        });
     }
 
     @Test

@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.TestCase;
@@ -39,8 +39,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ExpressionNodeEvaluationTest extends TestCase {
 
@@ -149,7 +149,7 @@ public class ExpressionNodeEvaluationTest extends TestCase {
         }
         final ExpressionNode expression = maybeExpression.get();
         final String value = expression.toText(this.context());
-        assertEquals("expression " + CharSequences.quoteAndEscape(formulaText) + " as text is", expectedText, value);
+        assertEquals(expectedText, value, "expression " + CharSequences.quoteAndEscape(formulaText) + " as text is");
     }
 
     private ExpressionEvaluationContext context() {

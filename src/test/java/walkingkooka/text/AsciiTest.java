@@ -17,14 +17,14 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
 
@@ -76,11 +76,11 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void checkLetter(final char c) {
-        assertTrue("'" + c + "' is a letter", Ascii.isLetter(c));
+        assertTrue(Ascii.isLetter(c), "'" + c + "' is a letter");
     }
 
     private void checkNotLetter(final char c) {
-        assertFalse("'" + c + "' is a NOT letter", Ascii.isLetter(c));
+        assertFalse(Ascii.isLetter(c), "'" + c + "' is a NOT letter");
     }
 
     // isDigit
@@ -136,11 +136,11 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void checkDigit(final char c) {
-        assertTrue("'" + c + "' is a digit", Ascii.isDigit(c));
+        assertTrue(Ascii.isDigit(c), "'" + c + "' is a digit");
     }
 
     private void checkNotDigit(final char c) {
-        assertFalse("'" + c + "' is a NOT digit", Ascii.isDigit(c));
+        assertFalse(Ascii.isDigit(c), "'" + c + "' is a NOT digit");
     }
 
     // isPrintable
@@ -176,11 +176,11 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void checkPrintable(final char c) {
-        assertTrue("'" + c + "' is a printable", Ascii.isPrintable(c));
+        assertTrue(Ascii.isPrintable(c), "'" + c + "' is a printable");
     }
 
     private void checkNotPrintable(final char c) {
-        assertFalse("'" + c + "' is a NOT printable", Ascii.isPrintable(c));
+        assertFalse(Ascii.isPrintable(c), "'" + c + "' is a NOT printable");
     }
 
     // isControl
@@ -216,11 +216,11 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void checkControl(final char c) {
-        assertTrue("'" + c + "' is a unprintable", Ascii.isControl(c));
+        assertTrue(Ascii.isControl(c), "'" + c + "' is a unprintable");
     }
 
     private void checkNotControl(final char c) {
-        assertFalse("'" + c + "' is a NOT printable", Ascii.isControl(c));
+        assertFalse(Ascii.isControl(c), "'" + c + "' is a NOT printable");
     }
 
     // Ascii.is ........................................................................................
@@ -246,7 +246,7 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void isAndCheck(final char c, final boolean expected) {
-        assertEquals("Ascii.is " + CharSequences.quoteAndEscape(c), expected, Ascii.is(c));
+        assertEquals(expected, Ascii.is(c), "Ascii.is " + CharSequences.quoteAndEscape(c));
     }
 
     // Ascii.isDigit ........................................................................................
@@ -290,14 +290,14 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
                 break;
             }
         }
-        assertFalse("didnt find non ascii digit", c != 0);
+        assertFalse(c != 0, "didnt find non ascii digit");
         this.isDigitAndCheck(c, false);
     }
 
     private void isDigitAndCheck(final int c, final boolean expected) {
-        assertEquals("isLetter " + CharSequences.quoteAndEscape((char)c),
-                expected,
-                Ascii.isDigit((char)c));
+        assertEquals(expected,
+                Ascii.isDigit((char)c),
+                "isLetter " + CharSequences.quoteAndEscape((char)c));
     }
 
     // test

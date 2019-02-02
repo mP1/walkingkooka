@@ -18,12 +18,12 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, Void>{
 
@@ -65,12 +65,12 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
         assertEquals("null", this.createJsonNode().toString());
     }
 
-    //@Ignore
+    @Override
     public void testEqualsDifferentValue() {
         // nop
     }
 
-    //@Ignore
+    @Override
     public final void testSetDifferentValue() {
         // nop
     }

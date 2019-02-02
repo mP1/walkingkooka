@@ -16,39 +16,53 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase<T> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testOnlyCommentsFails() {
-        this.createToken(this.text(), this.comment1(), this.comment2());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), this.comment1(), this.comment2());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testOnlySymbolsFails() {
-        this.createToken(this.text(), symbol("a"), symbol("z"));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), symbol("a"), symbol("z"));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testOnlyWhitespaceFails() {
-        this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testOnlyCommentsSymbolsWhitespaceFails() {
-        this.createToken(this.text(), this.comment1(), symbol("2"), this.whitespace("   "));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), this.comment1(), symbol("2"), this.whitespace("   "));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testOnlyCommentWhitespaceFails() {
-        this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueEmptyFails() {
-        this.createToken().setValue(Lists.empty());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.empty());
+        });
     }
 
     public abstract void testToSearchNode();

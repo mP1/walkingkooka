@@ -17,14 +17,18 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class PojoArrayNodeTestCase<N extends PojoArrayNode, V> extends PojoArrayOrCollectionNodeTestCase<N, V> {
 
     final static PojoName ARRAY = PojoName.property("array");
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRemoveChild() {
-        this.createPojoNode().removeChild(0);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createPojoNode().removeChild(0);
+        });
     }
 }

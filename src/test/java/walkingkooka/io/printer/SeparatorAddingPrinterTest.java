@@ -17,12 +17,12 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.LineEnding;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SeparatorAddingPrinterTest extends PrinterTestCase2<SeparatorAddingPrinter> {
 
@@ -35,20 +35,16 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
 
     @Test
     public void testWrapNullPrinterFails() {
-        this.wrapFails(null, ",");
+        assertThrows(NullPointerException.class, () -> {
+            SeparatorAddingPrinter.wrap(null, ",");
+        });
     }
 
     @Test
     public void testWrapNullSeparatorFails() {
-        this.wrapFails(Printers.fake(), null);
-    }
-
-    private void wrapFails(final Printer printer, final String separator) {
-        try {
-            SeparatorAddingPrinter.wrap(printer, separator);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            SeparatorAddingPrinter.wrap(Printers.fake(), null);
+        });
     }
 
     @Test

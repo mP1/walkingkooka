@@ -18,21 +18,20 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>, V> extends ExpressionNodeTestCase<N> {
 
     @Test
     public final void testCreate() {
         final N node = this.createExpressionNode();
-        assertEquals("children", Lists.empty(), node.children());
+        assertEquals(Lists.empty(), node.children(), "children");
         this.checkWithoutParent(node);
         this.checkValue(node, this.value());
     }
@@ -44,7 +43,7 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
     }
 
     @Test
-    public void testSetDifferentValue() {
+    public final void testSetDifferentValue() {
         final N node = this.createExpressionNode();
 
         final V differentValue = this.differentValue();
@@ -57,78 +56,51 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
     }
 
     @Test
-    public void testEqualsDifferentValue() {
+    public final void testEqualsDifferentValue() {
         assertNotEquals(this.createExpressionNode(), this.createExpressionNode(this.differentValue()));
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testAppendChild() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testAppendChild2() {
         // Ignored
     }
 
-    @Test
-    @Ignore
-    public void testRemoveChildWithoutParent() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChildDifferentParent() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChild() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
+    @Override
     public void testRemoveChildFirst() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testRemoveChildLast() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChildWithoutParent() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChildDifferentParent() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChild() {
         // Ignored
     }
 
-    @Test
-    @Ignore
-    public void testSameChildren() {
+    @Override
+    public void testSetChildrenSame() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testSetDifferentChildren() {
         // Ignored
     }
@@ -145,6 +117,6 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
     abstract V differentValue();
 
     final void checkValue(final N node, final V value) {
-        assertEquals("value", value, node.value());
+        assertEquals(value, node.value(), "value");
     }
 }

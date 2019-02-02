@@ -17,13 +17,14 @@
  */
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CustomToStringConverterTest extends ConverterTestCase<CustomToStringConverter>
         implements HashCodeEqualsDefinedTesting<CustomToStringConverter> {
@@ -31,24 +32,32 @@ public final class CustomToStringConverterTest extends ConverterTestCase<CustomT
     private final static Converter WRAPPED = Converters.string();
     private final static String CUSTOM_TO_STRING = "!!custom-to-string!!";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWrapNullConverterFails() {
-        CustomToStringConverter.wrap(null, CUSTOM_TO_STRING);
+        assertThrows(NullPointerException.class, () -> {
+            CustomToStringConverter.wrap(null, CUSTOM_TO_STRING);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWrapNullToStringFails() {
-        CustomToStringConverter.wrap(WRAPPED, null);
+        assertThrows(NullPointerException.class, () -> {
+            CustomToStringConverter.wrap(WRAPPED, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrapEmptyToStringFails() {
-        CustomToStringConverter.wrap(WRAPPED, "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CustomToStringConverter.wrap(WRAPPED, "");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrapWhitespaceToStringFails() {
-        CustomToStringConverter.wrap(WRAPPED, " \t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CustomToStringConverter.wrap(WRAPPED, " \t");
+        });
     }
 
     @Test
@@ -61,8 +70,8 @@ public final class CustomToStringConverterTest extends ConverterTestCase<CustomT
         final Converter first = CustomToStringConverter.wrap(WRAPPED, "different");
         final CustomToStringConverter wrapped = Cast.to(CustomToStringConverter.wrap(first, CUSTOM_TO_STRING));
         assertNotSame(first, wrapped);
-        assertSame("wrapped converter", WRAPPED, wrapped.converter);
-        assertSame("wrapped toString", CUSTOM_TO_STRING, wrapped.toString);
+        assertSame(WRAPPED, wrapped.converter, "wrapped converter");
+        assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
     }
 
     @Test

@@ -18,8 +18,7 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.FieldAttributes;
@@ -28,7 +27,8 @@ import walkingkooka.type.MemberVisibility;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Base class for testing public constants declared in a class.
@@ -49,9 +49,11 @@ public interface ConstantsTesting<T> extends Testing {
             if (false == constant.getType().equals(type)) {
                 continue;
             }
-            assertSame("Constant must be public", MemberVisibility.PUBLIC, MemberVisibility.get(constant));
+            assertSame(MemberVisibility.PUBLIC,
+                    MemberVisibility.get(constant),
+                    "Constant must be public");
             if (false == FieldAttributes.STATIC.is(constant)) {
-                Assert.fail("Constant is not static=" + constant.getName());
+                fail("Constant is not static=" + constant.getName());
             }
             final T value = Cast.to(constant.get(null));
 
@@ -61,7 +63,7 @@ public interface ConstantsTesting<T> extends Testing {
             }
 
             if (false == unique.add(value)) {
-                Assert.fail("Duplicate constant=" + value);
+                fail("Duplicate constant=" + value);
             }
         }
     }

@@ -17,15 +17,15 @@
 
 package walkingkooka.build.chain;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ChainTypeTest extends ClassTestCase<ChainType>
         implements HashCodeEqualsDefinedTesting<ChainType>,
@@ -38,31 +38,29 @@ final public class ChainTypeTest extends ClassTestCase<ChainType>
 
     @Test
     public void testWithNullFails() {
-        this.withFails(null);
+        assertThrows(NullPointerException.class, () -> {
+            ChainType.with(null);
+        });
     }
 
     @Test
     public void testWithEmptyFails() {
-        this.withFails("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ChainType.with("");
+        });
     }
 
     @Test
     public void testWithWhitespaceFails() {
-        this.withFails("   ");
-    }
-
-    private void withFails(final String type) {
-        try {
-            ChainType.with(type);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            ChainType.with(" \t");
+        });
     }
 
     @Test
     public void testWith() {
         final ChainType type = ChainType.with(TYPE);
-        assertSame("type", TYPE, type.type);
+        assertSame(TYPE, type.type, "type");
     }
 
     @Test

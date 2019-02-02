@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
@@ -26,8 +26,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCase<ExpressionNegativeNode> {
 
@@ -75,11 +75,11 @@ public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCas
             }
         }.accept(negative);
         assertEquals("1315242", b.toString());
-        assertEquals("visited",
-                Lists.of(negative, negative,
+        assertEquals(Lists.of(negative, negative,
                         child, child, child,
                         negative, negative),
-                visited);
+                visited,
+                "visited");
     }
 
     // evaluate.....................................................................................

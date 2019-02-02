@@ -19,8 +19,7 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
@@ -30,36 +29,44 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispositionType>
         implements NameTesting<ContentDispositionType, ContentDispositionType> {
 
-    @Test
-    @Ignore
+    @Override
     public void testNaming() {
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testControlCharacterFails() {
-        ContentDispositionType.with("parameter\u0001;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionType.with("parameter\u0001;");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSpaceFails() {
-        ContentDispositionType.with("parameter ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionType.with("parameter ");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTabFails() {
-        ContentDispositionType.with("parameter\t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionType.with("parameter\t");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNonAsciiFails() {
-        ContentDispositionType.with("parameter\u0100;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionType.with("parameter\u0100;");
+        });
     }
 
     @Test
@@ -77,9 +84,11 @@ final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispo
         assertSame(ContentDispositionType.INLINE, ContentDispositionType.with(ContentDispositionType.INLINE.value().toUpperCase()));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetFilenameNullFails() {
-        ContentDispositionType.ATTACHMENT.setFilename(null);
+        assertThrows(NullPointerException.class, () -> {
+            ContentDispositionType.ATTACHMENT.setFilename(null);
+        });
     }
 
     @Test
@@ -88,15 +97,17 @@ final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispo
         final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
 
         final ContentDisposition disposition = type.setFilename(filename);
-        assertEquals("type", type, disposition.type());
-        assertEquals("parameters",
-                Maps.one(ContentDispositionParameterName.FILENAME, filename),
-                disposition.parameters());
+        assertEquals(type, disposition.type(),"type");
+        assertEquals(Maps.one(ContentDispositionParameterName.FILENAME, filename),
+                disposition.parameters(),
+                "parameters");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetParametersNullFails() {
-        ContentDispositionType.ATTACHMENT.setParameters(null);
+        assertThrows(NullPointerException.class, () -> {
+            ContentDispositionType.ATTACHMENT.setParameters(null);
+        });
     }
 
     @Test
@@ -105,10 +116,10 @@ final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispo
         final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
         final Map<ContentDispositionParameterName<?>, Object> parameters = Maps.one(ContentDispositionParameterName.FILENAME, filename);
         final ContentDisposition disposition = type.setParameters(parameters);
-        assertEquals("type", type, disposition.type());
-        assertEquals("parameters",
-                parameters,
-                disposition.parameters());
+        assertEquals(type, disposition.type(), "type");
+        assertEquals(parameters,
+                disposition.parameters(),
+                "parameters");
     }
 
     @Test

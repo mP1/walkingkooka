@@ -16,20 +16,23 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase2<T> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testOnlyOneTokenIgnoringCommentsSymbolsWhitespaceFails() {
-        this.createToken(this.text(), this.identifier("first"), this.comment2());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), this.identifier("first"), this.comment2());
+        });
     }
 
     @Test
@@ -39,11 +42,11 @@ public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T ex
         final EbnfParserToken identifier3 = this.identifier("identifier3");
 
         final T token = this.createToken(this.text(), identifier1, comment2, identifier3);
-        assertEquals("value", Lists.of(identifier1, comment2, identifier3), token.value());
+        assertEquals(Lists.of(identifier1, comment2, identifier3), token.value(), "value");
 
         final T without = token.withoutCommentsSymbolsOrWhitespace().get().cast();
         assertNotSame(token, without);
-        assertEquals("value", Lists.of(identifier1, identifier3), without.value());
+        assertEquals(Lists.of(identifier1, identifier3), without.value(), "value");
     }
 
     @Override

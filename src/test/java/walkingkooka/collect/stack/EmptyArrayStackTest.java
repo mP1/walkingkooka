@@ -17,8 +17,7 @@
 
 package walkingkooka.collect.stack;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
@@ -26,26 +25,25 @@ import walkingkooka.collect.list.Lists;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Object>, Object> {
 
     @Test
     public void testCreate() {
         final Stack<Object> stack = EmptyArrayStack.instance();
-        assertTrue("isempty", stack.isEmpty());
-        assertEquals("size when empty", 0, stack.size());
+        this.checkSize(stack, 0);;
     }
 
     @Test
     public void testPush() {
         final ArrayStack<String> stack = Cast.to(EmptyArrayStack.instance().push("1"));
-        assertArrayEquals("array", new Object[]{"1"}, stack.array);
-        assertEquals("last", 1, stack.last);
+        assertArrayEquals(new Object[]{"1"}, stack.array, "array");
+        assertEquals(1, stack.last, "last");
     }
 
     @Test
@@ -59,29 +57,24 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
         final ArrayStack<String> stack
                 = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
                 .iterator()));
-        assertArrayEquals("array", new Object[]{"1", "2", "3"}, stack.array);
-        assertEquals("last", 3, stack.last);
+        assertArrayEquals(new Object[]{"1", "2", "3"}, stack.array, "array");
+        assertEquals(3, stack.last, "last");
     }
 
     @Test
     public void testPeekFails() {
         final EmptyArrayStack<String> stack = EmptyArrayStack.instance();
-        try {
+        assertThrows(EmptyStackException.class, () -> {
             stack.peek();
-            Assert.fail();
-        } catch (final EmptyStackException expected) {
-
-        }
+        });
     }
 
     @Test
     public void testPopFails() {
         final Stack<Object> stack = EmptyArrayStack.instance();
-        try {
+        assertThrows(EmptyStackException.class, () -> {
             stack.pop();
-            Assert.fail();
-        } catch (final EmptyStackException expected) {
-        }
+        });
     }
 
     @Test
@@ -89,18 +82,17 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
         final EmptyArrayStack<String> stack = EmptyArrayStack.instance();
 
         final Iterator<String> iterator = stack.iterator();
-        assertFalse("iterator must be empty=" + iterator, iterator.hasNext());
+        assertFalse(iterator.hasNext(), "iterator must be empty=" + iterator);
     }
 
     @Test
     public void testIteratorWithRemove() {
         final EmptyArrayStack<String> stack = EmptyArrayStack.instance();
         final Iterator<String> iterator = stack.iterator();
-        try {
+
+        assertThrows(IllegalStateException.class, () -> {
             iterator.remove();
-            Assert.fail();
-        } catch (final IllegalStateException expected) {
-        }
+        });
     }
 
     @Test

@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -34,22 +34,27 @@ import java.math.MathContext;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public final class CycleDetectingExpressionEvaluationContextTest extends ExpressionEvaluationContextTestCase<CycleDetectingExpressionEvaluationContext> {
 
     private final static String VALUE = "text123";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullContextFails() {
-        this.createContext(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createContext(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullVariableFails() {
-        CycleDetectingExpressionEvaluationContext.with(ExpressionEvaluationContexts.fake(), null);
+        assertThrows(NullPointerException.class, () -> {
+            CycleDetectingExpressionEvaluationContext.with(ExpressionEvaluationContexts.fake(), null);
+        });
     }
 
     public void testFunction() {
@@ -59,8 +64,8 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
             @Override
             public Object function(final ExpressionNodeName n, final List<Object> p) {
-                assertSame("name", name, n);
-                assertSame("parameters", parameters, p);
+                assertSame(name, n, "name");
+                assertSame(parameters, p, "parameters");
 
                 return VALUE;
             }
@@ -77,7 +82,7 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
 
             @Override
             public Optional<ExpressionNode> reference(final ExpressionReference reference) {
-                assertSame("cell", cell, reference);
+                assertSame(cell, reference, "cell");
                 return Optional.of(text);
             }
         });
@@ -92,7 +97,7 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
 
             @Override
             public Optional<ExpressionNode> reference(final ExpressionReference reference) {
-                assertSame("label", label, reference);
+                assertSame(label, reference, "label");
                 return Optional.of(text());
             }
         });
@@ -145,7 +150,7 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         this.toValueAndCheck(label2Expression, context, VALUE);
     }
 
-    @Test(expected = CycleDetectedExpressionEvaluationConversionException.class)
+    @Test
     public void testReferenceToSelfCycleFails() {
         // label2 -> label1 -> cell
         final SpreadsheetLabelName label = label1();
@@ -167,10 +172,13 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
                 return null;
             }
         });
-        labelExpression.toValue(context);
+
+        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
+            labelExpression.toValue(context);
+        });
     }
 
-    @Test(expected = CycleDetectedExpressionEvaluationConversionException.class)
+    @Test
     public void testReferenceWithCycleFails() {
         // label2 -> label1 -> cell
         final SpreadsheetLabelName label1 = label1();
@@ -201,10 +209,12 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
                 return null;
             }
         });
-        label2Expression.toValue(context);
+        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
+            label2Expression.toValue(context);
+        });
     }
 
-    @Test(expected = CycleDetectedExpressionEvaluationConversionException.class)
+    @Test
     public void testReferenceWithCycleFails2() {
         final SpreadsheetLabelName label1 = label1();
         final SpreadsheetLabelName label2 = label2();
@@ -236,7 +246,10 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
                 return null;
             }
         });
-        label3Expression.toValue(context); // --> label2 --> label1 --> label2 cycle!!!
+
+        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
+            label3Expression.toValue(context); // --> label2 --> label1 --> label2 cycle!!!
+        });
     }
 
     @Test

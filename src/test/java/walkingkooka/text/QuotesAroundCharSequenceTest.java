@@ -17,11 +17,12 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class QuotesAroundCharSequenceTest extends CharSequenceTestCase<QuotesAroundCharSequence>
         implements SerializationTesting<QuotesAroundCharSequence> {
@@ -32,9 +33,11 @@ final public class QuotesAroundCharSequenceTest extends CharSequenceTestCase<Quo
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        QuotesAroundCharSequence.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            QuotesAroundCharSequence.with(null);
+        });
     }
 
     @Test
@@ -96,14 +99,12 @@ final public class QuotesAroundCharSequenceTest extends CharSequenceTestCase<Quo
     public void testSubSequenceZeroToSecondLast() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 4);
         this.checkEquals2(sub, "\"ABC");
-        assertEquals("sub.toString", "\"ABC", sub.toString());
     }
 
     @Test
     public void testSubSequenceOneToEnd() {
         final CharSequence sub = this.createCharSequence().subSequence(1, 5);
         this.checkEquals2(sub, "ABC\"");
-        assertEquals("sub.toString", "ABC\"", sub.toString());
     }
 
     @Test

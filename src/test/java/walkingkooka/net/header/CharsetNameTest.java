@@ -18,10 +18,9 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Comparators;
-import walkingkooka.naming.Name;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
@@ -31,36 +30,47 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class CharsetNameTest extends ClassTestCase<CharsetName>
         implements NameTesting<CharsetName, CharsetName> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyFails() {
-        CharsetName.with("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetName.with("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidInitialCharFails() {
-        CharsetName.with("+");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetName.with("+");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidInitialCharFails2() {
-        CharsetName.with("\0");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetName.with("\0");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPartCharFails() {
-        CharsetName.with("A\u0100");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetName.with("A\u0100");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPartCharFails2() {
-        CharsetName.with("A\0");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharsetName.with("A\0");
+        });
     }
 
     @Test
@@ -111,13 +121,13 @@ public final class CharsetNameTest extends ClassTestCase<CharsetName>
                        final Optional<Charset> charset,
                        final boolean wildcard) {
         this.checkValue(charsetName, value);
-        assertEquals("charset", charset, charsetName.charset());
-        assertEquals("wildcard", wildcard, charsetName.isWildcard());
+        assertEquals(charset, charsetName.charset(), "charset");
+        assertEquals(wildcard, charsetName.isWildcard(), "wildcard");
     }
 
     private void checkValue(final CharsetName charsetName, final String value) {
-        assertTrue("value charsetName=" + charsetName + " value=" + value,
-                value.equalsIgnoreCase(charsetName.value()));
+        assertTrue(value.equalsIgnoreCase(charsetName.value()),
+                "value charsetName=" + charsetName + " value=" + value);
     }
 
     @Test
@@ -154,8 +164,8 @@ public final class CharsetNameTest extends ClassTestCase<CharsetName>
     public void testSetParameters() {
         final CharsetHeaderValue headerValue = CharsetName.UTF_8
                 .setParameters(CharsetHeaderValue.NO_PARAMETERS);
-        assertEquals("charset", CharsetName.UTF_8, headerValue.value());
-        assertEquals("parameters", CharsetHeaderValue.NO_PARAMETERS, headerValue.parameters());
+        assertEquals(CharsetName.UTF_8, headerValue.value(), "charset");
+        assertEquals(CharsetHeaderValue.NO_PARAMETERS, headerValue.parameters(), "parameters");
     }
 
     @Test

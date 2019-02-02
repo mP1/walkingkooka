@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.PredicateTestCase;
@@ -26,10 +26,12 @@ import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
         extends PredicateTestCase<N, TestNode> {
 
-    @Before
+    @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
     }
@@ -42,9 +44,11 @@ public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttribut
         super();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullValueFails() {
-        this.createPredicate(ATTRIBUTE_NAME1, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createPredicate(ATTRIBUTE_NAME1, null);
+        });
     }
 
     @Test

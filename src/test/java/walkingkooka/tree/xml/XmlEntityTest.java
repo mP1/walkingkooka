@@ -18,8 +18,7 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Entity;
@@ -29,12 +28,11 @@ import walkingkooka.tree.search.SearchNodeName;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class XmlEntityTest extends XmlParentNodeTestCase<XmlEntity> {
 
-    @Test
-    @Ignore
+    @Override
     public void testParentWithout() {
         // disable, because of how createNode works, our entities always have a parent.
     }

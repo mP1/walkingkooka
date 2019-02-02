@@ -19,7 +19,7 @@ package walkingkooka.datetime;
 
 import walkingkooka.ContextTestCase;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class DateTimeContextTestCase<C extends DateTimeContext> extends ContextTestCase<C> {
 

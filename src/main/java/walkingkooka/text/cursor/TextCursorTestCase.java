@@ -17,11 +17,11 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 abstract public class TextCursorTestCase<C extends TextCursor> extends TextCursorPackageTestCase<C> {
 
@@ -65,7 +65,7 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
     @Test
     public void testNext() {
         final C cursor = this.createTextCursor("123");
-        assertSame("cursor didnt return this", cursor, cursor.next());
+        assertSame(cursor, cursor.next(), "cursor didnt return this");
     }
 
     @Test
@@ -137,7 +137,7 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
     @Test
     public void testEnd() {
         final TextCursor cursor = this.createTextCursor("1234567890");
-        assertSame("cursor didnt return this", cursor, cursor.end());
+        assertSame(cursor, cursor.end(), "cursor didnt return this");
         this.checkEmpty(cursor);
     }
 
@@ -147,9 +147,7 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
         cursor.next();
 
         final TextCursorLineInfo info = cursor.lineInfo();
-        assertEquals("text", "text", info.text());
-        assertEquals("lineNumber", 1, info.lineNumber());
-        assertEquals("column", 2, info.column());
+        this.checkLineInfo(cursor, "text", 1, 2);
     }
 
     @Test
@@ -203,8 +201,8 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
     protected void checkLineInfo(final TextCursor cursor, final String text, final int lineNumber, final int columnNumber) {
         final TextCursorLineInfo info = cursor.lineInfo();
 
-        assertEquals("text", text, info.text());
-        assertEquals("lineNumber", lineNumber, info.lineNumber());
-        assertEquals("column", columnNumber, info.column());
+        assertEquals(text, info.text(), "text");
+        assertEquals(lineNumber, info.lineNumber(), "lineNumber");
+        assertEquals(columnNumber, info.column(), "column");
     }
 }

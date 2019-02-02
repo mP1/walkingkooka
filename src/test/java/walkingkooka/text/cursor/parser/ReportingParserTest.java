@@ -18,32 +18,39 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursors;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ReportingParserTest extends ParserTestCase2<ReportingParser<ParserToken, ParserContext>, ParserToken> {
 
     private final static ParserReporterCondition CONDITION = ParserReporterCondition.ALWAYS;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullConditionFails() {
-        ReportingParser.with(null, this.reporter(), this.parser2());
+        assertThrows(NullPointerException.class, () -> {
+            ReportingParser.with(null, this.reporter(), this.parser2());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullReporterFails() {
-        ReportingParser.with(CONDITION, null, this.parser2());
+        assertThrows(NullPointerException.class, () -> {
+            ReportingParser.with(CONDITION, null, this.parser2());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullParserFails() {
-        ReportingParser.with(CONDITION, this.reporter(), null);
+        assertThrows(NullPointerException.class, () -> {
+            ReportingParser.with(CONDITION, this.reporter(), null);
+        });
     }
 
     @Test

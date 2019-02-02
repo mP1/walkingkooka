@@ -17,10 +17,10 @@
 
 package walkingkooka.build;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, String> {
     // constants
@@ -41,28 +41,33 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testAddWithNullFails() {
-        this.addFails(null);
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(NullPointerException.class, () -> {
+            missing.add(null);
+        });
+    }
+
+    @Test
+    public void testAddWithEmptyFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.add("");
+        });
     }
 
     @Test
     public void testAddWithWhitespaceFails() {
-        this.addFails(" \t");
-    }
-
-    private void addFails(final String label) {
         final MissingBuilder missing = MissingBuilder.empty();
-        try {
-            missing.add(label);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.add(" \t");
+        });
     }
 
     @Test
     public void testAdd() {
         final MissingBuilder missing = MissingBuilder.empty();
-        missing.add(MissingBuilderTest.LABEL);
-        this.check(missing, MissingBuilderTest.LABEL, 1, 1);
+        missing.add(LABEL);
+        this.check(missing, LABEL, 1, 1);
     }
 
     @Test
@@ -77,33 +82,38 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     // addIfNull
 
     @Test
-    public void testAddIfNullWithNullFails() {
-        this.addIfNullFails(null);
-    }
-
-    @Test
-    public void testAddIfNullWithWhitespaceFails() {
-        this.addIfNullFails(" \t");
-    }
-
-    private void addIfNullFails(final String label) {
+    public void testAddIfNullWithNullLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        try {
-            missing.addIfNull(1, label);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            missing.addIfNull(false,null);
+        });
     }
 
     @Test
-    public void testNullErrorWithNull() {
+    public void testAddIfNullWithEmptyLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        missing.addIfNull(null, MissingBuilderTest.LABEL);
-        this.check(missing, MissingBuilderTest.LABEL, 1, 1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.addIfNull(false,"");
+        });
     }
 
     @Test
-    public void testNullErrorWithNotNull() {
+    public void testAddIfNullWithWhitespaceLabelFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.addIfNull(false," \t");
+        });
+    }
+
+    @Test
+    public void testAddIfNullErrorWithNullValue() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        missing.addIfNull(null, LABEL);
+        this.check(missing, LABEL, 1, 1);
+    }
+
+    @Test
+    public void testAddIfNullError() {
         final MissingBuilder missing = MissingBuilder.empty();
         missing.addIfNull(new Object(), "A");
         this.check(missing, "", 1, 0);
@@ -112,29 +122,34 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     // addIfZero
 
     @Test
-    public void testAddIfZeroWithNullFails() {
-        this.addIfZeroFails(null);
+    public void testAddIfZeroWithNullLabelFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(NullPointerException.class, () -> {
+            missing.addIfZero(1, null);
+        });
     }
 
     @Test
-    public void testAddIfZeroWithWhitespaceFails() {
-        this.addIfZeroFails(" \t");
+    public void testAddIfZeroWithEmptyLabelFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.addIfZero(1, "");
+        });
     }
 
-    private void addIfZeroFails(final String label) {
+    @Test
+    public void testAddIfZeroWithWhitespaceLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        try {
-            missing.addIfZero(1, label);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.addIfZero(1, " \t");
+        });
     }
 
     @Test
     public void testAddIfZeroWithZero() {
         final MissingBuilder missing = MissingBuilder.empty();
-        missing.addIfZero(0, MissingBuilderTest.LABEL);
-        this.check(missing, MissingBuilderTest.LABEL, 1, 1);
+        missing.addIfZero(0, LABEL);
+        this.check(missing, LABEL, 1, 1);
     }
 
     @Test
@@ -148,28 +163,33 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testAddIfFalseWithNullFails() {
-        this.addIfFails(null);
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(NullPointerException.class, () -> {
+            missing.addIfFalse(false, null);
+        });
+    }
+
+    @Test
+    public void testAddIfFalseWithEmptyFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.addIfFalse(false, "");
+        });
     }
 
     @Test
     public void testAddIfFalseWithWhitespaceFails() {
-        this.addIfFails(" \t");
-    }
-
-    private void addIfFails(final String label) {
         final MissingBuilder missing = MissingBuilder.empty();
-        try {
-            missing.addIfFalse(true, label);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.addIfFalse(false, " \t");
+        });
     }
 
     @Test
     public void testAddIfFalseWithFalse() {
         final MissingBuilder missing = MissingBuilder.empty();
-        missing.addIfFalse(false, MissingBuilderTest.LABEL);
-        this.check(missing, MissingBuilderTest.LABEL, 1, 1);
+        missing.addIfFalse(false, LABEL);
+        this.check(missing, LABEL, 1, 1);
     }
 
     @Test
@@ -180,29 +200,33 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     }
 
     @Test
-    public void testFailIfMissingWithNullFails() {
+    public void testFailIfMissingWithLabelNullFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        try {
+        assertThrows(NullPointerException.class, () -> {
             missing.failIfMissing(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
-    public void testFailIfMissingWithWhitespaceFails() {
+    public void testFailIfMissingWithLabelEmptyFails() {
         final MissingBuilder missing = MissingBuilder.empty();
-        try {
+        assertThrows(IllegalArgumentException.class, () -> {
+            missing.failIfMissing("");
+        });
+    }
+
+    @Test
+    public void testFailIfMissingWithLabelWhitespaceFails() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        assertThrows(IllegalArgumentException.class, () -> {
             missing.failIfMissing(" \t");
-            Assert.fail();
-        } catch (final IllegalArgumentException expected) {
-        }
+        });
     }
 
     @Test
     public void testFailIfMissingWhenNone() {
         final MissingBuilder missing = MissingBuilder.empty();
-        missing.failIfMissing(MissingBuilderTest.BEFORE);
+        missing.failIfMissing(BEFORE);
     }
 
     @Test
@@ -210,22 +234,20 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
         final MissingBuilder missing = MissingBuilder.empty();
         missing.add("1");
         missing.add("2");
-        try {
-            missing.failIfMissing(MissingBuilderTest.BEFORE);
-            Assert.fail();
-        } catch (final BuilderException expected) {
-            assertEquals("message",
-                    MissingBuilderTest.BEFORE + " 1, 2",
-                    expected.getMessage());
-        }
-
+        
+        final BuilderException expected = assertThrows(BuilderException.class, () -> {
+            missing.failIfMissing(BEFORE);
+        });
+        assertEquals(BEFORE + " 1, 2",
+                expected.getMessage(),
+                "message");
     }
 
     private void check(final MissingBuilder missing, final String message, final int total,
                        final int missingCount) {
         this.buildAndCheck(missing, message);
-        assertEquals("total", total, missing.total());
-        assertEquals("missing", missingCount, missing.missing());
+        assertEquals(total, missing.total(), "total");
+        assertEquals(missingCount, missing.missing(), "missing");
     }
 
     @Override

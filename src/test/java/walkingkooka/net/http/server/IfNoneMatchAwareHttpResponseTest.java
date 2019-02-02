@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.ETag;
@@ -31,10 +31,11 @@ import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpResponseTestCase<IfNoneMatchAwareHttpResponse> {
 
@@ -48,10 +49,12 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
 
     // test.........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithRequestNullFails() {
-        LastModifiedAwareHttpResponse.with(null,
-                HttpResponses.fake());
+        assertThrows(NullPointerException.class, () -> {
+            LastModifiedAwareHttpResponse.with(null,
+                    HttpResponses.fake());
+        });
     }
 
     @Test
@@ -81,11 +84,11 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     private void withAndNotWrappedCheck(final HttpMethod method,
                                         final List<ETag> ifNoneMatch) {
         final HttpResponse response = HttpResponses.fake();
-        assertSame("method=" + method + " should have resulted in the response not being wrapped",
-                response,
+        assertSame(response,
                 this.createResponseWithoutCast(method,
                         ifNoneMatch,
-                        response));
+                        response),
+                "method=" + method + " should have resulted in the response not being wrapped");
     }
 
     // server response body status code.........................................................................
@@ -261,7 +264,7 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
 
     private HttpRequest createRequest(final HttpMethod method,
                                       final List<ETag> ifNoneMatch) {
-        assertNotNull("method", method);
+        Objects.requireNonNull(method, "method");
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         if (null != ifNoneMatch) {

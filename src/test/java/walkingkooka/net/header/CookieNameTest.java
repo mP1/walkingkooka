@@ -19,7 +19,7 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.net.http.server.FakeHttpRequest;
@@ -30,7 +30,8 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
 final public class CookieNameTest extends ClassTestCase<CookieName> implements NameTesting<CookieName, CookieName> {
@@ -39,90 +40,124 @@ final public class CookieNameTest extends ClassTestCase<CookieName> implements N
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
      * It also must not contain a separator character like the following: ( ) < > @ , ; : \ " /  [ ] ? = { }.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeParensOpenFails() {
-        CookieName.with("cookie(");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie(");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeParensCloseFails() {
-        CookieName.with("cookie)");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie)");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeLessThanFails() {
-        CookieName.with("cookie<");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie<");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeGreaterThanFails() {
-        CookieName.with("cookie>");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie>");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeAtSignFails() {
-        CookieName.with("cookie@");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie@");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeCommaFails() {
-        CookieName.with("cookie,");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie,");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeSemiColonFails() {
-        CookieName.with("cookie;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie;");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeColonFails() {
-        CookieName.with("cookie:");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie:");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeBackslashFails() {
-        CookieName.with("cookie\\");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie\\");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeDoubleQuoteFails() {
-        CookieName.with("cookie\"");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie\"");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeForwardSlashFails() {
-        CookieName.with("cookie/");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie/");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeBracketOpenFails() {
-        CookieName.with("cookie[");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie[");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludeBracketCloseFails() {
-        CookieName.with("cookie]");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie]");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testQuestionMarkFails() {
-        CookieName.with("cookie?");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie?");
+        });
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testEqualsSignFails() {
-        CookieName.with("cookie=");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie=");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBraceOpenFails() {
-        CookieName.with("cookie{");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie{");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBraceCloseFails() {
-        CookieName.with("cookie}");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieName.with("cookie}");
+        });
     }
 
     @Test

@@ -17,34 +17,15 @@
 
 package walkingkooka.compare;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final public class NaturalOrderingComparatorTest
         extends ComparatorTestCase<NaturalOrderingComparator<Integer>, Integer>
         implements SerializationTesting<NaturalOrderingComparator<Integer>> {
-
-    @Test
-    public void testNullFirstFails() {
-        this.compareFail(null, Integer.valueOf(1));
-    }
-
-    @Test
-    public void testNullSecondFails() {
-        this.compareFail(Integer.valueOf(1), null);
-    }
-
-    private void compareFail(final Integer value1, final Integer value2) {
-        try {
-            this.compare(value1, value2);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
-    }
 
     @Test
     public void testLess() {

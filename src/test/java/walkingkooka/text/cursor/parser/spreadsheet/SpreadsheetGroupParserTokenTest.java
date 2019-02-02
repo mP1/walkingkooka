@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -27,8 +27,8 @@ import walkingkooka.tree.expression.ExpressionNode;
 import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetGroupParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetGroupParserToken> {
 

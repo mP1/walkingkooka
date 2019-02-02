@@ -16,9 +16,11 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserToken;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTerminalParserToken>{
 
@@ -32,9 +34,11 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
         this.parseFailAndCheck("\"incomplete");
     }
 
-    @Test(expected = EbnfTerminalParserException.class)
+    @Test
     public void testInvalidBackslash() {
-        this.parseFailAndCheck("'\\x'");
+        assertThrows(EbnfTerminalParserException.class, () -> {
+            this.parseFailAndCheck("'\\x'");
+        });
     }
 
     @Test

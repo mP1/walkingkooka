@@ -17,14 +17,15 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NamedNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
@@ -32,9 +33,11 @@ final public class NamedNodeSelectorTest extends
     private final static StringName NAME = Names.string("never");
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPathSeparatorFails() {
-        NamedNodeSelector.with(NAME, null);
+        assertThrows(NullPointerException.class, () -> {
+            NamedNodeSelector.with(NAME, null);
+        });
     }
 
     @Test

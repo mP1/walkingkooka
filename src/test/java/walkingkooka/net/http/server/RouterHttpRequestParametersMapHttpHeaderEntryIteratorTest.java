@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTestCase;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest extends
         IteratorTestCase<RouterHttpRequestParametersMapHttpHeaderEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
@@ -106,7 +106,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
                                  final Map<HttpHeaderName<?>, Object> headers,
                                  final List<HttpHeaderName<?>> headerNames,
                                  final Object... headerValues) {
-        assertEquals("headerNames count != headerValues count", headerNames.size(), headerValues.length);
+        assertEquals(headerNames.size(), headerValues.length, "headerNames count != headerValues count");
 
         final RouterHttpRequestParametersMapHttpHeaderEntryIterator iterator = this.createIterator(headers);
 
@@ -125,8 +125,8 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
                            final HttpHeaderName<?> header,
                            final Object value) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
-        assertEquals("key", header, entry.getKey());
-        assertEquals("value", value, entry.getValue());
+        assertEquals(header, entry.getKey(), "key");
+        assertEquals(value, entry.getValue(), "value");
     }
 
     @Test

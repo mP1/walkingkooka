@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -31,10 +31,11 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestCase2<SearchNode, SearchNodeName, SearchNodeAttributeName, String> {
 
@@ -43,9 +44,11 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         this.publicStaticFactoryCheck(SearchNode.class, "Search", Node.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetNameNullFails() {
-        this.createSearchNode().setName(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSearchNode().setName(null);
+        });
     }
 
     @Test
@@ -60,14 +63,14 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         final SearchNodeName name = SearchNodeName.with("different");
         final N different = node.setName(name).cast();
         assertNotSame(node, different);
-        assertEquals("name", name, different.name());
+        assertEquals(name, different.name(), "name");
     }
 
     @Test
     public final void testSetNameReturnType() throws Exception {
         final Class<N> type = this.searchNodeType();
         final Method method = type.getMethod("setName", SearchNodeName.class);
-        assertEquals(method.toGenericString(), type, method.getReturnType());
+        assertEquals(type, method.getReturnType(), ()-> method.toGenericString());
     }
 
     @Test
@@ -83,8 +86,8 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
 
         final N node = this.createSearchNode();
         final String name = node.getClass().getSimpleName();
-        assertEquals(name + " starts with " + prefix, true, name.startsWith(prefix));
-        assertEquals(name + " ends with " + suffix, true, name.endsWith(suffix));
+        assertEquals(true, name.startsWith(prefix), name + " starts with " + prefix);
+        assertEquals(true, name.endsWith(suffix), name + " ends with " + suffix);
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
 
@@ -99,55 +102,75 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
             if(!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(node));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(node),
+                    method + " returned");
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testReplaceInvalidBeforeOffsetFails() {
-        this.createSearchNode().replace(-1, 1, this.replaceNode());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createSearchNode().replace(-1, 1, this.replaceNode());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testReplaceInvalidBeforeOffsetFails2() {
         final N node = this.createSearchNode();
         final int before = node.text().length();
-        node.replace(before, before, this.replaceNode());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            node.replace(before, before, this.replaceNode());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testReplaceInvalidBeforeOffsetFails3() {
         final N node = this.createSearchNode();
         final int before = node.text().length();
-        node.replace(before + 1, before, this.replaceNode());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            node.replace(before + 1, before, this.replaceNode());
+        });
+
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testReplaceInvalidEndOffsetFails() {
         final N node = this.createSearchNode();
-        node.replace(1, 0, this.replaceNode());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            node.replace(1, 0, this.replaceNode());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testReplaceInvalidEndOffsetFails2() {
         final N node = this.createSearchNode();
-        node.replace(0, node.text().length() + 1, this.replaceNode());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            node.replace(0, node.text().length() + 1, this.replaceNode());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testReplaceNullNodeFails() {
-        this.createSearchNode().replace(0, 1, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSearchNode().replace(0, 1, null);
+        });
     }
 
     final SearchNode replaceNode() {
         return text("!REPLACE!");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testReplaceSelectedWithNullFunctionFails() {
-        this.createSearchNode().replaceSelected(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSearchNode().replaceSelected(null);
+        });
+
     }
 
     @Override
@@ -177,10 +200,10 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     @Override
     protected SearchNode appendChildAndCheck(final SearchNode parent, final SearchNode child) {
         final N newParent = parent.appendChild(child).cast();
-        assertNotSame("appendChild must not return the same node", newParent, parent);
+        assertNotSame(newParent, parent, "appendChild must not return the same node");
 
         final List<N> children = Cast.to(newParent.children());
-        assertNotEquals("children must have at least 1 child", 0, children.size());
+        assertNotEquals(0, children.size(), "children must have at least 1 child");
         //assertEquals("last child must be the added child", child.attributeName(), children.get(children.size() - 1).attributeName());
 
         this.checkParentOfChildren(newParent);
@@ -189,13 +212,13 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     }
 
     protected final void replaceSelectedWithoutSelectedAndCheck(final SearchNode node) {
-        assertSame(node.toString(), node, node.replaceSelected((s) -> {throw new UnsupportedOperationException(); }));
+        assertSame(node, node.replaceSelected((s) -> {throw new UnsupportedOperationException(); }), node.toString());
     }
 
     protected final void replaceSelectedAndCheck(final SearchNode node,
                                                  final Function<SearchSelectNode, SearchNode> replacer,
                                                  final SearchNode expected) {
-        assertEquals(node.toString(), expected, node.replaceSelected(replacer));
+        assertEquals(expected, node.replaceSelected(replacer), node.toString());
     }
 
     protected final void replaceSelectedNothingAndCheck(final SearchNode node) {
@@ -204,7 +227,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
 
     protected final void replaceSelectedNothingAndCheck(final SearchNode node,
                                                         final Function<SearchSelectNode, SearchNode> replacer) {
-        assertSame(node.toString(), node, node.replaceSelected(replacer));
+        assertSame(node, node.replaceSelected(replacer), node.toString());
     }
 
     @Override

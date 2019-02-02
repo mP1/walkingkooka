@@ -18,22 +18,17 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<LanguageTagNameWildcard> {
 
-    @Test
-    @Ignore
     @Override
     public void testNullFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testEmptyFails() {
         throw new UnsupportedOperationException();
@@ -56,22 +51,16 @@ public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<L
         this.checkNotEquals(LanguageTagName.with("en"));
     }
 
-    @Test
-    @Ignore
     @Override
     public void testCompareLess() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testCompareLessDifferentCase() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testDifferentText() {
         throw new UnsupportedOperationException();

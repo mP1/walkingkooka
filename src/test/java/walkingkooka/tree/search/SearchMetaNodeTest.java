@@ -18,8 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CaseSensitivity;
@@ -28,27 +27,34 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMetaNode> {
 
     private final static String CHILD_TEXT = "child";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        SearchMetaNode.with(null, this.attributes());
+        assertThrows(NullPointerException.class, () -> {
+            SearchMetaNode.with(null, this.attributes());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullAttributesFails() {
-        SearchMetaNode.with(this.child(), null);
+        assertThrows(NullPointerException.class, () -> {
+            SearchMetaNode.with(this.child(), null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyAttributesFails() {
-        SearchMetaNode.with(this.child(), SearchMetaNode.NO_ATTRIBUTES);
+        assertThrows(IllegalArgumentException.class, () -> {
+            SearchMetaNode.with(this.child(), SearchMetaNode.NO_ATTRIBUTES);
+        });
     }
 
     @Test
@@ -60,9 +66,11 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         this.checkChildren(node, Lists.of(child));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetChildrenIncorrectCountFails() {
-        this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2")));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2")));
+        });
     }
 
     @Test
@@ -85,30 +93,31 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         assertEquals(this.sequence(this.text("1"), replacing, this.text("3")).selected(), replaced);
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChild() {
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testAppendChild() {
-        this.createSearchNode().appendChild(this.text("append-fails"));
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createSearchNode().appendChild(this.text("append-fails"));
+        });
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testAppendChild2() {
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRemoveChildFirst() {
-        this.createSearchNode().removeChild(0);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createSearchNode().removeChild(0);
+        });
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testRemoveChildLast() {
         throw new UnsupportedOperationException();
     }
@@ -206,9 +215,9 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
     public void testQuery() {
         final SearchMetaNode node = this.createSearchNode();
         final SearchQuery query = SearchQueryValue.text(CHILD_TEXT).equalsQuery(CaseSensitivity.SENSITIVE);
-        assertEquals("child selected",
-                this.child().selected().setAttributes(this.attributes()),
-                query.select(node));
+        assertEquals(this.child().selected().setAttributes(this.attributes()),
+                query.select(node),
+                "child selected");
     }
 
     @Test
@@ -286,7 +295,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
     }
 
     private void checkAttributes(final SearchNode node, final Map<SearchNodeAttributeName, String> attributes) {
-        assertEquals("attributes", attributes, node.attributes());
+        assertEquals(attributes, node.attributes(),"attributes");
     }
 
     @Override

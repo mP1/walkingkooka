@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.EntryTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -26,7 +26,8 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import java.util.List;
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntryTest extends EntryTestCase
         <HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry,
@@ -48,9 +49,11 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
         this.getValueAndCheck(this.createEntry(), Lists.of(VALUE1, VALUE2));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testSetValueFails() {
-        this.createEntry().setValue(Lists.empty());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createEntry().setValue(Lists.empty());
+        });
     }
 
     @Test

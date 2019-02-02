@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
@@ -24,20 +24,25 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.math.BigInteger;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParser<ParserContext>, BigIntegerParserToken> {
 
     private final static int RADIX = 10;
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNegativeRadixFails() {
-        BigIntegerParser.with(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            BigIntegerParser.with(-1);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithZeroRadixFails() {
-        BigIntegerParser.with(0);
+        assertThrows(IllegalArgumentException.class, () -> {
+            BigIntegerParser.with(0);
+        });
     }
 
     @Test

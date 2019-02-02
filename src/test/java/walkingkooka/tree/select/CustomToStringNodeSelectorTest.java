@@ -18,27 +18,32 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CustomToStringNodeSelectorTest
         extends NodeSelectorTestCase2<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static String TOSTRING = "CustomToString";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithSelectorNullFails() {
-        CustomToStringNodeSelector.with(null, TOSTRING);
+        assertThrows(NullPointerException.class, () -> {
+            CustomToStringNodeSelector.with(null, TOSTRING);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithToStringNullFails() {
-        CustomToStringNodeSelector.with(this.wrapped(), null);
+        assertThrows(NullPointerException.class, () -> {
+            CustomToStringNodeSelector.with(this.wrapped(), null);
+        });
     }
 
     @Test
@@ -51,7 +56,7 @@ final public class CustomToStringNodeSelectorTest
     public void testWith() {
         final NodeSelector<TestNode, StringName, StringName, Object> wrapped = this.wrapped();
         final CustomToStringNodeSelector custom = this.createSelector(wrapped);
-        assertEquals("selector", wrapped, custom.selector);
+        assertEquals(wrapped, custom.selector, "selector");
     }
 
     @Test
@@ -61,8 +66,8 @@ final public class CustomToStringNodeSelectorTest
 
         final String toString2 = "CustomToString2";
         final CustomToStringNodeSelector again = this.createSelector(wrapped, toString2);
-        assertEquals("selector", wrapped, again.selector);
-        assertEquals("toString", toString2, again.toString());
+        assertEquals(wrapped, again.selector, "selector");
+        assertEquals(toString2, again.toString(), "toString");
     }
 
     @Test

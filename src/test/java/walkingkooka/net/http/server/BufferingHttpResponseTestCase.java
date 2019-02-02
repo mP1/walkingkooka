@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpStatusCode;
 
 public abstract class BufferingHttpResponseTestCase<R extends BufferingHttpResponse> extends WrapperHttpResponseTestCase<R> {

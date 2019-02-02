@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.pointer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
@@ -32,10 +32,11 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
 
@@ -49,36 +50,48 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
 
     private final static String TEXT = "text123";
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIndexInvalidIndexFails() {
-        NodePointer.index(-1, JsonNode.class);
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodePointer.index(-1, JsonNode.class);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testIndexNullNodeClassFails() {
-        NodePointer.index(0, null);
+        assertThrows(NullPointerException.class, () -> {
+            NodePointer.index(0, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIndexInvalidIndexFails2() {
-        NodePointer.index(0, JsonNode.class)
-                .index(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodePointer.index(0, JsonNode.class)
+                    .index(-1);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNamedNullNameFails() {
-        NodePointer.named(null, JsonNode.class);
+        assertThrows(NullPointerException.class, () -> {
+            NodePointer.named(null, JsonNode.class);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNamedNullNodeClassFails() {
-        NodePointer.named(ABC, null);
+        assertThrows(NullPointerException.class, () -> {
+            NodePointer.named(ABC, null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNamedNullNameFails2() {
-        NodePointer.named(ABC, JsonNode.class)
-                .named(null);
+        assertThrows(NullPointerException.class, () -> {
+            NodePointer.named(ABC, JsonNode.class)
+                    .named(null);
+        });
     }
     
     // toString.......................................................................................................
@@ -439,33 +452,45 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
 
     // parse.............................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullPointerFails() {
-        NodePointer.parse(null, NAME_FACTORY, JsonNode.class);
+        assertThrows(NullPointerException.class, () -> {
+            NodePointer.parse(null, NAME_FACTORY, JsonNode.class);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseInvalidIndexFails() {
-        NodePointer.parse("/abc/-99", NAME_FACTORY, JsonNode.class);
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodePointer.parse("/abc/-99", NAME_FACTORY, JsonNode.class);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseInvalidNameFails() {
-        NodePointer.parse("/abc//xyz", NAME_FACTORY, JsonNode.class);
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodePointer.parse("/abc//xyz", NAME_FACTORY, JsonNode.class);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseInvalidNameFails2() {
-        NodePointer.parse("missing-leading-slash", NAME_FACTORY, JsonNode.class);
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodePointer.parse("missing-leading-slash", NAME_FACTORY, JsonNode.class);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullNameFactoryFails() {
-        NodePointer.parse("/valid-pointer", null, JsonNode.class);
+        assertThrows(NullPointerException.class, () -> {
+            NodePointer.parse("/valid-pointer", null, JsonNode.class);
+        });
     }
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullNodeTypeFails() {
-        NodePointer.parse("/valid-pointer", NAME_FACTORY, null);
+        assertThrows(NullPointerException.class, () -> {
+            NodePointer.parse("/valid-pointer", NAME_FACTORY, null);
+        });
     }
 
     @Test
@@ -559,30 +584,30 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
 
     private NodePointer<JsonNode, JsonNodeName, Name, Object> parse(final String pointer) {
         final NodePointer<JsonNode, JsonNodeName, Name, Object> parsed =  NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
-        assertEquals("pointer.toString", pointer, parsed.toString());
+        assertEquals(pointer, parsed.toString(), "pointer.toString");
         return parsed;
     }
 
     private void traverseAndCheck(final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer, final JsonNode root, final String toString) {
         final Optional<JsonNode> result = pointer.traverse(root);
-        assertNotEquals("The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root, Optional.empty(), result);
-        assertEquals("The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root, toString, result.get().toString());
+        assertNotEquals(Optional.empty(), result, () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root);
+        assertEquals(toString, result.get().toString(), () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root);
     }
 
     private void traverseFail(final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer, final JsonNode root) {
-        assertEquals("The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root, Optional.empty(), pointer.traverse(root));
+        assertEquals(Optional.empty(), pointer.traverse(root), () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root);
     }
 
     private void checkIsAbsolute(final NodePointer<?, ?, ?, ?> pointer) {
-        assertTrue("isAbsolute", pointer.isAbsolute());
-        assertFalse("isRelative", pointer.isRelative());
-        assertTrue("pointer should start with '/' =" + pointer, pointer.toString().startsWith("/"));
+        assertTrue(pointer.isAbsolute(), "isAbsolute");
+        assertFalse(pointer.isRelative(), "isRelative");
+        assertTrue(pointer.toString().startsWith("/"), () -> "pointer should start with '/' =" + pointer);
     }
 
     private void checkIsRelative(final NodePointer<?, ?, ?, ?> pointer) {
-        assertFalse("isAbsolute", pointer.isAbsolute());
-        assertTrue("isRelative", pointer.isRelative());
-        assertFalse("pointer shouldnt start with '/' =" + pointer, pointer.toString().startsWith("/"));
+        assertFalse(pointer.isAbsolute(), "isAbsolute");
+        assertTrue(pointer.isRelative(), "isRelative");
+        assertFalse(pointer.toString().startsWith("/"), () -> "pointer shouldnt start with '/' =" + pointer);
     }
 
     @Override

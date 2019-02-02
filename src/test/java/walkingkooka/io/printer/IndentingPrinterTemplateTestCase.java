@@ -17,9 +17,10 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinterTemplate>
         extends IndentingPrinterTestCase<P> {
@@ -34,12 +35,11 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
 
     // tests
 
-    @Test final public void testWrapNullPrinterFails() {
-        try {
+    @Test
+    final public void testWrapNullPrinterFails() {
+        assertThrows(NullPointerException.class, () -> {
             this.createPrinter((Printer) null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Override

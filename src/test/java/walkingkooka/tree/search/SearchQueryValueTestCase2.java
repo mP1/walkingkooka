@@ -18,12 +18,16 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SearchQueryValueTestCase2<Q extends SearchQueryValue, V> extends SearchQueryValueTestCase<Q, V> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullValueFails() {
-        this.createSearchQueryValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSearchQueryValue(null);
+        });
     }
 }

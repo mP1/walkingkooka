@@ -18,20 +18,20 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends JsonNodeTestCase<N> {
 
     @Test
     public final void testCreate() {
         final N node = this.createJsonNode();
-        assertEquals("children", Lists.empty(), node.children());
+        assertEquals( Lists.empty(), node.children(), "children");
         this.checkWithoutParent(node);
         this.checkValue(node, this.value());
     }
@@ -44,10 +44,10 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
 
         final JsonNodeName differentName = JsonNodeName.with("different");
         final N different = node.setName(differentName).cast();
-        assertEquals("name", differentName, different.name());
+        assertEquals(differentName, different.name(), "name");
         this.checkValue(different, value);
 
-        assertEquals("original name", originalName, node.name());
+        assertEquals(originalName, node.name(),"original name");
         this.checkValue(node, value);
     }
 
@@ -72,85 +72,59 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
 
     abstract N setValue(final N node, final V value);
 
-    @Test
-    @Ignore
-    public void testAppendChild() {
+    @Override
+    public final void testAppendChild() {
+        // Ignored
+    }
+
+    @Override
+    public final void testAppendChild2() {
+        // Ignored
+    }
+
+    @Override
+    public final void testRemoveChildFirst() {
+        // Ignored
+    }
+
+    @Override
+    public final void testRemoveChildLast() {
+        // Ignored
+    }
+
+    @Override
+    public final void testReplaceChildWithoutParent() {
+        // Ignored
+    }
+
+    @Override
+    public final void testReplaceChildDifferentParent() {
+        // Ignored
+    }
+
+    @Override
+    public final void testReplaceChild() {
+        // Ignored
+    }
+
+    @Override
+    public final void testSetChildrenSame() {
+        // Ignored
+    }
+
+    @Override
+    public final void testSetDifferentChildren() {
         // Ignored
     }
 
     @Test
-    @Ignore
-    public void testAppendChild2() {
-        // Ignored
+    public final void testSetChildrenFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createJsonNode().setChildren(Lists.empty());
+        });
     }
 
-    @Test
-    @Ignore
-    public void testRemoveChildWithoutParent() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChildDifferentParent() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChild() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChildFirst() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChildLast() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testReplaceChildWithoutParent() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testReplaceChildDifferentParent() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testReplaceChild() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testSameChildren() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testSetDifferentChildren() {
-        // Ignored
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void testSeChildrenFails() {
-        this.createJsonNode().setChildren(Lists.empty());
-    }
-
-    @Test
-    @Ignore
+    @Override
     public void testSetSameAttributes() {
         // Ignored
     }
@@ -177,6 +151,6 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     abstract V differentValue();
 
     final void checkValue(final N node, final V value) {
-        assertEquals("value", value, node.value());
+        assertEquals(value, node.value(), "value");
     }
 }

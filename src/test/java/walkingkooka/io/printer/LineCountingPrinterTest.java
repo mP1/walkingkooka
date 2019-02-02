@@ -17,14 +17,15 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.util.variable.Variable;
 import walkingkooka.util.variable.Variables;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineCountingPrinterTest extends PrinterTestCase2<LineCountingPrinter> {
 
@@ -37,21 +38,17 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
     // tests
 
     @Test
-    public void testNullPrinterFails() {
-        this.wrapFails(null, LineCountingPrinterTest.COUNTER);
+    public void testWithNullPrinterFails() {
+        assertThrows(NullPointerException.class, () -> {
+            LineCountingPrinter.wrap(null, COUNTER);
+        });
     }
 
     @Test
-    public void testNullCounterFails() {
-        this.wrapFails(LineCountingPrinterTest.PRINTER, null);
-    }
-
-    private void wrapFails(final Printer printer, final Variable<Integer> counter) {
-        try {
-            LineCountingPrinter.wrap(printer, counter);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+    public void testWithNullCounterFails() {
+        assertThrows(NullPointerException.class, () -> {
+            LineCountingPrinter.wrap(null, COUNTER);
+        });
     }
 
     @Test
@@ -182,18 +179,18 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
                         switch (this.printed) {
                             case 0:
                                 checkEquals("wrong chars printed", "\r", chars.toString());
-                                assertEquals("counter incremented earlier than expected",
-                                        Integer.valueOf(0),
-                                        counter.get());
+                                assertEquals(Integer.valueOf(0),
+                                        counter.get(),
+                                        "counter incremented earlier than expected");
                                 break;
                             case 1:
                                 checkEquals("wrong chars printed", "\n", chars.toString());
-                                assertEquals("counter incremented earlier than expected",
-                                        Integer.valueOf(1),
-                                        counter.get());
+                                assertEquals(Integer.valueOf(1),
+                                        counter.get(),
+                                        "counter incremented earlier than expected");
                                 break;
                             default:
-                                Assert.fail(
+                                Assertions.fail(
                                         "Unexpected print=" + CharSequences.quoteAndEscape(chars));
                         }
                         this.printed++;
@@ -205,13 +202,13 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
                     public void flush() throws PrinterException {
                         switch (this.printed) {
                             case 0:
-                                Assert.fail("Flush called before first print");
+                                Assertions.fail("Flush called before first print");
                             case 1:
                                 break;
                             case 2:
                                 break;
                             default:
-                                Assert.fail("Unexpected print");
+                                Assertions.fail("Unexpected print");
                         }
                     }
 
@@ -267,11 +264,11 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
         final Variable<Integer> counter = Variables.with(0);
         final StringBuilder printed = new StringBuilder();
         this.printAndCheck(this.createPrinter(printed, counter), text, printed, text);
-        assertEquals("wrong number of lines printed", Integer.valueOf(lines), counter.get());
+        assertEquals(Integer.valueOf(lines), counter.get(),"wrong number of lines printed");
     }
 
     private void check(final int expected, final Variable<Integer> counter) {
-        assertEquals("counter", Integer.valueOf(expected), counter.get());
+        assertEquals(Integer.valueOf(expected), counter.get(), "counter");
     }
 
     private LineCountingPrinter createPrinter(final StringBuilder target,
@@ -283,15 +280,15 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
                     public void print(final CharSequence chars) throws PrinterException {
                         final int i = this.printed;
                         if (i > expecting.length) {
-                            Assert.fail("Attempt to print another unexpected line="
+                            Assertions.fail("Attempt to print another unexpected line="
                                     + CharSequences.quoteAndEscape(chars));
                         }
                         final String expected = expecting[i];
                         final String actual = chars.toString();
                         if (false == expected.equals(actual)) {
-                            assertEquals("Wrong line " + i + " printed,",
-                                    CharSequences.quoteAndEscape(expected),
-                                    CharSequences.quoteAndEscape(actual));
+                            assertEquals(CharSequences.quoteAndEscape(expected),
+                                    CharSequences.quoteAndEscape(actual),
+                                    "Wrong line " + i + " printed,");
                         }
                         this.printed++;
                         target.append(chars);

@@ -18,39 +18,57 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class LocalDateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<T, FakeParserContext>,
         T extends ParserToken>
         extends DateTimeFormatterParserTestCase<P, T>{
 
-    @Test(expected = IllegalArgumentException.class)
+    LocalDateTimeFormatterParserTestCase(){
+        super();
+    }
+
+    @Test
     public final void testWithTimeZoneIdFails() {
-        this.createParser(this.pattern() + "VV");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "VV");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithTimeZoneNameFails() {
-        this.createParser(this.pattern() + "z");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "z");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithLocalizedZoneOffsetFails() {
-        this.createParser(this.pattern() + "O");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "O");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithZoneOffsetBigXFails() {
-        this.createParser(this.pattern() + "X");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "X");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithZoneOffsetLittleXFails() {
-        this.createParser(this.pattern() + "x");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "x");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithZoneOffsetZFails() {
-        this.createParser(this.pattern() + "Z");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.pattern() + "Z");
+        });
     }
 }

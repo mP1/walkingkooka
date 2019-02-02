@@ -18,34 +18,37 @@
 
 package walkingkooka.routing;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class RouterTestCase<R extends Router<K, T>, K, T> extends ClassTestCase<R> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullParametersFails() {
-        this.createRouter().route(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createRouter().route(null);
+        });
     }
 
     protected abstract R createRouter();
 
-    protected void routeAndCheck(final Router<K, T> routers, final Map<K, Object> parameters, final T target) {
-        assertEquals("Routing of parameters=" + parameters + " failed",
-                Optional.of(target),
-                routers.route(parameters));
+    protected final void routeAndCheck(final Router<K, T> routers, final Map<K, Object> parameters, final T target) {
+        assertEquals(Optional.of(target),
+                routers.route(parameters),
+                () -> "Routing of parameters=" + parameters + " failed");
     }
 
-    protected void routeFails(final Router<K, T> routers, final Map<K, Object> parameters) {
-        assertEquals("Routing of parameters=" + parameters + " should have failed",
-                Optional.empty(),
-                routers.route(parameters));
+    protected final void routeFails(final Router<K, T> routers, final Map<K, Object> parameters) {
+        assertEquals(Optional.empty(),
+                routers.route(parameters),
+                () -> "Routing of parameters=" + parameters + " should have failed");
     }
 
     @Override

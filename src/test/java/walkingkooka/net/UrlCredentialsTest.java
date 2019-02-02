@@ -19,13 +19,14 @@
 package walkingkooka.net;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials>
         implements HashCodeEqualsDefinedTesting<UrlCredentials>,
@@ -34,21 +35,25 @@ public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials>
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullUserFails() {
-        UrlCredentials.with(null, PASSWORD);
+        assertThrows(NullPointerException.class, () -> {
+            UrlCredentials.with(null, PASSWORD);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullPasswordFails() {
-        UrlCredentials.with(USER, null);
+        assertThrows(NullPointerException.class, () -> {
+            UrlCredentials.with(USER, null);
+        });
     }
 
     @Test
     public void testWith() {
         final UrlCredentials credentials = this.credentials();
-        assertEquals("user", USER, credentials.user());
-        assertEquals("password", PASSWORD, credentials.password());
+        assertEquals(USER, credentials.user(), "user");
+        assertEquals(PASSWORD, credentials.password(), "password");
     }
 
     @Test

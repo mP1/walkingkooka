@@ -17,18 +17,22 @@
 
 package walkingkooka.naming;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 final public class PropertiesNameTest extends ClassTestCase<PropertiesName>
         implements NameTesting<PropertiesName, PropertiesName>, SerializationTesting<PropertiesName> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCreateContainsSeparatorFails() {
-        PropertiesName.with("xyz" + PropertiesPath.SEPARATOR.string());
+        assertThrows(IllegalArgumentException.class, () -> {
+            PropertiesName.with("xyz" + PropertiesPath.SEPARATOR.string());
+        });
     }
 
     @Test

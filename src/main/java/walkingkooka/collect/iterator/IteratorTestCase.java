@@ -17,8 +17,8 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
@@ -27,9 +27,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for testing a {@link Iterator} with mostly parameter checking tests.
@@ -57,9 +58,10 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     }
 
     protected void checkHasNextFalse(final String message, final Iterator<?> iterator) {
-        assertNotNull("iterator", iterator);
+        Objects.requireNonNull(iterator, "iterator");
+        
         if (iterator.hasNext()) {
-            Assert.fail(message + "=" + iterator);
+            Assertions.fail(message + "=" + iterator);
         }
     }
 
@@ -68,9 +70,10 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     }
 
     protected void checkHasNextTrue(final String message, final Iterator<T> iterator) {
-        assertNotNull("iterator", iterator);
+        Objects.requireNonNull(iterator, "iterator");
+
         if (false == iterator.hasNext()) {
-            Assert.fail(message + "=" + iterator);
+            Assertions.fail(message + "=" + iterator);
         }
     }
 
@@ -79,11 +82,9 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     }
 
     protected void checkNextFails(final String message, final Iterator<?> iterator) {
-        try {
-            final Object next = iterator.next();
-            Assert.fail(message + "=" + next);
-        } catch (final NoSuchElementException ignored) {
-        }
+        assertThrows(NoSuchElementException.class, () -> {
+            iterator.next();
+        });
     }
 
     protected void checkRemoveWithoutNextFails(final Iterator<?> iterator) {
@@ -94,7 +95,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     protected void checkRemoveWithoutNextFails(final String message, final Iterator<?> iterator) {
         try {
             iterator.remove();
-            Assert.fail(message);
+            Assertions.fail(message);
         } catch (final IllegalStateException ignored) {
         }
     }
@@ -110,7 +111,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     protected void checkRemoveFails(final String message, final Iterator<?> iterator) {
         try {
             iterator.remove();
-            Assert.fail(message);
+            Assertions.fail(message);
         } catch (final UnsupportedOperationException ignored) {
         }
     }
@@ -123,7 +124,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     protected void checkRemoveUnsupported(final String message, final Iterator<?> iterator) {
         try {
             iterator.remove();
-            Assert.fail(message);
+            Assertions.fail(message);
         } catch (final UnsupportedOperationException ignored) {
         }
     }
@@ -135,13 +136,13 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
 
     @SafeVarargs
     protected final <U> void iterateUsingHasNextAndCheck(final Iterator<U> iterator, final U... expected) {
-        assertNotNull("iterator", iterator);
+        Objects.requireNonNull(iterator, "iterator");
 
         int i = 0;
         final List<U> consumed = Lists.array();
         while (iterator.hasNext()) {
             final U next = iterator.next();
-            assertEquals("element " + i, expected[i], next);
+            assertEquals(expected[i], next, "element " + i);
             consumed.add(next);
             i++;
         }
@@ -158,14 +159,14 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
 
     @SafeVarargs
     protected final <U> void iterateAndCheck(final Iterator<U> iterator, final U... expected) {
-        assertNotNull("iterator", iterator);
+        Objects.requireNonNull(iterator, "iterator");
 
         int i = 0;
         final List<U> consumed = Lists.array();
         final int expectedCount = expected.length;
         while (i < expectedCount) {
             final U next = iterator.next();
-            assertEquals("element " + i, expected[i], next);
+            assertEquals(expected[i], next, "element " + i);
             consumed.add(next);
             i++;
         }

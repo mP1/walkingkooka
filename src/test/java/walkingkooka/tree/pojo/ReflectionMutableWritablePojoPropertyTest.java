@@ -18,9 +18,9 @@
  */
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ReflectionMutableWritablePojoPropertyTest extends PojoPropertyTestCase<ReflectionMutableWritablePojoProperty> {
 
@@ -36,13 +36,13 @@ public final class ReflectionMutableWritablePojoPropertyTest extends PojoPropert
     @Test
     public void testSetSame() {
         final ReflectionMutableWritablePojoPropertyTest.TestBean instance = new ReflectionMutableWritablePojoPropertyTest.TestBean();
-        assertEquals("setter didnt return null", null, this.createPojoProperty().set(instance, STRING));
+        assertEquals(null, this.createPojoProperty().set(instance, STRING), "setter didnt return null");
     }
 
     @Test
     public void testSetDifferent() {
         final ReflectionMutableWritablePojoPropertyTest.TestBean instance = new ReflectionMutableWritablePojoPropertyTest.TestBean();
-        assertEquals("setter didnt return null", null, this.createPojoProperty().set(instance, STRING2));
+        assertEquals(null, this.createPojoProperty().set(instance, STRING2), "setter didnt return null");
         assertEquals(STRING2, instance.x);
     }
 

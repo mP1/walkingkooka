@@ -19,7 +19,7 @@
 package walkingkooka.color;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -30,9 +30,9 @@ import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 abstract public class ColorComponentTestCase<C extends ColorComponent> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
@@ -50,28 +50,29 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     @Test
     public final void testWith() {
-        final C component = this.createColorComponent(VALUE);
-        assertEquals("value", VALUE, component.value());
-        assertEquals("unsignedIntValue", VALUE, component.unsignedIntValue);
-        assertEquals("floatValue", 0x11 / 255f, component.floatValue, 0.1f);
+        this.createComponentAndCheck(VALUE, VALUE, VALUE / 255f);
+    }
+
+    @Test
+    public final void testWith2() {
+        this.createComponentAndCheck(VALUE2, VALUE2, VALUE2 / 255f);
     }
 
     @Test
     public final void testWithZero() {
-        final byte value = 0;
-        final C component = this.createColorComponent(value);
-        assertEquals("value", value, component.value());
-        assertEquals("unsignedIntValue", 0, component.unsignedIntValue);
-        assertEquals("floatValue", 0.0f, component.floatValue, 0.1f);
+        this.createComponentAndCheck((byte)0, 0x0, 0.0f);
     }
 
     @Test
     public final void testWith0xFF() {
-        final byte value = (byte) 0xFF;
+        this.createComponentAndCheck((byte)0xFF, 0xFF, 1.0f);
+    }
+
+    private void createComponentAndCheck(final byte value, final int unsigned, final float floatValue) {
         final C component = this.createColorComponent(value);
-        assertEquals("value", value, component.value());
-        assertEquals("unsignedIntValue", 0xFF, component.unsignedIntValue);
-        assertEquals("floatValue", 1.0f, component.floatValue, 0.1f);
+        assertEquals(value, component.value(), "value");
+        assertEquals(unsigned, component.unsignedIntValue, "unsignedIntValue");
+        assertEquals(floatValue, component.floatValue, 0.1f, "floatValue");
     }
 
     // add
@@ -89,34 +90,22 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     @Test
     public final void testAddOne() {
-        final C component = this.createColorComponent(VALUE);
-        final C added = Cast.to(component.add(1));
-        assertEquals("result of add was not the same component type", component.getClass(), added.getClass());
-        assertEquals(VALUE + 1, added.unsignedIntValue);
+        this.addAndCheck(this.createColorComponent(VALUE), 1, VALUE + 1);
     }
 
     @Test
     public final void testAddOne2() {
-        final C component = this.createColorComponent(VALUE2);
-        final C added = Cast.to(component.add(1));
-        assertEquals("result of add was not the same component type", component.getClass(), added.getClass());
-        assertEquals(VALUE2 + 1, added.unsignedIntValue);
+        this.addAndCheck(this.createColorComponent(VALUE2), 1, VALUE2 + 1);
     }
 
     @Test
     public final void testAddNegativeOne() {
-        final C component = this.createColorComponent(VALUE);
-        final C added = Cast.to(component.add(-1));
-        assertEquals("result of add was not the same component type", component.getClass(), added.getClass());
-        assertEquals(VALUE - 1, added.unsignedIntValue);
+        this.addAndCheck(this.createColorComponent(VALUE), -1, VALUE - 1);
     }
 
     @Test
     public final void testAddNegativeOne2() {
-        final C component = this.createColorComponent(VALUE2);
-        final C added = Cast.to(component.add(-1));
-        assertEquals("result of add was not the same component type", component.getClass(), added.getClass());
-        assertEquals(VALUE2 - 1, added.unsignedIntValue);
+        this.addAndCheck(this.createColorComponent(VALUE2), -1, VALUE2 - 1);
     }
 
     @Test
@@ -133,32 +122,38 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
         assertEquals(0, added.unsignedIntValue);
     }
 
+    private void addAndCheck(final ColorComponent component,
+                               final int add,
+                               final int value) {
+        final ColorComponent added = Cast.to(component.add(add));
+        assertNotSame(component, added);
+        assertEquals(component.getClass(), added.getClass(), "result of add was not the same component type");
+        assertEquals(value, added.unsignedIntValue, "component " + component + " add " + add + " =" + value);
+    }
+
     // invert
 
     @Test
     public final void testInvert1() {
-        final C component = this.createColorComponent((byte) 0);
-        final ColorComponent inverted = component.invert();
-        assertNotSame("invert should not return this", component, inverted);
-        assertEquals("value", (byte) 255, inverted.value);
+        this.invertAndCheck(this.createColorComponent((byte) 0), 255);
     }
 
     @Test
     public final void testInvert2() {
-        final C component = this.createColorComponent((byte) 1);
-        final ColorComponent inverted = component.invert();
-        assertNotSame("invert should not return this", component, inverted);
-        assertEquals("value", (byte) 254, inverted.value);
+        this.invertAndCheck(this.createColorComponent((byte) 1), 254);
     }
 
     @Test
     public final void testInvertAll() {
         for (int i = 0; i < 255; i++) {
-            final C component = this.createColorComponent((byte) i);
-            final ColorComponent inverted = component.invert();
-            assertNotSame("invert should not return this", component, inverted);
-            assertEquals("value", (byte) ~i, inverted.value);
+            this.invertAndCheck(this.createColorComponent((byte) i), ~i);
         }
+    }
+
+    private void invertAndCheck(final ColorComponent component, final int value) {
+        final ColorComponent inverted = component.invert();
+        assertNotSame(component, inverted, "invert should not return this");
+        assertEquals((byte)value, inverted.value(), "value");
     }
 
     @Test
@@ -170,7 +165,7 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
     public final void testIsMethods() throws Exception {
         final C component = this.createColorComponent();
         final String name = component.getClass().getSimpleName();
-        assertEquals(name + " starts with Color", true, name.endsWith(ColorComponent.class.getSimpleName()));
+        assertEquals(true, name.endsWith(ColorComponent.class.getSimpleName()), name + " starts with Color");
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(0, name.length() - ColorComponent.class.getSimpleName().length()));
 
@@ -183,9 +178,9 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
             if(!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(component));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(component),
+                    method + " returned");
         }
     }
 

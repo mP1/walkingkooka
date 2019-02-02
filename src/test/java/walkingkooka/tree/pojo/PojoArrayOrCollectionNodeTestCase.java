@@ -17,13 +17,13 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public abstract class PojoArrayOrCollectionNodeTestCase<N extends PojoArrayOrCollectionNode, V> extends PojoNodeTestCase2<N, V> {
 
@@ -37,7 +37,7 @@ public abstract class PojoArrayOrCollectionNodeTestCase<N extends PojoArrayOrCol
     public final void testChildrenEmpty() {
         final N node = this.createEmptyPojoNode();
 
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
         this.childrenAndCheckNames(node);
     }
 
@@ -52,7 +52,7 @@ public abstract class PojoArrayOrCollectionNodeTestCase<N extends PojoArrayOrCol
 
         this.childrenAndCheckNames(node2);
         this.childrenValuesCheck(node2);
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
 
         this.childrenAndCheckNames(node, children.stream().map( n -> n.name()).collect(Collectors.toList()));
         this.childrenValuesCheck(node, values.toArray());
@@ -69,7 +69,7 @@ public abstract class PojoArrayOrCollectionNodeTestCase<N extends PojoArrayOrCol
 
         this.childrenAndCheckNames(node2);
         this.childrenValuesCheck(node2);
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
 
         this.childrenAndCheckNames(node, children.stream().map( n -> n.name()).collect(Collectors.toList()));
         this.childrenValuesCheck(node, values.toArray());

@@ -18,50 +18,56 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullRedFails() {
-        OpaqueColor.createOpaqueColor(null, GREEN, BLUE);
+        assertThrows(NullPointerException.class, () -> {
+            OpaqueColor.createOpaqueColor(null, GREEN, BLUE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullGreenFails() {
-        OpaqueColor.createOpaqueColor(RED, null, BLUE);
+        assertThrows(NullPointerException.class, () -> {
+            OpaqueColor.createOpaqueColor(RED, null, BLUE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullBlueFails() {
-        OpaqueColor.createOpaqueColor(RED, GREEN, null);
+        assertThrows(NullPointerException.class, () -> {
+            OpaqueColor.createOpaqueColor(RED, GREEN, null);
+        });
     }
     
     @Test
     public void testWith() {
         final OpaqueColor color = OpaqueColor.createOpaqueColor(RED, GREEN, BLUE);
-        assertSame("red", RED, color.red());
-        assertSame("green", GREEN, color.green());
-        assertSame("blue", BLUE, color.blue());
-        assertSame("alpha", AlphaColorComponent.OPAQUE, color.alpha());
-        assertEquals("rgb",
-                (RED.value << 16) + (GREEN.value << 8) + BLUE.value, color.rgb());
+        assertSame(RED, color.red(), "red");
+        assertSame(GREEN, color.green(), "green");
+        assertSame(BLUE, color.blue(), "blue");
+        assertSame(AlphaColorComponent.OPAQUE, color.alpha(), "alpha");
+        assertEquals((RED.value << 16) + (GREEN.value << 8) + BLUE.value, color.rgb(), "rgb");
     }
 
     @Test
     public void testFromRgb() {
         final Color color = Color.fromRgb(0x010203);
-        assertSame("red", RED, color.red());
-        assertSame("green", GREEN, color.green());
-        assertSame("blue", BLUE, color.blue());
-        assertSame("alpha", AlphaColorComponent.OPAQUE, color.alpha());
-        assertEquals("rgb", 0x010203, color.rgb());
+        assertSame(RED, color.red(), "red");
+        assertSame(GREEN, color.green(), "green");
+        assertSame(BLUE, color.blue(), "blue");
+        assertSame(AlphaColorComponent.OPAQUE, color.alpha(), "alpha");
+        assertEquals(0x010203, color.rgb(), "rgb");
     }
 
     @Test
@@ -69,15 +75,15 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
         final Color color = OpaqueColor.createOpaqueColor(RedColorComponent.with((byte) 0x80),
                 GreenColorComponent.with((byte) 0x81),
                 BlueColorComponent.with((byte) 0x82));
-        assertEquals("rgb", 0x808182, color.rgb());
-        assertEquals("argb", 0xFF808182, color.argb());
-        assertEquals("value", 0x808182, color.value());
+        assertEquals(0x808182, color.rgb(), "rgb");
+        assertEquals(0xFF808182, color.argb(), "argb");
+        assertEquals(0x808182, color.value(), "value");
     }
 
     @Override
     public void testHasAlpha() {
         final OpaqueColor color = OpaqueColor.createOpaqueColor(RED, GREEN, BLUE);
-        assertFalse(color + " has no alpha", color.hasAlpha());
+        assertFalse(color.hasAlpha(), color + " has no alpha");
     }
 
     @Test
@@ -89,9 +95,9 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
     @Test
     public void testToAwtColor() {
         final java.awt.Color color = Color.fromRgb(0x010203).toAwtColor();
-        assertEquals("red", 1, color.getRed());
-        assertEquals("green", 2, color.getGreen());
-        assertEquals("blue", 3, color.getBlue());
+        assertEquals(1, color.getRed(), "red");
+        assertEquals(2, color.getGreen(), "green");
+        assertEquals(3, color.getBlue(), "blue");
     }
 
     // HasJsonNode............................................................................................

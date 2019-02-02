@@ -17,7 +17,7 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 final public class SinkPrinterTest extends PrinterTestCase<SinkPrinter> {
 

@@ -17,10 +17,10 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequenceIteratorTest
         extends IteratorTestCase<CharSequenceIterator, Character> {
@@ -33,11 +33,9 @@ final public class CharSequenceIteratorTest
 
     @Test
     public void testWithNullFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             CharSequenceIterator.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test

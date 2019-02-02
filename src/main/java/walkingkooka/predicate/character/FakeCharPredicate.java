@@ -19,10 +19,12 @@ package walkingkooka.predicate.character;
 
 import walkingkooka.test.Fake;
 
+import java.io.Serializable;
+
 /**
  * A {@link CharPredicate} where all methods throw {@link UnsupportedOperationException}
  */
-final class FakeCharPredicate implements CharPredicate, Fake {
+final class FakeCharPredicate implements CharPredicate, Fake, Serializable {
 
     static FakeCharPredicate create() {
         return new FakeCharPredicate();
@@ -45,4 +47,6 @@ final class FakeCharPredicate implements CharPredicate, Fake {
     public String toString() {
         return this.getClass().getSimpleName();
     }
+
+    private static final long serialVersionUID = 1L;
 }

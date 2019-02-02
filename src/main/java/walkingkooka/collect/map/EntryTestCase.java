@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class EntryTestCase<M extends Entry<K, V>, K, V> extends ClassTestCase<M> {
 
@@ -35,11 +35,11 @@ public abstract class EntryTestCase<M extends Entry<K, V>, K, V> extends ClassTe
     }
 
     protected void getKeyAndCheck(final Entry<K, V> entry, final K key) {
-        assertEquals("key from " + entry, key, entry.getKey());
+        assertEquals(key, entry.getKey(), "key from " + entry);
     }
 
     protected void getValueAndCheck(final Entry<K, V> entry, final V value) {
-        assertEquals("Value from " + entry, value, entry.getValue());
+        assertEquals(value, entry.getValue(), "Value from " + entry);
     }
 
     @Override

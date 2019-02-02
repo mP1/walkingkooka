@@ -18,15 +18,16 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.Latch;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> extends HttpResponseTestCase<R> {
 
@@ -34,9 +35,12 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         super();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullResponseFails() {
-        this.createResponse(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createResponse(null);
+
+        });
     }
 
     @Test
@@ -50,7 +54,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                 set.set("Status set to " + s);
             }
         }).setStatus(status);
-        assertTrue("wrapped response setStatus not called", set.value());
+        assertTrue(set.value(), "wrapped response setStatus not called");
     }
 
     @Test

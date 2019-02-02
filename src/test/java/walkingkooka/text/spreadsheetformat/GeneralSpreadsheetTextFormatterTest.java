@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.ConversionException;
 import walkingkooka.text.CharSequences;
@@ -26,7 +26,7 @@ import walkingkooka.text.CharSequences;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class GeneralSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTestCase<GeneralSpreadsheetTextFormatter, Object> {
 
@@ -104,7 +104,7 @@ public final class GeneralSpreadsheetTextFormatterTest extends SpreadsheetTextFo
 
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
-                assertEquals("targetType", BigDecimal.class, target);
+                assertEquals(BigDecimal.class, target, "targetType");
 
                 if (value instanceof String) {
                     throw new ConversionException("Failed to convert " + value);

@@ -17,14 +17,14 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * Base class for any tests involving a {@link CharPredicate} including helpers to invoke andassert
@@ -83,7 +83,7 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
 
     final protected void testTrue(final CharPredicate predicate, final char c) {
         if (false == predicate.test(c)) {
-            Assert.fail(predicate + " did not match=" + CharSequences.quoteAndEscape(c));
+            Assertions.fail(predicate + " did not match=" + CharSequences.quoteAndEscape(c));
         }
     }
 
@@ -93,7 +93,7 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
 
     final protected void testFalse(final CharPredicate predicate, final char c) {
         if (predicate.test(c)) {
-            Assert.fail(predicate + " should not have matched=" + CharSequences.quoteAndEscape(c));
+            Assertions.fail(predicate + " should not have matched=" + CharSequences.quoteAndEscape(c));
         }
     }
     

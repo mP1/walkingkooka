@@ -17,14 +17,14 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEntityDecodingPrinter> {
 
@@ -36,11 +36,9 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
 
     @Test
     public void testWrapNullEntityDecoderFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             HtmlEntityDecodingPrinter.wrap(null, Printers.fake());
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -173,7 +171,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         printer.print("456");
         printer.print(printer.lineEnding());
         printer.flush();
-        PrinterTestCase.checkEquals(
+        checkEquals(
                 "123" + HtmlEntityDecodingPrinterTest.LINE_ENDING + "456" + HtmlEntityDecodingPrinterTest.LINE_ENDING,
                 printed.toString());
     }
@@ -187,7 +185,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         printer.print("4&star;6");
         printer.print(printer.lineEnding());
         printer.flush();
-        PrinterTestCase.checkEquals(
+        checkEquals(
                 "1*3" + HtmlEntityDecodingPrinterTest.LINE_ENDING + "4*6" + HtmlEntityDecodingPrinterTest.LINE_ENDING,
                 printed.toString());
     }
@@ -196,7 +194,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
     public void testToString() {
         final Function<String, String> decoder = (s) -> s;
         final Printer printer = Printers.fake();
-        PrinterTestCase.checkEquals(printer + " AND " + decoder,
+        checkEquals(printer + " AND " + decoder,
                 HtmlEntityDecodingPrinter.wrap(decoder, printer).toString());
     }
 
@@ -217,7 +215,9 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
 
     private void check(final HtmlEntityDecodingPrinter printer, final String expected) {
         final String actual = this.builder.toString();
-        assertEquals("Different text written, buffer=" + CharSequences.quote(printer.buffer()), expected, actual);
+        assertEquals(expected,
+                actual,
+                () -> "Different text written, buffer=" + CharSequences.quote(printer.buffer()));
     }
 
     private void printAndCheck(final String expected, final String... strings) {
@@ -228,8 +228,8 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
             b.append(string);
         }
         this.check(printer, expected);
-        assertEquals("printer.last", 0, printer.last);
-        PrinterTestCase.checkEquals("Expected empty buffer", "", printer.buffer());
+        assertEquals(0, printer.last, "printer.last");
+        checkEquals("Expected empty buffer", "", printer.buffer());
 
         this.builder.setLength(0);
         final char[] chars = b.toString().toCharArray();
@@ -237,8 +237,8 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
             printer.print(String.valueOf(c));
         }
         this.check(printer, expected);
-        assertEquals("printer.last", 0, printer.last);
-        PrinterTestCase.checkEquals("Expected empty buffer", "", printer.buffer());
+        assertEquals(0, printer.last, "printer.last");
+        checkEquals("Expected empty buffer", "", printer.buffer());
     }
 
     @Override

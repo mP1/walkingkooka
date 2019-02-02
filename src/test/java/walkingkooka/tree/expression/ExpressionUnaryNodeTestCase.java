@@ -18,35 +18,42 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionUnaryNodeTestCase<N extends ExpressionUnaryNode> extends ExpressionParentFixedNodeTestCase<N> {
 
     final static String CHILD = "child123";
     final static CharSequence CHILD_TO_STRING = CharSequences.quoteAndEscape(CHILD);
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullChildFails() {
-        this.createExpressionNode(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createExpressionNode(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetChildrenZeroFails() {
-        this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetChildrenTwoFails() {
-        this.createExpressionNode().setChildren(Lists.of(child(), differentChild()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createExpressionNode().setChildren(Lists.of(child(), differentChild()));
+        });
     }
 
     @Test
@@ -61,8 +68,8 @@ public abstract class ExpressionUnaryNodeTestCase<N extends ExpressionUnaryNode>
         this.checkChildren(different, differentChildren);
         this.checkChildren(expression, children);
 
-        assertSame("original children", children, expression.children());
-        assertNotSame("updated children", differentChildren, different.children());
+        assertSame(children, expression.children(), "original children");
+        assertNotSame(differentChildren, different.children(), "updated children");
     }
 
     @Test

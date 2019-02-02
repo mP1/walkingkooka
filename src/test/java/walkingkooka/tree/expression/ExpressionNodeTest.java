@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,18 +28,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNodeTest extends ClassTestCase<ExpressionNode> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testValueOrFailNullFails() {
-        ExpressionNode.valueOrFail(null);
+        assertThrows(NullPointerException.class, () -> {
+            ExpressionNode.valueOrFail(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValueOrFailUnknownValueTypeFails() {
-        ExpressionNode.valueOrFail(this);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ExpressionNode.valueOrFail(this);
+        });
     }
 
     @Test
@@ -119,8 +124,8 @@ public final class ExpressionNodeTest extends ClassTestCase<ExpressionNode> {
 
     private void valueOrFailAndCheck(final Object value, final Class<? extends ExpressionValueNode> type, final Object expected) {
         final ExpressionNode node = ExpressionNode.valueOrFail(value);
-        assertEquals("node type of " + value, type, node.getClass());
-        assertEquals("value", expected, type.cast(node).value());
+        assertEquals(type, node.getClass(), "node type of " + value);
+        assertEquals(expected, type.cast(node).value(), "value");
     }
 
     @Override

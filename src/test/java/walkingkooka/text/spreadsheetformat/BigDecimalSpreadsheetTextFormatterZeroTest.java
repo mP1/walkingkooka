@@ -18,9 +18,9 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class BigDecimalSpreadsheetTextFormatterZeroTest extends BigDecimalSpreadsheetTextFormatterTestCase<BigDecimalSpreadsheetTextFormatterZero> {
 
@@ -40,7 +40,7 @@ public final class BigDecimalSpreadsheetTextFormatterZeroTest extends BigDecimal
     }
 
     private void checkPattern(final BigDecimalSpreadsheetTextFormatterZero zero, final String pattern) {
-        assertEquals(zero.toString(), pattern, zero.pattern());
+        assertEquals(pattern, zero.pattern(), zero.toString());
     }
 
     @Override

@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.ClassTestCase;
@@ -38,7 +38,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class SearchQueryTest extends ClassTestCase<SearchQuery> {
 
@@ -126,9 +126,9 @@ public final class SearchQueryTest extends ClassTestCase<SearchQuery> {
         // convert SearchNode back into text.
         final String expected = this.resourceAsText(test + ".expected.txt");
 
-        assertEquals("search and replace failed\n" + input,
-                expected,
-                replaced.text());
+        assertEquals(expected,
+                replaced.text(),
+                "search and replace failed\n" + input);
     }
 
     private String resourceAsText(final String filename) throws IOException {

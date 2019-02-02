@@ -18,20 +18,26 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class XmlLeafNodeTestCase<N extends XmlLeafNode> extends XmlNodeTestCase<N> {
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public final void testSetChildrenFails() {
-        this.createNode().setChildren(XmlNode.NO_CHILDREN);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNode().setChildren(XmlNode.NO_CHILDREN);
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public final void testRemoveChildFails() {
-        this.createNode().removeChild(0);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNode().removeChild(0);
+        });
     }
 
     @Override final N createNode(final DocumentBuilder builder) {

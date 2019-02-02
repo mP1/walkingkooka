@@ -19,12 +19,13 @@
 package walkingkooka.net.http;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVersion> {
 
@@ -38,9 +39,11 @@ final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVer
         assertEquals("HTTP/1.1", HttpProtocolVersion.VERSION_1_1.value());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFromNullVersionFails() {
-        HttpProtocolVersion.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpProtocolVersion.with(null);
+        });
     }
 
     @Test
@@ -53,9 +56,11 @@ final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVer
         assertSame(HttpProtocolVersion.VERSION_1_1, HttpProtocolVersion.with("HTTP/1.1"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFromUnknownFails() {
-        HttpProtocolVersion.with("unknown/???");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpProtocolVersion.with("unknown/???");
+        });
     }
 
     @Test

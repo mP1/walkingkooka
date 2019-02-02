@@ -18,15 +18,16 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
         extends ClassTestCase<N>
@@ -34,29 +35,35 @@ public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comp
 
     // parameterValue...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testToValueNullFails() {
-        this.createName().toValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createName().toValue(null);
+        });
     }
 
     protected <V> void toValueAndCheck(final HeaderName<V> name,
                                        final String headerValue,
                                        final V value) {
-        assertEquals(name + "=" + CharSequences.quoteIfNecessary(headerValue),
-                value,
-                name.toValue(headerValue));
+        assertEquals(value,
+                name.toValue(headerValue),
+                name + "=" + CharSequences.quoteIfNecessary(headerValue));
     }
 
     // checkValue...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testCheckValueNullFails() {
-        this.checkValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.checkValue(null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public final void testCheckValueInvalidTypeFails() {
-        this.checkValue(this);
+        assertThrows(HeaderValueException.class, () -> {
+            this.checkValue(this);
+        });
     }
 
     protected void checkValue(final Object value) {
@@ -65,9 +72,9 @@ public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comp
 
     protected void checkValue(final HeaderName<?> name,
                               final Object value) {
-        assertSame(name + " didnt return correct value=" + CharSequences.quoteIfChars(value),
-                value,
-                name.checkValue(value));
+        assertSame(value,
+                name.checkValue(value),
+                name + " didnt return correct value=" + CharSequences.quoteIfChars(value));
     }
 
     protected final N createName() {

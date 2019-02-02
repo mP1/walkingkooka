@@ -18,10 +18,8 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -61,19 +59,17 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parser<ParserToken, FakeParserContext>,
         ParserToken,
         FakeParserContext> {
 
-    @Rule
-    public TestName testName = new TestName();
-
     @Test
-    @Ignore("Until proper error reporting is available")
+    @Disabled("Until proper error reporting is available")
     public void testEmptyCursorFail() {
         this.parseFailAndCheck("");
     }
@@ -129,14 +125,18 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
         this.parseAndCheck2(text, this.string(text), text);
     }
 
-    @Test(expected = EbnfParserCombinatorDuplicateRuleException.class)
+    @Test
     public void testIdentifierDuplicateRuleGrammarFails() {
-        this.createParser2();
+        assertThrows(EbnfParserCombinatorDuplicateRuleException.class, () -> {
+            this.createParser2();
+        });
     }
 
-    @Test(expected = EbnfParserCombinatorDuplicateRuleException.class)
+    @Test
     public void testIdentifierDuplicateRulePredefinedFails() {
-        this.createParser2();
+        assertThrows(EbnfParserCombinatorDuplicateRuleException.class, () -> {
+            this.createParser2();
+        });
     }
 
     @Test
@@ -359,7 +359,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
     }
 
     private Parser<ParserToken, FakeParserContext> createParser2() {
-        return this.createParser(this.testName.getMethodName() + ".grammar");
+        return this.createParser(this.currentTestName() + ".grammar");
     }
 
     /**
@@ -376,7 +376,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
                 this.syntaxTreeTransformer(grammar));
 
         final Parser<ParserToken, FakeParserContext> test = Cast.to(all.get(TEST));
-        assertNotNull(TEST + " parser not found in grammar\n" + grammar, test);
+        assertNotNull(test, TEST + " parser not found in grammar\n" + grammar);
         return test;
     }
 

@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -33,10 +33,11 @@ import javax.xml.parsers.DocumentBuilder;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
 
@@ -96,7 +97,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
     // name ............................................................
 
     @Test
-    public void testName() {
+    public void testtestName() {
         assertEquals(PARENT, this.createNode().name());
     }
 
@@ -107,19 +108,26 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         this.appendChildAndCheck();
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testChildListAddReadOnly() {
-        this.appendChildAndCheck().children().add(null);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.appendChildAndCheck().children().add(null);
+
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testChildListSetReadOnly() {
-        this.appendChildAndCheck().children().set(0, null);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.appendChildAndCheck().children().set(0, null);
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testChildListRemoveReadOnly() {
-        this.appendChildAndCheck().children().remove(0);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.appendChildAndCheck().children().remove(0);
+        });
     }
 
     @Test
@@ -135,7 +143,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         assertFalse(parent == parent2);
 
         this.checkChildren("parent2", 2, parent2);
-        assertEquals("text of 2children", TEXT + TEXT2, parent2.text());
+        assertEquals(TEXT + TEXT2, parent2.text(), "text of 2children");
     }
 
     private XmlElement appendChildAndCheck() {
@@ -184,7 +192,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         final XmlElement parent2 = parent.appendChild(child);
 
         final XmlElement parent3 = parent2.setChildren(Lists.of(child));
-        assertSame("set of new child would be identical", parent2, parent3);
+        assertSame(parent2, parent3, "set of new child would be identical");
     }
 
     @Test
@@ -198,7 +206,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         assertTrue(parent2 != parent3);
 
         this.checkChildren("parent after set different child", 1, parent3);
-        assertEquals("text after replacing only child", TEXT2, parent3.text());
+        assertEquals(TEXT2, parent3.text(), "text after replacing only child");
     }
 
     @Test
@@ -216,7 +224,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         this.checkNotAdopted("child3", child3);
 
         this.checkChildren("parent after set different child", 2, parent3);
-        assertEquals("text after replacing only child", TEXT + TEXT3, parent3.text());
+        assertEquals(TEXT + TEXT3, parent3.text(), "text after replacing only child");
     }
 
     @Test
@@ -285,9 +293,9 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         root.setAttributeNS(NAMESPACE_URL1, PREFIX1.value() + ":" + ATTRIBUTE_NAME1.value(), ATTRIBUTE_VALUE1);
         root.setAttribute(ATTRIBUTE_NAME2.value(), ATTRIBUTE_VALUE2);
 
-        assertEquals("1st attr/namespace decl", NAMESPACE_URL1, root.getAttributeNS(XmlNode.XMLNS_URI, PREFIX1.value()));
-        assertEquals("2nd attribute/namespaced attr", ATTRIBUTE_VALUE1, root.getAttributeNS(NAMESPACE_URL1, ATTRIBUTE_NAME1.value()));
-        assertEquals("3rd attribute", ATTRIBUTE_VALUE2, root.getAttribute(ATTRIBUTE_NAME2.value()));
+        assertEquals(NAMESPACE_URL1, root.getAttributeNS(XmlNode.XMLNS_URI, PREFIX1.value()), "1st attr/namespace decl");
+        assertEquals(ATTRIBUTE_VALUE1, root.getAttributeNS(NAMESPACE_URL1, ATTRIBUTE_NAME1.value()), "2nd attribute/namespaced attr");
+        assertEquals(ATTRIBUTE_VALUE2, root.getAttribute(ATTRIBUTE_NAME2.value()), "3rd attribute");
 
         final Map<XmlAttributeName, String> attributes = Maps.ordered();
         attributes.put(ATTRIBUTE_NAME_DEF1, NAMESPACE_URL1);
@@ -456,12 +464,12 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
     }
 
     private void checkPrefix(final XmlElement element, final String prefix) {
-        assertEquals("prefix", Optional.ofNullable(null != prefix ? XmlNode.prefix(prefix) : null), element.prefix());
-        assertEquals("w3c element prefix", prefix, element.node.getPrefix());
+        assertEquals(Optional.ofNullable(null != prefix ? XmlNode.prefix(prefix) : null), element.prefix(),"prefix");
+        assertEquals(prefix, element.node.getPrefix(), "w3c element prefix");
     }
 
     private void checkAttributes(final XmlElement element, final Map<XmlAttributeName, String> attributes) {
-        assertEquals("attributes", attributes, element.attributes());
+        assertEquals(attributes, element.attributes(),"attributes");
 
         final Map<String, Object> rawAttributes = Maps.ordered();
         attributes.entrySet()
@@ -476,7 +484,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
             actualRawAttributes.put(attr.getName(), attr.getValue());
         }
 
-        assertEquals("attributes on w3c.dom.Element", rawAttributes, actualRawAttributes);
+        assertEquals(rawAttributes, actualRawAttributes, "attributes on w3c.dom.Element");
     }
 
     private static Map<XmlAttributeName, String> attributes(final XmlAttributeName name1,

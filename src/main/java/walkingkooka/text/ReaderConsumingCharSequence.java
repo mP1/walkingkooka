@@ -133,7 +133,7 @@ final class ReaderConsumingCharSequence implements CharSequence, HashCodeEqualsD
     }
 
     private boolean equals0(final ReaderConsumingCharSequence other) {
-        return this.content.equals(other.content);
+        return CharSequences.equals(this.content, other.content);
     }
 
     @Override

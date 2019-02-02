@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.net.AbsoluteUrl;
@@ -31,59 +31,77 @@ import walkingkooka.tree.json.JsonNode;
 
 import java.util.function.BiConsumer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandlerBuilder<JsonNode>,
         Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
     // creation ..........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        this.createBuilder(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithQueryStringFails() {
-        this.createBuilder("http://example/api?param1=value1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createBuilder("http://example/api?param1=value1");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithFragmentFails() {
-        this.createBuilder("http://example/api#fragment-1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createBuilder("http://example/api#fragment-1");
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullContentTypeFails() {
-        this.createBuilder("http://example/api", null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder("http://example/api", null);
+        });
     }
 
     // get ..........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetNullResourceNameFails() {
-        this.createBuilder().get(null, LinkRelation.SELF, this.getHandler());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().get(null, LinkRelation.SELF, this.getHandler());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetNullRelationFails() {
-        this.createBuilder().get(this.resourceName1(), null, this.getHandler());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().get(this.resourceName1(), null, this.getHandler());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetNullHandlerFails() {
-        this.createBuilder().get(this.resourceName1(), LinkRelation.SELF, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().get(this.resourceName1(), LinkRelation.SELF, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDuplicateResourceAndRelationFails() {
         final HateosResourceName resourceName = this.resourceName1();
         final LinkRelation<?> relation = LinkRelation.SELF;
 
         final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
         builder.get(resourceName, relation, this.getHandler());
-        builder.get(resourceName, relation, this.getHandler());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            builder.get(resourceName, relation, this.getHandler());
+        });
     }
 
     @Test
@@ -117,29 +135,38 @@ public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandle
 
     // post ..........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPostNullResourceNameFails() {
-        this.createBuilder().post(null, LinkRelation.SELF, this.postHandler());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().post(null, LinkRelation.SELF, this.postHandler());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPostNullRelationFails() {
-        this.createBuilder().post(this.resourceName1(), null, this.postHandler());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().post(this.resourceName1(), null, this.postHandler());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPostNullHandlerFails() {
-        this.createBuilder().post(this.resourceName1(), LinkRelation.SELF, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().post(this.resourceName1(), LinkRelation.SELF, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPostDuplicateResourceAndRelationFails() {
         final HateosResourceName resourceName = this.resourceName1();
         final LinkRelation<?> relation = LinkRelation.SELF;
 
         final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
         builder.post(resourceName, relation, this.postHandler());
-        builder.post(resourceName, relation, this.postHandler());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            builder.post(resourceName, relation, this.postHandler());
+        });
     }
 
     @Test
@@ -173,29 +200,38 @@ public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandle
 
     // put ..........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPutNullResourceNameFails() {
-        this.createBuilder().put(null, LinkRelation.SELF, this.putHandler());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().put(null, LinkRelation.SELF, this.putHandler());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPutNullRelationFails() {
-        this.createBuilder().put(this.resourceName1(), null, this.putHandler());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().put(this.resourceName1(), null, this.putHandler());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPutNullHandlerFails() {
-        this.createBuilder().put(this.resourceName1(), LinkRelation.SELF, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().put(this.resourceName1(), LinkRelation.SELF, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPutDuplicateResourceAndRelationFails() {
         final HateosResourceName resourceName = this.resourceName1();
         final LinkRelation<?> relation = LinkRelation.SELF;
 
         final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
         builder.put(resourceName, relation, this.putHandler());
-        builder.put(resourceName, relation, this.putHandler());
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            builder.put(resourceName, relation, this.putHandler());
+        });
     }
 
     @Test
@@ -228,29 +264,38 @@ public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandle
     }
     // delete ..........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testDeleteNullResourceNameFails() {
-        this.createBuilder().delete(null, LinkRelation.SELF, this.deleteHandler());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().delete(null, LinkRelation.SELF, this.deleteHandler());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testDeleteNullRelationFails() {
-        this.createBuilder().delete(this.resourceName1(), null, this.deleteHandler());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().delete(this.resourceName1(), null, this.deleteHandler());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testDeleteNullHandlerFails() {
-        this.createBuilder().delete(this.resourceName1(), LinkRelation.SELF, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().delete(this.resourceName1(), LinkRelation.SELF, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testDeleteDuplicateResourceAndRelationFails() {
         final HateosResourceName resourceName = this.resourceName1();
         final LinkRelation<?> relation = LinkRelation.SELF;
 
         final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
         builder.delete(resourceName, relation, this.deleteHandler());
-        builder.delete(resourceName, relation, this.deleteHandler());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            builder.delete(resourceName, relation, this.deleteHandler());
+        });
     }
 
     @Test

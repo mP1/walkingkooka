@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -27,8 +27,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public final class ReflectionPojoNodeContextTest extends PojoNodeContextTestCase<ReflectionPojoNodeContext> {
 
@@ -119,7 +119,7 @@ public final class ReflectionPojoNodeContextTest extends PojoNodeContextTestCase
         final TestGetterAndSetter2 instance = new TestGetterAndSetter2();
         final TestGetterAndSetter2 result = this.setAndGetCheck(instance, X, STRING2);
         assertNotSame(instance, result);
-        assertEquals("original property was changed", STRING, instance.x);
+        assertEquals(STRING, instance.x, "original property was changed");
     }
 
     // Get BooleanPrimitive

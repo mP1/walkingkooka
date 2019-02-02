@@ -17,15 +17,15 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPredicate>
         implements HashCodeEqualsDefinedTesting<AnyCharPredicate>, SerializationTesting<AnyCharPredicate> {
@@ -38,19 +38,17 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
 
     @Test
     public void testWithNullCharsFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             AnyCharPredicate.with(null);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        });
     }
 
     @Test
     public void testWithEmptyString() {
         final CharPredicate predicate = AnyCharPredicate.with("");
-        assertNotEquals("predicate must not be a AnyCharPredicate",
-                AnyCharPredicate.class,
-                predicate.getClass());
+        assertNotEquals(AnyCharPredicate.class,
+                predicate.getClass(),
+                "predicate must not be a AnyCharPredicate");
 
         for (int i = 0; i < Character.MAX_VALUE; i++) {
             this.testFalse(predicate, (char) i);
@@ -60,9 +58,9 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
     @Test
     public void testWithOneCharacterString() {
         final CharPredicate predicate = AnyCharPredicate.with("A");
-        assertNotEquals("predicate must not be a AnyCharPredicate",
-                AnyCharPredicate.class,
-                predicate.getClass());
+        assertNotEquals(AnyCharPredicate.class,
+                predicate.getClass(),
+                "predicate must not be a AnyCharPredicate");
 
         for (int i = 0; i < Character.MAX_VALUE; i++) {
             if (i != 'A') {
@@ -76,13 +74,13 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
     @Test
     public void testWithLongString() {
         final AnyCharPredicate predicate = this.createCharPredicate();
-        assertArrayEquals("array", "123ABC".toCharArray(), predicate.array);
+        assertArrayEquals("123ABC".toCharArray(), predicate.array, "array");
     }
 
     @Test
     public void testWithRemovesDuplicatesString() {
         final AnyCharPredicate predicate = Cast.to(AnyCharPredicate.with("ZAAAB"));
-        assertArrayEquals("array", "ABZ".toCharArray(), predicate.array);
+        assertArrayEquals("ABZ".toCharArray(), predicate.array, "array");
     }
 
     // Predicate

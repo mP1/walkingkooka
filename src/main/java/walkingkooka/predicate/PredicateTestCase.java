@@ -17,13 +17,14 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Base class for testing a {@link Predicate} with mostly parameter checking tests and various
@@ -41,9 +42,11 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
         this.checkNaming(Predicate.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTestNullFails() {
-        this.test(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.test(null);
+        });
     }
 
     @Test

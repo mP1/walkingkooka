@@ -17,11 +17,11 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<WhitespaceCleaningPrinter> {
 
@@ -33,11 +33,9 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
 
     @Test
     public void testWrapNullPrinterFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             WhitespaceCleaningPrinter.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test

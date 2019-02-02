@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -25,8 +25,9 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetParentParserTokenTestCase<T extends SpreadsheetParentParserToken<T>> extends SpreadsheetParserTokenTestCase<T> {
 
@@ -38,14 +39,18 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
 
     final static String WHITESPACE = "   ";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullTokensFails() {
-        this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithEmptyTokensFails() {
-        this.createToken(this.text(), Lists.empty());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), Lists.empty());
+        });
     }
 
     @Test
@@ -54,8 +59,8 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         final String text = this.text();
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
-        assertEquals("tokens", tokens, token.value());
-        assertEquals("tokens not copied", tokens, token.value());
+        assertEquals(tokens, token.value(), "tokens");
+        assertEquals(tokens, token.value(), "tokens not copied");
     }
 
     @Test
@@ -71,9 +76,11 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         assertSame(token.withoutSymbols().get(), token.withoutSymbols().get());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetValueNullFails() {
-        this.createToken().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken().setValue(null);
+        });
     }
 
     @Test
@@ -113,7 +120,7 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
     }
 
     final void checkValue(final SpreadsheetParentParserToken<?> token, final List<ParserToken> value){
-        assertEquals("value", value, token.value());
+        assertEquals(value, token.value(), "value");
     }
 
 

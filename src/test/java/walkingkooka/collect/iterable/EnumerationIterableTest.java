@@ -17,27 +17,25 @@
 
 package walkingkooka.collect.iterable;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.enumeration.Enumerations;
 
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EnumerationIterableTest
         extends IterableTestCase<EnumerationIterable<Object>, Object> {
 
     @Test
     public void testWithNullEnumerationFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             EnumerationIterable.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -47,18 +45,16 @@ final public class EnumerationIterableTest
         final Iterator<Object> iterator = iterable.iterator();
         assertEquals("1", iterator.next());
         assertEquals("2", iterator.next());
-        assertFalse("iterator should be empty=" + iterator, iterator.hasNext());
+        assertFalse(iterator.hasNext(), "iterator should be empty=" + iterator);
     }
 
     @Test
     public void testIterableTwiceFails() {
         final Iterable<Object> iterable = this.createIterable();
         iterable.iterator();
-        try {
+        assertThrows(IllegalStateException.class, () -> {
             iterable.iterator();
-            Assert.fail();
-        } catch (final IllegalStateException expected) {
-        }
+        });
     }
 
     @Test

@@ -18,27 +18,32 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetTextFormatter<V>, V> extends ClassTestCase<F> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testFormatNullValueFails() {
-        this.createFormatter().format(null, this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.createFormatter().format(null, this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testFormatNullContextFails() {
-        this.createFormatter().format(this.value(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createFormatter().format(this.value(), null);
+        });
     }
 
     @Test
@@ -47,7 +52,7 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
         assertNotEquals(null, type);
 
         final V value = this.value();
-        assertTrue(type.getName() + " " + value.getClass().getName() + "=" + value, type.isInstance(value));
+        assertTrue(type.isInstance(value), () -> type.getName() + " " + value.getClass().getName() + "=" + value);
     }
 
     @Test
@@ -127,7 +132,7 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
                                   final V value,
                                   final SpreadsheetTextFormatContext context,
                                   final Optional<SpreadsheetFormattedText> formattedText) {
-        assertEquals(formatter + " " + CharSequences.quoteIfChars(value), formattedText, formatter.format(value, context));
+        assertEquals(formattedText, formatter.format(value, context), ()-> formatter + " " + CharSequences.quoteIfChars(value));
     }
 
     @Override

@@ -18,7 +18,7 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
@@ -28,9 +28,10 @@ import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class HslComponentTestCase<C extends HslComponent> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
@@ -45,20 +46,24 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
 
     // tests
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testBelowLowerBoundsFails() {
-        this.createHslComponent(HueHslComponent.MIN - 0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createHslComponent(HueHslComponent.MIN - 0.1f);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testAboveUpperBoundsFails() {
-        this.createHslComponent(HueHslComponent.MAX + 0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createHslComponent(HueHslComponent.MAX + 0.1f);
+        });
     }
 
     @Test
     public final void testWith() {
         final C component = this.createHslComponent(LIGHTNESS);
-        assertEquals("value", LIGHTNESS, component.value(), 0.1);
+        assertEquals(LIGHTNESS, component.value(), 0.1, "value");
     }
 
     // set
@@ -69,14 +74,18 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
         assertSame(component, component.setValue(LIGHTNESS));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetBelowLowerBoundsFails() {
-        this.createHslComponent(this.min()).setValue(this.min() - 0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createHslComponent(this.min()).setValue(this.min() - 0.1f);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetAboveUpperBoundsFails() {
-        this.createHslComponent(this.min()).setValue(this.max() + 0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createHslComponent(this.min()).setValue(this.max() + 0.1f);
+        });
     }
 
     @Test
@@ -86,7 +95,7 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
         final C original = this.createHslComponent(min);
         final HslComponent component = original.setValue(value);
         assertNotSame(original, component);
-        assertEquals("value", value, component.value(), 0.1);
+        assertEquals(value, component.value(), 0.1, "value");
     }
 
     // add
@@ -126,7 +135,7 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
     private void addAndCheck(final float initial, final float delta, final float expected) {
         final C component = this.createHslComponent(initial);
         final HslComponent added = component.add(delta);
-        assertEquals("value", expected, added.value(), 0.1f);
+        assertEquals(expected, added.value(), 0.1f, "value");
     }
 
     @Test
@@ -145,9 +154,9 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
             if(!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(component));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(component),
+                    method + " returned");
         }
     }
 

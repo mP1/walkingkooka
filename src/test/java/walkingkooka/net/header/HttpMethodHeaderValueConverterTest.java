@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpMethod;
 
 public final class HttpMethodHeaderValueConverterTest extends

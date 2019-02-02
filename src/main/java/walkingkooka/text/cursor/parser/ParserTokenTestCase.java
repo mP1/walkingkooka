@@ -17,7 +17,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
@@ -30,13 +30,14 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTestCase<T> {
 
@@ -49,7 +50,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
     public final void testNameConstantPresent() throws Exception {
         final Class<T> type = this.type();
         final Field field = type.getField("NAME");
-        assertEquals("NAME constant has incorrect value", ParserTokenNodeName.fromClass(type), field.get(null));
+        assertEquals(ParserTokenNodeName.fromClass(type), field.get(null), "NAME constant has incorrect value");
     }
 
     @Test
@@ -59,7 +60,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
             final boolean leaf = LeafParserToken.class.isAssignableFrom(type);
             final boolean parent = ParentParserToken.class.isAssignableFrom(type);
             if(leaf){
-                assertFalse("Type " + type.getName() + " must implement either " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName() + " but not both", parent);
+                assertFalse(parent, "Type " + type.getName() + " must implement either " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName() + " but not both");
                 break;
             }
             if(parent){
@@ -75,12 +76,12 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
             final T token = this.createToken();
             if(token instanceof LeafParserToken){
                 final Object value = LeafParserToken.class.cast(token).value();
-                assertFalse(token + " value must not be a Collection but was " + toString(value), value instanceof Collection);
+                assertFalse(value instanceof Collection, () -> token + " value must not be a Collection but was " + toString(value));
                 break;
             }
             if(token instanceof ParentParserToken){
                 final Object value = ParentParserToken.class.cast(token).value();
-                assertTrue(token + " value must be a Collection but was " + toString(value), value instanceof Collection);
+                assertTrue(value instanceof Collection, () -> token + " value must be a Collection but was " + toString(value));
                 break;
             }
             fail("ParserToken: " + token + " must implement either " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName());
@@ -96,18 +97,22 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
         final boolean whitespace = type.contains(WHITESPACE);
 
         final T token = this.createToken();
-        assertEquals(token + " isWhitespace must be true if " + type + " contains " + CharSequences.quote(WHITESPACE), whitespace, token.isWhitespace());
+        assertEquals(whitespace,
+                token.isWhitespace(),
+                () -> token + " isWhitespace must be true if " + type + " contains " + CharSequences.quote(WHITESPACE));
 
         if(whitespace) {
-            assertEquals(token + " isWhitespace==true, isNoise must also be true", whitespace, token.isNoise());
+            assertEquals(whitespace, token.isNoise(), () -> token + " isWhitespace==true, isNoise must also be true");
         }
     }
 
     private final static String WHITESPACE = "Whitespace";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTextFails() {
-        this.createToken(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken(null);
+        });
     }
 
     @Test
@@ -119,17 +124,20 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
     public void testToSearchNode() {
         final T token = this.createToken();
         final SearchNode searchNode = token.toSearchNode();
-        assertEquals("text", token.text(), searchNode.text());
+        assertEquals(token.text(), searchNode.text(), "text");
 
         for(;;) {
             if (token instanceof LeafParserToken) {
                 break;
             }
             if (token instanceof ParentParserToken) {
-                assertTrue("SearchNode should be a SearchSequenceNode=" + searchNode, searchNode.isSequence());
+                assertTrue(searchNode.isSequence(),
+                        ()-> "SearchNode should be a SearchSequenceNode=" + searchNode);
 
                 final ParentParserToken<?> parent = ParentParserToken.class.cast(token);
-                assertEquals("child count should be the same", parent.value().size(), SearchSequenceNode.class.cast(searchNode).children().size());
+                assertEquals(parent.value().size(),
+                        SearchSequenceNode.class.cast(searchNode).children().size(),
+                        "child count should be the same");
                 break;
             }
         }
@@ -152,9 +160,11 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
         this.publicStaticFactoryCheck(ParserTokens.class, "", ParserToken.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetTextNullFails() {
-        this.createToken().setText(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken().setText(null);
+        });
     }
 
     @Test
@@ -167,17 +177,17 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
     public final void testSetTextDifferent() {
         final T token = this.createToken();
         final String differentText = this.createDifferentToken().text();
-        assertNotEquals("different text must be different from tokens", token.text(), differentText);
+        assertNotEquals(token.text(), differentText, "different text must be different from tokens");
 
         final ParserToken token2 = token.setText(differentText);
         assertNotSame(token, token2);
         checkText(token2, differentText);
-        assertEquals("type of token after set must remain the same=" + token2, token.getClass(), token2.getClass());
+        assertEquals(token.getClass(), token2.getClass(), () -> "type of token after set must remain the same=" + token2);
 
-        assertNotEquals("tokens must be different", token, token2);
+        assertNotEquals(token, token2, "tokens must be different");
 
         final ParserToken token3 = token2.setText(token.text());
-        assertEquals("after setting original text tokens must be equal", token, token3);
+        assertEquals(token, token3, "after setting original text tokens must be equal");
     }
 
     @Test
@@ -203,7 +213,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
             }
         }.accept(token);
         assertEquals("12", b.toString());
-        assertEquals("visited tokens", Lists.<Object>of(token, token), visited);
+        assertEquals(Lists.<Object>of(token, token), visited, "visited tokens");
     }
 
     @Test
@@ -260,7 +270,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
     protected abstract T createDifferentToken();
 
     protected void checkText(final ParserToken token, final String text) {
-        assertEquals("text of " + token, text, token.text());
+        assertEquals(text, token.text(), "text of " + token);
     }
 
     @Override

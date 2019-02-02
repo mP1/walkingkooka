@@ -17,12 +17,12 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<RightPaddedCharSequence2>
         implements SerializationTesting<RightPaddedCharSequence2> {
@@ -63,21 +63,19 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
     public void testSubSequencePaddingOnly() {
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(6, 7);
-        assertNotEquals("class", RightPaddedCharSequence2.class, sub.getClass());
+        assertNotEquals(RightPaddedCharSequence2.class, sub.getClass(), "class");
         this.checkEquals2(sub, PADDING);
-        assertEquals("sub.toString", ".", sub.toString());
     }
 
     @Test
     public void testSubSequencePaddingOnly2() {
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(5, 8);
-        assertNotEquals("class", RightPaddedCharSequence2.class, sub.getClass());
+        assertNotEquals(RightPaddedCharSequence2.class, sub.getClass(), "class");
         this.checkEquals2(sub,
                 PADDING,
                 PADDING,
                 PADDING);
-        assertEquals("sub.toString", "...", sub.toString());
     }
 
     @Test
@@ -90,7 +88,6 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 4);
         this.checkEquals2(sub, "bcd");
-        assertEquals("sub.toString", "bcd", sub.toString());
     }
 
     @Test
@@ -98,7 +95,6 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 7);
         this.checkEquals2(sub, "abcde..");
-        assertEquals("sub.toString", "abcde..", sub.toString());
     }
 
     @Test
@@ -106,7 +102,6 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 6);
         this.checkEquals2(sub, "bcde.");
-        assertEquals("sub.toString", "bcde.", sub.toString());
     }
 
     @Test
@@ -114,7 +109,6 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 7).subSequence(1, 5);
         this.checkEquals2(sub, "cde.");
-        assertEquals("sub.toString", "cde.", sub.toString());
     }
 
     @Test

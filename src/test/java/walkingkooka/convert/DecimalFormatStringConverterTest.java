@@ -18,22 +18,25 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DecimalFormatStringConverterTest extends FixedTypeConverterTestCase<DecimalFormatStringConverter, Number> {
 
     private final static String PATTERN = "##00.00";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPatternFails() {
-        DecimalFormatStringConverter.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            DecimalFormatStringConverter.with(null);
+        });
     }
 
     @Test

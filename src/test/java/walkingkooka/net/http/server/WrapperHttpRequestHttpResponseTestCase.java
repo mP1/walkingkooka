@@ -18,7 +18,9 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class WrapperHttpRequestHttpResponseTestCase<R extends WrapperHttpRequestHttpResponse>
         extends WrapperHttpResponseTestCase<R> {
@@ -27,9 +29,11 @@ public abstract class WrapperHttpRequestHttpResponseTestCase<R extends WrapperHt
         super();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullRequestFails() {
-        this.createResponse(null, HttpResponses.fake());
+        assertThrows(NullPointerException.class, () -> {
+            this.createResponse(null, HttpResponses.fake());
+        });
     }
 
     // helpers..................................................................................................

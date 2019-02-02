@@ -18,34 +18,39 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetBinaryParserTokenTestCase<T extends SpreadsheetBinaryParserToken<T>> extends SpreadsheetParentParserTokenTestCase<T> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithLeftMissingFails() {
         final SpreadsheetWhitespaceParserToken whitespace = this.whitespace();
         final SpreadsheetParserToken symbol = this.operatorSymbol();
         final SpreadsheetParserToken right = this.rightToken();
 
-        this.createToken(whitespace.text() + symbol.text() + right.text(), whitespace, symbol, right);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(whitespace.text() + symbol.text() + right.text(), whitespace, symbol, right);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithRightMissingFails() {
         final SpreadsheetParserToken left = this.leftToken();
         final SpreadsheetParserToken symbol = this.operatorSymbol();
         final SpreadsheetWhitespaceParserToken whitespace = this.whitespace();
 
-        this.createToken(left.text() + symbol.text() + whitespace.text(), left, symbol, whitespace);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(left.text() + symbol.text() + whitespace.text(), left, symbol, whitespace);
+        });
     }
 
     @Test
@@ -91,14 +96,18 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
         this.checkValue(without, left, right);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValueWrongCountFails() {
-        this.createToken().setValue(Lists.of(this.number1()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(this.number1()));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValueWrongCountFails2() {
-        this.createToken().setValue(Lists.of(this.number1(), this.number2(), this.number(3)));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(this.number1(), this.number2(), this.number(3)));
+        });
     }
 
     abstract SpreadsheetParserToken leftToken();

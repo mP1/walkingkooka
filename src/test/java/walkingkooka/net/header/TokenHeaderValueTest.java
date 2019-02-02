@@ -18,14 +18,15 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCase<TokenHeaderValue,
         TokenHeaderValueParameterName<?>> {
@@ -35,19 +36,25 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
 
     // with.........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullValueFails() {
-        TokenHeaderValue.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            TokenHeaderValue.with(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyValueFails() {
-        TokenHeaderValue.with("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            TokenHeaderValue.with("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidCharactersValueFails() {
-        TokenHeaderValue.with("<");
+        assertThrows(IllegalArgumentException.class, () -> {
+            TokenHeaderValue.with("<");
+        });
     }
 
     @Test
@@ -58,19 +65,25 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
 
     // setValue ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetValueNullFails() {
-        this.token().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.token().setValue(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValueEmptyFails() {
-        this.token().setValue("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.token().setValue("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValueInvalidCharactersFails() {
-        this.token().setValue("<");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.token().setValue("<");
+        });
     }
 
     @Test
@@ -89,9 +102,11 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
 
     // setParameters ...........................................................................................
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetParametersInvalidParameterValueFails() {
-        this.token().setParameters(this.parameters("Q", "INVALID!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.token().setParameters(this.parameters("Q", "INVALID!"));
+        });
     }
 
     @Test
@@ -169,7 +184,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
     }
 
     private void toStringAndCheck(final TokenHeaderValue token, final String toString) {
-        assertEquals("toString", toString, token.toString());
+        assertEquals(toString, token.toString(), "toString");
     }
 
     // toHeaderTextList ...........................................................................................
@@ -247,9 +262,9 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
     private void check(final TokenHeaderValue token,
                        final String value,
                        final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
-        assertEquals("value", value, token.value());
-        assertEquals("parameters", parameters, token.parameters());
-        assertEquals("is wildcard", value.equals(TokenHeaderValue.WILDCARD), token.isWildcard());
+        assertEquals(value, token.value(), "value");
+        assertEquals(parameters, token.parameters(), "parameters");
+        assertEquals(value.equals(TokenHeaderValue.WILDCARD), token.isWildcard(), "is wildcard");
     }
 
     @Override

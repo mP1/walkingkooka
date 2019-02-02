@@ -18,15 +18,18 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRowReferenceTestCase<SpreadsheetColumnReference> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetRowNullFails() {
-        SpreadsheetReferenceKind.ABSOLUTE.column(1).setRow(null);
+        assertThrows(NullPointerException.class, () -> {
+            SpreadsheetReferenceKind.ABSOLUTE.column(1).setRow(null);
+        });
     }
 
     @Test
@@ -35,8 +38,8 @@ public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRow
         final SpreadsheetRowReference row = SpreadsheetReferenceKind.ABSOLUTE.row(23);
 
         final SpreadsheetCellReference cell = column.setRow(row);
-        assertEquals("column", column, cell.column());
-        assertEquals("row", row, cell.row());
+        assertEquals(column, cell.column(), "column");
+        assertEquals(row, cell.row(), "row");
     }
 
     @Test

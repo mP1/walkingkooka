@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
@@ -29,15 +29,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestCase<EbnfGrammarParserToken> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMissingRuleFails() {
-        this.createToken(this.text(), terminal1());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), terminal1());
+        });
     }
 
     @Test
@@ -46,9 +49,11 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
         assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueMissingRuleFails() {
-        this.createToken().setValue(Lists.empty());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.empty());
+        });
     }
 
     @Test
@@ -152,19 +157,21 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
             }
         }.accept(range);
         assertEquals("13613542138421394213842742", b.toString());
-        assertEquals("visited",
-                Lists.of(range, range, range,
+        assertEquals(Lists.of(range, range, range,
                         identifier, identifier, identifier, identifier, identifier,
                         assignment, assignment, assignment, assignment, assignment,
                         terminal, terminal, terminal, terminal, terminal,
                         terminator, terminator, terminator, terminator, terminator,
                         range, range, range),
-                visited);
+                visited,
+                "visited");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCheckIdentifierReferencesExistNullExternalsFails() {
-        this.createToken().checkIdentifiers(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken().checkIdentifiers(null);
+        });
     }
 
     @Test
@@ -191,30 +198,36 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
                 .checkIdentifiers(Sets.of(identifier));
     }
 
-    @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)
+    @Test
     public void testCheckIdentifierInvalidReferencesInvalidFails() {
         final EbnfRuleParserToken rule = this.rule(this.identifier1(), this.identifier2(), "identifier1:identifier2;");
 
-        this.createToken(rule.text(), rule)
-                .checkIdentifiers(EbnfGrammarParserToken.NO_EXTERNALS);
+        assertThrows(EbnfGrammarParserTokenInvalidReferencesException.class, () -> {
+            this.createToken(rule.text(), rule)
+                    .checkIdentifiers(EbnfGrammarParserToken.NO_EXTERNALS);
+        });
     }
 
-    @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)
+    @Test
     public void testCheckIdentifierInvalidReferencesInvalidFails2() {
         final EbnfRuleParserToken rule = this.rule();
         final EbnfRuleParserToken rule2 = this.rule(this.identifier2(), this.identifier("identifier3"), "identifier2:identifier3;");
 
-        this.createToken(rule.text() + rule2.text(), rule, rule2)
-                .checkIdentifiers(EbnfGrammarParserToken.NO_EXTERNALS);
+        assertThrows(EbnfGrammarParserTokenInvalidReferencesException.class, () -> {
+            this.createToken(rule.text() + rule2.text(), rule, rule2)
+                    .checkIdentifiers(EbnfGrammarParserToken.NO_EXTERNALS);
+        });
     }
 
-    @Test(expected = EbnfGrammarParserTokenDuplicateIdentifiersException.class)
+    @Test
     public void testCheckIdentifierDuplicatesFail() {
         final EbnfRuleParserToken rule = this.rule(this.identifier1(), this.terminal1(), "identifier2:'terminal1';");
         final EbnfRuleParserToken rule2 = this.rule(this.identifier1(), this.terminal2(), "identifier2:'terminal2';");
 
-        this.createToken(rule.text() + rule2.text(), rule, rule2)
-                .checkIdentifiers(EbnfGrammarParserToken.NO_EXTERNALS);
+        assertThrows(EbnfGrammarParserTokenDuplicateIdentifiersException.class, () -> {
+            this.createToken(rule.text() + rule2.text(), rule, rule2)
+                    .checkIdentifiers(EbnfGrammarParserToken.NO_EXTERNALS);
+        });
     }
 
     @Test
@@ -234,7 +247,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
         final EbnfGrammarParserToken token = EbnfGrammarParserToken.with(Lists.of(rule), ruleText);
         final SearchNode searchNode = token.toSearchNode();
 
-        assertEquals("text", token.text(), searchNode.text());
+        assertEquals(token.text(), searchNode.text(), "text");
     }
 
     @Override

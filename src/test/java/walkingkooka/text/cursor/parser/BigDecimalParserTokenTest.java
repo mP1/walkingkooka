@@ -16,19 +16,22 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BigDecimalParserTokenTest extends ParserTokenTestCase<BigDecimalParserToken> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullValueFails() {
-        BigDecimalParserToken.with(null, "123");
+        assertThrows(NullPointerException.class, () -> {
+            BigDecimalParserToken.with(null, "123");
+        });
     }
 
     @Test

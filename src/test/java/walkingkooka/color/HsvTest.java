@@ -18,14 +18,15 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HsvTest extends ClassTestCase<Hsv> implements HashCodeEqualsDefinedTesting<Hsv>, SerializationTesting<Hsv> {
 
@@ -37,86 +38,94 @@ public final class HsvTest extends ClassTestCase<Hsv> implements HashCodeEqualsD
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullHueFails() {
-        Hsv.with(null, HsvTest.SATURATION, HsvTest.VALUE);
+        assertThrows(NullPointerException.class, () -> {
+            Hsv.with(null, SATURATION, VALUE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSaturationFails() {
-        Hsv.with(HsvTest.HUE, null, HsvTest.VALUE);
+        assertThrows(NullPointerException.class, () -> {
+            Hsv.with(HUE, null, VALUE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullValueFails() {
-        Hsv.with(HsvTest.HUE, HsvTest.SATURATION, null);
+        assertThrows(NullPointerException.class, () -> {
+            Hsv.with(HUE, SATURATION, null);
+        });
     }
 
     @Test
     public void testWith() {
-        final Hsv hsv = Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE);
-        assertSame("hue", HsvTest.HUE, hsv.hue);
-        assertSame("saturation", HsvTest.SATURATION, hsv.saturation);
-        assertSame("value", HsvTest.VALUE, hsv.value);
+        this.check(Hsv.with(HUE, SATURATION, VALUE), HUE, SATURATION, VALUE);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetNullComponentFails() {
-        Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE).set(null);
+        assertThrows(NullPointerException.class, () -> {
+            Hsv.with(HUE, SATURATION, VALUE).set(null);
+        });
     }
 
     @Test
     public void testSetSameHue() {
-        final Hsv hsv = Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE);
-        assertSame(hsv, hsv.set(HsvTest.HUE));
-        assertSame("hue", HsvTest.HUE, hsv.hue);
-        assertSame("saturation", HsvTest.SATURATION, hsv.saturation);
-        assertSame("value", HsvTest.VALUE, hsv.value);
+        final Hsv hsv = Hsv.with(HUE, SATURATION, VALUE);
+
+        this.check(Hsv.with(HUE, SATURATION, VALUE).set(HUE), HUE, SATURATION, VALUE);
+        this.check(hsv, HUE, SATURATION, VALUE);
     }
 
     @Test
     public void testSetDifferentHue() {
         final HueHsvComponent different = HueHsvComponent.with(180);
-        final Hsv hsv = Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE).set(different);
-        assertSame("hue", different, hsv.hue);
-        assertSame("saturation", HsvTest.SATURATION, hsv.saturation);
-        assertSame("value", HsvTest.VALUE, hsv.value);
+        final Hsv hsv = Hsv.with(HUE, SATURATION, VALUE);
+
+        this.check(Hsv.with(HUE, SATURATION, VALUE).set(different), different, SATURATION, VALUE);
+        this.check(hsv, HUE, SATURATION, VALUE);
     }
 
     @Test
     public void testSetSameSaturation() {
-        final Hsv hsv = Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE);
-        assertSame(hsv, hsv.set(HsvTest.SATURATION));
-        assertSame("hue", HsvTest.HUE, hsv.hue);
-        assertSame("saturation", HsvTest.SATURATION, hsv.saturation);
-        assertSame("value", HsvTest.VALUE, hsv.value);
+        final Hsv hsv = Hsv.with(HUE, SATURATION, VALUE);
+        assertSame(hsv, hsv.set(SATURATION));
+
+        this.check(Hsv.with(HUE, SATURATION, VALUE).set(VALUE), HUE, SATURATION, VALUE);
+        this.check(hsv, HUE, SATURATION, VALUE);
     }
 
     @Test
     public void testSetDifferentSaturation() {
-        final HsvComponent different = SaturationHsvComponent.with(0.5f);
-        final Hsv hsv = Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE).set(different);
-        assertSame("hue", HsvTest.HUE, hsv.hue);
-        assertSame("saturation", different, hsv.saturation);
-        assertSame("value", HsvTest.VALUE, hsv.value);
+        final SaturationHsvComponent different = SaturationHsvComponent.with(0.5f);
+        final Hsv hsv = Hsv.with(HUE, SATURATION, VALUE);
+
+        this.check(Hsv.with(HUE, SATURATION, VALUE).set(different), HUE, different, VALUE);
+        this.check(hsv, HUE, SATURATION, VALUE);
     }
 
     @Test
     public void testSetSameValue() {
-        final Hsv hsv = Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE);
-        assertSame(hsv, hsv.set(HsvTest.VALUE));
-        assertSame("hue", HsvTest.HUE, hsv.hue);
-        assertSame("saturation", HsvTest.SATURATION, hsv.saturation);
-        assertSame("value", HsvTest.VALUE, hsv.value);
+        final Hsv hsv = Hsv.with(HUE, SATURATION, VALUE);
+        this.check(Hsv.with(HUE, SATURATION, VALUE).set(VALUE), HUE, SATURATION, VALUE);
+        this.check(hsv, HUE, SATURATION, VALUE);
     }
 
     @Test
     public void testSetDifferentValue() {
-        final HsvComponent different = ValueHsvComponent.with(0.5f);
-        final Hsv hsv = Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE).set(different);
-        assertSame("hue", HsvTest.HUE, hsv.hue);
-        assertSame("saturation", HsvTest.SATURATION, hsv.saturation);
-        assertSame("value", different, hsv.value);
+        final ValueHsvComponent different = ValueHsvComponent.with(0.5f);
+        this.check(Hsv.with(HUE, SATURATION, VALUE).set(different), HUE, SATURATION, different);
+    }
+
+    private void check(final Hsv hsv,
+                       final HueHsvComponent hue,
+                       final SaturationHsvComponent saturation,
+                       final ValueHsvComponent value) {
+        assertSame(hue, hsv.hue, "hue");
+        assertSame(saturation, hsv.saturation, "saturation");
+        assertSame(value, hsv.value, "value");
     }
 
     @Test
@@ -199,7 +208,7 @@ public final class HsvTest extends ClassTestCase<Hsv> implements HashCodeEqualsD
         final Color actual = hsv.toColor();
         if ((false == this.isEquals(expected.red, actual.red)) || (false == this.isEquals(expected.green, actual.green))
                 || (false == this.isEquals(expected.blue, actual.blue))) {
-            assertEquals("failed to convert " + hsv + " to a Color", expected, actual);
+            assertEquals(expected, actual, () -> "failed to convert " + hsv + " to a Color");
         }
     }
 
@@ -224,8 +233,8 @@ public final class HsvTest extends ClassTestCase<Hsv> implements HashCodeEqualsD
 
     @Test
     public void testToString() {
-        assertEquals(HsvTest.HUE + "," + HsvTest.SATURATION + "," + HsvTest.VALUE,
-                Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE).toString());
+        assertEquals(HUE + "," + SATURATION + "," + VALUE,
+                Hsv.with(HUE, SATURATION, VALUE).toString());
     }
 
     @Override
@@ -237,7 +246,6 @@ public final class HsvTest extends ClassTestCase<Hsv> implements HashCodeEqualsD
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
-
 
     @Override
     public Hsv createObject() {

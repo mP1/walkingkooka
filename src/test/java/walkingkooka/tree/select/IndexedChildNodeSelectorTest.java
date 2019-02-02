@@ -17,12 +17,13 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class IndexedChildNodeSelectorTest extends
@@ -32,14 +33,18 @@ final public class IndexedChildNodeSelectorTest extends
 
     private final static int INDEX = 2;
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNegativeIndexFails() {
-        IndexedChildNodeSelector.with(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            IndexedChildNodeSelector.with(-1);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testZeroIndexFails() {
-        IndexedChildNodeSelector.with(0);
+        assertThrows(IllegalArgumentException.class, () -> {
+            IndexedChildNodeSelector.with(0);
+        });
     }
 
     @Test
@@ -76,8 +81,8 @@ final public class IndexedChildNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("INDEX", 2, IndexedChildNodeSelectorTest.INDEX);
-        assertEquals("*[2]", this.createSelector().toString());
+        assertEquals(2, IndexedChildNodeSelectorTest.INDEX, "INDEX");
+        assertEquals(this.createSelector().toString(), "*[2]");
     }
 
     @Override

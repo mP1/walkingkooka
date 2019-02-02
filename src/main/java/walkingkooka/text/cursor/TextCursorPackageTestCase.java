@@ -22,9 +22,10 @@ import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A {@link TestCase} that includes no actual tests except for those in {@link ClassTestCase} but adds helpers for various
@@ -84,7 +85,7 @@ abstract public class TextCursorPackageTestCase<T> extends ClassTestCase<T> {
     }
 
     final protected void atAndCheck(final TextCursor cursor, final char expected, final String message) {
-        assertNotNull("cursor", cursor);
+        Objects.requireNonNull(cursor, "cursor");
 
         final char at = cursor.at();
         if (at != expected) {
@@ -128,7 +129,7 @@ abstract public class TextCursorPackageTestCase<T> extends ClassTestCase<T> {
      * Escapes the both characters before failing.
      */
     private void failNotEquals(final String message, final char expected, final char actual) {
-        assertEquals(message, CharSequences.quoteAndEscape(expected), CharSequences.quoteAndEscape(actual));
+        assertEquals(CharSequences.quoteAndEscape(expected), CharSequences.quoteAndEscape(actual), message);
     }
 
     @Override

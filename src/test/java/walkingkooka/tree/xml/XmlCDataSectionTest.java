@@ -18,12 +18,13 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class XmlCDataSectionTest extends XmlTextNodeTestCase<XmlCDataSection> {
 
@@ -35,14 +36,18 @@ public final class XmlCDataSectionTest extends XmlTextNodeTestCase<XmlCDataSecti
         ;
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidTextFails() {
-        this.xmlDocument().createCDataSection(XmlCDataSection.CLOSE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.xmlDocument().createCDataSection(XmlCDataSection.CLOSE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTextInvalidFails() {
-        this.createNode().setText(XmlCDataSection.CLOSE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createNode().setText(XmlCDataSection.CLOSE);
+        });
     }
 
     // toSearchNode.....................................................................................................

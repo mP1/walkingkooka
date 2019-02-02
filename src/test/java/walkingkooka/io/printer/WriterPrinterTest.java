@@ -17,15 +17,15 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
 
@@ -54,20 +54,16 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
 
     @Test
     public void testAdaptNullWriterFails() {
-        this.adaptFails(null, WriterPrinterTest.LINE_ENDING);
+        assertThrows(NullPointerException.class, () -> {
+            WriterPrinter.adapt(null, LINE_ENDING);
+        });
     }
 
     @Test
     public void testAdaptNullLineEndingFails() {
-        this.adaptFails(WriterPrinterTest.WRITER, null);
-    }
-
-    private void adaptFails(final Writer writer, final LineEnding lineEnding) {
-        try {
-            WriterPrinter.adapt(writer, lineEnding);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            WriterPrinter.adapt(WRITER, null);
+        });
     }
 
     @Test
@@ -88,7 +84,7 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
                 new Writer() {
                     @Override
                     public void write(final String string) throws IOException {
-                        assertSame("written", written, string);
+                        assertSame(written, string, "written");
                         throw thrown;
                     }
 
@@ -107,12 +103,10 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
                         throw new UnsupportedOperationException();
                     }
                 });
-        try {
+        final PrinterException expected = assertThrows(PrinterException.class, () -> {
             printer.print(written);
-            Assert.fail();
-        } catch (final PrinterException expected) {
-            assertSame("cause", thrown, expected.getCause());
-        }
+        });
+        assertSame(thrown, expected.getCause(), "cause");
     }
 
     @Override
@@ -123,8 +117,8 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
 
     @Test
     public void testToString() {
-        checkEquals(WriterPrinterTest.WRITER.toString(),
-                this.createPrinter(WriterPrinterTest.WRITER).toString());
+        checkEquals(WRITER.toString(),
+                this.createPrinter(WRITER).toString());
     }
 
     @Override
@@ -157,7 +151,7 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
     }
 
     private WriterPrinter createPrinter(final Writer writer) {
-        return WriterPrinter.adapt(writer, WriterPrinterTest.LINE_ENDING);
+        return WriterPrinter.adapt(writer, LINE_ENDING);
     }
 
     @Override

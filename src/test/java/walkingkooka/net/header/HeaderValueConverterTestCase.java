@@ -18,14 +18,15 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static walkingkooka.net.header.HeaderParser.fail;
 
 public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends ClassTestCase<C> {
@@ -39,16 +40,20 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
 
     abstract protected String requiredPrefix();
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testInvalidHeaderValueFails() {
-        this.converter().parse(this.invalidHeaderValue(), this.name());
+        assertThrows(HeaderValueException.class, () -> {
+            this.converter().parse(this.invalidHeaderValue(), this.name());
+        });
     }
 
     abstract String invalidHeaderValue();
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCheckNullFails() {
-        this.check(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.check(null);
+        });
     }
 
     @Test
@@ -59,9 +64,9 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
         } catch (final HeaderValueException expected) {
             expected.printStackTrace();
 
-            assertEquals("message",
-                   this.name() + " value " + this + " is not a " + this.valueType(),
-                    expected.getMessage());
+            assertEquals(this.name() + " value " + this + " is not a " + this.valueType(),
+                    expected.getMessage(),
+                    "message");
         }
     }
 
@@ -119,7 +124,9 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     }
 
     final void parseAndCheck(final C converter, final String value, final Name name, final T expected) {
-        assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.parse(value, name));
+        assertEquals(expected,
+                converter.parse(value, name),
+                () -> converter + " " + name + " of " + CharSequences.quoteIfChars(value));
     }
 
     final void check(final Object value) {
@@ -139,7 +146,9 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     }
 
     final void toTextAndCheck(final C converter, final T value, final Name name, final String expected) {
-        assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.toText(value, name));
+        assertEquals(expected,
+                converter.toText(value, name),
+                () -> converter + " " + name + " of " + CharSequences.quoteIfChars(value));
     }
 
     abstract T value();

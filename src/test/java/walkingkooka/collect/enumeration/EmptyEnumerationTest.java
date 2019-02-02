@@ -17,10 +17,10 @@
 
 package walkingkooka.collect.enumeration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 final public class EmptyEnumerationTest extends EnumerationTestCase<EmptyEnumeration<Void>, Void> {
 

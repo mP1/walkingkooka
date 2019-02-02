@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CaseSensitivity;
 
 public abstract class SearchBinaryQueryTestCase<Q extends SearchBinaryQuery> extends SearchQueryTestCase<Q> {

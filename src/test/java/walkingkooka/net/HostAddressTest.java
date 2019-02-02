@@ -18,7 +18,7 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
@@ -27,13 +27,14 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public final class HostAddressTest extends ClassTestCase<HostAddress>
         implements HashCodeEqualsDefinedTesting<HostAddress>, SerializationTesting<HostAddress> {
@@ -42,7 +43,9 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
 
     @Test
     public void testNullFails() {
-        this.withFails(null);
+        assertThrows(NullPointerException.class, () -> {
+            HostAddress.with(null);
+        });
     }
 
     @Test
@@ -97,13 +100,11 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
     }
 
     private void withFails(final String address, final String message) {
-        try {
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
             HostAddress.with(address);
-            fail();
-        } catch (final RuntimeException expected) {
-            if (null != message) {
-                assertEquals("message", message, expected.getMessage());
-            }
+        });
+        if(null!=message){
+            assertEquals(message, expected.getMessage(), "message");
         }
     }
 
@@ -242,7 +243,7 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
     }
 
     private void checkValue(final HostAddress hostAddress, final String address) {
-        assertEquals("address", address, hostAddress.value());
+        assertEquals(address, hostAddress.value(), "address");
     }
 
     private void checkValues(final HostAddress hostAddress, final String expected) {
@@ -254,22 +255,22 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
     }
 
     private void checkName(final HostAddress hostAddress) {
-        assertTrue("is name=" + hostAddress, hostAddress.isName());
+        assertTrue(hostAddress.isName(), "is name=" + hostAddress);
     }
 
     private void checkNotIpAddress(final HostAddress hostAddress) {
         this.checkName(hostAddress);
-        assertNull(hostAddress + " should have an IpAddress", hostAddress.isIpAddress());
+        assertNull(hostAddress.isIpAddress(), hostAddress + " should have an IpAddress");
     }
 
     private void checkIp4Address(final HostAddress address) {
-        assertFalse(address + " should not be a name", address.isName());
-        assertNotNull(address + " should have an Ip4Address", address.isIpAddress().isIp4());
+        assertFalse(address.isName(), address + " should not be a name");
+        assertNotNull(address.isIpAddress().isIp4(), address + " should have an Ip4Address");
     }
 
     private void checkIp6Address(final HostAddress address) {
-        assertFalse(address + " should not be a name", address.isName());
-        assertNotNull(address + " should have an Ip6Address", address.isIpAddress().isIp6());
+        assertFalse(address.isName(), address + " should not be a name");
+        assertNotNull(address.isIpAddress().isIp6(), address + " should have an Ip6Address");
     }
 
     // HashCodeEqualsDefined ..................................................................................................
@@ -487,7 +488,7 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
     }
 
     private void parseFails(final String address, final int start, final int end, final HostAddressProblem problem) {
-        assertEquals("problem", problem, HostAddress.tryParseName(address, start, end));
+        assertEquals(problem, HostAddress.tryParseName(address, start, end), "problem");
     }
 
     // parseIp4...................................................................................................
@@ -702,7 +703,7 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
 
     private void parseIp4Fails(final String address, final int start, final int end, final boolean insideIp6,
                                final HostAddressProblem problem) {
-        assertEquals("problem", problem, HostAddress.tryParseIp4(address, start, end, insideIp6));
+        assertEquals(problem, HostAddress.tryParseIp4(address, start, end, insideIp6),"problem");
     }
 
     // parseIp6 ...................................................................................................
@@ -993,9 +994,9 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
      * Parses the {@link String} of hex values assuming that it has hex digits in big endian form.
      */
     private static byte[] toByteArray(final String hexDigits) {
-        assertEquals("hexValues string has wrong number of characters=" + hexDigits,
-                HostAddress.IP6_OCTET_COUNT * 2,
-                hexDigits.length());
+        assertEquals(HostAddress.IP6_OCTET_COUNT * 2,
+                hexDigits.length(),
+                "hexValues string has wrong number of characters=" + hexDigits);
         return CharSequences.bigEndianHexDigits(hexDigits);
     }
 

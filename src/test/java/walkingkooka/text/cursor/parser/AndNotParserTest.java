@@ -18,25 +18,31 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringParserToken, ParserContext>, StringParserToken> {
 
     private final static String LEFT = "left";
     private final static String RIGHT = "right";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullLeftFails() {
-        this.createParser(null, this.right());
+        assertThrows(NullPointerException.class, () -> {
+            this.createParser(null, this.right());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullRightFails() {
-        this.createParser(this.left(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createParser(this.left(), null);
+        });
     }
 
     @Test

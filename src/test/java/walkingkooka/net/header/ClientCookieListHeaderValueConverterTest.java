@@ -18,10 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ClientCookieListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ClientCookieListHeaderValueConverter, List<ClientCookie>> {
@@ -43,14 +45,18 @@ public final class ClientCookieListHeaderValueConverterTest extends
         this.parseAndToTextAndCheck(header, ClientCookie.parseHeader(header));
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesNullFails() {
-        this.check(Lists.of(this.cookie(), null));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.cookie(), null));
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesWrongTypeFails() {
-        this.check(Lists.of(this.cookie(), "WRONG!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.cookie(), "WRONG!"));
+        });
     }
 
     private ClientCookie cookie() {
