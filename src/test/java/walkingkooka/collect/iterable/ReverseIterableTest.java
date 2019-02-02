@@ -66,13 +66,13 @@ final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<
 
     @Test
     public void testToString() {
-        assertEquals(ReverseIterableTest.ITERABLE.toString(),
-                ReverseIterable.wrap(ReverseIterableTest.ITERABLE).toString());
+        assertEquals(ITERABLE.toString(),
+                ReverseIterable.wrap(ITERABLE).toString());
     }
 
     @Override
     protected ReverseIterable<String> createIterable() {
-        return Cast.to(ReverseIterable.wrap(ReverseIterableTest.ITERABLE));
+        return Cast.to(ReverseIterable.wrap(ITERABLE));
     }
 
     @Override

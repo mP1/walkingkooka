@@ -65,24 +65,24 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
 
     @Test
     public void testHasNext() {
-        this.checkHasNextTrue(this.iterator(ReadOnlyIteratorTest.ELEMENT));
+        this.checkHasNextTrue(this.iterator(ELEMENT));
     }
 
     @Test
     public void testNext() {
-        assertSame(ReadOnlyIteratorTest.ELEMENT,
-                this.iterator(ReadOnlyIteratorTest.ELEMENT).next());
+        assertSame(ELEMENT,
+                this.iterator(ELEMENT).next());
     }
 
     @Test
     public void testRemove() {
-        this.checkRemoveFails(ReadOnlyIterator.wrap(this.iterator(ReadOnlyIteratorTest.ELEMENT)));
+        this.checkRemoveFails(ReadOnlyIterator.wrap(this.iterator(ELEMENT)));
     }
 
     @Test
     public void testToString() {
         final Iterator<Object> iterator
-                = new ArrayList<Object>(Lists.of(ReadOnlyIteratorTest.ELEMENT)).iterator();
+                = new ArrayList<Object>(Lists.of(ELEMENT)).iterator();
         assertEquals(iterator.toString(), ReadOnlyIterator.wrap(iterator).toString());
     }
 

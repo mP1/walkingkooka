@@ -179,7 +179,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .label("label1").value(1)//
-                        .label("label2").value(ToStringBuilderTest.NULL)//
+                        .label("label2").value(NULL)//
                         .label("label3").value(3), //
                 "label1=1*label3=3");
     }
@@ -189,7 +189,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .label("label1").value(1)//
-                        .label("label2").value(ToStringBuilderTest.NULL)//
+                        .label("label2").value(NULL)//
                         .value(3), //
                 "label1=1*3");
     }
@@ -630,8 +630,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         final String built = builder.build();
         if (false == expected.equals(built)) {
             assertEquals("options=" + builder.options.toString(),
-                    ToStringBuilderTest.format(expected),
-                    ToStringBuilderTest.format(built));
+                    format(expected),
+                    format(built));
         }
     }
 
@@ -655,8 +655,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     }
 
     private ToStringBuilder createFull() {
-        return this.create(ToStringBuilderTest.FULL.length(), ToStringBuilderTest.FULL.length())
-                .append(ToStringBuilderTest.FULL);
+        return this.create(FULL.length(), FULL.length())
+                .append(FULL);
     }
 
     private ToStringBuilder createFullWithLabel() {
@@ -664,7 +664,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     }
 
     private void buildAndCheckFull(final ToStringBuilder builder) {
-        this.buildAndCheck(builder, ToStringBuilderTest.FULL);
+        this.buildAndCheck(builder, FULL);
     }
 
     @Override

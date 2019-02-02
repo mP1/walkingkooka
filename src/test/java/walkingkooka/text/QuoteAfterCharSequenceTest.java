@@ -62,7 +62,7 @@ final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<Quote
 
     @Test
     public void testSubSequenceExactlyWrapped() {
-        this.checkSubSequence(0, 3, QuoteAfterCharSequenceTest.SEQUENCE);
+        this.checkSubSequence(0, 3, SEQUENCE);
     }
 
     @Test
@@ -109,7 +109,7 @@ final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<Quote
 
     @Override
     protected QuoteAfterCharSequence createCharSequence() {
-        return (QuoteAfterCharSequence) QuoteAfterCharSequence.with(QuoteAfterCharSequenceTest.SEQUENCE);
+        return (QuoteAfterCharSequence) QuoteAfterCharSequence.with(SEQUENCE);
     }
 
     @Override

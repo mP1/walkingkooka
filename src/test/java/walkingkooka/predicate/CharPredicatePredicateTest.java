@@ -51,13 +51,13 @@ final public class CharPredicatePredicateTest extends PredicateTestCase<CharPred
 
     @Test
     public void testToString() {
-        assertEquals(CharPredicatePredicateTest.PREDICATE.toString(),
+        assertEquals(PREDICATE.toString(),
                 this.createPredicate().toString());
     }
 
     @Override
     protected CharPredicatePredicate createPredicate() {
-        return CharPredicatePredicate.adapt(CharPredicatePredicateTest.PREDICATE);
+        return CharPredicatePredicate.adapt(PREDICATE);
     }
 
     @Override

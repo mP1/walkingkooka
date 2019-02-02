@@ -62,7 +62,7 @@ final public class CharSequenceIteratorTest
 
     @Override
     protected CharSequenceIterator createIterator() {
-        return CharSequenceIterator.with(CharSequenceIteratorTest.CHARS);
+        return CharSequenceIterator.with(CHARS);
     }
 
     @Override

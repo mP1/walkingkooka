@@ -71,7 +71,7 @@ final public class NullSkippingPrinterTest extends PrinterTestCase<NullSkippingP
         printer.print("before ");
         printer.print(null);
         printer.print(printer.lineEnding());
-        builder.append(NullSkippingPrinterTest.LINE_ENDING);
+        builder.append(LINE_ENDING);
         builder.append(" after");
         printer.print(" after");
         this.check(builder.toString(), printer);
@@ -91,7 +91,7 @@ final public class NullSkippingPrinterTest extends PrinterTestCase<NullSkippingP
     @Override
     protected NullSkippingPrinter createPrinter() {
         return NullSkippingPrinter.wrap(Printers.stringBuilder(new StringBuilder(),
-                NullSkippingPrinterTest.LINE_ENDING));
+                LINE_ENDING));
     }
 
     @Override

@@ -86,13 +86,13 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
 
     @Test
     public void testToString() {
-        assertEquals(ReadOnlyIterableTest.ITERABLES.toString(),
-                ReadOnlyIterable.wrap(ReadOnlyIterableTest.ITERABLES).toString());
+        assertEquals(ITERABLES.toString(),
+                ReadOnlyIterable.wrap(ITERABLES).toString());
     }
 
     @Override
     protected ReadOnlyIterable<String> createIterable() {
-        return ReadOnlyIterable.wrap(ReadOnlyIterableTest.ITERABLES);
+        return ReadOnlyIterable.wrap(ITERABLES);
     }
 
     @Override

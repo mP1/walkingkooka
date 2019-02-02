@@ -81,13 +81,13 @@ final public class IndexedChildNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals(2, IndexedChildNodeSelectorTest.INDEX, "INDEX");
+        assertEquals(2, INDEX, "INDEX");
         assertEquals(this.createSelector().toString(), "*[2]");
     }
 
     @Override
     protected IndexedChildNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
-        return IndexedChildNodeSelector.with(IndexedChildNodeSelectorTest.INDEX);
+        return IndexedChildNodeSelector.with(INDEX);
     }
 
     @Override

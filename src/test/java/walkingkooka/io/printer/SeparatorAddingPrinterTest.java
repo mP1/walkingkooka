@@ -62,15 +62,14 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
     public void testManyPrints() {
         final StringBuilder expected = new StringBuilder();
         final StringBuilder printed = new StringBuilder();
-        final SeparatorAddingPrinter printer = this.createPrinter(printed,
-                SeparatorAddingPrinterTest.SEPARATOR);
+        final SeparatorAddingPrinter printer = this.createPrinter(printed, SEPARATOR);
 
         expected.append("first");
-        expected.append(SeparatorAddingPrinterTest.SEPARATOR);
+        expected.append(SEPARATOR);
         printer.print("first");
 
         expected.append("second");
-        expected.append(SeparatorAddingPrinterTest.SEPARATOR);
+        expected.append(SEPARATOR);
         printer.print("second");
 
         expected.append("third");
@@ -112,8 +111,8 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
         printer.print("4"); // 1,2\n3,4
         printer.print(printer.lineEnding()); // 1,2\n3,4\n
 
-        checkEquals("1,2" + SeparatorAddingPrinterTest.LINE_ENDING + "3,4"
-                + SeparatorAddingPrinterTest.LINE_ENDING, printed.toString());
+        checkEquals("1,2" + LINE_ENDING + "3,4"
+                + LINE_ENDING, printed.toString());
     }
 
     @Test
@@ -126,17 +125,17 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
     @Override
     protected SeparatorAddingPrinter createPrinter(final StringBuilder builder) {
         return this.createPrinter(Printers.stringBuilder(builder,
-                SeparatorAddingPrinterTest.LINE_ENDING));
+                LINE_ENDING));
     }
 
     private SeparatorAddingPrinter createPrinter(final StringBuilder builder,
                                                  final String separator) {
         return this.createPrinter(Printers.stringBuilder(builder,
-                SeparatorAddingPrinterTest.LINE_ENDING), separator);
+                LINE_ENDING), separator);
     }
 
     private SeparatorAddingPrinter createPrinter(final Printer printer) {
-        return this.createPrinter(printer, SeparatorAddingPrinterTest.SEPARATOR);
+        return this.createPrinter(printer, SEPARATOR);
     }
 
     private SeparatorAddingPrinter createPrinter(final Printer printer, final String separator) {
