@@ -44,7 +44,7 @@ final public class EmailAddress implements Value<String>, HashCodeEqualsDefined,
     /**
      * Creates and validates the given email.
      */
-    public static EmailAddress with(final String email) {
+    public static EmailAddress parse(final String email) {
         return EmailAddressParserWith.parseOrFail(email);
     }
 

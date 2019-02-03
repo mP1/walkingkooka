@@ -19,12 +19,13 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHeaderValueUnit> {
+public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHeaderValueUnit>
+        implements ParseStringTesting<RangeHeaderValueUnit> {
 
     // isWildcard ..................................................................................................
 
@@ -36,24 +37,8 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     // parse ..................................................................................................
 
     @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            RangeHeaderValueUnit.parse(null);
-        });
-    }
-
-    @Test
-    public void testParseEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            RangeHeaderValueUnit.parse("");
-        });
-    }
-
-    @Test
     public void testParseUnknownFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            RangeHeaderValueUnit.parse("unknown");
-        });
+        this.parseFails("unknown", IllegalArgumentException.class);
     }
 
     @Test
@@ -69,6 +54,13 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     @Test
     public void testParseNone() {
         assertSame(RangeHeaderValueUnit.NONE, RangeHeaderValueUnit.parse("none"));
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public RangeHeaderValueUnit parse(final String text) {
+        return RangeHeaderValueUnit.parse(text);
     }
 
     @Override

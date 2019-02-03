@@ -21,6 +21,7 @@ package walkingkooka.tree.json;
 import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.type.MemberVisibility;
@@ -28,22 +29,12 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JsonNodeTest extends ClassTestCase<JsonNode> {
-
-    @Test
-    public void testParseEmptyFails() {
-        assertThrows(ParserException.class, () -> {
-            JsonNode.parse("");
-        });
-    }
+public final class JsonNodeTest extends ClassTestCase<JsonNode> implements ParseStringTesting<JsonNode> {
 
     @Test
     public void testParseIncompleteObjectFails() {
-        assertThrows(ParserException.class, () -> {
-            JsonNode.parse("{\"");
-        });
+        this.parseFails("{\"", ParserException.class);
     }
 
     @Test
@@ -98,12 +89,6 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> {
                 JsonNode.object()
                         .set(JsonNodeName.with("prop2"), JsonNode.string("value2"))
                         .set(JsonNodeName.with("prop1"), JsonNode.string("value1")));
-    }
-
-    private void parseAndCheck(final String json, final JsonNode node) {
-        assertEquals(JsonNode.parse(json),
-                node,
-                "Parse result incorrect for " + CharSequences.quoteAndEscape(json));
     }
 
     // wrap....................................................................................................
@@ -188,5 +173,22 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> {
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public JsonNode parse(final String text) {
+        return JsonNode.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return ParserException.class;
     }
 }

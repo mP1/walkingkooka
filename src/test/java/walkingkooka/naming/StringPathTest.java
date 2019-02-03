@@ -18,28 +18,25 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringPathTest extends PathTestCase<StringPath, StringName>
-        implements SerializationTesting<StringPath> {
+        implements ParseStringTesting<StringPath>,
+        SerializationTesting<StringPath> {
 
     @Test
-    public void testParseMissingRequiredLeadingSlash() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringPath.parse("without-leading-slash");
-        });
+    public void testParseMissingRequiredLeadingSlashFails() {
+        this.parseFails("without-leading-slash", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseEmptyComponent() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            StringPath.parse("/before//after");
-        });
+    public void testParseEmptyComponentFails() {
+        this.parseFails("/before//after", IllegalArgumentException.class);
     }
 
     @Test
@@ -144,6 +141,25 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     public StringPath createComparable() {
         return StringPath.parse("/path");
     }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public StringPath parse(final String text) {
+        return StringPath.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    // SerializationTesting ........................................................................................
 
     @Override
     public StringPath serializableInstance() {

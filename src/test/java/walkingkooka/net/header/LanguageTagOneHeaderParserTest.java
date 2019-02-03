@@ -33,7 +33,7 @@ public final class LanguageTagOneHeaderParserTest extends LanguageTagHeaderParse
     }
 
     @Override
-    LanguageTag parse(final String text) {
+    public LanguageTag parse(final String text) {
         return LanguageTagOneHeaderParser.parseOne(text);
     }
 

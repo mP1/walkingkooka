@@ -20,91 +20,56 @@ package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-public final class ColorTest extends ClassTestCase<Color> {
+public final class ColorTest extends ClassTestCase<Color> implements ParseStringTesting<Color> {
 
     // parse..................................................................
 
     @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Color.parse(null);
-        });
-    }
-
-    @Test
-    public void testParseEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("");
-        });
-    }
-
-    @Test
-    public void testMissingLeadingHashFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("123");
-        });
+    public void testParseMissingLeadingHashFails() {
+        this.parseFails("123", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseInvalidFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("xyz");
-        });
+        this.parseFails("xyz", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseInvalidFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("#1x3");
-        });
+        this.parseFails("#1x3", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseOneDigitFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("#1");
-        });
+        this.parseFails("#1", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseTwoDigitsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("#12");
-        });
+        this.parseFails("#12", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseFourDigitsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("#1234");
-        });
+        this.parseFails("#1234", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseFiveDigitsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("#12345");
-        });
+        this.parseFails("#12345", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseSevenDigitsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("#1234567");
-        });
+        this.parseFails("#1234567", IllegalArgumentException.class);
     }
 
     @Test
     public void testParseEightDigitsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Color.parse("#12345678");
-        });
+        this.parseFails("#12345678", IllegalArgumentException.class);
     }
 
     @Test
@@ -143,9 +108,7 @@ public final class ColorTest extends ClassTestCase<Color> {
     }
 
     private void parseRgbAndCheck(final String text, final int rgb) {
-        assertEquals(Color.fromRgb(rgb),
-                Color.parse(text),
-                "parse " + CharSequences.quote(text));
+        this.parseAndCheck(text, Color.fromRgb(rgb));
     }
 
     @Override
@@ -157,4 +120,22 @@ public final class ColorTest extends ClassTestCase<Color> {
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public Color parse(final String text) {
+        return Color.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
 }

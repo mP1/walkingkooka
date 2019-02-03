@@ -49,7 +49,7 @@ public final class TokenHeaderValueOneHeaderParserTest extends TokenHeaderValueH
     }
 
     @Override
-    TokenHeaderValue parse(final String text) {
+    public TokenHeaderValue parse(final String text) {
         return TokenHeaderValueOneHeaderParser.parseTokenHeaderValue(text);
     }
 

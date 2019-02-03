@@ -183,7 +183,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
     @Test
     public void testEncodedTextEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(HeaderValueException.class, () -> {
             this.encodedText("");
         });
     }
@@ -467,7 +467,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     // helpers.................................................................................................
 
     @Override
-    Void parse(final String text) {
+    public Void parse(final String text) {
         new TestHeaderParser(text);
         return null;
     }

@@ -401,7 +401,4 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     @Override final String valueLabel() {
         return TokenHeaderValueHeaderParser.VALUE;
     }
-
-    @Override
-    abstract V parse(final String text);
 }

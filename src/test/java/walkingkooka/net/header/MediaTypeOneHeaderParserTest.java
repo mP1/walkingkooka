@@ -39,15 +39,16 @@ public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTes
         this.parseInvalidCharacterFails("type/subtype;p=v,");
     }
 
-    @Override final void parseAndCheck(final String text,
-                                       final String type,
-                                       final String subtype,
-                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
+    @Override
+    final void parseAndCheck(final String text,
+                             final String type,
+                             final String subtype,
+                             final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.check(MediaTypeOneHeaderParser.parseMediaType(text), type, subtype, parameters);
     }
 
     @Override
-    MediaType parse(final String text) {
+    public MediaType parse(final String text) {
         return MediaTypeOneHeaderParser.parseMediaType(text);
     }
 

@@ -212,7 +212,7 @@ public final class TokenHeaderValueListHeaderParserTest extends TokenHeaderValue
     }
 
     @Override
-    List<TokenHeaderValue> parse(final String text) {
+    public List<TokenHeaderValue> parse(final String text) {
         return TokenHeaderValueListHeaderParser.parseTokenHeaderValueList(text);
     }
 

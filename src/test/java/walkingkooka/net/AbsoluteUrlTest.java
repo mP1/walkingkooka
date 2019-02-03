@@ -19,17 +19,18 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements SerializationTesting<AbsoluteUrl> {
+public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
+        implements ParseStringTesting<AbsoluteUrl>,
+        SerializationTesting<AbsoluteUrl> {
 
     // constants
 
@@ -241,24 +242,8 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
     // parseAbsolute..........................................................................................
 
     @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AbsoluteUrl.parse(null);
-        });
-    }
-
-    @Test
-    public void testParseEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            AbsoluteUrl.parse("");
-        });
-    }
-
-    @Test
     public void testParseMissingSchemeFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            AbsoluteUrl.parse("example.com");
-        });
+        this.parseFails("example.com", IllegalArgumentException.class);
     }
 
     @Test
@@ -500,6 +485,25 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
                 query,
                 fragment);
     }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public AbsoluteUrl parse(final String text) {
+        return AbsoluteUrl.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    // SerializationTesting........................................................................................
 
     @Override
     public AbsoluteUrl serializableInstance() {

@@ -18,29 +18,21 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class PropertiesPathTest extends PathTestCase<PropertiesPath, PropertiesName>
-        implements SerializationTesting<PropertiesPath> {
-
-    @Test
-    public void testParseWithLeadingDot() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            PropertiesPath.parse(".with-leading-dot");
-        });
-    }
+        implements ParseStringTesting<PropertiesPath>,
+        SerializationTesting<PropertiesPath> {
 
     @Test
     public void testParseEmptyComponent() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            PropertiesPath.parse("before..after");
-        });
+        this.parseFails("before..after", IllegalArgumentException.class);
     }
 
     @Test
@@ -132,5 +124,22 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     @Override
     public boolean serializableInstanceIsSingleton() {
         return false;
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public PropertiesPath parse(final String text) {
+        return PropertiesPath.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
     }
 }

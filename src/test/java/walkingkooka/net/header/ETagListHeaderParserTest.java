@@ -114,7 +114,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Override
-    ETag parse(final String text) {
+    public ETag parse(final String text) {
         final List<ETag> tags = ETagListHeaderParser.parseList(text);
         assertEquals( 1, tags.size(), "expected one tag =" + CharSequences.quote(text) + "=" + tags);
         return tags.get(0);

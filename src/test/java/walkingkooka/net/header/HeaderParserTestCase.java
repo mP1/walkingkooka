@@ -19,16 +19,13 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.ClassTestCase;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class HeaderParserTestCase<P extends HeaderParser, V>
-        extends ClassTestCase<P> {
+        extends ClassTestCase<P>
+        implements ParseStringTesting<V> {
 
     HeaderParserTestCase() {
         super();
@@ -40,38 +37,6 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
     }
 
     // parse ...........................................................................................
-
-    @Test
-    public final void testNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.parse(null);
-        });
-    }
-
-    @Test
-    public final void testEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.parse("");
-        });
-    }
-
-    final void parseAndCheck(final String text, final V expected) {
-        assertEquals(expected,
-                this.parse(text),
-                "Incorrect result parsing " + CharSequences.quote(text));
-    }
-
-    final void parseInvalidCharacterFails(final String text) {
-        this.parseInvalidCharacterFails(text, text.length() - 1);
-    }
-
-    final void parseInvalidCharacterFails(final String text, final char c) {
-        this.parseInvalidCharacterFails(text, text.indexOf(c));
-    }
-
-    final void parseInvalidCharacterFails(final String text, final int pos) {
-        this.parseFails(text, new InvalidCharacterException(text, pos).getMessage());
-    }
 
     final void parseMissingClosingQuoteFails(final String text) {
         this.parseFails(text, HeaderParser.missingClosingQuote(text));
@@ -107,15 +72,18 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
     }
 
     final void parseFails(final String text, final String message) {
-        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
-            this.parse(text);
-        });
-        assertEquals(message,
-                expected.getMessage(),
-                "Incorrect failure message for " + CharSequences.quoteAndEscape(text));
+        this.parseFails(text, new HeaderValueException(message));
     }
 
-    abstract V parse(final String text);
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return new HeaderValueException(expected.getMessage(), expected);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return HeaderValueException.class;
+    }
 
     @Override
     protected final MemberVisibility typeVisibility() {

@@ -20,6 +20,8 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.nio.charset.Charset;
@@ -28,7 +30,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset, List<CharsetHeaderValue>>{
+public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset, List<CharsetHeaderValue>>
+        implements ParseStringTesting<AcceptCharset> {
 
     // charset...................................................................................................
 
@@ -50,10 +53,6 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
                 this.createHeaderValue(CharsetHeaderValue.with(CharsetName.with("X-custom"))));
     }
 
-    private void charsetAndCheck(final AcceptCharset acceptCharset, final Charset charset) {
-        this.charsetAndCheck(acceptCharset, Optional.of(charset));
-    }
-
     private void charsetAndCheck(final AcceptCharset acceptCharset) {
         this.charsetAndCheck(acceptCharset, Optional.empty());
     }
@@ -62,6 +61,14 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
         assertEquals(expected,
                 acceptCharset.charset(),
                 acceptCharset + " .charset()");
+    }
+
+    // parse.......................................................................................................
+
+    @Test
+    public void testParse() {
+        this.parseAndCheck("UTF-8;bcd=123 ",
+                AcceptCharset.with(Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8).setParameters(Maps.one(CharsetHeaderValueParameterName.with("bcd"), "123")))));
     }
 
     // helpers.......................................................................................................
@@ -110,5 +117,12 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public AcceptCharset parse(final String text) {
+        return AcceptCharset.parse(text);
     }
 }

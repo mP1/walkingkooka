@@ -572,7 +572,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Override
-    List<CacheControlDirective<?>> parse(final String text) {
+    public List<CacheControlDirective<?>> parse(final String text) {
         return CacheControlDirectiveHeaderParser.parseCacheControlDirectiveList(text);
     }
 

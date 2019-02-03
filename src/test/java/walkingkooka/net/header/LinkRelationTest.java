@@ -20,12 +20,17 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object> {
+public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object>
+        implements ParseStringTesting<List<LinkRelation<?>>> {
 
     private final static String TEXT = "abc123";
     private final static String URL_TEXT = "http://example.com";
@@ -57,6 +62,11 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
         this.toHeaderTextAndCheck(LinkRelation.with(URL_TEXT), URL_TEXT);
     }
 
+    @Test
+    public void testParse() {
+        this.parseAndCheck("self http://example.com", Lists.of(LinkRelation.SELF, LinkRelation.with("http://example.com")));
+    }
+
     @Override
     boolean url() {
         return false; // TEXT is not a URL_TEXT
@@ -85,5 +95,11 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public List<LinkRelation<?>> parse(final String text) {
+        return LinkRelation.parse(text);
     }
 }

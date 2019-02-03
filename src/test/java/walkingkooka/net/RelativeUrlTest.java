@@ -19,14 +19,15 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements SerializationTesting<RelativeUrl> {
+public final class RelativeUrlTest extends UrlTestCase<RelativeUrl>
+        implements ParseStringTesting<RelativeUrl>,
+        SerializationTesting<RelativeUrl> {
 
     // parseRelative..........................................................................................
 
@@ -35,6 +36,11 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements S
         assertThrows(NullPointerException.class, () -> {
             RelativeUrl.parse(null);
         });
+    }
+
+    @Override
+    public void testParseEmptyFails() {
+        throw new UnsupportedOperationException();
     }
 
     @Test
@@ -122,6 +128,25 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements S
     RelativeUrl createObject(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
         return Url.relative(path, query, fragment);
     }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public RelativeUrl parse(final String text) {
+        return RelativeUrl.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    // SerializationTesting ........................................................................................
 
     @Override
     public RelativeUrl serializableInstance() {

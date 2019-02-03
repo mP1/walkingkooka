@@ -98,7 +98,7 @@ public final class EncodedTextHeaderValueConverterHeaderParserTest extends Heade
     }
 
     @Override
-    EncodedText parse(final String text) {
+    public EncodedText parse(final String text) {
         return EncodedTextHeaderValueConverterHeaderParser.parseEncodedText(text, LABEL);
     }
 

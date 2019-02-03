@@ -59,6 +59,16 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTe
 
     abstract protected V createHeaderValue();
 
+    //@Override
+    public final RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return new HeaderValueException(expected.getMessage(), expected);
+    }
+
+    //@Override
+    public final Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return HeaderValueException.class;
+    }
+
     protected void toHeaderTextAndCheck(final String expected) {
         this.toHeaderTextAndCheck(this.createHeaderValue(), expected);
     }

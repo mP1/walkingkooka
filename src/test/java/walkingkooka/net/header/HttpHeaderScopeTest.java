@@ -62,7 +62,7 @@ public final class HttpHeaderScopeTest extends ClassTestCase<HttpHeaderScope> {
     @Test
     public void testFrom() {
         this.checkScope(HttpHeaderName.FROM,
-                EmailAddress.with("user@example.com"),
+                EmailAddress.parse("user@example.com"),
                 HttpHeaderScope.REQUEST);
     }
 

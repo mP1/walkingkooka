@@ -151,7 +151,7 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
     }
 
     @Override
-    List<MediaType> parse(final String text) {
+    public List<MediaType> parse(final String text) {
         return MediaTypeListHeaderParser.parseMediaTypeList(text);
     }
 

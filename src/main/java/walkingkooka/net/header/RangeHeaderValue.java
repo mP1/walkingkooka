@@ -65,7 +65,10 @@ public final class RangeHeaderValue implements HeaderValue,
      * Parsers a header value.
      */
     public static RangeHeaderValue parse(final String header) {
-        CharSequences.failIfNullOrEmpty(header, "header");
+        Objects.requireNonNull(header, "header");
+        if(header.isEmpty()) {
+            throw new HeaderValueException("Header text empty");
+        }
 
         final int equalsAfterUnit = header.indexOf('=');
         if (-1 == equalsAfterUnit) {

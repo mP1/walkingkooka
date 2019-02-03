@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
@@ -30,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderValue> {
+public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderValue>
+        implements ParseStringTesting<RangeHeaderValue> {
 
     private final static RangeHeaderValueUnit UNIT = RangeHeaderValueUnit.BYTES;
 
@@ -174,51 +175,41 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     @Test
     public void testParseWithInvalidUnitFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.parse("invalid=0-100");
-        });
+        this.parseFails2("invalid=0-100");
     }
 
     @Test
     public void testParseWithNoneUnitFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.parse("none=0-100");
-        });
+        this.parseFails2("none=0-100");
     }
 
     @Test
     public void testParseWithOverlapFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.parse("bytes=100-150,200-250,225-300");
-        });
+        this.parseFails2("bytes=100-150,200-250,225-300");
     }
 
     @Test
     public void testParseWithOverlapFails2() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.parse("bytes=100-150,200-250,225-");
-        });
+        this.parseFails2("bytes=100-150,200-250,225-");
     }
 
     @Test
     public void testParseWithOverlapFails3() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.parse("bytes=-150,200-250,125-175");
-        });
+        this.parseFails2("bytes=-150,200-250,125-175");
     }
 
     @Test
     public void testParseRangeMissingStartFails() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.parse("bytes=-99");
-        });
+        this.parseFails2("bytes=-99");
     }
 
     @Test
     public void testParseRangeMissingStartFails2() {
-        assertThrows(HeaderValueException.class, () -> {
-            RangeHeaderValue.parse("bytes=98-99,-50");
-        });
+        this.parseFails2("bytes=98-99,-50");
+    }
+
+    private void parseFails2(final String text) {
+        this.parseFails("bytes=100-150,200-250,225-300", HeaderValueException.class);
     }
 
     @Test
@@ -268,12 +259,17 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @SafeVarargs
-    private final void parseAndCheck(final String headerValue,
+    private final void parseAndCheck(final String text,
                                      final RangeHeaderValueUnit unit,
                                      final Range<Long>... values) {
-        assertEquals(RangeHeaderValue.with(unit, Lists.of(values)),
-                RangeHeaderValue.parse(headerValue),
-                "Incorrect result when  parsing " + CharSequences.quote(headerValue));
+        this.parseAndCheck(text, RangeHeaderValue.with(unit, Lists.of(values)));
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public RangeHeaderValue parse(final String text) {
+        return RangeHeaderValue.parse(text);
     }
 
     // toHeaderText.......................................................

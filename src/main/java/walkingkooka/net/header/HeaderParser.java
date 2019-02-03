@@ -24,6 +24,7 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -36,7 +37,12 @@ abstract class HeaderParser {
      * Package private to limit sub classing.
      */
     HeaderParser(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "Text");
+        //CharSequences.failIfNullOrEmpty(text, "Text");
+        Objects.requireNonNull(text, "Text");
+        if(text.isEmpty()) {
+            throw new HeaderValueException("Text is empty");
+        }
+
         this.text = text;
         this.position = 0;
     }
