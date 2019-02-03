@@ -27,15 +27,13 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.Name;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
-import walkingkooka.type.MethodAttributes;
 
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -46,13 +44,15 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends NodeTestCase2<ExpressionNode, ExpressionNodeName, Name, Object> {
+public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends NodeTestCase2<ExpressionNode, ExpressionNodeName, Name, Object>
+        implements IsMethodTesting<N> {
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -62,35 +62,6 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     @Override
     public final void testSetSameAttributes() {
         // Ignored
-    }
-
-    @Test
-    public final void testIsMethods() throws Exception {
-        final String prefix = "Expression";
-        final String suffix = Node.class.getSimpleName();
-
-        final N node = this.createExpressionNode();
-        final String name = node.getClass().getSimpleName();
-        assertEquals(true, name.startsWith(prefix), name + " starts with " + prefix);
-        assertEquals(true, name.endsWith(suffix), name + " ends with " + suffix);
-
-        final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
-
-        for(Method method : node.getClass().getMethods()) {
-            if(MethodAttributes.STATIC.is(method)) {
-                continue;
-            }
-            final String methodName = method.getName();
-            if(methodName.equals("isRoot")){
-                continue;
-            }
-            if(!methodName.startsWith("is")) {
-                continue;
-            }
-            assertEquals(methodName.equals(isMethodName),
-                    method.invoke(node),
-                    method + " returned");
-        }
     }
 
     @Override
@@ -527,5 +498,27 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     @Override
     protected final String requiredNamePrefix() {
         return "Expression";
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final N createIsMethodObject() {
+        return Cast.to(this.createNode());
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "Expression";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return Node.class.getSimpleName();
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> m.equals("isRoot");
     }
 }

@@ -51,18 +51,6 @@ final public class CookieMaxAgeTest extends CookieDeletionTestCase<CookieMaxAge>
     }
 
     @Test
-    public void testIsExpires() {
-        final CookieMaxAge maxAge = this.createDeletion();
-        assertFalse(maxAge.isExpires(), maxAge.toString());
-    }
-
-    @Test
-    public void testIsMaxAge() {
-        final CookieMaxAge maxAge = this.createDeletion();
-        assertTrue(maxAge.isMaxAge(), maxAge.toString());
-    }
-
-    @Test
     public void testEqualsDifferentSeconds() {
         this.checkNotEquals(CookieMaxAge.with(1 + SECONDS));
     }

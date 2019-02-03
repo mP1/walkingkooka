@@ -24,9 +24,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
@@ -69,18 +67,6 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         final ClientCookie different = cookie.setValue(value);
         checkName(different);
         checkValue(different, value);
-    }
-
-    @Test
-    public void testIsClient() {
-        final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
-        assertTrue(cookie.isClient());
-    }
-
-    @Test
-    public void testIsServer() {
-        final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
-        assertFalse(cookie.isServer());
     }
 
     @Test

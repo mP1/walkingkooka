@@ -19,13 +19,17 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCase<C> {
+abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCase<C>
+        implements IsMethodTesting<C> {
 
     CookieTestCase() {
         super();
@@ -138,5 +142,27 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final C createIsMethodObject() {
+        return this.createCookie();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return Cookie.class.getSimpleName();
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> m.equals("isRequest") || m.equals("isResponse");
     }
 }

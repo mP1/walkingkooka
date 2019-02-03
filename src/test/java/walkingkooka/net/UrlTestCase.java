@@ -21,7 +21,10 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -31,7 +34,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
-abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implements HashCodeEqualsDefinedTesting<U> {
+abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
+        implements HashCodeEqualsDefinedTesting<U>,
+        IsMethodTesting<U> {
 
     UrlTestCase() {
         super();
@@ -210,12 +215,6 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implem
     @Test
     abstract public void testToStringWithoutQueryAndFragment();
 
-    @Test
-    abstract public void testIsAbsolute();
-
-    @Test
-    abstract public void testIsRelative();
-
     // factory
 
     final U createUrl() {
@@ -251,4 +250,26 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implem
     }
 
     abstract U createObject(final UrlPath path, final UrlQueryString query, final UrlFragment fragment);
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final U createIsMethodObject() {
+        return this.createUrl();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return "Url";
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> false;
+    }
 }

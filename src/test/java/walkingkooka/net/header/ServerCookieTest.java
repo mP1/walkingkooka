@@ -24,11 +24,9 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
@@ -422,20 +420,6 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         checkSecure(different);
         checkHttpOnly(different);
         checkVersion(different, version);
-    }
-
-    // isXXX.................................................................
-
-    @Test
-    public void testIsClient() {
-        final ServerCookie cookie = this.createCookie();
-        assertFalse(cookie.isClient());
-    }
-
-    @Test
-    public void testIsServer() {
-        final ServerCookie cookie = this.createCookie();
-        assertTrue(cookie.isServer());
     }
 
     // from javax.servlet.http.Cookie......................................................................
