@@ -50,18 +50,6 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
     }
 
     @Test
-    public void testIsExpires() {
-        final CookieExpires expires = this.createDeletion();
-        assertTrue(expires.isExpires(), expires.toString());
-    }
-
-    @Test
-    public void testIsMaxAge() {
-        final CookieExpires expires = this.createDeletion();
-        assertFalse(expires.isMaxAge(), expires.toString());
-    }
-
-    @Test
     public void testEqualsDifferentDateTime() {
         this.checkNotEquals(CookieExpires.with(EXPIRES.plusDays(1)));
     }

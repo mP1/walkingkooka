@@ -17,18 +17,17 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
-import walkingkooka.type.MethodAttributes;
 
-import java.lang.reflect.Method;
 import java.util.Optional;
+import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends ParserTokenTestCase<T> {
+public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends ParserTokenTestCase<T>
+        implements IsMethodTesting<T> {
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -43,33 +42,6 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
     }
 
     @Test
-    public void testIsMethods() throws Exception {
-        final T token = this.createToken();
-        final String name = token.getClass().getSimpleName();
-        assertEquals(true, name.startsWith("Ebnf"), name + " starts with Ebnf");
-        assertEquals(true, name.endsWith("ParserToken"), name + " ends with ParserToken");
-
-        final String isMethodName = "is" + CharSequences.capitalize(name.substring(4, name.length() - "ParserToken".length()));
-
-        for(Method method : token.getClass().getMethods()) {
-            if(MethodAttributes.STATIC.is(method)) {
-                continue;
-            }
-            final String methodName = method.getName();
-            if(methodName.equals("isNoise")) {
-                continue;
-            }
-
-            if(!methodName.startsWith("is")) {
-                continue;
-            }
-            assertEquals(methodName.equals(isMethodName),
-                    method.invoke(token),
-                    method + " returned");
-        }
-    }
-
-    @Test
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<EbnfParserToken> without = this.createToken().withoutCommentsSymbolsOrWhitespace();
         if(without.isPresent()){
@@ -79,5 +51,27 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
 
     static EbnfSymbolParserToken symbol(final String s) {
         return EbnfParserToken.symbol(s, s);
+    }
+
+    // isMethodTesting2.....................................................................................
+
+    @Override
+    public final T createIsMethodObject() {
+        return this.createToken();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "Ebnf";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return ParserToken.class.getSimpleName();
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> m.equals("isNoise"); // skip isNoise
     }
 }

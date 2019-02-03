@@ -103,18 +103,6 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements S
     }
 
     @Test
-    @Override
-    public void testIsAbsolute() {
-        assertFalse(Url.relative(PATH, QUERY, FRAGMENT).isAbsolute());
-    }
-
-    @Test
-    @Override
-    public void testIsRelative() {
-        assertTrue(this.createUrl().isRelative());
-    }
-
-    @Test
     public void testToRelative() {
         final RelativeUrl url = this.createUrl();
         assertSame(url, url.relativeUrl());

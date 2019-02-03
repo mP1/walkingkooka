@@ -20,28 +20,20 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends ClassTestCase<B> {
+public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends ClassTestCase<B>
+        implements IsMethodTesting<B> {
 
     RangeBoundTestCase() {
         super();
-    }
-
-    @Test
-    public final void testIsMethods() {
-        final B bound = this.createRangeBound();
-        final String simpleName = bound.getClass().getSimpleName();
-        final String name = simpleName.substring(RangeBound.class.getSimpleName().length(), simpleName.length());
-
-        assertEquals("All".equals(name), bound.isAll(), "isAll");
-        assertEquals("Exclusive".equals(name), bound.isExclusive(), "isExclusive");
-        assertEquals("Inclusive".equals(name), bound.isInclusive(), "isInclusive");
     }
 
     final void valueAndCheck(final Optional<Integer> value) {
@@ -93,5 +85,27 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final B createIsMethodObject() {
+        return this.createRangeBound();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return RangeBound.class.getSimpleName();
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return "";
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> false;
     }
 }

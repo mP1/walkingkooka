@@ -224,16 +224,6 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
                 UrlFragment.EMPTY), "http://user123:password456@host:123/path");
     }
 
-    @Override
-    public void testIsAbsolute() {
-        assertTrue(this.createUrl().isAbsolute());
-    }
-
-    @Override
-    public void testIsRelative() {
-        assertFalse(this.createUrl().isRelative());
-    }
-
     @Test
     public void testRelativeUrlWithoutPathQueryOrFragment() {
         final UrlPath path = UrlPath.ROOT;

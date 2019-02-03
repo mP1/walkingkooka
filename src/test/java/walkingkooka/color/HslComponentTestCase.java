@@ -21,12 +21,14 @@ package walkingkooka.color;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -34,7 +36,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class HslComponentTestCase<C extends HslComponent> extends ClassTestCase<C>
-        implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
+        implements HashCodeEqualsDefinedTesting<C>,
+        IsMethodTesting<C>,
+        SerializationTesting<C> {
 
     HslComponentTestCase() {
         super();
@@ -185,5 +189,27 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
     @Override
     public final C createObject() {
         return this.createHslComponent();
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final C createIsMethodObject() {
+        return this.createObject();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return HslComponent.class.getSimpleName();
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> false;
     }
 }

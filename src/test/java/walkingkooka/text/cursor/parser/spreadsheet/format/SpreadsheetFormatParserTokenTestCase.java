@@ -18,18 +18,17 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
-import walkingkooka.type.MethodAttributes;
 
-import java.lang.reflect.Method;
 import java.util.Optional;
+import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetFormatParserTokenTestCase<T extends SpreadsheetFormatParserToken> extends ParserTokenTestCase<T> {
+public abstract class SpreadsheetFormatParserTokenTestCase<T extends SpreadsheetFormatParserToken> extends ParserTokenTestCase<T>
+        implements IsMethodTesting<T> {
 
     @Test
     public final void testPublicStaticFactoryMethod() {
@@ -58,46 +57,32 @@ public abstract class SpreadsheetFormatParserTokenTestCase<T extends Spreadsheet
     }
 
     @Test
-    public void testIsMethods() throws Exception {
-        final String prefix = "SpreadsheetFormat";
-        final String suffix = ParserToken.class.getSimpleName();
-
-        final T token = this.createToken();
-        final String name = token.getClass().getSimpleName();
-        assertEquals(true, name.startsWith(prefix), name + " starts with " + prefix);
-        assertEquals(true, name.endsWith(suffix), name + " ends with " + suffix);
-
-        final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
-
-        for (Method method : token.getClass().getMethods()) {
-            if (MethodAttributes.STATIC.is(method)) {
-                continue;
-            }
-            final String methodName = method.getName();
-            if (methodName.equals("isCondition")) {
-                continue;
-            }
-            if (methodName.equals("isNoise")) {
-                continue;
-            }
-            if (methodName.equals("isSymbol")) {
-                continue;
-            }
-
-            if (!methodName.startsWith("is")) {
-                continue;
-            }
-            assertEquals(methodName.equals(isMethodName),
-                    method.invoke(token),
-                    method + " returned");
-        }
-    }
-
-    @Test
     public void testWithoutSymbolsPropertiesNullCheck() throws Exception {
         final Optional<SpreadsheetFormatParserToken> without = this.createToken().withoutSymbols();
         if (without.isPresent()) {
             this.propertiesNeverReturnNullCheck(without.get());
         }
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final T createIsMethodObject() {
+        return this.createToken();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "SpreadsheetFormat";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return ParserToken.class.getSimpleName();
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> m.equals("isCondition") || m.equals("isNoise") || m.equals("isSymbol");
     }
 }

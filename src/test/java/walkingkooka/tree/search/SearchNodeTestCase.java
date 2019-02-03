@@ -22,14 +22,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
-import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -37,7 +37,11 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestCase2<SearchNode, SearchNodeName, SearchNodeAttributeName, String> {
+public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestCase2<SearchNode,
+        SearchNodeName,
+        SearchNodeAttributeName,
+        String>
+        implements IsMethodTesting<N> {
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -77,35 +81,6 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     public final void testSetAttributesEmpty() {
         final N node = this.createSearchNode();
         assertSame(node, node.setAttributes(Maps.empty()));
-    }
-
-    @Test
-    public final void testIsMethods() throws Exception {
-        final String prefix = "Search";
-        final String suffix = Node.class.getSimpleName();
-
-        final N node = this.createSearchNode();
-        final String name = node.getClass().getSimpleName();
-        assertEquals(true, name.startsWith(prefix), name + " starts with " + prefix);
-        assertEquals(true, name.endsWith(suffix), name + " ends with " + suffix);
-
-        final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
-
-        for(Method method : node.getClass().getMethods()) {
-            if(MethodAttributes.STATIC.is(method)) {
-                continue;
-            }
-            final String methodName = method.getName();
-            if(methodName.equals("isRoot")){
-                continue;
-            }
-            if(!methodName.startsWith("is")) {
-                continue;
-            }
-            assertEquals(methodName.equals(isMethodName),
-                    method.invoke(node),
-                    method + " returned");
-        }
     }
 
     @Test
@@ -233,5 +208,27 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     @Override
     protected final String requiredNamePrefix() {
         return "Search";
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final N createIsMethodObject() {
+        return Cast.to(this.createNode());
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "Search";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return Node.class.getSimpleName();
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> m.equals("isRoot");
     }
 }

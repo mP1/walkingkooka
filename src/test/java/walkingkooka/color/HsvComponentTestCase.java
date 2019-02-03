@@ -22,12 +22,11 @@ package walkingkooka.color;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
-import walkingkooka.type.MethodAttributes;
 
-import java.lang.reflect.Method;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -35,7 +34,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class HsvComponentTestCase<C extends HsvComponent> extends ClassTestCase<C>
-        implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
+        implements HashCodeEqualsDefinedTesting<C>,
+        IsMethodTesting<C>,
+        SerializationTesting<C> {
 
     HsvComponentTestCase() {
         super();
@@ -139,28 +140,6 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
         assertEquals(expected, added.value(), 0.1f, "value");
     }
 
-    @Test
-    public final void testIsMethods() throws Exception {
-        final C component = this.createHsvComponent();
-        final String name = component.getClass().getSimpleName();
-
-        final String isMethodName = "is" + CharSequences.capitalize(name.substring(0, name.length() - "HsvComponent".length()));
-
-        for(Method method : component.getClass().getMethods()) {
-            if(MethodAttributes.STATIC.is(method)) {
-                continue;
-            }
-            final String methodName = method.getName();
-
-            if(!methodName.startsWith("is")) {
-                continue;
-            }
-            assertEquals(methodName.equals(isMethodName),
-                    method.invoke(component),
-                    method + " returned");
-        }
-    }
-
     // toString
 
     public final void testToString() {
@@ -185,5 +164,27 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
     @Override
     public final C createObject() {
         return this.createHsvComponent();
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final C createIsMethodObject() {
+        return this.createObject();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return HsvComponent.class.getSimpleName();
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> false;
     }
 }

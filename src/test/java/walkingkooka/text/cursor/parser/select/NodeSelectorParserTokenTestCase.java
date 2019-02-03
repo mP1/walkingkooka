@@ -19,18 +19,18 @@ package walkingkooka.text.cursor.parser.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
 import walkingkooka.tree.select.NodeSelector;
-import walkingkooka.type.MethodAttributes;
 
-import java.lang.reflect.Method;
+import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorParserToken> extends ParserTokenTestCase<T> {
+public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorParserToken> extends ParserTokenTestCase<T>
+        implements IsMethodTesting<T> {
 
     @Test
     public final void testPublicStaticFactoryMethod() {
@@ -42,39 +42,6 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         assertThrows(IllegalArgumentException.class, () -> {
             this.createToken("");
         });
-    }
-
-    @Test
-    public void testIsMethods() throws Exception {
-        final String prefix = NodeSelector.class.getSimpleName();
-        final String suffix = ParserToken.class.getSimpleName();
-
-        final T token = this.createToken();
-        final String name = token.getClass().getSimpleName();
-        assertEquals(true, name.startsWith(prefix), name + " starts with " + prefix);
-        assertEquals(true, name.endsWith(suffix), name + " ends with " + suffix);
-
-        final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
-
-        for (Method method : token.getClass().getMethods()) {
-            if (MethodAttributes.STATIC.is(method)) {
-                continue;
-            }
-            final String methodName = method.getName();
-            if (methodName.equals("isNoise")) {
-                continue;
-            }
-            if (methodName.equals("isSymbol")) {
-                continue;
-            }
-
-            if (!methodName.startsWith("is")) {
-                continue;
-            }
-            assertEquals(methodName.equals(isMethodName),
-                    method.invoke(token),
-                    method + " returned");
-        }
     }
 
     // token factories...............................................................................
@@ -325,5 +292,27 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
 
     private static String text(final NodeSelectorParserToken... tokens) {
         return ParserToken.text(Lists.of(tokens));
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final T createIsMethodObject() {
+        return this.createToken();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return NodeSelector.class.getSimpleName();
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return ParserToken.class.getSimpleName();
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> m.equals("isNoise") || m.equals("isSymbol");
     }
 }

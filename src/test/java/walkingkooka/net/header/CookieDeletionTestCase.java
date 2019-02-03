@@ -21,10 +21,14 @@ package walkingkooka.net.header;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.function.Predicate;
+
 public abstract class CookieDeletionTestCase<D extends CookieDeletion & HashCodeEqualsDefined> extends ClassTestCase<D>
-        implements HashCodeEqualsDefinedTesting<D> {
+        implements HashCodeEqualsDefinedTesting<D>,
+        IsMethodTesting<D> {
 
     CookieDeletionTestCase() {
         super();
@@ -40,5 +44,27 @@ public abstract class CookieDeletionTestCase<D extends CookieDeletion & HashCode
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final D createIsMethodObject() {
+        return this.createDeletion();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "Cookie";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return "";
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> false;
     }
 }
