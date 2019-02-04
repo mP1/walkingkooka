@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
@@ -38,7 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
+public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, JsonNodeName, Name, Object>>
+        implements ParseStringTesting<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
 
     private final static JsonNodeName ABC = JsonNodeName.with("abc");
     private final static JsonNodeName DEF = JsonNodeName.with("def");
@@ -452,11 +454,9 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
 
     // parse.............................................................................................................
 
-    @Test
-    public void testParseNullPointerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePointer.parse(null, NAME_FACTORY, JsonNode.class);
-        });
+    @Override
+    public void testParseEmptyFails() {
+        throw new UnsupportedOperationException();
     }
 
     @Test
@@ -582,12 +582,6 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
         this.traverseAndCheck(pointer, root, text.toString());
     }
 
-    private NodePointer<JsonNode, JsonNodeName, Name, Object> parse(final String pointer) {
-        final NodePointer<JsonNode, JsonNodeName, Name, Object> parsed =  NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
-        assertEquals(pointer, parsed.toString(), "pointer.toString");
-        return parsed;
-    }
-
     private void traverseAndCheck(final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer, final JsonNode root, final String toString) {
         final Optional<JsonNode> result = pointer.traverse(root);
         assertNotEquals(Optional.empty(), result, () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root);
@@ -618,5 +612,24 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public NodePointer<JsonNode, JsonNodeName, Name, Object> parse(final String pointer) {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> parsed =  NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
+        assertEquals(pointer, parsed.toString(), "pointer.toString");
+        return parsed;
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
     }
 }

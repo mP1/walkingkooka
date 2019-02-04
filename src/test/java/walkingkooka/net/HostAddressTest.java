@@ -969,8 +969,9 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
     private void parseIp6AndCheck(final String address, final int start, final int end, final byte[] value) {
         final Object result = HostAddress.tryParseIp6(address, start, end);
         if (result instanceof HostAddressProblem) {
-            assertEquals("failed " + CharSequences.quote(address), value,
-                    ((HostAddressProblem) result).message(address));
+            assertEquals(value,
+                    ((HostAddressProblem) result).message(address),
+                    "failed " + CharSequences.quote(address));
         }
         checkEquals("bytes[]", value, (byte[]) result);
     }
@@ -986,7 +987,9 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
         }
         final HostAddressProblem actual = (HostAddressProblem) result;
         if (false == problem.equals(actual)) {
-            assertEquals("wrong problem returned", problem.message(address), actual.message(address));
+            assertEquals(problem.message(address),
+                    actual.message(address),
+                    "wrong problem returned");
         }
     }
 

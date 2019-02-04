@@ -519,7 +519,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     // helpers...................................................................................................
 
     @Override
-    ContentDisposition parse(final String text) {
+    public ContentDisposition parse(final String text) {
         return ContentDispositionHeaderParser.parseContentDisposition(text);
     }
 

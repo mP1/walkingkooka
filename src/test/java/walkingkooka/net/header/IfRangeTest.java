@@ -20,15 +20,14 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> {
+public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implements ParseStringTesting<IfRange<?>> {
 
     @Test
     public void testWithNullFails() {
@@ -84,10 +83,11 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> {
                 IfRange.with(lastModified));
     }
 
-    private void parseAndCheck(final String text, final IfRange<?> range) {
-        assertEquals(IfRange.parse(text),
-                range,
-                "Parsing " + CharSequences.quote(text) + " failed");
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public IfRange<?> parse(final String text) {
+        return IfRange.parse(text);
     }
 
     @Override

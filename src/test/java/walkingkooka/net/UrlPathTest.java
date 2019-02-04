@@ -21,17 +21,20 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTestCase;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implements SerializationTesting<UrlPath> {
+public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName>
+        implements ParseStringTesting<UrlPath>,
+        SerializationTesting<UrlPath> {
 
     @Test
-    public void testEmpty() {
-        assertSame(UrlPath.EMPTY, UrlPath.parse(""));
+    public void testParseEmpty() {
+        this.parseAndCheck("", UrlPath.EMPTY);
     }
 
     @Override
@@ -41,7 +44,7 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
 
     @Test
     public void testParseRoot() {
-        assertSame(UrlPath.ROOT, UrlPath.parse("/"));
+        assertSame(UrlPath.ROOT, this.parseAndCheck("/", UrlPath.ROOT));
     }
 
     @Test
@@ -185,6 +188,25 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
     public UrlPath createComparable() {
         return UrlPath.parse("/path/to/resource");
     }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public UrlPath parse(final String text) {
+        return UrlPath.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    // SerializationTesting ........................................................................................
 
     @Override
     public UrlPath serializableInstance() {

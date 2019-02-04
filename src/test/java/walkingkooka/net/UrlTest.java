@@ -20,42 +20,35 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+public final class UrlTest extends ClassTestCase<Url> implements ParseStringTesting<Url> {
 
-public final class UrlTest extends ClassTestCase<Url> {
-    
-    @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            Url.parse(null);
-        });
+    @Override
+    public void testParseEmptyFails() {
+        throw new UnsupportedOperationException();
     }
-    
+
     @Test
     public void testParseAbsoluteUrl() {
         final String text = "http://example.com";
-        final Url url = Url.parse(text);
-        final AbsoluteUrl absoluteUrl = Url.parseAbsolute(text);
-        assertEquals(absoluteUrl, url, text);
+
+        this.parseAndCheck(text, Url.parseAbsolute(text));
     }
 
     @Test
     public void testParseRelativeUrl() {
         final String text = "/path123?query456";
-        final Url url = Url.parse(text);
-        final RelativeUrl relativeUrl = Url.parseRelative(text);
-        assertEquals(relativeUrl, url, text);
+
+        this.parseAndCheck(text, Url.parseRelative(text));
     }
 
     @Test
     public void testParseRelativeUrlEmpty() {
         final String text = "";
-        final Url url = Url.parse(text);
-        final RelativeUrl relativeUrl = Url.parseRelative(text);
-        assertEquals(relativeUrl, url, text);
+
+        this.parseAndCheck(text, Url.parseRelative(text));
     }
     
     @Override
@@ -67,4 +60,22 @@ public final class UrlTest extends ClassTestCase<Url> {
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public Url parse(final String text) {
+        return Url.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
 }

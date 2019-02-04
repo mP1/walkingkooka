@@ -25,6 +25,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.xml.XmlNode;
@@ -33,6 +34,7 @@ import walkingkooka.type.MemberVisibility;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,7 +43,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
-        LinkParameterName<?>> implements HasJsonNodeTesting<Link> {
+        LinkParameterName<?>>
+        implements HasJsonNodeTesting<Link>,
+        ParseStringTesting<List<Link>> {
 
     @Test
     public void testWithNullFails() {
@@ -118,6 +122,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         assertEquals(value, language.value(), "value");
         assertEquals(parameters, language.parameters(), "parameters");
     }
+
 
     // toHeaderTextList.......................................................................................
 
@@ -237,9 +242,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     private void parseAndCheck(final String text, final Link... links) {
-        assertEquals(Lists.of(links),
-                Link.parse(text),
-                "Failed to parse " + CharSequences.quote(text));
+        this.parseAndCheck(text, Lists.of(links));
     }
 
     // helpers.......................................................................................
@@ -280,5 +283,12 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public List<Link> parse(final String text) {
+        return Link.parse(text);
     }
 }

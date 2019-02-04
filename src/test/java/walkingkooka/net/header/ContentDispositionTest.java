@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -29,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentDispositionTest extends HeaderValueWithParametersTestCase<ContentDisposition,
-        ContentDispositionParameterName<?>> {
+        ContentDispositionParameterName<?>>
+        implements ParseStringTesting<ContentDisposition> {
 
     private final static ContentDispositionType TYPE = ContentDispositionType.ATTACHMENT;
     private final static String PARAMETER_VALUE = "v1";
@@ -80,6 +82,14 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
         final Map<ContentDispositionParameterName<?>, Object> parameters = this.parameters("different", "2");
         this.check(disposition.setParameters(parameters), TYPE, parameters);
         this.check(disposition);
+    }
+
+    // parse ...........................................................................................
+
+    @Test
+    public void testParse() {
+        this.parseAndCheck("attachment; filename=\"abc.jpg\"",
+                ContentDispositionType.ATTACHMENT.setParameters(Maps.one(ContentDispositionParameterName.FILENAME, ContentDispositionFileName.notEncoded("abc.jpg"))));
     }
 
     // toHeaderText ...........................................................................................
@@ -232,5 +242,12 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public ContentDisposition parse(final String text) {
+        return ContentDisposition.parse(text);
     }
 }

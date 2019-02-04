@@ -19,7 +19,10 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -29,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCase<TokenHeaderValue,
-        TokenHeaderValueParameterName<?>> {
+        TokenHeaderValueParameterName<?>> implements ParseStringTesting<TokenHeaderValue> {
 
     private final static String VALUE = "abc";
     private final static String PARAMETER_VALUE = "v1";
@@ -115,6 +118,34 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
         final Map<TokenHeaderValueParameterName<?>, Object> parameters = this.parameters("different", "2");
         this.check(token.setParameters(parameters), VALUE, parameters);
         this.check(token);
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Test
+    public void testParse() {
+        this.parseAndCheck("A;b=c",
+                TokenHeaderValue.with("A")
+                        .setParameters(Maps.one(TokenHeaderValueParameterName.with("b"), "c")));
+    }
+
+    @Override
+    public TokenHeaderValue parse(final String text) {
+        return TokenHeaderValue.parse(text);
+    }
+
+    // ParseList ........................................................................................
+
+    @Test
+    public void testParseList() {
+        final String text = "A;b=c, DEF;ghi=jkl";
+
+        assertEquals(Lists.of(TokenHeaderValue.with("A")
+                        .setParameters(Maps.one(TokenHeaderValueParameterName.with("b"), "c")),
+                TokenHeaderValue.with("DEF")
+                        .setParameters(Maps.one(TokenHeaderValueParameterName.with("ghi"), "jkl"))),
+                TokenHeaderValue.parseList(text),
+                "Incorrect result parsing " + CharSequences.quoteAndEscape(text));
     }
 
     // toHeaderText ...........................................................................................

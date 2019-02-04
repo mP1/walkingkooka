@@ -61,7 +61,7 @@ public final class LanguageTagListHeaderParserTest extends LanguageTagHeaderPars
     }
 
     @Override
-    List<LanguageTag> parse(final String text) {
+    public List<LanguageTag> parse(final String text) {
         return LanguageTagListHeaderParser.parseList(text);
     }
 

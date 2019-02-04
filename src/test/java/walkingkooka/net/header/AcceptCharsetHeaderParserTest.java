@@ -435,7 +435,7 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     // helpers...................................................................................................
 
     @Override
-    AcceptCharset parse(final String text) {
+    public AcceptCharset parse(final String text) {
         return AcceptCharsetHeaderParser.parseAcceptCharset(text);
     }
 

@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
@@ -31,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBoundary>
-        implements ComparableTesting<MediaTypeBoundary> {
+        implements ComparableTesting<MediaTypeBoundary>,
+        ParseStringTesting<MediaTypeBoundary> {
 
     // with ................................................................................................
 
@@ -76,6 +77,11 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
         checkValue(MediaTypeBoundary.with(text), text);
     }
 
+    private void checkValue(final MediaTypeBoundary boundary, final String value) {
+        assertEquals(value, boundary.value(), "value");
+        assertEquals("--" + value, boundary.multipartBoundaryDelimiter(), "delimiter");
+    }
+
     @Test
     public void testLess() {
         this.compareToAndCheckLess(MediaTypeBoundary.with("qrst"));
@@ -96,37 +102,13 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     // parse........................................................................................................
 
     @Test
-    public void testParseEmpty() {
-        assertThrows(HeaderValueException.class, () -> {
-            MediaTypeBoundary.parse("");
-        });
-    }
-
-    @Test
     public void testParseUnquoted() {
-        this.parseAndCheck("abc",
-                "abc",
-                "abc");
+        this.parseAndCheck("abc", MediaTypeBoundary.with("abc"));
     }
 
     @Test
     public void testParseQuoted() {
-        this.parseAndCheck("\"abc\"",
-                "abc",
-                "abc");
-    }
-
-    private void parseAndCheck(final String text,
-                               final String value,
-                               final String headerText) {
-        final MediaTypeBoundary boundary = MediaTypeBoundary.parse(text);
-        assertEquals(value, boundary.value(), () -> "value " + CharSequences.quote(text));
-        assertEquals(headerText, boundary.toHeaderText(), () -> "toHeaderText " + CharSequences.quote(text));
-    }
-
-    private void checkValue(final MediaTypeBoundary boundary, final String value) {
-        assertEquals(value, boundary.value(), "value");
-        assertEquals("--" + value, boundary.multipartBoundaryDelimiter(), "delimiter");
+        this.parseAndCheck("\"abc\"", MediaTypeBoundary.with("abc"));
     }
 
     // toHeaderText........................................................................................................
@@ -290,5 +272,12 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     @Override
     public MediaTypeBoundary createComparable() {
         return this.createHeaderValue();
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public MediaTypeBoundary parse(final String text) {
+        return MediaTypeBoundary.parse(text);
     }
 }

@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.text.CharSequences;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -34,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-final public class MediaTypeTest extends HeaderValueWithParametersTestCase<MediaType, MediaTypeParameterName<?>> {
+final public class MediaTypeTest extends HeaderValueWithParametersTestCase<MediaType, MediaTypeParameterName<?>>
+        implements ParseStringTesting<MediaType> {
 
     // constants
 
@@ -421,20 +422,6 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     // parse .........................................................................
 
     @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            MediaType.parse(null);
-        });
-    }
-
-    @Test
-    public void testParseEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            MediaType.parse("");
-        });
-    }
-
-    @Test
     public void testParse() {
         this.parseAndCheck("type1/subtype1",
                 MediaType.with("type1", "subtype1"));
@@ -468,11 +455,14 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                         .setParameters(Maps.one(MediaTypeParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"))));
     }
 
-    private void parseAndCheck(final String text, final MediaType mediaType) {
-        assertEquals(mediaType,
-                MediaType.parse(text),
-                "Parsing of " + CharSequences.quoteAndEscape(text) + " failed");
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public MediaType parse(final String text) {
+        return MediaType.parse(text);
     }
+
+    // ParseList ........................................................................................
 
     @Test
     public void testParseListNullFails() {

@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
-import walkingkooka.text.Whitespace;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -58,8 +57,6 @@ final public class Link extends HeaderValueWithParameters2<Link,
      * Creates a {@link Link} after parsing the text.
      */
     public static List<Link> parse(final String text) {
-        Whitespace.failIfNullOrEmptyOrWhitespace(text, "text");
-
         return LinkHeaderParser.parseLink(text);
     }
 

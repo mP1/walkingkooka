@@ -21,9 +21,11 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheControlDirective<Long>> {
+public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheControlDirective<Long>>
+        implements ParseStringTesting<List<CacheControlDirective<?>>> {
 
     // with..........................................................................
 
@@ -185,13 +188,6 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     // parse..........................................................................
 
     @Test
-    public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CacheControlDirective.parse(null);
-        });
-    }
-
-    @Test
     public void testParse() {
         final String text = "no-cache, no-store, max-age=123";
         assertEquals(CacheControlDirective.parse(text),
@@ -282,5 +278,12 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Override
+    public List<CacheControlDirective<?>> parse(final String text) {
+        return CacheControlDirective.parse(text);
     }
 }

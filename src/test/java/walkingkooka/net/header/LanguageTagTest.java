@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class LanguageTagTest extends HeaderValueWithParametersTestCase<LanguageTag,
-        LanguageTagParameterName<?>> {
+        LanguageTagParameterName<?>>
+        implements ParseStringTesting<LanguageTag> {
 
     @Test
     public void testWithNullFails() {
@@ -132,6 +134,26 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
                      final Map<LanguageTagParameterName<?>, Object> parameters) {
         assertEquals(value, language.value(), "value");
         assertEquals(parameters, language.parameters(), "parameters");
+    }
+
+    // ParseStringTesting ........................................................................................
+
+    @Test
+    public void testParse() {
+        this.parseAndCheck("en",
+                LanguageTag.with(LanguageTagName.with("en")));
+    }
+
+    @Test
+    public void testParseWithParameters() {
+        this.parseAndCheck("en; abc=123",
+                LanguageTag.with(LanguageTagName.with("en"))
+                        .setParameters(Maps.one(LanguageTagParameterName.with("abc"), "123")));
+    }
+
+    @Override
+    public LanguageTag parse(final String text) {
+        return LanguageTag.parse(text);
     }
 
     // toHeaderTextList.......................................................................................
