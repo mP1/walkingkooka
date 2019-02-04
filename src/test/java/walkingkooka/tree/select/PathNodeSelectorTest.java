@@ -16,6 +16,8 @@
  */
 package walkingkooka.tree.select;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
@@ -25,6 +27,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final public class PathNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<PathNodeSelector<TestNode, StringName, StringName, Object>> {
+
+    @BeforeAll
+    public static void beforeAll() {
+        TestNode.clear();
+    }
+
+    @BeforeEach
+    public void beforeEachTest() {
+        TestNode.clear();
+    }
 
     private static TestNode make() {
         final TestNode childChild = TestNode.with("childChild");
