@@ -20,22 +20,17 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
-import walkingkooka.naming.Name;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
-import walkingkooka.tree.select.FakeNodeSelectorContext;
-import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -460,23 +455,13 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .set(key2(), JsonNode.number(2))
                 .set(key3(), JsonNode.string("third"));
         final JsonNodeName key2 = this.key2();
-        final NodeSelector<JsonNode, JsonNodeName, Name, Object> selector = JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
-                .descendant()
-                .named(key2)
-                .build();
-        final Set<JsonNode> selected = Sets.ordered();
-        selector.accept(object, new FakeNodeSelectorContext<JsonNode, JsonNodeName, Name, Object>(){
-            @Override
-            public void potential(final JsonNode node) {
 
-            }
-
-            @Override
-            public void selected(final JsonNode node) {
-                selected.add(node);
-            }
-        });
-        assertEquals(Sets.of(object.get(key2).get()), selected, "matched nodes");
+        this.selectorAcceptAndCheck(object,
+                JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
+                        .descendant()
+                        .named(key2)
+                        .build(),
+                object.get(key2).get());
     }
 
     @Test

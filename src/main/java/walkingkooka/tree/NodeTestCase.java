@@ -18,15 +18,10 @@
 package walkingkooka.tree;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.Converters;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.tree.select.NodeSelector;
-import walkingkooka.tree.select.NodeSelectorContext;
-import walkingkooka.tree.select.NodeSelectorContexts;
+import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.visit.VisitableTestCase;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
@@ -34,13 +29,10 @@ import walkingkooka.type.MemberVisibility;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
@@ -48,7 +40,8 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         AVALUE extends Object>
         extends
         VisitableTestCase<N>
-        implements HashCodeEqualsDefinedTesting<N> {
+        implements HashCodeEqualsDefinedTesting<N>,
+        NodeSelectorTesting<N, NAME, ANAME, AVALUE> {
 
     protected NodeTestCase() {
         super();
@@ -123,45 +116,11 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public final void testSelector() {
-        final N node = this.createNode();
-        final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
-        final Set<N> selected = Sets.ordered();
-        selector.accept(node,
-                this.nodeSelectorContext(
-                        (n)->{},
-                        (n)-> selected.add(n)));
-        assertEquals(Sets.of(node), selected, "Node's own select should have matched only itself");
-    }
-
-    @Test
-    public final void testSelectorPotentialFails() {
-        final N node = this.createNode();
-        final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            selector.accept(node,
-                    this.nodeSelectorContext(
-                            (n) -> { throw new UnsupportedOperationException();},
-                            (n)->{}));
-        });
-    }
-
-    private NodeSelectorContext<N, NAME, ANAME, AVALUE> nodeSelectorContext(final Consumer<N> potential,
-                                                                            final Consumer<N> selected) {
-        return NodeSelectorContexts.basic(
-                potential,
-                selected,
-                (n) -> {throw new UnsupportedOperationException();},
-                Converters.fake(),
-                DecimalNumberContexts.fake());
-    }
-
-    @Test
     public void testPropertiesNeverReturnNull() throws Exception {
         propertiesNeverReturnNullCheck(this.createNode());
     }
 
-    abstract protected N createNode();
+    abstract public N createNode();
 
     @Override
     public final N createObject() {

@@ -24,7 +24,6 @@ import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
@@ -32,13 +31,14 @@ import walkingkooka.tree.TestNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorBuilder<TestNode, StringName, StringName, Object>, NodeSelector<TestNode, StringName, StringName, Object>> {
+public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorBuilder<TestNode, StringName, StringName, Object>,
+        NodeSelector<TestNode, StringName, StringName, Object>>
+        implements NodeSelectorTesting<TestNode, StringName, StringName, Object> {
 
     private final static StringName ATTRIBUTE = Names.string("attribute");
     private final static String VALUE = "*VALUE*";
@@ -414,22 +414,24 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
                                           final String... nodes) {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = builder.build();
 
-        final Set<TestNode> selected = Sets.ordered();
-        selector.accept(start, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>(){
-            @Override
-            public void potential(final TestNode node) {
-                // ignore
-            }
-
-            @Override
-            public void selected(final TestNode node) {
-                selected.add(node);
-            }
-        });
-        final List<String> selectedNames = selected.stream()
+        final List<String> selectedNames =
+                this.selectorAcceptAndCollect(start, selector)
+                .stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
-        assertEquals(Lists.of(nodes), selectedNames, "Selector.accept=" + selector + "\n" + start);
+        assertEquals(Lists.of(nodes),
+                selectedNames
+                , "Selector.accept=" + selector + "\n" + start);
+    }
+
+    @Override
+    public void testSelectorSelf() {
+        // ignore
+    }
+
+    @Override
+    public void testSelectorPotentialFails() {
+        // ignore
     }
 
     @Test
@@ -508,5 +510,12 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     @Override
     protected Class<NodeSelectorBuilder> type() {
         return Cast.to(NodeSelectorBuilder.class);
+    }
+
+    // NodeSelectorTesting
+
+    @Override
+    public TestNode createNode() {
+        throw new UnsupportedOperationException();
     }
 }

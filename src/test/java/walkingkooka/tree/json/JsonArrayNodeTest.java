@@ -20,15 +20,10 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
-import walkingkooka.naming.Name;
 import walkingkooka.tree.search.SearchNode;
-import walkingkooka.tree.select.FakeNodeSelectorContext;
-import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -318,24 +313,15 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 .appendChild(JsonNode.booleanNode(true))
                 .appendChild(JsonNode.number(2))
                 .appendChild(JsonNode.string("third"));
-        final JsonNode selected = array.get(1);
-        final NodeSelector<JsonNode, JsonNodeName, Name, Object> selector = JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
-                .descendant()
-                .named(selected.name())
-                .build();
-        final Set<JsonNode> all = Sets.ordered();
-        selector.accept(array, new FakeNodeSelectorContext<JsonNode, JsonNodeName, Name, Object>(){
-            @Override
-            public void potential(final JsonNode node) {
-                // ignore
-            }
 
-            @Override
-            public void selected(final JsonNode node) {
-                all.add(node);
-            }
-        });
-        assertEquals(Sets.of(selected), all, "selected nodes");
+        final JsonNode expected = array.get(1);
+
+        this.selectorAcceptAndCheck(array,
+                JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
+                .descendant()
+                .named(expected.name())
+                .build(),
+                expected);
     }
 
     // toSearchNode .......................................................................................

@@ -149,7 +149,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     }
 
     @Override
-    protected SearchNode createNode() {
+    public SearchNode createNode() {
         return this.createSearchNode();
     }
 

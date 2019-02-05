@@ -20,18 +20,18 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
-import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class PojoNodeTest extends ClassTestCase<PojoNode> {
+public final class PojoNodeTest extends ClassTestCase<PojoNode>
+        implements NodeSelectorTesting<PojoNode, PojoName, PojoNodeAttributeName, Object> {
 
     @Test
     public void testSelectorNodeByClassName() {
@@ -45,19 +45,18 @@ public final class PojoNodeTest extends ClassTestCase<PojoNode> {
         final PojoNode node = PojoNode.wrap(PojoName.property("TestBean"),
                 bean,
                 new ReflectionPojoNodeContext());
-        final Set<PojoNode> selected = Sets.ordered();
-        selector.accept(node, new FakeNodeSelectorContext<PojoNode, PojoName, PojoNodeAttributeName, Object>(){
-            @Override
-            public void potential(final PojoNode node) {
+        final List<PojoNode> selected = this.selectorAcceptAndCollect(node, selector);
+        assertEquals(Sets.of("1", "2", "3"),
+                selected.stream()
+                        .map(n -> n.value())
+                        .collect(Collectors.toCollection(TreeSet::new)));
+    }
 
-            }
-
-            @Override
-            public void selected(final PojoNode node) {
-                selected.add(node);
-            }
-        });
-        assertEquals(Sets.of("1", "2", "3"), selected.stream().map(n -> n.value()).collect(Collectors.toCollection(TreeSet::new)));
+    @Override
+    public PojoNode createNode() {
+        return PojoNode.wrap(PojoName.property("TestBean"),
+                new TestBean("1", "2", 99, "3"),
+                new ReflectionPojoNodeContext());
     }
 
     @Override

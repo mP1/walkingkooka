@@ -23,11 +23,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.NodeTestCase;
-import walkingkooka.tree.select.FakeNodeSelectorContext;
-import walkingkooka.tree.select.NodeSelector;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -259,25 +256,14 @@ public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, Files
     }
 
     @Test
-    public void testSelectorUsage() throws Exception {
-        final FilesystemNode document = this.createNode();
-        final NodeSelector<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> selector = FilesystemNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(FilesystemNode.class)
-                .descendant()
-                .named(FilesystemNodeName.with(SUB_FILE))
-                .build();
-        final Set<FilesystemNode> selected = Sets.ordered();
-        selector.accept(document, new FakeNodeSelectorContext<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String>(){
-            @Override
-            public void potential(final FilesystemNode node) {
-
-            }
-
-            @Override
-            public void selected(final FilesystemNode node) {
-                selected.add(node);
-            }
-        });
-        assertEquals( 1, selected.size(),"should have matched a single file\n" + selected);
+    public void testSelectorUsage() {
+        final FilesystemNode node = this.createNode();
+        this.selectorAcceptAndCheckCount(node,
+                FilesystemNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(FilesystemNode.class)
+                        .descendant()
+                        .named(FilesystemNodeName.with(SUB_FILE))
+                        .build(),
+                1);
     }
 
     private FilesystemNode subFileFileNode() {
@@ -329,7 +315,7 @@ public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, Files
     // Helpers ...........................................................................................................
 
     @Override
-    protected FilesystemNode createNode() {
+    public FilesystemNode createNode() {
         return FilesystemNode.directory(home, new FilesystemNodeContext() {
 
             private Map<Path, FilesystemNode> pathToFileNode = Maps.ordered();
