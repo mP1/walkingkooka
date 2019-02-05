@@ -42,7 +42,7 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends
         assertSame(node, node.setAttributes(node.attributes()));
     }
 
-    final protected N createNode() {
+    final public N createNode() {
         return this.createParserTokenNode();
     }
 

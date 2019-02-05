@@ -65,7 +65,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     @Override
-    protected ExpressionNode createNode() {
+    public ExpressionNode createNode() {
         return this.createExpressionNode();
     }
 

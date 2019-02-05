@@ -152,7 +152,7 @@ public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName
     }
 
     @Override
-    protected TestNode createNode() {
+    public TestNode createNode() {
         return TestNode.with(this.currentTestName() + "-" + this.i++);
     }
 

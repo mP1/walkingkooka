@@ -20,8 +20,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
-import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.math.BigInteger;
@@ -29,7 +27,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -171,23 +168,13 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
                 ParserTokens.sequence(Lists.of(STRING2, STRING3, ParserTokens.bigInteger(BigInteger.ZERO, "**")), "b2c3**"),
                 STRING4);
 
-        final Set<ParserTokenNode> selected = Sets.ordered();
-        selector.accept(root, new FakeNodeSelectorContext<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String>(){
-            @Override
-            public void potential(final ParserTokenNode node) {
-
-            }
-
-            @Override
-            public void selected(final ParserTokenNode node) {
-                selected.add(node);
-            }
-        });
+        final List<ParserTokenNode> selected = this.selectorAcceptAndCollect(root, selector);
 
         assertEquals(Lists.of("a1", "b2", "c3", "d4"),
                 selected.stream()
                         .map(n -> n.value().text())
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()),
+                "selector: " + selector);
     }
 
     @Override

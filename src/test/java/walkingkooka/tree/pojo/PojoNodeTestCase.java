@@ -81,7 +81,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
     }
 
     @Override
-    protected final PojoNode createNode() {
+    public final PojoNode createNode() {
         return this.createPojoNode();
     }
 

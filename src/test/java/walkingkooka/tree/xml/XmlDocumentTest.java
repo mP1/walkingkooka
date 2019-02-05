@@ -26,9 +26,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.search.SearchNodeName;
-import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -36,7 +34,6 @@ import javax.xml.transform.TransformerFactory;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -807,19 +804,7 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument> {
                 .descendant()
                 .named(XmlName.element("img"))
                 .build();
-        final Set<XmlNode> selected = Sets.ordered();
-        selector.accept(document, new FakeNodeSelectorContext<XmlNode, XmlName, XmlAttributeName, String>() {
-            @Override
-            public void potential(final XmlNode node) {
-
-            }
-
-            @Override
-            public void selected(final XmlNode node) {
-                selected.add(node);
-            }
-        });
-        assertEquals(20, selected.size(), "should have matched img tags\n" + selected);
+        this.selectorAcceptAndCheckCount(document, selector, 20);
     }
 
     @Test
@@ -831,19 +816,7 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument> {
                 .named(XmlName.element("a"))
                 .attributeValueContains(XmlNode.attribute("href", XmlNode.NO_PREFIX), "19")
                 .build();
-        final Set<XmlNode> selected = Sets.ordered();
-        selector.accept(document, new FakeNodeSelectorContext<XmlNode, XmlName, XmlAttributeName, String>() {
-            @Override
-            public void potential(final XmlNode node) {
-
-            }
-
-            @Override
-            public void selected(final XmlNode node) {
-                selected.add(node);
-            }
-        });
-        assertEquals(3, selected.size(), "should have matched 3 links with 19 in href\n" + selected);
+        this.selectorAcceptAndCheckCount(document, selector, 3);
     }
 
     // toString ..................................................................................................

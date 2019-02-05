@@ -193,7 +193,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
     }
 
     @Override
-    protected N createNode() {
+    public final N createNode() {
         return this.createNode(this.documentBuilder());
     }
 

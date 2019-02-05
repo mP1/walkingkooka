@@ -99,7 +99,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     }
 
     @Override
-    protected JsonNode createNode() {
+    public JsonNode createNode() {
         return this.createJsonNode();
     }
 

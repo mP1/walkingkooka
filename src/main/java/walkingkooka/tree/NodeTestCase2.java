@@ -176,8 +176,6 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
         assertSame(value, value2, () -> node + " did not cache " + property);
     }
 
-    abstract protected N createNode();
-
     protected void checkParent(final N node, final N parent) {
         assertSame(parent, node.parent(), () -> "parent of " + node);
     }
