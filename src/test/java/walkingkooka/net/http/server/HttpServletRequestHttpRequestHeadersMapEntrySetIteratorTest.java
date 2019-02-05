@@ -28,7 +28,6 @@ import java.util.Enumeration;
 import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest extends
         IteratorTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIterator,
@@ -62,9 +61,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
     public void testRemoveFails() {
         HttpServletRequestHttpRequestHeadersMapEntrySetIterator iterator = this.createIterator();
         iterator.next();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            iterator.remove();
-        });
+        this.checkRemoveUnsupportedFails(iterator);
     }
 
     @Test
@@ -72,8 +69,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
         assertEquals("[Content-Length, Server]", this.createIterator().toString());
     }
 
-    @Override
-    protected HttpServletRequestHttpRequestHeadersMapEntrySetIterator createIterator() {
+    @Override public HttpServletRequestHttpRequestHeadersMapEntrySetIterator createIterator() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIterator.with(this.request());
     }
 

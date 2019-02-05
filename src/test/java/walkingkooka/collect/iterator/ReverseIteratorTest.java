@@ -68,15 +68,14 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
 
     @Test
     public void testRemove() {
-        this.checkRemoveFails(ReverseIterator.with(this.iterator("1")));
+        this.checkRemoveUnsupportedFails(ReverseIterator.with(this.iterator("1")));
     }
 
     private ReverseIterator<String> iterator(final String... strings) {
         return Cast.to(ReverseIterator.with(new ArrayList<String>(Lists.of(strings)).iterator()));
     }
 
-    @Override
-    protected ReverseIterator<Object> createIterator() {
+    @Override public ReverseIterator<Object> createIterator() {
         return Cast.to(ReverseIterator.with(Iterators.fake()));
     }
 

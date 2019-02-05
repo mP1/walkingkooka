@@ -44,8 +44,7 @@ final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void
         assertEquals("<empty>", EmptyIterator.instance().toString());
     }
 
-    @Override
-    protected EmptyIterator<Void> createIterator() {
+    @Override public EmptyIterator<Void> createIterator() {
         return EmptyIterator.instance();
     }
 

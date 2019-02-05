@@ -65,7 +65,7 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
 
         for (int i = 0; i < cookies.length; i++) {
             if (checkHasNext) {
-                this.checkHasNextTrue("iterator should have " + (cookies.length - i) + " entries left", iterator);
+                this.checkHasNextTrue(iterator, "iterator should have " + (cookies.length - i) + " entries left");
             }
             this.checkNext(iterator, cookies[i]);
         }
@@ -94,8 +94,7 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
         assertEquals("", iterator.toString());
     }
 
-    @Override
-    protected RouterHttpRequestParametersMapCookiesEntryIterator createIterator() {
+    @Override public RouterHttpRequestParametersMapCookiesEntryIterator createIterator() {
         return this.createIterator(COOKIE1, COOKIE2);
     }
 

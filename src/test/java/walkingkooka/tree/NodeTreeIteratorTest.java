@@ -163,8 +163,7 @@ public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterato
         assertEquals("\"root\"", iterator.toString());
     }
 
-    @Override
-    protected NodeTreeIterator<TestNode, StringName, StringName, Object> createIterator() {
+    @Override public NodeTreeIterator<TestNode, StringName, StringName, Object> createIterator() {
         return new NodeTreeIterator<>(TestNode.with("root"));
     }
 

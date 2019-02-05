@@ -45,14 +45,15 @@ final public class CharSequenceIteratorTest
 
     @Test
     public void testConsume() {
-        this.iterateAndCheck('A', 'B', 'C', '\t');
+        this.iterateAndCheck(this.createIterator(),
+                'A', 'B', 'C', '\t');
     }
 
     @Test
     public void testRemoveFails() {
         final CharSequenceIterator iterator = this.createIterator();
         iterator.next();
-        this.checkRemoveFails(iterator);
+        this.checkRemoveUnsupportedFails(iterator);
     }
 
     @Test
@@ -60,8 +61,7 @@ final public class CharSequenceIteratorTest
         assertEquals("\"ABC\\t\"", this.createIterator().toString());
     }
 
-    @Override
-    protected CharSequenceIterator createIterator() {
+    @Override public CharSequenceIterator createIterator() {
         return CharSequenceIterator.with(CHARS);
     }
 

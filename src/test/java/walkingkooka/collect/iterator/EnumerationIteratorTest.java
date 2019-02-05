@@ -58,7 +58,7 @@ final public class EnumerationIteratorTest
 
         final EnumerationIterator<String> iterator = EnumerationIterator.adapt(vector.elements());
         iterator.next();
-        this.checkRemoveFails(iterator);
+        this.checkRemoveUnsupportedFails(iterator);
     }
 
     @Test
@@ -68,8 +68,7 @@ final public class EnumerationIteratorTest
                 EnumerationIterator.adapt(enumeration).toString());
     }
 
-    @Override
-    protected EnumerationIterator<Integer> createIterator() {
+    @Override public EnumerationIterator<Integer> createIterator() {
         return EnumerationIterator.adapt(Enumerations.fake());
     }
 

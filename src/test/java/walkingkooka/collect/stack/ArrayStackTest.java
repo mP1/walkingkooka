@@ -20,6 +20,7 @@ package walkingkooka.collect.stack;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
@@ -30,10 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, String> {
+final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, String> implements IteratorTesting {
 
     @Test
     public void testWithOne() {
@@ -177,27 +177,12 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     @Test
     public void testIteratorAfterPopPush() {
         final Stack<String> stack = ArrayStack.with("1").push("2").push("-popped-").pop().push("3");
-        final Iterator<String> iterator = stack.iterator();
-        assertTrue(iterator.hasNext(), "first pending not empty");
-        assertEquals("1", iterator.next(), "first");
-
-        assertTrue(iterator.hasNext(), "second pending not empty");
-        assertEquals("2", iterator.next(), "second");
-
-        assertTrue(iterator.hasNext(), "second pending not empty");
-        assertEquals("3", iterator.next(), "second");
-
-        assertFalse(iterator.hasNext(), "iterator was NOT empty=" + iterator);
+        this.iterateAndCheck(stack.iterator(), "1", "2", "3");
     }
 
     @Test
     public void testIteratorWithRemove() {
-        final Stack<String> stack = this.createStack();
-        final Iterator<String> iterator = stack.iterator();
-
-        assertThrows(UnsupportedOperationException.class, () -> {
-            iterator.remove();
-        });
+        this.checkRemoveUnsupportedFails(this.createStack().iterator());
     }
 
     @Test

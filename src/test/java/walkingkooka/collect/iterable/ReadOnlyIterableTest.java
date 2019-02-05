@@ -19,17 +19,17 @@ package walkingkooka.collect.iterable;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterable<String>, String> {
+final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterable<String>, String>
+        implements IteratorTesting {
 
     // constants
 
@@ -51,19 +51,7 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
         iterable.add("2");
         iterable.add("3");
 
-        final ReadOnlyIterable<String> readOnly = ReadOnlyIterable.wrap(iterable);
-        final Iterator<String> iterator = readOnly.iterator();
-
-        assertTrue(iterator.hasNext(), "iterator should not be empty");
-        assertEquals("1", iterator.next());
-
-        assertTrue(iterator.hasNext(), "iterator should not be empty");
-        assertEquals("2", iterator.next());
-
-        assertTrue(iterator.hasNext(), "iterator should not be empty");
-        assertEquals("3", iterator.next());
-
-        assertFalse(iterator.hasNext(), "iterator should be empty");
+        this.iterateAndCheck(ReadOnlyIterable.wrap(iterable).iterator(), "1", "2", "3");
     }
 
     @Test
@@ -73,15 +61,9 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
         iterable.add("2");
         iterable.add("3");
 
-        final ReadOnlyIterable<String> readOnly = ReadOnlyIterable.wrap(iterable);
-        final Iterator<String> iterator = readOnly.iterator();
-
-        assertTrue(iterator.hasNext(), "iterator should not be empty");
-        assertEquals("1", iterator.next());
-
-        assertThrows(UnsupportedOperationException.class, () -> {
-            iterator.remove();
-        });
+        final Iterator<String> readOnly = ReadOnlyIterable.wrap(iterable).iterator();
+        this.iterateAndCheck(readOnly, "1", "2", "3");
+        this.checkRemoveUnsupportedFails(readOnly);
     }
 
     @Test

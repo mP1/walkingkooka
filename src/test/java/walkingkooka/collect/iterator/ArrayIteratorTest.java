@@ -58,14 +58,14 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
 
     @Test
     public void testRemoveWithoutNext() {
-        this.checkRemoveFails(this.createIterator());
+        this.checkRemoveUnsupportedFails(this.createIterator());
     }
 
     @Test
     public void testRemove() {
         final ArrayIterator<String> iterator = this.createIterator();
         iterator.next();
-        this.checkRemoveFails(iterator);
+        this.checkRemoveUnsupportedFails(iterator);
     }
 
     @Test
@@ -91,8 +91,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
         assertEquals(Lists.of().toString(), iterator.toString());
     }
 
-    @Override
-    protected ArrayIterator<String> createIterator() {
+    @Override public ArrayIterator<String> createIterator() {
         return ArrayIterator.with("A", "B", "C");
     }
 

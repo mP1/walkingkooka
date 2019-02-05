@@ -112,7 +112,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
 
         for (int i = 0; i < headerNames.size(); i++) {
             if (checkHasNext) {
-                this.checkHasNextTrue("iterator should have " + (headerValues.length - i) + " entries left", iterator);
+                this.checkHasNextTrue(iterator, "iterator should have " + (headerValues.length - i) + " entries left");
             }
             this.checkNext(iterator, headerNames.get(i), headerValues[i]);
         }
@@ -135,8 +135,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
         assertEquals(iterator.toString(), RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(iterator).toString());
     }
 
-    @Override
-    protected RouterHttpRequestParametersMapHttpHeaderEntryIterator createIterator() {
+    @Override public RouterHttpRequestParametersMapHttpHeaderEntryIterator createIterator() {
         return this.createIterator(this.headers2());
     }
 
