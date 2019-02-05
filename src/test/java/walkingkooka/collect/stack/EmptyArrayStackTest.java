@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
-import java.util.EmptyStackException;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -59,22 +58,6 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
                 .iterator()));
         assertArrayEquals(new Object[]{"1", "2", "3"}, stack.array, "array");
         assertEquals(3, stack.last, "last");
-    }
-
-    @Test
-    public void testPeekFails() {
-        final EmptyArrayStack<String> stack = EmptyArrayStack.instance();
-        assertThrows(EmptyStackException.class, () -> {
-            stack.peek();
-        });
-    }
-
-    @Test
-    public void testPopFails() {
-        final Stack<Object> stack = EmptyArrayStack.instance();
-        assertThrows(EmptyStackException.class, () -> {
-            stack.pop();
-        });
     }
 
     @Test

@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
-import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class ArrayListStackTest extends StackTestCase<ArrayListStack<String>, String> {
@@ -94,22 +92,6 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         assertSame(stack, stack.pop(), "pop last");
 
         this.checkSize(stack, 0);
-    }
-
-    @Test
-    public void testPeekWhenEmptyFails() {
-        final Stack<String> stack = ArrayListStack.create();
-        assertThrows(EmptyStackException.class, () -> {
-            stack.peek();
-        });
-    }
-
-    @Test
-    public void testPopWhenEmptyFails() {
-        final Stack<String> stack = ArrayListStack.create();
-        assertThrows(EmptyStackException.class, () -> {
-            stack.pop();
-        });
     }
 
     @Test

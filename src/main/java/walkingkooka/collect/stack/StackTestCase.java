@@ -24,6 +24,8 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.EmptyStackException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -31,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Stack}.
  */
 abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, T> extends ClassTestCase<S>
-        implements HashCodeEqualsDefinedTesting<S>, SerializationTesting<S> {
+        implements HashCodeEqualsDefinedTesting<S>,
+        SerializationTesting<S> {
 
     protected StackTestCase() {
         super();
@@ -40,6 +43,22 @@ abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, 
     @Test
     public void testNaming() {
         this.checkNaming(Stack.class);
+    }
+
+    @Test
+    public void testPeekWhenEmptyFails() {
+        final Stack<String> stack = ArrayListStack.create();
+        assertThrows(EmptyStackException.class, () -> {
+            stack.peek();
+        });
+    }
+
+    @Test
+    public void testPopWhenEmptyFails() {
+        final Stack<String> stack = ArrayListStack.create();
+        assertThrows(EmptyStackException.class, () -> {
+            stack.pop();
+        });
     }
 
     @Test

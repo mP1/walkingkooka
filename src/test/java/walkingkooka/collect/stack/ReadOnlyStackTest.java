@@ -24,7 +24,6 @@ import walkingkooka.collect.iterator.Iterators;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -64,8 +63,7 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     @Test
     public void testIsEmpty() {
         final ReadOnlyStack<Object> stack = this.createStack();
-        assertFalse(stack.isEmpty(), "stack should NOT be empty it has of item");
-        assertEquals(1, stack.size(), "size when with of item");
+        this.checkSize(stack, 1);
 
         stack.pop();
         this.checkSize(stack, 0);

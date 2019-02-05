@@ -42,8 +42,10 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     @Test
     public void testPush() {
         final JdkStackStack<String> stack = JdkStackStack.create();
+
         assertSame(stack, stack.push("1"), "this not returned");
-        assertFalse(stack.isEmpty(), "isempty");
+        this.checkSize(stack, 1);
+
         assertSame(stack, stack.push("2"), "this not returned");
         this.checkSize(stack, 2);
 
@@ -63,6 +65,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     @Test
     public void testPushAll() {
         final JdkStackStack<String> stack = JdkStackStack.create();
+
         assertSame(stack, stack.pushAll(Lists.of("1", "2").iterator()), "this was not returned");
         this.checkSize(stack, 2);
 
@@ -75,10 +78,11 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     @Test
     public void testPopAndPeek() {
         final JdkStackStack<String> stack = JdkStackStack.create();
-        stack.push("1");
-        assertFalse(stack.isEmpty(), "isempty");
-        stack.push("2");
 
+        stack.push("1");
+        this.checkSize(stack, 1);
+
+        stack.push("2");
         this.checkSize(stack, 2);
 
         assertEquals("2", stack.peek(), "peek");
@@ -169,7 +173,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     }
 
     @Test
-    public void testSameItemsDifferentStackType() {
+    public void testEqualsSameItemsDifferentStackType() {
         final JdkStackStack<String> stack1 = JdkStackStack.create();
         final Stack<String> stack2 = Stacks.arrayList();
         stack1.push("1");
