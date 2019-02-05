@@ -77,11 +77,10 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
     @Test
     public void testRemoveFails() {
         final OneIterator<String> iterator = OneIterator.with(null);
-        this.checkRemoveUnsupported(iterator);
+        this.checkRemoveUnsupportedFails(iterator);
     }
 
-    @Override
-    protected OneIterator<String> createIterator() {
+    @Override public OneIterator<String> createIterator() {
         return null;
     }
 

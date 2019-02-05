@@ -19,19 +19,19 @@ package walkingkooka.collect.stack;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
 import java.util.EmptyStackException;
-import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>, Object> {
+final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>, Object>
+        implements IteratorTesting {
 
     @Test
     public void testCreate() {
@@ -119,11 +119,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         stack.push("2");
         stack.push("3");
 
-        final Iterator<String> iterator = stack.iterator();
-        assertEquals("1", iterator.next(), "first");
-        assertEquals("2", iterator.next(), "second");
-        assertEquals("3", iterator.next(), "last");
-        assertFalse(iterator.hasNext(), "iterator was NOT empty=" + iterator);
+        this.iterateAndCheck(stack.iterator(), "1", "2", "3");
     }
 
     @Test
@@ -133,17 +129,11 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         stack.push("2");
         stack.push("3");
 
-        final Iterator<String> iterator = stack.iterator();
-        assertEquals("1", iterator.next(), "first");
-        iterator.remove();
-        assertEquals("2", iterator.next(), "second");
-        iterator.remove();
-        assertEquals("3", iterator.next(), "last");
-        assertFalse(iterator.hasNext(), "iterator was NOT empty=" + iterator);
+        this.iterateAndCheck(stack.iterator(), "1", "2", "3");
 
         assertSame("3", stack.peek());
         stack.pop();
-        this.checkSize(stack, 0);
+        this.checkSize(stack, 2);
     }
 
     // HashCodeEqualsDefined ..................................................................................................

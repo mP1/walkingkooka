@@ -62,13 +62,13 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
                                  final boolean hasNext) {
         final RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator iterator = this.createIterator(transport, method, version);
 
-        this.checkHasNextTrue("iterator should have 3 entries", iterator);
+        this.checkHasNextTrue(iterator, "iterator should have 3 entries");
         this.checkNext(iterator, HttpRequestAttributes.TRANSPORT, transport);
 
-        this.checkHasNextTrue("iterator should have 2 entries", iterator);
+        this.checkHasNextTrue(iterator, "iterator should have 2 entries");
         this.checkNext(iterator, HttpRequestAttributes.METHOD, method);
 
-        this.checkHasNextTrue("iterator should have 1 entries", iterator);
+        this.checkHasNextTrue(iterator, "iterator should have 1 entries");
         this.checkNext(iterator, HttpRequestAttributes.HTTP_PROTOCOL_VERSION, version);
 
         this.checkHasNextFalse(iterator);
@@ -101,8 +101,7 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
         assertEquals("TRANSPORT=UNSECURED", this.createIterator().toString());
     }
 
-    @Override
-    protected RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator createIterator() {
+    @Override public RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator createIterator() {
         return this.createIterator(TRANSPORT, METHOD, PROTOCOL);
     }
 

@@ -19,18 +19,16 @@ package walkingkooka.collect.stack;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
-import java.util.Iterator;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Object>, Object> {
+final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Object>, Object>
+        implements IteratorTesting {
 
     @Test
     public void testCreate() {
@@ -62,20 +60,12 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
 
     @Test
     public void testIterator() {
-        final EmptyArrayStack<String> stack = EmptyArrayStack.instance();
-
-        final Iterator<String> iterator = stack.iterator();
-        assertFalse(iterator.hasNext(), "iterator must be empty=" + iterator);
+        this.iterateAndCheck(EmptyArrayStack.instance().iterator());
     }
 
     @Test
     public void testIteratorWithRemove() {
-        final EmptyArrayStack<String> stack = EmptyArrayStack.instance();
-        final Iterator<String> iterator = stack.iterator();
-
-        assertThrows(IllegalStateException.class, () -> {
-            iterator.remove();
-        });
+        this.checkRemoveWithoutNextFails( EmptyArrayStack.instance().iterator());
     }
 
     @Test

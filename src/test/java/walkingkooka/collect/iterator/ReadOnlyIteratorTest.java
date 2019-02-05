@@ -76,7 +76,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
 
     @Test
     public void testRemove() {
-        this.checkRemoveFails(ReadOnlyIterator.wrap(this.iterator(ELEMENT)));
+        this.checkRemoveUnsupportedFails(ReadOnlyIterator.wrap(this.iterator(ELEMENT)));
     }
 
     @Test
@@ -90,8 +90,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
         return ReadOnlyIterator.wrap(new ArrayList<Object>(Lists.of(strings)).iterator());
     }
 
-    @Override
-    protected ReadOnlyIterator<Object> createIterator() {
+    @Override public ReadOnlyIterator<Object> createIterator() {
         return ReadOnlyIterator.wrap(Iterators.fake());
     }
 

@@ -99,7 +99,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         assertSame("1", iterator.next());
         assertSame("2", iterator.next());
         this.checkNextFails(iterator);
-        this.checkRemoveFails(iterator);
+        this.checkRemoveUnsupportedFails(iterator);
     }
 
     @Test
@@ -125,8 +125,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
                         .toString());
     }
 
-    @Override
-    protected LimitedIterator<String> createIterator() {
+    @Override public LimitedIterator<String> createIterator() {
         return LimitedIterator.wrap(Lists.of("1",
                 "2",
                 "should never be returned1",

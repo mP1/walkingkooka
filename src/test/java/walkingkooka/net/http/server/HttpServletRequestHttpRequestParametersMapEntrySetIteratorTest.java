@@ -52,8 +52,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTes
                 this.createIterator().toString());
     }
 
-    @Override
-    protected HttpServletRequestHttpRequestParametersMapEntrySetIterator createIterator() {
+    @Override public HttpServletRequestHttpRequestParametersMapEntrySetIterator createIterator() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIterator.with(Iterators.array(
                 this.entry(KEY1, VALUE1A, VALUE1B),
                 this.entry(KEY2, VALUE2)

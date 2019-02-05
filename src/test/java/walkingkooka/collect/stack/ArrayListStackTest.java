@@ -19,6 +19,7 @@ package walkingkooka.collect.stack;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class ArrayListStackTest extends StackTestCase<ArrayListStack<String>, String> {
+final public class ArrayListStackTest extends StackTestCase<ArrayListStack<String>, String>
+        implements IteratorTesting {
 
     @Test
     public void testCreate() {
@@ -101,11 +103,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         stack.push("2");
         stack.push("3");
 
-        final Iterator<String> iterator = stack.iterator();
-        assertEquals("1", iterator.next());
-        assertEquals("2", iterator.next());
-        assertEquals("3", iterator.next());
-        assertFalse(iterator.hasNext(), "iterator was NOT empty=" + iterator);
+        this.iterateAndCheck(stack.iterator(), "1", "2", "3");
     }
 
     @Test

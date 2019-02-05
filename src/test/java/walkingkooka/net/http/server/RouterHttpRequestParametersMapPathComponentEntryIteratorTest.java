@@ -68,7 +68,7 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
 
         for (int i = 0; i < names.length; i++) {
             if (checkHasNext) {
-                this.checkHasNextTrue("iterator should have " + (names.length - i) + " entries left", iterator);
+                this.checkHasNextTrue(iterator, "iterator should have " + (names.length - i) + " entries left");
             }
             this.checkNext(iterator, i, names[i]);
         }
@@ -98,8 +98,7 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
         assertEquals("", iterator.toString());
     }
 
-    @Override
-    protected RouterHttpRequestParametersMapPathComponentEntryIterator createIterator() {
+    @Override public RouterHttpRequestParametersMapPathComponentEntryIterator createIterator() {
         return this.createIterator(NAME1, NAME2);
     }
 
