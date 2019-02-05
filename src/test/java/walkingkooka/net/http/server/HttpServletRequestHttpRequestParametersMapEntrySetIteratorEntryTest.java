@@ -21,6 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.EntryTestCase;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.List;
@@ -77,22 +78,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
     }
 
     private Entry<String, String[]> entry(final String key, final String... values) {
-        return new Entry<String, String[]>() {
-            @Override
-            public String getKey() {
-                return key;
-            }
-
-            @Override
-            public String[] getValue() {
-                return values.clone();
-            }
-
-            @Override
-            public String[] setValue(final String[] value) {
-                throw new UnsupportedOperationException();
-            }
-        };
+        return Maps.entry(key, values.clone());
     }
 
     @Override

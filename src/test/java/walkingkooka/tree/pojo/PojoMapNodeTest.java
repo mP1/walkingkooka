@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -47,10 +46,10 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     private final static String VALUE2 = "value2";
     private final static String VALUE3 = "value3";
 
-    private final static Entry<Object, Object> ENTRY0 = entry(KEY0, VALUE0);
-    private final static Entry<Object, Object> ENTRY1 = entry(KEY1, VALUE1);
-    private final static Entry<Object, Object> ENTRY2 = entry(KEY2, VALUE2);
-    private final static Entry<Object, Object> ENTRY3 = entry(KEY3, VALUE3);
+    private final static Entry<Object, Object> ENTRY0 = Maps.entry(KEY0, VALUE0);
+    private final static Entry<Object, Object> ENTRY1 = Maps.entry(KEY1, VALUE1);
+    private final static Entry<Object, Object> ENTRY2 = Maps.entry(KEY2, VALUE2);
+    private final static Entry<Object, Object> ENTRY3 = Maps.entry(KEY3, VALUE3);
 
     // children.......................................................................................................
 
@@ -89,7 +88,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     @Test
     public void testSetChildrenImmutableChildWithParent() {
         final Map<Object, Object> parentMap = map(
-                entry(KEY0, new TestImmutableLeaf(STRING0)),
+                Maps.entry(KEY0, new TestImmutableLeaf(STRING0)),
                 ENTRY1);
         final TestImmutableParent parent = new TestImmutableParent(parentMap);
         final PojoNode parentNode = PojoObjectNode.wrap(PARENT, parent, new ReflectionPojoNodeContext());
@@ -112,10 +111,10 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         assertNotSame(parentNode, parentNode2);
 
         this.childrenValuesCheck(parentNode2, Lists.of(
-                entry(KEY0, new TestImmutableLeaf(STRING2)),
+                Maps.<Object, Object>entry(KEY0, new TestImmutableLeaf(STRING2)),
                 ENTRY1));
         assertEquals(map(
-                entry(KEY0, new TestImmutableLeaf(STRING2)),
+                Maps.entry(KEY0, new TestImmutableLeaf(STRING2)),
                 ENTRY1),
                 parentNode2.value());
     }
@@ -123,7 +122,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     @Test
     public void testSetChildrenMutableChildWithParent() {
         final Map<Object, Object> parentMap = map(
-                entry(KEY0, new TestMutableLeaf(STRING0)),
+                Maps.entry(KEY0, new TestMutableLeaf(STRING0)),
                 ENTRY1);
         final TestMutableParent parent = new TestMutableParent(parentMap);
         final PojoNode parentNode = PojoObjectNode.wrap(PARENT, parent, new ReflectionPojoNodeContext());
@@ -146,10 +145,10 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         assertNotSame(parentNode, parentNode2);
 
         this.childrenValuesCheck(parentNode2, Lists.of(
-                entry(KEY0, new TestMutableLeaf(STRING2)),
+                Maps.<Object, Object>entry(KEY0, new TestMutableLeaf(STRING2)),
                 ENTRY1));
         assertEquals(map(
-                entry(KEY0, new TestMutableLeaf(STRING2)),
+                Maps.entry(KEY0, new TestMutableLeaf(STRING2)),
                 ENTRY1),
                 parentNode2.value());
     }
@@ -159,7 +158,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     @Test
     public void testSetChildrenValuesImmutableChildWithParent() {
         final Map<Object, Object> parentMap = map(
-                entry(KEY0, new TestImmutableLeaf(STRING0)),
+                Maps.entry(KEY0, new TestImmutableLeaf(STRING0)),
                 ENTRY1);
         final TestImmutableParent parent = new TestImmutableParent(parentMap);
         final PojoNode parentNode = PojoObjectNode.wrap(PARENT, parent, new ReflectionPojoNodeContext());
@@ -182,10 +181,10 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         assertNotSame(parentNode, parentNode2);
 
         this.childrenValuesCheck(parentNode2, Lists.of(
-                entry(KEY0, new TestImmutableLeaf(STRING2)),
+                Maps.<Object, Object>entry(KEY0, new TestImmutableLeaf(STRING2)),
                 ENTRY1));
         assertEquals(map(
-                entry(KEY0, new TestImmutableLeaf(STRING2)),
+                Maps.entry(KEY0, new TestImmutableLeaf(STRING2)),
                 ENTRY1),
                 parentNode2.value());
     }
@@ -193,7 +192,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     @Test
     public void testSetChildrenValuesMutableChildWithParent() {
         final Map<Object, Object> parentMap = map(
-                entry(KEY0, new TestMutableLeaf(STRING0)),
+                Maps.entry(KEY0, new TestMutableLeaf(STRING0)),
                 ENTRY1);
         final TestMutableParent parent = new TestMutableParent(parentMap);
         final PojoNode parentNode = PojoObjectNode.wrap(PARENT, parent, new ReflectionPojoNodeContext());
@@ -216,10 +215,10 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         assertNotSame(parentNode, parentNode2);
 
         this.childrenValuesCheck(parentNode2, Lists.of(
-                entry(KEY0, new TestMutableLeaf(STRING2)),
+                Maps.<Object, Object>entry(KEY0, new TestMutableLeaf(STRING2)),
                 ENTRY1));
         assertEquals(map(
-                entry(KEY0, new TestMutableLeaf(STRING2)),
+                Maps.entry(KEY0, new TestMutableLeaf(STRING2)),
                 ENTRY1),
                 parentNode2.value());
     }
@@ -251,43 +250,6 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
             map.put(entry.getKey(), entry.getValue());
         }
         return map;
-    }
-
-    private static Entry<Object, Object> entry(final String key, final Object value) {
-        return new Entry<Object, Object>() {
-            @Override
-            public Object getKey() {
-                return key;
-            }
-
-            @Override
-            public Object getValue() {
-                return value;
-            }
-
-            @Override
-            public Object setValue(final Object value) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public int hashCode() {
-                return Objects.hash(this.getKey(), this.getValue());
-            }
-
-            @Override
-            public boolean equals(final Object other){
-                return other instanceof Entry && equals0(Cast.to(other));
-            }
-
-            private boolean equals0(final Entry<Object, Object> other){
-                return this.getKey().equals(other.getKey()) && this.getValue().equals(other.getValue());
-            }
-
-            public String toString() {
-                return this.getKey() + "=" + this.getValue();
-            }
-        };
     }
 
     @Test
@@ -331,7 +293,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
 
     @Override
     List<PojoNode> differentChildren(final PojoMapNode firstNode) {
-        return this.children0(firstNode, entry("different-key", "different-value"));
+        return this.children0(firstNode, Maps.<Object, Object>entry("different-key", "different-value"));
     }
 
     private List<PojoNode> children0(final PojoMapNode firstNode, final Object... values) {

@@ -19,6 +19,8 @@
 package walkingkooka.collect.map;
 
 import walkingkooka.Cast;
+import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Map;
@@ -74,6 +76,13 @@ final class MapsEntry<K, V> implements Map.Entry<K, V>, HashCodeEqualsDefined {
 
     @Override
     public String toString() {
-        return this.getKey() + "=" + this.getValue();
+        return ToStringBuilder.empty()
+                .disable(ToStringBuilderOption.QUOTE)
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .labelSeparator("=")
+                .label(this.getKey().toString())
+                .surroundValues("[", "]")
+                .value(this.getValue())
+                .build();
     }
 }

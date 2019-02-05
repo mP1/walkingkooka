@@ -21,8 +21,8 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTestCase;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.map.Maps;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -52,7 +52,8 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTes
                 this.createIterator().toString());
     }
 
-    @Override public HttpServletRequestHttpRequestParametersMapEntrySetIterator createIterator() {
+    @Override
+    public HttpServletRequestHttpRequestParametersMapEntrySetIterator createIterator() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIterator.with(Iterators.array(
                 this.entry(KEY1, VALUE1A, VALUE1B),
                 this.entry(KEY2, VALUE2)
@@ -60,27 +61,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTes
     }
 
     private Entry<String, String[]> entry(final String key, final String... values) {
-        return new Entry<String, String[]>() {
-            @Override
-            public String getKey() {
-                return key;
-            }
-
-            @Override
-            public String[] getValue() {
-                return values.clone();
-            }
-
-            @Override
-            public String[] setValue(final String[] value) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public String toString() {
-                return key + "=" + Arrays.toString(values);
-            }
-        };
+        return Maps.entry(key, values.clone());
     }
 
     @Override
