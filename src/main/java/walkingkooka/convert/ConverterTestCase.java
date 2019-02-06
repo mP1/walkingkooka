@@ -21,6 +21,7 @@ package walkingkooka.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -29,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ConverterTestCase<C extends Converter> extends ClassTestCase<C> {
+public abstract class ConverterTestCase<C extends Converter> extends ClassTestCase<C>
+        implements ToStringTesting<C> {
 
     @Test
     public void testCheckNaming() {
@@ -127,5 +129,10 @@ public abstract class ConverterTestCase<C extends Converter> extends ClassTestCa
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public Class<C> type() {
+        return this.type();
     }
 }

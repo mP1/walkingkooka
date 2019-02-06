@@ -88,7 +88,7 @@ public final class SpreadsheetFormatAmPmParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected Class<SpreadsheetFormatAmPmParserToken> type() {
+    public Class<SpreadsheetFormatAmPmParserToken> type() {
         return SpreadsheetFormatAmPmParserToken.class;
     }
 }

@@ -57,27 +57,29 @@ final public class ArrayEnumerationTest
         this.enumerateUsingHasMoreElementsAndCheck(enumerator, "A", "B", "C");
     }
 
+    // ToString....................................................................................................
+
     @Test
     public void testToString() {
-        final Enumeration<String> enumerator = this.createEnumeration();
-        assertEquals(Lists.of("A", "B", "C").toString(), enumerator.toString());
+        this.toStringAndCheck(this.createEnumeration(), Lists.of("A", "B", "C").toString());
     }
 
     @Test
     public void testToStringPartiallyConsumed() {
-        final Enumeration<String> enumerator = this.createEnumeration();
+        final ArrayEnumeration<String> enumerator = this.createEnumeration();
         enumerator.nextElement();
 
-        assertEquals(Lists.of("B", "C").toString(), enumerator.toString());
+        this.toStringAndCheck(enumerator, Lists.of("B", "C").toString());
     }
 
     @Test
     public void testToStringWhenEmpty() {
-        final Enumeration<String> enumerator = this.createEnumeration();
+        final ArrayEnumeration<String> enumerator = this.createEnumeration();
         enumerator.nextElement();
         enumerator.nextElement();
         enumerator.nextElement();
-        assertEquals(Lists.of().toString(), enumerator.toString());
+
+        this.toStringAndCheck(enumerator, Lists.of().toString());
     }
 
     @Override
@@ -86,7 +88,7 @@ final public class ArrayEnumerationTest
     }
 
     @Override
-    protected Class<ArrayEnumeration<String>> type() {
+    public Class<ArrayEnumeration<String>> type() {
         return Cast.to(ArrayEnumeration.class);
     }
 }

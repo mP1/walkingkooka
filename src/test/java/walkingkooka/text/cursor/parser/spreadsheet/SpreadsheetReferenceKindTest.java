@@ -19,11 +19,14 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class SpreadsheetReferenceKindTest extends ClassTestCase<SpreadsheetReferenceKind> {
+public final class SpreadsheetReferenceKindTest extends ClassTestCase<SpreadsheetReferenceKind>
+        implements ToStringTesting<SpreadsheetReferenceKind> {
+
     @Override
-    protected Class<SpreadsheetReferenceKind> type() {
+    public Class<SpreadsheetReferenceKind> type() {
         return SpreadsheetReferenceKind.class;
     }
 

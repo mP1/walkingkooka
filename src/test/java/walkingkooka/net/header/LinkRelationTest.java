@@ -88,7 +88,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     }
 
     @Override
-    protected Class<LinkRelation<Object>> type() {
+    public Class<LinkRelation<Object>> type() {
         return Cast.to(LinkRelation.class);
     }
 

@@ -353,7 +353,7 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
     private final static String VALUE_LABEL = "Value";
 
     @Override
-    protected Class<HeaderParserWithParameters<?, ?>> type() {
+    public Class<HeaderParserWithParameters<?, ?>> type() {
         return Cast.to(HeaderParserWithParameters.class);
     }
 }

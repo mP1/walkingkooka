@@ -52,7 +52,7 @@ public final class UrlTest extends ClassTestCase<Url> implements ParseStringTest
     }
     
     @Override
-    protected Class<Url> type() {
+    public Class<Url> type() {
         return Url.class;
     }
 

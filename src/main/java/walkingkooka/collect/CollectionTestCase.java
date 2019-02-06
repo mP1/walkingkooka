@@ -21,6 +21,7 @@ package walkingkooka.collect;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -30,7 +31,8 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class CollectionTestCase<C extends Collection<E>, E> extends ClassTestCase<C> {
+public abstract class CollectionTestCase<C extends Collection<E>, E> extends ClassTestCase<C>
+        implements ToStringTesting<C> {
 
     @Test
     public final void testIteratorContainsAndCollection() {

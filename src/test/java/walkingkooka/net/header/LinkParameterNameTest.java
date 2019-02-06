@@ -25,7 +25,6 @@ import walkingkooka.net.Url;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -80,21 +79,13 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
         return Link.with(Url.parse("http://example.com"));
     }
 
-    // toString...........................................................................
-
-    @Test
-    public void testToString() {
-        final String text = "abc123";
-        assertEquals(text, LinkParameterName.with(text).toString());
-    }
-
     @Override
     public LinkParameterName<Object> createName(final String name) {
         return Cast.to(LinkParameterName.with(name));
     }
 
     @Override
-    protected Class<LinkParameterName<?>> type() {
+    public Class<LinkParameterName<?>> type() {
         return Cast.to(LinkParameterName.class);
     }
 }

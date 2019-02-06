@@ -88,7 +88,7 @@ public final class NodeSelectorGreaterThanEqualsSymbolParserTokenTest extends No
     }
 
     @Override
-    protected Class<NodeSelectorGreaterThanEqualsSymbolParserToken> type() {
+    public Class<NodeSelectorGreaterThanEqualsSymbolParserToken> type() {
         return NodeSelectorGreaterThanEqualsSymbolParserToken.class;
     }
 }

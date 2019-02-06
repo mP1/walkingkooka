@@ -381,7 +381,7 @@ abstract public class ClassTestCase<T> extends TestCase {
 
     // helpers
 
-    abstract protected Class<T> type();
+    abstract public Class<T> type();
 
     abstract protected MemberVisibility typeVisibility();
 

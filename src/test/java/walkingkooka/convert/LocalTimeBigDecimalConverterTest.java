@@ -24,8 +24,6 @@ import walkingkooka.Cast;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class LocalTimeBigDecimalConverterTest extends LocalTimeConverterTestCase<LocalTimeBigDecimalConverter, BigDecimal> {
 
     private final static int VALUE = 123;
@@ -57,7 +55,7 @@ public final class LocalTimeBigDecimalConverterTest extends LocalTimeConverterTe
 
     @Test
     public void testToString() {
-        assertEquals("LocalTime->BigDecimal", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "LocalTime->BigDecimal");
     }
 
     @Override
@@ -71,7 +69,7 @@ public final class LocalTimeBigDecimalConverterTest extends LocalTimeConverterTe
     }
 
     @Override
-    protected Class<LocalTimeBigDecimalConverter> type() {
+    public Class<LocalTimeBigDecimalConverter> type() {
         return LocalTimeBigDecimalConverter.class;
     }
 }

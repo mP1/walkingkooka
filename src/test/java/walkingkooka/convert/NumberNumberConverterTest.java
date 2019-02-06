@@ -162,7 +162,7 @@ public final class NumberNumberConverterTest extends ConverterTestCase<NumberNum
     }
 
     @Override
-    protected Class<NumberNumberConverter> type() {
+    public Class<NumberNumberConverter> type() {
         return NumberNumberConverter.class;
     }
 }

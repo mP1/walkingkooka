@@ -18,11 +18,13 @@
 package walkingkooka.build;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 
 /**
  * Base class for any {@link Builder}.
  */
-abstract public class BuilderLikeTestCase<B extends BuilderLike> extends ClassTestCase {
+abstract public class BuilderLikeTestCase<B extends BuilderLike> extends ClassTestCase
+        implements ToStringTesting<B> {
 
     protected BuilderLikeTestCase() {
         super();

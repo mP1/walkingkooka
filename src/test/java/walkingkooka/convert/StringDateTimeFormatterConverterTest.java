@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class StringDateTimeFormatterConverterTest extends ClassTestCase<StringDateTimeFormatterConverter> {
 
     @Override
-    protected Class<StringDateTimeFormatterConverter> type() {
+    public Class<StringDateTimeFormatterConverter> type() {
         return StringDateTimeFormatterConverter.class;
     }
 

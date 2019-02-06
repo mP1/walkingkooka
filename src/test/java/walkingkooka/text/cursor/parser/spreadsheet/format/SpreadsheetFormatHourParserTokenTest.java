@@ -88,7 +88,7 @@ public final class SpreadsheetFormatHourParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected Class<SpreadsheetFormatHourParserToken> type() {
+    public Class<SpreadsheetFormatHourParserToken> type() {
         return SpreadsheetFormatHourParserToken.class;
     }
 }

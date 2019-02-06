@@ -53,7 +53,7 @@ public final class ETagOneHeaderParserTest extends ETagHeaderParserTestCase<ETag
     }
 
     @Override
-    protected Class<ETagOneHeaderParser> type() {
+    public Class<ETagOneHeaderParser> type() {
         return ETagOneHeaderParser.class;
     }
 }

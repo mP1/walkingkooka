@@ -98,7 +98,7 @@ public final class SearchAndQueryTest extends SearchBinaryQueryTestCase<SearchAn
     }
     
     @Override
-    protected Class<SearchAndQuery> type() {
+    public Class<SearchAndQuery> type() {
         return SearchAndQuery.class;
     }
 }

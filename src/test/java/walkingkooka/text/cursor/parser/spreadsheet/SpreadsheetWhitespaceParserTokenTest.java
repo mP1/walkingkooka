@@ -110,7 +110,7 @@ public final class SpreadsheetWhitespaceParserTokenTest extends SpreadsheetSymbo
     }
 
     @Override
-    protected Class<SpreadsheetWhitespaceParserToken> type() {
+    public Class<SpreadsheetWhitespaceParserToken> type() {
         return SpreadsheetWhitespaceParserToken.class;
     }
 }

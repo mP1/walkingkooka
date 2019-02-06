@@ -48,7 +48,7 @@ public final class FilesystemNodeCacheAtomTest extends ClassTestCase<FilesystemN
     }
 
     @Override
-    protected Class<FilesystemNodeCacheAtom> type() {
+    public Class<FilesystemNodeCacheAtom> type() {
         return FilesystemNodeCacheAtom.class;
     }
 

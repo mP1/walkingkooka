@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -70,8 +69,7 @@ final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPre
 
     @Test
     public void testToString() {
-        assertEquals("!" + PREDICATE,
-                NotCharPredicate.wrap(PREDICATE).toString());
+        this.toStringAndCheck(NotCharPredicate.wrap(PREDICATE), "!" + PREDICATE);
     }
 
     @Override

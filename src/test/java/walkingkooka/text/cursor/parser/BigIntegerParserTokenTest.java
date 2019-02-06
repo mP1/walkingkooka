@@ -88,7 +88,7 @@ public final class BigIntegerParserTokenTest extends ParserTokenTestCase<BigInte
     }
 
     @Override
-    protected Class<BigIntegerParserToken> type() {
+    public Class<BigIntegerParserToken> type() {
         return BigIntegerParserToken.class;
     }
 }

@@ -86,7 +86,7 @@ public final class EbnfWhitespaceParserTokenTest extends EbnfLeafParserTokenTest
     }
 
     @Override
-    protected Class<EbnfWhitespaceParserToken> type() {
+    public Class<EbnfWhitespaceParserToken> type() {
         return EbnfWhitespaceParserToken.class;
     }
 }

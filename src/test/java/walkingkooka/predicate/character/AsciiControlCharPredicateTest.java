@@ -38,7 +38,7 @@ final public class AsciiControlCharPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("ASCII control", AsciiControlCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(AsciiControlCharPredicate.INSTANCE, "ASCII control");
     }
 
     @Override

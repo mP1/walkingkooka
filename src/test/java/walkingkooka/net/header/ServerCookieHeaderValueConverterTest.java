@@ -65,7 +65,7 @@ public final class ServerCookieHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<ServerCookieHeaderValueConverter> type() {
+    public Class<ServerCookieHeaderValueConverter> type() {
         return ServerCookieHeaderValueConverter.class;
     }
 }

@@ -88,7 +88,7 @@ public final class JsonNodeWhitespaceParserTokenTest extends JsonNodeSymbolParse
     }
 
     @Override
-    protected Class<JsonNodeWhitespaceParserToken> type() {
+    public Class<JsonNodeWhitespaceParserToken> type() {
         return JsonNodeWhitespaceParserToken.class;
     }
 }

@@ -21,7 +21,6 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicParserContextTest extends ParserContextTestCase<BasicParserContext> {
@@ -54,7 +53,7 @@ public final class BasicParserContextTest extends ParserContextTestCase<BasicPar
 
     @Test
     public void testToString() {
-        assertEquals(this.basic().toString(), this.createContext().toString());
+        this.toStringAndCheck(this.createContext(), this.basic().toString());
     }
 
     @Override
@@ -67,7 +66,7 @@ public final class BasicParserContextTest extends ParserContextTestCase<BasicPar
     }
 
     @Override
-    protected Class<BasicParserContext> type() {
+    public Class<BasicParserContext> type() {
         return BasicParserContext.class;
     }
 }

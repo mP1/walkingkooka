@@ -1098,7 +1098,7 @@ final public class CaseSensitivityTest extends ClassTestCase<CaseSensitivity> {
     }
 
     @Override
-    protected Class<CaseSensitivity> type() {
+    public Class<CaseSensitivity> type() {
         return CaseSensitivity.class;
     }
 

@@ -88,9 +88,10 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
         assertTrue(this.createObject()
                 .equals("" + CHAR));
     }
+
     @Test
     public void testToString() {
-        assertEquals("a", CharacterConstant.with('a').toString(), "toString");
+        this.toStringAndCheck(CharacterConstant.with('a'), "a");
     }
 
     @Override
@@ -99,7 +100,7 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
     }
 
     @Override
-    protected Class<CharacterConstant> type() {
+    public Class<CharacterConstant> type() {
         return CharacterConstant.class;
     }
 

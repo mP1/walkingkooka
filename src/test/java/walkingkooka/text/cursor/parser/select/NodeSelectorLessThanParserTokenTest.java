@@ -35,7 +35,7 @@ public final class NodeSelectorLessThanParserTokenTest extends NodeSelectorBinar
     }
 
     @Override
-    protected Class<NodeSelectorLessThanParserToken> type() {
+    public Class<NodeSelectorLessThanParserToken> type() {
         return NodeSelectorLessThanParserToken.class;
     }
 }

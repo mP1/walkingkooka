@@ -29,7 +29,6 @@ import walkingkooka.tree.search.SearchNodeName;
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentType> {
@@ -159,7 +158,8 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
 
     @Test
     public void testToString() {
-        assertEquals("<!DOCTYPE type123 PUBLIC \"//-/publicId\" \"http://www.example.com/test.dtd\">", this.createNode().toString());
+        this.toStringAndCheck(this.createNode(),
+                "<!DOCTYPE type123 PUBLIC \"//-/publicId\" \"http://www.example.com/test.dtd\">");
     }
 
     // <!DOCTYPE root PUBLIC "-//example/" "http://www.example.com/test.dtd">
@@ -187,7 +187,7 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
                 this.resource());
         final DocumentType documentType = document.getDoctype();
 
-        assertEquals(expected, XmlDocumentType.with(documentType).toString());
+        this.toStringAndCheck(XmlDocumentType.with(documentType), expected);
     }
 
     // factory/helpers..............................................................................................

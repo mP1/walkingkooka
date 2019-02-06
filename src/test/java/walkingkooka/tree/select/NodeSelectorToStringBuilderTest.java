@@ -382,7 +382,7 @@ public final class NodeSelectorToStringBuilderTest extends BuilderTestCase<NodeS
     }
 
     @Override
-    protected Class<NodeSelectorToStringBuilder> type() {
+    public Class<NodeSelectorToStringBuilder> type() {
         return NodeSelectorToStringBuilder.class;
     }
 

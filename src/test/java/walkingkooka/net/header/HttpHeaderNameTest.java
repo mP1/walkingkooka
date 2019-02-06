@@ -383,14 +383,6 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 }));
     }
 
-    // toString.................................................................................
-
-    @Test
-    public void testToString() {
-        final String name = "X-custom";
-        assertEquals(name, HttpHeaderName.with(name).toString());
-    }
-
     @Override
     public HttpHeaderName<Object> createName(final String name) {
         return Cast.to(HttpHeaderName.with(name));

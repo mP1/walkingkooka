@@ -20,7 +20,7 @@ package walkingkooka.text.spreadsheetformat;
 
 public final class BigDecimalFractionSpreadsheetTextFormatterComponentTest extends BigDecimalFractionTextFormatterTestCase<BigDecimalFractionSpreadsheetTextFormatterComponent> {
     @Override
-    protected Class<BigDecimalFractionSpreadsheetTextFormatterComponent> type() {
+    public Class<BigDecimalFractionSpreadsheetTextFormatterComponent> type() {
         return BigDecimalFractionSpreadsheetTextFormatterComponent.class;
     }
 }

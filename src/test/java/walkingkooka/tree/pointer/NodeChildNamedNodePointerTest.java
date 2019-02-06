@@ -43,7 +43,7 @@ public final class NodeChildNamedNodePointerTest extends ClassTestCase<NodeChild
     }
 
     @Override
-    protected Class<NodeChildNamedNodePointer<?, ?, ?, ?>> type() {
+    public Class<NodeChildNamedNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(NodeChildNamedNodePointer.class);
     }
 

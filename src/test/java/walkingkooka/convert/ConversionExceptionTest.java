@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 public final class ConversionExceptionTest extends PublicThrowableTestCase<ConversionException> {
     @Override
-    protected Class<ConversionException> type() {
+    public Class<ConversionException> type() {
         return ConversionException.class;
     }
 }

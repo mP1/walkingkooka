@@ -24,7 +24,6 @@ import walkingkooka.naming.PropertiesPath;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferenceTestCase<SpreadsheetLabelName>
@@ -110,11 +109,6 @@ final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferen
         this.createNameAndCheck("A" + (SpreadsheetRowReference.MAX + 1));
     }
 
-    @Test
-    public void testToString() {
-        assertEquals("ABC_123", this.createName("ABC_123").toString());
-    }
-
     @Override
     SpreadsheetLabelName createReference() {
         return this.createComparable();
@@ -146,7 +140,7 @@ final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferen
     }
 
     @Override
-    protected Class<SpreadsheetLabelName> type() {
+    public Class<SpreadsheetLabelName> type() {
         return SpreadsheetLabelName.class;
     }
 

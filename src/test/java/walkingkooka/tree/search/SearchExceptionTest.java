@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 public final class SearchExceptionTest extends PublicThrowableTestCase<SearchException> {
     @Override
-    protected Class<SearchException> type() {
+    public Class<SearchException> type() {
         return SearchException.class;
     }
 }

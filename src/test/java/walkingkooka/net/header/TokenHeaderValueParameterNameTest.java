@@ -22,7 +22,6 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -91,21 +90,13 @@ final public class TokenHeaderValueParameterNameTest extends HeaderParameterName
                 "abc");
     }
 
-    // toString.................................................................................................
-
-    @Test
-    public void testToString() {
-        final String name = "parameter123";
-        assertEquals(name, TokenHeaderValueParameterName.with(name).toString());
-    }
-
     @Override
     public TokenHeaderValueParameterName<Object> createName(final String name) {
         return Cast.to(TokenHeaderValueParameterName.with(name));
     }
 
     @Override
-    protected Class<TokenHeaderValueParameterName<?>> type() {
+    public Class<TokenHeaderValueParameterName<?>> type() {
         return Cast.to(TokenHeaderValueParameterName.class);
     }
 }

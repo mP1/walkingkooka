@@ -35,7 +35,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ConditionSpreadsheetTextFormatter<String>,
@@ -155,7 +154,7 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
 
     @Test
     public void testToString() {
-        assertEquals(this.pattern() + " " + TEXT_PATTERN, this.createFormatter().toString());
+        this.toStringAndCheck(this.createFormatter(), this.pattern() + " " + TEXT_PATTERN);
     }
 
     private ConditionSpreadsheetTextFormatter<String> createFormatter0(final String expression) {
@@ -241,7 +240,7 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     @Override
-    protected Class<ConditionSpreadsheetTextFormatter<String>> type() {
+    public Class<ConditionSpreadsheetTextFormatter<String>> type() {
         return Cast.to(ConditionSpreadsheetTextFormatter.class);
     }
 }

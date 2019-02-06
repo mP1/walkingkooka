@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStringParser<ParserContext>, StringParserToken> {
@@ -124,7 +123,8 @@ public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStr
 
     @Test
     public void testToString() {
-        assertEquals(CharSequences.quoteAndEscape(OPEN) + "*" + CharSequences.quoteAndEscape(CLOSE), this.createParser().toString());
+        this.toStringAndCheck(this.createParser(),
+                CharSequences.quoteAndEscape(OPEN) + "*" + CharSequences.quoteAndEscape(CLOSE));
     }
 
     private StringParserToken string(final String text) {
@@ -137,7 +137,7 @@ public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStr
     }
 
     @Override
-    protected Class<SurroundStringParser<ParserContext>> type() {
+    public Class<SurroundStringParser<ParserContext>> type() {
         return Cast.to(SurroundStringParser.class);
     }
 }

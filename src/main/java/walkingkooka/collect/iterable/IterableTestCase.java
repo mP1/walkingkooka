@@ -19,10 +19,12 @@ package walkingkooka.collect.iterable;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 abstract public class IterableTestCase<I extends Iterable<T>, T>
-        extends ClassTestCase<I> {
+        extends ClassTestCase<I>
+        implements ToStringTesting<I> {
 
     protected IterableTestCase() {
         super();
@@ -31,10 +33,6 @@ abstract public class IterableTestCase<I extends Iterable<T>, T>
     @Test
     public void testNaming() {
         this.checkNaming(Iterable.class);
-    }
-
-    @Test final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
     }
 
     abstract protected I createIterable();

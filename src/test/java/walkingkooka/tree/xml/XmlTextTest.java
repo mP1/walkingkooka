@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import walkingkooka.tree.search.SearchNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class XmlTextTest extends XmlTextNodeTestCase<XmlText> {
 
     private final static String TEXT = "abc123";
@@ -39,7 +37,7 @@ public final class XmlTextTest extends XmlTextNodeTestCase<XmlText> {
 
     @Test
     public void testToString() {
-        assertEquals(TEXT, this.createNode().toString());
+        this.toStringAndCheck(this.createNode(), TEXT);
     }
 
     @Override

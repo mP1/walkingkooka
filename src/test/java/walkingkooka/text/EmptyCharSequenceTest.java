@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharSequence>
         implements SerializationTesting<EmptyCharSequence> {
 
@@ -61,7 +59,7 @@ final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharS
 
     @Test
     public void testToString() {
-        assertEquals("", EmptyCharSequence.INSTANCE.toString());
+        this.toStringAndCheck(EmptyCharSequence.INSTANCE, "");
     }
 
     @Override

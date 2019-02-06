@@ -76,13 +76,13 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testToStringWithNoneString() {
-        assertEquals("1", ObjectEqualityPredicate.with(1L).toString());
+        this.toStringAndCheck(ObjectEqualityPredicate.with(1L), "1");
     }
 
     @Test
     public void testToStringWithString() {
-        assertEquals(CharSequences.quoteAndEscape(MAGIC)
-                .toString(), this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(),
+                CharSequences.quoteAndEscape(MAGIC).toString());
     }
 
     @Override

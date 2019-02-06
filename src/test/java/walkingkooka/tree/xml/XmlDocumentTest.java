@@ -823,11 +823,12 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument> {
 
     @Test
     public void testToString() throws Exception {
-        assertEquals("<!--\"cdata-sections\", \"comments\", \"element-content-whitespace\", \"entities\", \"namespaces\", \"namespace-declarations\", \"split-cdata-sections\", \"well-formed\"-->\n" +
-                "<!DOCTYPE root PUBLIC \"-//example/\" \"http://www.example.com/test.dtd\">\n" +
-                "<root>\n" +
-                "     <abc>123</abc> \n" +
-                "</root>", this.fromXml().toString());
+        this.toStringAndCheck(this.fromXml(),
+                "<!--\"cdata-sections\", \"comments\", \"element-content-whitespace\", \"entities\", \"namespaces\", \"namespace-declarations\", \"split-cdata-sections\", \"well-formed\"-->\n" +
+                        "<!DOCTYPE root PUBLIC \"-//example/\" \"http://www.example.com/test.dtd\">\n" +
+                        "<root>\n" +
+                        "     <abc>123</abc> \n" +
+                        "</root>");
     }
 
     // factory/helpers..............................................................................................

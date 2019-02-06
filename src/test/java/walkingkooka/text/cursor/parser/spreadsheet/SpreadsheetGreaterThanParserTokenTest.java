@@ -121,7 +121,7 @@ public final class SpreadsheetGreaterThanParserTokenTest extends SpreadsheetBina
     }
 
     @Override
-    protected Class<SpreadsheetGreaterThanParserToken> type() {
+    public Class<SpreadsheetGreaterThanParserToken> type() {
         return SpreadsheetGreaterThanParserToken.class;
     }
 }

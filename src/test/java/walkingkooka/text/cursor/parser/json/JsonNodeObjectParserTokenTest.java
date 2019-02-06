@@ -143,7 +143,7 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
     }
 
     @Override
-    protected Class<JsonNodeObjectParserToken> type() {
+    public Class<JsonNodeObjectParserToken> type() {
         return JsonNodeObjectParserToken.class;
     }
 }

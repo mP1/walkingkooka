@@ -179,7 +179,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     }
 
     @Override
-    protected Class<EncodedText> type() {
+    public Class<EncodedText> type() {
         return EncodedText.class;
     }
 

@@ -71,7 +71,7 @@ final public class ComparatorsTest extends PublicStaticHelperTestCase<Comparator
     // helpers
 
     @Override
-    protected Class<Comparators> type() {
+    public Class<Comparators> type() {
         return Comparators.class;
     }
 

@@ -263,4 +263,9 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
         }
         return this.selector;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.selector);
+    }
 }

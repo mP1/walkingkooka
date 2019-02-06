@@ -100,12 +100,12 @@ public final class ExpressionTextNodeTest extends ExpressionLeafNodeTestCase<Exp
 
     @Test
     public void testToString() {
-        assertEquals("\"abc123\"", this.createExpressionNode("abc123").toString());
+        this.toStringAndCheck(this.createExpressionNode("abc123"), "\"abc123\"");
     }
 
     @Test
     public void testToStringRequiresEscaping() {
-        assertEquals("\"abc\\t123\"", this.createExpressionNode("abc\t123").toString());
+        this.toStringAndCheck(this.createExpressionNode("abc\t123"), "\"abc\\t123\"");
     }
 
     @Override

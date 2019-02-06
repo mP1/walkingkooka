@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class SpreadsheetExpressionReferenceTest extends ClassTestCase<SpreadsheetExpressionReference> {
     @Override
-    protected Class<SpreadsheetExpressionReference> type() {
+    public Class<SpreadsheetExpressionReference> type() {
         return SpreadsheetExpressionReference.class;
     }
 

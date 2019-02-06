@@ -116,7 +116,7 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
 
     @Test
     public void testToString() {
-        assertEquals("#04010203", Color.fromArgb(0x04010203).toString());
+        this.toStringAndCheck(Color.fromArgb(0x04010203), "#04010203");
     }
 
     @Override

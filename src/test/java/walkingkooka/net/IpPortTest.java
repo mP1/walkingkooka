@@ -24,6 +24,7 @@ import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
@@ -39,7 +40,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class IpPortTest extends ClassTestCase<IpPort> implements ConstantsTesting<IpPort>,
         ComparableTesting<IpPort>,
-        SerializationTesting<IpPort> {
+        SerializationTesting<IpPort>,
+        ToStringTesting<IpPort> {
 
     @Test
     public void testIsPort() {
@@ -84,7 +86,7 @@ public final class IpPortTest extends ClassTestCase<IpPort> implements Constants
 
     @Test
     public void testToString() {
-        assertEquals("80", IpPort.HTTP.toString());
+        this.toStringAndCheck(IpPort.HTTP, "80");
     }
 
     @Override

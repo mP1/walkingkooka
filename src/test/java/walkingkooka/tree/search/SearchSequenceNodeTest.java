@@ -399,12 +399,14 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
 
     @Test
     public void testToString() {
-        assertEquals("[ \"abcd\", \"EFGH\" ]", this.createSearchNode().toString());
+        this.toStringAndCheck(this.createSearchNode(),
+                "[ \"abcd\", \"EFGH\" ]");
     }
 
     @Test
     public void testToStringWithName() {
-        assertEquals("Name123[ \"abcd\", \"EFGH\" ]", this.createSearchNode().setName(SearchNodeName.with("Name123")).toString());
+        this.toStringAndCheck(this.createSearchNode().setName(SearchNodeName.with("Name123")),
+                "Name123[ \"abcd\", \"EFGH\" ]");
     }
 
     @Override

@@ -19,7 +19,6 @@ package walkingkooka.util.variable;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -45,7 +44,7 @@ final public class AtomicReferenceVariableTest extends VariableTestCase<AtomicRe
         final Object value = "value";
         final AtomicReferenceVariable<Object> variable = AtomicReferenceVariable.create();
         variable.set(value);
-        assertEquals(value, variable.toString());
+        this.toStringAndCheck(variable, value.toString());
     }
 
     @Override

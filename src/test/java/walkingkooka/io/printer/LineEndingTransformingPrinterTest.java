@@ -211,7 +211,7 @@ final public class LineEndingTransformingPrinterTest
     }
 
     @Override
-    protected Class<LineEndingTransformingPrinter> type() {
+    public Class<LineEndingTransformingPrinter> type() {
         return LineEndingTransformingPrinter.class;
     }
 }

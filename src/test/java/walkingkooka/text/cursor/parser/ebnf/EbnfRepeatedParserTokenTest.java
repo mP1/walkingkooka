@@ -113,7 +113,7 @@ public class EbnfRepeatedParserTokenTest extends EbnfGroupOptionalRepeatParentPa
     }
 
     @Override
-    protected Class<EbnfRepeatedParserToken> type() {
+    public Class<EbnfRepeatedParserToken> type() {
         return EbnfRepeatedParserToken.class;
     }
 }

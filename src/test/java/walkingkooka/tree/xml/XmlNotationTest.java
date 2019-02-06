@@ -27,8 +27,6 @@ import walkingkooka.tree.search.SearchNodeName;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class XmlNotationTest extends XmlLeafNodeTestCase<XmlNotation> {
 
     @Override
@@ -69,7 +67,7 @@ public final class XmlNotationTest extends XmlLeafNodeTestCase<XmlNotation> {
 
     @Test
     public void testToString() {
-        assertEquals("<!NOTATION PUBLIC \"zip viewer\">", this.createNode().toString());
+        this.toStringAndCheck(this.createNode(), "<!NOTATION PUBLIC \"zip viewer\">");
     }
 
     // helpers............................................................................................

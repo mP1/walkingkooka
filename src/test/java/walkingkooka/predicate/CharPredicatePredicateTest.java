@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharPredicatePredicateTest extends PredicateTestCase<CharPredicatePredicate, Character> {
@@ -51,8 +50,7 @@ final public class CharPredicatePredicateTest extends PredicateTestCase<CharPred
 
     @Test
     public void testToString() {
-        assertEquals(PREDICATE.toString(),
-                this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), PREDICATE.toString());
     }
 
     @Override
@@ -61,7 +59,7 @@ final public class CharPredicatePredicateTest extends PredicateTestCase<CharPred
     }
 
     @Override
-    protected Class<CharPredicatePredicate> type() {
+    public Class<CharPredicatePredicate> type() {
         return CharPredicatePredicate.class;
     }
 }

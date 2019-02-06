@@ -180,7 +180,7 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
     }
 
     @Override
-    protected Class<WhitespaceCleaningPrinter> type() {
+    public Class<WhitespaceCleaningPrinter> type() {
         return WhitespaceCleaningPrinter.class;
     }
 }

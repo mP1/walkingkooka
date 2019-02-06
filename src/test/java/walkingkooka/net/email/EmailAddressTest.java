@@ -26,6 +26,7 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -40,7 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class EmailAddressTest extends ClassTestCase<EmailAddress>
         implements HashCodeEqualsDefinedTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
-        SerializationTesting<EmailAddress> {
+        SerializationTesting<EmailAddress>,
+        ToStringTesting<EmailAddress> {
 
     @Test
     public void testTryParseNullFails() {
@@ -1612,7 +1614,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     @Test
     public void testToString() {
         final String email = "hello@example.com";
-        assertEquals(email, EmailAddress.parse(email).toString());
+        this.toStringAndCheck(EmailAddress.parse(email), email);
     }
 
     @Override

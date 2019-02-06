@@ -29,7 +29,6 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetTextFormatterTemplate2TestCase<F extends SpreadsheetTextFormatterTemplate2<V, T>,
@@ -42,11 +41,6 @@ public abstract class SpreadsheetTextFormatterTemplate2TestCase<F extends Spread
         assertThrows(NullPointerException.class, () -> {
             this.createFormatter0(null);
         });
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals(this.pattern(), this.createFormatter().toString());
     }
 
     @Override

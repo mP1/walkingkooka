@@ -112,7 +112,7 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
 
     @Test
     public void testToString() {
-        assertEquals("\"123ABC\"", this.createCharPredicate().toString());
+        this.toStringAndCheck(this.createCharPredicate(), "\"123ABC\"");
     }
 
     @Override

@@ -81,7 +81,7 @@ public final class LongParserTokenTest extends ParserTokenTestCase<LongParserTok
     }
 
     @Override
-    protected Class<LongParserToken> type() {
+    public Class<LongParserToken> type() {
         return LongParserToken.class;
     }
 }

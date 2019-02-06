@@ -23,6 +23,7 @@ import walkingkooka.Equality;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -34,7 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>,
         HasJsonNodeTesting<C>,
-        SerializationTesting<C> {
+        SerializationTesting<C>,
+        ToStringTesting<C> {
 
     ColorTestCase() {
         super();

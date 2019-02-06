@@ -88,7 +88,7 @@ public final class SpreadsheetFormatDigitParserTokenTest extends SpreadsheetForm
     }
 
     @Override
-    protected Class<SpreadsheetFormatDigitParserToken> type() {
+    public Class<SpreadsheetFormatDigitParserToken> type() {
         return SpreadsheetFormatDigitParserToken.class;
     }
 }

@@ -27,8 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.Map.Entry;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest extends
         IteratorTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIterator,
                 Entry<HttpHeaderName<?>, Object>> {
@@ -66,7 +64,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
 
     @Test
     public void testToString() {
-        assertEquals("[Content-Length, Server]", this.createIterator().toString());
+        this.toStringAndCheck(this.createIterator(), "[Content-Length, Server]");
     }
 
     @Override public HttpServletRequestHttpRequestHeadersMapEntrySetIterator createIterator() {
@@ -96,7 +94,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
     }
 
     @Override
-    protected Class<HttpServletRequestHttpRequestHeadersMapEntrySetIterator> type() {
+    public Class<HttpServletRequestHttpRequestHeadersMapEntrySetIterator> type() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIterator.class;
     }
 }

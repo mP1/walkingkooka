@@ -46,7 +46,7 @@ public final class XmlNotationMapTest extends XmlMapTestCase<XmlNotationMap, Xml
     }
 
     @Override
-    protected Class<XmlNotationMap> type() {
+    public Class<XmlNotationMap> type() {
         return XmlNotationMap.class;
     }
 }

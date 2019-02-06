@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -32,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
  */
 abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqualsDefined> extends ClassTestCase<C>
-        implements HashCodeEqualsDefinedTesting<C> {
+        implements HashCodeEqualsDefinedTesting<C>,
+        ToStringTesting<C> {
 
     protected CharSequenceTestCase() {
         super();

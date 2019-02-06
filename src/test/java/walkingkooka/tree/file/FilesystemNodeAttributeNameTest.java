@@ -67,7 +67,7 @@ public final class FilesystemNodeAttributeNameTest extends ClassTestCase<Filesys
     }
 
     @Override
-    protected Class<FilesystemNodeAttributeName> type() {
+    public Class<FilesystemNodeAttributeName> type() {
         return FilesystemNodeAttributeName.class;
     }
 

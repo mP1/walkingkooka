@@ -163,10 +163,6 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
                 "attachment; p1=v1; p2=v2");
     }
 
-    private void toStringAndCheck(final ContentDisposition token, final String toString) {
-        assertEquals(toString, token.toString(), "toString");
-    }
-
     // helpers ...........................................................................................
 
     @Override
@@ -235,7 +231,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    protected Class<ContentDisposition> type() {
+    public Class<ContentDisposition> type() {
         return ContentDisposition.class;
     }
 

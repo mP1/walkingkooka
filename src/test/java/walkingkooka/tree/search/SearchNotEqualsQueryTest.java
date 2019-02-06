@@ -763,7 +763,7 @@ public final class SearchNotEqualsQueryTest extends SearchValueComparisonLeafQue
     }
     
     @Override
-    protected Class<SearchNotEqualsQuery> type() {
+    public Class<SearchNotEqualsQuery> type() {
         return SearchNotEqualsQuery.class;
     }
 }

@@ -24,7 +24,6 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NamedNodeSelectorTest extends
@@ -93,12 +92,14 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals(NAME.value(), this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(),
+                NAME.value());
     }
 
     @Test
     public void testToStringPathSeparatorNotRequiredAtStart() {
-        assertEquals(NAME.value(),  this.createSelector(PathSeparator.notRequiredAtStart('/')).toString());
+        this.toStringAndCheck(this.createSelector(PathSeparator.notRequiredAtStart('/')),
+                NAME.value());
     }
 
     @Override
@@ -119,7 +120,7 @@ final public class NamedNodeSelectorTest extends
     }
 
     @Override
-    protected Class<NamedNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<NamedNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NamedNodeSelector.class);
     }
 

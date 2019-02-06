@@ -582,7 +582,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Override
-    protected Class<CacheControlDirectiveHeaderParser> type() {
+    public Class<CacheControlDirectiveHeaderParser> type() {
         return CacheControlDirectiveHeaderParser.class;
     }
 }

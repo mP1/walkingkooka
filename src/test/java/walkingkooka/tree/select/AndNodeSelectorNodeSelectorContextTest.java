@@ -39,7 +39,7 @@ public final class AndNodeSelectorNodeSelectorContextTest extends NodeSelectorCo
     }
 
     @Override
-    protected Class<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
+    public Class<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AndNodeSelectorNodeSelectorContext.class);
     }
 }

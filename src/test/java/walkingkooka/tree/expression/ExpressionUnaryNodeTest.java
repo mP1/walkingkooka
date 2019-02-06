@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class ExpressionUnaryNodeTest extends ClassTestCase<ExpressionUnaryNode> {
     @Override
-    protected Class<ExpressionUnaryNode> type() {
+    public Class<ExpressionUnaryNode> type() {
         return ExpressionUnaryNode.class;
     }
 

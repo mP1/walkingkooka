@@ -187,8 +187,8 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
     @Test
     public void testToString() {
-        final TestMutableLeaf value = new TestMutableLeaf(STRING0);
-        assertEquals("x=" + STRING0, this.createPojoNode(value).toString());
+        this.toStringAndCheck(this.createPojoNode(new TestMutableLeaf(STRING0)),
+                "x=" + STRING0);
     }
 
     @Override

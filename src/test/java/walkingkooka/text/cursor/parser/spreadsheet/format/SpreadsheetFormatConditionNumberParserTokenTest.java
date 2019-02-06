@@ -90,7 +90,7 @@ public final class SpreadsheetFormatConditionNumberParserTokenTest extends Sprea
     }
 
     @Override
-    protected Class<SpreadsheetFormatConditionNumberParserToken> type() {
+    public Class<SpreadsheetFormatConditionNumberParserToken> type() {
         return SpreadsheetFormatConditionNumberParserToken.class;
     }
 }

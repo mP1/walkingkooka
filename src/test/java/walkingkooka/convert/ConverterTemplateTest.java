@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class ConverterTemplateTest extends ClassTestCase<ConverterTemplate> {
     @Override
-    protected Class<ConverterTemplate> type() {
+    public Class<ConverterTemplate> type() {
         return ConverterTemplate.class;
     }
 

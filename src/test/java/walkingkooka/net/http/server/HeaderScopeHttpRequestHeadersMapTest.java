@@ -104,7 +104,7 @@ public final class HeaderScopeHttpRequestHeadersMapTest extends MapTestCase<Head
 
     @Test
     public void testToString() {
-        assertEquals(HEADERS.toString(), this.createMap().toString());
+        this.toStringAndCheck(this.createMap(), HEADERS.toString());
     }
 
     @Override
@@ -113,7 +113,7 @@ public final class HeaderScopeHttpRequestHeadersMapTest extends MapTestCase<Head
     }
 
     @Override
-    protected Class<HeaderScopeHttpRequestHeadersMap> type() {
+    public Class<HeaderScopeHttpRequestHeadersMap> type() {
         return HeaderScopeHttpRequestHeadersMap.class;
     }
 }

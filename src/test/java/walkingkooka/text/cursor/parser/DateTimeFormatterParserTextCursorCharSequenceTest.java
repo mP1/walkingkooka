@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class DateTimeFormatterParserTextCursorCharSequenceTest extends ClassTestCase<DateTimeFormatterParserTextCursorCharSequence> {
     @Override
-    protected Class<DateTimeFormatterParserTextCursorCharSequence> type() {
+    public Class<DateTimeFormatterParserTextCursorCharSequence> type() {
         return DateTimeFormatterParserTextCursorCharSequence.class;
     }
 

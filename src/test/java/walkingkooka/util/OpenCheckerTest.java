@@ -20,6 +20,7 @@ package walkingkooka.util;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Function;
@@ -29,7 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>> {
+final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
+        implements ToStringTesting<OpenChecker<Exception>> {
+
     // constants
 
     private final static String MESSAGE = "Not Open";
@@ -146,7 +149,7 @@ final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
     }
 
     @Override
-    protected Class<OpenChecker<Exception>> type() {
+    public Class<OpenChecker<Exception>> type() {
         return Cast.to(OpenChecker.class);
     }
 

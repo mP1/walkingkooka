@@ -57,7 +57,7 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
     }
 
     @Override
-    protected Class<LinkRelationUrl> type() {
+    public Class<LinkRelationUrl> type() {
         return LinkRelationUrl.class;
     }
 

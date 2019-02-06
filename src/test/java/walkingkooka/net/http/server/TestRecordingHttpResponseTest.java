@@ -26,7 +26,6 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TestRecordingHttpResponseTest extends HttpResponseTestCase<TestRecordingHttpResponse> {
@@ -90,11 +89,11 @@ public final class TestRecordingHttpResponseTest extends HttpResponseTestCase<Te
         response.setStatus(this.status());
         response.addEntity(this.entity());
 
-        assertEquals("503 Problem x y z\n" +
+        this.toStringAndCheck(response.toString().replace("\r\n", "\n").replace('\r', '\n'),
+                "503 Problem x y z\n" +
                         "Server: Server 123\n" +
                         "\n" +
-                        "414243",
-                response.toString().replace("\r\n", "\n").replace('\r', '\n'));
+                        "414243");
     }
 
     @Override
@@ -111,7 +110,7 @@ public final class TestRecordingHttpResponseTest extends HttpResponseTestCase<Te
     }
 
     @Override
-    protected Class<TestRecordingHttpResponse> type() {
+    public Class<TestRecordingHttpResponse> type() {
         return TestRecordingHttpResponse.class;
     }
 

@@ -50,11 +50,6 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     }
 
     @Test
-    public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(ToStringBuilder.class);
-    }
-
-    @Test
     public void testNullLabelFails() {
         assertThrows(NullPointerException.class, () -> {
             ToStringBuilder.empty().label(null);
@@ -574,37 +569,30 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                 result.toString());
     }
 
+    // ToString.......................................................................................................
+
     @Test
     public void testToString() {
-        assertEquals(
-                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*value*\"",
-                //
-                ToStringBuilder.empty()//
-                        .append("*value*").//
-                        toString());
+        this.toStringAndCheck(ToStringBuilder.empty()//
+                        .append("*value*"),
+                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*value*\"");
     }
 
     @Test
     public void testToStringNonStandardSeparators() {
-        assertEquals(
-                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"@\", valueSeparator=\"#\", separator=\"$\", valueLength=900, globalLength=1000] 7=\"*value*\"",
-                //
-                ToStringBuilder.empty()//
+        this.toStringAndCheck(ToStringBuilder.empty()//
                         .labelSeparator("@") //
                         .valueSeparator("#") //
                         .separator("$") //
-                        .append("*value*").//
-                        toString());
+                        .append("*value*"),
+                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"@\", valueSeparator=\"#\", separator=\"$\", valueLength=900, globalLength=1000] 7=\"*value*\"");
     }
 
     @Test
     public void testToStringWithEscapedCharacters() {
-        assertEquals(
-                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"",
-                //
-                ToStringBuilder.empty()//
-                        .append("*tab \t*")//
-                        .toString());
+        this.toStringAndCheck(ToStringBuilder.empty()//
+                        .append("*tab \t*"),
+                "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"");
     }
 
     @Override
@@ -668,12 +656,12 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     }
 
     @Override
-    protected Class<String> builderProductType() {
-        return String.class;
+    public Class<ToStringBuilder> type() {
+        return ToStringBuilder.class;
     }
 
     @Override
-    protected Class<ToStringBuilder> type() {
-        return ToStringBuilder.class;
+    public Class<String> builderProductType() {
+        return String.class;
     }
 }

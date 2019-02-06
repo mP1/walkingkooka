@@ -89,7 +89,7 @@ public final class LinkRelationHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<LinkRelationHeaderValueConverter> type() {
+    public Class<LinkRelationHeaderValueConverter> type() {
         return LinkRelationHeaderValueConverter.class;
     }
 }

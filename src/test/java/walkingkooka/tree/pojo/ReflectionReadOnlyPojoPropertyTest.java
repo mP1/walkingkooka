@@ -51,7 +51,7 @@ public final class ReflectionReadOnlyPojoPropertyTest extends PojoPropertyTestCa
 
     @Test
     public void testToString() {
-        assertEquals("x", this.createPojoProperty().toString());
+        this.toStringAndCheck(this.createPojoProperty(), "x");
     }
 
     @Override
@@ -64,7 +64,7 @@ public final class ReflectionReadOnlyPojoPropertyTest extends PojoPropertyTestCa
     }
 
     @Override
-    protected Class<ReflectionReadOnlyPojoProperty> type() {
+    public Class<ReflectionReadOnlyPojoProperty> type() {
         return ReflectionReadOnlyPojoProperty.class;
     }
 

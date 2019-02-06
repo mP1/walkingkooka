@@ -26,7 +26,7 @@ import walkingkooka.type.MemberVisibility;
 public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTest extends
         ClassTestCase<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode>> {
     @Override
-    protected Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod.class);
     }
 

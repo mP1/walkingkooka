@@ -36,7 +36,7 @@ final public class AsciiCharPredicateTest extends CharPredicateTestCase<AsciiCha
 
     @Test
     public void testToString() {
-        assertEquals("ASCII", AsciiCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(AsciiCharPredicate.INSTANCE, "ASCII");
     }
 
     @Override

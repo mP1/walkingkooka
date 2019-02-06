@@ -23,6 +23,7 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
@@ -38,7 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract public class HslComponentTestCase<C extends HslComponent> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>,
         IsMethodTesting<C>,
-        SerializationTesting<C> {
+        SerializationTesting<C>,
+        ToStringTesting<C> {
 
     HslComponentTestCase() {
         super();
@@ -168,7 +170,7 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
 
     @Test
     public final void testToString() {
-        assertEquals(String.valueOf(LIGHTNESS), this.createHslComponent(LIGHTNESS).toString());
+        this.toStringAndCheck(this.createHslComponent(LIGHTNESS), String.valueOf(LIGHTNESS));
     }
 
     final C createHslComponent() {

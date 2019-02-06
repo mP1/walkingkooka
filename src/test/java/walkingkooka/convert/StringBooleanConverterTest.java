@@ -20,8 +20,6 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class StringBooleanConverterTest extends FixedTypeConverterTestCase<StringBooleanConverter, Boolean> {
 
     @Test
@@ -36,7 +34,7 @@ public final class StringBooleanConverterTest extends FixedTypeConverterTestCase
 
     @Test
     public void testToString() {
-        assertEquals("String->Boolean", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "String->Boolean");
     }
 
     @Override
@@ -55,7 +53,7 @@ public final class StringBooleanConverterTest extends FixedTypeConverterTestCase
     }
 
     @Override
-    protected Class<StringBooleanConverter> type() {
+    public Class<StringBooleanConverter> type() {
         return StringBooleanConverter.class;
     }
 }

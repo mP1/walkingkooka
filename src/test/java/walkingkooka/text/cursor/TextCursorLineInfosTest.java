@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class TextCursorLineInfosTest extends PublicStaticHelperTestCase<TextCursorLineInfos> {
 
     @Override
-    protected Class<TextCursorLineInfos> type() {
+    public Class<TextCursorLineInfos> type() {
         return TextCursorLineInfos.class;
     }
 

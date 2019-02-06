@@ -178,13 +178,13 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
                     public void print(final CharSequence chars) throws PrinterException {
                         switch (this.printed) {
                             case 0:
-                                checkEquals("wrong chars printed", "\r", chars.toString());
+                                checkEquals( "\r", chars.toString(), "wrong chars printed");
                                 assertEquals(Integer.valueOf(0),
                                         counter.get(),
                                         "counter incremented earlier than expected");
                                 break;
                             case 1:
-                                checkEquals("wrong chars printed", "\n", chars.toString());
+                                checkEquals("\n", chars.toString(), "wrong chars printed");
                                 assertEquals(Integer.valueOf(1),
                                         counter.get(),
                                         "counter incremented earlier than expected");
@@ -314,7 +314,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
     }
 
     @Override
-    protected Class<LineCountingPrinter> type() {
+    public Class<LineCountingPrinter> type() {
         return LineCountingPrinter.class;
     }
 }

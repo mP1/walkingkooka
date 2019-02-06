@@ -29,7 +29,7 @@ public final class FakeExpressionNodeVisitorTest extends ClassTestCase<FakeExpre
     }
 
     @Override
-    protected Class<FakeExpressionNodeVisitor> type() {
+    public Class<FakeExpressionNodeVisitor> type() {
         return FakeExpressionNodeVisitor.class;
     }
 

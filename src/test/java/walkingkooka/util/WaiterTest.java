@@ -45,7 +45,7 @@ final public class WaiterTest extends PublicStaticHelperTestCase<Waiter> {
     }
 
     @Override
-    protected Class<Waiter> type() {
+    public Class<Waiter> type() {
         return Waiter.class;
     }
 

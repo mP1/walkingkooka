@@ -274,7 +274,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     }
 
     @Override
-    protected Class<LanguageTag> type() {
+    public Class<LanguageTag> type() {
         return LanguageTag.class;
     }
 

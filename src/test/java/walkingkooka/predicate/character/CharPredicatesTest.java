@@ -252,7 +252,7 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
     }
 
     @Override
-    protected Class<CharPredicates> type() {
+    public Class<CharPredicates> type() {
         return CharPredicates.class;
     }
 

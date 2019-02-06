@@ -121,7 +121,7 @@ public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringP
     }
 
     @Override
-    protected Class<AndNotParser<StringParserToken, ParserContext>> type() {
+    public Class<AndNotParser<StringParserToken, ParserContext>> type() {
         return Cast.to(AndNotParser.class);
     }
 }

@@ -207,12 +207,12 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Test
     public void testToString() {
-        assertEquals("cookie123=value456;", ClientCookie.with(NAME, VALUE).toString());
+        this.toStringAndCheck(ClientCookie.with(NAME, VALUE), "cookie123=value456;");
     }
 
     @Test
     public void testToStringWithoutValue() {
-        assertEquals("cookie123=;", ClientCookie.with(NAME, "").toString());
+        this.toStringAndCheck(ClientCookie.with(NAME, ""), "cookie123=;");
     }
 
     private ClientCookie createCookie(final String name, final String value) {
@@ -240,7 +240,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     }
 
     @Override
-    protected Class<ClientCookie> type() {
+    public Class<ClientCookie> type() {
         return ClientCookie.class;
     }
 }

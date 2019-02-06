@@ -47,7 +47,7 @@ public final class SearchTextQueryValueSearchQueryTesterTest extends SearchCompa
     }
 
     @Override
-    protected Class<SearchTextQueryValueSearchQueryTester> type() {
+    public Class<SearchTextQueryValueSearchQueryTester> type() {
         return SearchTextQueryValueSearchQueryTester.class;
     }
 }

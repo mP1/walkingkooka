@@ -93,7 +93,7 @@ public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<Singl
     }
 
     @Override
-    protected Class<SingleQuotedParserToken> type() {
+    public Class<SingleQuotedParserToken> type() {
         return SingleQuotedParserToken.class;
     }
 }

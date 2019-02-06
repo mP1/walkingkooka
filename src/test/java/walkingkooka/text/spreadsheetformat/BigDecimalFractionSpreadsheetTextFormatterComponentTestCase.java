@@ -18,12 +18,13 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.test.ToStringTesting;
+
 public abstract class BigDecimalFractionSpreadsheetTextFormatterComponentTestCase<C extends BigDecimalFractionSpreadsheetTextFormatterComponent>
-        extends BigDecimalFractionTextFormatterTestCase<C> {
+        extends BigDecimalFractionTextFormatterTestCase<C>
+        implements ToStringTesting<C> {
 
     BigDecimalFractionSpreadsheetTextFormatterComponentTestCase() {
         super();
     }
-
-    public abstract void testToString();
 }

@@ -36,7 +36,7 @@ public final class LocalDateDoubleConverterTest extends LocalDateConverterTestCa
     }
 
     @Override
-    protected Class<LocalDateDoubleConverter> type() {
+    public Class<LocalDateDoubleConverter> type() {
         return LocalDateDoubleConverter.class;
     }
 }

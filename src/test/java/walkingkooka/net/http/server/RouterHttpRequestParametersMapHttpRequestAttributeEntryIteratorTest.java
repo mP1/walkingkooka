@@ -85,20 +85,19 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
 
     @Test
     public void testToString() {
-        assertEquals(HttpRequestAttributes.TRANSPORT + "=" + TRANSPORT,
-                this.createIterator().toString());
+        this.toStringAndCheck(this.createIterator(), HttpRequestAttributes.TRANSPORT + "=" + TRANSPORT);
     }
 
     @Test
     public void testToString2() {
         final RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator iterator = this.createIterator();
         iterator.next();
-        assertEquals(HttpRequestAttributes.METHOD + "=" + METHOD, iterator.toString());
+        this.toStringAndCheck(iterator, HttpRequestAttributes.METHOD + "=" + METHOD);
     }
 
     @Test
     public void testToStringWhenEmpty() {
-        assertEquals("TRANSPORT=UNSECURED", this.createIterator().toString());
+        this.toStringAndCheck(this.createIterator(), "TRANSPORT=UNSECURED");
     }
 
     @Override public RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator createIterator() {
@@ -134,7 +133,7 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
     }
 
     @Override
-    protected Class<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator> type() {
+    public Class<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator> type() {
         return RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator.class;
     }
 }

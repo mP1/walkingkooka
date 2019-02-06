@@ -23,7 +23,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class HeaderExceptionTest extends PublicThrowableTestCase<HeaderException> {
 
     @Override
-    protected Class<HeaderException> type() {
+    public Class<HeaderException> type() {
         return HeaderException.class;
     }
 }

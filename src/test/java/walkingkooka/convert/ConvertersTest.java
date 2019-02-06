@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 public final class ConvertersTest extends PublicStaticHelperTestCase<Converters> {
 
     @Override
-    protected Class<Converters> type() {
+    public Class<Converters> type() {
         return Converters.class;
     }
 

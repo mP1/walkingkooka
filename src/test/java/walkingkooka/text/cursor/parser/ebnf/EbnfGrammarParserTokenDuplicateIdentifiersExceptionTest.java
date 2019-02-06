@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
@@ -29,7 +30,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest extends ClassTestCase<EbnfGrammarParserTokenDuplicateIdentifiersException> {
+public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest extends ClassTestCase<EbnfGrammarParserTokenDuplicateIdentifiersException>
+        implements ToStringTesting<EbnfGrammarParserTokenDuplicateIdentifiersException> {
 
     @Test
     public void testWithNullDuplicatesFails() {
@@ -56,7 +58,8 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest exten
 
     @Test
     public void testToString() {
-        assertEquals("Unknown duplicates=[abc]", new EbnfGrammarParserTokenDuplicateIdentifiersException("abc 123", this.duplicates()).toString());
+        this.toStringAndCheck(new EbnfGrammarParserTokenDuplicateIdentifiersException("abc 123", this.duplicates()),
+                "Unknown duplicates=[abc]");
     }
 
     private Set<EbnfRuleParserToken> duplicates() {
@@ -66,7 +69,7 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest exten
     }
 
     @Override
-    protected Class<EbnfGrammarParserTokenDuplicateIdentifiersException> type() {
+    public Class<EbnfGrammarParserTokenDuplicateIdentifiersException> type() {
         return EbnfGrammarParserTokenDuplicateIdentifiersException.class;
     }
 

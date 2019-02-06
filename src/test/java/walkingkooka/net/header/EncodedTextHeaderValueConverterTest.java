@@ -65,7 +65,7 @@ public final class EncodedTextHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<EncodedTextHeaderValueConverter> type() {
+    public Class<EncodedTextHeaderValueConverter> type() {
         return EncodedTextHeaderValueConverter.class;
     }
 }

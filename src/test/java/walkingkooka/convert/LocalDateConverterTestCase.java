@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<LocalDate, T>, T> extends FixedTypeConverterTestCase<C, T> {
 
     @Test
@@ -52,17 +50,17 @@ public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeTarget
 
     @Test
     public final void testToString() {
-        assertEquals(this.defaultToString(), this.createConverter().toString());
+        this.toStringAndCheck(this.defaultToString(), this.createConverter().toString());
     }
 
     @Test
     public final void testToStringWithPositiveOffset() {
-        assertEquals(this.defaultToString() + "(+123)", this.createConverter(123).toString());
+        this.toStringAndCheck(this.createConverter(123), this.defaultToString() + "(+123)");
     }
 
     @Test
     public final void testToStringWithNegativeOffset() {
-        assertEquals(this.defaultToString() + "(-123)", this.createConverter(-123).toString());
+        this.toStringAndCheck(this.createConverter(-123), this.defaultToString() + "(-123)");
     }
 
     private String defaultToString() {

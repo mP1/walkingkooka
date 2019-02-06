@@ -121,7 +121,7 @@ public final class SpreadsheetNotEqualsParserTokenTest extends SpreadsheetBinary
     }
 
     @Override
-    protected Class<SpreadsheetNotEqualsParserToken> type() {
+    public Class<SpreadsheetNotEqualsParserToken> type() {
         return SpreadsheetNotEqualsParserToken.class;
     }
 }

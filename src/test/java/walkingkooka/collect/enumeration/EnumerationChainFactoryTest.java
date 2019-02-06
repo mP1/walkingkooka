@@ -31,7 +31,7 @@ final public class EnumerationChainFactoryTest
     }
 
     @Override
-    protected Class<EnumerationChainFactory<Object>> type() {
+    public Class<EnumerationChainFactory<Object>> type() {
         return Cast.to(EnumerationChainFactory.class);
     }
 }

@@ -125,12 +125,12 @@ public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCas
 
     @Test
     public void testToString() {
-        assertEquals("12:59", this.createExpressionNode().toString());
+        this.toStringAndCheck(this.createExpressionNode(), "12:59");
     }
 
     @Test
     public void testToString2() {
-        assertEquals(DIFFERENT_TIME_STRING, this.createExpressionNode(LocalTime.parse(DIFFERENT_TIME_STRING)).toString());
+        this.toStringAndCheck(this.createExpressionNode(LocalTime.parse(DIFFERENT_TIME_STRING)), DIFFERENT_TIME_STRING);
     }
 
     private ExpressionLocalTimeNode createExpressionNode(final long value) {

@@ -257,7 +257,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
     @Test
     public void testToString() {
-        assertEquals(FIRST + "...", this.createIterator().toString());
+        this.toStringAndCheck(this.createIterator(), FIRST + "...");
     }
 
     @Test
@@ -273,7 +273,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         iterator.next();
         iterator.hasNext();
 
-        assertEquals(secondIterator.toString(), iterator.toString());
+        this.toStringAndCheck(iterator, secondIterator.toString());
     }
 
     @Test
@@ -285,7 +285,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         iterator.next();
         iterator.hasNext();
 
-        assertEquals("", iterator.toString());
+        this.toStringAndCheck(iterator, "");
     }
 
     @Override public IteratorChain<String> createIterator() {
@@ -298,7 +298,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
     }
 
     @Override
-    protected Class<IteratorChain<String>> type() {
+    public Class<IteratorChain<String>> type() {
         return Cast.to(IteratorChain.class);
     }
 }

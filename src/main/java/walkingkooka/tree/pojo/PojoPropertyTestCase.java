@@ -18,11 +18,13 @@
 package walkingkooka.tree.pojo;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class PojoPropertyTestCase<P extends PojoProperty> extends ClassTestCase<P> {
+public abstract class PojoPropertyTestCase<P extends PojoProperty> extends ClassTestCase<P>
+        implements ToStringTesting<P> {
 
     final protected void getAndCheck(final Object instance, final Object value){
         this.getAndCheck(this.createPojoProperty(), instance, value);

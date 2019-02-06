@@ -52,7 +52,7 @@ final public class LetterCharPredicateTest extends CharPredicateTestCase<LetterC
 
     @Test
     public void testToString() {
-        assertEquals("letter", LetterCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(LetterCharPredicate.INSTANCE, "letter");
     }
 
     @Override

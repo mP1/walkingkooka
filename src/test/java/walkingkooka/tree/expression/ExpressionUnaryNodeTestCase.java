@@ -24,7 +24,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -102,7 +101,7 @@ public abstract class ExpressionUnaryNodeTestCase<N extends ExpressionUnaryNode>
 
     @Test
     public void testToString() {
-        assertEquals(this.expectedToString(), this.createExpressionNode().toString());
+        this.toStringAndCheck(this.createExpressionNode(), this.expectedToString());
     }
 
     abstract String expectedToString();

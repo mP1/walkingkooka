@@ -88,7 +88,7 @@ public final class NodeSelectorSelfParserTokenTest extends NodeSelectorNonSymbol
     }
 
     @Override
-    protected Class<NodeSelectorSelfParserToken> type() {
+    public Class<NodeSelectorSelfParserToken> type() {
         return NodeSelectorSelfParserToken.class;
     }
 }

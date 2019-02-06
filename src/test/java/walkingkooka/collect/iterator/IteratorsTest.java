@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class IteratorsTest extends PublicStaticHelperTestCase<Iterators> {
 
     @Override
-    protected Class<Iterators> type() {
+    public Class<Iterators> type() {
         return Iterators.class;
     }
 

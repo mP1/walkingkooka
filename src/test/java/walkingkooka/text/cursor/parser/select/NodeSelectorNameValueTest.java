@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class NodeSelectorNameValueTest extends ClassTestCase<NodeSelectorNameValue> {
 
     @Override
-    protected Class<NodeSelectorNameValue> type() {
+    public Class<NodeSelectorNameValue> type() {
         return NodeSelectorNameValue.class;
     }
 

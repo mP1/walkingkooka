@@ -19,11 +19,14 @@
 package walkingkooka.net.http;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HttpTransportTest extends ClassTestCase<HttpTransport> {
+public final class HttpTransportTest extends ClassTestCase<HttpTransport>
+        implements ToStringTesting<HttpTransport> {
+
     @Override
-    protected Class<HttpTransport> type() {
+    public Class<HttpTransport> type() {
         return HttpTransport.class;
     }
 

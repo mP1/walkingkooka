@@ -49,7 +49,7 @@ final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysC
 
     @Test
     public void testToString() {
-        assertEquals("*", AlwaysCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(AlwaysCharPredicate.INSTANCE, "*");
     }
 
     @Override

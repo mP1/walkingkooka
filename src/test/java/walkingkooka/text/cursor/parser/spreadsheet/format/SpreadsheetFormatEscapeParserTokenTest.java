@@ -88,7 +88,7 @@ public final class SpreadsheetFormatEscapeParserTokenTest extends SpreadsheetFor
     }
 
     @Override
-    protected Class<SpreadsheetFormatEscapeParserToken> type() {
+    public Class<SpreadsheetFormatEscapeParserToken> type() {
         return SpreadsheetFormatEscapeParserToken.class;
     }
 }

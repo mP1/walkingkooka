@@ -103,12 +103,12 @@ public final class ExpressionBigIntegerNodeTest extends ExpressionLeafNodeTestCa
 
     @Test
     public void testToString() {
-        assertEquals("1", this.createExpressionNode(BigInteger.ONE).toString());
+        this.toStringAndCheck(this.createExpressionNode(BigInteger.ONE), "1");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("234", this.createExpressionNode(BigInteger.valueOf(234)).toString());
+        this.toStringAndCheck(this.createExpressionNode(BigInteger.valueOf(234)), "234");
     }
 
     private ExpressionBigIntegerNode createExpressionNode(final long value) {

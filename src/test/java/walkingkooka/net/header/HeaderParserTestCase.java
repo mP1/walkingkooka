@@ -21,11 +21,13 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class HeaderParserTestCase<P extends HeaderParser, V>
         extends ClassTestCase<P>
-        implements ParseStringTesting<V> {
+        implements ParseStringTesting<V>,
+        ToStringTesting<P> {
 
     HeaderParserTestCase() {
         super();

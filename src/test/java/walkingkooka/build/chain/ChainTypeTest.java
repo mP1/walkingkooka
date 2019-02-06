@@ -21,15 +21,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ChainTypeTest extends ClassTestCase<ChainType>
         implements HashCodeEqualsDefinedTesting<ChainType>,
-        SerializationTesting<ChainType> {
+        SerializationTesting<ChainType> ,
+        ToStringTesting<ChainType> {
     // constants
 
     private final static String TYPE = "ALL";
@@ -64,11 +65,6 @@ final public class ChainTypeTest extends ClassTestCase<ChainType>
     }
 
     @Test
-    public void testToString() {
-        assertEquals(TYPE, ChainType.with(TYPE).toString());
-    }
-
-    @Test
     public void testConstantsAreSingletons() throws Exception {
         this.constantsAreSingletons();
     }
@@ -83,6 +79,13 @@ final public class ChainTypeTest extends ClassTestCase<ChainType>
     @Test
     public void testEqualsDifferentCase() {
         this.checkNotEquals(ChainType.with("TYpe"));
+    }
+
+    // ToString.......................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(ChainType.with(TYPE), TYPE);
     }
 
     @Override

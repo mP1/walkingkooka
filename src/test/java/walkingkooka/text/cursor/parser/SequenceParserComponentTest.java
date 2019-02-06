@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser;
 public final class SequenceParserComponentTest extends SequenceParserComponentTestCase<SequenceParserComponent> {
 
     @Override
-    protected Class<SequenceParserComponent> type() {
+    public Class<SequenceParserComponent> type() {
         return SequenceParserComponent.class;
     }
 }

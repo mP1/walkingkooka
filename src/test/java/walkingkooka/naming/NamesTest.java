@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class NamesTest extends PublicStaticHelperTestCase<Names> {
 
     @Override
-    protected Class<Names> type() {
+    public Class<Names> type() {
         return Names.class;
     }
 

@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 
 public final class JsonNodeParserContextsTest extends PublicStaticHelperTestCase<JsonNodeParserContexts> {
     @Override
-    protected Class<JsonNodeParserContexts> type() {
+    public Class<JsonNodeParserContexts> type() {
         return JsonNodeParserContexts.class;
     }
 

@@ -94,7 +94,7 @@ public final class ETagListHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<ETagListHeaderValueConverter> type() {
+    public Class<ETagListHeaderValueConverter> type() {
         return ETagListHeaderValueConverter.class;
     }
 }

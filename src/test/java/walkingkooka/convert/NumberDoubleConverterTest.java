@@ -156,7 +156,7 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
     }
 
     @Override
-    protected Class<NumberDoubleConverter> type() {
+    public Class<NumberDoubleConverter> type() {
         return NumberDoubleConverter.class;
     }
 }

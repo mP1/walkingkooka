@@ -89,7 +89,7 @@ public final class ReportingParserTest extends ParserTestCase2<ReportingParser<P
 
     @Test
     public void testToString() {
-        assertEquals(this.reporter().toString(), this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), this.reporter().toString());
     }
 
     @Override
@@ -110,7 +110,7 @@ public final class ReportingParserTest extends ParserTestCase2<ReportingParser<P
     }
 
     @Override
-    protected Class<ReportingParser<ParserToken, ParserContext>> type() {
+    public Class<ReportingParser<ParserToken, ParserContext>> type() {
         return Cast.to(ReportingParser.class);
     }
 }

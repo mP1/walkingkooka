@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class RangeBoundTest extends ClassTestCase<RangeBound<?>> {
     @Override
-    protected Class<RangeBound<?>> type() {
+    public Class<RangeBound<?>> type() {
         return Cast.to(RangeBound.class);
     }
 

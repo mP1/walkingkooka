@@ -56,7 +56,7 @@ public final class RangeBoundAllTest extends RangeBoundTestCase<RangeBoundAll<In
     }
 
     @Override
-    protected Class<RangeBoundAll<Integer>> type() {
+    public Class<RangeBoundAll<Integer>> type() {
         return Cast.to(RangeBoundAll.class);
     }
 }

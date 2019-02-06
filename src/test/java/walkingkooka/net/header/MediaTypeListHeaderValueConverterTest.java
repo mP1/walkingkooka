@@ -95,7 +95,7 @@ public final class MediaTypeListHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<MediaTypeListHeaderValueConverter> type() {
+    public Class<MediaTypeListHeaderValueConverter> type() {
         return MediaTypeListHeaderValueConverter.class;
     }
 }

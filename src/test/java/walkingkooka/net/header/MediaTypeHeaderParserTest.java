@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class MediaTypeHeaderParserTest extends ClassTestCase<MediaTypeHeaderParser> {
 
     @Override
-    protected Class<MediaTypeHeaderParser> type() {
+    public Class<MediaTypeHeaderParser> type() {
         return MediaTypeHeaderParser.class;
     }
 

@@ -91,7 +91,7 @@ public final class CustomToStringConverterTest extends ConverterTestCase<CustomT
 
     @Test
     public void testToString() {
-        assertEquals(CUSTOM_TO_STRING, this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), CUSTOM_TO_STRING);
     }
 
     @Override
@@ -105,7 +105,7 @@ public final class CustomToStringConverterTest extends ConverterTestCase<CustomT
     }
 
     @Override
-    protected Class<CustomToStringConverter> type() {
+    public Class<CustomToStringConverter> type() {
         return Cast.to(CustomToStringConverter.class);
     }
 

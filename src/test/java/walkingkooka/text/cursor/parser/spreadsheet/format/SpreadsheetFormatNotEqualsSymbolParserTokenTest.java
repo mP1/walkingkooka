@@ -83,7 +83,7 @@ public final class SpreadsheetFormatNotEqualsSymbolParserTokenTest extends Sprea
     }
 
     @Override
-    protected Class<SpreadsheetFormatNotEqualsSymbolParserToken> type() {
+    public Class<SpreadsheetFormatNotEqualsSymbolParserToken> type() {
         return SpreadsheetFormatNotEqualsSymbolParserToken.class;
     }
 }

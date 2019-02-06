@@ -24,7 +24,6 @@ import walkingkooka.collect.list.Lists;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -83,7 +82,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
     public void testToString() {
         final Iterator<Object> iterator
                 = new ArrayList<Object>(Lists.of(ELEMENT)).iterator();
-        assertEquals(iterator.toString(), ReadOnlyIterator.wrap(iterator).toString());
+        this.toStringAndCheck(ReadOnlyIterator.wrap(iterator), iterator.toString());
     }
 
     private ReadOnlyIterator<Object> iterator(final Object... strings) {
@@ -95,7 +94,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
     }
 
     @Override
-    protected Class<ReadOnlyIterator<Object>> type() {
+    public Class<ReadOnlyIterator<Object>> type() {
         return Cast.to(ReadOnlyIterator.class);
     }
 }

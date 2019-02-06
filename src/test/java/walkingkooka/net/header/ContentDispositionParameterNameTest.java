@@ -25,7 +25,6 @@ import walkingkooka.Cast;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -108,21 +107,13 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
                 "abc");
     }
 
-    // toString...........................................................................................
-
-    @Test
-    public void testToString() {
-        final String name = "parameter123";
-        assertEquals(name, ContentDispositionParameterName.with(name).toString());
-    }
-
     @Override
     public ContentDispositionParameterName<Object> createName(final String name) {
         return Cast.to(ContentDispositionParameterName.with(name));
     }
 
     @Override
-    protected Class<ContentDispositionParameterName<?>> type() {
+    public Class<ContentDispositionParameterName<?>> type() {
         return Cast.to(ContentDispositionParameterName.class);
     }
 }

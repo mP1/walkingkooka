@@ -34,7 +34,7 @@ final public class NaturalOrderingComparatorTest
 
     @Test
     public void testToString() {
-        assertEquals("natural", NaturalOrderingComparator.<Integer>instance().toString());
+        this.toStringAndCheck(NaturalOrderingComparator.<Integer>instance(), "natural");
     }
 
     // factory

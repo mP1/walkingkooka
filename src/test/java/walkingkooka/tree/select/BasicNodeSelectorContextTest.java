@@ -131,7 +131,7 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
     }
 
     @Override
-    protected Class<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
+    public Class<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(BasicNodeSelectorContext.class);
     }
 }

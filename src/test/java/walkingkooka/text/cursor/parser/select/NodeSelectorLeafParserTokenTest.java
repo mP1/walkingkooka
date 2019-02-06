@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class NodeSelectorLeafParserTokenTest extends ClassTestCase<NodeSelectorLeafParserToken> {
     @Override
-    protected Class<NodeSelectorLeafParserToken> type() {
+    public Class<NodeSelectorLeafParserToken> type() {
         return NodeSelectorLeafParserToken.class;
     }
 

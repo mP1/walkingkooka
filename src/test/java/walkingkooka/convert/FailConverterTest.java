@@ -47,7 +47,7 @@ public final class FailConverterTest extends ConverterTestCase<FailConverter<Str
 
     @Test
     public void testToString() {
-        assertEquals("String->Integer", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "String->Integer");
     }
 
     @Override
@@ -61,7 +61,7 @@ public final class FailConverterTest extends ConverterTestCase<FailConverter<Str
     }
 
     @Override
-    protected Class<FailConverter<String, Integer>> type() {
+    public Class<FailConverter<String, Integer>> type() {
         return Cast.to(FailConverter.class);
     }
 }

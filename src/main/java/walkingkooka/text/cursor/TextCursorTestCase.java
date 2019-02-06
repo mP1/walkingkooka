@@ -175,10 +175,6 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
         saved.save();
     }
 
-    @Test final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
-    }
-
     // factory
 
     protected C createTextCursor() {

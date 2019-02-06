@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class EmailAddressParserWithTest extends ClassTestCase<EmailAddressParserWith> {
     @Override
-    protected Class<EmailAddressParserWith> type() {
+    public Class<EmailAddressParserWith> type() {
         return EmailAddressParserWith.class;
     }
 

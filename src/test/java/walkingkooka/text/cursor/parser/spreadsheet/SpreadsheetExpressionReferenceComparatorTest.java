@@ -160,9 +160,9 @@ public final class SpreadsheetExpressionReferenceComparatorTest extends Comparat
 
     // toString .......................................................................................................
 
-    @Override
+    @Test
     public void testToString() {
-        assertEquals("SpreadsheetCellReference < SpreadsheetLabelName", this.createComparator().toString());
+        this.toStringAndCheck(this.createComparator(), "SpreadsheetCellReference < SpreadsheetLabelName");
     }
 
     @Override
@@ -194,7 +194,7 @@ public final class SpreadsheetExpressionReferenceComparatorTest extends Comparat
     }
 
     @Override
-    protected Class<SpreadsheetExpressionReferenceComparator> type() {
+    public Class<SpreadsheetExpressionReferenceComparator> type() {
         return SpreadsheetExpressionReferenceComparator.class;
     }
 }

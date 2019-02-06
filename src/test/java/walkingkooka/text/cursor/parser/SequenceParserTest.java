@@ -22,8 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CaseSensitivity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SequenceParserTest extends ParserTemplateTestCase<SequenceParser<ParserContext>, SequenceParserToken> 
         implements HashCodeEqualsDefinedTesting<SequenceParser<ParserContext>> {
 
@@ -189,7 +187,8 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
 
     @Test
     public void testToString() {
-        assertEquals("(" + PARSER1 + ", " + PARSER2 + ", [" + PARSER3 + "])", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(),
+                "(" + PARSER1 + ", " + PARSER2 + ", [" + PARSER3 + "])");
     }
 
     @Override
@@ -210,7 +209,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     }
 
     @Override
-    protected Class<SequenceParser<ParserContext>> type() {
+    public Class<SequenceParser<ParserContext>> type() {
         return Cast.to(SequenceParser.class);
     }
 

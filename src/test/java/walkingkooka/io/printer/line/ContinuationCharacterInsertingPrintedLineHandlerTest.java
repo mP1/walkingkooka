@@ -129,10 +129,10 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest
 
     @Test
     public void testToString() {
-        assertEquals("lines > " + WIDTH
+        this.toStringAndCheck(this.createLineHandler(),
+                "lines > " + WIDTH
                         + " continue w/ '"
-                        + CONTINUATION + "'",
-                this.createLineHandler().toString());
+                        + CONTINUATION + "'");
     }
 
     @Override
@@ -160,7 +160,7 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest
     }
 
     @Override
-    protected Class<ContinuationCharacterInsertingPrintedLineHandler> type() {
+    public Class<ContinuationCharacterInsertingPrintedLineHandler> type() {
         return ContinuationCharacterInsertingPrintedLineHandler.class;
     }
 }

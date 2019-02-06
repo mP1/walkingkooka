@@ -37,7 +37,7 @@ public final class SearchDoubleQueryValueSearchQueryTesterTest extends SearchCom
     }
 
     @Override
-    protected Class<SearchDoubleQueryValueSearchQueryTester> type() {
+    public Class<SearchDoubleQueryValueSearchQueryTester> type() {
         return SearchDoubleQueryValueSearchQueryTester.class;
     }
 }

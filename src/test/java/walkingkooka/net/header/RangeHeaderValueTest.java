@@ -354,8 +354,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     private final void toStringAndCheck(final String toString,
                                         final RangeHeaderValueUnit unit,
                                         final Range<Long>... ranges) {
-        final RangeHeaderValue range = this.range(unit, ranges);
-        assertEquals(toString, range.toString(), "toString");
+        this.toStringAndCheck(this.range(unit, ranges), toString);
     }
 
     private RangeHeaderValue range() {
@@ -434,7 +433,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @Override
-    protected Class<RangeHeaderValue> type() {
+    public Class<RangeHeaderValue> type() {
         return RangeHeaderValue.class;
     }
 

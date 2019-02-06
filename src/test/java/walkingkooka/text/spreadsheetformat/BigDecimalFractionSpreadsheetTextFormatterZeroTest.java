@@ -44,7 +44,7 @@ public final class BigDecimalFractionSpreadsheetTextFormatterZeroTest extends Bi
     }
 
     @Override
-    protected Class<BigDecimalFractionSpreadsheetTextFormatterZero> type() {
+    public Class<BigDecimalFractionSpreadsheetTextFormatterZero> type() {
         return BigDecimalFractionSpreadsheetTextFormatterZero.class;
     }
 }

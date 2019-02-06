@@ -122,7 +122,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testHttpWithDefaultPort() {
-        checkToString(AbsoluteUrl.with(SCHEME,
+        toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 CREDENTIALS,
                 HOST,
                 Optional.of(IpPort.HTTP),
@@ -134,7 +134,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testHttpsWithDefaultPort() {
-        checkToString(AbsoluteUrl.with(UrlScheme.HTTPS,
+        toStringAndCheck(AbsoluteUrl.with(UrlScheme.HTTPS,
                 CREDENTIALS,
                 HOST,
                 Optional.of(IpPort.HTTPS),
@@ -146,7 +146,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testHttpsWithNonDefaultPort() {
-        checkToString(AbsoluteUrl.with(UrlScheme.HTTPS,
+        toStringAndCheck(AbsoluteUrl.with(UrlScheme.HTTPS,
                 CREDENTIALS,
                 HOST,
                 PORT,
@@ -158,7 +158,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testToStringEmptyPath() {
-        checkToString(AbsoluteUrl.with(SCHEME,
+        toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 CREDENTIALS,
                 HOST,
                 PORT,
@@ -170,7 +170,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
     }
 
     public void testToStringUrl() {
-        checkToString(AbsoluteUrl.with(SCHEME,
+        toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 CREDENTIALS,
                 HOST,
                 PORT,
@@ -182,7 +182,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Override
     public void testToStringWithoutQuery() {
-        checkToString(AbsoluteUrl.with(SCHEME,
+        toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 CREDENTIALS,
                 HOST,
                 PORT,
@@ -193,7 +193,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Override
     public void testToStringWithoutFragment() {
-        checkToString(AbsoluteUrl.with(SCHEME,
+        toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 CREDENTIALS,
                 HOST,
                 PORT,
@@ -205,7 +205,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Override
     public void testToStringWithoutQueryAndFragment() {
-        checkToString(AbsoluteUrl.with(SCHEME,
+        toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 CREDENTIALS,
                 HOST,
                 PORT,
@@ -216,7 +216,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testUrlWithCredentials() {
-        checkToString(AbsoluteUrl.with(SCHEME,
+        toStringAndCheck(AbsoluteUrl.with(SCHEME,
                 Optional.of(UrlCredentials.with("user123", "password456")),
                 HOST,
                 PORT,

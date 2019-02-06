@@ -96,7 +96,7 @@ public final class SpreadsheetLocalDateTimeParserTokenTest extends SpreadsheetNo
     }
 
     @Override
-    protected Class<SpreadsheetLocalDateTimeParserToken> type() {
+    public Class<SpreadsheetLocalDateTimeParserToken> type() {
         return SpreadsheetLocalDateTimeParserToken.class;
     }
 }

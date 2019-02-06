@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class SearchBinaryQueryTest extends ClassTestCase<SearchBinaryQuery> {
     @Override
-    protected Class<SearchBinaryQuery> type() {
+    public Class<SearchBinaryQuery> type() {
         return SearchBinaryQuery.class;
     }
 

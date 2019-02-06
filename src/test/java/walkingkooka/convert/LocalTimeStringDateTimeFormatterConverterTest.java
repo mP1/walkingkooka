@@ -41,7 +41,7 @@ public final class LocalTimeStringDateTimeFormatterConverterTest extends StringD
     }
 
     @Override
-    protected Class<LocalTimeStringDateTimeFormatterConverter> type() {
+    public Class<LocalTimeStringDateTimeFormatterConverter> type() {
         return LocalTimeStringDateTimeFormatterConverter.class;
     }
 }

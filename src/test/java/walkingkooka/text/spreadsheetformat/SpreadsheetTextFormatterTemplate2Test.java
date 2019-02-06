@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class SpreadsheetTextFormatterTemplate2Test extends ClassTestCase<SpreadsheetTextFormatterTemplate2> {
     @Override
-    protected Class<SpreadsheetTextFormatterTemplate2> type() {
+    public Class<SpreadsheetTextFormatterTemplate2> type() {
         return SpreadsheetTextFormatterTemplate2.class;
     }
 

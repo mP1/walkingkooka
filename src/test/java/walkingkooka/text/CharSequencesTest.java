@@ -886,7 +886,7 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     @Override
-    protected Class<CharSequences> type() {
+    public Class<CharSequences> type() {
         return CharSequences.class;
     }
 

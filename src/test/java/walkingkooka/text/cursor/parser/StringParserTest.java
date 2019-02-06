@@ -22,7 +22,6 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringParserTest extends ParserTemplateTestCase<StringParser<ParserContext>, StringParserToken>
@@ -111,12 +110,12 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<Parser
 
     @Test
     public void testToString() {
-        assertEquals(CharSequences.quoteAndEscape(STRING).toString(), this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), CharSequences.quoteAndEscape(STRING).toString());
     }
 
     @Test
     public void testToStringInsensitive() {
-        assertEquals(CharSequences.quoteAndEscape(STRING) + " (CaseInsensitive)", this.createParserInsensitive().toString());
+        this.toStringAndCheck(this.createParserInsensitive(), CharSequences.quoteAndEscape(STRING) + " (CaseInsensitive)");
     }
 
     @Override
@@ -137,7 +136,7 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<Parser
     }
 
     @Override
-    protected Class<StringParser<ParserContext>> type() {
+    public Class<StringParser<ParserContext>> type() {
         return Cast.to(StringParser.class);
     }
 

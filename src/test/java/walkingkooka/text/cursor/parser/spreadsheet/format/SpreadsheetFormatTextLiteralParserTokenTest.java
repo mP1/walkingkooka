@@ -88,7 +88,7 @@ public final class SpreadsheetFormatTextLiteralParserTokenTest extends Spreadshe
     }
 
     @Override
-    protected Class<SpreadsheetFormatTextLiteralParserToken> type() {
+    public Class<SpreadsheetFormatTextLiteralParserToken> type() {
         return SpreadsheetFormatTextLiteralParserToken.class;
     }
 }

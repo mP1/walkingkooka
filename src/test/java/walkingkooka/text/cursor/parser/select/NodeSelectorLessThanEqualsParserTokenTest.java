@@ -35,7 +35,7 @@ public final class NodeSelectorLessThanEqualsParserTokenTest extends NodeSelecto
     }
 
     @Override
-    protected Class<NodeSelectorLessThanEqualsParserToken> type() {
+    public Class<NodeSelectorLessThanEqualsParserToken> type() {
         return NodeSelectorLessThanEqualsParserToken.class;
     }
 }

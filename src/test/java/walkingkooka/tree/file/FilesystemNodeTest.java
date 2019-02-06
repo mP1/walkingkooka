@@ -382,7 +382,7 @@ public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, Files
     }
 
     @Override
-    protected Class<FilesystemNode> type() {
+    public Class<FilesystemNode> type() {
         return FilesystemNode.class;
     }
 }

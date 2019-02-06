@@ -19,6 +19,7 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -27,7 +28,8 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 abstract public class ComparatorTestCase<C extends Comparator<T>, T>
-        extends ClassTestCase<C> {
+        extends ClassTestCase<C>
+        implements ToStringTesting<C>{
 
     protected ComparatorTestCase() {
         super();
@@ -37,14 +39,6 @@ abstract public class ComparatorTestCase<C extends Comparator<T>, T>
     public void testNaming() {
         this.checkNaming(Comparator.class);
     }
-
-    @Test
-    final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
-    }
-
-    @Test
-    abstract public void testToString();
 
     // helpers
 

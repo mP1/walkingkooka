@@ -21,7 +21,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 final public class PrinterExceptionTest extends PublicThrowableTestCase<PrinterException> {
     @Override
-    protected Class<PrinterException> type() {
+    public Class<PrinterException> type() {
         return PrinterException.class;
     }
 }

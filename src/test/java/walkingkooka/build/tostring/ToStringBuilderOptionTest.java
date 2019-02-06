@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 final public class ToStringBuilderOptionTest extends ClassTestCase<ToStringBuilderOption> {
 
     @Override
-    protected Class<ToStringBuilderOption> type() {
+    public Class<ToStringBuilderOption> type() {
         return ToStringBuilderOption.class;
     }
 

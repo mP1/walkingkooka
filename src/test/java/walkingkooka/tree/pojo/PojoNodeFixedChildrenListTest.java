@@ -21,7 +21,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class PojoNodeFixedChildrenListTest extends ClassTestCase<PojoNodeFixedChildrenList> {
     @Override
-    protected Class<PojoNodeFixedChildrenList> type() {
+    public Class<PojoNodeFixedChildrenList> type() {
         return PojoNodeFixedChildrenList.class;
     }
 

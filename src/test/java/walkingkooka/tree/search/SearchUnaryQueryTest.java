@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class SearchUnaryQueryTest extends ClassTestCase<SearchUnaryQuery> {
     @Override
-    protected Class<SearchUnaryQuery> type() {
+    public Class<SearchUnaryQuery> type() {
         return SearchUnaryQuery.class;
     }
 

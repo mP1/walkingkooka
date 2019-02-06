@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class ExpressionBinaryNode2Test extends ClassTestCase<ExpressionBinaryNode2> {
 
     @Override
-    protected Class<ExpressionBinaryNode2> type() {
+    public Class<ExpressionBinaryNode2> type() {
         return ExpressionBinaryNode2.class;
     }
 

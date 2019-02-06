@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class HeaderParameterNameTest extends ClassTestCase<HeaderParameterName> {
     @Override
-    protected Class<HeaderParameterName> type() {
+    public Class<HeaderParameterName> type() {
         return HeaderParameterName.class;
     }
 

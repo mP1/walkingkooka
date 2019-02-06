@@ -24,7 +24,6 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParser<ParserContext>, BigIntegerParserToken> {
@@ -146,12 +145,12 @@ public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParse
 
     @Test
     public void testToString() {
-        assertEquals("BigInteger", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "BigInteger");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("BigInteger(base=8)", BigIntegerParser.with(8).toString());
+        this.toStringAndCheck(BigIntegerParser.with(8), "BigInteger(base=8)");
     }
 
     @Override
@@ -182,7 +181,7 @@ public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParse
     }
 
     @Override
-    protected Class<BigIntegerParser<ParserContext>> type() {
+    public Class<BigIntegerParser<ParserContext>> type() {
         return Cast.to(BigIntegerParser.class);
     }
 }

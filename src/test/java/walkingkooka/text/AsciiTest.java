@@ -303,7 +303,7 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     // test
 
     @Override
-    protected Class<Ascii> type() {
+    public Class<Ascii> type() {
         return Ascii.class;
     }
 

@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 
 public final class SpreadsheetFormatParserContextsTest extends PublicStaticHelperTestCase<SpreadsheetFormatParserContexts> {
     @Override
-    protected Class<SpreadsheetFormatParserContexts> type() {
+    public Class<SpreadsheetFormatParserContexts> type() {
         return SpreadsheetFormatParserContexts.class;
     }
 

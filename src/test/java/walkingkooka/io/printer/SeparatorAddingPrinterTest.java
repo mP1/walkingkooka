@@ -143,7 +143,7 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
     }
 
     @Override
-    protected Class<SeparatorAddingPrinter> type() {
+    public Class<SeparatorAddingPrinter> type() {
         return SeparatorAddingPrinter.class;
     }
 }

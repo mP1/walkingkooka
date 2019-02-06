@@ -232,20 +232,17 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
 
     @Test
     public void testToString() {
-        final Stack<String> stack = ArrayStack.with("1");
-        assertEquals("[1]", stack.toString());
+        this.toStringAndCheck(ArrayStack.with("1"), "[1]");
     }
 
     @Test
     public void testToStringManyItems() {
-        final Stack<String> stack = ArrayStack.with("1").push("2").push("3");
-        assertEquals("[1,2,3]", stack.toString());
+        this.toStringAndCheck(ArrayStack.with("1").push("2").push("3"),"[1,2,3]");
     }
 
     @Test
     public void testToStringManyItemsAfterPop() {
-        final Stack<String> stack = ArrayStack.with("1").push("2").push("-popped-").pop();
-        assertEquals("[1,2]", stack.toString());
+        this.toStringAndCheck( ArrayStack.with("1").push("2").push("-popped-").pop(),"[1,2]");
     }
 
     @Override

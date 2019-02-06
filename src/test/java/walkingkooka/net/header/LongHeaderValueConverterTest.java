@@ -67,7 +67,7 @@ public final class LongHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<LongHeaderValueConverter> type() {
+    public Class<LongHeaderValueConverter> type() {
         return LongHeaderValueConverter.class;
     }
 }

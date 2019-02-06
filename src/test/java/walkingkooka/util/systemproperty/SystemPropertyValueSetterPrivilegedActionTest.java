@@ -24,7 +24,7 @@ final public class SystemPropertyValueSetterPrivilegedActionTest
         extends ClassTestCase<SystemPropertyValueSetterPrivilegedAction> {
 
     @Override
-    protected Class<SystemPropertyValueSetterPrivilegedAction> type() {
+    public Class<SystemPropertyValueSetterPrivilegedAction> type() {
         return SystemPropertyValueSetterPrivilegedAction.class;
     }
 

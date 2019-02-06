@@ -61,7 +61,7 @@ final public class SinkPrinterTest extends PrinterTestCase<SinkPrinter> {
     }
 
     @Override
-    protected Class<SinkPrinter> type() {
+    public Class<SinkPrinter> type() {
         return SinkPrinter.class;
     }
 }

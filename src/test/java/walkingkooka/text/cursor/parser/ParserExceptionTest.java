@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 public final class ParserExceptionTest extends PublicThrowableTestCase<ParserException> {
     @Override
-    protected Class<ParserException> type() {
+    public Class<ParserException> type() {
         return ParserException.class;
     }
 }

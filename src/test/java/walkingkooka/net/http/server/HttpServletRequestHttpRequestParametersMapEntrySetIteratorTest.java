@@ -65,7 +65,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTes
     }
 
     @Override
-    protected Class<HttpServletRequestHttpRequestParametersMapEntrySetIterator> type() {
+    public Class<HttpServletRequestHttpRequestParametersMapEntrySetIterator> type() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIterator.class;
     }
 }

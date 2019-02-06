@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionStringLengthFunctionTest extends ExpressionFunctionTestCase<ExpressionStringLengthFunction, Number> {
@@ -69,7 +68,7 @@ public final class ExpressionStringLengthFunctionTest extends ExpressionFunction
 
     @Test
     public void testToString() {
-        assertEquals("string-length", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "string-length");
     }
 
     @Override
@@ -78,7 +77,7 @@ public final class ExpressionStringLengthFunctionTest extends ExpressionFunction
     }
 
     @Override
-    protected Class<ExpressionStringLengthFunction> type() {
+    public Class<ExpressionStringLengthFunction> type() {
         return ExpressionStringLengthFunction.class;
     }
 }

@@ -57,11 +57,6 @@ public final class JsonNodeNameTest extends ClassTestCase<JsonNodeName>
         this.checkNotEquals(JsonNodeName.with("PROP1"));
     }
 
-    @Test
-    public void testToString() {
-        assertEquals("abc", this.createName("abc").toString());
-    }
-
     @Override
     public JsonNodeName createName(final String name) {
         return JsonNodeName.with(name);
@@ -88,7 +83,7 @@ public final class JsonNodeNameTest extends ClassTestCase<JsonNodeName>
     }
 
     @Override
-    protected Class<JsonNodeName> type() {
+    public Class<JsonNodeName> type() {
         return JsonNodeName.class;
     }
 

@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 final public class CookieHttpOnlyTest extends ClassTestCase<CookieHttpOnly> {
 
     @Override
-    protected Class<CookieHttpOnly> type() {
+    public Class<CookieHttpOnly> type() {
         return CookieHttpOnly.class;
     }
 

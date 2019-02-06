@@ -27,8 +27,6 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest extends
         PredicateTestCase<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>>
         implements HashCodeEqualsDefinedTesting<HttpRequestAttributeRoutingBuilderParameterValuePredicate> {
@@ -67,7 +65,7 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
 
     @Test
     public void testToString() {
-        assertEquals(this.wrappedPredicate().toString(), this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), this.wrappedPredicate().toString());
     }
 
     @Override
@@ -80,7 +78,7 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
     }
 
     @Override
-    protected Class<HttpRequestAttributeRoutingBuilderParameterValuePredicate> type() {
+    public Class<HttpRequestAttributeRoutingBuilderParameterValuePredicate> type() {
         return HttpRequestAttributeRoutingBuilderParameterValuePredicate.class;
     }
 

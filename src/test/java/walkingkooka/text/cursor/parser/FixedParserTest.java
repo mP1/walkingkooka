@@ -22,7 +22,6 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FixedParserTest extends ParserTestCase2<FixedParser<StringParserToken, ParserContext>, StringParserToken> {
@@ -69,7 +68,7 @@ public final class FixedParserTest extends ParserTestCase2<FixedParser<StringPar
 
     @Test
     public void testToString() {
-        assertEquals(Optional.of(RESULT).toString(), this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), Optional.of(RESULT).toString());
     }
 
     @Override
@@ -82,7 +81,7 @@ public final class FixedParserTest extends ParserTestCase2<FixedParser<StringPar
     }
 
     @Override
-    protected Class<FixedParser<StringParserToken, ParserContext>> type() {
+    public Class<FixedParser<StringParserToken, ParserContext>> type() {
         return Cast.to(FixedParser.class);
     }
 }

@@ -24,7 +24,6 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -70,7 +69,7 @@ final public class IteratorEnumerationTest
     @Test
     public void testToString() {
         final Iterator<Object> iterator = Iterators.fake();
-        assertEquals(iterator.toString(), IteratorEnumeration.adapt(iterator).toString());
+        this.toStringAndCheck(IteratorEnumeration.adapt(iterator), iterator.toString());
     }
 
     @Override
@@ -81,7 +80,7 @@ final public class IteratorEnumerationTest
     }
 
     @Override
-    protected Class<IteratorEnumeration<Object>> type() {
+    public Class<IteratorEnumeration<Object>> type() {
         return Cast.to(IteratorEnumeration.class);
     }
 }

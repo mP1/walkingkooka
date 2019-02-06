@@ -51,7 +51,7 @@ public final class XmlNameTest extends ClassTestCase<XmlName> implements NameTes
     }
 
     @Override
-    protected Class<XmlName> type() {
+    public Class<XmlName> type() {
         return XmlName.class;
     }
 

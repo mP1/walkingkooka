@@ -80,7 +80,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
 
     @Test
     public void testToString() {
-        assertEquals("Content-Length: 123", this.createEntry().toString());
+        this.toStringAndCheck("Content-Length: 123", this.createEntry().toString());
     }
 
     @Override
@@ -96,7 +96,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
     }
 
     @Override
-    protected Class<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry> type() {
+    public Class<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry> type() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.class;
     }
 

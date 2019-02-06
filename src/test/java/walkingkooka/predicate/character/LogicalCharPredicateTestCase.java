@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
@@ -61,8 +60,8 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
         final CharPredicate first = CharPredicates.fake();
         final CharPredicate second = CharPredicates.fake();
         final P predicate = this.createCharPredicate(first, second);
-        assertEquals(first + " " + this.operator(predicate) + " " + second,
-                predicate.toString());
+        this.toStringAndCheck(predicate,
+                first + " " + this.operator(predicate) + " " + second);
     }
 
     private String operator(final LogicalCharPredicate predicate) {

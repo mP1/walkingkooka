@@ -88,7 +88,7 @@ public final class SpreadsheetPlusSymbolParserTokenTest extends SpreadsheetSymbo
     }
 
     @Override
-    protected Class<SpreadsheetPlusSymbolParserToken> type() {
+    public Class<SpreadsheetPlusSymbolParserToken> type() {
         return SpreadsheetPlusSymbolParserToken.class;
     }
 }

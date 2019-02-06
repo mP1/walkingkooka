@@ -25,6 +25,7 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -36,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 abstract public class ColorComponentTestCase<C extends ColorComponent> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>,
         IsMethodTesting<C>,
-        SerializationTesting<C> {
+        SerializationTesting<C>,
+        ToStringTesting<C> {
 
     ColorComponentTestCase() {
         super();
@@ -164,18 +166,17 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     @Test
     public final void testToString() {
-        assertEquals(Integer.toHexString(VALUE).toUpperCase(),
-                this.createColorComponent(VALUE).toString());
+        this.toStringAndCheck(this.createColorComponent(VALUE), Integer.toHexString(VALUE).toUpperCase());
     }
 
     @Test
     public final void testToStringFF() {
-        assertEquals("ff", this.createColorComponent((byte) 0xFF).toString());
+        this.toStringAndCheck(this.createColorComponent((byte) 0xFF), "ff");
     }
 
     @Test
     public final void testToStringLessThan16() {
-        assertEquals("0f", this.createColorComponent((byte) 0xF).toString());
+        this.toStringAndCheck(this.createColorComponent((byte) 0xF), "0f");
     }
 
     @Test

@@ -83,7 +83,7 @@ public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Int
 
     @Test
     public void testToString() {
-        assertEquals("123", this.createNode().toString());
+        this.toStringAndCheck(this.createNode(), "123");
     }
 
     @Override

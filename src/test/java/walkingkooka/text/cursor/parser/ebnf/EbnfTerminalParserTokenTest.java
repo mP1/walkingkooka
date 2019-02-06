@@ -86,7 +86,7 @@ public final class EbnfTerminalParserTokenTest extends EbnfLeafParserTokenTestCa
     }
 
     @Override
-    protected Class<EbnfTerminalParserToken> type() {
+    public Class<EbnfTerminalParserToken> type() {
         return EbnfTerminalParserToken.class;
     }
 }

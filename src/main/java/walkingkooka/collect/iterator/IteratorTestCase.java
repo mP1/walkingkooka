@@ -19,6 +19,7 @@ package walkingkooka.collect.iterator;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
@@ -28,7 +29,8 @@ import java.util.Iterator;
  */
 abstract public class IteratorTestCase<I extends Iterator<T>, T>
         extends ClassTestCase<I>
-        implements IteratorTesting {
+        implements IteratorTesting,
+        ToStringTesting<I> {
 
     protected IteratorTestCase() {
         super();
@@ -37,11 +39,6 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     @Test
     public void testNaming() {
         this.checkNaming(Iterator.class);
-    }
-
-    @Test
-    final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
     }
 
     public abstract I createIterator();

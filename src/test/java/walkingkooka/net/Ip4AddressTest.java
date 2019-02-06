@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -142,13 +141,14 @@ public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
 
     @Test
     public void testToString() {
-        assertEquals("1.2.3.4", this.createAddress(new byte[]{1, 2, 3, 4}).toString());
+        this.toStringAndCheck(this.createAddress(new byte[]{1, 2, 3, 4}),
+                "1.2.3.4");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("255.254.253.252",
-                this.createAddress(new byte[]{(byte) 0xFF, (byte) 0xFE, (byte) 0xFD, (byte) 0xFC}).toString());
+        this.toStringAndCheck(this.createAddress(new byte[]{(byte) 0xFF, (byte) 0xFE, (byte) 0xFD, (byte) 0xFC}),
+                "255.254.253.252");
     }
 
     @Override

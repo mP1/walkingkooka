@@ -77,9 +77,9 @@ public final class QFactorWeightComparatorTest extends ComparatorTestCase<QFacto
         assertEquals(Lists.of(one, half, quarter), list);
     }
 
-    @Override
+    @Test
     public void testToString() {
-        assertEquals("QFactor", this.createComparator().toString());
+        this.toStringAndCheck(this.createComparator(), "QFactor");
     }
 
     @Override
@@ -88,7 +88,7 @@ public final class QFactorWeightComparatorTest extends ComparatorTestCase<QFacto
     }
 
     @Override
-    protected Class<QFactorWeightComparator<MediaType>> type() {
+    public Class<QFactorWeightComparator<MediaType>> type() {
         return Cast.to(QFactorWeightComparator.class);
     }
 }

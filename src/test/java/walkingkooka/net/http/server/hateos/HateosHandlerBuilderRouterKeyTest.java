@@ -22,11 +22,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerBuilderRouterKeyTest extends ClassTestCase<HateosHandlerBuilderRouterKey> implements ComparableTesting<HateosHandlerBuilderRouterKey> {
+public final class HateosHandlerBuilderRouterKeyTest extends ClassTestCase<HateosHandlerBuilderRouterKey>
+        implements ComparableTesting<HateosHandlerBuilderRouterKey>,
+        ToStringTesting<HateosHandlerBuilderRouterKey> {
 
     @Test
     public void testDifferentResourceName() {
@@ -57,7 +60,7 @@ public final class HateosHandlerBuilderRouterKeyTest extends ClassTestCase<Hateo
     }
 
     @Override
-    protected Class<HateosHandlerBuilderRouterKey> type() {
+    public Class<HateosHandlerBuilderRouterKey> type() {
         return HateosHandlerBuilderRouterKey.class;
     }
 

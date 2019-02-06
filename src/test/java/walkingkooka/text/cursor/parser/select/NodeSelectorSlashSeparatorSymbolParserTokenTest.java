@@ -88,7 +88,7 @@ public final class NodeSelectorSlashSeparatorSymbolParserTokenTest extends NodeS
     }
 
     @Override
-    protected Class<NodeSelectorSlashSeparatorSymbolParserToken> type() {
+    public Class<NodeSelectorSlashSeparatorSymbolParserToken> type() {
         return NodeSelectorSlashSeparatorSymbolParserToken.class;
     }
 }

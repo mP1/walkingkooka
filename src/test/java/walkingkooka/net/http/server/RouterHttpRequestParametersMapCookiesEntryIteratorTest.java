@@ -83,15 +83,14 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
 
     @Test
     public void testToString() {
-        final RouterHttpRequestParametersMapCookiesEntryIterator iterator = this.createIterator(COOKIE1);
-        assertEquals("a=1;", iterator.toString());
+        this.toStringAndCheck( this.createIterator(COOKIE1), "a=1;");
     }
 
     @Test
     public void testToStringEmpty() {
         final RouterHttpRequestParametersMapCookiesEntryIterator iterator = this.createIterator(COOKIE1);
         iterator.next();
-        assertEquals("", iterator.toString());
+        this.toStringAndCheck(iterator, "");
     }
 
     @Override public RouterHttpRequestParametersMapCookiesEntryIterator createIterator() {
@@ -103,7 +102,7 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
     }
 
     @Override
-    protected Class<RouterHttpRequestParametersMapCookiesEntryIterator> type() {
+    public Class<RouterHttpRequestParametersMapCookiesEntryIterator> type() {
         return RouterHttpRequestParametersMapCookiesEntryIterator.class;
     }
 }

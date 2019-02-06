@@ -23,7 +23,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class InvalidEncodedTextHeaderExceptionTest extends PublicThrowableTestCase<InvalidEncodedTextHeaderException> {
 
     @Override
-    protected Class<InvalidEncodedTextHeaderException> type() {
+    public Class<InvalidEncodedTextHeaderException> type() {
         return InvalidEncodedTextHeaderException.class;
     }
 }

@@ -94,7 +94,7 @@ public final class ClientCookieListHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<ClientCookieListHeaderValueConverter> type() {
+    public Class<ClientCookieListHeaderValueConverter> type() {
         return ClientCookieListHeaderValueConverter.class;
     }
 }

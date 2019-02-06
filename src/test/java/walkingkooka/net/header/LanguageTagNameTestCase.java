@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
@@ -73,8 +72,8 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
     }
 
     @Override
-    protected final Class<L> type() {
-        return Cast.to(this.languageTagNameType());
+    public final Class<L> type() {
+        return this.languageTagNameType();
     }
 
     abstract Class<L> languageTagNameType();

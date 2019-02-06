@@ -69,7 +69,7 @@ public final class IfRangeHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<IfRangeHeaderValueConverter> type() {
+    public Class<IfRangeHeaderValueConverter> type() {
         return IfRangeHeaderValueConverter.class;
     }
 }

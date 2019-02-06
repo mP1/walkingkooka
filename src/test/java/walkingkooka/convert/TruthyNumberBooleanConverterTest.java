@@ -23,8 +23,6 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class TruthyNumberBooleanConverterTest extends ConverterTestCase<TruthyNumberBooleanConverter> {
 
     // BigDecimal..................................................
@@ -99,7 +97,7 @@ public final class TruthyNumberBooleanConverterTest extends ConverterTestCase<Tr
 
     @Test
     public void testToString() {
-        assertEquals("Truthy BigDecimal|BigInteger|Byte|Short|Integer|Long|Float|Double->Boolean", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "Truthy BigDecimal|BigInteger|Byte|Short|Integer|Long|Float|Double->Boolean");
     }
 
     // helper............................................................................................................
@@ -127,7 +125,7 @@ public final class TruthyNumberBooleanConverterTest extends ConverterTestCase<Tr
     }
 
     @Override
-    protected Class<TruthyNumberBooleanConverter> type() {
+    public Class<TruthyNumberBooleanConverter> type() {
         return TruthyNumberBooleanConverter.class;
     }
 }

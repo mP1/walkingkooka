@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 
 public final class NodeSelectorContextsTest extends PublicStaticHelperTestCase<NodeSelectorContexts> {
     @Override
-    protected Class<NodeSelectorContexts> type() {
+    public Class<NodeSelectorContexts> type() {
         return NodeSelectorContexts.class;
     }
 

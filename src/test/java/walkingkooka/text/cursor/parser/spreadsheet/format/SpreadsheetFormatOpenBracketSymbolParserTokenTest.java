@@ -83,7 +83,7 @@ public final class SpreadsheetFormatOpenBracketSymbolParserTokenTest extends Spr
     }
 
     @Override
-    protected Class<SpreadsheetFormatOpenBracketSymbolParserToken> type() {
+    public Class<SpreadsheetFormatOpenBracketSymbolParserToken> type() {
         return SpreadsheetFormatOpenBracketSymbolParserToken.class;
     }
 }

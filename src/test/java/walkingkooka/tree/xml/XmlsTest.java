@@ -109,7 +109,7 @@ final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
     }
     // misc
 
-    @Override protected Class<Xmls> type() {
+    @Override public Class<Xmls> type() {
         return Xmls.class;
     }
 

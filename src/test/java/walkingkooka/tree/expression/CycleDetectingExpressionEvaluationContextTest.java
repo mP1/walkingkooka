@@ -365,7 +365,7 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
     }
 
     @Override
-    protected Class<CycleDetectingExpressionEvaluationContext> type() {
+    public Class<CycleDetectingExpressionEvaluationContext> type() {
         return CycleDetectingExpressionEvaluationContext.class;
     }
 }

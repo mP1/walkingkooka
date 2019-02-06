@@ -55,7 +55,7 @@ public final class PojoMapNodeMapListTest extends PojoNodeListTestCase<PojoMapNo
     }
 
     @Override
-    protected Class<PojoMapNodeMapList> type() {
+    public Class<PojoMapNodeMapList> type() {
         return PojoMapNodeMapList.class;
     }
 }

@@ -19,13 +19,11 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class DoubleQuotedParserTest extends QuotedParserTestCase<DoubleQuotedParser<ParserContext>, DoubleQuotedParserToken> {
 
     @Test
     public void testToStringDoubleQuoted() {
-        assertEquals("double quoted string", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "double quoted string");
     }
 
     @Override
@@ -49,7 +47,7 @@ public final class DoubleQuotedParserTest extends QuotedParserTestCase<DoubleQuo
     }
 
     @Override
-    protected Class<DoubleQuotedParser<ParserContext>> type() {
+    public Class<DoubleQuotedParser<ParserContext>> type() {
         return Cast.to(DoubleQuotedParser.class);
     }
 }

@@ -156,7 +156,7 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
     }
 
     @Override
-    protected Class<MediaTypeListHeaderParser> type() {
+    public Class<MediaTypeListHeaderParser> type() {
         return MediaTypeListHeaderParser.class;
     }
 }

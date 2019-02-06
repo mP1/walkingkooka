@@ -22,13 +22,17 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HsvTest extends ClassTestCase<Hsv> implements HashCodeEqualsDefinedTesting<Hsv>, SerializationTesting<Hsv> {
+public final class HsvTest extends ClassTestCase<Hsv>
+        implements HashCodeEqualsDefinedTesting<Hsv>,
+        SerializationTesting<Hsv>,
+        ToStringTesting<Hsv> {
 
     // constants
 
@@ -233,8 +237,7 @@ public final class HsvTest extends ClassTestCase<Hsv> implements HashCodeEqualsD
 
     @Test
     public void testToString() {
-        assertEquals(HUE + "," + SATURATION + "," + VALUE,
-                Hsv.with(HUE, SATURATION, VALUE).toString());
+        this.toStringAndCheck(Hsv.with(HUE, SATURATION, VALUE), HUE + "," + SATURATION + "," + VALUE);
     }
 
     @Override

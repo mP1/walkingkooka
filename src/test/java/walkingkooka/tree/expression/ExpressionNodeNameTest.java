@@ -82,7 +82,7 @@ public final class ExpressionNodeNameTest extends ClassTestCase<ExpressionNodeNa
     }
 
     @Override
-    protected Class<ExpressionNodeName> type() {
+    public Class<ExpressionNodeName> type() {
         return ExpressionNodeName.class;
     }
 

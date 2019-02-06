@@ -21,13 +21,15 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVersion> {
+final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVersion>
+        implements ToStringTesting<HttpProtocolVersion> {
 
     @Test
     public void testOneZero() {
@@ -65,16 +67,16 @@ final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVer
 
     @Test
     public void testToStringVersion0() {
-        assertEquals("HTTP/1.0", HttpProtocolVersion.VERSION_1_0.toString());
+        this.toStringAndCheck(HttpProtocolVersion.VERSION_1_0, "HTTP/1.0");
     }
 
     @Test
     public void testToStringVersion1() {
-        assertEquals("HTTP/1.1", HttpProtocolVersion.VERSION_1_1.toString());
+        this.toStringAndCheck(HttpProtocolVersion.VERSION_1_1, "HTTP/1.1");
     }
 
     @Override
-    protected Class<HttpProtocolVersion> type() {
+    public Class<HttpProtocolVersion> type() {
         return HttpProtocolVersion.class;
     }
 

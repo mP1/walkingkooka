@@ -28,8 +28,6 @@ import walkingkooka.tree.search.SearchNodeName;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class XmlEntityTest extends XmlParentNodeTestCase<XmlEntity> {
 
     @Override
@@ -49,7 +47,7 @@ public final class XmlEntityTest extends XmlParentNodeTestCase<XmlEntity> {
 
     @Test
     public void testToString() {
-        assertEquals("<!ENTITY file SYSTEM \"http://www.example.com/archive.zip\">", this.createNode().toString());
+        this.toStringAndCheck(this.createNode(), "<!ENTITY file SYSTEM \"http://www.example.com/archive.zip\">");
     }
 
     // helpers............................................................................................

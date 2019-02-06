@@ -35,7 +35,7 @@ public final class NodeSelectorEqualsParserTokenTest extends NodeSelectorBinaryP
     }
 
     @Override
-    protected Class<NodeSelectorEqualsParserToken> type() {
+    public Class<NodeSelectorEqualsParserToken> type() {
         return NodeSelectorEqualsParserToken.class;
     }
 }

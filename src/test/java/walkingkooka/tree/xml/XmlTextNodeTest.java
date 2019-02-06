@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class XmlTextNodeTest extends ClassTestCase<XmlTextNode> {
 
     @Override
-    protected Class<XmlTextNode> type() {
+    public Class<XmlTextNode> type() {
         return XmlTextNode.class;
     }
 

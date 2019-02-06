@@ -48,7 +48,7 @@ public final class XmlEntityMapTest extends XmlMapTestCase<XmlEntityMap, XmlName
     }
 
     @Override
-    protected Class<XmlEntityMap> type() {
+    public Class<XmlEntityMap> type() {
         return XmlEntityMap.class;
     }
 }

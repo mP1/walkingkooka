@@ -101,7 +101,7 @@ public final class CacheControlDirectiveExtensionHeaderValueConverterTest extend
     }
 
     @Override
-    protected Class<CacheControlDirectiveExtensionHeaderValueConverter> type() {
+    public Class<CacheControlDirectiveExtensionHeaderValueConverter> type() {
         return CacheControlDirectiveExtensionHeaderValueConverter.class;
     }
 }

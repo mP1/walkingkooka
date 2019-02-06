@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class TextCursorExceptionTest extends PublicThrowableTestCase<TextCursorException> {
 
     @Override
-    protected Class<TextCursorException> type() {
+    public Class<TextCursorException> type() {
         return TextCursorException.class;
     }
 }

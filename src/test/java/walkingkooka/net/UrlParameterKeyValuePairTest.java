@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class UrlParameterKeyValuePairTest extends ClassTestCase<UrlParameterKeyValuePair> {
     @Override
-    protected Class<UrlParameterKeyValuePair> type() {
+    public Class<UrlParameterKeyValuePair> type() {
         return UrlParameterKeyValuePair.class;
     }
 

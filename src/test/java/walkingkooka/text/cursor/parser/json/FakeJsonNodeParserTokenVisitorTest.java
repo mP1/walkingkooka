@@ -33,7 +33,7 @@ public final class FakeJsonNodeParserTokenVisitorTest extends JsonNodeParserToke
     }
 
     @Override
-    protected Class<FakeJsonNodeParserTokenVisitor> parserTokenVisitorType() {
+    public Class<FakeJsonNodeParserTokenVisitor> parserTokenVisitorType() {
         return FakeJsonNodeParserTokenVisitor.class;
     }
 }

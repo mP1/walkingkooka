@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
@@ -28,7 +29,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest extends ClassTestCase<EbnfGrammarParserTokenInvalidReferencesException> {
+public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest extends ClassTestCase<EbnfGrammarParserTokenInvalidReferencesException>
+        implements ToStringTesting<EbnfGrammarParserTokenInvalidReferencesException> {
 
     @Test
     public void testWithNullReferencesFails() {
@@ -55,7 +57,7 @@ public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest extends 
 
     @Test
     public void testToString() {
-        assertEquals("Unknown references=[abc]", new EbnfGrammarParserTokenInvalidReferencesException("message 123", this.references()).toString());
+        this.toStringAndCheck(new EbnfGrammarParserTokenInvalidReferencesException("message 123", this.references()), "Unknown references=[abc]");
     }
 
     private Set<EbnfIdentifierName> references() {
@@ -63,7 +65,7 @@ public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest extends 
     }
 
     @Override
-    protected Class<EbnfGrammarParserTokenInvalidReferencesException> type() {
+    public Class<EbnfGrammarParserTokenInvalidReferencesException> type() {
         return EbnfGrammarParserTokenInvalidReferencesException.class;
     }
 

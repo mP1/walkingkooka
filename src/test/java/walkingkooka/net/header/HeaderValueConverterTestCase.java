@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -29,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static walkingkooka.net.header.HeaderParser.fail;
 
-public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends ClassTestCase<C> {
+public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends ClassTestCase<C>
+        implements ToStringTesting<C> {
 
     private final static String SUFFIX = HeaderValueConverter.class.getSimpleName();
 
@@ -93,7 +95,7 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
 
     @Test
     public final void testToString() {
-        assertEquals(this.converterToString(), this.converter().toString());
+        this.toStringAndCheck(this.converter(), this.converterToString());
     }
 
     abstract String converterToString();

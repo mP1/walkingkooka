@@ -94,7 +94,7 @@ public final class SpreadsheetDoubleParserTokenTest extends SpreadsheetNumericPa
     }
 
     @Override
-    protected Class<SpreadsheetDoubleParserToken> type() {
+    public Class<SpreadsheetDoubleParserToken> type() {
         return SpreadsheetDoubleParserToken.class;
     }
 }

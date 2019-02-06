@@ -72,7 +72,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     abstract N createExpressionNode();
 
     @Override
-    protected Class<ExpressionNode> type() {
+    public final Class<ExpressionNode> type() {
         return Cast.to(this.expressionNodeType());
     }
 

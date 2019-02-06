@@ -20,8 +20,6 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
 
     @Test
@@ -47,33 +45,32 @@ public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
 
     @Test
     public void testToStringWith0SignificantOctets() {
-        assertEquals("0::", this.createAddress(new byte[Ip6Address.OCTET_COUNT]).toString());
+        this.toStringAndCheck(this.createAddress(new byte[Ip6Address.OCTET_COUNT]),
+                "0::");
     }
 
     @Test
     public void testToStringWith4Octets() {
-        assertEquals("1:2:3:4::",
-                this.createAddress(new byte[]{1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}).toString());
+        this.toStringAndCheck(this.createAddress(new byte[]{1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
+                "1:2:3:4::");
     }
 
     @Test
     public void testToStringWith8SignificantOctets() {
-        assertEquals("1:2:3:4:5:6:7:8::",
-                this.createAddress(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}).toString());
+        this.toStringAndCheck(this.createAddress(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}),
+                "1:2:3:4:5:6:7:8::");
     }
 
     @Test
     public void testToString() {
-        assertEquals("FF:2:3:4:5:6:7:8::",
-                this.createAddress(new byte[]{(byte) 0xFF, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0})
-                        .toString());
+        this.toStringAndCheck(this.createAddress(new byte[]{(byte) 0xFF, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}),
+                "FF:2:3:4:5:6:7:8::");
     }
 
     @Test
     public void testToStringFilled() {
-        assertEquals("FF:2:3:4:5:6:7:8:9:FF:1:2:3:4:5:6",
-                this.createAddress(new byte[]{(byte) 0xFF, 2, 3, 4, 5, 6, 7, 8, 9, (byte) 0xFF, 1, 2, 3, 4, 5, 6})
-                        .toString());
+        this.toStringAndCheck(this.createAddress(new byte[]{(byte) 0xFF, 2, 3, 4, 5, 6, 7, 8, 9, (byte) 0xFF, 1, 2, 3, 4, 5, 6}),
+                "FF:2:3:4:5:6:7:8:9:FF:1:2:3:4:5:6");
     }
 
     @Override

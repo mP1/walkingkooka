@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitorTest extends ClassTestCase<EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor> {
     @Override
-    protected Class<EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor> type() {
+    public Class<EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor> type() {
         return EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor.class;
     }
 

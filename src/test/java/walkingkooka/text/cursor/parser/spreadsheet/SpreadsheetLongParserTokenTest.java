@@ -94,7 +94,7 @@ public final class SpreadsheetLongParserTokenTest extends SpreadsheetNumericPars
     }
 
     @Override
-    protected Class<SpreadsheetLongParserToken> type() {
+    public Class<SpreadsheetLongParserToken> type() {
         return SpreadsheetLongParserToken.class;
     }
 }

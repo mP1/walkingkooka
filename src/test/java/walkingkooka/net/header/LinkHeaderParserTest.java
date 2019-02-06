@@ -116,7 +116,7 @@ public final class LinkHeaderParserTest extends HeaderParserTestCase<LinkHeaderP
     }
 
     @Override
-    protected Class<LinkHeaderParser> type() {
+    public Class<LinkHeaderParser> type() {
         return LinkHeaderParser.class;
     }
 }

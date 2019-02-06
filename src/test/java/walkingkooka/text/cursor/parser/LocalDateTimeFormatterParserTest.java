@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class LocalDateTimeFormatterParserTest extends ClassTestCase<LocalDateTimeFormatterParser> {
     @Override
-    protected Class<LocalDateTimeFormatterParser> type() {
+    public Class<LocalDateTimeFormatterParser> type() {
         return LocalDateTimeFormatterParser.class;
     }
 

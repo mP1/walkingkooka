@@ -97,7 +97,7 @@ public final class LanguageTagListHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<LanguageTagListHeaderValueConverter> type() {
+    public Class<LanguageTagListHeaderValueConverter> type() {
         return LanguageTagListHeaderValueConverter.class;
     }
 }

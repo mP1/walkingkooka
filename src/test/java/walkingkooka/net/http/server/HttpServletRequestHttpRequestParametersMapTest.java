@@ -85,7 +85,7 @@ public final class HttpServletRequestHttpRequestParametersMapTest extends MapTes
     }
 
     @Override
-    protected Class<HttpServletRequestHttpRequestParametersMap> type() {
+    public Class<HttpServletRequestHttpRequestParametersMap> type() {
         return HttpServletRequestHttpRequestParametersMap.class;
     }
 }

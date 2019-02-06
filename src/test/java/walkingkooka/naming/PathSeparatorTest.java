@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -30,7 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
-        implements HashCodeEqualsDefinedTesting<PathSeparator>, SerializationTesting<PathSeparator> {
+        implements HashCodeEqualsDefinedTesting<PathSeparator>,
+        SerializationTesting<PathSeparator>,
+        ToStringTesting<PathSeparator> {
 
     // constants
 
@@ -145,8 +148,7 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
 
     @Test
     public void testToString() {
-        assertEquals(String.valueOf(SEPARATOR),
-                PathSeparator.requiredAtStart(SEPARATOR).toString());
+        this.toStringAndCheck(PathSeparator.requiredAtStart(SEPARATOR), String.valueOf(SEPARATOR));
     }
 
     @Test

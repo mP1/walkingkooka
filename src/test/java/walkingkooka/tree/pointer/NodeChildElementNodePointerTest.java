@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class NodeChildElementNodePointerTest extends ClassTestCase<NodeChildElementNodePointer<?, ?, ?, ?>> {
     @Override
-    protected Class<NodeChildElementNodePointer<?, ?, ?, ?>> type() {
+    public Class<NodeChildElementNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(NodeChildElementNodePointer.class);
     }
 

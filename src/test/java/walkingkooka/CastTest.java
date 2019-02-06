@@ -30,7 +30,7 @@ public final class CastTest extends PublicStaticHelperTestCase<Cast> {
     }
 
     @Override
-    protected Class<Cast> type() {
+    public Class<Cast> type() {
         return Cast.class;
     }
 }

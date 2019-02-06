@@ -241,7 +241,7 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     }
 
     @Override
-    protected Class<EbnfRangeParserToken> type() {
+    public Class<EbnfRangeParserToken> type() {
         return EbnfRangeParserToken.class;
     }
 }

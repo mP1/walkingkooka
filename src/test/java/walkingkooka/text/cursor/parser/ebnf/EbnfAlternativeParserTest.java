@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 

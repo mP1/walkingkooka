@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class ChainFactoriesTest extends PublicStaticHelperTestCase<ChainFactories> {
 
     @Override
-    protected Class<ChainFactories> type() {
+    public Class<ChainFactories> type() {
         return ChainFactories.class;
     }
 

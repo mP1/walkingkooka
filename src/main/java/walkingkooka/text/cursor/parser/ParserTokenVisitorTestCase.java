@@ -31,7 +31,7 @@ public abstract class ParserTokenVisitorTestCase<V extends ParserTokenVisitor, T
     protected abstract V createParserTokenVisitor();
 
     @Override
-    protected final Class<V> type() {
+    public final Class<V> type() {
         return Cast.to(this.parserTokenVisitorType());
     }
 

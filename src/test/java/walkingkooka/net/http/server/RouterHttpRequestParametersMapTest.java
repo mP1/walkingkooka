@@ -202,7 +202,7 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
     }
 
     @Override
-    protected Class<RouterHttpRequestParametersMap> type() {
+    public Class<RouterHttpRequestParametersMap> type() {
         return RouterHttpRequestParametersMap.class;
     }
 }

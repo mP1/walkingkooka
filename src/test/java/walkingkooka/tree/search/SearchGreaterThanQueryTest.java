@@ -763,7 +763,7 @@ public final class SearchGreaterThanQueryTest extends SearchValueComparisonLeafQ
     }
     
     @Override
-    protected Class<SearchGreaterThanQuery> type() {
+    public Class<SearchGreaterThanQuery> type() {
         return SearchGreaterThanQuery.class;
     }
 }

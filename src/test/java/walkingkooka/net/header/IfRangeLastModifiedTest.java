@@ -71,7 +71,7 @@ public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastMo
     }
 
     @Override
-    protected Class<IfRangeLastModified> type() {
+    public Class<IfRangeLastModified> type() {
         return IfRangeLastModified.class;
     }
 }

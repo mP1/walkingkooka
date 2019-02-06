@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 public final class SpreadsheetTextFormattersTest extends PublicStaticHelperTestCase<SpreadsheetTextFormatters> {
 
     @Override
-    protected Class<SpreadsheetTextFormatters> type() {
+    public Class<SpreadsheetTextFormatters> type() {
         return SpreadsheetTextFormatters.class;
     }
 

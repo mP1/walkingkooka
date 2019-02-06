@@ -19,12 +19,14 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LineAndColumnTest extends ClassTestCase<LineAndColumn> {
+public class LineAndColumnTest extends ClassTestCase<LineAndColumn>
+        implements ToStringTesting<LineAndColumn> {
 
     private final static int LINE_NUMBER = 1;
     private final static int COLUMN_NUMBER = 2;
@@ -62,7 +64,7 @@ public class LineAndColumnTest extends ClassTestCase<LineAndColumn> {
 
     @Test
     public void testToString() {
-        assertEquals("line: 1, col: 2, \"abcdef\"", this.create().toString());
+        this.toStringAndCheck(this.create(), "line: 1, col: 2, \"abcdef\"");
     }
 
     @Test
@@ -260,7 +262,7 @@ public class LineAndColumnTest extends ClassTestCase<LineAndColumn> {
     }
 
     @Override
-    protected Class<LineAndColumn> type() {
+    public Class<LineAndColumn> type() {
         return LineAndColumn.class;
     }
 

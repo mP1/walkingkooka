@@ -24,7 +24,7 @@ final public class IndentingPrinterTemplateTest
         extends ClassTestCase<IndentingPrinterTemplate> {
 
     @Override
-    protected Class<IndentingPrinterTemplate> type() {
+    public Class<IndentingPrinterTemplate> type() {
         return IndentingPrinterTemplate.class;
     }
 

@@ -76,7 +76,7 @@ public final class FieldAttributesTest extends ClassTestCase<FieldAttributes> {
     }
 
     @Override
-    protected Class<FieldAttributes> type() {
+    public Class<FieldAttributes> type() {
         return FieldAttributes.class;
     }
 

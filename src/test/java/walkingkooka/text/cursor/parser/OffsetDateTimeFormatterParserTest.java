@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class OffsetDateTimeFormatterParserTest extends ClassTestCase<OffsetDateTimeFormatterParser> {
     @Override
-    protected Class<OffsetDateTimeFormatterParser> type() {
+    public Class<OffsetDateTimeFormatterParser> type() {
         return OffsetDateTimeFormatterParser.class;
     }
 

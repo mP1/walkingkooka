@@ -536,7 +536,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     private final static String VALUE_LABEL = "Value";
 
     @Override
-    protected Class<HeaderParser> type() {
+    public Class<HeaderParser> type() {
         return Cast.to(HeaderParser.class);
     }
 }

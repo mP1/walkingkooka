@@ -23,7 +23,7 @@ final public class MissingSystemPropertyExceptionTest
         extends PublicThrowableTestCase<MissingSystemPropertyException> {
 
     @Override
-    protected Class<MissingSystemPropertyException> type() {
+    public Class<MissingSystemPropertyException> type() {
         return MissingSystemPropertyException.class;
     }
 }

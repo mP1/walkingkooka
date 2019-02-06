@@ -22,6 +22,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -34,7 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
-        implements ConstantsTesting<SystemProperty>, HashCodeEqualsDefinedTesting<SystemProperty> {
+        implements ConstantsTesting<SystemProperty>,
+        HashCodeEqualsDefinedTesting<SystemProperty>,
+        ToStringTesting<SystemProperty> {
 
     @Test
     public void testGetNullFails() {
@@ -131,14 +134,14 @@ final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
     @Test
     public void testToString() {
         final String name = "name";
-        assertEquals(name, SystemProperty.get(name).toString());
+        this.toStringAndCheck(SystemProperty.get(name), name);
     }
 
     @Test
     public void testToStringNeedsQuotes() {
         final String name = "needs quotes";
-        assertEquals(CharSequences.quoteIfNecessary(name).toString(),
-                SystemProperty.get(name).toString());
+        this.toStringAndCheck(SystemProperty.get(name),
+                CharSequences.quoteIfNecessary(name).toString());
     }
 
     @Override

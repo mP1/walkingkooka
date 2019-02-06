@@ -96,7 +96,7 @@ public final class SpreadsheetLocalDateParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected Class<SpreadsheetLocalDateParserToken> type() {
+    public Class<SpreadsheetLocalDateParserToken> type() {
         return SpreadsheetLocalDateParserToken.class;
     }
 }

@@ -19,9 +19,11 @@ package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> extends ClassTestCase<L> {
+abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> extends ClassTestCase<L>
+        implements ToStringTesting<L> {
 
     protected TextCursorLineInfoTestCase() {
         super();

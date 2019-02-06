@@ -123,7 +123,7 @@ public final class PojoNameTest extends ClassTestCase<PojoName>
     }
 
     @Override
-    protected Class<PojoName> type() {
+    public Class<PojoName> type() {
         return PojoName.class;
     }
 

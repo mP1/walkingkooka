@@ -23,7 +23,6 @@ import walkingkooka.collect.iterator.Iterators;
 
 import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -56,7 +55,7 @@ final public class IteratorIterableTest extends IterableTestCase<IteratorIterabl
     @Test
     public void testToString() {
         final Iterator<Object> iterator = this.createIterator();
-        assertEquals(iterator.toString(), IteratorIterable.with(iterator).toString());
+        this.toStringAndCheck(IteratorIterable.with(iterator), iterator.toString());
     }
 
     @Override
@@ -69,7 +68,7 @@ final public class IteratorIterableTest extends IterableTestCase<IteratorIterabl
     }
 
     @Override
-    protected Class<IteratorIterable<Object>> type() {
+    public Class<IteratorIterable<Object>> type() {
         return Cast.to(IteratorIterable.class);
     }
 }

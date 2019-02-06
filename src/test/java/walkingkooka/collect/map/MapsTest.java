@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class MapsTest extends PublicStaticHelperTestCase<Maps> {
 
     @Override
-    protected Class<Maps> type() {
+    public Class<Maps> type() {
         return Maps.class;
     }
 

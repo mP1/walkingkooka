@@ -21,6 +21,7 @@ package walkingkooka.tree.visit;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
@@ -34,7 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class VisitorTestCase<V extends Visitor<T>, T>
         extends
-        ClassTestCase<V> {
+        ClassTestCase<V>
+        implements ToStringTesting<V> {
 
     protected VisitorTestCase() {
         super();

@@ -512,7 +512,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     @Test
     public void testToStringEmpty() {
-        assertEquals("{}", this.createJsonNode().toString());
+        this.toStringAndCheck(this.createJsonNode(), "{}");
     }
 
     @Test
@@ -522,7 +522,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .set(key2(), JsonNode.number(2))
                 .set(key3(), JsonNode.string("third"));
 
-        assertEquals("{\n  \"key1\": true,\n  \"key2\": 2,\n  \"key3\": \"third\"\n}".replace("\n", LineEnding.SYSTEM.toString()), object.toString());
+        this.toStringAndCheck(object,
+                "{\n  \"key1\": true,\n  \"key2\": 2,\n  \"key3\": \"third\"\n}".replace("\n", LineEnding.SYSTEM.toString()));
     }
 
     @Test
@@ -533,7 +534,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonObjectNode object = JsonNode.object()
                 .set(key3(), nested);
 
-        assertEquals("{\n  \"key3\": {\n    \"key1\": true,\n    \"key2\": 2\n  }\n}".replace("\n", LineEnding.SYSTEM.toString()), object.toString());
+        this.toStringAndCheck(object,
+                "{\n  \"key3\": {\n    \"key1\": true,\n    \"key2\": 2\n  }\n}".replace("\n", LineEnding.SYSTEM.toString()));
     }
 
     @Test
@@ -545,7 +547,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonObjectNode object = JsonNode.object()
                 .set(key3(), nested);
 
-        assertEquals("{\n  \"key3\": [true, 2, \"third\"]\n}".replace("\n", LineEnding.SYSTEM.toString()), object.toString());
+        this.toStringAndCheck(object,
+                "{\n  \"key3\": [true, 2, \"third\"]\n}".replace("\n", LineEnding.SYSTEM.toString()));
     }
     
     @Override

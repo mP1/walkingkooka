@@ -106,7 +106,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     abstract N createJsonNode();
 
     @Override
-    protected Class<JsonNode> type() {
+    public Class<JsonNode> type() {
         return Cast.to(this.jsonNodeType());
     }
 

@@ -112,7 +112,7 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
 
     @Test
     public void testToString() {
-        assertEquals("$B$3", this.createExpressionNode().toString());
+        this.toStringAndCheck(this.createExpressionNode(), "$B$3");
     }
 
     @Override

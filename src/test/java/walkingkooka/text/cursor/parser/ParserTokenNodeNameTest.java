@@ -68,12 +68,6 @@ public final class ParserTokenNodeNameTest extends ClassTestCase<ParserTokenNode
         this.checkValue(name, "1");
     }
 
-    @Test
-    public void testToString() {
-        final ParserTokenNodeName name = ParserTokenNodeName.with("Hello");
-        assertEquals("Hello", name.toString(), "name.value");
-    }
-
     @Override
     public ParserTokenNodeName createName(final String name) {
         return ParserTokenNodeName.with(name);
@@ -100,7 +94,7 @@ public final class ParserTokenNodeNameTest extends ClassTestCase<ParserTokenNode
     }
 
     @Override
-    protected Class<ParserTokenNodeName> type() {
+    public Class<ParserTokenNodeName> type() {
         return ParserTokenNodeName.class;
     }
 

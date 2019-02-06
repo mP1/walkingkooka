@@ -178,7 +178,7 @@ public final class OffsetDateTimeDateTimeFormatterParserTest extends OffsetDateT
     }
 
     @Override
-    protected Class<OffsetDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
+    public Class<OffsetDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
         return Cast.to(OffsetDateTimeDateTimeFormatterParser.class);
     }
 }

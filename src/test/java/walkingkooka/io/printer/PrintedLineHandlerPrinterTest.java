@@ -372,8 +372,7 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
                 // do not flush and close
                 null); // message if fails
 
-        checkEquals("unprinted LineHandlerPrinter buffer",
-                this.replacePlaceHolder(this.toString(buffer), lineEnding),
+        checkEquals(this.replacePlaceHolder(this.toString(buffer), lineEnding),
                 this.toString(printer.buffer));
     }
 
@@ -390,7 +389,7 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
     }
 
     @Override
-    protected Class<PrintedLineHandlerPrinter> type() {
+    public Class<PrintedLineHandlerPrinter> type() {
         return PrintedLineHandlerPrinter.class;
     }
 }

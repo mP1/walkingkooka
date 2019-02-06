@@ -21,12 +21,14 @@ package walkingkooka.type;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class MethodAttributesTest extends ClassTestCase<MethodAttributes> {
+public final class MethodAttributesTest extends ClassTestCase<MethodAttributes>
+        implements ToStringTesting<MethodAttributes> {
 
     @Test
     public void testAbstract() throws Exception {
@@ -77,7 +79,7 @@ public final class MethodAttributesTest extends ClassTestCase<MethodAttributes> 
     }
 
     @Override
-    protected Class<MethodAttributes> type() {
+    public Class<MethodAttributes> type() {
         return MethodAttributes.class;
     }
 

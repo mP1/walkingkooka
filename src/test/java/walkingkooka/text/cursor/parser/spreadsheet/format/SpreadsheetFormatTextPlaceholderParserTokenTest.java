@@ -88,7 +88,7 @@ public final class SpreadsheetFormatTextPlaceholderParserTokenTest extends Sprea
     }
 
     @Override
-    protected Class<SpreadsheetFormatTextPlaceholderParserToken> type() {
+    public Class<SpreadsheetFormatTextPlaceholderParserToken> type() {
         return SpreadsheetFormatTextPlaceholderParserToken.class;
     }
 }

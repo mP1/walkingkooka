@@ -21,7 +21,7 @@ package walkingkooka.net;
 public final class HostAddressIncompleteProblemTest extends HostAddressProblemTestCase<HostAddressIncompleteProblem> {
 
     @Override
-    protected Class<HostAddressIncompleteProblem> type() {
+    public Class<HostAddressIncompleteProblem> type() {
         return HostAddressIncompleteProblem.class;
     }
 }

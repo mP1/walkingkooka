@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class JsonParentNodeTest extends ClassTestCase<JsonParentNode> {
     @Override
-    protected Class<JsonParentNode> type() {
+    public Class<JsonParentNode> type() {
         return JsonParentNode.class;
     }
 

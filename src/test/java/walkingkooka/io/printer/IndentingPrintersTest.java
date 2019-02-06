@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class IndentingPrintersTest extends PublicStaticHelperTestCase<IndentingPrinters> {
 
     @Override
-    protected Class<IndentingPrinters> type() {
+    public Class<IndentingPrinters> type() {
         return IndentingPrinters.class;
     }
 

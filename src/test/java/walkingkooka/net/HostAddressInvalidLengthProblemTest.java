@@ -22,7 +22,7 @@ public final class HostAddressInvalidLengthProblemTest
         extends HostAddressProblemTestCase<HostAddressInvalidLengthProblem> {
 
     @Override
-    protected Class<HostAddressInvalidLengthProblem> type() {
+    public Class<HostAddressInvalidLengthProblem> type() {
         return HostAddressInvalidLengthProblem.class;
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class FilesystemNodeAttributeMapEntrySetIteratorTest extends ClassTestCase<FilesystemNodeAttributeMapEntrySetIterator> {
     @Override
-    protected Class<FilesystemNodeAttributeMapEntrySetIterator> type() {
+    public Class<FilesystemNodeAttributeMapEntrySetIterator> type() {
         return FilesystemNodeAttributeMapEntrySetIterator.class;
     }
 

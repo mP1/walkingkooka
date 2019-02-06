@@ -83,16 +83,15 @@ final public class LabelledVariableTest extends VariableTestCase<LabelledVariabl
 
     @Test
     public void testToString() {
-        assertEquals(NAME + "=" + VARIABLE,
-                LabelledVariable.wrap(NAME, VARIABLE).toString());
+        this.toStringAndCheck(LabelledVariable.wrap(NAME, VARIABLE),
+                NAME + "=" + VARIABLE);
     }
 
     @Test
     public void testToStringOriginalNamedVariable() {
-        assertEquals(NAME + "=" + VARIABLE,
-                LabelledVariable.wrap(NAME,
-                        LabelledVariable.wrap("should not be present in wrapped toString", VARIABLE))
-                        .toString());
+        this.toStringAndCheck(LabelledVariable.wrap(NAME,
+                LabelledVariable.wrap("should not be present in wrapped toString", VARIABLE)),
+                NAME + "=" + VARIABLE);
     }
 
     @Override

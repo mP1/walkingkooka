@@ -20,8 +20,6 @@ package walkingkooka.collect.iterator;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void>, Void> {
 
     @Test
@@ -41,7 +39,7 @@ final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void
 
     @Test
     public void testToString() {
-        assertEquals("<empty>", EmptyIterator.instance().toString());
+        this.toStringAndCheck(EmptyIterator.instance(), "<empty>");
     }
 
     @Override public EmptyIterator<Void> createIterator() {
@@ -49,7 +47,7 @@ final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void
     }
 
     @Override
-    protected Class<EmptyIterator<Void>> type() {
+    public Class<EmptyIterator<Void>> type() {
         return Cast.to(EmptyIterator.class);
     }
 }

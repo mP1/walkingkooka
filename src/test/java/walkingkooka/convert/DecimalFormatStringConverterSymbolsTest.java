@@ -21,12 +21,12 @@ package walkingkooka.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase<DecimalFormatStringConverterSymbols>
-        implements HashCodeEqualsDefinedTesting<DecimalFormatStringConverterSymbols> {
+        implements HashCodeEqualsDefinedTesting<DecimalFormatStringConverterSymbols>,
+        ToStringTesting<DecimalFormatStringConverterSymbols> {
 
     private final static String CURRENCY = "C";
     private final static char DECIMAL = 'D';
@@ -73,11 +73,12 @@ public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase
 
     @Test
     public void testToString() {
-        assertEquals("\"C\" 'D' 'X' 'G' 'M' 'R' 'P'", DecimalFormatStringConverterSymbols.with("C", 'D', 'X', 'G', 'M', 'R', 'P').toString());
+        this.toStringAndCheck(DecimalFormatStringConverterSymbols.with("C", 'D', 'X', 'G', 'M', 'R', 'P'),
+                "\"C\" 'D' 'X' 'G' 'M' 'R' 'P'");
     }
 
     @Override
-    protected Class<DecimalFormatStringConverterSymbols> type() {
+    public Class<DecimalFormatStringConverterSymbols> type() {
         return DecimalFormatStringConverterSymbols.class;
     }
 

@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 
 public final class HttpResponsesTest extends PublicStaticHelperTestCase<HttpResponses> {
     @Override
-    protected Class<HttpResponses> type() {
+    public Class<HttpResponses> type() {
         return HttpResponses.class;
     }
 

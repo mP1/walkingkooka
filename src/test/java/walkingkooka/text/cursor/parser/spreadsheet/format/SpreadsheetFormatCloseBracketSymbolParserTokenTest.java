@@ -83,7 +83,7 @@ public final class SpreadsheetFormatCloseBracketSymbolParserTokenTest extends Sp
     }
 
     @Override
-    protected Class<SpreadsheetFormatCloseBracketSymbolParserToken> type() {
+    public Class<SpreadsheetFormatCloseBracketSymbolParserToken> type() {
         return SpreadsheetFormatCloseBracketSymbolParserToken.class;
     }
 }

@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparatorTestCase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class CaseSensitivityComparatorTest
         extends ComparatorTestCase<CaseSensitivityComparator<CharSequence>, CharSequence> {
 
@@ -142,12 +140,12 @@ final public class CaseSensitivityComparatorTest
 
     @Test
     public void testToString() {
-        assertEquals("SENSITIVE", SENSITIVE.toString());
+        this.toStringAndCheck(SENSITIVE, "SENSITIVE");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("INSENSITIVE", INSENSITIVE.toString());
+        this.toStringAndCheck(INSENSITIVE, "INSENSITIVE");
     }
 
     @Override
@@ -156,7 +154,7 @@ final public class CaseSensitivityComparatorTest
     }
 
     @Override
-    protected Class<CaseSensitivityComparator<CharSequence>> type() {
+    public Class<CaseSensitivityComparator<CharSequence>> type() {
         return Cast.to(CaseSensitivityComparator.class);
     }
 }

@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparisonRelation;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ComparableComparisonRelationPredicateTest extends PredicateTestCase<ComparableComparisonRelationPredicate<String>, String> {
@@ -159,7 +158,7 @@ public final class ComparableComparisonRelationPredicateTest extends PredicateTe
 
     @Test
     public void testToString() {
-        assertEquals("EQ M", this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), "EQ M");
     }
 
     @Override
@@ -172,7 +171,7 @@ public final class ComparableComparisonRelationPredicateTest extends PredicateTe
     }
 
     @Override
-    protected Class<ComparableComparisonRelationPredicate<String>> type() {
+    public Class<ComparableComparisonRelationPredicate<String>> type() {
         return Cast.to(ComparableComparisonRelationPredicate.class);
     }
 }

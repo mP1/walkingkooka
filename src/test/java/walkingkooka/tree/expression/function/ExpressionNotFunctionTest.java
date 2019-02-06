@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<ExpressionNotFunction, Boolean> {
@@ -44,7 +43,7 @@ public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<
 
     @Test
     public void testToString() {
-        assertEquals("not(" + ExpressionFunctions.contains() + ")", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "not(" + ExpressionFunctions.contains() + ")");
     }
 
     @Override
@@ -53,7 +52,7 @@ public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<
     }
 
     @Override
-    protected Class<ExpressionNotFunction> type() {
+    public Class<ExpressionNotFunction> type() {
         return ExpressionNotFunction.class;
     }
 }

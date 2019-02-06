@@ -140,7 +140,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     @Test
     public void testToString() {
-        assertEquals("(" + PARSER1 + " | " + PARSER2 +")", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "(" + PARSER1 + " | " + PARSER2 +")");
     }
 
     @Override
@@ -167,7 +167,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     }
 
     @Override
-    protected Class<AlternativesParser<ParserContext>> type() {
+    public Class<AlternativesParser<ParserContext>> type() {
         return Cast.to(AlternativesParser.class);
     }
 }

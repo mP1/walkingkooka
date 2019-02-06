@@ -71,7 +71,7 @@ public final class LocalDateTimeParserTokenTest extends ParserTokenTestCase<Loca
     }
 
     @Override
-    protected Class<LocalDateTimeParserToken> type() {
+    public Class<LocalDateTimeParserToken> type() {
         return LocalDateTimeParserToken.class;
     }
 }

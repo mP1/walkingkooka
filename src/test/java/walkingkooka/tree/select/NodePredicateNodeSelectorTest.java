@@ -26,7 +26,6 @@ import walkingkooka.tree.TestNode;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -67,7 +66,7 @@ final public class NodePredicateNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("*[" + PREDICATE.toString() + "]", this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), "*[" + PREDICATE.toString() + "]");
     }
 
     @Override
@@ -76,7 +75,7 @@ final public class NodePredicateNodeSelectorTest extends
     }
 
     @Override
-    protected Class<NodePredicateNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<NodePredicateNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodePredicateNodeSelector.class);
     }
 

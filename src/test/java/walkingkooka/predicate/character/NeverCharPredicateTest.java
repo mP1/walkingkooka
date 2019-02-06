@@ -20,7 +20,6 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class NeverCharPredicateTest extends CharPredicateTestCase<NeverCharPredicate> implements SerializationTesting<NeverCharPredicate> {
@@ -32,7 +31,7 @@ final public class NeverCharPredicateTest extends CharPredicateTestCase<NeverCha
 
     @Test
     public void testToString() {
-        assertEquals("<none>", NeverCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(NeverCharPredicate.INSTANCE, "<none>");
     }
 
     @Test

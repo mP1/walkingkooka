@@ -62,7 +62,8 @@ final public class NonNullVariableTest extends VariableTestCase<NonNullVariable<
     @Test
     public void testToString() {
         final Object value = "value";
-        assertEquals("non null " + value, NonNullVariable.wrap(Variables.with(value)).toString());
+        this.toStringAndCheck(NonNullVariable.wrap(Variables.with(value)),
+                "non null " + value);
     }
 
     @Override

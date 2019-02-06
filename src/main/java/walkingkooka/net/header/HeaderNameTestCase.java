@@ -50,6 +50,14 @@ public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comp
                 name + "=" + CharSequences.quoteIfNecessary(headerValue));
     }
 
+    // toString.................................................................................
+
+    @Test
+    public final void testToString() {
+        final String nameText = this.nameText();
+        this.toStringAndCheck(this.createName(nameText), nameText);
+    }
+
     // checkValue...........................................................................................
 
     @Test

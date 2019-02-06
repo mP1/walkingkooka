@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class StringConverterTest extends FixedTypeConverterTestCase<StringConverter, String> {
 
     @Test
@@ -43,7 +41,7 @@ public final class StringConverterTest extends FixedTypeConverterTestCase<String
 
     @Test
     public void testToString() {
-        assertEquals("*->String", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "*->String");
     }
 
     @Override
@@ -62,7 +60,7 @@ public final class StringConverterTest extends FixedTypeConverterTestCase<String
     }
 
     @Override
-    protected Class<StringConverter> type() {
+    public Class<StringConverter> type() {
         return StringConverter.class;
     }
 }

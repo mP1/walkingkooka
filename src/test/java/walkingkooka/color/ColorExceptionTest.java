@@ -23,7 +23,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 public final class ColorExceptionTest extends PublicThrowableTestCase<ColorException> {
 
     @Override
-    protected Class<ColorException> type() {
+    public Class<ColorException> type() {
         return ColorException.class;
     }
 }

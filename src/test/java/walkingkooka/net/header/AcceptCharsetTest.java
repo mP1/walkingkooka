@@ -110,7 +110,7 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     }
 
     @Override
-    protected Class<AcceptCharset> type() {
+    public Class<AcceptCharset> type() {
         return AcceptCharset.class;
     }
 

@@ -53,7 +53,7 @@ public final class LocalDateTimeDoubleConverterTest extends LocalDateTimeConvert
     }
 
     @Override
-    protected Class<LocalDateTimeDoubleConverter> type() {
+    public Class<LocalDateTimeDoubleConverter> type() {
         return LocalDateTimeDoubleConverter.class;
     }
 }

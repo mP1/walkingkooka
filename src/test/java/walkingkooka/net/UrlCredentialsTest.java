@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials>
         implements HashCodeEqualsDefinedTesting<UrlCredentials>,
-        SerializationTesting<UrlCredentials> {
+        SerializationTesting<UrlCredentials>,
+        ToStringTesting<UrlCredentials> {
 
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";
@@ -67,7 +69,7 @@ public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials>
     }
 
     public void testToString() {
-        assertEquals(USER + ":" + PASSWORD, this.credentials().toString());
+        this.toStringAndCheck(this.credentials(), USER + ":" + PASSWORD);
     }
 
     private UrlCredentials credentials() {
@@ -88,6 +90,8 @@ public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials>
     public UrlCredentials createObject() {
         return UrlCredentials.with(USER, PASSWORD);
     }
+
+    // SerializationTesting.................................................................................................
 
     @Override
     public UrlCredentials serializableInstance() {

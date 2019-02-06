@@ -88,7 +88,7 @@ public final class SpreadsheetFormatCurrencyParserTokenTest extends SpreadsheetF
     }
 
     @Override
-    protected Class<SpreadsheetFormatCurrencyParserToken> type() {
+    public Class<SpreadsheetFormatCurrencyParserToken> type() {
         return SpreadsheetFormatCurrencyParserToken.class;
     }
 }

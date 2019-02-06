@@ -19,11 +19,13 @@ package walkingkooka.util.variable;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final public class IntegerVariableTest extends ClassTestCase<IntegerVariable> {
+final public class IntegerVariableTest extends ClassTestCase<IntegerVariable>
+        implements ToStringTesting<IntegerVariable> {
 
     @Test
     public void testCreate() {
@@ -64,7 +66,7 @@ final public class IntegerVariableTest extends ClassTestCase<IntegerVariable> {
     }
 
     @Override
-    protected Class<IntegerVariable> type() {
+    public Class<IntegerVariable> type() {
         return IntegerVariable.class;
     }
 

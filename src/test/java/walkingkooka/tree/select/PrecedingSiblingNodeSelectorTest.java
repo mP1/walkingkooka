@@ -22,8 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class PrecedingSiblingNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<PrecedingSiblingNodeSelector<TestNode, StringName, StringName, Object>> {
 
@@ -90,7 +88,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("preceding-sibling::*", this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), "preceding-sibling::*");
     }
 
     @Override
@@ -99,7 +97,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Override
-    protected Class<PrecedingSiblingNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<PrecedingSiblingNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(PrecedingSiblingNodeSelector.class);
     }
 }

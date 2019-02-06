@@ -20,6 +20,7 @@ package walkingkooka.routing;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -28,7 +29,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class RouterTestCase<R extends Router<K, T>, K, T> extends ClassTestCase<R> {
+public abstract class RouterTestCase<R extends Router<K, T>, K, T> extends ClassTestCase<R>
+        implements ToStringTesting<R> {
 
     @Test
     public void testNullParametersFails() {

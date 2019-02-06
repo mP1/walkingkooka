@@ -59,7 +59,7 @@ public final class UnquotedStringHeaderValueConverterTest extends StringHeaderVa
     }
 
     @Override
-    protected Class<UnquotedStringHeaderValueConverter> type() {
+    public Class<UnquotedStringHeaderValueConverter> type() {
         return UnquotedStringHeaderValueConverter.class;
     }
 }

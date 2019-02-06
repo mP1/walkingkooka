@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 
 public final class ParserBiFunctionsTest extends PublicStaticHelperTestCase<ParserBiFunctions> {
     @Override
-    protected Class<ParserBiFunctions> type() {
+    public Class<ParserBiFunctions> type() {
         return ParserBiFunctions.class;
     }
 

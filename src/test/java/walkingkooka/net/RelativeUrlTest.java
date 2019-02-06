@@ -85,27 +85,26 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl>
     // toString........................................................................
 
     @Test
-    @Override
     public void testToString() {
-        checkToString(Url.relative(PATH, QUERY, FRAGMENT), "/path?query=value#fragment");
+        toStringAndCheck(Url.relative(PATH, QUERY, FRAGMENT), "/path?query=value#fragment");
     }
 
     @Test
     @Override
     public void testToStringWithoutQuery() {
-        checkToString(Url.relative(PATH, UrlQueryString.EMPTY, FRAGMENT), "/path#fragment");
+        toStringAndCheck(Url.relative(PATH, UrlQueryString.EMPTY, FRAGMENT), "/path#fragment");
     }
 
     @Test
     @Override
     public void testToStringWithoutFragment() {
-        checkToString(Url.relative(PATH, QUERY, UrlFragment.EMPTY), "/path?query=value");
+        toStringAndCheck(Url.relative(PATH, QUERY, UrlFragment.EMPTY), "/path?query=value");
     }
 
     @Test
     @Override
     public void testToStringWithoutQueryAndFragment() {
-        checkToString(Url.relative(PATH, UrlQueryString.EMPTY, UrlFragment.EMPTY), "/path");
+        toStringAndCheck(Url.relative(PATH, UrlQueryString.EMPTY, UrlFragment.EMPTY), "/path");
     }
 
     @Test

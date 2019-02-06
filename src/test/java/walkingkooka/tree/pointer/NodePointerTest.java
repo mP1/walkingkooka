@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
@@ -40,7 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, JsonNodeName, Name, Object>>
-        implements ParseStringTesting<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
+        implements ParseStringTesting<NodePointer<JsonNode, JsonNodeName, Name, Object>>,
+        ToStringTesting<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
 
     private final static JsonNodeName ABC = JsonNodeName.with("abc");
     private final static JsonNodeName DEF = JsonNodeName.with("def");
@@ -95,122 +97,110 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
                     .named(null);
         });
     }
-    
+
     // toString.......................................................................................................
 
     @Test
     public void testToStringRelative() {
-        assertEquals("1",
-                NodePointer.relative(1, JsonNode.class)
-                        .toString());
+        this.toStringAndCheck(NodePointer.relative(1, JsonNode.class),
+                "1");
     }
 
     @Test
     public void testToStringRelativeHash() {
-        assertEquals("1#",
-                NodePointer.relativeHash(1, JsonNode.class)
-                        .toString());
+        this.toStringAndCheck(NodePointer.relativeHash(1, JsonNode.class),
+                "1#");
     }
 
     @Test
     public void testToStringRelativeIndex() {
-        assertEquals("1/23",
-                NodePointer.relative(1, JsonNode.class)
-                        .index(23)
-                        .toString());
+        this.toStringAndCheck(NodePointer.relative(1, JsonNode.class)
+                        .index(23),
+                "1/23");
     }
 
     @Test
     public void testToStringRelativeNamed() {
-        assertEquals("1/abc",
-                NodePointer.relative(1, JsonNode.class)
-                        .named(JsonNodeName.with("abc"))
-                        .toString());
+        this.toStringAndCheck(NodePointer.relative(1, JsonNode.class)
+                        .named(JsonNodeName.with("abc")),
+                "1/abc");
     }
 
     @Test
     public void testToStringRelativeHashNamed() {
-        assertEquals("1/abc",
-                NodePointer.relativeHash(1, JsonNode.class)
-                        .named(JsonNodeName.with("abc"))
-                        .toString());
+        this.toStringAndCheck(NodePointer.relativeHash(1, JsonNode.class)
+                        .named(JsonNodeName.with("abc")),
+                "1/abc");
     }
 
     @Test
     public void testToStringChildIndex() {
-        assertEquals("/0",
-                NodePointer.index(0, JsonNode.class)
-                .toString());
+        this.toStringAndCheck(NodePointer.index(0, JsonNode.class),
+                "/0");
     }
 
     @Test
     public void testToStringChildNamed() {
-        assertEquals("/abc",
+        this.toStringAndCheck("/abc",
                 NodePointer.named(ABC, JsonNode.class)
-                .toString());
+                        .toString());
     }
 
     @Test
     public void testToStringChildNamedChildIndex() {
-        assertEquals("/abc/0",
-                NodePointer.named(ABC, JsonNode.class)
-                .index(0)
-                .toString());
+        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+                        .index(0),
+                "/abc/0");
     }
 
     @Test
     public void testToStringChildNamedChildIndexX2() {
-        assertEquals("/abc/0/1",
-                NodePointer.named(ABC, JsonNode.class)
-                .index(0)
-                .index(1)
-                .toString());
+        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+                        .index(0)
+                        .index(1),
+                "/abc/0/1");
     }
 
     @Test
     public void testToStringChildIndexChildNamedChildIndex() {
-        assertEquals("/0/abc/1",
+        this.toStringAndCheck("/0/abc/1",
                 NodePointer.index(0, JsonNode.class)
-                .named(ABC)
-                .index(1)
-                .toString());
+                        .named(ABC)
+                        .index(1)
+                        .toString());
     }
 
     @Test
     public void testToStringChildNamedChildNamed() {
-        assertEquals("/abc/def",
-                NodePointer.named(ABC, JsonNode.class)
-                .named(DEF)
-                .toString());
+        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+                        .named(DEF),
+                "/abc/def");
     }
 
     @Test
     public void testToStringChildNamedChildNamedChildNamed() {
-        assertEquals("/abc/def/ghi",
-                NodePointer.named(ABC, JsonNode.class)
-                .named(DEF)
-                .named(GHI)
-                .toString());
+        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
+                        .named(DEF)
+                        .named(GHI),
+                "/abc/def/ghi");
     }
 
     @Test
     public void testToStringChildNamedChildNamedChildNamedChildNamed() {
-        assertEquals("/abc/def/ghi/jkl",
-                NodePointer.named(ABC, JsonNode.class)
+        this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
                         .named(DEF)
                         .named(GHI)
-                        .named(JKL)
-                        .toString());
+                        .named(JKL),
+                "/abc/def/ghi/jkl");
     }
 
     @Test
     public void testToStringChildIndexChildIndexChildIndexChildIndex() {
-        assertEquals("/0/1/2/3",
-                NodePointer.index(0, JsonNode.class)
+        this.toStringAndCheck(NodePointer.index(0, JsonNode.class)
                         .index(1)
                         .index(2)
-                        .index(3)
-                        .toString());
+                        .index(3),
+                "/0/1/2/3");
     }
 
     // traverse
@@ -605,7 +595,7 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
     }
 
     @Override
-    protected Class<NodePointer<JsonNode, JsonNodeName, Name, Object>> type() {
+    public Class<NodePointer<JsonNode, JsonNodeName, Name, Object>> type() {
         return Cast.to(NodePointer.class);
     }
 

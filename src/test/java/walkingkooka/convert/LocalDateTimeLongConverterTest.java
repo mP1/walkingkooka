@@ -45,7 +45,7 @@ public final class LocalDateTimeLongConverterTest extends LocalDateTimeConverter
     }
 
     @Override
-    protected Class<LocalDateTimeLongConverter> type() {
+    public Class<LocalDateTimeLongConverter> type() {
         return LocalDateTimeLongConverter.class;
     }
 }

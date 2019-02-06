@@ -95,7 +95,7 @@ public final class JsonNodeNumberParserTokenTest extends JsonNodeLeafParserToken
     }
 
     @Override
-    protected Class<JsonNodeNumberParserToken> type() {
+    public Class<JsonNodeNumberParserToken> type() {
         return JsonNodeNumberParserToken.class;
     }
 }

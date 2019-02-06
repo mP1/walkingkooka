@@ -88,7 +88,7 @@ public final class SpreadsheetFormatStarParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected Class<SpreadsheetFormatStarParserToken> type() {
+    public Class<SpreadsheetFormatStarParserToken> type() {
         return SpreadsheetFormatStarParserToken.class;
     }
 }

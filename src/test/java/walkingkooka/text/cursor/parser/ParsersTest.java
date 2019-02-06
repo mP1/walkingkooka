@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 public final class ParsersTest extends PublicStaticHelperTestCase<Parsers> {
 
     @Override
-    protected Class<Parsers> type() {
+    public Class<Parsers> type() {
         return Parsers.class;
     }
 

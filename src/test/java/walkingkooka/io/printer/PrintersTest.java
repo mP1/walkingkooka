@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class PrintersTest extends PublicStaticHelperTestCase<Printers> {
 
     @Override
-    protected Class<Printers> type() {
+    public Class<Printers> type() {
         return Printers.class;
     }
 

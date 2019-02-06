@@ -50,12 +50,6 @@ final public class HttpRequestParameterNameTest extends ClassTestCase<HttpReques
                 }));
     }
 
-    @Test
-    public void testToString() {
-        final String name = "ABC123";
-        assertEquals(name, HttpRequestParameterName.with(name).toString());
-    }
-
     @Override
     public HttpRequestParameterName createName(final String name) {
         return HttpRequestParameterName.with(name);
@@ -82,7 +76,7 @@ final public class HttpRequestParameterNameTest extends ClassTestCase<HttpReques
     }
 
     @Override
-    protected Class<HttpRequestParameterName> type() {
+    public Class<HttpRequestParameterName> type() {
         return HttpRequestParameterName.class;
     }
 

@@ -58,7 +58,7 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
         final CharacterCountingPrinter printer = this.createPrinter(builder, counter);
         printer.print("123");
         printer.print("456");
-        checkEquals("printed", "123456", builder.toString());
+        checkEquals("123456", builder.toString(), "printed");
         assertEquals(106, (int) counter.get(), "counter");
     }
 
@@ -90,14 +90,14 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
         printer.print(printer.lineEnding());
         printer.print("456");
 
-        checkEquals("printed","123" + lineEnding + "456", builder.toString());
+        checkEquals("123" + lineEnding + "456", builder.toString(), "printed");
         assertEquals(106 + lineEnding.length(), (int) counter.get(), "counter");
     }
 
     @Test
     public void testToString() {
-        checkEquals(PRINTER + " 123 char(s)",
-                CharacterCountingPrinter.wrap(PRINTER, Variables.with(Integer.valueOf(123))).toString());
+        this.toStringAndCheck(CharacterCountingPrinter.wrap(PRINTER, Variables.with(Integer.valueOf(123))),
+                PRINTER + " 123 char(s)");
     }
 
     @Override
@@ -118,7 +118,7 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
     private final StringBuilder stringBuilder = new StringBuilder();
 
     @Override
-    protected Class<CharacterCountingPrinter> type() {
+    public Class<CharacterCountingPrinter> type() {
         return CharacterCountingPrinter.class;
     }
 }

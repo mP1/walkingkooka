@@ -196,7 +196,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
     // toString ...........................................................................................
 
     @Test
-    public void testToStringNoParameters() {
+    public void testToString() {
         this.toStringAndCheck(TokenHeaderValue.with(VALUE),
                 "abc");
     }
@@ -212,10 +212,6 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
         this.toStringAndCheck(TokenHeaderValue.with(VALUE)
                         .setParameters(this.parameters("p1", "v1", "p2", "v2")),
                 "abc; p1=v1; p2=v2");
-    }
-
-    private void toStringAndCheck(final TokenHeaderValue token, final String toString) {
-        assertEquals(toString, token.toString(), "toString");
     }
 
     // toHeaderTextList ...........................................................................................
@@ -314,7 +310,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
     }
 
     @Override
-    protected Class<TokenHeaderValue> type() {
+    public Class<TokenHeaderValue> type() {
         return TokenHeaderValue.class;
     }
 

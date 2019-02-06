@@ -61,7 +61,7 @@ public final class LinkRelationHeaderParserTest extends HeaderParserTestCase<Lin
     }
 
     @Override
-    protected Class<LinkRelationHeaderParser> type() {
+    public Class<LinkRelationHeaderParser> type() {
         return LinkRelationHeaderParser.class;
     }
 }

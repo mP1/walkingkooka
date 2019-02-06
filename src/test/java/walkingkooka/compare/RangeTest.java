@@ -930,7 +930,7 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
     }
 
     @Override
-    protected Class<Range<Integer>> type() {
+    public Class<Range<Integer>> type() {
         return Cast.to(Range.class);
     }
 

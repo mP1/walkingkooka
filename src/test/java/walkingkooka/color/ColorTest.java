@@ -112,7 +112,7 @@ public final class ColorTest extends ClassTestCase<Color> implements ParseString
     }
 
     @Override
-    protected Class<Color> type() {
+    public Class<Color> type() {
         return Color.class;
     }
 

@@ -413,7 +413,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     @Override
-    protected Class<RangeAwareHttpResponse> type() {
+    public Class<RangeAwareHttpResponse> type() {
         return RangeAwareHttpResponse.class;
     }
 }

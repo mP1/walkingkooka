@@ -81,7 +81,7 @@ public final class ParserTokenParentNodeListTest extends ListTestCase<ParserToke
     }
 
     @Override
-    protected Class<ParserTokenParentNodeList> type() {
+    public Class<ParserTokenParentNodeList> type() {
         return ParserTokenParentNodeList.class;
     }
 }

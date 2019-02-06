@@ -216,14 +216,6 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
         assertEquals(parameter, directive.parameter(), "parameter");
     }
 
-    // toString.................................................................................
-
-    @Test
-    public void testToString() {
-        final String name = "X-custom";
-        assertEquals(name, CacheControlDirectiveName.with(name).toString());
-    }
-
     @Override
     public CacheControlDirectiveName<Object> createName(final String name) {
         return Cast.to(CacheControlDirectiveName.with(name));
@@ -267,7 +259,7 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
     }
 
     @Override
-    protected Class<CacheControlDirectiveName<?>> type() {
+    public Class<CacheControlDirectiveName<?>> type() {
         return Cast.to(CacheControlDirectiveName.class);
     }
 }

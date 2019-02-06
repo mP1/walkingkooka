@@ -425,8 +425,7 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
 
     @Test
     public void testToString() {
-        assertEquals(FIRST + " " + SECOND,
-                this.createPrintStream().toString());
+        this.toStringAndCheck(this.createPrintStream(), FIRST + " " + SECOND);
     }
 
     @Override
@@ -445,7 +444,7 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
     }
 
     @Override
-    protected Class<TeePrintStream> type() {
+    public Class<TeePrintStream> type() {
         return TeePrintStream.class;
     }
 }

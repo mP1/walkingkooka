@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class TextFormatterSpreadsheetFormatParserTokenVisitorTest extends ClassTestCase<TextFormatterSpreadsheetFormatParserTokenVisitor> {
 
     @Override
-    protected Class<TextFormatterSpreadsheetFormatParserTokenVisitor> type() {
+    public Class<TextFormatterSpreadsheetFormatParserTokenVisitor> type() {
         return TextFormatterSpreadsheetFormatParserTokenVisitor.class;
     }
 

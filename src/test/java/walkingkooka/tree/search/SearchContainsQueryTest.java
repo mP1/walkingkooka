@@ -323,7 +323,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
     }
 
     @Override
-    protected Class<SearchContainsQuery> type() {
+    public Class<SearchContainsQuery> type() {
         return SearchContainsQuery.class;
     }
 }

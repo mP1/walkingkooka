@@ -29,8 +29,6 @@ import walkingkooka.tree.json.JsonNode;
 import java.math.BigInteger;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends
         HateosHandlerContextTestCase<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>, JsonNode> {
 
@@ -94,7 +92,7 @@ public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends
 
     @Test
     public void testToString() {
-        assertEquals("http://example.com/api/", this.createContext().toString());
+        this.toStringAndCheck(this.createContext(), "http://example.com/api/");
     }
 
     @Override
@@ -113,7 +111,7 @@ public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends
     }
 
     @Override
-    protected Class<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHateosHandlerContext.class);
     }
 }

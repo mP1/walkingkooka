@@ -42,7 +42,7 @@ public final class SearchTextQueryValueTest extends SearchQueryValueTestCase2<Se
     }
 
     @Override
-    protected Class<SearchTextQueryValue> type() {
+    public Class<SearchTextQueryValue> type() {
         return SearchTextQueryValue.class;
     }
 }

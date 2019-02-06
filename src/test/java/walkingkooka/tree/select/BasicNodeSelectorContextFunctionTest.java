@@ -34,7 +34,7 @@ public final class BasicNodeSelectorContextFunctionTest extends FunctionTestCase
     }
 
     @Override
-    protected Class<BasicNodeSelectorContextFunction> type() {
+    public Class<BasicNodeSelectorContextFunction> type() {
         return BasicNodeSelectorContextFunction.class;
     }
 }

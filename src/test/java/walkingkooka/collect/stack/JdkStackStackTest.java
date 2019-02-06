@@ -179,7 +179,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         stack.push("1");
         stack.push("2");
         stack.push("3");
-        assertEquals(Lists.of("1", "2", "3").toString(), stack.toString());
+        this.toStringAndCheck( stack.toString(), Lists.of("1", "2", "3").toString());
     }
 
     @Override

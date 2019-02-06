@@ -88,7 +88,7 @@ public final class BigDecimalParserTokenTest extends ParserTokenTestCase<BigDeci
     }
 
     @Override
-    protected Class<BigDecimalParserToken> type() {
+    public Class<BigDecimalParserToken> type() {
         return BigDecimalParserToken.class;
     }
 }

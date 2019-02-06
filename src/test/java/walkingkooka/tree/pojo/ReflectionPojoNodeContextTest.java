@@ -285,7 +285,7 @@ public final class ReflectionPojoNodeContextTest extends PojoNodeContextTestCase
     }
 
     @Override
-    protected Class<ReflectionPojoNodeContext> type() {
+    public Class<ReflectionPojoNodeContext> type() {
         return ReflectionPojoNodeContext.class;
     }
 

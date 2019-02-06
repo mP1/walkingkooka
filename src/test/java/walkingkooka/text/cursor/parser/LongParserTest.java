@@ -25,7 +25,6 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserContext>, LongParserToken> {
@@ -218,12 +217,12 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserCont
 
     @Test
     public void testToString() {
-        assertEquals("Long", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "Long");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("Long(base=8)", LongParser.with(8).toString());
+        this.toStringAndCheck(LongParser.with(8), "Long(base=8)");
     }
 
     @Override
@@ -250,7 +249,7 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserCont
     }
 
     @Override
-    protected Class<LongParser<ParserContext>> type() {
+    public Class<LongParser<ParserContext>> type() {
         return Cast.to(LongParser.class);
     }
 }

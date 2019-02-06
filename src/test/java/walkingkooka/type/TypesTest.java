@@ -130,7 +130,7 @@ public final class TypesTest extends PublicStaticHelperTestCase<Types> {
     }
 
     @Override
-    protected Class<Types> type() {
+    public Class<Types> type() {
         return Types.class;
     }
 

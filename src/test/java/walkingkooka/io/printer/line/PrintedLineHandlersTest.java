@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class PrintedLineHandlersTest extends PublicStaticHelperTestCase<PrintedLineHandlers> {
 
     @Override
-    protected Class<PrintedLineHandlers> type() {
+    public Class<PrintedLineHandlers> type() {
         return PrintedLineHandlers.class;
     }
 

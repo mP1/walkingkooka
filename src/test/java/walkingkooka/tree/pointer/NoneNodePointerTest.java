@@ -21,35 +21,33 @@ package walkingkooka.tree.pointer;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public final class NoneNodePointerTest extends ClassTestCase<NoneNodePointer<?, ?, ?, ?>> {
+public final class NoneNodePointerTest extends ClassTestCase<NoneNodePointer<?, ?, ?, ?>>
+        implements ToStringTesting<NoneNodePointer<?, ?, ?, ?>> {
 
     @Test
-    public void testElementAppendToString() {
+    public void testToStringElementAppend() {
         final NodePointer<?, ?, ?, ?> element = NodePointer.named(JsonNodeName.with("abc"), JsonNode.class);
-        final NodePointer<?, ?, ?, ?> none = element.none();
-        assertEquals("/abc/-", none.toString());
+        this.toStringAndCheck(element.none(), "/abc/-");
     }
 
     @Test
-    public void testArrayAppendToString() {
+    public void testToStringArrayAppend() {
         final NodePointer<?, ?, ?, ?> array = NodePointer.index(123, JsonNode.class);
-        final NodePointer<?, ?, ?, ?> none = array.none();
-        assertEquals("/123/-", none.toString());
+        this.toStringAndCheck(array.none(), "/123/-");
     }
 
     @Test
     public void testToString() {
-        assertEquals("-", NoneNodePointer.with("-").toString());
+        this.toStringAndCheck(NoneNodePointer.with("-"), "-");
     }
 
     @Override
-    protected Class<NoneNodePointer<?, ?, ?, ?>> type() {
+    public Class<NoneNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(NoneNodePointer.class);
     }
 

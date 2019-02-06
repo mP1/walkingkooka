@@ -20,8 +20,6 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class WhitespaceCharPredicateTest
         extends CharPredicateTestCase<WhitespaceCharPredicate> implements SerializationTesting<WhitespaceCharPredicate> {
 
@@ -37,7 +35,7 @@ final public class WhitespaceCharPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("whitespace", WhitespaceCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(WhitespaceCharPredicate.INSTANCE, "whitespace");
     }
 
     @Override

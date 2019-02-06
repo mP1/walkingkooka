@@ -19,9 +19,11 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class ContextTestCase<C extends Context> extends ClassTestCase<C> {
+public abstract class ContextTestCase<C extends Context> extends ClassTestCase<C>
+        implements ToStringTesting<C> {
 
     @Test
     public void testCheckNaming() {

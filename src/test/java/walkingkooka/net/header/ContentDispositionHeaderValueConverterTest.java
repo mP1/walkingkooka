@@ -65,7 +65,7 @@ public final class ContentDispositionHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<ContentDispositionHeaderValueConverter> type() {
+    public Class<ContentDispositionHeaderValueConverter> type() {
         return ContentDispositionHeaderValueConverter.class;
     }
 }

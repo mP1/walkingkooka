@@ -91,7 +91,7 @@ public final class NumberBigIntegerConverterTest extends NumberConverterTestCase
     }
 
     @Override
-    protected Class<NumberBigIntegerConverter> type() {
+    public Class<NumberBigIntegerConverter> type() {
         return NumberBigIntegerConverter.class;
     }
 }

@@ -121,7 +121,7 @@ public final class SpreadsheetSubtractionParserTokenTest extends SpreadsheetBina
     }
 
     @Override
-    protected Class<SpreadsheetSubtractionParserToken> type() {
+    public Class<SpreadsheetSubtractionParserToken> type() {
         return SpreadsheetSubtractionParserToken.class;
     }
 }

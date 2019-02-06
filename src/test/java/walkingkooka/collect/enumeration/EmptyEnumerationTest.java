@@ -40,7 +40,7 @@ final public class EmptyEnumerationTest extends EnumerationTestCase<EmptyEnumera
     }
 
     @Override
-    protected Class<EmptyEnumeration<Void>> type() {
+    public Class<EmptyEnumeration<Void>> type() {
         return Cast.to(EmptyEnumeration.class);
     }
 }

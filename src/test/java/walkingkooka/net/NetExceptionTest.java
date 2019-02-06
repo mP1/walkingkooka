@@ -23,7 +23,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class NetExceptionTest extends PublicThrowableTestCase<NetException> {
 
     @Override
-    protected Class<NetException> type() {
+    public Class<NetException> type() {
         return NetException.class;
     }
 }

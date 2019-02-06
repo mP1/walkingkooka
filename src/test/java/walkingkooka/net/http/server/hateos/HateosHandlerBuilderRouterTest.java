@@ -1124,7 +1124,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
     }
 
     @Override
-    protected Class<HateosHandlerBuilderRouter<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouter<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouter.class);
     }
 }

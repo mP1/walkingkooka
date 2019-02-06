@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class XmlConfigurationPropertyTest extends ClassTestCase<XmlConfigurationProperty> {
     @Override
-    protected Class<XmlConfigurationProperty> type() {
+    public Class<XmlConfigurationProperty> type() {
         return XmlConfigurationProperty.class;
     }
 

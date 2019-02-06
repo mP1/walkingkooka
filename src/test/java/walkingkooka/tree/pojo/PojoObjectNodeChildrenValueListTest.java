@@ -59,7 +59,7 @@ public final class PojoObjectNodeChildrenValueListTest extends PojoNodeListTestC
     }
 
     @Override
-    protected Class<PojoObjectNodeChildrenValueList> type() {
+    public Class<PojoObjectNodeChildrenValueList> type() {
         return PojoObjectNodeChildrenValueList.class;
     }
 }

@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -101,21 +100,13 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
         return MediaType.with("type", "subType");
     }
 
-    // toString...........................................................................
-
-    @Test
-    public void testToString() {
-        final String text = "abc123";
-        assertEquals(text, MediaTypeParameterName.with(text).toString());
-    }
-
     @Override
     public MediaTypeParameterName<Object> createName(final String name) {
         return Cast.to(MediaTypeParameterName.with(name));
     }
 
     @Override
-    protected Class<MediaTypeParameterName<?>> type() {
+    public Class<MediaTypeParameterName<?>> type() {
         return Cast.to(MediaTypeParameterName.class);
     }
 }

@@ -62,12 +62,12 @@ public final class JsonNumberNodeTest extends JsonLeafNodeTestCase<JsonNumberNod
     
     @Test
     public void testToString() {
-        assertEquals("1", this.createJsonNode(1.0).toString());
+        this.toStringAndCheck(this.createJsonNode(1.0), "1");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("234.5", this.createJsonNode(234.5).toString());
+        this.toStringAndCheck(this.createJsonNode(234.5), "234.5");
     }
 
     @Override

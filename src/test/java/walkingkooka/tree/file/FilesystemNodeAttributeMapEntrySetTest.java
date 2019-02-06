@@ -63,7 +63,7 @@ public final class FilesystemNodeAttributeMapEntrySetTest extends SetTestCase<Fi
     }
 
     @Override
-    protected Class<FilesystemNodeAttributeMapEntrySet> type() {
+    public Class<FilesystemNodeAttributeMapEntrySet> type() {
         return FilesystemNodeAttributeMapEntrySet.class;
     }
 }

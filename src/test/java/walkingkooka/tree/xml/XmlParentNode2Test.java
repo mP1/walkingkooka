@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class XmlParentNode2Test extends ClassTestCase<XmlParentNode2> {
     @Override
-    protected Class<XmlParentNode2> type() {
+    public Class<XmlParentNode2> type() {
         return XmlParentNode2.class;
     }
 

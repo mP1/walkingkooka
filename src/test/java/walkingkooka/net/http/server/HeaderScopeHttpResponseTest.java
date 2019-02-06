@@ -85,7 +85,7 @@ public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCa
     }
 
     @Override
-    protected Class<HeaderScopeHttpResponse> type() {
+    public Class<HeaderScopeHttpResponse> type() {
         return HeaderScopeHttpResponse.class;
     }
 }

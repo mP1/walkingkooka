@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class FixedTargetTypeConverterTest extends ClassTestCase<FixedTargetTypeConverter> {
     @Override
-    protected Class<FixedTargetTypeConverter> type() {
+    public Class<FixedTargetTypeConverter> type() {
         return FixedTargetTypeConverter.class;
     }
 

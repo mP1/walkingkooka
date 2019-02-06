@@ -58,7 +58,7 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends
     }
 
     @Override
-    protected final Class<ParserTokenNode> type() {
+    public final Class<ParserTokenNode> type() {
         return Cast.to(this.parserTokenNodeType());
     }
 

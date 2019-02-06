@@ -137,7 +137,7 @@ public final class NumberLocalDateConverterTest extends NumberConverterTestCase<
     }
 
     @Override
-    protected Class<NumberLocalDateConverter> type() {
+    public Class<NumberLocalDateConverter> type() {
         return NumberLocalDateConverter.class;
     }
 }

@@ -126,7 +126,7 @@ public final class EbnfConcatenationParserTokenTest extends EbnfAlternativeConca
     }
 
     @Override
-    protected Class<EbnfConcatenationParserToken> type() {
+    public Class<EbnfConcatenationParserToken> type() {
         return EbnfConcatenationParserToken.class;
     }
 }

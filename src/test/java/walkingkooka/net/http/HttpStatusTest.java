@@ -21,6 +21,7 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpStatusTest extends ClassTestCase<HttpStatus>
-        implements HashCodeEqualsDefinedTesting<HttpStatus> {
+        implements HashCodeEqualsDefinedTesting<HttpStatus>,
+        ToStringTesting<HttpStatus> {
 
     // constants
 
@@ -119,11 +121,11 @@ final public class HttpStatusTest extends ClassTestCase<HttpStatus>
 
     @Test
     public void testToString() {
-        assertEquals("200 OK", this.status().toString());
+        this.toStringAndCheck(this.status(), "200 OK");
     }
 
     @Override
-    protected Class<HttpStatus> type() {
+    public Class<HttpStatus> type() {
         return HttpStatus.class;
     }
 

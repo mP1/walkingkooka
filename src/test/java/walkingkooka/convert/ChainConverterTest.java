@@ -25,7 +25,6 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ChainConverterTest extends ConverterTestCase<ChainConverter> {
@@ -75,7 +74,7 @@ public final class ChainConverterTest extends ConverterTestCase<ChainConverter> 
 
     @Test
     public void testToString() {
-        assertEquals(this.stringToLocalDate() + "->" + this.localDateToBigDecimal(), this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), this.stringToLocalDate() + "->" + this.localDateToBigDecimal());
     }
 
     @Override
@@ -101,7 +100,7 @@ public final class ChainConverterTest extends ConverterTestCase<ChainConverter> 
     }
 
     @Override
-    protected Class<ChainConverter> type() {
+    public Class<ChainConverter> type() {
         return ChainConverter.class;
     }
 }

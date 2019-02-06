@@ -20,11 +20,13 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpResponseTestCase<R extends HttpResponse> extends ClassTestCase<R> {
+public abstract class HttpResponseTestCase<R extends HttpResponse> extends ClassTestCase<R>
+        implements ToStringTesting<R> {
 
     @Test
     public void testSetStatusNullFails() {

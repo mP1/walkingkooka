@@ -95,7 +95,7 @@ final public class NullSkippingPrinterTest extends PrinterTestCase<NullSkippingP
     }
 
     @Override
-    protected Class<NullSkippingPrinter> type() {
+    public Class<NullSkippingPrinter> type() {
         return NullSkippingPrinter.class;
     }
 }

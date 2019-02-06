@@ -505,7 +505,7 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     }
 
     @Override
-    protected Class<AcceptCharsetHeaderParser> type() {
+    public Class<AcceptCharsetHeaderParser> type() {
         return AcceptCharsetHeaderParser.class;
     }
 }

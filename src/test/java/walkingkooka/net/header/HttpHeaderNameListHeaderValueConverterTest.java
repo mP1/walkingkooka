@@ -119,7 +119,7 @@ public final class HttpHeaderNameListHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<HttpHeaderNameListHeaderValueConverter> type() {
+    public Class<HttpHeaderNameListHeaderValueConverter> type() {
         return HttpHeaderNameListHeaderValueConverter.class;
     }
 }

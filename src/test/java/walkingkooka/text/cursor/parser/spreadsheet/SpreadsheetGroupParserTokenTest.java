@@ -114,7 +114,7 @@ public final class SpreadsheetGroupParserTokenTest extends SpreadsheetParentPars
     }
 
     @Override
-    protected Class<SpreadsheetGroupParserToken> type() {
+    public Class<SpreadsheetGroupParserToken> type() {
         return SpreadsheetGroupParserToken.class;
     }
 }

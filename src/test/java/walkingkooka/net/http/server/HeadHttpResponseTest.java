@@ -128,7 +128,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
     }
 
     @Override
-    protected Class<HeadHttpResponse> type() {
+    public Class<HeadHttpResponse> type() {
         return HeadHttpResponse.class;
     }
 }

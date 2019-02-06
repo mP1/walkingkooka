@@ -91,7 +91,7 @@ public final class DoubleQuotedParserTokenTest extends ParserTokenTestCase<Doubl
     }
 
     @Override
-    protected Class<DoubleQuotedParserToken> type() {
+    public Class<DoubleQuotedParserToken> type() {
         return DoubleQuotedParserToken.class;
     }
 }

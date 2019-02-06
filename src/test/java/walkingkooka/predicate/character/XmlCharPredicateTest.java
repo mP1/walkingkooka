@@ -20,8 +20,6 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPredicate>
         implements SerializationTesting<XmlCharPredicate> {
 
@@ -108,7 +106,7 @@ final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPre
 
     @Test
     public void testToString() {
-        assertEquals("XML", XmlCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(XmlCharPredicate.INSTANCE, "XML");
     }
 
     @Override

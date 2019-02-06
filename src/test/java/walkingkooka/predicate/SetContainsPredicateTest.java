@@ -24,7 +24,6 @@ import walkingkooka.collect.set.Sets;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SetContainsPredicateTest extends PredicateTestCase<SetContainsPredicate<String>, String> {
@@ -69,7 +68,7 @@ public final class SetContainsPredicateTest extends PredicateTestCase<SetContain
 
     @Test
     public void testToString() {
-        assertEquals(this.set().toString(), this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), this.set().toString());
     }
 
     @Override
@@ -82,7 +81,7 @@ public final class SetContainsPredicateTest extends PredicateTestCase<SetContain
     }
 
     @Override
-    protected Class<SetContainsPredicate<String>> type() {
+    public Class<SetContainsPredicate<String>> type() {
         return Cast.to(SetContainsPredicate.class);
     }
 }

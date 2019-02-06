@@ -183,7 +183,7 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
     }
 
     @Override
-    protected Class<NodeSelectorFunctionParserToken> type() {
+    public Class<NodeSelectorFunctionParserToken> type() {
         return NodeSelectorFunctionParserToken.class;
     }
 }

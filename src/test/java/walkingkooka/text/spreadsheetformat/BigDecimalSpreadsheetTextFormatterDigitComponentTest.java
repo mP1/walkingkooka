@@ -20,17 +20,16 @@ package walkingkooka.text.spreadsheetformat;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class BigDecimalSpreadsheetTextFormatterDigitComponentTest extends BigDecimalSpreadsheetTextFormatterComponentTestCase<BigDecimalSpreadsheetTextFormatterDigitComponent> {
 
     @Test
     public void testToString() {
-        assertEquals("0", BigDecimalSpreadsheetTextFormatterDigitComponent.with(1, BigDecimalSpreadsheetTextFormatterZero.ZERO).toString());
+        this.toStringAndCheck(BigDecimalSpreadsheetTextFormatterDigitComponent.with(1, BigDecimalSpreadsheetTextFormatterZero.ZERO),
+                "0");
     }
 
     @Override
-    protected Class<BigDecimalSpreadsheetTextFormatterDigitComponent> type() {
+    public Class<BigDecimalSpreadsheetTextFormatterDigitComponent> type() {
         return BigDecimalSpreadsheetTextFormatterDigitComponent.class;
     }
 }

@@ -21,19 +21,19 @@ package walkingkooka.tree.pointer;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public final class AllNodePointerTest extends ClassTestCase<AllNodePointer<?, ?, ?, ?>> {
+public final class AllNodePointerTest extends ClassTestCase<AllNodePointer<?, ?, ?, ?>>
+        implements ToStringTesting<AllNodePointer<?, ?, ?, ?>> {
 
     @Test
     public void testToString() {
-        assertEquals("", AllNodePointer.get().toString());
+        this.toStringAndCheck(AllNodePointer.get(), "");
     }
 
     @Override
-    protected Class<AllNodePointer<?, ?, ?, ?>> type() {
+    public Class<AllNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(AllNodePointer.class);
     }
 

@@ -25,7 +25,6 @@ import walkingkooka.text.cursor.TextCursors;
 import java.math.BigInteger;
 import java.util.function.BiFunction;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TransformingParserTest extends ParserTestCase2<TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext>, BigIntegerParserToken> {
@@ -82,7 +81,7 @@ public class TransformingParserTest extends ParserTestCase2<TransformingParser<S
 
     @Test
     public void testToString() {
-        assertEquals(PARSER.toString(), this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), PARSER.toString());
     }
 
     @Override
@@ -112,7 +111,7 @@ public class TransformingParserTest extends ParserTestCase2<TransformingParser<S
     }
 
     @Override
-    protected Class<TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext>> type() {
+    public Class<TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext>> type() {
         return Cast.to(TransformingParser.class);
     }
 }

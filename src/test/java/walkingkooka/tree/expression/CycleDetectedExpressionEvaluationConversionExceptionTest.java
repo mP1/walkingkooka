@@ -40,7 +40,7 @@ public final class CycleDetectedExpressionEvaluationConversionExceptionTest exte
     }
 
     @Override
-    protected Class<CycleDetectedExpressionEvaluationConversionException> type() {
+    public Class<CycleDetectedExpressionEvaluationConversionException> type() {
         return CycleDetectedExpressionEvaluationConversionException.class;
     }
 

@@ -74,7 +74,7 @@ public final class SearchAttributeValueEqualsQueryTest extends SearchAttributeLe
     }
 
     @Override
-    protected Class<SearchAttributeValueEqualsQuery> type() {
+    public Class<SearchAttributeValueEqualsQuery> type() {
         return SearchAttributeValueEqualsQuery.class;
     }
 }

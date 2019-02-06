@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
@@ -30,7 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FractionTest extends ClassTestCase<Fraction>
-        implements HashCodeEqualsDefinedTesting<Fraction>, SerializationTesting<Fraction> {
+        implements HashCodeEqualsDefinedTesting<Fraction>,
+        SerializationTesting<Fraction>,
+        ToStringTesting<Fraction> {
 
     private final static BigInteger NUMERATOR = BigInteger.ONE;
     private final static BigInteger DENOMINATOR = BigInteger.TEN;
@@ -76,7 +79,7 @@ public final class FractionTest extends ClassTestCase<Fraction>
 
     @Test
     public void testToString() {
-        assertEquals("1/10", Fraction.with(NUMERATOR, DENOMINATOR).toString());
+        this.toStringAndCheck(Fraction.with(NUMERATOR, DENOMINATOR), "1/10");
     }
 
     @Override

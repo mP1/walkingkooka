@@ -210,7 +210,7 @@ public final class InvalidCharacterExceptionTest extends PublicThrowableTestCase
     }
 
     @Override
-    protected Class<InvalidCharacterException> type() {
+    public Class<InvalidCharacterException> type() {
         return InvalidCharacterException.class;
     }
 }

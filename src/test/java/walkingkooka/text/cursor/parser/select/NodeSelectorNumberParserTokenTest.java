@@ -89,7 +89,7 @@ public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymb
     }
 
     @Override
-    protected Class<NodeSelectorNumberParserToken> type() {
+    public Class<NodeSelectorNumberParserToken> type() {
         return NodeSelectorNumberParserToken.class;
     }
 }

@@ -87,10 +87,8 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
 
     @Test
     public void testToString() {
-        final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo
-                .with(TEXT, 1);
-        assertEquals("Line: " + LINE_NUMBER + "="
-                + CharSequences.quoteAndEscape(TEXT), info.toString());
+        this.toStringAndCheck(CharSequenceTextCursorLineInfo.with(TEXT, 1),
+                "Line: " + LINE_NUMBER + "=" + CharSequences.quoteAndEscape(TEXT));
     }
 
     @Override
@@ -99,7 +97,7 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     }
 
     @Override
-    protected Class<CharSequenceTextCursorLineInfo> type() {
+    public Class<CharSequenceTextCursorLineInfo> type() {
         return CharSequenceTextCursorLineInfo.class;
     }
 }

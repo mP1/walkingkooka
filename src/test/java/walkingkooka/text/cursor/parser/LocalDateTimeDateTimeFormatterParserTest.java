@@ -115,7 +115,7 @@ public final class LocalDateTimeDateTimeFormatterParserTest extends LocalDateTim
     }
 
     @Override
-    protected Class<LocalDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
+    public Class<LocalDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
         return Cast.to(LocalDateTimeDateTimeFormatterParser.class);
     }
 }

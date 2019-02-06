@@ -22,6 +22,7 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.EmptyStackException;
@@ -34,7 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, T> extends ClassTestCase<S>
         implements HashCodeEqualsDefinedTesting<S>,
-        SerializationTesting<S> {
+        SerializationTesting<S>,
+        ToStringTesting<S> {
 
     protected StackTestCase() {
         super();
@@ -66,11 +68,6 @@ abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, 
         assertThrows(NullPointerException.class, () -> {
             this.createStack().pushAll(null);
         });
-    }
-
-    @Test
-    final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
     }
 
     abstract protected S createStack();

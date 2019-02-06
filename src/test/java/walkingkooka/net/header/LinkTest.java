@@ -276,7 +276,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     @Override
-    protected Class<Link> type() {
+    public Class<Link> type() {
         return Link.class;
     }
 

@@ -38,7 +38,7 @@ public final class LocalDateBigIntegerConverterTest extends LocalDateConverterTe
     }
 
     @Override
-    protected Class<LocalDateBigIntegerConverter> type() {
+    public Class<LocalDateBigIntegerConverter> type() {
         return LocalDateBigIntegerConverter.class;
     }
 }

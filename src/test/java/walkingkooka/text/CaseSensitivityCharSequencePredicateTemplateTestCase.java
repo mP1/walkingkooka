@@ -22,7 +22,6 @@ import walkingkooka.predicate.PredicateTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
@@ -52,17 +51,14 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
 
     @Test
     final public void testToStringCaseSensitive() {
-        assertEquals(this.prefix() + CharSequences.quoteAndEscape(
-                STRING),
-                this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(),
+                this.prefix() + CharSequences.quoteAndEscape(STRING));
     }
 
     @Test
     final public void testToStringCaseInsensitive() {
-        assertEquals(this.prefix() + CharSequences.quoteAndEscape(
-                STRING) + " (CaseInsensitive)",
-                this.createPredicateCaseInsensitivity(
-                        STRING).toString());
+        this.toStringAndCheck(this.createPredicateCaseInsensitivity(STRING),
+                this.prefix() + CharSequences.quoteAndEscape(STRING) + " (CaseInsensitive)");
     }
 
     @Override

@@ -88,7 +88,7 @@ public final class SpreadsheetEqualsSymbolParserTokenTest extends SpreadsheetSym
     }
 
     @Override
-    protected Class<SpreadsheetEqualsSymbolParserToken> type() {
+    public Class<SpreadsheetEqualsSymbolParserToken> type() {
         return SpreadsheetEqualsSymbolParserToken.class;
     }
 }

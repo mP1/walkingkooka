@@ -23,7 +23,6 @@ import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate<Object>, Object>
@@ -58,7 +57,7 @@ final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate
 
     @Test
     public void testToString() {
-        assertEquals("*", AlwaysPredicate.instance().toString());
+        this.toStringAndCheck(AlwaysPredicate.instance(), "*");
     }
 
     @Override

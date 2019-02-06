@@ -17,7 +17,6 @@
 
 package walkingkooka.test;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -38,28 +37,6 @@ abstract public class TestCase {
 
     protected TestCase() {
         super();
-    }
-
-    protected void checkToStringOverridden(final Class<?> type) {
-        if (false == Fake.class.isAssignableFrom(type)) {
-            this.checkToStringOverridden0(type);
-        }
-    }
-
-    private void checkToStringOverridden0(final Class<?> type) {
-        boolean notOverridden = true;
-
-        try {
-            final Method method = type.getMethod("toString");
-            if (method.getDeclaringClass() != Object.class) {
-                notOverridden = false;
-            }
-        } catch (final NoSuchMethodException cause) {
-        }
-
-        if (notOverridden) {
-            Assertions.fail(type.getName() + " did not override Object.toString");
-        }
     }
 
     protected byte[] resourceAsBytes(final Class<?> source, final String resource) throws IOException {

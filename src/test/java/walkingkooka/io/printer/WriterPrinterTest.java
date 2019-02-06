@@ -155,7 +155,7 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
     }
 
     @Override
-    protected Class<WriterPrinter> type() {
+    public Class<WriterPrinter> type() {
         return WriterPrinter.class;
     }
 }

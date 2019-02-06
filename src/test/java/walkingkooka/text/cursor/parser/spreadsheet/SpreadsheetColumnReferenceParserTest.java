@@ -115,7 +115,7 @@ public final class SpreadsheetColumnReferenceParserTest extends SpreadsheetParse
     }
 
     @Override
-    protected Class<SpreadsheetColumnReferenceParser> type() {
+    public Class<SpreadsheetColumnReferenceParser> type() {
         return SpreadsheetColumnReferenceParser.class;
     }
 }

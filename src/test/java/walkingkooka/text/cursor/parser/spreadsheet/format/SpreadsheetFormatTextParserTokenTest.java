@@ -170,7 +170,7 @@ public final class SpreadsheetFormatTextParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected Class<SpreadsheetFormatTextParserToken> type() {
+    public Class<SpreadsheetFormatTextParserToken> type() {
         return SpreadsheetFormatTextParserToken.class;
     }
 }

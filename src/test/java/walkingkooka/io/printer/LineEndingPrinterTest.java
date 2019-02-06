@@ -111,7 +111,7 @@ final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrin
     }
 
     @Override
-    protected Class<LineEndingPrinter> type() {
+    public Class<LineEndingPrinter> type() {
         return LineEndingPrinter.class;
     }
 }

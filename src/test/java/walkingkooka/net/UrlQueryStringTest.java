@@ -479,7 +479,7 @@ public final class UrlQueryStringTest extends ClassTestCase<UrlQueryString> {
     }
 
     @Override
-    protected Class<UrlQueryString> type() {
+    public Class<UrlQueryString> type() {
         return UrlQueryString.class;
     }
 

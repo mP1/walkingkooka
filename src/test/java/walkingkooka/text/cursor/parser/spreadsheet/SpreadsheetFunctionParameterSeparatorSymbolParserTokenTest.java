@@ -88,7 +88,7 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserTokenTest ex
     }
 
     @Override
-    protected Class<SpreadsheetFunctionParameterSeparatorSymbolParserToken> type() {
+    public Class<SpreadsheetFunctionParameterSeparatorSymbolParserToken> type() {
         return SpreadsheetFunctionParameterSeparatorSymbolParserToken.class;
     }
 }

@@ -206,7 +206,7 @@ final public class DefaultIndentingPrinterTest
     }
 
     @Override
-    protected Class<DefaultIndentingPrinter> type() {
+    public Class<DefaultIndentingPrinter> type() {
         return DefaultIndentingPrinter.class;
     }
 }

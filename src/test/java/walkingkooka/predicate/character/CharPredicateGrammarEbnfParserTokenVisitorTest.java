@@ -221,7 +221,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
     }
 
     @Override
-    protected Class<CharPredicate> type() {
+    public Class<CharPredicate> type() {
         return CharPredicate.class;
     }
 }

@@ -763,7 +763,7 @@ public final class SearchLessThanEqualsQueryTest extends SearchValueComparisonLe
     }
 
     @Override
-    protected Class<SearchLessThanEqualsQuery> type() {
+    public Class<SearchLessThanEqualsQuery> type() {
         return SearchLessThanEqualsQuery.class;
     }
 }

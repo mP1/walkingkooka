@@ -126,7 +126,7 @@ public final class EbnfAlternativeParserTokenTest extends EbnfAlternativeConcate
     }
 
     @Override
-    protected Class<EbnfAlternativeParserToken> type() {
+    public Class<EbnfAlternativeParserToken> type() {
         return EbnfAlternativeParserToken.class;
     }
 }

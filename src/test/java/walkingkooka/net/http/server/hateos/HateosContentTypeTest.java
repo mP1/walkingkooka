@@ -25,7 +25,7 @@ import walkingkooka.type.MemberVisibility;
 public final class HateosContentTypeTest extends ClassTestCase<HateosContentType<?>> {
 
     @Override
-    protected Class<HateosContentType<?>> type() {
+    public Class<HateosContentType<?>> type() {
         return Cast.to(HateosContentType.class);
     }
 

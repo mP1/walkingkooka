@@ -90,7 +90,7 @@ public final class SpreadsheetFormatColorNumberParserTokenTest extends Spreadshe
     }
 
     @Override
-    protected Class<SpreadsheetFormatColorNumberParserToken> type() {
+    public Class<SpreadsheetFormatColorNumberParserToken> type() {
         return SpreadsheetFormatColorNumberParserToken.class;
     }
 }

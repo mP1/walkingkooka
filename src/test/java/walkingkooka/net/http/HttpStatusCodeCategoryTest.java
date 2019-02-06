@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class HttpStatusCodeCategoryTest extends ClassTestCase<HttpStatusCodeCategory> {
     @Override
-    protected Class<HttpStatusCodeCategory> type() {
+    public Class<HttpStatusCodeCategory> type() {
         return HttpStatusCodeCategory.class;
     }
 

@@ -69,7 +69,7 @@ public final class UrlParameterValueListTest extends ListTestCase<UrlParameterVa
     }
 
     @Override
-    protected Class<UrlParameterValueList> type() {
+    public Class<UrlParameterValueList> type() {
         return UrlParameterValueList.class;
     }
 }

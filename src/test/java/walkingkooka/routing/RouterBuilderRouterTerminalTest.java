@@ -25,7 +25,7 @@ import walkingkooka.type.MemberVisibility;
 public final class RouterBuilderRouterTerminalTest extends ClassTestCase<RouterBuilderRouterTerminal<Void, Void>> {
 
     @Override
-    protected Class<RouterBuilderRouterTerminal<Void, Void>> type() {
+    public Class<RouterBuilderRouterTerminal<Void, Void>> type() {
         return Cast.to(RouterBuilderRouterTerminal.class);
     }
 

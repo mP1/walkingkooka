@@ -22,13 +22,16 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class PairTest extends ClassTestCase<Pair<?, ?>>
-        implements HashCodeEqualsDefinedTesting<Pair<?, ?>>, SerializationTesting<Pair<?, ?>> {
+        implements HashCodeEqualsDefinedTesting<Pair<?, ?>>,
+        SerializationTesting<Pair<?, ?>>,
+        ToStringTesting<Pair<?, ?>> {
 
     private final static A A = new A(1);
 
@@ -82,31 +85,27 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>>
 
     @Test
     public void testToString() {
-        final Pair<A, B> pair = Pair.with(A, B);
-        assertEquals(pair.toString(), A.toString() + " & " + B.toString());
+        this.toStringAndCheck(Pair.with(A, B), A.toString() + " & " + B.toString());
     }
 
     @Test
     public void testToStringNullFirst() {
-        final Pair<A, B> pair = Pair.with(null, B);
-        assertEquals(pair.toString(), "null & " + B.toString());
+        this.toStringAndCheck(Pair.with(null, B), "null & " + B.toString());
     }
 
     @Test
     public void testToStringNullSecond() {
-        final Pair<A, B> pair = Pair.with(A, null);
-        assertEquals(pair.toString(), A.toString() + " & null");
+        this.toStringAndCheck(Pair.with(A, null), A.toString() + " & null");
     }
 
     @Test
     public void testToStringNullFirstAndSecond() {
-        final Pair<A, B> pair = Pair.with(null, null);
-        assertEquals(pair.toString(), "null & null");
+        this.toStringAndCheck(Pair.with(null, null), "null & null");
     }
 
     @Test
     public void testToStringCharSequenceFirst() {
-        assertEquals(Pair.with("FIRST", B).toString(), "\"FIRST\" & " + B);
+        this.toStringAndCheck(Pair.with("FIRST", B).toString(), "\"FIRST\" & " + B);
     }
 
     @Test

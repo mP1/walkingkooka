@@ -536,7 +536,7 @@ final public class PlainTextWithoutTagsPrinterTest
     }
 
     @Override
-    protected Class<PlainTextWithoutTagsPrinter> type() {
+    public Class<PlainTextWithoutTagsPrinter> type() {
         return PlainTextWithoutTagsPrinter.class;
     }
 }

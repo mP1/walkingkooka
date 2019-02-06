@@ -20,6 +20,7 @@ package walkingkooka.collect.enumeration;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
@@ -32,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
-        extends ClassTestCase<E> {
+        extends ClassTestCase<E>
+        implements ToStringTesting<E> {
 
     protected EnumerationTestCase() {
         super();
@@ -41,10 +43,6 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
     @Test
     public void testNaming() {
         this.checkNaming(Enumeration.class);
-    }
-
-    @Test final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
     }
 
     abstract protected E createEnumeration();

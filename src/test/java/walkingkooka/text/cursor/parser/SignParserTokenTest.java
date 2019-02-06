@@ -70,7 +70,7 @@ public final class SignParserTokenTest extends ParserTokenTestCase<SignParserTok
     }
 
     @Override
-    protected Class<SignParserToken> type() {
+    public Class<SignParserToken> type() {
         return SignParserToken.class;
     }
 }

@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 
 public final class EbnfParserContextsTest extends PublicStaticHelperTestCase<EbnfParserContexts> {
     @Override
-    protected Class<EbnfParserContexts> type() {
+    public Class<EbnfParserContexts> type() {
         return EbnfParserContexts.class;
     }
 

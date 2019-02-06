@@ -27,7 +27,6 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import java.util.List;
 import java.util.Map.Entry;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntryTest extends EntryTestCase
@@ -67,11 +66,6 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
         this.checkNotEquals(HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, "different-value")));
     }
 
-    @Test
-    public void testToString() {
-        assertEquals("parameter1=\"value1\", \"value2\"", this.createEntry().toString());
-    }
-
     @Override
     protected HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry createEntry() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, VALUE1, VALUE2));
@@ -82,7 +76,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
     }
 
     @Override
-    protected Class<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry> type() {
+    public Class<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry> type() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.class;
     }
 

@@ -24,8 +24,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class XmlProcessingInstructionTest extends XmlLeafNodeTestCase<XmlProcessingInstruction> {
 
     private final String TARGET = "target-abc";
@@ -71,7 +69,7 @@ public final class XmlProcessingInstructionTest extends XmlLeafNodeTestCase<XmlP
 
     @Test
     public void testToString() {
-        assertEquals("<?target-abc pi-123?>", this.createNode().toString());
+        this.toStringAndCheck(this.createNode(), "<?target-abc pi-123?>");
     }
 
     // helpers............................................................................................

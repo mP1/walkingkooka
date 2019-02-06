@@ -57,7 +57,7 @@ public final class LocalDateTimeBigDecimalConverterTest extends LocalDateTimeCon
     }
 
     @Override
-    protected Class<LocalDateTimeBigDecimalConverter> type() {
+    public Class<LocalDateTimeBigDecimalConverter> type() {
         return LocalDateTimeBigDecimalConverter.class;
     }
 }

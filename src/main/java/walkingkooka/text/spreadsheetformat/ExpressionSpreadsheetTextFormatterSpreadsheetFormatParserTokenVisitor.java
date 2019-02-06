@@ -18,6 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.math.Fraction;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
@@ -193,4 +194,13 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
     private List<ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorFormatter> formatters = Lists.array();
 
     private int numberFormatters;
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.empty()
+                .label("formatter").value(this.formatter)
+                .label("formatters").value(this.formatters)
+                .label("numberFormatters").value(this.numberFormatters)
+                .build();
+    }
 }

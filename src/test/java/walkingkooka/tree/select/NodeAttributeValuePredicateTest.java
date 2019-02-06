@@ -22,7 +22,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class NodeAttributeValuePredicateTest extends ClassTestCase<NodeAttributeValuePredicate> {
     @Override
-    protected Class<NodeAttributeValuePredicate> type() {
+    public Class<NodeAttributeValuePredicate> type() {
         return NodeAttributeValuePredicate.class;
     }
 

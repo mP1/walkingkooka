@@ -20,7 +20,6 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.io.serialize.SerializationProxyTestCase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 final public class IndentationSerializationProxyTest
@@ -31,7 +30,7 @@ final public class IndentationSerializationProxyTest
         final Indentation indentation = Indentation.with('\t', 10);
         assertNotSame(indentation, Indentation.with('\t', 10), "indentation instance is a constant");
 
-        assertEquals(indentation.toString(), indentation.writeReplace().toString());
+        this.toStringAndCheck(indentation.writeReplace(), indentation.toString());
     }
 
     @Override

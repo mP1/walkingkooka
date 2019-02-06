@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 public final class SequenceParserOptionalComponentTest extends SequenceParserComponentTestCase<SequenceParserOptionalComponent<FakeParserContext>> {
     
     @Override
-    protected Class<SequenceParserOptionalComponent<FakeParserContext>> type() {
+    public Class<SequenceParserOptionalComponent<FakeParserContext>> type() {
         return Cast.to(SequenceParserOptionalComponent.class);
     }
 }

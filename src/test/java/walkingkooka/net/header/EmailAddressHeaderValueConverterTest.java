@@ -66,7 +66,7 @@ public final class EmailAddressHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<EmailAddressHeaderValueConverter> type() {
+    public Class<EmailAddressHeaderValueConverter> type() {
         return EmailAddressHeaderValueConverter.class;
     }
 }

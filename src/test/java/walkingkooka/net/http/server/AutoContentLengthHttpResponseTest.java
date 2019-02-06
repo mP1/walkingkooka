@@ -97,7 +97,7 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
     }
 
     @Override
-    protected Class<AutoContentLengthHttpResponse> type() {
+    public Class<AutoContentLengthHttpResponse> type() {
         return AutoContentLengthHttpResponse.class;
     }
 }

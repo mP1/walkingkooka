@@ -161,11 +161,6 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
         assertSame(node, node.toXmlNode());
     }
 
-    // toString ..................................................................................................
-
-    @Test
-    public abstract void testToString() throws Exception;
-
     // factories, helpers...............................................................................................
 
     final XmlDocument fromXml() throws Exception {
@@ -350,7 +345,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
     }
 
     @Override
-    protected final Class<XmlNode> type() {
+    public final Class<XmlNode> type() {
         return Cast.to(this.nodeType());
     }
 

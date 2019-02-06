@@ -24,6 +24,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
@@ -34,7 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<UrlPathNameHttpRequestAttribute>
-        implements HashCodeEqualsDefinedTesting<UrlPathNameHttpRequestAttribute> {
+        implements HashCodeEqualsDefinedTesting<UrlPathNameHttpRequestAttribute>,
+        ToStringTesting<UrlPathNameHttpRequestAttribute> {
 
     @Test
     public void testInvalidIndexFails() {
@@ -82,11 +84,11 @@ public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<Url
 
     @Test
     public void testToString() {
-        assertEquals("path-0", UrlPathNameHttpRequestAttribute.with(0).toString());
+        this.toStringAndCheck(UrlPathNameHttpRequestAttribute.with(0), "path-0");
     }
 
     @Override
-    protected Class<UrlPathNameHttpRequestAttribute> type() {
+    public Class<UrlPathNameHttpRequestAttribute> type() {
         return UrlPathNameHttpRequestAttribute.class;
     }
 

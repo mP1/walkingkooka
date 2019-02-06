@@ -54,7 +54,7 @@ public final class OptionalsTest extends PublicStaticHelperTestCase<Optionals> {
     }
 
     @Override
-    protected Class<Optionals> type() {
+    public Class<Optionals> type() {
         return Optionals.class;
     }
 
