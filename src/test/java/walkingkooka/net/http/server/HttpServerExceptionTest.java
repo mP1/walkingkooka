@@ -23,7 +23,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class HttpServerExceptionTest extends PublicThrowableTestCase<HttpServerException> {
 
     @Override
-    protected Class<HttpServerException> type() {
+    public Class<HttpServerException> type() {
         return HttpServerException.class;
     }
 }

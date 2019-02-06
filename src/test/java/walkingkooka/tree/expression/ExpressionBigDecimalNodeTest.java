@@ -103,12 +103,12 @@ public final class ExpressionBigDecimalNodeTest extends ExpressionLeafNodeTestCa
 
     @Test
     public void testToString() {
-        assertEquals("1", this.createExpressionNode(BigDecimal.valueOf(1)).toString());
+        this.toStringAndCheck(this.createExpressionNode(BigDecimal.valueOf(1)), "1");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("234", this.createExpressionNode(BigDecimal.valueOf(234)).toString());
+        this.toStringAndCheck(this.createExpressionNode(BigDecimal.valueOf(234)), "234");
     }
 
     private ExpressionBigDecimalNode createExpressionNode(final double value) {

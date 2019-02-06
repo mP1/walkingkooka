@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extends SetTestCase<HttpServletRequestHttpRequestParametersMapEntrySet,
         Entry<HttpRequestParameterName, List<String>>> {
 
@@ -53,8 +51,8 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extend
 
     @Test
     public void testToString() {
-        assertEquals("[parameter1=\"value1a\", \"value1b\", parameter2=\"value2\"]",
-                this.createSet().toString());
+        this.toStringAndCheck(this.createSet(),
+                "[parameter1=[value1a, value1b], parameter2=[value2]]");
     }
 
     @Override
@@ -76,7 +74,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extend
     }
 
     @Override
-    protected Class<HttpServletRequestHttpRequestParametersMapEntrySet> type() {
+    public Class<HttpServletRequestHttpRequestParametersMapEntrySet> type() {
         return HttpServletRequestHttpRequestParametersMapEntrySet.class;
     }
 }

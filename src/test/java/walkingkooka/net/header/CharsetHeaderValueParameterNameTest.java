@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -108,21 +107,13 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
                 "abc");
     }
 
-    // toString...........................................................................................
-
-    @Test
-    public void testToString() {
-        final String name = "parameter123";
-        assertEquals(name, CharsetHeaderValueParameterName.with(name).toString());
-    }
-
     @Override
     public CharsetHeaderValueParameterName<Object> createName(final String name) {
         return Cast.to(CharsetHeaderValueParameterName.with(name));
     }
 
     @Override
-    protected Class<CharsetHeaderValueParameterName<?>> type() {
+    public Class<CharsetHeaderValueParameterName<?>> type() {
         return Cast.to(CharsetHeaderValueParameterName.class);
     }
 }

@@ -123,12 +123,12 @@ public final class ExpressionLocalDateNodeTest extends ExpressionLeafNodeTestCas
 
     @Test
     public void testToString() {
-        assertEquals(DATE_STRING, this.createExpressionNode(DATE_STRING).toString());
+        this.toStringAndCheck(this.createExpressionNode(DATE_STRING), DATE_STRING);
     }
 
     @Test
     public void testToString2() {
-        assertEquals(DIFFERENT_DATE_STRING, this.createExpressionNode(LocalDate.parse(DIFFERENT_DATE_STRING)).toString());
+        this.toStringAndCheck(this.createExpressionNode(LocalDate.parse(DIFFERENT_DATE_STRING)), DIFFERENT_DATE_STRING);
     }
 
     private ExpressionLocalDateNode createExpressionNode(final String value) {

@@ -62,7 +62,7 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
     
     @Test
     public void testToString() {
-        assertEquals("null", this.createJsonNode().toString());
+        this.toStringAndCheck(this.createJsonNode(), "null");
     }
 
     @Override

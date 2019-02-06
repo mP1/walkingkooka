@@ -20,13 +20,15 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public abstract class HttpRequestTestCase<R extends HttpRequest> extends ClassTestCase<R> {
+public abstract class HttpRequestTestCase<R extends HttpRequest> extends ClassTestCase<R>
+        implements ToStringTesting<R> {
 
     @Test
     public void testRoutingParameters() {

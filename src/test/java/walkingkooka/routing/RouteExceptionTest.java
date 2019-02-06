@@ -23,7 +23,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class RouteExceptionTest extends PublicThrowableTestCase<RouteException> {
 
     @Override
-    protected Class<RouteException> type() {
+    public Class<RouteException> type() {
         return RouteException.class;
     }
 }

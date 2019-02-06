@@ -20,8 +20,6 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class LetterOrDigitCharPredicateTest
         extends CharPredicateTestCase<LetterOrDigitCharPredicate> implements SerializationTesting<LetterOrDigitCharPredicate> {
 
@@ -42,7 +40,7 @@ final public class LetterOrDigitCharPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("Letter/Digit", this.createCharPredicate().toString());
+        this.toStringAndCheck(this.createCharPredicate(), "Letter/Digit");
     }
 
     @Override

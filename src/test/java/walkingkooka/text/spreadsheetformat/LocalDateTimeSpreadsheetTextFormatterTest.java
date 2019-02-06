@@ -522,6 +522,13 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
         return SpreadsheetFormatParsers.dateTime();
     }
 
+    //toString .......................................................................................................
+
+    @Test
+    public final void testToString() {
+        this.toStringAndCheck(this.createFormatter(), this.pattern());
+    }
+
     @Override
     LocalDateTimeSpreadsheetTextFormatter createFormatter0(final SpreadsheetFormatDateTimeParserToken token) {
         return LocalDateTimeSpreadsheetTextFormatter.with(token);
@@ -546,7 +553,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
     }
 
     @Override
-    protected Class<LocalDateTimeSpreadsheetTextFormatter> type() {
+    public Class<LocalDateTimeSpreadsheetTextFormatter> type() {
         return LocalDateTimeSpreadsheetTextFormatter.class;
     }
 }

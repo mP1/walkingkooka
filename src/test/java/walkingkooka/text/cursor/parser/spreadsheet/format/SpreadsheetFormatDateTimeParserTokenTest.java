@@ -126,7 +126,7 @@ public final class SpreadsheetFormatDateTimeParserTokenTest extends SpreadsheetF
     }
 
     @Override
-    protected Class<SpreadsheetFormatDateTimeParserToken> type() {
+    public Class<SpreadsheetFormatDateTimeParserToken> type() {
         return SpreadsheetFormatDateTimeParserToken.class;
     }
 }

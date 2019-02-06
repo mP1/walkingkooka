@@ -166,7 +166,7 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> implements Parse
     }
 
     @Override
-    protected Class<JsonNode> type() {
+    public Class<JsonNode> type() {
         return JsonNode.class;
     }
 

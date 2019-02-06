@@ -23,7 +23,7 @@ import java.util.List;
 public final class PojoArrayNodeChildrenValueListTest extends PojoNodeListTestCase<PojoArrayNodeChildrenValueList, Object> {
 
     @Override
-    protected Class<PojoArrayNodeChildrenValueList> type() {
+    public Class<PojoArrayNodeChildrenValueList> type() {
         return PojoArrayNodeChildrenValueList.class;
     }
 

@@ -21,12 +21,14 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerBuilderRouterHandlersTest extends ClassTestCase<HateosHandlerBuilderRouterHandlers<JsonNode>> {
+public final class HateosHandlerBuilderRouterHandlersTest extends ClassTestCase<HateosHandlerBuilderRouterHandlers<JsonNode>>
+        implements ToStringTesting<HateosHandlerBuilderRouterHandlers<JsonNode>> {
 
     @Test
     public void testCopy() {
@@ -88,11 +90,11 @@ public final class HateosHandlerBuilderRouterHandlersTest extends ClassTestCase<
         handlers.put = put;
         handlers.delete = delete;
 
-        assertEquals("GET=G1 POST=P2 PUT=P3 DELETE=D4", handlers.toString());
+        this.toStringAndCheck(handlers, "GET=G1 POST=P2 PUT=P3 DELETE=D4");
     }
 
     @Override
-    protected Class<HateosHandlerBuilderRouterHandlers<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouterHandlers<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHandlers.class);
     }
 

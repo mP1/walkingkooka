@@ -102,7 +102,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     }
 
     @Override
-    protected Class<HateosContentTypeJsonNode> type() {
+    public Class<HateosContentTypeJsonNode> type() {
         return HateosContentTypeJsonNode.class;
     }
 }

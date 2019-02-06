@@ -22,7 +22,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class ParserTemplateTest extends ClassTestCase<ParserTemplate<?, ?>> {
     @Override
-    protected Class<ParserTemplate<?, ?>> type() {
+    public Class<ParserTemplate<?, ?>> type() {
         return Cast.to(ParserTemplate.class);
     }
 

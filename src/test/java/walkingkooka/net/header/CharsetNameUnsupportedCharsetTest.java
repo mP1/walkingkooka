@@ -59,7 +59,7 @@ public final class CharsetNameUnsupportedCharsetTest extends CharsetNameTestCase
     }
 
     @Override
-    protected Class<CharsetNameUnsupportedCharset> type() {
+    public Class<CharsetNameUnsupportedCharset> type() {
         return CharsetNameUnsupportedCharset.class;
     }
 }

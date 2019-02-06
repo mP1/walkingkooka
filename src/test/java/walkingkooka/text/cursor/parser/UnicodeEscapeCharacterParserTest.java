@@ -20,8 +20,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.cursor.TextCursor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCase<UnicodeEscapeCharacterParser<ParserContext>, CharacterParserToken> {
 
     @Test
@@ -95,7 +93,7 @@ public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCa
 
     @Test
     public void testToString() {
-        assertEquals("Unicode escape char sequence", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "Unicode escape char sequence");
     }
 
     @Override
@@ -112,7 +110,7 @@ public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCa
     }
 
     @Override
-    protected Class<UnicodeEscapeCharacterParser<ParserContext>> type() {
+    public Class<UnicodeEscapeCharacterParser<ParserContext>> type() {
         return Cast.to(UnicodeEscapeCharacterParser.class);
     }
 }

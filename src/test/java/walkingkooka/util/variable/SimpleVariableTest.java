@@ -33,7 +33,7 @@ final public class SimpleVariableTest extends VariableTestCase<SimpleVariable<Ob
     @Test
     public void testToString() {
         final Object value = "value";
-        assertEquals(value.toString(), SimpleVariable.with(value).toString());
+        this.toStringAndCheck(SimpleVariable.with(value), value.toString());
     }
 
     @Override

@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 final public class ReaderConsumingCharSequenceTextExceptionTest extends ClassTestCase<ReaderConsumingCharSequenceTextException> {
 
     @Override
-    protected Class<ReaderConsumingCharSequenceTextException> type() {
+    public Class<ReaderConsumingCharSequenceTextException> type() {
         return ReaderConsumingCharSequenceTextException.class;
     }
 

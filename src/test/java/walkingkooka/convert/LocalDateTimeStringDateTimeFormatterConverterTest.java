@@ -43,7 +43,7 @@ public final class LocalDateTimeStringDateTimeFormatterConverterTest extends Str
     }
 
     @Override
-    protected Class<LocalDateTimeStringDateTimeFormatterConverter> type() {
+    public Class<LocalDateTimeStringDateTimeFormatterConverter> type() {
         return LocalDateTimeStringDateTimeFormatterConverter.class;
     }
 }

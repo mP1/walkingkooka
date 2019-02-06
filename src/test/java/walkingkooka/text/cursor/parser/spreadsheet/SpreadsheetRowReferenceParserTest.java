@@ -113,7 +113,7 @@ public final class SpreadsheetRowReferenceParserTest extends SpreadsheetParserTe
     }
 
     @Override
-    protected Class<SpreadsheetRowReferenceParser> type() {
+    public Class<SpreadsheetRowReferenceParser> type() {
         return SpreadsheetRowReferenceParser.class;
     }
 }

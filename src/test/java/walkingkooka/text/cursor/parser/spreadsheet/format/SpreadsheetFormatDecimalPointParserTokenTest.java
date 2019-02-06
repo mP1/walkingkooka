@@ -88,7 +88,7 @@ public final class SpreadsheetFormatDecimalPointParserTokenTest extends Spreadsh
     }
 
     @Override
-    protected Class<SpreadsheetFormatDecimalPointParserToken> type() {
+    public Class<SpreadsheetFormatDecimalPointParserToken> type() {
         return SpreadsheetFormatDecimalPointParserToken.class;
     }
 }

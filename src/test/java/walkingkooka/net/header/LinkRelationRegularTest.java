@@ -83,7 +83,7 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
     }
 
     @Override
-    protected Class<LinkRelationRegular> type() {
+    public Class<LinkRelationRegular> type() {
         return LinkRelationRegular.class;
     }
 

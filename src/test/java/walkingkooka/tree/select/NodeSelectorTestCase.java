@@ -28,6 +28,7 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -48,7 +49,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
         extends ClassTestCase<S>
-        implements HashCodeEqualsDefinedTesting<S> {
+        implements HashCodeEqualsDefinedTesting<S>,
+        ToStringTesting<S> {
 
     final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 

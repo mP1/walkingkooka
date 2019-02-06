@@ -396,6 +396,13 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
         return "#/#";
     }
 
+    //toString .......................................................................................................
+
+    @Test
+    public final void testToString() {
+        this.toStringAndCheck(this.createFormatter(), this.pattern());
+    }
+
     @Override
     Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
         return SpreadsheetFormatParsers.fraction();
@@ -453,7 +460,7 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
     }
 
     @Override
-    protected Class<BigDecimalFractionSpreadsheetTextFormatter> type() {
+    public Class<BigDecimalFractionSpreadsheetTextFormatter> type() {
         return BigDecimalFractionSpreadsheetTextFormatter.class;
     }
 }

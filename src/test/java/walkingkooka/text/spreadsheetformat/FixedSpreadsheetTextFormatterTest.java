@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -105,7 +104,7 @@ public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextForm
 
     @Override
     public void testToString() {
-        assertEquals(this.formattedText().toString(), this.createFormatter().toString());
+        this.toStringAndCheck(this.createFormatter(), this.formattedText().toString());
     }
 
     @Override
@@ -128,7 +127,7 @@ public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextForm
     }
 
     @Override
-    protected Class<FixedSpreadsheetTextFormatter<Object>> type() {
+    public Class<FixedSpreadsheetTextFormatter<Object>> type() {
         return Cast.to(FixedSpreadsheetTextFormatter.class);
     }
 }

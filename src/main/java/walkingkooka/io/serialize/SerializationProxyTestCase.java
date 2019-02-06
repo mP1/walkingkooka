@@ -19,6 +19,7 @@ package walkingkooka.io.serialize;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Base class for testing a {@link SerializationProxy} with mostly parameter checking tests.
  */
 abstract public class SerializationProxyTestCase<P extends SerializationProxy>
-        extends ClassTestCase<P> {
+        extends ClassTestCase<P>
+        implements ToStringTesting<P> {
 
     public SerializationProxyTestCase() {
         super();
@@ -58,14 +60,6 @@ abstract public class SerializationProxyTestCase<P extends SerializationProxy>
         final Class<?> type2 = type;
         assertTrue(found, () -> "Unable to find no args readResolve method on " + type2.getName());
     }
-
-    @Test
-    final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
-    }
-
-    @Test
-    abstract public void testToString();
 
     @Override
     public final MemberVisibility typeVisibility() {

@@ -20,7 +20,6 @@ package walkingkooka.math;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicDecimalNumberContextTest extends DecimalNumberContextTestCase<BasicDecimalNumberContext> {
@@ -46,7 +45,7 @@ public final class BasicDecimalNumberContextTest extends DecimalNumberContextTes
 
     @Test
     public void testToString() {
-        assertEquals("\"$\" '.' 'E' ',' '-' '%' '+'", this.createContext().toString());
+        this.toStringAndCheck(this.createContext(), "\"$\" '.' 'E' ',' '-' '%' '+'");
     }
 
     @Override
@@ -55,7 +54,7 @@ public final class BasicDecimalNumberContextTest extends DecimalNumberContextTes
     }
 
     @Override
-    protected Class<BasicDecimalNumberContext> type() {
+    public Class<BasicDecimalNumberContext> type() {
         return BasicDecimalNumberContext.class;
     }
 }

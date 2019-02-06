@@ -88,7 +88,7 @@ public final class NodeSelectorWhitespaceParserTokenTest extends NodeSelectorSym
     }
 
     @Override
-    protected Class<NodeSelectorWhitespaceParserToken> type() {
+    public Class<NodeSelectorWhitespaceParserToken> type() {
         return NodeSelectorWhitespaceParserToken.class;
     }
 }

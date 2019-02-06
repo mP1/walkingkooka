@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 public final class SpreadsheetSymbolParserTokenTest extends ClassTestCase<SpreadsheetSymbolParserToken> {
 
     @Override
-    protected Class<SpreadsheetSymbolParserToken> type() {
+    public Class<SpreadsheetSymbolParserToken> type() {
         return SpreadsheetSymbolParserToken.class;
     }
 

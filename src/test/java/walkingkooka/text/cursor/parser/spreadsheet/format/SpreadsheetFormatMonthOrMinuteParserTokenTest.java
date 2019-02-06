@@ -88,7 +88,7 @@ public final class SpreadsheetFormatMonthOrMinuteParserTokenTest extends Spreads
     }
 
     @Override
-    protected Class<SpreadsheetFormatMonthOrMinuteParserToken> type() {
+    public Class<SpreadsheetFormatMonthOrMinuteParserToken> type() {
         return SpreadsheetFormatMonthOrMinuteParserToken.class;
     }
 }

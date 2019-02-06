@@ -111,7 +111,7 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
     }
 
     @Override
-    protected Class<IfRange<?>> type() {
+    public Class<IfRange<?>> type() {
         return Cast.to(IfRange.class);
     }
 

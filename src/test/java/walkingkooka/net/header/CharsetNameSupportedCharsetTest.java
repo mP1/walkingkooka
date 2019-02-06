@@ -68,7 +68,7 @@ public final class CharsetNameSupportedCharsetTest extends CharsetNameTestCase<C
     }
 
     @Override
-    protected Class<CharsetNameSupportedCharset> type() {
+    public Class<CharsetNameSupportedCharset> type() {
         return CharsetNameSupportedCharset.class;
     }
 }

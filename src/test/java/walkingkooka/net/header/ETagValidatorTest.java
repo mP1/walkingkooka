@@ -37,7 +37,7 @@ public final class ETagValidatorTest extends ClassTestCase<ETagValidator> {
     }
 
     @Override
-    protected Class<ETagValidator> type() {
+    public Class<ETagValidator> type() {
         return ETagValidator.class;
     }
 

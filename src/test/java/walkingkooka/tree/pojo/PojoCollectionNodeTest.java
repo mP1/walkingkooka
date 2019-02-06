@@ -22,7 +22,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class PojoCollectionNodeTest extends ClassTestCase<PojoCollectionNode> {
     @Override
-    protected Class<PojoCollectionNode> type() {
+    public Class<PojoCollectionNode> type() {
         return PojoCollectionNode.class;
     }
 

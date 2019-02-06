@@ -60,8 +60,7 @@ final public class EnumerationIterableTest
     @Test
     public void testToString() {
         final Enumeration<Object> enumeration = this.createEnumeration();
-        assertEquals(enumeration.toString(),
-                EnumerationIterable.with(enumeration).toString());
+        this.toStringAndCheck(EnumerationIterable.with(enumeration), enumeration.toString());
     }
 
     @Override
@@ -74,7 +73,7 @@ final public class EnumerationIterableTest
     }
 
     @Override
-    protected Class<EnumerationIterable<Object>> type() {
+    public Class<EnumerationIterable<Object>> type() {
         return Cast.to(EnumerationIterable.class);
     }
 }

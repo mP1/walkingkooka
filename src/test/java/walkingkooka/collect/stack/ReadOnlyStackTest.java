@@ -123,7 +123,7 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     @Test
     public void testToString() {
         final Stack<Object> stack = Stacks.fake();
-        assertEquals(stack.toString(), ReadOnlyStack.wrap(stack).toString());
+        this.toStringAndCheck(ReadOnlyStack.wrap(stack), stack.toString());
     }
 
     @Override

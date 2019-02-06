@@ -125,7 +125,7 @@ public final class SpreadsheetFormatBigDecimalParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected Class<SpreadsheetFormatBigDecimalParserToken> type() {
+    public Class<SpreadsheetFormatBigDecimalParserToken> type() {
         return SpreadsheetFormatBigDecimalParserToken.class;
     }
 }

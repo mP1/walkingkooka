@@ -174,7 +174,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         stack.push("1");
         stack.push("2");
         stack.push("3");
-        assertEquals(Lists.of("1", "2", "3").toString(), stack.toString());
+        this.toStringAndCheck(stack, Lists.of("1", "2", "3").toString());
     }
 
     @Override

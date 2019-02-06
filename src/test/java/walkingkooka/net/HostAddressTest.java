@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -37,7 +38,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class HostAddressTest extends ClassTestCase<HostAddress>
-        implements HashCodeEqualsDefinedTesting<HostAddress>, SerializationTesting<HostAddress> {
+        implements HashCodeEqualsDefinedTesting<HostAddress>,
+        SerializationTesting<HostAddress>,
+        ToStringTesting<HostAddress> {
 
     // tests
 
@@ -1005,14 +1008,10 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
 
     // toString...................................................................................................
 
+    @Test
     public void testToString() {
         final String address = "address";
-        assertEquals(address, HostAddress.with(address).toString());
-    }
-
-    @Override
-    public Class<HostAddress> type() {
-        return HostAddress.class;
+        this.toStringAndCheck(HostAddress.with(address), address);
     }
 
     @Override
@@ -1033,6 +1032,11 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
     @Override
     public HostAddress createObject() {
         return HostAddress.with("address");
+    }
+
+    @Override
+    public Class<HostAddress> type() {
+        return HostAddress.class;
     }
 
     @Override

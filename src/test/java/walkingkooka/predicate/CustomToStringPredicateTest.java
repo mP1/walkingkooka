@@ -23,7 +23,6 @@ import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -105,7 +104,7 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
 
     @Test
     public void testToString() {
-        assertEquals(CUSTOM_TO_STRING, this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), CUSTOM_TO_STRING);
     }
 
     @Override

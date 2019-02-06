@@ -84,7 +84,7 @@ public final class MediaTypeBoundaryHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<MediaTypeBoundaryHeaderValueConverter> type() {
+    public Class<MediaTypeBoundaryHeaderValueConverter> type() {
         return MediaTypeBoundaryHeaderValueConverter.class;
     }
 }

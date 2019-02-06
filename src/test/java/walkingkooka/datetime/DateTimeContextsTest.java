@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 public final class DateTimeContextsTest extends PublicStaticHelperTestCase<DateTimeContexts> {
 
     @Override
-    protected Class<DateTimeContexts> type() {
+    public Class<DateTimeContexts> type() {
         return DateTimeContexts.class;
     }
 

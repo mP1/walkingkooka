@@ -84,7 +84,7 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     }
 
     @Override
-    protected Class<RangeHeaderValueUnit> type() {
+    public Class<RangeHeaderValueUnit> type() {
         return RangeHeaderValueUnit.class;
     }
 

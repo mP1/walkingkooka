@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<String>, String> {
@@ -70,25 +69,25 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
 
     @Test
     public void testToString() {
-        final Iterator<String> iterator = this.createIterator();
-        assertEquals(Lists.of("A", "B", "C").toString(), iterator.toString());
+        this.toStringAndCheck(this.createIterator(), Lists.of("A", "B", "C").toString());
     }
 
     @Test
     public void testToStringPartiallyConsumed() {
-        final Iterator<String> iterator = this.createIterator();
+        final ArrayIterator<String> iterator = this.createIterator();
         iterator.next();
 
-        assertEquals(Lists.of("B", "C").toString(), iterator.toString());
+        this.toStringAndCheck(iterator, Lists.of("B", "C").toString());
     }
 
     @Test
     public void testToStringWhenEmpty() {
-        final Iterator<String> iterator = this.createIterator();
+        final ArrayIterator<String> iterator = this.createIterator();
         iterator.next();
         iterator.next();
         iterator.next();
-        assertEquals(Lists.of().toString(), iterator.toString());
+
+        this.toStringAndCheck(iterator, Lists.of().toString());
     }
 
     @Override public ArrayIterator<String> createIterator() {
@@ -96,7 +95,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
     }
 
     @Override
-    protected Class<ArrayIterator<String>> type() {
+    public Class<ArrayIterator<String>> type() {
         return Cast.to(ArrayIterator.class);
     }
 }

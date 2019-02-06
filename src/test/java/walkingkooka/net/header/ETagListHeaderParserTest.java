@@ -121,7 +121,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
     }
 
     @Override
-    protected Class<ETagListHeaderParser> type() {
+    public Class<ETagListHeaderParser> type() {
         return ETagListHeaderParser.class;
     }
 }

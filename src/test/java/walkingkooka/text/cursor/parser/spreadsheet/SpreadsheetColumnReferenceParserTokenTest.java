@@ -28,12 +28,13 @@ public final class SpreadsheetColumnReferenceParserTokenTest extends Spreadsheet
 
     @Test
     public void testToStringAbsolute() {
-        assertEquals("$999", this.createToken(SpreadsheetReferenceKind.ABSOLUTE.column(555), "$999").toString());
+        this.toStringAndCheck(this.createToken(SpreadsheetReferenceKind.ABSOLUTE.column(555), "$999"),
+                "$999");
     }
 
     @Test
     public void testToStringRelative() {
-        assertEquals("1", this.createToken().toString());
+        this.toStringAndCheck(this.createToken(), "1");
     }
 
     @Test
@@ -98,7 +99,7 @@ public final class SpreadsheetColumnReferenceParserTokenTest extends Spreadsheet
     }
 
     @Override
-    protected Class<SpreadsheetColumnReferenceParserToken> type() {
+    public Class<SpreadsheetColumnReferenceParserToken> type() {
         return SpreadsheetColumnReferenceParserToken.class;
     }
 }

@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class TextExceptionTest extends PublicThrowableTestCase<TextException> {
 
     @Override
-    protected Class<TextException> type() {
+    public Class<TextException> type() {
         return TextException.class;
     }
 }

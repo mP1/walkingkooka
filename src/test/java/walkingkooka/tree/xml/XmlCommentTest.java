@@ -23,7 +23,6 @@ import org.w3c.dom.Document;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class XmlCommentTest extends XmlTextNodeTestCase<XmlComment> {
@@ -60,7 +59,7 @@ public final class XmlCommentTest extends XmlTextNodeTestCase<XmlComment> {
 
     @Test
     public void testToString() {
-        assertEquals("<!--123-->", this.createNode("123").toString());
+        this.toStringAndCheck( this.createNode("123"), "<!--123-->");
     }
 
     @Override

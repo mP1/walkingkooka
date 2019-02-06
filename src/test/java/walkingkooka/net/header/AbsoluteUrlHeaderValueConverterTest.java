@@ -67,7 +67,7 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<AbsoluteUrlHeaderValueConverter> type() {
+    public Class<AbsoluteUrlHeaderValueConverter> type() {
         return AbsoluteUrlHeaderValueConverter.class;
     }
 

@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionTextFunctionTest extends ExpressionFunctionTestCase<ExpressionTextFunction, String> {
@@ -63,7 +62,7 @@ public final class ExpressionTextFunctionTest extends ExpressionFunctionTestCase
 
     @Test
     public void testToString() {
-        assertEquals("text", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "text");
     }
 
     @Override
@@ -72,7 +71,7 @@ public final class ExpressionTextFunctionTest extends ExpressionFunctionTestCase
     }
 
     @Override
-    protected Class<ExpressionTextFunction> type() {
+    public Class<ExpressionTextFunction> type() {
         return ExpressionTextFunction.class;
     }
 }

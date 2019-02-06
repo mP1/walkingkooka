@@ -20,6 +20,7 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  * {@link CharPredicate#test(char)} results.
  */
 abstract public class CharPredicateTestCase<P extends CharPredicate>
-        extends ClassTestCase<P> {
+        extends ClassTestCase<P>
+        implements ToStringTesting<P> {
 
     protected CharPredicateTestCase() {
         super();
@@ -64,11 +66,6 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
     public void testSetToStringSame() {
         final P predicate = this.createCharPredicate();
         assertSame(predicate, predicate.setToString(predicate.toString()));
-    }
-
-    @Test
-    public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
     }
 
     abstract protected P createCharPredicate();

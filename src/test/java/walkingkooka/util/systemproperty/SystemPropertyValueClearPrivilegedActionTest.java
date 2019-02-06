@@ -24,7 +24,7 @@ final public class SystemPropertyValueClearPrivilegedActionTest
         extends ClassTestCase<SystemPropertyValueClearPrivilegedAction> {
 
     @Override
-    protected Class<SystemPropertyValueClearPrivilegedAction> type() {
+    public Class<SystemPropertyValueClearPrivilegedAction> type() {
         return SystemPropertyValueClearPrivilegedAction.class;
     }
 

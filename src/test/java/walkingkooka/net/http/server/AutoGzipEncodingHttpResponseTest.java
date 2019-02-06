@@ -174,7 +174,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     @Override
-    protected Class<AutoGzipEncodingHttpResponse> type() {
+    public Class<AutoGzipEncodingHttpResponse> type() {
         return AutoGzipEncodingHttpResponse.class;
     }
 }

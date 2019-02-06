@@ -228,7 +228,7 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
     }
 
     @Override
-    protected Class<RouterHttpRequestParametersMapEntrySet> type() {
+    public Class<RouterHttpRequestParametersMapEntrySet> type() {
         return RouterHttpRequestParametersMapEntrySet.class;
     }
 }

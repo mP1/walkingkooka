@@ -310,7 +310,7 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
     }
 
     @Override
-    protected Class<LastModifiedAwareHttpResponse> type() {
+    public Class<LastModifiedAwareHttpResponse> type() {
         return LastModifiedAwareHttpResponse.class;
     }
 }

@@ -299,7 +299,8 @@ final public class CharPredicateBuilderTest
         final CharPredicateBuilder builder = this.createBuilder();
         builder.any("123");
         final CharPredicate predicate = builder.build();
-        assertEquals(predicate.toString(), builder.toString());
+
+        this.toStringAndCheck(builder, predicate.toString());
     }
 
     @Test
@@ -309,7 +310,8 @@ final public class CharPredicateBuilderTest
         builder.toString("lost");
         builder.toString(toString);
         builder.any("123");
-        assertEquals(toString, builder.toString());
+
+        this.toStringAndCheck(builder, toString);
     }
 
     @Test
@@ -340,7 +342,7 @@ final public class CharPredicateBuilderTest
     }
 
     @Override
-    protected Class<CharPredicateBuilder> type() {
+    public Class<CharPredicateBuilder> type() {
         return Cast.to(CharPredicateBuilder.class);
     }
 

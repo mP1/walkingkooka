@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
@@ -31,10 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference<V>> extends ClassTestCase<V>
-        implements ComparableTesting<V>,
-        LowerOrUpperTesting<V>,
-        HasJsonNodeTesting<V> {
+public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends SpreadsheetColumnOrRowReference<R>> extends ClassTestCase<R>
+        implements ComparableTesting<R>,
+        LowerOrUpperTesting<R>,
+        HasJsonNodeTesting<R>,
+        ToStringTesting<R> {
 
     final static int VALUE = 123;
     final static SpreadsheetReferenceKind REFERENCE_KIND = SpreadsheetReferenceKind.ABSOLUTE;
@@ -81,7 +83,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     }
 
     private void withAndCacheCheck(final int value, final SpreadsheetReferenceKind kind) {
-        final V reference = this.createReference(value, kind);
+        final R reference = this.createReference(value, kind);
         this.checkValue(reference, value);
         this.checkKind(reference, kind);
 
@@ -91,7 +93,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     @Test
     public final void testWithNotCached() {
         final int value = SpreadsheetColumnOrRowReference.CACHE_SIZE;
-        final V reference = this.createReference(value);
+        final R reference = this.createReference(value);
         this.checkValue(reference, value);
         this.checkKind(reference, REFERENCE_KIND);
 
@@ -107,13 +109,13 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
 
     @Test
     public final void testSetValueSame() {
-        final V reference = this.createReference();
+        final R reference = this.createReference();
         assertSame(reference, reference.setValue(VALUE));
     }
 
     @Test
     public final void testSetValueDifferent() {
-        final V reference = this.createReference();
+        final R reference = this.createReference();
         final Integer differentValue = 999;
         final SpreadsheetColumnOrRowReference<?> different = reference.setValue(differentValue);
         assertNotSame(reference, different);
@@ -124,7 +126,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     @Test
     public final void testSetValueDifferent2() {
         final SpreadsheetReferenceKind kind = SpreadsheetReferenceKind.RELATIVE;
-        final V reference = this.createReference(VALUE, kind);
+        final R reference = this.createReference(VALUE, kind);
         final Integer differentValue = 999;
         final SpreadsheetColumnOrRowReference<?> different = reference.setValue(differentValue);
         assertNotSame(reference, different);
@@ -135,13 +137,13 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
 
     @Test
     public final void testAddZero() {
-        final V reference = this.createReference();
+        final R reference = this.createReference();
         assertSame(reference, reference.add(0));
     }
 
     @Test
     public final void testAddNonZeroPositive() {
-        final V reference = this.createReference();
+        final R reference = this.createReference();
         final SpreadsheetColumnOrRowReference<?> different = reference.add(100);
         assertNotSame(reference, different);
         this.checkValue(different, VALUE + 100);
@@ -150,7 +152,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
 
     @Test
     public final void testAddNonZeroNegative() {
-        final V reference = this.createReference();
+        final R reference = this.createReference();
         final SpreadsheetColumnOrRowReference<?> different = reference.add(-100);
         assertNotSame(reference, different);
         this.checkValue(different, VALUE - 100);
@@ -162,16 +164,16 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
 
     @Test
     public void testLowerOtherLess() {
-        final V reference = this.createReference();
-        final V lower = this.createReference(VALUE - 99);
+        final R reference = this.createReference();
+        final R lower = this.createReference(VALUE - 99);
         assertSame(lower, reference.lower(lower));
         assertSame(lower, lower.lower(reference));
     }
 
     @Test
     public void testLowerOtherGreater() {
-        final V reference = this.createReference();
-        final V higher = this.createReference(VALUE + 99);
+        final R reference = this.createReference();
+        final R higher = this.createReference(VALUE + 99);
         assertSame(reference, reference.lower(higher));
         assertSame(reference, higher.lower(reference));
     }
@@ -180,16 +182,16 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
 
     @Test
     public void testUpperOtherLess() {
-        final V reference = this.createReference();
-        final V lower = this.createReference(VALUE - 99);
+        final R reference = this.createReference();
+        final R lower = this.createReference(VALUE - 99);
         assertSame(reference, reference.upper(lower));
         assertSame(reference, lower.upper(reference));
     }
 
     @Test
     public void testUpperOtherGreater() {
-        final V reference = this.createReference();
-        final V higher = this.createReference(VALUE + 99);
+        final R reference = this.createReference();
+        final R higher = this.createReference(VALUE + 99);
         assertSame(higher, reference.upper(higher));
         assertSame(higher, higher.upper(reference));
     }
@@ -198,21 +200,21 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
 
     @Test
     public final void testToJsonNode() {
-        final V reference = this.createReference();
+        final R reference = this.createReference();
         this.toJsonNodeAndCheck(reference, JsonNode.string(reference.toString()));
     }
 
     // helper......................................................................................
 
-    final V createReference() {
+    final R createReference() {
         return this.createReference(VALUE, REFERENCE_KIND);
     }
 
-    final V createReference(final int value) {
+    final R createReference(final int value) {
         return this.createReference(value, REFERENCE_KIND);
     }
 
-    abstract V createReference(final int value, final SpreadsheetReferenceKind kind);
+    abstract R createReference(final int value, final SpreadsheetReferenceKind kind);
 
     private void checkValue(final SpreadsheetColumnOrRowReference<?> reference, final Integer value) {
         assertEquals(value, reference.value(), "value");
@@ -238,7 +240,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     }
 
     @Override
-    public final V createComparable() {
+    public final R createComparable() {
         return this.createReference();
     }
 
@@ -248,7 +250,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     }
 
     @Override
-    public final V createLowerOrUpper() {
+    public final R createLowerOrUpper() {
         return this.createComparable();
     }
 }

@@ -305,10 +305,11 @@ final public class ChainFactoryChainBuilderTest
         assertSame(chain, builder.build());
     }
 
+    // ToString.....................................................................................................
+
     @Test
-    public void testToStringEmpty() {
-        final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        assertEquals("[]", builder.toString());
+    public void testToString() {
+        this.toStringAndCheck(this.createBuilder(),"[]");
     }
 
     @Override
@@ -323,8 +324,8 @@ final public class ChainFactoryChainBuilderTest
     }
 
     @Override
-    protected Class<ChainFactoryChainBuilder> type() {
-        return ChainFactoryChainBuilder.class;
+    public Class<ChainFactoryChainBuilder<Fake>> type() {
+        return Cast.to(ChainFactoryChainBuilder.class);
     }
 
     @Override

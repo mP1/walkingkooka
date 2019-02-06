@@ -80,7 +80,7 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
     }
 
     @Override
-    protected Class<ReverseIterator<Object>> type() {
+    public Class<ReverseIterator<Object>> type() {
         return Cast.to(ReverseIterator.class);
     }
 }

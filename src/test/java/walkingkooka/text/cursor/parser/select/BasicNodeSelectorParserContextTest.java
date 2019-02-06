@@ -18,14 +18,23 @@
 
 package walkingkooka.text.cursor.parser.select;
 
+import org.junit.jupiter.api.Test;
+
 public final class BasicNodeSelectorParserContextTest extends NodeSelectorParserContextTestCase<BasicNodeSelectorParserContext> {
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createContext(),
+                "decimalPoint='.' exponentSymbol='E' minusSign='-' percentageSymbol='%' plusSign='+'");
+    }
+
     @Override
     protected BasicNodeSelectorParserContext createContext() {
         return BasicNodeSelectorParserContext.instance();
     }
 
     @Override
-    protected Class<BasicNodeSelectorParserContext> type() {
+    public Class<BasicNodeSelectorParserContext> type() {
         return BasicNodeSelectorParserContext.class;
     }
 }

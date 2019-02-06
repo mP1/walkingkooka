@@ -87,18 +87,18 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
 
     @Test
     public void testToString() {
-        final RouterHttpRequestParametersMapPathComponentEntryIterator iterator = this.createIterator(NAME1);
-        assertEquals("path-0=a", iterator.toString());
+        this.toStringAndCheck(this.createIterator(NAME1), "path-0=a");
     }
 
     @Test
     public void testToStringEmpty() {
         final RouterHttpRequestParametersMapPathComponentEntryIterator iterator = this.createIterator(NAME1);
         iterator.next();
-        assertEquals("", iterator.toString());
+        this.toStringAndCheck(iterator, "");
     }
 
-    @Override public RouterHttpRequestParametersMapPathComponentEntryIterator createIterator() {
+    @Override
+    public RouterHttpRequestParametersMapPathComponentEntryIterator createIterator() {
         return this.createIterator(NAME1, NAME2);
     }
 
@@ -107,7 +107,7 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
     }
 
     @Override
-    protected Class<RouterHttpRequestParametersMapPathComponentEntryIterator> type() {
+    public Class<RouterHttpRequestParametersMapPathComponentEntryIterator> type() {
         return RouterHttpRequestParametersMapPathComponentEntryIterator.class;
     }
 }

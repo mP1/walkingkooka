@@ -22,13 +22,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HslTest extends ClassTestCase<Hsl> implements HashCodeEqualsDefinedTesting<Hsl>, SerializationTesting<Hsl> {
+public final class HslTest extends ClassTestCase<Hsl> implements HashCodeEqualsDefinedTesting<Hsl>,
+        SerializationTesting<Hsl>,
+        ToStringTesting<Hsl> {
 
     // constants
 
@@ -240,8 +243,7 @@ public final class HslTest extends ClassTestCase<Hsl> implements HashCodeEqualsD
     }
 
     public void testToString() {
-        assertEquals(HUE + "," + SATURATION + "," + LIGHTNESS,
-                Hsl.with(HUE, SATURATION, LIGHTNESS).toString());
+        this.toStringAndCheck(Hsl.with(HUE, SATURATION, LIGHTNESS), HUE + "," + SATURATION + "," + LIGHTNESS);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class NodeAttributeValueContainsPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("contains(@\"attribute-1\",\"123\")", this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), "contains(@\"attribute-1\",\"123\")");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class NodeAttributeValueContainsPredicateTest
     }
 
     @Override
-    protected Class<NodeAttributeValueContainsPredicate<TestNode, StringName, StringName, Object>> type() {
+    public Class<NodeAttributeValueContainsPredicate<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeAttributeValueContainsPredicate.class);
     }
 }

@@ -59,7 +59,7 @@ public final class BasicParserReporterTest extends ParserReporterTestCase<BasicP
     }
 
     @Override
-    protected Class<BasicParserReporter<StringParserToken, FakeParserContext>> type() {
+    public Class<BasicParserReporter<StringParserToken, FakeParserContext>> type() {
         return Cast.to(BasicParserReporter.class);
     }
 }

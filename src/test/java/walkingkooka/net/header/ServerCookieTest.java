@@ -970,149 +970,144 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     @Test
     public void testToString() {
-        assertEquals("cookie123=value456;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        ServerCookie.NO_DOMAIN,
-                        ServerCookie.NO_PATH,
-                        ServerCookie.NO_COMMENT,
-                        ServerCookie.NO_DELETION,
-                        CookieSecure.ABSENT,
-                        CookieHttpOnly.ABSENT,
-                        VERSION)
-                        .toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                ServerCookie.NO_DOMAIN,
+                ServerCookie.NO_PATH,
+                ServerCookie.NO_COMMENT,
+                ServerCookie.NO_DELETION,
+                CookieSecure.ABSENT,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;");
     }
 
     @Test
     public void testToStringDomain() {
-        assertEquals("cookie123=value456;domain=example.com;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        DOMAIN,
-                        ServerCookie.NO_PATH,
-                        COMMENT,
-                        ServerCookie.NO_DELETION,
-                        CookieSecure.ABSENT,
-                        CookieHttpOnly.ABSENT,
-                        VERSION)
-                        .toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                ServerCookie.NO_PATH,
+                COMMENT,
+                ServerCookie.NO_DELETION,
+                CookieSecure.ABSENT,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;domain=example.com;");
     }
 
     @Test
     public void testToStringPath() {
-        assertEquals("cookie123=value456;path=/PATH/TO;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        ServerCookie.NO_DOMAIN,
-                        PATH,
-                        ServerCookie.NO_COMMENT,
-                        ServerCookie.NO_DELETION,
-                        CookieSecure.ABSENT,
-                        CookieHttpOnly.ABSENT,
-                        VERSION)
-                        .toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                ServerCookie.NO_DOMAIN,
+                PATH,
+                ServerCookie.NO_COMMENT,
+                ServerCookie.NO_DELETION,
+                CookieSecure.ABSENT,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;path=/PATH/TO;");
     }
 
     @Test
     public void testToStringDomainPath() {
-        assertEquals("cookie123=value456;domain=example.com;path=/PATH/TO;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        DOMAIN,
-                        PATH,
-                        ServerCookie.NO_COMMENT,
-                        ServerCookie.NO_DELETION,
-                        CookieSecure.ABSENT,
-                        CookieHttpOnly.ABSENT,
-                        VERSION)
-                        .toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                ServerCookie.NO_COMMENT,
+                ServerCookie.NO_DELETION,
+                CookieSecure.ABSENT,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;domain=example.com;path=/PATH/TO;");
     }
 
 
     @Test
     public void testToStringMaxAge() {
-        assertEquals("cookie123=value456;max-age=123;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        ServerCookie.NO_DOMAIN,
-                        ServerCookie.NO_PATH,
-                        COMMENT,
-                        MAXAGE,
-                        CookieSecure.ABSENT,
-                        CookieHttpOnly.ABSENT,
-                        VERSION).toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                ServerCookie.NO_DOMAIN,
+                ServerCookie.NO_PATH,
+                COMMENT,
+                MAXAGE,
+                CookieSecure.ABSENT,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;max-age=123;");
     }
 
     @Test
     public void testToStringExpires() {
-        assertEquals("cookie123=value456;expires=Sun, 31 Dec 2000 12:58:59 GMT;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        ServerCookie.NO_DOMAIN,
-                        ServerCookie.NO_PATH,
-                        COMMENT,
-                        EXPIRES,
-                        CookieSecure.ABSENT,
-                        CookieHttpOnly.ABSENT,
-                        VERSION).toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                ServerCookie.NO_DOMAIN,
+                ServerCookie.NO_PATH,
+                COMMENT,
+                EXPIRES,
+                CookieSecure.ABSENT,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;expires=Sun, 31 Dec 2000 12:58:59 GMT;");
     }
 
     @Test
     public void testToStringDomainPathExpires() {
-        assertEquals("cookie123=value456;domain=example.com;path=/PATH/TO;expires=Sun, 31 Dec 2000 12:58:59 GMT;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        DOMAIN,
-                        PATH,
-                        COMMENT,
-                        EXPIRES,
-                        CookieSecure.ABSENT,
-                        CookieHttpOnly.ABSENT,
-                        VERSION).toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                EXPIRES,
+                CookieSecure.ABSENT,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;domain=example.com;path=/PATH/TO;expires=Sun, 31 Dec 2000 12:58:59 GMT;");
     }
 
     @Test
     public void testToStringSecure() {
-        assertEquals("cookie123=value456;secure;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        ServerCookie.NO_DOMAIN,
-                        ServerCookie.NO_PATH,
-                        ServerCookie.NO_COMMENT,
-                        ServerCookie.NO_DELETION,
-                        SECURE,
-                        CookieHttpOnly.ABSENT,
-                        VERSION).toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                ServerCookie.NO_DOMAIN,
+                ServerCookie.NO_PATH,
+                ServerCookie.NO_COMMENT,
+                ServerCookie.NO_DELETION,
+                SECURE,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;secure;");
     }
 
     @Test
     public void testToStringHttpOnly() {
-        assertEquals("cookie123=value456;httpOnly;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        ServerCookie.NO_DOMAIN,
-                        ServerCookie.NO_PATH,
-                        ServerCookie.NO_COMMENT,
-                        ServerCookie.NO_DELETION,
-                        CookieSecure.ABSENT,
-                        HTTPONLY,
-                        VERSION).toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                ServerCookie.NO_DOMAIN,
+                ServerCookie.NO_PATH,
+                ServerCookie.NO_COMMENT,
+                ServerCookie.NO_DELETION,
+                CookieSecure.ABSENT,
+                HTTPONLY,
+                VERSION),
+                "cookie123=value456;httpOnly;");
     }
 
     @Test
     public void testToStringSecureHttpOnly() {
-        assertEquals("cookie123=value456;secure;httpOnly;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        ServerCookie.NO_DOMAIN,
-                        ServerCookie.NO_PATH,
-                        ServerCookie.NO_COMMENT,
-                        ServerCookie.NO_DELETION,
-                        SECURE,
-                        HTTPONLY,
-                        VERSION).toString());
+        this.toStringAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                ServerCookie.NO_DOMAIN,
+                ServerCookie.NO_PATH,
+                ServerCookie.NO_COMMENT,
+                ServerCookie.NO_DELETION,
+                SECURE,
+                HTTPONLY,
+                VERSION),
+                "cookie123=value456;secure;httpOnly;");
     }
-
 
     @Override
     ServerCookie createCookie(final CookieName name, final String value) {
@@ -1279,7 +1274,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     @Override
-    protected Class<ServerCookie> type() {
+    public Class<ServerCookie> type() {
         return ServerCookie.class;
     }
 }

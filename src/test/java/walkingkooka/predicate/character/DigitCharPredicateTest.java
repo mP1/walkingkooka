@@ -46,7 +46,7 @@ final public class DigitCharPredicateTest extends CharPredicateTestCase<DigitCha
 
     @Test
     public void testToString() {
-        assertEquals("digit", DigitCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(DigitCharPredicate.INSTANCE, "digit");
     }
 
     @Override

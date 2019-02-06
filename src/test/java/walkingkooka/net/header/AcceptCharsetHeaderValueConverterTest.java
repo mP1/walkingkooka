@@ -87,7 +87,7 @@ public final class AcceptCharsetHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<AcceptCharsetHeaderValueConverter> type() {
+    public Class<AcceptCharsetHeaderValueConverter> type() {
         return AcceptCharsetHeaderValueConverter.class;
     }
 }

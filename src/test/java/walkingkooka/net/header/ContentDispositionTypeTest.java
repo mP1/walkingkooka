@@ -135,7 +135,7 @@ final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispo
     @Test
     public void testToString() {
         final String value = "abc123";
-        assertEquals(value, ContentDispositionType.with(value).toString());
+        this.toStringAndCheck(ContentDispositionType.with(value), value);
     }
 
     @Override
@@ -184,7 +184,7 @@ final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispo
     }
 
     @Override
-    protected Class<ContentDispositionType> type() {
+    public Class<ContentDispositionType> type() {
         return Cast.to(ContentDispositionType.class);
     }
 

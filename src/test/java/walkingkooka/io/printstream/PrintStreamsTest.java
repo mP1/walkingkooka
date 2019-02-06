@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class PrintStreamsTest extends PublicStaticHelperTestCase<PrintStreams> {
 
     @Override
-    protected Class<PrintStreams> type() {
+    public Class<PrintStreams> type() {
         return PrintStreams.class;
     }
 

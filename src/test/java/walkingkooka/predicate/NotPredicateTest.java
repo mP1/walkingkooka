@@ -23,7 +23,6 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -122,7 +121,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     @Test
     public void testToString() {
         final Predicate<Object> predicate = Predicates.fake();
-        assertEquals("!" + predicate, NotPredicate.wrap(predicate).toString());
+        this.toStringAndCheck(NotPredicate.wrap(predicate), "!" + predicate);
     }
 
     @Override
@@ -135,7 +134,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     }
 
     @Override
-    protected Class<NotPredicate<String>> type() {
+    public Class<NotPredicate<String>> type() {
         return Cast.to(NotPredicate.class);
     }
 

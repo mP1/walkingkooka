@@ -42,7 +42,7 @@ public final class SearchLocalDateTimeQueryValueTest extends SearchQueryValueTes
     }
 
     @Override
-    protected Class<SearchLocalDateTimeQueryValue> type() {
+    public Class<SearchLocalDateTimeQueryValue> type() {
         return SearchLocalDateTimeQueryValue.class;
     }
 }

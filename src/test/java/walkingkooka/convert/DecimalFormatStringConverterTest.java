@@ -209,7 +209,7 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
 
     @Test
     public void testToString() {
-        assertEquals(PATTERN, this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), PATTERN);
     }
 
     // helpers........................................................................................
@@ -246,7 +246,7 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
     }
 
     @Override
-    protected Class<DecimalFormatStringConverter> type() {
+    public Class<DecimalFormatStringConverter> type() {
         return DecimalFormatStringConverter.class;
     }
 }

@@ -21,7 +21,7 @@ package walkingkooka.text.spreadsheetformat;
 public final class BigDecimalFractionSpreadsheetTextFormatterComponentContextTest extends BigDecimalFractionTextFormatterTestCase<BigDecimalFractionSpreadsheetTextFormatterComponentContext> {
 
     @Override
-    protected Class<BigDecimalFractionSpreadsheetTextFormatterComponentContext> type() {
+    public Class<BigDecimalFractionSpreadsheetTextFormatterComponentContext> type() {
         return BigDecimalFractionSpreadsheetTextFormatterComponentContext.class;
     }
 }

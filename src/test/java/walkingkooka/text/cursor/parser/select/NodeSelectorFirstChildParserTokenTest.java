@@ -88,7 +88,7 @@ public final class NodeSelectorFirstChildParserTokenTest extends NodeSelectorNon
     }
 
     @Override
-    protected Class<NodeSelectorFirstChildParserToken> type() {
+    public Class<NodeSelectorFirstChildParserToken> type() {
         return NodeSelectorFirstChildParserToken.class;
     }
 }

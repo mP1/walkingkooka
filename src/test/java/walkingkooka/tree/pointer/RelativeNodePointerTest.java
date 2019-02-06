@@ -69,7 +69,7 @@ public final class RelativeNodePointerTest extends ClassTestCase<RelativeNodePoi
     }
 
     @Override
-    protected Class<RelativeNodePointer<?, ?, ?, ?>> type() {
+    public Class<RelativeNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(RelativeNodePointer.class);
     }
 

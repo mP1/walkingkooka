@@ -52,7 +52,12 @@ public abstract class ParserTestCase3<P extends Parser<T, C>, T extends ParserTo
     }
 
     @Override
-    protected final Class<P> type() {
+    public final void testCheckToStringOverridden() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final Class<P> type() {
         throw new UnsupportedOperationException();
     }
 }

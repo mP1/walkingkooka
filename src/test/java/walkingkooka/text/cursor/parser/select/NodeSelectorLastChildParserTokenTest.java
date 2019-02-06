@@ -88,7 +88,7 @@ public final class NodeSelectorLastChildParserTokenTest extends NodeSelectorNonS
     }
 
     @Override
-    protected Class<NodeSelectorLastChildParserToken> type() {
+    public Class<NodeSelectorLastChildParserToken> type() {
         return NodeSelectorLastChildParserToken.class;
     }
 }

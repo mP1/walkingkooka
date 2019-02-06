@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -30,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> extends ClassTestCase<A>
         implements ComparableTesting<A>,
-        SerializationTesting<A> {
+        SerializationTesting<A>,
+        ToStringTesting<A> {
 
     IpAddressTestCase() {
         super();
@@ -76,5 +78,10 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> ext
     @Override
     public final boolean serializableInstanceIsSingleton() {
         return false;
+    }
+
+    @Override
+    public Class<A> type() {
+        return this.type();
     }
 }

@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 public final class BuilderExceptionTest extends PublicThrowableTestCase<BuilderException> {
     @Override
-    protected Class<BuilderException> type() {
+    public Class<BuilderException> type() {
         return BuilderException.class;
     }
 }

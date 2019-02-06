@@ -24,8 +24,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class LocalDateTimeLocalDateConverterTest extends FixedTypeConverterTestCase<LocalDateTimeLocalDateConverter, LocalDate> {
 
     @Test
@@ -36,7 +34,7 @@ public final class LocalDateTimeLocalDateConverterTest extends FixedTypeConverte
 
     @Test
     public void testToString() {
-        assertEquals("LocalDateTime->LocalDate", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "LocalDateTime->LocalDate");
     }
 
     @Override
@@ -55,7 +53,7 @@ public final class LocalDateTimeLocalDateConverterTest extends FixedTypeConverte
     }
 
     @Override
-    protected Class<LocalDateTimeLocalDateConverter> type() {
+    public Class<LocalDateTimeLocalDateConverter> type() {
         return LocalDateTimeLocalDateConverter.class;
     }
 }

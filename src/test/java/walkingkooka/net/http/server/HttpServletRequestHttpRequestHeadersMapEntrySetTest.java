@@ -97,7 +97,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends
     }
 
     @Override
-    protected Class<HttpServletRequestHttpRequestHeadersMapEntrySet> type() {
+    public Class<HttpServletRequestHttpRequestHeadersMapEntrySet> type() {
         return HttpServletRequestHttpRequestHeadersMapEntrySet.class;
     }
 }

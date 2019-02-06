@@ -21,7 +21,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class ParserTemplateTokenTest extends ClassTestCase<ParserTemplateToken> {
     @Override
-    protected Class<ParserTemplateToken> type() {
+    public Class<ParserTemplateToken> type() {
         return ParserTemplateToken.class;
     }
 

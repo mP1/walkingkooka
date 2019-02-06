@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class SearchLocalTimeQueryValueSearchQueryTesterTest extends ClassTestCase<SearchLocalTimeQueryValueSearchQueryTester> {
     @Override
-    protected Class<SearchLocalTimeQueryValueSearchQueryTester> type() {
+    public Class<SearchLocalTimeQueryValueSearchQueryTester> type() {
         return SearchLocalTimeQueryValueSearchQueryTester.class;
     }
 

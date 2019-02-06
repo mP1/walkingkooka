@@ -88,7 +88,7 @@ public final class NodeSelectorQuotedTextParserTokenTest extends NodeSelectorNon
     }
 
     @Override
-    protected Class<NodeSelectorQuotedTextParserToken> type() {
+    public Class<NodeSelectorQuotedTextParserToken> type() {
         return NodeSelectorQuotedTextParserToken.class;
     }
 }

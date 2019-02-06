@@ -21,7 +21,6 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparisonRelation;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionComparisonFunctionTest extends ExpressionFunctionTestCase<ExpressionComparisonFunction, Boolean> {
@@ -175,7 +174,7 @@ public final class ExpressionComparisonFunctionTest extends ExpressionFunctionTe
 
     @Test
     public void testToString() {
-        assertEquals(ComparisonRelation.EQ.toString(), this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), ComparisonRelation.EQ.toString());
     }
 
     @Override
@@ -184,7 +183,7 @@ public final class ExpressionComparisonFunctionTest extends ExpressionFunctionTe
     }
 
     @Override
-    protected Class<ExpressionComparisonFunction> type() {
+    public Class<ExpressionComparisonFunction> type() {
         return ExpressionComparisonFunction.class;
     }
 }

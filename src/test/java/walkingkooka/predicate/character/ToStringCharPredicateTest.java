@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -116,8 +115,7 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
 
     @Test
     public void testToString() {
-        assertEquals(TOSTRING,
-                this.createCharPredicate().toString());
+        this.toStringAndCheck(this.createCharPredicate(), TOSTRING);
     }
 
     @Override

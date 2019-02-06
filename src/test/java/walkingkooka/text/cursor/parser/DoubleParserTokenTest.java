@@ -74,7 +74,7 @@ public final class DoubleParserTokenTest extends ParserTokenTestCase<DoubleParse
     }
 
     @Override
-    protected Class<DoubleParserToken> type() {
+    public Class<DoubleParserToken> type() {
         return DoubleParserToken.class;
     }
 }

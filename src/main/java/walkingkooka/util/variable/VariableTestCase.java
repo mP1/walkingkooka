@@ -21,6 +21,7 @@ package walkingkooka.util.variable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 /**
  * Base class for testing a {@link Variable}.
  */
-abstract public class VariableTestCase<V extends Variable<T>, T> extends ClassTestCase<V> {
+abstract public class VariableTestCase<V extends Variable<T>, T> extends ClassTestCase<V>
+        implements ToStringTesting<V> {
 
     protected VariableTestCase() {
         super();
@@ -64,13 +66,10 @@ abstract public class VariableTestCase<V extends Variable<T>, T> extends ClassTe
         assertNull(variable.get());
     }
 
-    @Test final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
-    }
-
     abstract protected V createVariable();
 
-    @Override final protected Class<V> type() {
+    @Override
+    final public Class<V> type() {
         return Cast.to(this.createVariable().getClass());
     }
 

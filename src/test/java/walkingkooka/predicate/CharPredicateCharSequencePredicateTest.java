@@ -24,7 +24,6 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharPredicateCharSequencePredicateTest
@@ -71,8 +70,7 @@ final public class CharPredicateCharSequencePredicateTest
 
     @Test
     public void testToString() {
-        assertEquals(CharSequences.quote(CHARS).toString(),
-                this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), CharSequences.quote(CHARS).toString());
     }
 
     @Override

@@ -69,7 +69,7 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
     }
 
     @Override
-    protected Class<ETagWildcard> type() {
+    public Class<ETagWildcard> type() {
         return ETagWildcard.class;
     }
 }

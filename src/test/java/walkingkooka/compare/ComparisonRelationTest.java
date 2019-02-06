@@ -335,7 +335,7 @@ public final class ComparisonRelationTest extends PredicateTestCase<ComparisonRe
 
     @Test
     public void testToString() {
-        assertEquals("EQ", ComparisonRelation.EQ.toString());
+        this.toStringAndCheck(ComparisonRelation.EQ, "EQ");
     }
 
     @Override
@@ -344,7 +344,7 @@ public final class ComparisonRelationTest extends PredicateTestCase<ComparisonRe
     }
 
     @Override
-    protected Class<ComparisonRelation> type() {
+    public Class<ComparisonRelation> type() {
         return ComparisonRelation.class;
     }
 }

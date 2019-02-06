@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionBooleanFunctionTest extends ExpressionFunctionTestCase<ExpressionBooleanFunction, Boolean> {
@@ -66,7 +65,7 @@ public final class ExpressionBooleanFunctionTest extends ExpressionFunctionTestC
 
     @Test
     public void testToString() {
-        assertEquals("boolean", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "boolean");
     }
 
     @Override
@@ -75,7 +74,7 @@ public final class ExpressionBooleanFunctionTest extends ExpressionFunctionTestC
     }
 
     @Override
-    protected Class<ExpressionBooleanFunction> type() {
+    public Class<ExpressionBooleanFunction> type() {
         return ExpressionBooleanFunction.class;
     }
 }

@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFunctionTestCase<ExpressionNormalizeSpaceFunction, String> {
@@ -122,7 +121,7 @@ public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFuncti
 
     @Test
     public void testToString() {
-        assertEquals("normalize-space", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "normalize-space");
     }
 
     @Override
@@ -131,7 +130,7 @@ public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFuncti
     }
 
     @Override
-    protected Class<ExpressionNormalizeSpaceFunction> type() {
+    public Class<ExpressionNormalizeSpaceFunction> type() {
         return ExpressionNormalizeSpaceFunction.class;
     }
 }

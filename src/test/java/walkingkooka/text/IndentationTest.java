@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
@@ -30,7 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IndentationTest extends ClassTestCase<Indentation>
-        implements HashCodeEqualsDefinedTesting<Indentation>, SerializationTesting<Indentation> {
+        implements HashCodeEqualsDefinedTesting<Indentation>,
+        SerializationTesting<Indentation>,
+        ToStringTesting<Indentation> {
 
     @Test
     public void testCarriageReturnRepeatingCharFails() {
@@ -203,12 +206,12 @@ final public class IndentationTest extends ClassTestCase<Indentation>
 
     @Test
     public void testToStringEmpty() {
-        assertEquals("", Indentation.with("").toString());
+        this.toStringAndCheck(Indentation.with(""), "");
     }
 
     @Test
     public void testToString() {
-        assertEquals("a1 ", Indentation.with("a1 ").toString());
+        this.toStringAndCheck(Indentation.with("a1 "), "a1 ");
     }
 
     @Test

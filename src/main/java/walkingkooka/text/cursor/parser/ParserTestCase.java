@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -36,7 +37,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserToken, C extends ParserContext> extends ClassTestCase<P> {
+public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserToken, C extends ParserContext>
+        extends ClassTestCase<P>
+        implements ToStringTesting<P> {
 
     @Test
     public void testNullCursorFail() {

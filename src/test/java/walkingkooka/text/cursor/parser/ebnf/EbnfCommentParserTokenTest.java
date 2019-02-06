@@ -86,7 +86,7 @@ public final class EbnfCommentParserTokenTest extends EbnfLeafParserTokenTestCas
     }
 
     @Override
-    protected Class<EbnfCommentParserToken> type() {
+    public Class<EbnfCommentParserToken> type() {
         return EbnfCommentParserToken.class;
     }
 }

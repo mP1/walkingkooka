@@ -59,7 +59,7 @@ public final class XmlNodeChildListTest extends ListTestCase<XmlNodeChildList, X
     }
 
     @Override
-    protected Class<XmlNodeChildList> type() {
+    public Class<XmlNodeChildList> type() {
         return XmlNodeChildList.class;
     }
 }

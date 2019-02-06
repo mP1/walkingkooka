@@ -99,7 +99,7 @@ public final class SearchOrQueryTest extends SearchBinaryQueryTestCase<SearchOrQ
     }
     
     @Override
-    protected Class<SearchOrQuery> type() {
+    public Class<SearchOrQuery> type() {
         return SearchOrQuery.class;
     }
 }

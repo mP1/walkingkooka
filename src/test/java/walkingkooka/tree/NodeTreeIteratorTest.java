@@ -26,7 +26,6 @@ import walkingkooka.naming.StringName;
 
 import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterator<TestNode, StringName, StringName, Object>, TestNode> {
@@ -154,21 +153,22 @@ public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterato
     public void testToStringEmpty() {
         final Iterator<TestNode> iterator = this.createIterator();
         iterator.next();
-        assertEquals("???", iterator.toString());
+        this.toStringAndCheck(iterator, "???");
     }
 
     @Test
     public void testToStringNextAvailable() {
         final Iterator<TestNode> iterator = this.createIterator();
-        assertEquals("\"root\"", iterator.toString());
+        this.toStringAndCheck(iterator, "\"root\"");
     }
 
-    @Override public NodeTreeIterator<TestNode, StringName, StringName, Object> createIterator() {
+    @Override
+    public NodeTreeIterator<TestNode, StringName, StringName, Object> createIterator() {
         return new NodeTreeIterator<>(TestNode.with("root"));
     }
 
     @Override
-    protected Class<NodeTreeIterator<TestNode, StringName, StringName, Object>> type() {
+    public Class<NodeTreeIterator<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeTreeIterator.class);
     }
 }

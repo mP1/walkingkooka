@@ -22,7 +22,6 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CharacterCharPredicateParserTest extends ParserTemplateTestCase<CharacterCharPredicateParser<ParserContext>, CharacterParserToken> {
@@ -70,7 +69,7 @@ public final class CharacterCharPredicateParserTest extends ParserTemplateTestCa
 
     @Test
     public void testToString() {
-        assertEquals(DIGITS.toString(), this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), DIGITS.toString());
     }
 
     @Override
@@ -92,7 +91,7 @@ public final class CharacterCharPredicateParserTest extends ParserTemplateTestCa
 
 
     @Override
-    protected Class<CharacterCharPredicateParser<ParserContext>> type() {
+    public Class<CharacterCharPredicateParser<ParserContext>> type() {
         return Cast.to(CharacterCharPredicateParser.class);
     }
 }

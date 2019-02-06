@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class LanguageTagNameTest extends ClassTestCase<LanguageTagName> {
 
     @Override
-    protected Class<LanguageTagName> type() {
+    public Class<LanguageTagName> type() {
         return LanguageTagName.class;
     }
 

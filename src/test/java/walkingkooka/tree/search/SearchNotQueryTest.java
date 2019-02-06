@@ -109,7 +109,7 @@ public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNo
     }
     
     @Override
-    protected Class<SearchNotQuery> type() {
+    public Class<SearchNotQuery> type() {
         return SearchNotQuery.class;
     }
 }

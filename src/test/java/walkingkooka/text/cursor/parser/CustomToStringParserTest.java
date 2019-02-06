@@ -122,7 +122,7 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
 
     @Test
     public void testToString() {
-        assertEquals(CUSTOM_TO_STRING, this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), CUSTOM_TO_STRING);
     }
 
     @Override
@@ -131,7 +131,7 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
     }
 
     @Override
-    protected Class<CustomToStringParser<StringParserToken, ParserContext>> type() {
+    public Class<CustomToStringParser<StringParserToken, ParserContext>> type() {
         return Cast.to(CustomToStringParser.class);
     }
 

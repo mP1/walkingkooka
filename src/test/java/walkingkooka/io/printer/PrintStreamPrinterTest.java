@@ -175,7 +175,7 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
     }
 
     @Override
-    protected Class<PrintStreamPrinter> type() {
+    public Class<PrintStreamPrinter> type() {
         return PrintStreamPrinter.class;
     }
 }

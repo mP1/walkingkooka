@@ -24,6 +24,4 @@ public abstract class BigDecimalSpreadsheetTextFormatterComponentTestCase<C exte
     BigDecimalSpreadsheetTextFormatterComponentTestCase() {
         super();
     }
-
-    public abstract void testToString();
 }

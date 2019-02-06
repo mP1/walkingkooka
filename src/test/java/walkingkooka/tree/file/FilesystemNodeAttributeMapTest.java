@@ -64,7 +64,7 @@ public final class FilesystemNodeAttributeMapTest extends MapTestCase<Filesystem
     }
 
     @Override
-    protected Class<FilesystemNodeAttributeMap> type() {
+    public Class<FilesystemNodeAttributeMap> type() {
         return FilesystemNodeAttributeMap.class;
     }
 }

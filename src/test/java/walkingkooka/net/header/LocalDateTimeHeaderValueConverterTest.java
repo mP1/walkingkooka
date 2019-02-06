@@ -74,7 +74,7 @@ public final class LocalDateTimeHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<LocalDateTimeHeaderValueConverter> type() {
+    public Class<LocalDateTimeHeaderValueConverter> type() {
         return LocalDateTimeHeaderValueConverter.class;
     }
 }

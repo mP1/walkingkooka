@@ -28,12 +28,13 @@ public final class SpreadsheetRowReferenceParserTokenTest extends SpreadsheetNon
 
     @Test
     public void testToStringAbsolute() {
-        assertEquals("$ABC", this.createToken(SpreadsheetReferenceKind.ABSOLUTE.row(555), "$ABC").toString());
+        this.toStringAndCheck(this.createToken(SpreadsheetReferenceKind.ABSOLUTE.row(555), "$ABC"),
+                "$ABC");
     }
 
     @Test
     public void testToStringRelative() {
-        assertEquals("1", this.createToken().toString());
+        this.toStringAndCheck(this.createToken(),"1");
     }
 
     @Test
@@ -98,7 +99,7 @@ public final class SpreadsheetRowReferenceParserTokenTest extends SpreadsheetNon
     }
 
     @Override
-    protected Class<SpreadsheetRowReferenceParserToken> type() {
+    public Class<SpreadsheetRowReferenceParserToken> type() {
         return SpreadsheetRowReferenceParserToken.class;
     }
 }

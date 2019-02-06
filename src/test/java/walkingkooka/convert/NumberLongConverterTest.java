@@ -107,7 +107,7 @@ public final class NumberLongConverterTest extends NumberConverterTestCase<Numbe
     }
 
     @Override
-    protected Class<NumberLongConverter> type() {
+    public Class<NumberLongConverter> type() {
         return NumberLongConverter.class;
     }
 }

@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 public final class NodeSelectorExceptionTest extends PublicThrowableTestCase<NodeSelectorException> {
     @Override
-    protected Class<NodeSelectorException> type() {
+    public Class<NodeSelectorException> type() {
         return NodeSelectorException.class;
     }
 }

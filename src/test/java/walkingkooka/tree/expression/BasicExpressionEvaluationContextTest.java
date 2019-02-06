@@ -176,7 +176,7 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
     }
 
     @Override
-    protected Class<BasicExpressionEvaluationContext> type() {
+    public Class<BasicExpressionEvaluationContext> type() {
         return BasicExpressionEvaluationContext.class;
     }
 }

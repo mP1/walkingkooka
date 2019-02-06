@@ -23,8 +23,6 @@ import walkingkooka.Cast;
 
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class LocalTimeLongConverterTest extends LocalTimeConverterTestCase<LocalTimeLongConverter, Long> {
 
     private final static int VALUE = 123;
@@ -43,7 +41,7 @@ public final class LocalTimeLongConverterTest extends LocalTimeConverterTestCase
 
     @Test
     public void testToString() {
-        assertEquals("LocalTime->Long", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "LocalTime->Long");
     }
 
     @Override
@@ -57,7 +55,7 @@ public final class LocalTimeLongConverterTest extends LocalTimeConverterTestCase
     }
 
     @Override
-    protected Class<LocalTimeLongConverter> type() {
+    public Class<LocalTimeLongConverter> type() {
         return LocalTimeLongConverter.class;
     }
 }

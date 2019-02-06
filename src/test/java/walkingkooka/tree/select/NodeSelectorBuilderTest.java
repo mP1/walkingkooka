@@ -508,7 +508,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Override
-    protected Class<NodeSelectorBuilder> type() {
+    public Class<NodeSelectorBuilder<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeSelectorBuilder.class);
     }
 

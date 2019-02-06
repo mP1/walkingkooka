@@ -25,7 +25,7 @@ import walkingkooka.type.MemberVisibility;
 public final class ExpressionTemplateFunctionTest extends ClassTestCase<ExpressionTemplateFunction<?>> {
 
     @Override
-    protected Class<ExpressionTemplateFunction<?>> type() {
+    public Class<ExpressionTemplateFunction<?>> type() {
         return Cast.to(ExpressionTemplateFunction.class);
     }
 

@@ -158,7 +158,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
     }
 
     @Override
-    protected Class<SpreadsheetFunctionParserToken> type() {
+    public Class<SpreadsheetFunctionParserToken> type() {
         return SpreadsheetFunctionParserToken.class;
     }
 }

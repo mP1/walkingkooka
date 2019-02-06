@@ -168,7 +168,7 @@ public final class SpreadsheetFormatColorParserTokenTest extends SpreadsheetForm
     }
 
     @Override
-    protected Class<SpreadsheetFormatColorParserToken> type() {
+    public Class<SpreadsheetFormatColorParserToken> type() {
         return SpreadsheetFormatColorParserToken.class;
     }
 }

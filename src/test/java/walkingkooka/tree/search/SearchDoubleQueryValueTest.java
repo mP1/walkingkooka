@@ -41,7 +41,7 @@ public final class SearchDoubleQueryValueTest extends SearchQueryValueTestCase<S
     }
 
     @Override
-    protected Class<SearchDoubleQueryValue> type() {
+    public Class<SearchDoubleQueryValue> type() {
         return SearchDoubleQueryValue.class;
     }
 }

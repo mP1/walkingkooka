@@ -66,17 +66,17 @@ public abstract class LocalDateTimeConverterTestCase2<C extends FixedSourceTypeT
 
     @Test
     public final void testToString() {
-        assertEquals(this.defaultToString(), this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), this.defaultToString());
     }
 
     @Test
     public final void testToStringNegativeOffset() {
-        assertEquals(this.defaultToString() + "(-123)", this.createConverter(-123).toString());
+        this.toStringAndCheck(this.createConverter(-123), this.defaultToString() + "(-123)");
     }
 
     @Test
     public final void testToStringPositiveOffset() {
-        assertEquals(this.defaultToString() + "(+123)", this.createConverter(+123).toString());
+        this.toStringAndCheck(this.createConverter(+123), this.defaultToString() + "(+123)");
     }
 
     private String defaultToString() {

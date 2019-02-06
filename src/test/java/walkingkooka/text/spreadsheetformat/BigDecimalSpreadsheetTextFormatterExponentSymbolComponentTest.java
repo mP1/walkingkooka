@@ -20,17 +20,15 @@ package walkingkooka.text.spreadsheetformat;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class BigDecimalSpreadsheetTextFormatterExponentSymbolComponentTest extends BigDecimalSpreadsheetTextFormatterComponentTestCase<BigDecimalSpreadsheetTextFormatterExponentSymbolComponent> {
 
     @Test
     public void testToString() {
-        assertEquals("E", BigDecimalSpreadsheetTextFormatterExponentSymbolComponent.INSTANCE.toString());
+        this.toStringAndCheck(BigDecimalSpreadsheetTextFormatterExponentSymbolComponent.INSTANCE, "E");
     }
 
     @Override
-    protected Class<BigDecimalSpreadsheetTextFormatterExponentSymbolComponent> type() {
+    public Class<BigDecimalSpreadsheetTextFormatterExponentSymbolComponent> type() {
         return BigDecimalSpreadsheetTextFormatterExponentSymbolComponent.class;
     }
 }

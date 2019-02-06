@@ -24,8 +24,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 final public class FirstChildNodeSelectorTest extends
         NodeSelectorTestCase2<FirstChildNodeSelector<TestNode, StringName, StringName, Object>> {
@@ -69,7 +67,7 @@ final public class FirstChildNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("first-child::*", this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), "first-child::*");
     }
 
     @Override
@@ -78,7 +76,7 @@ final public class FirstChildNodeSelectorTest extends
     }
 
     @Override
-    protected Class<FirstChildNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<FirstChildNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(FirstChildNodeSelector.class);
     }
 }

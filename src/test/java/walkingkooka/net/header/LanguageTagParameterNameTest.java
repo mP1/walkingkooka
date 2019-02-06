@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -77,21 +76,13 @@ final public class LanguageTagParameterNameTest extends HeaderParameterNameTestC
         return LanguageTag.WILDCARD;
     }
 
-    // toString...........................................................................
-
-    @Test
-    public void testToString() {
-        final String text = "abc123";
-        assertEquals(text, LanguageTagParameterName.with(text).toString());
-    }
-
     @Override
     public LanguageTagParameterName<Object> createName(final String name) {
         return Cast.to(LanguageTagParameterName.with(name));
     }
 
     @Override
-    protected Class<LanguageTagParameterName<?>> type() {
+    public Class<LanguageTagParameterName<?>> type() {
         return Cast.to(LanguageTagParameterName.class);
     }
 }

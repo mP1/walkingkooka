@@ -28,7 +28,7 @@ public final class SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTesterTe
     }
 
     @Override
-    protected Class<SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTester> type() {
+    public Class<SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTester> type() {
         return SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTester.class;
     }
 }

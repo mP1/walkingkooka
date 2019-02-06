@@ -101,7 +101,7 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
 
     @Test
     public void testToString() {
-        assertEquals(this.pattern() + " " + TEXT_PATTERN, this.createFormatter().toString());
+        this.toStringAndCheck(this.createFormatter(), this.pattern() + " " + TEXT_PATTERN);
     }
 
     @Override
@@ -142,7 +142,7 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
     }
 
     @Override
-    protected Class<ColorSpreadsheetTextFormatter<String>> type() {
+    public Class<ColorSpreadsheetTextFormatter<String>> type() {
         return Cast.to(ColorSpreadsheetTextFormatter.class);
     }
 }

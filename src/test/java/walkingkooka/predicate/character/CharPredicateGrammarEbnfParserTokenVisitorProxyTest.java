@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class CharPredicateGrammarEbnfParserTokenVisitorProxyTest extends ClassTestCase<CharPredicateGrammarEbnfParserTokenVisitorProxy> {
     @Override
-    protected Class<CharPredicateGrammarEbnfParserTokenVisitorProxy> type() {
+    public Class<CharPredicateGrammarEbnfParserTokenVisitorProxy> type() {
         return CharPredicateGrammarEbnfParserTokenVisitorProxy.class;
     }
 

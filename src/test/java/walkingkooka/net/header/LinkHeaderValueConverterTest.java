@@ -104,7 +104,7 @@ public final class LinkHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<LinkHeaderValueConverter> type() {
+    public Class<LinkHeaderValueConverter> type() {
         return LinkHeaderValueConverter.class;
     }
 }

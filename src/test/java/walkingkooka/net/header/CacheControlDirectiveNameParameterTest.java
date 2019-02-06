@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class CacheControlDirectiveNameParameterTest extends ClassTestCase<CacheControlDirectiveNameParameter> {
     @Override
-    protected Class<CacheControlDirectiveNameParameter> type() {
+    public Class<CacheControlDirectiveNameParameter> type() {
         return CacheControlDirectiveNameParameter.class;
     }
 

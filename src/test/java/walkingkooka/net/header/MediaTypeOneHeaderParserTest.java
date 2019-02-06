@@ -53,7 +53,7 @@ public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTes
     }
 
     @Override
-    protected Class<MediaTypeOneHeaderParser> type() {
+    public Class<MediaTypeOneHeaderParser> type() {
         return MediaTypeOneHeaderParser.class;
     }
 }

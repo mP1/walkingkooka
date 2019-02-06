@@ -261,7 +261,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     }
 
     @Override
-    protected Class type() {
+    public Class type() {
         return MissingBuilder.class;
     }
 }

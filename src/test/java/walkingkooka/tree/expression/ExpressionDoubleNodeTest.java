@@ -100,12 +100,12 @@ public final class ExpressionDoubleNodeTest extends ExpressionLeafNodeTestCase<E
 
     @Test
     public void testToString() {
-        assertEquals("1.0", this.createExpressionNode(1.0).toString());
+        this.toStringAndCheck(this.createExpressionNode(1.0), "1.0");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("234.5", this.createExpressionNode(234.5).toString());
+        this.toStringAndCheck(this.createExpressionNode(234.5), "234.5");
     }
 
     private ExpressionDoubleNode createExpressionNode(final double value) {

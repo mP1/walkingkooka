@@ -85,7 +85,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
 
     @Test
     public void testToString() {
-        assertEquals("[]", EmptyArrayStack.instance().toString());
+        this.toStringAndCheck(EmptyArrayStack.instance(), "[]");
     }
 
     @Override

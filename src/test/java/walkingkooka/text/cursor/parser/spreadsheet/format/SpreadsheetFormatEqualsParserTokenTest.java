@@ -115,7 +115,7 @@ public final class SpreadsheetFormatEqualsParserTokenTest extends SpreadsheetFor
     }
 
     @Override
-    protected Class<SpreadsheetFormatEqualsParserToken> type() {
+    public Class<SpreadsheetFormatEqualsParserToken> type() {
         return SpreadsheetFormatEqualsParserToken.class;
     }
 }

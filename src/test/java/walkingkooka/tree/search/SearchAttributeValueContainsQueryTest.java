@@ -74,7 +74,7 @@ public final class SearchAttributeValueContainsQueryTest extends SearchAttribute
     }
 
     @Override
-    protected Class<SearchAttributeValueContainsQuery> type() {
+    public Class<SearchAttributeValueContainsQuery> type() {
         return SearchAttributeValueContainsQuery.class;
     }
 }

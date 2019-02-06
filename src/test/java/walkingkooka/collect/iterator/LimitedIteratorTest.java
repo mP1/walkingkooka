@@ -120,9 +120,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
 
     @Test
     public void testToString() {
-        assertEquals("at most 2 " + ITERATOR,
-                LimitedIterator.wrap(ITERATOR, COUNT)
-                        .toString());
+        this.toStringAndCheck(LimitedIterator.wrap(ITERATOR, COUNT), "at most 2 " + ITERATOR);
     }
 
     @Override public LimitedIterator<String> createIterator() {
@@ -133,7 +131,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
     }
 
     @Override
-    protected Class<LimitedIterator<String>> type() {
+    public Class<LimitedIterator<String>> type() {
         return Cast.to(LimitedIterator.class);
     }
 }

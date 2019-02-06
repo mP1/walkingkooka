@@ -25,7 +25,7 @@ public final class StringHeaderValueConverterTest extends
         ClassTestCase<StringHeaderValueConverter> {
 
     @Override
-    protected Class<StringHeaderValueConverter> type() {
+    public Class<StringHeaderValueConverter> type() {
         return StringHeaderValueConverter.class;
     }
 

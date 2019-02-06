@@ -60,7 +60,7 @@ public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunct
     }
 
     @Override
-    protected Class<PrefixedNumberParserTokenBiFunction<FakeParserContext>> type() {
+    public Class<PrefixedNumberParserTokenBiFunction<FakeParserContext>> type() {
         return Cast.to(PrefixedNumberParserTokenBiFunction.class);
     }
 

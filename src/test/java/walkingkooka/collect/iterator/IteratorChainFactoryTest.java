@@ -31,7 +31,7 @@ final public class IteratorChainFactoryTest
     }
 
     @Override
-    protected Class<IteratorChainFactory<Object>> type() {
+    public Class<IteratorChainFactory<Object>> type() {
         return Cast.to(IteratorChainFactory.class);
     }
 }

@@ -24,7 +24,6 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NormalizingCharSequenceComparatorTest
@@ -146,8 +145,7 @@ final public class NormalizingCharSequenceComparatorTest
     
     @Test
     public void testToString() {
-        assertEquals("normalizing " + PREDICATE,
-                this.createComparator().toString());
+        this.toStringAndCheck(this.createComparator(), "normalizing " + PREDICATE);
     }
 
     @Override

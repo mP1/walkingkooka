@@ -139,7 +139,7 @@ public final class SpreadsheetFormatGeneralParserTokenTest extends SpreadsheetFo
     }
 
     @Override
-    protected Class<SpreadsheetFormatGeneralParserToken> type() {
+    public Class<SpreadsheetFormatGeneralParserToken> type() {
         return SpreadsheetFormatGeneralParserToken.class;
     }
 }

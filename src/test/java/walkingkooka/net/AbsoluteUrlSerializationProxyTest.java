@@ -23,8 +23,6 @@ import walkingkooka.io.serialize.SerializationProxyTestCase;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class AbsoluteUrlSerializationProxyTest extends SerializationProxyTestCase<AbsoluteUrlSerializationProxy> {
 
     @Test
@@ -33,7 +31,7 @@ public final class AbsoluteUrlSerializationProxyTest extends SerializationProxyT
                 .setPort(Optional.of(IpPort.with(8080)))
                 .setPath(UrlPath.parse("/abc/def"))
                 .setQuery(UrlQueryString.with("ghi=jkl"));
-        assertEquals(url.toString(), url.writeReplace().toString());
+        this.toStringAndCheck(url.writeReplace(), url.toString());
     }
 
     @Override

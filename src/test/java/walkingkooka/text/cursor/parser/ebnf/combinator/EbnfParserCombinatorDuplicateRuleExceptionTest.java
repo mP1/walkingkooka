@@ -77,7 +77,7 @@ public final class EbnfParserCombinatorDuplicateRuleExceptionTest extends ClassT
     }
 
     @Override
-    protected Class<EbnfParserCombinatorDuplicateRuleException> type() {
+    public Class<EbnfParserCombinatorDuplicateRuleException> type() {
         return EbnfParserCombinatorDuplicateRuleException.class;
     }
 

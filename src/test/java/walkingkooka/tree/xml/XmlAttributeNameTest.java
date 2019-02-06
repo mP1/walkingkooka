@@ -81,7 +81,7 @@ public final class XmlAttributeNameTest extends ClassTestCase<XmlAttributeName>
     }
 
     @Override
-    protected Class<XmlAttributeName> type() {
+    public Class<XmlAttributeName> type() {
         return XmlAttributeName.class;
     }
 

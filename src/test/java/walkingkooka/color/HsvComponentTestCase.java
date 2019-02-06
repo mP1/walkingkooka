@@ -24,6 +24,7 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -36,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract public class HsvComponentTestCase<C extends HsvComponent> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>,
         IsMethodTesting<C>,
-        SerializationTesting<C> {
+        SerializationTesting<C>,
+        ToStringTesting<C> {
 
     HsvComponentTestCase() {
         super();
@@ -143,7 +145,7 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
     // toString
 
     public final void testToString() {
-        assertEquals(String.valueOf(VALUE), this.createHsvComponent(VALUE).toString());
+        this.toStringAndCheck(this.createHsvComponent(VALUE), String.valueOf(VALUE));
     }
 
     final C createHsvComponent() {

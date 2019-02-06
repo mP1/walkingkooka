@@ -22,7 +22,7 @@ public final class HostAddressInvalidValueProblemTest
         extends HostAddressProblemTestCase<HostAddressInvalidValueProblem> {
 
     @Override
-    protected Class<HostAddressInvalidValueProblem> type() {
+    public Class<HostAddressInvalidValueProblem> type() {
         return HostAddressInvalidValueProblem.class;
     }
 }

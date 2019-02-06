@@ -80,7 +80,7 @@ public final class ParserTokenNodeAttributeNameTest extends ClassTestCase<Parser
     }
 
     @Override
-    protected Class<ParserTokenNodeAttributeName> type() {
+    public Class<ParserTokenNodeAttributeName> type() {
         return ParserTokenNodeAttributeName.class;
     }
 

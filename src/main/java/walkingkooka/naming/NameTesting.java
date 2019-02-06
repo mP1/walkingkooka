@@ -21,7 +21,9 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparableTesting;
+import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
@@ -31,7 +33,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */
-public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined> extends ComparableTesting<C>{
+public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined>
+        extends ComparableTesting<C>,
+        ToStringTesting<N> {
 
     @Test
     default void testNaming() {
@@ -107,6 +111,12 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
         }
     }
 
+    @Test
+    default void testToString() {
+        final String name = "ABC123";
+        this.toStringAndCheck(HttpRequestParameterName.with(name), name);
+    }
+
     N createName(final String name);
 
     default C createComparable(final String name) {
@@ -129,6 +139,8 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
     default void checkValue(final Name name, final String value) {
         assertEquals(value, name.value(), "value");
     }
+
+    Class<N> type();
 
     default MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;

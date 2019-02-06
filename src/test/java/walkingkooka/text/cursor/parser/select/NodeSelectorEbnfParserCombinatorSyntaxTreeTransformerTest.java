@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSynta
 public final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerTest extends EbnfParserCombinatorSyntaxTreeTransformerTestCase<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> {
 
     @Override
-    protected Class<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> type() {
+    public Class<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> type() {
         return NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.class;
     }
 }

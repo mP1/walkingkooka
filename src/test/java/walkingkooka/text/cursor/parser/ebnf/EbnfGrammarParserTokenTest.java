@@ -290,7 +290,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     @Override
-    protected Class<EbnfGrammarParserToken> type() {
+    public Class<EbnfGrammarParserToken> type() {
         return EbnfGrammarParserToken.class;
     }
 }

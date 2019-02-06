@@ -52,7 +52,8 @@ public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<Strin
 
         final RouterBuilder<StringName, String> builder = RouterBuilder.<StringName, String>empty()
                 .add(routing1);
-        assertEquals("\"path-0\"=\"dir-1\" & \"path-1\"=\"file-2.txt\" ->one", builder.toString());
+        this.toStringAndCheck(builder,
+                "\"path-0\"=\"dir-1\" & \"path-1\"=\"file-2.txt\" ->one");
     }
 
     @Override
@@ -61,12 +62,12 @@ public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<Strin
     }
 
     @Override
-    protected Class<RouterBuilder<StringName, String>> type() {
+    public Class<RouterBuilder<StringName, String>> type() {
         return Cast.to(RouterBuilder.class);
     }
 
     @Override
-    protected Class<Router<StringName, String>> builderProductType() {
+    public Class<Router<StringName, String>> builderProductType() {
         return Cast.to(Router.class);
     }
 }

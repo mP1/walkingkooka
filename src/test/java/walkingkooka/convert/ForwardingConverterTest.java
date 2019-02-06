@@ -24,7 +24,6 @@ import walkingkooka.Cast;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ForwardingConverterTest extends FixedTypeConverterTestCase<ForwardingConverter<Number, BigDecimal>, Number> {
@@ -78,7 +77,7 @@ public final class ForwardingConverterTest extends FixedTypeConverterTestCase<Fo
 
     @Test
     public void testToString(){
-        assertEquals("LocalDate->Number", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "LocalDate->Number");
     }
 
     @Override
@@ -99,7 +98,7 @@ public final class ForwardingConverterTest extends FixedTypeConverterTestCase<Fo
     }
 
     @Override
-    protected Class<ForwardingConverter<Number, BigDecimal>> type() {
+    public Class<ForwardingConverter<Number, BigDecimal>> type() {
         return Cast.to(ForwardingConverter.class);
     }
 }

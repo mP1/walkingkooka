@@ -218,7 +218,7 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
     }
 
     @Override
-    protected Class<EbnfRuleParserToken> type() {
+    public Class<EbnfRuleParserToken> type() {
         return EbnfRuleParserToken.class;
     }
 }

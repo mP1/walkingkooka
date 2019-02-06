@@ -112,7 +112,7 @@ final public class IterablesTest extends PublicStaticHelperTestCase<Iterables> {
     }
 
     @Override
-    protected Class<Iterables> type() {
+    public Class<Iterables> type() {
         return Iterables.class;
     }
 

@@ -21,6 +21,7 @@ package walkingkooka.compare;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
@@ -30,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends ClassTestCase<B>
-        implements IsMethodTesting<B> {
+        implements IsMethodTesting<B>,
+        ToStringTesting<B> {
 
     RangeBoundTestCase() {
         super();

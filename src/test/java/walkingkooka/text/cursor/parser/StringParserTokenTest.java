@@ -76,7 +76,7 @@ public final class StringParserTokenTest extends ParserTokenTestCase<StringParse
     }
 
     @Override
-    protected Class<StringParserToken> type() {
+    public Class<StringParserToken> type() {
         return StringParserToken.class;
     }
 }

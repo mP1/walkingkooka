@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 public final class DecimalNumberContextsTest extends PublicStaticHelperTestCase<DecimalNumberContexts> {
 
     @Override
-    protected Class<DecimalNumberContexts> type() {
+    public Class<DecimalNumberContexts> type() {
         return DecimalNumberContexts.class;
     }
 

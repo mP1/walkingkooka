@@ -36,7 +36,7 @@ public final class LocalTimeLocalDateTimeConverterTest extends LocalDateTimeConv
     }
 
     @Override
-    protected Class<LocalTimeLocalDateTimeConverter> type() {
+    public Class<LocalTimeLocalDateTimeConverter> type() {
         return LocalTimeLocalDateTimeConverter.class;
     }
 }

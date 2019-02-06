@@ -59,7 +59,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
 
     @Test
     public void testToString() {
-        assertEquals(FILENAME, this.createHeaderValue().toString());
+        this.toStringAndCheck(this.createHeaderValue(), FILENAME);
     }
 
     @Override
@@ -72,7 +72,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     }
 
     @Override
-    protected Class<ContentDispositionFileNameEncoded> type() {
+    public Class<ContentDispositionFileNameEncoded> type() {
         return ContentDispositionFileNameEncoded.class;
     }
 

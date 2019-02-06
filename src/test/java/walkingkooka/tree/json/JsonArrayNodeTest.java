@@ -372,7 +372,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testToStringEmpty() {
-        assertEquals("[]", this.createJsonNode().toString());
+        this.toStringAndCheck(this.createJsonNode(), "[]");
     }
 
     @Test
@@ -382,7 +382,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 .appendChild(JsonNode.number(2))
                 .appendChild(JsonNode.string("third"));
 
-        assertEquals("[true, 2, \"third\"]", array.toString());
+        this.toStringAndCheck(array, "[true, 2, \"third\"]");
     }
 
     @Override

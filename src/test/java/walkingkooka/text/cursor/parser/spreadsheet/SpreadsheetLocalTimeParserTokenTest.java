@@ -96,7 +96,7 @@ public final class SpreadsheetLocalTimeParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected Class<SpreadsheetLocalTimeParserToken> type() {
+    public Class<SpreadsheetLocalTimeParserToken> type() {
         return SpreadsheetLocalTimeParserToken.class;
     }
 }

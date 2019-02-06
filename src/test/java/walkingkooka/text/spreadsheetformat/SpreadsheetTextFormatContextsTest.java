@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 public final class SpreadsheetTextFormatContextsTest extends PublicStaticHelperTestCase<SpreadsheetTextFormatContexts> {
 
     @Override
-    protected Class<SpreadsheetTextFormatContexts> type() {
+    public Class<SpreadsheetTextFormatContexts> type() {
         return SpreadsheetTextFormatContexts.class;
     }
 

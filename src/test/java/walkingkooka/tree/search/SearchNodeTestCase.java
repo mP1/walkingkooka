@@ -158,7 +158,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     abstract SearchNode differentSearchNode();
 
     @Override
-    protected Class<SearchNode> type() {
+    public Class<SearchNode> type() {
         return Cast.to(this.searchNodeType());
     }
 

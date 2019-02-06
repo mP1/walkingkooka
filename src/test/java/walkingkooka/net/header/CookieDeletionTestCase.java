@@ -22,13 +22,15 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
 public abstract class CookieDeletionTestCase<D extends CookieDeletion & HashCodeEqualsDefined> extends ClassTestCase<D>
         implements HashCodeEqualsDefinedTesting<D>,
-        IsMethodTesting<D> {
+        IsMethodTesting<D>,
+        ToStringTesting<D> {
 
     CookieDeletionTestCase() {
         super();

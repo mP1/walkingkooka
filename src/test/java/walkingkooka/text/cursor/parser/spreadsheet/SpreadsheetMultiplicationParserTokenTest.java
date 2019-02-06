@@ -41,7 +41,7 @@ public final class SpreadsheetMultiplicationParserTokenTest extends SpreadsheetB
     }
 
     @Override
-    protected Class<SpreadsheetMultiplicationParserToken> type() {
+    public Class<SpreadsheetMultiplicationParserToken> type() {
         return SpreadsheetMultiplicationParserToken.class;
     }
 }

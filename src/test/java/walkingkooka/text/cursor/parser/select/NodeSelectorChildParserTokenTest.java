@@ -88,7 +88,7 @@ public final class NodeSelectorChildParserTokenTest extends NodeSelectorNonSymbo
     }
 
     @Override
-    protected Class<NodeSelectorChildParserToken> type() {
+    public Class<NodeSelectorChildParserToken> type() {
         return NodeSelectorChildParserToken.class;
     }
 }

@@ -79,9 +79,7 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
         printer.print("string2");
         builder3.append("string2");
         checkEquals(builder3.toString(), builder1.toString());
-        checkEquals("Both Tee'd Printers should be equal.",
-                builder1.toString(),
-                builder2.toString());
+        checkEquals(builder1.toString(), builder2.toString());
     }
 
     @Test
@@ -106,9 +104,7 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
         printer.print("string2");
         builder3.append("string2");
         checkEquals(builder3.toString(), builder1.toString());
-        checkEquals("Both Tee'd Printers should be equal.",
-                builder1.toString(),
-                builder2.toString());
+        checkEquals(builder1.toString(), builder2.toString());
     }
 
     @Test
@@ -126,7 +122,7 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
     }
 
     @Override
-    protected Class<TeePrinter> type() {
+    public Class<TeePrinter> type() {
         return TeePrinter.class;
     }
 }

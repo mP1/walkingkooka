@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class XmlMapTest extends ClassTestCase<XmlMap> {
     @Override
-    protected Class<XmlMap> type() {
+    public Class<XmlMap> type() {
         return XmlMap.class;
     }
 

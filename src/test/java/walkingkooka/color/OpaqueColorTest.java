@@ -112,7 +112,7 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
 
     @Test
     public void testToString() {
-        assertEquals("#010203", Color.fromRgb(0x010203).toString());
+        this.toStringAndCheck(Color.fromRgb(0x010203), "#010203");
     }
 
     @Override

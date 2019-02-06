@@ -21,7 +21,7 @@ package walkingkooka.text.spreadsheetformat;
 public final class BigDecimalFractionSpreadsheetTextFormatterNumeratorDigitsTest extends BigDecimalFractionSpreadsheetTextFormatterDigitsTestCase<BigDecimalFractionSpreadsheetTextFormatterNumeratorDigits> {
 
     @Override
-    protected Class<BigDecimalFractionSpreadsheetTextFormatterNumeratorDigits> type() {
+    public Class<BigDecimalFractionSpreadsheetTextFormatterNumeratorDigits> type() {
         return BigDecimalFractionSpreadsheetTextFormatterNumeratorDigits.class;
     }
 }

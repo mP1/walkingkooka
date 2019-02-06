@@ -132,7 +132,7 @@ public final class QuotedStringHeaderValueConverterTest extends StringHeaderValu
     }
 
     @Override
-    protected Class<QuotedStringHeaderValueConverter> type() {
+    public Class<QuotedStringHeaderValueConverter> type() {
         return QuotedStringHeaderValueConverter.class;
     }
 }

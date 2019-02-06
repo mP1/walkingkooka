@@ -42,7 +42,7 @@ public final class SearchBigIntegerQueryValueTest extends SearchQueryValueTestCa
     }
 
     @Override
-    protected Class<SearchBigIntegerQueryValue> type() {
+    public Class<SearchBigIntegerQueryValue> type() {
         return SearchBigIntegerQueryValue.class;
     }
 }

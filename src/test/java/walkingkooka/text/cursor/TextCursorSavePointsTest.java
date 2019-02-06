@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class TextCursorSavePointsTest extends PublicStaticHelperTestCase<TextCursorSavePoints> {
 
     @Override
-    protected Class<TextCursorSavePoints> type() {
+    public Class<TextCursorSavePoints> type() {
         return TextCursorSavePoints.class;
     }
 

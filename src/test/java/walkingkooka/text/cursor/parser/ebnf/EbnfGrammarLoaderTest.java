@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class EbnfGrammarLoaderTest extends ClassTestCase<EbnfGrammarLoader> {
     @Override
-    protected Class<EbnfGrammarLoader> type() {
+    public Class<EbnfGrammarLoader> type() {
         return EbnfGrammarLoader.class;
     }
 

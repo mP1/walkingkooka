@@ -131,7 +131,7 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
     }
 
     @Override
-    protected Class<SpreadsheetPercentageParserToken> type() {
+    public Class<SpreadsheetPercentageParserToken> type() {
         return SpreadsheetPercentageParserToken.class;
     }
 }

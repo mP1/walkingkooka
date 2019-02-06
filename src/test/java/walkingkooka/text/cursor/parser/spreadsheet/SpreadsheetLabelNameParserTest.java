@@ -100,7 +100,8 @@ public final class SpreadsheetLabelNameParserTest extends SpreadsheetParserTestC
         return SpreadsheetLabelNameParser.INSTANCE;
     }
 
-    @Override protected Class<SpreadsheetLabelNameParser> type() {
+    @Override
+    public Class<SpreadsheetLabelNameParser> type() {
         return SpreadsheetLabelNameParser.class;
     }
 }

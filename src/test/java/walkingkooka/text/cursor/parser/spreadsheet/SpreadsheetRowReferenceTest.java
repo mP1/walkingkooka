@@ -63,6 +63,8 @@ public final class SpreadsheetRowReferenceTest extends SpreadsheetColumnOrRowRef
                 SpreadsheetReferenceKind.RELATIVE.row(VALUE + 999));
     }
 
+    // toString........................................................................
+
     @Test
     public void testToStringRelative() {
         this.checkToString(0, SpreadsheetReferenceKind.RELATIVE, "1");
@@ -89,7 +91,7 @@ public final class SpreadsheetRowReferenceTest extends SpreadsheetColumnOrRowRef
     }
 
     @Override
-    protected Class<SpreadsheetRowReference> type() {
+    public Class<SpreadsheetRowReference> type() {
         return SpreadsheetRowReference.class;
     }
 }

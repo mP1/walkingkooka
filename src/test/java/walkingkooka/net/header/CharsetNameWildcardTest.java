@@ -59,7 +59,7 @@ public final class CharsetNameWildcardTest extends CharsetNameTestCase<CharsetNa
     }
 
     @Override
-    protected Class<CharsetNameWildcard> type() {
+    public Class<CharsetNameWildcard> type() {
         return CharsetNameWildcard.class;
     }
 }

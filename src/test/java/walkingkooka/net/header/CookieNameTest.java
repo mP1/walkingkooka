@@ -187,7 +187,7 @@ final public class CookieNameTest extends ClassTestCase<CookieName>
 
     @Test
     public void testToString() {
-        assertEquals("cookie123", CookieName.with("cookie123").toString());
+        this.toStringAndCheck(CookieName.with("cookie123"), "cookie123");
     }
 
     @Override
@@ -236,7 +236,7 @@ final public class CookieNameTest extends ClassTestCase<CookieName>
     }
 
     @Override
-    protected Class<CookieName> type() {
+    public Class<CookieName> type() {
         return CookieName.class;
     }
 

@@ -40,7 +40,7 @@ public final class XmlEntityReferenceTest extends XmlParentNodeTestCase<XmlEntit
 
     @Test
     public void testToString() {
-        assertEquals("&kooka;", this.createNode().toString());
+        this.toStringAndCheck(this.createNode(), "&kooka;");
     }
 
     @Test
@@ -51,7 +51,7 @@ public final class XmlEntityReferenceTest extends XmlParentNodeTestCase<XmlEntit
                 .node);
         final Element root = document.getDocumentElement();
         final EntityReference reference = Cast.to(root.getFirstChild());
-        assertEquals("&kooka;", XmlEntityReference.with(reference).toString());
+        this.toStringAndCheck(XmlEntityReference.with(reference), "&kooka;");
     }
 
     @Test

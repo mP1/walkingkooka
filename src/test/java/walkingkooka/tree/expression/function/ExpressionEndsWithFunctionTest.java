@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionEndsWithFunctionTest extends ExpressionFunctionTestCase<ExpressionEndsWithFunction, Boolean> {
@@ -91,7 +90,7 @@ public final class ExpressionEndsWithFunctionTest extends ExpressionFunctionTest
 
     @Test
     public void testToString() {
-        assertEquals("ends-with", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "ends-with");
     }
 
     @Override
@@ -100,7 +99,7 @@ public final class ExpressionEndsWithFunctionTest extends ExpressionFunctionTest
     }
 
     @Override
-    protected Class<ExpressionEndsWithFunction> type() {
+    public Class<ExpressionEndsWithFunction> type() {
         return ExpressionEndsWithFunction.class;
     }
 }

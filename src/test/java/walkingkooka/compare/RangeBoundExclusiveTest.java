@@ -62,7 +62,7 @@ public final class RangeBoundExclusiveTest extends RangeBoundTestCase<RangeBound
     }
 
     @Override
-    protected Class<RangeBoundExclusive<Integer>> type() {
+    public Class<RangeBoundExclusive<Integer>> type() {
         return Cast.to(RangeBoundExclusive.class);
     }
 }

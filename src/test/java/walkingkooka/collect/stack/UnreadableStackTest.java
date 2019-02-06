@@ -89,7 +89,7 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
     
     @Test
     public void testToString() {
-        assertEquals(STACK.toString(), this.createStack().toString());
+        this.toStringAndCheck(this.createStack(), STACK.toString());
     }
 
     @Override

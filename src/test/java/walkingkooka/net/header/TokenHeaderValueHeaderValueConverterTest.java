@@ -102,7 +102,7 @@ public final class TokenHeaderValueHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<TokenHeaderValueHeaderValueConverter> type() {
+    public Class<TokenHeaderValueHeaderValueConverter> type() {
         return TokenHeaderValueHeaderValueConverter.class;
     }
 }

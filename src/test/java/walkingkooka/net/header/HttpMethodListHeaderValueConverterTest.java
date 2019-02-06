@@ -116,7 +116,7 @@ public final class HttpMethodListHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<HttpMethodListHeaderValueConverter> type() {
+    public Class<HttpMethodListHeaderValueConverter> type() {
         return HttpMethodListHeaderValueConverter.class;
     }
 }

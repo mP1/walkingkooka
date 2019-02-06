@@ -24,6 +24,7 @@ import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -34,7 +35,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class VisitorPrettyPrinterTest extends ClassTestCase<VisitorPrettyPrinter<Object>> {
+public final class VisitorPrettyPrinterTest extends ClassTestCase<VisitorPrettyPrinter<Object>>
+        implements ToStringTesting<VisitorPrettyPrinter<Object>> {
 
     @Test
     public void testWithNullPrinterFails() {
@@ -161,7 +163,7 @@ public final class VisitorPrettyPrinterTest extends ClassTestCase<VisitorPrettyP
     public void testToString() {
         final StringBuilder b = new StringBuilder();
         b.append("ABC");
-        assertEquals(b.toString(), this.prettyPrinter(b).toString());
+        this.toStringAndCheck(this.prettyPrinter(b), b.toString());
     }
 
     private VisitorPrettyPrinter<Object> prettyPrinter(final StringBuilder b) {
@@ -184,7 +186,7 @@ public final class VisitorPrettyPrinterTest extends ClassTestCase<VisitorPrettyP
     }
 
     @Override
-    protected Class<VisitorPrettyPrinter<Object>> type() {
+    public Class<VisitorPrettyPrinter<Object>> type() {
         return Cast.to(VisitorPrettyPrinter.class);
     }
 

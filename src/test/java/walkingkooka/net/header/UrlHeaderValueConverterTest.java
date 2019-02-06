@@ -79,7 +79,7 @@ public final class UrlHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<UrlHeaderValueConverter> type() {
+    public Class<UrlHeaderValueConverter> type() {
         return UrlHeaderValueConverter.class;
     }
 }

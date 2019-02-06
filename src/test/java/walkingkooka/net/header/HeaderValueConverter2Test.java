@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class HeaderValueConverter2Test extends ClassTestCase<HeaderValueConverter2<Void>> {
     @Override
-    protected Class<HeaderValueConverter2<Void>> type() {
+    public Class<HeaderValueConverter2<Void>> type() {
         return Cast.to(HeaderValueConverter2.class);
     }
 

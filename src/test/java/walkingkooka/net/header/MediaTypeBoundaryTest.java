@@ -229,12 +229,12 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Test
     public void testToString() {
-        assertEquals("abc", MediaTypeBoundary.with("abc").toString());
+        this.toStringAndCheck(MediaTypeBoundary.with("abc"), "abc");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("--abc", MediaTypeBoundary.with("--abc").toString());
+        this.toStringAndCheck(MediaTypeBoundary.with("--abc"), "--abc");
     }
 
     // helpers........................................................................................................
@@ -260,7 +260,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     @Override
-    protected Class<MediaTypeBoundary> type() {
+    public Class<MediaTypeBoundary> type() {
         return MediaTypeBoundary.class;
     }
 

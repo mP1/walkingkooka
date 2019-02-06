@@ -35,7 +35,7 @@ public final class NodeSelectorNotEqualsParserTokenTest extends NodeSelectorBina
     }
 
     @Override
-    protected Class<NodeSelectorNotEqualsParserToken> type() {
+    public Class<NodeSelectorNotEqualsParserToken> type() {
         return NodeSelectorNotEqualsParserToken.class;
     }
 }

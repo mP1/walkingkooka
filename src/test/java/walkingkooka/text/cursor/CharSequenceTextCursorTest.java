@@ -149,7 +149,7 @@ final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSeq
     }
 
     @Override
-    protected Class<CharSequenceTextCursor> type() {
+    public Class<CharSequenceTextCursor> type() {
         return CharSequenceTextCursor.class;
     }
 }

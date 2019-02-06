@@ -244,6 +244,13 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
         return SpreadsheetFormatParsers.expression();
     }
 
+    //toString .......................................................................................................
+
+    @Test
+    public final void testToString() {
+        this.toStringAndCheck(this.createFormatter(), this.pattern());
+    }
+
     @Override
     ExpressionSpreadsheetTextFormatter createFormatter0(final SpreadsheetFormatExpressionParserToken token) {
         return ExpressionSpreadsheetTextFormatter.with(token, this.mathContext(), this.fractioner());
@@ -344,7 +351,7 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
     }
 
     @Override
-    protected Class<ExpressionSpreadsheetTextFormatter> type() {
+    public Class<ExpressionSpreadsheetTextFormatter> type() {
         return ExpressionSpreadsheetTextFormatter.class;
     }
 }

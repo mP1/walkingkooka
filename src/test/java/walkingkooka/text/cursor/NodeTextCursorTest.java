@@ -137,7 +137,7 @@ public final class NodeTextCursorTest extends TextCursorTestCase<NodeTextCursor<
     }
 
     @Override
-    protected Class<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>> type() {
+    public Class<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>> type() {
         return Cast.to(NodeTextCursor.class);
     }
 }

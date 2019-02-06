@@ -78,7 +78,8 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
 
     @Test
     public void testToString() {
-        assertEquals(SOURCE_TYPE.getSimpleName() + "->" + TARGET_TYPE.getSimpleName(), this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(),
+                SOURCE_TYPE.getSimpleName() + "->" + TARGET_TYPE.getSimpleName());
     }
 
     @Override
@@ -97,7 +98,7 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
     }
 
     @Override
-    protected Class<BooleanConverter> type() {
+    public Class<BooleanConverter> type() {
         return BooleanConverter.class;
     }
 }

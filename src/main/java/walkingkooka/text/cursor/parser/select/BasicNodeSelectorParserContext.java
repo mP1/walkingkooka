@@ -18,6 +18,9 @@
 
 package walkingkooka.text.cursor.parser.select;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.build.tostring.ToStringBuilder;
+
 /**
  * A {@link NodeSelectorParserContext} without any functionality.
  */
@@ -72,5 +75,16 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     @Override
     public char plusSign() {
         return '+';
+    }
+
+    @Test
+    public String toString() {
+        return ToStringBuilder.empty()
+                .label("decimalPoint").value(this.decimalPoint())
+                .label("exponentSymbol").value(this.exponentSymbol())
+                .label("minusSign").value(this.minusSign())
+                .label("percentageSymbol").value(this.percentageSymbol())
+                .label("plusSign").value(this.plusSign())
+                .build();
     }
 }

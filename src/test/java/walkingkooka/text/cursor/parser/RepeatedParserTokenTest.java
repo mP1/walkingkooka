@@ -137,7 +137,7 @@ public final class RepeatedParserTokenTest extends RepeatedOrSequenceParserToken
     }
 
     @Override
-    protected Class<RepeatedParserToken> type() {
+    public Class<RepeatedParserToken> type() {
         return RepeatedParserToken.class;
     }
 }

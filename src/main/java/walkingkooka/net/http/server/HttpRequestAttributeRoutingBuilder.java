@@ -260,4 +260,9 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Each added predicate will set this to false.
      */
     private final Map<HttpRequestAttribute<?>, Predicate<Object>> attributeToPredicate = Maps.ordered();
+
+    @Override
+    public String toString() {
+        return this.attributeToPredicate.toString();
+    }
 }

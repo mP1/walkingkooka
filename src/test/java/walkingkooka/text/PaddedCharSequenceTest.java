@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 final public class PaddedCharSequenceTest extends ClassTestCase<PaddedCharSequence<?>> {
 
     @Override
-    protected Class<PaddedCharSequence<?>> type() {
+    public Class<PaddedCharSequence<?>> type() {
         return Cast.to(PaddedCharSequence.class);
     }
 

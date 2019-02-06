@@ -70,7 +70,7 @@ public final class AndNodeSelectorTest extends
     }
 
     @Override
-    protected Class<AndNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<AndNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AndNodeSelector.class);
     }
 }

@@ -76,7 +76,8 @@ final public class ReadOnlyVariableTest extends VariableTestCase<ReadOnlyVariabl
     @Test
     public void testToString() {
         final Object value = "value";
-        assertEquals("read only " + value, ReadOnlyVariable.wrap(Variables.with(value)).toString());
+        this.toStringAndCheck(ReadOnlyVariable.wrap(Variables.with(value)),
+                "read only " + value);
     }
 
     @Override

@@ -31,7 +31,6 @@ import walkingkooka.tree.json.JsonNode;
 
 import java.util.function.BiConsumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -336,8 +335,9 @@ public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandle
         builder.post(this.resourceName1(), LinkRelation.SELF, this.postHandler());
         builder.put(this.resourceName1(), LinkRelation.SELF, this.putHandler());
         builder.delete(this.resourceName1(), LinkRelation.SELF, this.deleteHandler());
-        assertEquals("http://example.com/api JSON {resource1 self=GET=get123 POST=post234 PUT=put345 DELETE=delete456}",
-                builder.toString());
+
+        this.toStringAndCheck(builder,
+                "http://example.com/api JSON {resource1 self=GET=get123 POST=post234 PUT=put345 DELETE=delete456}");
     }
 
     // helpers ..........................................................................................
@@ -370,7 +370,7 @@ public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandle
     }
 
     @Override
-    protected Class<HateosHandlerBuilder> type() {
+    public Class<HateosHandlerBuilder<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilder.class);
     }
 

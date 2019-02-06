@@ -103,7 +103,7 @@ public final class EncodedTextHeaderValueConverterHeaderParserTest extends Heade
     }
 
     @Override
-    protected Class<EncodedTextHeaderValueConverterHeaderParser> type() {
+    public Class<EncodedTextHeaderValueConverterHeaderParser> type() {
         return EncodedTextHeaderValueConverterHeaderParser.class;
     }
 }

@@ -137,7 +137,7 @@ public final class SearchQueryTest extends ClassTestCase<SearchQuery> {
     }
 
     @Override
-    protected Class<SearchQuery> type() {
+    public Class<SearchQuery> type() {
         return SearchQuery.class;
     }
 

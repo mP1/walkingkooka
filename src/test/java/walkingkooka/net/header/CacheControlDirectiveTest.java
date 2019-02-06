@@ -271,7 +271,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     @Override
-    protected Class<CacheControlDirective<Long>> type() {
+    public Class<CacheControlDirective<Long>> type() {
         return Cast.to(CacheControlDirective.class);
     }
 

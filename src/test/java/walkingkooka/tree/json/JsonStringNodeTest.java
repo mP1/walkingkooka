@@ -68,12 +68,14 @@ public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNod
     
     @Test
     public void testToString() {
-        assertEquals("\"abc123\"", this.createJsonNode("abc123").toString());
+        this.toStringAndCheck(this.createJsonNode("abc123"),
+                "\"abc123\"");
     }
 
     @Test
     public void testToStringRequiresEscaping() {
-        assertEquals("\"abc\\t123\"", this.createJsonNode("abc\t123").toString());
+        this.toStringAndCheck(this.createJsonNode("abc\t123"),
+                "\"abc\\t123\"");
     }
 
     @Override

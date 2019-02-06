@@ -64,7 +64,7 @@ public final class ContentDispositionFileNameNotEncodedHeaderValueConverterTest 
     }
 
     @Override
-    protected Class<ContentDispositionFileNameNotEncodedHeaderValueConverter> type() {
+    public Class<ContentDispositionFileNameNotEncodedHeaderValueConverter> type() {
         return ContentDispositionFileNameNotEncodedHeaderValueConverter.class;
     }
 }

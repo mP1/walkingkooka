@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class NetNameTest extends ClassTestCase<NetName> {
     @Override
-    protected Class<NetName> type() {
+    public Class<NetName> type() {
         return NetName.class;
     }
 

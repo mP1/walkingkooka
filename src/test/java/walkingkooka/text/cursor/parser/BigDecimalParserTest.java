@@ -25,8 +25,6 @@ import walkingkooka.text.cursor.TextCursor;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecimalParser<ParserContext>, BigDecimalParserToken> {
 
     @Test
@@ -395,7 +393,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
 
     @Test
     public void testToString() {
-        assertEquals("Decimal", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "Decimal");
     }
 
     @Override
@@ -429,7 +427,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
     }
 
     @Override
-    protected Class<BigDecimalParser<ParserContext>> type() {
+    public Class<BigDecimalParser<ParserContext>> type() {
         return Cast.to(BigDecimalParser.class);
     }
 }

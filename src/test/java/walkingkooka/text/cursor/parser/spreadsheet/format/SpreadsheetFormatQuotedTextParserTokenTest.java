@@ -88,7 +88,7 @@ public final class SpreadsheetFormatQuotedTextParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected Class<SpreadsheetFormatQuotedTextParserToken> type() {
+    public Class<SpreadsheetFormatQuotedTextParserToken> type() {
         return SpreadsheetFormatQuotedTextParserToken.class;
     }
 }

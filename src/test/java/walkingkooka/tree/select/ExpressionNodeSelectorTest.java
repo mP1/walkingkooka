@@ -24,7 +24,6 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -56,7 +55,7 @@ final public class ExpressionNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("*[" + expression() + "]", this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), "*[" + expression() + "]");
     }
 
     @Override
@@ -72,7 +71,7 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Override
-    protected Class<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(ExpressionNodeSelector.class);
     }
 }

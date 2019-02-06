@@ -299,7 +299,7 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     }
 
     @Override
-    protected Class<IfNoneMatchAwareHttpResponse> type() {
+    public Class<IfNoneMatchAwareHttpResponse> type() {
         return IfNoneMatchAwareHttpResponse.class;
     }
 }

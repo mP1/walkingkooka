@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -63,7 +62,7 @@ public final class ConverterCollectionTest extends ConverterTestCase<ConverterCo
 
     @Test
     public void testToString() {
-        assertEquals("String->Boolean | BigDecimal|BigInteger|Byte|Short|Integer|Long|Float|Double->Long", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "String->Boolean | BigDecimal|BigInteger|Byte|Short|Integer|Long|Float|Double->Long");
     }
 
     @Override
@@ -77,7 +76,7 @@ public final class ConverterCollectionTest extends ConverterTestCase<ConverterCo
     }
 
     @Override
-    protected Class<ConverterCollection> type() {
+    public Class<ConverterCollection> type() {
         return ConverterCollection.class;
     }
 }

@@ -63,7 +63,7 @@ final public class SetsTest extends PublicStaticHelperTestCase<Sets> {
     // helpers
 
     @Override
-    protected Class<Sets> type() {
+    public Class<Sets> type() {
         return Sets.class;
     }
 

@@ -38,7 +38,7 @@ final public class AsciiPrintableCharPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("ASCII printable", AsciiPrintableCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(AsciiPrintableCharPredicate.INSTANCE, "ASCII printable");
     }
 
     @Override

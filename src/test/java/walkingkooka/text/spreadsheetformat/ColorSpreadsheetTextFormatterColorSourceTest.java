@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class ColorSpreadsheetTextFormatterColorSourceTest extends ClassTestCase<ColorSpreadsheetTextFormatterColorSource> {
     @Override
-    protected Class<ColorSpreadsheetTextFormatterColorSource> type() {
+    public Class<ColorSpreadsheetTextFormatterColorSource> type() {
         return ColorSpreadsheetTextFormatterColorSource.class;
     }
 

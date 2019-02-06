@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionSubstringAfterFunctionTest extends ExpressionFunctionTestCase<ExpressionSubstringAfterFunction, String> {
@@ -80,7 +79,7 @@ public final class ExpressionSubstringAfterFunctionTest extends ExpressionFuncti
 
     @Test
     public void testToString() {
-        assertEquals("substring-after", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "substring-after");
     }
 
     @Override
@@ -89,7 +88,7 @@ public final class ExpressionSubstringAfterFunctionTest extends ExpressionFuncti
     }
 
     @Override
-    protected Class<ExpressionSubstringAfterFunction> type() {
+    public Class<ExpressionSubstringAfterFunction> type() {
         return ExpressionSubstringAfterFunction.class;
     }
 }

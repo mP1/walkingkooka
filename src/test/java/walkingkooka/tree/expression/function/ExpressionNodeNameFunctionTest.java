@@ -23,8 +23,6 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.FakeNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ExpressionNodeNameFunctionTest extends ExpressionFunctionTestCase<ExpressionNodeNameFunction, String> {
 
     private final static String NAME = "Abc123";
@@ -46,7 +44,7 @@ public final class ExpressionNodeNameFunctionTest extends ExpressionFunctionTest
 
     @Test
     public void testToString() {
-        assertEquals("name", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "name");
     }
 
     @Override
@@ -55,7 +53,7 @@ public final class ExpressionNodeNameFunctionTest extends ExpressionFunctionTest
     }
 
     @Override
-    protected Class<ExpressionNodeNameFunction> type() {
+    public Class<ExpressionNodeNameFunction> type() {
         return ExpressionNodeNameFunction.class;
     }
 }

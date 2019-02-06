@@ -41,7 +41,7 @@ public class NodeAttributeValueStartsWithPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("starts-with(@\"attribute-1\",\"123\")", this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), "starts-with(@\"attribute-1\",\"123\")");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class NodeAttributeValueStartsWithPredicateTest
     }
 
     @Override
-    protected Class<NodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> type() {
+    public Class<NodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeAttributeValueStartsWithPredicate.class);
     }
 }

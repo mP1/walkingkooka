@@ -92,7 +92,8 @@ final public class SetOnceVariableTest extends VariableTestCase<SetOnceVariable<
     @Test
     public void testToString() {
         final Object value = "value";
-        assertEquals(value.toString(), SetOnceVariable.wrap(Variables.with(value)).toString());
+        this.toStringAndCheck(SetOnceVariable.wrap(Variables.with(value)),
+                value.toString());
     }
 
     @Override

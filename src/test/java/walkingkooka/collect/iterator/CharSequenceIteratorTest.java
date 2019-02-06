@@ -19,7 +19,6 @@ package walkingkooka.collect.iterator;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequenceIteratorTest
@@ -58,7 +57,7 @@ final public class CharSequenceIteratorTest
 
     @Test
     public void testToString() {
-        assertEquals("\"ABC\\t\"", this.createIterator().toString());
+        this.toStringAndCheck(this.createIterator(), "\"ABC\\t\"");
     }
 
     @Override public CharSequenceIterator createIterator() {
@@ -66,7 +65,7 @@ final public class CharSequenceIteratorTest
     }
 
     @Override
-    protected Class<CharSequenceIterator> type() {
+    public Class<CharSequenceIterator> type() {
         return CharSequenceIterator.class;
     }
 }

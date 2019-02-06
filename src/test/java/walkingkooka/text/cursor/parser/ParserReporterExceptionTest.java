@@ -71,7 +71,7 @@ public final class ParserReporterExceptionTest extends ClassTestCase<ParserRepor
     }
 
     @Override
-    protected Class<ParserReporterException> type() {
+    public Class<ParserReporterException> type() {
         return ParserReporterException.class;
     }
 

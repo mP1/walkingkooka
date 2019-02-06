@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -114,7 +113,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Pa
 
     @Test
     public void testToString() {
-        assertEquals("{" + PARSER + "}", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "{" + PARSER + "}");
     }
 
     @Override
@@ -137,7 +136,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Pa
     }
 
     @Override
-    protected Class<RepeatedParser<ParserContext>> type() {
+    public Class<RepeatedParser<ParserContext>> type() {
         return Cast.to(RepeatedParser.class);
     }
 }

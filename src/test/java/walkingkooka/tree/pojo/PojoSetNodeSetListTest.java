@@ -43,7 +43,7 @@ public final class PojoSetNodeSetListTest extends PojoNodeListTestCase<PojoSetNo
     }
 
     @Override
-    protected Class<PojoSetNodeSetList> type() {
+    public Class<PojoSetNodeSetList> type() {
         return PojoSetNodeSetList.class;
     }
 }

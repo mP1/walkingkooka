@@ -24,7 +24,6 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NodeSelectorFunctionNameTest extends ClassTestCase<NodeSelectorFunctionName>
@@ -47,11 +46,6 @@ final public class NodeSelectorFunctionNameTest extends ClassTestCase<NodeSelect
     @Test
     public void testWith() {
         this.createNameAndCheck("Abc-123");
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("ABC-123", this.createName("ABC-123").toString());
     }
 
     @Override
@@ -102,7 +96,7 @@ final public class NodeSelectorFunctionNameTest extends ClassTestCase<NodeSelect
     }
 
     @Override
-    protected Class<NodeSelectorFunctionName> type() {
+    public Class<NodeSelectorFunctionName> type() {
         return NodeSelectorFunctionName.class;
     }
 

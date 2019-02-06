@@ -66,7 +66,7 @@ public final class RelativeUrlHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<RelativeUrlHeaderValueConverter> type() {
+    public Class<RelativeUrlHeaderValueConverter> type() {
         return RelativeUrlHeaderValueConverter.class;
     }
 }

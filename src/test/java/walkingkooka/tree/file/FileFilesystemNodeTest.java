@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class FileFilesystemNodeTest extends ClassTestCase<FileFilesystemNode> {
     @Override
-    protected Class<FileFilesystemNode> type() {
+    public Class<FileFilesystemNode> type() {
         return FileFilesystemNode.class;
     }
 

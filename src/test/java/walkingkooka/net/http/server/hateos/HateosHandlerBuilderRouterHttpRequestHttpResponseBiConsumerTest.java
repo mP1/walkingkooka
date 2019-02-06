@@ -51,7 +51,7 @@ public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTe
     }
 
     @Override
-    protected Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer.class);
     }
 

@@ -175,10 +175,6 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
                 VALUE + "; p1=v1; p2=v2");
     }
 
-    private void toStringAndCheck(final CharsetHeaderValue token, final String toString) {
-        assertEquals(toString, token.toString(), "toString");
-    }
-
     // toHeaderTextList ...........................................................................................
 
     @Test
@@ -274,7 +270,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    protected Class<CharsetHeaderValue> type() {
+    public Class<CharsetHeaderValue> type() {
         return CharsetHeaderValue.class;
     }
 

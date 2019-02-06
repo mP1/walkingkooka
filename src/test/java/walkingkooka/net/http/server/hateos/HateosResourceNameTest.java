@@ -72,7 +72,7 @@ public final class HateosResourceNameTest extends ClassTestCase<HateosResourceNa
     }
 
     @Override
-    protected Class<HateosResourceName> type() {
+    public Class<HateosResourceName> type() {
         return HateosResourceName.class;
     }
 

@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class SearchQueryValueSearchQueryTesterComparisonPredicateTest extends ClassTestCase<SearchQueryValueSearchQueryTesterComparisonPredicate> {
     @Override
-    protected Class<SearchQueryValueSearchQueryTesterComparisonPredicate> type() {
+    public Class<SearchQueryValueSearchQueryTesterComparisonPredicate> type() {
         return SearchQueryValueSearchQueryTesterComparisonPredicate.class;
     }
 

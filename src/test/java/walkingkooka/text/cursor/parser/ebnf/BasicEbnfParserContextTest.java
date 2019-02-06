@@ -18,14 +18,23 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
+import org.junit.jupiter.api.Test;
+
 public final class BasicEbnfParserContextTest extends EbnfParserContextTestCase<BasicEbnfParserContext> {
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createContext(),
+                "decimalPoint='.' exponentSymbol='E' minusSign='-' plusSign='+'");
+    }
+
     @Override
     protected BasicEbnfParserContext createContext() {
         return BasicEbnfParserContext.instance();
     }
 
     @Override
-    protected Class<BasicEbnfParserContext> type() {
+    public Class<BasicEbnfParserContext> type() {
         return BasicEbnfParserContext.class;
     }
 }

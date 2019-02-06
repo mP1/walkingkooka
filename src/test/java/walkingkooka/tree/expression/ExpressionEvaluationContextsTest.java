@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 public class ExpressionEvaluationContextsTest extends PublicStaticHelperTestCase<ExpressionEvaluationContexts> {
 
     @Override
-    protected Class<ExpressionEvaluationContexts> type() {
+    public Class<ExpressionEvaluationContexts> type() {
         return ExpressionEvaluationContexts.class;
     }
 

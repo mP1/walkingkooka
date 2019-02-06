@@ -29,7 +29,7 @@ public final class SearchBigDecimalQueryValueSearchQueryTesterTest extends Searc
     }
 
     @Override
-    protected Class<SearchBigDecimalQueryValueSearchQueryTester> type() {
+    public Class<SearchBigDecimalQueryValueSearchQueryTester> type() {
         return SearchBigDecimalQueryValueSearchQueryTester.class;
     }
 

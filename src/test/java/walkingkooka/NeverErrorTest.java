@@ -61,7 +61,7 @@ public final class NeverErrorTest extends PublicThrowableTestCase<NeverError> {
     }
 
     @Override
-    protected Class<NeverError> type() {
+    public Class<NeverError> type() {
         return NeverError.class;
     }
 

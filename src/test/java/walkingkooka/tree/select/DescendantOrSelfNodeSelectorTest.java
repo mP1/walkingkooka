@@ -23,7 +23,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class DescendantOrSelfNodeSelectorTest extends
@@ -98,7 +97,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("//", this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), "//");
     }
 
     @Override
@@ -107,7 +106,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Override
-    protected Class<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(DescendantOrSelfNodeSelector.class);
     }
 }

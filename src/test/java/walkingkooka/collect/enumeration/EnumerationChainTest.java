@@ -24,7 +24,6 @@ import walkingkooka.collect.list.Lists;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -172,8 +171,7 @@ final public class EnumerationChainTest
 
     @Test
     public void testToString() {
-        assertEquals(FIRST + "...",
-                this.createEnumeration().toString());
+        this.toStringAndCheck(this.createEnumeration(), FIRST + "...");
     }
 
     @Test
@@ -190,7 +188,7 @@ final public class EnumerationChainTest
         enumerator.nextElement();
         enumerator.hasMoreElements();
 
-        assertEquals(secondEnumeration.toString(), enumerator.toString());
+        this.toStringAndCheck(enumerator, secondEnumeration.toString());
     }
 
     @Test
@@ -204,7 +202,7 @@ final public class EnumerationChainTest
         enumerator.nextElement();
         enumerator.hasMoreElements();
 
-        assertEquals("", enumerator.toString());
+        this.toStringAndCheck(enumerator, "");
     }
 
     @Override
@@ -218,7 +216,7 @@ final public class EnumerationChainTest
     }
 
     @Override
-    protected Class<EnumerationChain<String>> type() {
+    public Class<EnumerationChain<String>> type() {
         return Cast.to(EnumerationChain.class);
     }
 }

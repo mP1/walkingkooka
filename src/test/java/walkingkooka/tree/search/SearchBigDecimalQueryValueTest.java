@@ -42,7 +42,7 @@ public final class SearchBigDecimalQueryValueTest extends SearchQueryValueTestCa
     }
 
     @Override
-    protected Class<SearchBigDecimalQueryValue> type() {
+    public Class<SearchBigDecimalQueryValue> type() {
         return SearchBigDecimalQueryValue.class;
     }
 }

@@ -89,18 +89,18 @@ final public class AbsoluteNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("/", this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), "/");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("/*[" + PREDICATE + "]", this.createSelector2().toString());
+        this.toStringAndCheck(this.createSelector2(), "/*[" + PREDICATE + "]");
     }
 
     @Test
     public void testToStringPathSeparatorNotRequiredAtStart() {
         final PathSeparator separator = PathSeparator.notRequiredAtStart('/');
-        assertEquals("/", this.createSelector(separator).toString());
+        this.toStringAndCheck(this.createSelector(separator), "/");
     }
 
     @Override
@@ -117,7 +117,7 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Override
-    protected Class<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AbsoluteNodeSelector.class);
     }
 

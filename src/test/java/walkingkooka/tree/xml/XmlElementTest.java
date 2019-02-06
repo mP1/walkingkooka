@@ -378,7 +378,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
 
     @Test
     public void testToString() {
-        assertEquals("<parent/>", this.createNode().toString());
+        this.toStringAndCheck(this.createNode(), "<parent/>");
     }
 
     @Test
@@ -386,14 +386,14 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         final XmlElement element = this.createNode();
         final XmlElement element2 = element.appendChild(element.createElement(XmlName.element("child")));
 
-        assertEquals("<parent><child/></parent>", element2.toString());
+        this.toStringAndCheck(element2, "<parent><child/></parent>");
     }
 
     @Test
     public void testToStringWithAttributes() {
         final XmlElement element = this.createNode();
         final XmlElement element2 = element.setAttributes(ATTRIBUTES_1);
-        assertEquals("<parent attribute-1=\"value-1\"/>", element2.toString());
+        this.toStringAndCheck(element2, "<parent attribute-1=\"value-1\"/>");
     }
 
     @Test
@@ -401,7 +401,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         final XmlElement element = this.createNode();
         final XmlElement element2 = element.setAttributes(ATTRIBUTES_2);
 
-        assertEquals("<parent attribute-1=\"value-1\" attribute-2=\"value-2\"/>", element2.toString());
+        this.toStringAndCheck(element2, "<parent attribute-1=\"value-1\" attribute-2=\"value-2\"/>");
     }
 
     @Test
@@ -410,7 +410,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         final XmlElement element2 = element.appendChild(element.createElement(XmlName.element("child")))
                 .setAttributes(ATTRIBUTES_1);
 
-        assertEquals("<parent attribute-1=\"value-1\"><child/></parent>", element2.toString());
+        this.toStringAndCheck(element2, "<parent attribute-1=\"value-1\"><child/></parent>");
     }
 
     @Test
@@ -418,7 +418,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         final XmlElement element = this.createNode();
         final XmlElement element2 = element.appendChild(element.createText("abc123"));
 
-        assertEquals("<parent>abc123</parent>", element2.toString());
+        this.toStringAndCheck(element2, "<parent>abc123</parent>");
     }
 
     // mixed document

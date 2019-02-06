@@ -23,7 +23,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class HttpHeaderNameTypeParameterHeaderExceptionTest extends PublicThrowableTestCase<HttpHeaderNameTypeParameterHeaderException> {
 
     @Override
-    protected Class<HttpHeaderNameTypeParameterHeaderException> type() {
+    public Class<HttpHeaderNameTypeParameterHeaderException> type() {
         return HttpHeaderNameTypeParameterHeaderException.class;
     }
 }

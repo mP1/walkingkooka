@@ -88,7 +88,7 @@ public final class SpreadsheetFormatUnderscoreParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected Class<SpreadsheetFormatUnderscoreParserToken> type() {
+    public Class<SpreadsheetFormatUnderscoreParserToken> type() {
         return SpreadsheetFormatUnderscoreParserToken.class;
     }
 }

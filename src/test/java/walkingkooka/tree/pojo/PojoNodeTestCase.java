@@ -120,7 +120,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
     }
 
     @Override
-    protected final Class<PojoNode> type() {
+    public final Class<PojoNode> type() {
         return Cast.to(this.pojoNodeType());
     }
 

@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class HsvComponentTest extends ClassTestCase<HsvComponent> {
 
     @Override
-    protected Class<HsvComponent> type() {
+    public Class<HsvComponent> type() {
         return HsvComponent.class;
     }
 

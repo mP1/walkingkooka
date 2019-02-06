@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 
 public final class EbnfParserCombinatorsTest extends PublicStaticHelperTestCase<EbnfParserCombinators> {
     @Override
-    protected Class<EbnfParserCombinators> type() {
+    public Class<EbnfParserCombinators> type() {
         return EbnfParserCombinators.class;
     }
 

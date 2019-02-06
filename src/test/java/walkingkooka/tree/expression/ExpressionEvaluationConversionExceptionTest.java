@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 public final class ExpressionEvaluationConversionExceptionTest extends PublicThrowableTestCase<ExpressionEvaluationConversionException> {
     @Override
-    protected Class<ExpressionEvaluationConversionException> type() {
+    public Class<ExpressionEvaluationConversionException> type() {
         return ExpressionEvaluationConversionException.class;
     }
 }

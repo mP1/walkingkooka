@@ -88,7 +88,7 @@ public final class NodeSelectorAbsoluteParserTokenTest extends NodeSelectorNonSy
     }
 
     @Override
-    protected Class<NodeSelectorAbsoluteParserToken> type() {
+    public Class<NodeSelectorAbsoluteParserToken> type() {
         return NodeSelectorAbsoluteParserToken.class;
     }
 }

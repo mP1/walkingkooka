@@ -77,12 +77,17 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
 
     @Test
     public void testToString() {
-        assertEquals("\"abc123\"", ETag.with("abc123", ETagValidator.STRONG).toString());
+        this.toStringAndCheck(ETag.with("abc123", ETagValidator.STRONG), "\"abc123\"");
     }
 
     @Test
     public void testToStringWeak() {
-        assertEquals("W/\"abc123\"", ETag.with("abc123", WEAK).toString());
+        this.toStringAndCheck(ETag.with("abc123", WEAK), "W/\"abc123\"");
+    }
+
+    @Override
+    public void testCheckToStringOverridden() {
+        throw new UnsupportedOperationException();
     }
 
     // toHeaderTextList.......................................................................................
@@ -153,7 +158,7 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
     }
 
     @Override
-    protected Class<ETag> type() {
+    public Class<ETag> type() {
         return ETag.class;
     }
 

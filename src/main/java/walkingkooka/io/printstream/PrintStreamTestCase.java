@@ -19,6 +19,7 @@ package walkingkooka.io.printstream;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.io.PrintStream;
@@ -27,7 +28,8 @@ import java.io.PrintStream;
  * Base class for testing a {@link PrintStream}
  */
 abstract public class PrintStreamTestCase<P extends PrintStream>
-        extends ClassTestCase<P> {
+        extends ClassTestCase<P>
+        implements ToStringTesting<P> {
 
     protected PrintStreamTestCase() {
         super();
@@ -36,11 +38,6 @@ abstract public class PrintStreamTestCase<P extends PrintStream>
     @Test
     public void testNaming() {
         this.checkNaming(PrintStream.class);
-    }
-
-    @Test
-    final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
     }
 
     abstract protected P createPrintStream();

@@ -88,7 +88,7 @@ public final class SpreadsheetCloseParenthesisSymbolParserTokenTest extends Spre
     }
 
     @Override
-    protected Class<SpreadsheetCloseParenthesisSymbolParserToken> type() {
+    public Class<SpreadsheetCloseParenthesisSymbolParserToken> type() {
         return SpreadsheetCloseParenthesisSymbolParserToken.class;
     }
 }

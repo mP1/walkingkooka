@@ -18,14 +18,23 @@
 
 package walkingkooka.text.cursor.parser.json;
 
+import org.junit.jupiter.api.Test;
+
 public final class BasicJsonNodeParserContextTest extends JsonNodeParserContextTestCase<BasicJsonNodeParserContext> {
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createContext(),
+                "decimalPoint='.' exponentSymbol='E' minusSign='-' percentageSymbol='%' plusSign='+'");
+    }
+
     @Override
     protected BasicJsonNodeParserContext createContext() {
         return BasicJsonNodeParserContext.instance();
     }
 
     @Override
-    protected Class<BasicJsonNodeParserContext> type() {
+    public Class<BasicJsonNodeParserContext> type() {
         return BasicJsonNodeParserContext.class;
     }
 }

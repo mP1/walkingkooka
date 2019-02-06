@@ -50,7 +50,7 @@ public final class GeneralSpreadsheetTextFormatterTest extends SpreadsheetTextFo
 
     @Override
     public void testToString() {
-        assertEquals("General", this.createFormatter().toString());
+        this.toStringAndCheck(this.createFormatter(), "General");
     }
 
     @Override
@@ -126,7 +126,7 @@ public final class GeneralSpreadsheetTextFormatterTest extends SpreadsheetTextFo
     }
 
     @Override
-    protected Class<GeneralSpreadsheetTextFormatter> type() {
+    public Class<GeneralSpreadsheetTextFormatter> type() {
         return Cast.to(GeneralSpreadsheetTextFormatter.class);
     }
 }

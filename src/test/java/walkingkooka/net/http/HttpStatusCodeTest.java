@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -34,7 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> implements ConstantsTesting<HttpStatusCode> {
+public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode>
+        implements ConstantsTesting<HttpStatusCode>,
+        ToStringTesting<HttpStatusCode> {
 
     @Test
     public void testStatusDefaultMessageUnique() {

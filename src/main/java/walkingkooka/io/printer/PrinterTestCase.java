@@ -19,6 +19,7 @@ package walkingkooka.io.printer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
@@ -29,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Printer} with mostly parameter checking tests.
  */
-abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P> {
+abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P>
+        implements ToStringTesting<P> {
 
     protected PrinterTestCase() {
         super();
@@ -93,10 +95,6 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
         printer.close(); // ignored
     }
 
-    @Test final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
-    }
-
     abstract protected P createPrinter();
 
     protected P createPrinterAndClose() {
@@ -140,14 +138,16 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
         };
     }
 
-    static public void checkEquals(final CharSequence expected, final CharSequence actual) {
-        checkEquals(null, expected, actual);
+    public void checkEquals(final CharSequence expected,
+                            final CharSequence actual) {
+        assertEquals(CharSequences.escape(expected),
+                CharSequences.escape(actual).toString());
     }
 
-    static public void checkEquals(final String message,
-                                   final CharSequence expected,
-                                   final CharSequence actual) {
-        assertEquals(CharSequences.escape(expected).toString(),
+    public void checkEquals(final CharSequence expected,
+                            final CharSequence actual,
+                            final String message) {
+        assertEquals(CharSequences.escape(expected),
                 CharSequences.escape(actual).toString(),
                 message);
     }

@@ -63,7 +63,7 @@ final public class StringBuilderPrinterTest extends PrinterTestCase2<StringBuild
     }
 
     @Override
-    protected Class<StringBuilderPrinter> type() {
+    public Class<StringBuilderPrinter> type() {
         return StringBuilderPrinter.class;
     }
 }

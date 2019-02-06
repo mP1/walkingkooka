@@ -82,7 +82,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
 
     @Test
     public void testToString() {
-        assertEquals(FILENAME, ContentDispositionFileNameNotEncoded.with(FILENAME).toString());
+        this.toStringAndCheck(ContentDispositionFileNameNotEncoded.with(FILENAME), FILENAME);
     }
 
     @Override
@@ -91,7 +91,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
     }
 
     @Override
-    protected Class<ContentDispositionFileNameNotEncoded> type() {
+    public Class<ContentDispositionFileNameNotEncoded> type() {
         return ContentDispositionFileNameNotEncoded.class;
     }
 }

@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class VariablesTest extends PublicStaticHelperTestCase<Variables> {
 
     @Override
-    protected Class<Variables> type() {
+    public Class<Variables> type() {
         return Variables.class;
     }
 

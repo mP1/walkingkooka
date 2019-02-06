@@ -1184,6 +1184,13 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
         });
     }
 
+    //toString .......................................................................................................
+
+    @Test
+    public final void testToString() {
+        this.toStringAndCheck(this.createFormatter(), this.pattern());
+    }
+
     //helpers .......................................................................................................
 
     private void parseFormatAndCheck(final String pattern,
@@ -1265,7 +1272,7 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
     }
 
     @Override
-    protected Class<BigDecimalSpreadsheetTextFormatter> type() {
+    public Class<BigDecimalSpreadsheetTextFormatter> type() {
         return BigDecimalSpreadsheetTextFormatter.class;
     }
 }

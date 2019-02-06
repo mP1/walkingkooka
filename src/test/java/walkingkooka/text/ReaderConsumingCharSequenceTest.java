@@ -126,8 +126,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
     @Test
     public void testToString() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
-        final ReaderConsumingCharSequence chars = this.createCharSequence(text);
-        assertEquals("", chars.toString());
+        this.toStringAndCheck(this.createCharSequence(text), "");
     }
 
     @Test
@@ -135,7 +134,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         chars.charAt(text.length() - 1);
-        assertEquals(text, chars.toString());
+        this.toStringAndCheck(chars, text);
     }
 
     @Test
@@ -143,7 +142,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         chars.charAt(3);
-        assertEquals("abcde", chars.toString());
+        this.toStringAndCheck(chars, "abcde");
     }
 
     @Override
@@ -161,7 +160,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
     }
 
     @Override
-    protected Class<ReaderConsumingCharSequence> type() {
+    public Class<ReaderConsumingCharSequence> type() {
         return ReaderConsumingCharSequence.class;
     }
 

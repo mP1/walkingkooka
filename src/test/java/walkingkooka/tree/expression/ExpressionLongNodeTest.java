@@ -100,12 +100,12 @@ public final class ExpressionLongNodeTest extends ExpressionLeafNodeTestCase<Exp
 
     @Test
     public void testToString() {
-        assertEquals("1", this.createExpressionNode(1L).toString());
+        this.toStringAndCheck(this.createExpressionNode(1L), "1");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("234", this.createExpressionNode(234L).toString());
+        this.toStringAndCheck(this.createExpressionNode(234L), "234");
     }
 
     private ExpressionLongNode createExpressionNode(final long value) {

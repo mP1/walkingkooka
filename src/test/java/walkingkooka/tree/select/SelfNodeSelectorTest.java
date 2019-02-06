@@ -24,8 +24,6 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class SelfNodeSelectorTest
         extends NonLogicalNodeSelectorTestCase<SelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
@@ -85,7 +83,7 @@ final public class SelfNodeSelectorTest
 
     @Test
     public void testToString() {
-        assertEquals(".", this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), ".");
     }
 
     @Override
@@ -94,7 +92,7 @@ final public class SelfNodeSelectorTest
     }
 
     @Override
-    protected Class<SelfNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<SelfNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(SelfNodeSelector.class);
     }
 }

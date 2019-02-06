@@ -110,7 +110,7 @@ final public class QuoteBeforeCharSequenceTest extends CharSequenceTestCase<Quot
 
     @Test
     public void testToString() {
-        assertEquals("\"ABC", this.createCharSequence().toString());
+        this.toStringAndCheck(this.createCharSequence(), "\"ABC");
     }
 
     @Override

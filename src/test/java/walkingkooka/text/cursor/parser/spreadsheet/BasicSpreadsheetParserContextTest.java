@@ -48,7 +48,7 @@ public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserCo
     }
 
     @Override
-    protected Class<BasicSpreadsheetParserContext> type() {
+    public Class<BasicSpreadsheetParserContext> type() {
         return BasicSpreadsheetParserContext.class;
     }
 }

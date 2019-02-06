@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class HostAddressProbablyIp4ProblemTest extends ClassTestCase<HostAddressProbablyIp4Problem> {
 
     @Override
-    protected Class<HostAddressProbablyIp4Problem> type() {
+    public Class<HostAddressProbablyIp4Problem> type() {
         return HostAddressProbablyIp4Problem.class;
     }
 

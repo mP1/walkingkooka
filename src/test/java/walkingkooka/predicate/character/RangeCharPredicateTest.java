@@ -64,10 +64,11 @@ public class RangeCharPredicateTest extends CharPredicateTestCase<RangeCharPredi
 
     @Test
     public void testToString() {
-        assertEquals("'m'..'p'", this.createCharPredicate().toString());
+        this.toStringAndCheck(this.createCharPredicate(), "'m'..'p'");
     }
 
-    @Override protected RangeCharPredicate createCharPredicate() {
+    @Override
+    protected RangeCharPredicate createCharPredicate() {
         return Cast.to(this.createCharPredicate('m', 'p'));
     }
 
@@ -75,7 +76,8 @@ public class RangeCharPredicateTest extends CharPredicateTestCase<RangeCharPredi
         return RangeCharPredicate.with(start, end);
     }
 
-    @Override protected Class<RangeCharPredicate> type() {
+    @Override
+    public Class<RangeCharPredicate> type() {
         return RangeCharPredicate.class;
     }
 }

@@ -95,7 +95,7 @@ public final class JsonNodeNullParserTokenTest extends JsonNodeLeafParserTokenTe
     }
 
     @Override
-    protected Class<JsonNodeNullParserToken> type() {
+    public Class<JsonNodeNullParserToken> type() {
         return JsonNodeNullParserToken.class;
     }
 }

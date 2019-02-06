@@ -83,7 +83,7 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     }
 
     @Override
-    protected Class<HateosContentTypeXmlNode> type() {
+    public Class<HateosContentTypeXmlNode> type() {
         return HateosContentTypeXmlNode.class;
     }
 }

@@ -57,7 +57,7 @@ public final class XmlMapEntrySetTest extends SetTestCase<XmlMapEntrySet<XmlAttr
     }
 
     @Override
-    protected Class<XmlMapEntrySet<XmlAttributeName, String>> type() {
+    public Class<XmlMapEntrySet<XmlAttributeName, String>> type() {
         return Cast.to(XmlMapEntrySet.class);
     }
 }

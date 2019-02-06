@@ -250,7 +250,7 @@ final public class MaximumIndentationIndentingPrinterTest
     }
 
     @Override
-    protected Class<MaximumIndentationIndentingPrinter> type() {
+    public Class<MaximumIndentationIndentingPrinter> type() {
         return MaximumIndentationIndentingPrinter.class;
     }
 }

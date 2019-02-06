@@ -21,7 +21,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class RepeatedOrSequenceParserTokenTest extends ClassTestCase<RepeatedOrSequenceParserToken> {
     @Override
-    protected Class<RepeatedOrSequenceParserToken> type() {
+    public Class<RepeatedOrSequenceParserToken> type() {
         return RepeatedOrSequenceParserToken.class;
     }
 

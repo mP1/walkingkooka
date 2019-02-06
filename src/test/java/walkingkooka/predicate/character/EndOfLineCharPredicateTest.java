@@ -46,7 +46,7 @@ final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndO
 
     @Test
     public void testToString() {
-        assertEquals("cr/nl", EndOfLineCharPredicate.INSTANCE.toString());
+        this.toStringAndCheck(EndOfLineCharPredicate.INSTANCE, "cr/nl");
     }
 
     @Override

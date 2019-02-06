@@ -17,6 +17,7 @@
 
 package walkingkooka.test;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.type.MemberVisibility;
@@ -153,6 +154,12 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
 
             assertNotEquals(0, count, "No public static fields/methods found");
         }
+    }
+
+    @Test
+    @Disabled
+    public void testToString() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

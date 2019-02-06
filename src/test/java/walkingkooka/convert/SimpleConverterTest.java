@@ -48,7 +48,7 @@ public final class SimpleConverterTest extends ConverterTestCase<SimpleConverter
     }
 
     @Override
-    protected Class<SimpleConverter> type() {
+    public Class<SimpleConverter> type() {
         return SimpleConverter.class;
     }
 }

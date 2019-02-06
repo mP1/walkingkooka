@@ -64,7 +64,7 @@ public final class ContentDispositionFileNameEncodedHeaderValueConverterTest ext
     }
 
     @Override
-    protected Class<ContentDispositionFileNameEncodedHeaderValueConverter> type() {
+    public Class<ContentDispositionFileNameEncodedHeaderValueConverter> type() {
         return ContentDispositionFileNameEncodedHeaderValueConverter.class;
     }
 }

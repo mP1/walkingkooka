@@ -151,7 +151,7 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
     }
 
     @Override
-    protected Class<NumberLocalDateTimeConverter> type() {
+    public Class<NumberLocalDateTimeConverter> type() {
         return NumberLocalDateTimeConverter.class;
     }
 }

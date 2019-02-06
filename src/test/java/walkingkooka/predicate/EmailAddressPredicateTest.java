@@ -20,8 +20,6 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class EmailAddressPredicateTest extends PredicateTestCase<EmailAddressPredicate, String> {
 
     @Test
@@ -41,7 +39,7 @@ public final class EmailAddressPredicateTest extends PredicateTestCase<EmailAddr
 
     @Test
     public void testToString() {
-        assertEquals("EmailAddress", this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), "EmailAddress");
     }
 
     @Override
@@ -50,7 +48,7 @@ public final class EmailAddressPredicateTest extends PredicateTestCase<EmailAddr
     }
 
     @Override
-    protected Class<EmailAddressPredicate> type() {
+    public Class<EmailAddressPredicate> type() {
         return EmailAddressPredicate.class;
     }
 }

@@ -57,7 +57,7 @@ public final class ClassAttributesTest extends ClassTestCase<ClassAttributes> {
     }
 
     @Override
-    protected Class<ClassAttributes> type() {
+    public Class<ClassAttributes> type() {
         return ClassAttributes.class;
     }
 

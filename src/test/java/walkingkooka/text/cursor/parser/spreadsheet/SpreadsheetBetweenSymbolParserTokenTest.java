@@ -88,7 +88,7 @@ public final class SpreadsheetBetweenSymbolParserTokenTest extends SpreadsheetSy
     }
 
     @Override
-    protected Class<SpreadsheetBetweenSymbolParserToken> type() {
+    public Class<SpreadsheetBetweenSymbolParserToken> type() {
         return SpreadsheetBetweenSymbolParserToken.class;
     }
 }

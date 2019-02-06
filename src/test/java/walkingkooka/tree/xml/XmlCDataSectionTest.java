@@ -23,7 +23,6 @@ import org.w3c.dom.Document;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class XmlCDataSectionTest extends XmlTextNodeTestCase<XmlCDataSection> {
@@ -61,7 +60,7 @@ public final class XmlCDataSectionTest extends XmlTextNodeTestCase<XmlCDataSecti
 
     @Test
     public void testToString() {
-        assertEquals("<![CDATA[abc-123]]>", this.createNode().toString());
+        this.toStringAndCheck(this.createNode(), "<![CDATA[abc-123]]>");
     }
 
     @Override

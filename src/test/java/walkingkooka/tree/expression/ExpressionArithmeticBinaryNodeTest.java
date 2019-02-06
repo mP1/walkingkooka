@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class ExpressionArithmeticBinaryNodeTest extends ClassTestCase<ExpressionArithmeticBinaryNode> {
     @Override
-    protected Class<ExpressionArithmeticBinaryNode> type() {
+    public Class<ExpressionArithmeticBinaryNode> type() {
         return ExpressionArithmeticBinaryNode.class;
     }
 

@@ -36,7 +36,7 @@ public final class LocalDateLongConverterTest extends LocalDateConverterTestCase
     }
 
     @Override
-    protected Class<LocalDateLongConverter> type() {
+    public Class<LocalDateLongConverter> type() {
         return LocalDateLongConverter.class;
     }
 }

@@ -85,13 +85,14 @@ final public class CaseSensitivityCharPredicateTest
 
     @Test
     public void testToStringCaseSensitive() {
-        assertEquals("'A'", this.createCharPredicate().toString());
+        this.toStringAndCheck(this.createCharPredicate(),
+                "'A'");
     }
 
     @Test
     public void testToStringCaseInsensitive() {
-        assertEquals("'A' (CaseInsensitive)",
-                this.createCharPredicateCaseInsensitive('A').toString());
+        this.toStringAndCheck(this.createCharPredicateCaseInsensitive('A'),
+                "'A' (CaseInsensitive)");
     }
 
     @Override

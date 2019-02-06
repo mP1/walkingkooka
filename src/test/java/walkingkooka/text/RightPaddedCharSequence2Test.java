@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<RightPaddedCharSequence2>
@@ -113,7 +112,7 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
 
     @Test
     public void testToString() {
-        assertEquals("abcde...", this.createCharSequence().toString());
+        this.toStringAndCheck(this.createCharSequence(), "abcde...");
     }
 
     @Override

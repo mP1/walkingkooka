@@ -75,7 +75,7 @@ final public class ThreadLocalVariableTest extends VariableTestCase<ThreadLocalV
         final Object value = "value";
         final ThreadLocalVariable<Object> variable = ThreadLocalVariable.createWithThreadLocal();
         variable.set(value);
-        assertEquals(value, variable.toString());
+        this.toStringAndCheck(variable, value.toString());
     }
 
     @Override

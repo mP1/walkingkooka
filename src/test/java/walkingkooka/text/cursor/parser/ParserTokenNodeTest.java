@@ -22,7 +22,7 @@ import walkingkooka.type.MemberVisibility;
 public final class ParserTokenNodeTest extends ClassTestCase<ParserTokenNode> {
 
     @Override
-    protected Class<ParserTokenNode> type() {
+    public Class<ParserTokenNode> type() {
         return ParserTokenNode.class;
     }
 

@@ -62,7 +62,7 @@ final public class CharSequenceTextCursorSavePointTest extends
     }
 
     @Override
-    protected Class<CharSequenceTextCursorSavePoint> type() {
+    public Class<CharSequenceTextCursorSavePoint> type() {
         return CharSequenceTextCursorSavePoint.class;
     }
 }

@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 public final class SearchNotQueryContextTest extends SearchQueryContextTestCase<SearchNotQueryContext>{
     
     @Override
-    protected Class<SearchNotQueryContext> type() {
+    public Class<SearchNotQueryContext> type() {
         return SearchNotQueryContext.class;
     }
 }

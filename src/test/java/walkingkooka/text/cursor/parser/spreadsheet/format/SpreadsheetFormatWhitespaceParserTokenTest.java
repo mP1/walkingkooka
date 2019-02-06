@@ -83,7 +83,7 @@ public final class SpreadsheetFormatWhitespaceParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected Class<SpreadsheetFormatWhitespaceParserToken> type() {
+    public Class<SpreadsheetFormatWhitespaceParserToken> type() {
         return SpreadsheetFormatWhitespaceParserToken.class;
     }
 }

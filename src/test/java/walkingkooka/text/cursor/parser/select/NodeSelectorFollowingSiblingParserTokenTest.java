@@ -88,7 +88,7 @@ public final class NodeSelectorFollowingSiblingParserTokenTest extends NodeSelec
     }
 
     @Override
-    protected Class<NodeSelectorFollowingSiblingParserToken> type() {
+    public Class<NodeSelectorFollowingSiblingParserToken> type() {
         return NodeSelectorFollowingSiblingParserToken.class;
     }
 }

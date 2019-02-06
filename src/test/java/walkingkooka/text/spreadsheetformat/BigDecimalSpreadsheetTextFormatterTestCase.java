@@ -19,9 +19,11 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class BigDecimalSpreadsheetTextFormatterTestCase<T> extends ClassTestCase<T> {
+public abstract class BigDecimalSpreadsheetTextFormatterTestCase<T> extends ClassTestCase<T>
+        implements ToStringTesting<T> {
 
     BigDecimalSpreadsheetTextFormatterTestCase() {
         super();

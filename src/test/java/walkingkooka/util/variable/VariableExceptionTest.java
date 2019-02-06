@@ -23,7 +23,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 final public class VariableExceptionTest extends PublicThrowableTestCase<VariableException> {
 
     @Override
-    protected Class<VariableException> type() {
+    public Class<VariableException> type() {
         return VariableException.class;
     }
 

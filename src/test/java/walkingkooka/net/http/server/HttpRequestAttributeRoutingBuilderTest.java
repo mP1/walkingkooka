@@ -477,7 +477,7 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
     }
 
     @Override
-    protected Class<HttpRequestAttributeRoutingBuilder<String>> type() {
+    public Class<HttpRequestAttributeRoutingBuilder<String>> type() {
         return Cast.to(HttpRequestAttributeRoutingBuilder.class);
     }
 

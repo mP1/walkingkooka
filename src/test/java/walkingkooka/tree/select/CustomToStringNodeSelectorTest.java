@@ -82,7 +82,7 @@ final public class CustomToStringNodeSelectorTest
 
     @Test
     public void testToString() {
-        assertEquals(TOSTRING, this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), TOSTRING);
     }
 
     @Override
@@ -100,7 +100,7 @@ final public class CustomToStringNodeSelectorTest
     }
 
     @Override
-    protected Class<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(CustomToStringNodeSelector.class);
     }
 }

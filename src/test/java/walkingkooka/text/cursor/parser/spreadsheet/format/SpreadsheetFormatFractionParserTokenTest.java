@@ -131,7 +131,7 @@ public final class SpreadsheetFormatFractionParserTokenTest extends SpreadsheetF
     }
 
     @Override
-    protected Class<SpreadsheetFormatFractionParserToken> type() {
+    public Class<SpreadsheetFormatFractionParserToken> type() {
         return SpreadsheetFormatFractionParserToken.class;
     }
 }

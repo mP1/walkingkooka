@@ -17,9 +17,11 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class SequenceParserComponentTestCase<C extends SequenceParserComponent> extends ClassTestCase<C> {
+public abstract class SequenceParserComponentTestCase<C extends SequenceParserComponent> extends ClassTestCase<C>
+    implements ToStringTesting<C> {
 
     SequenceParserComponentTestCase() {
         super();

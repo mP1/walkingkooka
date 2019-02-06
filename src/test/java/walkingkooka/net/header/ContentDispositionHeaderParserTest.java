@@ -558,7 +558,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     }
 
     @Override
-    protected Class<ContentDispositionHeaderParser> type() {
+    public Class<ContentDispositionHeaderParser> type() {
         return ContentDispositionHeaderParser.class;
     }
 }

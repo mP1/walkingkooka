@@ -93,7 +93,7 @@ public final class SpreadsheetFunctionNameParserTokenTest extends SpreadsheetNon
     }
 
     @Override
-    protected Class<SpreadsheetFunctionNameParserToken> type() {
+    public Class<SpreadsheetFunctionNameParserToken> type() {
         return SpreadsheetFunctionNameParserToken.class;
     }
 }

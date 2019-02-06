@@ -88,7 +88,7 @@ public final class SpreadsheetFormatYearParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected Class<SpreadsheetFormatYearParserToken> type() {
+    public Class<SpreadsheetFormatYearParserToken> type() {
         return SpreadsheetFormatYearParserToken.class;
     }
 }

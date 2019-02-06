@@ -21,7 +21,7 @@ package walkingkooka.net;
 public final class HostAddressProbablyIp6ProblemTest extends HostAddressProblemTestCase<HostAddressProbablyIp6Problem> {
 
     @Override
-    protected Class<HostAddressProbablyIp6Problem> type() {
+    public Class<HostAddressProbablyIp6Problem> type() {
         return HostAddressProbablyIp6Problem.class;
     }
 }

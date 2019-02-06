@@ -25,7 +25,7 @@ import walkingkooka.type.MemberVisibility;
 public final class NodeSelectorConditionParserTokenTest extends ClassTestCase<NodeSelectorConditionParserToken<?>> {
 
     @Override
-    protected Class<NodeSelectorConditionParserToken<?>> type() {
+    public Class<NodeSelectorConditionParserToken<?>> type() {
         return Cast.to(NodeSelectorConditionParserToken.class);
     }
 

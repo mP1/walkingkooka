@@ -126,7 +126,7 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<OffsetDateTimeHeaderValueConverter> type() {
+    public Class<OffsetDateTimeHeaderValueConverter> type() {
         return OffsetDateTimeHeaderValueConverter.class;
     }
 }

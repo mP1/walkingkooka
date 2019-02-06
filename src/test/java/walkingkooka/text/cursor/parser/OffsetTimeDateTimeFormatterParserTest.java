@@ -154,7 +154,7 @@ public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeF
     }
 
     @Override
-    protected Class<OffsetTimeDateTimeFormatterParser<FakeParserContext>> type() {
+    public Class<OffsetTimeDateTimeFormatterParser<FakeParserContext>> type() {
         return Cast.to(OffsetTimeDateTimeFormatterParser.class);
     }
 }

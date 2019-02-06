@@ -29,6 +29,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.nio.charset.Charset;
@@ -40,7 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpEntityTest extends ClassTestCase<HttpEntity>
-        implements HashCodeEqualsDefinedTesting<HttpEntity> {
+        implements HashCodeEqualsDefinedTesting<HttpEntity>,
+        ToStringTesting<HttpEntity> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 26L;
@@ -219,9 +221,8 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     @Test
     public void testToString() {
-        assertEquals("Content-Length: 26\r\n\r\n4142",
-                HttpEntity.with(HEADERS, new byte[]{'A', 'B'})
-                        .toString());
+        this.toStringAndCheck(HttpEntity.with(HEADERS, new byte[]{'A', 'B'}),
+                "Content-Length: 26\r\n\r\n4142");
     }
 
     @Test
@@ -231,9 +232,8 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
         headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
         headers.put(HttpHeaderName.SERVER, "Server 123");
 
-        assertEquals("Content-Length: 257\r\nContent-Type: text/plain\r\nServer: Server 123\r\n\r\n4142",
-                HttpEntity.with(headers, new byte[]{'A', 'B'})
-                        .toString());
+        this.toStringAndCheck(HttpEntity.with(headers, new byte[]{'A', 'B'}),
+                "Content-Length: 257\r\nContent-Type: text/plain\r\nServer: Server 123\r\n\r\n4142");
     }
 
     // factory text............................................................................................
@@ -417,7 +417,7 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
     }
 
     @Override
-    protected Class<HttpEntity> type() {
+    public Class<HttpEntity> type() {
         return HttpEntity.class;
     }
 

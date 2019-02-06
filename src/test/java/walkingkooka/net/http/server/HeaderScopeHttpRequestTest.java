@@ -199,7 +199,7 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
     }
 
     @Override
-    protected Class<HeaderScopeHttpRequest> type() {
+    public Class<HeaderScopeHttpRequest> type() {
         return HeaderScopeHttpRequest.class;
     }
 }

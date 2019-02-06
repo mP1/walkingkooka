@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -33,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormattedTextTest extends ClassTestCase<SpreadsheetFormattedText>
-        implements HashCodeEqualsDefinedTesting<SpreadsheetFormattedText> {
+        implements HashCodeEqualsDefinedTesting<SpreadsheetFormattedText>,
+        ToStringTesting<SpreadsheetFormattedText> {
 
     private final static Optional<Color> COLOR = Optional.of(Color.BLACK);
     private final static String TEXT = "1/1/2000";
@@ -147,12 +149,13 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
 
     @Test
     public void testToString() {
-        assertEquals(COLOR.get() + " " + CharSequences.quote(TEXT), this.createFormattedText().toString());
+        this.toStringAndCheck(this.createFormattedText(), COLOR.get() + " " + CharSequences.quote(TEXT));
     }
 
     @Test
     public void testToStringWithoutColor() {
-        assertEquals(CharSequences.quote(TEXT).toString(), SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, TEXT).toString());
+        this.toStringAndCheck(SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, TEXT),
+                CharSequences.quote(TEXT).toString());
     }
 
     private SpreadsheetFormattedText createFormattedText() {
@@ -160,7 +163,7 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
     }
 
     @Override
-    protected Class<SpreadsheetFormattedText> type() {
+    public Class<SpreadsheetFormattedText> type() {
         return SpreadsheetFormattedText.class;
     }
 

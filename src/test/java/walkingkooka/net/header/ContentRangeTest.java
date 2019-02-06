@@ -468,35 +468,28 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
 
     @Test
     public void testToStringTextNoRange() {
-        this.toStringAndCheck("bytes */*",
-                UNIT,
-                ContentRange.NO_RANGE,
-                ContentRange.NO_SIZE);
+        this.toStringAndCheck(UNIT, ContentRange.NO_RANGE, ContentRange.NO_SIZE, "bytes */*"
+        );
     }
 
     @Test
     public void testToStringTextMissingFilesize() {
-        this.toStringAndCheck("bytes 123-456/*",
-                UNIT,
-                this.range(),
-                ContentRange.NO_SIZE);
+        this.toStringAndCheck(UNIT, this.range(), ContentRange.NO_SIZE, "bytes 123-456/*"
+        );
     }
 
     @Test
     public void testToStringTextWithFilesize() {
-        this.toStringAndCheck("bytes 123-456/789",
-                UNIT,
-                this.range(),
-                SIZE);
+        this.toStringAndCheck(UNIT, this.range(), SIZE, "bytes 123-456/789"
+        );
     }
 
-    private final void toStringAndCheck(final String toString,
-                                        final RangeHeaderValueUnit unit,
+    private final void toStringAndCheck(final RangeHeaderValueUnit unit,
                                         final Optional<Range<Long>> range,
-                                        final Optional<Long> size) {
-        assertEquals(toString,
-                ContentRange.with(unit, range, size).toString(),
-                "toString");
+                                        final Optional<Long> size,
+                                        final String toString) {
+        this.toStringAndCheck(ContentRange.with(unit, range, size).toString(),
+                toString);
     }
 
     private ContentRange contentRange() {
@@ -538,7 +531,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     @Override
-    protected Class<ContentRange> type() {
+    public Class<ContentRange> type() {
         return ContentRange.class;
     }
 

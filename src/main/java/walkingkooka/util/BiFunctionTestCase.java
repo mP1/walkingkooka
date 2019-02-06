@@ -17,6 +17,7 @@
 package walkingkooka.util;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -24,7 +25,8 @@ import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class BiFunctionTestCase<F extends BiFunction<T, U, R>, T, U, R> extends ClassTestCase<F> {
+public abstract class BiFunctionTestCase<F extends BiFunction<T, U, R>, T, U, R> extends ClassTestCase<F>
+        implements ToStringTesting<F> {
 
     protected void applyAndCheck(final T in1, final U in2, final R result) {
         this.applyAndCheck(this.createBiFunction(), in1, in2, result);

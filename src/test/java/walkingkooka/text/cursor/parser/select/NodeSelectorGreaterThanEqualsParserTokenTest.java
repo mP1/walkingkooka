@@ -35,7 +35,7 @@ public final class NodeSelectorGreaterThanEqualsParserTokenTest extends NodeSele
     }
 
     @Override
-    protected Class<NodeSelectorGreaterThanEqualsParserToken> type() {
+    public Class<NodeSelectorGreaterThanEqualsParserToken> type() {
         return NodeSelectorGreaterThanEqualsParserToken.class;
     }
 }

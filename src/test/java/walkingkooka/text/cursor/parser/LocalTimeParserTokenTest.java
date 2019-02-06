@@ -71,7 +71,7 @@ public final class LocalTimeParserTokenTest extends ParserTokenTestCase<LocalTim
     }
 
     @Override
-    protected Class<LocalTimeParserToken> type() {
+    public Class<LocalTimeParserToken> type() {
         return LocalTimeParserToken.class;
     }
 }

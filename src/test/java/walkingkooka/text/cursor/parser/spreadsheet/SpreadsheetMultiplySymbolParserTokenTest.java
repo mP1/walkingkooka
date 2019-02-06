@@ -88,7 +88,7 @@ public final class SpreadsheetMultiplySymbolParserTokenTest extends SpreadsheetS
     }
 
     @Override
-    protected Class<SpreadsheetMultiplySymbolParserToken> type() {
+    public Class<SpreadsheetMultiplySymbolParserToken> type() {
         return SpreadsheetMultiplySymbolParserToken.class;
     }
 }

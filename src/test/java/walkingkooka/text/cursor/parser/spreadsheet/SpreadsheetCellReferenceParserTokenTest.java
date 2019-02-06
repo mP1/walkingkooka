@@ -137,7 +137,7 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
     }
 
     @Override
-    protected Class<SpreadsheetCellReferenceParserToken> type() {
+    public Class<SpreadsheetCellReferenceParserToken> type() {
         return SpreadsheetCellReferenceParserToken.class;
     }
 }

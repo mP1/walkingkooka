@@ -75,7 +75,7 @@ public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserToke
     }
 
     @Override
-    protected Class<JsonNodeArrayParserToken> type() {
+    public Class<JsonNodeArrayParserToken> type() {
         return JsonNodeArrayParserToken.class;
     }
 }

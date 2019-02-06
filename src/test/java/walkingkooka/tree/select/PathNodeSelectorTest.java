@@ -22,8 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class PathNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<PathNodeSelector<TestNode, StringName, StringName, Object>> {
 
@@ -89,12 +87,12 @@ final public class PathNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals(".", PathNodeSelector.with(ROOT).toString());
+        this.toStringAndCheck(PathNodeSelector.with(ROOT), ".");
     }
 
     @Test
     public void testToString2() {
-        assertEquals("*[3]/*[2]", PathNodeSelector.with(child3()).toString());
+        this.toStringAndCheck(PathNodeSelector.with(child3()), "*[3]/*[2]");
     }
 
     @Override
@@ -103,7 +101,7 @@ final public class PathNodeSelectorTest extends
     }
 
     @Override
-    protected Class<PathNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<PathNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(PathNodeSelector.class);
     }
 

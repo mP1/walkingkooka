@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 final public class CookieDeletionTest extends ClassTestCase<CookieDeletion> {
 
     @Override
-    protected Class<CookieDeletion> type() {
+    public Class<CookieDeletion> type() {
         return CookieDeletion.class;
     }
 

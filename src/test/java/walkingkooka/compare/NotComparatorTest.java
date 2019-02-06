@@ -91,8 +91,7 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
 
     @Test
     public void testToString() {
-        assertEquals("NOT (" + COMPARATOR.toString() + ")",
-                this.createComparator().toString());
+        this.toStringAndCheck(this.createComparator(), "NOT (" + COMPARATOR.toString() + ")");
     }
 
     @Override

@@ -88,7 +88,7 @@ public final class NodeSelectorAtSignSymbolParserTokenTest extends NodeSelectorS
     }
 
     @Override
-    protected Class<NodeSelectorAtSignSymbolParserToken> type() {
+    public Class<NodeSelectorAtSignSymbolParserToken> type() {
         return NodeSelectorAtSignSymbolParserToken.class;
     }
 }

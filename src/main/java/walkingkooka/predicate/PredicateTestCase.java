@@ -19,6 +19,7 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  * utility methods toassert matching and non matching.
  */
 abstract public class PredicateTestCase<P extends Predicate<T>, T>
-        extends ClassTestCase<P> {
+        extends ClassTestCase<P>
+        implements ToStringTesting<P> {
 
     protected PredicateTestCase() {
         super();
@@ -47,11 +49,6 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
         assertThrows(NullPointerException.class, () -> {
             this.test(null);
         });
-    }
-
-    @Test
-    final public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
     }
 
     abstract protected P createPredicate();

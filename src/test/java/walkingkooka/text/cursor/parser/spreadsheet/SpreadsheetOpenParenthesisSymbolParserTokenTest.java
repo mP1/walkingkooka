@@ -88,7 +88,7 @@ public final class SpreadsheetOpenParenthesisSymbolParserTokenTest extends Sprea
     }
 
     @Override
-    protected Class<SpreadsheetOpenParenthesisSymbolParserToken> type() {
+    public Class<SpreadsheetOpenParenthesisSymbolParserToken> type() {
         return SpreadsheetOpenParenthesisSymbolParserToken.class;
     }
 }

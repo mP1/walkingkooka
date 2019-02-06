@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class HeaderValueWithParameters2Test extends ClassTestCase<HeaderValueWithParameters2<?, ?, ?>> {
     @Override
-    protected Class<HeaderValueWithParameters2<?, ?, ?>> type() {
+    public Class<HeaderValueWithParameters2<?, ?, ?>> type() {
         return Cast.to(HeaderValueWithParameters2.class);
     }
 

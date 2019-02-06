@@ -88,7 +88,7 @@ public final class NodeSelectorNodeNameParserTokenTest extends NodeSelectorNonSy
     }
 
     @Override
-    protected Class<NodeSelectorNodeNameParserToken> type() {
+    public Class<NodeSelectorNodeNameParserToken> type() {
         return NodeSelectorNodeNameParserToken.class;
     }
 }

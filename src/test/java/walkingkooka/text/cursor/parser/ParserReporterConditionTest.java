@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class ParserReporterConditionTest extends ClassTestCase<ParserReporterCondition> {
 
     @Override
-    protected Class<ParserReporterCondition> type() {
+    public Class<ParserReporterCondition> type() {
         return ParserReporterCondition.class;
     }
 

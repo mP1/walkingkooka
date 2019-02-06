@@ -104,6 +104,13 @@ public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextForma
         return SpreadsheetFormatParsers.text();
     }
 
+    //toString .......................................................................................................
+
+    @Test
+    public final void testToString() {
+        this.toStringAndCheck(this.createFormatter(), this.pattern());
+    }
+
     @Override
     TextSpreadsheetTextFormatter createFormatter0(final SpreadsheetFormatTextParserToken token) {
         return TextSpreadsheetTextFormatter.with(token);
@@ -120,7 +127,7 @@ public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextForma
     }
 
     @Override
-    protected Class<TextSpreadsheetTextFormatter> type() {
+    public Class<TextSpreadsheetTextFormatter> type() {
         return TextSpreadsheetTextFormatter.class;
     }
 }

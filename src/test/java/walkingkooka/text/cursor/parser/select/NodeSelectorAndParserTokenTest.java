@@ -113,7 +113,7 @@ public final class NodeSelectorAndParserTokenTest extends NodeSelectorBinaryPars
     }
 
     @Override
-    protected Class<NodeSelectorAndParserToken> type() {
+    public Class<NodeSelectorAndParserToken> type() {
         return NodeSelectorAndParserToken.class;
     }
 }

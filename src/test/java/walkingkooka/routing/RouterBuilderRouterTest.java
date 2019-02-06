@@ -26,8 +26,6 @@ import walkingkooka.naming.StringName;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderRouter<StringName, String>, StringName, String> {
 
     private final static StringName PATH_0 = Names.string("path-0");
@@ -362,7 +360,8 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
         final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .build();
-        assertEquals("\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1", routers.toString());
+        this.toStringAndCheck(routers,
+                "\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1");
     }
 
     @Test
@@ -379,8 +378,8 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .add(routing1)
                 .add(routing2)
                 .build();
-        assertEquals("(\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1) | (\"path-0\"=\"dir-2-def\" & \"path-1\"=\"file-2-two.txt\" ->target-2)",
-                routers.toString());
+        this.toStringAndCheck(routers,
+                "(\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1) | (\"path-0\"=\"dir-2-def\" & \"path-1\"=\"file-2-two.txt\" ->target-2)");
     }
 
     private StringName dir1() {
@@ -425,7 +424,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
     }
 
     @Override
-    protected Class<RouterBuilderRouter<StringName, String>> type() {
+    public Class<RouterBuilderRouter<StringName, String>> type() {
         return Cast.to(RouterBuilderRouter.class);
     }
 }

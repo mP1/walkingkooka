@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class EnumerationsTest extends PublicStaticHelperTestCase<Enumerations> {
 
     @Override
-    protected Class<Enumerations> type() {
+    public Class<Enumerations> type() {
         return Enumerations.class;
     }
 

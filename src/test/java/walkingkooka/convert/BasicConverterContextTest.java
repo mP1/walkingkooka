@@ -21,7 +21,6 @@ package walkingkooka.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicConverterContextTest extends ConverterContextTestCase<BasicConverterContext> {
@@ -52,7 +51,7 @@ public final class BasicConverterContextTest extends ConverterContextTestCase<Ba
 
     @Test
     public void testToString() {
-        assertEquals(this.basic().toString(), this.createContext().toString());
+        this.toStringAndCheck(this.createContext(), this.basic().toString());
     }
 
     @Override
@@ -65,7 +64,7 @@ public final class BasicConverterContextTest extends ConverterContextTestCase<Ba
     }
 
     @Override
-    protected Class<BasicConverterContext> type() {
+    public Class<BasicConverterContext> type() {
         return BasicConverterContext.class;
     }
 }

@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class NodeSelectorBinaryParserTokenTest extends ClassTestCase<NodeSelectorBinaryParserToken<?>> {
     @Override
-    protected Class<NodeSelectorBinaryParserToken<?>> type() {
+    public Class<NodeSelectorBinaryParserToken<?>> type() {
         return Cast.to(NodeSelectorBinaryParserToken.class);
     }
 

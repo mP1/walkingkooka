@@ -88,7 +88,7 @@ public final class NodeSelectorBracketOpenSymbolParserTokenTest extends NodeSele
     }
 
     @Override
-    protected Class<NodeSelectorBracketOpenSymbolParserToken> type() {
+    public Class<NodeSelectorBracketOpenSymbolParserToken> type() {
         return NodeSelectorBracketOpenSymbolParserToken.class;
     }
 }

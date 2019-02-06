@@ -73,7 +73,8 @@ public final class OrNodeSelectorTest extends
         return OrNodeSelector.with(selectors);
     }
 
-    @Override protected Class<OrNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    @Override
+    public Class<OrNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(OrNodeSelector.class);
     }
 }

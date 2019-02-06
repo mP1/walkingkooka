@@ -118,7 +118,7 @@ public final class SpreadsheetFormatExpressionParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected Class<SpreadsheetFormatExpressionParserToken> type() {
+    public Class<SpreadsheetFormatExpressionParserToken> type() {
         return SpreadsheetFormatExpressionParserToken.class;
     }
 }

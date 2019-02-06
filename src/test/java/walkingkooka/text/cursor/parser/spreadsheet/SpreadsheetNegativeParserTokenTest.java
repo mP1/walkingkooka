@@ -130,7 +130,7 @@ public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryPa
     }
 
     @Override
-    protected Class<SpreadsheetNegativeParserToken> type() {
+    public Class<SpreadsheetNegativeParserToken> type() {
         return SpreadsheetNegativeParserToken.class;
     }
 }

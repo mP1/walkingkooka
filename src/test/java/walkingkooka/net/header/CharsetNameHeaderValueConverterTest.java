@@ -81,7 +81,7 @@ public final class CharsetNameHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<CharsetNameHeaderValueConverter> type() {
+    public Class<CharsetNameHeaderValueConverter> type() {
         return CharsetNameHeaderValueConverter.class;
     }
 }

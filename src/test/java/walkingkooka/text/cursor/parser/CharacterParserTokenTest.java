@@ -54,7 +54,7 @@ public final class CharacterParserTokenTest extends ParserTokenTestCase<Characte
 
     @Test
     public void testToString() {
-        assertEquals(this.text(), this.createToken().toString());
+        this.toStringAndCheck(this.createToken(), this.text());
     }
 
     @Override
@@ -73,7 +73,7 @@ public final class CharacterParserTokenTest extends ParserTokenTestCase<Characte
     }
 
     @Override
-    protected Class<CharacterParserToken> type() {
+    public Class<CharacterParserToken> type() {
         return CharacterParserToken.class;
     }
 }

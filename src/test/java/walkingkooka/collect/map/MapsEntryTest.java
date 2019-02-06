@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MapsEntryTest extends EntryTestCase<MapsEntry<String, Integer>, String, Integer>
@@ -65,18 +64,13 @@ public final class MapsEntryTest extends EntryTestCase<MapsEntry<String, Integer
         this.checkNotEquals(MapsEntry.with(KEY, 999));
     }
 
-    @Test
-    public void testToString() {
-        assertEquals("Key123=123", this.createEntry().toString());
-    }
-
     @Override
     protected MapsEntry<String, Integer> createEntry() {
         return MapsEntry.with(KEY, VALUE);
     }
 
     @Override
-    protected Class<MapsEntry<String, Integer>> type() {
+    public Class<MapsEntry<String, Integer>> type() {
         return Cast.to(MapsEntry.class);
     }
 

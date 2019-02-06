@@ -83,7 +83,7 @@ public final class SpreadsheetFormatColorLiteralSymbolParserTokenTest extends Sp
     }
 
     @Override
-    protected Class<SpreadsheetFormatColorLiteralSymbolParserToken> type() {
+    public Class<SpreadsheetFormatColorLiteralSymbolParserToken> type() {
         return SpreadsheetFormatColorLiteralSymbolParserToken.class;
     }
 }

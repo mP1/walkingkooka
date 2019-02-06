@@ -24,12 +24,13 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RoutingTest extends ClassTestCase<Routing<StringName, String>> {
+public final class RoutingTest extends ClassTestCase<Routing<StringName, String>>
+        implements ToStringTesting<Routing<StringName, String>> {
 
     private final static Class<StringName> TYPE = StringName.class;
     private final static String TARGET = "Target";
@@ -78,7 +79,7 @@ public final class RoutingTest extends ClassTestCase<Routing<StringName, String>
 
     @Test
     public void testToString() {
-        assertEquals(TARGET, this.createRoute().toString());
+        this.toStringAndCheck(this.createRoute(), TARGET);
     }
 
     private Routing<StringName, String> createRoute() {
@@ -86,7 +87,7 @@ public final class RoutingTest extends ClassTestCase<Routing<StringName, String>
     }
 
     @Override
-    protected Class<Routing<StringName, String>> type() {
+    public Class<Routing<StringName, String>> type() {
         return Cast.to(Routing.class);
     }
 

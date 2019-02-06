@@ -116,16 +116,14 @@ public final class ExpressionBooleanNodeTest extends ExpressionLeafNodeTestCase<
         this.evaluateAndCheckText(ExpressionBooleanNode.with(false), "false");
     }
 
-    // ToString ...................................................................................................
-
     @Test
     public void testToStringTrue() {
-        assertEquals("true", this.createExpressionNode(true).toString());
+        this.toStringAndCheck(this.createExpressionNode(true), "true");
     }
 
     @Test
     public void testToStringFalse() {
-        assertEquals("false", this.createExpressionNode(false).toString());
+        this.toStringAndCheck(this.createExpressionNode(false), "false");
     }
 
     @Override

@@ -88,7 +88,7 @@ public final class NodeSelectorParenthesisCloseSymbolParserTokenTest extends Nod
     }
 
     @Override
-    protected Class<NodeSelectorParenthesisCloseSymbolParserToken> type() {
+    public Class<NodeSelectorParenthesisCloseSymbolParserToken> type() {
         return NodeSelectorParenthesisCloseSymbolParserToken.class;
     }
 }

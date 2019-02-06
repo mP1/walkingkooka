@@ -21,12 +21,12 @@ package walkingkooka.tree.search;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> extends ClassTestCase<Q>
-        implements HashCodeEqualsDefinedTesting<Q> {
+        implements HashCodeEqualsDefinedTesting<Q>,
+        ToStringTesting<Q> {
 
     @Test
     public final void testDifferentValue() {
@@ -35,9 +35,8 @@ public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> ex
 
     @Test
     public final void testToString() {
-        assertEquals(this.searchQueryValueToString(),
-                this.createSearchQueryValue(this.value()).toString(),
-                "toString");
+        this.toStringAndCheck(this.createSearchQueryValue(this.value()),
+                this.searchQueryValueToString());
     }
 
     final Q createSearchQueryValue() {

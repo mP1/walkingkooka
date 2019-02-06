@@ -31,7 +31,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParserConverterTest extends FixedTypeConverterTestCase<ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext>, BigDecimal> {
@@ -69,7 +68,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
 
     @Test
     public void testToString() {
-        assertEquals("String->BigDecimal", this.createConverter().toString());
+        this.toStringAndCheck(this.createConverter(), "String->BigDecimal");
     }
 
     @Override
@@ -98,7 +97,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     @Override
-    protected Class<ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext>> type() {
+    public Class<ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext>> type() {
         return Cast.to(ParserConverter.class);
     }
 }

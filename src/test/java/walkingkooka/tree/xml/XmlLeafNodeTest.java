@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class XmlLeafNodeTest extends ClassTestCase<XmlLeafNode> {
     @Override
-    protected Class<XmlLeafNode> type() {
+    public Class<XmlLeafNode> type() {
         return XmlLeafNode.class;
     }
 

@@ -59,7 +59,7 @@ public final class TokenHeaderValueOneHeaderParserTest extends TokenHeaderValueH
     }
 
     @Override
-    protected Class<TokenHeaderValueOneHeaderParser> type() {
+    public Class<TokenHeaderValueOneHeaderParser> type() {
         return TokenHeaderValueOneHeaderParser.class;
     }
 }

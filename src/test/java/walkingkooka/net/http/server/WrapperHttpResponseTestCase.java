@@ -24,7 +24,6 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.Latch;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -60,13 +59,14 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     @Test
     public final void testToString() {
         final String toString = "Wrapped Http Response";
-        assertEquals(toString, this.createResponse(new FakeHttpResponse() {
+        this.toStringAndCheck(this.createResponse(new FakeHttpResponse() {
 
-            @Override
-            public String toString() {
-                return toString;
-            }
-        }).toString());
+                    @Override
+                    public String toString() {
+                        return toString;
+                    }
+                }),
+                toString);
     }
 
     // helpers..................................................................................................

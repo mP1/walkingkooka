@@ -71,7 +71,7 @@ public final class OffsetTimeParserTokenTest extends ParserTokenTestCase<OffsetT
     }
 
     @Override
-    protected Class<OffsetTimeParserToken> type() {
+    public Class<OffsetTimeParserToken> type() {
         return OffsetTimeParserToken.class;
     }
 }

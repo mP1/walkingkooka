@@ -40,7 +40,7 @@ public final class SearchLongQueryValueTest extends SearchQueryValueTestCase2<Se
     }
 
     @Override
-    protected Class<SearchLongQueryValue> type() {
+    public Class<SearchLongQueryValue> type() {
         return SearchLongQueryValue.class;
     }
 }

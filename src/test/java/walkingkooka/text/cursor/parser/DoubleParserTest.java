@@ -22,8 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<ParserContext>, DoubleParserToken> {
 
     @Test
@@ -438,7 +436,7 @@ public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<
 
     @Test
     public void testToString() {
-        assertEquals("Double", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "Double");
     }
 
     @Test
@@ -509,7 +507,7 @@ public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<
     }
 
     @Override
-    protected Class<DoubleParser<ParserContext>> type() {
+    public Class<DoubleParser<ParserContext>> type() {
         return Cast.to(DoubleParser.class);
     }
 }

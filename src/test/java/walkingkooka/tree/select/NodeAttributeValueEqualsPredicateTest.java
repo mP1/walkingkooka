@@ -41,7 +41,7 @@ public class NodeAttributeValueEqualsPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("@\"attribute-1\"=\"123\"", this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), "@\"attribute-1\"=\"123\"");
     }
 
     @Override
@@ -49,7 +49,8 @@ public class NodeAttributeValueEqualsPredicateTest
         return NodeAttributeValueEqualsPredicate.with(name, value);
     }
 
-    @Override protected Class<NodeAttributeValueEqualsPredicate<TestNode, StringName, StringName, Object>> type() {
+    @Override
+    public Class<NodeAttributeValueEqualsPredicate<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeAttributeValueEqualsPredicate.class);
     }
 }

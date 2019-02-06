@@ -72,7 +72,7 @@ public final class ZonedDateTimeParserTokenTest extends ParserTokenTestCase<Zone
     }
 
     @Override
-    protected Class<ZonedDateTimeParserToken> type() {
+    public Class<ZonedDateTimeParserToken> type() {
         return ZonedDateTimeParserToken.class;
     }
 }

@@ -30,7 +30,7 @@ public final class LinkRelationConstantGeneratorTest extends ClassTestCase<LinkR
     }
 
     @Override
-    protected Class<LinkRelationConstantGenerator> type() {
+    public Class<LinkRelationConstantGenerator> type() {
         return LinkRelationConstantGenerator.class;
     }
 

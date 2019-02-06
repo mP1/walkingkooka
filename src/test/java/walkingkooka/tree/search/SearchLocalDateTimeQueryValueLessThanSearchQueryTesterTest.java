@@ -28,7 +28,7 @@ public final class SearchLocalDateTimeQueryValueLessThanSearchQueryTesterTest ex
     }
 
     @Override
-    protected Class<SearchLocalDateTimeQueryValueLessThanSearchQueryTester> type() {
+    public Class<SearchLocalDateTimeQueryValueLessThanSearchQueryTester> type() {
         return SearchLocalDateTimeQueryValueLessThanSearchQueryTester.class;
     }
 }

@@ -26,7 +26,6 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NodeSelectorNodeNameTest extends ClassTestCase<NodeSelectorNodeName>
@@ -59,11 +58,6 @@ final public class NodeSelectorNodeNameTest extends ClassTestCase<NodeSelectorNo
     @Test
     public void testWith() {
         this.createNameAndCheck("Abc-123");
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("ABC-123", this.createName("ABC-123").toString());
     }
 
     @Override
@@ -114,7 +108,7 @@ final public class NodeSelectorNodeNameTest extends ClassTestCase<NodeSelectorNo
     }
 
     @Override
-    protected Class<NodeSelectorNodeName> type() {
+    public Class<NodeSelectorNodeName> type() {
         return NodeSelectorNodeName.class;
     }
 

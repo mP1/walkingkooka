@@ -83,7 +83,7 @@ public final class SpreadsheetFormatGreaterThanSymbolParserTokenTest extends Spr
     }
 
     @Override
-    protected Class<SpreadsheetFormatGreaterThanSymbolParserToken> type() {
+    public Class<SpreadsheetFormatGreaterThanSymbolParserToken> type() {
         return SpreadsheetFormatGreaterThanSymbolParserToken.class;
     }
 }

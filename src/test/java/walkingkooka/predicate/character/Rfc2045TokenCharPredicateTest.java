@@ -20,8 +20,6 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 /**
  * <a href="https://tools.ietf.org/html/rfc2045#page-5"></a>
@@ -159,7 +157,7 @@ public final class Rfc2045TokenCharPredicateTest extends CharPredicateTestCase<R
 
     @Test
     public void testToString() {
-        assertEquals("RFC2045Token", this.createCharPredicate().toString());
+        this.toStringAndCheck(this.createCharPredicate(), "RFC2045Token");
     }
 
     @Override
@@ -168,7 +166,7 @@ public final class Rfc2045TokenCharPredicateTest extends CharPredicateTestCase<R
     }
 
     @Override
-    protected Class<Rfc2045TokenCharPredicate> type() {
+    public Class<Rfc2045TokenCharPredicate> type() {
         return Rfc2045TokenCharPredicate.class;
     }
 }

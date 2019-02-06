@@ -121,7 +121,7 @@ public final class SpreadsheetDivisionParserTokenTest extends SpreadsheetBinaryP
     }
 
     @Override
-    protected Class<SpreadsheetDivisionParserToken> type() {
+    public Class<SpreadsheetDivisionParserToken> type() {
         return SpreadsheetDivisionParserToken.class;
     }
 }

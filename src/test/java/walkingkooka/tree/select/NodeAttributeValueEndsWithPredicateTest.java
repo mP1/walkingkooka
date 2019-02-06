@@ -50,7 +50,7 @@ public class NodeAttributeValueEndsWithPredicateTest
     }
 
     @Override
-    protected Class<NodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> type() {
+    public Class<NodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeAttributeValueEndsWithPredicate.class);
     }
 }

@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class HateosHandlerBuilder2Test extends ClassTestCase<HateosHandlerBuilder2<?>> {
     @Override
-    protected Class<HateosHandlerBuilder2<?>> type() {
+    public Class<HateosHandlerBuilder2<?>> type() {
         return Cast.to(HateosHandlerBuilder2.class);
     }
 

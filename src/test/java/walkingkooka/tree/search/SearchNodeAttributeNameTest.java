@@ -73,7 +73,7 @@ public final class SearchNodeAttributeNameTest extends ClassTestCase<SearchNodeA
 
     @Test
     public void testToString() {
-        assertEquals("abc", this.createName("abc").toString());
+        this.toStringAndCheck(this.createName("abc"), "abc");
     }
 
     @Override
@@ -124,7 +124,7 @@ public final class SearchNodeAttributeNameTest extends ClassTestCase<SearchNodeA
     }
 
     @Override
-    protected Class<SearchNodeAttributeName> type() {
+    public Class<SearchNodeAttributeName> type() {
         return SearchNodeAttributeName.class;
     }
 

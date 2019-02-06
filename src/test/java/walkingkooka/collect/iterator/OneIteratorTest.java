@@ -85,7 +85,7 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
     }
 
     @Override
-    protected Class<OneIterator<String>> type() {
+    public Class<OneIterator<String>> type() {
         return Cast.to(OneIterator.class);
     }
 }

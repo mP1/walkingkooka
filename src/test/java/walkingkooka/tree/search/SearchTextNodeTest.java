@@ -75,20 +75,21 @@ public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextN
 
     @Test
     public void testToString() {
-        assertEquals("\"abc123\"", this.createSearchNode("abc123").toString());
+        this.toStringAndCheck(this.createSearchNode("abc123"),
+                "\"abc123\"");
     }
 
     @Test
     public void testToStringRequiresEscaping() {
-        assertEquals("\"abc\\t123\"", this.createSearchNode("abc\t123").toString());
+        this.toStringAndCheck(this.createSearchNode("abc\t123"),
+                "\"abc\\t123\"");
     }
 
     @Test
     public void testToStringWithName() {
-        assertEquals("Name123=\"abc123\"",
-                this.createSearchNode("abc123")
-                        .setName(SearchNodeName.with("Name123"))
-                        .toString());
+        this.toStringAndCheck(this.createSearchNode("abc123")
+                        .setName(SearchNodeName.with("Name123")),
+                "Name123=\"abc123\"");
     }
 
     @Override

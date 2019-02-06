@@ -77,7 +77,7 @@ public final class QuotedUnquotedStringHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<QuotedUnquotedStringHeaderValueConverter> type() {
+    public Class<QuotedUnquotedStringHeaderValueConverter> type() {
         return QuotedUnquotedStringHeaderValueConverter.class;
     }
 }

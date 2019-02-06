@@ -22,13 +22,15 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTestCase<V>
-        implements HashCodeEqualsDefinedTesting<V> {
+        implements HashCodeEqualsDefinedTesting<V>,
+        ToStringTesting<V> {
 
     @Test
     public final void testIsMultipart() {

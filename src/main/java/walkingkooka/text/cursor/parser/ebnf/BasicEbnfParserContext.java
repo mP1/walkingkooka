@@ -17,6 +17,9 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.build.tostring.ToStringBuilder;
+
 final class BasicEbnfParserContext implements EbnfParserContext {
 
     static BasicEbnfParserContext instance() {
@@ -62,5 +65,15 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     @Override
     public char plusSign() {
         return '+';
+    }
+
+    @Test
+    public String toString() {
+        return ToStringBuilder.empty()
+                .label("decimalPoint").value(this.decimalPoint())
+                .label("exponentSymbol").value(this.exponentSymbol())
+                .label("minusSign").value(this.minusSign())
+                .label("plusSign").value(this.plusSign())
+                .build();
     }
 }

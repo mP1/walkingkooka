@@ -88,7 +88,7 @@ public final class SpreadsheetLabelNameParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected Class<SpreadsheetLabelNameParserToken> type() {
+    public Class<SpreadsheetLabelNameParserToken> type() {
         return SpreadsheetLabelNameParserToken.class;
     }
 }

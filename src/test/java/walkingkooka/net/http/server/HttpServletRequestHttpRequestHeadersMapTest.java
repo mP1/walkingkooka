@@ -127,7 +127,7 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends MapTestCa
     }
 
     @Override
-    protected Class<HttpServletRequestHttpRequestHeadersMap> type() {
+    public Class<HttpServletRequestHttpRequestHeadersMap> type() {
         return HttpServletRequestHttpRequestHeadersMap.class;
     }
 }

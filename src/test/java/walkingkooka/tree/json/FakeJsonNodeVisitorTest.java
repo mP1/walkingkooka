@@ -33,7 +33,7 @@ public final class FakeJsonNodeVisitorTest extends JsonNodeVisitorTestCase<FakeJ
     }
 
     @Override
-    protected Class<FakeJsonNodeVisitor> type() {
+    public Class<FakeJsonNodeVisitor> type() {
         return FakeJsonNodeVisitor.class;
     }
 }

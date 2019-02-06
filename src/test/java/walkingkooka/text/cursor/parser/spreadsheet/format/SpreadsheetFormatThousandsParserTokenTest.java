@@ -88,7 +88,7 @@ public final class SpreadsheetFormatThousandsParserTokenTest extends Spreadsheet
     }
 
     @Override
-    protected Class<SpreadsheetFormatThousandsParserToken> type() {
+    public Class<SpreadsheetFormatThousandsParserToken> type() {
         return SpreadsheetFormatThousandsParserToken.class;
     }
 }

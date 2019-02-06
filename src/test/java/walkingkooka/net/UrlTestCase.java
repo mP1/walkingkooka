@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -36,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
         implements HashCodeEqualsDefinedTesting<U>,
-        IsMethodTesting<U> {
+        IsMethodTesting<U>,
+        ToStringTesting<U> {
 
     UrlTestCase() {
         super();
@@ -202,9 +204,6 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
     }
 
     // toString........................................................................
-    
-    @Test
-    abstract public void testToString();
 
     @Test
     abstract public void testToStringWithoutQuery();
@@ -222,10 +221,6 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
     }
 
     abstract U createUrl(UrlPath path, UrlQueryString query, UrlFragment fragment);
-
-    static void checkToString(final Url url, final String expected) {
-        assertEquals(expected, url.toString(), "Url.value");
-    }
     
     final void checkPath(final Url url, final UrlPath path) {
         assertEquals(path, url.path(), "path");

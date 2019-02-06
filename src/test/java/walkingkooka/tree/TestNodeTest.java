@@ -164,7 +164,7 @@ public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName
     }
 
     @Override
-    protected Class<TestNode> type() {
+    public Class<TestNode> type() {
         return TestNode.class;
     }
 

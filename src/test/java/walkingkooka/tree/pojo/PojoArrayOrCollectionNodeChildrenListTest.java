@@ -48,7 +48,7 @@ public final class PojoArrayOrCollectionNodeChildrenListTest extends PojoNodeLis
     }
 
     @Override
-    protected Class<PojoArrayOrCollectionNodeChildrenList<?>> type() {
+    public Class<PojoArrayOrCollectionNodeChildrenList<?>> type() {
         return Cast.to(PojoArrayOrCollectionNodeChildrenList.class);
     }
 }

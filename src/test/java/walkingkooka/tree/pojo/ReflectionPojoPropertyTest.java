@@ -22,7 +22,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class ReflectionPojoPropertyTest extends ClassTestCase<ReflectionPojoProperty> {
     @Override
-    protected Class<ReflectionPojoProperty> type() {
+    public Class<ReflectionPojoProperty> type() {
         return ReflectionPojoProperty.class;
     }
 

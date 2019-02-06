@@ -24,7 +24,7 @@ import walkingkooka.tree.json.JsonNode;
 public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDeleteTest extends
         HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<JsonNode>> {
     @Override
-    protected Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete.class);
     }
 }

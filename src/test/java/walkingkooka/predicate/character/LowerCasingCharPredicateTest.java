@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -74,8 +73,7 @@ final public class LowerCasingCharPredicateTest
     @Test
     public void testToString() {
         final CharPredicate predicate = CharPredicates.fake();
-        assertEquals("lowercase then " + predicate,
-                LowerCasingCharPredicate.wrap(predicate).toString());
+        this.toStringAndCheck(LowerCasingCharPredicate.wrap(predicate), "lowercase then " + predicate);
     }
 
     @Override

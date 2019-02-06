@@ -75,7 +75,7 @@ public final class RangeHeaderValueUnitHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<RangeHeaderValueUnitHeaderValueConverter> type() {
+    public Class<RangeHeaderValueUnitHeaderValueConverter> type() {
         return RangeHeaderValueUnitHeaderValueConverter.class;
     }
 }

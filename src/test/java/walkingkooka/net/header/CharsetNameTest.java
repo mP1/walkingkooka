@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Comparators;
-import walkingkooka.naming.NameTesting;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
@@ -232,7 +231,7 @@ public final class CharsetNameTest extends ClassTestCase<CharsetName>
     }
 
     @Override
-    protected Class<CharsetName> type() {
+    public Class<CharsetName> type() {
         return CharsetName.class;
     }
 

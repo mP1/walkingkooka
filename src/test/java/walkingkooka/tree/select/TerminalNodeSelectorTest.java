@@ -22,14 +22,12 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class TerminalNodeSelectorTest
         extends NodeSelectorTestCase2<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testToString() {
-        assertEquals("", this.createSelector().toString());
+        this.toStringAndCheck(this.createSelector(), "");
     }
 
     @Override
@@ -38,7 +36,7 @@ final public class TerminalNodeSelectorTest
     }
 
     @Override
-    protected Class<TerminalNodeSelector<TestNode, StringName, StringName, Object>> type() {
+    public Class<TerminalNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(TerminalNodeSelector.class);
     }
 }

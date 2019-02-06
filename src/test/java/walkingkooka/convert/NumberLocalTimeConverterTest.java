@@ -108,7 +108,7 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
     }
 
     @Override
-    protected Class<NumberLocalTimeConverter> type() {
+    public Class<NumberLocalTimeConverter> type() {
         return NumberLocalTimeConverter.class;
     }
 }

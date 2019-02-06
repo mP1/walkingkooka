@@ -435,8 +435,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
 
     @Test
     public void testToString() {
-        assertEquals(PRINTER + " \"\\r\"",
-                this.createPrintStream().toString());
+        this.toStringAndCheck(this.createPrintStream(), PRINTER + " \"\\r\"");
     }
 
     @Override
@@ -454,7 +453,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
     }
 
     @Override
-    protected Class<PrinterPrintStream> type() {
+    public Class<PrinterPrintStream> type() {
         return PrinterPrintStream.class;
     }
 }

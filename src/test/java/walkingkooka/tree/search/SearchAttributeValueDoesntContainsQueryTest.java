@@ -74,7 +74,7 @@ public final class SearchAttributeValueDoesntContainsQueryTest extends SearchAtt
     }
 
     @Override
-    protected Class<SearchAttributeValueDoesntContainsQuery> type() {
+    public Class<SearchAttributeValueDoesntContainsQuery> type() {
         return SearchAttributeValueDoesntContainsQuery.class;
     }
 }

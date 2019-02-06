@@ -88,7 +88,7 @@ public final class JsonNodeObjectBeginSymbolParserTokenTest extends JsonNodeSymb
     }
 
     @Override
-    protected Class<JsonNodeObjectBeginSymbolParserToken> type() {
+    public Class<JsonNodeObjectBeginSymbolParserToken> type() {
         return JsonNodeObjectBeginSymbolParserToken.class;
     }
 }

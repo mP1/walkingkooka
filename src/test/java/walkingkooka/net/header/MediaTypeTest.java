@@ -726,10 +726,6 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 "type/subtype; a=\"b\\\"c\"");
     }
 
-    private void toStringAndCheck(final MediaType type, final String toString) {
-        assertEquals(toString, type.toString(), "toString");
-    }
-
     // toHeaderTextList...............................................................................................
 
     @Test
@@ -780,7 +776,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     @Override
-    protected Class<MediaType> type() {
+    public Class<MediaType> type() {
         return MediaType.class;
     }
 

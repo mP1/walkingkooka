@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class TextCursorsTest extends PublicStaticHelperTestCase<TextCursors> {
 
     @Override
-    protected Class<TextCursors> type() {
+    public Class<TextCursors> type() {
         return TextCursors.class;
     }
 

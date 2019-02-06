@@ -218,7 +218,7 @@ public final class ZonedDateTimeDateTimeFormatterParserTest extends DateTimeForm
     }
 
     @Override
-    protected Class<ZonedDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
+    public Class<ZonedDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
         return Cast.to(ZonedDateTimeDateTimeFormatterParser.class);
     }
 }

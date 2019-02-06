@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class PredicatesTest extends PublicStaticHelperTestCase<Predicates> {
 
     @Override
-    protected Class<Predicates> type() {
+    public Class<Predicates> type() {
         return Predicates.class;
     }
 

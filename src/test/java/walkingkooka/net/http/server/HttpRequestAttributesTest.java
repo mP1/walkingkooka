@@ -81,7 +81,7 @@ public final class HttpRequestAttributesTest extends ClassTestCase<HttpRequestAt
     }
 
     @Override
-    protected Class<HttpRequestAttributes> type() {
+    public Class<HttpRequestAttributes> type() {
         return HttpRequestAttributes.class;
     }
 

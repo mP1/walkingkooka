@@ -88,7 +88,7 @@ public final class SpreadsheetMinusSymbolParserTokenTest extends SpreadsheetSymb
     }
 
     @Override
-    protected Class<SpreadsheetMinusSymbolParserToken> type() {
+    public Class<SpreadsheetMinusSymbolParserToken> type() {
         return SpreadsheetMinusSymbolParserToken.class;
     }
 }

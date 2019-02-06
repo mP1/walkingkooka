@@ -19,13 +19,11 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuotedParser<ParserContext>, SingleQuotedParserToken> {
 
     @Test
     public void testToStringSingleQuoted() {
-        assertEquals("single quoted string", this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), "single quoted string");
     }
 
     @Override
@@ -49,7 +47,7 @@ public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuo
     }
 
     @Override
-    protected Class<SingleQuotedParser<ParserContext>> type() {
+    public Class<SingleQuotedParser<ParserContext>> type() {
         return Cast.to(SingleQuotedParser.class);
     }
 }

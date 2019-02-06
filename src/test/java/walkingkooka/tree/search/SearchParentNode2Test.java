@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class SearchParentNode2Test extends ClassTestCase<SearchParentNode2> {
 
     @Override
-    protected Class<SearchParentNode2> type() {
+    public Class<SearchParentNode2> type() {
         return SearchParentNode2.class;
     }
 

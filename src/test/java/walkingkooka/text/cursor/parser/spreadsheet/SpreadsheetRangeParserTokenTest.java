@@ -125,7 +125,7 @@ public final class SpreadsheetRangeParserTokenTest extends SpreadsheetBinaryPars
     }
 
     @Override
-    protected Class<SpreadsheetRangeParserToken> type() {
+    public Class<SpreadsheetRangeParserToken> type() {
         return SpreadsheetRangeParserToken.class;
     }
 }

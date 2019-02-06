@@ -132,7 +132,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
     @Test
     public void testToString() {
         final Iterator<Entry<HttpHeaderName<?>, Object>> iterator = Iterators.fake();
-        assertEquals(iterator.toString(), RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(iterator).toString());
+        this.toStringAndCheck(RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(iterator), iterator.toString());
     }
 
     @Override public RouterHttpRequestParametersMapHttpHeaderEntryIterator createIterator() {
@@ -151,7 +151,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
     }
 
     @Override
-    protected Class<RouterHttpRequestParametersMapHttpHeaderEntryIterator> type() {
+    public Class<RouterHttpRequestParametersMapHttpHeaderEntryIterator> type() {
         return RouterHttpRequestParametersMapHttpHeaderEntryIterator.class;
     }
 }

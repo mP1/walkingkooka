@@ -134,7 +134,7 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
 
     @Test
     public void testToString() {
-        assertEquals("...abcde", this.createCharSequence().toString());
+        this.toStringAndCheck(this.createCharSequence(), "...abcde");
     }
 
     @Override

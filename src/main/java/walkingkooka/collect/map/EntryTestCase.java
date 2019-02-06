@@ -18,16 +18,25 @@
 
 package walkingkooka.collect.map;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class EntryTestCase<M extends Entry<K, V>, K, V> extends ClassTestCase<M> {
+public abstract class EntryTestCase<E extends Entry<K, V>, K, V> extends ClassTestCase<E>
+        implements ToStringTesting<E> {
 
-    protected abstract M createEntry();
+    @Test
+    public void testToString() {
+        final E entry = this.createEntry();
+        this.toStringAndCheck(entry, entry.getKey() + "=" + entry.getValue());
+    }
+
+    protected abstract E createEntry();
 
     protected void getKeyAndValueAndCheck(final Entry<K, V> entry, final K key, final V value) {
         this.getKeyAndCheck(entry, key);

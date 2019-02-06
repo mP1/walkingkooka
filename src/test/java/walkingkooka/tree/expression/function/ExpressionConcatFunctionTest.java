@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionConcatFunctionTest extends ExpressionFunctionTestCase<ExpressionConcatFunction, String> {
@@ -64,7 +63,7 @@ public final class ExpressionConcatFunctionTest extends ExpressionFunctionTestCa
 
     @Test
     public void testToString() {
-        assertEquals("concat", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "concat");
     }
 
     @Override
@@ -73,7 +72,7 @@ public final class ExpressionConcatFunctionTest extends ExpressionFunctionTestCa
     }
 
     @Override
-    protected Class<ExpressionConcatFunction> type() {
+    public Class<ExpressionConcatFunction> type() {
         return ExpressionConcatFunction.class;
     }
 }

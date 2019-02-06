@@ -25,8 +25,6 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class FilesystemNodeNameTest extends ClassTestCase<FilesystemNodeName>
         implements NameTesting<FilesystemNodeName, FilesystemNodeName> {
 
@@ -35,11 +33,6 @@ public final class FilesystemNodeNameTest extends ClassTestCase<FilesystemNodeNa
     @Disabled
     public void testCompareDifferentCase() {
         throw new UnsupportedOperationException(); // file system case sensitivity must be broken...
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("abc", this.createName("abc").toString());
     }
 
     @Override
@@ -68,7 +61,7 @@ public final class FilesystemNodeNameTest extends ClassTestCase<FilesystemNodeNa
     }
 
     @Override
-    protected Class<FilesystemNodeName> type() {
+    public Class<FilesystemNodeName> type() {
         return FilesystemNodeName.class;
     }
 

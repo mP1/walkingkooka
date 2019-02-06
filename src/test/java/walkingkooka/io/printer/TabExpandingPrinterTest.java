@@ -147,7 +147,7 @@ final public class TabExpandingPrinterTest extends PrinterTestCase2<TabExpanding
     }
 
     @Override
-    protected Class<TabExpandingPrinter> type() {
+    public Class<TabExpandingPrinter> type() {
         return TabExpandingPrinter.class;
     }
 }

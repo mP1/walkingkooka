@@ -21,7 +21,6 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.select.NodeSelector;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionSubstringFunctionTest extends ExpressionFunctionTestCase<ExpressionSubstringFunction, String> {
@@ -102,7 +101,7 @@ public final class ExpressionSubstringFunctionTest extends ExpressionFunctionTes
 
     @Test
     public void testToString() {
-        assertEquals("substring", this.createBiFunction().toString());
+        this.toStringAndCheck(this.createBiFunction(), "substring");
     }
 
     @Override
@@ -111,7 +110,7 @@ public final class ExpressionSubstringFunctionTest extends ExpressionFunctionTes
     }
 
     @Override
-    protected Class<ExpressionSubstringFunction> type() {
+    public Class<ExpressionSubstringFunction> type() {
         return ExpressionSubstringFunction.class;
     }
 }

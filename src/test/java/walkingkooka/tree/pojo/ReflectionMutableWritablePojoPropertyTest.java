@@ -48,7 +48,7 @@ public final class ReflectionMutableWritablePojoPropertyTest extends PojoPropert
 
     @Test
     public void testToString() {
-        assertEquals("x", this.createPojoProperty().toString());
+        this.toStringAndCheck(this.createPojoProperty(), "x");
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class ReflectionMutableWritablePojoPropertyTest extends PojoPropert
     }
 
     @Override
-    protected Class<ReflectionMutableWritablePojoProperty> type() {
+    public Class<ReflectionMutableWritablePojoProperty> type() {
         return ReflectionMutableWritablePojoProperty.class;
     }
 

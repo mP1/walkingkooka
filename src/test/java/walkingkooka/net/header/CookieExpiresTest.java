@@ -66,7 +66,7 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
 
     @Test
     public void testToString() {
-        assertEquals("expires=Sun, 31 Dec 2000 12:58:59 GMT", this.createDeletion().toString());
+        this.toStringAndCheck(this.createDeletion(), "expires=Sun, 31 Dec 2000 12:58:59 GMT");
     }
 
     @Override
@@ -75,7 +75,7 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
     }
 
     @Override
-    protected Class<CookieExpires> type() {
+    public Class<CookieExpires> type() {
         return CookieExpires.class;
     }
 }

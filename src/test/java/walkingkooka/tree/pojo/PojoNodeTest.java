@@ -60,7 +60,7 @@ public final class PojoNodeTest extends ClassTestCase<PojoNode>
     }
 
     @Override
-    protected Class<PojoNode> type() {
+    public Class<PojoNode> type() {
         return PojoNode.class;
     }
 

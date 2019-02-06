@@ -71,7 +71,7 @@ public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, Lo
     }
 
     @Override
-    protected Class<IfRangeETag> type() {
+    public Class<IfRangeETag> type() {
         return IfRangeETag.class;
     }
 }

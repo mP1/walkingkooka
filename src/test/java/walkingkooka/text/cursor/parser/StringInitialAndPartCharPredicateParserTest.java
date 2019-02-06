@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class StringInitialAndPartCharPredicateParserTest extends ParserTemplateTestCase<StringInitialAndPartCharPredicateParser<ParserContext>, StringParserToken> {
@@ -116,7 +115,7 @@ public final class StringInitialAndPartCharPredicateParserTest extends ParserTem
 
     @Test
     public void testToString() {
-        assertEquals(INITIAL + " " + PART, this.createParser().toString());
+        this.toStringAndCheck(this.createParser(), INITIAL + " " + PART);
     }
 
     @Override
@@ -129,7 +128,7 @@ public final class StringInitialAndPartCharPredicateParserTest extends ParserTem
     }
 
     @Override
-    protected Class<StringInitialAndPartCharPredicateParser<ParserContext>> type() {
+    public Class<StringInitialAndPartCharPredicateParser<ParserContext>> type() {
         return Cast.to(StringInitialAndPartCharPredicateParser.class);
     }
 }

@@ -101,7 +101,7 @@ public final class NumberBigDecimalConverterTest extends NumberConverterTestCase
     }
 
     @Override
-    protected Class<NumberBigDecimalConverter> type() {
+    public Class<NumberBigDecimalConverter> type() {
         return NumberBigDecimalConverter.class;
     }
 }

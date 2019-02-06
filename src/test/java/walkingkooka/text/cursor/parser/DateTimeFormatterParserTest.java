@@ -50,7 +50,7 @@ public final class DateTimeFormatterParserTest extends ClassTestCase<DateTimeFor
     }
 
     @Override
-    protected Class<DateTimeFormatterParser> type() {
+    public Class<DateTimeFormatterParser> type() {
         return DateTimeFormatterParser.class;
     }
 

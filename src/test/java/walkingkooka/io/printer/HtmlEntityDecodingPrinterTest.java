@@ -229,7 +229,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         }
         this.check(printer, expected);
         assertEquals(0, printer.last, "printer.last");
-        checkEquals("Expected empty buffer", "", printer.buffer());
+        checkEquals("", printer.buffer());
 
         this.builder.setLength(0);
         final char[] chars = b.toString().toCharArray();
@@ -238,11 +238,11 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         }
         this.check(printer, expected);
         assertEquals(0, printer.last, "printer.last");
-        checkEquals("Expected empty buffer", "", printer.buffer());
+        checkEquals("", printer.buffer());
     }
 
     @Override
-    protected Class<HtmlEntityDecodingPrinter> type() {
+    public Class<HtmlEntityDecodingPrinter> type() {
         return HtmlEntityDecodingPrinter.class;
     }
 }

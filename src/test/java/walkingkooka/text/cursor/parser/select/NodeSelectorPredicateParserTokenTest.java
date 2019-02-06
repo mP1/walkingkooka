@@ -185,7 +185,7 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
     }
 
     @Override
-    protected Class<NodeSelectorPredicateParserToken> type() {
+    public Class<NodeSelectorPredicateParserToken> type() {
         return NodeSelectorPredicateParserToken.class;
     }
 }

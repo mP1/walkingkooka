@@ -20,8 +20,6 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class AbsoluteUrlPredicateTest extends PredicateTestCase<AbsoluteUrlPredicate, String> {
 
     @Test
@@ -56,7 +54,7 @@ public final class AbsoluteUrlPredicateTest extends PredicateTestCase<AbsoluteUr
 
     @Test
     public void testToString() {
-        assertEquals("AbsoluteUrl", this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), "AbsoluteUrl");
     }
 
     @Override
@@ -65,7 +63,7 @@ public final class AbsoluteUrlPredicateTest extends PredicateTestCase<AbsoluteUr
     }
 
     @Override
-    protected Class<AbsoluteUrlPredicate> type() {
+    public Class<AbsoluteUrlPredicate> type() {
         return AbsoluteUrlPredicate.class;
     }
 }

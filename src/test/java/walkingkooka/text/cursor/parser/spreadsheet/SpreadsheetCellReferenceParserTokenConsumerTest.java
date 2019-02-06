@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class SpreadsheetCellReferenceParserTokenConsumerTest extends ClassTestCase<SpreadsheetCellReferenceParserTokenConsumer> {
     @Override
-    protected Class<SpreadsheetCellReferenceParserTokenConsumer> type() {
+    public Class<SpreadsheetCellReferenceParserTokenConsumer> type() {
         return SpreadsheetCellReferenceParserTokenConsumer.class;
     }
 

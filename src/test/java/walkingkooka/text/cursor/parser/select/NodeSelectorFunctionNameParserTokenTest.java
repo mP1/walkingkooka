@@ -88,7 +88,7 @@ public final class NodeSelectorFunctionNameParserTokenTest extends NodeSelectorN
     }
 
     @Override
-    protected Class<NodeSelectorFunctionNameParserToken> type() {
+    public Class<NodeSelectorFunctionNameParserToken> type() {
         return NodeSelectorFunctionNameParserToken.class;
     }
 }

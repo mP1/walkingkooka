@@ -85,7 +85,7 @@ public final class ContentRangeHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<ContentRangeHeaderValueConverter> type() {
+    public Class<ContentRangeHeaderValueConverter> type() {
         return ContentRangeHeaderValueConverter.class;
     }
 }

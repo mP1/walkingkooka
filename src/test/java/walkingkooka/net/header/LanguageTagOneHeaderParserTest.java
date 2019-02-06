@@ -38,7 +38,7 @@ public final class LanguageTagOneHeaderParserTest extends LanguageTagHeaderParse
     }
 
     @Override
-    protected Class<LanguageTagOneHeaderParser> type() {
+    public Class<LanguageTagOneHeaderParser> type() {
         return LanguageTagOneHeaderParser.class;
     }
 }

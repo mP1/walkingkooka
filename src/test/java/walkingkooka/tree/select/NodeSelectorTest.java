@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class NodeSelectorTest extends ClassTestCase<NodeSelector<?, ?, ?, ?>> {
     @Override
-    protected Class<NodeSelector<?, ?, ?, ?>> type() {
+    public Class<NodeSelector<?, ?, ?, ?>> type() {
         return Cast.to(NodeSelector.class);
     }
 

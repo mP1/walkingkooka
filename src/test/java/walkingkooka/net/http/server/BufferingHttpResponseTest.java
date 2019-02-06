@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class BufferingHttpResponseTest extends ClassTestCase<BufferingHttpResponse> {
     @Override
-    protected Class<BufferingHttpResponse> type() {
+    public Class<BufferingHttpResponse> type() {
         return BufferingHttpResponse.class;
     }
 

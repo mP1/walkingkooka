@@ -18,14 +18,22 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
+import org.junit.jupiter.api.Test;
+
 public final class BasicEbnfParserCombinatorContextTest extends EbnfParserCombinatorContextTestCase<BasicEbnfParserCombinatorContext> {
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createContext(), "");
+    }
+
     @Override
     protected BasicEbnfParserCombinatorContext createContext() {
         return BasicEbnfParserCombinatorContext.create();
     }
 
     @Override
-    protected Class<BasicEbnfParserCombinatorContext> type() {
+    public Class<BasicEbnfParserCombinatorContext> type() {
         return BasicEbnfParserCombinatorContext.class;
     }
 }

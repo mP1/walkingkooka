@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 public class EbnfTerminalParserExceptionTest extends PublicThrowableTestCase<EbnfTerminalParserException> {
     @Override
-    protected Class<EbnfTerminalParserException> type() {
+    public Class<EbnfTerminalParserException> type() {
         return EbnfTerminalParserException.class;
     }
 }

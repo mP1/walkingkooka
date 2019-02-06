@@ -90,7 +90,7 @@ public final class QWeightHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<QWeightHeaderValueConverter> type() {
+    public Class<QWeightHeaderValueConverter> type() {
         return QWeightHeaderValueConverter.class;
     }
 }

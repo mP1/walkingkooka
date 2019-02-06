@@ -21,7 +21,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class EbnfRuleParserTokenConsumerTest extends ClassTestCase<EbnfRuleParserTokenConsumer> {
     @Override
-    protected Class<EbnfRuleParserTokenConsumer> type() {
+    public Class<EbnfRuleParserTokenConsumer> type() {
         return EbnfRuleParserTokenConsumer.class;
     }
 

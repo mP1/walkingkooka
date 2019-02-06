@@ -44,7 +44,7 @@ public final class BigDecimalSpreadsheetTextFormatterZeroTest extends BigDecimal
     }
 
     @Override
-    protected Class<BigDecimalSpreadsheetTextFormatterZero> type() {
+    public Class<BigDecimalSpreadsheetTextFormatterZero> type() {
         return BigDecimalSpreadsheetTextFormatterZero.class;
     }
 }

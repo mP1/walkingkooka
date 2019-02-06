@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class SearchValueComparisonLeafQueryTest extends ClassTestCase<SearchValueComparisonLeafQuery> {
 
     @Override
-    protected Class<SearchValueComparisonLeafQuery> type() {
+    public Class<SearchValueComparisonLeafQuery> type() {
         return SearchValueComparisonLeafQuery.class;
     }
 

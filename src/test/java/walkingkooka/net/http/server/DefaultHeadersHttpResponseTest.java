@@ -103,7 +103,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
     }
 
     @Override
-    protected Class<DefaultHeadersHttpResponse> type() {
+    public Class<DefaultHeadersHttpResponse> type() {
         return DefaultHeadersHttpResponse.class;
     }
 }

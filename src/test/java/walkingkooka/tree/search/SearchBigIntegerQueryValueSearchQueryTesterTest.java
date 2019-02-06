@@ -29,7 +29,7 @@ public final class SearchBigIntegerQueryValueSearchQueryTesterTest extends Searc
     }
 
     @Override
-    protected Class<SearchBigIntegerQueryValueSearchQueryTester> type() {
+    public Class<SearchBigIntegerQueryValueSearchQueryTester> type() {
         return SearchBigIntegerQueryValueSearchQueryTester.class;
     }
 

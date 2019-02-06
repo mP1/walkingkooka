@@ -106,7 +106,7 @@ public final class XmlAttributeMapTest extends XmlMapTestCase<XmlAttributeMap, X
     }
 
     @Override
-    protected Class<XmlAttributeMap> type() {
+    public Class<XmlAttributeMap> type() {
         return XmlAttributeMap.class;
     }
 }

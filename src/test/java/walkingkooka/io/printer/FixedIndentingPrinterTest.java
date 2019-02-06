@@ -212,7 +212,7 @@ final public class FixedIndentingPrinterTest
     }
 
     @Override
-    protected Class<FixedIndentingPrinter> type() {
+    public Class<FixedIndentingPrinter> type() {
         return FixedIndentingPrinter.class;
     }
 }

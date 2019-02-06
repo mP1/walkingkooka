@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 public final class ExpressionFunctionsTest extends PublicStaticHelperTestCase<ExpressionFunctions> {
 
     @Override
-    protected Class<ExpressionFunctions> type() {
+    public Class<ExpressionFunctions> type() {
         return ExpressionFunctions.class;
     }
 

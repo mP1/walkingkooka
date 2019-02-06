@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class WrapperHttpResponseTest extends ClassTestCase<WrapperHttpResponse> {
     @Override
-    protected Class<WrapperHttpResponse> type() {
+    public Class<WrapperHttpResponse> type() {
         return WrapperHttpResponse.class;
     }
 

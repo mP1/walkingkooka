@@ -113,7 +113,7 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
     }
 
     @Override
-    protected Class<NodeSelectorExpressionParserToken> type() {
+    public Class<NodeSelectorExpressionParserToken> type() {
         return NodeSelectorExpressionParserToken.class;
     }
 }

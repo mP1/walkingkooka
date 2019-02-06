@@ -32,4 +32,9 @@ final class BasicEbnfParserCombinatorContext implements EbnfParserCombinatorCont
      */
     private BasicEbnfParserCombinatorContext() {
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

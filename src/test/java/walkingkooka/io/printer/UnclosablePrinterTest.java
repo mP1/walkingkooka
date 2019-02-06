@@ -86,7 +86,7 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
 
         printer.close();
 
-        checkEquals("printed", expected.toString(), printed.toString());
+        checkEquals(expected.toString(), printed.toString());
     }
 
     @Override
@@ -124,7 +124,7 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
     }
 
     @Override
-    protected Class<UnclosablePrinter> type() {
+    public Class<UnclosablePrinter> type() {
         return UnclosablePrinter.class;
     }
 }

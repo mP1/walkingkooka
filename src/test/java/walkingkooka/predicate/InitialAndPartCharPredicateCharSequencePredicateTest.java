@@ -24,7 +24,6 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class InitialAndPartCharPredicateCharSequencePredicateTest
@@ -95,8 +94,7 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("(\"ABC\", \"123\"*)",
-                this.createPredicate().toString());
+        this.toStringAndCheck(this.createPredicate(), "(\"ABC\", \"123\"*)");
     }
 
     @Override

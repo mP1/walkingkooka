@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class ReflectionPojoExceptionTest extends ClassTestCase<ReflectionPojoException> {
 
     @Override
-    protected Class<ReflectionPojoException> type() {
+    public Class<ReflectionPojoException> type() {
         return ReflectionPojoException.class;
     }
 

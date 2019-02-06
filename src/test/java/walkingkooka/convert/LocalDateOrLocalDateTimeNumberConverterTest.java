@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class LocalDateOrLocalDateTimeNumberConverterTest extends ClassTestCase<LocalDateOrLocalDateTimeNumberConverter> {
     @Override
-    protected Class<LocalDateOrLocalDateTimeNumberConverter> type() {
+    public Class<LocalDateOrLocalDateTimeNumberConverter> type() {
         return LocalDateOrLocalDateTimeNumberConverter.class;
     }
 

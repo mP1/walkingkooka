@@ -138,7 +138,7 @@ public final class SpreadsheetTextParserTokenTest extends SpreadsheetNonSymbolPa
     }
 
     @Override
-    protected Class<SpreadsheetTextParserToken> type() {
+    public Class<SpreadsheetTextParserToken> type() {
         return SpreadsheetTextParserToken.class;
     }
 }

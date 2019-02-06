@@ -23,7 +23,6 @@ import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<Object>, Object>
@@ -41,7 +40,7 @@ final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<O
 
     @Test
     public void testToString() {
-        assertEquals("<none>", NeverPredicate.instance().toString());
+        this.toStringAndCheck(NeverPredicate.instance(), "<none>");
     }
 
     @Test

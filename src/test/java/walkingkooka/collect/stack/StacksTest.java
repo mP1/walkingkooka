@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 final public class StacksTest extends PublicStaticHelperTestCase<Stacks> {
 
     @Override
-    protected Class<Stacks> type() {
+    public Class<Stacks> type() {
         return Stacks.class;
     }
 

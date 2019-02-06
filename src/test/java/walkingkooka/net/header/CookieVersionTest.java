@@ -45,7 +45,7 @@ final public class CookieVersionTest extends ClassTestCase<CookieVersion> {
     }
 
     @Override
-    protected Class<CookieVersion> type() {
+    public Class<CookieVersion> type() {
         return CookieVersion.class;
     }
 

@@ -316,7 +316,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
 
     @Test
     public void testToString() {
-        assertEquals("$DT$457", this.createReference().toString());
+        this.toStringAndCheck(this.createReference(), "$DT$457");
     }
 
     @Override
@@ -368,7 +368,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     }
 
     @Override
-    protected Class<SpreadsheetCellReference> type() {
+    public Class<SpreadsheetCellReference> type() {
         return SpreadsheetCellReference.class;
     }
 

@@ -156,7 +156,7 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
     }
 
     @Override
-    protected Class<EbnfExceptionParserToken> type() {
+    public Class<EbnfExceptionParserToken> type() {
         return EbnfExceptionParserToken.class;
     }
 }

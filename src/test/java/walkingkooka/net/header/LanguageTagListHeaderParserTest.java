@@ -66,7 +66,7 @@ public final class LanguageTagListHeaderParserTest extends LanguageTagHeaderPars
     }
 
     @Override
-    protected Class<LanguageTagListHeaderParser> type() {
+    public Class<LanguageTagListHeaderParser> type() {
         return LanguageTagListHeaderParser.class;
     }
 }

@@ -115,7 +115,7 @@ public final class SpreadsheetFormatLessThanEqualsParserTokenTest extends Spread
     }
 
     @Override
-    protected Class<SpreadsheetFormatLessThanEqualsParserToken> type() {
+    public Class<SpreadsheetFormatLessThanEqualsParserToken> type() {
         return SpreadsheetFormatLessThanEqualsParserToken.class;
     }
 }

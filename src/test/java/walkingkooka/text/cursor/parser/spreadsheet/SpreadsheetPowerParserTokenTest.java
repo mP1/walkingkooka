@@ -121,7 +121,7 @@ public final class SpreadsheetPowerParserTokenTest extends SpreadsheetBinaryPars
     }
 
     @Override
-    protected Class<SpreadsheetPowerParserToken> type() {
+    public Class<SpreadsheetPowerParserToken> type() {
         return SpreadsheetPowerParserToken.class;
     }
 }

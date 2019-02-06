@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.visit.VisitableTestCase;
 import walkingkooka.type.FieldAttributes;
@@ -41,7 +42,8 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         extends
         VisitableTestCase<N>
         implements HashCodeEqualsDefinedTesting<N>,
-        NodeSelectorTesting<N, NAME, ANAME, AVALUE> {
+        NodeSelectorTesting<N, NAME, ANAME, AVALUE>,
+        ToStringTesting<N> {
 
     protected NodeTestCase() {
         super();

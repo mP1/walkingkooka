@@ -121,7 +121,7 @@ public final class SpreadsheetLessThanParserTokenTest extends SpreadsheetBinaryP
     }
 
     @Override
-    protected Class<SpreadsheetLessThanParserToken> type() {
+    public Class<SpreadsheetLessThanParserToken> type() {
         return SpreadsheetLessThanParserToken.class;
     }
 }

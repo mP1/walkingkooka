@@ -28,7 +28,7 @@ public final class EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorExcep
     }
 
     @Override
-    protected Class<EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException> type() {
+    public Class<EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException> type() {
         return EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException.class;
     }
 

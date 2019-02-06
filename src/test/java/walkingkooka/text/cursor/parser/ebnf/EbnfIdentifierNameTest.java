@@ -25,7 +25,6 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EbnfIdentifierNameTest extends ClassTestCase<EbnfIdentifierName>
@@ -50,11 +49,6 @@ final public class EbnfIdentifierNameTest extends ClassTestCase<EbnfIdentifierNa
         assertThrows(IllegalArgumentException.class, () -> {
             EbnfIdentifierName.with("abc$def");
         });
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("ABC_123", this.createName("ABC_123").toString());
     }
 
     @Override
@@ -105,7 +99,7 @@ final public class EbnfIdentifierNameTest extends ClassTestCase<EbnfIdentifierNa
     }
 
     @Override
-    protected Class<EbnfIdentifierName> type() {
+    public Class<EbnfIdentifierName> type() {
         return EbnfIdentifierName.class;
     }
 

@@ -22,7 +22,7 @@ import walkingkooka.test.PublicThrowableTestCase;
 
 public final class FilesystemNodeExceptionTest extends PublicThrowableTestCase<FilesystemNodeException> {
     @Override
-    protected Class<FilesystemNodeException> type() {
+    public Class<FilesystemNodeException> type() {
         return FilesystemNodeException.class;
     }
 }

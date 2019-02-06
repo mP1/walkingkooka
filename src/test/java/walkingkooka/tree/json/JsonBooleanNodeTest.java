@@ -64,15 +64,15 @@ public final class JsonBooleanNodeTest extends JsonLeafNodeTestCase<JsonBooleanN
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
     @Test
     public void testToStringTrue() {
-        assertEquals("true", this.createJsonNode(true).toString());
+        this.toStringAndCheck(this.createJsonNode(true), "true");
     }
 
     @Test
     public void testToStringFalse() {
-        assertEquals("false", this.createJsonNode(false).toString());
+        this.toStringAndCheck(this.createJsonNode(false), "false");
     }
 
     @Override

@@ -764,7 +764,7 @@ public final class SearchEqualsQueryTest extends SearchValueComparisonLeafQueryT
     }
 
     @Override
-    protected Class<SearchEqualsQuery> type() {
+    public Class<SearchEqualsQuery> type() {
         return SearchEqualsQuery.class;
     }
 }

@@ -21,7 +21,7 @@ import walkingkooka.type.MemberVisibility;
 
 public final class EbnfRangeParserTokenConsumerTest extends ClassTestCase<EbnfRangeParserTokenConsumer> {
     @Override
-    protected Class<EbnfRangeParserTokenConsumer> type() {
+    public Class<EbnfRangeParserTokenConsumer> type() {
         return EbnfRangeParserTokenConsumer.class;
     }
 

@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.text.CaseSensitivity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
@@ -69,12 +68,12 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
 
     @Test
     public void testToString() {
-        assertEquals("([" + PARSER1 + "], " + PARSER2 + ", " + PARSER3 + ")",
-                this.createBuilder()
+        this.toStringAndCheck(this.createBuilder()
                         .optional(PARSER1)
                         .required(PARSER2)
                         .required(PARSER3)
-                        .build().toString());
+                        .build(),
+                "([" + PARSER1 + "], " + PARSER2 + ", " + PARSER3 + ")");
     }
 
     @Override
@@ -87,7 +86,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     }
 
     @Override
-    protected Class<SequenceParserBuilder> type() {
+    public Class<SequenceParserBuilder<FakeParserContext>> type() {
         return Cast.to(SequenceParserBuilder.class);
     }
 
