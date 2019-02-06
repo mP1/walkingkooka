@@ -37,27 +37,6 @@ public final class PojoNameTest extends ClassTestCase<PojoName>
     }
 
     @Test
-    public void testPropertyEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            PojoName.property("");
-        });
-    }
-
-    @Test
-    public void testPropertyInvalidInitialFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            PojoName.property("9abc");
-        });
-    }
-
-    @Test
-    public void testPropertyInvalidOtherFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            PojoName.property("abc.");
-        });
-    }
-
-    @Test
     public void testProperty() {
         this.createNameAndCheck(PROPERTY);
     }

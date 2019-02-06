@@ -38,23 +38,8 @@ public final class JsonNodeNameTest extends ClassTestCase<JsonNodeName>
     }
 
     @Test
-    public void testWith() {
-        this.createNameAndCheck("abc");
-    }
-
-    @Test
     public void testIndex() {
         assertEquals("123", JsonNodeName.index(123).value());
-    }
-
-    @Test
-    public void testDifferent() {
-        this.checkNotEquals(JsonNodeName.with("different"));
-    }
-
-    @Test
-    public void testEqualsCaseSignificant() {
-        this.checkNotEquals(JsonNodeName.with("PROP1"));
     }
 
     @Override

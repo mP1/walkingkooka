@@ -47,40 +47,6 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         NameTesting2<HttpHeaderName<?>, HttpHeaderName<?>> {
 
     @Test
-    public void testControlCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpHeaderName.with("header\u0001;");
-        });
-    }
-
-    @Test
-    public void testSpaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpHeaderName.with("header ");
-        });
-    }
-
-    @Test
-    public void testTabFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpHeaderName.with("header\t");
-        });
-    }
-
-    @Test
-    public void testNonAsciiFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            HttpHeaderName.with("header\u0100;");
-
-        });
-    }
-
-    @Test
-    public void testValid() {
-        this.createNameAndCheck("Custom");
-    }
-
-    @Test
     public void testCustomHeaderIsContent() {
         final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
         assertEquals(false, header.isContent(), header + ".isContent");
@@ -420,7 +386,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Override
     public String possibleInvalidChars(final int position) {
-        return CONTROL + BYTE_NON_ASCII + ":.";
+        return CONTROL + BYTE_NON_ASCII + ":." + WHITESPACE;
     }
 
     @Override

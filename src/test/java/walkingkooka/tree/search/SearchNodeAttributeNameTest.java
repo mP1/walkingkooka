@@ -24,36 +24,16 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SearchNodeAttributeNameTest extends ClassTestCase<SearchNodeAttributeName>
         implements NameTesting2<SearchNodeAttributeName, SearchNodeAttributeName> {
 
     @Test
-    public void testWithInvalidInitialFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createName("9abc");
-        });
-    }
-
-    @Test
-    public void testWithInvalidPartFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createName("abc123!");
-        });
-    }
-
-    @Test
     public void testWithDotDotFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             this.createName("abc..def");
         });
-    }
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("abc");
     }
 
     @Test
@@ -69,11 +49,6 @@ public final class SearchNodeAttributeNameTest extends ClassTestCase<SearchNodeA
     @Test
     public void testWith2() {
         this.createNameAndCheck("abc123");
-    }
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createName("abc"), "abc");
     }
 
     @Override

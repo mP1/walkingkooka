@@ -36,35 +36,7 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
         implements NameTesting2<CacheControlDirectiveName<?>, CacheControlDirectiveName<?>> {
 
     @Test
-    public void testWithControlCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CacheControlDirectiveName.with("x\u0001;");
-        });
-    }
-
-    @Test
-    public void testWithSpaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CacheControlDirectiveName.with("x ");
-        });
-    }
-
-    @Test
-    public void testWithTabFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CacheControlDirectiveName.with("x\t");
-        });
-    }
-
-    @Test
-    public void testWithNonAsciiFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CacheControlDirectiveName.with("x\u0100;");
-        });
-    }
-
-    @Test
-    public void testWith() {
+    public void testWithExtension() {
         this.createNameAndCheck("Extension");
     }
 

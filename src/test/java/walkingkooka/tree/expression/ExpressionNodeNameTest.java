@@ -18,21 +18,13 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ExpressionNodeNameTest extends ClassTestCase<ExpressionNodeName>
         implements NameTesting2<ExpressionNodeName, ExpressionNodeName> {
-
-    @Test
-    public void testToString() {
-        assertEquals("abc", this.createName("abc").toString());
-    }
 
     @Override
     public ExpressionNodeName createName(final String name) {
