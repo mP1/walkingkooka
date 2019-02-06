@@ -21,7 +21,6 @@ package walkingkooka.net;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 import java.io.Serializable;
@@ -560,7 +559,12 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
     static String hex(final byte[] values) {
         final StringBuilder builder = new StringBuilder();
         for (final byte value : values) {
-            builder.append(CharSequences.padLeft(Integer.toHexString(0xff & value), 2, '0'));
+            final int unsigned = 0xff & value;
+            if(unsigned < 0x10) {
+                builder.append('0');
+            }
+
+            builder.append(Integer.toHexString(unsigned));
         }
         return builder.toString();
     }
@@ -569,7 +573,9 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
      * Helper that verifies that a label or octet length is not not too long.
      */
     static private HostAddressProblem checkLength(final int start, final int end) {
-        return (end - start) >= HostAddress.MAX_LABEL_LENGTH ? HostAddressInvalidLengthProblem.with(start) : null;
+        return (end - start) >= HostAddress.MAX_LABEL_LENGTH ?
+                HostAddressInvalidLengthProblem.with(start) :
+                null;
     }
 
     /**

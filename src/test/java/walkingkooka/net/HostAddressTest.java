@@ -250,7 +250,7 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
     }
 
     private void checkValues(final HostAddress hostAddress, final String expected) {
-        this.checkValues(hostAddress, HostAddressTesting.toByteArray(expected));
+        this.checkValues(hostAddress, toByteArray(expected));
     }
 
     private void checkValues(final HostAddress hostAddress, final byte[] expected) {
@@ -986,7 +986,7 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
     private void parseIp6Fails(final String address, final int start, final int end, final HostAddressProblem problem) {
         final Object result = HostAddress.tryParseIp6(address, start, end);
         if (result instanceof byte[]) {
-            fail("Should have failed=" + HostAddressTesting.toHexString((byte[]) result));
+            fail("Should have failed=" + toHexString((byte[]) result));
         }
         final HostAddressProblem actual = (HostAddressProblem) result;
         if (false == problem.equals(actual)) {
@@ -1021,12 +1021,19 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
 
     static public void checkEquals(final String message, final byte[] expected, final byte[] actual) {
         if (false == Arrays.equals(expected, actual)) {
-            assertEquals(message, HostAddressTest.toHex(expected), HostAddressTest.toHex(actual));
+            assertEquals(message, toHexString(expected), toHexString(actual));
         }
     }
 
-    static private String toHex(final byte[] bytes) {
-        return HostAddressTesting.toHexString(bytes);
+    /**
+     * Accepts some bytes in big endian form and builds a hex string representation.
+     */
+    static private String toHexString(final byte[] bytes) {
+        final StringBuilder builder = new StringBuilder();
+        for (final byte value : bytes) {
+            builder.append(CharSequences.padLeft(Integer.toHexString(0xff & value), 2, '0'));
+        }
+        return builder.toString();
     }
 
     @Override
