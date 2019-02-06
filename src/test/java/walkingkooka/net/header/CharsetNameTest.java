@@ -32,46 +32,10 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class CharsetNameTest extends ClassTestCase<CharsetName>
         implements NameTesting2<CharsetName, CharsetName> {
-
-    @Test
-    public void testWithEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharsetName.with("");
-        });
-    }
-
-    @Test
-    public void testWithInvalidInitialCharFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharsetName.with("+");
-        });
-    }
-
-    @Test
-    public void testWithInvalidInitialCharFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharsetName.with("\0");
-        });
-    }
-
-    @Test
-    public void testWithInvalidPartCharFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharsetName.with("A\u0100");
-        });
-    }
-
-    @Test
-    public void testWithInvalidPartCharFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CharsetName.with("A\0");
-        });
-    }
 
     @Test
     public void testWithUtfDash8() {

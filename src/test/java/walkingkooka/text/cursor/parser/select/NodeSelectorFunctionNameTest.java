@@ -18,35 +18,13 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 final public class NodeSelectorFunctionNameTest extends ClassTestCase<NodeSelectorFunctionName>
         implements NameTesting2<NodeSelectorFunctionName, NodeSelectorFunctionName> {
-
-    @Test
-    public void testWithInvalidInitialFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodeSelectorFunctionName.with("1abc");
-        });
-    }
-
-    @Test
-    public void testWithInvalidPartFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodeSelectorFunctionName.with("abc$def");
-        });
-    }
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("Abc-123");
-    }
 
     @Override
     public NodeSelectorFunctionName createName(final String name) {

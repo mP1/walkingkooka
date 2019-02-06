@@ -42,39 +42,6 @@ final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispo
     }
 
     @Test
-    public void testControlCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentDispositionType.with("parameter\u0001;");
-        });
-    }
-
-    @Test
-    public void testSpaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentDispositionType.with("parameter ");
-        });
-    }
-
-    @Test
-    public void testTabFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentDispositionType.with("parameter\t");
-        });
-    }
-
-    @Test
-    public void testNonAsciiFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ContentDispositionType.with("parameter\u0100;");
-        });
-    }
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("abc123");
-    }
-
-    @Test
     public void testConstantNameReturnsConstant() {
         assertSame(ContentDispositionType.INLINE, ContentDispositionType.with(ContentDispositionType.INLINE.value()));
     }

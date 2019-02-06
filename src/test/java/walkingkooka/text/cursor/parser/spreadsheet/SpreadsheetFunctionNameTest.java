@@ -18,57 +18,13 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 final public class SpreadsheetFunctionNameTest extends ClassTestCase<SpreadsheetFunctionName>
         implements NameTesting2<SpreadsheetFunctionName, SpreadsheetFunctionName> {
-
-    @Test
-    public void testWithInvalidInitialFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SpreadsheetFunctionName.with("1abc");
-        });
-    }
-
-    @Test
-    public void testWithInvalidPartFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            SpreadsheetFunctionName.with("abc$def");
-        });
-    }
-
-    @Test
-    public void testWithInvalidLengthFails() {
-        final char[] c = new char[ SpreadsheetFunctionName.MAX_LENGTH + 1];
-        Arrays.fill(c, 'a');
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            SpreadsheetFunctionName.with(new String(c));
-        });
-    }
-
-    @Test
-    public void testX() {
-        for(Method m : this.getClass().getMethods()){
-            if(m.isAnnotationPresent(Test.class)){
-                System.out.println(m.toGenericString());
-            }
-        }
-    }
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("Abc.123");
-    }
 
     @Override
     public SpreadsheetFunctionName createName(final String name) {

@@ -26,18 +26,14 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PropertiesNameTest extends ClassTestCase<PropertiesName>
-        implements NameTesting<PropertiesName, PropertiesName>, SerializationTesting<PropertiesName> {
+        implements NameTesting<PropertiesName, PropertiesName>,
+            SerializationTesting<PropertiesName> {
 
     @Test
     public void testCreateContainsSeparatorFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             PropertiesName.with("xyz" + PropertiesPath.SEPARATOR.string());
         });
-    }
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("abc");
     }
 
     @Override

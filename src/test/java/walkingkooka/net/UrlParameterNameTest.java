@@ -39,16 +39,6 @@ public final class UrlParameterNameTest extends ClassTestCase<UrlParameterName>
         this.createNameAndCheck("abc%20xyz");
     }
 
-    @Test
-    public void testDifferentName() {
-        this.checkNotEquals(UrlParameterName.with("different"));
-    }
-
-    @Test
-    public void testCaseSignificant() {
-        this.checkNotEquals(UrlParameterName.with("PARAM1"));
-    }
-
     @Override
     public UrlParameterName createName(final String name) {
         return UrlParameterName.with(name);
