@@ -18,9 +18,11 @@
 
 package walkingkooka.routing;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-final public class RouteExceptionTest extends PublicThrowableTestCase<RouteException> {
+final public class RouteExceptionTest extends TestCase
+        implements StandardThrowableTesting<RouteException> {
 
     @Override
     public Class<RouteException> type() {

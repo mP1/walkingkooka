@@ -19,11 +19,15 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
 import java.io.UnsupportedEncodingException;
 
-public final class NeverErrorTest extends PublicThrowableTestCase<NeverError> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class NeverErrorTest extends TestCase
+        implements StandardThrowableTesting<NeverError> {
 
     @Test
     public void testUnsupportedEncodingException() {
@@ -52,6 +56,16 @@ public final class NeverErrorTest extends PublicThrowableTestCase<NeverError> {
         this.check(() -> NeverError.unhandledEnum(TestEnum.A, TestEnum.B, TestEnum.C),
                 "Unhandled enum value: A only expected: B,C",
                 null);
+    }
+
+    private void check(final Runnable thrower,
+                       final String message,
+                       final Throwable cause) {
+        final NeverError expected = assertThrows(NeverError.class, () -> {
+            thrower.run();
+        });
+
+        this.check(expected, message, cause);
     }
 
     enum TestEnum {

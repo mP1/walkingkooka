@@ -18,9 +18,12 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-public final class FilesystemNodeExceptionTest extends PublicThrowableTestCase<FilesystemNodeException> {
+public final class FilesystemNodeExceptionTest extends TestCase
+        implements StandardThrowableTesting<FilesystemNodeException> {
+
     @Override
     public Class<FilesystemNodeException> type() {
         return FilesystemNodeException.class;

@@ -24,7 +24,7 @@ import walkingkooka.type.MemberVisibility;
 public final class FakeExpressionNodeVisitorTest extends ClassTestCase<FakeExpressionNodeVisitor> {
 
     @Override
-    public void testAllConstructorsVisibility() throws Exception {
+    public void testAllConstructorsVisibility()  {
         // nop
     }
 

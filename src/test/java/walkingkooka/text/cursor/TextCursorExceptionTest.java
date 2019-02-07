@@ -17,9 +17,11 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-final public class TextCursorExceptionTest extends PublicThrowableTestCase<TextCursorException> {
+final public class TextCursorExceptionTest extends TestCase
+        implements StandardThrowableTesting<TextCursorException> {
 
     @Override
     public Class<TextCursorException> type() {

@@ -18,9 +18,12 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-public final class EbnfParserCombinatorExceptionTest extends PublicThrowableTestCase<EbnfParserCombinatorException> {
+public final class EbnfParserCombinatorExceptionTest extends TestCase
+        implements StandardThrowableTesting<EbnfParserCombinatorException> {
+
     @Override
     public Class<EbnfParserCombinatorException> type() {
         return EbnfParserCombinatorException.class;

@@ -34,7 +34,7 @@ public final class CycleDetectedExpressionEvaluationConversionExceptionTest exte
     }
 
     @Test
-    public void testAllConstructorsVisibility() throws NoSuchMethodException {
+    public void testAllConstructorsVisibility() throws Exception {
         this.checkConstructorVisibility(CycleDetectedExpressionEvaluationConversionException.class.getConstructor(String.class, ExpressionReference.class),
                 MemberVisibility.PUBLIC);
     }

@@ -18,9 +18,12 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-public final class ConversionExceptionTest extends PublicThrowableTestCase<ConversionException> {
+public final class ConversionExceptionTest extends TestCase
+        implements StandardThrowableTesting<ConversionException> {
+
     @Override
     public Class<ConversionException> type() {
         return ConversionException.class;

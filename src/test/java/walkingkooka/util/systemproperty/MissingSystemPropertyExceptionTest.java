@@ -17,10 +17,11 @@
 
 package walkingkooka.util.systemproperty;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-final public class MissingSystemPropertyExceptionTest
-        extends PublicThrowableTestCase<MissingSystemPropertyException> {
+final public class MissingSystemPropertyExceptionTest extends TestCase
+        implements StandardThrowableTesting<MissingSystemPropertyException> {
 
     @Override
     public Class<MissingSystemPropertyException> type() {
