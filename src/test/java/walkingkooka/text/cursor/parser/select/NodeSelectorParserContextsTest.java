@@ -18,18 +18,27 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class NodeSelectorParserContextsTest extends PublicStaticHelperTestCase<NodeSelectorParserContexts> {
+public final class NodeSelectorParserContextsTest extends ClassTestCase<NodeSelectorParserContexts>
+        implements PublicStaticHelperTesting<NodeSelectorParserContexts> {
+
     @Override
     public Class<NodeSelectorParserContexts> type() {
         return NodeSelectorParserContexts.class;
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

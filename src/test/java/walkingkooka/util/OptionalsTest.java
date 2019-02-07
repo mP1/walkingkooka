@@ -20,7 +20,9 @@ package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
@@ -29,7 +31,8 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class OptionalsTest extends PublicStaticHelperTestCase<Optionals> {
+public final class OptionalsTest extends ClassTestCase<Optionals>
+        implements PublicStaticHelperTesting<Optionals> {
 
     @Test
     public void testStreamNullFails() {
@@ -59,7 +62,12 @@ public final class OptionalsTest extends PublicStaticHelperTestCase<Optionals> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

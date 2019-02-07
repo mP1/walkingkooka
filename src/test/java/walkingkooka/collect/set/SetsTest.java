@@ -18,7 +18,9 @@
 package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -26,7 +28,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class SetsTest extends PublicStaticHelperTestCase<Sets> {
+final public class SetsTest extends ClassTestCase<Sets>
+        implements PublicStaticHelperTesting<Sets> {
 
     // tests
 
@@ -68,7 +71,12 @@ final public class SetsTest extends PublicStaticHelperTestCase<Sets> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -17,11 +17,15 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class TextCursorsTest extends PublicStaticHelperTestCase<TextCursors> {
+final public class TextCursorsTest extends ClassTestCase<TextCursors>
+        implements PublicStaticHelperTesting<TextCursors> {
+
 
     @Override
     public Class<TextCursors> type() {
@@ -29,7 +33,12 @@ final public class TextCursorsTest extends PublicStaticHelperTestCase<TextCursor
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

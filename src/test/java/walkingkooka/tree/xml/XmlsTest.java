@@ -19,15 +19,18 @@
 package walkingkooka.tree.xml;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
+final public class XmlsTest extends ClassTestCase<Xmls>
+        implements PublicStaticHelperTesting<Xmls> {
 
     // decode
 
@@ -109,11 +112,18 @@ final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
     }
     // misc
 
-    @Override public Class<Xmls> type() {
+    @Override
+    public Class<Xmls> type() {
         return Xmls.class;
     }
 
-    @Override protected boolean canHavePublicTypes(final Method method) {
+    @Override
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

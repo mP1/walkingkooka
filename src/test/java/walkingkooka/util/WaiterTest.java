@@ -18,13 +18,16 @@
 package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class WaiterTest extends PublicStaticHelperTestCase<Waiter> {
+final public class WaiterTest extends ClassTestCase<Waiter>
+        implements PublicStaticHelperTesting<Waiter> {
 
     @Test
     public void testOneMillisecond() {
@@ -50,7 +53,12 @@ final public class WaiterTest extends PublicStaticHelperTestCase<Waiter> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

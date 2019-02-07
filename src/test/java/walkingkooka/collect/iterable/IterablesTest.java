@@ -19,7 +19,9 @@ package walkingkooka.collect.iterable;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 import java.util.function.BiPredicate;
@@ -27,7 +29,8 @@ import java.util.function.BiPredicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IterablesTest extends PublicStaticHelperTestCase<Iterables> {
+final public class IterablesTest extends ClassTestCase<Iterables>
+        implements PublicStaticHelperTesting<Iterables> {
 
     private final static BiPredicate<String, String> EQUIVALENCY = (first, other)->first.equalsIgnoreCase(other);
     private final static String A = "a";
@@ -117,7 +120,12 @@ final public class IterablesTest extends PublicStaticHelperTestCase<Iterables> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

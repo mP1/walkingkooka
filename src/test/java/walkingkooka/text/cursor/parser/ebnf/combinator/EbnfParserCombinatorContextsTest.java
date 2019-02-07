@@ -18,18 +18,27 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class EbnfParserCombinatorContextsTest extends PublicStaticHelperTestCase<EbnfParserCombinatorContexts> {
+public final class EbnfParserCombinatorContextsTest extends ClassTestCase<EbnfParserCombinatorContexts>
+        implements PublicStaticHelperTesting<EbnfParserCombinatorContexts> {
+
     @Override
     public Class<EbnfParserCombinatorContexts> type() {
         return EbnfParserCombinatorContexts.class;
     }
 
     @Override
-    protected boolean canHavePublicTypes(Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

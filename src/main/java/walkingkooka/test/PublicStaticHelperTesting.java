@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.test;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 import walkingkooka.type.PublicStaticHelper;
@@ -31,42 +30,31 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Base class for testing a {@link PublicStaticHelper} with tests mostly concerned with visibility
- * of members.
+ * Interface with default methods implementing tests and other test helpers.
  */
-abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
-        extends ClassTestCase<H> {
-
-    /**
-     * Protected for sub classing.
-     */
-    protected PublicStaticHelperTestCase() {
-        super();
-    }
+public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends TestSuiteNameTesting<H> {
 
     @Test
-    final public void testClassIsFinal() {
+    default void testClassIsFinal() {
         final Class<H> type = this.type();
         assertTrue(Modifier.isFinal(type.getModifiers()), () -> type.getName() + " is NOT final");
     }
 
     @Test
-    final public void testOnlyConstructorIsPrivate() throws Exception {
+    default void testOnlyConstructorIsPrivate() throws Exception {
         final Class<H> type = this.type();
         final Constructor<H> constructor = type.getDeclaredConstructor();
         assertTrue(Modifier.isPrivate(constructor.getModifiers()), () -> type.getName() + " is NOT private");
     }
 
     @Test
-    public final void testDefaultConstructorThrowsUnsupportedOperationException() throws Exception {
+    default void testDefaultConstructorThrowsUnsupportedOperationException() throws Exception {
         final Class<H> type = this.type();
         final Constructor<H> constructor = type.getDeclaredConstructor();
         constructor.setAccessible(true);
@@ -79,8 +67,9 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
     }
 
     @Test
-    final public void testAllMethodsAreStatic() {
-        this.methodAndCheck(m -> false == MethodAttributes.STATIC.is(m),
+    default void testAllMethodsAreStatic() {
+        PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
+                m -> false == MethodAttributes.STATIC.is(m),
                 "All methods must be static");
     }
 
@@ -88,8 +77,9 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
      * Verifies that all static methods are public, package private or private.
      */
     @Test
-    final public void testCheckVisibilityOfAllStaticMethods() {
-        this.methodAndCheck(m -> MemberVisibility.PROTECTED.is(m),
+    default void testCheckVisibilityOfAllStaticMethods() {
+        PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
+                m -> MemberVisibility.PROTECTED.is(m),
                 "All methods must be public or package private");
     }
 
@@ -97,24 +87,15 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
      * Verifies that the parameter and return types of all public methods are also public.
      */
     @Test
-    final public void testPublicStaticMethodsParameterAndReturnTypesArePublic() {
-        this.methodAndCheck(this::publicReturnTypeAndParameters,
+    default void testPublicStaticMethodsParameterAndReturnTypesArePublic() {
+        final Predicate<Method> publicReturnTypeAndParameters = (m) -> {
+            return !MemberVisibility.PUBLIC.is(m.getReturnType()) ||
+                    Arrays.stream(m.getParameterTypes())
+                            .anyMatch(t -> !MemberVisibility.PUBLIC.is(t));
+        };
+        PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
+                publicReturnTypeAndParameters,
                 "All method parameter and return type must be public");
-    }
-
-    private boolean publicReturnTypeAndParameters(final Method method) {
-        return !MemberVisibility.PUBLIC.is(method.getReturnType()) ||
-                Arrays.stream(method.getParameterTypes())
-                        .anyMatch(t -> !MemberVisibility.PUBLIC.is(t));
-    }
-
-    private void methodAndCheck(final Predicate<Method> predicate, final String message) {
-        assertEquals(Lists.empty(),
-                Arrays.stream(this.type().getDeclaredMethods())
-                        .filter(m -> !m.getName().startsWith("$")) // filter out any special methods like Jacoco's
-                        .filter(predicate)
-                        .collect(Collectors.toList()),
-                message);
     }
 
     /**
@@ -122,13 +103,13 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
      * called when public types are encountered while checking methods by {@link
      * #testPublicStaticMethodsParameterAndReturnTypesArePublic()}.
      */
-    abstract protected boolean canHavePublicTypes(Method method);
+    boolean canHavePublicTypes(Method method);
 
     /**
      * Verifies that at least of public static field or method is present.
      */
     @Test
-    final public void testContainsPublicStaticMethodsOrField() {
+    default void testContainsPublicStaticMethodsOrField() {
         final Class<H> type = this.type();
 
         if (Modifier.isPublic(type.getModifiers())) {
@@ -156,14 +137,8 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
         }
     }
 
-    @Test
-    @Disabled
-    public void testToString() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
+    /**
+     * The type being tested.
+     */
+    Class<H> type();
 }

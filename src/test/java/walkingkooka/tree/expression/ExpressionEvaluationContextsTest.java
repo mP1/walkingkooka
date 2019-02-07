@@ -18,11 +18,14 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public class ExpressionEvaluationContextsTest extends PublicStaticHelperTestCase<ExpressionEvaluationContexts> {
+public class ExpressionEvaluationContextsTest extends ClassTestCase<ExpressionEvaluationContexts>
+        implements PublicStaticHelperTesting<ExpressionEvaluationContexts> {
 
     @Override
     public Class<ExpressionEvaluationContexts> type() {
@@ -30,7 +33,12 @@ public class ExpressionEvaluationContextsTest extends PublicStaticHelperTestCase
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -17,11 +17,14 @@
 
 package walkingkooka.util.variable;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class VariablesTest extends PublicStaticHelperTestCase<Variables> {
+final public class VariablesTest extends ClassTestCase<Variables>
+        implements PublicStaticHelperTesting<Variables> {
 
     @Override
     public Class<Variables> type() {
@@ -29,7 +32,12 @@ final public class VariablesTest extends PublicStaticHelperTestCase<Variables> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

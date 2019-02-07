@@ -17,11 +17,14 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class ParserContextsTest extends PublicStaticHelperTestCase<ParserContexts> {
+public final class ParserContextsTest extends ClassTestCase<ParserContexts>
+        implements PublicStaticHelperTesting<ParserContexts> {
 
     @Override
     public Class<ParserContexts> type() {
@@ -29,7 +32,12 @@ public final class ParserContextsTest extends PublicStaticHelperTestCase<ParserC
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

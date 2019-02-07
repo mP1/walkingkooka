@@ -17,11 +17,14 @@
 
 package walkingkooka.io.printer;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class IndentingPrintersTest extends PublicStaticHelperTestCase<IndentingPrinters> {
+final public class IndentingPrintersTest extends ClassTestCase<IndentingPrinters>
+        implements PublicStaticHelperTesting<IndentingPrinters> {
 
     @Override
     public Class<IndentingPrinters> type() {
@@ -29,7 +32,12 @@ final public class IndentingPrintersTest extends PublicStaticHelperTestCase<Inde
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

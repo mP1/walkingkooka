@@ -17,11 +17,14 @@
  */
 package walkingkooka.convert;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class ConverterContextsTest extends PublicStaticHelperTestCase<ConverterContexts> {
+public final class ConverterContextsTest extends ClassTestCase<ConverterContexts>
+        implements PublicStaticHelperTesting<ConverterContexts> {
 
     @Override
     public Class<ConverterContexts> type() {
@@ -29,7 +32,12 @@ public final class ConverterContextsTest extends PublicStaticHelperTestCase<Conv
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
