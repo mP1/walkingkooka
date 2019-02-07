@@ -18,9 +18,11 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-final public class NetExceptionTest extends PublicThrowableTestCase<NetException> {
+final public class NetExceptionTest extends TestCase
+        implements StandardThrowableTesting<NetException> {
 
     @Override
     public Class<NetException> type() {

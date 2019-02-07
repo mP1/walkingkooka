@@ -18,9 +18,11 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-final public class HttpServerExceptionTest extends PublicThrowableTestCase<HttpServerException> {
+final public class HttpServerExceptionTest extends TestCase
+        implements StandardThrowableTesting<HttpServerException> {
 
     @Override
     public Class<HttpServerException> type() {

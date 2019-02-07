@@ -18,9 +18,12 @@
 
 package walkingkooka.build;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-public final class BuilderExceptionTest extends PublicThrowableTestCase<BuilderException> {
+public final class BuilderExceptionTest extends TestCase
+        implements StandardThrowableTesting<BuilderException> {
+
     @Override
     public Class<BuilderException> type() {
         return BuilderException.class;

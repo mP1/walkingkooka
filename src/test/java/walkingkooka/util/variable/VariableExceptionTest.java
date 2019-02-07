@@ -18,9 +18,11 @@
 package walkingkooka.util.variable;
 
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-final public class VariableExceptionTest extends PublicThrowableTestCase<VariableException> {
+final public class VariableExceptionTest extends TestCase
+        implements StandardThrowableTesting<VariableException> {
 
     @Override
     public Class<VariableException> type() {

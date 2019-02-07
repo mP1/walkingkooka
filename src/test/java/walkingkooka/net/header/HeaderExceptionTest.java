@@ -18,9 +18,11 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-final public class HeaderExceptionTest extends PublicThrowableTestCase<HeaderException> {
+final public class HeaderExceptionTest extends TestCase
+        implements StandardThrowableTesting<HeaderException> {
 
     @Override
     public Class<HeaderException> type() {

@@ -19,55 +19,19 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.TestCase;
+import walkingkooka.test.ThrowableTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class InvalidCharacterExceptionTest extends PublicThrowableTestCase<InvalidCharacterException> {
+public final class InvalidCharacterExceptionTest extends TestCase
+        implements ThrowableTesting<InvalidCharacterException> {
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
-
-    @Override
-    public void testAllConstructorsVisibility() throws Throwable {
-
-    }
-
-    @Override
-    public void testCreateOnlyNullMessageFails() throws Throwable {
-    }
-
-    @Override
-    public void testCreateOnlyEmptyMessageFails() throws Throwable {
-    }
-
-    @Override
-    public void testCreateOnlyMessage() throws Throwable {
-    }
-
-    @Override
-    public void testCreateNullMessageAndCauseExceptionFails() throws Throwable {
-    }
-
-    @Override
-    public void testCreateEmptyMessageAndNonNullCauseFails() throws Throwable {
-    }
-
-    @Override
-    public void testMessageAndNullCauseFails() throws Throwable {
-    }
-
-    @Override
-    public void testMessageAndCause() throws Throwable {
-
-    }
-
-    @Override
-    public void testNoArgumentsConstructorItNotPublic() throws Throwable {
-    }
 
     @Test
     public void testWithNullTextFails() {

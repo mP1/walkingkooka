@@ -17,9 +17,11 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.test.TestCase;
 
-final public class TextExceptionTest extends PublicThrowableTestCase<TextException> {
+final public class TextExceptionTest extends TestCase
+        implements StandardThrowableTesting<TextException> {
 
     @Override
     public Class<TextException> type() {
