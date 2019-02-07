@@ -50,24 +50,14 @@ import static org.junit.jupiter.api.Assertions.fail;
  * class is only public because of JUNIT and is intended to only be sub classed by classes in the
  * same package.
  */
-abstract public class ClassTestCase<T> extends TestCase {
+abstract public class ClassTestCase<T> extends TestCase
+        implements TestSuiteNameTesting<T> {
 
     protected ClassTestCase() {
         super();
     }
 
     // tests
-
-    @Test
-    // not final if some tests want to @Disabled.
-    public void testTestNaming() {
-        final String type = this.type().getName();
-        final String test = this.getClass().getName();
-        if(!test.endsWith("Test")) {
-            fail("Test name " + test + " incorrect for " + type);
-        }
-        assertEquals(test, type + "Test", () -> "Test name " + test + " incorrect for " + type);
-    }
 
     @Test
     public void testClassVisibility() {
@@ -380,8 +370,6 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     // helpers
-
-    abstract public Class<T> type();
 
     abstract protected MemberVisibility typeVisibility();
 
