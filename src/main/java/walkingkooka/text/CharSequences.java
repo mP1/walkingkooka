@@ -85,6 +85,14 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
+     * {@see ConcatCharSequence}
+     */
+    public static CharSequence concat(final CharSequence first,
+                                      final CharSequence second) {
+        return ConcatCharSequence.with(first, second);
+    }
+
+    /**
      * Returns a new {@link CharSequence} which is a copy of chars, but with the same case as
      * the caseSource. If the caseSource is shorter than chars, the extra characters in chars, will be copied
      * without change.<br>
@@ -373,26 +381,46 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
-     * {@see LeftPaddedCharSequence}
+     * Returns a {@link CharSequence} that is of the requested length adding the pad character to fill remaining chars.
      */
-    public static CharSequence padLeft(final CharSequence sequence, final int length,
+    public static CharSequence padLeft(final CharSequence chars,
+                                       final int length,
                                        final char pad) {
-        return LeftPaddedCharSequence.wrap(sequence, length, pad);
+        Objects.requireNonNull(chars, "chars");
+
+        final int charsLength = chars.length();
+        if (length < charsLength) {
+            throw new IllegalArgumentException("Length " + length + " < " + charsLength);
+        }
+
+            final int requiredPadding = length - chars.length();
+            return requiredPadding == 0 ?
+                    chars :
+                    concat(repeating(pad, requiredPadding), chars);
     }
 
     /**
-     * {@see RightPaddedCharSequence}
+     * Returns a {@link CharSequence} that is of the requested length adding the pad character to fill remaining chars.
      */
-    public static CharSequence padRight(final CharSequence sequence, final int length,
+    public static CharSequence padRight(final CharSequence chars,
+                                        final int length,
                                         final char pad) {
-        return RightPaddedCharSequence.wrap(sequence, length, pad);
+        final int charsLength = chars.length();
+        if (length < charsLength) {
+            throw new IllegalArgumentException("Length " + length + " < " + charsLength);
+        }
+
+        final int requiredPadding = length - chars.length();
+        return requiredPadding == 0 ?
+                chars :
+                concat(chars, repeating(pad, requiredPadding));
     }
 
     /**
-     * {@see QuotedCharSequence}
+     * Adds double quotes around the given {@link CharSequence}.
      */
     public static CharSequence quote(final CharSequence sequence) {
-        return QuotesAroundCharSequence.with(sequence);
+        return concat("\"", concat(sequence, "\""));
     }
 
     /**
@@ -424,7 +452,7 @@ final public class CharSequences implements PublicStaticHelper {
      * by single quotes.
      */
     public static CharSequence quoteAndEscape(final char c) {
-        return "\'" + CharSequences.escape(String.valueOf(c)) + '\'';
+        return concat("'", concat(escape(String.valueOf(c)), "'"));
     }
 
     /**
