@@ -25,7 +25,6 @@ import walkingkooka.type.ClassAttributes;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
-import walkingkooka.type.PublicClass;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -120,16 +119,15 @@ abstract public class ClassTestCase<T> extends TestCase
     @Test
     public void testAllFieldsVisibility() {
         final Class<T> type = this.type();
-        if (false == type.isAnnotationPresent(PublicClass.class)) {
-            if (false == type.isEnum()) {
-                for (final Field field : type.getDeclaredFields()) {
-                    if (FieldAttributes.STATIC.is(field) ||
-                            MemberVisibility.PRIVATE.is(field) ||
-                            MemberVisibility.PACKAGE_PRIVATE.is(field)) {
-                        continue;
-                    }
-                    fail("Fields must be private/package protected(testing)=" + field.toGenericString());
+
+        if (false == type.isEnum()) {
+            for (final Field field : type.getDeclaredFields()) {
+                if (FieldAttributes.STATIC.is(field) ||
+                        MemberVisibility.PRIVATE.is(field) ||
+                        MemberVisibility.PACKAGE_PRIVATE.is(field)) {
+                    continue;
                 }
+                fail("Fields must be private/package protected(testing)=" + field.toGenericString());
             }
         }
     }
@@ -219,33 +217,33 @@ abstract public class ClassTestCase<T> extends TestCase
     @Test
     public void testAllMethodsVisibility() {
         final Class<T> type = this.type();
-        if(MemberVisibility.PACKAGE_PRIVATE.is(type)) {
-            if (false == type.isAnnotationPresent(PublicClass.class)) {
-                final Set<Method> overridable = this.overridableMethods(type);
+        if (MemberVisibility.PACKAGE_PRIVATE.is(type)) {
 
-                for (final Method method : type.getDeclaredMethods()) {
-                    if (MethodAttributes.STATIC.is(method)) {
-                        if (this.isMainMethod(method) || this.isEnumMethod(method)) {
-                            continue;
-                        }
-                        if (MemberVisibility.PUBLIC.is(method) || MemberVisibility.PROTECTED.is(method)) {
-                            fail("Static methods should be package private="
-                                    + method.toGenericString());
-                        }
-                    }
-                    if (overridable.contains(method)) {
-                        continue;
-                    }
-                    if (MethodAttributes.BRIDGE.is(method) || MethodAttributes.SYNTHETIC.is(method) || this.isGeneric(method)) {
+            final Set<Method> overridable = this.overridableMethods(type);
+
+            for (final Method method : type.getDeclaredMethods()) {
+                if (MethodAttributes.STATIC.is(method)) {
+                    if (this.isMainMethod(method) || this.isEnumMethod(method)) {
                         continue;
                     }
                     if (MemberVisibility.PUBLIC.is(method) || MemberVisibility.PROTECTED.is(method)) {
-                        fail(
-                                "Method must be package private/private of it does not override a public/protected method="
-                                        + method.toGenericString());
+                        fail("Static methods should be package private="
+                                + method.toGenericString());
                     }
                 }
+                if (overridable.contains(method)) {
+                    continue;
+                }
+                if (MethodAttributes.BRIDGE.is(method) || MethodAttributes.SYNTHETIC.is(method) || this.isGeneric(method)) {
+                    continue;
+                }
+                if (MemberVisibility.PUBLIC.is(method) || MemberVisibility.PROTECTED.is(method)) {
+                    fail(
+                            "Method must be package private/private of it does not override a public/protected method="
+                                    + method.toGenericString());
+                }
             }
+
         }
     }
 
