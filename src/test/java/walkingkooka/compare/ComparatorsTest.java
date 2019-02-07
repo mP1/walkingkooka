@@ -18,13 +18,16 @@
 package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final public class ComparatorsTest extends PublicStaticHelperTestCase<Comparators> {
+final public class ComparatorsTest extends ClassTestCase<Comparators>
+        implements PublicStaticHelperTesting<Comparators> {
 
     @Test
     public void testNormalizeIntZero() {
@@ -76,7 +79,12 @@ final public class ComparatorsTest extends PublicStaticHelperTestCase<Comparator
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

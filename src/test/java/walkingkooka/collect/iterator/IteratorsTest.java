@@ -17,11 +17,14 @@
 
 package walkingkooka.collect.iterator;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class IteratorsTest extends PublicStaticHelperTestCase<Iterators> {
+final public class IteratorsTest extends ClassTestCase<Iterators>
+        implements PublicStaticHelperTesting<Iterators> {
 
     @Override
     public Class<Iterators> type() {
@@ -29,7 +32,12 @@ final public class IteratorsTest extends PublicStaticHelperTestCase<Iterators> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

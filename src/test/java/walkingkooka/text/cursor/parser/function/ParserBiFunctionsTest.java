@@ -16,18 +16,27 @@
  */
 package walkingkooka.text.cursor.parser.function;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class ParserBiFunctionsTest extends PublicStaticHelperTestCase<ParserBiFunctions> {
+public final class ParserBiFunctionsTest extends ClassTestCase<ParserBiFunctions>
+        implements PublicStaticHelperTesting<ParserBiFunctions> {
+
     @Override
     public Class<ParserBiFunctions> type() {
         return ParserBiFunctions.class;
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

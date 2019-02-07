@@ -17,11 +17,14 @@
 
 package walkingkooka.collect.enumeration;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class EnumerationsTest extends PublicStaticHelperTestCase<Enumerations> {
+final public class EnumerationsTest extends ClassTestCase<Enumerations>
+        implements PublicStaticHelperTesting<Enumerations> {
 
     @Override
     public Class<Enumerations> type() {
@@ -29,7 +32,12 @@ final public class EnumerationsTest extends PublicStaticHelperTestCase<Enumerati
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

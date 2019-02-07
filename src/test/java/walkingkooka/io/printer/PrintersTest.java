@@ -17,11 +17,14 @@
 
 package walkingkooka.io.printer;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class PrintersTest extends PublicStaticHelperTestCase<Printers> {
+final public class PrintersTest extends ClassTestCase<Printers>
+        implements PublicStaticHelperTesting<Printers> {
 
     @Override
     public Class<Printers> type() {
@@ -29,7 +32,12 @@ final public class PrintersTest extends PublicStaticHelperTestCase<Printers> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

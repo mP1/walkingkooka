@@ -17,11 +17,14 @@
 
 package walkingkooka.collect.stack;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class StacksTest extends PublicStaticHelperTestCase<Stacks> {
+final public class StacksTest extends ClassTestCase<Stacks>
+        implements PublicStaticHelperTesting<Stacks> {
 
     @Override
     public Class<Stacks> type() {
@@ -29,7 +32,12 @@ final public class StacksTest extends PublicStaticHelperTestCase<Stacks> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

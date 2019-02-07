@@ -17,11 +17,14 @@
 
 package walkingkooka.collect.map;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class MapsTest extends PublicStaticHelperTestCase<Maps> {
+final public class MapsTest extends ClassTestCase<Maps>
+        implements PublicStaticHelperTesting<Maps> {
 
     @Override
     public Class<Maps> type() {
@@ -29,7 +32,12 @@ final public class MapsTest extends PublicStaticHelperTestCase<Maps> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

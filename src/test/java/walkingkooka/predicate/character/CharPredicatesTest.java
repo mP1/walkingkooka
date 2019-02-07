@@ -20,13 +20,16 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPredicates> {
+public final class CharPredicatesTest extends ClassTestCase<CharPredicates>
+        implements PublicStaticHelperTesting<CharPredicates> {
 
     // failIfNullOrFalse .............................................................
 
@@ -257,7 +260,12 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
     }
 
     @Override
-    protected boolean canHavePublicTypes(Method method) {
+    public boolean canHavePublicTypes(Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

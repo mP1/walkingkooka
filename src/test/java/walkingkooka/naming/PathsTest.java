@@ -17,11 +17,14 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class PathsTest extends PublicStaticHelperTestCase<Paths> {
+final public class PathsTest extends ClassTestCase<Paths>
+        implements PublicStaticHelperTesting<Paths> {
 
     @Override
     public Class<Paths> type() {
@@ -29,7 +32,12 @@ final public class PathsTest extends PublicStaticHelperTestCase<Paths> {
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

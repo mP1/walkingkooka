@@ -19,7 +19,9 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -27,7 +29,8 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequences> {
+final public class CharSequencesTest extends ClassTestCase<CharSequences>
+        implements PublicStaticHelperTesting<CharSequences> {
 
     // bigEndianHexDigits....................................................................
 
@@ -891,7 +894,12 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

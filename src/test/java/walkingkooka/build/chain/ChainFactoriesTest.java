@@ -17,11 +17,14 @@
 
 package walkingkooka.build.chain;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class ChainFactoriesTest extends PublicStaticHelperTestCase<ChainFactories> {
+final public class ChainFactoriesTest extends ClassTestCase<ChainFactories>
+        implements PublicStaticHelperTesting<ChainFactories> {
 
     @Override
     public Class<ChainFactories> type() {
@@ -29,7 +32,12 @@ final public class ChainFactoriesTest extends PublicStaticHelperTestCase<ChainFa
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

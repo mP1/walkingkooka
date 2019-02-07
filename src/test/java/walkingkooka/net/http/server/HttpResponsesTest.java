@@ -18,18 +18,27 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class HttpResponsesTest extends PublicStaticHelperTestCase<HttpResponses> {
+public final class HttpResponsesTest extends ClassTestCase<HttpResponses>
+        implements PublicStaticHelperTesting<HttpResponses> {
+
     @Override
     public Class<HttpResponses> type() {
         return HttpResponses.class;
     }
 
     @Override
-    protected boolean canHavePublicTypes(final Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -18,18 +18,27 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class JsonNodeParserContextsTest extends PublicStaticHelperTestCase<JsonNodeParserContexts> {
+public final class JsonNodeParserContextsTest extends ClassTestCase<JsonNodeParserContexts>
+        implements PublicStaticHelperTesting<JsonNodeParserContexts> {
+
     @Override
     public Class<JsonNodeParserContexts> type() {
         return JsonNodeParserContexts.class;
     }
 
     @Override
-    protected boolean canHavePublicTypes(Method method) {
+    public boolean canHavePublicTypes(final Method method) {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
