@@ -28,8 +28,7 @@ public final class AndNodeSelectorNodeSelectorContextTest extends NodeSelectorCo
         StringName,
         Object> {
 
-    @Override
-    protected String requiredNameSuffix() {
+    @Override public String typeNameSuffix() {
         return NodeSelectorContext.class.getSimpleName();
     }
 

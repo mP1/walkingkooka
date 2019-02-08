@@ -96,8 +96,7 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
         });
     }
 
-    @Override
-    protected String requiredNameSuffix() {
+    @Override public String typeNameSuffix() {
         return NodeSelectorContext.class.getSimpleName();
     }
 

@@ -25,8 +25,7 @@ public final class TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisit
         return new TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor(null, null);
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return TextSpreadsheetTextFormatter.class.getSimpleName();
     }
 

@@ -30,8 +30,7 @@ public abstract class SpreadsheetTextFormatContextTestCase<C extends Spreadsheet
         assertNotNull("decimalDecimalFormatPattern", this.createContext().generalDecimalFormatPattern());
     }
 
-    @Override
-    protected String requiredNameSuffix() {
+    @Override public String typeNameSuffix() {
         return SpreadsheetTextFormatContext.class.getSimpleName();
     }
 }

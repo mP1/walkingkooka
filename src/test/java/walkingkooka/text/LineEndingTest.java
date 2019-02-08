@@ -29,6 +29,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class LineEndingTest extends CharSequenceTestCase<LineEnding>
         implements SerializationTesting<LineEnding> {
 
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testCr() {
         assertEquals("\r", LineEnding.CR.toString());

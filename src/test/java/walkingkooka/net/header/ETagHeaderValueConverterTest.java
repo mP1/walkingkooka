@@ -23,8 +23,7 @@ import org.junit.jupiter.api.Test;
 public final class ETagHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ETagHeaderValueConverter, ETag> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return ETag.class.getSimpleName();
     }
 

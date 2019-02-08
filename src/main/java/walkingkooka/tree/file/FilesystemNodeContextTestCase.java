@@ -21,4 +21,9 @@ package walkingkooka.tree.file;
 import walkingkooka.ContextTestCase;
 
 public abstract class FilesystemNodeContextTestCase<C extends FilesystemNodeContext> extends ContextTestCase<C> {
+
+    @Override
+    public String typeNameSuffix() {
+        return FilesystemNodeContext.class.getSimpleName();
+    }
 }

@@ -40,4 +40,9 @@ public abstract class XmlMapTestCase<M extends XmlMap<K, V>, K, V> extends MapTe
             throw new Error(cause);
         }
     }
+
+    @Override
+    public String typeNamePrefix() {
+        return "Xml";
+    }
 }

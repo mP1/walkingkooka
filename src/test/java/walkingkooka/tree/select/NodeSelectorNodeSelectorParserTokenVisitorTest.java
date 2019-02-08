@@ -1306,8 +1306,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
         return new NodeSelectorNodeSelectorParserTokenVisitor<>(null, null, null);
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return NodeSelector.class.getSimpleName();
     }
 

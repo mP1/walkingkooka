@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public abstract class DecimalNumberContextTestCase<C extends DecimalNumberContext> extends ContextTestCase<C> {
 
     @Override
-    protected String requiredNameSuffix() {
+    public String typeNameSuffix() {
         return DecimalNumberContext.class.getSimpleName();
     }
 

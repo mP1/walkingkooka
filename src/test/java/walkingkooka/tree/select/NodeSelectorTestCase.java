@@ -29,6 +29,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -50,7 +51,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
         extends ClassTestCase<S>
         implements HashCodeEqualsDefinedTesting<S>,
-        ToStringTesting<S> {
+        ToStringTesting<S>,
+        TypeNameTesting<S> {
 
     final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
@@ -61,11 +63,6 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
 
     NodeSelectorTestCase() {
         super();
-    }
-
-    @Test
-    public final void testNaming() {
-        this.checkNaming(NodeSelector.class);
     }
 
     @Test
@@ -177,5 +174,17 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
     @Override
     public final S createObject() {
         return this.createSelector();
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return NodeSelector.class.getSimpleName();
     }
 }

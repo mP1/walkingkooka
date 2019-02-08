@@ -17,9 +17,9 @@
 
 package walkingkooka.io.printstream;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.io.PrintStream;
@@ -29,15 +29,11 @@ import java.io.PrintStream;
  */
 abstract public class PrintStreamTestCase<P extends PrintStream>
         extends ClassTestCase<P>
-        implements ToStringTesting<P> {
+        implements ToStringTesting<P>,
+        TypeNameTesting<P> {
 
     protected PrintStreamTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(PrintStream.class);
     }
 
     abstract protected P createPrintStream();
@@ -45,5 +41,17 @@ abstract public class PrintStreamTestCase<P extends PrintStream>
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return PrintStream.class.getSimpleName();
     }
 }

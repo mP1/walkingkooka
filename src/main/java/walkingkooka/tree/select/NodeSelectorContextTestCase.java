@@ -27,4 +27,9 @@ public abstract class NodeSelectorContextTestCase<C extends NodeSelectorContext<
         NAME extends Name,
         ANAME extends Name,
         AVALUE> extends ContextTestCase<C> {
+
+    @Override
+    public String typeNameSuffix() {
+        return NodeSelectorContext.class.getSimpleName();
+    }
 }

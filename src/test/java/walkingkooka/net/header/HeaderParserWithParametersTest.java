@@ -29,11 +29,6 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
         Void> {
 
     @Test
-    public void testNaming() {
-        this.checkNaming(HeaderParserWithParameters.class);
-    }
-
-    @Test
     public void testParseQuotedFails() {
         this.parseInvalidCharacterFails("\"quoted\"", '"');
     }
@@ -355,5 +350,17 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
     @Override
     public Class<HeaderParserWithParameters<?, ?>> type() {
         return Cast.to(HeaderParserWithParameters.class);
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return HeaderParser.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "";
     }
 }

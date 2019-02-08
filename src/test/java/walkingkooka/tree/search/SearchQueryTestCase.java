@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
@@ -36,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTestCase<Q>
-        implements HashCodeEqualsDefinedTesting<Q> {
+        implements HashCodeEqualsDefinedTesting<Q>,
+        TypeNameTesting<Q> {
 
     static final String DATE = "2000-01-31";
     static final String DATE_LT = "1999-12-31";
@@ -273,5 +275,17 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTe
     @Override
     public final Q createObject() {
         return this.createSearchQuery();
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Search";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "Query";
     }
 }

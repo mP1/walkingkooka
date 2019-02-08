@@ -811,7 +811,7 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
     }
 
     @Override
-    public void testCheckNaming() {
+    public void testTypeNaming() {
         throw new UnsupportedOperationException();
     }
 

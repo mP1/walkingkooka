@@ -19,12 +19,14 @@ package walkingkooka.tree.pojo;
 
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class PojoPropertyTestCase<P extends PojoProperty> extends ClassTestCase<P>
-        implements ToStringTesting<P> {
+        implements ToStringTesting<P>,
+        TypeNameTesting<P> {
 
     final protected void getAndCheck(final Object instance, final Object value){
         this.getAndCheck(this.createPojoProperty(), instance, value);
@@ -47,5 +49,17 @@ public abstract class PojoPropertyTestCase<P extends PojoProperty> extends Class
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return PojoProperty.class.getSimpleName();
     }
 }

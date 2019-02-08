@@ -20,6 +20,7 @@ package walkingkooka.io.serialize;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,15 +30,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 abstract public class SerializationProxyTestCase<P extends SerializationProxy>
         extends ClassTestCase<P>
-        implements ToStringTesting<P> {
+        implements ToStringTesting<P>,
+        TypeNameTesting<P> {
 
     public SerializationProxyTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(SerializationProxy.class);
     }
 
     @Test
@@ -64,5 +61,18 @@ abstract public class SerializationProxyTestCase<P extends SerializationProxy>
     @Override
     public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return SerializationProxy.class.getSimpleName();
     }
 }

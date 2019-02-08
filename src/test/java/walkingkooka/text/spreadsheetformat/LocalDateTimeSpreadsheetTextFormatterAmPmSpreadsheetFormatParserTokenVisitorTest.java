@@ -41,8 +41,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatPar
         return new LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return LocalDateTimeSpreadsheetTextFormatter.class.getSimpleName();
     }
 

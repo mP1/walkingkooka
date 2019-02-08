@@ -18,9 +18,9 @@
 package walkingkooka.build;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Objects;
@@ -34,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for any {@link Builder} which includes helpers that assert failure if {@link
  * Builder#build()} is called without any additions.
  */
-abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLikeTestCase<B> {
+abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLikeTestCase<B>
+        implements TypeNameTesting<B> {
 
     protected BuilderTestCase() {
         super();
@@ -46,12 +47,6 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
         assertEquals(MemberVisibility.PUBLIC,
                 MemberVisibility.get(type),
                 "Builder product type " + type.getName() + " is not public");
-    }
-
-    @Test
-    public final void testNaming() {
-        final Class<?> type = Cast.to(Builder.class);
-        this.checkNaming(type);
     }
 
     protected void buildAndCheck(final Builder<T> builder, final T product) {
@@ -128,5 +123,17 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Builder.class.getSimpleName();
     }
 }

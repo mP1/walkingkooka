@@ -24,6 +24,7 @@ import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
@@ -35,14 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined>
         extends ComparableTesting<C>,
-        ToStringTesting<N> {
-
-    @Test
-    default void testNaming() {
-        this.checkNaming(Name.class);
-    }
-
-    void checkNaming(Class<?>...name);
+        ToStringTesting<N>,
+        TypeNameTesting<N> {
 
     @Test
     default void testPublicClass() {
@@ -149,5 +144,17 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
     @Override
     default C createComparable() {
         return Cast.to(this.createName(this.nameText()));
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    default String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    default String typeNameSuffix() {
+        return Name.class.getSimpleName();
     }
 }

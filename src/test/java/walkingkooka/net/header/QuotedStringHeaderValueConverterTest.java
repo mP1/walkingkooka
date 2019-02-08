@@ -112,8 +112,7 @@ public final class QuotedStringHeaderValueConverterTest extends StringHeaderValu
         this.toTextAndCheck(converter, value, text);
     }
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return "QuotedString";
     }
 

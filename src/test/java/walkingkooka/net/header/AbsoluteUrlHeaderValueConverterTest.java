@@ -26,8 +26,7 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
 
     private final static String URL = "http://example.com";
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return AbsoluteUrl.class.getSimpleName();
     }
 

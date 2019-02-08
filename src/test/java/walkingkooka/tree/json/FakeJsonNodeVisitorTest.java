@@ -27,8 +27,7 @@ public final class FakeJsonNodeVisitorTest extends JsonNodeVisitorTestCase<FakeJ
         return new FakeJsonNodeVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return Fake.class.getSimpleName();
     }
 

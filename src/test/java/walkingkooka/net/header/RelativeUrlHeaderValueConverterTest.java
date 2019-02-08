@@ -24,8 +24,7 @@ import walkingkooka.net.RelativeUrl;
 public final class RelativeUrlHeaderValueConverterTest extends
         HeaderValueConverterTestCase<RelativeUrlHeaderValueConverter, RelativeUrl> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return RelativeUrl.class.getSimpleName();
     }
 

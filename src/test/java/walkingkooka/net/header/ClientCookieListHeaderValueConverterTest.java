@@ -28,8 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ClientCookieListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ClientCookieListHeaderValueConverter, List<ClientCookie>> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return ClientCookie.class.getSimpleName();
     }
 

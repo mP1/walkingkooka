@@ -20,6 +20,7 @@ package walkingkooka.predicate;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -33,15 +34,11 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 abstract public class PredicateTestCase<P extends Predicate<T>, T>
         extends ClassTestCase<P>
-        implements ToStringTesting<P> {
+        implements ToStringTesting<P>,
+        TypeNameTesting<P> {
 
     protected PredicateTestCase() {
         super();
-    }
-
-    @Test
-    public void testCheckNaming() {
-        this.checkNaming(Predicate.class);
     }
 
     @Test
@@ -80,5 +77,17 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Predicate.class.getSimpleName();
     }
 }

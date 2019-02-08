@@ -20,9 +20,11 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HeaderParameterNameConstantsTest extends ClassTestCase<HeaderParameterNameConstants<?>> {
+public final class HeaderParameterNameConstantsTest extends ClassTestCase<HeaderParameterNameConstants<?>>
+        implements TypeNameTesting<HeaderParameterNameConstants<?>> {
 
     @Override
     public Class<HeaderParameterNameConstants<?>> type() {
@@ -32,5 +34,17 @@ public final class HeaderParameterNameConstantsTest extends ClassTestCase<Header
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return HeaderParameterName.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

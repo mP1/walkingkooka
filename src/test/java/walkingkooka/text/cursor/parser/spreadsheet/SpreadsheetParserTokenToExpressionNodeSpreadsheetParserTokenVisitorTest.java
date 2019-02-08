@@ -24,8 +24,7 @@ public final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenV
         return new SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return SpreadsheetParserToken.class.getSimpleName();
     }
 

@@ -24,6 +24,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
@@ -40,7 +41,8 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
         implements HashCodeEqualsDefinedTesting<C>,
         IsMethodTesting<C>,
         SerializationTesting<C>,
-        ToStringTesting<C> {
+        ToStringTesting<C>,
+        TypeNameTesting<C> {
 
     HslComponentTestCase() {
         super();
@@ -214,4 +216,17 @@ abstract public class HslComponentTestCase<C extends HslComponent> extends Class
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> false;
     }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return HslComponent.class.getSimpleName();
+    }
+
 }

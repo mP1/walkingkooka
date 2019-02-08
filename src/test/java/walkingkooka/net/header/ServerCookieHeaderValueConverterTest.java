@@ -23,8 +23,7 @@ import org.junit.jupiter.api.Test;
 public final class ServerCookieHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ServerCookieHeaderValueConverter, ServerCookie> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return ServerCookie.class.getSimpleName();
     }
 

@@ -17,20 +17,19 @@
  */
 package walkingkooka;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class ContextTestCase<C extends Context> extends ClassTestCase<C>
-        implements ToStringTesting<C> {
+        implements TypeNameTesting<C>,
+        ToStringTesting<C> {
 
-    @Test
-    public void testCheckNaming() {
-        this.checkNaming(this.requiredNameSuffix());
+    @Override
+    public String typeNamePrefix() {
+        return "";
     }
-
-    abstract protected String requiredNameSuffix();
 
     protected abstract C createContext();
 

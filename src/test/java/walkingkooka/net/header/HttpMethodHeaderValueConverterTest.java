@@ -24,8 +24,7 @@ import walkingkooka.net.http.HttpMethod;
 public final class HttpMethodHeaderValueConverterTest extends
         HeaderValueConverterTestCase<HttpMethodHeaderValueConverter, HttpMethod> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return HttpMethod.class.getSimpleName();
     }
 

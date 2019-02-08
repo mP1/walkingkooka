@@ -24,8 +24,7 @@ import walkingkooka.collect.map.Maps;
 public final class MediaTypeHeaderValueConverterTest extends
         HeaderValueConverterTestCase<MediaTypeHeaderValueConverter, MediaType> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return MediaType.class.getSimpleName();
     }
 

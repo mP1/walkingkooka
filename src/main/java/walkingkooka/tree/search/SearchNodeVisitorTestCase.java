@@ -23,7 +23,7 @@ import walkingkooka.tree.visit.VisitorTestCase;
 public abstract class SearchNodeVisitorTestCase<V extends SearchNodeVisitor> extends VisitorTestCase<SearchNodeVisitor, SearchNode> {
 
     @Override
-    protected final String requiredNameSuffix() {
+    public final String typeNameSuffix() {
         return SearchNodeVisitor.class.getSimpleName();
     }
 }

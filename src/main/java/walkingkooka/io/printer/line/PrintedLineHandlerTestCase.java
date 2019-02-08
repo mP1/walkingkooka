@@ -23,6 +23,7 @@ import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
@@ -38,7 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
         extends ClassTestCase<H>
-        implements ToStringTesting<H> {
+        implements ToStringTesting<H>,
+        TypeNameTesting<H> {
 
     protected PrintedLineHandlerTestCase() {
         super();
@@ -53,11 +55,6 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
     private final static Printer PRINTER = Printers.fake();
 
     // tests
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(PrintedLineHandler.class);
-    }
 
     @Test
     final public void testNullLineFails() {
@@ -150,5 +147,17 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return PrintedLineHandler.class.getSimpleName();
     }
 }

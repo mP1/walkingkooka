@@ -27,8 +27,7 @@ public final class FakeJsonNodeParserTokenVisitorTest extends JsonNodeParserToke
         return new FakeJsonNodeParserTokenVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return Fake.class.getSimpleName();
     }
 

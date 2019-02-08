@@ -22,6 +22,7 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -34,7 +35,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqualsDefined> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>,
-        ToStringTesting<C> {
+        ToStringTesting<C>,
+        TypeNameTesting<C> {
 
     protected CharSequenceTestCase() {
         super();
@@ -222,5 +224,17 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
         final CharSequence sub = chars.subSequence(start, end);
         this.checkLength(sub, end - start);
         this.checkCharAt(sub, expected);
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return CharSequence.class.getSimpleName();
     }
 }

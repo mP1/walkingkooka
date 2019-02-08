@@ -20,14 +20,18 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.util.BiFunctionTestCase;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<V>, V> extends BiFunctionTestCase<F, List<Object>, ExpressionFunctionContext, V> {
+public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<V>, V>
+        extends BiFunctionTestCase<F, List<Object>, ExpressionFunctionContext, V>
+        implements TypeNameTesting<F> {
 
     protected final void apply2(final Object... parameters) {
         this.createBiFunction().apply(parameters(parameters), this.createContext());
@@ -84,5 +88,17 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<V>
 
     protected final List<Object> parametersWithThis(final Object... values) {
         return Lists.of(values);
+    }
+
+    // TypeNameTesting...........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "Expression";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Function.class.getSimpleName();
     }
 }

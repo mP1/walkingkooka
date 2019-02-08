@@ -22,8 +22,7 @@ import walkingkooka.text.cursor.parser.ParserContextTestCase;
 
 public abstract class EbnfParserContextTestCase<C extends EbnfParserContext> extends ParserContextTestCase<C> {
 
-    @Override
-    protected String requiredNameSuffix() {
+    @Override public String typeNameSuffix() {
         return EbnfParserContext.class.getSimpleName();
     }
 }

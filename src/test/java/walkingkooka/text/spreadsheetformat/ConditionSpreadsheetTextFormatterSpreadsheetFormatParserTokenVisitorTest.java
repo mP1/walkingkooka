@@ -27,8 +27,7 @@ public final class ConditionSpreadsheetTextFormatterSpreadsheetFormatParserToken
         return new ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return ConditionSpreadsheetTextFormatter.class.getSimpleName();
     }
 

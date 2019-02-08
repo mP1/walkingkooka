@@ -25,8 +25,7 @@ public final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserToke
         return new ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor(null, null);
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return ExpressionSpreadsheetTextFormatter.class.getSimpleName();
     }
 

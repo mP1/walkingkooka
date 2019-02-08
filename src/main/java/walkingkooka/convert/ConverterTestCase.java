@@ -18,10 +18,10 @@
 
 package walkingkooka.convert;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -31,12 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ConverterTestCase<C extends Converter> extends ClassTestCase<C>
-        implements ToStringTesting<C> {
-
-    @Test
-    public void testCheckNaming() {
-        this.checkNaming(Converter.class);
-    }
+        implements ToStringTesting<C>,
+        TypeNameTesting<C> {
 
     protected abstract C createConverter();
 
@@ -134,5 +130,18 @@ public abstract class ConverterTestCase<C extends Converter> extends ClassTestCa
     @Override
     public Class<C> type() {
         return this.type();
+    }
+
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Converter.class.getSimpleName();
     }
 }

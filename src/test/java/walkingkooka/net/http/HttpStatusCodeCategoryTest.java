@@ -19,9 +19,12 @@
 package walkingkooka.net.http;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HttpStatusCodeCategoryTest extends ClassTestCase<HttpStatusCodeCategory> {
+public final class HttpStatusCodeCategoryTest extends ClassTestCase<HttpStatusCodeCategory>
+        implements TypeNameTesting<HttpStatusCodeCategory> {
+
     @Override
     public Class<HttpStatusCodeCategory> type() {
         return HttpStatusCodeCategory.class;
@@ -30,5 +33,17 @@ public final class HttpStatusCodeCategoryTest extends ClassTestCase<HttpStatusCo
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return HttpStatus.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "";
     }
 }

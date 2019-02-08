@@ -23,6 +23,7 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -38,7 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
         implements HashCodeEqualsDefinedTesting<U>,
         IsMethodTesting<U>,
-        ToStringTesting<U> {
+        ToStringTesting<U>,
+        TypeNameTesting<U> {
 
     UrlTestCase() {
         super();
@@ -51,11 +53,6 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
     final static UrlFragment FRAGMENT = UrlFragment.with("fragment");
 
     // tests
-
-    @Test
-    public final void testNaming() {
-        this.checkNaming(Url.class);
-    }
 
     @Test
     public void testNullPathFails() {
@@ -266,5 +263,17 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> false;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Url.class.getSimpleName();
     }
 }

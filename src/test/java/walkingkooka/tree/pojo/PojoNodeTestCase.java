@@ -127,7 +127,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
     abstract Class<N> pojoNodeType();
 
     @Override
-    protected final String requiredNamePrefix() {
+    public final String typeNamePrefix() {
         return "Pojo";
     }
 

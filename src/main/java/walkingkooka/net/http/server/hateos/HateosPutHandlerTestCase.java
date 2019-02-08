@@ -63,4 +63,11 @@ public abstract class HateosPutHandlerTestCase<H extends HateosPutHandler<N>, N 
     abstract protected BigInteger id();
 
     abstract protected N resource();
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return "PutHandler";
+    }
 }

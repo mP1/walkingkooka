@@ -18,24 +18,20 @@
 
 package walkingkooka.net.header;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class HeaderParserTestCase<P extends HeaderParser, V>
         extends ClassTestCase<P>
         implements ParseStringTesting<V>,
-        ToStringTesting<P> {
+        ToStringTesting<P>,
+        TypeNameTesting<P> {
 
     HeaderParserTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(HeaderParser.class);
     }
 
     // parse ...........................................................................................
@@ -90,5 +86,17 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return HeaderParser.class.getSimpleName();
     }
 }

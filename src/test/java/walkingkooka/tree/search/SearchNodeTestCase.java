@@ -206,7 +206,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     }
 
     @Override
-    protected final String requiredNamePrefix() {
+    public final String typeNamePrefix() {
         return "Search";
     }
 

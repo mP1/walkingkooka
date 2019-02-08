@@ -43,8 +43,7 @@ public final class UnquotedStringHeaderValueConverterTest extends StringHeaderVa
         this.parseAndToTextAndCheck("abc", "abc");
     }
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return "UnquotedString";
     }
 

@@ -19,9 +19,11 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.Node;
 
-public abstract class HateosHandlerTestCase<H extends HateosHandler<N>, N extends Node<N, ?, ?, ?>> extends ClassTestCase<H> {
+public abstract class HateosHandlerTestCase<H extends HateosHandler<N>, N extends Node<N, ?, ?, ?>> extends ClassTestCase<H>
+        implements TypeNameTesting<H> {
 
     HateosHandlerTestCase() {
         super();
@@ -30,4 +32,12 @@ public abstract class HateosHandlerTestCase<H extends HateosHandler<N>, N extend
     abstract protected H createHandler();
 
     abstract protected HateosHandlerContext<N> createContext();
+
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Hateos";
+    }
 }

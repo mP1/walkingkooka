@@ -21,8 +21,7 @@ import walkingkooka.math.DecimalNumberContextTestCase;
 
 public abstract class ConverterContextTestCase<C extends ConverterContext> extends DecimalNumberContextTestCase<C> {
 
-    @Override
-    protected String requiredNameSuffix() {
+    @Override public String typeNameSuffix() {
         return ConverterContext.class.getSimpleName();
     }
 }

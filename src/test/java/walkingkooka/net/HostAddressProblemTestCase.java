@@ -18,23 +18,31 @@
 
 package walkingkooka.net;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-abstract public class HostAddressProblemTestCase<T extends HostAddressProblem> extends ClassTestCase<T> {
+abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> extends ClassTestCase<P>
+        implements TypeNameTesting<P> {
 
     HostAddressProblemTestCase() {
         super();
     }
 
-    @Test
-    public void testNaming() {
-        this.checkNamingStartAndEnd(HostAddress.class.getSimpleName(), "Problem");
-    }
-
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return HostAddress.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return this.subtractTypeNamePrefix();
     }
 }

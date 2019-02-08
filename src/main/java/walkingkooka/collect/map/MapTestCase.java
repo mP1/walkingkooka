@@ -21,6 +21,7 @@ package walkingkooka.collect.map;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -32,7 +33,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCase<M> implements ToStringTesting<M> {
+public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCase<M>
+        implements ToStringTesting<M>,
+        TypeNameTesting<M> {
 
     @Test
     public final void testIteratorContainsKeyAndSize() {
@@ -149,5 +152,17 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Map.class.getSimpleName();
     }
 }

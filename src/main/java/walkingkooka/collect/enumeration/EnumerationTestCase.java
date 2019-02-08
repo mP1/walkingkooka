@@ -17,10 +17,10 @@
 
 package walkingkooka.collect.enumeration;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
@@ -34,15 +34,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
         extends ClassTestCase<E>
-        implements ToStringTesting<E> {
+        implements ToStringTesting<E>,
+        TypeNameTesting<E> {
 
     protected EnumerationTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(Enumeration.class);
     }
 
     abstract protected E createEnumeration();
@@ -140,5 +136,17 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Enumeration.class.getSimpleName();
     }
 }

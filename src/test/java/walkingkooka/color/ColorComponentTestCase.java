@@ -26,6 +26,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -38,7 +39,8 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
         implements HashCodeEqualsDefinedTesting<C>,
         IsMethodTesting<C>,
         SerializationTesting<C>,
-        ToStringTesting<C> {
+        ToStringTesting<C>,
+        TypeNameTesting<C> {
 
     ColorComponentTestCase() {
         super();
@@ -220,5 +222,17 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> false;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return ColorComponent.class.getSimpleName();
     }
 }

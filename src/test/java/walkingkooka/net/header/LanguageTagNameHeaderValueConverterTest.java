@@ -23,8 +23,7 @@ import org.junit.jupiter.api.Test;
 public final class LanguageTagNameHeaderValueConverterTest extends
         HeaderValueConverterTestCase<LanguageTagNameHeaderValueConverter, LanguageTagName> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return LanguageTagName.class.getSimpleName();
     }
 

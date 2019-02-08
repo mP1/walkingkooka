@@ -22,8 +22,7 @@ import walkingkooka.text.cursor.parser.ParserContextTestCase;
 
 public abstract class NodeSelectorParserContextTestCase<C extends NodeSelectorParserContext> extends ParserContextTestCase<C> {
 
-    @Override
-    protected String requiredNameSuffix() {
+    @Override public String typeNameSuffix() {
         return NodeSelectorParserContext.class.getSimpleName();
     }
 }

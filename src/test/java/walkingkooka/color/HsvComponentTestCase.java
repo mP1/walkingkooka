@@ -25,6 +25,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -38,7 +39,8 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
         implements HashCodeEqualsDefinedTesting<C>,
         IsMethodTesting<C>,
         SerializationTesting<C>,
-        ToStringTesting<C> {
+        ToStringTesting<C>,
+        TypeNameTesting<C> {
 
     HsvComponentTestCase() {
         super();
@@ -188,5 +190,17 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> false;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return HsvComponent.class.getSimpleName();
     }
 }

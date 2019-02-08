@@ -22,6 +22,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -39,7 +40,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserToken, C extends ParserContext>
         extends ClassTestCase<P>
-        implements ToStringTesting<P> {
+        implements ToStringTesting<P>,
+        TypeNameTesting<P> {
 
     @Test
     public void testNullCursorFail() {
@@ -252,5 +254,17 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Parser.class.getSimpleName();
     }
 }

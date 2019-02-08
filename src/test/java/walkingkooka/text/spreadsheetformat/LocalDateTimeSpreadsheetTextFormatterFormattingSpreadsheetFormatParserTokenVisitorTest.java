@@ -25,8 +25,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFor
         return new LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor(null, null, false);
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return "LocalDateTimeSpreadsheetTextFormatter";
     }
 

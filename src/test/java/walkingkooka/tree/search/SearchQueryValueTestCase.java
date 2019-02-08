@@ -22,11 +22,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> extends ClassTestCase<Q>
         implements HashCodeEqualsDefinedTesting<Q>,
-        ToStringTesting<Q> {
+        ToStringTesting<Q>,
+        TypeNameTesting<Q> {
 
     @Test
     public final void testDifferentValue() {
@@ -59,5 +61,17 @@ public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> ex
     @Override
     public final Q createObject() {
         return this.createSearchQueryValue();
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "Search";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return this.subtractTypeNamePrefix();
     }
 }

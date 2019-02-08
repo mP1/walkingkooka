@@ -37,8 +37,7 @@ public final class CacheControlDirectiveListHeaderValueConverterTest extends
                         CacheControlDirective.NO_STORE));
     }
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return CacheControlDirective.class.getSimpleName() + List.class.getSimpleName();
     }
 
