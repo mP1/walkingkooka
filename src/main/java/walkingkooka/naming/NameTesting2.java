@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -146,37 +145,6 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
         }
 
         return b.toString();
-    }
-
-    @Test
-    default void testNaming() {
-        this.checkNaming(Name.class);
-    }
-
-    void checkNaming(Class<?>... name);
-
-    @Test
-    default void testPublicClass() {
-        assertEquals(MemberVisibility.PUBLIC, this.typeVisibility(), "Visibility of name");
-    }
-
-    @Test
-    default void testNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createName(null);
-        });
-    }
-
-    @Test
-    default void testEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createName("");
-        });
-    }
-
-    @Test
-    default void testWith() {
-        this.createNameAndCheck(this.nameText());
     }
 
     // invalid / valid characters.........................................................................
