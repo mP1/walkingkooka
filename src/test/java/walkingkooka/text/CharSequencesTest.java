@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequencesTest extends ClassTestCase<CharSequences>
@@ -478,77 +479,295 @@ final public class CharSequencesTest extends ClassTestCase<CharSequences>
         assertEquals(CharSequences.isNullOrEmpty(chars), result, ()-> chars + " isNullOrEmpty");
     }
 
+    // padLeft................................................
+
+    private final static int LENGTH = CHARS.length() + 3; // 3 + 3
+    private final static char PADDING = '.';
+
+    @Test
+    public void testPadLeftNullCharSequenceFails() {
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.padLeft(null, LENGTH, PADDING);
+        });
+    }
+
+    @Test
+    public void testPadLeftInvalidLengthFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharSequences.padLeft(CHARS, CHARS.length() - 1, PADDING);
+        });
+    }
+
+    @Test
+    public void testPadLeftPaddingNotRequired() {
+        assertSame(CHARS,
+                CharSequences.padLeft(CHARS,
+                        CHARS.length(),
+                        PADDING));
+    }
+
+    @Test
+    public void testPadLeftLength() {
+        assertEquals(LENGTH, this.padLeft().length());
+    }
+
+    @Test
+    public void testPadLeftSubSequencePaddingOnly() {
+        this.padLeftSubSequenceAndCheck(0, 1, "" + PADDING);
+    }
+
+    @Test
+    public void testPadLeftSubSequencePaddingOnly2() {
+        this.padLeftSubSequenceAndCheck(0, 2, "" + PADDING + PADDING);
+    }
+
+    @Test
+    public void testPadLeftSubSequenceExactlyWrapped() {
+        final CharSequence sequence = this.padLeft();
+        assertSame(CHARS,
+                sequence.subSequence(3, LENGTH));
+    }
+
+    @Test
+    public void testPadLeftSubSequenceWithinWrapped() {
+        this.padLeftSubSequenceAndCheck(4, LENGTH, "bc");
+    }
+
+    @Test
+    public void testPadLeftSubSequenceWithinWrapped2() {
+        this.padLeftSubSequenceAndCheck(5, LENGTH, "c");
+    }
+
+    @Test
+    public void testPadLeftSubSequenceSomePadding() {
+        this.padLeftSubSequenceAndCheck(1, LENGTH, "" + PADDING + PADDING + "abc");
+    }
+
+    @Test
+    public void testPadLeftSubSequenceSomePadding2() {
+        this.padLeftSubSequenceAndCheck(2, LENGTH - 1, PADDING + "ab");
+    }
+
+    private void padLeftSubSequenceAndCheck(final int start,
+                                            final int end,
+                                            final String expected) {
+        final CharSequence sequence = this.padLeft();
+        final CharSequence sub = sequence.subSequence(start, end);
+
+        assertEquals(expected,
+                sub.toString(),
+                () -> sequence + " sub sequence " + start + "," + end);
+    }
+
+    private CharSequence padLeft() {
+        return CharSequences.padLeft(CHARS,
+                LENGTH,
+                PADDING);
+    }
+
+    // padRight................................................
+
+    @Test
+    public void testPadRightNullCharSequenceFails() {
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.padRight(null, LENGTH, PADDING);
+        });
+    }
+
+    @Test
+    public void testPadRightInvalidLengthFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharSequences.padRight(CHARS, CHARS.length() - 1, PADDING);
+        });
+    }
+
+    @Test
+    public void testPadRightPaddingNotRequired() {
+        assertSame(CHARS,
+                CharSequences.padRight(CHARS,
+                        CHARS.length(),
+                        PADDING));
+    }
+
+    @Test
+    public void testPadRightLength() {
+        assertEquals(LENGTH,
+                CharSequences.padRight(CHARS,
+                        LENGTH,
+                        PADDING).length());
+    }
+
+    @Test
+    public void testPadRightSubSequencePaddingOnly() {
+        this.padRightSubSequenceAndCheck(3, 4, "" + PADDING);
+    }
+
+    @Test
+    public void testPadRightSubSequencePaddingOnly2() {
+        this.padRightSubSequenceAndCheck(3, 5, "" + PADDING + PADDING);
+    }
+
+    @Test
+    public void testPadRightSubSequenceExactlyWrapped() {
+        final CharSequence sequence = this.padRight();
+        assertSame(CHARS,
+                sequence.subSequence(0, CHARS.length()));
+    }
+
+    @Test
+    public void testPadRightSubSequenceWithinWrapped() {
+        this.padRightSubSequenceAndCheck(1, 3, "bc");
+    }
+
+    @Test
+    public void testPadRightSubSequenceWithinWrapped2() {
+        this.padRightSubSequenceAndCheck(2, 3, "c");
+    }
+
+    @Test
+    public void testPadRightSubSequenceSomePadding() {
+        this.padRightSubSequenceAndCheck(1, LENGTH, "bc" + PADDING + PADDING + PADDING);
+    }
+
+    @Test
+    public void testPadRightSubSequenceSomePadding2() {
+        this.padRightSubSequenceAndCheck(2, LENGTH - 1, "c" + PADDING + PADDING);
+    }
+
+    private void padRightSubSequenceAndCheck(final int start,
+                                             final int end,
+                                             final String expected) {
+        final CharSequence sequence = this.padRight();
+        final CharSequence sub = sequence.subSequence(start, end);
+
+        assertEquals(expected,
+                sub.toString(),
+                () -> sequence + " sub sequence " + start + "," + end);
+    }
+
+    private CharSequence padRight() {
+        return CharSequences.padRight(CHARS,
+                LENGTH,
+                PADDING);
+    }
+
+    // quote and escape char ............................................................
+
+    @Test
+    public void testQuoteAndEscapeChar() {
+        this.quoteAndEscapeCharAndCheck('a', "\'a\'");
+    }
+
+    @Test
+    public void testQuoteAndEscapeCharTab() {
+        this.quoteAndEscapeCharAndCheck('\t', "\'\\t\'");
+    }
+
+    @Test
+    public void testQuoteAndEscapeCharNul() {
+        this.quoteAndEscapeCharAndCheck('\0', "\'\\0\'");
+    }
+
+    private void quoteAndEscapeCharAndCheck(final char c, final String expected) {
+        assertEquals(expected,
+                CharSequences.quoteAndEscape(c).toString(),
+                "Escape " + CharSequences.quoteIfChars(c));
+    }
+
+    // quote and escape CharSequence ............................................................
+
+    @Test
+    public void testQuoteAndEscapeCharSequence() {
+        quoteCharSequenceAndCheck("a", "\"a\"");
+    }
+
+    @Test
+    public void testQuoteAndEscapeCharSequence2() {
+        quoteCharSequenceAndCheck("a\t", "\"a\t\"");
+    }
+
+    @Test
+    public void testQuoteAndEscapeCharSequence3() {
+        quoteCharSequenceAndCheck("a\"", "\"a\"\"");
+    }
+
+    private void quoteCharSequenceAndCheck(final CharSequence chars, final String expected) {
+        assertEquals(expected,
+                CharSequences.quote(chars).toString(),
+                "Escape " + CharSequences.quote(chars));
+    }
+
     // quote and escape ............................................................
 
     @Test
-    public void testQuoteAndEscapeNull() {
+    public void testQuoteAndEscapeCharSequenceNull() {
         assertEquals(null, CharSequences.quoteAndEscape(null));
     }
 
     @Test
-    public void testQuoteAndEscapeEmpty() {
+    public void testQuoteAndEscapeCharSequenceEmpty() {
         final String string = "";
-        quoteAndEscapeAndCheck(string, '"' + string + '"');
+        quoteAndEscapeCharSequenceAndCheck(string, '"' + string + '"');
     }
 
     @Test
-    public void testQuoteAndEscapeSingleChar() {
-        quoteAndEscapeAndCheck("a", "\"a\"");
+    public void testQuoteAndEscapeCharSequenceSingleChar() {
+        quoteAndEscapeCharSequenceAndCheck("a", "\"a\"");
     }
 
     @Test
-    public void testQuoteAndEscapeDoubleQuoteChar() {
-        quoteAndEscapeAndCheck("\"", "\"\\\"\"");
+    public void testQuoteAndEscapeCharSequenceDoubleQuoteChar() {
+        quoteAndEscapeCharSequenceAndCheck("\"", "\"\\\"\"");
     }
 
     @Test
-    public void testQuoteAndEscapeSingleQuoteChar() {
-        quoteAndEscapeAndCheck("'", "\"\\'\"");
+    public void testQuoteAndEscapeCharSequenceSingleQuoteChar() {
+        quoteAndEscapeCharSequenceAndCheck("'", "\"\\'\"");
     }
 
     @Test
-    public void testQuoteAndEscapeUnneeded() {
+    public void testQuoteAndEscapeCharSequenceUnneeded() {
         final String string = "apple";
-        quoteAndEscapeAndCheck(string, '"' + string + '"');
+        quoteAndEscapeCharSequenceAndCheck(string, '"' + string + '"');
     }
 
     @Test
-    public void testQuoteAndEscapeNewLine() {
+    public void testQuoteAndEscapeCharSequenceNewLine() {
         final String string = "apple\nbanana";
-        quoteAndEscapeAndCheck(string, "\"apple\\nbanana\"");
+        quoteAndEscapeCharSequenceAndCheck(string, "\"apple\\nbanana\"");
     }
 
     @Test
-    public void testQuoteAndEscapeCarriageReturn() {
+    public void testQuoteAndEscapeCharSequenceCarriageReturn() {
         final String string = "apple\rbanana";
-        quoteAndEscapeAndCheck(string, "\"apple\\rbanana\"");
+        quoteAndEscapeCharSequenceAndCheck(string, "\"apple\\rbanana\"");
     }
 
     @Test
-    public void testQuoteAndEscapeBackslash() {
+    public void testQuoteAndEscapeCharSequenceBackslash() {
         final String string = "apple\\banana";
-        quoteAndEscapeAndCheck(string, "\"apple\\\\banana\"");
+        quoteAndEscapeCharSequenceAndCheck(string, "\"apple\\\\banana\"");
     }
 
     @Test
-    public void testQuoteAndEscapeTab() {
+    public void testQuoteAndEscapeCharSequenceTab() {
         final String string = "apple\tbanana";
-        quoteAndEscapeAndCheck(string, "\"apple\\tbanana\"");
+        quoteAndEscapeCharSequenceAndCheck(string, "\"apple\\tbanana\"");
     }
 
     @Test
-    public void testQuoteAndEscapeEscapedDoubleQuote() {
+    public void testQuoteAndEscapeCharSequenceEscapedDoubleQuote() {
         final String string = "apple\"";
-        quoteAndEscapeAndCheck(string, "\"apple\\\"\"");
+        quoteAndEscapeCharSequenceAndCheck(string, "\"apple\\\"\"");
     }
 
     @Test
-    public void testQuoteAndEscapeAddEscaped() {
+    public void testQuoteAndEscapeCharSequenceAddEscaped() {
         final String string = "apple\t\n\r\\";
-        quoteAndEscapeAndCheck(string, "\"apple\\t\\n\\r\\\\\"");
+        quoteAndEscapeCharSequenceAndCheck(string, "\"apple\\t\\n\\r\\\\\"");
     }
 
-    private void quoteAndEscapeAndCheck(final CharSequence chars, final String expected) {
+    private void quoteAndEscapeCharSequenceAndCheck(final CharSequence chars, final String expected) {
         assertEquals(expected,
                 CharSequences.quoteAndEscape(chars),
                 "Escape " + CharSequences.quote(chars));
