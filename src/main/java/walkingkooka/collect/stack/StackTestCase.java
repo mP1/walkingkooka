@@ -23,6 +23,7 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.EmptyStackException;
@@ -36,15 +37,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, T> extends ClassTestCase<S>
         implements HashCodeEqualsDefinedTesting<S>,
         SerializationTesting<S>,
-        ToStringTesting<S> {
+        ToStringTesting<S>,
+        TypeNameTesting<S> {
 
     protected StackTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(Stack.class);
     }
 
     @Test
@@ -85,5 +82,17 @@ abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, 
     @Override
     public S createObject() {
         return this.createStack();
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Stack.class.getSimpleName();
     }
 }

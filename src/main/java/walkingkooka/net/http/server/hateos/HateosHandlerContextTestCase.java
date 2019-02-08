@@ -88,7 +88,7 @@ public abstract class HateosHandlerContextTestCase<C extends HateosHandlerContex
     }
 
     @Override
-    protected String requiredNameSuffix() {
+    public String typeNameSuffix() {
         return HateosHandlerContext.class.getSimpleName();
     }
 

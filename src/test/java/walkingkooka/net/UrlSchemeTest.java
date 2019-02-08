@@ -34,7 +34,7 @@ public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
         implements NameTesting2<UrlScheme, UrlScheme>, SerializationTesting<UrlScheme> {
 
     @Override
-    public void testNaming() {
+    public void testTypeNaming() {
         throw new UnsupportedOperationException();
     }
 

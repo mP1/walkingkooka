@@ -30,8 +30,7 @@ import java.util.Optional;
 public final class LinkHeaderValueConverterTest extends
         HeaderValueConverterTestCase<LinkHeaderValueConverter, List<Link>> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return Link.class.getSimpleName();
     }
 

@@ -24,8 +24,11 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -36,7 +39,8 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>,
         HasJsonNodeTesting<C>,
         SerializationTesting<C>,
-        ToStringTesting<C> {
+        ToStringTesting<C>,
+        TypeNameTesting<C> {
 
     ColorTestCase() {
         super();
@@ -730,5 +734,18 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Color.class.getSimpleName();
     }
 }

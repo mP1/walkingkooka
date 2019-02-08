@@ -496,7 +496,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     @Override
-    protected final String requiredNamePrefix() {
+    public final String typeNamePrefix() {
         return "Expression";
     }
 

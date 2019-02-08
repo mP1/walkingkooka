@@ -27,8 +27,7 @@ public final class FakeSpreadsheetParserTokenVisitorTest extends SpreadsheetPars
         return new FakeSpreadsheetParserTokenVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return Fake.class.getSimpleName();
     }
 

@@ -22,8 +22,7 @@ import walkingkooka.text.cursor.parser.ParserContextTestCase;
 
 public abstract class JsonNodeParserContextTestCase<C extends JsonNodeParserContext> extends ParserContextTestCase<C> {
 
-    @Override
-    protected String requiredNameSuffix() {
+    @Override public String typeNameSuffix() {
         return JsonNodeParserContext.class.getSimpleName();
     }
 }

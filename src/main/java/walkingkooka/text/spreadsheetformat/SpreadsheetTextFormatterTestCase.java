@@ -21,6 +21,7 @@ package walkingkooka.text.spreadsheetformat;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -32,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetTextFormatter<V>, V> extends ClassTestCase<F>
-        implements ToStringTesting<F> {
+        implements ToStringTesting<F>,
+        TypeNameTesting<F> {
 
     @Test
     public final void testFormatNullValueFails() {
@@ -140,5 +142,17 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return SpreadsheetTextFormatter.class.getSimpleName();
     }
 }

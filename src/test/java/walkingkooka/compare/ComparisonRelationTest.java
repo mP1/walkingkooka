@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public final class ComparisonRelationTest extends PredicateTestCase<ComparisonRelation, Integer> {
 
     @Override
-    public void testCheckNaming() {
+    public void testTypeNaming() {
         throw new UnsupportedOperationException();
     }
 

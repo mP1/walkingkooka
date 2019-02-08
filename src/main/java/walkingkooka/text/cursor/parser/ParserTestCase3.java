@@ -27,6 +27,11 @@ public abstract class ParserTestCase3<P extends Parser<T, C>, T extends ParserTo
     }
 
     @Override
+    public final void testTypeNaming() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public final void testAllConstructorsVisibility() {
         throw new UnsupportedOperationException();
     }

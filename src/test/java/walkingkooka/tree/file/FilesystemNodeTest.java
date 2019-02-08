@@ -376,8 +376,7 @@ public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, Files
         });
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return "File";
     }
 

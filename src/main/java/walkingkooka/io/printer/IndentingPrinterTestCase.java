@@ -18,12 +18,14 @@
 package walkingkooka.io.printer;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.Indentation;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
-        extends PrinterTestCase2<P> {
+        extends PrinterTestCase2<P>
+        implements TypeNameTesting<P> {
 
     protected IndentingPrinterTestCase() {
         super();
@@ -34,12 +36,6 @@ abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
     private final static Indentation INDENTATION = Indentation.with("  ");
 
     // tests
-
-    @Override
-    @Test
-    public void testNaming() {
-        this.checkNaming(IndentingPrinter.class);
-    }
 
     @Test
     public void testIndentWithNullFails() {
@@ -76,5 +72,17 @@ abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
             printer.outdent();
         }
         return printer;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return IndentingPrinter.class.getSimpleName();
     }
 }

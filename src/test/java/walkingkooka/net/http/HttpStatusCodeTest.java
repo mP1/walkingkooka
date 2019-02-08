@@ -24,6 +24,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -37,7 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode>
         implements ConstantsTesting<HttpStatusCode>,
-        ToStringTesting<HttpStatusCode> {
+        ToStringTesting<HttpStatusCode>,
+        TypeNameTesting<HttpStatusCode> {
 
     @Test
     public void testStatusDefaultMessageUnique() {
@@ -140,5 +142,17 @@ public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode>
     @Override
     public Set<HttpStatusCode> intentionalDuplicateConstants() {
         return Sets.empty();
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return HttpStatus.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "";
     }
 }

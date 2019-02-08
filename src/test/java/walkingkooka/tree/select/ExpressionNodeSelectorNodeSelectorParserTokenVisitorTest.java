@@ -26,8 +26,7 @@ public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest exte
         return new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(null);
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return ExpressionNodeSelector.class.getSimpleName();
     }
 

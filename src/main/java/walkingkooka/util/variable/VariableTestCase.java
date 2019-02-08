@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,18 +33,14 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  * Base class for testing a {@link Variable}.
  */
 abstract public class VariableTestCase<V extends Variable<T>, T> extends ClassTestCase<V>
-        implements ToStringTesting<V> {
+        implements ToStringTesting<V>,
+        TypeNameTesting<V> {
 
     protected VariableTestCase() {
         super();
     }
 
     // tests
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(Variable.class);
-    }
 
     @Test
     public void testWith() {
@@ -78,5 +75,17 @@ abstract public class VariableTestCase<V extends Variable<T>, T> extends ClassTe
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Variable.class.getSimpleName();
     }
 }

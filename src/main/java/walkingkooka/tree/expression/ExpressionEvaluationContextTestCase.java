@@ -68,7 +68,7 @@ public abstract class ExpressionEvaluationContextTestCase<C extends ExpressionEv
     }
 
     @Override
-    protected String requiredNameSuffix() {
+    public String typeNameSuffix() {
         return ExpressionEvaluationContext.class.getSimpleName();
     }
 }

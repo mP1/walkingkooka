@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -31,16 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static walkingkooka.net.header.HeaderParser.fail;
 
 public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends ClassTestCase<C>
-        implements ToStringTesting<C> {
-
-    private final static String SUFFIX = HeaderValueConverter.class.getSimpleName();
-
-    @Test
-    public final void testNaming() {
-        this.checkNamingStartAndEnd(this.requiredPrefix(), SUFFIX);
-    }
-
-    abstract protected String requiredPrefix();
+        implements ToStringTesting<C>,
+        TypeNameTesting<C> {
 
     @Test
     public void testInvalidHeaderValueFails() {
@@ -171,5 +164,12 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return HeaderValueConverter.class.getSimpleName();
     }
 }

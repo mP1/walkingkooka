@@ -21,10 +21,12 @@ package walkingkooka.tree.search;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester<V>, V> extends ClassTestCase<T>
-        implements HashCodeEqualsDefinedTesting<T> {
+        implements HashCodeEqualsDefinedTesting<T>,
+        TypeNameTesting<T> {
 
     SearchQueryTesterTestCase() {
         super();
@@ -54,4 +56,17 @@ public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester<V>, 
     abstract V value();
 
     abstract V differentValue();
+
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Search";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return SearchQueryTester.class.getSimpleName();
+    }
 }

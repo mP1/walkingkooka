@@ -17,9 +17,9 @@
 
 package walkingkooka.compare;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -29,15 +29,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 abstract public class ComparatorTestCase<C extends Comparator<T>, T>
         extends ClassTestCase<C>
-        implements ToStringTesting<C>{
+        implements ToStringTesting<C>,
+        TypeNameTesting<C> {
 
     protected ComparatorTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(Comparator.class);
     }
 
     // helpers
@@ -120,5 +116,17 @@ abstract public class ComparatorTestCase<C extends Comparator<T>, T>
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Comparator.class.getSimpleName();
     }
 }

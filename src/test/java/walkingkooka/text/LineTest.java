@@ -27,6 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class LineTest extends CharSequenceTestCase<Line>
         implements SerializationTesting<Line> {
 
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testWithNullTextFails() {
         assertThrows(NullPointerException.class, () -> {

@@ -52,11 +52,6 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
         super();
     }
 
-    @Test
-    public final void testCheckNaming() {
-        this.checkNamingStartAndEnd("Xml", "");
-    }
-
     // parent.......................................................................................................
 
     @Test
@@ -340,14 +335,19 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
     }
 
     @Override
-    protected final String requiredNamePrefix() {
-        return "Xml";
-    }
-
-    @Override
     public final Class<XmlNode> type() {
         return Cast.to(this.nodeType());
     }
 
     abstract Class<N> nodeType();
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Xml";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
+    }
 }

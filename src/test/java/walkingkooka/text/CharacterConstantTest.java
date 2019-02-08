@@ -28,6 +28,11 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
 
     private final static char CHAR = 'a';
 
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testWith() {
         final char c = 0x200;

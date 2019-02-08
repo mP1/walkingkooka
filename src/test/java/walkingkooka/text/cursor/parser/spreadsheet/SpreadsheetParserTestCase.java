@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTestCase;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -27,10 +26,6 @@ public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetP
         T extends SpreadsheetParserToken> extends
         ParserTestCase<P, T, SpreadsheetParserContext> {
 
-    @Test
-    public final void testCheckNaming() {
-        this.checkNamingStartAndEnd("Spreadsheet", Parser.class);
-    }
 
     @Override
     protected SpreadsheetParserContext createContext() {
@@ -40,5 +35,12 @@ public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetP
     @Override
     protected String toString(final ParserToken token) {
         return SpreadsheetParserPrettySpreadsheetParserTokenVisitor.toString(token);
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Spreadsheet";
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
 public abstract class NodeSelectorParserTokenVisitorTestCase<V extends NodeSelectorParserTokenVisitor> extends ParserTokenVisitorTestCase<V, NodeSelectorParserToken> {
 
     @Override
-    protected final String requiredNameSuffix() {
+    public final String typeNameSuffix() {
         return NodeSelectorParserTokenVisitor.class.getSimpleName();
     }
 }

@@ -158,8 +158,7 @@ public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName
 
     private int i = 0;
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return "Test";
     }
 

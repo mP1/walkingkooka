@@ -36,11 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispositionType>
         implements NameTesting2<ContentDispositionType, ContentDispositionType> {
 
-    @Override
-    public void testNaming() {
-        throw new UnsupportedOperationException();
-    }
-
     @Test
     public void testConstantNameReturnsConstant() {
         assertSame(ContentDispositionType.INLINE, ContentDispositionType.with(ContentDispositionType.INLINE.value()));
@@ -158,5 +153,17 @@ final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispo
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return ContentDisposition.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "";
     }
 }

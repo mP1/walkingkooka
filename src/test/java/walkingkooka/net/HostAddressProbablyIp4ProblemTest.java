@@ -19,9 +19,11 @@
 package walkingkooka.net;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HostAddressProbablyIp4ProblemTest extends ClassTestCase<HostAddressProbablyIp4Problem> {
+public final class HostAddressProbablyIp4ProblemTest extends ClassTestCase<HostAddressProbablyIp4Problem>
+        implements TypeNameTesting<HostAddressProbablyIp4Problem> {
 
     @Override
     public Class<HostAddressProbablyIp4Problem> type() {
@@ -31,5 +33,17 @@ public final class HostAddressProbablyIp4ProblemTest extends ClassTestCase<HostA
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return HostAddress.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

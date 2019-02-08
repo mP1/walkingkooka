@@ -27,6 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> implements SerializationTesting<Whitespace> {
 
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testNullFails() {
         assertThrows(NullPointerException.class, () -> {

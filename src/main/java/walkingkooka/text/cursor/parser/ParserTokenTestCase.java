@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchSequenceNode;
@@ -41,12 +42,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTestCase<T>
-        implements ToStringTesting<T> {
-
-    @Test
-    public final void testNaming() {
-        this.checkNaming(ParserToken.class);
-    }
+        implements ToStringTesting<T>,
+        TypeNameTesting<T> {
 
     @Test
     public final void testNameConstantPresent() throws Exception {
@@ -278,5 +275,17 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return ParserToken.class.getSimpleName();
     }
 }

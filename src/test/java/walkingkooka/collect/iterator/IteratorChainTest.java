@@ -41,9 +41,8 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
     // tests
 
     @Override
-    @Test
-    public void testNaming() {
-        this.checkNamingStartAndEnd(Iterator.class, "Chain");
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 
     @Test

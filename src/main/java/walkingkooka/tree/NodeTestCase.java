@@ -22,6 +22,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.visit.VisitableTestCase;
 import walkingkooka.type.FieldAttributes;
@@ -43,18 +44,12 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         VisitableTestCase<N>
         implements HashCodeEqualsDefinedTesting<N>,
         NodeSelectorTesting<N, NAME, ANAME, AVALUE>,
-        ToStringTesting<N> {
+        ToStringTesting<N>,
+        TypeNameTesting<N> {
 
     protected NodeTestCase() {
         super();
     }
-
-    @Test
-    public void testCheckNaming() {
-        this.checkNamingStartAndEnd(this.requiredNamePrefix(), Node.class);
-    }
-
-    abstract protected String requiredNamePrefix();
 
     @Test
     public final void testPathSeparatorConstant() throws Exception {
@@ -151,5 +146,10 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     protected final void checkWithParent(final N node) {
         assertNotEquals(Optional.empty(), node.parent(), "parent");
         assertEquals(false, node.isRoot(), "root");
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Node.class.getSimpleName();
     }
 }

@@ -27,8 +27,7 @@ public final class ColorSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisi
         return new ColorSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return ColorSpreadsheetTextFormatter.class.getSimpleName();
     }
 

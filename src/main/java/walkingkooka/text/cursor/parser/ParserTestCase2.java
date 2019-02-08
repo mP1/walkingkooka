@@ -26,11 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class ParserTestCase2<P extends Parser<T, ParserContext>, T extends ParserToken> extends ParserTestCase<P, T, ParserContext> {
 
     @Test
-    public final void testCheckNaming() {
-        this.checkNaming(Parser.class);
-    }
-
-    @Test
     public void testEmptyCursorFail() {
         this.parseFailAndCheck("");
     }

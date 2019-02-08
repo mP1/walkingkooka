@@ -21,6 +21,7 @@ package walkingkooka.collect.map;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map.Entry;
@@ -28,7 +29,8 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class EntryTestCase<E extends Entry<K, V>, K, V> extends ClassTestCase<E>
-        implements ToStringTesting<E> {
+        implements ToStringTesting<E>,
+        TypeNameTesting<E> {
 
     @Test
     public void testToString() {
@@ -54,5 +56,17 @@ public abstract class EntryTestCase<E extends Entry<K, V>, K, V> extends ClassTe
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Entry.class.getSimpleName();
     }
 }

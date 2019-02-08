@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T extends ParserToken, C extends ParserContext> extends ClassTestCase<R> {
+public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T extends ParserToken, C extends ParserContext> extends ClassTestCase<R>
+        implements TypeNameTesting<R> {
 
     @Test
     public final void testNullTextCursorFails() {
@@ -123,5 +125,17 @@ public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T e
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return ParserReporter.class.getSimpleName();
     }
 }

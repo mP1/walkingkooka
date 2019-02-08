@@ -64,4 +64,11 @@ public abstract class HateosPostHandlerTestCase<H extends HateosPostHandler<N>, 
     abstract protected Optional<BigInteger> id();
 
     abstract protected N resource();
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return "PostHandler";
+    }
 }

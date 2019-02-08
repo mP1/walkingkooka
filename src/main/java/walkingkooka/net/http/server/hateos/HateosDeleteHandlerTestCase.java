@@ -75,4 +75,11 @@ public abstract class HateosDeleteHandlerTestCase<H extends HateosDeleteHandler<
     abstract protected Range<BigInteger> collection();
 
     abstract protected N resource();
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return "DeleteHandler";
+    }
 }

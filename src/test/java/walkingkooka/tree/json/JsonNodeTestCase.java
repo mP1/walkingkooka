@@ -113,7 +113,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     abstract Class<N> jsonNodeType();
 
     @Override
-    protected final String requiredNamePrefix() {
+    public final String typeNamePrefix() {
         return "Json";
     }
 

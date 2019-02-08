@@ -31,11 +31,6 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
         extends ParserTestCase<P, T, FakeParserContext>{
 
     @Test
-    public final void testCheckNaming() {
-        this.checkNaming(DateTimeFormatter.class.getSimpleName() + Parser.class.getSimpleName());
-    }
-
-    @Test
     public void testWithNullFormatterFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createParser(null, this.pattern());
@@ -105,5 +100,12 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
 
     final void parseThrows2(final String pattern, final String text) {
         this.parseThrows(this.createParser(pattern), this.createContext(), TextCursors.charSequence(text), "");
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return DateTimeFormatterParser.class.getSimpleName();
     }
 }

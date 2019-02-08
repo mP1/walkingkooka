@@ -17,21 +17,17 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> extends ClassTestCase<L>
-        implements ToStringTesting<L> {
+        implements ToStringTesting<L>,
+        TypeNameTesting<L> {
 
     protected TextCursorLineInfoTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(TextCursorLineInfo.class);
     }
 
     abstract protected L createLineInfo();
@@ -39,5 +35,17 @@ abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> e
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return TextCursorLineInfo.class.getSimpleName();
     }
 }

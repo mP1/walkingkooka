@@ -21,6 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -28,7 +29,8 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public abstract class HttpRequestTestCase<R extends HttpRequest> extends ClassTestCase<R>
-        implements ToStringTesting<R> {
+        implements ToStringTesting<R>,
+        TypeNameTesting<R> {
 
     @Test
     public void testRoutingParameters() {
@@ -43,5 +45,17 @@ public abstract class HttpRequestTestCase<R extends HttpRequest> extends ClassTe
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return HttpRequest.class.getSimpleName();
     }
 }

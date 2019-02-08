@@ -18,23 +18,20 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-abstract public class TextCursorTestCase<C extends TextCursor> extends TextCursorPackageTestCase<C> {
+abstract public class TextCursorTestCase<C extends TextCursor> extends TextCursorPackageTestCase<C>
+        implements TypeNameTesting<C> {
 
     protected TextCursorTestCase() {
         super();
     }
 
     // tests
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(TextCursor.class);
-    }
 
     @Test
     public void testIsEmptyNotEmpty() {
@@ -200,5 +197,17 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
         assertEquals(text, info.text(), "text");
         assertEquals(lineNumber, info.lineNumber(), "lineNumber");
         assertEquals(columnNumber, info.column(), "column");
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return TextCursor.class.getSimpleName();
     }
 }

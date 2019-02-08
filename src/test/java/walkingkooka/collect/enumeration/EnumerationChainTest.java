@@ -41,9 +41,8 @@ final public class EnumerationChainTest
     // tests
 
     @Override
-    @Test
-    public void testNaming() {
-        this.checkNamingStartAndEnd(Enumeration.class, "Chain");
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 
     @Test

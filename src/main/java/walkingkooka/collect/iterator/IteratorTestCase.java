@@ -17,9 +17,9 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
@@ -30,15 +30,11 @@ import java.util.Iterator;
 abstract public class IteratorTestCase<I extends Iterator<T>, T>
         extends ClassTestCase<I>
         implements IteratorTesting,
-        ToStringTesting<I> {
+        ToStringTesting<I>,
+        TypeNameTesting<I> {
 
     protected IteratorTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(Iterator.class);
     }
 
     public abstract I createIterator();
@@ -46,5 +42,17 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Iterator.class.getSimpleName();
     }
 }

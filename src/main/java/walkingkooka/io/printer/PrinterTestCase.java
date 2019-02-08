@@ -20,6 +20,7 @@ package walkingkooka.io.printer;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
@@ -31,15 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Printer} with mostly parameter checking tests.
  */
 abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P>
-        implements ToStringTesting<P> {
+        implements ToStringTesting<P>,
+        TypeNameTesting<P> {
 
     protected PrinterTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(Printer.class);
     }
 
     @Test
@@ -155,5 +152,17 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Printer.class.getSimpleName();
     }
 }

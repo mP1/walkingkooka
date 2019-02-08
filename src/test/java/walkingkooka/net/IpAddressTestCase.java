@@ -23,6 +23,7 @@ import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -32,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> extends ClassTestCase<A>
         implements ComparableTesting<A>,
         SerializationTesting<A>,
-        ToStringTesting<A> {
+        ToStringTesting<A>,
+        TypeNameTesting<A> {
 
     IpAddressTestCase() {
         super();
@@ -83,5 +85,17 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> ext
     @Override
     public Class<A> type() {
         return this.type();
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Ip";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "Address";
     }
 }

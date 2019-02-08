@@ -23,8 +23,7 @@ import walkingkooka.net.email.EmailAddress;
 
 public final class ContentDispositionHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ContentDispositionHeaderValueConverter, ContentDisposition> {
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return ContentDisposition.class.getSimpleName();
     }
 

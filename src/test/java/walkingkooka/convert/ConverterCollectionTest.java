@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ConverterCollectionTest extends ConverterTestCase<ConverterCollection> {
 
     @Override
-    public void testCheckNaming() {
+    public void testTypeNaming() {
         throw new UnsupportedOperationException();
     }
 

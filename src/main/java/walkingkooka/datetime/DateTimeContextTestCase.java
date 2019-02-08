@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public abstract class DateTimeContextTestCase<C extends DateTimeContext> extends ContextTestCase<C> {
 
     @Override
-    protected String requiredNameSuffix() {
+    public String typeNameSuffix() {
         return DateTimeContext.class.getSimpleName();
     }
 

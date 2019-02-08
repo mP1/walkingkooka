@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -33,15 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  */
 abstract public class CharPredicateTestCase<P extends CharPredicate>
         extends ClassTestCase<P>
-        implements ToStringTesting<P> {
+        implements ToStringTesting<P>,
+        TypeNameTesting<P> {
 
     protected CharPredicateTestCase() {
         super();
-    }
-
-    @Test
-    public void testNaming() {
-        this.checkNaming(CharPredicate.class);
     }
 
     @Test
@@ -97,5 +94,17 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return CharPredicate.class.getSimpleName();
     }
 }

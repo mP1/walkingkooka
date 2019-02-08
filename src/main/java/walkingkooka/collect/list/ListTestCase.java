@@ -20,13 +20,15 @@ package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.CollectionTestCase;
+import walkingkooka.test.TypeNameTesting;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ListTestCase<L extends List<E>, E> extends CollectionTestCase<L, E> {
+public abstract class ListTestCase<L extends List<E>, E> extends CollectionTestCase<L, E>
+        implements TypeNameTesting<L> {
 
     @Test
     public final void testGetNegativeIndexFails() {
@@ -60,5 +62,17 @@ public abstract class ListTestCase<L extends List<E>, E> extends CollectionTestC
         assertThrows(IndexOutOfBoundsException.class, () -> {
             list.get(index);
         });
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return List.class.getSimpleName();
     }
 }

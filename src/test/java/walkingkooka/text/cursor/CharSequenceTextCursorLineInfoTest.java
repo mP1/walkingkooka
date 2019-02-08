@@ -32,11 +32,6 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
 
     // tests
 
-    @Override
-    public void testNaming() {
-        this.checkNaming(TextCursorLineInfo.class);
-    }
-
     @Test
     public void testWith() {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo

@@ -23,8 +23,7 @@ import org.junit.jupiter.api.Test;
 public final class IfRangeHeaderValueConverterTest extends
         HeaderValueConverterTestCase<IfRangeHeaderValueConverter, IfRange<?>> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return IfRange.class.getSimpleName();
     }
 

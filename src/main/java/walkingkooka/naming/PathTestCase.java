@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.type.MemberVisibility;
@@ -40,15 +41,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Base class for testing a {@link Path} with mostly parameter checking tests.
  */
 abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ClassTestCase<P>
-        implements ComparableTesting<P> {
+        implements ComparableTesting<P>,
+        TypeNameTesting<P> {
 
     protected PathTestCase() {
         super();
-    }
-
-    @Test
-    public final void testNaming() {
-        this.checkNaming(Path.class);
     }
 
     @Test
@@ -297,5 +294,17 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Path.class.getSimpleName();
     }
 }

@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
@@ -36,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract public class VisitorTestCase<V extends Visitor<T>, T>
         extends
         ClassTestCase<V>
-        implements ToStringTesting<V> {
+        implements ToStringTesting<V>,
+        TypeNameTesting<V> {
 
     protected VisitorTestCase() {
         super();
@@ -49,15 +51,6 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
     public void testAllConstructorsVisibility() {
         this.checkAllConstructorsVisibility(MemberVisibility.PROTECTED);
     }
-
-    @Test
-    public final void checkNaming() {
-        this.checkNamingStartAndEnd(this.requiredNamePrefix(), this.requiredNameSuffix());
-    }
-
-    abstract protected String requiredNamePrefix();
-
-    abstract protected String requiredNameSuffix();
 
     @Test
     public final void testAcceptNullFails() {

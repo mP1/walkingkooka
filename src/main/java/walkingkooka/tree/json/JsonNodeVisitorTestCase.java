@@ -23,7 +23,7 @@ import walkingkooka.tree.visit.VisitorTestCase;
 public abstract class JsonNodeVisitorTestCase<V extends JsonNodeVisitor> extends VisitorTestCase<V, JsonNode> {
 
     @Override
-    protected final String requiredNameSuffix() {
+    public final String typeNameSuffix() {
         return JsonNodeVisitor.class.getSimpleName();
     }
 }

@@ -103,4 +103,11 @@ public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N 
     abstract protected Range<BigInteger> collection();
 
     abstract protected Map<HttpRequestParameterName, List<String>> parameters();
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public final String typeNameSuffix() {
+        return "GetHandler";
+    }
 }

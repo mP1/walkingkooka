@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
@@ -33,16 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends ClassTestCase<L>
-        implements NameTesting<L, LanguageTagName> {
+        implements NameTesting<L, LanguageTagName>,
+        TypeNameTesting<L> {
 
     LanguageTagNameTestCase() {
         super();
-    }
-
-    @Test
-    @Override
-    public final void testNaming() {
-        this.checkNamingStartAndEnd(LanguageTagName.class.getSimpleName(), "");
     }
 
     @Override
@@ -81,5 +77,17 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
     @Override
     public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting .........................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return LanguageTagName.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "";
     }
 }

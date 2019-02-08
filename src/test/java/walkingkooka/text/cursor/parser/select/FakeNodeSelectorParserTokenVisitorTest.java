@@ -27,8 +27,7 @@ public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorPa
         return new FakeNodeSelectorParserTokenVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return Fake.class.getSimpleName();
     }
 

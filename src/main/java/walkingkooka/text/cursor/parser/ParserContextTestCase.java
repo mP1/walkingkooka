@@ -20,8 +20,7 @@ import walkingkooka.math.DecimalNumberContextTestCase;
 
 public abstract class ParserContextTestCase<C extends ParserContext> extends DecimalNumberContextTestCase<C> {
 
-    @Override
-    protected String requiredNameSuffix() {
+    @Override public String typeNameSuffix() {
         return ParserContext.class.getSimpleName();
     }
 }

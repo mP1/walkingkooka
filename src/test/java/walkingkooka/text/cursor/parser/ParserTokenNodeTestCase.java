@@ -53,7 +53,7 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends
     }
 
     @Override
-    protected final String requiredNamePrefix() {
+    public final String typeNamePrefix() {
         return ParserToken.class.getSimpleName();
     }
 

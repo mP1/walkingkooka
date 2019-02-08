@@ -28,8 +28,7 @@ public final class BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserToke
         return new BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor();
     }
 
-    @Override
-    protected String requiredNamePrefix() {
+    @Override public String typeNamePrefix() {
         return BigDecimalSpreadsheetTextFormatter.class.getSimpleName();
     }
 

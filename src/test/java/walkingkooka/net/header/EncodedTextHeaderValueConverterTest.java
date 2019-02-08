@@ -23,8 +23,7 @@ import org.junit.jupiter.api.Test;
 public final class EncodedTextHeaderValueConverterTest extends
         HeaderValueConverterTestCase<EncodedTextHeaderValueConverter, EncodedText> {
 
-    @Override
-    protected String requiredPrefix() {
+    @Override public String typeNamePrefix() {
         return EncodedText.class.getSimpleName();
     }
 
