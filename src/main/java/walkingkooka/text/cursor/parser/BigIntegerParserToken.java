@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link BigInteger}.
  */
-public final class BigIntegerParserToken extends ParserTemplateToken<BigInteger> implements LeafParserToken<BigInteger>{
+public final class BigIntegerParserToken extends ParserToken2<BigInteger> implements LeafParserToken<BigInteger>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigIntegerParserToken.class);
 
@@ -65,7 +65,7 @@ public final class BigIntegerParserToken extends ParserTemplateToken<BigInteger>
     }
 
     @Override
-    boolean equals1(final ParserTemplateToken<?> other) {
+    boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 

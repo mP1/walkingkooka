@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * The parser token for a single character match.
  */
-public final class CharacterParserToken extends ParserTemplateToken<Character> implements LeafParserToken<Character>{
+public final class CharacterParserToken extends ParserToken2<Character> implements LeafParserToken<Character>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(CharacterParserToken.class);
 
@@ -63,7 +63,7 @@ public final class CharacterParserToken extends ParserTemplateToken<Character> i
     }
 
     @Override
-    boolean equals1(final ParserTemplateToken<?> other) {
+    boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 

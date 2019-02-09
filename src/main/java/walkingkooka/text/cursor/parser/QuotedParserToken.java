@@ -21,7 +21,7 @@ import walkingkooka.tree.search.SearchNode;
 /**
  * The parser token for a matched quoted string.
  */
-public abstract class QuotedParserToken extends ParserTemplateToken<String> implements LeafParserToken<String> {
+public abstract class QuotedParserToken extends ParserToken2<String> implements LeafParserToken<String> {
 
     /**
      * Ctor only called by {@link CharacterCharPredicateParser}
@@ -33,7 +33,7 @@ public abstract class QuotedParserToken extends ParserTemplateToken<String> impl
     abstract char quotedCharacter();
 
     @Override
-    final boolean equals1(final ParserTemplateToken<?> other) {
+    final boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 

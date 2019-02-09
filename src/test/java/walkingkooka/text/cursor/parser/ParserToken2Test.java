@@ -19,10 +19,10 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-public final class ParserTemplateTokenTest extends ClassTestCase<ParserTemplateToken> {
+public final class ParserToken2Test extends ClassTestCase<ParserToken2> {
     @Override
-    public Class<ParserTemplateToken> type() {
-        return ParserTemplateToken.class;
+    public Class<ParserToken2> type() {
+        return ParserToken2.class;
     }
 
     @Override

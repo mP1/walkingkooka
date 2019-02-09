@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link Long}.
  */
-public final class LongParserToken extends ParserTemplateToken<Long> implements LeafParserToken<Long>{
+public final class LongParserToken extends ParserToken2<Long> implements LeafParserToken<Long>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LongParserToken.class);
 
@@ -64,7 +64,7 @@ public final class LongParserToken extends ParserTemplateToken<Long> implements 
     }
 
     @Override
-    boolean equals1(final ParserTemplateToken<?> other) {
+    boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 

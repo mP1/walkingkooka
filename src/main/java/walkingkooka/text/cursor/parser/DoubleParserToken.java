@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link Double}.
  */
-public final class DoubleParserToken extends ParserTemplateToken<Double> implements LeafParserToken<Double>{
+public final class DoubleParserToken extends ParserToken2<Double> implements LeafParserToken<Double>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DoubleParserToken.class);
 
@@ -64,7 +64,7 @@ public final class DoubleParserToken extends ParserTemplateToken<Double> impleme
     }
 
     @Override
-    boolean equals1(final ParserTemplateToken<?> other) {
+    boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 

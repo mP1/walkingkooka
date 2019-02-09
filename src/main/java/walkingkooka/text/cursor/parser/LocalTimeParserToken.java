@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * The parser token for a time with the value contained in a {@link LocalTime}.
  */
-public final class LocalTimeParserToken extends ParserTemplateToken<LocalTime> implements LeafParserToken<LocalTime>{
+public final class LocalTimeParserToken extends ParserToken2<LocalTime> implements LeafParserToken<LocalTime>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LocalTimeParserToken.class);
 
@@ -65,7 +65,7 @@ public final class LocalTimeParserToken extends ParserTemplateToken<LocalTime> i
     }
 
     @Override
-    boolean equals1(final ParserTemplateToken<?> other) {
+    boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 
