@@ -131,8 +131,7 @@ public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStr
         return ParserTokens.string(text, text);
     }
 
-    @Override
-    protected SurroundStringParser<ParserContext> createParser() {
+    @Override public SurroundStringParser<ParserContext> createParser() {
         return SurroundStringParser.with(OPEN, CLOSE);
     }
 

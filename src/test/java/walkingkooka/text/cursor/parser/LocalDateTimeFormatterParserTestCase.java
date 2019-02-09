@@ -71,4 +71,11 @@ public abstract class LocalDateTimeFormatterParserTestCase<P extends DateTimeFor
             this.createParser(this.pattern() + "Z");
         });
     }
+
+    // TypeNameTesting...........................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Local";
+    }
 }

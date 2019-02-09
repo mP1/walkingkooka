@@ -226,12 +226,12 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserCont
     }
 
     @Override
-    protected LongParser<ParserContext> createParser() {
+    public LongParser<ParserContext> createParser() {
         return LongParser.with(RADIX);
     }
 
     @Override
-    protected ParserContext createContext() {
+    public ParserContext createContext() {
         return ParserContexts.basic(this.decimalNumberContext());
     }
 

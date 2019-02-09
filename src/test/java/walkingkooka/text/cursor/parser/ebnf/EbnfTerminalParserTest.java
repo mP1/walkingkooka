@@ -126,8 +126,7 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
         return '"' + text + '"';
     }
 
-    @Override
-    protected Parser<ParserToken, EbnfParserContext> createParser() {
+    @Override public Parser<ParserToken, EbnfParserContext> createParser() {
         return EbnfGrammarParser.TERMINAL;
     }
 

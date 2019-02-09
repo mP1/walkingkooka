@@ -21,8 +21,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 public final class EbnfIdentifierParserTest extends EbnfParserTestCase3<EbnfIdentifierParserToken>{
 
-    @Override
-    protected Parser<ParserToken, EbnfParserContext> createParser() {
+    @Override public Parser<ParserToken, EbnfParserContext> createParser() {
         return EbnfGrammarParser.IDENTIFIER;
     }
 

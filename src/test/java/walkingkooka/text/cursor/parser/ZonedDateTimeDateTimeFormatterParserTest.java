@@ -221,4 +221,11 @@ public final class ZonedDateTimeDateTimeFormatterParserTest extends DateTimeForm
     public Class<ZonedDateTimeDateTimeFormatterParser<FakeParserContext>> type() {
         return Cast.to(ZonedDateTimeDateTimeFormatterParser.class);
     }
+
+    // TypeNameTesting...........................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Zoned";
+    }
 }

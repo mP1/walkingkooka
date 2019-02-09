@@ -17,11 +17,13 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.TestCase;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserTestCase3;
+import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
-public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends ParserTestCase3<Parser<ParserToken, EbnfParserContext>, ParserToken, EbnfParserContext> {
+public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends TestCase
+        implements ParserTesting<Parser<ParserToken, EbnfParserContext>, ParserToken, EbnfParserContext> {
 
     final static String COMMENT1 = "(*comment-1*)";
     final static String COMMENT2 = "(*comment-2*)";
@@ -61,8 +63,12 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
     final static String OPEN_REPEAT = "{";
     final static String CLOSE_REPEAT = "}";
 
+    EbnfParserTestCase() {
+        super();
+    }
+
     @Override
-    protected final EbnfParserContext createContext() {
+    public final EbnfParserContext createContext() {
         return EbnfParserContexts.basic();
     }
 

@@ -114,8 +114,7 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
         this.toStringAndCheck(this.createParser(), DIGITS.toString());
     }
 
-    @Override
-    protected StringCharPredicateParser<ParserContext> createParser() {
+    @Override public StringCharPredicateParser<ParserContext> createParser() {
         return this.createParser(MIN_LENGTH, MAX_LENGTH);
     }
 

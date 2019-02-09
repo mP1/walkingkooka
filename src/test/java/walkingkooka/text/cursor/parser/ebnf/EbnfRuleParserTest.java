@@ -368,8 +368,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
                 text);
     }
 
-    @Override
-    protected Parser<ParserToken, EbnfParserContext> createParser() {
+    @Override public Parser<ParserToken, EbnfParserContext> createParser() {
         return EbnfGrammarParser.RULE;
     }
 

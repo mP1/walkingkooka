@@ -43,4 +43,11 @@ public abstract class OffsetDateTimeFormatterParserTestCase<P extends DateTimeFo
             this.createParser(this.pattern() + "z");
         });
     }
+
+    // TypeNameTesting...........................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "Offset";
+    }
 }

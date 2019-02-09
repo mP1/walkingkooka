@@ -28,7 +28,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ReportingParserTest extends ParserTestCase2<ReportingParser<ParserToken, ParserContext>, ParserToken> {
+public final class ReportingParserTest extends ParserTestCase<ReportingParser<ParserToken, ParserContext>, ParserToken> {
 
     private final static ParserReporterCondition CONDITION = ParserReporterCondition.ALWAYS;
 
@@ -92,8 +92,7 @@ public final class ReportingParserTest extends ParserTestCase2<ReportingParser<P
         this.toStringAndCheck(this.createParser(), this.reporter().toString());
     }
 
-    @Override
-    protected ReportingParser<ParserToken, ParserContext> createParser() {
+    @Override public ReportingParser<ParserToken, ParserContext> createParser() {
         return this.createParser(ParserReporterCondition.ALWAYS);
     }
 

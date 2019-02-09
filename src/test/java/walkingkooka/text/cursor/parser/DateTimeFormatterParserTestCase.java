@@ -19,8 +19,11 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.type.MemberVisibility;
 
 import java.time.format.DateTimeFormatter;
 
@@ -28,7 +31,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<T, FakeParserContext>,
         T extends ParserToken>
-        extends ParserTestCase<P, T, FakeParserContext>{
+        extends ClassTestCase<P>
+        implements ParserTesting<P, T, FakeParserContext>,
+        TypeNameTesting<P> {
+
+    DateTimeFormatterParserTestCase() {
+        super();
+    }
 
     @Test
     public void testWithNullFormatterFails() {
@@ -51,7 +60,7 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
         });
     }
 
-    final protected P createParser() {
+    public final P createParser() {
         return this.createParser(this.pattern());
     }
 
@@ -70,7 +79,7 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     abstract T createParserToken(final DateTimeFormatter formatter, final String text);
 
     @Override
-    protected FakeParserContext createContext() {
+    public FakeParserContext createContext() {
         return new FakeParserContext();
     }
 
@@ -107,5 +116,12 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     @Override
     public final String typeNameSuffix() {
         return DateTimeFormatterParser.class.getSimpleName();
+    }
+
+    // ClassTestCase............................................................................................
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

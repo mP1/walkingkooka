@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, ParserContext>, StringParserToken>
+public final class CustomToStringParserTest extends ParserTestCase<CustomToStringParser<StringParserToken, ParserContext>, StringParserToken>
         implements HashCodeEqualsDefinedTesting<CustomToStringParser<StringParserToken, ParserContext>> {
 
     private final static String STRING = "abc";
@@ -125,8 +125,7 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
         this.toStringAndCheck(this.createParser(), CUSTOM_TO_STRING);
     }
 
-    @Override
-    protected CustomToStringParser<StringParserToken, ParserContext> createParser() {
+    @Override public CustomToStringParser<StringParserToken, ParserContext> createParser() {
         return CustomToStringParser.wrap(WRAPPED, CUSTOM_TO_STRING).cast();
     }
 
