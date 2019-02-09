@@ -24,7 +24,7 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class StringParserTest extends ParserTemplateTestCase<StringParser<ParserContext>, StringParserToken>
+public class StringParserTest extends Parser2TestCase<StringParser<ParserContext>, StringParserToken>
         implements HashCodeEqualsDefinedTesting<StringParser<ParserContext>> {
 
     private final static String STRING = "abcd";

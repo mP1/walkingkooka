@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
 
-public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<ParserContext>, DoubleParserToken> {
+public final class DoubleParserTest extends Parser2TestCase<DoubleParser<ParserContext>, DoubleParserToken> {
 
     @Test
     public void testFailure() {

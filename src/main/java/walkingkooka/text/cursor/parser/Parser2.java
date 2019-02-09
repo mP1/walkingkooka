@@ -26,9 +26,9 @@ import java.util.Optional;
  * A template parser that only calls the abstract method if the cursor is not empty and also restores the cursor position,
  * on failures.
  */
-abstract class ParserTemplate<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
+abstract class Parser2<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
 
-    ParserTemplate() {
+    Parser2() {
         super();
     }
 

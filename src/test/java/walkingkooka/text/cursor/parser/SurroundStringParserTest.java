@@ -22,7 +22,7 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStringParser<ParserContext>, StringParserToken> {
+public class SurroundStringParserTest extends Parser2TestCase<SurroundStringParser<ParserContext>, StringParserToken> {
 
     private final static String OPEN = "<123";
     private final static String CLOSE = "456";

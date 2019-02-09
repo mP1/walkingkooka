@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that matches a one or more characters using the provided {@link CharPredicate}
  */
-final class StringCharPredicateParser<C extends ParserContext> extends ParserTemplate<StringParserToken, C> {
+final class StringCharPredicateParser<C extends ParserContext> extends Parser2<StringParserToken, C> {
 
     static <C extends ParserContext> StringCharPredicateParser<C> with(final CharPredicate predicate, final int minLength, final int maxLength) {
         Objects.requireNonNull(predicate, "predicate");

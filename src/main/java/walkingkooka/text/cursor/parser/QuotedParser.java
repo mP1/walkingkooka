@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * This parser matches quoted strings, with support backslash escaping and unicode sequences in the form of backlash-u-4-hex-digits
  */
-abstract class QuotedParser<T extends QuotedParserToken, C extends ParserContext> extends ParserTemplate<T, C> {
+abstract class QuotedParser<T extends QuotedParserToken, C extends ParserContext> extends Parser2<T, C> {
 
     QuotedParser() {
     }

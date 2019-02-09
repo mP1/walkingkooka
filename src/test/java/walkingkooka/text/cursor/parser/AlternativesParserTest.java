@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<ParserContext>,
+public class AlternativesParserTest extends ParserTestCase<AlternativesParser<ParserContext>,
         ParserToken> {
 
     private final static String TEXT1 = "abc";

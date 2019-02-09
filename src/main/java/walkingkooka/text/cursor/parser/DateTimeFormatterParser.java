@@ -40,7 +40,7 @@ import java.util.Optional;
  * The pattern that created the {@link DateTimeFormatter} must be given to the factory so the preliminary phase can
  * try its simple parsing.
  */
-abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserContext> extends ParserTemplate<T, C> {
+abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserContext> extends Parser2<T, C> {
 
     // values between 0 -> Character.MAX are literal required characters. values beginning with TEXT are character classes.
     final static int TEXT = 100000;
