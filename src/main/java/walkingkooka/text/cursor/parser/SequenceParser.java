@@ -30,7 +30,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that requires all parsers are matched in order returning all tokens within a {@link SequenceParserToken}
  */
-final class SequenceParser<C extends ParserContext> extends ParserTemplate<SequenceParserToken, C> implements HashCodeEqualsDefined {
+final class SequenceParser<C extends ParserContext> extends Parser2<SequenceParserToken, C> implements HashCodeEqualsDefined {
 
     /**
      * Factory method only called by {@link SequenceParserBuilder#build()}

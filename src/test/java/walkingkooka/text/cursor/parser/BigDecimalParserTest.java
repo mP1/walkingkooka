@@ -25,7 +25,7 @@ import walkingkooka.text.cursor.TextCursor;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecimalParser<ParserContext>, BigDecimalParserToken> {
+public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser<ParserContext>, BigDecimalParserToken> {
 
     @Test
     public void testFailure() {

@@ -27,7 +27,7 @@ import java.util.Optional;
  * A {@link Parser} that matches a long number using a given radix. Note it does not require or match a leading prefix.
  * Note this only parses numeric digits and not any leading minus sign.
  */
-final class LongParser<C extends ParserContext> extends ParserTemplate<LongParserToken, C> {
+final class LongParser<C extends ParserContext> extends Parser2<LongParserToken, C> {
 
     /**
      * Factory that creates a {@link LongParser}

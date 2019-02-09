@@ -16,18 +16,9 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
+public abstract class Parser2TestCase<P extends Parser2<T, ParserContext>, T extends ParserToken> extends ParserTestCase<P, T> {
 
-public final class ParserTemplateTest extends ClassTestCase<ParserTemplate<?, ?>> {
-    @Override
-    public Class<ParserTemplate<?, ?>> type() {
-        return Cast.to(ParserTemplate.class);
-    }
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    Parser2TestCase() {
+        super();
     }
 }

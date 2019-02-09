@@ -24,7 +24,7 @@ import walkingkooka.predicate.character.CharPredicates;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class StringInitialAndPartCharPredicateParserTest extends ParserTemplateTestCase<StringInitialAndPartCharPredicateParser<ParserContext>, StringParserToken> {
+public final class StringInitialAndPartCharPredicateParserTest extends Parser2TestCase<StringInitialAndPartCharPredicateParser<ParserContext>, StringParserToken> {
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.digit();

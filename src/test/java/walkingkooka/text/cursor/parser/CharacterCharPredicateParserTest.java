@@ -24,7 +24,7 @@ import walkingkooka.text.cursor.TextCursor;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CharacterCharPredicateParserTest extends ParserTemplateTestCase<CharacterCharPredicateParser<ParserContext>, CharacterParserToken> {
+public final class CharacterCharPredicateParserTest extends Parser2TestCase<CharacterCharPredicateParser<ParserContext>, CharacterParserToken> {
 
     private final static CharPredicate DIGITS = CharPredicates.digit();
 
