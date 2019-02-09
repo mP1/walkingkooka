@@ -96,8 +96,7 @@ public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCa
         this.toStringAndCheck(this.createParser(), "Unicode escape char sequence");
     }
 
-    @Override
-    protected UnicodeEscapeCharacterParser<ParserContext> createParser() {
+    @Override public UnicodeEscapeCharacterParser<ParserContext> createParser() {
         return UnicodeEscapeCharacterParser.get();
     }
 

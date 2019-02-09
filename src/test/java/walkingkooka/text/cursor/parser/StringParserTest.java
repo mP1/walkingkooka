@@ -118,8 +118,7 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<Parser
         this.toStringAndCheck(this.createParserInsensitive(), CharSequences.quoteAndEscape(STRING) + " (CaseInsensitive)");
     }
 
-    @Override
-    protected StringParser<ParserContext> createParser() {
+    @Override public StringParser<ParserContext> createParser() {
         return StringParser.with(STRING, CASE_SENSITIVITY);
     }
 

@@ -24,6 +24,10 @@ import java.util.List;
 
 public abstract class EbnfParserTestCase4<T extends EbnfParserToken> extends EbnfParserTestCase2<T>{
 
+    EbnfParserTestCase4() {
+        super();
+    }
+
     @Test
     public final void testWhitespaceIdentifier() {
         final String text = this.beginChar() + WHITESPACE1 + IDENTIFIER1 + this.endChar();

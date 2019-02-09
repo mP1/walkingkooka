@@ -18,6 +18,10 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 public abstract class EbnfParserTestCase2<T extends EbnfParserToken> extends EbnfParserTestCase<T> {
 
+    EbnfParserTestCase2() {
+        super();
+    }
+
     abstract String text();
 
     abstract T token(final String text);

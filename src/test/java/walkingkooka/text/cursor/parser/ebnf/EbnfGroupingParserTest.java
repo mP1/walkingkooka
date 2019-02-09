@@ -23,8 +23,7 @@ import java.util.List;
 
 public final class EbnfGroupingParserTest extends EbnfParserTestCase4<EbnfGroupParserToken> {
 
-    @Override
-    protected Parser<ParserToken, EbnfParserContext> createParser() {
+    @Override public Parser<ParserToken, EbnfParserContext> createParser() {
         return EbnfGrammarParser.GROUPING;
     }
 

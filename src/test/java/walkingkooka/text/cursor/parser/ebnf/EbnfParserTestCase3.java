@@ -20,6 +20,10 @@ import org.junit.jupiter.api.Test;
 
 public abstract class EbnfParserTestCase3<T extends EbnfParserToken> extends EbnfParserTestCase2<T>{
 
+    EbnfParserTestCase3() {
+        super();
+    }
+
     @Test
     public final void testOnlyToken() {
         final String text = this.text();

@@ -107,8 +107,7 @@ public final class SpreadsheetRowReferenceParserTest extends SpreadsheetParserTe
         return SpreadsheetParserToken.rowReference(referenceKind.row(row), text);
     }
 
-    @Override
-    protected SpreadsheetRowReferenceParser createParser() {
+    @Override public SpreadsheetRowReferenceParser createParser() {
         return SpreadsheetRowReferenceParser.INSTANCE;
     }
 

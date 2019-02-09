@@ -27,7 +27,7 @@ import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TransformingParserTest extends ParserTestCase2<TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext>, BigIntegerParserToken> {
+public class TransformingParserTest extends ParserTestCase<TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext>, BigIntegerParserToken> {
 
     private final static int RADIX = 10;
     private final static Parser<StringParserToken, ParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
@@ -84,8 +84,7 @@ public class TransformingParserTest extends ParserTestCase2<TransformingParser<S
         this.toStringAndCheck(this.createParser(), PARSER.toString());
     }
 
-    @Override
-    protected TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext> createParser() {
+    @Override public TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext> createParser() {
         return TransformingParser.with(PARSER, TRANSFORMER);
     }
 

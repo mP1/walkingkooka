@@ -20,10 +20,11 @@ package walkingkooka.text.cursor.parser.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.ParserTestCase3;
+import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.Arrays;
@@ -32,9 +33,10 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSelectorParserToken, NodeSelectorParserContext>,
-        NodeSelectorParserToken,
-        NodeSelectorParserContext> {
+public final class NodeSelectorParsersTest extends TestCase
+        implements ParserTesting<Parser<NodeSelectorParserToken, NodeSelectorParserContext>,
+                NodeSelectorParserToken,
+                NodeSelectorParserContext> {
 
     // descendant ...........................................................................................
 
@@ -1506,14 +1508,14 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
     // helpers....................................................................................................
 
     @Override
-    protected Parser<NodeSelectorParserToken, NodeSelectorParserContext> createParser() {
+    public Parser<NodeSelectorParserToken, NodeSelectorParserContext> createParser() {
         return NodeSelectorParsers.expression()
                 .orReport(ParserReporters.basic())
                 .cast();
     }
 
     @Override
-    protected NodeSelectorParserContext createContext() {
+    public NodeSelectorParserContext createContext() {
         return NodeSelectorParserContexts.basic();
     }
 
@@ -1798,7 +1800,7 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
     }
 
     @Override
-    protected String toString(final ParserToken token) {
+    public String parserTokenToString(final ParserToken token) {
         return NodeSelectorParserPrettyNodeSelectorParserTokenVisitor.toString(token);
     }
 }

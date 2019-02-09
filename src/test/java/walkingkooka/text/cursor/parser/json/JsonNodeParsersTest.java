@@ -20,13 +20,15 @@ package walkingkooka.text.cursor.parser.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.ParserTestCase3;
+import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
-public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodeParserToken, JsonNodeParserContext>,
+public final class JsonNodeParsersTest extends TestCase
+        implements ParserTesting<Parser<JsonNodeParserToken, JsonNodeParserContext>,
         JsonNodeParserToken,
         JsonNodeParserContext> {
 
@@ -328,15 +330,13 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
         this.parseThrows("[123 !ABC]", '1', 2, 1);
     }
 
-    @Override
-    protected Parser<JsonNodeParserToken, JsonNodeParserContext> createParser() {
+    @Override public Parser<JsonNodeParserToken, JsonNodeParserContext> createParser() {
         return JsonNodeParsers.value()
                 .orReport(ParserReporters.basic())
                 .cast();
     }
 
-    @Override
-    protected JsonNodeParserContext createContext() {
+    @Override public JsonNodeParserContext createContext() {
         return JsonNodeParserContexts.basic();
     }
 
@@ -418,7 +418,7 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
     }
 
     @Override
-    protected String toString(final ParserToken token) {
+    public String parserTokenToString(final ParserToken token) {
         return JsonParserPrettyJsonNodeParserTokenVisitor.toString(token);
     }
 }

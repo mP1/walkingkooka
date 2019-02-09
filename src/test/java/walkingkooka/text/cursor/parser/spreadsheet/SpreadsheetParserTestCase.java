@@ -18,22 +18,29 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserTestCase;
+import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.type.MemberVisibility;
 
 public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetParserContext>,
-        T extends SpreadsheetParserToken> extends
-        ParserTestCase<P, T, SpreadsheetParserContext> {
+        T extends SpreadsheetParserToken> extends ClassTestCase<P>
+        implements ParserTesting<P, T, SpreadsheetParserContext>,
+        TypeNameTesting<P> {
 
+    SpreadsheetParserTestCase() {
+        super();
+    }
 
     @Override
-    protected SpreadsheetParserContext createContext() {
+    public final SpreadsheetParserContext createContext() {
         return SpreadsheetParserContexts.basic(this.decimalNumberContext());
     }
 
     @Override
-    protected String toString(final ParserToken token) {
+    public final String parserTokenToString(final ParserToken token) {
         return SpreadsheetParserPrettySpreadsheetParserTokenVisitor.toString(token);
     }
 
@@ -42,5 +49,17 @@ public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetP
     @Override
     public final String typeNamePrefix() {
         return "Spreadsheet";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Parser.class.getSimpleName();
+    }
+
+    // ClassTestCase .........................................................................................
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

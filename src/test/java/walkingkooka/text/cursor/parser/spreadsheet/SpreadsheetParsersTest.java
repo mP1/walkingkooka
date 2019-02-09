@@ -20,14 +20,16 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserTestCase3;
+import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.math.BigDecimal;
 
-public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<SpreadsheetParserToken, SpreadsheetParserContext>,
+public final class SpreadsheetParsersTest extends TestCase
+        implements ParserTesting<Parser<SpreadsheetParserToken, SpreadsheetParserContext>,
         SpreadsheetParserToken,
         SpreadsheetParserContext> {
 
@@ -777,13 +779,11 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         return "Unrecognized character " + CharSequences.quoteIfChars(c) + " at (" + column + "," + row + ")";
     }
 
-    @Override
-    protected Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
+    @Override public Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
         return SpreadsheetParsers.expression();
     }
 
-    @Override
-    protected SpreadsheetParserContext createContext() {
+    @Override public SpreadsheetParserContext createContext() {
         return SpreadsheetParserContexts.basic(this.decimalNumberContext());
     }
 
@@ -883,7 +883,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     }
 
     @Override
-    protected String toString(final ParserToken token) {
+    public String parserTokenToString(final ParserToken token) {
         return SpreadsheetParserPrettySpreadsheetParserTokenVisitor.toString(token);
     }
 }

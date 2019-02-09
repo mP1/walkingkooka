@@ -396,13 +396,11 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
         this.toStringAndCheck(this.createParser(), "Decimal");
     }
 
-    @Override
-    protected BigDecimalParser<ParserContext> createParser() {
+    @Override public BigDecimalParser<ParserContext> createParser() {
         return BigDecimalParser.with(MathContext.DECIMAL64);
     }
 
-    @Override
-    protected ParserContext createContext() {
+    @Override public ParserContext createContext() {
         return ParserContexts.basic(this.decimalNumberContext());
     }
 

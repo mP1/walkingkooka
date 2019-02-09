@@ -20,9 +20,10 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.TestCase;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.ParserTestCase3;
+import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.math.BigDecimal;
@@ -33,9 +34,10 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext>,
-        SpreadsheetFormatParserToken,
-        SpreadsheetFormatParserContext> {
+public final class SpreadsheetFormatParsersTest extends TestCase
+        implements ParserTesting<Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext>,
+                SpreadsheetFormatParserToken,
+                SpreadsheetFormatParserContext> {
 
     // color........................................................................................................
 
@@ -3893,13 +3895,11 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
                 ParserToken.text(Lists.of(tokens)));
     }
 
-    @Override
-    protected Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> createParser() {
+    @Override public Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> createParser() {
         return SpreadsheetFormatParsers.expression();
     }
 
-    @Override
-    protected SpreadsheetFormatParserContext createContext() {
+    @Override public SpreadsheetFormatParserContext createContext() {
         return SpreadsheetFormatParserContexts.basic(this.decimalNumberContext());
     }
 
@@ -4182,7 +4182,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     @Override
-    protected String toString(final ParserToken token) {
+    public String parserTokenToString(final ParserToken token) {
         return SpreadsheetFormatParserPrettySpreadsheetFormatParserTokenVisitor.toString(token);
     }
 }

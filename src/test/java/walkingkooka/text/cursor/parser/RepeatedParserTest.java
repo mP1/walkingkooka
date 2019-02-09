@@ -116,8 +116,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Pa
         this.toStringAndCheck(this.createParser(), "{" + PARSER + "}");
     }
 
-    @Override
-    protected RepeatedParser<ParserContext> createParser() {
+    @Override public RepeatedParser<ParserContext> createParser() {
         return RepeatedParser.with(PARSER);
     }
 

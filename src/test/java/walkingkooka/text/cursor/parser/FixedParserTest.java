@@ -24,25 +24,20 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FixedParserTest extends ParserTestCase2<FixedParser<StringParserToken, ParserContext>, StringParserToken> {
+public final class FixedParserTest extends ParserTestCase<FixedParser<StringParserToken, ParserContext>, StringParserToken> {
 
     private final static StringParserToken RESULT = ParserTokens.string("abc", "");
-
-    @Override
-    public void testNullCursorFail() {
-        // nop
-    }
-
-    @Override
-    public void testEmptyCursorFail() {
-        // nop
-    }
 
     @Test
     public void testWithNullParserTokenFails() {
         assertThrows(NullPointerException.class, () -> {
             FixedParser.with(null);
         });
+    }
+
+    @Test
+    public void testEmptyCursorFail() {
+        this.parseAndCheck("", ParserTokens.string("", ""), "", "");
     }
 
     @Test
@@ -72,12 +67,17 @@ public final class FixedParserTest extends ParserTestCase2<FixedParser<StringPar
     }
 
     @Override
-    protected FixedParser<StringParserToken, ParserContext> createParser() {
+    public FixedParser<StringParserToken, ParserContext> createParser() {
         return this.createParser(Optional.of(RESULT));
     }
 
     private FixedParser<StringParserToken, ParserContext> createParser(final Optional<StringParserToken> result) {
         return FixedParser.with(result);
+    }
+
+    @Override
+    public ParserContext createContext() {
+        return ParserContexts.basic(this.decimalNumberContext());
     }
 
     @Override

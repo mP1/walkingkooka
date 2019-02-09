@@ -72,8 +72,7 @@ public final class CharacterCharPredicateParserTest extends ParserTemplateTestCa
         this.toStringAndCheck(this.createParser(), DIGITS.toString());
     }
 
-    @Override
-    protected CharacterCharPredicateParser<ParserContext> createParser() {
+    @Override public CharacterCharPredicateParser<ParserContext> createParser() {
         return CharacterCharPredicateParser.with(DIGITS);
     }
 

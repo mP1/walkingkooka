@@ -26,7 +26,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringParserToken, ParserContext>, StringParserToken> {
+public final class AndNotParserTest extends ParserTestCase<AndNotParser<StringParserToken, ParserContext>, StringParserToken> {
 
     private final static String LEFT = "left";
     private final static String RIGHT = "right";
@@ -94,8 +94,7 @@ public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringP
                 after);
     }
 
-    @Override
-    protected AndNotParser<StringParserToken, ParserContext> createParser() {
+    @Override public AndNotParser<StringParserToken, ParserContext> createParser() {
         return this.createParser(this.left(), this.right());
     }
 

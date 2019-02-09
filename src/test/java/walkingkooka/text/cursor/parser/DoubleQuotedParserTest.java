@@ -26,8 +26,7 @@ public final class DoubleQuotedParserTest extends QuotedParserTestCase<DoubleQuo
         this.toStringAndCheck(this.createParser(), "double quoted string");
     }
 
-    @Override
-    protected DoubleQuotedParser<ParserContext> createParser() {
+    @Override public DoubleQuotedParser<ParserContext> createParser() {
         return DoubleQuotedParser.instance();
     }
 
