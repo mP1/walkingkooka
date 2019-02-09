@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Verifies that the test suite name matches the type being tested. The formula for the test suite is {@link #type()}
  * + <code>Test</code>
  */
-public interface TestSuiteNameTesting<T> {
+public interface TestSuiteNameTesting<T> extends Testing {
 
     @Test
     default void testTestNaming() {
