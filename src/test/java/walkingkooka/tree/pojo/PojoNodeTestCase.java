@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class PojoNodeTestCase<N extends PojoNode, V> extends ClassTestCase<PojoNode>
-        implements NodeTesting<PojoNode, PojoName, PojoNodeAttributeName, Object> {
+public abstract class PojoNodeTestCase<N extends PojoNode, V> implements ClassTesting2<PojoNode>,
+        NodeTesting<PojoNode, PojoName, PojoNodeAttributeName, Object> {
 
     PojoNodeTestCase() {
         super();

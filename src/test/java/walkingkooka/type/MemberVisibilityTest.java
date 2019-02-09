@@ -19,13 +19,13 @@
 package walkingkooka.type;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class MemberVisibilityTest extends ClassTestCase<MemberVisibility>
-        implements ToStringTesting<MemberVisibility> {
+public final class MemberVisibilityTest implements ClassTesting2<MemberVisibility>,
+        ToStringTesting<MemberVisibility> {
 
     @Test
     public void testClassPublic() {
@@ -57,8 +57,7 @@ public final class MemberVisibilityTest extends ClassTestCase<MemberVisibility>
         return MemberVisibility.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

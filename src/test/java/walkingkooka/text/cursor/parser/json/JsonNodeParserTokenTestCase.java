@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.CharSequences;
@@ -31,8 +31,8 @@ import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken> extends ClassTestCase<T>
-        implements IsMethodTesting<T>,
+public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken> implements ClassTesting2<T>,
+        IsMethodTesting<T>,
         ParserTokenTesting<T> {
 
     JsonNodeParserTokenTestCase() {

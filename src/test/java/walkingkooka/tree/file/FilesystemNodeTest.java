@@ -23,7 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
@@ -49,8 +49,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class FilesystemNodeTest extends ClassTestCase<FilesystemNode>
-        implements NodeTesting<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> {
+public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
+        NodeTesting<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> {
 
     private final static String SUB = "sub";
     private final static String SUB_SUB = "subSub";
@@ -62,7 +62,7 @@ public final class FilesystemNodeTest extends ClassTestCase<FilesystemNode>
     private final static String DIFFERENT_CONTENT_TEXT = "DIFFERENT_CONTENT_TEXT-content-text";
 
     @BeforeEach
-    public void createDirectoryStructure() throws IOException{
+    public void createDirectoryStructure() throws IOException {
         home = Files.createTempDirectory(FilesystemNodeTest.class.getName() + "-");
 
         sub = Files.createDirectory(home.resolve(SUB)); // /sub

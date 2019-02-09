@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
@@ -30,7 +30,7 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EbnfParserCombinatorDuplicateRuleExceptionTest extends ClassTestCase<EbnfParserCombinatorDuplicateRuleException> {
+public final class EbnfParserCombinatorDuplicateRuleExceptionTest implements ClassTesting2<EbnfParserCombinatorDuplicateRuleException> {
 
     @Override
     public void testAllConstructorsVisibility() {
@@ -82,7 +82,7 @@ public final class EbnfParserCombinatorDuplicateRuleExceptionTest extends ClassT
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

@@ -25,7 +25,6 @@ import walkingkooka.collect.list.Lists;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EnumerationIteratorTest

@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -30,8 +30,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest extends ClassTestCase<EbnfGrammarParserTokenDuplicateIdentifiersException>
-        implements ToStringTesting<EbnfGrammarParserTokenDuplicateIdentifiersException> {
+public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest implements ClassTesting2<EbnfGrammarParserTokenDuplicateIdentifiersException>,
+        ToStringTesting<EbnfGrammarParserTokenDuplicateIdentifiersException> {
 
     @Test
     public void testWithNullDuplicatesFails() {
@@ -74,7 +74,7 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest exten
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

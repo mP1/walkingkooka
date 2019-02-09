@@ -18,10 +18,10 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class SearchBinaryQueryContextTest extends ClassTestCase<SearchBinaryQueryContext> {
+public final class SearchBinaryQueryContextTest implements ClassTesting2<SearchBinaryQueryContext> {
     
     @Override
     public Class<SearchBinaryQueryContext> type() {
@@ -29,7 +29,7 @@ public final class SearchBinaryQueryContextTest extends ClassTestCase<SearchBina
     }
 
     @Override
-    final protected MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

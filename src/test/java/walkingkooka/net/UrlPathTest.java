@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
@@ -33,8 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlPathTest extends ClassTestCase<UrlPath>
-        implements PathTesting<UrlPath, UrlPathName>,
+public final class UrlPathTest implements ClassTesting2<UrlPath>,
+        PathTesting<UrlPath, UrlPathName>,
         ParseStringTesting<UrlPath>,
         SerializationTesting<UrlPath> {
 

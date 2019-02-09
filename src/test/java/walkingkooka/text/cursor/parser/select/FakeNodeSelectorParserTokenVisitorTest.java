@@ -19,6 +19,7 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.test.Fake;
+import walkingkooka.type.MemberVisibility;
 
 public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<FakeNodeSelectorParserTokenVisitor> {
 
@@ -35,5 +36,10 @@ public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorPa
     @Override
     public Class<FakeNodeSelectorParserTokenVisitor> type() {
         return FakeNodeSelectorParserTokenVisitor.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

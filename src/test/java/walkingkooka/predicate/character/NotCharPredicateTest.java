@@ -21,13 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.TestCase;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class NotCharPredicateTest extends TestCase
-        implements CharPredicateTesting<NotCharPredicate>,
+final public class NotCharPredicateTest implements CharPredicateTesting<NotCharPredicate>,
         HashCodeEqualsDefinedTesting<NotCharPredicate>,
         SerializationTesting<NotCharPredicate> {
 

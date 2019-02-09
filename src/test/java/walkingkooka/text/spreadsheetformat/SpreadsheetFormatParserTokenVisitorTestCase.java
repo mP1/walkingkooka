@@ -18,7 +18,6 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitorTesting;
 import walkingkooka.type.MemberVisibility;
@@ -27,7 +26,6 @@ import walkingkooka.type.MemberVisibility;
  * Base class for all {@link SpreadsheetFormatParserTokenVisitor} in this package.
  */
 public abstract class SpreadsheetFormatParserTokenVisitorTestCase<V extends SpreadsheetFormatParserTokenVisitor>
-        extends ClassTestCase<V>
         implements SpreadsheetFormatParserTokenVisitorTesting<V> {
 
     SpreadsheetFormatParserTokenVisitorTestCase() {

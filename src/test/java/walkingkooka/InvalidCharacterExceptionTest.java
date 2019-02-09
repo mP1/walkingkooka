@@ -19,7 +19,6 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.TestCase;
 import walkingkooka.test.ThrowableTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,8 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class InvalidCharacterExceptionTest extends TestCase
-        implements ThrowableTesting<InvalidCharacterException> {
+public final class InvalidCharacterExceptionTest implements ThrowableTesting<InvalidCharacterException> {
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;

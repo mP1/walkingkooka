@@ -19,14 +19,14 @@
 package walkingkooka.tree.search;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> extends ClassTestCase<Q>
-        implements HashCodeEqualsDefinedTesting<Q>,
+public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> implements ClassTesting2<Q>,
+        HashCodeEqualsDefinedTesting<Q>,
         ToStringTesting<Q>,
         TypeNameTesting<Q> {
 
@@ -54,7 +54,7 @@ public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> ex
     abstract String searchQueryValueToString();
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

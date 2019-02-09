@@ -19,13 +19,12 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-final public class NaturalOrderingComparatorTest
-        extends ClassTestCase<NaturalOrderingComparator<Integer>>
-        implements ComparatorTesting<NaturalOrderingComparator<Integer>, Integer>,
+final public class NaturalOrderingComparatorTest implements ClassTesting2<NaturalOrderingComparator<Integer>>,
+        ComparatorTesting<NaturalOrderingComparator<Integer>, Integer>,
         SerializationTesting<NaturalOrderingComparator<Integer>> {
 
     @Test
@@ -51,7 +50,7 @@ final public class NaturalOrderingComparatorTest
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

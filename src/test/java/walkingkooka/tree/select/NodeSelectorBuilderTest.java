@@ -27,7 +27,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -38,8 +38,8 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodeSelectorBuilderTest extends ClassTestCase<NodeSelectorBuilder<TestNode, StringName, StringName, Object>>
-        implements BuilderTesting<NodeSelectorBuilder<TestNode, StringName, StringName, Object>,
+public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelectorBuilder<TestNode, StringName, StringName, Object>>,
+        BuilderTesting<NodeSelectorBuilder<TestNode, StringName, StringName, Object>,
                 NodeSelector<TestNode, StringName, StringName, Object>>,
         NodeSelectorTesting<TestNode, StringName, StringName, Object> {
 

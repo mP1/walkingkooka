@@ -18,20 +18,19 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HttpStatusCodeCategoryTest extends ClassTestCase<HttpStatusCodeCategory>
-        implements TypeNameTesting<HttpStatusCodeCategory> {
+public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatusCodeCategory>,
+        TypeNameTesting<HttpStatusCodeCategory> {
 
     @Override
     public Class<HttpStatusCodeCategory> type() {
         return HttpStatusCodeCategory.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

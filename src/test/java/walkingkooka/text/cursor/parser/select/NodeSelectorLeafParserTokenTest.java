@@ -18,17 +18,17 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeSelectorLeafParserTokenTest extends ClassTestCase<NodeSelectorLeafParserToken> {
+public final class NodeSelectorLeafParserTokenTest implements ClassTesting2<NodeSelectorLeafParserToken> {
     @Override
     public Class<NodeSelectorLeafParserToken> type() {
         return NodeSelectorLeafParserToken.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -26,8 +26,9 @@ import org.xml.sax.InputSource;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.ResourceTesting;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.tree.search.SearchNode;
@@ -47,10 +48,11 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class XmlNodeTestCase<N extends XmlNode> extends ClassTestCase<XmlNode>
-        implements HasSearchNodeTesting<N>,
+public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting2<XmlNode>,
+        HasSearchNodeTesting<N>,
         IsMethodTesting<XmlNode>,
-        NodeTesting<XmlNode, XmlName, XmlAttributeName, String> {
+        NodeTesting<XmlNode, XmlName, XmlAttributeName, String>,
+        ResourceTesting {
 
     final static Optional<XmlNode> NO_PARENT = XmlNode.NO_PARENT;
 

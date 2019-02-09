@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.cursor.TextCursorLineInfos;
 import walkingkooka.text.cursor.TextCursors;
@@ -28,7 +28,7 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParserReporterExceptionTest extends ClassTestCase<ParserReporterException> {
+public final class ParserReporterExceptionTest implements ClassTesting2<ParserReporterException> {
 
     @Test
     public void testWithNullMessageFails() {
@@ -76,7 +76,7 @@ public final class ParserReporterExceptionTest extends ClassTestCase<ParserRepor
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

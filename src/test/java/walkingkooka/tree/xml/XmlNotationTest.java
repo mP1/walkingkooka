@@ -21,13 +21,15 @@ package walkingkooka.tree.xml;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ResourceTesting;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
 
-public final class XmlNotationTest extends XmlLeafNodeTestCase<XmlNotation> {
+public final class XmlNotationTest extends XmlLeafNodeTestCase<XmlNotation>
+        implements ResourceTesting {
 
     @Override
     public void testParentWith() {

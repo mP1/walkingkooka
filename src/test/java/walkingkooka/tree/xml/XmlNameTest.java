@@ -19,11 +19,12 @@
 package walkingkooka.tree.xml;
 
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class XmlNameTest extends ClassTestCase<XmlName> implements NameTesting<XmlName, XmlName> {
+public final class XmlNameTest implements ClassTesting2<XmlName>,
+        NameTesting<XmlName, XmlName> {
 
     @Override
     public XmlName createName(final String name) {

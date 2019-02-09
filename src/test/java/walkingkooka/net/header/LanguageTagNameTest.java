@@ -18,10 +18,10 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class LanguageTagNameTest extends ClassTestCase<LanguageTagName> {
+public final class LanguageTagNameTest implements ClassTesting2<LanguageTagName> {
 
     @Override
     public Class<LanguageTagName> type() {
@@ -29,7 +29,7 @@ public final class LanguageTagNameTest extends ClassTestCase<LanguageTagName> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

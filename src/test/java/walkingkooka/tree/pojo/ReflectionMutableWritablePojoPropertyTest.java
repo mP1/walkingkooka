@@ -19,13 +19,13 @@
 package walkingkooka.tree.pojo;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class ReflectionMutableWritablePojoPropertyTest extends ClassTestCase<ReflectionMutableWritablePojoProperty>
-        implements PojoPropertyTesting<ReflectionMutableWritablePojoProperty> {
+public final class ReflectionMutableWritablePojoPropertyTest implements ClassTesting2<ReflectionMutableWritablePojoProperty>,
+        PojoPropertyTesting<ReflectionMutableWritablePojoProperty> {
 
     private final static PojoName X = PojoName.property("x");
     private final static String STRING = "abc1";

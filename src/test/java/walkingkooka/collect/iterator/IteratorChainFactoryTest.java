@@ -19,13 +19,13 @@ package walkingkooka.collect.iterator;
 
 import walkingkooka.Cast;
 import walkingkooka.build.chain.ChainFactoryTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 
-final public class IteratorChainFactoryTest extends ClassTestCase<IteratorChainFactory<Object>>
-        implements ChainFactoryTesting<IteratorChainFactory<Object>, Iterator<Object>> {
+final public class IteratorChainFactoryTest implements ClassTesting2<IteratorChainFactory<Object>>,
+        ChainFactoryTesting<IteratorChainFactory<Object>, Iterator<Object>> {
 
     @Override
     public IteratorChainFactory<Object> createFactory() {

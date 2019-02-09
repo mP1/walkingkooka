@@ -17,14 +17,13 @@
  */
 package walkingkooka.datetime;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class DateTimeContextsTest extends ClassTestCase<DateTimeContexts>
-        implements PublicStaticHelperTesting<DateTimeContexts> {
+public final class DateTimeContextsTest implements ClassTesting2<DateTimeContexts>, PublicStaticHelperTesting<DateTimeContexts> {
 
     @Override
     public Class<DateTimeContexts> type() {

@@ -18,17 +18,17 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NonLogicalNodeSelectorTest extends ClassTestCase<NonLogicalNodeSelector<?, ?, ?, ?>> {
+public final class NonLogicalNodeSelectorTest implements ClassTesting2<NonLogicalNodeSelector<?, ?, ?, ?>> {
     @Override
     public Class<NonLogicalNodeSelector<?, ?, ?, ?>> type() {
         return Cast.to(NonLogicalNodeSelector.class);
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,13 +20,13 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeChildNamedNodePointerTest extends ClassTestCase<NodeChildNamedNodePointer<?, ?, ?, ?>> {
+public final class NodeChildNamedNodePointerTest implements ClassTesting2<NodeChildNamedNodePointer<?, ?, ?, ?>> {
 
     @Test
     public void testWithSlash() {
@@ -48,7 +48,7 @@ public final class NodeChildNamedNodePointerTest extends ClassTestCase<NodeChild
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

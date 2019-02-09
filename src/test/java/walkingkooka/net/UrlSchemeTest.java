@@ -21,7 +21,7 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
-        implements NameTesting2<UrlScheme, UrlScheme>, SerializationTesting<UrlScheme> {
+public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
+        NameTesting2<UrlScheme, UrlScheme>, SerializationTesting<UrlScheme> {
 
     @Override
     public void testTypeNaming() {

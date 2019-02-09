@@ -18,17 +18,17 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class EbnfParserCombinatorProxyParserTest extends ClassTestCase<EbnfParserCombinatorProxyParser> {
+public final class EbnfParserCombinatorProxyParserTest implements ClassTesting2<EbnfParserCombinatorProxyParser> {
     @Override
     public Class<EbnfParserCombinatorProxyParser> type() {
         return EbnfParserCombinatorProxyParser.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -18,14 +18,14 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class ConvertersTest extends ClassTestCase<Converters>
-        implements PublicStaticHelperTesting<Converters> {
+public final class ConvertersTest implements ClassTesting2<Converters>,
+        PublicStaticHelperTesting<Converters> {
 
     @Override
     public Class<Converters> type() {

@@ -19,7 +19,7 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
@@ -29,8 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class HttpStatusTest extends ClassTestCase<HttpStatus>
-        implements HashCodeEqualsDefinedTesting<HttpStatus>,
+final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
+        HashCodeEqualsDefinedTesting<HttpStatus>,
         ToStringTesting<HttpStatus> {
 
     // constants
@@ -129,8 +129,7 @@ final public class HttpStatusTest extends ClassTestCase<HttpStatus>
         return HttpStatus.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

@@ -19,17 +19,17 @@
 package walkingkooka.tree.pointer;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeChildElementNodePointerTest extends ClassTestCase<NodeChildElementNodePointer<?, ?, ?, ?>> {
+public final class NodeChildElementNodePointerTest implements ClassTesting2<NodeChildElementNodePointer<?, ?, ?, ?>> {
     @Override
     public Class<NodeChildElementNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(NodeChildElementNodePointer.class);
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

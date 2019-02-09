@@ -20,7 +20,7 @@ package walkingkooka.text.spreadsheetformat;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
@@ -33,8 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormattedTextTest extends ClassTestCase<SpreadsheetFormattedText>
-        implements HashCodeEqualsDefinedTesting<SpreadsheetFormattedText>,
+public final class SpreadsheetFormattedTextTest implements ClassTesting2<SpreadsheetFormattedText>,
+        HashCodeEqualsDefinedTesting<SpreadsheetFormattedText>,
         ToStringTesting<SpreadsheetFormattedText> {
 
     private final static Optional<Color> COLOR = Optional.of(Color.BLACK);
@@ -167,8 +167,7 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
         return SpreadsheetFormattedText.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

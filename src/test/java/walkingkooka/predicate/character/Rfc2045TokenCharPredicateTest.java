@@ -19,7 +19,6 @@
 package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.TestCase;
 
 
 /**
@@ -35,8 +34,7 @@ import walkingkooka.test.TestCase;
  *                    ; to use within parameter values
  * </pre>
  */
-public final class Rfc2045TokenCharPredicateTest extends TestCase
-        implements CharPredicateTesting<Rfc2045TokenCharPredicate> {
+public final class Rfc2045TokenCharPredicateTest implements CharPredicateTesting<Rfc2045TokenCharPredicate> {
 
     @Test
     public void testNulCharFails() {

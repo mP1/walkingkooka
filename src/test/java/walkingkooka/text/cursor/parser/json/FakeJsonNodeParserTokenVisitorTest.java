@@ -18,12 +18,10 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.Fake;
 import walkingkooka.type.MemberVisibility;
 
-public final class FakeJsonNodeParserTokenVisitorTest extends ClassTestCase<FakeJsonNodeParserTokenVisitor>
-        implements JsonNodeParserTokenVisitorTesting<FakeJsonNodeParserTokenVisitor> {
+public final class FakeJsonNodeParserTokenVisitorTest implements JsonNodeParserTokenVisitorTesting<FakeJsonNodeParserTokenVisitor> {
 
     @Override
     public FakeJsonNodeParserTokenVisitor createVisitor() {

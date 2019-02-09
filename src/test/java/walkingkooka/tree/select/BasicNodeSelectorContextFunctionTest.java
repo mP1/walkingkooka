@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.type.MemberVisibility;
@@ -26,8 +26,8 @@ import walkingkooka.util.FunctionTesting;
 
 import java.util.Optional;
 
-public final class BasicNodeSelectorContextFunctionTest extends ClassTestCase<BasicNodeSelectorContextFunction>
-        implements FunctionTesting<BasicNodeSelectorContextFunction, ExpressionNodeName, Optional<ExpressionFunction<?>>> {
+public final class BasicNodeSelectorContextFunctionTest implements ClassTesting2<BasicNodeSelectorContextFunction>,
+        FunctionTesting<BasicNodeSelectorContextFunction, ExpressionNodeName, Optional<ExpressionFunction<?>>> {
 
     @Override
     public BasicNodeSelectorContextFunction createFunction() {

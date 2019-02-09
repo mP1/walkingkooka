@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
@@ -40,8 +40,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class CycleDetectingExpressionEvaluationContextTest extends ClassTestCase<CycleDetectingExpressionEvaluationContext>
-        implements ExpressionEvaluationContextTesting<CycleDetectingExpressionEvaluationContext> {
+public final class CycleDetectingExpressionEvaluationContextTest implements ClassTesting2<CycleDetectingExpressionEvaluationContext>,
+        ExpressionEvaluationContextTesting<CycleDetectingExpressionEvaluationContext> {
 
     private final static String VALUE = "text123";
 
@@ -279,12 +279,10 @@ public final class CycleDetectingExpressionEvaluationContextTest extends ClassTe
                 return null;
             }
         });
-        try {
-            label2Expression.toValue(context);
-            fail("Expected " + CycleDetectedExpressionEvaluationConversionException.class.getSimpleName());
-        } catch (final CycleDetectedExpressionEvaluationConversionException ignore) {
 
-        }
+        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
+            label2Expression.toValue(context);
+        });
         this.toValueAndCheck(cellExpression, context, VALUE);
     }
 

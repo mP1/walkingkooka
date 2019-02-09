@@ -19,11 +19,11 @@
 package walkingkooka.text.cursor.parser.select;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class BasicNodeSelectorParserContextTest extends ClassTestCase<BasicNodeSelectorParserContext>
-        implements NodeSelectorParserContextTesting<BasicNodeSelectorParserContext> {
+public final class BasicNodeSelectorParserContextTest implements ClassTesting2<BasicNodeSelectorParserContext>,
+        NodeSelectorParserContextTesting<BasicNodeSelectorParserContext> {
 
     @Test
     public void testToString() {

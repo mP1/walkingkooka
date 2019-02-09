@@ -20,11 +20,11 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class BasicSpreadsheetParserContextTest extends ClassTestCase<BasicSpreadsheetParserContext>
-        implements SpreadsheetParserContextTesting<BasicSpreadsheetParserContext> {
+public final class BasicSpreadsheetParserContextTest implements ClassTesting2<BasicSpreadsheetParserContext>,
+        SpreadsheetParserContextTesting<BasicSpreadsheetParserContext> {
 
     private final static String CURRENCY = "$$";
     private final static char DECIMAL = 'D';

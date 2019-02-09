@@ -20,15 +20,13 @@ package walkingkooka.text.cursor.parser.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
-public final class JsonNodeParsersTest extends TestCase
-        implements ParserTesting<Parser<JsonNodeParserToken, JsonNodeParserContext>,
+public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeParserToken, JsonNodeParserContext>,
         JsonNodeParserToken,
         JsonNodeParserContext> {
 

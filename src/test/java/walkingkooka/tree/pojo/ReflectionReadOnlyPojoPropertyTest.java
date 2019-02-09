@@ -18,14 +18,14 @@
 package walkingkooka.tree.pojo;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ReflectionReadOnlyPojoPropertyTest extends ClassTestCase<ReflectionReadOnlyPojoProperty>
-        implements PojoPropertyTesting<ReflectionReadOnlyPojoProperty> {
+public final class ReflectionReadOnlyPojoPropertyTest implements ClassTesting2<ReflectionReadOnlyPojoProperty>,
+        PojoPropertyTesting<ReflectionReadOnlyPojoProperty> {
 
     private final static PojoName X = PojoName.property("x");
     private final static String STRING = "abc1";

@@ -18,9 +18,47 @@
 
 package walkingkooka.test;
 
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Optional;
+
 /**
  * Tag interface for all test interfaces that contain tests and related helpers as default/guard methods.
- * {@link TestCase test cases} will then implement these interfaces.
  */
 public interface Testing {
+
+    /**
+     * Returns the name of the currently executing test.
+     */
+    default String currentTestName() {
+        String testName = null;
+
+        for(StackTraceElement stackElement : Thread.currentThread().getStackTrace() ){
+            final String className = stackElement.getClassName();
+            final String methodName = stackElement.getMethodName();
+            try {
+                final Class<?> klass = Class.forName(className);
+                final Optional<Method> possibleMethod = Arrays.stream(klass.getMethods())
+                        .filter(m -> m.getName().equals(methodName) && m.getParameterTypes().length == 0 && m.getReturnType() == Void.TYPE)
+                        .findFirst();
+                if(possibleMethod.isPresent()) {
+                    final Method method = possibleMethod.get();
+                    if(method.isAnnotationPresent(Test.class)){
+                        testName = method.getName();
+                        break;
+                    }
+                }
+            } catch (final Exception cause) {
+                throw new Error(cause);
+            }
+        }
+
+        if(null == testName) {
+            throw new Error("Unable to determine test name");
+        }
+
+        return testName;
+    }
 }

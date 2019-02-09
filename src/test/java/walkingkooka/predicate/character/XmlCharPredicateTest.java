@@ -19,10 +19,8 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.TestCase;
 
-final public class XmlCharPredicateTest extends TestCase
-        implements CharPredicateTesting<XmlCharPredicate>,
+final public class XmlCharPredicateTest implements CharPredicateTesting<XmlCharPredicate>,
         SerializationTesting<XmlCharPredicate> {
 
     @Test

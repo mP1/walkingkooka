@@ -19,11 +19,11 @@ package walkingkooka.collect.enumeration;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-final public class EmptyEnumerationTest extends ClassTestCase<EmptyEnumeration<Void>>
-        implements EnumerationTesting<EmptyEnumeration<Void>, Void> {
+final public class EmptyEnumerationTest implements ClassTesting2<EmptyEnumeration<Void>>,
+        EnumerationTesting<EmptyEnumeration<Void>, Void> {
 
     @Test
     public void testWithoutMoreElements() {

@@ -372,8 +372,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
         return SpreadsheetCellReference.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

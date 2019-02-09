@@ -21,7 +21,7 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -36,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode>
-        implements ConstantsTesting<HttpStatusCode>,
+public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
+        ConstantsTesting<HttpStatusCode>,
         ToStringTesting<HttpStatusCode>,
         TypeNameTesting<HttpStatusCode> {
 
@@ -134,8 +134,7 @@ public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode>
         return HttpStatusCode.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

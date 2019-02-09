@@ -18,15 +18,15 @@
 package walkingkooka.io.printer.line;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ContinuationCharacterInsertingPrintedLineHandlerTest extends ClassTestCase<ContinuationCharacterInsertingPrintedLineHandler>
-        implements PrintedLineHandlerTesting<ContinuationCharacterInsertingPrintedLineHandler> {
+final public class ContinuationCharacterInsertingPrintedLineHandlerTest implements ClassTesting2<ContinuationCharacterInsertingPrintedLineHandler>,
+        PrintedLineHandlerTesting<ContinuationCharacterInsertingPrintedLineHandler> {
 
     // constants
 

@@ -18,14 +18,14 @@ package walkingkooka.tree.pojo;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PojoNameTest extends ClassTestCase<PojoName>
-        implements NameTesting2<PojoName, PojoName> {
+public final class PojoNameTest implements ClassTesting2<PojoName>,
+        NameTesting2<PojoName, PojoName> {
 
     private final static String PROPERTY = "abc";
 

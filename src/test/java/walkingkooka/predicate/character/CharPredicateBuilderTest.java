@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -32,9 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class CharPredicateBuilderTest
-        extends ClassTestCase<CharPredicateBuilder>
-        implements BuilderTesting<CharPredicateBuilder, CharPredicate> {
+final public class CharPredicateBuilderTest implements ClassTesting2<CharPredicateBuilder>,
+        BuilderTesting<CharPredicateBuilder, CharPredicate> {
 
     // constants
 

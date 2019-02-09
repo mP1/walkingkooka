@@ -21,7 +21,7 @@ package walkingkooka.tree.pointer;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
@@ -40,8 +40,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, JsonNodeName, Name, Object>>
-        implements ParseStringTesting<NodePointer<JsonNode, JsonNodeName, Name, Object>>,
+public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode, JsonNodeName, Name, Object>>,
+        ParseStringTesting<NodePointer<JsonNode, JsonNodeName, Name, Object>>,
         ToStringTesting<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
 
     private final static JsonNodeName ABC = JsonNodeName.with("abc");
@@ -600,7 +600,7 @@ public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, J
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

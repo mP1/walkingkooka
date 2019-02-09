@@ -19,20 +19,19 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HeaderParameterNameConstantsTest extends ClassTestCase<HeaderParameterNameConstants<?>>
-        implements TypeNameTesting<HeaderParameterNameConstants<?>> {
+public final class HeaderParameterNameConstantsTest implements ClassTesting2<HeaderParameterNameConstants<?>>,
+        TypeNameTesting<HeaderParameterNameConstants<?>> {
 
     @Override
     public Class<HeaderParameterNameConstants<?>> type() {
         return Cast.to(HeaderParameterNameConstants.class);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

@@ -22,14 +22,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ListTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public final class XmlNodeChildListTest extends ClassTestCase<XmlNodeChildList>
-        implements ListTesting<XmlNodeChildList, XmlNode> {
+public final class XmlNodeChildListTest implements ClassTesting2<XmlNodeChildList>,
+        ListTesting<XmlNodeChildList, XmlNode> {
 
     private final static String A1 = "A1";
     private final static String B2 = "B2";

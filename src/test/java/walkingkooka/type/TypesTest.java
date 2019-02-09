@@ -20,7 +20,7 @@
 package walkingkooka.type;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -28,8 +28,8 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class TypesTest extends ClassTestCase<Types>
-        implements PublicStaticHelperTesting<Types> {
+public final class TypesTest implements ClassTesting2<Types>,
+        PublicStaticHelperTesting<Types> {
 
     @Test
     public void testIsPrimitiveOrWrapperBooleanPrimitive() {

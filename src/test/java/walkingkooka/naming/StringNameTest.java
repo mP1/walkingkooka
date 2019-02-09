@@ -18,15 +18,15 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class StringNameTest extends ClassTestCase<StringName>
-        implements NameTesting<StringName, StringName>, SerializationTesting<StringName> {
+final public class StringNameTest implements ClassTesting2<StringName>,
+        NameTesting<StringName, StringName>, SerializationTesting<StringName> {
 
     @Test
     public void testContainsSeparatorFails() {

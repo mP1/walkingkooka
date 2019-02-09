@@ -20,11 +20,11 @@ package walkingkooka.type;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class ClassAttributesTest extends ClassTestCase<ClassAttributes> {
+public final class ClassAttributesTest implements ClassTesting2<ClassAttributes> {
 
     @Test
     public void testFinal() {
@@ -61,8 +61,7 @@ public final class ClassAttributesTest extends ClassTestCase<ClassAttributes> {
         return ClassAttributes.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

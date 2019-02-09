@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -29,8 +29,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest extends ClassTestCase<EbnfGrammarParserTokenInvalidReferencesException>
-        implements ToStringTesting<EbnfGrammarParserTokenInvalidReferencesException> {
+public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest implements ClassTesting2<EbnfGrammarParserTokenInvalidReferencesException>,
+        ToStringTesting<EbnfGrammarParserTokenInvalidReferencesException> {
 
     @Test
     public void testWithNullReferencesFails() {
@@ -69,8 +69,7 @@ public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest extends 
         return EbnfGrammarParserTokenInvalidReferencesException.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

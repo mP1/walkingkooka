@@ -42,7 +42,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.TestRecordingHttpResponse;
 import walkingkooka.routing.RouterTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.Latch;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
@@ -58,10 +58,10 @@ import java.util.function.Consumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class HateosHandlerBuilderRouterTest extends ClassTestCase<HateosHandlerBuilderRouter<JsonNode>>
-        implements RouterTesting<HateosHandlerBuilderRouter<JsonNode>,
-        HttpRequestAttribute<?>,
-        BiConsumer<HttpRequest, HttpResponse>> {
+public final class HateosHandlerBuilderRouterTest implements ClassTesting2<HateosHandlerBuilderRouter<JsonNode>>,
+        RouterTesting<HateosHandlerBuilderRouter<JsonNode>,
+                        HttpRequestAttribute<?>,
+                        BiConsumer<HttpRequest, HttpResponse>> {
 
     final static byte[] NO_BODY = null;
     final static byte[] BODY = "{\"prop1\":\"value1\"}".getBytes(Charset.defaultCharset());

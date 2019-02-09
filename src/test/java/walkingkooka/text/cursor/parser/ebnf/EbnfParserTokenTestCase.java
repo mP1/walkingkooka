@@ -18,7 +18,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.BeanPropertiesTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -30,8 +30,8 @@ import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends ClassTestCase<T>
-        implements IsMethodTesting<T>,
+public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> implements ClassTesting2<T>,
+        IsMethodTesting<T>,
         ParserTokenTesting<T> {
 
     EbnfParserTokenTestCase() {

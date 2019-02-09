@@ -17,14 +17,14 @@
 
 package walkingkooka.build.chain;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class ChainBuildersTest extends ClassTestCase<ChainBuilders>
-        implements PublicStaticHelperTesting<ChainBuilders> {
+final public class ChainBuildersTest implements ClassTesting2<ChainBuilders>,
+        PublicStaticHelperTesting<ChainBuilders> {
 
     @Override
     public Class<ChainBuilders> type() {

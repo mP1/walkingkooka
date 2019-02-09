@@ -22,14 +22,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.MapTesting;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Map;
 
-public final class HttpServletRequestHttpRequestParametersMapTest extends ClassTestCase<HttpServletRequestHttpRequestParametersMap>
-        implements MapTesting<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
+public final class HttpServletRequestHttpRequestParametersMapTest implements ClassTesting2<HttpServletRequestHttpRequestParametersMap>,
+        MapTesting<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";

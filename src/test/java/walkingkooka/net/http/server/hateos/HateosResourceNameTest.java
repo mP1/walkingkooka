@@ -19,12 +19,12 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosResourceNameTest extends ClassTestCase<HateosResourceName>
-        implements NameTesting2<HateosResourceName, HateosResourceName> {
+public final class HateosResourceNameTest implements ClassTesting2<HateosResourceName>,
+        NameTesting2<HateosResourceName, HateosResourceName> {
 
     @Override
     public HateosResourceName createName(final String name) {

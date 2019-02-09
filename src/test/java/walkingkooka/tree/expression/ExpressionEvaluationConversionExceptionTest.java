@@ -19,10 +19,8 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-public final class ExpressionEvaluationConversionExceptionTest extends TestCase
-        implements StandardThrowableTesting<ExpressionEvaluationConversionException> {
+public final class ExpressionEvaluationConversionExceptionTest implements StandardThrowableTesting<ExpressionEvaluationConversionException> {
 
     @Override
     public Class<ExpressionEvaluationConversionException> type() {

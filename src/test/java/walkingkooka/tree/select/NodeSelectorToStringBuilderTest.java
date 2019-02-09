@@ -21,13 +21,13 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.naming.PathSeparator;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeSelectorToStringBuilderTest extends ClassTestCase<NodeSelectorToStringBuilder>
-        implements BuilderTesting<NodeSelectorToStringBuilder, String> {
+public final class NodeSelectorToStringBuilderTest implements ClassTesting2<NodeSelectorToStringBuilder>,
+        BuilderTesting<NodeSelectorToStringBuilder, String> {
 
     @Test
     public void testAxis() {
@@ -388,8 +388,7 @@ public final class NodeSelectorToStringBuilderTest extends ClassTestCase<NodeSel
         return NodeSelectorToStringBuilder.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

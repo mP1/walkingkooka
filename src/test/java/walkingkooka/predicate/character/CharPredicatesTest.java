@@ -20,7 +20,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,8 +28,8 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CharPredicatesTest extends ClassTestCase<CharPredicates>
-        implements PublicStaticHelperTesting<CharPredicates> {
+public final class CharPredicatesTest implements ClassTesting2<CharPredicates>,
+        PublicStaticHelperTesting<CharPredicates> {
 
     // failIfNullOrFalse .............................................................
 

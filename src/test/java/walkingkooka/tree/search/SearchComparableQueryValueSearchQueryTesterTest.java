@@ -18,10 +18,10 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class SearchComparableQueryValueSearchQueryTesterTest extends ClassTestCase<SearchComparableQueryValueSearchQueryTester> {
+public final class SearchComparableQueryValueSearchQueryTesterTest implements ClassTesting2<SearchComparableQueryValueSearchQueryTester> {
 
     @Override
     public Class<SearchComparableQueryValueSearchQueryTester> type() {
@@ -29,7 +29,7 @@ public final class SearchComparableQueryValueSearchQueryTesterTest extends Class
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -21,7 +21,7 @@ package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
@@ -35,8 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-abstract public class ColorComponentTestCase<C extends ColorComponent> extends ClassTestCase<C>
-        implements HashCodeEqualsDefinedTesting<C>,
+abstract public class ColorComponentTestCase<C extends ColorComponent> implements ClassTesting2<C>,
+        HashCodeEqualsDefinedTesting<C>,
         IsMethodTesting<C>,
         SerializationTesting<C>,
         ToStringTesting<C>,
@@ -192,8 +192,7 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     abstract C createColorComponent(byte value);
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

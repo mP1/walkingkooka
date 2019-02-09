@@ -18,12 +18,12 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetTextFormatter<V>,
-        V>
-        extends ClassTestCase<F> implements SpreadsheetTextFormatterTesting<F, V> {
+        V> implements ClassTesting2<F>,
+        SpreadsheetTextFormatterTesting<F, V> {
 
     SpreadsheetTextFormatterTestCase() {
         super();

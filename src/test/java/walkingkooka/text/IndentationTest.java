@@ -18,7 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IndentationTest extends ClassTestCase<Indentation>
-        implements HashCodeEqualsDefinedTesting<Indentation>,
+final public class IndentationTest implements ClassTesting2<Indentation>,
+        HashCodeEqualsDefinedTesting<Indentation>,
         SerializationTesting<Indentation>,
         ToStringTesting<Indentation> {
 
@@ -232,8 +232,7 @@ final public class IndentationTest extends ClassTestCase<Indentation>
         return Indentation.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

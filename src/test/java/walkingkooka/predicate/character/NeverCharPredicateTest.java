@@ -19,12 +19,10 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.TestCase;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class NeverCharPredicateTest extends TestCase
-        implements CharPredicateTesting<NeverCharPredicate>,
+final public class NeverCharPredicateTest implements CharPredicateTesting<NeverCharPredicate>,
         SerializationTesting<NeverCharPredicate> {
 
     @Test

@@ -19,7 +19,7 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
@@ -29,8 +29,8 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ChainConverterTest extends ClassTestCase<ChainConverter>
-        implements ConverterTesting<ChainConverter> {
+public final class ChainConverterTest implements ClassTesting2<ChainConverter>,
+        ConverterTesting<ChainConverter> {
 
     @Test
     public void testWithNullFirstConverterFails() {
@@ -80,11 +80,13 @@ public final class ChainConverterTest extends ClassTestCase<ChainConverter>
         this.toStringAndCheck(this.createConverter(), this.stringToLocalDate() + "->" + this.localDateToBigDecimal());
     }
 
-    @Override public ChainConverter createConverter() {
+    @Override
+    public ChainConverter createConverter() {
         return ChainConverter.with(this.stringToLocalDate(), this.intermediateTargetType(), this.localDateToBigDecimal());
     }
 
-    @Override public ConverterContext createContext() {
+    @Override
+    public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

@@ -19,17 +19,17 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerBuilder2Test extends ClassTestCase<HateosHandlerBuilder2<?>> {
+public final class HateosHandlerBuilder2Test implements ClassTesting2<HateosHandlerBuilder2<?>> {
     @Override
     public Class<HateosHandlerBuilder2<?>> type() {
         return Cast.to(HateosHandlerBuilder2.class);
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -18,14 +18,14 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Comparable<C> & HashCodeEqualsDefined>
-        extends ClassTestCase<N>
-        implements HeaderNameTesting<N, C> {
+        implements ClassTesting2<N>,
+        HeaderNameTesting<N, C> {
 
     HeaderName2TestCase() {
         super();

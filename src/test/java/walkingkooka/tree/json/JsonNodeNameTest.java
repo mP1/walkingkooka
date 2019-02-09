@@ -20,15 +20,15 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JsonNodeNameTest extends ClassTestCase<JsonNodeName>
-        implements NameTesting<JsonNodeName, JsonNodeName> {
+public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
+        NameTesting<JsonNodeName, JsonNodeName> {
 
     @Test
     public void testWithNegativeIndexFails() {

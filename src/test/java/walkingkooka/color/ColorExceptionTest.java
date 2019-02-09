@@ -19,10 +19,8 @@
 package walkingkooka.color;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-public final class ColorExceptionTest extends TestCase
-        implements StandardThrowableTesting<ColorException> {
+public final class ColorExceptionTest implements StandardThrowableTesting<ColorException> {
 
     @Override
     public Class<ColorException> type() {

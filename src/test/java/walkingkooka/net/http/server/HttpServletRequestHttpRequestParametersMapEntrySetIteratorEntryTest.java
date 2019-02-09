@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -32,10 +32,8 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntryTest
-        extends ClassTestCase<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry>
-        implements EntryTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry,
-        HttpRequestParameterName,
-        List<String>>,
+        implements ClassTesting2<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry>,
+        EntryTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry, HttpRequestParameterName, List<String>>,
         HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry> {
 
     private final static String KEY = "parameter1";

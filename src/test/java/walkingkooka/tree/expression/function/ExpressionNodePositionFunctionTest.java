@@ -20,13 +20,13 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.StringName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.FakeNode;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionNodePositionFunctionTest extends ClassTestCase<ExpressionNodePositionFunction>
-        implements ExpressionFunctionTesting<ExpressionNodePositionFunction, Number> {
+public final class ExpressionNodePositionFunctionTest implements ClassTesting2<ExpressionNodePositionFunction>,
+        ExpressionFunctionTesting<ExpressionNodePositionFunction, Number> {
 
     private final static int INDEX = 123;
 

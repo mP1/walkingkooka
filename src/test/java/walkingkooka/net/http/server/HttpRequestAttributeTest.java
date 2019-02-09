@@ -24,7 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -32,7 +32,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HttpRequestAttributeTest extends ClassTestCase<HttpRequestAttribute<?>> {
+public final class HttpRequestAttributeTest implements ClassTesting2<HttpRequestAttribute<?>> {
 
     @Test
     public void testParameterValueHttpMethodl() {
@@ -62,7 +62,7 @@ public final class HttpRequestAttributeTest extends ClassTestCase<HttpRequestAtt
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

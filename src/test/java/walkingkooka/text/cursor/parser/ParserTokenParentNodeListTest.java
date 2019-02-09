@@ -20,14 +20,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ListTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public final class ParserTokenParentNodeListTest extends ClassTestCase<ParserTokenParentNodeList>
-        implements ListTesting<ParserTokenParentNodeList, ParserTokenNode> {
+public final class ParserTokenParentNodeListTest implements ClassTesting2<ParserTokenParentNodeList>,
+        ListTesting<ParserTokenParentNodeList, ParserTokenNode> {
 
     private final static StringParserToken STRING1 = string("a1");
     private final static StringParserToken STRING2 = string("b2");

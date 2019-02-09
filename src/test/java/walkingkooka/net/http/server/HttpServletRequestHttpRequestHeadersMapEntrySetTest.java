@@ -23,7 +23,7 @@ import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +33,8 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends ClassTestCase<HttpServletRequestHttpRequestHeadersMapEntrySet>
-        implements SetTesting<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, Object>> {
+public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest implements ClassTesting2<HttpServletRequestHttpRequestHeadersMapEntrySet>,
+        SetTesting<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, Object>> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
     private final static Long VALUE1 = 111L;

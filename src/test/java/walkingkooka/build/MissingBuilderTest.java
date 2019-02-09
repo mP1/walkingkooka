@@ -18,14 +18,14 @@
 package walkingkooka.build;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class MissingBuilderTest extends ClassTestCase<MissingBuilder>
-        implements BuilderTesting<MissingBuilder, String> {
+final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
+        BuilderTesting<MissingBuilder, String> {
 
     // constants
 

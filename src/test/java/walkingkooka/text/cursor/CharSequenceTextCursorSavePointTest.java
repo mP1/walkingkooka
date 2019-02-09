@@ -18,15 +18,14 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-final public class CharSequenceTextCursorSavePointTest extends
-        ClassTestCase<CharSequenceTextCursorSavePoint>
-        implements TextCursorSavePointTesting<CharSequenceTextCursorSavePoint, CharSequenceTextCursor> {
+final public class CharSequenceTextCursorSavePointTest implements ClassTesting2<CharSequenceTextCursorSavePoint>,
+        TextCursorSavePointTesting<CharSequenceTextCursorSavePoint, CharSequenceTextCursor> {
 
     @Test
     public void testSaveAndRestoreWithFromAndTo() {
@@ -72,7 +71,7 @@ final public class CharSequenceTextCursorSavePointTest extends
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

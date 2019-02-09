@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparatorTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
@@ -30,9 +30,8 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetExpressionReferenceComparatorTest
-        extends ClassTestCase<SpreadsheetExpressionReferenceComparator>
-        implements ComparatorTesting<SpreadsheetExpressionReferenceComparator, SpreadsheetExpressionReference> {
+public final class SpreadsheetExpressionReferenceComparatorTest implements ClassTesting2<SpreadsheetExpressionReferenceComparator>,
+        ComparatorTesting<SpreadsheetExpressionReferenceComparator, SpreadsheetExpressionReference> {
 
     // cell v cell .....................................................................................................
 
@@ -195,7 +194,7 @@ public final class SpreadsheetExpressionReferenceComparatorTest
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -93,7 +93,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
     // ParseStringTesting ........................................................................................

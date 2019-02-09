@@ -24,7 +24,7 @@ import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -36,9 +36,8 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest extends
-        ClassTestCase<RouterHttpRequestParametersMapHttpHeaderEntryIterator>
-        implements IteratorTesting,
+public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest implements IteratorTesting,
+        ClassTesting2<RouterHttpRequestParametersMapHttpHeaderEntryIterator>,
         ToStringTesting<RouterHttpRequestParametersMapHttpHeaderEntryIterator>,
         TypeNameTesting<RouterHttpRequestParametersMapHttpHeaderEntryIterator> {
 

@@ -18,14 +18,14 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public class ExpressionEvaluationContextsTest extends ClassTestCase<ExpressionEvaluationContexts>
-        implements PublicStaticHelperTesting<ExpressionEvaluationContexts> {
+public class ExpressionEvaluationContextsTest implements ClassTesting2<ExpressionEvaluationContexts>,
+        PublicStaticHelperTesting<ExpressionEvaluationContexts> {
 
     @Override
     public Class<ExpressionEvaluationContexts> type() {

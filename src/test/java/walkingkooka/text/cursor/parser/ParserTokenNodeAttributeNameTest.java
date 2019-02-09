@@ -17,12 +17,12 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class ParserTokenNodeAttributeNameTest extends ClassTestCase<ParserTokenNodeAttributeName>
-        implements NameTesting<ParserTokenNodeAttributeName, ParserTokenNodeAttributeName> {
+public final class ParserTokenNodeAttributeNameTest implements ClassTesting2<ParserTokenNodeAttributeName>,
+        NameTesting<ParserTokenNodeAttributeName, ParserTokenNodeAttributeName> {
 
     @Override
     public void testNullFails() {

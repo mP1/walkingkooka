@@ -27,7 +27,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.Name;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserContext;
@@ -51,8 +51,8 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends ClassTestCase<ExpressionNode>
-        implements IsMethodTesting<N>,
+public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implements ClassTesting2<ExpressionNode>,
+        IsMethodTesting<N>,
         NodeTesting2<ExpressionNode, ExpressionNodeName, Name, Object> {
 
     ExpressionNodeTestCase() {

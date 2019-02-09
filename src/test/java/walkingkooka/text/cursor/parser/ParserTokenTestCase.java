@@ -17,11 +17,11 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTestCase<T>
-        implements ParserTokenTesting<T> {
+public abstract class ParserTokenTestCase<T extends ParserToken> implements ClassTesting2<T>,
+        ParserTokenTesting<T> {
 
     ParserTokenTestCase() {
         super();

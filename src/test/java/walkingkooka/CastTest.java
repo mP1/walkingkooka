@@ -18,14 +18,14 @@
 
 package walkingkooka;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class CastTest extends ClassTestCase<Cast>
-        implements PublicStaticHelperTesting<Cast> {
+public final class CastTest implements ClassTesting2<Cast>,
+        PublicStaticHelperTesting<Cast> {
 
     @Override
     public boolean canHavePublicTypes(final Method method) {

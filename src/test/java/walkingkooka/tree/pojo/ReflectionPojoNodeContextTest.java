@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
@@ -32,8 +32,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-public final class ReflectionPojoNodeContextTest extends ClassTestCase<ReflectionPojoNodeContext>
-        implements PojoNodeContextTesting<ReflectionPojoNodeContext> {
+public final class ReflectionPojoNodeContextTest implements ClassTesting2<ReflectionPojoNodeContext>,
+        PojoNodeContextTesting<ReflectionPojoNodeContext> {
 
     private final static PojoName X = PojoName.property("x");
     private final static String STRING = "abc";

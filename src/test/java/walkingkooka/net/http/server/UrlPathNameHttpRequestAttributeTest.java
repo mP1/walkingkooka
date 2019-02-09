@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<UrlPathNameHttpRequestAttribute>
-        implements HashCodeEqualsDefinedTesting<UrlPathNameHttpRequestAttribute>,
+public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<UrlPathNameHttpRequestAttribute>,
+        HashCodeEqualsDefinedTesting<UrlPathNameHttpRequestAttribute>,
         ToStringTesting<UrlPathNameHttpRequestAttribute> {
 
     @Test
@@ -92,8 +92,7 @@ public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<Url
         return UrlPathNameHttpRequestAttribute.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

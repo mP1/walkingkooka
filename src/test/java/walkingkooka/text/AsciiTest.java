@@ -18,7 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class AsciiTest extends ClassTestCase<Ascii>
-        implements PublicStaticHelperTesting<Ascii> {
+final public class AsciiTest implements ClassTesting2<Ascii>,
+        PublicStaticHelperTesting<Ascii> {
 
     // isLetter
 

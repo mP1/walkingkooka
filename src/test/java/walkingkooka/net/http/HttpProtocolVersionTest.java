@@ -20,7 +20,7 @@ package walkingkooka.net.http;
 
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVersion>
-        implements ToStringTesting<HttpProtocolVersion> {
+final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocolVersion>,
+        ToStringTesting<HttpProtocolVersion> {
 
     @Test
     public void testOneZero() {
@@ -80,8 +80,7 @@ final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVer
         return HttpProtocolVersion.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

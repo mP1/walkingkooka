@@ -18,21 +18,21 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase<M extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode>>
-        extends ClassTestCase<M>
-        implements TypeNameTesting<M> {
+                implements ClassTesting2<M>,
+        TypeNameTesting<M> {
 
     HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase() {
         super();
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

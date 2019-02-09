@@ -130,8 +130,7 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
         return AlphaColor.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

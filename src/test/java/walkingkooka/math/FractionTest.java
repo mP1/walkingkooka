@@ -19,7 +19,7 @@
 package walkingkooka.math;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -30,8 +30,8 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FractionTest extends ClassTestCase<Fraction>
-        implements HashCodeEqualsDefinedTesting<Fraction>,
+public final class FractionTest implements ClassTesting2<Fraction>,
+        HashCodeEqualsDefinedTesting<Fraction>,
         SerializationTesting<Fraction>,
         ToStringTesting<Fraction> {
 
@@ -87,8 +87,7 @@ public final class FractionTest extends ClassTestCase<Fraction>
         return Fraction.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

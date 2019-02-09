@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface BuilderTesting<B extends Builder<T>, T> extends ToStringTesting<B>,
         TypeNameTesting<B> {
-    
+
     @Test
     default void testBuilderProductTypePublic() {
         final Class<T> type = this.builderProductType();

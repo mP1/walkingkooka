@@ -20,13 +20,13 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FailConverterTest extends ClassTestCase<FailConverter<String, Integer>>
-        implements ConverterTesting<FailConverter<String, Integer>> {
+public final class FailConverterTest implements ClassTesting2<FailConverter<String, Integer>>,
+        ConverterTesting<FailConverter<String, Integer>> {
 
     @Test
     public void testWithNullSourceTypeFails() {

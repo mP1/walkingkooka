@@ -17,10 +17,10 @@
 
 package walkingkooka.build.tostring;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-final public class ToStringBuilderOptionTest extends ClassTestCase<ToStringBuilderOption> {
+final public class ToStringBuilderOptionTest implements ClassTesting2<ToStringBuilderOption> {
 
     @Override
     public Class<ToStringBuilderOption> type() {
@@ -28,7 +28,7 @@ final public class ToStringBuilderOptionTest extends ClassTestCase<ToStringBuild
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

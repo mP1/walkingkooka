@@ -19,10 +19,8 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-final public class HttpHeaderNameTypeParameterHeaderExceptionTest extends TestCase
-        implements StandardThrowableTesting<HttpHeaderNameTypeParameterHeaderException> {
+final public class HttpHeaderNameTypeParameterHeaderExceptionTest implements StandardThrowableTesting<HttpHeaderNameTypeParameterHeaderException> {
 
     @Override
     public Class<HttpHeaderNameTypeParameterHeaderException> type() {

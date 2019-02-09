@@ -16,10 +16,10 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class ParserTokenNodeTest extends ClassTestCase<ParserTokenNode> {
+public final class ParserTokenNodeTest implements ClassTesting2<ParserTokenNode> {
 
     @Override
     public Class<ParserTokenNode> type() {
@@ -27,7 +27,7 @@ public final class ParserTokenNodeTest extends ClassTestCase<ParserTokenNode> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

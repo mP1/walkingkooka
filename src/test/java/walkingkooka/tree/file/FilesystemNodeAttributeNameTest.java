@@ -19,12 +19,12 @@
 package walkingkooka.tree.file;
 
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class FilesystemNodeAttributeNameTest extends ClassTestCase<FilesystemNodeAttributeName> 
-        implements NameTesting<FilesystemNodeAttributeName, FilesystemNodeAttributeName> {
+public final class FilesystemNodeAttributeNameTest implements ClassTesting2<FilesystemNodeAttributeName>,
+        NameTesting<FilesystemNodeAttributeName, FilesystemNodeAttributeName> {
 
     @Override
     public void testNullFails() {

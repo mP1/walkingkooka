@@ -19,13 +19,13 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CookieVersionTest extends ClassTestCase<CookieVersion> {
+final public class CookieVersionTest implements ClassTesting2<CookieVersion> {
 
     @Test
     public void testFromZero() {
@@ -50,7 +50,7 @@ final public class CookieVersionTest extends ClassTestCase<CookieVersion> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

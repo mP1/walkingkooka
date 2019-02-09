@@ -19,14 +19,14 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SequenceParserBuilderTest extends ClassTestCase<SequenceParserBuilder<FakeParserContext>>
-        implements BuilderTesting<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
+public final class SequenceParserBuilderTest implements ClassTesting2<SequenceParserBuilder<FakeParserContext>>,
+        BuilderTesting<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
 
     private final static Parser<ParserToken, FakeParserContext> PARSER1 = parser("1");
     private final static Parser<ParserToken, FakeParserContext> PARSER2 = parser("2");

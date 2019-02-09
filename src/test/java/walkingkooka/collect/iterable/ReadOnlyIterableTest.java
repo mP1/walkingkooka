@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
@@ -29,8 +29,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ReadOnlyIterableTest extends ClassTestCase<ReadOnlyIterable<String>>
-        implements IterableTesting<ReadOnlyIterable<String>, String>,
+final public class ReadOnlyIterableTest implements ClassTesting2<ReadOnlyIterable<String>>,
+        IterableTesting<ReadOnlyIterable<String>, String>,
         IteratorTesting {
 
     // constants

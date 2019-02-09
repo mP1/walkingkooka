@@ -18,15 +18,15 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequenceTextCursor>
-        implements TextCursorTesting2<CharSequenceTextCursor>,
+final public class CharSequenceTextCursorTest implements ClassTesting2<CharSequenceTextCursor>,
+        TextCursorTesting2<CharSequenceTextCursor>,
         ToStringTesting<CharSequenceTextCursor> {
 
     @Test
@@ -141,7 +141,7 @@ final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequence
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

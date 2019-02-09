@@ -18,19 +18,19 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> extends ClassTestCase<P>
-        implements TypeNameTesting<P> {
+abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> implements ClassTesting2<P>,
+        TypeNameTesting<P> {
 
     HostAddressProblemTestCase() {
         super();
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

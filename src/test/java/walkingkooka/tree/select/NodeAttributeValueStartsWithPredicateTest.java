@@ -24,8 +24,6 @@ import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class NodeAttributeValueStartsWithPredicateTest
         extends NodeAttributeValuePredicateTestCase<NodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> {
 

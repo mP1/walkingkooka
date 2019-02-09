@@ -19,11 +19,11 @@
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class BasicEbnfParserCombinatorContextTest extends ClassTestCase<BasicEbnfParserCombinatorContext>
-        implements EbnfParserCombinatorContextTesting<BasicEbnfParserCombinatorContext> {
+public final class BasicEbnfParserCombinatorContextTest implements ClassTesting2<BasicEbnfParserCombinatorContext>,
+        EbnfParserCombinatorContextTesting<BasicEbnfParserCombinatorContext> {
 
     @Test
     public void testToString() {

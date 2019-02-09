@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.naming.StringName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -32,8 +32,8 @@ import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodeTreeIteratorTest extends ClassTestCase<NodeTreeIterator<TestNode, StringName, StringName, Object>>
-        implements IteratorTesting,
+public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterator<TestNode, StringName, StringName, Object>>,
+        IteratorTesting,
         ToStringTesting<NodeTreeIterator<TestNode, StringName, StringName, Object>>,
         TypeNameTesting<NodeTreeIterator<TestNode, StringName, StringName, Object>> {
 

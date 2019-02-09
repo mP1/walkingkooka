@@ -19,7 +19,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
@@ -31,7 +31,7 @@ import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNodeTest extends ClassTestCase<ExpressionNode> {
+public final class ExpressionNodeTest implements ClassTesting2<ExpressionNode> {
 
     @Test
     public void testValueOrFailNullFails() {
@@ -134,7 +134,7 @@ public final class ExpressionNodeTest extends ClassTestCase<ExpressionNode> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

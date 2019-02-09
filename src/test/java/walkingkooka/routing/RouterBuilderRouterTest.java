@@ -23,13 +23,13 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
-public final class RouterBuilderRouterTest extends ClassTestCase<RouterBuilderRouter<StringName, String>>
-        implements RouterTesting<RouterBuilderRouter<StringName, String>, StringName, String> {
+public final class RouterBuilderRouterTest implements ClassTesting2<RouterBuilderRouter<StringName, String>>,
+        RouterTesting<RouterBuilderRouter<StringName, String>, StringName, String> {
 
     private final static StringName PATH_0 = Names.string("path-0");
     private final static StringName PATH_1 = Names.string("path-1");

@@ -18,18 +18,9 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
-
-public abstract class NodeSelectorParserTokenVisitorTestCase<V extends NodeSelectorParserTokenVisitor> extends ClassTestCase<V>
-        implements NodeSelectorParserTokenVisitorTesting<V> {
+public abstract class NodeSelectorParserTokenVisitorTestCase<V extends NodeSelectorParserTokenVisitor> implements NodeSelectorParserTokenVisitorTesting<V> {
 
     NodeSelectorParserTokenVisitorTestCase() {
         super();
-    }
-
-    @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

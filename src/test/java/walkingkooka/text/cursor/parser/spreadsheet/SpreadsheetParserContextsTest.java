@@ -18,14 +18,14 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class SpreadsheetParserContextsTest extends ClassTestCase<SpreadsheetParserContexts>
-        implements PublicStaticHelperTesting<SpreadsheetParserContexts> {
+public final class SpreadsheetParserContextsTest implements ClassTesting2<SpreadsheetParserContexts>,
+        PublicStaticHelperTesting<SpreadsheetParserContexts> {
 
     @Override
     public Class<SpreadsheetParserContexts> type() {

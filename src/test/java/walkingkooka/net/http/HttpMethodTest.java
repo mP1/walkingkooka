@@ -21,7 +21,7 @@ package walkingkooka.net.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HeaderValueTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
@@ -36,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-final public class HttpMethodTest extends ClassTestCase<HttpMethod>
-        implements HeaderValueTesting<HttpMethod>,
+final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
+        HeaderValueTesting<HttpMethod>,
         ConstantsTesting<HttpMethod> {
 
     @Test

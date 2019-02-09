@@ -19,10 +19,8 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.TestCase;
 
-final public class DigitCharPredicateTest extends TestCase
-        implements CharPredicateTesting<DigitCharPredicate>,
+final public class DigitCharPredicateTest implements CharPredicateTesting<DigitCharPredicate>,
         SerializationTesting<DigitCharPredicate> {
 
     @Test

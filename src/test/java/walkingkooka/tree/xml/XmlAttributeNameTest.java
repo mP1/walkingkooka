@@ -20,7 +20,7 @@ package walkingkooka.tree.xml;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,8 +28,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class XmlAttributeNameTest extends ClassTestCase<XmlAttributeName> 
-        implements NameTesting<XmlAttributeName, XmlAttributeName> {
+public final class XmlAttributeNameTest implements ClassTesting2<XmlAttributeName>,
+        NameTesting<XmlAttributeName, XmlAttributeName> {
 
     @Test
     public void testWithNoPrefixNullFails() {

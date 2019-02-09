@@ -22,10 +22,12 @@ import org.junit.jupiter.api.Test;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.NamedNodeMap;
 import walkingkooka.Cast;
+import walkingkooka.test.ResourceTesting;
 
 import java.io.Reader;
 
-public final class XmlEntityMapTest extends XmlMapTestCase<XmlEntityMap, XmlName, XmlEntity> {
+public final class XmlEntityMapTest extends XmlMapTestCase<XmlEntityMap, XmlName, XmlEntity>
+        implements ResourceTesting {
 
     @Test
     public void testSize() {

@@ -18,15 +18,15 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class CharacterConstantTest extends ClassTestCase<CharacterConstant>
-        implements CharSequenceTesting<CharacterConstant>{
+final public class CharacterConstantTest implements ClassTesting2<CharacterConstant>,
+        CharSequenceTesting<CharacterConstant>{
 
     private final static char CHAR = 'a';
 

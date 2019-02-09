@@ -20,7 +20,7 @@ package walkingkooka.collect.iterable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
@@ -28,8 +28,8 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IteratorIterableTest extends ClassTestCase<IteratorIterable<Object>>
-        implements IterableTesting<IteratorIterable<Object>, Object> {
+final public class IteratorIterableTest implements ClassTesting2<IteratorIterable<Object>>,
+        IterableTesting<IteratorIterable<Object>, Object> {
 
     @Test
     public void testWithNullIteratorFails() {

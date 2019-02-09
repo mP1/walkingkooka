@@ -20,14 +20,12 @@ package walkingkooka;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
 import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NeverErrorTest extends TestCase
-        implements StandardThrowableTesting<NeverError> {
+public final class NeverErrorTest implements StandardThrowableTesting<NeverError> {
 
     @Test
     public void testUnsupportedEncodingException() {

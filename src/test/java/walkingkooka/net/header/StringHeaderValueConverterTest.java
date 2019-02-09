@@ -18,11 +18,10 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class StringHeaderValueConverterTest extends
-        ClassTestCase<StringHeaderValueConverter> {
+public final class StringHeaderValueConverterTest implements ClassTesting2<StringHeaderValueConverter> {
 
     @Override
     public Class<StringHeaderValueConverter> type() {
@@ -30,7 +29,7 @@ public final class StringHeaderValueConverterTest extends
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

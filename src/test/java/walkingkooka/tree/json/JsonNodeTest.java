@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserException;
@@ -30,7 +30,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class JsonNodeTest extends ClassTestCase<JsonNode> implements ParseStringTesting<JsonNode> {
+public final class JsonNodeTest implements ClassTesting2<JsonNode>,
+        ParseStringTesting<JsonNode> {
 
     @Test
     public void testParseIncompleteObjectFails() {
@@ -170,8 +171,7 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> implements Parse
         return JsonNode.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

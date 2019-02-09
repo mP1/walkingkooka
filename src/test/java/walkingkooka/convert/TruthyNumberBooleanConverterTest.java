@@ -19,14 +19,14 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public final class TruthyNumberBooleanConverterTest extends ClassTestCase<TruthyNumberBooleanConverter>
-        implements ConverterTesting<TruthyNumberBooleanConverter> {
+public final class TruthyNumberBooleanConverterTest implements ClassTesting2<TruthyNumberBooleanConverter>,
+        ConverterTesting<TruthyNumberBooleanConverter> {
 
     // BigDecimal..................................................
 

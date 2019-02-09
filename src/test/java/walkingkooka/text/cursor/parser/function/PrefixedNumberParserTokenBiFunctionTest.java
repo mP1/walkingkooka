@@ -18,7 +18,7 @@ package walkingkooka.text.cursor.parser.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.ParserException;
@@ -30,8 +30,8 @@ import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PrefixedNumberParserTokenBiFunctionTest extends ClassTestCase<PrefixedNumberParserTokenBiFunction<FakeParserContext>>
-        implements ParserBiFunctionTesting<PrefixedNumberParserTokenBiFunction<FakeParserContext>,
+public final class PrefixedNumberParserTokenBiFunctionTest implements ClassTesting2<PrefixedNumberParserTokenBiFunction<FakeParserContext>>,
+        ParserBiFunctionTesting<PrefixedNumberParserTokenBiFunction<FakeParserContext>,
         FakeParserContext,
         BigIntegerParserToken> {
 

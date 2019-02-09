@@ -17,14 +17,14 @@
 
 package walkingkooka.predicate;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class PredicatesTest extends ClassTestCase<Predicates>
-        implements PublicStaticHelperTesting<Predicates> {
+final public class PredicatesTest implements ClassTesting2<Predicates>,
+        PublicStaticHelperTesting<Predicates> {
 
     @Override
     public Class<Predicates> type() {

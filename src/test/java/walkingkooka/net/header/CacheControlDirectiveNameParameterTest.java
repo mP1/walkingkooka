@@ -18,12 +18,12 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class CacheControlDirectiveNameParameterTest extends ClassTestCase<CacheControlDirectiveNameParameter>
-        implements TypeNameTesting<CacheControlDirectiveNameParameter> {
+public final class CacheControlDirectiveNameParameterTest implements ClassTesting2<CacheControlDirectiveNameParameter>,
+        TypeNameTesting<CacheControlDirectiveNameParameter> {
 
     @Override
     public Class<CacheControlDirectiveNameParameter> type() {
@@ -31,7 +31,7 @@ public final class CacheControlDirectiveNameParameterTest extends ClassTestCase<
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

@@ -17,15 +17,14 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class TextCursorsTest extends ClassTestCase<TextCursors>
-        implements PublicStaticHelperTesting<TextCursors> {
-
+final public class TextCursorsTest implements ClassTesting2<TextCursors>,
+        PublicStaticHelperTesting<TextCursors> {
 
     @Override
     public Class<TextCursors> type() {

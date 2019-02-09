@@ -19,10 +19,8 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-public final class NodeSelectorExceptionTest extends TestCase
-        implements StandardThrowableTesting<NodeSelectorException> {
+public final class NodeSelectorExceptionTest implements StandardThrowableTesting<NodeSelectorException> {
 
     @Override
     public Class<NodeSelectorException> type() {

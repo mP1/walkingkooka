@@ -20,7 +20,7 @@ package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Equality;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -28,15 +28,13 @@ import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
-        implements HashCodeEqualsDefinedTesting<C>,
+abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>,
+        HashCodeEqualsDefinedTesting<C>,
         HasJsonNodeTesting<C>,
         SerializationTesting<C>,
         ToStringTesting<C>,
@@ -673,9 +671,9 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
                                        final ColorComponent mixed, final float amount) {
         if (expected != actual) {
             assertNotEquals(
-                    label + " incorrect, failed to mix " + color + " with " + toString(mixed) + " amount="
-                            + amount,
-                    toString(expected), toString(actual));
+                    toString(expected),
+                    toString(actual),
+                    label + " incorrect, failed to mix " + color + " with " + toString(mixed) + " amount=" + amount);
         }
     }
 
@@ -731,8 +729,7 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
         return Equality.isAlmostEquals(component.value(), otherComponent.value(), epislon);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

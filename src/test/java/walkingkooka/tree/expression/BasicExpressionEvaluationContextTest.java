@@ -24,7 +24,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
 import walkingkooka.type.MemberVisibility;
 
@@ -38,8 +38,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicExpressionEvaluationContextTest extends ClassTestCase<BasicExpressionEvaluationContext>
-        implements ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext> {
+public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
+        ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext> {
 
     @Test
     public void testWithNullFunctionsFails() {

@@ -19,13 +19,13 @@ package walkingkooka.collect.enumeration;
 
 import walkingkooka.Cast;
 import walkingkooka.build.chain.ChainFactoryTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Enumeration;
 
-final public class EnumerationChainFactoryTest extends ClassTestCase<EnumerationChainFactory<Object>>
-        implements ChainFactoryTesting<EnumerationChainFactory<Object>, Enumeration<Object>> {
+final public class EnumerationChainFactoryTest implements ClassTesting2<EnumerationChainFactory<Object>>,
+        ChainFactoryTesting<EnumerationChainFactory<Object>, Enumeration<Object>> {
 
     @Override
     public EnumerationChainFactory<Object> createFactory() {

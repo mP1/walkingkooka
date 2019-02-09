@@ -18,7 +18,7 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
-        implements HashCodeEqualsDefinedTesting<PathSeparator>,
+final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
+        HashCodeEqualsDefinedTesting<PathSeparator>,
         SerializationTesting<PathSeparator>,
         ToStringTesting<PathSeparator> {
 
@@ -166,8 +166,7 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
         return PathSeparator.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

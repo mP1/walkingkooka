@@ -20,12 +20,12 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class AllNodePointerTest extends ClassTestCase<AllNodePointer<?, ?, ?, ?>>
-        implements ToStringTesting<AllNodePointer<?, ?, ?, ?>> {
+public final class AllNodePointerTest implements ClassTesting2<AllNodePointer<?, ?, ?, ?>>,
+        ToStringTesting<AllNodePointer<?, ?, ?, ?>> {
 
     @Test
     public void testToString() {
@@ -37,8 +37,7 @@ public final class AllNodePointerTest extends ClassTestCase<AllNodePointer<?, ?,
         return Cast.to(AllNodePointer.class);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

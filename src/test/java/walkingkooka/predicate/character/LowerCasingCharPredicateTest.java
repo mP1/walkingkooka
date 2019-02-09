@@ -21,15 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.TestCase;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class LowerCasingCharPredicateTest
-        extends TestCase
-        implements CharPredicateTesting<LowerCasingCharPredicate>,
+                implements CharPredicateTesting<LowerCasingCharPredicate>,
         HashCodeEqualsDefinedTesting<LowerCasingCharPredicate>,
         SerializationTesting<LowerCasingCharPredicate> {
 

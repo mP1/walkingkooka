@@ -25,7 +25,7 @@ import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.LineEnding;
@@ -40,8 +40,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class JsonNodeTestCase<N extends JsonNode> extends ClassTestCase<JsonNode>
-        implements HasJsonNodeTesting<N>,
+public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesting2<JsonNode>,
+        HasJsonNodeTesting<N>,
         HasSearchNodeTesting<N>,
         IsMethodTesting<N>,
         NodeTesting2<JsonNode, JsonNodeName, Name, Object> {

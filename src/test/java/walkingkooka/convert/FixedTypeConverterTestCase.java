@@ -18,13 +18,13 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class FixedTypeConverterTestCase<C extends Converter, T> extends ClassTestCase<C>
-        implements ConverterTesting<C> {
+public abstract class FixedTypeConverterTestCase<C extends Converter, T> implements ClassTesting2<C>,
+        ConverterTesting<C> {
 
     FixedTypeConverterTestCase() {
         super();

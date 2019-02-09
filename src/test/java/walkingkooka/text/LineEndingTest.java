@@ -18,7 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class LineEndingTest extends ClassTestCase<LineEnding>
-        implements CharSequenceTesting<LineEnding>,
+final public class LineEndingTest implements ClassTesting2<LineEnding>,
+        CharSequenceTesting<LineEnding>,
         SerializationTesting<LineEnding> {
 
     @Override
@@ -110,8 +110,7 @@ final public class LineEndingTest extends ClassTestCase<LineEnding>
         return LineEnding.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

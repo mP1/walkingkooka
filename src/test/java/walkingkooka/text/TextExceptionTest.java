@@ -18,10 +18,8 @@
 package walkingkooka.text;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-final public class TextExceptionTest extends TestCase
-        implements StandardThrowableTesting<TextException> {
+final public class TextExceptionTest implements StandardThrowableTesting<TextException> {
 
     @Override
     public Class<TextException> type() {

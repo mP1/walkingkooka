@@ -235,8 +235,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
         return ContentDisposition.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

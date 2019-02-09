@@ -18,10 +18,10 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class StringDateTimeFormatterConverterTest extends ClassTestCase<StringDateTimeFormatterConverter> {
+public final class StringDateTimeFormatterConverterTest implements ClassTesting2<StringDateTimeFormatterConverter> {
 
     @Override
     public Class<StringDateTimeFormatterConverter> type() {
@@ -29,7 +29,7 @@ public final class StringDateTimeFormatterConverterTest extends ClassTestCase<St
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

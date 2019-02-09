@@ -18,18 +18,17 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class XmlTextNodeTest extends ClassTestCase<XmlTextNode> {
+public final class XmlTextNodeTest implements ClassTesting2<XmlTextNode> {
 
     @Override
     public Class<XmlTextNode> type() {
         return XmlTextNode.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

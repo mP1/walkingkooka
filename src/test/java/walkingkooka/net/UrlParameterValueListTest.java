@@ -20,11 +20,11 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.ListTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class UrlParameterValueListTest extends ClassTestCase<UrlParameterValueList>
-        implements ListTesting<UrlParameterValueList, String> {
+public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
+        ListTesting<UrlParameterValueList, String> {
 
     @Test
     public void testEmpty() {

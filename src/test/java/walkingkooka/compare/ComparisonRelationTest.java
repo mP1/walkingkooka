@@ -20,7 +20,7 @@ package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -33,8 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class ComparisonRelationTest extends ClassTestCase<ComparisonRelation>
-        implements PredicateTesting<ComparisonRelation, Integer> {
+public final class ComparisonRelationTest implements ClassTesting2<ComparisonRelation>,
+        PredicateTesting<ComparisonRelation, Integer> {
 
     @Override
     public void testTypeNaming() {

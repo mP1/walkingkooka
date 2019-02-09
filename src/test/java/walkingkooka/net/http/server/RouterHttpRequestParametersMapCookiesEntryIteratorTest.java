@@ -24,7 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.CookieName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -34,8 +34,8 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extends ClassTestCase<RouterHttpRequestParametersMapCookiesEntryIterator>
-        implements IteratorTesting,
+public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest implements ClassTesting2<RouterHttpRequestParametersMapCookiesEntryIterator>,
+        IteratorTesting,
         ToStringTesting<RouterHttpRequestParametersMapCookiesEntryIterator>,
         TypeNameTesting<RouterHttpRequestParametersMapCookiesEntryIterator> {
 

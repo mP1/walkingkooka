@@ -20,13 +20,13 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.io.serialize.SerializationProxyTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-public final class AbsoluteUrlSerializationProxyTest extends ClassTestCase<AbsoluteUrlSerializationProxy>
-        implements SerializationProxyTesting<AbsoluteUrlSerializationProxy> {
+public final class AbsoluteUrlSerializationProxyTest implements ClassTesting2<AbsoluteUrlSerializationProxy>,
+        SerializationProxyTesting<AbsoluteUrlSerializationProxy> {
 
     @Test
     public void testToString() {

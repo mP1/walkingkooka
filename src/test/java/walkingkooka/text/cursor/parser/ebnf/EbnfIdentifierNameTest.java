@@ -21,14 +21,14 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.naming.PropertiesPath;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class EbnfIdentifierNameTest extends ClassTestCase<EbnfIdentifierName>
-        implements NameTesting2<EbnfIdentifierName, EbnfIdentifierName> {
+final public class EbnfIdentifierNameTest implements ClassTesting2<EbnfIdentifierName>,
+        NameTesting2<EbnfIdentifierName, EbnfIdentifierName> {
 
     @Test
     public void testCreateContainsSeparatorFails() {

@@ -22,7 +22,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
@@ -32,8 +32,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class HttpRequestParameterNameTest extends ClassTestCase<HttpRequestParameterName>
-        implements NameTesting<HttpRequestParameterName, HttpRequestParameterName> {
+final public class HttpRequestParameterNameTest implements ClassTesting2<HttpRequestParameterName>,
+        NameTesting<HttpRequestParameterName, HttpRequestParameterName> {
 
     @Test
     public void testParameterValue() {

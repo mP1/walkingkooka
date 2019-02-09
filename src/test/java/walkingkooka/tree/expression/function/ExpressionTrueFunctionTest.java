@@ -19,11 +19,11 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionTrueFunctionTest extends ClassTestCase<ExpressionTrueFunction>
-        implements ExpressionFunctionTesting<ExpressionTrueFunction, Boolean> {
+public final class ExpressionTrueFunctionTest implements ClassTesting2<ExpressionTrueFunction>,
+        ExpressionFunctionTesting<ExpressionTrueFunction, Boolean> {
 
     @Test
     public void testExecuteFunction() {

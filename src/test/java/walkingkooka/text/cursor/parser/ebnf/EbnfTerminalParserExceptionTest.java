@@ -19,10 +19,8 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-public class EbnfTerminalParserExceptionTest extends TestCase
-        implements StandardThrowableTesting<EbnfTerminalParserException> {
+public class EbnfTerminalParserExceptionTest implements StandardThrowableTesting<EbnfTerminalParserException> {
 
     @Override
     public Class<EbnfTerminalParserException> type() {

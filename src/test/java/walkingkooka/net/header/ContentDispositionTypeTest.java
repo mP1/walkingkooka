@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
@@ -33,8 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispositionType>
-        implements NameTesting2<ContentDispositionType, ContentDispositionType> {
+final public class ContentDispositionTypeTest implements ClassTesting2<ContentDispositionType>,
+        NameTesting2<ContentDispositionType, ContentDispositionType> {
 
     @Test
     public void testConstantNameReturnsConstant() {

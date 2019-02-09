@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTesting;
@@ -26,8 +26,9 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetParserContext>,
-        T extends SpreadsheetParserToken> extends ClassTestCase<P>
-        implements ParserTesting<P, T, SpreadsheetParserContext>,
+        T extends SpreadsheetParserToken>
+        implements ClassTesting2<P>,
+        ParserTesting<P, T, SpreadsheetParserContext>,
         TypeNameTesting<P> {
 
     SpreadsheetParserTestCase() {
@@ -59,7 +60,7 @@ public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetP
     // ClassTestCase .........................................................................................
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

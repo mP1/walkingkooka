@@ -19,10 +19,8 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.TestCase;
 
-final public class EndOfLineCharPredicateTest extends TestCase
-        implements CharPredicateTesting<EndOfLineCharPredicate>,
+final public class EndOfLineCharPredicateTest implements CharPredicateTesting<EndOfLineCharPredicate>,
         SerializationTesting<EndOfLineCharPredicate> {
 
     @Test

@@ -23,14 +23,14 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RoutingTest extends ClassTestCase<Routing<StringName, String>>
-        implements ToStringTesting<Routing<StringName, String>> {
+public final class RoutingTest implements ClassTesting2<Routing<StringName, String>>,
+        ToStringTesting<Routing<StringName, String>> {
 
     private final static Class<StringName> TYPE = StringName.class;
     private final static String TARGET = "Target";
@@ -91,8 +91,7 @@ public final class RoutingTest extends ClassTestCase<Routing<StringName, String>
         return Cast.to(Routing.class);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

@@ -19,7 +19,7 @@ package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -28,8 +28,8 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class PairTest extends ClassTestCase<Pair<?, ?>>
-        implements HashCodeEqualsDefinedTesting<Pair<?, ?>>,
+final public class PairTest implements ClassTesting2<Pair<?, ?>>,
+        HashCodeEqualsDefinedTesting<Pair<?, ?>>,
         SerializationTesting<Pair<?, ?>>,
         ToStringTesting<Pair<?, ?>> {
 
@@ -151,8 +151,7 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>>
         return Cast.to(Pair.class);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

@@ -19,13 +19,13 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNormalizeSpaceFunctionTest extends ClassTestCase<ExpressionNormalizeSpaceFunction>
-        implements ExpressionFunctionTesting<ExpressionNormalizeSpaceFunction, String> {
+public final class ExpressionNormalizeSpaceFunctionTest implements ClassTesting2<ExpressionNormalizeSpaceFunction>,
+        ExpressionFunctionTesting<ExpressionNormalizeSpaceFunction, String> {
 
     @Test
     public void testZeroParametersFails() {

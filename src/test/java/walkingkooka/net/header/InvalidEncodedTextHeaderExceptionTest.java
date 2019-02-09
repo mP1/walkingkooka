@@ -19,10 +19,8 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-final public class InvalidEncodedTextHeaderExceptionTest extends TestCase
-        implements StandardThrowableTesting<InvalidEncodedTextHeaderException> {
+final public class InvalidEncodedTextHeaderExceptionTest implements StandardThrowableTesting<InvalidEncodedTextHeaderException> {
 
     @Override
     public Class<InvalidEncodedTextHeaderException> type() {

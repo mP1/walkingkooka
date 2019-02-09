@@ -18,14 +18,14 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class HttpResponsesTest extends ClassTestCase<HttpResponses>
-        implements PublicStaticHelperTesting<HttpResponses> {
+public final class HttpResponsesTest implements ClassTesting2<HttpResponses>,
+        PublicStaticHelperTesting<HttpResponses> {
 
     @Override
     public Class<HttpResponses> type() {

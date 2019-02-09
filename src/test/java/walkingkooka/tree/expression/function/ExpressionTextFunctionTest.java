@@ -19,13 +19,13 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionTextFunctionTest extends ClassTestCase<ExpressionTextFunction>
-        implements ExpressionFunctionTesting<ExpressionTextFunction, String> {
+public final class ExpressionTextFunctionTest implements ClassTesting2<ExpressionTextFunction>,
+        ExpressionFunctionTesting<ExpressionTextFunction, String> {
 
     @Test
     public void testZeroParametersFails() {

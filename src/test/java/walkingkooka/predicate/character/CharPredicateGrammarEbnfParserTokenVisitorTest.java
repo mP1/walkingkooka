@@ -21,7 +21,7 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.TestCase;
+import walkingkooka.test.ResourceTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -41,8 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends TestCase
-        implements CharPredicateTesting<CharPredicate> {
+public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements CharPredicateTesting<CharPredicate>,
+        ResourceTesting {
 
     @Test
     public void testFromGrammarNullGrammarFails() {

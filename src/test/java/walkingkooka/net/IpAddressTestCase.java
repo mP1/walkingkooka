@@ -20,7 +20,7 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> extends ClassTestCase<A>
-        implements ComparableTesting<A>,
+abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> implements ClassTesting2<A>,
+        ComparableTesting<A>,
         SerializationTesting<A>,
         ToStringTesting<A>,
         TypeNameTesting<A> {
@@ -73,7 +73,7 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> ext
     abstract int bitCount();
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

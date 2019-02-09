@@ -24,8 +24,9 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.test.ResourceTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -68,9 +69,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class EbnfParserCombinatorsTest extends ClassTestCase<EbnfParserCombinators>
-        implements ParserTesting<Parser<ParserToken, FakeParserContext>, ParserToken, FakeParserContext>,
-        PublicStaticHelperTesting<EbnfParserCombinators> {
+public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParserCombinators>,
+        ParserTesting<Parser<ParserToken, FakeParserContext>, ParserToken, FakeParserContext>,
+        PublicStaticHelperTesting<EbnfParserCombinators>,
+        ResourceTesting {
 
     @Test
     @Disabled("Until proper error reporting is available")

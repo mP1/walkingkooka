@@ -19,7 +19,7 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomToStringConverterTest extends ClassTestCase<CustomToStringConverter>
-        implements ConverterTesting<CustomToStringConverter>,
+public final class CustomToStringConverterTest implements ClassTesting2<CustomToStringConverter>,
+        ConverterTesting<CustomToStringConverter>,
         HashCodeEqualsDefinedTesting<CustomToStringConverter> {
 
     private final static Converter WRAPPED = Converters.string();

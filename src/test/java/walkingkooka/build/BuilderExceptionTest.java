@@ -19,10 +19,8 @@
 package walkingkooka.build;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-public final class BuilderExceptionTest extends TestCase
-        implements StandardThrowableTesting<BuilderException> {
+public final class BuilderExceptionTest implements StandardThrowableTesting<BuilderException> {
 
     @Override
     public Class<BuilderException> type() {

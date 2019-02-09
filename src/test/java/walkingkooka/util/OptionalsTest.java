@@ -20,7 +20,7 @@ package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class OptionalsTest extends ClassTestCase<Optionals>
-        implements PublicStaticHelperTesting<Optionals> {
+public final class OptionalsTest implements ClassTesting2<Optionals>,
+        PublicStaticHelperTesting<Optionals> {
 
     @Test
     public void testStreamNullFails() {

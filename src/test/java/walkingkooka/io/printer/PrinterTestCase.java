@@ -17,15 +17,15 @@
 
 package walkingkooka.io.printer;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
 
 /**
  * Base class for testing a {@link Printer} with mostly parameter checking tests.
  */
-abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P>
-        implements PrinterTesting<P> {
+abstract public class PrinterTestCase<P extends Printer> implements ClassTesting2<P>,
+        PrinterTesting<P> {
 
     PrinterTestCase() {
         super();
@@ -68,7 +68,7 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
 
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

@@ -24,15 +24,15 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
 import java.util.Set;
 
-public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends ClassTestCase<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>>
-        implements HateosHandlerContextTesting<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>, JsonNode> {
+public final class HateosHandlerBuilderRouterHateosHandlerContextTest implements ClassTesting2<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>>,
+        HateosHandlerContextTesting<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>, JsonNode> {
 
     @Test
     public void testAddLinksSelf() {

@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
@@ -27,8 +27,9 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
-public abstract class CookieDeletionTestCase<D extends CookieDeletion & HashCodeEqualsDefined> extends ClassTestCase<D>
-        implements HashCodeEqualsDefinedTesting<D>,
+public abstract class CookieDeletionTestCase<D extends CookieDeletion & HashCodeEqualsDefined>
+        implements ClassTesting2<D>,
+        HashCodeEqualsDefinedTesting<D>,
         IsMethodTesting<D>,
         ToStringTesting<D> {
 
@@ -44,7 +45,7 @@ public abstract class CookieDeletionTestCase<D extends CookieDeletion & HashCode
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

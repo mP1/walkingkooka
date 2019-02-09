@@ -280,8 +280,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         return Link.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 
