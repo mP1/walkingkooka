@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Helper for testing a parse string method, which may be either a static or instance method.
  */
-public interface ParseStringTesting<T> {
+public interface ParseStringTesting<T> extends Testing {
 
     @Test
     default void testParseNullFails() {

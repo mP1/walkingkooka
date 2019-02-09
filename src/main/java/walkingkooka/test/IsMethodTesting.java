@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Scans a class for one or more instance is methods. Only methods that match the class less a prefix and suffix should
  * return true.
  */
-public interface IsMethodTesting<T> {
+public interface IsMethodTesting<T> extends Testing {
 
     @Test
     default void testIsMethods() throws Exception {

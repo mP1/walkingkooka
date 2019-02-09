@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * An interface with default methods which may be mixed into a test.
  */
-public interface ThrowableTesting<T extends Throwable> {
+public interface ThrowableTesting<T extends Throwable> extends Testing {
 
     @Test
     default void testClassVisibility() {

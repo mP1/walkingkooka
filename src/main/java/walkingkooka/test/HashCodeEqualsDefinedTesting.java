@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * Base class for testing a {@link HashCodeEqualsDefined} with mostly parameter checking tests.
  */
-public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> {
+public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> extends Testing {
 
     @Test
     default void testHashCode() {
