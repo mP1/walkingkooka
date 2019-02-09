@@ -26,12 +26,12 @@ import java.util.Optional;
 /**
  * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
  */
-abstract class ParserTemplateToken<V> implements ParserToken, Value<V> {
+abstract class ParserToken2<V> implements ParserToken, Value<V> {
 
     /**
      * Private ctor to limit subclassing.
      */
-    ParserTemplateToken(final V value, final String text) {
+    ParserToken2(final V value, final String text) {
         this.value = value;
         this.text = text;
     }
@@ -67,7 +67,7 @@ abstract class ParserTemplateToken<V> implements ParserToken, Value<V> {
      */
     abstract ParserToken replaceText(final String text);
 
-    public final <T extends ParserTemplateToken<V>> Optional<T> success() {
+    public final <T extends ParserToken2<V>> Optional<T> success() {
         return Cast.to(Optional.of(this));
     }
 
@@ -85,11 +85,11 @@ abstract class ParserTemplateToken<V> implements ParserToken, Value<V> {
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final ParserTemplateToken<?> other) {
+    private boolean equals0(final ParserToken2<?> other) {
         return this.value.equals(other.value) && this.text.equals(other.text) && this.equals1(other);
     }
 
-    abstract boolean equals1(final ParserTemplateToken<?> other);
+    abstract boolean equals1(final ParserToken2<?> other);
 
     @Override
     public final String toString() {

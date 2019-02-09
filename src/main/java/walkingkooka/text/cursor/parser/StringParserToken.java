@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * The parser token for a matched string.
  */
-public final class StringParserToken extends ParserTemplateToken<String> implements LeafParserToken<String> {
+public final class StringParserToken extends ParserToken2<String> implements LeafParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(StringParserToken.class);
 
@@ -64,7 +64,7 @@ public final class StringParserToken extends ParserTemplateToken<String> impleme
     }
 
     @Override
-    boolean equals1(final ParserTemplateToken<?> other) {
+    boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 

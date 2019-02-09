@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained within a {@link BigDecimal}
  */
-public final class BigDecimalParserToken extends ParserTemplateToken<BigDecimal> implements LeafParserToken<BigDecimal>{
+public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implements LeafParserToken<BigDecimal>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigDecimalParserToken.class);
 
@@ -65,7 +65,7 @@ public final class BigDecimalParserToken extends ParserTemplateToken<BigDecimal>
     }
 
     @Override
-    boolean equals1(final ParserTemplateToken<?> other) {
+    boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 
