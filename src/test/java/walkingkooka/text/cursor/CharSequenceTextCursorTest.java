@@ -62,7 +62,7 @@ final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequence
     public void testLineInfo() {
         final CharSequenceTextCursor cursor = CharSequenceTextCursor.with("text\nnext");
         cursor.next();
-        this.checkLineInfo(cursor, "text", 1, 2);
+        this.lineInfoCheck(cursor, "text", 1, 2);
     }
 
 

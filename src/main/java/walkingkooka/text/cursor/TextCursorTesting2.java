@@ -140,7 +140,7 @@ public interface TextCursorTesting2<C extends TextCursor>
         cursor.next();
 
         final TextCursorLineInfo info = cursor.lineInfo();
-        this.checkLineInfo(cursor, "text", 1, 2);
+        this.lineInfoCheck(cursor, "text", 1, 2);
     }
 
     @Test
@@ -183,14 +183,14 @@ public interface TextCursorTesting2<C extends TextCursor>
         }
     }
 
-    default void checkLineInfo(final TextCursor cursor,
+    default void lineInfoCheck(final TextCursor cursor,
                                final String text,
                                final int lineNumber,
                                final String columnNumber) {
-        this.checkLineInfo(cursor, text, lineNumber, columnNumber.length());
+        this.lineInfoCheck(cursor, text, lineNumber, columnNumber.length());
     }
 
-    default void checkLineInfo(final TextCursor cursor,
+    default void lineInfoCheck(final TextCursor cursor,
                                final String text,
                                final int lineNumber,
                                final int columnNumber) {
