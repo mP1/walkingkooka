@@ -18,12 +18,14 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 final public class CharSequenceTextCursorSavePointTest extends
-        TextCursorSavePointTestCase<CharSequenceTextCursorSavePoint, CharSequenceTextCursor> {
+        ClassTestCase<CharSequenceTextCursorSavePoint>
+        implements TextCursorSavePointTesting<CharSequenceTextCursorSavePoint, CharSequenceTextCursor> {
 
     @Test
     public void testSaveAndRestoreWithFromAndTo() {

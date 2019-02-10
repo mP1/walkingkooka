@@ -19,12 +19,14 @@ package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSequenceTextCursor> {
+final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequenceTextCursor>
+        implements TextCursorTesting<CharSequenceTextCursor>{
 
     @Test
     public void testFromNullFails() {
@@ -120,7 +122,7 @@ final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSeq
     }
 
     @Override
-    protected CharSequenceTextCursor createTextCursor(final String text) {
+    public CharSequenceTextCursor createTextCursor(final String text) {
         return CharSequenceTextCursor.with(text);
     }
 

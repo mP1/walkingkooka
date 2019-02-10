@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.text.cursor;
@@ -22,17 +23,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint, C extends TextCursor>
-        extends TextCursorPackageTestCase<S> {
-
-    protected TextCursorSavePointTestCase() {
-        super();
-    }
+/**
+ * Mixin that introduces tests and helpers to test {@link TextCursorSavePoint} implementations.
+ */
+public interface TextCursorSavePointTesting<S extends TextCursorSavePoint, C extends TextCursor>
+        extends TextCursorPackageTesting<S> {
 
     // tests
 
     @Test
-    public void testSave() {
+    default void testSave() {
         final C cursor = this.createTextCursor("0123456");
         cursor.next();
         cursor.next();
@@ -42,7 +42,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
     }
 
     @Test
-    public void testSaveAndRestore() {
+    default void testSaveAndRestore() {
         final C cursor = this.createTextCursor("0123456");
         cursor.next();
         cursor.next();
@@ -58,7 +58,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
     }
 
     @Test
-    public void testMultipleRestores() {
+    default void testMultipleRestores() {
         final C cursor = this.createTextCursor("0123456");
         cursor.next();
         cursor.next();
@@ -79,7 +79,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
     }
 
     @Test
-    public void testMultipleSaves() {
+    default void testMultipleSaves() {
         final C cursor = this.createTextCursor("0123456");
         cursor.next();
         cursor.next();
@@ -98,7 +98,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
     }
 
     @Test
-    public void testTextBetweenCursorBefore() {
+    default void testTextBetweenCursorBefore() {
         final C cursor = this.createTextCursor("0123456");
         cursor.next();
         cursor.next();
@@ -117,7 +117,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
     }
 
     @Test
-    public void testTextBetweenCursorSame() {
+    default void testTextBetweenCursorSame() {
         final C cursor = this.createTextCursor("0123456");
         cursor.next();
         cursor.next();
@@ -127,7 +127,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
     }
 
     @Test
-    public void testTextBetweenCursorAfter() {
+    default void testTextBetweenCursorAfter() {
         final C cursor = this.createTextCursor("0123456");
         cursor.next();
         cursor.next();
@@ -140,7 +140,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
     }
 
     @Test
-    public void testToString() {
+    default void testToString() {
         final C cursor = this.createTextCursor("0123456789");
         cursor.next();
         final TextCursorSavePoint save = cursor.save();
@@ -152,9 +152,9 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
         assertEquals("save " + cursor.toString(), actual);
     }
 
-    abstract protected C createTextCursor(String text);
+    C createTextCursor(String text);
 
-    protected void checkTextBetween(final TextCursorSavePoint save, final String expected) {
+    default void checkTextBetween(final TextCursorSavePoint save, final String expected) {
         final String actual = save.textBetween().toString();
         assertEquals(expected, actual, () -> "textBetween=" + save);
     }
