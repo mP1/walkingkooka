@@ -13,39 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
-abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> extends ClassTestCase<L>
-        implements ToStringTesting<L>,
+/**
+ * Mixin that introduces helpers and tests for {@link TextCursorLineInfo} implementations.
+ */
+public interface TextCursorLineInfoTesting<L extends TextCursorLineInfo>
+        extends ToStringTesting<L>,
         TypeNameTesting<L> {
 
-    protected TextCursorLineInfoTestCase() {
-        super();
-    }
-
-    abstract protected L createLineInfo();
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
-    // TypeNameTesting .........................................................................................
+    /**
+     * Create the default {@link TextCursorLineInfo}.
+     */
+    L createLineInfo();
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
-    @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return TextCursorLineInfo.class.getSimpleName();
     }
 }
