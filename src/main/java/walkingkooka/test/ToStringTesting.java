@@ -20,10 +20,12 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Mixing that may be used to test toString implementations.
@@ -55,5 +57,17 @@ public interface ToStringTesting<T> extends Testing{
 
     default void toStringAndCheck(final Object object, final String expected) {
         assertEquals(expected, object.toString());
+    }
+
+    default void toStringContainsCheck(final Object object, final String... components) {
+        final String toString = object.toString();
+
+        String s = toString;
+
+        for (final String c : components) {
+            final int foundIndex = s.indexOf(c);
+            assertNotEquals(-1, foundIndex, () -> "Cannot find " + CharSequences.quote(c) + " within " + CharSequences.quote(toString));
+            s = s.substring(0, foundIndex) + s.substring(foundIndex + c.length());
+        }
     }
 }
