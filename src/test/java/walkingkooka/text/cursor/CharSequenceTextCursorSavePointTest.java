@@ -19,6 +19,7 @@ package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -59,12 +60,19 @@ final public class CharSequenceTextCursorSavePointTest extends
     }
 
     @Override
-    protected CharSequenceTextCursor createTextCursor(final String text) {
+    public CharSequenceTextCursor createTextCursor(final String text) {
         return CharSequenceTextCursor.with(text);
     }
+
+    // ClassTestCase.......................................................................................
 
     @Override
     public Class<CharSequenceTextCursorSavePoint> type() {
         return CharSequenceTextCursorSavePoint.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

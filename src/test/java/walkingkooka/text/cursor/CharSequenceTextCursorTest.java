@@ -17,16 +17,17 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequenceTextCursor>
-        implements TextCursorTesting<CharSequenceTextCursor>{
+        implements TextCursorTesting2<CharSequenceTextCursor>,
+        ToStringTesting<CharSequenceTextCursor> {
 
     @Test
     public void testFromNullFails() {
@@ -45,8 +46,7 @@ final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequence
 
     @Test
     public void testAtWhenEmpty() {
-        final CharSequenceTextCursor cursor = CharSequenceTextCursor.with("");
-        this.atFails(cursor, CharSequenceTextCursor.cursorIsEmpty(0, 0));
+        this.atFails(CharSequenceTextCursor.with(""));
     }
 
     @Test
@@ -55,7 +55,7 @@ final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequence
         cursor.next();
         cursor.next();
         cursor.next();
-        this.atFails(cursor, CharSequenceTextCursor.cursorIsEmpty(3, 3));
+        this.atFails(cursor);
     }
 
     @Override
@@ -69,56 +69,56 @@ final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequence
     @Test
     public void testToStringAtBeginning() {
         final CharSequenceTextCursor cursor = this.createTextCursor("abcdefghijklmnopqrstuvwxyz");
-        this.checkToStringContains(cursor, "at 0 \"[a]bcdefgh\"");
+        this.toStringContainsCheck(cursor, "at 0 \"[a]bcdefgh\"");
     }
 
     @Test
     public void testToStringNearBeginning() {
         final CharSequenceTextCursor cursor = this.createTextCursor("abcdefghijklmnopqrstuvwxyz");
         cursor.next();
-        this.checkToStringContains(cursor, "at 1 \"a[b]cdefghi\"");
+        this.toStringContainsCheck(cursor, "at 1 \"a[b]cdefghi\"");
     }
 
     @Test
     public void testToStringNearBeginning2() {
         final CharSequenceTextCursor cursor = this.createTextCursor("abcdefghijklmnopqrstuvwxyz");
         this.moveBy(cursor, 2);
-        this.checkToStringContains(cursor, "at 2 \"ab[c]defghij\"");
+        this.toStringContainsCheck(cursor, "at 2 \"ab[c]defghij\"");
     }
 
     @Test
     public void testToStringMiddle() {
         final CharSequenceTextCursor cursor = this.createTextCursor("abcdefghijklmnopqrstuvwxyz");
         this.moveBy(cursor, 13);
-        this.checkToStringContains(cursor, "at 13 \"ghijklm[n]opqrstu\"");
+        this.toStringContainsCheck(cursor, "at 13 \"ghijklm[n]opqrstu\"");
     }
 
     @Test
     public void testToSteringAtEnd() {
         final CharSequenceTextCursor cursor = this.createTextCursor("abcdefghijklmnopqrstuvwxyz");
         this.moveBy(cursor, 25);
-        this.checkToStringContains(cursor, "at 25 \"stuvwxy[z]\"");
+        this.toStringContainsCheck(cursor, "at 25 \"stuvwxy[z]\"");
     }
 
     @Test
     public void testToStringAfterEnd() {
         final CharSequenceTextCursor cursor = this.createTextCursor("abcdefghijklmnopqrstuvwxyz");
         cursor.end();
-        this.checkToStringContains(cursor, "at 26 \"tuvwxyz\"[]");
+        this.toStringContainsCheck(cursor, "at 26 \"tuvwxyz\"[]");
     }
 
     @Test
     public void testToStringNearEnd() {
         final CharSequenceTextCursor cursor = this.createTextCursor("abcdefghijklmnopqrstuvwxyz");
         this.moveBy(cursor, 24);
-        this.checkToStringContains(cursor, "at 24 \"rstuvwx[y]z\"");
+        this.toStringContainsCheck(cursor, "at 24 \"rstuvwx[y]z\"");
     }
 
     @Test
     public void testToStringNearEnd2() {
         final CharSequenceTextCursor cursor = this.createTextCursor("abcdefghijklmnopqrstuvwxyz");
         this.moveBy(cursor, 23);
-        this.checkToStringContains(cursor, "at 23 \"qrstuvw[x]yz\"");
+        this.toStringContainsCheck(cursor, "at 23 \"qrstuvw[x]yz\"");
     }
 
     @Override
@@ -126,32 +126,22 @@ final public class CharSequenceTextCursorTest extends ClassTestCase<CharSequence
         return CharSequenceTextCursor.with(text);
     }
 
+    // TODO TextCursor.skip
     private void moveBy(final TextCursor cursor, final int skip) {
         for (int i = 0; i < skip; i++) {
             cursor.next();
         }
     }
 
-    private void checkToStringContains(final CharSequenceTextCursor cursor, final String... components) {
-        final String toString = cursor.toString();
-        checkContains(toString, components);
-    }
-
-    private void checkContains(final String string, final String... contains) {
-        assertNotNull(string);
-        String s = string;
-
-        for (final String c : contains) {
-            final int foundIndex = s.indexOf(c);
-            if (-1 == foundIndex) {
-                Assertions.fail("Cannot find \"" + c + "\" within \"" + string + "\".");
-            }
-            s = s.substring(0, foundIndex) + s.substring(foundIndex + c.length());
-        }
-    }
+    // ClassTestCase.......................................................................................
 
     @Override
     public Class<CharSequenceTextCursor> type() {
         return CharSequenceTextCursor.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * Mixin that introduces tests and helpers to test {@link TextCursorSavePoint} implementations.
  */
 public interface TextCursorSavePointTesting<S extends TextCursorSavePoint, C extends TextCursor>
-        extends TextCursorPackageTesting<S> {
+        extends TextCursorTesting<S> {
 
     // tests
 

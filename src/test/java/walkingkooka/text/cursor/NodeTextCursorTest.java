@@ -26,7 +26,7 @@ import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 public final class NodeTextCursorTest extends ClassTestCase<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>>
-        implements TextCursorTesting<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>>{
+        implements TextCursorTesting2<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>> {
 
     // in all tests below text with numbers should be skipped because nodes with children text is ignored.
 

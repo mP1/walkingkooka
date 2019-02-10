@@ -18,198 +18,67 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.test.TypeNameTesting;
-import walkingkooka.text.CharSequences;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface TextCursorTesting<C extends TextCursor>
-        extends TextCursorPackageTesting<C>,
-        TypeNameTesting<C> {
-    
-    @Test
-    default void testIsEmptyNotEmpty() {
-        final C cursor = this.createTextCursor("1");
-        this.checkNotEmpty(cursor);
+/**
+ * Mixin that is useful for testing several interfaces in the text.cursor package.
+ */
+public interface TextCursorTesting<T> {
+
+    default void checkEmpty(final TextCursor cursor) {
+        this.checkEmpty(cursor, "Cursor not empty");
     }
 
-    @Test
-    default void testIsEmpty() {
-        final C cursor = this.createTextCursor("");
-        this.checkEmpty(cursor);
+    default void checkEmpty(final TextCursor cursor, final String message) {
+        assertEquals(true,
+                cursor.isEmpty(),
+                () -> message + '=' + cursor);
     }
 
-    @Test
-    default void testIsEmptyTwice() {
-        final C cursor = this.createTextCursor("");
-        this.checkEmpty(cursor);
-        this.checkEmpty(cursor);
+    default void checkNotEmpty(final TextCursor cursor) {
+        this.checkNotEmpty(cursor, "cursor not empty " + cursor);
     }
 
-    @Test
-    default void testIsEmptyAfterNextAndEmpty() {
-        final C cursor = this.createTextCursor("1");
-        cursor.next();
-        this.checkEmpty(cursor, "cursor should be empty");
+    default void checkNotEmpty(final TextCursor cursor, final String message) {
+        assertEquals(false,
+                cursor.isEmpty(),
+                () -> "cursor not empty " + cursor);
     }
 
-    @Test
-    default void testNext() {
-        final C cursor = this.createTextCursor("123");
-        assertSame(cursor, cursor.next(), "cursor didnt return this");
-    }
-
-    @Test
-    default void testNextWhenEmptyFails() {
-        final C cursor = this.createTextCursor("1");
-        cursor.next(); // 1
-        this.moveNextFails(cursor);
-    }
-
-    @Test
-    default void testAtWhenEmptyFails() {
-        final C cursor = this.createTextCursor("123");
-        this.consumeAndCheck(cursor, "123");
-        this.atFails(cursor);
-    }
-
-    @Test
-    default void testAt() {
-        final C cursor = this.createTextCursor("123");
-        this.atAndCheck(cursor, '1');
-        cursor.next();
-        this.atAndCheck(cursor, '2');
-        cursor.next();
-        this.atAndCheck(cursor, '3');
-    }
-
-    @Test
-    default void testAtTwice() {
-        final C cursor = this.createTextCursor("123");
-        this.atAndCheck(cursor, '1');
-        this.atAndCheck(cursor, '1');
-
-        cursor.next();
-        this.atAndCheck(cursor, '2');
-        this.atAndCheck(cursor, '2');
-
-        cursor.next();
-        this.atAndCheck(cursor, '3');
-        this.atAndCheck(cursor, '3');
-    }
-
-    @Test
-    default void testAtAfterNext() {
-        final C cursor = this.createTextCursor("123");
-        cursor.next();
-        this.atAndCheck(cursor, '2');
-    }
-
-    @Test
-    default void testNextTooManyFails() {
-        final C cursor = this.createTextCursor("123");
-        cursor.next();
-        this.atAndCheck(cursor, '2');
-        cursor.next();
-        this.atAndCheck(cursor, '3');
-        cursor.next();
-
-        this.moveNextFails(cursor);
-    }
-
-    @Test
-    default void testEndAlreadyEmpty() {
-        final TextCursor cursor = this.createTextCursor("1");
-        cursor.next();
-        cursor.end();
-        this.checkEmpty(cursor);
-    }
-
-    @Test
-    default void testEnd() {
-        final TextCursor cursor = this.createTextCursor("1234567890");
-        assertSame(cursor, cursor.end(), "cursor didnt return this");
-        this.checkEmpty(cursor);
-    }
-
-    @Test
-    default void testLineInfo() {
-        final C cursor = this.createTextCursor("text\nnext");
-        cursor.next();
-
-        final TextCursorLineInfo info = cursor.lineInfo();
-        this.checkLineInfo(cursor, "text", 1, 2);
-    }
-
-    @Test
-    default void testSaveAndRestore() {
-        final C cursor = this.createTextCursor("1234");
-
-        final TextCursorSavePoint saved1 = cursor.save();
-        cursor.next(); // 2
-
-        final TextCursorSavePoint saved2 = cursor.save();
-        cursor.next(); // 3
-        saved2.restore();
-        this.atAndCheck(cursor, '2', "cursor was not restored correctly");
-
-        saved1.restore();
-        this.atAndCheck(cursor, '1', "cursor was not restored correctly");
-    }
-
-    @Test
-    default void testSavePointUpdated() {
-        final C cursor = this.createTextCursor("text");
-        cursor.next();
-        final TextCursorSavePoint saved = cursor.save();
-        cursor.next();
-        saved.save();
-    }
-
-    // factory
-
-    default C createTextCursor() {
-        return this.createTextCursor("123");
-    }
-
-    C createTextCursor(String text);
-
-    default void consumeAndCheck(final TextCursor cursor, final String text) {
-        for (char c : text.toCharArray()) {
-            this.atAndCheck(cursor, c, "Expected '" + c + "' while consuming " + CharSequences.quote(text));
+    default void moveNextFails(final TextCursor cursor) {
+        assertThrows(TextCursorException.class, () -> {
             cursor.next();
-        }
+        });
     }
 
-    default void checkLineInfo(final TextCursor cursor,
-                               final String text,
-                               final int lineNumber,
-                               final String columnNumber) {
-        this.checkLineInfo(cursor, text, lineNumber, columnNumber.length());
+    default void atAndCheck(final TextCursor cursor, final char expected) {
+        this.atAndCheck(cursor, expected, null);
     }
 
-    default void checkLineInfo(final TextCursor cursor,
-                               final String text,
-                               final int lineNumber,
-                               final int columnNumber) {
-        final TextCursorLineInfo info = cursor.lineInfo();
+    default void atAndCheck(final TextCursor cursor, final char expected, final String message) {
+        Objects.requireNonNull(cursor, "cursor");
 
-        assertEquals(text, info.text(), "text");
-        assertEquals(lineNumber, info.lineNumber(), "lineNumber");
-        assertEquals(columnNumber, info.column(), "column");
+        assertEquals(expected,
+                cursor.at(),
+                message + "=" + cursor);
     }
 
-    // TypeNameTesting .........................................................................................
-
-    @Override
-    default String typeNamePrefix() {
-        return "";
+    default void atAndCheck(final char at, final char expected, final TextCursor cursor) {
+        assertEquals(expected,
+                at,
+                () -> "Wrong character " + cursor);
     }
 
-    @Override
-    default String typeNameSuffix() {
-        return TextCursor.class.getSimpleName();
+    default void atAndCheck(final char at, final char expected, final String message) {
+        assertEquals(expected, at, message);
+    }
+
+    default void atFails(final TextCursor cursor) {
+        assertThrows(TextCursorException.class, () -> {
+            cursor.at();
+        });
     }
 }
