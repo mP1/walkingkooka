@@ -22,8 +22,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class NodeTextCursorTest extends TextCursorTestCase<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>> {
+public final class NodeTextCursorTest extends ClassTestCase<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>>
+        implements TextCursorTesting2<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>> {
 
     // in all tests below text with numbers should be skipped because nodes with children text is ignored.
 
@@ -131,13 +134,22 @@ public final class NodeTextCursorTest extends TextCursorTestCase<NodeTextCursor<
         this.checkEmpty(cursor);
     }
 
+    // TextCursorTesting2.......................................................................................
+
     @Override
-    protected NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object> createTextCursor(final String text) {
+    public NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object> createTextCursor(final String text) {
         return NodeTextCursor.with(new NodeTextCursorTestNode("root-without-children", text));
     }
 
     @Override
     public Class<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>> type() {
         return Cast.to(NodeTextCursor.class);
+    }
+
+    // ClassTestCase.......................................................................................
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
