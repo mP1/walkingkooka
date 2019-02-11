@@ -21,7 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPathName;
@@ -36,6 +36,8 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.routing.Router;
 import walkingkooka.routing.RouterBuilder;
 import walkingkooka.routing.Routing;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 import java.util.Optional;
@@ -45,8 +47,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCase<HttpRequestAttributeRoutingBuilder<String>,
-        Routing<HttpRequestAttribute<?>, String>> {
+public final class HttpRequestAttributeRoutingBuilderTest extends ClassTestCase<HttpRequestAttributeRoutingBuilder<String>>
+        implements BuilderTesting<HttpRequestAttributeRoutingBuilder<String>, Routing<HttpRequestAttribute<?>, String>> {
 
     private final static String TARGET = "target123";
 
@@ -464,7 +466,7 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
     // helpers.................................................................................................
 
     @Override
-    protected HttpRequestAttributeRoutingBuilder<String> createBuilder() {
+    public HttpRequestAttributeRoutingBuilder<String> createBuilder() {
         return HttpRequestAttributeRoutingBuilder.with(TARGET);
     }
 
@@ -482,7 +484,12 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
     }
 
     @Override
-    protected Class<Routing<HttpRequestAttribute<?>, String>> builderProductType() {
+    public Class<Routing<HttpRequestAttribute<?>, String>> builderProductType() {
         return Cast.to(Routing.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

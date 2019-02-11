@@ -20,6 +20,7 @@ package walkingkooka.build;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -31,41 +32,36 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base class for any {@link Builder} which includes helpers that assert failure if {@link
- * Builder#build()} is called without any additions.
+ * Mixin interface for testing {@link Builder}
  */
-abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLikeTestCase<B>
-        implements TypeNameTesting<B> {
-
-    protected BuilderTestCase() {
-        super();
-    }
-
+public interface BuilderTesting<B extends Builder<T>, T> extends ToStringTesting<B>,
+        TypeNameTesting<B> {
+    
     @Test
-    public final void testBuilderProductTypePublic() {
+    default void testBuilderProductTypePublic() {
         final Class<T> type = this.builderProductType();
         assertEquals(MemberVisibility.PUBLIC,
                 MemberVisibility.get(type),
                 "Builder product type " + type.getName() + " is not public");
     }
 
-    protected void buildAndCheck(final Builder<T> builder, final T product) {
+    default void buildAndCheck(final Builder<T> builder, final T product) {
         assertEquals(product, builder.build(), builder.toString());
     }
 
-    protected void buildAndCheck2(final Builder<?> builder, final String productToString) {
+    default void buildAndCheck2(final Builder<?> builder, final String productToString) {
         assertEquals(productToString, builder.build().toString(), () -> builder.toString());
     }
 
-    protected void buildFails() {
+    default void buildFails() {
         this.buildFails(this.createBuilder());
     }
 
-    protected void buildFails(final Builder<?> builder) {
+    default void buildFails(final Builder<?> builder) {
         this.buildFails(builder, null);
     }
 
-    protected void buildFails(final Builder<?> builder, final String message) {
+    default void buildFails(final Builder<?> builder, final String message) {
         Objects.requireNonNull(builder, "builder");
 
         final BuilderException expected = assertThrows(BuilderException.class, () -> {
@@ -76,17 +72,17 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
         }
     }
 
-    final protected void buildFails(final String message) {
+    default void buildFails(final String message) {
         assertNotNull("expectedMessage", message);
         this.buildFails(this.createBuilder(), message);
     }
 
-    final protected void buildMissingFails(final String firstRequired,
+    default void buildMissingFails(final String firstRequired,
                                            final String... requireds) {
         this.buildMissingFails(this.createBuilder(), firstRequired, requireds);
     }
 
-    final protected void buildMissingFails(final Builder<?> builder,
+    default void buildMissingFails(final Builder<?> builder,
                                            final String firstRequired,
                                            final String... requireds) {
         Objects.requireNonNull(builder, "builder");
@@ -116,24 +112,19 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
         }
     }
 
-    abstract protected B createBuilder();
+    B createBuilder();
 
-    abstract protected Class<T> builderProductType();
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
+    Class<T> builderProductType();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Builder.class.getSimpleName();
     }
 }

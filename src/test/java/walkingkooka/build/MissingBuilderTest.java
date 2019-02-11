@@ -18,11 +18,15 @@
 package walkingkooka.build;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, String> {
+final public class MissingBuilderTest extends ClassTestCase<MissingBuilder>
+        implements BuilderTesting<MissingBuilder, String> {
+
     // constants
 
     private final static String LABEL = "something";
@@ -251,17 +255,22 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     }
 
     @Override
-    protected MissingBuilder createBuilder() {
+    public MissingBuilder createBuilder() {
         return MissingBuilder.empty();
     }
 
     @Override
-    protected Class<String> builderProductType() {
+    public Class<String> builderProductType() {
         return String.class;
     }
 
     @Override
     public Class<MissingBuilder> type() {
         return MissingBuilder.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
