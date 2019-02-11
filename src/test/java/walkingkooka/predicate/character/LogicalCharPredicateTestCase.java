@@ -20,12 +20,15 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
-        extends CharPredicateTestCase<P>
-        implements HashCodeEqualsDefinedTesting<P>, SerializationTesting<P> {
+        extends TestCase
+        implements CharPredicateTesting<P>,
+        HashCodeEqualsDefinedTesting<P>,
+        SerializationTesting<P> {
 
     LogicalCharPredicateTestCase() {
         super();
@@ -69,7 +72,7 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
     }
 
     @Override
-    final protected P createCharPredicate() {
+    public final P createCharPredicate() {
         return this.createCharPredicate(CharPredicates.letter(), CharPredicates.letterOrDigit());
     }
 

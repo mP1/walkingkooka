@@ -21,12 +21,15 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStringCharPredicate>
-        implements HashCodeEqualsDefinedTesting<ToStringCharPredicate>, SerializationTesting<ToStringCharPredicate> {
+final public class ToStringCharPredicateTest extends TestCase
+        implements CharPredicateTesting<ToStringCharPredicate>,
+        HashCodeEqualsDefinedTesting<ToStringCharPredicate>,
+        SerializationTesting<ToStringCharPredicate> {
 
     // constants
 
@@ -119,7 +122,7 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     }
 
     @Override
-    protected ToStringCharPredicate createCharPredicate() {
+    public ToStringCharPredicate createCharPredicate() {
         return Cast.to(ToStringCharPredicate.wrap(PREDICATE,
                 TOSTRING));
     }

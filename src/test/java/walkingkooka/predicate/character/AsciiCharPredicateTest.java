@@ -19,10 +19,11 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-final public class AsciiCharPredicateTest extends CharPredicateTestCase<AsciiCharPredicate> implements SerializationTesting<AsciiCharPredicate> {
+final public class AsciiCharPredicateTest extends TestCase
+        implements CharPredicateTesting<AsciiCharPredicate>,
+        SerializationTesting<AsciiCharPredicate> {
 
     @Test
     public void testAscii() {
@@ -39,8 +40,7 @@ final public class AsciiCharPredicateTest extends CharPredicateTestCase<AsciiCha
         this.toStringAndCheck(AsciiCharPredicate.INSTANCE, "ASCII");
     }
 
-    @Override
-    protected AsciiCharPredicate createCharPredicate() {
+    @Override public AsciiCharPredicate createCharPredicate() {
         return AsciiCharPredicate.INSTANCE;
     }
 

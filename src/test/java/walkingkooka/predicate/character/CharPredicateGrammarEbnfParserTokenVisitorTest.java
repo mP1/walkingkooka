@@ -21,6 +21,7 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -40,12 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPredicateTestCase<CharPredicate> {
-
-    @Override
-    public void testTestNaming() {
-        throw new UnsupportedOperationException();
-    }
+public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends TestCase
+        implements CharPredicateTesting<CharPredicate> {
 
     @Test
     public void testFromGrammarNullGrammarFails() {
@@ -168,7 +165,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
     }
 
     @Override
-    protected CharPredicate createCharPredicate() {
+    public CharPredicate createCharPredicate() {
         return this.createCharPredicate1("default.grammar");
     }
 
@@ -213,11 +210,6 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
         } catch (final IOException cause) {
             throw new Error("failed to read grammar from " + CharSequences.quote(resourceName));
         }
-    }
-
-    @Override
-    public void testClassVisibility() {
-        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -21,14 +21,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPredicate>
-        implements HashCodeEqualsDefinedTesting<AnyCharPredicate>, SerializationTesting<AnyCharPredicate> {
+final public class AnyCharPredicateTest extends TestCase
+        implements CharPredicateTesting<AnyCharPredicate>,
+        HashCodeEqualsDefinedTesting<AnyCharPredicate>,
+        SerializationTesting<AnyCharPredicate> {
 
     // constants
 
@@ -116,7 +118,7 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
     }
 
     @Override
-    protected AnyCharPredicate createCharPredicate() {
+    public AnyCharPredicate createCharPredicate() {
         return this.createCharPredicate(CHARS);
     }
 

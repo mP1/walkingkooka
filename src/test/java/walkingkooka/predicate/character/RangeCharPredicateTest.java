@@ -19,11 +19,13 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.TestCase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RangeCharPredicateTest extends CharPredicateTestCase<RangeCharPredicate> {
+public class RangeCharPredicateTest extends TestCase
+        implements CharPredicateTesting<RangeCharPredicate> {
 
     @Test
     public void testWithStartAfterEndFails() {
@@ -68,7 +70,7 @@ public class RangeCharPredicateTest extends CharPredicateTestCase<RangeCharPredi
     }
 
     @Override
-    protected RangeCharPredicate createCharPredicate() {
+    public RangeCharPredicate createCharPredicate() {
         return Cast.to(this.createCharPredicate('m', 'p'));
     }
 

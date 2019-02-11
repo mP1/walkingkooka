@@ -19,9 +19,11 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
-final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPredicate>
-        implements SerializationTesting<XmlCharPredicate> {
+final public class XmlCharPredicateTest extends TestCase
+        implements CharPredicateTesting<XmlCharPredicate>,
+        SerializationTesting<XmlCharPredicate> {
 
     @Test
     public void testNul() {
@@ -110,7 +112,7 @@ final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPre
     }
 
     @Override
-    protected XmlCharPredicate createCharPredicate() {
+    public XmlCharPredicate createCharPredicate() {
         return XmlCharPredicate.INSTANCE;
     }
 
