@@ -20,14 +20,16 @@ package walkingkooka.collect.enumeration;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Enumeration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ArrayEnumerationTest
-        extends EnumerationTestCase<ArrayEnumeration<String>, String> {
+        extends ClassTestCase<ArrayEnumeration<String>>
+        implements EnumerationTesting<ArrayEnumeration<String>, String> {
 
     @Test
     public void testWithNullArrayFails() {
@@ -83,12 +85,17 @@ final public class ArrayEnumerationTest
     }
 
     @Override
-    protected ArrayEnumeration<String> createEnumeration() {
+    public ArrayEnumeration<String> createEnumeration() {
         return ArrayEnumeration.with(new Object[]{"A", "B", "C"});
     }
 
     @Override
     public Class<ArrayEnumeration<String>> type() {
         return Cast.to(ArrayEnumeration.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,6 +20,8 @@ package walkingkooka.collect.enumeration;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -30,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class EnumerationChainTest
-        extends EnumerationTestCase<EnumerationChain<String>, String> {
+        extends ClassTestCase<EnumerationChain<String>>
+        implements EnumerationTesting<EnumerationChain<String>, String> {
 
     // constants
 
@@ -205,7 +208,7 @@ final public class EnumerationChainTest
     }
 
     @Override
-    protected EnumerationChain<String> createEnumeration() {
+    public EnumerationChain<String> createEnumeration() {
         return this.createEnumeration(FIRST, SECOND);
     }
 
@@ -217,5 +220,10 @@ final public class EnumerationChainTest
     @Override
     public Class<EnumerationChain<String>> type() {
         return Cast.to(EnumerationChain.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

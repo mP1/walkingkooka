@@ -19,14 +19,15 @@ package walkingkooka.collect.enumeration;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
-final public class EmptyEnumerationTest extends EnumerationTestCase<EmptyEnumeration<Void>, Void> {
+final public class EmptyEnumerationTest extends ClassTestCase<EmptyEnumeration<Void>>
+        implements EnumerationTesting<EmptyEnumeration<Void>, Void> {
 
     @Test
-    public void testHasMoreElements() {
-        assertFalse(EmptyEnumeration.instance().hasMoreElements());
+    public void testWithoutMoreElements() {
+        this.checkDoesntHasMoreElements(EmptyEnumeration.instance());
     }
 
     @Test
@@ -35,12 +36,17 @@ final public class EmptyEnumerationTest extends EnumerationTestCase<EmptyEnumera
     }
 
     @Override
-    protected EmptyEnumeration<Void> createEnumeration() {
+    public EmptyEnumeration<Void> createEnumeration() {
         return EmptyEnumeration.instance();
     }
 
     @Override
     public Class<EmptyEnumeration<Void>> type() {
         return Cast.to(EmptyEnumeration.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
