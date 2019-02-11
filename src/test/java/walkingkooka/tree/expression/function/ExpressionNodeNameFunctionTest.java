@@ -21,9 +21,12 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.FakeNode;
+import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionNodeNameFunctionTest extends ExpressionFunctionTestCase<ExpressionNodeNameFunction, String> {
+public final class ExpressionNodeNameFunctionTest extends ClassTestCase<ExpressionNodeNameFunction>
+        implements ExpressionFunctionTesting<ExpressionNodeNameFunction, String> {
 
     private final static String NAME = "Abc123";
 
@@ -48,12 +51,17 @@ public final class ExpressionNodeNameFunctionTest extends ExpressionFunctionTest
     }
 
     @Override
-    protected ExpressionNodeNameFunction createBiFunction() {
+    public ExpressionNodeNameFunction createBiFunction() {
         return ExpressionNodeNameFunction.INSTANCE;
     }
 
     @Override
     public Class<ExpressionNodeNameFunction> type() {
         return ExpressionNodeNameFunction.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

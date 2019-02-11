@@ -19,10 +19,13 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<ExpressionNotFunction, Boolean> {
+public final class ExpressionNotFunctionTest extends ClassTestCase<ExpressionNotFunction>
+        implements ExpressionFunctionTesting<ExpressionNotFunction, Boolean> {
 
     @Test
     public void testWithNullFunctionFails() {
@@ -47,12 +50,17 @@ public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<
     }
 
     @Override
-    protected ExpressionNotFunction createBiFunction() {
+    public ExpressionNotFunction createBiFunction() {
         return ExpressionNotFunction.with(ExpressionFunctions.contains());
     }
 
     @Override
     public Class<ExpressionNotFunction> type() {
         return ExpressionNotFunction.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

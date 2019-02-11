@@ -19,10 +19,13 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionStringLengthFunctionTest extends ExpressionFunctionTestCase<ExpressionStringLengthFunction, Number> {
+public final class ExpressionStringLengthFunctionTest extends ClassTestCase<ExpressionStringLengthFunction>
+        implements ExpressionFunctionTesting<ExpressionStringLengthFunction, Number> {
 
     @Test
     public void testZeroParametersFails() {
@@ -72,12 +75,17 @@ public final class ExpressionStringLengthFunctionTest extends ExpressionFunction
     }
 
     @Override
-    protected ExpressionStringLengthFunction createBiFunction() {
+    public ExpressionStringLengthFunction createBiFunction() {
         return ExpressionStringLengthFunction.INSTANCE;
     }
 
     @Override
     public Class<ExpressionStringLengthFunction> type() {
         return ExpressionStringLengthFunction.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

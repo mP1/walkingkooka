@@ -22,33 +22,36 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.util.BiFunctionTestCase;
+import walkingkooka.util.BiFunctionTesting;
 
 import java.util.List;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<V>, V>
-        extends BiFunctionTestCase<F, List<Object>, ExpressionFunctionContext, V>
-        implements TypeNameTesting<F> {
+/**
+ * Mixing interface that provides methods to test a {@link ExpressionFunction}
+ */
+public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
+        extends BiFunctionTesting<F, List<Object>, ExpressionFunctionContext, V>,
+        TypeNameTesting<F> {
 
-    protected final void apply2(final Object... parameters) {
+    default void apply2(final Object... parameters) {
         this.createBiFunction().apply(parameters(parameters), this.createContext());
     }
 
-    protected final void applyAndCheck2(final List<Object> parameters,
+    default void applyAndCheck2(final List<Object> parameters,
                                         final V result) {
         this.applyAndCheck2(this.createBiFunction(), parameters, result);
     }
 
-    protected final <TT, RR> void applyAndCheck2(final ExpressionFunction<RR> function,
+    default <TT, RR> void applyAndCheck2(final ExpressionFunction<RR> function,
                                                  final List<Object> parameters,
                                                  final RR result) {
         this.applyAndCheck2(function, parameters, this.createContext(), result);
     }
 
-    protected final <TT, RR> void applyAndCheck2(final ExpressionFunction<RR> function,
+    default <TT, RR> void applyAndCheck2(final ExpressionFunction<RR> function,
                                                  final List<Object> parameters,
                                                  final ExpressionFunctionContext context,
                                                  final RR result) {
@@ -57,16 +60,16 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<V>
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters));
     }
 
-    protected final ExpressionFunctionContext createContext() {
+    default ExpressionFunctionContext createContext() {
         return new FakeExpressionFunctionContext() {
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
-                return ExpressionFunctionTestCase.this.convert(value, target);
+                return ExpressionFunctionTesting.this.convert(value, target);
             }
         };
     }
 
-    private <T> T convert(final Object value, final Class<T> target) {
+    default  <T> T convert(final Object value, final Class<T> target) {
         if (target.isInstance(value)) {
             return target.cast(value);
         }
@@ -82,23 +85,23 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<V>
         throw new UnsupportedOperationException("Unable to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName());
     }
 
-    protected final List<Object> parameters(final Object... values) {
+    default List<Object> parameters(final Object... values) {
         return Lists.of(values);
     }
 
-    protected final List<Object> parametersWithThis(final Object... values) {
+    default List<Object> parametersWithThis(final Object... values) {
         return Lists.of(values);
     }
 
     // TypeNameTesting...........................................................................................
 
     @Override
-    public String typeNamePrefix() {
-        return "Expression";
+    default String typeNamePrefix() {
+        return this.subtractTypeNameSuffix();
     }
 
     @Override
-    public String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Function.class.getSimpleName();
     }
 }

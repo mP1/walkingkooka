@@ -16,32 +16,27 @@
  */
 package walkingkooka.util;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class BiFunctionTestCase<F extends BiFunction<T, U, R>, T, U, R> extends ClassTestCase<F>
-        implements ToStringTesting<F> {
+/**
+ * Mixing interface that provides methods to test a {@link BiFunction}
+ */
+public interface BiFunctionTesting<F extends BiFunction<T, U, R>, T, U, R> extends ToStringTesting<F> {
 
-    protected void applyAndCheck(final T in1, final U in2, final R result) {
+    default void applyAndCheck(final T in1, final U in2, final R result) {
         this.applyAndCheck(this.createBiFunction(), in1, in2, result);
     }
 
-    protected <TT, UU, RR> void applyAndCheck(final BiFunction<TT, UU, RR> function, final TT in1, final UU in2, final RR result) {
+    default  <TT, UU, RR> void applyAndCheck(final BiFunction<TT, UU, RR> function, final TT in1, final UU in2, final RR result) {
         assertEquals(result,
                 function.apply(in1, in2),
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(in1) + "," + CharSequences.quoteIfChars(in2));
     }
 
-    protected abstract F createBiFunction();
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    F createBiFunction();
 }

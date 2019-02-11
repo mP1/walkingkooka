@@ -19,10 +19,13 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFunctionTestCase<ExpressionNormalizeSpaceFunction, String> {
+public final class ExpressionNormalizeSpaceFunctionTest extends ClassTestCase<ExpressionNormalizeSpaceFunction>
+        implements ExpressionFunctionTesting<ExpressionNormalizeSpaceFunction, String> {
 
     @Test
     public void testZeroParametersFails() {
@@ -125,12 +128,17 @@ public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFuncti
     }
 
     @Override
-    protected ExpressionNormalizeSpaceFunction createBiFunction() {
+    public ExpressionNormalizeSpaceFunction createBiFunction() {
         return ExpressionNormalizeSpaceFunction.INSTANCE;
     }
 
     @Override
     public Class<ExpressionNormalizeSpaceFunction> type() {
         return ExpressionNormalizeSpaceFunction.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
