@@ -21,12 +21,10 @@ package walkingkooka.tree.expression;
 import walkingkooka.convert.Converter;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
-import walkingkooka.util.variable.Variable;
 
 import java.math.MathContext;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -46,9 +44,8 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     /**
      * {@see CycleDetectingExpressionEvaluationContext}
      */
-    public static ExpressionEvaluationContext cycleDetecting(final ExpressionEvaluationContext context,
-                                                             final Variable<Set<ExpressionReference>> cycles) {
-        return CycleDetectingExpressionEvaluationContext.with(context, cycles);
+    public static ExpressionEvaluationContext cycleDetecting(final ExpressionEvaluationContext context) {
+        return CycleDetectingExpressionEvaluationContext.with(context);
     }
 
     /**

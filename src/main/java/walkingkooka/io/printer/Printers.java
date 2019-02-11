@@ -20,11 +20,11 @@ package walkingkooka.io.printer;
 import walkingkooka.io.printer.line.PrintedLineHandler;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.PublicStaticHelper;
-import walkingkooka.util.variable.Variable;
 
 import java.io.PrintStream;
 import java.io.Writer;
 import java.util.function.Function;
+import java.util.function.IntConsumer;
 import java.util.function.IntUnaryOperator;
 
 final public class Printers implements PublicStaticHelper {
@@ -32,7 +32,7 @@ final public class Printers implements PublicStaticHelper {
     /**
      * {@see CharacterCountingPrinter}
      */
-    public static Printer characterCounting(final Printer printer, final Variable<Integer> counter) {
+    public static Printer characterCounting(final Printer printer, final IntConsumer counter) {
         return CharacterCountingPrinter.wrap(printer, counter);
     }
 
@@ -54,7 +54,7 @@ final public class Printers implements PublicStaticHelper {
     /**
      * {@see LineCountingPrinter}
      */
-    public static Printer lineCounter(final Printer printer, final Variable<Integer> counter) {
+    public static Printer lineCounter(final Printer printer, final IntConsumer counter) {
         return LineCountingPrinter.wrap(printer, counter);
     }
 

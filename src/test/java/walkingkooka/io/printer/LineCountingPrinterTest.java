@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
-import walkingkooka.util.variable.Variable;
-import walkingkooka.util.variable.Variables;
+
+import java.util.function.IntConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -31,9 +31,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
 
     // constants
 
-    private final static Printer PRINTER = Printers.fake();
-
-    private final static Variable<Integer> COUNTER = Variables.with(0);
+    private final static TestIntCounter COUNTER = new TestIntCounter();
 
     // tests
 
@@ -53,54 +51,54 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
 
     @Test
     public void testWithoutLineEndings() {
-        final Variable<Integer> counter = Variables.with(999);
+        final TestIntCounter counter = new TestIntCounter();
         final StringBuilder printed = new StringBuilder();
         this.printAndCheck(this.createPrinter(printed, counter), "123", printed, "123");
-        check(999, counter);
+        check(0, counter);
     }
 
     @Test
     public void testWithoutLineEndingsCharacterByCharacter() {
-        final Variable<Integer> counter = Variables.with(999);
+        final TestIntCounter counter = new TestIntCounter();
         final StringBuilder printed = new StringBuilder();
         this.printAndCheck(this.createPrinter(printed, counter),
                 this.characterByCharacter("12345"),
                 printed,
                 "12345");
-        check(999, counter);
+        check(0, counter);
     }
 
     @Test
     public void testIncludesCr() {
-        final Variable<Integer> counter = Variables.with(123);
+        final TestIntCounter counter = new TestIntCounter();
         final StringBuilder printed = new StringBuilder();
         this.printAndCheck(this.createPrinter(printed, counter, "12\r", "34"),
                 "12\r34",
                 printed,
                 "12\r34");
-        check(124, counter);
+        check(1, counter);
     }
 
     @Test
     public void testIncludesNl() {
-        final Variable<Integer> counter = Variables.with(123);
+        final TestIntCounter counter = new TestIntCounter();
         final StringBuilder printed = new StringBuilder();
         this.printAndCheck(this.createPrinter(printed, counter, "12\n", "34"),
                 "12\n34",
                 printed,
                 "12\n34");
-        check(124, counter);
+        check(1, counter);
     }
 
     @Test
     public void testIncludesCrNl() {
-        final Variable<Integer> counter = Variables.with(123);
+        final TestIntCounter counter = new TestIntCounter();
         final StringBuilder printed = new StringBuilder();
         this.printAndCheck(this.createPrinter(printed, counter, "12\r\n", "34"),
                 "12\r\n34",
                 printed,
                 "12\r\n34");
-        check(124, counter);
+        check(1, counter);
     }
 
     @Test
@@ -170,7 +168,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
 
     @Test
     public void testPrintCrFlushThenPrintNl() {
-        final Variable<Integer> counter = Variables.with(0);
+        final TestIntCounter counter = new TestIntCounter();
         final LineCountingPrinter printer = LineCountingPrinter.wrap(//
                 new FakePrinter() {
 
@@ -179,14 +177,14 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
                         switch (this.printed) {
                             case 0:
                                 checkEquals( "\r", chars.toString(), "wrong chars printed");
-                                assertEquals(Integer.valueOf(0),
-                                        counter.get(),
+                                assertEquals(0,
+                                        counter.counter,
                                         "counter incremented earlier than expected");
                                 break;
                             case 1:
                                 checkEquals("\n", chars.toString(), "wrong chars printed");
-                                assertEquals(Integer.valueOf(1),
-                                        counter.get(),
+                                assertEquals(1,
+                                        counter.counter,
                                         "counter incremented earlier than expected");
                                 break;
                             default:
@@ -236,9 +234,12 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        final Variable<Integer> counter = Variables.with(123);
+        final TestIntCounter counter = new TestIntCounter();
+        final LineCountingPrinter lineCountingPrinter = LineCountingPrinter.wrap(printer, counter);
+        lineCountingPrinter.lineCount = 123;
+
         checkEquals(printer + " 123 line(s)",
-                LineCountingPrinter.wrap(printer, counter).toString());
+                lineCountingPrinter.toString());
     }
 
     @Override
@@ -252,7 +253,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
     }
 
     private LineCountingPrinter createPrinter(final StringBuilder target,
-                                              final Variable<Integer> counter) {
+                                              final TestIntCounter counter) {
         return LineCountingPrinter.wrap(this.createStringBuilderPrinter(target), counter);
     }
 
@@ -261,18 +262,18 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
     }
 
     private void printAndCheckLineCount(final String text, final int lines) {
-        final Variable<Integer> counter = Variables.with(0);
+        final TestIntCounter counter = new TestIntCounter();
         final StringBuilder printed = new StringBuilder();
         this.printAndCheck(this.createPrinter(printed, counter), text, printed, text);
-        assertEquals(Integer.valueOf(lines), counter.get(),"wrong number of lines printed");
+        assertEquals(lines, counter.counter,"wrong number of lines printed");
     }
 
-    private void check(final int expected, final Variable<Integer> counter) {
-        assertEquals(Integer.valueOf(expected), counter.get(), "counter");
+    private void check(final int expected, final TestIntCounter counter) {
+        assertEquals(expected, counter.counter, "counter");
     }
 
     private LineCountingPrinter createPrinter(final StringBuilder target,
-                                              final Variable<Integer> counter, final String... expecting) {
+                                              final TestIntCounter counter, final String... expecting) {
         return LineCountingPrinter.wrap(//
                 new Printer() {
 
@@ -316,5 +317,15 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
     @Override
     public Class<LineCountingPrinter> type() {
         return LineCountingPrinter.class;
+    }
+
+    private static class TestIntCounter implements IntConsumer {
+
+        @Override
+        public void accept(final int value) {
+            this.counter = value;
+        }
+
+        int counter;
     }
 }

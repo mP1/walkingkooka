@@ -19,8 +19,8 @@ package walkingkooka.io.printer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
-import walkingkooka.util.variable.Variable;
-import walkingkooka.util.variable.Variables;
+
+import java.util.function.IntConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,7 +33,7 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
 
     private final static LineEnding LINE_ENDING = LineEnding.CRNL;
 
-    private final static Variable<Integer> COUNTER = Variables.with(0);
+    private final static TestIntCounter COUNTER = new TestIntCounter();
 
     // tests
 
@@ -53,13 +53,13 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
 
     @Test
     public void testPrintAndCheckCounter() {
-        final Variable<Integer> counter = Variables.with(100);
+        final TestIntCounter counter = new TestIntCounter();
         final StringBuilder builder = new StringBuilder();
         final CharacterCountingPrinter printer = this.createPrinter(builder, counter);
         printer.print("123");
         printer.print("456");
         checkEquals("123456", builder.toString(), "printed");
-        assertEquals(106, (int) counter.get(), "counter");
+        assertEquals(6, counter.counter, "counter");
     }
 
     @Test
@@ -83,7 +83,7 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
     }
 
     private void printIncludingLineEndingsAndCheckCounter(final LineEnding lineEnding) {
-        final Variable<Integer> counter = Variables.with(100);
+        final TestIntCounter counter = new TestIntCounter();
         final StringBuilder builder = new StringBuilder();
         final CharacterCountingPrinter printer = this.createPrinter(builder, lineEnding, counter);
         printer.print("123");
@@ -91,27 +91,30 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
         printer.print("456");
 
         checkEquals("123" + lineEnding + "456", builder.toString(), "printed");
-        assertEquals(106 + lineEnding.length(), (int) counter.get(), "counter");
+        assertEquals(6 + lineEnding.length(), counter.counter, "counter");
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(CharacterCountingPrinter.wrap(PRINTER, Variables.with(Integer.valueOf(123))),
+        final TestIntCounter counter = new TestIntCounter();
+        final CharacterCountingPrinter printer = CharacterCountingPrinter.wrap(PRINTER, counter);
+        printer.addToCounter(123);
+        this.toStringAndCheck(printer,
                 PRINTER + " 123 char(s)");
     }
 
     @Override
     protected CharacterCountingPrinter createPrinter() {
-        return this.createPrinter(this.stringBuilder, Variables.with(0));
+        return this.createPrinter(this.stringBuilder, new TestIntCounter());
     }
 
     private CharacterCountingPrinter createPrinter(final StringBuilder printed,
-                                                   final Variable<Integer> counter) {
+                                                   final TestIntCounter counter) {
         return this.createPrinter(printed, LINE_ENDING, counter);
     }
 
     private CharacterCountingPrinter createPrinter(final StringBuilder printed,
-                                                   final LineEnding lineEnding, final Variable<Integer> counter) {
+                                                   final LineEnding lineEnding, final TestIntCounter counter) {
         return CharacterCountingPrinter.wrap(Printers.stringBuilder(printed, lineEnding), counter);
     }
 
@@ -120,5 +123,15 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
     @Override
     public Class<CharacterCountingPrinter> type() {
         return CharacterCountingPrinter.class;
+    }
+
+    private static class TestIntCounter implements IntConsumer {
+
+        @Override
+        public void accept(final int value) {
+            this.counter = value;
+        }
+
+        int counter;
     }
 }
