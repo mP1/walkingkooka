@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -25,8 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class RepeatingCharSequenceTest extends CharSequenceTestCase<RepeatingCharSequence>
-        implements SerializationTesting<RepeatingCharSequence> {
+final public class RepeatingCharSequenceTest extends ClassTestCase<RepeatingCharSequence>
+        implements CharSequenceTesting<RepeatingCharSequence>,
+        SerializationTesting<RepeatingCharSequence> {
 
     // constants
 
@@ -84,7 +86,7 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
 
 
     @Override
-    protected RepeatingCharSequence createCharSequence() {
+    public RepeatingCharSequence createCharSequence() {
         return (RepeatingCharSequence) RepeatingCharSequence.with(CHAR, LENGTH);
     }
 
@@ -96,6 +98,11 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public RepeatingCharSequence createObject() {
+        return this.createCharSequence();
     }
 
     @Override

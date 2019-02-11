@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -25,7 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> implements SerializationTesting<Whitespace> {
+final public class WhitespaceTest extends ClassTestCase<Whitespace>
+        implements CharSequenceTesting<Whitespace>,
+        SerializationTesting<Whitespace> {
 
     @Override
     public void testTypeNaming() {
@@ -123,7 +126,7 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> imple
     }
 
     @Override
-    protected Whitespace createCharSequence() {
+    public Whitespace createCharSequence() {
         return Whitespace.with(" \t\r\n");
     }
 
@@ -135,6 +138,11 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> imple
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Whitespace createObject() {
+        return this.createCharSequence();
     }
 
     @Override
