@@ -21,14 +21,17 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class LowerCasingCharPredicateTest
-        extends CharPredicateTestCase<LowerCasingCharPredicate>
-        implements HashCodeEqualsDefinedTesting<LowerCasingCharPredicate>, SerializationTesting<LowerCasingCharPredicate> {
+        extends TestCase
+        implements CharPredicateTesting<LowerCasingCharPredicate>,
+        HashCodeEqualsDefinedTesting<LowerCasingCharPredicate>,
+        SerializationTesting<LowerCasingCharPredicate> {
 
     @Test
     public void testWrapNullPredicateFails() {
@@ -77,7 +80,7 @@ final public class LowerCasingCharPredicateTest
     }
 
     @Override
-    protected LowerCasingCharPredicate createCharPredicate() {
+    public LowerCasingCharPredicate createCharPredicate() {
         return Cast.to(LowerCasingCharPredicate.wrap(CharPredicates.is('x')));
     }
 

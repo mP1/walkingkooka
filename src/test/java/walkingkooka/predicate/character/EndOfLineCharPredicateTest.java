@@ -19,10 +19,11 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndOfLineCharPredicate> implements SerializationTesting<EndOfLineCharPredicate> {
+final public class EndOfLineCharPredicateTest extends TestCase
+        implements CharPredicateTesting<EndOfLineCharPredicate>,
+        SerializationTesting<EndOfLineCharPredicate> {
 
     @Test
     public void testCarriageReturn() {
@@ -50,7 +51,7 @@ final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndO
     }
 
     @Override
-    protected EndOfLineCharPredicate createCharPredicate() {
+    public EndOfLineCharPredicate createCharPredicate() {
         return EndOfLineCharPredicate.INSTANCE;
     }
 

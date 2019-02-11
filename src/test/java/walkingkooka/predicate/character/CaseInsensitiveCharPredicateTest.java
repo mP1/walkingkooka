@@ -20,11 +20,12 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.TestCase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CaseInsensitiveCharPredicateTest extends CharPredicateTestCase<CaseInsensitiveCharPredicate>{
+public final class CaseInsensitiveCharPredicateTest extends TestCase
+        implements CharPredicateTesting<CaseInsensitiveCharPredicate> {
 
     @Test
     public void testWithNullCharPredicateFails() {
@@ -51,7 +52,7 @@ public final class CaseInsensitiveCharPredicateTest extends CharPredicateTestCas
     }
 
     @Override
-    protected CaseInsensitiveCharPredicate createCharPredicate() {
+    public CaseInsensitiveCharPredicate createCharPredicate() {
         return Cast.to(CaseInsensitiveCharPredicate.with(CharPredicates.any("abc")));
     }
 

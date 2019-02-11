@@ -19,12 +19,13 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 import walkingkooka.text.Ascii;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 final public class AsciiControlCharPredicateTest
-        extends CharPredicateTestCase<AsciiControlCharPredicate> implements SerializationTesting<AsciiControlCharPredicate> {
+        extends TestCase
+        implements CharPredicateTesting<AsciiControlCharPredicate>,
+        SerializationTesting<AsciiControlCharPredicate> {
 
     @Test
     public void testControl() {
@@ -42,7 +43,7 @@ final public class AsciiControlCharPredicateTest
     }
 
     @Override
-    protected AsciiControlCharPredicate createCharPredicate() {
+    public AsciiControlCharPredicate createCharPredicate() {
         return AsciiControlCharPredicate.INSTANCE;
     }
 

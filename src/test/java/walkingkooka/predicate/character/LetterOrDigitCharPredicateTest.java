@@ -19,9 +19,10 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
-final public class LetterOrDigitCharPredicateTest
-        extends CharPredicateTestCase<LetterOrDigitCharPredicate> implements SerializationTesting<LetterOrDigitCharPredicate> {
+final public class LetterOrDigitCharPredicateTest extends TestCase
+        implements CharPredicateTesting<LetterOrDigitCharPredicate>, SerializationTesting<LetterOrDigitCharPredicate> {
 
     @Test
     public void testWhitespace() {
@@ -44,7 +45,7 @@ final public class LetterOrDigitCharPredicateTest
     }
 
     @Override
-    protected LetterOrDigitCharPredicate createCharPredicate() {
+    public LetterOrDigitCharPredicate createCharPredicate() {
         return LetterOrDigitCharPredicate.INSTANCE;
     }
 

@@ -19,11 +19,13 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysCharPredicate> implements SerializationTesting<AlwaysCharPredicate> {
+final public class AlwaysCharPredicateTest extends TestCase
+        implements CharPredicateTesting<AlwaysCharPredicate>,
+        SerializationTesting<AlwaysCharPredicate> {
 
     @Test
     public void testMatches() {
@@ -53,7 +55,7 @@ final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysC
     }
 
     @Override
-    protected AlwaysCharPredicate createCharPredicate() {
+    public AlwaysCharPredicate createCharPredicate() {
         return AlwaysCharPredicate.INSTANCE;
     }
 

@@ -18,15 +18,15 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.predicate.character.CharPredicateTestCase;
+import walkingkooka.predicate.character.CharPredicateTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import walkingkooka.test.TestCase;
 
 final public class CaseSensitivityCharPredicateTest
-        extends CharPredicateTestCase<CaseSensitivityCharPredicate>
-        implements HashCodeEqualsDefinedTesting<CaseSensitivityCharPredicate>,
+        extends TestCase
+        implements CharPredicateTesting<CaseSensitivityCharPredicate>,
+        HashCodeEqualsDefinedTesting<CaseSensitivityCharPredicate>,
         SerializationTesting<CaseSensitivityCharPredicate> {
 
     // constants
@@ -95,8 +95,7 @@ final public class CaseSensitivityCharPredicateTest
                 "'A' (CaseInsensitive)");
     }
 
-    @Override
-    protected CaseSensitivityCharPredicate createCharPredicate() {
+    @Override public CaseSensitivityCharPredicate createCharPredicate() {
         return this.createCharPredicateCaseSensitive('A');
     }
 

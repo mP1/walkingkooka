@@ -19,15 +19,14 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-final public class LetterCharPredicateTest extends CharPredicateTestCase<LetterCharPredicate> implements SerializationTesting<LetterCharPredicate> {
+final public class LetterCharPredicateTest extends TestCase
+        implements CharPredicateTesting<LetterCharPredicate>, SerializationTesting<LetterCharPredicate> {
 
     @Test
     public void testLetter() {
-        assertTrue(this.test('A'));
+        this.testTrue('A');
     }
 
     @Test
@@ -55,8 +54,7 @@ final public class LetterCharPredicateTest extends CharPredicateTestCase<LetterC
         this.toStringAndCheck(LetterCharPredicate.INSTANCE, "letter");
     }
 
-    @Override
-    protected LetterCharPredicate createCharPredicate() {
+    @Override public LetterCharPredicate createCharPredicate() {
         return LetterCharPredicate.INSTANCE;
     }
 

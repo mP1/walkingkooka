@@ -19,10 +19,11 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.test.TestCase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-final public class DigitCharPredicateTest extends CharPredicateTestCase<DigitCharPredicate> implements SerializationTesting<DigitCharPredicate> {
+final public class DigitCharPredicateTest extends TestCase
+        implements CharPredicateTesting<DigitCharPredicate>,
+        SerializationTesting<DigitCharPredicate> {
 
     @Test
     public void testLetter() {
@@ -49,8 +50,7 @@ final public class DigitCharPredicateTest extends CharPredicateTestCase<DigitCha
         this.toStringAndCheck(DigitCharPredicate.INSTANCE, "digit");
     }
 
-    @Override
-    protected DigitCharPredicate createCharPredicate() {
+    @Override public DigitCharPredicate createCharPredicate() {
         return DigitCharPredicate.INSTANCE;
     }
 
