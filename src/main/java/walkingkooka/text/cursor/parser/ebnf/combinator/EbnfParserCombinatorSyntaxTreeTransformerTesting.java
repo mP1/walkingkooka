@@ -18,13 +18,8 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
-
-public abstract class EbnfParserCombinatorSyntaxTreeTransformerTestCase<T extends EbnfParserCombinatorSyntaxTreeTransformer> extends ClassTestCase<T> {
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+/**
+ * Mixin that introduces helpers and tests for {@link EbnfParserCombinatorSyntaxTreeTransformer} implementations.
+ */
+public interface EbnfParserCombinatorSyntaxTreeTransformerTesting<T extends EbnfParserCombinatorSyntaxTreeTransformer> {
 }
