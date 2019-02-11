@@ -19,7 +19,8 @@ package walkingkooka.build.chain;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.Builder;
+import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,25 +28,22 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base class for any {@link ChainBuilder} that includes mostly parameter check tests
+ * Mixin interface for testing {@link Builder}
  */
-abstract public class ChainBuilderTestCase<B extends ChainBuilder<T>, T>
-        extends BuilderTestCase<B, T> {
-
-    protected ChainBuilderTestCase() {
-        super();
-    }
+public interface ChainBuilderTesting<B extends ChainBuilder<T>, T>
+        extends BuilderTesting<B, T> {
 
     @Test
-    final public void testAddNullFails() {
+    default void testAddNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createBuilder().add(null);
         });
     }
 
-    abstract public void testBuildWithoutAdds();
+    void testBuildWithoutAdds();
 
-    @Test final public void testAddAndBuild() {
+    @Test
+    default void testAddAndBuild() {
         final B builder = this.createBuilder();
         final T added1 = this.createAdded();
         assertSame(builder, builder.add(added1));
@@ -59,11 +57,12 @@ abstract public class ChainBuilderTestCase<B extends ChainBuilder<T>, T>
         }
     }
 
-    @Test final public void testToStringAfterAdd() {
+    @Test
+    default void testToStringAfterAdd() {
         final B builder = this.createBuilder();
         final T added = this.createAdded();
         assertEquals(Lists.of(added).toString(), builder.add(added).toString());
     }
 
-    abstract protected T createAdded();
+    T createAdded();
 }

@@ -21,14 +21,16 @@ package walkingkooka.routing;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.BuilderTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<StringName, String>, Router<StringName, String>> {
+public final class RouterBuilderTest extends ClassTestCase<RouterBuilder<StringName, String>>
+        implements BuilderTesting<RouterBuilder<StringName, String>, Router<StringName, String>> {
 
     @Test
     public void testAddNullRouteFails() {
@@ -57,7 +59,7 @@ public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<Strin
     }
 
     @Override
-    protected RouterBuilder<StringName, String> createBuilder() {
+    public RouterBuilder<StringName, String> createBuilder() {
         return RouterBuilder.empty();
     }
 
@@ -69,5 +71,10 @@ public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<Strin
     @Override
     public Class<Router<StringName, String>> builderProductType() {
         return Cast.to(Router.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

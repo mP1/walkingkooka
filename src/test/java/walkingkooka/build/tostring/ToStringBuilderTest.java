@@ -18,9 +18,11 @@
 package walkingkooka.build.tostring;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
@@ -30,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, String> {
+final public class ToStringBuilderTest extends ClassTestCase<ToStringBuilder>
+        implements BuilderTesting<ToStringBuilder, String> {
     // constants
 
     private final static Object NULL = null;
@@ -595,8 +598,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"");
     }
 
-    @Override
-    protected ToStringBuilder createBuilder() {
+    @Override public ToStringBuilder createBuilder() {
         return ToStringBuilder.empty();
     }
 
@@ -663,5 +665,10 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     @Override
     public Class<String> builderProductType() {
         return String.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

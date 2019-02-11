@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.Fake;
 import walkingkooka.type.MemberVisibility;
 
@@ -32,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ChainFactoryChainBuilderTest
-        extends ChainBuilderTestCase<ChainFactoryChainBuilder<Fake>, Fake> {
+        extends ClassTestCase<ChainFactoryChainBuilder<Fake>>
+        implements ChainBuilderTesting<ChainFactoryChainBuilder<Fake>, Fake> {
 
     // constants
     private final static ChainType TYPE = ChainType.ALL;
@@ -313,12 +315,11 @@ final public class ChainFactoryChainBuilderTest
     }
 
     @Override
-    protected Fake createAdded() {
+    public Fake createAdded() {
         return createFake(1);
     }
 
-    @Override
-    protected ChainFactoryChainBuilder<Fake> createBuilder() {
+    @Override public ChainFactoryChainBuilder<Fake> createBuilder() {
         return ChainFactoryChainBuilder.with(TYPE,
                 FACTORY);
     }
@@ -328,8 +329,7 @@ final public class ChainFactoryChainBuilderTest
         return Cast.to(ChainFactoryChainBuilder.class);
     }
 
-    @Override
-    protected Class<Fake> builderProductType() {
+    @Override public Class<Fake> builderProductType() {
         return Fake.class;
     }
 

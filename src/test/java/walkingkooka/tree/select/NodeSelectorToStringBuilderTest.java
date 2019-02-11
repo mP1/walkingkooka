@@ -19,13 +19,15 @@
 package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.BuilderTesting;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeSelectorToStringBuilderTest extends BuilderTestCase<NodeSelectorToStringBuilder, String> {
+public final class NodeSelectorToStringBuilderTest extends ClassTestCase<NodeSelectorToStringBuilder>
+        implements BuilderTesting<NodeSelectorToStringBuilder, String> {
 
     @Test
     public void testAxis() {
@@ -372,12 +374,12 @@ public final class NodeSelectorToStringBuilderTest extends BuilderTestCase<NodeS
     }
 
     @Override
-    protected NodeSelectorToStringBuilder createBuilder() {
+    public NodeSelectorToStringBuilder createBuilder() {
         return NodeSelectorToStringBuilder.empty();
     }
 
     @Override
-    protected Class<String> builderProductType() {
+    public Class<String> builderProductType() {
         return String.class;
     }
 

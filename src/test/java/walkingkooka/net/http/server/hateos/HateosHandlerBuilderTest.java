@@ -20,22 +20,24 @@ package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.BuilderTesting;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.routing.Router;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandlerBuilder<JsonNode>,
-        Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
+public final class HateosHandlerBuilderTest extends ClassTestCase<HateosHandlerBuilder<JsonNode>>
+        implements BuilderTesting<HateosHandlerBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
     // creation ..........................................................................................
 
@@ -353,7 +355,7 @@ public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandle
     // helpers ..........................................................................................
 
     @Override
-    protected HateosHandlerBuilder<JsonNode> createBuilder() {
+    public HateosHandlerBuilder<JsonNode> createBuilder() {
         return this.createBuilder("http://example.com/api");
     }
 
@@ -375,7 +377,12 @@ public final class HateosHandlerBuilderTest extends BuilderTestCase<HateosHandle
     }
 
     @Override
-    protected Class<Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> builderProductType() {
+    public Class<Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> builderProductType() {
         return Cast.to(Router.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

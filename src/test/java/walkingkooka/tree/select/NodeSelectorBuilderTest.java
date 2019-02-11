@@ -21,13 +21,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.TestNode;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,9 +38,10 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorBuilder<TestNode, StringName, StringName, Object>,
-        NodeSelector<TestNode, StringName, StringName, Object>>
-        implements NodeSelectorTesting<TestNode, StringName, StringName, Object> {
+public final class NodeSelectorBuilderTest extends ClassTestCase<NodeSelectorBuilder<TestNode, StringName, StringName, Object>>
+        implements BuilderTesting<NodeSelectorBuilder<TestNode, StringName, StringName, Object>,
+                NodeSelector<TestNode, StringName, StringName, Object>>,
+        NodeSelectorTesting<TestNode, StringName, StringName, Object> {
 
     private final static StringName ATTRIBUTE = Names.string("attribute");
     private final static String VALUE = "*VALUE*";
@@ -486,7 +489,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Override
-    protected NodeSelectorBuilder<TestNode, StringName, StringName, Object> createBuilder() {
+    public NodeSelectorBuilder<TestNode, StringName, StringName, Object> createBuilder() {
         return this.absolute();
     }
 
@@ -503,7 +506,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Override
-    protected Class<NodeSelector<TestNode, StringName, StringName, Object>> builderProductType() {
+    public Class<NodeSelector<TestNode, StringName, StringName, Object>> builderProductType() {
         return Cast.to(NodeSelector.class);
     }
 
@@ -517,5 +520,10 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     @Override
     public TestNode createNode() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

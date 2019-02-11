@@ -18,12 +18,15 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.BuilderTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
+public final class SequenceParserBuilderTest extends ClassTestCase<SequenceParserBuilder<FakeParserContext>>
+        implements BuilderTesting<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
 
     private final static Parser<ParserToken, FakeParserContext> PARSER1 = parser("1");
     private final static Parser<ParserToken, FakeParserContext> PARSER2 = parser("2");
@@ -77,7 +80,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     }
 
     @Override
-    protected SequenceParserBuilder<FakeParserContext> createBuilder() {
+    public SequenceParserBuilder<FakeParserContext> createBuilder() {
         return SequenceParserBuilder.empty();
     }
 
@@ -91,7 +94,12 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     }
 
     @Override
-    protected Class<Parser<SequenceParserToken, FakeParserContext>> builderProductType() {
+    public Class<Parser<SequenceParserToken, FakeParserContext>> builderProductType() {
         return Cast.to(SequenceParserToken.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

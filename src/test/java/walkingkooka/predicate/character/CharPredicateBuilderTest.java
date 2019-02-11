@@ -20,8 +20,10 @@ package walkingkooka.predicate.character;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.build.BuilderTestCase;
+import walkingkooka.build.BuilderTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -31,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class CharPredicateBuilderTest
-        extends BuilderTestCase<CharPredicateBuilder, CharPredicate> {
+        extends ClassTestCase<CharPredicateBuilder>
+        implements BuilderTesting<CharPredicateBuilder, CharPredicate> {
 
     // constants
 
@@ -337,7 +340,7 @@ final public class CharPredicateBuilderTest
     }
 
     @Override
-    protected CharPredicateBuilder createBuilder() {
+    public CharPredicateBuilder createBuilder() {
         return CharPredicateBuilder.empty();
     }
 
@@ -347,7 +350,12 @@ final public class CharPredicateBuilderTest
     }
 
     @Override
-    protected Class<CharPredicate> builderProductType() {
+    public Class<CharPredicate> builderProductType() {
         return CharPredicate.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
