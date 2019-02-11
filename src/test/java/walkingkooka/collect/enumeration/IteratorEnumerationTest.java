@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 
@@ -30,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class IteratorEnumerationTest
-        extends EnumerationTestCase<IteratorEnumeration<Object>, Object> {
+        extends ClassTestCase<IteratorEnumeration<Object>>
+        implements EnumerationTesting<IteratorEnumeration<Object>, Object> {
 
     // constants
 
@@ -43,7 +46,7 @@ final public class IteratorEnumerationTest
     // tests
 
     @Test
-    public void testNullIteratorFails() {
+    public void testWithNullIteratorFails() {
         assertThrows(NullPointerException.class, () -> {
             IteratorEnumeration.adapt(null);
         });
@@ -73,7 +76,7 @@ final public class IteratorEnumerationTest
     }
 
     @Override
-    protected IteratorEnumeration<Object> createEnumeration() {
+    public IteratorEnumeration<Object> createEnumeration() {
         return IteratorEnumeration.adapt(Lists.of(FIRST,
                 SECOND,
                 THIRD).iterator());
@@ -82,5 +85,10 @@ final public class IteratorEnumerationTest
     @Override
     public Class<IteratorEnumeration<Object>> type() {
         return Cast.to(IteratorEnumeration.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
