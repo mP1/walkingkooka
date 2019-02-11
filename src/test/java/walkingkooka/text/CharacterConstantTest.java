@@ -18,13 +18,15 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class CharacterConstantTest extends CharSequenceTestCase<CharacterConstant> {
+final public class CharacterConstantTest extends ClassTestCase<CharacterConstant>
+        implements CharSequenceTesting<CharacterConstant>{
 
     private final static char CHAR = 'a';
 
@@ -100,8 +102,13 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
     }
 
     @Override
-    protected CharacterConstant createCharSequence() {
+    public CharacterConstant createCharSequence() {
         return CharacterConstant.with(CHAR);
+    }
+
+    @Override
+    public CharacterConstant createObject() {
+        return this.createCharSequence();
     }
 
     @Override
@@ -110,7 +117,7 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

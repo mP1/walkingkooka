@@ -20,6 +20,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -27,8 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ConcatCharSequenceTest extends CharSequenceTestCase<ConcatCharSequence>
-        implements SerializationTesting<ConcatCharSequence> {
+final public class ConcatCharSequenceTest extends ClassTestCase<ConcatCharSequence>
+        implements CharSequenceTesting<ConcatCharSequence>,
+        SerializationTesting<ConcatCharSequence> {
 
     // constants
 
@@ -144,10 +146,14 @@ final public class ConcatCharSequenceTest extends CharSequenceTestCase<ConcatCha
         this.checkNotEquals(ConcatCharSequence.with(FIRST, "1"));
     }
 
+    @Override
+    public ConcatCharSequence createCharSequence() {
+        return (ConcatCharSequence) ConcatCharSequence.with(FIRST, SECOND);
+    }
 
     @Override
-    protected ConcatCharSequence createCharSequence() {
-        return (ConcatCharSequence) ConcatCharSequence.with(FIRST, SECOND);
+    public ConcatCharSequence createObject() {
+        return this.createCharSequence();
     }
 
     @Override

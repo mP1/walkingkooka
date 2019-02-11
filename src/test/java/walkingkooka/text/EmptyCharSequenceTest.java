@@ -18,11 +18,13 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharSequence>
-        implements SerializationTesting<EmptyCharSequence> {
+final public class EmptyCharSequenceTest extends ClassTestCase<EmptyCharSequence>
+        implements CharSequenceTesting<EmptyCharSequence>,
+        SerializationTesting<EmptyCharSequence> {
 
     @Test
     public void testCharAtFails() {
@@ -63,7 +65,7 @@ final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharS
     }
 
     @Override
-    protected EmptyCharSequence createCharSequence() {
+    public EmptyCharSequence createCharSequence() {
         return EmptyCharSequence.INSTANCE;
     }
 
@@ -75,6 +77,11 @@ final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharS
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public EmptyCharSequence createObject() {
+        return this.createCharSequence();
     }
 
     @Override
