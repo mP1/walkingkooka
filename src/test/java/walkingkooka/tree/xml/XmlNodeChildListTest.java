@@ -21,19 +21,22 @@ package walkingkooka.tree.xml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import walkingkooka.Cast;
-import walkingkooka.collect.list.ListTestCase;
+import walkingkooka.collect.list.ListTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public final class XmlNodeChildListTest extends ListTestCase<XmlNodeChildList, XmlNode> {
+public final class XmlNodeChildListTest extends ClassTestCase<XmlNodeChildList>
+        implements ListTesting<XmlNodeChildList, XmlNode> {
 
     private final static String A1 = "A1";
     private final static String B2 = "B2";
     private final static String C3 = "C3";
 
     @Override
-    protected XmlNodeChildList createList() {
+    public XmlNodeChildList createList() {
         return this.createList(A1, B2, C3);
     }
 
@@ -61,6 +64,11 @@ public final class XmlNodeChildListTest extends ListTestCase<XmlNodeChildList, X
     @Override
     public Class<XmlNodeChildList> type() {
         return XmlNodeChildList.class;
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
 

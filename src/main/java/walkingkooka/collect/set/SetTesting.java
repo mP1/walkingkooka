@@ -18,29 +18,28 @@
 
 package walkingkooka.collect.set;
 
-import walkingkooka.collect.CollectionTestCase;
+import walkingkooka.collect.CollectionTesting;
 import walkingkooka.test.TypeNameTesting;
 
 import java.util.Set;
 
-public abstract class SetTestCase<S extends Set<E>, E> extends CollectionTestCase<S, E>
-        implements TypeNameTesting<S> {
+public interface SetTesting<S extends Set<E>, E> extends CollectionTesting<S, E>, TypeNameTesting<S> {
 
-    protected final S createCollection() {
+    default S createCollection() {
         return this.createSet();
     }
 
-    protected abstract S createSet();
+    S createSet();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Set.class.getSimpleName();
     }
 }

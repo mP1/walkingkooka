@@ -21,17 +21,19 @@ package walkingkooka.tree.xml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import walkingkooka.Cast;
-import walkingkooka.collect.set.SetTestCase;
+import walkingkooka.collect.set.SetTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.Map.Entry;
 
-public final class XmlMapEntrySetTest extends SetTestCase<XmlMapEntrySet<XmlAttributeName, String>,
-        Entry<XmlAttributeName, String>> {
+public final class XmlMapEntrySetTest extends ClassTestCase<XmlMapEntrySet<XmlAttributeName, String>>
+        implements SetTesting<XmlMapEntrySet<XmlAttributeName, String>, Entry<XmlAttributeName, String>> {
 
     @Override
-    protected XmlMapEntrySet<XmlAttributeName, String> createSet() {
+    public XmlMapEntrySet<XmlAttributeName, String> createSet() {
         final Element element = this.createElement();
         element.setAttribute("A1", "B2");
         element.setAttribute("C3", "D4");
@@ -59,6 +61,11 @@ public final class XmlMapEntrySetTest extends SetTestCase<XmlMapEntrySet<XmlAttr
     @Override
     public Class<XmlMapEntrySet<XmlAttributeName, String>> type() {
         return Cast.to(XmlMapEntrySet.class);
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
 

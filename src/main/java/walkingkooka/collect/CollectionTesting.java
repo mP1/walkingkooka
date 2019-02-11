@@ -20,10 +20,8 @@ package walkingkooka.collect;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -31,11 +29,10 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class CollectionTestCase<C extends Collection<E>, E> extends ClassTestCase<C>
-        implements ToStringTesting<C> {
+public interface CollectionTesting<C extends Collection<E>, E> extends ToStringTesting<C> {
 
     @Test
-    public final void testIteratorContainsAndCollection() {
+    default void testIteratorContainsAndCollection() {
         int size = 0;
         final C collection = this.createCollection();
         final Iterator<E> iterator = collection.iterator();
@@ -50,31 +47,26 @@ public abstract class CollectionTestCase<C extends Collection<E>, E> extends Cla
     }
 
     @Test
-    public final void testIsEmptyAndSize() {
+    default void testIsEmptyAndSize() {
         final C collection = this.createCollection();
         final int size = collection.size();
         this.isEmptyAndCheck(collection, 0 == size);
     }
 
-    protected abstract C createCollection();
+    C createCollection();
 
-    protected void containsAndCheck(final Collection<E> collection, final E element) {
+    default void containsAndCheck(final Collection<E> collection, final E element) {
         assertTrue(collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
         assertTrue(collection.containsAll(Lists.of(element)),
                 () -> collection + " should contain Collection of " + CharSequences.quoteIfChars(element));
     }
 
-    protected void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
+    default void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
         assertEquals(empty, collection.isEmpty(), ()-> "isEmpty of " + collection);
     }
 
-    protected void sizeAndCheck(final Collection<?> collection, final int size) {
+    default void sizeAndCheck(final Collection<?> collection, final int size) {
         assertEquals(size, collection.size(), () -> "size of " + collection);
         this.isEmptyAndCheck(collection, 0 == size);
-    }
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

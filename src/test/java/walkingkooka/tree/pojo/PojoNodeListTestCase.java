@@ -18,7 +18,9 @@ package walkingkooka.tree.pojo;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.list.ListTestCase;
+import walkingkooka.collect.list.ListTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public abstract class PojoNodeListTestCase<L extends List<E>, E> extends ListTestCase<L, E> {
+public abstract class PojoNodeListTestCase<L extends List<E>, E> extends ClassTestCase<L>
+        implements ListTesting<L, E> {
 
     PojoNodeListTestCase() {
         super();
@@ -50,7 +53,7 @@ public abstract class PojoNodeListTestCase<L extends List<E>, E> extends ListTes
     }
 
     @Override
-    protected final L createList() {
+    public final L createList() {
         return Cast.to(this.createList(this.components()));
     }
 
@@ -59,4 +62,9 @@ public abstract class PojoNodeListTestCase<L extends List<E>, E> extends ListTes
     abstract List<E> components();
 
     abstract List<E> differentComponents();
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

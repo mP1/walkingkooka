@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.SetTestCase;
+import walkingkooka.collect.set.SetTesting;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlParameterName;
@@ -31,6 +31,8 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 import java.util.List;
@@ -40,9 +42,9 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RouterHttpRequestParametersMapEntrySetTest extends
-        SetTestCase<RouterHttpRequestParametersMapEntrySet,
-                Entry<HttpRequestAttribute<?>, Object>> {
+public class RouterHttpRequestParametersMapEntrySetTest extends ClassTestCase<RouterHttpRequestParametersMapEntrySet>
+        implements SetTesting<RouterHttpRequestParametersMapEntrySet,
+        Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.with("CUSTOMHTTPMETHOD");
@@ -50,7 +52,7 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
     private final static RelativeUrl URL = Url.parseRelative("/path1/file2.html?parameter1=parameter-value-1&parameter-2=parameter-value-2");
     private final static List<ClientCookie> COOKIES = Cookie.parseClientHeader("cookie1=cookievalue1;cookie2=cookievalue2");
 
-    private final static Map<HttpHeaderName<?>, Object> headers(){
+    private final static Map<HttpHeaderName<?>, Object> headers() {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
 
         headers.put(HttpHeaderName.CONTENT_LENGTH, "1");
@@ -161,8 +163,7 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
 
     // helpers ...........................................................................................
 
-    @Override
-    protected RouterHttpRequestParametersMapEntrySet createSet() {
+    @Override public RouterHttpRequestParametersMapEntrySet createSet() {
         return this.createSet(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS);
     }
 
@@ -230,5 +231,10 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
     @Override
     public Class<RouterHttpRequestParametersMapEntrySet> type() {
         return RouterHttpRequestParametersMapEntrySet.class;
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

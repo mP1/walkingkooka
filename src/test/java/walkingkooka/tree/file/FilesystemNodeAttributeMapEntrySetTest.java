@@ -18,16 +18,19 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.collect.set.SetTestCase;
+import walkingkooka.collect.set.SetTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map.Entry;
 
-public final class FilesystemNodeAttributeMapEntrySetTest extends SetTestCase<FilesystemNodeAttributeMapEntrySet, Entry<FilesystemNodeAttributeName, String>> {
+public final class FilesystemNodeAttributeMapEntrySetTest extends ClassTestCase<FilesystemNodeAttributeMapEntrySet>
+        implements SetTesting<FilesystemNodeAttributeMapEntrySet, Entry<FilesystemNodeAttributeName, String>> {
 
     @Override
-    protected FilesystemNodeAttributeMapEntrySet createSet() {
+    public FilesystemNodeAttributeMapEntrySet createSet() {
         return FilesystemNodeAttributeMapEntrySet.with(this.createNode());
     }
 
@@ -65,5 +68,10 @@ public final class FilesystemNodeAttributeMapEntrySetTest extends SetTestCase<Fi
     @Override
     public Class<FilesystemNodeAttributeMapEntrySet> type() {
         return FilesystemNodeAttributeMapEntrySet.class;
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

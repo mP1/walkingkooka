@@ -20,15 +20,17 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.SetTestCase;
+import walkingkooka.collect.set.SetTesting;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extends SetTestCase<HttpServletRequestHttpRequestParametersMapEntrySet,
-        Entry<HttpRequestParameterName, List<String>>> {
+public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extends ClassTestCase<HttpServletRequestHttpRequestParametersMapEntrySet>
+        implements SetTesting<HttpServletRequestHttpRequestParametersMapEntrySet, Entry<HttpRequestParameterName, List<String>>> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";
@@ -56,7 +58,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extend
     }
 
     @Override
-    protected HttpServletRequestHttpRequestParametersMapEntrySet createSet() {
+    public HttpServletRequestHttpRequestParametersMapEntrySet createSet() {
         final Set<Entry<String, String[]>> parameters = Sets.ordered();
         parameters.add(this.entry(KEY1, VALUE1A, VALUE1B));
         parameters.add(this.entry(KEY2, VALUE2));
@@ -76,5 +78,10 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extend
     @Override
     public Class<HttpServletRequestHttpRequestParametersMapEntrySet> type() {
         return HttpServletRequestHttpRequestParametersMapEntrySet.class;
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
