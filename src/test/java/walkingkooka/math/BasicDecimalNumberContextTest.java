@@ -19,10 +19,13 @@
 package walkingkooka.math;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicDecimalNumberContextTest extends DecimalNumberContextTestCase<BasicDecimalNumberContext> {
+public final class BasicDecimalNumberContextTest extends ClassTestCase<BasicDecimalNumberContext>
+        implements DecimalNumberContextTesting<BasicDecimalNumberContext> {
 
     @Test
     public void testWithNullCurrencySymbol() {
@@ -49,12 +52,17 @@ public final class BasicDecimalNumberContextTest extends DecimalNumberContextTes
     }
 
     @Override
-    protected BasicDecimalNumberContext createContext() {
+    public BasicDecimalNumberContext createContext() {
         return BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%','+');
     }
 
     @Override
     public Class<BasicDecimalNumberContext> type() {
         return BasicDecimalNumberContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

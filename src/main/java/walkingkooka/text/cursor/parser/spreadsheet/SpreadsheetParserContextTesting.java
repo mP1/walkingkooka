@@ -16,14 +16,17 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.ebnf.combinator;
+package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.ContextTestCase;
+import walkingkooka.text.cursor.parser.ParserContextTesting;
 
-public abstract class EbnfParserCombinatorContextTestCase<C extends EbnfParserCombinatorContext> extends ContextTestCase<C> {
+/**
+ * Mixing testing interface for {@link SpreadsheetParserContext}
+ */
+public interface SpreadsheetParserContextTesting<C extends SpreadsheetParserContext> extends ParserContextTesting<C> {
 
     @Override
-    public String typeNameSuffix() {
-        return EbnfParserCombinatorContext.class.getSimpleName();
+    default String typeNameSuffix() {
+        return SpreadsheetParserContext.class.getSimpleName();
     }
 }

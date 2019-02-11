@@ -15,14 +15,24 @@
  *
  *
  */
+package walkingkooka;
 
-package walkingkooka.text.cursor.parser.json;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 
-import walkingkooka.text.cursor.parser.ParserContextTestCase;
+/**
+ * Mixing interface that provides methods to test a {@link Context}
+ */
+public interface ContextTesting<C extends Context> extends TypeNameTesting<C>,
+        ToStringTesting<C> {
 
-public abstract class JsonNodeParserContextTestCase<C extends JsonNodeParserContext> extends ParserContextTestCase<C> {
+    C createContext();
 
-    @Override public String typeNameSuffix() {
-        return JsonNodeParserContext.class.getSimpleName();
+
+    // TypeNameTesting......................................................................................
+
+    @Override
+    default String typeNamePrefix() {
+        return "";
     }
 }

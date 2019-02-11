@@ -24,13 +24,15 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
 import java.util.Set;
 
-public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends
-        HateosHandlerContextTestCase<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>, JsonNode> {
+public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends ClassTestCase<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>>
+        implements HateosHandlerContextTesting<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>, JsonNode> {
 
     @Test
     public void testAddLinksSelf() {
@@ -59,7 +61,7 @@ public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends
     }
 
     @Override
-    protected HateosHandlerBuilderRouterHateosHandlerContext<JsonNode> createContext() {
+    public HateosHandlerBuilderRouterHateosHandlerContext<JsonNode> createContext() {
         return HateosHandlerBuilderRouterHateosHandlerContext.with(HttpMethod.GET,
                 HateosContentType.JSON,
                 Url.parseAbsolute("http://example.com/api/"),
@@ -96,22 +98,27 @@ public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends
     }
 
     @Override
-    protected HateosResourceName name() {
+    public HateosResourceName name() {
         return HateosResourceName.with("entity1");
     }
 
     @Override
-    protected BigInteger id() {
+    public BigInteger id() {
         return BigInteger.valueOf(123);
     }
 
     @Override
-    protected JsonNode node() {
+    public JsonNode node() {
         return JsonNode.parse("{\"prop1\": \"value1\", \"prop2\": \"value2\"}");
     }
 
     @Override
     public Class<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHateosHandlerContext.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

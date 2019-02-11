@@ -19,56 +19,59 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTestCase;
+import walkingkooka.ContextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ExpressionEvaluationContextTestCase<C extends ExpressionEvaluationContext> extends ContextTestCase<C> {
+/**
+ * Mixing testing interface for {@link ExpressionEvaluationContext}
+ */
+public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends ContextTesting<C> {
 
     @Test
-    public void testFunctionNullNameFails() {
+    default void testFunctionNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS);
         });
     }
 
     @Test
-    public void testFunctionNullParametersFails() {
+    default void testFunctionNullParametersFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().function(ExpressionNodeName.with("sum"), null);
         });
     }
 
     @Test
-    public void testReferenceNullReferenceFails() {
+    default void testReferenceNullReferenceFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().reference(null);
         });
     }
 
     @Test
-    public void testConvertNullValueFails() {
+    default void testConvertNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().convert(null, Object.class);
         });
     }
 
     @Test
-    public void testConvertNullTargetTypeFails() {
+    default void testConvertNullTargetTypeFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().convert("value", null);
         });
     }
 
-    protected void toValueAndCheck(final ExpressionNode node, final ExpressionEvaluationContext context, final Object value) {
+    default void toValueAndCheck(final ExpressionNode node, final ExpressionEvaluationContext context, final Object value) {
         assertEquals(value,
                 node.toValue(context),
                 ()-> "ExpressionNode.toValue failed, node=" + node + " context=" + context);
     }
 
     @Override
-    public String typeNameSuffix() {
+    default String typeNameSuffix() {
         return ExpressionEvaluationContext.class.getSimpleName();
     }
 }

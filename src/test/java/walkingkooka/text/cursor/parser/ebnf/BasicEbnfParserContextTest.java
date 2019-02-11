@@ -19,8 +19,11 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class BasicEbnfParserContextTest extends EbnfParserContextTestCase<BasicEbnfParserContext> {
+public final class BasicEbnfParserContextTest extends ClassTestCase<BasicEbnfParserContext>
+        implements EbnfParserContextTesting<BasicEbnfParserContext> {
 
     @Test
     public void testToString() {
@@ -29,12 +32,17 @@ public final class BasicEbnfParserContextTest extends EbnfParserContextTestCase<
     }
 
     @Override
-    protected BasicEbnfParserContext createContext() {
+    public BasicEbnfParserContext createContext() {
         return BasicEbnfParserContext.instance();
     }
 
     @Override
     public Class<BasicEbnfParserContext> type() {
         return BasicEbnfParserContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

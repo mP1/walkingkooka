@@ -15,13 +15,18 @@
  *
  *
  */
-package walkingkooka.convert;
 
-import walkingkooka.math.DecimalNumberContextTestCase;
+package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-public abstract class ConverterContextTestCase<C extends ConverterContext> extends DecimalNumberContextTestCase<C> {
+import walkingkooka.ContextTesting;
 
-    @Override public String typeNameSuffix() {
-        return ConverterContext.class.getSimpleName();
+/**
+ * Mixing testing interface for {@link EbnfParserCombinatorContext}
+ */
+public interface EbnfParserCombinatorContextTesting<C extends EbnfParserCombinatorContext> extends ContextTesting<C> {
+
+    @Override
+    default String typeNameSuffix() {
+        return EbnfParserCombinatorContext.class.getSimpleName();
     }
 }

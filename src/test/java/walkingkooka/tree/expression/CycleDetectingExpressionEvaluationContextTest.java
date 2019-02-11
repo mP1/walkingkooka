@@ -22,11 +22,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetReferenceKind;
+import walkingkooka.type.MemberVisibility;
 import walkingkooka.util.variable.Variables;
 
 import java.math.BigInteger;
@@ -39,7 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class CycleDetectingExpressionEvaluationContextTest extends ExpressionEvaluationContextTestCase<CycleDetectingExpressionEvaluationContext> {
+public final class CycleDetectingExpressionEvaluationContextTest extends ClassTestCase<CycleDetectingExpressionEvaluationContext>
+        implements ExpressionEvaluationContextTesting<CycleDetectingExpressionEvaluationContext> {
 
     private final static String VALUE = "text123";
 
@@ -330,7 +333,7 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
     }
 
     @Override
-    protected CycleDetectingExpressionEvaluationContext createContext() {
+    public CycleDetectingExpressionEvaluationContext createContext() {
         return this.createContext(ExpressionEvaluationContexts.fake());
     }
 
@@ -367,5 +370,10 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
     @Override
     public Class<CycleDetectingExpressionEvaluationContext> type() {
         return CycleDetectingExpressionEvaluationContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

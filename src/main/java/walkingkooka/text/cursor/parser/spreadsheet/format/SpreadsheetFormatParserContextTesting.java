@@ -15,26 +15,18 @@
  *
  *
  */
-package walkingkooka;
 
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-public abstract class ContextTestCase<C extends Context> extends ClassTestCase<C>
-        implements TypeNameTesting<C>,
-        ToStringTesting<C> {
+import walkingkooka.text.cursor.parser.ParserContextTesting;
 
-    @Override
-    public String typeNamePrefix() {
-        return "";
-    }
-
-    protected abstract C createContext();
+/**
+ * Mixing testing interface for {@link SpreadsheetFormatParserContext}
+ */
+public interface SpreadsheetFormatParserContextTesting<C extends SpreadsheetFormatParserContext> extends ParserContextTesting<C> {
 
     @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    default String typeNameSuffix() {
+        return SpreadsheetFormatParserContext.class.getSimpleName();
     }
 }

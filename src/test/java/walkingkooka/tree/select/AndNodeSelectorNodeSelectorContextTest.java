@@ -20,25 +20,29 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.TestNode;
+import walkingkooka.type.MemberVisibility;
 
-public final class AndNodeSelectorNodeSelectorContextTest extends NodeSelectorContextTestCase<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>,
+public final class AndNodeSelectorNodeSelectorContextTest extends ClassTestCase<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>>
+        implements NodeSelectorContextTesting<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
         StringName,
         Object> {
 
-    @Override public String typeNameSuffix() {
-        return NodeSelectorContext.class.getSimpleName();
-    }
-
     @Override
-    protected AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
+    public AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
         return AndNodeSelectorNodeSelectorContext.with(null, null);
     }
 
     @Override
     public Class<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AndNodeSelectorNodeSelectorContext.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -16,13 +16,23 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.spreadsheet;
+package walkingkooka.tree.select;
 
-import walkingkooka.text.cursor.parser.ParserContextTestCase;
+import walkingkooka.ContextTesting;
+import walkingkooka.naming.Name;
+import walkingkooka.tree.Node;
 
-public abstract class SpreadsheetParserContextTestCase<C extends SpreadsheetParserContext> extends ParserContextTestCase<C> {
+/**
+ * Mixing testing interface for {@link NodeSelectorContext}
+ */
+public interface NodeSelectorContextTesting<C extends NodeSelectorContext<N, NAME, ANAME, AVALUE>,
+        N extends Node<N, NAME, ANAME, AVALUE>,
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> extends ContextTesting<C> {
 
-    @Override public String typeNameSuffix() {
-        return SpreadsheetParserContext.class.getSimpleName();
+    @Override
+    default String typeNameSuffix() {
+        return NodeSelectorContext.class.getSimpleName();
     }
 }

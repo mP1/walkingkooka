@@ -24,7 +24,9 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.MathContext;
 import java.util.List;
@@ -36,7 +38,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicExpressionEvaluationContextTest extends  ExpressionEvaluationContextTestCase<BasicExpressionEvaluationContext> {
+public final class BasicExpressionEvaluationContextTest extends ClassTestCase<BasicExpressionEvaluationContext>
+        implements ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext> {
 
     @Test
     public void testWithNullFunctionsFails() {
@@ -116,7 +119,7 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
     }
 
     @Override
-    protected BasicExpressionEvaluationContext createContext() {
+    public BasicExpressionEvaluationContext createContext() {
         return BasicExpressionEvaluationContext.with(this.functions(),
                 this.references(),
                 this.mathContext(),
@@ -178,5 +181,10 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
     @Override
     public Class<BasicExpressionEvaluationContext> type() {
         return BasicExpressionEvaluationContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

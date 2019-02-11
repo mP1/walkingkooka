@@ -19,8 +19,11 @@
 package walkingkooka.text.cursor.parser.json;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class BasicJsonNodeParserContextTest extends JsonNodeParserContextTestCase<BasicJsonNodeParserContext> {
+public final class BasicJsonNodeParserContextTest extends ClassTestCase<BasicJsonNodeParserContext>
+        implements JsonNodeParserContextTesting<BasicJsonNodeParserContext> {
 
     @Test
     public void testToString() {
@@ -28,13 +31,17 @@ public final class BasicJsonNodeParserContextTest extends JsonNodeParserContextT
                 "decimalPoint='.' exponentSymbol='E' minusSign='-' percentageSymbol='%' plusSign='+'");
     }
 
-    @Override
-    protected BasicJsonNodeParserContext createContext() {
+    @Override public BasicJsonNodeParserContext createContext() {
         return BasicJsonNodeParserContext.instance();
     }
 
     @Override
     public Class<BasicJsonNodeParserContext> type() {
         return BasicJsonNodeParserContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

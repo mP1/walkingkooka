@@ -17,34 +17,37 @@
  */
 package walkingkooka.datetime;
 
-import walkingkooka.ContextTestCase;
+import walkingkooka.ContextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class DateTimeContextTestCase<C extends DateTimeContext> extends ContextTestCase<C> {
+/**
+ * Mixing interface that provides methods to test a {@link DateTimeContext}
+ */
+public interface DateTimeContextTesting<C extends DateTimeContext> extends ContextTesting<C> {
 
     @Override
-    public String typeNameSuffix() {
+    default String typeNameSuffix() {
         return DateTimeContext.class.getSimpleName();
     }
 
-    protected void checkAmPm(final DateTimeContext context, final int hourOfDay, final String ampm) {
+    default void checkAmPm(final DateTimeContext context, final int hourOfDay, final String ampm) {
         assertEquals("ampm hourOfDay=" + hourOfDay, ampm, context.ampm(hourOfDay));
     }
 
-    protected void checkMonthName(final DateTimeContext context, final int month, final String monthName) {
+    default void checkMonthName(final DateTimeContext context, final int month, final String monthName) {
         assertEquals("monthName month=" + month, monthName, context.monthName(month));
     }
 
-    protected void checkMonthNameAbbreviation(final DateTimeContext context, final int month, final String monthName) {
+    default void checkMonthNameAbbreviation(final DateTimeContext context, final int month, final String monthName) {
         assertEquals("monthNameAbbreviation month=" + month, monthName, context.monthNameAbbreviation(month));
     }
 
-    protected void checkWeekDayName(final DateTimeContext context, final int day, final String dayName) {
+    default void checkWeekDayName(final DateTimeContext context, final int day, final String dayName) {
         assertEquals("weekDayName day=" + day, dayName, context.weekDayName(day));
     }
 
-    protected void checkWeekDayNameAbbreviation(final DateTimeContext context, final int day, final String dayName) {
+    default void checkWeekDayNameAbbreviation(final DateTimeContext context, final int day, final String dayName) {
         assertEquals("weekDayNameAbbreviation day=" + day, dayName, context.weekDayNameAbbreviation(day));
     }
 }
