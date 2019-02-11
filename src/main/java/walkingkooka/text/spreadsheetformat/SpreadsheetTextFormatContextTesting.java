@@ -16,13 +16,22 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.select;
+package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.ParserContextTestCase;
+import org.junit.jupiter.api.Test;
+import walkingkooka.math.DecimalNumberContextTesting;
 
-public abstract class NodeSelectorParserContextTestCase<C extends NodeSelectorParserContext> extends ParserContextTestCase<C> {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-    @Override public String typeNameSuffix() {
-        return NodeSelectorParserContext.class.getSimpleName();
+public interface SpreadsheetTextFormatContextTesting<C extends SpreadsheetTextFormatContext> extends DecimalNumberContextTesting<C> {
+
+    @Test
+    default void testGeneralDecimalFormatPattern() {
+        assertNotNull("decimalDecimalFormatPattern", this.createContext().generalDecimalFormatPattern());
+    }
+
+    @Override
+    default String typeNameSuffix() {
+        return SpreadsheetTextFormatContext.class.getSimpleName();
     }
 }

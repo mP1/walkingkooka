@@ -20,10 +20,13 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicParserContextTest extends ParserContextTestCase<BasicParserContext> {
+public final class BasicParserContextTest extends ClassTestCase<BasicParserContext>
+        implements ParserContextTesting<BasicParserContext> {
 
     private final static String CURRENCY = "$$";
     private final static char DECIMAL = 'D';
@@ -56,8 +59,7 @@ public final class BasicParserContextTest extends ParserContextTestCase<BasicPar
         this.toStringAndCheck(this.createContext(), this.basic().toString());
     }
 
-    @Override
-    protected BasicParserContext createContext() {
+    @Override public BasicParserContext createContext() {
         return BasicParserContext.with(this.basic());
     }
 
@@ -68,5 +70,10 @@ public final class BasicParserContextTest extends ParserContextTestCase<BasicPar
     @Override
     public Class<BasicParserContext> type() {
         return BasicParserContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

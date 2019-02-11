@@ -15,22 +15,17 @@
  *
  *
  */
+package walkingkooka.convert;
 
-package walkingkooka.text.spreadsheetformat;
+import walkingkooka.math.DecimalNumberContextTesting;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.math.DecimalNumberContextTestCase;
+/**
+ * Mixing testing interface for {@link ConverterContext}
+ */
+public interface ConverterContextTesting<C extends ConverterContext> extends DecimalNumberContextTesting<C> {
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-public abstract class SpreadsheetTextFormatContextTestCase<C extends SpreadsheetTextFormatContext> extends DecimalNumberContextTestCase<C> {
-
-    @Test
-    public void testGeneralDecimalFormatPattern() {
-        assertNotNull("decimalDecimalFormatPattern", this.createContext().generalDecimalFormatPattern());
-    }
-
-    @Override public String typeNameSuffix() {
-        return SpreadsheetTextFormatContext.class.getSimpleName();
+    @Override
+    default String typeNameSuffix() {
+        return ConverterContext.class.getSimpleName();
     }
 }

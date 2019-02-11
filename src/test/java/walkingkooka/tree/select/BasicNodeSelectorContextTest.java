@@ -25,9 +25,11 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -35,7 +37,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestCase<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
+public final class BasicNodeSelectorContextTest extends ClassTestCase<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>
+        implements NodeSelectorContextTesting<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
         StringName,
@@ -100,8 +103,7 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
         return NodeSelectorContext.class.getSimpleName();
     }
 
-    @Override
-    protected BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
+    @Override public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
         return BasicNodeSelectorContext.with(this.potential(),
                 this.selected(),
                 this.functions(),
@@ -132,5 +134,10 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
     @Override
     public Class<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(BasicNodeSelectorContext.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

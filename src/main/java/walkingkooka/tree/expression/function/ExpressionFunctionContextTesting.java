@@ -19,43 +19,46 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTestCase;
+import walkingkooka.ContextTesting;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ExpressionFunctionContextTestCase<C extends ExpressionFunctionContext> extends ContextTestCase<C> {
+/**
+ * Mixing testing interface for {@link ExpressionFunctionContext}
+ */
+public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionContext> extends ContextTesting<C> {
 
     @Test
-    public void testFunctionNullNameFails() {
+    default void testFunctionNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().function(null, ExpressionFunctionContext.NO_PARAMETERS);
         });
     }
 
     @Test
-    public void testFunctionNullParametersFails() {
+    default void testFunctionNullParametersFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().function(ExpressionNodeName.with("sum"), null);
         });
     }
 
     @Test
-    public void testConvertNullValueFails() {
+    default void testConvertNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().convert(null, Object.class);
         });
     }
 
     @Test
-    public void testConvertNullTargetTypeFails() {
+    default void testConvertNullTargetTypeFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().convert("value", null);
         });
     }
 
     @Override
-    public String typeNameSuffix() {
+    default String typeNameSuffix() {
         return ExpressionFunctionContext.class.getSimpleName();
     }
 }

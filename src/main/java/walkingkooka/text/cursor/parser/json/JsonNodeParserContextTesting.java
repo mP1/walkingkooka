@@ -16,14 +16,17 @@
  *
  */
 
-package walkingkooka.tree.file;
+package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.ContextTestCase;
+import walkingkooka.text.cursor.parser.ParserContextTesting;
 
-public abstract class FilesystemNodeContextTestCase<C extends FilesystemNodeContext> extends ContextTestCase<C> {
+/**
+ * Mixing testing interface for {@link JsonNodeParserContext}
+ */
+public interface JsonNodeParserContextTesting<C extends JsonNodeParserContext> extends ParserContextTesting<C> {
 
     @Override
-    public String typeNameSuffix() {
-        return FilesystemNodeContext.class.getSimpleName();
+    default String typeNameSuffix() {
+        return JsonNodeParserContext.class.getSimpleName();
     }
 }

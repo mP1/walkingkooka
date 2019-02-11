@@ -18,11 +18,15 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.ParserContextTestCase;
+import walkingkooka.text.cursor.parser.ParserContextTesting;
 
-public abstract class EbnfParserContextTestCase<C extends EbnfParserContext> extends ParserContextTestCase<C> {
+/**
+ * Mixing testing interface for {@link EbnfParserContext}
+ */
+public interface EbnfParserContextTesting<C extends EbnfParserContext> extends ParserContextTesting<C> {
 
-    @Override public String typeNameSuffix() {
+    @Override
+    default String typeNameSuffix() {
         return EbnfParserContext.class.getSimpleName();
     }
 }

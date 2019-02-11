@@ -19,8 +19,11 @@
 package walkingkooka.text.cursor.parser.select;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class BasicNodeSelectorParserContextTest extends NodeSelectorParserContextTestCase<BasicNodeSelectorParserContext> {
+public final class BasicNodeSelectorParserContextTest extends ClassTestCase<BasicNodeSelectorParserContext>
+        implements NodeSelectorParserContextTesting<BasicNodeSelectorParserContext> {
 
     @Test
     public void testToString() {
@@ -29,12 +32,17 @@ public final class BasicNodeSelectorParserContextTest extends NodeSelectorParser
     }
 
     @Override
-    protected BasicNodeSelectorParserContext createContext() {
+    public BasicNodeSelectorParserContext createContext() {
         return BasicNodeSelectorParserContext.instance();
     }
 
     @Override
     public Class<BasicNodeSelectorParserContext> type() {
         return BasicNodeSelectorParserContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

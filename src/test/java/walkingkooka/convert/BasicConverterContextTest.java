@@ -20,10 +20,13 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicConverterContextTest extends ConverterContextTestCase<BasicConverterContext> {
+public final class BasicConverterContextTest extends ClassTestCase<BasicConverterContext>
+        implements ConverterContextTesting<BasicConverterContext> {
 
     private final static String CURRENCY = "$$";
     private final static char DECIMAL = 'D';
@@ -55,7 +58,7 @@ public final class BasicConverterContextTest extends ConverterContextTestCase<Ba
     }
 
     @Override
-    protected BasicConverterContext createContext() {
+    public BasicConverterContext createContext() {
         return BasicConverterContext.with(this.basic());
     }
 
@@ -66,5 +69,10 @@ public final class BasicConverterContextTest extends ConverterContextTestCase<Ba
     @Override
     public Class<BasicConverterContext> type() {
         return BasicConverterContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

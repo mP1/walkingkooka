@@ -19,40 +19,42 @@
 package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTestCase;
+import walkingkooka.ContextTesting;
 import walkingkooka.tree.Node;
 
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HateosHandlerContextTestCase<C extends HateosHandlerContext<N>,
+/**
+ * Mixing testing interface for {@link HateosHandlerContext}
+ */
+public interface HateosHandlerContextTesting<C extends HateosHandlerContext<N>,
         N extends Node<N, ?, ?, ?>>
-        extends ContextTestCase<C> {
-
+        extends ContextTesting<C> {
 
     @Test
-    public void testAddLinksNullNameFails() {
+    default void testAddLinksNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
             this.addLinksAndCheck(null, this.id(), this.node());
         });
     }
 
     @Test
-    public void testAddLinksNullIdFails() {
+    default void testAddLinksNullIdFails() {
         assertThrows(NullPointerException.class, () -> {
             this.addLinksAndCheck(this.name(), null, this.node());
         });
     }
 
     @Test
-    public void testAddLinksNullNullFails() {
+    default void testAddLinksNullNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.addLinksAndCheck(this.name(), this.id(), null);
         });
     }
 
-    protected void addLinksAndCheck(final HateosResourceName name,
+    default void addLinksAndCheck(final HateosResourceName name,
                                     final BigInteger id,
                                     final N node,
                                     final N expected) {
@@ -63,14 +65,14 @@ public abstract class HateosHandlerContextTestCase<C extends HateosHandlerContex
                 expected);
     }
 
-    protected void addLinksAndCheck(final C context,
+    default void addLinksAndCheck(final C context,
                                     final HateosResourceName name,
                                     final BigInteger id,
                                     final N node,
                                     final N expected) {
     }
 
-    protected N addLinksAndCheck(final HateosResourceName name,
+    default N addLinksAndCheck(final HateosResourceName name,
                                  final BigInteger id,
                                  final N node) {
         return this.createContext().addLinks(name,
@@ -78,7 +80,7 @@ public abstract class HateosHandlerContextTestCase<C extends HateosHandlerContex
                 node);
     }
 
-    protected N addLinksAndCheck(final C context,
+    default N addLinksAndCheck(final C context,
                                  final HateosResourceName name,
                                  final BigInteger id,
                                  final N node) {
@@ -88,14 +90,13 @@ public abstract class HateosHandlerContextTestCase<C extends HateosHandlerContex
     }
 
     @Override
-    public String typeNameSuffix() {
+    default String typeNameSuffix() {
         return HateosHandlerContext.class.getSimpleName();
     }
 
-    protected abstract HateosResourceName name();
+    HateosResourceName name();
 
-    protected abstract BigInteger id();
+    BigInteger id();
 
-    protected abstract N node();
-
+    N node();
 }

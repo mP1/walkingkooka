@@ -16,20 +16,17 @@
  *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree.file;
 
-import walkingkooka.ContextTestCase;
-import walkingkooka.naming.Name;
-import walkingkooka.tree.Node;
+import walkingkooka.ContextTesting;
 
-public abstract class NodeSelectorContextTestCase<C extends NodeSelectorContext<N, NAME, ANAME, AVALUE>,
-        N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends ContextTestCase<C> {
+/**
+ * Mixing testing interface for {@link FilesystemNodeContext}
+ */
+public interface FilesystemNodeContextTesting<C extends FilesystemNodeContext> extends ContextTesting<C> {
 
     @Override
-    public String typeNameSuffix() {
-        return NodeSelectorContext.class.getSimpleName();
+    default String typeNameSuffix() {
+        return FilesystemNodeContext.class.getSimpleName();
     }
 }

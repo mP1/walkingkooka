@@ -20,8 +20,11 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserContextTestCase<BasicSpreadsheetParserContext> {
+public final class BasicSpreadsheetParserContextTest extends ClassTestCase<BasicSpreadsheetParserContext>
+        implements SpreadsheetParserContextTesting<BasicSpreadsheetParserContext> {
 
     private final static String CURRENCY = "$$";
     private final static char DECIMAL = 'D';
@@ -43,12 +46,17 @@ public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserCo
     }
 
     @Override
-    protected BasicSpreadsheetParserContext createContext() {
+    public BasicSpreadsheetParserContext createContext() {
         return BasicSpreadsheetParserContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
     }
 
     @Override
     public Class<BasicSpreadsheetParserContext> type() {
         return BasicSpreadsheetParserContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
