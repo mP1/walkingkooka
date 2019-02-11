@@ -20,17 +20,19 @@ package walkingkooka.compare;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.Notable;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Comparator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Object>, Object>
-        implements HashCodeEqualsDefinedTesting<NotComparator<Object>>,
+final public class NotComparatorTest extends ClassTestCase<NotComparator<Object>>
+        implements ComparatorTesting<NotComparator<Object>, Object>,
+        HashCodeEqualsDefinedTesting<NotComparator<Object>>,
         SerializationTesting<NotComparator<Object>> {
 
     private final static Comparator<Object> COMPARATOR = Comparators.fake();
@@ -95,7 +97,7 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
     }
 
     @Override
-    protected NotComparator<Object> createComparator() {
+    public NotComparator<Object> createComparator() {
         return Cast.to(NotComparator.wrap(COMPARATOR));
     }
 
@@ -103,7 +105,12 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
     public Class<NotComparator<Object>> type() {
         return Cast.to(NotComparator.class);
     }
-    
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
     @Override
     public NotComparator<Object> createObject() {
         return this.createComparator();

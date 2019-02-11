@@ -21,14 +21,17 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NormalizingCharSequenceComparatorTest
-        extends ComparatorTestCase<NormalizingCharSequenceComparator<String>, String>
-        implements HashCodeEqualsDefinedTesting<NormalizingCharSequenceComparator<String>>,
+        extends ClassTestCase<NormalizingCharSequenceComparator<String>>
+        implements ComparatorTesting<NormalizingCharSequenceComparator<String>, String>,
+        HashCodeEqualsDefinedTesting<NormalizingCharSequenceComparator<String>>,
         SerializationTesting<NormalizingCharSequenceComparator<String>> {
 
     // constants
@@ -148,14 +151,18 @@ final public class NormalizingCharSequenceComparatorTest
         this.toStringAndCheck(this.createComparator(), "normalizing " + PREDICATE);
     }
 
-    @Override
-    protected NormalizingCharSequenceComparator<String> createComparator() {
+    @Override public NormalizingCharSequenceComparator<String> createComparator() {
         return NormalizingCharSequenceComparator.with(PREDICATE);
     }
 
     @Override
     public Class<NormalizingCharSequenceComparator<String>> type() {
         return Cast.to(NormalizingCharSequenceComparator.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
     
     @Override

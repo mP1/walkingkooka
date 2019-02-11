@@ -21,14 +21,17 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.compare.ComparatorTestCase;
+import walkingkooka.compare.ComparatorTesting;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class QFactorWeightComparatorTest extends ComparatorTestCase<QFactorWeightComparator<MediaType>, MediaType> {
+public final class QFactorWeightComparatorTest extends ClassTestCase<QFactorWeightComparator<MediaType>>
+        implements ComparatorTesting<QFactorWeightComparator<MediaType>, MediaType> {
 
     @Test
     public void testLeftHigherQFactor() {
@@ -83,12 +86,17 @@ public final class QFactorWeightComparatorTest extends ComparatorTestCase<QFacto
     }
 
     @Override
-    protected QFactorWeightComparator<MediaType> createComparator() {
+    public QFactorWeightComparator<MediaType> createComparator() {
         return QFactorWeightComparator.instance();
     }
 
     @Override
     public Class<QFactorWeightComparator<MediaType>> type() {
         return Cast.to(QFactorWeightComparator.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
