@@ -18,12 +18,20 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformerTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformerTesting;
+import walkingkooka.type.MemberVisibility;
 
-public final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformerTest extends EbnfParserCombinatorSyntaxTreeTransformerTestCase<JsonNodeEbnfParserCombinatorSyntaxTreeTransformer> {
+public final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformerTest extends ClassTestCase<JsonNodeEbnfParserCombinatorSyntaxTreeTransformer>
+        implements EbnfParserCombinatorSyntaxTreeTransformerTesting<JsonNodeEbnfParserCombinatorSyntaxTreeTransformer> {
 
     @Override
     public Class<JsonNodeEbnfParserCombinatorSyntaxTreeTransformer> type() {
         return JsonNodeEbnfParserCombinatorSyntaxTreeTransformer.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
