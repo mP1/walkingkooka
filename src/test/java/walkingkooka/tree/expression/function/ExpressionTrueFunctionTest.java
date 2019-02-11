@@ -19,8 +19,11 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionTrueFunctionTest extends ExpressionFunctionTestCase<ExpressionTrueFunction, Boolean> {
+public final class ExpressionTrueFunctionTest extends ClassTestCase<ExpressionTrueFunction>
+        implements ExpressionFunctionTesting<ExpressionTrueFunction, Boolean> {
 
     @Test
     public void testExecuteFunction() {
@@ -33,12 +36,17 @@ public final class ExpressionTrueFunctionTest extends ExpressionFunctionTestCase
     }
 
     @Override
-    protected ExpressionTrueFunction createBiFunction() {
+    public ExpressionTrueFunction createBiFunction() {
         return ExpressionTrueFunction.INSTANCE;
     }
 
     @Override
     public Class<ExpressionTrueFunction> type() {
         return ExpressionTrueFunction.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -21,43 +21,46 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokens;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
-import walkingkooka.util.BiFunctionTestCase;
+import walkingkooka.util.BiFunctionTesting;
 
 import java.util.Arrays;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-public abstract class ParserBiFunctionTestCase<F extends BiFunction<SequenceParserToken, C, TOUT>,
+/**
+ * Mixing interface that provides methods to test a {@link BiFunction}
+ */
+public interface ParserBiFunctionTesting<F extends BiFunction<SequenceParserToken, C, TOUT>,
         C extends ParserContext,
         TOUT extends ParserToken>
-        extends BiFunctionTestCase<F, SequenceParserToken, C, TOUT> {
+        extends BiFunctionTesting<F, SequenceParserToken, C, TOUT> {
 
-    protected TOUT apply(final ParserToken...tokens) {
+    default TOUT apply(final ParserToken... tokens) {
         return this.apply(this.sequence(tokens));
     }
 
-    protected TOUT apply(final SequenceParserToken token) {
+    default TOUT apply(final SequenceParserToken token) {
         return this.createBiFunction().apply(token, this.createContext());
     }
 
-    protected void applyAndCheck(final SequenceParserToken token,
-                                 final TOUT result) {
+    default void applyAndCheck(final SequenceParserToken token,
+                               final TOUT result) {
         this.applyAndCheck(token, this.createContext(), result);
     }
 
-    protected void applyAndCheck(final BiFunction<SequenceParserToken, C, TOUT> function,
-                                 final SequenceParserToken token,
-                                 final TOUT result) {
+    default void applyAndCheck(final BiFunction<SequenceParserToken, C, TOUT> function,
+                               final SequenceParserToken token,
+                               final TOUT result) {
         this.applyAndCheck(function, token, this.createContext(), result);
     }
 
-    abstract protected C createContext();
+    C createContext();
 
-    protected final SequenceParserToken sequence(final ParserToken...tokens) {
+    default SequenceParserToken sequence(final ParserToken... tokens) {
         return ParserTokens.sequence(
                 Lists.of(tokens),
                 Arrays.stream(tokens)
-                    .map(t -> t.text())
-                    .collect(Collectors.joining()));
+                        .map(t -> t.text())
+                        .collect(Collectors.joining()));
     }
 }

@@ -18,17 +18,22 @@ package walkingkooka.text.cursor.parser.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokens;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunctionTestCase2<PrefixedNumberParserTokenBiFunction<FakeParserContext>, BigIntegerParserToken> {
+public final class PrefixedNumberParserTokenBiFunctionTest extends ClassTestCase<PrefixedNumberParserTokenBiFunction<FakeParserContext>>
+        implements ParserBiFunctionTesting<PrefixedNumberParserTokenBiFunction<FakeParserContext>,
+        FakeParserContext,
+        BigIntegerParserToken> {
 
     @Test
     public void testInvalidFirstToken() {
@@ -55,7 +60,7 @@ public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunct
     }
 
     @Override
-    protected PrefixedNumberParserTokenBiFunction<FakeParserContext> createBiFunction() {
+    public PrefixedNumberParserTokenBiFunction<FakeParserContext> createBiFunction() {
         return PrefixedNumberParserTokenBiFunction.get();
     }
 
@@ -78,5 +83,15 @@ public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunct
 
     private ParserToken secondToken() {
         return ParserTokens.bigInteger(BigInteger.valueOf(31), "1f");
+    }
+
+    @Override
+    public FakeParserContext createContext() {
+        return new FakeParserContext();
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

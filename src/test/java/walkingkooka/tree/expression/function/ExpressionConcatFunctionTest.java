@@ -19,10 +19,13 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionConcatFunctionTest extends ExpressionFunctionTestCase<ExpressionConcatFunction, String> {
+public final class ExpressionConcatFunctionTest extends ClassTestCase<ExpressionConcatFunction>
+        implements ExpressionFunctionTesting<ExpressionConcatFunction, String> {
 
     @Test
     public void testZeroParametersFails() {
@@ -67,12 +70,17 @@ public final class ExpressionConcatFunctionTest extends ExpressionFunctionTestCa
     }
 
     @Override
-    protected ExpressionConcatFunction createBiFunction() {
+    public ExpressionConcatFunction createBiFunction() {
         return ExpressionConcatFunction.INSTANCE;
     }
 
     @Override
     public Class<ExpressionConcatFunction> type() {
         return ExpressionConcatFunction.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

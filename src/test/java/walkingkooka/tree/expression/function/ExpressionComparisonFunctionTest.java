@@ -20,10 +20,13 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparisonRelation;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionComparisonFunctionTest extends ExpressionFunctionTestCase<ExpressionComparisonFunction, Boolean> {
+public final class ExpressionComparisonFunctionTest extends ClassTestCase<ExpressionComparisonFunction>
+        implements ExpressionFunctionTesting<ExpressionComparisonFunction, Boolean> {
 
     @Test
     public void testZeroParametersFails() {
@@ -178,12 +181,17 @@ public final class ExpressionComparisonFunctionTest extends ExpressionFunctionTe
     }
 
     @Override
-    protected ExpressionComparisonFunction createBiFunction() {
+    public ExpressionComparisonFunction createBiFunction() {
         return ExpressionComparisonFunction.with(ComparisonRelation.EQ);
     }
 
     @Override
     public Class<ExpressionComparisonFunction> type() {
         return ExpressionComparisonFunction.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
