@@ -19,10 +19,13 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.compare.ComparatorTestCase;
+import walkingkooka.compare.ComparatorTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 final public class CaseSensitivityComparatorTest
-        extends ComparatorTestCase<CaseSensitivityComparator<CharSequence>, CharSequence> {
+        extends ClassTestCase<CaseSensitivityComparator<CharSequence>>
+        implements ComparatorTesting<CaseSensitivityComparator<CharSequence>, CharSequence> {
 
     // constants
 
@@ -149,12 +152,17 @@ final public class CaseSensitivityComparatorTest
     }
 
     @Override
-    protected CaseSensitivityComparator<CharSequence> createComparator() {
+    public CaseSensitivityComparator<CharSequence> createComparator() {
         return SENSITIVE;
     }
 
     @Override
     public Class<CaseSensitivityComparator<CharSequence>> type() {
         return Cast.to(CaseSensitivityComparator.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

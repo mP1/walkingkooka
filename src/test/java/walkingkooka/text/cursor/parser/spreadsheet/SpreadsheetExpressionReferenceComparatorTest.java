@@ -21,14 +21,18 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.compare.ComparatorTestCase;
+import walkingkooka.compare.ComparatorTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetExpressionReferenceComparatorTest extends ComparatorTestCase<SpreadsheetExpressionReferenceComparator, SpreadsheetExpressionReference> {
+public final class SpreadsheetExpressionReferenceComparatorTest
+        extends ClassTestCase<SpreadsheetExpressionReferenceComparator>
+        implements ComparatorTesting<SpreadsheetExpressionReferenceComparator, SpreadsheetExpressionReference> {
 
     // cell v cell .....................................................................................................
 
@@ -166,12 +170,8 @@ public final class SpreadsheetExpressionReferenceComparatorTest extends Comparat
     }
 
     @Override
-    protected SpreadsheetExpressionReferenceComparator createComparator() {
+    public SpreadsheetExpressionReferenceComparator createComparator() {
         return SpreadsheetExpressionReferenceComparator.INSTANCE;
-    }
-
-    private SpreadsheetCellReference cell() {
-        return this.cell(1, 1);
     }
 
     private SpreadsheetCellReference cell(final int column, final int row) {
@@ -185,10 +185,6 @@ public final class SpreadsheetExpressionReferenceComparatorTest extends Comparat
         return columnKind.column(column).setRow(rowKind.row(row));
     }
 
-    private SpreadsheetLabelName label() {
-        return this.label("abcdef");
-    }
-
     private SpreadsheetLabelName label(final String label) {
         return SpreadsheetLabelName.with(label);
     }
@@ -196,5 +192,10 @@ public final class SpreadsheetExpressionReferenceComparatorTest extends Comparat
     @Override
     public Class<SpreadsheetExpressionReferenceComparator> type() {
         return SpreadsheetExpressionReferenceComparator.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
