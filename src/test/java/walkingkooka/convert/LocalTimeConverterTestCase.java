@@ -23,7 +23,7 @@ import java.time.LocalTime;
 public abstract class LocalTimeConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<LocalTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
 
     @Override
-    protected final ConverterContext createContext() {
+    public final ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 }

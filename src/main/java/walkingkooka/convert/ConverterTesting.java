@@ -19,54 +19,51 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ConverterTestCase<C extends Converter> extends ClassTestCase<C>
-        implements ToStringTesting<C>,
+public interface ConverterTesting<C extends Converter> extends ToStringTesting<C>,
         TypeNameTesting<C> {
 
-    protected abstract C createConverter();
+    C createConverter();
 
-    protected abstract ConverterContext createContext();
+    ConverterContext createContext();
 
-    protected void convertAndCheck(final Object value) {
+    default void convertAndCheck(final Object value) {
         assertSame(value, this.convertAndCheck(value, value.getClass(), value));
     }
 
-    protected Object convertAndCheck(final Object value, final Class<?> target) {
+    default Object convertAndCheck(final Object value, final Class<?> target) {
         final Object result = this.convertAndCheck(this.createConverter(), value, target, value);
         assertSame(result, value);
         return result;
     }
 
-    protected Object convertAndCheck(final Object value, final Class<?> target, final Object expected) {
+    default Object convertAndCheck(final Object value, final Class<?> target, final Object expected) {
         return this.convertAndCheck(this.createConverter(), value, target, expected);
     }
 
-    protected Object convertAndCheck(final Object value,
+    default Object convertAndCheck(final Object value,
                                      final Class<?> target,
                                      final ConverterContext context,
                                      final Object expected) {
         return this.convertAndCheck(this.createConverter(), value, target, context, expected);
     }
 
-    protected Object convertAndCheck(final Converter converter,
+    default Object convertAndCheck(final Converter converter,
                                      final Object value,
                                      final Class<?> target,
                                      final Object expected) {
         return this.convertAndCheck(converter, value, target, this.createContext(), expected);
     }
 
-    protected Object convertAndCheck(final Converter converter,
+    default Object convertAndCheck(final Converter converter,
                                      final Object value,
                                      final Class<?> target,
                                      final ConverterContext context,
@@ -80,30 +77,30 @@ public abstract class ConverterTestCase<C extends Converter> extends ClassTestCa
         return result;
     }
 
-    protected void checkEquals(final String message, final Object expected, final Object actual) {
+    default void checkEquals(final String message, final Object expected, final Object actual) {
         if(expected instanceof Comparable && expected.getClass().isInstance(actual)) {
             final Comparable expectedComparable = Cast.to(expected);
-            this.checkEquals0(message, Cast.to(expectedComparable), Cast.to(actual));
+            checkEquals0(message, Cast.to(expectedComparable), Cast.to(actual));
         } else {
             assertEquals(expected, actual, message);
         }
     }
 
-    private <C extends Comparable<C>> void checkEquals0(final String message, final C expected, final C actual) {
+    static <C extends Comparable<C>> void checkEquals0(final String message, final C expected, final C actual) {
        if(expected.compareTo(actual) != 0) {
                 assertEquals(expected, actual, message);
             }
     }
 
-    protected <T> void convertFails(final Object value, final Class<?> type) {
+    default <T> void convertFails(final Object value, final Class<?> type) {
         this.convertFails(this.createConverter(), value, type);
     }
 
-    protected <T> void convertFails(final Converter converter, final Object value, final Class<?> type) {
+    default <T> void convertFails(final Converter converter, final Object value, final Class<?> type) {
         this.convertFails(converter, value, type, this.createContext());
     }
 
-    protected <T> void convertFails(final Converter converter,
+    default <T> void convertFails(final Converter converter,
                                     final Object value,
                                     final Class<?> type,
                                     final ConverterContext context) {
@@ -114,34 +111,23 @@ public abstract class ConverterTestCase<C extends Converter> extends ClassTestCa
         }
     }
 
-    protected Object convert(final Object value) {
+    default Object convert(final Object value) {
         return this.convert(value, value.getClass());
     }
 
-    protected Object convert(final Object value, final Class<?> type) {
+    default Object convert(final Object value, final Class<?> type) {
         return this.createConverter().convert(value, type, this.createContext());
     }
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
-    public Class<C> type() {
-        return this.type();
-    }
-
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Converter.class.getSimpleName();
     }
 }

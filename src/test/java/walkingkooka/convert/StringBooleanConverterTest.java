@@ -37,8 +37,7 @@ public final class StringBooleanConverterTest extends FixedTypeConverterTestCase
         this.toStringAndCheck(this.createConverter(), "String->Boolean");
     }
 
-    @Override
-    protected StringBooleanConverter createConverter() {
+    @Override public StringBooleanConverter createConverter() {
         return StringBooleanConverter.INSTANCE;
     }
 
@@ -47,8 +46,7 @@ public final class StringBooleanConverterTest extends FixedTypeConverterTestCase
         return Boolean.class;
     }
 
-    @Override
-    protected ConverterContext createContext() {
+    @Override public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

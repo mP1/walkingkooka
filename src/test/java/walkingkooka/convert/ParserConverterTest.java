@@ -71,8 +71,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
         this.toStringAndCheck(this.createConverter(), "String->BigDecimal");
     }
 
-    @Override
-    protected ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext> createConverter() {
+    @Override public ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext> createConverter() {
         return ParserConverter.with(BigDecimal.class,
                 this.bigDecimalParser(),
                 parserContextAdapter());
@@ -82,8 +81,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
         return (c) -> ParserContexts.basic(c);
     }
 
-    @Override
-    protected ConverterContext createContext() {
+    @Override public ConverterContext createContext() {
         return ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
     }
 

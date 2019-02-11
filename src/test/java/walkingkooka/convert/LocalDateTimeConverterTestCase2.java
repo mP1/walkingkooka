@@ -84,14 +84,14 @@ public abstract class LocalDateTimeConverterTestCase2<C extends FixedSourceTypeT
     }
 
     @Override
-    final protected C createConverter() {
+    public final C createConverter() {
         return this.createConverter(Converters.JAVA_EPOCH_OFFSET);
     }
 
     abstract C createConverter(final long offset);
 
     @Override
-    protected final ConverterContext createContext() {
+    public final ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

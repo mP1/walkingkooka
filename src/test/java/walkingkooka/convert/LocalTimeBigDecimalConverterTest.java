@@ -58,8 +58,7 @@ public final class LocalTimeBigDecimalConverterTest extends LocalTimeConverterTe
         this.toStringAndCheck(this.createConverter(), "LocalTime->BigDecimal");
     }
 
-    @Override
-    protected LocalTimeBigDecimalConverter createConverter() {
+    @Override public LocalTimeBigDecimalConverter createConverter() {
         return LocalTimeBigDecimalConverter.INSTANCE;
     }
 

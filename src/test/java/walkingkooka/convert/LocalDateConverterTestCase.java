@@ -67,15 +67,14 @@ public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeTarget
         return "LocalDate->" + this.onlySupportedType().getSimpleName();
     }
 
-    @Override
-    protected C createConverter() {
+    @Override public C createConverter() {
         return this.createConverter(Converters.JAVA_EPOCH_OFFSET);
     }
 
     abstract C createConverter(final long offset);
 
     @Override
-    protected final ConverterContext createContext() {
+    public final ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

@@ -128,8 +128,7 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
                 DATE_TIME_EXCEL_OFFSET);
     }
 
-    @Override
-    protected NumberLocalDateTimeConverter createConverter() {
+    @Override public NumberLocalDateTimeConverter createConverter() {
         return NumberLocalDateTimeConverter.with(Converters.JAVA_EPOCH_OFFSET);
     }
 

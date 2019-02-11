@@ -48,7 +48,7 @@ public abstract class NumberConverterTestCase<C extends NumberConverter<T>, T> e
     }
 
     @Override
-    protected final ConverterContext createContext() {
+    public final ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 }
