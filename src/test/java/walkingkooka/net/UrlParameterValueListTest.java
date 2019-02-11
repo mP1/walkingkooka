@@ -19,9 +19,12 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.ListTestCase;
+import walkingkooka.collect.list.ListTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class UrlParameterValueListTest extends ListTestCase<UrlParameterValueList, String> {
+public final class UrlParameterValueListTest extends ClassTestCase<UrlParameterValueList>
+        implements ListTesting<UrlParameterValueList, String> {
 
     @Test
     public void testEmpty() {
@@ -62,14 +65,18 @@ public final class UrlParameterValueListTest extends ListTestCase<UrlParameterVa
         this.getFails(list, 3);
     }
 
-
     @Override
-    protected UrlParameterValueList createList() {
+    public UrlParameterValueList createList() {
         return UrlParameterValueList.empty();
     }
 
     @Override
     public Class<UrlParameterValueList> type() {
         return UrlParameterValueList.class;
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

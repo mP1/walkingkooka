@@ -19,7 +19,7 @@
 package walkingkooka.collect.list;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.CollectionTestCase;
+import walkingkooka.collect.CollectionTesting;
 import walkingkooka.test.TypeNameTesting;
 
 import java.util.List;
@@ -27,16 +27,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ListTestCase<L extends List<E>, E> extends CollectionTestCase<L, E>
-        implements TypeNameTesting<L> {
+public interface ListTesting<L extends List<E>, E> extends CollectionTesting<L, E>,
+        TypeNameTesting<L> {
 
     @Test
-    public final void testGetNegativeIndexFails() {
+    default void testGetNegativeIndexFails() {
         this.getFails(this.createList(), -1);
     }
 
     @Test
-    public final void testGetAndIterator() {
+    default void testGetAndIterator() {
         final L list = this.createList();
         int i = 0;
 
@@ -48,17 +48,17 @@ public abstract class ListTestCase<L extends List<E>, E> extends CollectionTestC
         this.sizeAndCheck(list, i);
     }
 
-    protected final L createCollection() {
+    default L createCollection() {
         return this.createList();
     }
 
-    protected abstract L createList();
+    L createList();
 
-    protected void getAndCheck(final List<E> list, final int index, final E element) {
+    default void getAndCheck(final List<E> list, final int index, final E element) {
         assertEquals(element, list.get(index), () -> "get " + index + " from " + list);
     }
 
-    protected void getFails(final List<E> list, final int index) {
+    default void getFails(final List<E> list, final int index) {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             list.get(index);
         });
@@ -67,12 +67,12 @@ public abstract class ListTestCase<L extends List<E>, E> extends CollectionTestC
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return List.class.getSimpleName();
     }
 }

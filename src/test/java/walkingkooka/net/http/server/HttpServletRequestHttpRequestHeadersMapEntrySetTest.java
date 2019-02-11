@@ -21,8 +21,10 @@ package walkingkooka.net.http.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.SetTestCase;
+import walkingkooka.collect.set.SetTesting;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -31,9 +33,8 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends
-        SetTestCase<HttpServletRequestHttpRequestHeadersMapEntrySet,
-                Entry<HttpHeaderName<?>, Object>> {
+public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends ClassTestCase<HttpServletRequestHttpRequestHeadersMapEntrySet>
+        implements SetTesting<HttpServletRequestHttpRequestHeadersMapEntrySet, Entry<HttpHeaderName<?>, Object>> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
     private final static Long VALUE1 = 111L;
@@ -69,8 +70,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends
         this.sizeAndCheck(this.createSet(), 2);
     }
 
-    @Override
-    protected HttpServletRequestHttpRequestHeadersMapEntrySet createSet() {
+    @Override public HttpServletRequestHttpRequestHeadersMapEntrySet createSet() {
         return HttpServletRequestHttpRequestHeadersMapEntrySet.with(this.request());
     }
 
@@ -99,5 +99,10 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest extends
     @Override
     public Class<HttpServletRequestHttpRequestHeadersMapEntrySet> type() {
         return HttpServletRequestHttpRequestHeadersMapEntrySet.class;
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
