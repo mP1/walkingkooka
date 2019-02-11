@@ -19,19 +19,22 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.map.EntryTestCase;
+import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryTest extends
-        EntryTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry,
-                HttpHeaderName<?>,
-                Object>
-        implements HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry>{
+public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryTest
+        extends ClassTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry>
+        implements EntryTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry,
+                        HttpHeaderName<?>,
+                        Object>,
+        HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry>{
 
     private final static String HEADER_NAME = "content-length";
     private final static Long CONTENT_LENGTH = 123L;
@@ -83,8 +86,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
         this.toStringAndCheck("Content-Length: 123", this.createEntry().toString());
     }
 
-    @Override
-    protected HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry createEntry() {
+    @Override public HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry createEntry() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(HEADER_NAME,
                 new FakeHttpServletRequest() {
                     @Override
@@ -115,5 +117,15 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
                         return value;
                     }
                 });
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HttpServletRequestHttpRequestHeadersMapEntrySetIterator.class.getSimpleName();
     }
 }

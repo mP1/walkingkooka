@@ -20,12 +20,15 @@ package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MapsEntryTest extends EntryTestCase<MapsEntry<String, Integer>, String, Integer>
-        implements HashCodeEqualsDefinedTesting<MapsEntry<String, Integer>> {
+public final class MapsEntryTest extends ClassTestCase<MapsEntry<String, Integer>>
+        implements EntryTesting<MapsEntry<String, Integer>, String, Integer>,
+        HashCodeEqualsDefinedTesting<MapsEntry<String, Integer>> {
 
     private final static String KEY = "Key123";
     private final static Integer VALUE = 123;
@@ -64,8 +67,7 @@ public final class MapsEntryTest extends EntryTestCase<MapsEntry<String, Integer
         this.checkNotEquals(MapsEntry.with(KEY, 999));
     }
 
-    @Override
-    protected MapsEntry<String, Integer> createEntry() {
+    @Override public MapsEntry<String, Integer> createEntry() {
         return MapsEntry.with(KEY, VALUE);
     }
 
@@ -77,5 +79,15 @@ public final class MapsEntryTest extends EntryTestCase<MapsEntry<String, Integer
     @Override
     public MapsEntry<String, Integer> createObject() {
         return this.createEntry();
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return Maps.class.getSimpleName();
     }
 }

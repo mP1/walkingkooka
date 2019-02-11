@@ -20,20 +20,23 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.EntryTestCase;
+import walkingkooka.collect.map.EntryTesting;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntryTest extends EntryTestCase
-        <HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry,
-                HttpRequestParameterName,
-                List<String>>
-        implements HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry> {
+public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntryTest
+        extends ClassTestCase<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry>
+        implements EntryTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry,
+        HttpRequestParameterName,
+        List<String>>,
+        HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry> {
 
     private final static String KEY = "parameter1";
     private final static String VALUE1 = "value1";
@@ -66,8 +69,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
         this.checkNotEquals(HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, "different-value")));
     }
 
-    @Override
-    protected HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry createEntry() {
+    @Override public HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry createEntry() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, VALUE1, VALUE2));
     }
 
@@ -83,5 +85,15 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
     @Override
     public HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry createObject() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, VALUE1, VALUE2));
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HttpServletRequestHttpRequestParametersMapEntrySet.class.getSimpleName();
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
