@@ -18,12 +18,12 @@
 package walkingkooka.io.printer;
 
 import walkingkooka.text.LineEnding;
-import walkingkooka.util.variable.Variable;
 
 import java.util.Objects;
+import java.util.function.IntConsumer;
 
 /**
- * Wraps another {@link Printer} and increments a {@link Variable} each time a new line is
+ * Wraps another {@link Printer} and increments a {@link IntConsumer} each time a new line is
  * encountered. Note that a {@link CharSequence} with three separate lines will result in three
  * separate prints to the wrapped {@link Printer}.
  */
@@ -32,7 +32,7 @@ final class LineCountingPrinter implements Printer {
     /**
      * Creates a new {@link LineCountingPrinter}
      */
-    static LineCountingPrinter wrap(final Printer printer, final Variable<Integer> counter) {
+    static LineCountingPrinter wrap(final Printer printer, final IntConsumer counter) {
         Objects.requireNonNull(printer, "printer");
         Objects.requireNonNull(counter, "counter");
 
@@ -42,10 +42,12 @@ final class LineCountingPrinter implements Printer {
     /**
      * Private constructor
      */
-    private LineCountingPrinter(final Printer printer, final Variable<Integer> counter) {
+    private LineCountingPrinter(final Printer printer, final IntConsumer counter) {
         super();
         this.counter = counter;
         this.printer = printer;
+
+        this.lineCount = 0;
     }
 
     @Override
@@ -55,7 +57,6 @@ final class LineCountingPrinter implements Printer {
         final int length = chars.length();
         if (length > 0) {
             final Printer printer = this.printer;
-            final Variable<Integer> counter = this.counter;
 
             int start = 0;
             int i = 0;
@@ -86,7 +87,7 @@ final class LineCountingPrinter implements Printer {
                 // print everything including the NL
                 if ('\n' == c) {
                     printer.print(chars.subSequence(start, i));
-                    counter.set(Integer.valueOf(1 + counter.get()));
+                    this.incrementCounter();
                     start = i;
 
                     previous = c;
@@ -96,7 +97,7 @@ final class LineCountingPrinter implements Printer {
                     if ('\r' == previous) {
                         // print everything including the CR
                         printer.print(chars.subSequence(start, i - 1));
-                        counter.set(Integer.valueOf(1 + counter.get()));
+                        this.incrementCounter();
                         start = i - 1;
                     }
 
@@ -149,16 +150,22 @@ final class LineCountingPrinter implements Printer {
     private final Printer printer;
 
     /**
-     * A {@link Variable} that is incremented each time a new line is encountered.
+     * Contains the actual line count.
      */
-    private final Variable<Integer> counter;
+    //@VisibleForTesting
+    int lineCount;
+
+    /**
+     * A {@link IntConsumer} that is incremented each time a new line is encountered.
+     */
+    private final IntConsumer counter;
 
     /**
      * Utility that increments the counter.
      */
     private void incrementCounter() {
-        final Variable<Integer> counter = this.counter;
-        counter.set(Integer.valueOf(1 + counter.get()));
+        final IntConsumer counter = this.counter;
+        counter.accept(++this.lineCount);
     }
 
     /**
@@ -172,6 +179,6 @@ final class LineCountingPrinter implements Printer {
      */
     @Override
     public String toString() {
-        return this.printer + " " + this.counter + " line(s)";
+        return this.printer + " " + this.lineCount + " line(s)";
     }
 }

@@ -29,7 +29,6 @@ import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetReferenceKind;
 import walkingkooka.type.MemberVisibility;
-import walkingkooka.util.variable.Variables;
 
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -49,14 +48,7 @@ public final class CycleDetectingExpressionEvaluationContextTest extends ClassTe
     @Test
     public void testWithNullContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createContext(null);
-        });
-    }
-
-    @Test
-    public void testWithNullVariableFails() {
-        assertThrows(NullPointerException.class, () -> {
-            CycleDetectingExpressionEvaluationContext.with(ExpressionEvaluationContexts.fake(), null);
+            CycleDetectingExpressionEvaluationContext.with(null);
         });
     }
 
@@ -338,7 +330,7 @@ public final class CycleDetectingExpressionEvaluationContextTest extends ClassTe
     }
 
     private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {
-        return CycleDetectingExpressionEvaluationContext.with(context, Variables.with(null));
+        return CycleDetectingExpressionEvaluationContext.with(context);
     }
 
     private SpreadsheetLabelName label1() {

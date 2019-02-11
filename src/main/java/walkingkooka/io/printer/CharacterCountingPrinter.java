@@ -18,20 +18,20 @@
 package walkingkooka.io.printer;
 
 import walkingkooka.text.LineEnding;
-import walkingkooka.util.variable.Variable;
 
 import java.util.Objects;
+import java.util.function.IntConsumer;
 
 /**
- * A {@link Printer} that updates a {@link Variable} after each {@link #print(CharSequence)}. Note
- * the {@link Variable} is updated after every print.
+ * A {@link Printer} that updates a {@link IntConsumer} after each {@link #print(CharSequence)}. Note
+ * the {@link IntConsumer} is updated after every print.
  */
 final class CharacterCountingPrinter implements Printer {
 
     /**
      * Creates a new {@link CharacterCountingPrinter}
      */
-    static CharacterCountingPrinter wrap(final Printer printer, final Variable<Integer> counter) {
+    static CharacterCountingPrinter wrap(final Printer printer, final IntConsumer counter) {
         Objects.requireNonNull(printer, "printer");
         Objects.requireNonNull(counter, "counter");
 
@@ -41,7 +41,7 @@ final class CharacterCountingPrinter implements Printer {
     /**
      * Private constructor
      */
-    private CharacterCountingPrinter(final Printer printer, final Variable<Integer> counter) {
+    private CharacterCountingPrinter(final Printer printer, final IntConsumer counter) {
         super();
         this.printer = printer;
         this.counter = counter;
@@ -82,17 +82,20 @@ final class CharacterCountingPrinter implements Printer {
         this.printer.close();
     }
 
+    private int characterCounter;
+
     /**
-     * A variable that is updated after each print with the total number of printed characters.
+     * A counter that is updated after each print with the total number of printed characters.
      */
-    private final Variable<Integer> counter;
+    private final IntConsumer counter;
 
     /**
      * Adds the given amount to the counter.
      */
-    private void addToCounter(final int add) {
-        final Variable<Integer> counter = this.counter;
-        counter.set(Integer.valueOf(counter.get() + add));
+    void addToCounter(final int add) {
+        this.characterCounter = this.characterCounter + add;
+        final IntConsumer counter = this.counter;
+        counter.accept(characterCounter);
     }
 
     /**
@@ -105,6 +108,6 @@ final class CharacterCountingPrinter implements Printer {
      */
     @Override
     public String toString() {
-        return this.printer + " " + this.counter + " char(s)";
+        return this.printer + " " + this.characterCounter + " char(s)";
     }
 }

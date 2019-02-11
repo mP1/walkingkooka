@@ -19,8 +19,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.collect.set.Sets;
-import walkingkooka.util.variable.Variable;
-import walkingkooka.util.variable.Variables;
 
 import java.math.MathContext;
 import java.util.List;
@@ -32,28 +30,24 @@ import java.util.Set;
  * Wraps another {@link ExpressionEvaluationContext} delegating all methods except for a guard within
  * {@link #reference(ExpressionReference)} to detect cycles between resolving a {@link ExpressionReference} to a
  * {@link ExpressionNode}, even indirectly.<br>
- * To make this class safe in a multi-threaded environment a {@link Variables#threadLocal()} should be used.
  */
 final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext {
 
     /**
      * Factory that creates a new {@link CycleDetectingExpressionEvaluationContext}.
      */
-    static CycleDetectingExpressionEvaluationContext with(final ExpressionEvaluationContext context,
-                                                          final Variable<Set<ExpressionReference>> cycles) {
+    static CycleDetectingExpressionEvaluationContext with(final ExpressionEvaluationContext context) {
         Objects.requireNonNull(context, "context");
-        Objects.requireNonNull(cycles, "cycles");
 
-        return new CycleDetectingExpressionEvaluationContext(context, cycles);
+        return new CycleDetectingExpressionEvaluationContext(context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private CycleDetectingExpressionEvaluationContext(final ExpressionEvaluationContext context,
-                                                      final Variable<Set<ExpressionReference>> cycles) {
+    private CycleDetectingExpressionEvaluationContext(final ExpressionEvaluationContext context) {
         this.context = context;
-        this.cycles = cycles;
+        this.cycles = Sets.ordered();
     }
 
     @Override
@@ -98,7 +92,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
 
     @Override
     public Optional<ExpressionNode> reference(final ExpressionReference reference) {
-        final Set<ExpressionReference> cycles = this.cycles();
+        final Set<ExpressionReference> cycles = this.cycles;
 
         this.cycleCheck(reference, cycles);
 
@@ -126,19 +120,10 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         }
     }
 
-    private Set<ExpressionReference> cycles() {
-        Set<ExpressionReference> cycles = this.cycles.get();
-        if(null==cycles) {
-            cycles = Sets.ordered();
-            this.cycles.set(cycles);
-        }
-        return cycles;
-    }
-
     /**
      * Used to keep track of references and to detect cycles.
      */
-    private final Variable<Set<ExpressionReference>> cycles;
+    private final Set<ExpressionReference> cycles;
 
     /**
      * Reports a cycle for a given {@link ExpressionReference}
