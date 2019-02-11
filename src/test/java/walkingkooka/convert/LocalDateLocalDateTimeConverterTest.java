@@ -30,8 +30,7 @@ public final class LocalDateLocalDateTimeConverterTest extends LocalDateTimeConv
         this.convertAndCheck(LocalDate.of(2000, 1, 31), LocalDateTime.of(2000, 1, 31, 0, 0, 0));
     }
 
-    @Override
-    protected LocalDateLocalDateTimeConverter createConverter() {
+    @Override public LocalDateLocalDateTimeConverter createConverter() {
         return LocalDateLocalDateTimeConverter.INSTANCE;
     }
 

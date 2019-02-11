@@ -90,8 +90,7 @@ public final class NumberBigDecimalConverterTest extends NumberConverterTestCase
         this.convertAndCheck(Double.MIN_VALUE, BigDecimal.valueOf(Double.MIN_VALUE));
     }
 
-    @Override
-    protected NumberBigDecimalConverter createConverter() {
+    @Override public NumberBigDecimalConverter createConverter() {
         return NumberBigDecimalConverter.INSTANCE;
     }
 

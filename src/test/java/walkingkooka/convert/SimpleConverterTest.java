@@ -19,8 +19,11 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class SimpleConverterTest extends ConverterTestCase<SimpleConverter>{
+public final class SimpleConverterTest extends ClassTestCase<SimpleConverter>
+        implements ConverterTesting<SimpleConverter> {
 
     @Test
     public void testSameType() {
@@ -38,17 +41,22 @@ public final class SimpleConverterTest extends ConverterTestCase<SimpleConverter
     }
 
     @Override
-    protected SimpleConverter createConverter() {
+    public SimpleConverter createConverter() {
         return SimpleConverter.INSTANCE;
     }
 
     @Override
-    protected ConverterContext createContext() {
+    public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 
     @Override
     public Class<SimpleConverter> type() {
         return SimpleConverter.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

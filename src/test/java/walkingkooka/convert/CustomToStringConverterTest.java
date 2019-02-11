@@ -19,15 +19,17 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomToStringConverterTest extends ConverterTestCase<CustomToStringConverter>
-        implements HashCodeEqualsDefinedTesting<CustomToStringConverter> {
+public final class CustomToStringConverterTest extends ClassTestCase<CustomToStringConverter>
+        implements ConverterTesting<CustomToStringConverter>,
+        HashCodeEqualsDefinedTesting<CustomToStringConverter> {
 
     private final static Converter WRAPPED = Converters.string();
     private final static String CUSTOM_TO_STRING = "!!custom-to-string!!";
@@ -95,18 +97,23 @@ public final class CustomToStringConverterTest extends ConverterTestCase<CustomT
     }
 
     @Override
-    protected CustomToStringConverter createConverter() {
+    public CustomToStringConverter createConverter() {
         return Cast.to(CustomToStringConverter.wrap(WRAPPED, CUSTOM_TO_STRING));
     }
 
     @Override
-    protected ConverterContext createContext() {
+    public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 
     @Override
     public Class<CustomToStringConverter> type() {
         return Cast.to(CustomToStringConverter.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

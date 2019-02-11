@@ -35,7 +35,7 @@ public abstract class LocalDateTimeConverterTestCase<C extends FixedSourceTypeTa
     }
 
     @Override
-    protected final ConverterContext createContext() {
+    public final ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

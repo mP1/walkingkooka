@@ -44,8 +44,7 @@ public final class LocalTimeLongConverterTest extends LocalTimeConverterTestCase
         this.toStringAndCheck(this.createConverter(), "LocalTime->Long");
     }
 
-    @Override
-    protected LocalTimeLongConverter createConverter() {
+    @Override public LocalTimeLongConverter createConverter() {
         return LocalTimeLongConverter.INSTANCE;
     }
 

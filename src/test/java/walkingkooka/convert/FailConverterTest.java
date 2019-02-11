@@ -20,11 +20,13 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FailConverterTest extends ConverterTestCase<FailConverter<String, Integer>>{
+public final class FailConverterTest extends ClassTestCase<FailConverter<String, Integer>>
+        implements ConverterTesting<FailConverter<String, Integer>> {
 
     @Test
     public void testWithNullSourceTypeFails() {
@@ -51,17 +53,22 @@ public final class FailConverterTest extends ConverterTestCase<FailConverter<Str
     }
 
     @Override
-    protected FailConverter<String, Integer> createConverter() {
+    public FailConverter<String, Integer> createConverter() {
         return FailConverter.with(String.class, Integer.class);
     }
 
     @Override
-    protected ConverterContext createContext() {
+    public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 
     @Override
     public Class<FailConverter<String, Integer>> type() {
         return Cast.to(FailConverter.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

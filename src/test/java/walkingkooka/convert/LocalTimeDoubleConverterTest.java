@@ -52,8 +52,7 @@ public final class LocalTimeDoubleConverterTest extends LocalTimeConverterTestCa
         this.toStringAndCheck(this.createConverter(), "LocalTime->Double");
     }
 
-    @Override
-    protected LocalTimeDoubleConverter createConverter() {
+    @Override public LocalTimeDoubleConverter createConverter() {
         return LocalTimeDoubleConverter.INSTANCE;
     }
 

@@ -18,21 +18,35 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class FixedTypeConverterTestCase<C extends Converter, T> extends ConverterTestCase<C> {
+public abstract class FixedTypeConverterTestCase<C extends Converter, T> extends ClassTestCase<C>
+        implements ConverterTesting<C> {
 
-    protected void convertAndCheck(final Object value) {
+    FixedTypeConverterTestCase() {
+        super();
+    }
+
+    @Override
+    public void convertAndCheck(final Object value) {
         assertSame(value, this.convertAndCheck(value, this.onlySupportedType(), value));
     }
 
-    protected Object convertAndCheck(final Object value, final Object expected) {
+    final Object convertAndCheck(final Object value, final Object expected) {
         return this.convertAndCheck(this.createConverter(), value, this.onlySupportedType(), expected);
     }
 
-    protected void convertFails(final Object value) {
+    final void convertFails(final Object value) {
         this.convertFails(value, this.onlySupportedType());
     }
 
-    protected abstract Class<T> onlySupportedType();
+    abstract Class<T> onlySupportedType();
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

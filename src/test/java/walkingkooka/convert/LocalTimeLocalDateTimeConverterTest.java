@@ -30,8 +30,7 @@ public final class LocalTimeLocalDateTimeConverterTest extends LocalDateTimeConv
         this.convertAndCheck(LocalTime.of(12, 58, 59, 789), LocalDateTime.of(1970, 1, 1, 12, 58, 59, 789));
     }
 
-    @Override
-    protected LocalTimeLocalDateTimeConverter createConverter() {
+    @Override public LocalTimeLocalDateTimeConverter createConverter() {
         return LocalTimeLocalDateTimeConverter.INSTANCE;
     }
 

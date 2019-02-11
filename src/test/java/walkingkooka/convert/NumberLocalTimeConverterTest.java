@@ -97,8 +97,7 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
         this.convertAndCheck(value, LocalTime.ofSecondOfDay(VALUE));
     }
 
-    @Override
-    protected NumberLocalTimeConverter createConverter() {
+    @Override public NumberLocalTimeConverter createConverter() {
         return NumberLocalTimeConverter.INSTANCE;
     }
 

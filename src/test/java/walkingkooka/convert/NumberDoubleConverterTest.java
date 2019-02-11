@@ -145,8 +145,7 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    protected NumberDoubleConverter createConverter() {
+    @Override public NumberDoubleConverter createConverter() {
         return NumberDoubleConverter.INSTANCE;
     }
 
