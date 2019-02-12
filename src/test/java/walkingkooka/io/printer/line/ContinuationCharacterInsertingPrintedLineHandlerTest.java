@@ -18,13 +18,15 @@
 package walkingkooka.io.printer.line;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.LineEnding;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ContinuationCharacterInsertingPrintedLineHandlerTest
-        extends PrintedLineHandlerTestCase<ContinuationCharacterInsertingPrintedLineHandler> {
+final public class ContinuationCharacterInsertingPrintedLineHandlerTest extends ClassTestCase<ContinuationCharacterInsertingPrintedLineHandler>
+        implements PrintedLineHandlerTesting<ContinuationCharacterInsertingPrintedLineHandler> {
 
     // constants
 
@@ -136,7 +138,7 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest
     }
 
     @Override
-    protected ContinuationCharacterInsertingPrintedLineHandler createLineHandler() {
+    public ContinuationCharacterInsertingPrintedLineHandler createLineHandler() {
         return ContinuationCharacterInsertingPrintedLineHandler.with(
                 WIDTH,
                 CONTINUATION);
@@ -162,5 +164,10 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest
     @Override
     public Class<ContinuationCharacterInsertingPrintedLineHandler> type() {
         return ContinuationCharacterInsertingPrintedLineHandler.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
