@@ -20,6 +20,8 @@ package walkingkooka.collect.iterable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<String>, String> {
+final public class ReverseIterableTest extends ClassTestCase<ReverseIterable<String>>
+        implements IterableTesting<ReverseIterable<String>, String> {
 
     // constants
 
@@ -70,12 +73,17 @@ final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<
     }
 
     @Override
-    protected ReverseIterable<String> createIterable() {
+    public ReverseIterable<String> createIterable() {
         return Cast.to(ReverseIterable.wrap(ITERABLE));
     }
 
     @Override
     public Class<ReverseIterable<String>> type() {
         return Cast.to(ReverseIterable.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

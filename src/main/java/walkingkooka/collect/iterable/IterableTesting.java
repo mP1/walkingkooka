@@ -17,36 +17,26 @@
 
 package walkingkooka.collect.iterable;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
-abstract public class IterableTestCase<I extends Iterable<T>, T>
-        extends ClassTestCase<I>
-        implements ToStringTesting<I>,
+/**
+ * Mixin interface for testing {@link Iterable}
+ */
+public interface IterableTesting<I extends Iterable<T>, T> extends ToStringTesting<I>,
         TypeNameTesting<I> {
 
-    protected IterableTestCase() {
-        super();
-    }
-
-    abstract protected I createIterable();
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    I createIterable();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Iterable.class.getSimpleName();
     }
 }
