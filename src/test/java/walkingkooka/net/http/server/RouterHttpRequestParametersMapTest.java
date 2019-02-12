@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.MapTestCase;
+import walkingkooka.collect.map.MapTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -32,6 +32,8 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 import java.util.List;
@@ -41,7 +43,8 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class RouterHttpRequestParametersMapTest extends MapTestCase<RouterHttpRequestParametersMap, HttpRequestAttribute<?>, Object> {
+public final class RouterHttpRequestParametersMapTest extends ClassTestCase<RouterHttpRequestParametersMap>
+        implements MapTesting<RouterHttpRequestParametersMap, HttpRequestAttribute<?>, Object> {
 
     @Test
     public void testContainsAndGet() {
@@ -116,7 +119,7 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
     }
 
     @Override
-    protected RouterHttpRequestParametersMap createMap() {
+    public RouterHttpRequestParametersMap createMap() {
         return this.createMap(transport(),
                 this.method(),
                 this.url(),
@@ -204,5 +207,10 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
     @Override
     public Class<RouterHttpRequestParametersMap> type() {
         return RouterHttpRequestParametersMap.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

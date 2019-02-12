@@ -68,7 +68,7 @@ public final class XmlAttributeMapTest extends XmlMapTestCase<XmlAttributeMap, X
     }
 
     @Override
-    protected XmlAttributeMap createMap() {
+    public XmlAttributeMap createMap() {
         final Element element = this.document(false)
                 .createElement("element");
         element.setAttribute(ATTRIBUTE1, VALUE1);

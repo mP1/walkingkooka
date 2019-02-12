@@ -32,7 +32,7 @@ public final class XmlNotationMapTest extends XmlMapTestCase<XmlNotationMap, Xml
     }
 
     @Override
-    protected XmlNotationMap createMap() {
+    public XmlNotationMap createMap() {
         return Cast.to(XmlNotationMap.from(this.notations()));
     }
 

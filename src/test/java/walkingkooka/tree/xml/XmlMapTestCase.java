@@ -18,12 +18,15 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.collect.map.MapTestCase;
+import walkingkooka.collect.map.MapTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public abstract class XmlMapTestCase<M extends XmlMap<K, V>, K, V> extends MapTestCase<M, K, V> {
+public abstract class XmlMapTestCase<M extends XmlMap<K, V>, K, V> extends ClassTestCase<M>
+        implements MapTesting<M, K, V> {
 
     XmlMapTestCase() {
         super();
@@ -44,5 +47,10 @@ public abstract class XmlMapTestCase<M extends XmlMap<K, V>, K, V> extends MapTe
     @Override
     public String typeNamePrefix() {
         return "Xml";
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
