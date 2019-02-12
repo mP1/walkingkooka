@@ -18,26 +18,19 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.Node;
 
-public abstract class HateosHandlerTestCase<H extends HateosHandler<N>, N extends Node<N, ?, ?, ?>> extends ClassTestCase<H>
-        implements TypeNameTesting<H> {
+public interface HateosHandlerTesting<H extends HateosHandler<N>, N extends Node<N, ?, ?, ?>> extends TypeNameTesting<H> {
 
-    HateosHandlerTestCase() {
-        super();
-    }
+    H createHandler();
 
-    abstract protected H createHandler();
-
-    abstract protected HateosHandlerContext<N> createContext();
-
+    HateosHandlerContext<N> createContext();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "Hateos";
     }
 }

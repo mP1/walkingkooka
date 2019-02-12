@@ -22,53 +22,55 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.tree.Node;
 
 import java.math.BigInteger;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HateosPostHandlerTestCase<H extends HateosPostHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTestCase<H, N> {
+/**
+ * Mixin interface for testing {@link HateosPutHandler}
+ */
+public interface HateosPutHandlerTesting<H extends HateosPutHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, N> {
 
     @Test
-    public void testNullIdFails() {
+    default void testPutNullIdFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.post(null,
+            this.put(null,
                     this.resource(),
                     this.createContext());
         });
     }
 
     @Test
-    public void testNullResourceFails() {
+    default void testPutNullResourceFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.post(this.id(),
+            this.put(this.id(),
                     null,
                     this.createContext());
         });
     }
 
     @Test
-    public void testNullContextFails() {
+    default void testPutNullContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.post(this.id(),
+            this.put(this.id(),
                     this.resource(),
                     null);
         });
     }
 
-    protected N post(final Optional<BigInteger> id,
-                     final N resource,
-                     final HateosHandlerContext<N> context) {
-        return this.createHandler().post(id, resource, context);
+    default N put(final BigInteger id,
+                  final N resource,
+                  final HateosHandlerContext<N> context) {
+        return this.createHandler().put(id, resource, context);
     }
 
-    abstract protected Optional<BigInteger> id();
+    BigInteger id();
 
-    abstract protected N resource();
+    N resource();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNameSuffix() {
-        return "PostHandler";
+    default String typeNameSuffix() {
+        return "PutHandler";
     }
 }

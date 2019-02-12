@@ -19,55 +19,70 @@
 package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.compare.Range;
 import walkingkooka.tree.Node;
 
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HateosPutHandlerTestCase<H extends HateosPutHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTestCase<H, N> {
+/**
+ * Mixin interface for testing {@link HateosDeleteHandler}
+ */
+public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, N> {
 
     @Test
-    public void testNullIdFails() {
+    default void testDeleteNullIdFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.put(null,
-                    this.resource(),
+            this.delete(null,
                     this.createContext());
         });
     }
 
     @Test
-    public void testNullResourceFails() {
+    default void testDeleteNullContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.put(this.id(),
-                    null,
-                    this.createContext());
-        });
-    }
-
-    @Test
-    public void testNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.put(this.id(),
-                    this.resource(),
+            this.delete(this.id(),
                     null);
         });
     }
 
-    protected N put(final BigInteger id,
-                    final N resource,
-                    final HateosHandlerContext<N> context) {
-        return this.createHandler().put(id, resource, context);
+    default void delete(final BigInteger id,
+                        final HateosHandlerContext<N> context) {
+        this.createHandler().delete(id, context);
     }
 
-    abstract protected BigInteger id();
+    @Test
+    default void testDeleteCollectionNullIdRangeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.deleteCollection(null,
+                    this.createContext());
+        });
+    }
 
-    abstract protected N resource();
+    @Test
+    default void testDeleteCollectionNullContextFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.deleteCollection(this.collection(),
+                    null);
+        });
+    }
+
+    default void deleteCollection(final Range<BigInteger> collection,
+                                  final HateosHandlerContext<N> context) {
+        this.createHandler().deleteCollection(collection, context);
+    }
+
+    BigInteger id();
+
+    Range<BigInteger> collection();
+
+    N resource();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNameSuffix() {
-        return "PutHandler";
+    default String typeNameSuffix() {
+        return "DeleteHandler";
     }
 }

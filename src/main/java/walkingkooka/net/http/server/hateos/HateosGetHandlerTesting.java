@@ -30,10 +30,13 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTestCase<H, N> {
+/**
+ * Mixin interface for testing {@link HateosGetHandler}
+ */
+public interface HateosGetHandlerTesting<H extends HateosGetHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, N> {
 
     @Test
-    public void testGetNullIdFails() {
+    default void testGetNullIdFails() {
         assertThrows(NullPointerException.class, () -> {
             this.get(null,
                     this.parameters(),
@@ -42,7 +45,7 @@ public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N 
     }
 
     @Test
-    public void testGetNullParametersFails() {
+    default void testGetNullParametersFails() {
         assertThrows(NullPointerException.class, () -> {
             this.get(this.id(),
                     null,
@@ -51,7 +54,7 @@ public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N 
     }
 
     @Test
-    public void testGetNullContextFails() {
+    default void testGetNullContextFails() {
         assertThrows(NullPointerException.class, () -> {
             this.get(this.id(),
                     this.parameters(),
@@ -59,14 +62,14 @@ public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N 
         });
     }
 
-    protected Optional<N> get(final BigInteger id,
-                              final Map<HttpRequestParameterName, List<String>> parameters,
-                              final HateosHandlerContext<N> context) {
+    default Optional<N> get(final BigInteger id,
+                            final Map<HttpRequestParameterName, List<String>> parameters,
+                            final HateosHandlerContext<N> context) {
         return this.createHandler().get(id, parameters, context);
     }
 
     @Test
-    public void testGetCollectionNullCollectionFails() {
+    default void testGetCollectionNullCollectionFails() {
         assertThrows(NullPointerException.class, () -> {
             this.getCollection(null,
                     this.parameters(),
@@ -75,7 +78,7 @@ public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N 
     }
 
     @Test
-    public void testGetCollectionNullParametCollectionersFails() {
+    default void testGetCollectionNullParametCollectionersFails() {
         assertThrows(NullPointerException.class, () -> {
             this.getCollection(this.collection(),
                     null,
@@ -84,7 +87,7 @@ public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N 
     }
 
     @Test
-    public void testGetCollectionNullContextFails() {
+    default void testGetCollectionNullContextFails() {
         assertThrows(NullPointerException.class, () -> {
             this.getCollection(this.collection(),
                     this.parameters(),
@@ -92,22 +95,22 @@ public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N 
         });
     }
 
-    protected Optional<N> getCollection(final Range<BigInteger> collection,
-                                        final Map<HttpRequestParameterName, List<String>> parameters,
-                                        final HateosHandlerContext<N> context) {
+    default Optional<N> getCollection(final Range<BigInteger> collection,
+                                      final Map<HttpRequestParameterName, List<String>> parameters,
+                                      final HateosHandlerContext<N> context) {
         return this.createHandler().getCollection(collection, parameters, context);
     }
 
-    abstract protected BigInteger id();
+    BigInteger id();
 
-    abstract protected Range<BigInteger> collection();
+    Range<BigInteger> collection();
 
-    abstract protected Map<HttpRequestParameterName, List<String>> parameters();
+    Map<HttpRequestParameterName, List<String>> parameters();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return "GetHandler";
     }
 }
