@@ -22,13 +22,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.Latch;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> extends HttpResponseTestCase<R> {
+public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> extends ClassTestCase<R>
+        implements HttpResponseTesting<R> {
 
     WrapperHttpResponseTestCase() {
         super();
@@ -72,7 +75,7 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     // helpers..................................................................................................
 
     @Override
-    protected final R createResponse() {
+    public final R createResponse() {
         return this.createResponse(this.wrappedHttpResponse());
     }
 
@@ -125,5 +128,10 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         response.addEntity(entity);
 
         wrapped.check(request, expectedStatus, expectedEntities);
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
