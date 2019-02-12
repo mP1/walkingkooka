@@ -21,7 +21,9 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.LineEnding;
+import walkingkooka.type.MemberVisibility;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -33,7 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPrintStream> {
+final public class PrinterPrintStreamTest extends ClassTestCase<PrinterPrintStream>
+        implements PrintStreamTesting<PrinterPrintStream> {
 
     // constants
 
@@ -439,7 +442,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
     }
 
     @Override
-    protected PrinterPrintStream createPrintStream() {
+    public PrinterPrintStream createPrintStream() {
         return Cast.to(PrinterPrintStream.adapt(PRINTER,
                 LINE_ENDING,
                 CHARSET));
@@ -455,5 +458,10 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
     @Override
     public Class<PrinterPrintStream> type() {
         return PrinterPrintStream.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
