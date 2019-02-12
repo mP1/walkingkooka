@@ -21,12 +21,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Objects;
 
@@ -35,83 +33,70 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base class for testing a {@link PrintedLineHandler} with mostly parameter checking tests.
+ * Interface with default methods which can be mixed in to assist testing of an {@link PrintedLineHandler}.
  */
-abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
-        extends ClassTestCase<H>
-        implements ToStringTesting<H>,
+public interface PrintedLineHandlerTesting<H extends PrintedLineHandler>
+        extends ToStringTesting<H>,
         TypeNameTesting<H> {
-
-    protected PrintedLineHandlerTestCase() {
-        super();
-    }
-
-    // constants
-
-    private final static String LINE = "";
-
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
-
-    private final static Printer PRINTER = Printers.fake();
 
     // tests
 
     @Test
-    final public void testNullLineFails() {
+    default void testNullLineFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createLineHandler().linePrinted(null,
-                    PrintedLineHandlerTestCase.LINE_ENDING,
-                    PrintedLineHandlerTestCase.PRINTER);
+                    LineEnding.NL,
+                    Printers.fake());
         });
     }
 
     @Test
-    final public void testNullLineEndingFails() {
+    default void testNullLineEndingFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createLineHandler().linePrinted(PrintedLineHandlerTestCase.LINE, null, PrintedLineHandlerTestCase.PRINTER);
+            this.createLineHandler().linePrinted("", null, Printers.fake());
         });
     }
 
     @Test
-    final public void testNullPrinterFails() {
+    default void testNullPrinterFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createLineHandler().linePrinted(PrintedLineHandlerTestCase.LINE,
-                    PrintedLineHandlerTestCase.LINE_ENDING,
+            this.createLineHandler().linePrinted("",
+                    LineEnding.NL,
                     null);
         });
     }
 
-    abstract protected H createLineHandler();
+    H createLineHandler();
 
-    protected void linePrintedAndCheck(final CharSequence line,
-                                       final LineEnding lineEnding) {
+    default void linePrintedAndCheck(final CharSequence line,
+                                     final LineEnding lineEnding) {
         this.linePrintedAndCheck(line, lineEnding, line.toString());
     }
 
-    protected void linePrintedAndCheck(final CharSequence line, final LineEnding lineEnding,
-                                       final String expected) {
+    default void linePrintedAndCheck(final CharSequence line, final LineEnding lineEnding,
+                                     final String expected) {
         this.linePrintedAndCheck(line, lineEnding, expected, null);
     }
 
-    protected void linePrintedAndCheck(final CharSequence line,
-                                       final LineEnding lineEnding,
-                                       final String expected,
-                                       final String message) {
+    default void linePrintedAndCheck(final CharSequence line,
+                                     final LineEnding lineEnding,
+                                     final String expected,
+                                     final String message) {
         this.linePrintedAndCheck(this.createLineHandler(), line, lineEnding, expected, message);
     }
 
-    protected void linePrintedAndCheck(final PrintedLineHandler handler,
-                                       final CharSequence line,
-                                       final LineEnding lineEnding,
-                                       final String expected) {
+    default void linePrintedAndCheck(final PrintedLineHandler handler,
+                                     final CharSequence line,
+                                     final LineEnding lineEnding,
+                                     final String expected) {
         this.linePrintedAndCheck(handler, line, lineEnding, expected, null);
     }
 
-    protected void linePrintedAndCheck(final PrintedLineHandler handler,
-                                       final CharSequence line,
-                                       final LineEnding lineEnding,
-                                       final String expected,
-                                       final String message) {
+    default void linePrintedAndCheck(final PrintedLineHandler handler,
+                                     final CharSequence line,
+                                     final LineEnding lineEnding,
+                                     final String expected,
+                                     final String message) {
         Objects.requireNonNull(handler, "handler");
         Objects.requireNonNull(line, "line");
 
@@ -131,7 +116,7 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
 
         final StringBuilder printedBuffer = new StringBuilder();
         final Printer printer = Printers.stringBuilder(printedBuffer,
-                PrintedLineHandlerTestCase.LINE_ENDING);
+                LineEnding.NL);
         handler.linePrinted(line, lineEnding, printer);
         printer.flush();
         printer.close();
@@ -144,20 +129,15 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
         }
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return PrintedLineHandler.class.getSimpleName();
     }
 }
