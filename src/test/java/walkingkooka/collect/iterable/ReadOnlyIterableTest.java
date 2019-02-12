@@ -21,14 +21,17 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterable<String>, String>
-        implements IteratorTesting {
+final public class ReadOnlyIterableTest extends ClassTestCase<ReadOnlyIterable<String>>
+        implements IterableTesting<ReadOnlyIterable<String>, String>,
+        IteratorTesting {
 
     // constants
 
@@ -71,12 +74,17 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
     }
 
     @Override
-    protected ReadOnlyIterable<String> createIterable() {
+    public ReadOnlyIterable<String> createIterable() {
         return ReadOnlyIterable.wrap(ITERABLES);
     }
 
     @Override
     public Class<ReadOnlyIterable<String>> type() {
         return Cast.to(ReadOnlyIterable.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,13 +20,16 @@ package walkingkooka.collect.iterable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class IteratorIterableTest extends IterableTestCase<IteratorIterable<Object>, Object> {
+final public class IteratorIterableTest extends ClassTestCase<IteratorIterable<Object>>
+        implements IterableTesting<IteratorIterable<Object>, Object> {
 
     @Test
     public void testWithNullIteratorFails() {
@@ -59,7 +62,7 @@ final public class IteratorIterableTest extends IterableTestCase<IteratorIterabl
     }
 
     @Override
-    protected IteratorIterable<Object> createIterable() {
+    public IteratorIterable<Object> createIterable() {
         return IteratorIterable.with(this.createIterator());
     }
 
@@ -70,5 +73,10 @@ final public class IteratorIterableTest extends IterableTestCase<IteratorIterabl
     @Override
     public Class<IteratorIterable<Object>> type() {
         return Cast.to(IteratorIterable.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
