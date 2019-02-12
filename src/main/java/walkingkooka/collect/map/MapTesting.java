@@ -19,11 +19,9 @@
 package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -33,12 +31,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCase<M>
-        implements ToStringTesting<M>,
+/**
+ * Interface with default methods which can be mixed in to assist testing of an {@link Map}.
+ */
+public interface MapTesting<M extends Map<K, V>, K, V> extends ToStringTesting<M>,
         TypeNameTesting<M> {
 
     @Test
-    public final void testIteratorContainsKeyAndSize() {
+    default void testIteratorContainsKeyAndSize() {
         int size = 0;
         final M map = this.createMap();
         final Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
@@ -53,7 +53,7 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     }
 
     @Test
-    public final void testIteratorAndContainsValueAndSize() {
+    default void testIteratorAndContainsValueAndSize() {
         int size = 0;
         final M map = this.createMap();
         final Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
@@ -68,7 +68,7 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     }
 
     @Test
-    public final void testIteratorAndSize() {
+    default void testIteratorAndSize() {
         int size = 0;
         final M map = this.createMap();
         final Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
@@ -82,46 +82,46 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
     }
 
     @Test
-    public final void testIsEmptyAndSize() {
+    default void testIsEmptyAndSize() {
         final M map = this.createMap();
         final int size = map.size();
         this.isEmptyAndCheck(map, 0 == size);
     }
 
-    protected abstract M createMap();
+    M createMap();
 
-    protected void containsKeyAndCheck(final K key) {
+    default void containsKeyAndCheck(final K key) {
         this.containsKeyAndCheck(this.createMap(), key);
     }
 
-    protected void containsKeyAndCheck(final Map<K, V> map, final K key) {
+    default void containsKeyAndCheck(final Map<K, V> map, final K key) {
         assertTrue(map.containsKey(key),
                 () -> map + " should contain key " + CharSequences.quoteIfChars(key));
     }
 
-    protected void containsKeyAndCheckAbsent(final Object key) {
+    default void containsKeyAndCheckAbsent(final Object key) {
         this.containsKeyAndCheckAbsent(this.createMap(), key);
     }
 
-    protected void containsKeyAndCheckAbsent(final Map<K, V> map, final Object key) {
+    default void containsKeyAndCheckAbsent(final Map<K, V> map, final Object key) {
         assertFalse(map.containsKey(key),
                 () -> map + " should contain key " + CharSequences.quoteIfChars(key));
     }
 
-    protected void containsValueAndCheck(final V value) {
+    default void containsValueAndCheck(final V value) {
         this.containsValueAndCheck(this.createMap(), value);
     }
 
-    protected void containsValueAndCheck(final Map<K, V> map, final V value) {
+    default void containsValueAndCheck(final Map<K, V> map, final V value) {
         assertTrue(map.containsValue(value),
                 () -> map + " should contain value " + CharSequences.quoteIfChars(value));
     }
 
-    protected void getAndCheck(final K key, final V value) {
+    default void getAndCheck(final K key, final V value) {
         this.getAndCheck(this.createMap(), key, value);
     }
 
-    protected void getAndCheck(final Map<K, V> map, final K key, final V value) {
+    default void getAndCheck(final Map<K, V> map, final K key, final V value) {
         assertEquals(value,
                 map.get(key),
                 () -> "get " + CharSequences.quoteIfChars(key) + " from " + map);
@@ -129,40 +129,35 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCa
         this.containsValueAndCheck(map, value);
     }
 
-    protected void getAndCheckAbsent(final Object key) {
+    default void getAndCheckAbsent(final Object key) {
         this.getAndCheckAbsent(this.createMap(), key);
     }
 
-    protected void getAndCheckAbsent(final Map<K, V> map, final Object key) {
+    default void getAndCheckAbsent(final Map<K, V> map, final Object key) {
         assertEquals(null,
                 map.get(key),
                 () -> "get " + CharSequences.quoteIfChars(key) + " from " + map);
         this.containsKeyAndCheckAbsent(map, key);
     }
 
-    protected void isEmptyAndCheck(final Map<K, V> map, final boolean empty) {
+    default void isEmptyAndCheck(final Map<K, V> map, final boolean empty) {
         assertEquals(empty, map.isEmpty(), () -> "isEmpty of " + map);
     }
 
-    protected void sizeAndCheck(final Map<K, V> map, final int size) {
+    default void sizeAndCheck(final Map<K, V> map, final int size) {
         assertEquals(size, map.size(), () -> "size of " + map);
         this.isEmptyAndCheck(map, 0 == size);
-    }
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Map.class.getSimpleName();
     }
 }

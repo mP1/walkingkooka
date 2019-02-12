@@ -33,7 +33,7 @@ public final class XmlEntityMapTest extends XmlMapTestCase<XmlEntityMap, XmlName
     }
 
     @Override
-    protected XmlEntityMap createMap() {
+    public XmlEntityMap createMap() {
         return Cast.to(XmlEntityMap.from(this.entities()));
     }
 

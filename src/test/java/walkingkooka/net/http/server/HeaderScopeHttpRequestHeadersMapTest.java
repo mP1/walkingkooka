@@ -19,20 +19,21 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.map.MapTestCase;
+import walkingkooka.collect.map.MapTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.HttpHeaderScope;
 import walkingkooka.net.header.NotAcceptableHeaderException;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeaderScopeHttpRequestHeadersMapTest extends MapTestCase<HeaderScopeHttpRequestHeadersMap,
-        HttpHeaderName<?>,
-        Object> {
+public final class HeaderScopeHttpRequestHeadersMapTest extends ClassTestCase<HeaderScopeHttpRequestHeadersMap>
+        implements MapTesting<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
@@ -108,12 +109,17 @@ public final class HeaderScopeHttpRequestHeadersMapTest extends MapTestCase<Head
     }
 
     @Override
-    protected HeaderScopeHttpRequestHeadersMap createMap() {
+    public HeaderScopeHttpRequestHeadersMap createMap() {
         return HeaderScopeHttpRequestHeadersMap.with(HEADERS, HttpHeaderScope.REQUEST);
     }
 
     @Override
     public Class<HeaderScopeHttpRequestHeadersMap> type() {
         return HeaderScopeHttpRequestHeadersMap.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

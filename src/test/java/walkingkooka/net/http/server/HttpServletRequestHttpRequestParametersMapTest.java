@@ -20,15 +20,16 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.MapTestCase;
+import walkingkooka.collect.map.MapTesting;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Map;
 
-public final class HttpServletRequestHttpRequestParametersMapTest extends MapTestCase<HttpServletRequestHttpRequestParametersMap,
-        HttpRequestParameterName,
-        List<String>> {
+public final class HttpServletRequestHttpRequestParametersMapTest extends ClassTestCase<HttpServletRequestHttpRequestParametersMap>
+        implements MapTesting<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";
@@ -72,7 +73,7 @@ public final class HttpServletRequestHttpRequestParametersMapTest extends MapTes
     }
 
     @Override
-    protected HttpServletRequestHttpRequestParametersMap createMap() {
+    public HttpServletRequestHttpRequestParametersMap createMap() {
         final Map<String, String[]> parameters = Maps.ordered();
         parameters.put(KEY1, array(VALUE1A, VALUE1B));
         parameters.put(KEY2, array(VALUE2));
@@ -87,5 +88,10 @@ public final class HttpServletRequestHttpRequestParametersMapTest extends MapTes
     @Override
     public Class<HttpServletRequestHttpRequestParametersMap> type() {
         return HttpServletRequestHttpRequestParametersMap.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
