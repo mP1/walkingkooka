@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.io.printer;
@@ -23,66 +24,62 @@ import walkingkooka.text.Indentation;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
-        extends PrinterTestCase2<P>
-        implements TypeNameTesting<P> {
+public interface IndentingPrinterTesting<P extends IndentingPrinter>
+        extends PrinterTesting2<P>,
+        TypeNameTesting<P> {
 
-    protected IndentingPrinterTestCase() {
-        super();
-    }
 
     // constants
 
-    private final static Indentation INDENTATION = Indentation.with("  ");
+    static Indentation INDENTATION = Indentation.with("  ");
 
     // tests
 
     @Test
-    public void testIndentWithNullFails() {
+    default void testIndentWithNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createPrinter().indent(null);
         });
     }
 
     @Test
-    public void testUnmatchedOutdentFails() {
+    default void testUnmatchedOutdentFails() {
         this.outdentFails(this.createPrinter());
     }
 
     @Test
-    public void testTooManyOutdentsFails() {
-        this.outdentFails(this.createPrinterIdentAndOutdent(1));
+    default void testTooManyOutdentsFails() {
+        final P printer = this.createPrinter();
+        printer.indent(INDENTATION);
+        printer.outdent();
+        this.outdentFails(printer);
     }
 
     @Test
-    public void testTooManyOutdentsFails2() {
-        this.outdentFails(this.createPrinterIdentAndOutdent(2));
+    default void testTooManyOutdentsFails2() {
+        final P printer = this.createPrinter();
+        printer.indent(INDENTATION);
+        printer.indent(INDENTATION);
+        printer.outdent();
+        printer.outdent();
+        this.outdentFails(printer);
     }
 
-    private void outdentFails(final P printer) {
+    default void outdentFails(final P printer) {
         assertThrows(IllegalStateException.class, () -> {
             printer.outdent();
         });
     }
 
-    private P createPrinterIdentAndOutdent(final int count) {
-        final P printer = this.createPrinter();
-        for (int i = 0; i < count; i++) {
-            printer.indent(IndentingPrinterTestCase.INDENTATION);
-            printer.outdent();
-        }
-        return printer;
-    }
-
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public String typeNameSuffix() {
+    default String typeNameSuffix() {
         return IndentingPrinter.class.getSimpleName();
     }
 }

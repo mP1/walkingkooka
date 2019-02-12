@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.io.printer;
@@ -23,68 +24,67 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCase<P> {
-
-    protected PrinterTestCase2() {
-        super();
-    }
+/**
+ * Interface with default methods which can be mixed in to assist testing of an {@link Printer}.
+ */
+public interface PrinterTesting2<P extends Printer> extends PrinterTesting<P> {
 
     @Override
-    protected P createPrinter() {
+    default P createPrinter() {
         return this.createPrinter(new StringBuilder());
     }
 
-    abstract protected P createPrinter(StringBuilder target);
+    P createPrinter(StringBuilder target);
 
-    protected void printAndCheck(final CharSequence printed) {
+    default void printAndCheck(final CharSequence printed) {
         this.printAndCheck(printed, printed.toString());
     }
 
-    protected void printAndCheck(final CharSequence printed, final String expected) {
+    default void printAndCheck(final CharSequence printed, final String expected) {
         this.printAndCheck(printed, expected, null);
     }
 
-    protected void printAndCheck(final CharSequence printed, final String expected,
-                                 final String message) {
+    default void printAndCheck(final CharSequence printed, final String expected,
+                               final String message) {
         this.printAndCheck(new CharSequence[]{printed}, expected, null);
     }
 
-    protected void printAndCheck(final CharSequence[] chars, final String expected) {
+    default void printAndCheck(final CharSequence[] chars, final String expected) {
         this.printAndCheck(chars, expected, null);
     }
 
-    protected void printAndCheck(final CharSequence[] chars, final String expected,
-                                 final String message) {
+    default void printAndCheck(final CharSequence[] chars, final String expected,
+                               final String message) {
         final StringBuilder target = new StringBuilder();
         this.printAndCheck(this.createPrinter(target), chars, target, expected, message);
     }
 
-    protected void printAndCheck(final Printer printer, final CharSequence printed,
-                                 final StringBuilder target, final String expected) {
+    default void printAndCheck(final Printer printer, final CharSequence printed,
+                               final StringBuilder target, final String expected) {
         this.printAndCheck(printer, printed, target, expected, "printed");
     }
 
-    protected void printAndCheck(final Printer printer, final CharSequence printed,
-                                 final StringBuilder target, final String expected, final String message) {
+    default void printAndCheck(final Printer printer, final CharSequence printed,
+                               final StringBuilder target, final String expected, final String message) {
         this.printAndCheck(printer, new CharSequence[]{printed}, target, expected, message);
     }
 
-    protected void printAndCheck(final Printer printer, final CharSequence[] chars,
-                                 final StringBuilder target, final String expected) {
+    default void printAndCheck(final Printer printer, final CharSequence[] chars,
+                               final StringBuilder target, final String expected) {
         this.printAndCheck(printer, chars, target, expected, "printed");
     }
 
-    protected void printAndCheck(final Printer printer, final CharSequence[] chars,
-                                 final StringBuilder target, final String expected, final String message) {
+    default void printAndCheck(final Printer printer, final CharSequence[] chars,
+                               final StringBuilder target, final String expected, final String message) {
         this.printAndCheck(printer, chars, target, expected, true, message);
     }
 
-    protected void printAndCheck(final Printer printer,
-                                 final CharSequence[] chars,
-                                 final StringBuilder target,
-                                 final String expected,
-                                 final boolean flushAndClose,
-                                 final String message) {
+    default void printAndCheck(final Printer printer,
+                               final CharSequence[] chars,
+                               final StringBuilder target,
+                               final String expected,
+                               final boolean flushAndClose,
+                               final String message) {
         Objects.requireNonNull(printer, "printer");
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(target, "target");
@@ -107,7 +107,7 @@ abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCas
     /**
      * Splits a CharSequence into many CharSequence each holding a single character.
      */
-    protected CharSequence[] characterByCharacter(final CharSequence chars) {
+    default CharSequence[] characterByCharacter(final CharSequence chars) {
         Objects.requireNonNull(chars, "chars");
 
         final int length = chars.length();

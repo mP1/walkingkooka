@@ -140,7 +140,7 @@ final public class TabExpandingPrinterTest extends PrinterTestCase2<TabExpanding
     }
 
     @Override
-    protected TabExpandingPrinter createPrinter(final StringBuilder printed) {
+    public TabExpandingPrinter createPrinter(final StringBuilder printed) {
         return TabExpandingPrinter.wrap(//
                 Printers.stringBuilder(printed, LINE_ENDING), //
                 (tabStop -> ((tabStop + 3) / 4 * 4)));

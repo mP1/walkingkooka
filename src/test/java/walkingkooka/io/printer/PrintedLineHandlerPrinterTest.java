@@ -29,7 +29,7 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
 
     // constants
 
-    private final static Printer PRINTER = PrinterTestCase.createFakePrinter();
+    private final static Printer PRINTER = createContractPrinter();
 
     private final static PrintedLineHandler HANDLER = new PrintedLineHandler() {
 
@@ -311,17 +311,12 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
     }
 
     @Override
-    protected PrintedLineHandlerPrinter createPrinter() {
-        return this.createPrinter(PrinterTestCase.createFakePrinter());
-    }
-
-    @Override
-    protected PrintedLineHandlerPrinter createPrinter(final StringBuilder printed) {
+    public PrintedLineHandlerPrinter createPrinter(final StringBuilder printed) {
         return this.createPrinter(Printers.stringBuilder(printed,
                 LINE_ENDING));
     }
 
-    protected PrintedLineHandlerPrinter createPrinter(final Printer printer) {
+    private PrintedLineHandlerPrinter createPrinter(final Printer printer) {
         return PrintedLineHandlerPrinter.wrap(printer, HANDLER);
     }
 

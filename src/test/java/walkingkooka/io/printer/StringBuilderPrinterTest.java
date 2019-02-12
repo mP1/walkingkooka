@@ -47,7 +47,6 @@ final public class StringBuilderPrinterTest extends PrinterTestCase2<StringBuild
     }
 
     @Override
-    @Test
     public void testPrintNullFails() {
         // nop
     }
@@ -58,7 +57,7 @@ final public class StringBuilderPrinterTest extends PrinterTestCase2<StringBuild
     }
 
     @Override
-    protected StringBuilderPrinter createPrinter(final StringBuilder target) {
+    public StringBuilderPrinter createPrinter(final StringBuilder target) {
         return StringBuilderPrinter.with(target, LINE_ENDING);
     }
 

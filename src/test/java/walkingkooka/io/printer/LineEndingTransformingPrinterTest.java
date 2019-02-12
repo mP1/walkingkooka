@@ -25,8 +25,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class LineEndingTransformingPrinterTest
-        extends PrinterTestCase2<LineEndingTransformingPrinter> {
+final public class LineEndingTransformingPrinterTest extends PrinterTestCase2<LineEndingTransformingPrinter> {
 
     // constants
 
@@ -200,12 +199,7 @@ final public class LineEndingTransformingPrinterTest
     }
 
     @Override
-    protected LineEndingTransformingPrinter createPrinter() {
-        return this.createPrinter(new StringBuilder());
-    }
-
-    @Override
-    protected LineEndingTransformingPrinter createPrinter(final StringBuilder target) {
+    public LineEndingTransformingPrinter createPrinter(final StringBuilder target) {
         return LineEndingTransformingPrinter.wrap(TRANFORMER,
                 Printers.stringBuilder(target, LINE_ENDING));
     }

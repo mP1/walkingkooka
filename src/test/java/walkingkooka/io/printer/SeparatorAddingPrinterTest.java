@@ -123,7 +123,7 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
     }
 
     @Override
-    protected SeparatorAddingPrinter createPrinter(final StringBuilder builder) {
+    public SeparatorAddingPrinter createPrinter(final StringBuilder builder) {
         return this.createPrinter(Printers.stringBuilder(builder,
                 LINE_ENDING));
     }

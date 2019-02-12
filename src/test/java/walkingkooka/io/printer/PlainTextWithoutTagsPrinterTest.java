@@ -525,12 +525,7 @@ final public class PlainTextWithoutTagsPrinterTest
     }
 
     @Override
-    protected PlainTextWithoutTagsPrinter createPrinter() {
-        return this.createPrinter(new StringBuilder());
-    }
-
-    @Override
-    protected PlainTextWithoutTagsPrinter createPrinter(final StringBuilder builder) {
+    public PlainTextWithoutTagsPrinter createPrinter(final StringBuilder builder) {
         return PlainTextWithoutTagsPrinter.wrap(Printers.stringBuilder(builder,
                 LINE_ENDING));
     }

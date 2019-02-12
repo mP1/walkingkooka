@@ -136,7 +136,7 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
     }
 
     @Override
-    protected PrintStreamPrinter createPrinter() {
+    public PrintStreamPrinter createPrinter() {
         return PrintStreamPrinter.with(//
                 new PrintStream(OUTPUTSTREAM) {
 

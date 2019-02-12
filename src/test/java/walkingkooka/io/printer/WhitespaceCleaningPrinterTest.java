@@ -171,7 +171,7 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
     }
 
     @Override
-    protected WhitespaceCleaningPrinter createPrinter(final StringBuilder target) {
+    public WhitespaceCleaningPrinter createPrinter(final StringBuilder target) {
         return WhitespaceCleaningPrinter.wrap(this.createStringBuilder(target));
     }
 

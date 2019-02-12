@@ -27,7 +27,8 @@ import java.util.function.IntConsumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class LineCountingPrinterTest extends PrinterTestCase2<LineCountingPrinter> {
+final public class LineCountingPrinterTest extends PrinterTestCase<LineCountingPrinter>
+        implements PrinterTesting2<LineCountingPrinter>{
 
     // constants
 
@@ -243,12 +244,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
     }
 
     @Override
-    protected LineCountingPrinter createPrinter() {
-        return this.createPrinter(new StringBuilder());
-    }
-
-    @Override
-    protected LineCountingPrinter createPrinter(final StringBuilder target) {
+    public LineCountingPrinter createPrinter(final StringBuilder target) {
         return this.createPrinter(target, COUNTER);
     }
 

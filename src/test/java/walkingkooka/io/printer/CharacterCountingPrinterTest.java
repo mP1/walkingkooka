@@ -104,7 +104,7 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
     }
 
     @Override
-    protected CharacterCountingPrinter createPrinter() {
+    public CharacterCountingPrinter createPrinter() {
         return this.createPrinter(this.stringBuilder, new TestIntCounter());
     }
 
