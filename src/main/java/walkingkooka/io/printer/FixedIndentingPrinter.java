@@ -26,7 +26,7 @@ import java.util.Objects;
  * A {@link IndentingPrinter} which ignores the actual amount of whitespace passed to {@link
  * IndentingPrinter#indent(Indentation)} and uses a fixed {@link String amount}.
  */
-final class FixedIndentingPrinter extends IndentingPrinterTemplate {
+final class FixedIndentingPrinter extends IndentingPrinter2 {
 
     static FixedIndentingPrinter wrap(final Printer printer, final Indentation indentation) {
         Objects.requireNonNull(printer, "printer");

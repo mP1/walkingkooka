@@ -28,7 +28,7 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
 
     // constants
 
-    private final static Printer PRINTER = PrinterTestCase.createFakePrinter();
+    private final static Printer PRINTER = createContractPrinter();
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
@@ -116,9 +116,8 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
     }
 
     @Override
-    protected TeePrinter createPrinter() {
-        return Cast.to(TeePrinter.wrap(PrinterTestCase.createFakePrinter(),
-                PrinterTestCase.createFakePrinter()));
+    public TeePrinter createPrinter() {
+        return Cast.to(TeePrinter.wrap(createContractPrinter(), createContractPrinter()));
     }
 
     @Override

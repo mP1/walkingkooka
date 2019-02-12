@@ -122,7 +122,7 @@ final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
     }
 
     @Override
-    protected WriterPrinter createPrinter() {
+    public WriterPrinter createPrinter() {
         return this.createPrinter(//
                 new Writer() {
 

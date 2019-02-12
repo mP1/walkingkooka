@@ -201,7 +201,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
     // factory
 
     @Override
-    protected HtmlEntityDecodingPrinter createPrinter() {
+    public HtmlEntityDecodingPrinter createPrinter() {
         return this.createPrinter(this.builder);
     }
 

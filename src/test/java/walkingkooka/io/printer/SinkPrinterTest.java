@@ -56,7 +56,7 @@ final public class SinkPrinterTest extends PrinterTestCase<SinkPrinter> {
     }
 
     @Override
-    protected SinkPrinter createPrinter() {
+    public SinkPrinter createPrinter() {
         return SinkPrinter.INSTANCE;
     }
 

@@ -20,12 +20,12 @@ package walkingkooka.io.printer;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-final public class IndentingPrinterTemplateTest
-        extends ClassTestCase<IndentingPrinterTemplate> {
+final public class IndentingPrinter2Test
+        extends ClassTestCase<IndentingPrinter2> {
 
     @Override
-    public Class<IndentingPrinterTemplate> type() {
-        return IndentingPrinterTemplate.class;
+    public Class<IndentingPrinter2> type() {
+        return IndentingPrinter2.class;
     }
 
     @Override

@@ -23,7 +23,7 @@ import walkingkooka.text.Indentation;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class FixedIndentingPrinterTest
-        extends IndentingPrinterTemplateTestCase<FixedIndentingPrinter> {
+        extends IndentingPrinter2TestCase<FixedIndentingPrinter> {
 
     // constants
 

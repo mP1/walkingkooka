@@ -113,7 +113,7 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
     }
 
     @Override
-    protected NullReplacingPrinter createPrinter() {
+    public NullReplacingPrinter createPrinter() {
         return this.createPrinter(REPLACEMENT);
     }
 

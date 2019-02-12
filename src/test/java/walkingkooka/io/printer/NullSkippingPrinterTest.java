@@ -89,7 +89,7 @@ final public class NullSkippingPrinterTest extends PrinterTestCase<NullSkippingP
     }
 
     @Override
-    protected NullSkippingPrinter createPrinter() {
+    public NullSkippingPrinter createPrinter() {
         return NullSkippingPrinter.wrap(Printers.stringBuilder(new StringBuilder(),
                 LINE_ENDING));
     }

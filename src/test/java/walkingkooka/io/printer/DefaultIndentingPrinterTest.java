@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.text.Indentation;
 
 final public class DefaultIndentingPrinterTest
-        extends IndentingPrinterTemplateTestCase<DefaultIndentingPrinter> {
+        extends IndentingPrinter2TestCase<DefaultIndentingPrinter> {
 
     private final static Indentation INDENTATION = Indentation.with(">");
 
@@ -177,7 +177,7 @@ final public class DefaultIndentingPrinterTest
         printer.lineStart();
         printer.print("line2");
 
-        checkEquals("line1" + IndentingPrinterTemplateTestCase.LINE_ENDING + "!line2",
+        checkEquals("line1" + IndentingPrinter2TestCase.LINE_ENDING + "!line2",
                 printed.toString());
     }
 
@@ -190,7 +190,7 @@ final public class DefaultIndentingPrinterTest
         printer.print(printer.lineEnding());
         printer.print("line2");
 
-        checkEquals("line1" + IndentingPrinterTemplateTestCase.LINE_ENDING + "!line2",
+        checkEquals("line1" + IndentingPrinter2TestCase.LINE_ENDING + "!line2",
                 printed.toString());
     }
 

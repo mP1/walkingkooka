@@ -100,12 +100,7 @@ final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrin
     }
 
     @Override
-    protected LineEndingPrinter createPrinter() {
-        return this.createPrinter(new StringBuilder());
-    }
-
-    @Override
-    protected LineEndingPrinter createPrinter(final StringBuilder builder) {
+    public LineEndingPrinter createPrinter(final StringBuilder builder) {
         return LineEndingPrinter.wrap(Printers.stringBuilder(builder,
                 LINE_ENDING));
     }

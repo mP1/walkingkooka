@@ -13,34 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.io.printer;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.LineEnding;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base class for testing a {@link Printer} with mostly parameter checking tests.
+ * Interface with default methods which can be mixed in to assist testing of an {@link Printer}.
  */
-abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P>
-        implements ToStringTesting<P>,
+public interface PrinterTesting<P extends Printer> extends ToStringTesting<P>,
         TypeNameTesting<P> {
 
-    protected PrinterTestCase() {
-        super();
-    }
-
     @Test
-    public void testPrintNullFails() {
+    default void testPrintNullFails() {
         final P printer = this.createPrinter();
         assertThrows(NullPointerException.class, () -> {
             printer.print(null);
@@ -48,17 +41,17 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
     }
 
     @Test
-    public void testFlush() {
+    default void testFlush() {
         this.createPrinter().flush();
     }
 
     @Test
-    public void testClose() {
+    default void testClose() {
         this.createPrinter().close();
     }
 
     @Test
-    public void testPrintAfterCloseFails() {
+    default void testPrintAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
 
         assertThrows(PrinterException.class, () -> {
@@ -67,7 +60,7 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
     }
 
     @Test
-    public void testLineEndingAfterCloseFails() {
+    default void testLineEndingAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
 
         assertThrows(PrinterException.class, () -> {
@@ -77,7 +70,7 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
     }
 
     @Test
-    public void testFlushAfterCloseFails() {
+    default void testFlushAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
 
         assertThrows(PrinterException.class, () -> {
@@ -87,61 +80,26 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
     }
 
     @Test
-    public void testCloseAfterCloseFails() {
+    default void testCloseAfterCloseFails() {
         final P printer = this.createPrinterAndClose();
         printer.close(); // ignored
     }
 
-    abstract protected P createPrinter();
+    P createPrinter();
 
-    protected P createPrinterAndClose() {
+    default P createPrinterAndClose() {
         final P printer = this.createPrinter();
         printer.close();
         return printer;
     }
 
-    static protected Printer createFakePrinter() {
-        return new Printer() {
-
-            @Override
-            public void print(final CharSequence chars) throws PrinterException {
-                this.complainIfClosed();
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public LineEnding lineEnding() throws PrinterException {
-                this.complainIfClosed();
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public void flush() throws PrinterException {
-                this.complainIfClosed();
-            }
-
-            private void complainIfClosed() throws PrinterException {
-                if (this.closed) {
-                    throw new PrinterException("Closed");
-                }
-            }
-
-            @Override
-            public void close() throws PrinterException {
-                this.closed = true;
-            }
-
-            private boolean closed;
-        };
-    }
-
-    public void checkEquals(final CharSequence expected,
+    default void checkEquals(final CharSequence expected,
                             final CharSequence actual) {
         assertEquals(CharSequences.escape(expected),
                 CharSequences.escape(actual).toString());
     }
 
-    public void checkEquals(final CharSequence expected,
+    default void checkEquals(final CharSequence expected,
                             final CharSequence actual,
                             final String message) {
         assertEquals(CharSequences.escape(expected),
@@ -149,20 +107,15 @@ abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P
                 message);
     }
 
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Printer.class.getSimpleName();
     }
 }
