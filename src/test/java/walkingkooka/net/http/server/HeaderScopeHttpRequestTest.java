@@ -27,6 +27,8 @@ import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<HeaderScopeHttpRequest> {
+public final class HeaderScopeHttpRequestTest extends ClassTestCase<HeaderScopeHttpRequest>
+        implements HttpRequestTesting<HeaderScopeHttpRequest> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.POST;
@@ -148,8 +151,7 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
         assertSame(TOSTRING, this.createRequest().toString());
     }
 
-    @Override
-    protected HeaderScopeHttpRequest createRequest() {
+    @Override public HeaderScopeHttpRequest createRequest() {
         return HeaderScopeHttpRequest.with(new FakeHttpRequest() {
             @Override
             public HttpTransport transport() {
@@ -201,5 +203,10 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
     @Override
     public Class<HeaderScopeHttpRequest> type() {
         return HeaderScopeHttpRequest.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
