@@ -20,8 +20,10 @@ package walkingkooka.io.printstream;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.io.printer.Printers;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.Latch;
 import walkingkooka.text.LineEnding;
+import walkingkooka.type.MemberVisibility;
 
 import java.io.PrintStream;
 import java.nio.charset.Charset;
@@ -33,7 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream> {
+final public class TeePrintStreamTest extends ClassTestCase<TeePrintStream>
+        implements PrintStreamTesting<TeePrintStream> {
+
     // constants
 
     private final static PrintStream FIRST = PrintStreams.fake();
@@ -429,7 +433,7 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
     }
 
     @Override
-    protected TeePrintStream createPrintStream() {
+    public TeePrintStream createPrintStream() {
         return Cast.to(TeePrintStream.wrap(FIRST, SECOND));
     }
 
@@ -446,5 +450,10 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
     @Override
     public Class<TeePrintStream> type() {
         return TeePrintStream.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -17,41 +17,28 @@
 
 package walkingkooka.io.printstream;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import java.io.PrintStream;
 
 /**
- * Base class for testing a {@link PrintStream}
+ * Interface with default methods which can be mixed in to assist testing of an {@link PrintStream}.
  */
-abstract public class PrintStreamTestCase<P extends PrintStream>
-        extends ClassTestCase<P>
-        implements ToStringTesting<P>,
+public interface PrintStreamTesting<P extends PrintStream> extends ToStringTesting<P>,
         TypeNameTesting<P> {
 
-    protected PrintStreamTestCase() {
-        super();
-    }
-
-    abstract protected P createPrintStream();
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    P createPrintStream();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return PrintStream.class.getSimpleName();
     }
 }
