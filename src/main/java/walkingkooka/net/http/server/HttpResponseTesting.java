@@ -19,47 +19,38 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HttpResponseTestCase<R extends HttpResponse> extends ClassTestCase<R>
-        implements ToStringTesting<R>,
-        TypeNameTesting<R> {
+public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTesting<R>, TypeNameTesting<R> {
 
     @Test
-    public void testSetStatusNullFails() {
+    default void testSetStatusNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createResponse().setStatus(null);
         });
     }
 
     @Test
-    public void testAddEntityNullFails() {
+    default void testAddEntityNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createResponse().addEntity(null);
         });
     }
 
-    protected abstract R createResponse();
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    R createResponse();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return HttpResponse.class.getSimpleName();
     }
 }
