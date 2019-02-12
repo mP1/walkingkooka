@@ -18,20 +18,27 @@
 package walkingkooka.collect.iterator;
 
 import walkingkooka.Cast;
-import walkingkooka.build.chain.ChainFactoryTestCase;
+import walkingkooka.build.chain.ChainFactoryTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 
-final public class IteratorChainFactoryTest
-        extends ChainFactoryTestCase<IteratorChainFactory<Object>, Iterator<Object>> {
+final public class IteratorChainFactoryTest extends ClassTestCase<IteratorChainFactory<Object>>
+        implements ChainFactoryTesting<IteratorChainFactory<Object>, Iterator<Object>> {
 
     @Override
-    protected IteratorChainFactory<Object> createFactory() {
+    public IteratorChainFactory<Object> createFactory() {
         return IteratorChainFactory.instance();
     }
 
     @Override
     public Class<IteratorChainFactory<Object>> type() {
         return Cast.to(IteratorChainFactory.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -18,46 +18,33 @@
 package walkingkooka.build.chain;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base class for any {@link ChainFactory} that includes mostly parameter check tests
+ * Mixin interface for testing {@link ChainFactory}
  */
-abstract public class ChainFactoryTestCase<F extends ChainFactory<T>, T>
-        extends ClassTestCase<F>
-        implements TypeNameTesting<F> {
-
-    protected ChainFactoryTestCase() {
-        super();
-    }
+public interface ChainFactoryTesting<F extends ChainFactory<T>, T> extends TypeNameTesting<F> {
 
     @Test
-    public void testCreateWithNullFails() {
+    default void testCreateWithNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createFactory().create(null);
         });
     }
 
-    abstract protected F createFactory();
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    F createFactory();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return ChainFactory.class.getSimpleName();
     }
 }

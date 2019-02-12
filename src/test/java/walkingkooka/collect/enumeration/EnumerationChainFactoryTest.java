@@ -18,20 +18,27 @@
 package walkingkooka.collect.enumeration;
 
 import walkingkooka.Cast;
-import walkingkooka.build.chain.ChainFactoryTestCase;
+import walkingkooka.build.chain.ChainFactoryTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Enumeration;
 
-final public class EnumerationChainFactoryTest
-        extends ChainFactoryTestCase<EnumerationChainFactory<Object>, Enumeration<Object>> {
+final public class EnumerationChainFactoryTest extends ClassTestCase<EnumerationChainFactory<Object>>
+        implements ChainFactoryTesting<EnumerationChainFactory<Object>, Enumeration<Object>> {
 
     @Override
-    protected EnumerationChainFactory<Object> createFactory() {
+    public EnumerationChainFactory<Object> createFactory() {
         return EnumerationChainFactory.instance();
     }
 
     @Override
     public Class<EnumerationChainFactory<Object>> type() {
         return Cast.to(EnumerationChainFactory.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
