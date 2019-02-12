@@ -19,10 +19,8 @@
 package walkingkooka.routing;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 import java.util.Optional;
@@ -30,45 +28,39 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class RouterTestCase<R extends Router<K, T>, K, T> extends ClassTestCase<R>
-        implements ToStringTesting<R>,
+public interface RouterTesting<R extends Router<K, T>, K, T> extends ToStringTesting<R>,
         TypeNameTesting<R> {
 
     @Test
-    public void testNullParametersFails() {
+    default void testRouteNullParametersFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createRouter().route(null);
         });
     }
 
-    protected abstract R createRouter();
+    R createRouter();
 
-    protected final void routeAndCheck(final Router<K, T> routers, final Map<K, Object> parameters, final T target) {
+    default void routeAndCheck(final Router<K, T> routers, final Map<K, Object> parameters, final T target) {
         assertEquals(Optional.of(target),
                 routers.route(parameters),
                 () -> "Routing of parameters=" + parameters + " failed");
     }
 
-    protected final void routeFails(final Router<K, T> routers, final Map<K, Object> parameters) {
+    default void routeFails(final Router<K, T> routers, final Map<K, Object> parameters) {
         assertEquals(Optional.empty(),
                 routers.route(parameters),
                 () -> "Routing of parameters=" + parameters + " should have failed");
     }
 
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Router.class.getSimpleName();
     }
 }

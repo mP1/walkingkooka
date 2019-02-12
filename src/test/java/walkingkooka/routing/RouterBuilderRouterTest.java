@@ -23,10 +23,13 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
-public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderRouter<StringName, String>, StringName, String> {
+public final class RouterBuilderRouterTest extends ClassTestCase<RouterBuilderRouter<StringName, String>>
+        implements RouterTesting<RouterBuilderRouter<StringName, String>, StringName, String> {
 
     private final static StringName PATH_0 = Names.string("path-0");
     private final static StringName PATH_1 = Names.string("path-1");
@@ -419,12 +422,17 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
     }
 
     @Override
-    protected RouterBuilderRouter<StringName, String> createRouter() {
+    public RouterBuilderRouter<StringName, String> createRouter() {
         return RouterBuilderRouterNull.get();
     }
 
     @Override
     public Class<RouterBuilderRouter<StringName, String>> type() {
         return Cast.to(RouterBuilderRouter.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

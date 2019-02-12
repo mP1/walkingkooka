@@ -41,9 +41,11 @@ import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.TestRecordingHttpResponse;
-import walkingkooka.routing.RouterTestCase;
+import walkingkooka.routing.RouterTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.Latch;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
@@ -56,7 +58,8 @@ import java.util.function.Consumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosHandlerBuilderRouter<JsonNode>,
+public final class HateosHandlerBuilderRouterTest extends ClassTestCase<HateosHandlerBuilderRouter<JsonNode>>
+        implements RouterTesting<HateosHandlerBuilderRouter<JsonNode>,
         HttpRequestAttribute<?>,
         BiConsumer<HttpRequest, HttpResponse>> {
 
@@ -983,7 +986,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
     // HELPERS ............................................................................................
 
     @Override
-    protected HateosHandlerBuilderRouter<JsonNode> createRouter() {
+    public HateosHandlerBuilderRouter<JsonNode> createRouter() {
         final HateosHandlerBuilder<JsonNode> builder = this.builder();
         builder.get(this.resourceName1(), this.relation1(), new FakeHateosGetHandler<>());
         return Cast.to(builder.build()); // builder returns interface which is HHBR class.
@@ -1126,5 +1129,10 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
     @Override
     public Class<HateosHandlerBuilderRouter<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouter.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
