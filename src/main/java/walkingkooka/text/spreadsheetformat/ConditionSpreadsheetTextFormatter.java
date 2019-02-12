@@ -29,7 +29,7 @@ import java.util.function.Predicate;
 /**
  * Tries to convert a value to a {@Link BigDecimal} and then tests a condition and if it is true, executes the given {@link SpreadsheetTextFormatter}.
  */
-final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatterTemplate2<T, SpreadsheetFormatConditionParserToken> {
+final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatter3<T, SpreadsheetFormatConditionParserToken> {
 
     /**
      * Creates a {@link ConditionSpreadsheetTextFormatter}

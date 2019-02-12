@@ -18,17 +18,11 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
+public abstract class SpreadsheetTextFormatter2TestCase<F extends SpreadsheetTextFormatter2<V>,
+        V>
+        extends SpreadsheetTextFormatterTestCase<F, V> {
 
-/**
- * A {@link SpreadsheetFormatParserTokenVisitor} sub classed and used by {@link SpreadsheetTextFormatter3}.
- */
-abstract class TextFormatterSpreadsheetFormatParserTokenVisitor extends SpreadsheetFormatParserTokenVisitor {
-
-    /**
-     * Package private to limit sub classing.
-     */
-    TextFormatterSpreadsheetFormatParserTokenVisitor() {
+    SpreadsheetTextFormatter2TestCase() {
         super();
     }
 }

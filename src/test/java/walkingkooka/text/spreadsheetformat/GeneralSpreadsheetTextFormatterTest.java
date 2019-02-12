@@ -48,23 +48,23 @@ public final class GeneralSpreadsheetTextFormatterTest extends SpreadsheetTextFo
         this.formatAndCheck(LocalDateTime.of(2000, 12, 31, 12, 58, 59), "999D00Text");
     }
 
-    @Override
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createFormatter(), "General");
     }
 
     @Override
-    protected GeneralSpreadsheetTextFormatter createFormatter() {
+    public GeneralSpreadsheetTextFormatter createFormatter() {
         return GeneralSpreadsheetTextFormatter.INSTANCE;
     }
 
     @Override
-    protected Object value() {
+    public Object value() {
         return BigDecimal.valueOf(1.5);
     }
 
     @Override
-    protected SpreadsheetTextFormatContext createContext() {
+    public SpreadsheetTextFormatContext createContext() {
         return new FakeSpreadsheetTextFormatContext() {
 
             @Override

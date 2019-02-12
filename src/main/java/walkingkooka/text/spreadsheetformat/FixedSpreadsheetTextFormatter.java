@@ -27,7 +27,7 @@ import java.util.Optional;
  * A {@link SpreadsheetTextFormatter} that ignores the value and always returns the same {@link Optional<SpreadsheetFormattedText>}.
  * This is useful to hold the result of an empty format expression.
  */
-final class FixedSpreadsheetTextFormatter<V> extends SpreadsheetTextFormatterTemplate<V> {
+final class FixedSpreadsheetTextFormatter<V> extends SpreadsheetTextFormatter2<V> {
 
     /**
      * Creates a new {@link FixedSpreadsheetTextFormatter}.

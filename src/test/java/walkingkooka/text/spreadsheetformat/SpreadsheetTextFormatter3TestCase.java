@@ -31,10 +31,14 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetTextFormatterTemplate2TestCase<F extends SpreadsheetTextFormatterTemplate2<V, T>,
+public abstract class SpreadsheetTextFormatter3TestCase<F extends SpreadsheetTextFormatter3<V, T>,
         V,
         T extends SpreadsheetFormatParserToken>
-        extends SpreadsheetTextFormatterTemplateTestCase<F, V> {
+        extends SpreadsheetTextFormatter2TestCase<F, V> {
+
+    SpreadsheetTextFormatter3TestCase() {
+        super();
+    }
 
     @Test
     public final void testWithNullParserTokenFails() {
@@ -44,7 +48,7 @@ public abstract class SpreadsheetTextFormatterTemplate2TestCase<F extends Spread
     }
 
     @Override
-    final protected F createFormatter() {
+    final public F createFormatter() {
         return this.createFormatter(this.pattern());
     }
 

@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * In expectations all symbols are doubled, as a means to verify the context is supplying the values.
  */
-public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<BigDecimalSpreadsheetTextFormatter,
+public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTextFormatter3TestCase<BigDecimalSpreadsheetTextFormatter,
         BigDecimal,
         SpreadsheetFormatBigDecimalParserToken> {
 
@@ -1227,12 +1227,12 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
     }
 
     @Override
-    protected BigDecimal value() {
+    public BigDecimal value() {
         return new BigDecimal(123);
     }
 
     @Override
-    protected SpreadsheetTextFormatContext createContext() {
+    public SpreadsheetTextFormatContext createContext() {
         return new FakeSpreadsheetTextFormatContext() {
             @Override
             public String currencySymbol() {

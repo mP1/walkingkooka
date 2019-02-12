@@ -38,7 +38,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ExpressionSpreadsheetTextFormatter, Object, SpreadsheetFormatExpressionParserToken> {
+public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatter3TestCase<ExpressionSpreadsheetTextFormatter, Object, SpreadsheetFormatExpressionParserToken> {
 
     private final static String TEXT = "Abc123";
     private final static Color RED = Color.fromRgb(0x0FF);
@@ -278,12 +278,12 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
     }
 
     @Override
-    protected String value() {
+    public String value() {
         return "Text123";
     }
 
     @Override
-    protected SpreadsheetTextFormatContext createContext() {
+    public SpreadsheetTextFormatContext createContext() {
         return new FakeSpreadsheetTextFormatContext() {
 
             @Override

@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * Adds a {@link Color} to successfully formatted text, that is decorates the result of the given {@link SpreadsheetTextFormatter}.
  */
-final class ColorSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatterTemplate2<T, SpreadsheetFormatColorParserToken> {
+final class ColorSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatter3<T, SpreadsheetFormatColorParserToken> {
 
 
     /**

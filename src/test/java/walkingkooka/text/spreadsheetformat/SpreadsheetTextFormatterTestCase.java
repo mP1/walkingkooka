@@ -21,14 +21,16 @@ package walkingkooka.text.spreadsheetformat;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-public final class SpreadsheetTextFormatterTemplateTest extends ClassTestCase<SpreadsheetTextFormatterTemplate> {
-    @Override
-    public Class<SpreadsheetTextFormatterTemplate> type() {
-        return SpreadsheetTextFormatterTemplate.class;
+public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetTextFormatter<V>,
+        V>
+        extends ClassTestCase<F> implements SpreadsheetTextFormatterTesting<F, V> {
+
+    SpreadsheetTextFormatterTestCase() {
+        super();
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

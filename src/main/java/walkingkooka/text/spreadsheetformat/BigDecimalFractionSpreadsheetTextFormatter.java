@@ -34,7 +34,7 @@ import java.util.function.Function;
 /**
  * A {@link SpreadsheetTextFormatter} that unconditionally formats a {@link BigDecimal}, without a {@link walkingkooka.color.Color}.
  */
-final class BigDecimalFractionSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate2<BigDecimal, SpreadsheetFormatFractionParserToken> {
+final class BigDecimalFractionSpreadsheetTextFormatter extends SpreadsheetTextFormatter3<BigDecimal, SpreadsheetFormatFractionParserToken> {
 
     /**
      * Creates a {@link BigDecimalFractionSpreadsheetTextFormatter} from a {@link SpreadsheetFormatBigDecimalParserToken}.
