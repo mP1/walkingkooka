@@ -19,82 +19,77 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T extends ParserToken, C extends ParserContext> extends ClassTestCase<R>
-        implements TypeNameTesting<R> {
+public interface ParserReporterTesting<R extends ParserReporter<T, C>, T extends ParserToken, C extends ParserContext>
+        extends ToStringTesting<R>, TypeNameTesting<R> {
 
     @Test
-    public final void testNullTextCursorFails() {
+    default void testNullTextCursorFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.report(null, this.createContext(), this.parser());
+            this.report(null, this.createContext(), Parsers.fake());
         });
     }
 
     @Test
-    public final void testNullContextFails() {
+    default void testNullContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.report(TextCursors.fake(), null, this.parser());
+            this.report(TextCursors.fake(), null, Parsers.fake());
         });
     }
 
     @Test
-    public final void testNullParserFails() {
+    default void testNullParserFails() {
         assertThrows(NullPointerException.class, () -> {
             this.report(TextCursors.fake(), this.createContext(), null);
         });
     }
 
-    protected abstract R createParserReporter();
+    R createParserReporter();
 
-    protected abstract C createContext();
+    C createContext();
 
-    private Parser<T, C> parser() {
-        return Parsers.fake();
-    }
-
-    protected void reportAndCheck(final String text,
-                                  final Parser<T, C> parser,
-                                  final String messageContains) {
+    default void reportAndCheck(final String text,
+                                final Parser<T, C> parser,
+                                final String messageContains) {
         this.reportAndCheck(text, this.createContext(), parser, messageContains);
     }
 
-    protected void reportAndCheck(final String text,
-                                  final C context,
-                                  final Parser<T, C> parser,
-                                  final String messageContains) {
+    default void reportAndCheck(final String text,
+                                final C context,
+                                final Parser<T, C> parser,
+                                final String messageContains) {
         this.reportAndCheck(TextCursors.charSequence(text), context, parser, messageContains);
     }
 
-    protected void reportAndCheck(final TextCursor cursor,
-                                  final Parser<T, C> parser,
-                                  final String messageContains) {
+    default void reportAndCheck(final TextCursor cursor,
+                                final Parser<T, C> parser,
+                                final String messageContains) {
         this.reportAndCheck(cursor, this.createContext(), parser, messageContains);
     }
 
-    protected void reportAndCheck(final TextCursor cursor,
-                                  final C context,
-                                  final Parser<T, C> parser,
-                                  final String messageContains) {
+    default void reportAndCheck(final TextCursor cursor,
+                                final C context,
+                                final Parser<T, C> parser,
+                                final String messageContains) {
         this.reportAndCheck(this.createParserReporter(), cursor, context, parser, messageContains);
     }
 
-    protected void reportAndCheck(final ParserReporter<T, C> reporter,
-                        final TextCursor cursor,
-                        final C context,
-                        final Parser<T, C> parser,
-                        final String messageContains) {
+    default void reportAndCheck(final ParserReporter<T, C> reporter,
+                                final TextCursor cursor,
+                                final C context,
+                                final Parser<T, C> parser,
+                                final String messageContains) {
         assertFalse(CharSequences.isNullOrEmpty(messageContains), "messageContains must not be null or empty");
 
         final TextCursorSavePoint save = cursor.save();
@@ -109,33 +104,28 @@ public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T e
         }
     }
 
-    protected void report(final TextCursor cursor,
-                          final C context,
-                          final Parser<T, C> parser) {
+    default void report(final TextCursor cursor,
+                        final C context,
+                        final Parser<T, C> parser) {
         this.report(this.createParserReporter(), cursor, context, parser);
     }
 
-    protected void report(final ParserReporter<T, C> reporter,
-                                  final TextCursor cursor,
-                                  final C context,
-                                  final Parser<T, C> parser) {
+    default void report(final ParserReporter<T, C> reporter,
+                        final TextCursor cursor,
+                        final C context,
+                        final Parser<T, C> parser) {
         reporter.report(cursor, context, parser);
-    }
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return ParserReporter.class.getSimpleName();
     }
 }
