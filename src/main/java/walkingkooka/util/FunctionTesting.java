@@ -17,44 +17,42 @@
  */
 package walkingkooka.util;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class FunctionTestCase<F extends Function<T, R>, T, R> extends ClassTestCase<F>
-        implements TypeNameTesting<F> {
+/**
+ * Mixin interface for testing {@link Function}
+ */
+public interface FunctionTesting<F extends Function<T, R>, T, R> extends TypeNameTesting<F> {
 
-    protected void applyAndCheck(final T input, final R result) {
+    default void applyAndCheck(final T input,
+                               final R result) {
         this.applyAndCheck(this.createFunction(), input, result);
     }
 
-    protected <TT, RR> void applyAndCheck(final Function<TT, RR> function, final TT input, final RR result) {
+    default <TT, RR> void applyAndCheck(final Function<TT, RR> function,
+                                        final TT input,
+                                        final RR result) {
         assertEquals(result,
                 function.apply(input),
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(input));
     }
 
-    protected abstract F createFunction();
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    F createFunction();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Function.class.getSimpleName();
     }
 }
