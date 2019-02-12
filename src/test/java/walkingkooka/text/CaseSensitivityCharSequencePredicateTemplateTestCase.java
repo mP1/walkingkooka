@@ -18,15 +18,19 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
-        extends PredicateTestCase<P, String>
-        implements HashCodeEqualsDefinedTesting<P>, SerializationTesting<P> {
+        extends ClassTestCase<P>
+        implements PredicateTesting<P, String>,
+        HashCodeEqualsDefinedTesting<P>,
+        SerializationTesting<P> {
 
     private static final String STRING = "#$%";
     private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
@@ -62,9 +66,8 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     }
 
     @Override
-    final protected P createPredicate() {
-        return this.createPredicateCaseSensitivity(
-                STRING);
+    public final P createPredicate() {
+        return this.createPredicateCaseSensitivity(STRING);
     }
 
     abstract P createPredicate(final String chars, final CaseSensitivity sensitivity);
@@ -100,13 +103,18 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     }
 
     @Test
-    public void testEqualsDifferentCharSequence() {
+    public final void testEqualsDifferentCharSequence() {
         this.checkNotEquals(this.createPredicate("different", SENSITIVITY));
     }
 
     @Test
-    public void testEqualsDifferentCaseSensitivity() {
+    public final void testEqualsDifferentCaseSensitivity() {
         this.checkNotEquals(this.createPredicate(STRING, SENSITIVITY.invert()));
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     @Override 

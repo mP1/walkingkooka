@@ -74,7 +74,7 @@ final public class CharPredicateCharSequencePredicateTest
     }
 
     @Override
-    protected CharPredicateCharSequencePredicate createPredicate() {
+    public CharPredicateCharSequencePredicate createPredicate() {
         return Cast.to(CharPredicateCharSequencePredicate.with(CharPredicates.any(CHARS)));
     }
 

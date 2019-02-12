@@ -162,7 +162,7 @@ public final class ComparableComparisonRelationPredicateTest extends PredicateTe
     }
 
     @Override
-    protected ComparableComparisonRelationPredicate<String> createPredicate() {
+    public ComparableComparisonRelationPredicate<String> createPredicate() {
         return this.createPredicate(ComparisonRelation.EQ);
     }
 

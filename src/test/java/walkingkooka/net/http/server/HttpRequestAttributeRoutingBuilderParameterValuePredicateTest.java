@@ -20,16 +20,18 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest extends
-        PredicateTestCase<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>>
-        implements HashCodeEqualsDefinedTesting<HttpRequestAttributeRoutingBuilderParameterValuePredicate> {
+public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest extends ClassTestCase<HttpRequestAttributeRoutingBuilderParameterValuePredicate>
+        implements PredicateTesting<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>>,
+        HashCodeEqualsDefinedTesting<HttpRequestAttributeRoutingBuilderParameterValuePredicate> {
 
     private final static String VALUE = "value123";
 
@@ -69,7 +71,7 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
     }
 
     @Override
-    protected HttpRequestAttributeRoutingBuilderParameterValuePredicate createPredicate() {
+    public HttpRequestAttributeRoutingBuilderParameterValuePredicate createPredicate() {
         return HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(this.wrappedPredicate());
     }
 
@@ -80,6 +82,11 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
     @Override
     public Class<HttpRequestAttributeRoutingBuilderParameterValuePredicate> type() {
         return HttpRequestAttributeRoutingBuilderParameterValuePredicate.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

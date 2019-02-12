@@ -21,15 +21,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
-import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.predicate.PredicateTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.TestNode;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
-        extends PredicateTestCase<N, TestNode> {
+        extends ClassTestCase<N>
+        implements PredicateTesting<N, TestNode> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -61,7 +64,8 @@ public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttribut
         this.testFalse(TestNode.with("nodeName").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, "*DIFFERENT*")));
     }
 
-    protected N createPredicate() {
+    @Override
+    public final N createPredicate() {
         return this.createPredicate(ATTRIBUTE_NAME1);
     }
 
@@ -70,6 +74,11 @@ public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttribut
     }
 
     abstract N createPredicate(final StringName name, final Object value);
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 
 
 }

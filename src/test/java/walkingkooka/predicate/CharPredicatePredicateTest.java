@@ -54,7 +54,7 @@ final public class CharPredicatePredicateTest extends PredicateTestCase<CharPred
     }
 
     @Override
-    protected CharPredicatePredicate createPredicate() {
+    public CharPredicatePredicate createPredicate() {
         return CharPredicatePredicate.adapt(PREDICATE);
     }
 

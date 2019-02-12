@@ -108,7 +108,7 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     }
 
     @Override
-    protected CustomToStringPredicate<String> createPredicate() {
+    public CustomToStringPredicate<String> createPredicate() {
         return Cast.to(CustomToStringPredicate.wrap(WRAPPED, CUSTOM_TO_STRING));
     }
 

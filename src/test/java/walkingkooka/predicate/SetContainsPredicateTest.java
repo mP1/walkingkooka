@@ -72,7 +72,7 @@ public final class SetContainsPredicateTest extends PredicateTestCase<SetContain
     }
 
     @Override
-    protected SetContainsPredicate<String> createPredicate() {
+    public SetContainsPredicate<String> createPredicate() {
         return SetContainsPredicate.with(this.set());
     }
 

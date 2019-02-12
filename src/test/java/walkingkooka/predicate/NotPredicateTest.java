@@ -125,7 +125,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     }
 
     @Override
-    protected NotPredicate<String> createPredicate() {
+    public NotPredicate<String> createPredicate() {
         return this.createPredicate(PREDICATE);
     }
 
