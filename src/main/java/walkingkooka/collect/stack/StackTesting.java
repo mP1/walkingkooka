@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.collect.stack;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.EmptyStackException;
 
@@ -32,20 +31,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base class for testing a {@link Stack}.
+ * Mixin interface for testing a {@link Stack}.
  */
-abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, T> extends ClassTestCase<S>
-        implements HashCodeEqualsDefinedTesting<S>,
+public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> extends HashCodeEqualsDefinedTesting<S>,
         SerializationTesting<S>,
         ToStringTesting<S>,
         TypeNameTesting<S> {
-
-    protected StackTestCase() {
-        super();
-    }
-
+    
     @Test
-    public void testPeekWhenEmptyFails() {
+    default void testPeekWhenEmptyFails() {
         final Stack<String> stack = ArrayListStack.create();
         assertThrows(EmptyStackException.class, () -> {
             stack.peek();
@@ -53,7 +47,7 @@ abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, 
     }
 
     @Test
-    public void testPopWhenEmptyFails() {
+    default void testPopWhenEmptyFails() {
         final Stack<String> stack = ArrayListStack.create();
         assertThrows(EmptyStackException.class, () -> {
             stack.pop();
@@ -61,38 +55,33 @@ abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, 
     }
 
     @Test
-    public void testPushAllNullIteratorFails() {
+    default void testPushAllNullIteratorFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createStack().pushAll(null);
         });
     }
 
-    abstract protected S createStack();
+    S createStack();
 
-    protected void checkSize(final Stack<?> stack, final int size) {
+    default void checkSize(final Stack<?> stack, final int size) {
         assertEquals(0 == size, stack.isEmpty(), () -> stack + " isEmpty");
         assertEquals(size, stack.size(), () -> stack + " size");
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
-    public S createObject() {
+    default S createObject() {
         return this.createStack();
     }
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Stack.class.getSimpleName();
     }
 }

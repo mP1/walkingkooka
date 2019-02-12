@@ -23,7 +23,6 @@ import walkingkooka.collect.iterator.Iterators;
 
 import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -127,7 +126,7 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     }
 
     @Override
-    protected ReadOnlyStack<Object> createStack() {
+    public ReadOnlyStack<Object> createStack() {
         final Stack<Object> stack = Stacks.arrayList();
         stack.push(ITEM);
         return ReadOnlyStack.wrap(stack);

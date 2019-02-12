@@ -178,7 +178,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
     }
 
     @Override
-    protected ArrayListStack<String> createStack() {
+    public ArrayListStack<String> createStack() {
         return ArrayListStack.create();
     }
 
