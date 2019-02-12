@@ -29,11 +29,9 @@ import java.util.Iterator;
  */
 abstract public class IteratorTestCase<I extends Iterator<T>, T>
         extends ClassTestCase<I>
-        implements IteratorTesting,
-        ToStringTesting<I>,
-        TypeNameTesting<I> {
+        implements IteratorTesting, ToStringTesting<I>, TypeNameTesting<I> {
 
-    protected IteratorTestCase() {
+    IteratorTestCase() {
         super();
     }
 

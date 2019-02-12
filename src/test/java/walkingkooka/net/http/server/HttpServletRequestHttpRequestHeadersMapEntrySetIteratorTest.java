@@ -20,16 +20,21 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.enumeration.Enumerations;
-import walkingkooka.collect.iterator.IteratorTestCase;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.MemberVisibility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
-import java.util.Map.Entry;
+import java.util.Iterator;
 
-public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest extends
-        IteratorTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIterator,
-                Entry<HttpHeaderName<?>, Object>> {
+public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest extends ClassTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIterator>
+        implements IteratorTesting,
+        ToStringTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIterator>,
+        TypeNameTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIterator> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
     private final static Long VALUE1 = 111L;
@@ -67,7 +72,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
         this.toStringAndCheck(this.createIterator(), "[Content-Length, Server]");
     }
 
-    @Override public HttpServletRequestHttpRequestHeadersMapEntrySetIterator createIterator() {
+    private HttpServletRequestHttpRequestHeadersMapEntrySetIterator createIterator() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIterator.with(this.request());
     }
 
@@ -96,5 +101,20 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
     @Override
     public Class<HttpServletRequestHttpRequestHeadersMapEntrySetIterator> type() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIterator.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HttpServletRequestHttpRequestHeadersMapEntrySet.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Iterator.class.getSimpleName();
     }
 }

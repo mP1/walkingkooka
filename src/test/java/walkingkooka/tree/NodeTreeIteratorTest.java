@@ -21,14 +21,21 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.iterator.IteratorTestCase;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterator<TestNode, StringName, StringName, Object>, TestNode> {
+public final class NodeTreeIteratorTest extends ClassTestCase<NodeTreeIterator<TestNode, StringName, StringName, Object>>
+        implements IteratorTesting,
+        ToStringTesting<NodeTreeIterator<TestNode, StringName, StringName, Object>>,
+        TypeNameTesting<NodeTreeIterator<TestNode, StringName, StringName, Object>> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -162,13 +169,27 @@ public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterato
         this.toStringAndCheck(iterator, "\"root\"");
     }
 
-    @Override
-    public NodeTreeIterator<TestNode, StringName, StringName, Object> createIterator() {
+    private NodeTreeIterator<TestNode, StringName, StringName, Object> createIterator() {
         return new NodeTreeIterator<>(TestNode.with("root"));
     }
 
     @Override
     public Class<NodeTreeIterator<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeTreeIterator.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return Node.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Iterator.class.getSimpleName();
     }
 }

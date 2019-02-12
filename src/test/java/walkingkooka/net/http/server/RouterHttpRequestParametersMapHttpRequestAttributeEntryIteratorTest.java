@@ -19,18 +19,24 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.iterator.IteratorTestCase;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.MemberVisibility;
 
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIteratorTest extends
-        IteratorTestCase<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator,
-                Entry<HttpRequestAttribute<?>, Object>> {
+public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIteratorTest extends ClassTestCase<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator>
+        implements IteratorTesting,
+        ToStringTesting<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator>,
+        TypeNameTesting<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.UNSECURED;
     private final static HttpMethod METHOD = HttpMethod.HEAD;
@@ -100,7 +106,7 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
         this.toStringAndCheck(this.createIterator(), "TRANSPORT=UNSECURED");
     }
 
-    @Override public RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator createIterator() {
+    private RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator createIterator() {
         return this.createIterator(TRANSPORT, METHOD, PROTOCOL);
     }
 
@@ -135,5 +141,20 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
     @Override
     public Class<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator> type() {
         return RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return RouterHttpRequestParametersMap.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Iterator.class.getSimpleName();
     }
 }
