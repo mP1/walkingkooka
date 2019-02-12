@@ -34,7 +34,7 @@ import java.util.function.Function;
  * A {@link SpreadsheetTextFormatter} that formats a {@link String}.
  * <a href="https://developers.google.com/sheets/api/guides/formats"></a>
  */
-final class ExpressionSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate2<Object, SpreadsheetFormatExpressionParserToken> {
+final class ExpressionSpreadsheetTextFormatter extends SpreadsheetTextFormatter3<Object, SpreadsheetFormatExpressionParserToken> {
 
     /**
      * Creates a {@link ExpressionSpreadsheetTextFormatter} from a {@link SpreadsheetFormatTextParserToken}.

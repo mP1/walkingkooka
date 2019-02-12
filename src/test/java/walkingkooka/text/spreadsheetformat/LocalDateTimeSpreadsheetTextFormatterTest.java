@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class LocalDateTimeSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<
+public final class LocalDateTimeSpreadsheetTextFormatterTest extends SpreadsheetTextFormatter3TestCase<
         LocalDateTimeSpreadsheetTextFormatter,
         LocalDateTime,
         SpreadsheetFormatDateTimeParserToken> {
@@ -535,7 +535,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
     }
 
     @Override
-    protected LocalDateTime value() {
+    public LocalDateTime value() {
         return this.parseLocalDateTime(this.text());
     }
 
@@ -548,7 +548,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
     }
 
     @Override
-    protected SpreadsheetTextFormatContext createContext() {
+    public SpreadsheetTextFormatContext createContext() {
         return SpreadsheetTextFormatContexts.fake();
     }
 

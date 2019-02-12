@@ -32,7 +32,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ColorSpreadsheetTextFormatter<String>,
+public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextFormatter3TestCase<ColorSpreadsheetTextFormatter<String>,
         String,
         SpreadsheetFormatColorParserToken> {
 
@@ -124,12 +124,12 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
     }
 
     @Override
-    protected String value() {
+    public String value() {
         return "Text123";
     }
 
     @Override
-    protected SpreadsheetTextFormatContext createContext() {
+    public SpreadsheetTextFormatContext createContext() {
         return SpreadsheetTextFormatContexts.fake();
     }
 

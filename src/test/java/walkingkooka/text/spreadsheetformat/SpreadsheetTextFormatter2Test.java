@@ -21,10 +21,10 @@ package walkingkooka.text.spreadsheetformat;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-public final class SpreadsheetTextFormatterTemplate2Test extends ClassTestCase<SpreadsheetTextFormatterTemplate2> {
+public final class SpreadsheetTextFormatter2Test extends ClassTestCase<SpreadsheetTextFormatter2> {
     @Override
-    public Class<SpreadsheetTextFormatterTemplate2> type() {
-        return SpreadsheetTextFormatterTemplate2.class;
+    public Class<SpreadsheetTextFormatter2> type() {
+        return SpreadsheetTextFormatter2.class;
     }
 
     @Override

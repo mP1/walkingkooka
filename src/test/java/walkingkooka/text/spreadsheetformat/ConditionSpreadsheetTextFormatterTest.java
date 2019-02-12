@@ -37,7 +37,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ConditionSpreadsheetTextFormatter<String>,
+public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatter3TestCase<ConditionSpreadsheetTextFormatter<String>,
         String,
         SpreadsheetFormatConditionParserToken> {
 
@@ -175,8 +175,9 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
             }
 
             @Override
-            public Optional<SpreadsheetFormattedText> format(final String value, final SpreadsheetTextFormatContext context) {
-                return Optional.of(SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, formattedText(value)));
+            public Optional<SpreadsheetFormattedText> format(final String value,
+                                                             final SpreadsheetTextFormatContext context) {
+                return Optional.of(formattedText(value));
             }
 
             @Override
@@ -184,10 +185,6 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
                 return TEXT_PATTERN;
             }
         };
-    }
-
-    private String formattedText(final Object text) {
-        return "!" + text + text;
     }
 
     @Override
@@ -201,12 +198,12 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     @Override
-    protected String value() {
+    public String value() {
         return "Text123";
     }
 
     @Override
-    protected SpreadsheetTextFormatContext createContext() {
+    public SpreadsheetTextFormatContext createContext() {
         return new FakeSpreadsheetTextFormatContext() {
             @Override
             public char decimalPoint() {

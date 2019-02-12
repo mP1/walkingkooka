@@ -31,7 +31,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<FixedSpreadsheetTextFormatter<Object>, Object> {
+public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextFormatter2TestCase<FixedSpreadsheetTextFormatter<Object>, Object> {
 
     private final static Class<Object> TYPE = Object.class;
 
@@ -102,13 +102,13 @@ public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextForm
         this.formatAndCheck(this.createFormatter(), value, this.createContext(), this.formattedText());
     }
 
-    @Override
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createFormatter(), this.formattedText().toString());
     }
 
     @Override
-    protected FixedSpreadsheetTextFormatter<Object> createFormatter() {
+    public FixedSpreadsheetTextFormatter<Object> createFormatter() {
         return FixedSpreadsheetTextFormatter.with(TYPE, this.formattedText());
     }
 
@@ -117,12 +117,12 @@ public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextForm
     }
 
     @Override
-    protected Object value() {
+    public Object value() {
         return "Hello";
     }
 
     @Override
-    protected SpreadsheetTextFormatContext createContext() {
+    public SpreadsheetTextFormatContext createContext() {
         return SpreadsheetTextFormatContexts.fake();
     }
 
