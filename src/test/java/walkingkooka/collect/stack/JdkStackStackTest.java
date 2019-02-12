@@ -183,7 +183,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     }
 
     @Override
-    protected JdkStackStack<Object> createStack() {
+    public JdkStackStack<Object> createStack() {
         return JdkStackStack.create();
     }
 

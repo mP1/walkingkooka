@@ -20,7 +20,6 @@ package walkingkooka.collect.stack;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -93,7 +92,7 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
     }
 
     @Override
-    protected UnreadableStack<Object> createStack() {
+    public UnreadableStack<Object> createStack() {
         return UnreadableStack.wrap(STACK);
     }
 

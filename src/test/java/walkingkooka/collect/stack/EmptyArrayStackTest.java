@@ -89,7 +89,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
     }
 
     @Override
-    protected EmptyArrayStack<Object> createStack() {
+    public EmptyArrayStack<Object> createStack() {
         return EmptyArrayStack.instance();
     }
 

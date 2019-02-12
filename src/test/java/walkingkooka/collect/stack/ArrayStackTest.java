@@ -246,7 +246,7 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     }
 
     @Override
-    protected ArrayStack<String> createStack() {
+    public ArrayStack<String> createStack() {
         return ArrayStack.with("1");
     }
 
