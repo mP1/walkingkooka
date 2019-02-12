@@ -19,43 +19,38 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public abstract class HttpRequestTestCase<R extends HttpRequest> extends ClassTestCase<R>
-        implements ToStringTesting<R>,
+/**
+ * Mixin interface for testing {@link HttpRequest}
+ */
+public interface HttpRequestTesting<R extends HttpRequest> extends ToStringTesting<R>,
         TypeNameTesting<R> {
 
     @Test
-    public void testRoutingParameters() {
+    default void testRoutingParameters() {
         final Map<HttpRequestAttribute<?>, Object> routingParameters = this.createRequest().routingParameters();
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.METHOD), "method absent");
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.TRANSPORT), "transport absent");
         assertNotEquals(null, routingParameters.get(HttpRequestAttributes.HTTP_PROTOCOL_VERSION), "protocol absent");
     }
 
-    protected abstract R createRequest();
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    R createRequest();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return HttpRequest.class.getSimpleName();
     }
 }

@@ -27,6 +27,8 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -42,7 +44,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase<HttpServletRequestHttpRequest> {
+public final class HttpServletRequestHttpRequestTest extends ClassTestCase<HttpServletRequestHttpRequest>
+        implements HttpRequestTesting<HttpServletRequestHttpRequest> {
 
     private final static HttpProtocolVersion PROTOCOL_VERSION = HttpProtocolVersion.VERSION_1_1;
     private final static HttpMethod METHOD = HttpMethod.POST;
@@ -138,8 +141,7 @@ public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase
                         "parameter2=value2");
     }
 
-    @Override
-    protected HttpServletRequestHttpRequest createRequest() {
+    @Override public HttpServletRequestHttpRequest createRequest() {
         return HttpServletRequestHttpRequest.with(new FakeHttpServletRequest() {
 
             @Override
@@ -227,5 +229,10 @@ public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase
     @Override
     public Class<HttpServletRequestHttpRequest> type() {
         return HttpServletRequestHttpRequest.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
