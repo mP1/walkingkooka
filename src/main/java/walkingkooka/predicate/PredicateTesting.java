@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
@@ -32,62 +31,52 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Base class for testing a {@link Predicate} with mostly parameter checking tests and various
  * utility methods toassert matching and non matching.
  */
-abstract public class PredicateTestCase<P extends Predicate<T>, T>
-        extends ClassTestCase<P>
-        implements ToStringTesting<P>,
+public interface PredicateTesting<P extends Predicate<T>, T>
+        extends ToStringTesting<P>,
         TypeNameTesting<P> {
 
-    protected PredicateTestCase() {
-        super();
-    }
-
     @Test
-    public void testTestNullFails() {
+    default void testTestNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.test(null);
         });
     }
 
-    abstract protected P createPredicate();
+    P createPredicate();
 
-    final protected boolean test(final T value) {
+    default boolean test(final T value) {
         return this.createPredicate().test(value);
     }
 
-    final protected void testTrue(final T value) {
+    default void testTrue(final T value) {
         this.testTrue(this.createPredicate(), value);
     }
 
-    final protected <TT> void testTrue(final Predicate<TT> predicate, final TT value) {
+    default <TT> void testTrue(final Predicate<TT> predicate, final TT value) {
         if (false == predicate.test(value)) {
             fail(predicate + " did not match=" + value);
         }
     }
 
-    final protected void testFalse(final T value) {
+    default void testFalse(final T value) {
         this.testFalse(this.createPredicate(), value);
     }
 
-    final protected <TT> void testFalse(final Predicate<TT> predicate, final TT value) {
+    default <TT> void testFalse(final Predicate<TT> predicate, final TT value) {
         if (predicate.test(value)) {
             fail(predicate + " should not have matched=" + value);
         }
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Predicate.class.getSimpleName();
     }
 }

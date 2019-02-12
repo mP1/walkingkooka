@@ -23,7 +23,6 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -86,7 +85,7 @@ final public class ObjectEqualityPredicateTest
     }
 
     @Override
-    protected ObjectEqualityPredicate<String> createPredicate() {
+    public ObjectEqualityPredicate<String> createPredicate() {
         return Cast.to(ObjectEqualityPredicate.with(MAGIC));
     }
 

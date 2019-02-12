@@ -61,7 +61,7 @@ final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate
     }
 
     @Override
-    protected AlwaysPredicate<Object> createPredicate() {
+    public AlwaysPredicate<Object> createPredicate() {
         return AlwaysPredicate.instance();
     }
 

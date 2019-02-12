@@ -58,7 +58,7 @@ public final class AbsoluteUrlPredicateTest extends PredicateTestCase<AbsoluteUr
     }
 
     @Override
-    protected AbsoluteUrlPredicate createPredicate() {
+    public AbsoluteUrlPredicate createPredicate() {
         return AbsoluteUrlPredicate.INSTANCE;
     }
 

@@ -98,7 +98,7 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
     }
 
     @Override
-    protected InitialAndPartCharPredicateCharSequencePredicate createPredicate() {
+    public InitialAndPartCharPredicateCharSequencePredicate createPredicate() {
         return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(this.initial(), this.part()));
     }
 

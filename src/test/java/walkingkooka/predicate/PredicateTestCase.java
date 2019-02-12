@@ -13,42 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- *
  */
 
 package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class EmailAddressPredicateTest extends PredicateTestCase<EmailAddressPredicate, String> {
+import java.util.function.Predicate;
 
-    @Test
-    public void testValid() {
-        this.testTrue("user@example.com");
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+/**
+ * Base class for all {@link Predicate} in this package.
+ */
+abstract public class PredicateTestCase<P extends Predicate<T>, T>
+        extends ClassTestCase<P>
+        implements PredicateTesting<P, T> {
+
+    PredicateTestCase() {
+        super();
     }
 
     @Test
-    public void testIncomplete() {
-        this.testFalse("user@");
-    }
-
-    @Test
-    public void testInvalid() {
-        this.testFalse("123");
-    }
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createPredicate(), "EmailAddress");
+    public void testTestNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.test(null);
+        });
     }
 
     @Override
-    public EmailAddressPredicate createPredicate() {
-        return EmailAddressPredicate.INSTANCE;
-    }
-
-    @Override
-    public Class<EmailAddressPredicate> type() {
-        return EmailAddressPredicate.class;
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

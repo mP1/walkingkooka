@@ -61,7 +61,7 @@ final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<O
     }
 
     @Override
-    protected NeverPredicate<Object> createPredicate() {
+    public NeverPredicate<Object> createPredicate() {
         return NeverPredicate.instance();
     }
 
