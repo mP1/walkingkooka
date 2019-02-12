@@ -19,15 +19,22 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.iterator.IteratorTestCase;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.MemberVisibility;
 
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest extends
-        IteratorTestCase<RouterHttpRequestParametersMapPathComponentEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
+public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest extends ClassTestCase<RouterHttpRequestParametersMapPathComponentEntryIterator>
+        implements IteratorTesting,
+        ToStringTesting<RouterHttpRequestParametersMapPathComponentEntryIterator>,
+        TypeNameTesting<RouterHttpRequestParametersMapPathComponentEntryIterator> {
 
     private final static UrlPathName NAME1 = UrlPathName.with("a");
     private final static UrlPathName NAME2 = UrlPathName.with("b");
@@ -97,11 +104,6 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
         this.toStringAndCheck(iterator, "");
     }
 
-    @Override
-    public RouterHttpRequestParametersMapPathComponentEntryIterator createIterator() {
-        return this.createIterator(NAME1, NAME2);
-    }
-
     private RouterHttpRequestParametersMapPathComponentEntryIterator createIterator(final UrlPathName... names) {
         return RouterHttpRequestParametersMapPathComponentEntryIterator.with(names);
     }
@@ -109,5 +111,20 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
     @Override
     public Class<RouterHttpRequestParametersMapPathComponentEntryIterator> type() {
         return RouterHttpRequestParametersMapPathComponentEntryIterator.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return RouterHttpRequestParametersMap.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Iterator.class.getSimpleName();
     }
 }

@@ -19,18 +19,23 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.iterator.IteratorTestCase;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.MemberVisibility;
 
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTest extends
-        IteratorTestCase<HttpServletRequestHttpRequestParametersMapEntrySetIterator,
-                Entry<HttpRequestParameterName, List<String>>> {
+public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTest extends ClassTestCase<HttpServletRequestHttpRequestParametersMapEntrySetIterator>
+        implements IteratorTesting,
+        ToStringTesting<HttpServletRequestHttpRequestParametersMapEntrySetIterator>,
+        TypeNameTesting<HttpServletRequestHttpRequestParametersMapEntrySetIterator> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";
@@ -52,8 +57,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTes
                 this.createIterator().toString());
     }
 
-    @Override
-    public HttpServletRequestHttpRequestParametersMapEntrySetIterator createIterator() {
+    private HttpServletRequestHttpRequestParametersMapEntrySetIterator createIterator() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIterator.with(Iterators.array(
                 this.entry(KEY1, VALUE1A, VALUE1B),
                 this.entry(KEY2, VALUE2)
@@ -67,5 +71,20 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTes
     @Override
     public Class<HttpServletRequestHttpRequestParametersMapEntrySetIterator> type() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIterator.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return HttpServletRequestHttpRequestParametersMapEntrySet.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Iterator.class.getSimpleName();
     }
 }

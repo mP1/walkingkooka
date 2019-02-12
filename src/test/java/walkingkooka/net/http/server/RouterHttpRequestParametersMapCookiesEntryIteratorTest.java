@@ -19,18 +19,25 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.iterator.IteratorTestCase;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.CookieName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.MemberVisibility;
 
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extends
-        IteratorTestCase<RouterHttpRequestParametersMapCookiesEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
+public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extends ClassTestCase<RouterHttpRequestParametersMapCookiesEntryIterator>
+        implements IteratorTesting,
+        ToStringTesting<RouterHttpRequestParametersMapCookiesEntryIterator>,
+        TypeNameTesting<RouterHttpRequestParametersMapCookiesEntryIterator> {
 
     private final static ClientCookie COOKIE1 = Cookie.client(CookieName.with("a"), "1");
     private final static ClientCookie COOKIE2 = Cookie.client(CookieName.with("b"), "2");
@@ -93,10 +100,6 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
         this.toStringAndCheck(iterator, "");
     }
 
-    @Override public RouterHttpRequestParametersMapCookiesEntryIterator createIterator() {
-        return this.createIterator(COOKIE1, COOKIE2);
-    }
-
     private RouterHttpRequestParametersMapCookiesEntryIterator createIterator(final ClientCookie... cookies) {
         return RouterHttpRequestParametersMapCookiesEntryIterator.with(Lists.of(cookies));
     }
@@ -104,5 +107,20 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
     @Override
     public Class<RouterHttpRequestParametersMapCookiesEntryIterator> type() {
         return RouterHttpRequestParametersMapCookiesEntryIterator.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return RouterHttpRequestParametersMap.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Iterator.class.getSimpleName();
     }
 }

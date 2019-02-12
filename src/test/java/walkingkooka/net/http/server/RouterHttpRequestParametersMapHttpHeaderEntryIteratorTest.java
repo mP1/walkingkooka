@@ -19,11 +19,15 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.iterator.IteratorTestCase;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 import java.util.List;
@@ -33,7 +37,10 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest extends
-        IteratorTestCase<RouterHttpRequestParametersMapHttpHeaderEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
+        ClassTestCase<RouterHttpRequestParametersMapHttpHeaderEntryIterator>
+        implements IteratorTesting,
+        ToStringTesting<RouterHttpRequestParametersMapHttpHeaderEntryIterator>,
+        TypeNameTesting<RouterHttpRequestParametersMapHttpHeaderEntryIterator> {
 
     private final static HttpHeaderName<Long> CONTENT_LENGTH = HttpHeaderName.CONTENT_LENGTH;
     private final static Long CONTENT_LENGTH_VALUE = 123L;
@@ -135,7 +142,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
         this.toStringAndCheck(RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(iterator), iterator.toString());
     }
 
-    @Override public RouterHttpRequestParametersMapHttpHeaderEntryIterator createIterator() {
+    private RouterHttpRequestParametersMapHttpHeaderEntryIterator createIterator() {
         return this.createIterator(this.headers2());
     }
 
@@ -153,5 +160,20 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
     @Override
     public Class<RouterHttpRequestParametersMapHttpHeaderEntryIterator> type() {
         return RouterHttpRequestParametersMapHttpHeaderEntryIterator.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return RouterHttpRequestParametersMap.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Iterator.class.getSimpleName();
     }
 }
