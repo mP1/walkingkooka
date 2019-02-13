@@ -22,30 +22,35 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.NodeTestCase2;
+import walkingkooka.tree.NodeTesting2;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestCase2<SearchNode,
-        SearchNodeName,
-        SearchNodeAttributeName,
-        String>
-        implements IsMethodTesting<N> {
+public abstract class SearchNodeTestCase<N extends SearchNode> extends ClassTestCase<SearchNode>
+        implements IsMethodTesting<N>,
+        NodeTesting2<SearchNode,
+                SearchNodeName,
+                SearchNodeAttributeName,
+                String> {
+
+    SearchNodeTestCase() {
+        super();
+    }
 
     @Test
-    public final void testPublicStaticFactoryMethod()  {
+    public final void testPublicStaticFactoryMethod() {
         PublicStaticFactoryTesting.check(SearchNode.class,
                 "Search",
                 Node.class,
@@ -78,7 +83,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     public final void testSetNameReturnType() throws Exception {
         final Class<N> type = this.searchNodeType();
         final Method method = type.getMethod("setName", SearchNodeName.class);
-        assertEquals(type, method.getReturnType(), ()-> method.toGenericString());
+        assertEquals(type, method.getReturnType(), () -> method.toGenericString());
     }
 
     @Test
@@ -172,40 +177,28 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         return SearchNode.text(text, text);
     }
 
-    final SearchSequenceNode sequence(final SearchNode...children) {
+    final SearchSequenceNode sequence(final SearchNode... children) {
         return SearchNode.sequence(Lists.of(children));
     }
 
-    @Override
-    protected SearchNode appendChildAndCheck(final SearchNode parent, final SearchNode child) {
-        final N newParent = parent.appendChild(child).cast();
-        assertNotSame(newParent, parent, "appendChild must not return the same node");
-
-        final List<N> children = Cast.to(newParent.children());
-        assertNotEquals(0, children.size(), "children must have at least 1 child");
-        //assertEquals("last child must be the added child", child.attributeName(), children.get(children.size() - 1).attributeName());
-
-        this.checkParentOfChildren(newParent);
-
-        return newParent;
+    final void replaceSelectedWithoutSelectedAndCheck(final SearchNode node) {
+        assertSame(node, node.replaceSelected((s) -> {
+            throw new UnsupportedOperationException();
+        }), node.toString());
     }
 
-    protected final void replaceSelectedWithoutSelectedAndCheck(final SearchNode node) {
-        assertSame(node, node.replaceSelected((s) -> {throw new UnsupportedOperationException(); }), node.toString());
-    }
-
-    protected final void replaceSelectedAndCheck(final SearchNode node,
-                                                 final Function<SearchSelectNode, SearchNode> replacer,
-                                                 final SearchNode expected) {
+    final void replaceSelectedAndCheck(final SearchNode node,
+                                       final Function<SearchSelectNode, SearchNode> replacer,
+                                       final SearchNode expected) {
         assertEquals(expected, node.replaceSelected(replacer), node.toString());
     }
 
-    protected final void replaceSelectedNothingAndCheck(final SearchNode node) {
+    final void replaceSelectedNothingAndCheck(final SearchNode node) {
         this.replaceSelectedNothingAndCheck(node, (n) -> n);
     }
 
-    protected final void replaceSelectedNothingAndCheck(final SearchNode node,
-                                                        final Function<SearchSelectNode, SearchNode> replacer) {
+    final void replaceSelectedNothingAndCheck(final SearchNode node,
+                                              final Function<SearchSelectNode, SearchNode> replacer) {
         assertSame(node, node.replaceSelected(replacer), node.toString());
     }
 
@@ -234,5 +227,12 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isRoot");
+    }
+
+    // ClassTestCase.........................................................................................
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

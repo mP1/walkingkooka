@@ -27,6 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNode> extends ExpressionNodeTestCase<N> {
 
+    ExpressionParentNodeTestCase() {
+        super();
+    }
+
     @Test
     public final void testCreate() {
         final N parent = this.createExpressionNode();

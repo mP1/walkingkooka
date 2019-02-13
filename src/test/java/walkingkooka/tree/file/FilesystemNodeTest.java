@@ -23,8 +23,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.NodeTestCase;
+import walkingkooka.tree.NodeTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -47,7 +49,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> {
+public final class FilesystemNodeTest extends ClassTestCase<FilesystemNode>
+        implements NodeTesting<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> {
 
     private final static String SUB = "sub";
     private final static String SUB_SUB = "subSub";
@@ -312,6 +315,11 @@ public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, Files
         return actual;
     }
 
+    @Override
+    public void testSetSameAttributes() {
+        throw new UnsupportedOperationException();
+    }
+
     // Helpers ...........................................................................................................
 
     @Override
@@ -376,12 +384,18 @@ public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, Files
         });
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return "File";
     }
 
     @Override
     public Class<FilesystemNode> type() {
         return FilesystemNode.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

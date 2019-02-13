@@ -20,33 +20,27 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
+/**
+ * A mixin interface that contains tests and helpers to assist testing of {@link Node} implementations..
+ */
+public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE extends Object>
         extends
-        NodeTestCase<N, NAME, ANAME, AVALUE> {
+        NodeTesting<N, NAME, ANAME, AVALUE> {
 
-    protected NodeTestCase2() {
-        super();
-    }
-
-    @Test final public void testChildrenCached() {
+    @Test
+    default void testChildrenCached() {
         final N node = this.createNode();
         this.checkCached(node, "children", node.children(), node.children());
     }
 
     @Test
-    public void testAppendChild() {
+    default void testAppendChild() {
         final N parent = this.createNode();
         final int parentChildCount = parent.children().size();
 
@@ -57,7 +51,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public void testAppendChild2() {
+    default void testAppendChild2() {
         final N parent = this.createNode();
         final int parentChildCount = parent.children().size();
 
@@ -71,16 +65,16 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public void testRemoveChildFirst() {
+    default void testRemoveChildFirst() {
         this.appendTwoChildrenAndRemove(0);
     }
 
     @Test
-    public void testRemoveChildLast() {
-       this.appendTwoChildrenAndRemove(1);
+    default void testRemoveChildLast() {
+        this.appendTwoChildrenAndRemove(1);
     }
 
-    private void appendTwoChildrenAndRemove(final int remove) {
+    default void appendTwoChildrenAndRemove(final int remove) {
         final N parent = this.createNode();
         final int parentCount = parent.children().size();
 
@@ -97,7 +91,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public void testReplaceChildWithoutParent() {
+    default void testReplaceChildWithoutParent() {
         assertThrows(IllegalArgumentException.class, () -> {
             final N parent = this.createNode();
             final N child = this.createNode();
@@ -107,7 +101,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public void testReplaceChildDifferentParent() {
+    default void testReplaceChildDifferentParent() {
         assertThrows(IllegalArgumentException.class, () -> {
             final N parent1 = this.createNode();
 
@@ -119,7 +113,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public void testReplaceChild() {
+    default void testReplaceChild() {
         final N parent = this.createNode();
 
         final N child1 = this.createNode();
@@ -131,7 +125,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public void setChildrenWithNullFails() {
+    default void setChildrenWithNullFails() {
         assertThrows(NullPointerException.class, () -> {
             final N parent = this.createNode();
             parent.setChildren(null);
@@ -139,7 +133,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public void testSetChildrenSame() {
+    default void testSetChildrenSame() {
         final N parentBefore = this.appendChildAndCheck(this.createNode(), this.createNode());
 
         final N parentAfter = parentBefore.setChildren(parentBefore.children());
@@ -147,7 +141,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    public void testSetDifferentChildren() {
+    default void testSetDifferentChildren() {
         final N parent = this.createNode();
 
         final N child1 = this.createNode();
@@ -161,76 +155,9 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
         this.checkChildCount(parent2, child3);
     }
 
-    @Test final public void testAttributesCached() {
+    @Test
+    default void testAttributesCached() {
         final N node = this.createNode();
         this.checkCached(node, "attributes", node.attributes(), node.attributes());
-    }
-
-    @Test
-    public void testSetSameAttributes() {
-        final N node = this.createNode();
-        assertSame(node, node.setAttributes(node.attributes()));
-    }
-
-    private <T> void checkCached(final N node, final String property, final T value, final T value2) {
-        assertSame(value, value2, () -> node + " did not cache " + property);
-    }
-
-    protected void checkParent(final N node, final N parent) {
-        assertSame(parent, node.parent(), () -> "parent of " + node);
-    }
-
-    protected N appendChildAndCheck(final N parent, final N child) {
-        final N newParent = parent.appendChild(child);
-        assertNotSame(newParent, parent, "appendChild must not return the same node");
-
-        final List<N> children = newParent.children();
-        assertNotEquals(0, children.size(), "children must have at least 1 child");
-        assertEquals(child.name(), children.get(children.size() - 1).name(), "last child must be the added child");
-
-        this.checkParentOfChildren(newParent);
-
-        return newParent;
-    }
-
-    protected N removeChildAndCheck(final N parent, final N child) {
-        final N newParent = parent.removeChild(child.index());
-        assertNotSame(newParent, parent, "removeChild must not return the same node");
-
-        final List<N> oldChildren = parent.children();
-        final List<N> newChildren = newParent.children();
-        assertEquals(oldChildren.size(), 1 + newChildren.size(), "new children must have 1 less child than old");
-
-        this.checkParentOfChildren(newParent);
-
-        return newParent;
-    }
-
-    @SafeVarargs
-    protected final N setChildrenAndCheck(final N parent, final N... children) {
-        final N newParent = parent.setChildren(Arrays.asList(children));
-
-        this.checkParentOfChildren(newParent);
-        this.checkChildCount(newParent, children);
-
-        return newParent;
-    }
-
-    protected void checkParentOfChildren(final N parent) {
-        int i = 0;
-        for (N child : parent.children()) {
-            final int j = i;
-            assertSame(parent, child.parent().get(), () -> "parent of child[" + i + "]=" + child);
-        }
-    }
-
-    @SafeVarargs
-    protected final void checkChildCount(final N parent, final N... children) {
-        this.checkChildCount(parent, children.length);
-    }
-
-    protected void checkChildCount(final N parent, final int count) {
-        assertEquals(parent.children().size(), count, "children of parent");
-        this.checkParentOfChildren(parent);
     }
 }

@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.StringName;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -34,7 +35,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName, Object> {
+public class TestNodeTest extends ClassTestCase<TestNode>
+        implements NodeTesting2<TestNode, StringName, StringName, Object> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -148,6 +150,31 @@ public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName
 
     @Override
     public void testReplaceChildDifferentParent() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testAppendChild() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testAppendChild2() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testRemoveChildFirst() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testRemoveChildLast() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetChildrenSame() {
         throw new UnsupportedOperationException();
     }
 

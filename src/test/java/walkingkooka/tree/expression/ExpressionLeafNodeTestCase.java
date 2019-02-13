@@ -28,6 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>, V> extends ExpressionNodeTestCase<N> {
 
+    ExpressionLeafNodeTestCase() {
+        super();
+    }
+
     @Test
     public final void testCreate() {
         final N node = this.createExpressionNode();
