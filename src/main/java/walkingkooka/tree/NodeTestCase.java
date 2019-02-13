@@ -20,6 +20,7 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -114,7 +115,7 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Test
     public void testPropertiesNeverReturnNull() throws Exception {
-        propertiesNeverReturnNullCheck(this.createNode());
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode());
     }
 
     abstract public N createNode();

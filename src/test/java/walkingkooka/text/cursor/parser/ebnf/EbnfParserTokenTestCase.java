@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -49,7 +50,7 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<EbnfParserToken> without = this.createToken().withoutCommentsSymbolsOrWhitespace();
         if(without.isPresent()){
-            this.propertiesNeverReturnNullCheck(without.get());
+            BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get());
         }
     }
 

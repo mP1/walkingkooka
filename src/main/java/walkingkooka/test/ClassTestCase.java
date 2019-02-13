@@ -30,14 +30,10 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -128,40 +124,6 @@ abstract public class ClassTestCase<T> extends TestCase
                 fail("Fields must be private/package protected(testing)=" + field.toGenericString());
             }
         }
-    }
-
-    protected void propertiesNeverReturnNullCheck(final Object object) throws Exception {
-        final List<Method> properties = Arrays.stream(object.getClass().getMethods())
-                .filter((m) -> this.propertiesNeverReturnNullCheckFilter(m, object))
-                .collect(Collectors.toList());
-        assertNotEquals(0,
-                properties.size(),
-                "Found zero properties for type=" + object.getClass().getName());
-        for(Method method : properties) {
-            method.setAccessible(true);
-            assertNotNull(method.invoke(object),
-                    () -> "null should not have been returned by " + method + " for " + object);
-        }
-    }
-
-    /**
-     * Keep instance methods, that return something, take no parameters, arent a Object member or tagged with {@link SkipPropertyNeverReturnsNullCheck}
-     */
-    private boolean propertiesNeverReturnNullCheckFilter(final Method method, final Object object) {
-        return !MethodAttributes.STATIC.is(method) &&
-                method.getReturnType() != Void.class &&
-                method.getParameterTypes().length == 0 &&
-                method.getDeclaringClass() != Object.class &&
-                !skipMethod(method, object);
-    }
-
-    private boolean skipMethod(final Method method, final Object object) {
-        boolean skip = false;
-        if(method.isAnnotationPresent(SkipPropertyNeverReturnsNullCheck.class)){
-            final Class<?>[] skipTypes = method.getAnnotation(SkipPropertyNeverReturnsNullCheck.class).value();
-            skip = Arrays.asList(skipTypes).contains(object.getClass());
-        }
-        return skip;
     }
 
     /**

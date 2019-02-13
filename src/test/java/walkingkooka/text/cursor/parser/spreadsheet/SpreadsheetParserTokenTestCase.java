@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -73,7 +74,7 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<SpreadsheetParserToken> without = this.createToken().withoutSymbols();
         if(without.isPresent()){
-            this.propertiesNeverReturnNullCheck(without.get());
+            BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get());
         }
     }
 
