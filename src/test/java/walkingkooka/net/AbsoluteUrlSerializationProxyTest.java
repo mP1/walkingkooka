@@ -19,11 +19,14 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.io.serialize.SerializationProxyTestCase;
+import walkingkooka.io.serialize.SerializationProxyTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-public final class AbsoluteUrlSerializationProxyTest extends SerializationProxyTestCase<AbsoluteUrlSerializationProxy> {
+public final class AbsoluteUrlSerializationProxyTest extends ClassTestCase<AbsoluteUrlSerializationProxy>
+        implements SerializationProxyTesting<AbsoluteUrlSerializationProxy> {
 
     @Test
     public void testToString() {
@@ -37,5 +40,10 @@ public final class AbsoluteUrlSerializationProxyTest extends SerializationProxyT
     @Override
     public Class<AbsoluteUrlSerializationProxy> type() {
         return AbsoluteUrlSerializationProxy.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

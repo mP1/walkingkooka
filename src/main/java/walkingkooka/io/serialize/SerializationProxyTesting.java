@@ -18,27 +18,19 @@
 package walkingkooka.io.serialize;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Base class for testing a {@link SerializationProxy} with mostly parameter checking tests.
+ * Mixin interface with helpers to assist testing {@link SerializationProxy} implementations.
  */
-abstract public class SerializationProxyTestCase<P extends SerializationProxy>
-        extends ClassTestCase<P>
-        implements ToStringTesting<P>,
+public interface SerializationProxyTesting<P extends SerializationProxy> extends ToStringTesting<P>,
         TypeNameTesting<P> {
 
-    public SerializationProxyTestCase() {
-        super();
-    }
-
     @Test
-    public void testReadResolve() {
+    default void testReadResolve() {
         boolean found = false;
         Class<?> type = this.type();
         for (; ; ) {
@@ -58,21 +50,15 @@ abstract public class SerializationProxyTestCase<P extends SerializationProxy>
         assertTrue(found, () -> "Unable to find no args readResolve method on " + type2.getName());
     }
 
-    @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
-
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return SerializationProxy.class.getSimpleName();
     }
 }
