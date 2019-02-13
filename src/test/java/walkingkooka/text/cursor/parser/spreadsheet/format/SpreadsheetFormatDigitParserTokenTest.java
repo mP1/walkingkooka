@@ -68,7 +68,7 @@ public final class SpreadsheetFormatDigitParserTokenTest extends SpreadsheetForm
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "#";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatDigitParserTokenTest extends SpreadsheetForm
     }
 
     @Override
-    protected SpreadsheetFormatDigitParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatDigitParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatDigitParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatDigitParserToken createDifferentToken() {
+    public SpreadsheetFormatDigitParserToken createDifferentToken() {
         return SpreadsheetFormatDigitParserToken.with("'different'", "'different'");
     }
 

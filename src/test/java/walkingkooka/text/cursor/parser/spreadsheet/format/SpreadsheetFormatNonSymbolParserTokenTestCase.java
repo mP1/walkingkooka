@@ -25,6 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class SpreadsheetFormatNonSymbolParserTokenTestCase<T extends SpreadsheetFormatNonSymbolParserToken<V>, V> extends SpreadsheetFormatLeafParserTokenTestCase<T, V> {
 
+    SpreadsheetFormatNonSymbolParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public final void testWithoutSymbols() {
         final T token = this.createToken();

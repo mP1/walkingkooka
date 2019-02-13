@@ -68,7 +68,7 @@ public final class SpreadsheetFormatDecimalPointParserTokenTest extends Spreadsh
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatDecimalPointParserTokenTest extends Spreadsh
     }
 
     @Override
-    protected SpreadsheetFormatDecimalPointParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatDecimalPointParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatDecimalPointParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatDecimalPointParserToken createDifferentToken() {
+    public SpreadsheetFormatDecimalPointParserToken createDifferentToken() {
         return SpreadsheetFormatDecimalPointParserToken.with(this.text(), "different");
     }
 

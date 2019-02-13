@@ -68,7 +68,7 @@ public final class SpreadsheetFormatStarParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "*" + this.value();
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatStarParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected SpreadsheetFormatStarParserToken createToken(final Character value, final String text) {
+    SpreadsheetFormatStarParserToken createToken(final Character value, final String text) {
         return SpreadsheetFormatStarParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatStarParserToken createDifferentToken() {
+    public SpreadsheetFormatStarParserToken createDifferentToken() {
         return SpreadsheetFormatStarParserToken.with('Z', "*Z");
     }
 

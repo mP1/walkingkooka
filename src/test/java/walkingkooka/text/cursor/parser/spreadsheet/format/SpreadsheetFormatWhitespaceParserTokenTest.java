@@ -68,17 +68,17 @@ public final class SpreadsheetFormatWhitespaceParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "'A'";
     }
 
     @Override
-    protected SpreadsheetFormatWhitespaceParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatWhitespaceParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatWhitespaceParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatWhitespaceParserToken createDifferentToken() {
+    public SpreadsheetFormatWhitespaceParserToken createDifferentToken() {
         return SpreadsheetFormatWhitespaceParserToken.with("'different'", "'different'");
     }
 

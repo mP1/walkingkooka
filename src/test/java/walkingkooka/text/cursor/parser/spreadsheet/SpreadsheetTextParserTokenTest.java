@@ -118,7 +118,7 @@ public final class SpreadsheetTextParserTokenTest extends SpreadsheetNonSymbolPa
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "'A'";
     }
 
@@ -128,12 +128,12 @@ public final class SpreadsheetTextParserTokenTest extends SpreadsheetNonSymbolPa
     }
 
     @Override
-    protected SpreadsheetTextParserToken createToken(final String value, final String text) {
+    SpreadsheetTextParserToken createToken(final String value, final String text) {
         return SpreadsheetTextParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetTextParserToken createDifferentToken() {
+    public SpreadsheetTextParserToken createDifferentToken() {
         return SpreadsheetTextParserToken.with("'different'", "'different'");
     }
 

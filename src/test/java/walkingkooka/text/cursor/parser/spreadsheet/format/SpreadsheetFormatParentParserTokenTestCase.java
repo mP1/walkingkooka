@@ -41,6 +41,10 @@ public abstract class SpreadsheetFormatParentParserTokenTestCase<T extends Sprea
 
     final static String WHITESPACE = "   ";
 
+    SpreadsheetFormatParentParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public final void testWithNullTokensFails() {
         assertThrows(NullPointerException.class, () -> {
@@ -109,7 +113,8 @@ public abstract class SpreadsheetFormatParentParserTokenTestCase<T extends Sprea
 
     abstract T createToken(final String text, final List<ParserToken> tokens);
 
-    final protected T createToken(final String text) {
+    @Override
+    final public T createToken(final String text) {
         return this.createToken(text, this.tokens());
     }
 

@@ -68,7 +68,7 @@ public final class NodeSelectorAncestorOrSelfParserTokenTest extends NodeSelecto
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "ancestor-or-self";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorAncestorOrSelfParserTokenTest extends NodeSelecto
     }
 
     @Override
-    protected NodeSelectorAncestorOrSelfParserToken createToken(final String value, final String text) {
+    NodeSelectorAncestorOrSelfParserToken createToken(final String value, final String text) {
         return NodeSelectorAncestorOrSelfParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorAncestorOrSelfParserToken createDifferentToken() {
+    public NodeSelectorAncestorOrSelfParserToken createDifferentToken() {
         return NodeSelectorAncestorOrSelfParserToken.with("ancestor-or-self-2", "ancestor-or-self-2");
     }
 

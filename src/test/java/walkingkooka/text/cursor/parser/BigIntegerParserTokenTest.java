@@ -73,17 +73,17 @@ public final class BigIntegerParserTokenTest extends ParserTokenTestCase<BigInte
     }
 
     @Override
-    protected BigIntegerParserToken createToken(final String text) {
+    public BigIntegerParserToken createToken(final String text) {
         return BigIntegerParserToken.with(new BigInteger(text), text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123";
     }
 
     @Override
-    protected BigIntegerParserToken createDifferentToken() {
+    public BigIntegerParserToken createDifferentToken() {
         return this.createToken("890");
     }
 

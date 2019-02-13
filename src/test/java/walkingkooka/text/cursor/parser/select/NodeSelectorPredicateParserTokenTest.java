@@ -170,7 +170,7 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "contains(@attribute1,\"xyz\")";
     }
 
@@ -180,7 +180,7 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
     }
 
     @Override
-    protected NodeSelectorPredicateParserToken createDifferentToken() {
+    public NodeSelectorPredicateParserToken createDifferentToken() {
         return predicate(function(functionName(), parenthesisOpen(), attributeName(), comma(), quotedText("different"), parenthesisClose()));
     }
 

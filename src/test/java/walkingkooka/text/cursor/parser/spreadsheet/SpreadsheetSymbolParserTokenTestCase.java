@@ -22,6 +22,10 @@ import org.junit.jupiter.api.Test;
 
 public abstract class SpreadsheetSymbolParserTokenTestCase<T extends SpreadsheetSymbolParserToken> extends SpreadsheetLeafParserTokenTestCase<T, String>{
 
+    SpreadsheetSymbolParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public final void testToExpressionNode() {
         this.toExpressionNodeAndFail();

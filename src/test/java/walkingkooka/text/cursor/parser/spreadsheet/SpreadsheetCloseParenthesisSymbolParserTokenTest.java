@@ -68,7 +68,7 @@ public final class SpreadsheetCloseParenthesisSymbolParserTokenTest extends Spre
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ")";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetCloseParenthesisSymbolParserTokenTest extends Spre
     }
 
     @Override
-    protected SpreadsheetCloseParenthesisSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetCloseParenthesisSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetCloseParenthesisSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetCloseParenthesisSymbolParserToken createDifferentToken() {
+    public SpreadsheetCloseParenthesisSymbolParserToken createDifferentToken() {
         return SpreadsheetCloseParenthesisSymbolParserToken.with(this.text(), "different");
     }
 

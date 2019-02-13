@@ -76,7 +76,7 @@ public final class SpreadsheetBigIntegerParserTokenTest extends SpreadsheetNumer
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123";
     }
 
@@ -86,12 +86,12 @@ public final class SpreadsheetBigIntegerParserTokenTest extends SpreadsheetNumer
     }
 
     @Override
-    protected SpreadsheetBigIntegerParserToken createToken(final BigInteger value, final String text) {
+    SpreadsheetBigIntegerParserToken createToken(final BigInteger value, final String text) {
         return SpreadsheetBigIntegerParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetBigIntegerParserToken createDifferentToken() {
+    public SpreadsheetBigIntegerParserToken createDifferentToken() {
         return SpreadsheetBigIntegerParserToken.with(BigInteger.valueOf(-1), "'different'");
     }
 

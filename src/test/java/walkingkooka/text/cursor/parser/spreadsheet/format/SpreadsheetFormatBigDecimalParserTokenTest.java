@@ -115,12 +115,12 @@ public final class SpreadsheetFormatBigDecimalParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return TEXT1 + "#";
     }
 
     @Override
-    protected SpreadsheetFormatBigDecimalParserToken createDifferentToken() {
+    public SpreadsheetFormatBigDecimalParserToken createDifferentToken() {
         return SpreadsheetFormatBigDecimalParserToken.with(Lists.of(this.text2()), TEXT2);
     }
 

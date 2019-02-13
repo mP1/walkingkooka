@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 public abstract class SpreadsheetLeafParserTokenTestCase<T extends SpreadsheetLeafParserToken, V> extends SpreadsheetParserTokenTestCase<T> {
 
     @Override
-    protected final T createToken(final String text) {
+    public final T createToken(final String text) {
         return this.createToken(this.value(), text);
     }
 

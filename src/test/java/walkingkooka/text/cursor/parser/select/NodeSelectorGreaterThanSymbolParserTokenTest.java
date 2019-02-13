@@ -68,7 +68,7 @@ public final class NodeSelectorGreaterThanSymbolParserTokenTest extends NodeSele
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ">";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorGreaterThanSymbolParserTokenTest extends NodeSele
     }
 
     @Override
-    protected NodeSelectorGreaterThanSymbolParserToken createToken(final String value, final String text) {
+    NodeSelectorGreaterThanSymbolParserToken createToken(final String value, final String text) {
         return NodeSelectorGreaterThanSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorGreaterThanSymbolParserToken createDifferentToken() {
+    public NodeSelectorGreaterThanSymbolParserToken createDifferentToken() {
         return NodeSelectorGreaterThanSymbolParserToken.with(this.text(), "different");
     }
 

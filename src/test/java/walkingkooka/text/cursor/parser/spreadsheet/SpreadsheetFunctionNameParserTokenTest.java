@@ -73,7 +73,7 @@ public final class SpreadsheetFunctionNameParserTokenTest extends SpreadsheetNon
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "sum";
     }
 
@@ -83,12 +83,12 @@ public final class SpreadsheetFunctionNameParserTokenTest extends SpreadsheetNon
     }
 
     @Override
-    protected SpreadsheetFunctionNameParserToken createToken(final SpreadsheetFunctionName value, final String text) {
+    SpreadsheetFunctionNameParserToken createToken(final SpreadsheetFunctionName value, final String text) {
         return SpreadsheetFunctionNameParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFunctionNameParserToken createDifferentToken() {
+    public SpreadsheetFunctionNameParserToken createDifferentToken() {
         return SpreadsheetFunctionNameParserToken.with(SpreadsheetFunctionName.with("different"), "different");
     }
 

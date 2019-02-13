@@ -68,7 +68,7 @@ public final class SpreadsheetFormatYearParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatYearParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected SpreadsheetFormatYearParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatYearParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatYearParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatYearParserToken createDifferentToken() {
+    public SpreadsheetFormatYearParserToken createDifferentToken() {
         return SpreadsheetFormatYearParserToken.with(this.text(), "different");
     }
 

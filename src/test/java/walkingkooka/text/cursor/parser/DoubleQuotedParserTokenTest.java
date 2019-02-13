@@ -76,17 +76,17 @@ public final class DoubleQuotedParserTokenTest extends ParserTokenTestCase<Doubl
     }
     
     @Override
-    protected DoubleQuotedParserToken createToken(final String text) {
+    public DoubleQuotedParserToken createToken(final String text) {
         return DoubleQuotedParserToken.with(text.substring(1, text.length() -1), text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return CharSequences.quote("abc").toString();
     }
 
     @Override
-    protected DoubleQuotedParserToken createDifferentToken() {
+    public DoubleQuotedParserToken createDifferentToken() {
         return this.createToken("\"different\"");
     }
 

@@ -106,12 +106,12 @@ public final class SpreadsheetFormatExpressionParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return this.text1().text();
     }
 
     @Override
-    protected SpreadsheetFormatExpressionParserToken createDifferentToken() {
+    public SpreadsheetFormatExpressionParserToken createDifferentToken() {
         final SpreadsheetFormatParserToken text = this.text2();
         return SpreadsheetFormatExpressionParserToken.with(Lists.of(text),
                 text.text());

@@ -67,7 +67,7 @@ public final class EbnfCommentParserTokenTest extends EbnfLeafParserTokenTestCas
     }
     
     @Override
-    protected String text() {
+    public String text() {
         return "(* comment *)";
     }
 
@@ -76,12 +76,12 @@ public final class EbnfCommentParserTokenTest extends EbnfLeafParserTokenTestCas
     }
 
     @Override
-    protected EbnfCommentParserToken createToken(final String value, final String text) {
+    EbnfCommentParserToken createToken(final String value, final String text) {
         return EbnfCommentParserToken.with(value, text);
     }
 
     @Override
-    protected EbnfCommentParserToken createDifferentToken() {
+    public EbnfCommentParserToken createDifferentToken() {
         return EbnfCommentParserToken.with("(* different *)", "(* different *)");
     }
 

@@ -69,7 +69,7 @@ public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymb
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return String.valueOf(this.value());
     }
 
@@ -79,12 +79,12 @@ public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymb
     }
 
     @Override
-    protected NodeSelectorNumberParserToken createToken(final Long value, final String text) {
+    NodeSelectorNumberParserToken createToken(final Long value, final String text) {
         return NodeSelectorNumberParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorNumberParserToken createDifferentToken() {
+    public NodeSelectorNumberParserToken createDifferentToken() {
         return NodeSelectorNumberParserToken.with(-999, "-999");
     }
 

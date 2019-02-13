@@ -160,12 +160,12 @@ public final class SpreadsheetFormatTextParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return TEXT1 + "@";
     }
 
     @Override
-    protected SpreadsheetFormatTextParserToken createDifferentToken() {
+    public SpreadsheetFormatTextParserToken createDifferentToken() {
         return SpreadsheetFormatTextParserToken.with(Lists.of(this.text2()), TEXT2);
     }
 

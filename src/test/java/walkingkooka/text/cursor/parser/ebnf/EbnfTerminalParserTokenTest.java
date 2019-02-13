@@ -67,7 +67,7 @@ public final class EbnfTerminalParserTokenTest extends EbnfLeafParserTokenTestCa
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "'A'";
     }
 
@@ -76,12 +76,12 @@ public final class EbnfTerminalParserTokenTest extends EbnfLeafParserTokenTestCa
     }
 
     @Override
-    protected EbnfTerminalParserToken createToken(final String value, final String text) {
+    EbnfTerminalParserToken createToken(final String value, final String text) {
         return EbnfTerminalParserToken.with(value, text);
     }
 
     @Override
-    protected EbnfTerminalParserToken createDifferentToken() {
+    public EbnfTerminalParserToken createDifferentToken() {
         return EbnfTerminalParserToken.with("'different'", "'different'");
     }
 

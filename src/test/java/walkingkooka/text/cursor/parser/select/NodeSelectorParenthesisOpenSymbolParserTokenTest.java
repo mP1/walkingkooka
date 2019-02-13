@@ -68,7 +68,7 @@ public final class NodeSelectorParenthesisOpenSymbolParserTokenTest extends Node
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ")";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorParenthesisOpenSymbolParserTokenTest extends Node
     }
 
     @Override
-    protected NodeSelectorParenthesisOpenSymbolParserToken createToken(final String value, final String text) {
+    NodeSelectorParenthesisOpenSymbolParserToken createToken(final String value, final String text) {
         return NodeSelectorParenthesisOpenSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorParenthesisOpenSymbolParserToken createDifferentToken() {
+    public NodeSelectorParenthesisOpenSymbolParserToken createDifferentToken() {
         return NodeSelectorParenthesisOpenSymbolParserToken.with(this.text(), "different");
     }
 

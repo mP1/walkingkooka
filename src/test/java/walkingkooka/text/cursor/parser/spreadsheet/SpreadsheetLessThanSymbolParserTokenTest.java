@@ -68,7 +68,7 @@ public final class SpreadsheetLessThanSymbolParserTokenTest extends SpreadsheetS
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetLessThanSymbolParserTokenTest extends SpreadsheetS
     }
 
     @Override
-    protected SpreadsheetLessThanSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetLessThanSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetLessThanSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetLessThanSymbolParserToken createDifferentToken() {
+    public SpreadsheetLessThanSymbolParserToken createDifferentToken() {
         return SpreadsheetLessThanSymbolParserToken.with(this.text(), "different");
     }
 

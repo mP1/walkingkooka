@@ -68,7 +68,7 @@ public final class SpreadsheetFormatAmPmParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123.5";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatAmPmParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected SpreadsheetFormatAmPmParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatAmPmParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatAmPmParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatAmPmParserToken createDifferentToken() {
+    public SpreadsheetFormatAmPmParserToken createDifferentToken() {
         return SpreadsheetFormatAmPmParserToken.with("ABC", "'different'");
     }
 

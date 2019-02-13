@@ -68,17 +68,17 @@ public final class SpreadsheetFormatFractionSymbolParserTokenTest extends Spread
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
     @Override
-    protected SpreadsheetFormatFractionSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatFractionSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatFractionSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatFractionSymbolParserToken createDifferentToken() {
+    public SpreadsheetFormatFractionSymbolParserToken createDifferentToken() {
         return SpreadsheetFormatFractionSymbolParserToken.with(this.text(), "different");
     }
 

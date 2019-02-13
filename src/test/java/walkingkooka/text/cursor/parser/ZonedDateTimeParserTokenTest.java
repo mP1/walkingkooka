@@ -57,17 +57,17 @@ public final class ZonedDateTimeParserTokenTest extends ParserTokenTestCase<Zone
     }
 
     @Override
-    protected ZonedDateTimeParserToken createToken(final String text) {
+    public ZonedDateTimeParserToken createToken(final String text) {
         return ZonedDateTimeParserToken.with(ZonedDateTime.parse(text, DateTimeFormatter.ISO_DATE_TIME), text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "2001-12-31T12:58:59+00:00";
     }
 
     @Override
-    protected ZonedDateTimeParserToken createDifferentToken() {
+    public ZonedDateTimeParserToken createDifferentToken() {
         return this.createToken("2002-01-01T01:02:59+00:00");
     }
 

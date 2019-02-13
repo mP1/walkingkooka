@@ -68,17 +68,17 @@ public final class SpreadsheetFormatColorLiteralSymbolParserTokenTest extends Sp
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
     @Override
-    protected SpreadsheetFormatColorLiteralSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatColorLiteralSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatColorLiteralSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatColorLiteralSymbolParserToken createDifferentToken() {
+    public SpreadsheetFormatColorLiteralSymbolParserToken createDifferentToken() {
         return SpreadsheetFormatColorLiteralSymbolParserToken.with(this.text(), "different");
     }
 

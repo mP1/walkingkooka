@@ -19,18 +19,25 @@ package walkingkooka.text.cursor.parser.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenTestCase;
+import walkingkooka.text.cursor.parser.ParserTokenTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken> extends ParserTokenTestCase<T>
-        implements IsMethodTesting<T> {
+public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken> extends ClassTestCase<T>
+        implements IsMethodTesting<T>,
+        ParserTokenTesting<T> {
+
+    JsonNodeParserTokenTestCase() {
+        super();
+    }
 
     @Test
     public final void testPublicStaticFactoryMethod() {
@@ -134,4 +141,8 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
         return (m) -> m.equals("isNoise") || m.equals("isSymbol"); // skip isNoise
     }
 
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
 }

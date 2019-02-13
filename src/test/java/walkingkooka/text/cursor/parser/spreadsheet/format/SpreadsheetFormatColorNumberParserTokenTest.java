@@ -70,7 +70,7 @@ public final class SpreadsheetFormatColorNumberParserTokenTest extends Spreadshe
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -80,12 +80,12 @@ public final class SpreadsheetFormatColorNumberParserTokenTest extends Spreadshe
     }
 
     @Override
-    protected SpreadsheetFormatColorNumberParserToken createToken(final Integer value, final String text) {
+    SpreadsheetFormatColorNumberParserToken createToken(final Integer value, final String text) {
         return SpreadsheetFormatColorNumberParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatColorNumberParserToken createDifferentToken() {
+    public SpreadsheetFormatColorNumberParserToken createDifferentToken() {
         return SpreadsheetFormatColorNumberParserToken.with(VALUE + 1, "different");
     }
 

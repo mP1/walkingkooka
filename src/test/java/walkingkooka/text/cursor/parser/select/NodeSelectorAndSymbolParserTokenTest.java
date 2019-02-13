@@ -68,7 +68,7 @@ public final class NodeSelectorAndSymbolParserTokenTest extends NodeSelectorSymb
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "&";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorAndSymbolParserTokenTest extends NodeSelectorSymb
     }
 
     @Override
-    protected NodeSelectorAndSymbolParserToken createToken(final String value, final String text) {
+    NodeSelectorAndSymbolParserToken createToken(final String value, final String text) {
         return NodeSelectorAndSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorAndSymbolParserToken createDifferentToken() {
+    public NodeSelectorAndSymbolParserToken createDifferentToken() {
         return NodeSelectorAndSymbolParserToken.with(this.text(), "different");
     }
 

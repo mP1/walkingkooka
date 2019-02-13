@@ -68,7 +68,7 @@ public final class JsonNodeWhitespaceParserTokenTest extends JsonNodeSymbolParse
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return " ";
     }
 
@@ -78,12 +78,12 @@ public final class JsonNodeWhitespaceParserTokenTest extends JsonNodeSymbolParse
     }
 
     @Override
-    protected JsonNodeWhitespaceParserToken createToken(final String value, final String text) {
+    JsonNodeWhitespaceParserToken createToken(final String value, final String text) {
         return JsonNodeWhitespaceParserToken.with(value, text);
     }
 
     @Override
-    protected JsonNodeWhitespaceParserToken createDifferentToken() {
+    public JsonNodeWhitespaceParserToken createDifferentToken() {
         return JsonNodeWhitespaceParserToken.with("\n\r", "\n\r");
     }
 

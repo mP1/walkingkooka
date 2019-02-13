@@ -68,7 +68,7 @@ public final class SpreadsheetFormatCurrencyParserTokenTest extends SpreadsheetF
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatCurrencyParserTokenTest extends SpreadsheetF
     }
 
     @Override
-    protected SpreadsheetFormatCurrencyParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatCurrencyParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatCurrencyParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatCurrencyParserToken createDifferentToken() {
+    public SpreadsheetFormatCurrencyParserToken createDifferentToken() {
         return SpreadsheetFormatCurrencyParserToken.with(this.text(), "different");
     }
 

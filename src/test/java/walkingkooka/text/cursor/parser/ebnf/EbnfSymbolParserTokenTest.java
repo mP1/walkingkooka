@@ -67,7 +67,7 @@ public final class EbnfSymbolParserTokenTest extends EbnfLeafParserTokenTestCase
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ";";
     }
 
@@ -76,12 +76,12 @@ public final class EbnfSymbolParserTokenTest extends EbnfLeafParserTokenTestCase
     }
 
     @Override
-    protected EbnfSymbolParserToken createToken(final String value, final String text) {
+    EbnfSymbolParserToken createToken(final String value, final String text) {
         return EbnfSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected EbnfSymbolParserToken createDifferentToken() {
+    public EbnfSymbolParserToken createDifferentToken() {
         return EbnfSymbolParserToken.with("|", "|");
     }
 

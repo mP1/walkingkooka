@@ -61,17 +61,17 @@ public final class StringParserTokenTest extends ParserTokenTestCase<StringParse
     }
     
     @Override
-    protected StringParserToken createToken(final String text) {
+    public StringParserToken createToken(final String text) {
         return StringParserToken.with(text, text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "abc";
     }
 
     @Override
-    protected StringParserToken createDifferentToken() {
+    public StringParserToken createDifferentToken() {
         return this.createToken("different");
     }
 

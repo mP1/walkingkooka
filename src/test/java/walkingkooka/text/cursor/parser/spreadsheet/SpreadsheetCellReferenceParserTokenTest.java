@@ -122,7 +122,7 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ROW_TEXT + COLUMN_TEXT;
     }
 
@@ -132,7 +132,7 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
     }
 
     @Override
-    protected SpreadsheetCellReferenceParserToken createDifferentToken() {
+    public SpreadsheetCellReferenceParserToken createDifferentToken() {
         return this.createToken("D9", Lists.of(this.column(9), this.row(3, "D")));
     }
 

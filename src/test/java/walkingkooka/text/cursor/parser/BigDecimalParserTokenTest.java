@@ -73,17 +73,17 @@ public final class BigDecimalParserTokenTest extends ParserTokenTestCase<BigDeci
     }
 
     @Override
-    protected BigDecimalParserToken createToken(final String text) {
+    public BigDecimalParserToken createToken(final String text) {
         return BigDecimalParserToken.with(new BigDecimal(text), text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123";
     }
 
     @Override
-    protected BigDecimalParserToken createDifferentToken() {
+    public BigDecimalParserToken createDifferentToken() {
         return BigDecimalParserToken.with(BigDecimal.valueOf(987), "987");
     }
 

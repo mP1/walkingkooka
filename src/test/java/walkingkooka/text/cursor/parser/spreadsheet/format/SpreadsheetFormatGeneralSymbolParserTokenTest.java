@@ -68,17 +68,17 @@ public final class SpreadsheetFormatGeneralSymbolParserTokenTest extends Spreads
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "GENEral";
     }
 
     @Override
-    protected SpreadsheetFormatGeneralSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatGeneralSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatGeneralSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatGeneralSymbolParserToken createDifferentToken() {
+    public SpreadsheetFormatGeneralSymbolParserToken createDifferentToken() {
         return SpreadsheetFormatGeneralSymbolParserToken.with(this.text(), "different");
     }
 

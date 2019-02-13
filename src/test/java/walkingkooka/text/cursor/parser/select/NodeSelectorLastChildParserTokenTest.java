@@ -68,7 +68,7 @@ public final class NodeSelectorLastChildParserTokenTest extends NodeSelectorNonS
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "last-child";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorLastChildParserTokenTest extends NodeSelectorNonS
     }
 
     @Override
-    protected NodeSelectorLastChildParserToken createToken(final String value, final String text) {
+    NodeSelectorLastChildParserToken createToken(final String value, final String text) {
         return NodeSelectorLastChildParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorLastChildParserToken createDifferentToken() {
+    public NodeSelectorLastChildParserToken createDifferentToken() {
         return NodeSelectorLastChildParserToken.with("last-child2", "last-child2");
     }
 

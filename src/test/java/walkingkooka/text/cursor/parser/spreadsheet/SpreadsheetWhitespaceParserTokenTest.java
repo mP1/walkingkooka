@@ -90,7 +90,7 @@ public final class SpreadsheetWhitespaceParserTokenTest extends SpreadsheetSymbo
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return " ";
     }
 
@@ -100,12 +100,12 @@ public final class SpreadsheetWhitespaceParserTokenTest extends SpreadsheetSymbo
     }
 
     @Override
-    protected SpreadsheetWhitespaceParserToken createToken(final String value, final String text) {
+    SpreadsheetWhitespaceParserToken createToken(final String value, final String text) {
         return SpreadsheetWhitespaceParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetWhitespaceParserToken createDifferentToken() {
+    public SpreadsheetWhitespaceParserToken createDifferentToken() {
         return SpreadsheetWhitespaceParserToken.with("\n\r", "\n\r");
     }
 

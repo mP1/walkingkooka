@@ -68,7 +68,7 @@ public final class SpreadsheetEqualsSymbolParserTokenTest extends SpreadsheetSym
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "==";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetEqualsSymbolParserTokenTest extends SpreadsheetSym
     }
 
     @Override
-    protected SpreadsheetEqualsSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetEqualsSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetEqualsSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetEqualsSymbolParserToken createDifferentToken() {
+    public SpreadsheetEqualsSymbolParserToken createDifferentToken() {
         return SpreadsheetEqualsSymbolParserToken.with(this.text(), "different");
     }
 

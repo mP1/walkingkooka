@@ -68,7 +68,7 @@ public final class NodeSelectorAtSignSymbolParserTokenTest extends NodeSelectorS
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "@";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorAtSignSymbolParserTokenTest extends NodeSelectorS
     }
 
     @Override
-    protected NodeSelectorAtSignSymbolParserToken createToken(final String value, final String text) {
+    NodeSelectorAtSignSymbolParserToken createToken(final String value, final String text) {
         return NodeSelectorAtSignSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorAtSignSymbolParserToken createDifferentToken() {
+    public NodeSelectorAtSignSymbolParserToken createDifferentToken() {
         return NodeSelectorAtSignSymbolParserToken.with(this.text(), "different");
     }
 

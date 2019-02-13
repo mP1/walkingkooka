@@ -76,7 +76,7 @@ public final class SpreadsheetLocalTimeParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "12:59";
     }
 
@@ -86,12 +86,12 @@ public final class SpreadsheetLocalTimeParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected SpreadsheetLocalTimeParserToken createToken(final LocalTime value, final String text) {
+    SpreadsheetLocalTimeParserToken createToken(final LocalTime value, final String text) {
         return SpreadsheetLocalTimeParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetLocalTimeParserToken createDifferentToken() {
+    public SpreadsheetLocalTimeParserToken createDifferentToken() {
         return SpreadsheetLocalTimeParserToken.with(LocalTime.parse("23:58"), "'different'");
     }
 

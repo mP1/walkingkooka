@@ -68,7 +68,7 @@ public final class SpreadsheetMinusSymbolParserTokenTest extends SpreadsheetSymb
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "-";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetMinusSymbolParserTokenTest extends SpreadsheetSymb
     }
 
     @Override
-    protected SpreadsheetMinusSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetMinusSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetMinusSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetMinusSymbolParserToken createDifferentToken() {
+    public SpreadsheetMinusSymbolParserToken createDifferentToken() {
         return SpreadsheetMinusSymbolParserToken.with(this.text(), "different");
     }
 

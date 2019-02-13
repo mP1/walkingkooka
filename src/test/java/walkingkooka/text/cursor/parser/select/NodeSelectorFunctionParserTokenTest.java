@@ -168,7 +168,7 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "contains(\"xyz\")";
     }
 
@@ -178,7 +178,7 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
     }
 
     @Override
-    protected NodeSelectorFunctionParserToken createDifferentToken() {
+    public NodeSelectorFunctionParserToken createDifferentToken() {
         return function(functionName(), parenthesisOpen(), parenthesisClose());
     }
 

@@ -68,7 +68,7 @@ public final class SpreadsheetFormatQuotedTextParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "\"abc\"";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatQuotedTextParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected SpreadsheetFormatQuotedTextParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatQuotedTextParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatQuotedTextParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatQuotedTextParserToken createDifferentToken() {
+    public SpreadsheetFormatQuotedTextParserToken createDifferentToken() {
         return SpreadsheetFormatQuotedTextParserToken.with("\"different\"", "different");
     }
 

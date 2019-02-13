@@ -68,17 +68,17 @@ public final class SpreadsheetFormatEqualsSymbolParserTokenTest extends Spreadsh
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "=";
     }
 
     @Override
-    protected SpreadsheetFormatEqualsSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatEqualsSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatEqualsSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatEqualsSymbolParserToken createDifferentToken() {
+    public SpreadsheetFormatEqualsSymbolParserToken createDifferentToken() {
         return SpreadsheetFormatEqualsSymbolParserToken.with(this.text(), "different");
     }
 

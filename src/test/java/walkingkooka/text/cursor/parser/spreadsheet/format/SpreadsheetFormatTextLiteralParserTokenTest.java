@@ -68,7 +68,7 @@ public final class SpreadsheetFormatTextLiteralParserTokenTest extends Spreadshe
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "'A'";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatTextLiteralParserTokenTest extends Spreadshe
     }
 
     @Override
-    protected SpreadsheetFormatTextLiteralParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatTextLiteralParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatTextLiteralParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatTextLiteralParserToken createDifferentToken() {
+    public SpreadsheetFormatTextLiteralParserToken createDifferentToken() {
         return SpreadsheetFormatTextLiteralParserToken.with("'different'", "'different'");
     }
 

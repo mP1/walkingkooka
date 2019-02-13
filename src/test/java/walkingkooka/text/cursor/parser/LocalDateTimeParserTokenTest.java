@@ -56,17 +56,17 @@ public final class LocalDateTimeParserTokenTest extends ParserTokenTestCase<Loca
     }
 
     @Override
-    protected LocalDateTimeParserToken createToken(final String text) {
+    public LocalDateTimeParserToken createToken(final String text) {
         return LocalDateTimeParserToken.with(LocalDateTime.parse(text), text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "2000-12-31T12:58:59";
     }
 
     @Override
-    protected LocalDateTimeParserToken createDifferentToken() {
+    public LocalDateTimeParserToken createDifferentToken() {
         return this.createToken("1999-12-31T06:30:29");
     }
 

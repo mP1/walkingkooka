@@ -117,17 +117,17 @@ public final class RepeatedParserTokenTest extends RepeatedOrSequenceParserToken
     }
     
     @Override
-    protected RepeatedParserToken createToken(final String text) {
+    public RepeatedParserToken createToken(final String text) {
         return createToken(text, string(text));
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "abc";
     }
 
     @Override
-    protected RepeatedParserToken createDifferentToken() {
+    public RepeatedParserToken createDifferentToken() {
         return createToken("different", string("different"));
     }
 

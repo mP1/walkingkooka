@@ -68,7 +68,7 @@ public final class NodeSelectorWildcardParserTokenTest extends NodeSelectorNonSy
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return String.valueOf(this.value());
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorWildcardParserTokenTest extends NodeSelectorNonSy
     }
 
     @Override
-    protected NodeSelectorWildcardParserToken createToken(final String value, final String text) {
+    NodeSelectorWildcardParserToken createToken(final String value, final String text) {
         return NodeSelectorWildcardParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorWildcardParserToken createDifferentToken() {
+    public NodeSelectorWildcardParserToken createDifferentToken() {
         return NodeSelectorWildcardParserToken.with("different", "different");
     }
 

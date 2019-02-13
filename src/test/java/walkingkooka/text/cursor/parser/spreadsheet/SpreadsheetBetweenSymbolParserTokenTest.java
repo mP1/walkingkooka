@@ -68,7 +68,7 @@ public final class SpreadsheetBetweenSymbolParserTokenTest extends SpreadsheetSy
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetBetweenSymbolParserTokenTest extends SpreadsheetSy
     }
 
     @Override
-    protected SpreadsheetBetweenSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetBetweenSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetBetweenSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetBetweenSymbolParserToken createDifferentToken() {
+    public SpreadsheetBetweenSymbolParserToken createDifferentToken() {
         return SpreadsheetBetweenSymbolParserToken.with(this.text(), "different");
     }
 

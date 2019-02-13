@@ -68,7 +68,7 @@ public final class SpreadsheetFormatDayParserTokenTest extends SpreadsheetFormat
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatDayParserTokenTest extends SpreadsheetFormat
     }
 
     @Override
-    protected SpreadsheetFormatDayParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatDayParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatDayParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatDayParserToken createDifferentToken() {
+    public SpreadsheetFormatDayParserToken createDifferentToken() {
         return SpreadsheetFormatDayParserToken.with(this.text(), "different");
     }
 

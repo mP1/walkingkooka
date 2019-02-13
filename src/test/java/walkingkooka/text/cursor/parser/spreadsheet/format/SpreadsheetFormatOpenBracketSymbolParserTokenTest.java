@@ -68,17 +68,17 @@ public final class SpreadsheetFormatOpenBracketSymbolParserTokenTest extends Spr
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
     @Override
-    protected SpreadsheetFormatOpenBracketSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatOpenBracketSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatOpenBracketSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatOpenBracketSymbolParserToken createDifferentToken() {
+    public SpreadsheetFormatOpenBracketSymbolParserToken createDifferentToken() {
         return SpreadsheetFormatOpenBracketSymbolParserToken.with(this.text(), "different");
     }
 

@@ -68,7 +68,7 @@ public final class SpreadsheetFormatTextPlaceholderParserTokenTest extends Sprea
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "!=";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatTextPlaceholderParserTokenTest extends Sprea
     }
 
     @Override
-    protected SpreadsheetFormatTextPlaceholderParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatTextPlaceholderParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatTextPlaceholderParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatTextPlaceholderParserToken createDifferentToken() {
+    public SpreadsheetFormatTextPlaceholderParserToken createDifferentToken() {
         return SpreadsheetFormatTextPlaceholderParserToken.with(this.text(), "different");
     }
 

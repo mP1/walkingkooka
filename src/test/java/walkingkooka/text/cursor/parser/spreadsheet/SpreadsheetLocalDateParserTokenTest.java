@@ -76,7 +76,7 @@ public final class SpreadsheetLocalDateParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "2000-01-02";
     }
 
@@ -86,12 +86,12 @@ public final class SpreadsheetLocalDateParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected SpreadsheetLocalDateParserToken createToken(final LocalDate value, final String text) {
+    SpreadsheetLocalDateParserToken createToken(final LocalDate value, final String text) {
         return SpreadsheetLocalDateParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetLocalDateParserToken createDifferentToken() {
+    public SpreadsheetLocalDateParserToken createDifferentToken() {
         return SpreadsheetLocalDateParserToken.with(LocalDate.parse("2001-12-31"), "'different'");
     }
 

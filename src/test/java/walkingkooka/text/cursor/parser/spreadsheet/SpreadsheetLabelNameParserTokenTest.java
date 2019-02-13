@@ -68,7 +68,7 @@ public final class SpreadsheetLabelNameParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "Hello";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetLabelNameParserTokenTest extends SpreadsheetNonSym
     }
 
     @Override
-    protected SpreadsheetLabelNameParserToken createToken(final SpreadsheetLabelName value, final String text) {
+    SpreadsheetLabelNameParserToken createToken(final SpreadsheetLabelName value, final String text) {
         return SpreadsheetLabelNameParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetLabelNameParserToken createDifferentToken() {
+    public SpreadsheetLabelNameParserToken createDifferentToken() {
         return SpreadsheetLabelNameParserToken.with(SpreadsheetLabelName.with("different"), "different");
     }
 

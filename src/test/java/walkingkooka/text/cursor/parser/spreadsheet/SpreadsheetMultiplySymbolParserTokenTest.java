@@ -68,7 +68,7 @@ public final class SpreadsheetMultiplySymbolParserTokenTest extends SpreadsheetS
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "*";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetMultiplySymbolParserTokenTest extends SpreadsheetS
     }
 
     @Override
-    protected SpreadsheetMultiplySymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetMultiplySymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetMultiplySymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetMultiplySymbolParserToken createDifferentToken() {
+    public SpreadsheetMultiplySymbolParserToken createDifferentToken() {
         return SpreadsheetMultiplySymbolParserToken.with(this.text(), "different");
     }
 

@@ -68,7 +68,7 @@ public final class SpreadsheetDivideSymbolParserTokenTest extends SpreadsheetSym
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "/";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetDivideSymbolParserTokenTest extends SpreadsheetSym
     }
 
     @Override
-    protected SpreadsheetDivideSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetDivideSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetDivideSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetDivideSymbolParserToken createDifferentToken() {
+    public SpreadsheetDivideSymbolParserToken createDifferentToken() {
         return SpreadsheetDivideSymbolParserToken.with(this.text(), "different");
     }
 

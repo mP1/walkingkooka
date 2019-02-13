@@ -68,7 +68,7 @@ public final class NodeSelectorPrecedingParserTokenTest extends NodeSelectorNonS
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "preceding";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorPrecedingParserTokenTest extends NodeSelectorNonS
     }
 
     @Override
-    protected NodeSelectorPrecedingParserToken createToken(final String value, final String text) {
+    NodeSelectorPrecedingParserToken createToken(final String value, final String text) {
         return NodeSelectorPrecedingParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorPrecedingParserToken createDifferentToken() {
+    public NodeSelectorPrecedingParserToken createDifferentToken() {
         return NodeSelectorPrecedingParserToken.with("preceding-2", "preceding-2");
     }
 

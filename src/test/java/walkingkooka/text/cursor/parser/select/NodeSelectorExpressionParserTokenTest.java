@@ -98,7 +98,7 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "*";
     }
 
@@ -108,7 +108,7 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
     }
 
     @Override
-    protected NodeSelectorExpressionParserToken createDifferentToken() {
+    public NodeSelectorExpressionParserToken createDifferentToken() {
         return expression(descendantOrSelfSlashSlash());
     }
 

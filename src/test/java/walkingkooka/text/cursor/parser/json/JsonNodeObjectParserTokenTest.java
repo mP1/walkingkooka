@@ -122,13 +122,12 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
                         .toJsonNode());
     }
 
-    @Override
-    JsonNodeObjectParserToken createToken(final String text, final List<ParserToken> tokens) {
+    @Override protected JsonNodeObjectParserToken createToken(final String text, final List<ParserToken> tokens) {
         return JsonNodeObjectParserToken.with(tokens, text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "{\"key\":\"value\"}";
     }
 
@@ -138,7 +137,7 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
     }
 
     @Override
-    protected JsonNodeObjectParserToken createDifferentToken() {
+    public JsonNodeObjectParserToken createDifferentToken() {
         return object(objectBegin(), string("different-key"), objectAssignment(), string("different-value"), objectEnd()).cast();
     }
 

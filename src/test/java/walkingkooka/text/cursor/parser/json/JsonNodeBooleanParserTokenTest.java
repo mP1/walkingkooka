@@ -70,7 +70,7 @@ public final class JsonNodeBooleanParserTokenTest extends JsonNodeLeafParserToke
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return String.valueOf(this.value());
     }
 
@@ -85,12 +85,12 @@ public final class JsonNodeBooleanParserTokenTest extends JsonNodeLeafParserToke
     }
 
     @Override
-    protected JsonNodeBooleanParserToken createToken(final Boolean value, final String text) {
+    JsonNodeBooleanParserToken createToken(final Boolean value, final String text) {
         return JsonNodeBooleanParserToken.with(value, text);
     }
 
     @Override
-    protected JsonNodeBooleanParserToken createDifferentToken() {
+    public JsonNodeBooleanParserToken createDifferentToken() {
         return JsonNodeBooleanParserToken.with(false, "'different'");
     }
 

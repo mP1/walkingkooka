@@ -68,7 +68,7 @@ public final class NodeSelectorChildParserTokenTest extends NodeSelectorNonSymbo
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "child";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorChildParserTokenTest extends NodeSelectorNonSymbo
     }
 
     @Override
-    protected NodeSelectorChildParserToken createToken(final String value, final String text) {
+    NodeSelectorChildParserToken createToken(final String value, final String text) {
         return NodeSelectorChildParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorChildParserToken createDifferentToken() {
+    public NodeSelectorChildParserToken createDifferentToken() {
         return NodeSelectorChildParserToken.with("child2", "child2");
     }
 

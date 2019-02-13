@@ -23,6 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase<T> {
 
+    EbnfParentParserTokenTestCase2() {
+        super();
+    }
+
     @Test
     public final void testOnlyCommentsFails() {
         assertThrows(IllegalArgumentException.class, () -> {

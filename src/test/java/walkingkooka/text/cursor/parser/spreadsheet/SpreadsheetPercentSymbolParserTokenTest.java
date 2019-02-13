@@ -68,7 +68,7 @@ public final class SpreadsheetPercentSymbolParserTokenTest extends SpreadsheetSy
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "%";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetPercentSymbolParserTokenTest extends SpreadsheetSy
     }
 
     @Override
-    protected SpreadsheetPercentSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetPercentSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetPercentSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetPercentSymbolParserToken createDifferentToken() {
+    public SpreadsheetPercentSymbolParserToken createDifferentToken() {
         return SpreadsheetPercentSymbolParserToken.with(this.text(), "different");
     }
 

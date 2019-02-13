@@ -68,17 +68,17 @@ public final class SpreadsheetFormatNotEqualsSymbolParserTokenTest extends Sprea
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "!=";
     }
 
     @Override
-    protected SpreadsheetFormatNotEqualsSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatNotEqualsSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatNotEqualsSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatNotEqualsSymbolParserToken createDifferentToken() {
+    public SpreadsheetFormatNotEqualsSymbolParserToken createDifferentToken() {
         return SpreadsheetFormatNotEqualsSymbolParserToken.with(this.text(), "different");
     }
 

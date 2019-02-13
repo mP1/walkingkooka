@@ -68,7 +68,7 @@ public final class NodeSelectorGreaterThanEqualsSymbolParserTokenTest extends No
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ">=";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorGreaterThanEqualsSymbolParserTokenTest extends No
     }
 
     @Override
-    protected NodeSelectorGreaterThanEqualsSymbolParserToken createToken(final String value, final String text) {
+    NodeSelectorGreaterThanEqualsSymbolParserToken createToken(final String value, final String text) {
         return NodeSelectorGreaterThanEqualsSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorGreaterThanEqualsSymbolParserToken createDifferentToken() {
+    public NodeSelectorGreaterThanEqualsSymbolParserToken createDifferentToken() {
         return NodeSelectorGreaterThanEqualsSymbolParserToken.with(this.text(), "different");
     }
 

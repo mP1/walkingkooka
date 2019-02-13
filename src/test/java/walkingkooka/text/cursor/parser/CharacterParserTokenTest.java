@@ -58,17 +58,17 @@ public final class CharacterParserTokenTest extends ParserTokenTestCase<Characte
     }
 
     @Override
-    protected CharacterParserToken createToken(final String text) {
+    public CharacterParserToken createToken(final String text) {
         return CharacterParserToken.with(null != text ? text.charAt(1) : '*', text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "'A'";
     }
 
     @Override
-    protected CharacterParserToken createDifferentToken() {
+    public CharacterParserToken createDifferentToken() {
         return this.createToken("'Z'");
     }
 

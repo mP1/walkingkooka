@@ -127,7 +127,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return FUNCTION + "(" + NUMBER1 + ")";
     }
 
@@ -153,7 +153,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
     }
 
     @Override
-    protected SpreadsheetFunctionParserToken createDifferentToken() {
+    public SpreadsheetFunctionParserToken createDifferentToken() {
         return this.createToken("avg()", this.function("avg"));
     }
 

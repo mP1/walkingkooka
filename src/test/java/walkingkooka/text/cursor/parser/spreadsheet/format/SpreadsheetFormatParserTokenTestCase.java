@@ -19,18 +19,25 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.BeanPropertiesTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenTestCase;
+import walkingkooka.text.cursor.parser.ParserTokenTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetFormatParserTokenTestCase<T extends SpreadsheetFormatParserToken> extends ParserTokenTestCase<T>
-        implements IsMethodTesting<T> {
+public abstract class SpreadsheetFormatParserTokenTestCase<T extends SpreadsheetFormatParserToken> extends ClassTestCase<T>
+        implements IsMethodTesting<T>,
+        ParserTokenTesting<T> {
+
+    SpreadsheetFormatParserTokenTestCase() {
+        super();
+    }
 
     @Test
     public final void testPublicStaticFactoryMethod() {
@@ -89,5 +96,10 @@ public abstract class SpreadsheetFormatParserTokenTestCase<T extends Spreadsheet
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isCondition") || m.equals("isNoise") || m.equals("isSymbol");
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

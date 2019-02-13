@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- *
  */
-package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-public abstract class SpreadsheetFormatLeafParserTokenTestCase<T extends SpreadsheetFormatLeafParserToken, V> extends SpreadsheetFormatParserTokenTestCase<T> {
+package walkingkooka.text.cursor.parser;
 
-    SpreadsheetFormatLeafParserTokenTestCase() {
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
+
+public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTestCase<T>
+        implements ParserTokenTesting<T> {
+
+    ParserTokenTestCase() {
         super();
     }
 
     @Override
-    public final T createToken(final String text) {
-        return this.createToken(this.value(), text);
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
-
-    abstract V value();
-
-    abstract T createToken(final V value, final String text);
 }

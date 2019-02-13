@@ -116,12 +116,12 @@ public final class SpreadsheetFormatDateTimeParserTokenTest extends SpreadsheetF
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return TEXT1 + "d";
     }
 
     @Override
-    protected SpreadsheetFormatDateTimeParserToken createDifferentToken() {
+    public SpreadsheetFormatDateTimeParserToken createDifferentToken() {
         return SpreadsheetFormatDateTimeParserToken.with(Lists.of(this.text2()), TEXT2);
     }
 

@@ -68,7 +68,7 @@ public final class SpreadsheetFormatMonthOrMinuteParserTokenTest extends Spreads
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatMonthOrMinuteParserTokenTest extends Spreads
     }
 
     @Override
-    protected SpreadsheetFormatMonthOrMinuteParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatMonthOrMinuteParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatMonthOrMinuteParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatMonthOrMinuteParserToken createDifferentToken() {
+    public SpreadsheetFormatMonthOrMinuteParserToken createDifferentToken() {
         return SpreadsheetFormatMonthOrMinuteParserToken.with(this.text(), "different");
     }
 
