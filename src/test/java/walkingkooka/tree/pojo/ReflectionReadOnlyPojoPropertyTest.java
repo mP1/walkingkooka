@@ -18,11 +18,14 @@
 package walkingkooka.tree.pojo;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ReflectionReadOnlyPojoPropertyTest extends PojoPropertyTestCase<ReflectionReadOnlyPojoProperty> {
+public final class ReflectionReadOnlyPojoPropertyTest extends ClassTestCase<ReflectionReadOnlyPojoProperty>
+        implements PojoPropertyTesting<ReflectionReadOnlyPojoProperty> {
 
     private final static PojoName X = PojoName.property("x");
     private final static String STRING = "abc1";
@@ -54,8 +57,7 @@ public final class ReflectionReadOnlyPojoPropertyTest extends PojoPropertyTestCa
         this.toStringAndCheck(this.createPojoProperty(), "x");
     }
 
-    @Override
-    protected ReflectionReadOnlyPojoProperty createPojoProperty() {
+    @Override public ReflectionReadOnlyPojoProperty createPojoProperty() {
         try {
             return new ReflectionReadOnlyPojoProperty(X, TestBean.class.getMethod("getX"));
         } catch (final Exception rethrow) {
@@ -82,5 +84,10 @@ public final class ReflectionReadOnlyPojoPropertyTest extends PojoPropertyTestCa
         public String toString(){
             return "=" + STRING;
         }
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
