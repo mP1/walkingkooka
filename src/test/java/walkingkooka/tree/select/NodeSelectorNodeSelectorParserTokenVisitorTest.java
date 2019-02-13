@@ -33,6 +33,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -40,12 +41,13 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserContexts;
-import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTestCase;
+import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParsers;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -58,7 +60,8 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> {
+public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends ClassTestCase<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>>
+        implements NodeSelectorParserTokenVisitorTesting<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -1302,16 +1305,22 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
     }
 
     @Override
-    protected NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object> createParserTokenVisitor() {
+    public NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object> createVisitor() {
         return new NodeSelectorNodeSelectorParserTokenVisitor<>(null, null, null);
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return NodeSelector.class.getSimpleName();
     }
 
     @Override
-    protected Class<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> parserTokenVisitorType() {
+    public Class<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeSelectorNodeSelectorParserTokenVisitor.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

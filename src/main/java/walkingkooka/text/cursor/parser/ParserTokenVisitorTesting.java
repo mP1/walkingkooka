@@ -16,14 +16,12 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.json;
+package walkingkooka.text.cursor.parser;
 
-import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
+import walkingkooka.tree.visit.VisitorTesting;
 
-public abstract class JsonNodeParserTokenVisitorTestCase<V extends JsonNodeParserTokenVisitor> extends ParserTokenVisitorTestCase<V, JsonNodeParserToken> {
-
-    @Override
-    public final String typeNameSuffix() {
-        return JsonNodeParserTokenVisitor.class.getSimpleName();
-    }
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link ParserTokenVisitor}
+ */
+public interface ParserTokenVisitorTesting<V extends ParserTokenVisitor, T extends ParserToken> extends VisitorTesting<V, ParserToken> {
 }

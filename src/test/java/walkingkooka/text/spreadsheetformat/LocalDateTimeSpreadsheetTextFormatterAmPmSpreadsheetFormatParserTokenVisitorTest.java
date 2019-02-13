@@ -26,27 +26,28 @@ public final class LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatPar
 
     @Test
     public void testToString24h() {
-        this.toStringAndCheck(this.createParserTokenVisitor(), "24h");
+        this.toStringAndCheck(this.createVisitor(), "24h");
     }
 
     @Test
     public void testToString12h() {
-        final LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor visitor = this.createParserTokenVisitor();
+        final LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor visitor = this.createVisitor();
         visitor.accept(SpreadsheetFormatParserToken.amPm("AMPM", "AMPM"));
         this.toStringAndCheck(visitor, "12h");
     }
 
     @Override
-    protected LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor createParserTokenVisitor() {
+    public LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor createVisitor() {
         return new LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor();
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return LocalDateTimeSpreadsheetTextFormatter.class.getSimpleName();
     }
 
     @Override
-    protected Class<LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor> parserTokenVisitorType() {
+    public Class<LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor> type() {
         return LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor.class;
     }
 }

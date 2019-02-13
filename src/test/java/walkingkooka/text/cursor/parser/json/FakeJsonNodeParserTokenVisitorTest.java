@@ -18,21 +18,30 @@
 
 package walkingkooka.text.cursor.parser.json;
 
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.Fake;
+import walkingkooka.type.MemberVisibility;
 
-public final class FakeJsonNodeParserTokenVisitorTest extends JsonNodeParserTokenVisitorTestCase<FakeJsonNodeParserTokenVisitor> {
+public final class FakeJsonNodeParserTokenVisitorTest extends ClassTestCase<FakeJsonNodeParserTokenVisitor>
+        implements JsonNodeParserTokenVisitorTesting<FakeJsonNodeParserTokenVisitor> {
 
     @Override
-    protected FakeJsonNodeParserTokenVisitor createParserTokenVisitor() {
+    public FakeJsonNodeParserTokenVisitor createVisitor() {
         return new FakeJsonNodeParserTokenVisitor();
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return Fake.class.getSimpleName();
     }
 
     @Override
-    public Class<FakeJsonNodeParserTokenVisitor> parserTokenVisitorType() {
+    public Class<FakeJsonNodeParserTokenVisitor> type() {
         return FakeJsonNodeParserTokenVisitor.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

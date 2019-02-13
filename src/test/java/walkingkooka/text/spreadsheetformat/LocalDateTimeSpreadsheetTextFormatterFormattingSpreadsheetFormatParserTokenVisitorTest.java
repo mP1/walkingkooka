@@ -21,16 +21,17 @@ package walkingkooka.text.spreadsheetformat;
 public final class LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitorTest extends
         TextFormatterSpreadsheetFormatParserTokenVisitorTestCase<LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor> {
     @Override
-    protected LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor createParserTokenVisitor() {
+    public LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor createVisitor() {
         return new LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor(null, null, false);
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return "LocalDateTimeSpreadsheetTextFormatter";
     }
 
     @Override
-    protected Class<LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor> parserTokenVisitorType() {
+    public Class<LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor> type() {
         return LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor.class;
     }
 }

@@ -18,19 +18,23 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-public final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitorTest extends SpreadsheetParserTokenVisitorTestCase<SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor> {
-    @Override
-    public SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor createVisitor() {
-        return new SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor();
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
+
+public abstract class SpreadsheetParserTokenVisitorTestCase<V extends SpreadsheetParserTokenVisitor> extends ClassTestCase<V>
+        implements SpreadsheetParserTokenVisitorTesting<V> {
+
+    SpreadsheetParserTokenVisitorTestCase() {
+        super();
     }
 
     @Override
-    public String typeNamePrefix() {
-        return SpreadsheetParserToken.class.getSimpleName();
+    public final String typeNameSuffix() {
+        return SpreadsheetParserTokenVisitor.class.getSimpleName();
     }
 
     @Override
-    public Class<SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor> type() {
-        return SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor.class;
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

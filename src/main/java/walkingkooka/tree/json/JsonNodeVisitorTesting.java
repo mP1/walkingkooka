@@ -16,18 +16,17 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.ebnf;
+package walkingkooka.tree.json;
 
-import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
+import walkingkooka.tree.visit.VisitorTesting;
 
-public abstract class EbnfParserTokenVisitorTestCase<V extends EbnfParserTokenVisitor, T extends EbnfParserToken> extends ParserTokenVisitorTestCase<V, T> {
-
-    protected EbnfParserTokenVisitorTestCase() {
-        super();
-    }
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link JsonNodeVisitor}
+ */
+public interface JsonNodeVisitorTesting<V extends JsonNodeVisitor> extends VisitorTesting<V, JsonNode> {
 
     @Override
-    public final String typeNameSuffix() {
-        return EbnfParserTokenVisitor.class.getSimpleName();
+    default String typeNameSuffix() {
+        return JsonNodeVisitor.class.getSimpleName();
     }
 }

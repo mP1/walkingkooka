@@ -16,14 +16,17 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.select;
+package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
 
-public abstract class NodeSelectorParserTokenVisitorTestCase<V extends NodeSelectorParserTokenVisitor> extends ParserTokenVisitorTestCase<V, NodeSelectorParserToken> {
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link EbnfParserTokenVisitor}
+ */
+public interface EbnfParserTokenVisitorTesting<V extends EbnfParserTokenVisitor, T extends EbnfParserToken> extends ParserTokenVisitorTesting<V, T> {
 
     @Override
-    public final String typeNameSuffix() {
-        return NodeSelectorParserTokenVisitor.class.getSimpleName();
+    default String typeNameSuffix() {
+        return EbnfParserTokenVisitor.class.getSimpleName();
     }
 }

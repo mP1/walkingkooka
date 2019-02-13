@@ -18,22 +18,21 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitorTestCase;
-
 public final class BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorTest
         extends SpreadsheetFormatParserTokenVisitorTestCase<BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor> {
 
     @Override
-    protected BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor createParserTokenVisitor() {
+    public BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor createVisitor() {
         return new BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor();
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return BigDecimalSpreadsheetTextFormatter.class.getSimpleName();
     }
 
     @Override
-    protected Class<BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor> parserTokenVisitorType() {
+    public Class<BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor> type() {
         return BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor.class;
     }
 }

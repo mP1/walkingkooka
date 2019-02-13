@@ -23,16 +23,17 @@ import walkingkooka.test.Fake;
 public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<FakeNodeSelectorParserTokenVisitor> {
 
     @Override
-    protected FakeNodeSelectorParserTokenVisitor createParserTokenVisitor() {
+    public FakeNodeSelectorParserTokenVisitor createVisitor() {
         return new FakeNodeSelectorParserTokenVisitor();
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return Fake.class.getSimpleName();
     }
 
     @Override
-    protected Class<FakeNodeSelectorParserTokenVisitor> parserTokenVisitorType() {
+    public Class<FakeNodeSelectorParserTokenVisitor> type() {
         return FakeNodeSelectorParserTokenVisitor.class;
     }
 }
