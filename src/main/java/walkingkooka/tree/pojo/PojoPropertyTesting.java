@@ -17,49 +17,44 @@
 
 package walkingkooka.tree.pojo;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class PojoPropertyTestCase<P extends PojoProperty> extends ClassTestCase<P>
-        implements ToStringTesting<P>,
+/**
+ * Mixin interface to assist testing of {@link PojoProperty
+ */
+public interface PojoPropertyTesting<P extends PojoProperty> extends ToStringTesting<P>,
         TypeNameTesting<P> {
 
-    final protected void getAndCheck(final Object instance, final Object value){
+    default void getAndCheck(final Object instance, final Object value){
         this.getAndCheck(this.createPojoProperty(), instance, value);
     }
 
-    final protected void getAndCheck(final P property, final Object instance, final Object value){
+    default void getAndCheck(final P property, final Object instance, final Object value){
         assertEquals(value, property.get(instance), ()-> "wrong value returned when calling " + property + " get");
     }
 
-    final protected Object setAndCheck(final Object instance, final Object value){
+    default Object setAndCheck(final Object instance, final Object value){
         return this.setAndCheck(this.createPojoProperty(), instance, value);
     }
 
-    final protected Object setAndCheck(final P property, final Object instance, final Object value){
+    default Object setAndCheck(final P property, final Object instance, final Object value){
         return property.set(instance, value);
     }
 
-    abstract protected P createPojoProperty();
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    P createPojoProperty();
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return PojoProperty.class.getSimpleName();
     }
 }
