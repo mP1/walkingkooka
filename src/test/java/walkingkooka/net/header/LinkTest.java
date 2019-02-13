@@ -248,7 +248,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     // helpers.......................................................................................
 
     @Override
-    protected Link createHeaderValueWithParameters() {
+    public Link createHeaderValueWithParameters() {
         return this.createLink();
     }
 
@@ -261,17 +261,17 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 

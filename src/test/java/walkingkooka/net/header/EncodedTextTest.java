@@ -143,7 +143,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     }
 
     @Override
-    protected EncodedText createHeaderValue() {
+    public EncodedText createHeaderValue() {
         return this.createHeaderValue(this.value());
     }
 
@@ -164,17 +164,17 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return true;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
@@ -184,7 +184,7 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

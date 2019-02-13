@@ -201,7 +201,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     // helpers ...........................................................................................
 
     @Override
-    protected CharsetHeaderValue createHeaderValueWithParameters() {
+    public CharsetHeaderValue createHeaderValueWithParameters() {
         return this.charsetHeaderValue();
     }
 
@@ -255,17 +255,17 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 

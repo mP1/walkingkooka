@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentDispositionFileNameNotEncodedTest extends ContentDispositionFileNameTestCase<ContentDispositionFileNameNotEncoded> {
@@ -86,7 +85,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
     }
 
     @Override
-    protected ContentDispositionFileNameNotEncoded createHeaderValue() {
+    public ContentDispositionFileNameNotEncoded createHeaderValue() {
         return ContentDispositionFileNameNotEncoded.with(FILENAME);
     }
 

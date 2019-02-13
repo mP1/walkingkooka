@@ -240,22 +240,22 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     // helpers........................................................................................................
 
     @Override
-    protected MediaTypeBoundary createHeaderValue() {
+    public MediaTypeBoundary createHeaderValue() {
         return MediaTypeBoundary.with("abc123");
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return true;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
@@ -265,12 +265,17 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 
     @Override
     public MediaTypeBoundary createComparable() {
+        return this.createHeaderValue();
+    }
+
+    @Override
+    public MediaTypeBoundary createObject() {
         return this.createHeaderValue();
     }
 

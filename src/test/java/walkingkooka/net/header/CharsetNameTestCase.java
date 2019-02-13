@@ -69,7 +69,8 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
         this.toStringAndCheck(this.createCharsetName(), this.charsetNameToString());
     }
 
-    @Override final protected N createHeaderValue() {
+    @Override
+    public final N createHeaderValue() {
         return this.createCharsetName();
     }
 
@@ -80,22 +81,22 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
     abstract String charsetNameToString();
 
     @Override
-    protected final boolean isMultipart() {
+    public final boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected final boolean isRequest() {
+    public final boolean isRequest() {
         return true;
     }
 
     @Override
-    protected final boolean isResponse() {
+    public final boolean isResponse() {
         return true;
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

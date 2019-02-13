@@ -744,7 +744,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     // helpers........................................................................................................
 
     @Override
-    protected MediaType createHeaderValueWithParameters() {
+    public MediaType createHeaderValueWithParameters() {
         return this.mediaType();
     }
 
@@ -761,17 +761,17 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return true;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
@@ -781,7 +781,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

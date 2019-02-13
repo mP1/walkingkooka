@@ -166,7 +166,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     // helpers ...........................................................................................
 
     @Override
-    protected ContentDisposition createHeaderValueWithParameters() {
+    public ContentDisposition createHeaderValueWithParameters() {
         return ContentDisposition.with(TYPE)
                 .setParameters(this.parameters());
     }
@@ -216,17 +216,17 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return true;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 

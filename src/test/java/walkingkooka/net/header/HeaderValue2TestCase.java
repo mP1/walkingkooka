@@ -19,12 +19,10 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class HeaderValue2TestCase<H extends HeaderValue2<V>, V> extends HeaderValueTestCase<H>
-        implements HashCodeEqualsDefinedTesting<H> {
+public abstract class HeaderValue2TestCase<H extends HeaderValue2<V>, V> extends HeaderValueTestCase<H> {
 
     HeaderValue2TestCase() {
         super();
@@ -50,7 +48,7 @@ public abstract class HeaderValue2TestCase<H extends HeaderValue2<V>, V> extends
     }
 
     @Override
-    final protected H createHeaderValue() {
+    public final H createHeaderValue() {
         return this.createHeaderValue(this.value());
     }
 

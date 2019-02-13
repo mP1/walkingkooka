@@ -95,17 +95,17 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return false;
     }
 
@@ -114,15 +114,17 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
         return AcceptCharset.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
-
     // ParseStringTesting ........................................................................................
 
     @Override
     public AcceptCharset parse(final String text) {
         return AcceptCharset.parse(text);
+    }
+
+    // ClassTestCase ............................................................................................
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

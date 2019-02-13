@@ -251,22 +251,22 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     @Override
-    protected CacheControlDirective<Long> createHeaderValue() {
+    public CacheControlDirective<Long> createHeaderValue() {
         return CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L));
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
@@ -276,7 +276,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

@@ -20,7 +20,8 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.header.HeaderValueTestCase;
+import walkingkooka.net.header.HeaderValueTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
@@ -35,7 +36,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implements ConstantsTesting<HttpMethod> {
+final public class HttpMethodTest extends ClassTestCase<HttpMethod>
+        implements HeaderValueTesting<HttpMethod>,
+        ConstantsTesting<HttpMethod> {
 
     @Test
     public void testWithNullFails() {
@@ -189,22 +192,22 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implem
     }
 
     @Override
-    protected HttpMethod createHeaderValue() {
+    public HttpMethod createHeaderValue() {
         return HttpMethod.GET;
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
@@ -214,12 +217,12 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implem
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public Set<HttpMethod> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 
     @Override
-    public Set<HttpMethod> intentionalDuplicateConstants() {
-        return Sets.empty();
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

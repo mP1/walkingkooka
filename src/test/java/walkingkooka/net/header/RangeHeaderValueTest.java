@@ -413,22 +413,22 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @Override
-    protected RangeHeaderValue createHeaderValue() {
+    public RangeHeaderValue createHeaderValue() {
         return this.range();
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 

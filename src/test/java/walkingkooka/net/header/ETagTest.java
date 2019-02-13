@@ -138,22 +138,22 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
     }
 
     @Override
-    protected ETag createHeaderValue() {
+    public ETag createHeaderValue() {
         return ETag.with("A", ETagValidator.WEAK);
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
@@ -163,7 +163,7 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

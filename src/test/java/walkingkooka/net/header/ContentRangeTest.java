@@ -511,22 +511,22 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     @Override
-    protected ContentRange createHeaderValue() {
+    public ContentRange createHeaderValue() {
         return ContentRange.with(UNIT, this.range(), SIZE);
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return true;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return false;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
