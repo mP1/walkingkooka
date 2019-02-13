@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
 import walkingkooka.tree.expression.ExpressionNode;
@@ -34,7 +35,10 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
-        this.publicStaticFactoryCheck(SpreadsheetParserToken.class, "Spreadsheet", ParserToken.class);
+        PublicStaticFactoryTesting.check(SpreadsheetParserToken.class,
+                "Spreadsheet",
+                ParserToken.class,
+                this.type());
     }
 
     @Test

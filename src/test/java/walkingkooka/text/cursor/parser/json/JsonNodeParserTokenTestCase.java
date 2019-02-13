@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.json;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
@@ -33,7 +34,10 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
 
     @Test
     public final void testPublicStaticFactoryMethod() {
-        this.publicStaticFactoryCheck(JsonNodeParserToken.class, "JsonNode", ParserToken.class);
+        PublicStaticFactoryTesting.check(JsonNodeParserToken.class,
+                "JsonNode",
+                ParserToken.class,
+                this.type());
     }
 
     @Test

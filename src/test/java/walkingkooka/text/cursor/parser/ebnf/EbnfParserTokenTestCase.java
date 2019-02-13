@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
 
@@ -31,7 +32,10 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
-        this.publicStaticFactoryCheck(EbnfParserToken.class, "Ebnf", ParserToken.class);
+        PublicStaticFactoryTesting.check(EbnfParserToken.class,
+                "Ebnf",
+                ParserToken.class,
+                this.type());
     }
 
     @Test

@@ -28,6 +28,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.Name;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -56,7 +57,10 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
-        this.publicStaticFactoryCheck(ExpressionNode.class, "Expression", Node.class);
+        PublicStaticFactoryTesting.check(ExpressionNode.class,
+                "Expression",
+                Node.class,
+                this.type());
     }
 
     @Override
