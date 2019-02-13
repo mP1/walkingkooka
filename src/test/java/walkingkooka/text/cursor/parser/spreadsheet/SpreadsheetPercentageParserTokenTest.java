@@ -116,7 +116,7 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return NUMBER1 + "00" + "%";
     }
 
@@ -126,7 +126,7 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
     }
 
     @Override
-    protected SpreadsheetPercentageParserToken createDifferentToken() {
+    public SpreadsheetPercentageParserToken createDifferentToken() {
         return this.createToken(NUMBER2, this.number2(), this.percentSymbol());
     }
 

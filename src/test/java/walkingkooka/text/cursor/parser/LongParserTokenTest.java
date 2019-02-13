@@ -64,19 +64,19 @@ public final class LongParserTokenTest extends ParserTokenTestCase<LongParserTok
     }
 
     @Override
-    protected LongParserToken createToken(final String text) {
+    public LongParserToken createToken(final String text) {
         return LongParserToken.with(null != text ?
                 Long.parseLong(text) :
                 null, text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123";
     }
 
     @Override
-    protected LongParserToken createDifferentToken() {
+    public LongParserToken createDifferentToken() {
         return this.createToken("789");
     }
 

@@ -116,12 +116,12 @@ public final class SpreadsheetFormatTimeParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return TEXT1 + "h";
     }
 
     @Override
-    protected SpreadsheetFormatTimeParserToken createDifferentToken() {
+    public SpreadsheetFormatTimeParserToken createDifferentToken() {
         return SpreadsheetFormatTimeParserToken.with(Lists.of(this.text2()), TEXT2);
     }
 

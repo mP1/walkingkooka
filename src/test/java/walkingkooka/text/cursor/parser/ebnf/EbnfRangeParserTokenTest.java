@@ -215,13 +215,13 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     }
 
     @Override
-    protected EbnfRangeParserToken createDifferentToken() {
+    public EbnfRangeParserToken createDifferentToken() {
         return this.createToken("'different-1'..'different-2'",
                 terminal("different-1"), between(), terminal("different-2"));
     }
 
     @Override
-    protected final String text() {
+    public String text() {
         return "\"terminal-1\"..\"terminal-2\"";
     }
 

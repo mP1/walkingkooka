@@ -21,11 +21,15 @@ import org.junit.jupiter.api.Test;
 
 public abstract class JsonNodeLeafParserTokenTestCase<T extends JsonNodeLeafParserToken, V> extends JsonNodeParserTokenTestCase<T> {
 
+    JsonNodeLeafParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public abstract void testToJsonNode();
 
     @Override
-    protected final T createToken(final String text) {
+    public final T createToken(final String text) {
         return this.createToken(this.value(), text);
     }
 

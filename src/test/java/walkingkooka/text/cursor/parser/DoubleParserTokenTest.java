@@ -59,17 +59,17 @@ public final class DoubleParserTokenTest extends ParserTokenTestCase<DoubleParse
     }
 
     @Override
-    protected DoubleParserToken createToken(final String text) {
+    public DoubleParserToken createToken(final String text) {
         return DoubleParserToken.with(Double.parseDouble(text), text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123.5";
     }
 
     @Override
-    protected DoubleParserToken createDifferentToken() {
+    public DoubleParserToken createDifferentToken() {
         return this.createToken("789.5");
     }
 

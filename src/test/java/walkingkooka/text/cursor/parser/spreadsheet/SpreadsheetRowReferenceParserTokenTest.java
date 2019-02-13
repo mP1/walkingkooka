@@ -79,7 +79,7 @@ public final class SpreadsheetRowReferenceParserTokenTest extends SpreadsheetNon
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "1";
     }
 
@@ -89,12 +89,12 @@ public final class SpreadsheetRowReferenceParserTokenTest extends SpreadsheetNon
     }
 
     @Override
-    protected SpreadsheetRowReferenceParserToken createToken(final SpreadsheetRowReference value, final String text) {
+    SpreadsheetRowReferenceParserToken createToken(final SpreadsheetRowReference value, final String text) {
         return SpreadsheetRowReferenceParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetRowReferenceParserToken createDifferentToken() {
+    public SpreadsheetRowReferenceParserToken createDifferentToken() {
         return SpreadsheetRowReferenceParserToken.with(SpreadsheetReferenceKind.RELATIVE.row(999), "ABC");
     }
 

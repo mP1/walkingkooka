@@ -68,7 +68,7 @@ public final class JsonNodeArrayBeginSymbolParserTokenTest extends JsonNodeSymbo
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ")";
     }
 
@@ -78,12 +78,12 @@ public final class JsonNodeArrayBeginSymbolParserTokenTest extends JsonNodeSymbo
     }
 
     @Override
-    protected JsonNodeArrayBeginSymbolParserToken createToken(final String value, final String text) {
+    JsonNodeArrayBeginSymbolParserToken createToken(final String value, final String text) {
         return JsonNodeArrayBeginSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected JsonNodeArrayBeginSymbolParserToken createDifferentToken() {
+    public JsonNodeArrayBeginSymbolParserToken createDifferentToken() {
         return JsonNodeArrayBeginSymbolParserToken.with(this.text(), "different");
     }
 

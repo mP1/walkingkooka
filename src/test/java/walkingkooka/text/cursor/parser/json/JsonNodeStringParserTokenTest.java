@@ -70,7 +70,7 @@ public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserToken
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "'A'";
     }
 
@@ -85,12 +85,12 @@ public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserToken
     }
 
     @Override
-    protected JsonNodeStringParserToken createToken(final String value, final String text) {
+    JsonNodeStringParserToken createToken(final String value, final String text) {
         return JsonNodeStringParserToken.with(value, text);
     }
 
     @Override
-    protected JsonNodeStringParserToken createDifferentToken() {
+    public JsonNodeStringParserToken createDifferentToken() {
         return JsonNodeStringParserToken.with("'different'", "'different'");
     }
 

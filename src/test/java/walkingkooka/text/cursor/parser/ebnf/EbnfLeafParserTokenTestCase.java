@@ -18,8 +18,12 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 public abstract class EbnfLeafParserTokenTestCase<T extends EbnfLeafParserToken, V> extends EbnfParserTokenTestCase<T> {
 
+    EbnfLeafParserTokenTestCase() {
+        super();
+    }
+
     @Override
-    protected final T createToken(final String text) {
+    public final T createToken(final String text) {
         return this.createToken(this.value(), text);
     }
 

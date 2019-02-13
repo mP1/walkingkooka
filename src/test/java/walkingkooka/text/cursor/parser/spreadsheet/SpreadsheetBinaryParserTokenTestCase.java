@@ -122,12 +122,12 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
     }
 
     @Override
-    protected String text() {
+    public final String text() {
         return this.leftToken().text() + this.operatorSymbol() + this.rightToken().text();
     }
 
     @Override
-    protected final T createDifferentToken() {
+    public final T createDifferentToken() {
         final SpreadsheetParserToken left = this.leftToken();
         final SpreadsheetParserToken operatorSymbol = this.operatorSymbol();
         final SpreadsheetParserToken right = this.rightToken();

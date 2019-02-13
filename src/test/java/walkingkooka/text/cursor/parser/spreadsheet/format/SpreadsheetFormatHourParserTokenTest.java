@@ -68,7 +68,7 @@ public final class SpreadsheetFormatHourParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatHourParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    protected SpreadsheetFormatHourParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatHourParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatHourParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatHourParserToken createDifferentToken() {
+    public SpreadsheetFormatHourParserToken createDifferentToken() {
         return SpreadsheetFormatHourParserToken.with(this.text(), "different");
     }
 

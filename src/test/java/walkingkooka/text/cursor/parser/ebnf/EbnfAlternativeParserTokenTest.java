@@ -111,7 +111,7 @@ public final class EbnfAlternativeParserTokenTest extends EbnfAlternativeConcate
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "identifier1|identifier2";
     }
 

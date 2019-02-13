@@ -68,7 +68,7 @@ public final class SpreadsheetFormatUnderscoreParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "_" + this.value();
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatUnderscoreParserTokenTest extends Spreadshee
     }
 
     @Override
-    protected SpreadsheetFormatUnderscoreParserToken createToken(final Character value, final String text) {
+    SpreadsheetFormatUnderscoreParserToken createToken(final Character value, final String text) {
         return SpreadsheetFormatUnderscoreParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatUnderscoreParserToken createDifferentToken() {
+    public SpreadsheetFormatUnderscoreParserToken createDifferentToken() {
         return SpreadsheetFormatUnderscoreParserToken.with('Z', "_Z");
     }
 

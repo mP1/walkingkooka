@@ -68,7 +68,7 @@ public final class SpreadsheetFormatEscapeParserTokenTest extends SpreadsheetFor
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "\\" + this.value();
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFormatEscapeParserTokenTest extends SpreadsheetFor
     }
 
     @Override
-    protected SpreadsheetFormatEscapeParserToken createToken(final Character value, final String text) {
+    SpreadsheetFormatEscapeParserToken createToken(final Character value, final String text) {
         return SpreadsheetFormatEscapeParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatEscapeParserToken createDifferentToken() {
+    public SpreadsheetFormatEscapeParserToken createDifferentToken() {
         return SpreadsheetFormatEscapeParserToken.with('Z', "\\Z");
     }
 

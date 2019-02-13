@@ -68,7 +68,7 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserTokenTest ex
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ",";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserTokenTest ex
     }
 
     @Override
-    protected SpreadsheetFunctionParameterSeparatorSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetFunctionParameterSeparatorSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFunctionParameterSeparatorSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFunctionParameterSeparatorSymbolParserToken createDifferentToken() {
+    public SpreadsheetFunctionParameterSeparatorSymbolParserToken createDifferentToken() {
         return SpreadsheetFunctionParameterSeparatorSymbolParserToken.with(this.text(), "different");
     }
 

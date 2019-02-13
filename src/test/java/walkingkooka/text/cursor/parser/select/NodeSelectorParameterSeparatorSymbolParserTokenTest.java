@@ -68,7 +68,7 @@ public final class NodeSelectorParameterSeparatorSymbolParserTokenTest extends N
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "*";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorParameterSeparatorSymbolParserTokenTest extends N
     }
 
     @Override
-    protected NodeSelectorParameterSeparatorSymbolParserToken createToken(final String value, final String text) {
+    NodeSelectorParameterSeparatorSymbolParserToken createToken(final String value, final String text) {
         return NodeSelectorParameterSeparatorSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorParameterSeparatorSymbolParserToken createDifferentToken() {
+    public NodeSelectorParameterSeparatorSymbolParserToken createDifferentToken() {
         return NodeSelectorParameterSeparatorSymbolParserToken.with("**", "**");
     }
 

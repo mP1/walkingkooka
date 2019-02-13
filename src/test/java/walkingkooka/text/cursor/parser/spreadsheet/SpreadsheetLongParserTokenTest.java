@@ -74,7 +74,7 @@ public final class SpreadsheetLongParserTokenTest extends SpreadsheetNumericPars
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123";
     }
 
@@ -84,12 +84,12 @@ public final class SpreadsheetLongParserTokenTest extends SpreadsheetNumericPars
     }
 
     @Override
-    protected SpreadsheetLongParserToken createToken(final Long value, final String text) {
+    SpreadsheetLongParserToken createToken(final Long value, final String text) {
         return SpreadsheetLongParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetLongParserToken createDifferentToken() {
+    public SpreadsheetLongParserToken createDifferentToken() {
         return SpreadsheetLongParserToken.with(Long.valueOf(-1), "'different'");
     }
 

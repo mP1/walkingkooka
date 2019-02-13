@@ -18,18 +18,25 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.BeanPropertiesTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenTestCase;
+import walkingkooka.text.cursor.parser.ParserTokenTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends ParserTokenTestCase<T>
-        implements IsMethodTesting<T> {
+public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends ClassTestCase<T>
+        implements IsMethodTesting<T>,
+        ParserTokenTesting<T> {
+
+    EbnfParserTokenTestCase() {
+        super();
+    }
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -78,5 +85,12 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isNoise"); // skip isNoise
+    }
+
+    // ClassTestCase.................................................................................................
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

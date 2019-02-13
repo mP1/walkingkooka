@@ -67,7 +67,7 @@ public final class EbnfWhitespaceParserTokenTest extends EbnfLeafParserTokenTest
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return " ";
     }
 
@@ -76,12 +76,12 @@ public final class EbnfWhitespaceParserTokenTest extends EbnfLeafParserTokenTest
     }
 
     @Override
-    protected EbnfWhitespaceParserToken createToken(final String value, final String text) {
+    EbnfWhitespaceParserToken createToken(final String value, final String text) {
         return EbnfWhitespaceParserToken.with(value, text);
     }
 
     @Override
-    protected EbnfWhitespaceParserToken createDifferentToken() {
+    public EbnfWhitespaceParserToken createDifferentToken() {
         return EbnfWhitespaceParserToken.with("\n\r", "\n\r");
     }
 

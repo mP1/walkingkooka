@@ -75,7 +75,7 @@ public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<Singl
     }
     
     @Override
-    protected SingleQuotedParserToken createToken(final String text) {
+    public SingleQuotedParserToken createToken(final String text) {
         return SingleQuotedParserToken.with(null == text ?
                 String.valueOf(null) :
                 text.substring(1, text.length() -1),
@@ -83,12 +83,12 @@ public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<Singl
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "'abc'";
     }
 
     @Override
-    protected SingleQuotedParserToken createDifferentToken() {
+    public SingleQuotedParserToken createDifferentToken() {
         return this.createToken("'different'");
     }
 

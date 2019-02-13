@@ -68,17 +68,17 @@ public final class SpreadsheetFormatCloseBracketSymbolParserTokenTest extends Sp
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "..";
     }
 
     @Override
-    protected SpreadsheetFormatCloseBracketSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetFormatCloseBracketSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatCloseBracketSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatCloseBracketSymbolParserToken createDifferentToken() {
+    public SpreadsheetFormatCloseBracketSymbolParserToken createDifferentToken() {
         return SpreadsheetFormatCloseBracketSymbolParserToken.with(this.text(), "different");
     }
 

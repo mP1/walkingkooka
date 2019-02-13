@@ -68,7 +68,7 @@ public final class NodeSelectorFirstChildParserTokenTest extends NodeSelectorNon
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "first-child";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorFirstChildParserTokenTest extends NodeSelectorNon
     }
 
     @Override
-    protected NodeSelectorFirstChildParserToken createToken(final String value, final String text) {
+    NodeSelectorFirstChildParserToken createToken(final String value, final String text) {
         return NodeSelectorFirstChildParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorFirstChildParserToken createDifferentToken() {
+    public NodeSelectorFirstChildParserToken createDifferentToken() {
         return NodeSelectorFirstChildParserToken.with("first-child2", "first-child2");
     }
 

@@ -68,7 +68,7 @@ public final class NodeSelectorParentOfParserTokenTest extends NodeSelectorNonSy
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return String.valueOf(this.value());
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorParentOfParserTokenTest extends NodeSelectorNonSy
     }
 
     @Override
-    protected NodeSelectorParentOfParserToken createToken(final String value, final String text) {
+    NodeSelectorParentOfParserToken createToken(final String value, final String text) {
         return NodeSelectorParentOfParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorParentOfParserToken createDifferentToken() {
+    public NodeSelectorParentOfParserToken createDifferentToken() {
         return NodeSelectorParentOfParserToken.with("different", "different");
     }
 

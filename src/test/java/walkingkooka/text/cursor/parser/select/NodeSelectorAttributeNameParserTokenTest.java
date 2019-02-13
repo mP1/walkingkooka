@@ -68,7 +68,7 @@ public final class NodeSelectorAttributeNameParserTokenTest extends NodeSelector
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "attribute";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorAttributeNameParserTokenTest extends NodeSelector
     }
 
     @Override
-    protected NodeSelectorAttributeNameParserToken createToken(final NodeSelectorAttributeName value, final String text) {
+    NodeSelectorAttributeNameParserToken createToken(final NodeSelectorAttributeName value, final String text) {
         return NodeSelectorAttributeNameParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorAttributeNameParserToken createDifferentToken() {
+    public NodeSelectorAttributeNameParserToken createDifferentToken() {
         return NodeSelectorAttributeNameParserToken.with(NodeSelectorAttributeName.with("different"), "different");
     }
 

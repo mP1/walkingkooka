@@ -28,6 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase2<T> {
 
+    EbnfAlternativeConcatenationParentParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public final void testOnlyOneTokenIgnoringCommentsSymbolsWhitespaceFails() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -55,7 +59,7 @@ public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T ex
     }
 
     @Override
-    protected T createDifferentToken() {
+    public T createDifferentToken() {
         return this.createToken("diff1" + separatorChar() + "diff2", this.identifier("diff1"), this.identifier("diff2"));
     }
 

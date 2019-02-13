@@ -38,6 +38,10 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
     final static String WHITESPACE = "   ";
 
+    EbnfParentParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public final void testWithNullTokensFails() {
         assertThrows(NullPointerException.class, () -> {
@@ -116,7 +120,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
     abstract T createTokenWithNoise();
 
     @Override
-    protected final T createToken(final String text) {
+    public final T createToken(final String text) {
         return this.createToken(text, this.tokens());
     }
 

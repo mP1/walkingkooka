@@ -79,7 +79,7 @@ public final class SpreadsheetColumnReferenceParserTokenTest extends Spreadsheet
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "1";
     }
 
@@ -94,7 +94,7 @@ public final class SpreadsheetColumnReferenceParserTokenTest extends Spreadsheet
     }
 
     @Override
-    protected SpreadsheetColumnReferenceParserToken createDifferentToken() {
+    public SpreadsheetColumnReferenceParserToken createDifferentToken() {
         return SpreadsheetColumnReferenceParserToken.with(SpreadsheetReferenceKind.RELATIVE.column(999), "999");
     }
 

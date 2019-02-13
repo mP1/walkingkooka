@@ -25,6 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class NodeSelectorNonSymbolParserTokenTestCase<T extends NodeSelectorLeafParserToken, V> extends NodeSelectorLeafParserTokenTestCase<T, V> {
 
+    NodeSelectorNonSymbolParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public final void testWithoutSymbols() {
         final T token = this.createToken();

@@ -68,7 +68,7 @@ public final class NodeSelectorQuotedTextParserTokenTest extends NodeSelectorNon
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "\"abc123\"";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorQuotedTextParserTokenTest extends NodeSelectorNon
     }
 
     @Override
-    protected NodeSelectorQuotedTextParserToken createToken(final String value, final String text) {
+    NodeSelectorQuotedTextParserToken createToken(final String value, final String text) {
         return NodeSelectorQuotedTextParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorQuotedTextParserToken createDifferentToken() {
+    public NodeSelectorQuotedTextParserToken createDifferentToken() {
         return NodeSelectorQuotedTextParserToken.with("'different'", "\"different\"");
     }
 

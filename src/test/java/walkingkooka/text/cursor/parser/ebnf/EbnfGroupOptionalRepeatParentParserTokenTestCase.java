@@ -31,6 +31,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase2<T> {
 
+    EbnfGroupOptionalRepeatParentParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public final void testTooManyTokensIgnoringCommentsSymbolsWhitespaceFails() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -100,12 +104,12 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
     }
 
     @Override
-    protected T createDifferentToken() {
+    public T createDifferentToken() {
         return this.createToken(this.openChar() + "different" + this.closeChar(), this.identifier("different"));
     }
 
     @Override
-    final protected String text() {
+    final public String text() {
         return this.openChar() + this.identifier1().text() + this.closeChar();
     }
 

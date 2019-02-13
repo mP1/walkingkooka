@@ -94,7 +94,7 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
     }
 
     @Override
-    protected T createToken(final String text) {
+    public T createToken(final String text) {
         return this.createToken(text, this.tokens());
     }
 

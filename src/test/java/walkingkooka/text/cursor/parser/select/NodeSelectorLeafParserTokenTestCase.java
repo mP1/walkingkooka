@@ -19,8 +19,12 @@ package walkingkooka.text.cursor.parser.select;
 
 public abstract class NodeSelectorLeafParserTokenTestCase<T extends NodeSelectorLeafParserToken, V> extends NodeSelectorParserTokenTestCase<T> {
 
+    NodeSelectorLeafParserTokenTestCase() {
+        super();
+    }
+
     @Override
-    protected final T createToken(final String text) {
+    public final T createToken(final String text) {
         return this.createToken(this.value(), text);
     }
 

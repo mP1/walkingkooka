@@ -68,7 +68,7 @@ public final class SpreadsheetPlusSymbolParserTokenTest extends SpreadsheetSymbo
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "+";
     }
 
@@ -78,12 +78,12 @@ public final class SpreadsheetPlusSymbolParserTokenTest extends SpreadsheetSymbo
     }
 
     @Override
-    protected SpreadsheetPlusSymbolParserToken createToken(final String value, final String text) {
+    SpreadsheetPlusSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetPlusSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetPlusSymbolParserToken createDifferentToken() {
+    public SpreadsheetPlusSymbolParserToken createDifferentToken() {
         return SpreadsheetPlusSymbolParserToken.with(this.text(), "different");
     }
 

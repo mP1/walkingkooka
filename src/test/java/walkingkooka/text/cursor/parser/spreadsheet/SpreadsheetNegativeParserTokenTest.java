@@ -115,7 +115,7 @@ public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryPa
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "-" + NUMBER1;
     }
 
@@ -125,7 +125,7 @@ public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryPa
     }
 
     @Override
-    protected SpreadsheetNegativeParserToken createDifferentToken() {
+    public SpreadsheetNegativeParserToken createDifferentToken() {
         return this.createToken("-" + NUMBER2, this.minusSymbol(), this.number2());
     }
 

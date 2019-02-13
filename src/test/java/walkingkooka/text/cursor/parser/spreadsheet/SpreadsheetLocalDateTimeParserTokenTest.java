@@ -76,7 +76,7 @@ public final class SpreadsheetLocalDateTimeParserTokenTest extends SpreadsheetNo
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "2000-01-02T12:59";
     }
 
@@ -86,12 +86,12 @@ public final class SpreadsheetLocalDateTimeParserTokenTest extends SpreadsheetNo
     }
 
     @Override
-    protected SpreadsheetLocalDateTimeParserToken createToken(final LocalDateTime value, final String text) {
+    SpreadsheetLocalDateTimeParserToken createToken(final LocalDateTime value, final String text) {
         return SpreadsheetLocalDateTimeParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetLocalDateTimeParserToken createDifferentToken() {
+    public SpreadsheetLocalDateTimeParserToken createDifferentToken() {
         return SpreadsheetLocalDateTimeParserToken.with(LocalDateTime.parse("2001-12-31T23:58"), "'different'");
     }
 

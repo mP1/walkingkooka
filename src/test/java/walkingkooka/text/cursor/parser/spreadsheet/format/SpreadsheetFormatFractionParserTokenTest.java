@@ -116,12 +116,12 @@ public final class SpreadsheetFormatFractionParserTokenTest extends SpreadsheetF
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "#/#";
     }
 
     @Override
-    protected SpreadsheetFormatFractionParserToken createDifferentToken() {
+    public SpreadsheetFormatFractionParserToken createDifferentToken() {
         return SpreadsheetFormatFractionParserToken.with(Lists.of(this.digit(),
                 this.digit(),
                 this.fractionSymbol(),

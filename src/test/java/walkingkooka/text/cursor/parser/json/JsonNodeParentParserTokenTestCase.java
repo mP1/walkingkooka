@@ -41,6 +41,10 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
 
     final static String WHITESPACE = "   ";
 
+    JsonNodeParentParserTokenTestCase() {
+        super();
+    }
+
     @Test
     public final void testWithNullTokensFails() {
         assertThrows(NullPointerException.class, () -> {
@@ -85,7 +89,7 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
     }
 
     @Test
-    public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
+    public final void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<JsonNodeParserToken> without = this.createToken().withoutSymbols();
         if (without.isPresent()) {
             BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get());
@@ -93,7 +97,7 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
     }
 
     @Override
-    protected T createToken(final String text) {
+    public final T createToken(final String text) {
         return this.createToken(text, this.tokens());
     }
 

@@ -68,7 +68,7 @@ public final class NodeSelectorSlashSeparatorSymbolParserTokenTest extends NodeS
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "/";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorSlashSeparatorSymbolParserTokenTest extends NodeS
     }
 
     @Override
-    protected NodeSelectorSlashSeparatorSymbolParserToken createToken(final String value, final String text) {
+    NodeSelectorSlashSeparatorSymbolParserToken createToken(final String value, final String text) {
         return NodeSelectorSlashSeparatorSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorSlashSeparatorSymbolParserToken createDifferentToken() {
+    public NodeSelectorSlashSeparatorSymbolParserToken createDifferentToken() {
         return NodeSelectorSlashSeparatorSymbolParserToken.with(this.text(), "different");
     }
 

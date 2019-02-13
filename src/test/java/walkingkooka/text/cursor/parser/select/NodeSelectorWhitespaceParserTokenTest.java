@@ -68,7 +68,7 @@ public final class NodeSelectorWhitespaceParserTokenTest extends NodeSelectorSym
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return " ";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorWhitespaceParserTokenTest extends NodeSelectorSym
     }
 
     @Override
-    protected NodeSelectorWhitespaceParserToken createToken(final String value, final String text) {
+    NodeSelectorWhitespaceParserToken createToken(final String value, final String text) {
         return NodeSelectorWhitespaceParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorWhitespaceParserToken createDifferentToken() {
+    public NodeSelectorWhitespaceParserToken createDifferentToken() {
         return NodeSelectorWhitespaceParserToken.with("\n\r", "\n\r");
     }
 

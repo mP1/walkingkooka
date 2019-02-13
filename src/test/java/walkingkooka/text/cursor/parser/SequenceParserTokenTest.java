@@ -237,12 +237,12 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
     }
 
     @Override
-    protected SequenceParserToken createToken(final String text) {
+    public SequenceParserToken createToken(final String text) {
         return this.createToken(this.tokens(), text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return ParserToken.text(this.tokens());
     }
 
@@ -251,7 +251,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
     }
 
     @Override
-    protected SequenceParserToken createDifferentToken() {
+    public SequenceParserToken createDifferentToken() {
         return this.createToken(string("different"), string("different2"));
     }
 

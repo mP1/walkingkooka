@@ -70,7 +70,7 @@ public final class SpreadsheetFormatConditionNumberParserTokenTest extends Sprea
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123.5";
     }
 
@@ -80,12 +80,12 @@ public final class SpreadsheetFormatConditionNumberParserTokenTest extends Sprea
     }
 
     @Override
-    protected SpreadsheetFormatConditionNumberParserToken createToken(final BigDecimal value, final String text) {
+    SpreadsheetFormatConditionNumberParserToken createToken(final BigDecimal value, final String text) {
         return SpreadsheetFormatConditionNumberParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetFormatConditionNumberParserToken createDifferentToken() {
+    public SpreadsheetFormatConditionNumberParserToken createDifferentToken() {
         return SpreadsheetFormatConditionNumberParserToken.with(new BigDecimal(-1), "'different'");
     }
 

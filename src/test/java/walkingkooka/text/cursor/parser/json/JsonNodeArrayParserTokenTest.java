@@ -54,13 +54,12 @@ public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserToke
                 array(number(123), whitespace(), whitespace()).toJsonNode());
     }
 
-    @Override
-    JsonNodeArrayParserToken createToken(final String text, final List<ParserToken> tokens) {
+    @Override protected JsonNodeArrayParserToken createToken(final String text, final List<ParserToken> tokens) {
         return JsonNodeArrayParserToken.with(tokens, text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "[true,null,\"abc\"]";
     }
 
@@ -70,7 +69,7 @@ public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserToke
     }
 
     @Override
-    protected JsonNodeArrayParserToken createDifferentToken() {
+    public JsonNodeArrayParserToken createDifferentToken() {
         return array(arrayBegin(), string("different"), arrayEnd()).cast();
     }
 

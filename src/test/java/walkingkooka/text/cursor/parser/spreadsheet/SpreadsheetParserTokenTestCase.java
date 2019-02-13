@@ -19,11 +19,13 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.BeanPropertiesTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenTestCase;
+import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -31,8 +33,13 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParserToken> extends ParserTokenTestCase<T>
-        implements IsMethodTesting<T> {
+public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParserToken> extends ClassTestCase<T>
+        implements IsMethodTesting<T>,
+        ParserTokenTesting<T> {
+
+    SpreadsheetParserTokenTestCase() {
+        super();
+    }
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -116,5 +123,12 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isNoise") || m.equals("isSymbol");
+    }
+
+    // ClassTestCase..............................................................................................
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -251,7 +251,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     @Override
-    protected EbnfGrammarParserToken createDifferentToken() {
+    public EbnfGrammarParserToken createDifferentToken() {
         final String ruleText = "identifier2='terminal2';";
         final EbnfParserToken rule = EbnfParserToken.rule(Lists.of(identifier2(), assignment(), terminal1(), terminator()), ruleText);
 
@@ -259,7 +259,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     @Override
-    final protected String text() {
+    final public String text() {
         return "identifier1='terminal-1';";
     }
 

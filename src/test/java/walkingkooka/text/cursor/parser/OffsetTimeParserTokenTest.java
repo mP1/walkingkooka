@@ -56,17 +56,17 @@ public final class OffsetTimeParserTokenTest extends ParserTokenTestCase<OffsetT
     }
 
     @Override
-    protected OffsetTimeParserToken createToken(final String text) {
+    public OffsetTimeParserToken createToken(final String text) {
         return OffsetTimeParserToken.with(OffsetTime.MAX, text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "OffsetTime.MAX";
     }
 
     @Override
-    protected OffsetTimeParserToken createDifferentToken() {
+    public OffsetTimeParserToken createDifferentToken() {
         return OffsetTimeParserToken.with(OffsetTime.MIN, "OffsetTime.MIN");
     }
 

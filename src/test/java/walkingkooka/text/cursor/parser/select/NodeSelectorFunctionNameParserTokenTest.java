@@ -68,7 +68,7 @@ public final class NodeSelectorFunctionNameParserTokenTest extends NodeSelectorN
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "starts-with";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorFunctionNameParserTokenTest extends NodeSelectorN
     }
 
     @Override
-    protected NodeSelectorFunctionNameParserToken createToken(final NodeSelectorFunctionName value, final String text) {
+    NodeSelectorFunctionNameParserToken createToken(final NodeSelectorFunctionName value, final String text) {
         return NodeSelectorFunctionNameParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorFunctionNameParserToken createDifferentToken() {
+    public NodeSelectorFunctionNameParserToken createDifferentToken() {
         return NodeSelectorFunctionNameParserToken.with(NodeSelectorFunctionName.with("ends-with"), "ends-with");
     }
 

@@ -99,7 +99,7 @@ public abstract class SpreadsheetFormatConditionParserTokenTestCase<T extends Sp
     abstract T createToken(final String text, final List<ParserToken> tokens);
 
     @Override
-    protected final String text() {
+    public final String text() {
         return this.operatorSymbol().text() + NUMBER1;
     }
 
@@ -115,7 +115,7 @@ public abstract class SpreadsheetFormatConditionParserTokenTestCase<T extends Sp
     }
 
     @Override
-    protected T createDifferentToken() {
+    public T createDifferentToken() {
         return this.createToken(this.operatorSymbol().text() + NUMBER2,
                 Lists.of(this.operatorSymbol(), this.number2()));
     }

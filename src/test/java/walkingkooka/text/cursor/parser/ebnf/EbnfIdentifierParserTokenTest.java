@@ -67,7 +67,7 @@ public final class EbnfIdentifierParserTokenTest extends EbnfLeafParserTokenTest
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "abc123";
     }
 
@@ -76,12 +76,12 @@ public final class EbnfIdentifierParserTokenTest extends EbnfLeafParserTokenTest
     }
 
     @Override
-    protected EbnfIdentifierParserToken createToken(final EbnfIdentifierName value, final String text) {
+    EbnfIdentifierParserToken createToken(final EbnfIdentifierName value, final String text) {
         return EbnfIdentifierParserToken.with(value, text);
     }
 
     @Override
-    protected EbnfIdentifierParserToken createDifferentToken() {
+    public EbnfIdentifierParserToken createDifferentToken() {
         return EbnfIdentifierParserToken.with(EbnfIdentifierName.with("different"), "different");
     }
 

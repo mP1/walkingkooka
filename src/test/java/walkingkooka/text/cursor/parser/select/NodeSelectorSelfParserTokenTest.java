@@ -68,7 +68,7 @@ public final class NodeSelectorSelfParserTokenTest extends NodeSelectorNonSymbol
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return String.valueOf(this.value());
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorSelfParserTokenTest extends NodeSelectorNonSymbol
     }
 
     @Override
-    protected NodeSelectorSelfParserToken createToken(final String value, final String text) {
+    NodeSelectorSelfParserToken createToken(final String value, final String text) {
         return NodeSelectorSelfParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorSelfParserToken createDifferentToken() {
+    public NodeSelectorSelfParserToken createDifferentToken() {
         return NodeSelectorSelfParserToken.with("different", "different");
     }
 

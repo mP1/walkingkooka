@@ -74,7 +74,7 @@ public final class SpreadsheetDoubleParserTokenTest extends SpreadsheetNumericPa
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "123.5";
     }
 
@@ -84,12 +84,12 @@ public final class SpreadsheetDoubleParserTokenTest extends SpreadsheetNumericPa
     }
 
     @Override
-    protected SpreadsheetDoubleParserToken createToken(final Double value, final String text) {
+    SpreadsheetDoubleParserToken createToken(final Double value, final String text) {
         return SpreadsheetDoubleParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetDoubleParserToken createDifferentToken() {
+    public SpreadsheetDoubleParserToken createDifferentToken() {
         return SpreadsheetDoubleParserToken.with(Double.valueOf(-1), "'different'");
     }
 

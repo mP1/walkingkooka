@@ -155,12 +155,12 @@ public final class SpreadsheetFormatColorParserTokenTest extends SpreadsheetForm
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "[RED   ]";
     }
 
     @Override
-    protected SpreadsheetFormatColorParserToken createDifferentToken() {
+    public SpreadsheetFormatColorParserToken createDifferentToken() {
         return SpreadsheetFormatColorParserToken.with(Lists.of(this.openBracket(),
                 SpreadsheetFormatParserToken.colorName("GREEN", "GREEN"),
                 this.closeBracket()),

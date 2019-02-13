@@ -68,7 +68,7 @@ public final class NodeSelectorPrecedingSiblingParserTokenTest extends NodeSelec
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "preceding-sibling";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorPrecedingSiblingParserTokenTest extends NodeSelec
     }
 
     @Override
-    protected NodeSelectorPrecedingSiblingParserToken createToken(final String value, final String text) {
+    NodeSelectorPrecedingSiblingParserToken createToken(final String value, final String text) {
         return NodeSelectorPrecedingSiblingParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorPrecedingSiblingParserToken createDifferentToken() {
+    public NodeSelectorPrecedingSiblingParserToken createDifferentToken() {
         return NodeSelectorPrecedingSiblingParserToken.with("preceding-sibling2", "preceding-sibling2");
     }
 

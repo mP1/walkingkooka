@@ -55,17 +55,17 @@ public final class SignParserTokenTest extends ParserTokenTestCase<SignParserTok
     }
     
     @Override
-    protected SignParserToken createToken(final String text) {
+    public SignParserToken createToken(final String text) {
         return SignParserToken.with(true, text);
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "+";
     }
 
     @Override
-    protected SignParserToken createDifferentToken() {
+    public SignParserToken createDifferentToken() {
         return SignParserToken.with(false, "-");
     }
 

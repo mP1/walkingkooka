@@ -68,7 +68,7 @@ public final class NodeSelectorAbsoluteParserTokenTest extends NodeSelectorNonSy
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "/";
     }
 
@@ -78,12 +78,12 @@ public final class NodeSelectorAbsoluteParserTokenTest extends NodeSelectorNonSy
     }
 
     @Override
-    protected NodeSelectorAbsoluteParserToken createToken(final String value, final String text) {
+    NodeSelectorAbsoluteParserToken createToken(final String value, final String text) {
         return NodeSelectorAbsoluteParserToken.with(value, text);
     }
 
     @Override
-    protected NodeSelectorAbsoluteParserToken createDifferentToken() {
+    public NodeSelectorAbsoluteParserToken createDifferentToken() {
         return NodeSelectorAbsoluteParserToken.with("absolute::*", "absolute::*");
     }
 

@@ -193,13 +193,13 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
     }
 
     @Override
-    protected EbnfRuleParserToken createDifferentToken() {
+    public EbnfRuleParserToken createDifferentToken() {
         return this.createToken("xyz=qrs;",
                 identifier("xyz"), assignment(), identifier("qrs"), terminator());
     }
 
     @Override
-    protected final String text() {
+    public final String text() {
         return "abc123=def456";
     }
 

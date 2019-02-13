@@ -124,12 +124,12 @@ public final class SpreadsheetFormatGeneralParserTokenTest extends SpreadsheetFo
     }
 
     @Override
-    protected String text() {
+    public String text() {
         return "GENeral" + WHITESPACE;
     }
 
     @Override
-    protected SpreadsheetFormatGeneralParserToken createDifferentToken() {
+    public SpreadsheetFormatGeneralParserToken createDifferentToken() {
         return SpreadsheetFormatGeneralParserToken.with(Lists.of(this.whitespace(), this.generalSymbol()),
                 WHITESPACE + GENERAL);
     }
