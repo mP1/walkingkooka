@@ -16,32 +16,26 @@
  *
  */
 
-package walkingkooka.tree.json;
+package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.test.ClassTestCase;
-import walkingkooka.test.Fake;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitorTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class FakeJsonNodeVisitorTest extends ClassTestCase<FakeJsonNodeVisitor>
-        implements JsonNodeVisitorTesting<FakeJsonNodeVisitor> {
+/**
+ * Base class for all {@link SpreadsheetFormatParserTokenVisitor} in this package.
+ */
+public abstract class SpreadsheetFormatParserTokenVisitorTestCase<V extends SpreadsheetFormatParserTokenVisitor>
+        extends ClassTestCase<V>
+        implements SpreadsheetFormatParserTokenVisitorTesting<V> {
 
-    @Override
-    public FakeJsonNodeVisitor createVisitor() {
-        return new FakeJsonNodeVisitor();
+    SpreadsheetFormatParserTokenVisitorTestCase() {
+        super();
     }
 
     @Override
-    public String typeNamePrefix() {
-        return Fake.class.getSimpleName();
-    }
-
-    @Override
-    public Class<FakeJsonNodeVisitor> type() {
-        return FakeJsonNodeVisitor.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

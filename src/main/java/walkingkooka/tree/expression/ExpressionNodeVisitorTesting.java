@@ -16,14 +16,17 @@
  *
  */
 
-package walkingkooka.tree.search;
+package walkingkooka.tree.expression;
 
-import walkingkooka.tree.visit.VisitorTestCase;
+import walkingkooka.tree.visit.VisitorTesting;
 
-public abstract class SearchNodeVisitorTestCase<V extends SearchNodeVisitor> extends VisitorTestCase<SearchNodeVisitor, SearchNode> {
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link ExpressionNodeVisitor}
+ */
+public interface ExpressionNodeVisitorTesting<V extends ExpressionNodeVisitor> extends VisitorTesting<ExpressionNodeVisitor, ExpressionNode> {
 
     @Override
-    public final String typeNameSuffix() {
-        return SearchNodeVisitor.class.getSimpleName();
+    default String typeNameSuffix() {
+        return ExpressionNodeVisitor.class.getSimpleName();
     }
 }

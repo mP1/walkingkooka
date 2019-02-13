@@ -20,7 +20,6 @@ package walkingkooka.tree.visit;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -34,90 +33,90 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class VisitorTestCase<V extends Visitor<T>, T>
-        extends
-        ClassTestCase<V>
-        implements ToStringTesting<V>,
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link Visitor}
+ */
+public interface VisitorTesting<V extends Visitor<T>, T>
+        extends ToStringTesting<V>,
         TypeNameTesting<V> {
-
-    protected VisitorTestCase() {
-        super();
-    }
 
     /**
      * All visitors must have protected constructors.
      */
     @Test
-    public void testAllConstructorsVisibility() {
-        this.checkAllConstructorsVisibility(MemberVisibility.PROTECTED);
+    default void testAllConstructorsVisibility() throws Exception {
+        assertEquals(Lists.empty(),
+                Arrays.stream(this.type().getConstructors())
+                        .filter(c -> !MemberVisibility.PROTECTED.is(c))
+                        .collect(Collectors.toList()));
     }
 
     @Test
-    public final void testAcceptNullFails() {
+    default void testAcceptNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createVisitor().accept(null);
         });
     }
 
     @Test
-    public final void testSinglePublicAcceptMethod() {
-        final List<Method> publicAcceptMethods = Arrays.stream(this.type().getMethods())
-               .filter(m -> m.getName().startsWith("accept"))
-               .collect(Collectors.toList());
+    default void testSinglePublicAcceptMethod() {
+        final List<Method> defaultAcceptMethods = Arrays.stream(this.type().getMethods())
+                .filter(m -> m.getName().startsWith("accept"))
+                .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
         assertEquals(2,
-                publicAcceptMethods.size(),
-                ()-> "visitor " + this.type().getName() + " should have only 1 public accept method=" + publicAcceptMethods);
+                defaultAcceptMethods.size(),
+                () -> "visitor " + this.type().getName() + " should have only 1 default accept method=" + defaultAcceptMethods);
     }
 
     // all visit methods are protected..
 
     @Test
-    public final void testVisitMethodsProtected() {
+    default void testVisitMethodsProtected() {
         this.visitMethodsProtectedCheck("visit");
     }
 
     @Test
-    public final void testStartVisitMethodsProtected() {
+    default void testStartVisitMethodsProtected() {
         this.visitMethodsProtectedCheck("startVisit");
     }
 
     @Test
-    public final void testEndVisitMethodsProtected() {
+    default void testEndVisitMethodsProtected() {
         this.visitMethodsProtectedCheck("endVisit");
     }
 
-    private void visitMethodsProtectedCheck(final String name) {
+    default void visitMethodsProtectedCheck(final String name) {
         final List<Method> wrong = this.allMethods()
                 .stream()
                 .filter(m -> !MethodAttributes.STATIC.is(m)) // only interested in instance methods.
                 .filter(m -> m.getName().startsWith(name))
-                .filter(m -> ! MemberVisibility.PROTECTED.is(m))
+                .filter(m -> !MemberVisibility.PROTECTED.is(m))
                 .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals(Lists.empty(), wrong, ()-> "all " + name + " methods in " + this.type().getName() + " should be protected=" + wrong);
+        assertEquals(Lists.empty(), wrong, () -> "all " + name + " methods in " + this.type().getName() + " should be protected=" + wrong);
     }
 
     // all visit methods have a single parameter.
 
     @Test
-    public final void testVisitMethodsSingleParameter() {
+    default void testVisitMethodsSingleParameter() {
         this.visitMethodsSingleParameterCheck("visit");
     }
 
     @Test
-    public final void testStartVisitMethodsSingleParameter() {
+    default void testStartVisitMethodsSingleParameter() {
         this.visitMethodsSingleParameterCheck("startVisit");
     }
 
     @Test
-    public final void testEndVisitMethodsSingleParameter() {
+    default void testEndVisitMethodsSingleParameter() {
         this.visitMethodsSingleParameterCheck("endVisit");
     }
 
-    private void visitMethodsSingleParameterCheck(final String name) {
+    default void visitMethodsSingleParameterCheck(final String name) {
         final List<Method> wrong = this.allMethods()
                 .stream()
                 .filter(m -> !MethodAttributes.STATIC.is(m)) // only interested in instance methods.
@@ -127,26 +126,20 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
                 .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals(Lists.empty(), wrong, ()-> "all " + name + " methods in " + this.type().getName() + " should have 1 parameter=" + wrong);
+        assertEquals(Lists.empty(), wrong, () -> "all " + name + " methods in " + this.type().getName() + " should have 1 parameter=" + wrong);
     }
 
-    private List<Method> allMethods() {
+    default List<Method> allMethods() {
         final List<Method> all = Lists.array();
         Class<?> type = this.type();
         do {
             all.addAll(Lists.of(type.getMethods()));
 
             type = type.getSuperclass();
-        } while(type != Object.class);
+        } while (type != Object.class);
 
         return all;
     }
 
-
-    abstract protected V createVisitor();
-
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
+    V createVisitor();
 }

@@ -16,24 +16,17 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.Cast;
-import walkingkooka.tree.visit.VisitorTestCase;
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
 
-public abstract class ParserTokenVisitorTestCase<V extends ParserTokenVisitor, T extends ParserToken> extends VisitorTestCase<V, ParserToken> {
-
-    @Override
-    protected final V createVisitor() {
-        return this.createParserTokenVisitor();
-    }
-
-    protected abstract V createParserTokenVisitor();
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link JsonNodeParserTokenVisitor}
+ */
+public interface JsonNodeParserTokenVisitorTesting<V extends JsonNodeParserTokenVisitor> extends ParserTokenVisitorTesting<V, JsonNodeParserToken> {
 
     @Override
-    public final Class<V> type() {
-        return Cast.to(this.parserTokenVisitorType());
+    default String typeNameSuffix() {
+        return JsonNodeParserTokenVisitor.class.getSimpleName();
     }
-
-    protected abstract Class<V> parserTokenVisitorType();
 }

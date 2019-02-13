@@ -16,14 +16,17 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.tree.visit.VisitorTestCase;
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
 
-public abstract class ExpressionNodeVisitorTestCase<V extends ExpressionNodeVisitor> extends VisitorTestCase<ExpressionNodeVisitor, ExpressionNode> {
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link SpreadsheetFormatParserTokenVisitor}
+ */
+public interface SpreadsheetFormatParserTokenVisitorTesting<V extends SpreadsheetFormatParserTokenVisitor> extends ParserTokenVisitorTesting<V, SpreadsheetFormatParserToken> {
 
     @Override
-    public final String typeNameSuffix() {
-        return ExpressionNodeVisitor.class.getSimpleName();
+    default String typeNameSuffix() {
+        return SpreadsheetFormatParserTokenVisitor.class.getSimpleName();
     }
 }

@@ -18,20 +18,31 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTestCase;
 
-public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> {
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTesting;
+import walkingkooka.type.MemberVisibility;
+
+public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest extends ClassTestCase<ExpressionNodeSelectorNodeSelectorParserTokenVisitor>
+        implements NodeSelectorParserTokenVisitorTesting<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> {
+
     @Override
-    protected ExpressionNodeSelectorNodeSelectorParserTokenVisitor createParserTokenVisitor() {
+    public ExpressionNodeSelectorNodeSelectorParserTokenVisitor createVisitor() {
         return new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(null);
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return ExpressionNodeSelector.class.getSimpleName();
     }
 
     @Override
-    protected Class<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> parserTokenVisitorType() {
+    public Class<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> type() {
         return ExpressionNodeSelectorNodeSelectorParserTokenVisitor.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

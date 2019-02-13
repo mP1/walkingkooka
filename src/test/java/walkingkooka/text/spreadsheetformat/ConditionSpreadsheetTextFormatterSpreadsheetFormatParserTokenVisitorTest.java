@@ -18,21 +18,20 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitorTestCase;
-
 public final class ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorTest extends SpreadsheetFormatParserTokenVisitorTestCase<ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor> {
 
     @Override
-    protected ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor createParserTokenVisitor() {
+    public ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor createVisitor() {
         return new ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor();
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return ConditionSpreadsheetTextFormatter.class.getSimpleName();
     }
 
     @Override
-    protected Class<ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor> parserTokenVisitorType() {
+    public Class<ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor> type() {
         return ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor.class;
     }
 }

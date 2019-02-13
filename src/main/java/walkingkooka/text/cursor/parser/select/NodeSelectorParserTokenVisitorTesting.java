@@ -16,21 +16,17 @@
  *
  */
 
-package walkingkooka.text.spreadsheetformat;
+package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
 
-public abstract class TextFormatterSpreadsheetFormatParserTokenVisitorTestCase<V extends TextFormatterSpreadsheetFormatParserTokenVisitor>
-        extends ClassTestCase<V>
-        implements TextFormatterSpreadsheetFormatParserTokenVisitorTesting<V>{
-
-    TextFormatterSpreadsheetFormatParserTokenVisitorTestCase() {
-        super();
-    }
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link NodeSelectorParserTokenVisitor}
+ */
+public interface NodeSelectorParserTokenVisitorTesting<V extends NodeSelectorParserTokenVisitor> extends ParserTokenVisitorTesting<V, NodeSelectorParserToken> {
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    default String typeNameSuffix() {
+        return NodeSelectorParserTokenVisitor.class.getSimpleName();
     }
 }

@@ -16,14 +16,10 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.spreadsheet;
+package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitorTesting;
 
-public abstract class SpreadsheetParserTokenVisitorTestCase<V extends SpreadsheetParserTokenVisitor> extends ParserTokenVisitorTestCase<V, SpreadsheetParserToken> {
-
-    @Override
-    public final String typeNameSuffix() {
-        return SpreadsheetParserTokenVisitor.class.getSimpleName();
-    }
+public interface TextFormatterSpreadsheetFormatParserTokenVisitorTesting<V extends TextFormatterSpreadsheetFormatParserTokenVisitor>
+        extends SpreadsheetFormatParserTokenVisitorTesting<V> {
 }

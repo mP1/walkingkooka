@@ -16,14 +16,20 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.spreadsheet.format;
+package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class SpreadsheetFormatParserTokenVisitorTestCase<V extends SpreadsheetFormatParserTokenVisitor> extends ParserTokenVisitorTestCase<V, SpreadsheetFormatParserToken> {
+public abstract class NodeSelectorParserTokenVisitorTestCase<V extends NodeSelectorParserTokenVisitor> extends ClassTestCase<V>
+        implements NodeSelectorParserTokenVisitorTesting<V> {
+
+    NodeSelectorParserTokenVisitorTestCase() {
+        super();
+    }
 
     @Override
-    public final String typeNameSuffix() {
-        return SpreadsheetFormatParserTokenVisitor.class.getSimpleName();
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -16,14 +16,17 @@
  *
  */
 
-package walkingkooka.tree.json;
+package walkingkooka.tree.search;
 
-import walkingkooka.tree.visit.VisitorTestCase;
+import walkingkooka.tree.visit.VisitorTesting;
 
-public abstract class JsonNodeVisitorTestCase<V extends JsonNodeVisitor> extends VisitorTestCase<V, JsonNode> {
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link SearchNodeVisitor}
+ */
+public interface SearchNodeVisitorTesting<V extends SearchNodeVisitor> extends VisitorTesting<SearchNodeVisitor, SearchNode> {
 
     @Override
-    public final String typeNameSuffix() {
-        return JsonNodeVisitor.class.getSimpleName();
+    default String typeNameSuffix() {
+        return SearchNodeVisitor.class.getSimpleName();
     }
 }
