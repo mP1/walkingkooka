@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.test.ToStringTesting;
@@ -228,7 +229,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
 
     @Test
     public void testPropertiesNeverReturnNull() throws Exception {
-        propertiesNeverReturnNullCheck(this.createToken());
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createToken());
     }
 
     @Test
