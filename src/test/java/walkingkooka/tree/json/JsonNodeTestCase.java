@@ -26,6 +26,7 @@ import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
@@ -44,7 +45,10 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
-        this.publicStaticFactoryCheck(JsonNode.class, "Json", Node.class);
+        PublicStaticFactoryTesting.check(JsonNode.class,
+                "Json",
+                Node.class,
+                this.type());
     }
 
     @Test

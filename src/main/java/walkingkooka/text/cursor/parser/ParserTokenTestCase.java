@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
@@ -156,7 +157,10 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTe
 
     @Test
     public void testPublicStaticFactoryMethod() {
-        this.publicStaticFactoryCheck(ParserTokens.class, "", ParserToken.class);
+        PublicStaticFactoryTesting.check(ParserTokens.class,
+                "",
+                ParserToken.class,
+                this.type());
     }
 
     @Test

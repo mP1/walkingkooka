@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
 
@@ -45,7 +46,10 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
-        this.publicStaticFactoryCheck(SearchNode.class, "Search", Node.class);
+        PublicStaticFactoryTesting.check(SearchNode.class,
+                "Search",
+                Node.class,
+                this.type());
     }
 
     @Test

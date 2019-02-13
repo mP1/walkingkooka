@@ -19,8 +19,6 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.LineEnding;
 import walkingkooka.type.ClassAttributes;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
@@ -131,51 +129,6 @@ abstract public class ClassTestCase<T> extends TestCase
             }
         }
     }
-
-    /**
-     * The base is typically the base sub class of the type being tested, and holds the public static factory method
-     * usually named after the type being tested.
-     */
-    protected final void publicStaticFactoryCheck(final Class<?> base, final String prefix, final Class<?> suffixType) {
-        final String suffix = suffixType.getSimpleName();
-
-        final Class<?> type = this.type();
-        final String name = type.getSimpleName();
-        final String without = Character.toLowerCase(name.charAt(prefix.length())) +
-                name.substring(prefix.length() + 1, name.length() - suffix.length());
-
-        final String factoryMethodName = factoryMethodNameSpecialFixup(without, suffix);
-
-        final List<Method> publicStaticMethods = Arrays.stream(base.getMethods())
-                .filter(m -> MethodAttributes.STATIC.is(m) && MemberVisibility.PUBLIC.is(m))
-                .collect(Collectors.toList());
-
-        final List<Method> factoryMethods = publicStaticMethods.stream()
-                .filter(m -> m.getName().equals(factoryMethodName) &&
-                        m.getReturnType().equals(type))
-                .collect(Collectors.toList());
-
-        final String publicStaticMethodsToString = publicStaticMethods.stream()
-                .map(m -> m.toGenericString())
-                .collect(Collectors.joining(LineEnding.SYSTEM.toString()));
-        assertEquals(1,
-                factoryMethods.size(),
-                () -> "Expected only a single factory method called " + CharSequences.quote(factoryMethodName) +
-                        " for " + type + " on " + base.getName() + " but got " + factoryMethods + "\n" + publicStaticMethodsToString);
-    }
-
-    private static String factoryMethodNameSpecialFixup(final String name, final String suffix){
-        String factoryMethodName = name;
-        for(String possible : FACTORY_METHOD_NAME_SPECIALS){
-            if(name.equals(possible)){
-                factoryMethodName = name + suffix;
-                break;
-            }
-        }
-        return factoryMethodName;
-    }
-
-    private final static String[] FACTORY_METHOD_NAME_SPECIALS = new String[]{ "boolean", "byte", "double", "equals", "int", "long", "null", "short"};
 
     protected void propertiesNeverReturnNullCheck(final Object object) throws Exception {
         final List<Method> properties = Arrays.stream(object.getClass().getMethods())
