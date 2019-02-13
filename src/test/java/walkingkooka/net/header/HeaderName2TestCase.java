@@ -18,11 +18,14 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Comparable<C> & HashCodeEqualsDefined>
-        extends HeaderNameTestCase<N, C> {
+        extends ClassTestCase<N>
+        implements HeaderNameTesting<N, C> {
 
     HeaderName2TestCase() {
         super();
@@ -31,5 +34,10 @@ public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Co
     @Override
     public final CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
+    }
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
