@@ -135,12 +135,12 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
     }
 
     @Override
-    protected final boolean isMultipart() {
+    public final boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

@@ -50,22 +50,22 @@ public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends
     abstract R createLinkRelation(final T value);
 
     @Override
-    protected final R createHeaderValue(final T value) {
+    final R createHeaderValue(final T value) {
         return this.createLinkRelation(value);
     }
 
     @Override
-    protected final boolean isMultipart() {
+    public final boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected final boolean isRequest() {
+    public final boolean isRequest() {
         return true;
     }
 
     @Override
-    protected final boolean isResponse() {
+    public final boolean isResponse() {
         return true;
     }
 }

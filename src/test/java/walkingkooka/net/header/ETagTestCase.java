@@ -110,7 +110,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
     // helper ...........................................................................................................
 
     @Override
-    protected final E createHeaderValue() {
+    public final E createHeaderValue() {
         return this.createETag();
     }
 
@@ -130,22 +130,22 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
     abstract ETagValidator validator();
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

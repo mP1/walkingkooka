@@ -254,22 +254,22 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     }
 
     @Override
-    protected LanguageTag createHeaderValueWithParameters() {
+    public LanguageTag createHeaderValueWithParameters() {
         return LanguageTag.WILDCARD;
     }
 
     @Override
-    protected final boolean isMultipart() {
+    public final boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected final boolean isRequest() {
+    public final boolean isRequest() {
         return true;
     }
 
     @Override
-    protected final boolean isResponse() {
+    public final boolean isResponse() {
         return true;
     }
 
@@ -279,7 +279,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

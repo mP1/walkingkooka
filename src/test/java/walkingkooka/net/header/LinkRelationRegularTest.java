@@ -88,7 +88,7 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

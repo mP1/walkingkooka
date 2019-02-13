@@ -64,22 +64,22 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     }
 
     @Override
-    protected RangeHeaderValueUnit createHeaderValue() {
+    public RangeHeaderValueUnit createHeaderValue() {
         return RangeHeaderValueUnit.BYTES;
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
@@ -89,7 +89,7 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

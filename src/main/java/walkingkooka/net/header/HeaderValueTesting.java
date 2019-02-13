@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 
@@ -28,82 +27,84 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTestCase<V>
-        implements HashCodeEqualsDefinedTesting<V>,
+/**
+ * Mixin interface with helpers to assist testing of {@link HeaderValue} implementations.
+ */
+public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqualsDefinedTesting<V>,
         ToStringTesting<V> {
 
     @Test
-    public final void testIsMultipart() {
+    default void testIsMultipart() {
         assertEquals(this.isMultipart(), this.createHeaderValue().isMultipart());
     }
 
     @Test
-    public final void testIsRequest() {
+    default void testIsRequest() {
         assertEquals(this.isRequest(), this.createHeaderValue().isRequest());
     }
 
     @Test
-    public final void testIsResponse() {
+    default void testIsResponse() {
         assertEquals(this.isResponse(), this.createHeaderValue().isResponse());
     }
 
     @Test
-    public final void testIsWildcardHeaderText() {
+    default void testIsWildcardHeaderText() {
         final V header = this.createHeaderValue();
         this.isWildcardAndCheck(header, String.valueOf(HeaderValue.WILDCARD).equals(header.toHeaderText()));
     }
 
-    abstract protected boolean isMultipart();
+    boolean isMultipart();
 
-    abstract protected boolean isRequest();
+    boolean isRequest();
 
-    abstract protected boolean isResponse();
+    boolean isResponse();
 
-    abstract protected V createHeaderValue();
+    V createHeaderValue();
 
     //@Override
-    public final RuntimeException parseFailedExpected(final RuntimeException expected) {
+    default RuntimeException parseFailedExpected(final RuntimeException expected) {
         return new HeaderValueException(expected.getMessage(), expected);
     }
 
     //@Override
-    public final Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+    default Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
         return HeaderValueException.class;
     }
 
-    protected void toHeaderTextAndCheck(final String expected) {
+    default void toHeaderTextAndCheck(final String expected) {
         this.toHeaderTextAndCheck(this.createHeaderValue(), expected);
     }
 
-    protected void toHeaderTextAndCheck(final HeaderValue headerValue, final String expected) {
+    default void toHeaderTextAndCheck(final HeaderValue headerValue, final String expected) {
         assertEquals(expected, headerValue.toHeaderText(), () -> "headerText of " + headerValue);
         this.isWildcardAndCheck0(headerValue, String.valueOf(HeaderValue.WILDCARD).equals(expected));
     }
 
-    protected void toHeaderTextListAndCheck(final String toString,
+    default void toHeaderTextListAndCheck(final String toString,
                                             final HeaderValue... headerValues) {
         assertEquals(toString,
                 HeaderValue.toHeaderTextList(Lists.of(headerValues), HeaderValue.SEPARATOR.string().concat(" ")),
                 () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headerValues));
     }
 
-    protected void isWildcardAndCheck(final boolean expected) {
+    default void isWildcardAndCheck(final boolean expected) {
         this.isWildcardAndCheck(this.createHeaderValue(), expected);
     }
 
-    protected void isWildcardAndCheck(final HeaderValue headerValue, final boolean expected) {
+    default void isWildcardAndCheck(final HeaderValue headerValue, final boolean expected) {
         this.isWildcardAndCheck0(headerValue, expected);
 
         final String text = headerValue.toHeaderText();
         this.isWildcardAndCheck0(headerValue, String.valueOf(HeaderValue.WILDCARD).equals(text) || "*/*".equals(text));
     }
 
-    private void isWildcardAndCheck0(final HeaderValue headerValue, final boolean expected) {
+    default void isWildcardAndCheck0(final HeaderValue headerValue, final boolean expected) {
         assertEquals(expected, headerValue.isWildcard(), () -> "header " + headerValue);
     }
 
     @Override
-    public final V createObject() {
+    default V createObject() {
         return this.createHeaderValue();
     }
 }

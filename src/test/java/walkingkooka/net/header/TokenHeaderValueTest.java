@@ -239,7 +239,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
     // helpers ...........................................................................................
 
     @Override
-    protected TokenHeaderValue createHeaderValueWithParameters() {
+    public TokenHeaderValue createHeaderValueWithParameters() {
         return this.token();
     }
 
@@ -295,17 +295,17 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return true;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 

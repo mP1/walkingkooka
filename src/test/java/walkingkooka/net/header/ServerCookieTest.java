@@ -1259,17 +1259,17 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     @Override
-    protected ServerCookie createHeaderValue() {
+    public ServerCookie createHeaderValue() {
         return this.createCookie();
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return false;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 

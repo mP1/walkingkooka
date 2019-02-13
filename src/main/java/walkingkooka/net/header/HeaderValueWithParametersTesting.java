@@ -23,28 +23,31 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HeaderValueWithParametersTestCase<V extends HeaderValueWithParameters<N>,
-        N extends HeaderParameterName<?>> extends HeaderValueTestCase<V> {
+/**
+ * Mixin interface with helpers to assist testing of {@link HeaderValueWithParameters} implementations.
+ */
+public interface HeaderValueWithParametersTesting<V extends HeaderValueWithParameters<N>,
+        N extends HeaderParameterName<?>> extends HeaderValueTesting<V> {
 
     // setParameters ...........................................................................................
 
     @Test
-    public final void testSetParametersNullFails() {
+    default void testSetParametersNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createHeaderValueWithParameters().setParameters(null);
         });
     }
 
     @Test
-    public final void testSetParametersSame() {
+    default void testSetParametersSame() {
         final V headerValueWithParameters = this.createHeaderValueWithParameters();
         assertSame(headerValueWithParameters, headerValueWithParameters.setParameters(headerValueWithParameters.parameters()));
     }
 
-    abstract protected V createHeaderValueWithParameters();
+    V createHeaderValueWithParameters();
 
     @Override
-    protected final V createHeaderValue() {
+    default V createHeaderValue() {
         return this.createHeaderValueWithParameters();
     }
 }

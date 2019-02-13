@@ -47,22 +47,22 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
     }
 
     @Override
-    protected final boolean isMultipart() {
+    public final boolean isMultipart() {
         return true;
     }
 
     @Override
-    protected final boolean isRequest() {
+    public final boolean isRequest() {
         return true;
     }
 
     @Override
-    protected final boolean isResponse() {
+    public final boolean isResponse() {
         return true;
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

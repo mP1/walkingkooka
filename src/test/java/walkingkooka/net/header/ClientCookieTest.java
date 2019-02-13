@@ -225,17 +225,17 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     }
 
     @Override
-    protected ClientCookie createHeaderValue() {
+    public ClientCookie createHeaderValue() {
         return this.createCookie();
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return false;
     }
 

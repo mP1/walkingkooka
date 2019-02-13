@@ -91,22 +91,22 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
     }
 
     @Override
-    protected boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    protected boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    protected boolean isResponse() {
+    public boolean isResponse() {
         return false;
     }
 
     @Override
-    protected IfRange<?> createHeaderValue() {
+    public IfRange<?> createHeaderValue() {
         return IfRange.with(LocalDateTime.of(2000, 12, 31, 6, 28, 29));
     }
 
@@ -116,7 +116,7 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ContentDispositionFileNameEncodedTest extends ContentDispositionFileNameTestCase<ContentDispositionFileNameEncoded> {
 
     private final static String FILENAME = "filename 123";
@@ -63,7 +61,7 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     }
 
     @Override
-    protected ContentDispositionFileNameEncoded createHeaderValue() {
+    public ContentDispositionFileNameEncoded createHeaderValue() {
         return ContentDispositionFileNameEncoded.with(this.encodedText());
     }
 
