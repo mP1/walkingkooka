@@ -20,29 +20,29 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
-        extends ClassTestCase<N>
-        implements NameTesting2<N, C> {
+/**
+ * Mixing interface to assist testing of {@link HeaderName} implementations.
+ */
+public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
+        extends NameTesting2<N, C> {
 
     // parameterValue...........................................................................................
 
     @Test
-    public final void testToValueNullFails() {
+    default void testToValueNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createName().toValue(null);
         });
     }
 
-    protected <V> void toValueAndCheck(final HeaderName<V> name,
+    default <V> void toValueAndCheck(final HeaderName<V> name,
                                        final String headerValue,
                                        final V value) {
         assertEquals(value,
@@ -53,7 +53,7 @@ public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comp
     // toString.................................................................................
 
     @Test
-    public final void testToString() {
+    default void testToString() {
         final String nameText = this.nameText();
         this.toStringAndCheck(this.createName(nameText), nameText);
     }
@@ -61,38 +61,33 @@ public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comp
     // checkValue...........................................................................................
 
     @Test
-    public final void testCheckValueNullFails() {
+    default void testCheckValueNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.checkValue(null);
         });
     }
 
     @Test
-    public final void testCheckValueInvalidTypeFails() {
+    default void testCheckValueInvalidTypeFails() {
         assertThrows(HeaderValueException.class, () -> {
             this.checkValue(this);
         });
     }
 
-    protected void checkValue(final Object value) {
+    default void checkValue(final Object value) {
         this.createName().checkValue(value);
     }
 
-    protected void checkValue(final HeaderName<?> name,
+    default void checkValue(final HeaderName<?> name,
                               final Object value) {
         assertSame(value,
                 name.checkValue(value),
                 name + " didnt return correct value=" + CharSequences.quoteIfChars(value));
     }
 
-    protected final N createName() {
+    default N createName() {
         return this.createName(this.nameText());
     }
 
-    public abstract String nameText();
-
-    @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
+    String nameText();
 }
