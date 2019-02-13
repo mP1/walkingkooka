@@ -16,6 +16,8 @@
  */
 package walkingkooka.tree.pojo;
 
+import walkingkooka.Context;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,7 +25,7 @@ import java.util.Set;
 /**
  * Defines a single method that returns a {@link List} of all properties for a given type.
  */
-public interface PojoNodeContext {
+public interface PojoNodeContext extends Context {
 
     /**
      * Retrieves all the properties for the given type.

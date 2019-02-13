@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +32,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-public final class ReflectionPojoNodeContextTest extends PojoNodeContextTestCase<ReflectionPojoNodeContext> {
+public final class ReflectionPojoNodeContextTest extends ClassTestCase<ReflectionPojoNodeContext>
+        implements PojoNodeContextTesting<ReflectionPojoNodeContext> {
 
     private final static PojoName X = PojoName.property("x");
     private final static String STRING = "abc";
@@ -280,13 +283,18 @@ public final class ReflectionPojoNodeContextTest extends PojoNodeContextTestCase
     // helpers......................................................................................
 
     @Override
-    protected ReflectionPojoNodeContext createContext() {
+    public ReflectionPojoNodeContext createContext() {
         return new ReflectionPojoNodeContext();
     }
 
     @Override
     public Class<ReflectionPojoNodeContext> type() {
         return ReflectionPojoNodeContext.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     static class TestGetter {
