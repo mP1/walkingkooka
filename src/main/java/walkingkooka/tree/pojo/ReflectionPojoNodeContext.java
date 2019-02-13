@@ -204,4 +204,9 @@ final class ReflectionPojoNodeContext implements PojoNodeContext {
         }
         return list;
     }
+
+    @Override
+    public String toString() {
+        return this.typeToProperties.toString();
+    }
 }

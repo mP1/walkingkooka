@@ -19,9 +19,8 @@ package walkingkooka.tree.pojo;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.ContextTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,90 +32,94 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class PojoNodeContextTestCase<F extends PojoNodeContext> extends ClassTestCase<F> {
+/**
+ * Mixin interface with helpers that assist testing of {@link PojoNodeContext}.
+ */
+public interface PojoNodeContextTesting<C extends PojoNodeContext> extends ContextTesting<C> {
 
     @Test
-    public final void testWithNullFails() {
+    default void testPropertiesWithNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createContext().properties(null);
         });
     }
 
     @Test
-    public final void testWithBooleanPrimitiveFails() {
+    default void testWithBooleanPrimitiveFails() {
         this.propertiesFails(Boolean.TYPE);
     }
 
     @Test
-    public final void testWithBytePrimitiveFails() {
+    default void testWithBytePrimitiveFails() {
         this.propertiesFails(Byte.TYPE);
     }
 
     @Test
-    public final void testWithShortPrimitiveFails() {
+    default void testWithShortPrimitiveFails() {
         this.propertiesFails(Short.TYPE);
     }
 
     @Test
-    public final void testWithIntegerPrimitiveFails() {
+    default void testWithIntegerPrimitiveFails() {
         this.propertiesFails(Integer.TYPE);
     }
 
-
     @Test
-    public final void testWithLongPrimitiveFails() {
+    default void testWithLongPrimitiveFails() {
         this.propertiesFails(Long.TYPE);
     }
 
     @Test
-    public final void testWithFloatPrimitiveFails() {
+    default void testWithFloatPrimitiveFails() {
         this.propertiesFails(Float.TYPE);
     }
 
     @Test
-    public final void testWithDoublePrimitiveFails() {
+    default void testWithDoublePrimitiveFails() {
         this.propertiesFails(Double.TYPE);
     }
 
     @Test
-    public final void testWithCharacterPrimitiveFails() {
+    default void testWithCharacterPrimitiveFails() {
         this.propertiesFails(Character.TYPE);
     }
 
     @Test
-    public final void testWithVoidPrimitiveFails() {
+    default void testWithVoidPrimitiveFails() {
         this.propertiesFails(Void.TYPE);
     }
 
-    private void propertiesFails(final Class<?> type){
+    default void propertiesFails(final Class<?> type) {
         assertThrows(IllegalArgumentException.class, () -> {
             this.createContext().properties(type);
         });
     }
 
-    protected abstract F createContext();
-
-    protected List<PojoProperty> properties(final Class<?> type) {
+    default List<PojoProperty> properties(final Class<?> type) {
         return this.properties(this.createContext(), type);
     }
 
-    protected List<PojoProperty> properties(final F context, final Class<?> type) {
+    default List<PojoProperty> properties(final C context,
+                                          final Class<?> type) {
         final List<PojoProperty> properties = context.properties(type);
         assertNotNull(properties, () -> "properties for " + type.getName());
         return properties;
     }
 
-    protected void propertiesAndCheck(final Class<?> type, final String...names){
+    default void propertiesAndCheck(final Class<?> type,
+                                    final String... names) {
         this.propertiesAndCheck(type, Arrays.stream(names)
                 .map(n -> PojoName.property(n))
                 .collect(Collectors.toCollection(TreeSet::new)));
     }
 
-    protected void propertiesAndCheck(final Class<?> type, final PojoName...names){
+    default void propertiesAndCheck(final Class<?> type,
+                                    final PojoName... names) {
         this.propertiesAndCheck(type, new TreeSet<>(Lists.of(names)));
     }
 
-    protected void propertiesAndCheck(final Class<?> type, final Set<PojoName> names){
+    default void propertiesAndCheck(final Class<?> type,
+                                    final Set<PojoName> names) {
         final List<PojoProperty> properties = this.properties(type);
         assertEquals(names,
                 properties.stream()
@@ -125,19 +128,25 @@ public abstract class PojoNodeContextTestCase<F extends PojoNodeContext> extends
                 () -> properties + " for " + type.getName());
     }
 
-    protected <T> void getAndCheck(final T instance, final PojoName name, final Object expected) {
+    default <T> void getAndCheck(final T instance,
+                                 final PojoName name,
+                                 final Object expected) {
         this.getAndCheck(instance,
                 this.property(instance, name),
                 expected);
     }
 
-    protected <T> void getAndCheck(final T instance, final PojoProperty property, final Object expected) {
+    default <T> void getAndCheck(final T instance,
+                                 final PojoProperty property,
+                                 final Object expected) {
         assertEquals(expected,
                 property.get(instance),
                 () -> "Failed to return correct value for " + property + " from " + instance);
     }
 
-    protected <T> T setAndGetCheck(final T instance, final PojoName name, final Object value) {
+    default <T> T setAndGetCheck(final T instance,
+                                 final PojoName name,
+                                 final Object value) {
         final T result = this.setAndCheck(instance,
                 this.property(instance, name),
                 value);
@@ -146,17 +155,22 @@ public abstract class PojoNodeContextTestCase<F extends PojoNodeContext> extends
         return instance2;
     }
 
-    protected <T> T setAndCheck(final T instance, final PojoName name, final Object value) {
+    default <T> T setAndCheck(final T instance,
+                              final PojoName name,
+                              final Object value) {
         return this.setAndCheck(instance,
                 this.property(instance, name),
                 value);
     }
 
-    protected <T> T setAndCheck(final T instance, final PojoProperty property, final Object value) {
+    default <T> T setAndCheck(final T instance,
+                              final PojoProperty property,
+                              final Object value) {
         return Cast.to(property.set(instance, value));
     }
 
-    protected <T> PojoProperty property(final T instance, final PojoName name) {
+    default <T> PojoProperty property(final T instance,
+                                      final PojoName name) {
         final List<PojoProperty> properties = this.properties(instance.getClass());
         return properties.stream()
                 .filter(p -> p.name().equals(name))
@@ -164,8 +178,10 @@ public abstract class PojoNodeContextTestCase<F extends PojoNodeContext> extends
                 .iterator().next();
     }
 
+    // TypeNameTesting.....................................................................................
+
     @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    default String typeNameSuffix() {
+        return PojoNodeContext.class.getSimpleName();
     }
 }
