@@ -18,12 +18,14 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.io.serialize.SerializationProxyTestCase;
+import walkingkooka.io.serialize.SerializationProxyTesting;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-final public class IndentationSerializationProxyTest
-        extends SerializationProxyTestCase<IndentationSerializationProxy> {
+final public class IndentationSerializationProxyTest extends ClassTestCase<IndentationSerializationProxy>
+        implements SerializationProxyTesting<IndentationSerializationProxy> {
 
     @Test
     public void testToString() {
@@ -36,5 +38,10 @@ final public class IndentationSerializationProxyTest
     @Override
     public Class<IndentationSerializationProxy> type() {
         return IndentationSerializationProxy.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
