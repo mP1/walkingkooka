@@ -27,6 +27,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.tree.search.SearchNode;
@@ -41,12 +42,14 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class XmlNodeTestCase<N extends XmlNode> extends ClassTestCase<XmlNode>
         implements HasSearchNodeTesting<N>,
+        IsMethodTesting<XmlNode>,
         NodeTesting<XmlNode, XmlName, XmlAttributeName, String> {
 
     final static Optional<XmlNode> NO_PARENT = XmlNode.NO_PARENT;
@@ -92,68 +95,6 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends ClassTestCase<X
     public final void testText() {
         final N node = this.createNode();
         this.checkText(node, this.text());
-    }
-
-    // isXXX ..................................................................................................
-
-    @Test
-    public final void testIsCDataSection() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlCDataSection, node.isCDataSection());
-    }
-
-    @Test
-    public final void testIsComment() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlComment, node.isComment());
-    }
-
-    @Test
-    public final void testIsDocument() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlDocument, node.isDocument());
-    }
-
-    @Test
-    public final void testIsDocumentType() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlDocumentType, node.isDocumentType());
-    }
-
-    @Test
-    public final void testIsElement() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlElement, node.isElement());
-    }
-
-    @Test
-    public final void testIsEntity() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlEntity, node.isEntity());
-    }
-
-    @Test
-    public final void testIsEntityReference() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlEntityReference, node.isEntityReference());
-    }
-
-    @Test
-    public final void testIsNotation() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlNotation, node.isNotation());
-    }
-
-    @Test
-    public final void testIsProcessingInstruction() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlProcessingInstruction, node.isProcessingInstruction());
-    }
-
-    @Test
-    public final void testIsText() {
-        final N node = this.createNode();
-        assertEquals(node instanceof XmlText, node.isText());
     }
 
     // toXmlNode ..................................................................................................
@@ -348,6 +289,28 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends ClassTestCase<X
     }
 
     abstract Class<N> nodeType();
+
+    // IsMethodTesting.................................................................................................
+
+    @Override
+    public final XmlNode createIsMethodObject() {
+        return this.createObject();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "Xml";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return "";
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return (m) -> m.equals("isRoot");
+    }
 
     // TypeNameTesting.........................................................................................
 
