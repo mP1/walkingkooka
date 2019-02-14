@@ -75,7 +75,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonObjectNode child3 = JsonNode.object();
         final JsonNode parent2 = this.setChildrenAndCheck(parent1, child3);
 
-        this.checkChildCount(parent2, child3);
+        this.childCountCheck(parent2, child3);
     }
 
     @Test
@@ -146,13 +146,13 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         
         final JsonObjectNode object = empty.set(key1, value1);
         this.childrenCheck(object);
-        this.checkChildCount(object, 1);
+        this.childCountCheck(object, 1);
         this.getAndCheck(object, key1, VALUE1);
 
         // verify originals were not mutated.
         this.checkWithoutParent(value1);
 
-        this.checkChildCount(empty, 0);
+        this.childCountCheck(empty, 0);
     }
 
     @Test
@@ -209,7 +209,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonObjectNode object = empty.set(key1, value1)
                 .set(key2, value2);
         this.childrenCheck(object);
-        this.checkChildCount(object, 2);
+        this.childCountCheck(object, 2);
         this.getAndCheck(object, key1, VALUE1);
         this.getAndCheck(object, key2, VALUE2);
 
@@ -217,7 +217,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.checkWithoutParent(value1);
         this.checkWithoutParent(value2);
 
-        this.checkChildCount(empty, 0);
+        this.childCountCheck(empty, 0);
     }
     
     private void getAndCheck(final JsonObjectNode object, final JsonNodeName key, final String value) {
@@ -256,7 +256,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .set(key2, value2)
                 .remove(key1);
         this.childrenCheck(object);
-        this.checkChildCount(object, 1);
+        this.childCountCheck(object, 1);
 
         this.getAndCheck(object, key2, VALUE2);
 
@@ -264,7 +264,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.checkWithoutParent(value1);
         this.checkWithoutParent(value2);
 
-        this.checkChildCount(empty, 0);
+        this.childCountCheck(empty, 0);
     }
 
     @Test
@@ -286,13 +286,13 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .remove(key1)
                 .remove(key2);
         this.childrenCheck(object);
-        this.checkChildCount(object, 0);
+        this.childCountCheck(object, 0);
 
         // verify originals were not mutated.
         this.checkWithoutParent(value1);
         this.checkWithoutParent(value2);
 
-        this.checkChildCount(empty, 0);
+        this.childCountCheck(empty, 0);
     }
 
     @Test
@@ -305,13 +305,13 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .set(key2, this.value2())
                 .set(key3, JsonNode.object()
                         .set(key1, this.value1()));
-        this.checkChildCount(root, 2);
+        this.childCountCheck(root, 2);
 
         final JsonObjectNode nested = root.get(key3).get().cast();
         final JsonObjectNode updated = nested.set(key1, value3());
         final JsonObjectNode updatedRoot = updated.root().cast();
 
-        this.checkChildCount(updatedRoot, 2);
+        this.childCountCheck(updatedRoot, 2);
         this.getAndCheck(updatedRoot, key2, VALUE2);
     }
 
@@ -321,14 +321,14 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
         final JsonObjectNode root = JsonNode.object()
                 .set(key1, this.value1());
-        this.checkChildCount(root, 1);
+        this.childCountCheck(root, 1);
 
         final JsonNodeName key2 = this.key2();
         final JsonStringNode value2 = this.value2().setName(key2);
         final JsonObjectNode updated = root.replaceChild(root.get(key1).get(), value2)
                 .cast();
 
-        this.checkChildCount(updated, 1);
+        this.childCountCheck(updated, 1);
         this.getAndCheck(updated, key2, VALUE2);
     }
 

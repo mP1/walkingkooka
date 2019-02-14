@@ -35,7 +35,7 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
     @Test
     public final void testCreate() {
         final N parent = this.createJsonNode();
-        this.checkChildCount(parent, 0);
+        this.childCountCheck(parent, 0);
     }
 
     @Test

@@ -159,7 +159,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         assertSame(node, node.setAttributes(node.attributes()));
     }
 
-    default void checkParent(final N node, final N parent) {
+    default void parentCheck(final N node, final N parent) {
         assertSame(parent, node.parent(), () -> "parent of " + node);
     }
 
@@ -171,7 +171,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         assertNotEquals(0, children.size(), "children must have at least 1 child");
         assertEquals(child.name(), children.get(children.size() - 1).name(), "last child must be the added child");
 
-        this.checkParentOfChildren(newParent);
+        this.childrenParentCheck(newParent);
 
         this.checkWithoutParent(child);
 
@@ -186,7 +186,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final List<N> newChildren = newParent.children();
         assertEquals(oldChildren.size(), 1 + newChildren.size(), "new children must have 1 less child than old");
 
-        this.checkParentOfChildren(newParent);
+        this.childrenParentCheck(newParent);
 
         return newParent;
     }
@@ -194,13 +194,13 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default N setChildrenAndCheck(final N parent, final N... children) {
         final N newParent = parent.setChildren(Arrays.asList(children));
 
-        this.checkParentOfChildren(newParent);
-        this.checkChildCount(newParent, children);
+        this.childrenParentCheck(newParent);
+        this.childCountCheck(newParent, children);
 
         return newParent;
     }
 
-    default void checkParentOfChildren(final N parent) {
+    default void childrenParentCheck(final N parent) {
         int i = 0;
         for (N child : parent.children()) {
             final int j = i;
@@ -208,13 +208,13 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         }
     }
 
-    default void checkChildCount(final N parent, final N... children) {
-        this.checkChildCount(parent, children.length);
+    default void childCountCheck(final N parent, final N... children) {
+        this.childCountCheck(parent, children.length);
     }
 
-    default void checkChildCount(final N parent, final int count) {
+    default void childCountCheck(final N parent, final int count) {
         assertEquals(parent.children().size(), count, "children of parent");
-        this.checkParentOfChildren(parent);
+        this.childrenParentCheck(parent);
     }
 
     // TypeNameTesting............................................................................................
