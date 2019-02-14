@@ -42,19 +42,19 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     public void testParseFlat() {
         final String value = "xyz";
         final PropertiesPath path = PropertiesPath.parse(value);
-        this.checkValue(path, value);
-        this.checkRoot(path);
-        this.checkName(path, PropertiesName.with(value));
+        this.valueCheck(path, value);
+        this.rootCheck(path);
+        this.nameCheck(path, PropertiesName.with(value));
     }
 
     @Test
     public void testParseHierarchical() {
         final String value = "ab.cd";
         final PropertiesPath path = PropertiesPath.parse(value);
-        this.checkValue(path, value);
-        this.checkNotRoot(path);
-        this.checkName(path, PropertiesName.with("cd"));
-        this.checkParent(path, "ab");
+        this.valueCheck(path, value);
+        this.rootNotCheck(path);
+        this.nameCheck(path, PropertiesName.with("cd"));
+        this.parentCheck(path, "ab");
     }
 
     @Override

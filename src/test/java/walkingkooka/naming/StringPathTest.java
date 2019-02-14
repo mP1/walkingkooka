@@ -46,29 +46,29 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     public void testParseFlat() {
         final String value = "/path to";
         final StringPath path = StringPath.parse(value);
-        this.checkValue(path, value);
-        this.checkNotRoot(path);
-        this.checkName(path, StringName.with("path to"));
-        this.checkSameParent(path, StringPath.ROOT);
+        this.valueCheck(path, value);
+        this.rootNotCheck(path);
+        this.nameCheck(path, StringName.with("path to"));
+        this.parentSame(path, StringPath.ROOT);
     }
 
     @Test
     public void testParseHierarchical() {
         final String value = "/path/to";
         final StringPath path = StringPath.parse(value);
-        this.checkValue(path, value);
-        this.checkNotRoot(path);
-        this.checkName(path, StringName.with("to"));
-        this.checkParent(path, "/path");
+        this.valueCheck(path, value);
+        this.rootNotCheck(path);
+        this.nameCheck(path, StringName.with("to"));
+        this.parentCheck(path, "/path");
     }
 
     @Test
     public void testRoot() {
         final StringPath path = StringPath.ROOT;
-        this.checkRoot(path);
-        this.checkValue(path, "/");
-        this.checkSameName(path, StringName.ROOT);
-        this.checkWithoutParent(path);
+        this.rootCheck(path);
+        this.valueCheck(path, "/");
+        this.nameSameCheck(path, StringName.ROOT);
+        this.parentAbsentCheck(path);
     }
 
     @Test

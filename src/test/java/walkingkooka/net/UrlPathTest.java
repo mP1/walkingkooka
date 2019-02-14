@@ -56,29 +56,29 @@ public final class UrlPathTest extends ClassTestCase<UrlPath>
     @Test
     public void testParseWithoutLeadingSlash() {
         final UrlPath path = UrlPath.parse("without-leading-slash");
-        this.checkValue(path, "/without-leading-slash");
+        this.valueCheck(path, "/without-leading-slash");
     }
 
     @Test
     public void testParseWithoutLeadingSlash2() {
         final UrlPath path = UrlPath.parse("without/leading/slash");
-        this.checkValue(path, "/without/leading/slash");
-        this.checkParent(path, "/without/leading");
+        this.valueCheck(path, "/without/leading/slash");
+        this.parentCheck(path, "/without/leading");
     }
 
     @Test
     public void testParseDeoesntNormalize() {
         final UrlPath path = UrlPath.parse("/a1/removed/../x/y");
-        this.checkValue(path, "/a1/removed/../x/y");
-        this.checkParent(path, "/a1/removed/../x");
+        this.valueCheck(path, "/a1/removed/../x/y");
+        this.parentCheck(path, "/a1/removed/../x");
     }
 
     @Test
     public void testAppendSlash() {
         final UrlPath path = UrlPath.parse("/path");
         final UrlPath pathSlash = path.append(UrlPathName.ROOT);
-        this.checkValue(pathSlash, "/path/");
-        this.checkParent(pathSlash, "/path");
+        this.valueCheck(pathSlash, "/path/");
+        this.parentCheck(pathSlash, "/path");
     }
 
     @Test
@@ -104,8 +104,8 @@ public final class UrlPathTest extends ClassTestCase<UrlPath>
         final UrlPath a1 = UrlPath.parse("/a1");
         final UrlPath b2 = UrlPath.parse("/b2");
         final UrlPath appended = a1.append(b2);
-        this.checkValue(appended, "/a1/b2");
-        this.checkParent(appended, a1);
+        this.valueCheck(appended, "/a1/b2");
+        this.parentCheck(appended, a1);
     }
 
     @Test
@@ -113,9 +113,9 @@ public final class UrlPathTest extends ClassTestCase<UrlPath>
         final UrlPath a1 = UrlPath.parse("/a1");
         final UrlPath b2 = UrlPath.parse("/b2/c3");
         final UrlPath appended = a1.append(b2);
-        this.checkValue(appended, "/a1/b2/c3");
+        this.valueCheck(appended, "/a1/b2/c3");
 
-        this.checkParent(appended, "/a1/b2");
+        this.parentCheck(appended, "/a1/b2");
     }
 
     // addQueryString..................................................................................................
