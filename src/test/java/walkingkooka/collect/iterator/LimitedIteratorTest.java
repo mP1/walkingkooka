@@ -98,8 +98,8 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         final LimitedIterator<String> iterator = this.createIterator();
         assertSame("1", iterator.next());
         assertSame("2", iterator.next());
-        this.checkNextFails(iterator);
-        this.checkRemoveUnsupportedFails(iterator);
+        this.nextFails(iterator);
+        this.removeUnsupportedFails(iterator);
     }
 
     @Test

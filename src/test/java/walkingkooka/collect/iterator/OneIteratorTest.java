@@ -71,13 +71,13 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
     public void testWhenEmptyNextFails() {
         final OneIterator<String> iterator = OneIterator.with(null);
         iterator.next();
-        this.checkNextFails(iterator);
+        this.nextFails(iterator);
     }
 
     @Test
     public void testRemoveFails() {
         final OneIterator<String> iterator = OneIterator.with(null);
-        this.checkRemoveUnsupportedFails(iterator);
+        this.removeUnsupportedFails(iterator);
     }
 
     @Override public OneIterator<String> createIterator() {

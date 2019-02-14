@@ -75,13 +75,13 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
 
         for (int i = 0; i < names.length; i++) {
             if (checkHasNext) {
-                this.checkHasNextTrue(iterator, "iterator should have " + (names.length - i) + " entries left");
+                this.hasNextCheckTrue(iterator, "iterator should have " + (names.length - i) + " entries left");
             }
             this.checkNext(iterator, i, names[i]);
         }
 
-        this.checkHasNextFalse(iterator);
-        this.checkNextFails(iterator);
+        this.hasNextCheckFalse(iterator);
+        this.nextFails(iterator);
     }
 
     private void checkNext(final RouterHttpRequestParametersMapPathComponentEntryIterator iterator,

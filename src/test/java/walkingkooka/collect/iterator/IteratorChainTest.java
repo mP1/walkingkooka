@@ -89,7 +89,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
         assertFalse(iterator.hasNext(), "hasNext should be false when empty");
 
-        this.checkNextFails(iterator);
+        this.nextFails(iterator);
     }
 
     @Test
@@ -124,12 +124,12 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         iterator.next();
         iterator.next();
 
-        this.checkNextFails(iterator);
+        this.nextFails(iterator);
     }
 
     @Test
     public void testRemoveWithoutNext() {
-        this.checkRemoveUnsupportedFails(this.createIterator());
+        this.removeUnsupportedFails(this.createIterator());
     }
 
     @Test
@@ -172,8 +172,8 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         final List<String> second = Lists.empty();
 
         final Iterator<String> iterator = IteratorChain.wrap(first.iterator(), second.iterator());
-        this.checkHasNextFalse(iterator);
-        this.checkNextFails(iterator);
+        this.hasNextCheckFalse(iterator);
+        this.nextFails(iterator);
     }
 
     @Test
@@ -187,7 +187,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         assertSame("1", iterator.next(), "next from 2nd iterator");
 
         assertFalse(iterator.hasNext(), "hasNext from empty 2nd iterator");
-        this.checkNextFails(iterator);
+        this.nextFails(iterator);
     }
 
     @Test
@@ -200,7 +200,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         assertSame("1", iterator.next(), "next from 2nd iterator");
 
         assertFalse(iterator.hasNext(), "hasNext from empty 2nd iterator");
-        this.checkNextFails(iterator);
+        this.nextFails(iterator);
     }
 
     @Test
@@ -219,7 +219,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
         iterator.remove();
         assertEquals(Lists.of("3"), second, "second iterator source was not removed");
-        this.checkRemoveUnsupportedFails(iterator);
+        this.removeUnsupportedFails(iterator);
     }
 
     @Test
@@ -250,8 +250,8 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         iterator.remove();
         assertEquals(Lists.of("3"), second, "element not removed from second iterator");
 
-        this.checkNextFails(iterator);
-        this.checkRemoveUnsupportedFails(iterator);
+        this.nextFails(iterator);
+        this.removeUnsupportedFails(iterator);
     }
 
     @Test

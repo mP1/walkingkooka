@@ -119,13 +119,13 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
 
         for (int i = 0; i < headerNames.size(); i++) {
             if (checkHasNext) {
-                this.checkHasNextTrue(iterator, "iterator should have " + (headerValues.length - i) + " entries left");
+                this.hasNextCheckTrue(iterator, "iterator should have " + (headerValues.length - i) + " entries left");
             }
             this.checkNext(iterator, headerNames.get(i), headerValues[i]);
         }
 
-        this.checkHasNextFalse(iterator);
-        this.checkNextFails(iterator);
+        this.hasNextCheckFalse(iterator);
+        this.nextFails(iterator);
     }
 
     private void checkNext(final RouterHttpRequestParametersMapHttpHeaderEntryIterator iterator,

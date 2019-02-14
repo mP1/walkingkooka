@@ -24,17 +24,17 @@ final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void
 
     @Test
     public void testHasNext() {
-        this.checkHasNextFalse(EmptyIterator.instance());
+        this.hasNextCheckFalse(EmptyIterator.instance());
     }
 
     @Test
     public void testNext() {
-        this.checkNextFails(EmptyIterator.instance());
+        this.nextFails(EmptyIterator.instance());
     }
 
     @Test
     public void testRemove() {
-        this.checkRemoveWithoutNextFails(EmptyIterator.instance());
+        this.removeWithoutNextFails(EmptyIterator.instance());
     }
 
     @Test
