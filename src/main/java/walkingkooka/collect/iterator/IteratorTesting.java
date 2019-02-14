@@ -33,40 +33,40 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface IteratorTesting {
 
-    default void checkHasNextFalse(final Iterator<?> iterator) {
+    default void hasNextCheckFalse(final Iterator<?> iterator) {
         assertEquals(false,
                 iterator.hasNext(),
                 () -> "iterator hasNext should have returned true: " + iterator);
     }
 
-    default void checkHasNextTrue(final Iterator<?> iterator) {
-        this.checkHasNextTrue(iterator,
+    default void hasNextCheckTrue(final Iterator<?> iterator) {
+        this.hasNextCheckTrue(iterator,
                 "iterator hasNext should have returned true: " + iterator);
     }
 
-    default void checkHasNextTrue(final Iterator<?> iterator, final String message) {
+    default void hasNextCheckTrue(final Iterator<?> iterator, final String message) {
         assertEquals(true,
                 iterator.hasNext(),
                 message);
     }
 
-    default void checkNextFails(final Iterator<?> iterator) {
-        this.checkNextFails("iterator.next must throw NoSuchElementException", iterator);
+    default void nextFails(final Iterator<?> iterator) {
+        this.nextFails("iterator.next must throw NoSuchElementException", iterator);
     }
 
-    default void checkNextFails(final String message, final Iterator<?> iterator) {
+    default void nextFails(final String message, final Iterator<?> iterator) {
         assertThrows(NoSuchElementException.class, () -> {
             iterator.next();
         });
     }
 
-    default void checkRemoveWithoutNextFails(final Iterator<?> iterator) {
+    default void removeWithoutNextFails(final Iterator<?> iterator) {
         assertThrows(IllegalStateException.class, () -> {
             iterator.remove();
         });
     }
 
-    default void checkRemoveUnsupportedFails(final Iterator<?> iterator) {
+    default void removeUnsupportedFails(final Iterator<?> iterator) {
         assertThrows(UnsupportedOperationException.class, () -> {
             iterator.remove();
         });
@@ -87,8 +87,8 @@ public interface IteratorTesting {
         }
         assertEquals(Lists.of(expected),
                 consumed,
-                ()-> iterator.toString());
-        this.checkNextFails(iterator);
+                () -> iterator.toString());
+        this.nextFails(iterator);
     }
 
     default <T> void iterateAndCheck(final Iterator<T> iterator,
@@ -107,7 +107,7 @@ public interface IteratorTesting {
 
         assertEquals(Lists.of(expected),
                 consumed,
-                ()-> iterator.toString());
-        this.checkNextFails(iterator);
+                () -> iterator.toString());
+        this.nextFails(iterator);
     }
 }

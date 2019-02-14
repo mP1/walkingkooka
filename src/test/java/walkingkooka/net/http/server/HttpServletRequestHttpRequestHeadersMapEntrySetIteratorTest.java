@@ -64,7 +64,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
     public void testRemoveFails() {
         HttpServletRequestHttpRequestHeadersMapEntrySetIterator iterator = this.createIterator();
         iterator.next();
-        this.checkRemoveUnsupportedFails(iterator);
+        this.removeUnsupportedFails(iterator);
     }
 
     @Test

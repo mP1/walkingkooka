@@ -57,14 +57,14 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
 
     @Test
     public void testRemoveWithoutNext() {
-        this.checkRemoveUnsupportedFails(this.createIterator());
+        this.removeUnsupportedFails(this.createIterator());
     }
 
     @Test
     public void testRemove() {
         final ArrayIterator<String> iterator = this.createIterator();
         iterator.next();
-        this.checkRemoveUnsupportedFails(iterator);
+        this.removeUnsupportedFails(iterator);
     }
 
     @Test

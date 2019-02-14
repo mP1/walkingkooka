@@ -68,17 +68,17 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
                                  final boolean hasNext) {
         final RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator iterator = this.createIterator(transport, method, version);
 
-        this.checkHasNextTrue(iterator, "iterator should have 3 entries");
+        this.hasNextCheckTrue(iterator, "iterator should have 3 entries");
         this.checkNext(iterator, HttpRequestAttributes.TRANSPORT, transport);
 
-        this.checkHasNextTrue(iterator, "iterator should have 2 entries");
+        this.hasNextCheckTrue(iterator, "iterator should have 2 entries");
         this.checkNext(iterator, HttpRequestAttributes.METHOD, method);
 
-        this.checkHasNextTrue(iterator, "iterator should have 1 entries");
+        this.hasNextCheckTrue(iterator, "iterator should have 1 entries");
         this.checkNext(iterator, HttpRequestAttributes.HTTP_PROTOCOL_VERSION, version);
 
-        this.checkHasNextFalse(iterator);
-        this.checkNextFails(iterator);
+        this.hasNextCheckFalse(iterator);
+        this.nextFails(iterator);
     }
 
     private void checkNext(final RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator iterator,

@@ -182,7 +182,7 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
 
     @Test
     public void testIteratorWithRemove() {
-        this.checkRemoveUnsupportedFails(this.createStack().iterator());
+        this.removeUnsupportedFails(this.createStack().iterator());
     }
 
     @Test

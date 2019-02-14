@@ -72,13 +72,13 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
 
         for (int i = 0; i < cookies.length; i++) {
             if (checkHasNext) {
-                this.checkHasNextTrue(iterator, "iterator should have " + (cookies.length - i) + " entries left");
+                this.hasNextCheckTrue(iterator, "iterator should have " + (cookies.length - i) + " entries left");
             }
             this.checkNext(iterator, cookies[i]);
         }
 
-        this.checkHasNextFalse(iterator);
-        this.checkNextFails(iterator);
+        this.hasNextCheckFalse(iterator);
+        this.nextFails(iterator);
     }
 
     private void checkNext(final RouterHttpRequestParametersMapCookiesEntryIterator iterator,

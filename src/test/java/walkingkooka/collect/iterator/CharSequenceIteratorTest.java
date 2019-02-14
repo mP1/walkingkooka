@@ -52,7 +52,7 @@ final public class CharSequenceIteratorTest
     public void testRemoveFails() {
         final CharSequenceIterator iterator = this.createIterator();
         iterator.next();
-        this.checkRemoveUnsupportedFails(iterator);
+        this.removeUnsupportedFails(iterator);
     }
 
     @Test

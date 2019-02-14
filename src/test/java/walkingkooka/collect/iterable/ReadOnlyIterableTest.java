@@ -65,7 +65,7 @@ final public class ReadOnlyIterableTest extends ClassTestCase<ReadOnlyIterable<S
 
         final Iterator<String> readOnly = ReadOnlyIterable.wrap(iterable).iterator();
         this.iterateAndCheck(readOnly, "1", "2", "3");
-        this.checkRemoveUnsupportedFails(readOnly);
+        this.removeUnsupportedFails(readOnly);
     }
 
     @Test

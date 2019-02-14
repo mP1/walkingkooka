@@ -59,12 +59,12 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
 
     @Test
     public void testHasNextWhenEmpty() {
-        this.checkHasNextFalse(this.iterator());
+        this.hasNextCheckFalse(this.iterator());
     }
 
     @Test
     public void testHasNext() {
-        this.checkHasNextTrue(this.iterator(ELEMENT));
+        this.hasNextCheckTrue(this.iterator(ELEMENT));
     }
 
     @Test
@@ -75,7 +75,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
 
     @Test
     public void testRemove() {
-        this.checkRemoveUnsupportedFails(ReadOnlyIterator.wrap(this.iterator(ELEMENT)));
+        this.removeUnsupportedFails(ReadOnlyIterator.wrap(this.iterator(ELEMENT)));
     }
 
     @Test

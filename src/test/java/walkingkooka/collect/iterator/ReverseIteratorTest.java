@@ -45,7 +45,7 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
 
     @Test
     public void testNextWhenEmpty() {
-        this.checkNextFails(this.iterator());
+        this.nextFails(this.iterator());
     }
 
     @Test
@@ -68,7 +68,7 @@ final public class ReverseIteratorTest extends IteratorTestCase<ReverseIterator<
 
     @Test
     public void testRemove() {
-        this.checkRemoveUnsupportedFails(ReverseIterator.with(this.iterator("1")));
+        this.removeUnsupportedFails(ReverseIterator.with(this.iterator("1")));
     }
 
     private ReverseIterator<String> iterator(final String... strings) {
