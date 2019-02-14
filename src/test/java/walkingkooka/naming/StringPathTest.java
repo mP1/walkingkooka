@@ -111,27 +111,27 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     }
 
     @Override
-    protected StringPath root() {
+    public StringPath root() {
         return StringPath.ROOT;
     }
 
     @Override
-    protected StringPath createPath() {
+    public StringPath createPath() {
         return StringPath.parse("/path");
     }
 
     @Override
-    protected StringPath parsePath(final String path) {
+    public StringPath parsePath(final String path) {
         return StringPath.parse(path);
     }
 
     @Override
-    protected StringName createName(final int n) {
+    public StringName createName(final int n) {
         return StringName.with("string-name-" + n);
     }
 
     @Override
-    protected PathSeparator separator() {
+    public PathSeparator separator() {
         return StringPath.SEPARATOR;
     }
 

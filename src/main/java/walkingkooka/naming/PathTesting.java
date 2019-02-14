@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.naming;
@@ -21,13 +22,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,45 +40,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
  */
-abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ClassTestCase<P>
-        implements ComparableTesting<P>,
+public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ComparableTesting<P>,
         ConstantsTesting<P>,
         TypeNameTesting<P> {
 
-    protected PathTestCase() {
-        super();
-    }
-
     @Test
-    final public void testSeparatorConstant() {
+    default void testSeparatorConstant() {
         this.fieldPublicStaticCheck(this.type(),
                 "SEPARATOR",
                 PathSeparator.class);
     }
 
     @Test
-    final public void testParseNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.parsePath(null);
-        });
-    }
-
-    @Test
-    public void testParseEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.parsePath("");
-        });
-    }
-
-    @Test
-    final public void testAppendNullNameFails() {
+    default void testAppendNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createPath().append((N) null);
         });
     }
 
     @Test
-    public void testAppendNameToRoot() {
+    default void testAppendNameToRoot() {
         final P parent = this.root();
         final N appended = this.createName(0);
         final P child = parent.append(appended);
@@ -91,7 +71,7 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     }
 
     @Test
-    public void testAppendName() {
+    default void testAppendName() {
         final P parent = this.separator().isRequiredAtStart() ? this.root() : null;
         final N appended0 = this.createName(0);
         final P child0 = null != parent ?
@@ -109,7 +89,7 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testPathWithFourComponents() {
+    default void testPathWithFourComponents() {
         final N name1 = this.createName(0);
         final N name2 = this.createName(1);
         final N name3 = this.createName(2);
@@ -150,14 +130,14 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     }
 
     @Test
-    final public void testAppendNullPathFails() {
+    default void testAppendNullPathFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createPath().append((P) null);
         });
     }
 
     @Test
-    public void testIterable() {
+    default void testIterable() {
         final N name1 = this.createName(0);
         final N name2 = this.createName(1);
         final N name3 = this.createName(2);
@@ -181,7 +161,7 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     }
 
     @Test
-    public void testToString() {
+    default void testToString() {
         final P path = this.createPath();
         assertEquals(path instanceof ShouldBeQuoted ?
                         CharSequences.quote(path.value()).toString() :
@@ -191,23 +171,22 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
 
     // factory
 
-    abstract protected P root();
+    P root();
 
-    abstract protected P createPath();
+    P createPath();
 
-    abstract protected P parsePath(String name);
+    P parsePath(String name);
 
-    abstract protected N createName(int n);
+    N createName(int n);
 
-    abstract protected PathSeparator separator();
+    PathSeparator separator();
 
     // helpers
 
     /**
      * Concatenates a full path composed by the given names components
      */
-    @SafeVarargs
-    final String concat(final N... names) {
+    default String concat(final N... names) {
         final PathSeparator separator = this.separator();
         final char separatorCharacter = separator.character();
 
@@ -224,17 +203,17 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
         return path.toString();
     }
 
-    protected void checkRoot(final Path<?, ?> path) {
+    default void checkRoot(final Path<?, ?> path) {
         assertEquals(Optional.empty(), path.parent(), ()-> "path must not be root=" + path);
         assertEquals(true, path.isRoot(), () -> "path must not be root=" + path);
     }
 
-    protected void checkNotRoot(final Path<?, ?> path) {
+    default void checkNotRoot(final Path<?, ?> path) {
         assertNotEquals(Optional.empty(), path.parent(), ()-> "path must not be root=" + path);
         assertEquals(false, path.isRoot(), () -> "path must not be root=" + path);
     }
 
-    protected void checkValue(final Path<?, ?> path) {
+    default void checkValue(final Path<?, ?> path) {
         final List<String> names = Lists.array();
         Path<?, ?> p = path;
         while (!p.isRoot()) {
@@ -256,59 +235,60 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
         }
     }
 
-    protected void checkValue(final P path, final String value) {
+    default void checkValue(final P path, final String value) {
         assertEquals(value, path.value(), "path");
     }
 
-    protected void checkName(final P path, final N name) {
+    default void checkName(final P path, final N name) {
         assertEquals(path.name(), name, "name");
         this.checkName(path, name.value());
     }
 
-    protected void checkName(final P path, final String value) {
+    default void checkName(final P path, final String value) {
         assertEquals(path.name().value(), value, "name");
     }
 
-    protected P checkParent(final P path) {
+    default P checkParent(final P path) {
         final Optional<P> parent = path.parent();
         assertNotEquals(Optional.empty(), parent, "parent missing");
         return parent.get();
     }
 
-    protected void checkParent(final P path, final P parent) {
+    default void checkParent(final P path, final P parent) {
         assertEquals(checkParent(path), parent, "parent");
     }
 
-    protected void checkParent(final P path, final String value) {
+    default void checkParent(final P path, final String value) {
         assertEquals(checkParent(path).value(), value, "parent");
     }
 
-    protected void checkSameParent(final P path, final P parent) {
+    default void checkSameParent(final P path, final P parent) {
         assertSame(checkParent(path), parent, () -> "parent of " + path);
     }
 
-    protected void checkWithoutParent(final Path<?, ?> path) {
+    default void checkWithoutParent(final Path<?, ?> path) {
         assertEquals(Optional.empty(), path.parent(), "parent");
     }
 
-    protected void checkSameName(final Path<?, ?> path, final Name name) {
+    default void checkSameName(final Path<?, ?> path, final Name name) {
         assertSame(name, path.name(), "parent");
     }
 
-    @Override
-    protected final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    // ComparableTesting .........................................................................................
+
+    default P createObject() {
+        return this.createPath();
     }
 
     // TypeNameTesting .........................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    default String typeNamePrefix() {
         return "";
     }
 
     @Override
-    public final String typeNameSuffix() {
+    default String typeNameSuffix() {
         return Path.class.getSimpleName();
     }
 }

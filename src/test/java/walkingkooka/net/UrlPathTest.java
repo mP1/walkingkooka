@@ -21,9 +21,11 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.PathSeparator;
-import walkingkooka.naming.PathTestCase;
+import walkingkooka.naming.PathTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
@@ -31,8 +33,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName>
-        implements ParseStringTesting<UrlPath>,
+public final class UrlPathTest extends ClassTestCase<UrlPath>
+        implements PathTesting<UrlPath, UrlPathName>,
+        ParseStringTesting<UrlPath>,
         SerializationTesting<UrlPath> {
 
     @Test
@@ -157,28 +160,28 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName>
     // helpers..................................................................................................
 
     @Override
-    protected UrlPath createPath() {
+    public UrlPath createPath() {
         return UrlPath.parse("/a1");
     }
 
     @Override
-    protected UrlPathName createName(final int n) {
+    public UrlPathName createName(final int n) {
         final char c = (char)('a' + n);
         return UrlPathName.with( c + "" + n);
     }
 
     @Override
-    protected UrlPath root() {
+    public UrlPath root() {
         return UrlPath.ROOT;
     }
 
     @Override
-    protected UrlPath parsePath(final String name){
+    public UrlPath parsePath(final String name){
         return UrlPath.parse(name);
     }
 
     @Override
-    protected PathSeparator separator() {
+    public PathSeparator separator() {
         return UrlPath.SEPARATOR;
     }
 
@@ -226,5 +229,12 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName>
     @Override
     public boolean serializableInstanceIsSingleton() {
         return false;
+    }
+
+    // ClassTestCase ........................................................................................
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
