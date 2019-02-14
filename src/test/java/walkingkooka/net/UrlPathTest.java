@@ -19,10 +19,13 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTestCase;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -187,6 +190,13 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName>
     @Override
     public UrlPath createComparable() {
         return UrlPath.parse("/path/to/resource");
+    }
+
+    // ConstantTesting ........................................................................................
+
+    @Override
+    public Set<UrlPath> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 
     // ParseStringTesting ........................................................................................

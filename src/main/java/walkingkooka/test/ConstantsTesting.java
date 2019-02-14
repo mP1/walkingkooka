@@ -18,6 +18,7 @@
 
 package walkingkooka.test;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
@@ -27,13 +28,36 @@ import walkingkooka.type.MemberVisibility;
 import java.lang.reflect.Field;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Base class for testing public constants declared in a class.
  */
 public interface ConstantsTesting<T> extends Testing {
+
+    /**
+     * Asserts that a field is public static and final.
+     */
+    default void fieldPublicStaticCheck(final Class<?> enclosingType,
+                                        final String name,
+                                        final Class<?> fieldType) {
+        Field field = null;
+        try {
+            field = enclosingType.getDeclaredField(name);
+        } catch (final Exception cause) {
+            Assertions.fail("Cannot find public constant field of type " + enclosingType + " called "
+                    + name);
+        }
+
+        final Field field2 = field;
+        assertEquals(fieldType, field.getType(), "The field " + name + " is wrong the type");
+        assertTrue(FieldAttributes.STATIC.is(field), () -> "The field " + name + " must be static =" + field2);
+        assertSame(MemberVisibility.PUBLIC, MemberVisibility.get(field), () -> "The field " + name + " must be public =" + field2);
+        assertTrue(FieldAttributes.FINAL.is(field), () -> "The field " + name + " must be final=" + field2);
+    }
 
     /**
      * Scans for public static fields and verifies that all are unique and not a duplicate of

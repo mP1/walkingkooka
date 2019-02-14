@@ -22,6 +22,7 @@ import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
@@ -42,6 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ClassTestCase<P>
         implements ComparableTesting<P>,
+        ConstantsTesting<P>,
         TypeNameTesting<P> {
 
     protected PathTestCase() {
@@ -50,7 +52,9 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
 
     @Test
     final public void testSeparatorConstant() {
-        this.checkFieldIsPublicStaticFinal(this.type(), "SEPARATOR", PathSeparator.class);
+        this.fieldPublicStaticCheck(this.type(),
+                "SEPARATOR",
+                PathSeparator.class);
     }
 
     @Test
