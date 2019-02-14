@@ -64,10 +64,10 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         final N appended = this.createName(0);
         final P child = parent.append(appended);
 
-        checkParent(child, parent);
-        checkNotRoot(child);
-        checkName(child, appended);
-        checkValue(child);
+        parentCheck(child, parent);
+        rootNotCheck(child);
+        nameCheck(child, appended);
+        valueCheck(child);
     }
 
     @Test
@@ -81,10 +81,10 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         final N appended1 = this.createName(1);
         final P child1 = child0.append(appended1);
 
-        checkParent(child1, child0);
-        checkNotRoot(child1);
-        checkName(child1, appended1);
-        checkValue(child1);
+        parentCheck(child1, child0);
+        rootNotCheck(child1);
+        nameCheck(child1, appended1);
+        valueCheck(child1);
     }
 
     @SuppressWarnings("unchecked")
@@ -98,34 +98,34 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         final String fullPath4 = this.concat(name1, name2, name3, name4);
 
         final P four = this.parsePath(fullPath4);
-        this.checkNotRoot(four);
-        this.checkName(four, name4);
-        this.checkValue(four, fullPath4);
+        this.rootNotCheck(four);
+        this.nameCheck(four, name4);
+        this.valueCheck(four, fullPath4);
 
-        final P three = this.checkParent(four);
-        this.checkNotRoot(three);
-        this.checkName(three, name3);
-        this.checkValue(three, concat(name1, name2, name3));
+        final P three = this.parentCheck(four);
+        this.rootNotCheck(three);
+        this.nameCheck(three, name3);
+        this.valueCheck(three, concat(name1, name2, name3));
 
-        final P two = this.checkParent(three);
-        this.checkNotRoot(two);
-        this.checkName(two, name2);
-        this.checkValue(two, concat(name1, name2));
+        final P two = this.parentCheck(three);
+        this.rootNotCheck(two);
+        this.nameCheck(two, name2);
+        this.valueCheck(two, concat(name1, name2));
 
         final boolean required = this.separator().isRequiredAtStart();
 
-        final P one = this.checkParent(two);
+        final P one = this.parentCheck(two);
         if (required) {
-            this.checkNotRoot(one);
+            this.rootNotCheck(one);
         } else {
-            this.checkRoot(one);
+            this.rootCheck(one);
         }
-        this.checkName(one, name1);
-        this.checkValue(one, concat(name1));
+        this.nameCheck(one, name1);
+        this.valueCheck(one, concat(name1));
 
         if (required) {
-            final P root = this.checkParent(one);
-            this.checkRoot(root);
+            final P root = this.parentCheck(one);
+            this.rootCheck(root);
         }
     }
 
@@ -203,17 +203,17 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         return path.toString();
     }
 
-    default void checkRoot(final Path<?, ?> path) {
+    default void rootCheck(final Path<?, ?> path) {
         assertEquals(Optional.empty(), path.parent(), ()-> "path must not be root=" + path);
         assertEquals(true, path.isRoot(), () -> "path must not be root=" + path);
     }
 
-    default void checkNotRoot(final Path<?, ?> path) {
+    default void rootNotCheck(final Path<?, ?> path) {
         assertNotEquals(Optional.empty(), path.parent(), ()-> "path must not be root=" + path);
         assertEquals(false, path.isRoot(), () -> "path must not be root=" + path);
     }
 
-    default void checkValue(final Path<?, ?> path) {
+    default void valueCheck(final Path<?, ?> path) {
         final List<String> names = Lists.array();
         Path<?, ?> p = path;
         while (!p.isRoot()) {
@@ -235,42 +235,42 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
         }
     }
 
-    default void checkValue(final P path, final String value) {
+    default void valueCheck(final P path, final String value) {
         assertEquals(value, path.value(), "path");
     }
 
-    default void checkName(final P path, final N name) {
+    default void nameCheck(final P path, final N name) {
         assertEquals(path.name(), name, "name");
-        this.checkName(path, name.value());
+        this.nameCheck(path, name.value());
     }
 
-    default void checkName(final P path, final String value) {
+    default void nameCheck(final P path, final String value) {
         assertEquals(path.name().value(), value, "name");
     }
 
-    default P checkParent(final P path) {
+    default P parentCheck(final P path) {
         final Optional<P> parent = path.parent();
         assertNotEquals(Optional.empty(), parent, "parent missing");
         return parent.get();
     }
 
-    default void checkParent(final P path, final P parent) {
-        assertEquals(checkParent(path), parent, "parent");
+    default void parentCheck(final P path, final P parent) {
+        assertEquals(parentCheck(path), parent, "parent");
     }
 
-    default void checkParent(final P path, final String value) {
-        assertEquals(checkParent(path).value(), value, "parent");
+    default void parentCheck(final P path, final String value) {
+        assertEquals(parentCheck(path).value(), value, "parent");
     }
 
-    default void checkSameParent(final P path, final P parent) {
-        assertSame(checkParent(path), parent, () -> "parent of " + path);
+    default void parentSame(final P path, final P parent) {
+        assertSame(parentCheck(path), parent, () -> "parent of " + path);
     }
 
-    default void checkWithoutParent(final Path<?, ?> path) {
+    default void parentAbsentCheck(final Path<?, ?> path) {
         assertEquals(Optional.empty(), path.parent(), "parent");
     }
 
-    default void checkSameName(final Path<?, ?> path, final Name name) {
+    default void nameSameCheck(final Path<?, ?> path, final Name name) {
         assertSame(name, path.name(), "parent");
     }
 
