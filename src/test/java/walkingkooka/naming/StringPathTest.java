@@ -18,8 +18,11 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -140,6 +143,13 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     @Override
     public StringPath createComparable() {
         return StringPath.parse("/path");
+    }
+
+    // ConstantTesting ........................................................................................
+
+    @Override
+    public Set<StringPath> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 
     // ParseStringTesting ........................................................................................

@@ -18,8 +18,11 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -124,6 +127,13 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     @Override
     public boolean serializableInstanceIsSingleton() {
         return false;
+    }
+
+    // ConstantTesting ........................................................................................
+
+    @Override
+    public Set<PropertiesPath> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 
     // ParseStringTesting ........................................................................................
