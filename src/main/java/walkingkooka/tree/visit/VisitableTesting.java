@@ -18,15 +18,10 @@
 
 package walkingkooka.tree.visit;
 
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.test.Testing;
 
-abstract public class VisitableTestCase<V extends Visitable>
-        extends
-        ClassTestCase<V> {
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
+/**
+ * Tag for all {@link Visitable}
+ */
+public interface VisitableTesting<V extends Visitable> extends Testing {
 }

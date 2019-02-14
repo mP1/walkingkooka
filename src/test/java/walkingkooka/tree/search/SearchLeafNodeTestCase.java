@@ -29,6 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> extends SearchNodeTestCase<N> {
 
+    SearchLeafNodeTestCase() {
+        super();
+    }
+
     @Test
     public final void testCreate() {
         final N node = this.createSearchNode();

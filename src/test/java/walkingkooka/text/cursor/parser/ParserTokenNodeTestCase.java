@@ -18,16 +18,22 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.tree.NodeTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends NodeTestCase<ParserTokenNode,
+public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends ClassTestCase<ParserTokenNode>
+        implements NodeTesting<ParserTokenNode,
         ParserTokenNodeName,
         ParserTokenNodeAttributeName,
         String> {
+
+    ParserTokenNodeTestCase() {
+        super();
+    }
 
     @Test
     public void testSetAttributeNullFails() {
@@ -65,7 +71,7 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends
     abstract Class<N> parserTokenNodeType();
 
     @Override
-    final protected MemberVisibility typeVisibility() {
+    final public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,7 +20,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.tree.NodeTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
@@ -33,7 +34,12 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCase<PojoNode, PojoName, PojoNodeAttributeName, Object> {
+public abstract class PojoNodeTestCase<N extends PojoNode, V> extends ClassTestCase<PojoNode>
+        implements NodeTesting<PojoNode, PojoName, PojoNodeAttributeName, Object> {
+
+    PojoNodeTestCase() {
+        super();
+    }
 
     @Test
     public final void testValue() {
@@ -73,6 +79,11 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
         assertThrows(UnsupportedOperationException.class, () -> {
             this.createNode().setAttributes(Maps.empty());
         });
+    }
+
+    @Test
+    public final void testSetSameAttributes() {
+        // ignore
     }
 
     @Test
@@ -132,7 +143,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

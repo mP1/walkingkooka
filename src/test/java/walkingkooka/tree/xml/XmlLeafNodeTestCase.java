@@ -26,6 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class XmlLeafNodeTestCase<N extends XmlLeafNode> extends XmlNodeTestCase<N> {
 
+    XmlLeafNodeTestCase() {
+        super();
+    }
+
     @Test
     public final void testSetChildrenFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
@@ -40,7 +44,8 @@ public abstract class XmlLeafNodeTestCase<N extends XmlLeafNode> extends XmlNode
         });
     }
 
-    @Override final N createNode(final DocumentBuilder builder) {
+    @Override
+    final N createNode(final DocumentBuilder builder) {
         return this.createNode(builder.newDocument());
     }
 }

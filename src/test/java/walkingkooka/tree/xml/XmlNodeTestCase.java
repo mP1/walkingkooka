@@ -26,9 +26,11 @@ import org.xml.sax.InputSource;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.tree.NodeTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.tree.search.SearchNode;
+import walkingkooka.type.MemberVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,13 +45,19 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<XmlNode, XmlName, XmlAttributeName, String>
-        implements HasSearchNodeTesting<N> {
+public abstract class XmlNodeTestCase<N extends XmlNode> extends ClassTestCase<XmlNode>
+        implements HasSearchNodeTesting<N>,
+        NodeTesting<XmlNode, XmlName, XmlAttributeName, String> {
 
     final static Optional<XmlNode> NO_PARENT = XmlNode.NO_PARENT;
 
     XmlNodeTestCase() {
         super();
+    }
+
+    @Override
+    public final void testSetSameAttributes() {
+        throw new UnsupportedOperationException();
     }
 
     // parent.......................................................................................................
@@ -341,6 +349,8 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
 
     abstract Class<N> nodeType();
 
+    // TypeNameTesting.........................................................................................
+
     @Override
     public final String typeNamePrefix() {
         return "Xml";
@@ -349,5 +359,12 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
     @Override
     public final String typeNameSuffix() {
         return "";
+    }
+
+    // ClassTestCase.........................................................................................
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

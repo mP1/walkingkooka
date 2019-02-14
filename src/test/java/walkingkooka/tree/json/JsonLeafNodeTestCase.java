@@ -28,6 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends JsonNodeTestCase<N> {
 
+    JsonLeafNodeTestCase() {
+        super();
+    }
+
     @Test
     public final void testCreate() {
         final N node = this.createJsonNode();

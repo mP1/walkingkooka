@@ -25,12 +25,14 @@ import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.NodeTestCase2;
+import walkingkooka.tree.NodeTesting2;
 import walkingkooka.tree.search.HasSearchNodeTesting;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
@@ -38,10 +40,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2<JsonNode, JsonNodeName, Name, Object>
-    implements HasJsonNodeTesting<N>,
+public abstract class JsonNodeTestCase<N extends JsonNode> extends ClassTestCase<JsonNode>
+        implements HasJsonNodeTesting<N>,
         HasSearchNodeTesting<N>,
-        IsMethodTesting<N> {
+        IsMethodTesting<N>,
+        NodeTesting2<JsonNode, JsonNodeName, Name, Object> {
+
+    JsonNodeTestCase() {
+        super();
+    }
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -141,5 +148,12 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isRoot");
+    }
+
+    // ClassTestCase.........................................................................................
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

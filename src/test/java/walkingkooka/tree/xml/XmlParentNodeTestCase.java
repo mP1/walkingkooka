@@ -29,6 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class XmlParentNodeTestCase<N extends XmlParentNode> extends XmlNodeTestCase<N> {
 
+    XmlParentNodeTestCase() {
+        super();
+    }
+
     // toSearchNode.....................................................................................................
 
     @Test

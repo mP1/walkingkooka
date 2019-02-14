@@ -27,13 +27,15 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.Name;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.NodeTestCase2;
+import walkingkooka.tree.NodeTesting2;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -43,17 +45,19 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends NodeTestCase2<ExpressionNode, ExpressionNodeName, Name, Object>
-        implements IsMethodTesting<N> {
+public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends ClassTestCase<ExpressionNode>
+        implements IsMethodTesting<N>,
+        NodeTesting2<ExpressionNode, ExpressionNodeName, Name, Object> {
+
+    ExpressionNodeTestCase() {
+        super();
+    }
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -81,20 +85,6 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     abstract Class<N> expressionNodeType();
-
-    @Override
-    protected ExpressionNode appendChildAndCheck(final ExpressionNode parent, final ExpressionNode child) {
-        final N newParent = parent.appendChild(child).cast();
-        assertNotSame(newParent, parent, "appendChild must not return the same node");
-
-        final List<N> children = Cast.to(newParent.children());
-        assertNotEquals(0, children.size(), "children must have at least 1 child");
-        //assertEquals("last child must be the added child", child.name(), children.get(children.size() - 1).name());
-
-        this.checkParentOfChildren(newParent);
-
-        return newParent;
-    }
 
     // evaluation........................................................................................................
 
@@ -524,5 +514,12 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isRoot");
+    }
+
+    // ClassTestCase.........................................................................................
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

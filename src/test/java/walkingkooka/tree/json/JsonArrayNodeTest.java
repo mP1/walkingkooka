@@ -391,8 +391,15 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     }
 
     @Override
-    protected JsonArrayNode appendChildAndCheck(final JsonNode parent,
-                                                final JsonNode child) {
+    Class<JsonArrayNode> jsonNodeType() {
+        return JsonArrayNode.class;
+    }
+
+    // NodeTesting2................................................................................................
+
+    @Override
+    public JsonArrayNode appendChildAndCheck(final JsonNode parent,
+                                             final JsonNode child) {
         final JsonArrayNode newParent = parent.appendChild(child).cast();
         assertNotSame(newParent, parent, "appendChild must not return the same node");
 
@@ -406,10 +413,5 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         this.checkWithoutParent(child);
 
         return newParent;
-    }
-
-    @Override
-    Class<JsonArrayNode> jsonNodeType() {
-        return JsonArrayNode.class;
     }
 }
