@@ -37,7 +37,7 @@ public abstract class SearchParentNodeTestCase<N extends SearchParentNode> exten
     @Test
     public final void testCreate() {
         final N parent = this.createSearchNode();
-        this.checkChildCount(parent, this.children().size());
+        this.childCountCheck(parent, this.children().size());
     }
 
     @Test

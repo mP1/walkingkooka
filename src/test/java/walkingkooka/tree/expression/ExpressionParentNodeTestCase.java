@@ -34,7 +34,7 @@ public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNod
     @Test
     public final void testCreate() {
         final N parent = this.createExpressionNode();
-        this.checkChildCount(parent, this.children().size());
+        this.childCountCheck(parent, this.children().size());
     }
 
     @Test

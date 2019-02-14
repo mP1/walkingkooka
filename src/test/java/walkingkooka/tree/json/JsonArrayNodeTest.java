@@ -196,19 +196,19 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
             array.remove(2);
         });
         this.childrenCheck(array);
-        this.checkChildCount(array, 2);
+        this.childCountCheck(array, 2);
     }
 
     @Test
     public void testReplaceChild() {
         final JsonArrayNode root = JsonNode.array()
                 .appendChild(JsonNode.string("A1"));
-        this.checkChildCount(root, 1);
+        this.childCountCheck(root, 1);
 
         final JsonArrayNode updated = root.replaceChild(root.get(0), JsonNode.string("B2"))
                 .cast();
 
-        this.checkChildCount(updated, 1);
+        this.childCountCheck(updated, 1);
         assertEquals("B2", JsonStringNode.class.cast(updated.get(0)).value());
     }
 
@@ -220,16 +220,16 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 .appendChild(child1)
                 .appendChild(JsonNode.array()
                         .appendChild(JsonNode.string("GC1-old")));
-        this.checkChildCount(root, 2);
+        this.childCountCheck(root, 2);
 
         final JsonNode grandChild1New = JsonNode.string("GC1-new");
         final JsonArrayNode updatedChild = root.get(1)
                 .setChildren(Lists.of(grandChild1New))
                 .cast();
-        this.checkChildCount(updatedChild, 1);
+        this.childCountCheck(updatedChild, 1);
         
         final JsonArrayNode updatedRoot = updatedChild.parent().get().cast();
-        this.checkChildCount(updatedRoot, 2);
+        this.childCountCheck(updatedRoot, 2);
         assertEquals(JsonNode.array()
                         .appendChild(child1)
                         .appendChild(JsonNode.array()
@@ -409,7 +409,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         final int lastIndex = children.size() - 1;
         assertEquals(JsonNodeName.index(lastIndex), children.get(lastIndex).name(), "last child must be the added child");
 
-        this.checkParentOfChildren(newParent);
+        this.childrenParentCheck(newParent);
         this.checkWithoutParent(child);
 
         return newParent;

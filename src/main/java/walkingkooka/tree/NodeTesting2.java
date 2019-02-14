@@ -47,7 +47,7 @@ public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
         final N child1 = this.createNode();
         final N parent1 = this.appendChildAndCheck(parent, child1);
 
-        this.checkChildCount(parent1, parentChildCount + 1);
+        this.childCountCheck(parent1, parentChildCount + 1);
     }
 
     @Test
@@ -61,7 +61,7 @@ public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
         final N child2 = this.createNode();
         final N parent2 = this.appendChildAndCheck(parent1, child2);
 
-        this.checkChildCount(parent2, parentChildCount + 2);
+        this.childCountCheck(parent2, parentChildCount + 2);
     }
 
     @Test
@@ -87,7 +87,7 @@ public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
         final N removed = parent2.children().get(remove);
         final N parent3 = this.removeChildAndCheck(parent2, removed);
 
-        this.checkChildCount(parent3, parentCount + 1 + 1 - 1);
+        this.childCountCheck(parent3, parentCount + 1 + 1 - 1);
     }
 
     @Test
@@ -121,7 +121,7 @@ public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
 
         final N set = this.setChildrenAndCheck(parent, child1, child2);
 
-        this.checkChildCount(set, child1, child2);
+        this.childCountCheck(set, child1, child2);
     }
 
     @Test
@@ -152,7 +152,7 @@ public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
         final N child3 = this.createNode();
         final N parent2 = this.setChildrenAndCheck(parent1, child3);
 
-        this.checkChildCount(parent2, child3);
+        this.childCountCheck(parent2, child3);
     }
 
     @Test
