@@ -85,27 +85,27 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     }
 
     @Override
-    protected PropertiesPath root() {
+    public PropertiesPath root() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected PropertiesPath createPath() {
+    public PropertiesPath createPath() {
         return PropertiesPath.parse("abc");
     }
 
     @Override
-    protected PropertiesPath parsePath(final String path) {
+    public PropertiesPath parsePath(final String path) {
         return PropertiesPath.parse(path);
     }
 
     @Override
-    protected PropertiesName createName(final int n) {
+    public PropertiesName createName(final int n) {
         return PropertiesName.with("property-" + n);
     }
 
     @Override
-    protected PathSeparator separator() {
+    public PathSeparator separator() {
         return PropertiesPath.SEPARATOR;
     }
 
