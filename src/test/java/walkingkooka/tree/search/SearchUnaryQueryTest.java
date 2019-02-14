@@ -18,17 +18,17 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class SearchUnaryQueryTest extends ClassTestCase<SearchUnaryQuery> {
+public final class SearchUnaryQueryTest implements ClassTesting2<SearchUnaryQuery> {
     @Override
     public Class<SearchUnaryQuery> type() {
         return SearchUnaryQuery.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

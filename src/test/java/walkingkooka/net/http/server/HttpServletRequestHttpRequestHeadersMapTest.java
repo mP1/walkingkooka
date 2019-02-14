@@ -25,7 +25,7 @@ import walkingkooka.collect.map.MapTesting;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +34,8 @@ import java.util.Enumeration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HttpServletRequestHttpRequestHeadersMapTest extends ClassTestCase<HttpServletRequestHttpRequestHeadersMap>
-        implements MapTesting<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
+public final class HttpServletRequestHttpRequestHeadersMapTest implements ClassTesting2<HttpServletRequestHttpRequestHeadersMap>,
+        MapTesting<HttpServletRequestHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
 
     private final static HttpHeaderName<?> HEADER1 = HttpHeaderName.CONTENT_LENGTH;
     private final static Long VALUE1 = 111L;

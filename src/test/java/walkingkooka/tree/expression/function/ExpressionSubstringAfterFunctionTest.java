@@ -19,13 +19,13 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionSubstringAfterFunctionTest extends ClassTestCase<ExpressionSubstringAfterFunction>
-        implements ExpressionFunctionTesting<ExpressionSubstringAfterFunction, String> {
+public final class ExpressionSubstringAfterFunctionTest implements ClassTesting2<ExpressionSubstringAfterFunction>,
+        ExpressionFunctionTesting<ExpressionSubstringAfterFunction, String> {
 
     @Test
     public void testZeroParametersFails() {

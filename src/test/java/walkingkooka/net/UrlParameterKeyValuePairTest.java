@@ -18,17 +18,17 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class UrlParameterKeyValuePairTest extends ClassTestCase<UrlParameterKeyValuePair> {
+public final class UrlParameterKeyValuePairTest implements ClassTesting2<UrlParameterKeyValuePair> {
     @Override
     public Class<UrlParameterKeyValuePair> type() {
         return UrlParameterKeyValuePair.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

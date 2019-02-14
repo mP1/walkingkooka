@@ -27,7 +27,7 @@ import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.NotAcceptableHeaderException;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
@@ -40,8 +40,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpEntityTest extends ClassTestCase<HttpEntity>
-        implements HashCodeEqualsDefinedTesting<HttpEntity>,
+public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
+        HashCodeEqualsDefinedTesting<HttpEntity>,
         ToStringTesting<HttpEntity> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
@@ -421,8 +421,7 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
         return HttpEntity.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

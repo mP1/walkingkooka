@@ -27,7 +27,7 @@ import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
@@ -39,8 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeaderScopeHttpRequestTest extends ClassTestCase<HeaderScopeHttpRequest>
-        implements HttpRequestTesting<HeaderScopeHttpRequest> {
+public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderScopeHttpRequest>,
+        HttpRequestTesting<HeaderScopeHttpRequest> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.POST;

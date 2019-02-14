@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
 
@@ -35,8 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class PrinterPrintStreamTest extends ClassTestCase<PrinterPrintStream>
-        implements PrintStreamTesting<PrinterPrintStream> {
+final public class PrinterPrintStreamTest implements ClassTesting2<PrinterPrintStream>,
+        PrintStreamTesting<PrinterPrintStream> {
 
     // constants
 

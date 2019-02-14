@@ -18,17 +18,18 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class DirectoryFilesystemNodeTest extends ClassTestCase<DirectoryFilesystemNode> {
+public final class DirectoryFilesystemNodeTest implements ClassTesting2<DirectoryFilesystemNode> {
+
     @Override
     public Class<DirectoryFilesystemNode> type() {
         return DirectoryFilesystemNode.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

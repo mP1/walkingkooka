@@ -19,12 +19,10 @@
 package walkingkooka.tree.select;
 
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest extends ClassTestCase<ExpressionNodeSelectorNodeSelectorParserTokenVisitor>
-        implements NodeSelectorParserTokenVisitorTesting<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> {
+public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> {
 
     @Override
     public ExpressionNodeSelectorNodeSelectorParserTokenVisitor createVisitor() {

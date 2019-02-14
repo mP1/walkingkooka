@@ -18,12 +18,12 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformerTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerTest extends ClassTestCase<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer>
-        implements EbnfParserCombinatorSyntaxTreeTransformerTesting<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> {
+public final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerTest implements ClassTesting2<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer>,
+        EbnfParserCombinatorSyntaxTreeTransformerTesting<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> {
 
     @Override
     public Class<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> type() {

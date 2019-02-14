@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
@@ -31,9 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class IteratorEnumerationTest
-        extends ClassTestCase<IteratorEnumeration<Object>>
-        implements EnumerationTesting<IteratorEnumeration<Object>, Object> {
+final public class IteratorEnumerationTest implements ClassTesting2<IteratorEnumeration<Object>>,
+        EnumerationTesting<IteratorEnumeration<Object>, Object> {
 
     // constants
 

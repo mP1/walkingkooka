@@ -21,16 +21,15 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class NormalizingCharSequenceComparatorTest
-        extends ClassTestCase<NormalizingCharSequenceComparator<String>>
-        implements ComparatorTesting<NormalizingCharSequenceComparator<String>, String>,
+final public class NormalizingCharSequenceComparatorTest implements ClassTesting2<NormalizingCharSequenceComparator<String>>,
+        ComparatorTesting<NormalizingCharSequenceComparator<String>, String>,
         HashCodeEqualsDefinedTesting<NormalizingCharSequenceComparator<String>>,
         SerializationTesting<NormalizingCharSequenceComparator<String>> {
 
@@ -161,7 +160,7 @@ final public class NormalizingCharSequenceComparatorTest
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
     

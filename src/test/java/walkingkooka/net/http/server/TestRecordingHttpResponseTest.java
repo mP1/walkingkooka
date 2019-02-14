@@ -24,13 +24,13 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TestRecordingHttpResponseTest extends ClassTestCase<TestRecordingHttpResponse>
-        implements HttpResponseTesting<TestRecordingHttpResponse> {
+public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRecordingHttpResponse>,
+        HttpResponseTesting<TestRecordingHttpResponse> {
 
     @Test
     public void testCheck() {
@@ -115,8 +115,7 @@ public final class TestRecordingHttpResponseTest extends ClassTestCase<TestRecor
         return TestRecordingHttpResponse.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

@@ -17,14 +17,14 @@
 
 package walkingkooka.collect.map;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class MapsTest extends ClassTestCase<Maps>
-        implements PublicStaticHelperTesting<Maps> {
+final public class MapsTest implements ClassTesting2<Maps>,
+        PublicStaticHelperTesting<Maps> {
 
     @Override
     public Class<Maps> type() {

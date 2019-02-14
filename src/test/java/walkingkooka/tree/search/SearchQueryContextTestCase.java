@@ -18,19 +18,19 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class SearchQueryContextTestCase<C extends SearchQueryContext> extends ClassTestCase<C>
-        implements TypeNameTesting<C> {
+public abstract class SearchQueryContextTestCase<C extends SearchQueryContext> implements ClassTesting2<C>,
+        TypeNameTesting<C> {
 
     SearchQueryContextTestCase() {
         super();
     }
 
     @Override
-    final protected MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

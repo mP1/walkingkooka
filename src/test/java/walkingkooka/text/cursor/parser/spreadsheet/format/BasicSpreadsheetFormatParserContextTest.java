@@ -20,13 +20,13 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetFormatParserContextTest extends ClassTestCase<BasicSpreadsheetFormatParserContext>
-        implements SpreadsheetFormatParserContextTesting<BasicSpreadsheetFormatParserContext> {
+public final class BasicSpreadsheetFormatParserContextTest implements ClassTesting2<BasicSpreadsheetFormatParserContext>,
+        SpreadsheetFormatParserContextTesting<BasicSpreadsheetFormatParserContext> {
 
     @Test
     public void testWithNullDecimalNumberContextFails() {

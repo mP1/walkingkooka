@@ -18,10 +18,10 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-final public class CookieTest extends ClassTestCase<Cookie> {
+final public class CookieTest implements ClassTesting2<Cookie> {
 
     @Override
     public Class<Cookie> type() {
@@ -29,7 +29,7 @@ final public class CookieTest extends ClassTestCase<Cookie> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

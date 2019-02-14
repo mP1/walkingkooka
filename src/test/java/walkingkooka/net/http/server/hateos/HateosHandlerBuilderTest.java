@@ -27,7 +27,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.routing.Router;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -36,8 +36,8 @@ import java.util.function.BiConsumer;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HateosHandlerBuilderTest extends ClassTestCase<HateosHandlerBuilder<JsonNode>>
-        implements BuilderTesting<HateosHandlerBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
+public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandlerBuilder<JsonNode>>,
+        BuilderTesting<HateosHandlerBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
     // creation ..........................................................................................
 

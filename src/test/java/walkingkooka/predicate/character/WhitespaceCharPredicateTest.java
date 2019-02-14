@@ -19,10 +19,8 @@ package walkingkooka.predicate.character;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.TestCase;
 
-final public class WhitespaceCharPredicateTest extends TestCase
-        implements CharPredicateTesting<WhitespaceCharPredicate>,
+final public class WhitespaceCharPredicateTest implements CharPredicateTesting<WhitespaceCharPredicate>,
         SerializationTesting<WhitespaceCharPredicate> {
 
     @Test

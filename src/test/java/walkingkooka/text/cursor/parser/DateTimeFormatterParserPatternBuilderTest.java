@@ -18,17 +18,18 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class DateTimeFormatterParserPatternBuilderTest extends ClassTestCase<DateTimeFormatterParserPatternBuilder> {
+public final class DateTimeFormatterParserPatternBuilderTest implements ClassTesting2<DateTimeFormatterParserPatternBuilder> {
+
     @Override
     public Class<DateTimeFormatterParserPatternBuilder> type() {
         return DateTimeFormatterParserPatternBuilder.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

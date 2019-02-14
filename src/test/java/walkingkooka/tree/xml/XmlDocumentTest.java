@@ -26,6 +26,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ResourceTesting;
 import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.tree.select.NodeSelector;
 
@@ -40,7 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument> {
+public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument>
+        implements ResourceTesting {
 
     private final static Optional<String> NO_NAMESPACE = Optional.empty();
     private final static XmlName ROOT = XmlName.element("root");
@@ -658,7 +660,7 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument> {
                 final InputSource inputSource = new InputSource();
                 inputSource.setPublicId(publicId);
                 inputSource.setSystemId(systemId);
-                inputSource.setCharacterStream(resourceAsReader(XmlDocumentTest.class, dtd));
+                inputSource.setCharacterStream(XmlDocumentTest.this.resourceAsReader(XmlDocumentTest.class, dtd));
                 return inputSource;
             }
         });

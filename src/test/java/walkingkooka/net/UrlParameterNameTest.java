@@ -20,13 +20,13 @@ package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class UrlParameterNameTest extends ClassTestCase<UrlParameterName>
-        implements NameTesting<UrlParameterName, UrlParameterName>,
+public final class UrlParameterNameTest implements ClassTesting2<UrlParameterName>,
+        NameTesting<UrlParameterName, UrlParameterName>,
         SerializationTesting<UrlParameterName> {
 
     @Override

@@ -18,10 +18,10 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class MediaTypeHeaderParserTest extends ClassTestCase<MediaTypeHeaderParser> {
+public final class MediaTypeHeaderParserTest implements ClassTesting2<MediaTypeHeaderParser> {
 
     @Override
     public Class<MediaTypeHeaderParser> type() {
@@ -29,7 +29,7 @@ public final class MediaTypeHeaderParserTest extends ClassTestCase<MediaTypeHead
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

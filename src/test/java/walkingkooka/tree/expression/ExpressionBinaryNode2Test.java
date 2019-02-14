@@ -18,18 +18,17 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionBinaryNode2Test extends ClassTestCase<ExpressionBinaryNode2> {
+public final class ExpressionBinaryNode2Test implements ClassTesting2<ExpressionBinaryNode2> {
 
     @Override
     public Class<ExpressionBinaryNode2> type() {
         return ExpressionBinaryNode2.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

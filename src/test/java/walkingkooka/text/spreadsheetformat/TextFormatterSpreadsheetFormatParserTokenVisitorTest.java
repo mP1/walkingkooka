@@ -18,10 +18,10 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class TextFormatterSpreadsheetFormatParserTokenVisitorTest extends ClassTestCase<TextFormatterSpreadsheetFormatParserTokenVisitor> {
+public final class TextFormatterSpreadsheetFormatParserTokenVisitorTest implements ClassTesting2<TextFormatterSpreadsheetFormatParserTokenVisitor> {
 
     @Override
     public Class<TextFormatterSpreadsheetFormatParserTokenVisitor> type() {
@@ -29,7 +29,7 @@ public final class TextFormatterSpreadsheetFormatParserTokenVisitorTest extends 
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

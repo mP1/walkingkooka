@@ -19,12 +19,12 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CycleDetectedExpressionEvaluationConversionExceptionTest extends ClassTestCase<CycleDetectedExpressionEvaluationConversionException> {
+public final class CycleDetectedExpressionEvaluationConversionExceptionTest implements ClassTesting2<CycleDetectedExpressionEvaluationConversionException> {
 
     @Test
     public void testCreateNullReferenceFails() {
@@ -33,10 +33,9 @@ public final class CycleDetectedExpressionEvaluationConversionExceptionTest exte
         });
     }
 
-    @Test
-    public void testAllConstructorsVisibility() throws Exception {
-        this.checkConstructorVisibility(CycleDetectedExpressionEvaluationConversionException.class.getConstructor(String.class, ExpressionReference.class),
-                MemberVisibility.PUBLIC);
+    @Override
+    public void testAllConstructorsVisibility() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -45,7 +44,7 @@ public final class CycleDetectedExpressionEvaluationConversionExceptionTest exte
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

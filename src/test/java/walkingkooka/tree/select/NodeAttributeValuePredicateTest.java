@@ -17,17 +17,17 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeAttributeValuePredicateTest extends ClassTestCase<NodeAttributeValuePredicate> {
+public final class NodeAttributeValuePredicateTest implements ClassTesting2<NodeAttributeValuePredicate> {
     @Override
     public Class<NodeAttributeValuePredicate> type() {
         return NodeAttributeValuePredicate.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

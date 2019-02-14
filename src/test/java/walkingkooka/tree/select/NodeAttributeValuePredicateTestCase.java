@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.PredicateTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -31,8 +31,8 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
-        extends ClassTestCase<N>
-        implements PredicateTesting<N, TestNode> {
+        implements ClassTesting2<N>,
+        PredicateTesting<N, TestNode> {
 
     @BeforeEach
     public void beforeEachTest() {

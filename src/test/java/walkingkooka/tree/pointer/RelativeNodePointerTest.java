@@ -20,13 +20,13 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RelativeNodePointerTest extends ClassTestCase<RelativeNodePointer<?, ?, ?, ?>> {
+public final class RelativeNodePointerTest implements ClassTesting2<RelativeNodePointer<?, ?, ?, ?>> {
 
     private final static boolean NO_HASH = false;
     private final static boolean HASH = !NO_HASH;
@@ -74,7 +74,7 @@ public final class RelativeNodePointerTest extends ClassTestCase<RelativeNodePoi
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

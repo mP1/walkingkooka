@@ -127,8 +127,7 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
         return OpaqueColor.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

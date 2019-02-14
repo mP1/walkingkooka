@@ -18,7 +18,7 @@
 package walkingkooka.build.chain;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -27,9 +27,9 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ChainTypeTest extends ClassTestCase<ChainType>
-        implements HashCodeEqualsDefinedTesting<ChainType>,
-        SerializationTesting<ChainType> ,
+final public class ChainTypeTest implements ClassTesting2<ChainType>,
+        HashCodeEqualsDefinedTesting<ChainType>,
+        SerializationTesting<ChainType>,
         ToStringTesting<ChainType> {
     // constants
 
@@ -98,8 +98,7 @@ final public class ChainTypeTest extends ClassTestCase<ChainType>
         return ChainType.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

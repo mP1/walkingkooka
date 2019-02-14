@@ -19,12 +19,12 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-final public class SpreadsheetFunctionNameTest extends ClassTestCase<SpreadsheetFunctionName>
-        implements NameTesting2<SpreadsheetFunctionName, SpreadsheetFunctionName> {
+final public class SpreadsheetFunctionNameTest implements ClassTesting2<SpreadsheetFunctionName>,
+        NameTesting2<SpreadsheetFunctionName, SpreadsheetFunctionName> {
 
     @Override
     public SpreadsheetFunctionName createName(final String name) {

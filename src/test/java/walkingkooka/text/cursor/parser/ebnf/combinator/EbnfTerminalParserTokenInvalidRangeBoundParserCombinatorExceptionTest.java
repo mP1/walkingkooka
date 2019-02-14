@@ -18,10 +18,10 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorExceptionTest extends ClassTestCase<EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException> {
+public final class EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorExceptionTest implements ClassTesting2<EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException> {
 
     @Override
     public void testAllConstructorsVisibility() {
@@ -33,7 +33,7 @@ public final class EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorExcep
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

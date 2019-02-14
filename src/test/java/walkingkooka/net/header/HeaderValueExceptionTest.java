@@ -19,10 +19,8 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-final public class HeaderValueExceptionTest extends TestCase
-        implements StandardThrowableTesting<HeaderValueException> {
+final public class HeaderValueExceptionTest implements StandardThrowableTesting<HeaderValueException> {
 
     @Override
     public Class<HeaderValueException> type() {

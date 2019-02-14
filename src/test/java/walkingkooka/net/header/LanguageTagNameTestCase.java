@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
@@ -33,8 +33,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends ClassTestCase<L>
-        implements NameTesting<L, LanguageTagName>,
+public abstract class LanguageTagNameTestCase<L extends LanguageTagName> implements ClassTesting2<L>,
+        NameTesting<L, LanguageTagName>,
         TypeNameTesting<L> {
 
     LanguageTagNameTestCase() {

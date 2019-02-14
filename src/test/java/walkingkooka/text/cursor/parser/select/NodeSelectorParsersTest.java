@@ -20,7 +20,6 @@ package walkingkooka.text.cursor.parser.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -33,8 +32,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeSelectorParsersTest extends TestCase
-        implements ParserTesting<Parser<NodeSelectorParserToken, NodeSelectorParserContext>,
+public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeSelectorParserToken, NodeSelectorParserContext>,
                 NodeSelectorParserToken,
                 NodeSelectorParserContext> {
 

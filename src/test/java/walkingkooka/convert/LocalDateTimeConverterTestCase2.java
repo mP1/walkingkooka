@@ -25,8 +25,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class LocalDateTimeConverterTestCase2<C extends FixedSourceTypeTargetTypeConverter<LocalDateTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
 
     final static int VALUE = 123;

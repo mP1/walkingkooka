@@ -18,13 +18,13 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 
 /**
  * Base class for all {@link HeaderValue} in this package.
  */
-public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTestCase<V>
-        implements HeaderValueTesting<V> {
+public abstract class HeaderValueTestCase<V extends HeaderValue> implements ClassTesting2<V>,
+        HeaderValueTesting<V> {
 
     HeaderValueTestCase() {
         super();

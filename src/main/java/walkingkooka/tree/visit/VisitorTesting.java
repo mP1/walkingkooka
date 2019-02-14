@@ -20,6 +20,7 @@ package walkingkooka.tree.visit;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.ClassTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -37,7 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * A mixin interface with tests and helpers to assist in testing a {@link Visitor}
  */
 public interface VisitorTesting<V extends Visitor<T>, T>
-        extends ToStringTesting<V>,
+        extends ClassTesting<V>,
+        ToStringTesting<V>,
         TypeNameTesting<V> {
 
     /**

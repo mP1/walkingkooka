@@ -19,7 +19,7 @@
 package walkingkooka.tree.file;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.EnumSet;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class FilesystemNodeCacheAtomTest extends ClassTestCase<FilesystemNodeCacheAtom> {
+public final class FilesystemNodeCacheAtomTest implements ClassTesting2<FilesystemNodeCacheAtom> {
 
     @Test
     public void testAtoms() {
@@ -53,7 +53,7 @@ public final class FilesystemNodeCacheAtomTest extends ClassTestCase<FilesystemN
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

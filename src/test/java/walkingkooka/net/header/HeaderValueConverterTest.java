@@ -19,17 +19,17 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class HeaderValueConverterTest extends ClassTestCase<HeaderValueConverter<Void>> {
+public final class HeaderValueConverterTest implements ClassTesting2<HeaderValueConverter<Void>> {
     @Override
     public Class<HeaderValueConverter<Void>> type() {
         return Cast.to(HeaderValueConverter.class);
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

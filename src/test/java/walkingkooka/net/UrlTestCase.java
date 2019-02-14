@@ -19,7 +19,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ToStringTesting;
@@ -36,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
-abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
-        implements HashCodeEqualsDefinedTesting<U>,
+abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
+        HashCodeEqualsDefinedTesting<U>,
         IsMethodTesting<U>,
         ToStringTesting<U>,
         TypeNameTesting<U> {
@@ -232,7 +232,7 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U>
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

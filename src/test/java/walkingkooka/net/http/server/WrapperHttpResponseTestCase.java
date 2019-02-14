@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.Latch;
 import walkingkooka.type.MemberVisibility;
 
@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> extends ClassTestCase<R>
-        implements HttpResponseTesting<R> {
+public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> implements ClassTesting2<R>,
+        HttpResponseTesting<R> {
 
     WrapperHttpResponseTestCase() {
         super();

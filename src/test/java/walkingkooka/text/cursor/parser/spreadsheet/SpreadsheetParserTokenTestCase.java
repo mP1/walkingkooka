@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.BeanPropertiesTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -33,8 +33,8 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParserToken> extends ClassTestCase<T>
-        implements IsMethodTesting<T>,
+public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParserToken> implements ClassTesting2<T>,
+        IsMethodTesting<T>,
         ParserTokenTesting<T> {
 
     SpreadsheetParserTokenTestCase() {

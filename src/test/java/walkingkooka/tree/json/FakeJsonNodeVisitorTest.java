@@ -18,12 +18,10 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.Fake;
 import walkingkooka.type.MemberVisibility;
 
-public final class FakeJsonNodeVisitorTest extends ClassTestCase<FakeJsonNodeVisitor>
-        implements JsonNodeVisitorTesting<FakeJsonNodeVisitor> {
+public final class FakeJsonNodeVisitorTest implements JsonNodeVisitorTesting<FakeJsonNodeVisitor> {
 
     @Override
     public FakeJsonNodeVisitor createVisitor() {

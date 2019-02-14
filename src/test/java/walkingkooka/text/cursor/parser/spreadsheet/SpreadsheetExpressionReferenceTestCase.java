@@ -19,13 +19,13 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 
-public abstract class SpreadsheetExpressionReferenceTestCase<R extends SpreadsheetExpressionReference> extends ClassTestCase<R>
-        implements HasJsonNodeTesting<R>,
+public abstract class SpreadsheetExpressionReferenceTestCase<R extends SpreadsheetExpressionReference> implements ClassTesting2<R>,
+        HasJsonNodeTesting<R>,
         ToStringTesting<R> {
 
     SpreadsheetExpressionReferenceTestCase() {

@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CharSequencesTest extends ClassTestCase<CharSequences>
-        implements PublicStaticHelperTesting<CharSequences> {
+final public class CharSequencesTest implements ClassTesting2<CharSequences>,
+        PublicStaticHelperTesting<CharSequences> {
 
     // bigEndianHexDigits....................................................................
 

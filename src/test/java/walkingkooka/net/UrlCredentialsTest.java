@@ -20,7 +20,7 @@ package walkingkooka.net;
 
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -29,8 +29,8 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials>
-        implements HashCodeEqualsDefinedTesting<UrlCredentials>,
+public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
+        HashCodeEqualsDefinedTesting<UrlCredentials>,
         SerializationTesting<UrlCredentials>,
         ToStringTesting<UrlCredentials> {
 
@@ -81,8 +81,7 @@ public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials>
         return UrlCredentials.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

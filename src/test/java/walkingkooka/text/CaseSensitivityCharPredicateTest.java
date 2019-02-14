@@ -21,11 +21,9 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.character.CharPredicateTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.TestCase;
 
 final public class CaseSensitivityCharPredicateTest
-        extends TestCase
-        implements CharPredicateTesting<CaseSensitivityCharPredicate>,
+                implements CharPredicateTesting<CaseSensitivityCharPredicate>,
         HashCodeEqualsDefinedTesting<CaseSensitivityCharPredicate>,
         SerializationTesting<CaseSensitivityCharPredicate> {
 

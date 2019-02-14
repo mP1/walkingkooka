@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.tree.Node;
@@ -38,12 +38,12 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SearchNodeTestCase<N extends SearchNode> extends ClassTestCase<SearchNode>
-        implements IsMethodTesting<N>,
+public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassTesting2<SearchNode>,
+        IsMethodTesting<N>,
         NodeTesting2<SearchNode,
-                SearchNodeName,
-                SearchNodeAttributeName,
-                String> {
+                        SearchNodeName,
+                        SearchNodeAttributeName,
+                        String> {
 
     SearchNodeTestCase() {
         super();

@@ -19,11 +19,12 @@
 package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class ColorTest extends ClassTestCase<Color> implements ParseStringTesting<Color> {
+public final class ColorTest implements ClassTesting2<Color>,
+        ParseStringTesting<Color> {
 
     // parse..................................................................
 
@@ -116,8 +117,7 @@ public final class ColorTest extends ClassTestCase<Color> implements ParseString
         return Color.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

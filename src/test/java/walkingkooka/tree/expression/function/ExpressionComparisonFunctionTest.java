@@ -20,13 +20,13 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparisonRelation;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionComparisonFunctionTest extends ClassTestCase<ExpressionComparisonFunction>
-        implements ExpressionFunctionTesting<ExpressionComparisonFunction, Boolean> {
+public final class ExpressionComparisonFunctionTest implements ClassTesting2<ExpressionComparisonFunction>,
+        ExpressionFunctionTesting<ExpressionComparisonFunction, Boolean> {
 
     @Test
     public void testZeroParametersFails() {

@@ -18,12 +18,12 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting;
 import walkingkooka.type.MemberVisibility;
 
 public abstract class TextFormatterSpreadsheetFormatParserTokenVisitorTestCase<V extends TextFormatterSpreadsheetFormatParserTokenVisitor>
-        extends ClassTestCase<V>
-        implements TextFormatterSpreadsheetFormatParserTokenVisitorTesting<V>{
+        implements TextFormatterSpreadsheetFormatParserTokenVisitorTesting<V>,
+        ClassTesting<V> {
 
     TextFormatterSpreadsheetFormatParserTokenVisitorTestCase() {
         super();

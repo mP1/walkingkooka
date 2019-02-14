@@ -19,10 +19,8 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-public final class SearchExceptionTest extends TestCase
-        implements StandardThrowableTesting<SearchException> {
+public final class SearchExceptionTest implements StandardThrowableTesting<SearchException> {
 
     @Override
     public Class<SearchException> type() {

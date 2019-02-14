@@ -18,14 +18,14 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class NodeSelectorContextsTest extends ClassTestCase<NodeSelectorContexts>
-        implements PublicStaticHelperTesting<NodeSelectorContexts> {
+public final class NodeSelectorContextsTest implements ClassTesting2<NodeSelectorContexts>,
+        PublicStaticHelperTesting<NodeSelectorContexts> {
 
     @Override
     public Class<NodeSelectorContexts> type() {

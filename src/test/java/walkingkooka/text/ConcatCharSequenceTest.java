@@ -20,7 +20,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class ConcatCharSequenceTest extends ClassTestCase<ConcatCharSequence>
-        implements CharSequenceTesting<ConcatCharSequence>,
+final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSequence>,
+        CharSequenceTesting<ConcatCharSequence>,
         SerializationTesting<ConcatCharSequence> {
 
     // constants
@@ -161,8 +161,7 @@ final public class ConcatCharSequenceTest extends ClassTestCase<ConcatCharSequen
         return ConcatCharSequence.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

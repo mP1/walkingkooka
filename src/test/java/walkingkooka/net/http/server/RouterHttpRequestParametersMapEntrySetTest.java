@@ -31,7 +31,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
@@ -42,9 +42,9 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RouterHttpRequestParametersMapEntrySetTest extends ClassTestCase<RouterHttpRequestParametersMapEntrySet>
-        implements SetTesting<RouterHttpRequestParametersMapEntrySet,
-        Entry<HttpRequestAttribute<?>, Object>> {
+public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2<RouterHttpRequestParametersMapEntrySet>,
+        SetTesting<RouterHttpRequestParametersMapEntrySet,
+                        Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.with("CUSTOMHTTPMETHOD");

@@ -19,12 +19,12 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class ETagValidatorTest extends ClassTestCase<ETagValidator> {
+public final class ETagValidatorTest implements ClassTesting2<ETagValidator> {
 
     @Test
     public void testSetValue() {
@@ -42,7 +42,7 @@ public final class ETagValidatorTest extends ClassTestCase<ETagValidator> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

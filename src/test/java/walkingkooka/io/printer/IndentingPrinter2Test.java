@@ -17,11 +17,11 @@
 
 package walkingkooka.io.printer;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 final public class IndentingPrinter2Test
-        extends ClassTestCase<IndentingPrinter2> {
+        implements ClassTesting2<IndentingPrinter2> {
 
     @Override
     public Class<IndentingPrinter2> type() {
@@ -29,7 +29,7 @@ final public class IndentingPrinter2Test
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

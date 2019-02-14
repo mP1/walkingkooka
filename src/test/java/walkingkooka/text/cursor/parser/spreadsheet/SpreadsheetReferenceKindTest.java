@@ -18,12 +18,12 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class SpreadsheetReferenceKindTest extends ClassTestCase<SpreadsheetReferenceKind>
-        implements ToStringTesting<SpreadsheetReferenceKind> {
+public final class SpreadsheetReferenceKindTest implements ClassTesting2<SpreadsheetReferenceKind>,
+        ToStringTesting<SpreadsheetReferenceKind> {
 
     @Override
     public Class<SpreadsheetReferenceKind> type() {
@@ -31,7 +31,7 @@ public final class SpreadsheetReferenceKindTest extends ClassTestCase<Spreadshee
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

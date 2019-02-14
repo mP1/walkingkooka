@@ -17,14 +17,14 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class ParserContextsTest extends ClassTestCase<ParserContexts>
-        implements PublicStaticHelperTesting<ParserContexts> {
+public final class ParserContextsTest implements ClassTesting2<ParserContexts>,
+        PublicStaticHelperTesting<ParserContexts> {
 
     @Override
     public Class<ParserContexts> type() {

@@ -18,7 +18,7 @@
 package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -26,8 +26,8 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class WaiterTest extends ClassTestCase<Waiter>
-        implements PublicStaticHelperTesting<Waiter> {
+final public class WaiterTest implements ClassTesting2<Waiter>,
+        PublicStaticHelperTesting<Waiter> {
 
     @Test
     public void testOneMillisecond() {

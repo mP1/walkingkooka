@@ -17,15 +17,15 @@
 package walkingkooka.tree.pojo;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ReflectionImmutableWritablePojoPropertyTest extends ClassTestCase<ReflectionImmutableWritablePojoProperty>
-        implements PojoPropertyTesting<ReflectionImmutableWritablePojoProperty> {
+public final class ReflectionImmutableWritablePojoPropertyTest implements ClassTesting2<ReflectionImmutableWritablePojoProperty>,
+        PojoPropertyTesting<ReflectionImmutableWritablePojoProperty> {
 
     private final static PojoName X = PojoName.property("x");
     private final static String STRING = "abc1";

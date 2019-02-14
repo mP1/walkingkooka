@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Comparators;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class CharsetNameTest extends ClassTestCase<CharsetName>
-        implements NameTesting2<CharsetName, CharsetName> {
+public final class CharsetNameTest implements ClassTesting2<CharsetName>,
+        NameTesting2<CharsetName, CharsetName> {
 
     @Test
     public void testWithUtfDash8() {

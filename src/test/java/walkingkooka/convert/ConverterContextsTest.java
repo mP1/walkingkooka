@@ -17,14 +17,14 @@
  */
 package walkingkooka.convert;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class ConverterContextsTest extends ClassTestCase<ConverterContexts>
-        implements PublicStaticHelperTesting<ConverterContexts> {
+public final class ConverterContextsTest implements ClassTesting2<ConverterContexts>,
+        PublicStaticHelperTesting<ConverterContexts> {
 
     @Override
     public Class<ConverterContexts> type() {

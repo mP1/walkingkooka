@@ -19,7 +19,7 @@ package walkingkooka.tree.pojo;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ListTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.ArrayList;
@@ -28,8 +28,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public abstract class PojoNodeListTestCase<L extends List<E>, E> extends ClassTestCase<L>
-        implements ListTesting<L, E> {
+public abstract class PojoNodeListTestCase<L extends List<E>, E> implements ClassTesting2<L>,
+        ListTesting<L, E> {
 
     PojoNodeListTestCase() {
         super();

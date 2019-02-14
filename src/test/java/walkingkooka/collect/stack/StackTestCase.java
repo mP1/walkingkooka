@@ -18,15 +18,15 @@
 
 package walkingkooka.collect.stack;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.type.MemberVisibility;
 
 /**
  * Base class for testing a {@link Stack} in this package.
  */
-abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, T> extends ClassTestCase<S>
-        implements StackTesting<S, T> {
+abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, T> implements ClassTesting2<S>,
+        StackTesting<S, T> {
 
     StackTestCase() {
         super();

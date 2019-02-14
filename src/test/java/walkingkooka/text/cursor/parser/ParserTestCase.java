@@ -19,8 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.test.TestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.cursor.TextCursor;
@@ -30,11 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Base {@link TestCase} for numerous parsers in this package.
+ * Base for numerous parsers in this package.
  */
-public abstract class ParserTestCase<P extends Parser<T, ParserContext>, T extends ParserToken>
-        extends ClassTestCase<P>
-        implements ParserTesting<P, T, ParserContext>,
+public abstract class ParserTestCase<P extends Parser<T, ParserContext>, T extends ParserToken> implements ClassTesting2<P>,
+        ParserTesting<P, T, ParserContext>,
         ToStringTesting<P>,
         TypeNameTesting<P> {
 
@@ -91,7 +89,7 @@ public abstract class ParserTestCase<P extends Parser<T, ParserContext>, T exten
     // ClassTestCase ........................................................................
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -33,8 +33,8 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIteratorTest extends ClassTestCase<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator>
-        implements IteratorTesting,
+public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIteratorTest implements ClassTesting2<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator>,
+        IteratorTesting,
         ToStringTesting<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator>,
         TypeNameTesting<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator> {
 

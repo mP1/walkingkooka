@@ -19,12 +19,12 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-final public class NodeSelectorAttributeNameTest extends ClassTestCase<NodeSelectorAttributeName>
-        implements NameTesting2<NodeSelectorAttributeName, NodeSelectorAttributeName> {
+final public class NodeSelectorAttributeNameTest implements ClassTesting2<NodeSelectorAttributeName>,
+        NameTesting2<NodeSelectorAttributeName, NodeSelectorAttributeName> {
 
     @Override
     public NodeSelectorAttributeName createName(final String name) {

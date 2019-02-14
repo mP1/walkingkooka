@@ -18,15 +18,14 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class HeaderParserTestCase<P extends HeaderParser, V>
-        extends ClassTestCase<P>
-        implements ParseStringTesting<V>,
+public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements ClassTesting2<P>,
+        ParseStringTesting<V>,
         ToStringTesting<P>,
         TypeNameTesting<P> {
 
@@ -84,7 +83,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

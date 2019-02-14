@@ -19,7 +19,7 @@ package walkingkooka.util;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
-        implements ToStringTesting<OpenChecker<Exception>> {
+final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exception>>,
+        ToStringTesting<OpenChecker<Exception>> {
 
     // constants
 
@@ -162,8 +162,7 @@ final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
         }
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

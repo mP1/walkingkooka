@@ -19,12 +19,12 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class SearchNodeNameTest extends ClassTestCase<SearchNodeName>
-        implements NameTesting2<SearchNodeName, SearchNodeName> {
+public final class SearchNodeNameTest implements ClassTesting2<SearchNodeName>,
+        NameTesting2<SearchNodeName, SearchNodeName> {
 
     @Override
     public SearchNodeName createName(final String name) {

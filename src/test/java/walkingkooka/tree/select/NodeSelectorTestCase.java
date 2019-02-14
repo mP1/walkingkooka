@@ -26,7 +26,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -48,9 +48,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends ClassTestCase<S>
-        implements HashCodeEqualsDefinedTesting<S>,
+abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>> implements ClassTesting2<S>,
+        HashCodeEqualsDefinedTesting<S>,
         ToStringTesting<S>,
         TypeNameTesting<S> {
 
@@ -167,7 +166,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

@@ -19,10 +19,10 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionTemplateFunctionTest extends ClassTestCase<ExpressionTemplateFunction<?>> {
+public final class ExpressionTemplateFunctionTest implements ClassTesting2<ExpressionTemplateFunction<?>> {
 
     @Override
     public Class<ExpressionTemplateFunction<?>> type() {
@@ -30,7 +30,7 @@ public final class ExpressionTemplateFunctionTest extends ClassTestCase<Expressi
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

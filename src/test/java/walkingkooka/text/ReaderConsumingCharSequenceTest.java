@@ -18,7 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.io.StringReader;
@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ReaderConsumingCharSequenceTest extends ClassTestCase<ReaderConsumingCharSequence>
-        implements CharSequenceTesting<ReaderConsumingCharSequence>{
+public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderConsumingCharSequence>,
+        CharSequenceTesting<ReaderConsumingCharSequence>{
 
     private final static int BUFFER_SIZE = 5;
 
@@ -166,8 +166,7 @@ public class ReaderConsumingCharSequenceTest extends ClassTestCase<ReaderConsumi
         return ReaderConsumingCharSequence.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

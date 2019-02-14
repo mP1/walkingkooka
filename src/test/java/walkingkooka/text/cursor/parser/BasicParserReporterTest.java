@@ -20,13 +20,13 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.MemberVisibility;
 
-public final class BasicParserReporterTest extends ClassTestCase<BasicParserReporter<StringParserToken, FakeParserContext>>
-        implements ParserReporterTesting<BasicParserReporter<StringParserToken, FakeParserContext>, StringParserToken, FakeParserContext> {
+public final class BasicParserReporterTest implements ClassTesting2<BasicParserReporter<StringParserToken, FakeParserContext>>,
+        ParserReporterTesting<BasicParserReporter<StringParserToken, FakeParserContext>, StringParserToken, FakeParserContext> {
 
     @Test
     public void testReport() {

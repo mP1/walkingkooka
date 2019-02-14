@@ -27,7 +27,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import javax.servlet.ReadListener;
@@ -44,8 +44,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpServletRequestHttpRequestTest extends ClassTestCase<HttpServletRequestHttpRequest>
-        implements HttpRequestTesting<HttpServletRequestHttpRequest> {
+public final class HttpServletRequestHttpRequestTest implements ClassTesting2<HttpServletRequestHttpRequest>,
+        HttpRequestTesting<HttpServletRequestHttpRequest> {
 
     private final static HttpProtocolVersion PROTOCOL_VERSION = HttpProtocolVersion.VERSION_1_1;
     private final static HttpMethod METHOD = HttpMethod.POST;

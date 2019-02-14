@@ -535,8 +535,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
         return ContentRange.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

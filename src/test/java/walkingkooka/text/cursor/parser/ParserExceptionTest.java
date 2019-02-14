@@ -19,10 +19,8 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-public final class ParserExceptionTest extends TestCase
-        implements StandardThrowableTesting<ParserException> {
+public final class ParserExceptionTest implements StandardThrowableTesting<ParserException> {
 
     @Override
     public Class<ParserException> type() {

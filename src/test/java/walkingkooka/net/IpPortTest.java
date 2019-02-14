@@ -21,7 +21,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -38,7 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public final class IpPortTest extends ClassTestCase<IpPort> implements ConstantsTesting<IpPort>,
+public final class IpPortTest implements ClassTesting2<IpPort>,
+        ConstantsTesting<IpPort>,
         ComparableTesting<IpPort>,
         SerializationTesting<IpPort>,
         ToStringTesting<IpPort> {
@@ -94,8 +95,7 @@ public final class IpPortTest extends ClassTestCase<IpPort> implements Constants
         return IpPort.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

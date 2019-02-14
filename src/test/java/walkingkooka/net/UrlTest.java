@@ -19,11 +19,12 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class UrlTest extends ClassTestCase<Url> implements ParseStringTesting<Url> {
+public final class UrlTest implements ClassTesting2<Url>,
+        ParseStringTesting<Url> {
 
     @Override
     public void testParseEmptyFails() {
@@ -57,7 +58,7 @@ public final class UrlTest extends ClassTestCase<Url> implements ParseStringTest
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

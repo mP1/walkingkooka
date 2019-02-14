@@ -19,7 +19,7 @@
 package walkingkooka.compare;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -31,8 +31,8 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends ClassTestCase<B>
-        implements IsMethodTesting<B>,
+public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> implements ClassTesting2<B>,
+        IsMethodTesting<B>,
         ToStringTesting<B>,
         TypeNameTesting<B> {
 
@@ -86,8 +86,7 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends 
         }
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

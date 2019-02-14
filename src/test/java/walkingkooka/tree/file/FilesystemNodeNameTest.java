@@ -21,12 +21,12 @@ package walkingkooka.tree.file;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class FilesystemNodeNameTest extends ClassTestCase<FilesystemNodeName>
-        implements NameTesting<FilesystemNodeName, FilesystemNodeName> {
+public final class FilesystemNodeNameTest implements ClassTesting2<FilesystemNodeName>,
+        NameTesting<FilesystemNodeName, FilesystemNodeName> {
 
     @Override
     @Test

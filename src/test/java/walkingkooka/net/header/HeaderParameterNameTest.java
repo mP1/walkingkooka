@@ -19,12 +19,12 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HeaderParameterNameTest extends ClassTestCase<HeaderParameterName>
-        implements TypeNameTesting<HeaderParameterName> {
+public final class HeaderParameterNameTest implements ClassTesting2<HeaderParameterName>,
+        TypeNameTesting<HeaderParameterName> {
 
     @Override
     public Class<HeaderParameterName> type() {
@@ -32,7 +32,7 @@ public final class HeaderParameterNameTest extends ClassTestCase<HeaderParameter
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

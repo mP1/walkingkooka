@@ -18,17 +18,18 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class ColorSpreadsheetTextFormatterColorSourceTest extends ClassTestCase<ColorSpreadsheetTextFormatterColorSource> {
+public final class ColorSpreadsheetTextFormatterColorSourceTest implements ClassTesting2<ColorSpreadsheetTextFormatterColorSource> {
+
     @Override
     public Class<ColorSpreadsheetTextFormatterColorSource> type() {
         return ColorSpreadsheetTextFormatterColorSource.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

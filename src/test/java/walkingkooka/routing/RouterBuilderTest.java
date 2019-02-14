@@ -24,13 +24,13 @@ import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RouterBuilderTest extends ClassTestCase<RouterBuilder<StringName, String>>
-        implements BuilderTesting<RouterBuilder<StringName, String>, Router<StringName, String>> {
+public final class RouterBuilderTest implements ClassTesting2<RouterBuilder<StringName, String>>,
+        BuilderTesting<RouterBuilder<StringName, String>, Router<StringName, String>> {
 
     @Test
     public void testAddNullRouteFails() {

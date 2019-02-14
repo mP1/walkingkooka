@@ -18,8 +18,8 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.naming.NameTesting2;
 import org.junit.jupiter.api.Test;
+import walkingkooka.naming.NameTesting2;
 
 import java.util.Locale;
 import java.util.Optional;

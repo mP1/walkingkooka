@@ -25,11 +25,11 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.TestRecordingHttpResponse;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTest extends ClassTestCase<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode>> {
+public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode>> {
 
     @Test
     public void testMethodNotSupported() {
@@ -56,7 +56,7 @@ public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTe
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

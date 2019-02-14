@@ -19,7 +19,7 @@ package walkingkooka.tree.pojo;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.type.MemberVisibility;
@@ -30,8 +30,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class PojoNodeTest extends ClassTestCase<PojoNode>
-        implements NodeSelectorTesting<PojoNode, PojoName, PojoNodeAttributeName, Object> {
+public final class PojoNodeTest implements ClassTesting2<PojoNode>,
+        NodeSelectorTesting<PojoNode, PojoName, PojoNodeAttributeName, Object> {
 
     @Test
     public void testSelectorNodeByClassName() {
@@ -64,8 +64,7 @@ public final class PojoNodeTest extends ClassTestCase<PojoNode>
         return PojoNode.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

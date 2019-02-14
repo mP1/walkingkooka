@@ -20,7 +20,7 @@ package walkingkooka.tree.search;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -36,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTestCase<Q>
-        implements HashCodeEqualsDefinedTesting<Q>,
+public abstract class SearchQueryTestCase<Q extends SearchQuery> implements ClassTesting2<Q>,
+        HashCodeEqualsDefinedTesting<Q>,
         TypeNameTesting<Q> {
 
     static final String DATE = "2000-01-31";
@@ -268,7 +268,7 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTe
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

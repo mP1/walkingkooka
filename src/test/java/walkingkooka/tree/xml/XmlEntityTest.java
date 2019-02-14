@@ -23,12 +23,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Entity;
 import walkingkooka.Cast;
+import walkingkooka.test.ResourceTesting;
 import walkingkooka.tree.search.SearchNodeName;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
 
-public final class XmlEntityTest extends XmlParentNodeTestCase<XmlEntity> {
+public final class XmlEntityTest extends XmlParentNodeTestCase<XmlEntity>
+        implements ResourceTesting {
 
     @Override
     public void testParentWithout() {

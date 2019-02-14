@@ -18,10 +18,10 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeSelectorNameValueTest extends ClassTestCase<NodeSelectorNameValue> {
+public final class NodeSelectorNameValueTest implements ClassTesting2<NodeSelectorNameValue> {
 
     @Override
     public Class<NodeSelectorNameValue> type() {
@@ -29,7 +29,7 @@ public final class NodeSelectorNameValueTest extends ClassTestCase<NodeSelectorN
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

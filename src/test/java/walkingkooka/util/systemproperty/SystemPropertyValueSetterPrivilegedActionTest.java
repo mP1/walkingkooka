@@ -17,11 +17,10 @@
 
 package walkingkooka.util.systemproperty;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-final public class SystemPropertyValueSetterPrivilegedActionTest
-        extends ClassTestCase<SystemPropertyValueSetterPrivilegedAction> {
+final public class SystemPropertyValueSetterPrivilegedActionTest implements ClassTesting2<SystemPropertyValueSetterPrivilegedAction> {
 
     @Override
     public Class<SystemPropertyValueSetterPrivilegedAction> type() {
@@ -29,7 +28,7 @@ final public class SystemPropertyValueSetterPrivilegedActionTest
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

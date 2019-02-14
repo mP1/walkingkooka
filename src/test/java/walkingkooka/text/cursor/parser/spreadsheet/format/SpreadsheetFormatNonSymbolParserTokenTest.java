@@ -18,17 +18,16 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class SpreadsheetFormatNonSymbolParserTokenTest extends ClassTestCase<SpreadsheetFormatNonSymbolParserToken> {
+public final class SpreadsheetFormatNonSymbolParserTokenTest implements ClassTesting2<SpreadsheetFormatNonSymbolParserToken> {
     @Override
     public Class<SpreadsheetFormatNonSymbolParserToken> type() {
         return SpreadsheetFormatNonSymbolParserToken.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

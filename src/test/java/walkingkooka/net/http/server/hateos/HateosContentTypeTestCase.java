@@ -21,7 +21,7 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
@@ -32,8 +32,8 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, N extends Node<N, ?, ?, ?>> extends ClassTestCase<C>
-        implements TypeNameTesting<C> {
+public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, N extends Node<N, ?, ?, ?>> implements ClassTesting2<C>,
+        TypeNameTesting<C> {
 
     HateosContentTypeTestCase() {
         super();
@@ -65,7 +65,7 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
     abstract C constant();
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

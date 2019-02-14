@@ -23,7 +23,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.StringName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ResourceTesting;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -35,8 +36,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestNodeTest extends ClassTestCase<TestNode>
-        implements NodeTesting2<TestNode, StringName, StringName, Object> {
+public class TestNodeTest implements ClassTesting2<TestNode>,
+        NodeTesting2<TestNode, StringName, StringName, Object>,
+        ResourceTesting {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -194,8 +196,7 @@ public class TestNodeTest extends ClassTestCase<TestNode>
         return TestNode.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

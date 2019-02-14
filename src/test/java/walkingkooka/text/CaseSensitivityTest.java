@@ -20,14 +20,14 @@ package walkingkooka.text;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Comparables;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.util.systemproperty.SystemProperty;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class CaseSensitivityTest extends ClassTestCase<CaseSensitivity> {
+final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity> {
 
     @Test
     public void testInvertSensitive() {
@@ -1102,8 +1102,7 @@ final public class CaseSensitivityTest extends ClassTestCase<CaseSensitivity> {
         return CaseSensitivity.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

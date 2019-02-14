@@ -22,15 +22,15 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extends ClassTestCase<HttpServletRequestHttpRequestParametersMapEntrySet>
-        implements SetTesting<HttpServletRequestHttpRequestParametersMapEntrySet, Entry<HttpRequestParameterName, List<String>>> {
+public final class HttpServletRequestHttpRequestParametersMapEntrySetTest implements ClassTesting2<HttpServletRequestHttpRequestParametersMapEntrySet>,
+        SetTesting<HttpServletRequestHttpRequestParametersMapEntrySet, Entry<HttpRequestParameterName, List<String>>> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";

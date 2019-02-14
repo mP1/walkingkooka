@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- *
  */
 
 package walkingkooka.predicate.character;
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public interface CharPredicateTesting<P extends CharPredicate>
         extends ToStringTesting<P>,
         TypeNameTesting<P> {
-    
+
     @Test
     default void testAnd() {
         final P predicate = this.createCharPredicate();

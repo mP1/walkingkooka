@@ -19,11 +19,11 @@
 package walkingkooka.text.cursor.parser.json;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class BasicJsonNodeParserContextTest extends ClassTestCase<BasicJsonNodeParserContext>
-        implements JsonNodeParserContextTesting<BasicJsonNodeParserContext> {
+public final class BasicJsonNodeParserContextTest implements ClassTesting2<BasicJsonNodeParserContext>,
+        JsonNodeParserContextTesting<BasicJsonNodeParserContext> {
 
     @Test
     public void testToString() {

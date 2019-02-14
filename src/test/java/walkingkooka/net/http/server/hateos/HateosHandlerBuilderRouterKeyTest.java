@@ -21,14 +21,14 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.header.LinkRelation;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerBuilderRouterKeyTest extends ClassTestCase<HateosHandlerBuilderRouterKey>
-        implements ComparableTesting<HateosHandlerBuilderRouterKey>,
+public final class HateosHandlerBuilderRouterKeyTest implements ClassTesting2<HateosHandlerBuilderRouterKey>,
+        ComparableTesting<HateosHandlerBuilderRouterKey>,
         ToStringTesting<HateosHandlerBuilderRouterKey> {
 
     @Test
@@ -64,8 +64,7 @@ public final class HateosHandlerBuilderRouterKeyTest extends ClassTestCase<Hateo
         return HateosHandlerBuilderRouterKey.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

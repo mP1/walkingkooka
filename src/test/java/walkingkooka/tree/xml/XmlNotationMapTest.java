@@ -21,10 +21,12 @@ package walkingkooka.tree.xml;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.NamedNodeMap;
 import walkingkooka.Cast;
+import walkingkooka.test.ResourceTesting;
 
 import java.io.Reader;
 
-public final class XmlNotationMapTest extends XmlMapTestCase<XmlNotationMap, XmlName, XmlNotation> {
+public final class XmlNotationMapTest extends XmlMapTestCase<XmlNotationMap, XmlName, XmlNotation>
+        implements ResourceTesting {
 
     @Test
     public void testSize() {

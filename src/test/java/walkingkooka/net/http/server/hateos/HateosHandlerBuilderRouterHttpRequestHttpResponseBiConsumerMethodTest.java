@@ -19,19 +19,19 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTest extends
-        ClassTestCase<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode>> {
+public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTest implements
+        ClassTesting<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode>> {
     @Override
     public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod.class);
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

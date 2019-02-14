@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
@@ -29,11 +29,15 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static walkingkooka.net.header.HeaderParser.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends ClassTestCase<C>
-        implements ToStringTesting<C>,
+public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> implements ClassTesting2<C>,
+        ToStringTesting<C>,
         TypeNameTesting<C> {
+
+    HeaderValueConverterTestCase() {
+        super();
+    }
 
     @Test
     public void testInvalidHeaderValueFails() {
@@ -162,7 +166,7 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

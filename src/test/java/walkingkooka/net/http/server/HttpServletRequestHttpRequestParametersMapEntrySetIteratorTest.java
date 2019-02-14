@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -32,8 +32,8 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTest extends ClassTestCase<HttpServletRequestHttpRequestParametersMapEntrySetIterator>
-        implements IteratorTesting,
+public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTest implements ClassTesting2<HttpServletRequestHttpRequestParametersMapEntrySetIterator>,
+        IteratorTesting,
         ToStringTesting<HttpServletRequestHttpRequestParametersMapEntrySetIterator>,
         TypeNameTesting<HttpServletRequestHttpRequestParametersMapEntrySetIterator> {
 

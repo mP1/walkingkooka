@@ -17,14 +17,14 @@
 
 package walkingkooka.collect.list;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-final public class ListsTest extends ClassTestCase<Lists>
-        implements PublicStaticHelperTesting<Lists> {
+final public class ListsTest implements ClassTesting2<Lists>,
+        PublicStaticHelperTesting<Lists> {
 
     @Override
     public Class<Lists> type() {

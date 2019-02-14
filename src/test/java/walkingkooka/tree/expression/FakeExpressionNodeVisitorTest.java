@@ -18,15 +18,10 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class FakeExpressionNodeVisitorTest extends ClassTestCase<FakeExpressionNodeVisitor> {
-
-    @Override
-    public void testAllConstructorsVisibility()  {
-        // nop
-    }
+public final class FakeExpressionNodeVisitorTest implements ClassTesting<FakeExpressionNodeVisitor> {
 
     @Override
     public Class<FakeExpressionNodeVisitor> type() {
@@ -34,7 +29,7 @@ public final class FakeExpressionNodeVisitorTest extends ClassTestCase<FakeExpre
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

@@ -36,7 +36,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.routing.Router;
 import walkingkooka.routing.RouterBuilder;
 import walkingkooka.routing.Routing;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -47,8 +47,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HttpRequestAttributeRoutingBuilderTest extends ClassTestCase<HttpRequestAttributeRoutingBuilder<String>>
-        implements BuilderTesting<HttpRequestAttributeRoutingBuilder<String>, Routing<HttpRequestAttribute<?>, String>> {
+public final class HttpRequestAttributeRoutingBuilderTest implements ClassTesting2<HttpRequestAttributeRoutingBuilder<String>>,
+        BuilderTesting<HttpRequestAttributeRoutingBuilder<String>,
+                Routing<HttpRequestAttribute<?>, String>> {
 
     private final static String TARGET = "target123";
 

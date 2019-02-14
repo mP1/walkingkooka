@@ -20,13 +20,13 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicParserContextTest extends ClassTestCase<BasicParserContext>
-        implements ParserContextTesting<BasicParserContext> {
+public final class BasicParserContextTest implements ClassTesting2<BasicParserContext>,
+        ParserContextTesting<BasicParserContext> {
 
     private final static String CURRENCY = "$$";
     private final static char DECIMAL = 'D';

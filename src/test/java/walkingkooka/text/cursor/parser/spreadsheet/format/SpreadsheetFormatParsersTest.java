@@ -20,7 +20,6 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.TestCase;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting;
@@ -34,8 +33,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetFormatParsersTest extends TestCase
-        implements ParserTesting<Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext>,
+public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext>,
                 SpreadsheetFormatParserToken,
                 SpreadsheetFormatParserContext> {
 

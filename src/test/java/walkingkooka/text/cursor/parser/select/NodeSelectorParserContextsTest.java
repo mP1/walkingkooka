@@ -18,14 +18,14 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class NodeSelectorParserContextsTest extends ClassTestCase<NodeSelectorParserContexts>
-        implements PublicStaticHelperTesting<NodeSelectorParserContexts> {
+public final class NodeSelectorParserContextsTest implements ClassTesting2<NodeSelectorParserContexts>,
+        PublicStaticHelperTesting<NodeSelectorParserContexts> {
 
     @Override
     public Class<NodeSelectorParserContexts> type() {

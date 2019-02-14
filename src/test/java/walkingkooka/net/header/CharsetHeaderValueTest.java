@@ -274,8 +274,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
         return CharsetHeaderValue.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

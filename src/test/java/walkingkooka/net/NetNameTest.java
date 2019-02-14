@@ -18,17 +18,17 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NetNameTest extends ClassTestCase<NetName> {
+public final class NetNameTest implements ClassTesting2<NetName> {
     @Override
     public Class<NetName> type() {
         return NetName.class;
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

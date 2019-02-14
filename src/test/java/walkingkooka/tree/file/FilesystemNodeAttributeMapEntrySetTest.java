@@ -19,15 +19,15 @@
 package walkingkooka.tree.file;
 
 import walkingkooka.collect.set.SetTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map.Entry;
 
-public final class FilesystemNodeAttributeMapEntrySetTest extends ClassTestCase<FilesystemNodeAttributeMapEntrySet>
-        implements SetTesting<FilesystemNodeAttributeMapEntrySet, Entry<FilesystemNodeAttributeName, String>> {
+public final class FilesystemNodeAttributeMapEntrySetTest implements ClassTesting2<FilesystemNodeAttributeMapEntrySet>,
+        SetTesting<FilesystemNodeAttributeMapEntrySet, Entry<FilesystemNodeAttributeName, String>> {
 
     @Override
     public FilesystemNodeAttributeMapEntrySet createSet() {

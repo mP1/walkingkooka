@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
@@ -31,8 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest extends ClassTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIterator>
-        implements IteratorTesting,
+public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest implements ClassTesting2<HttpServletRequestHttpRequestHeadersMapEntrySetIterator>,
+        IteratorTesting,
         ToStringTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIterator>,
         TypeNameTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIterator> {
 

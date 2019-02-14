@@ -20,15 +20,15 @@ package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerBuilderRouterHandlersTest extends ClassTestCase<HateosHandlerBuilderRouterHandlers<JsonNode>>
-        implements ToStringTesting<HateosHandlerBuilderRouterHandlers<JsonNode>> {
+public final class HateosHandlerBuilderRouterHandlersTest implements ClassTesting2<HateosHandlerBuilderRouterHandlers<JsonNode>>,
+        ToStringTesting<HateosHandlerBuilderRouterHandlers<JsonNode>> {
 
     @Test
     public void testCopy() {
@@ -98,8 +98,7 @@ public final class HateosHandlerBuilderRouterHandlersTest extends ClassTestCase<
         return Cast.to(HateosHandlerBuilderRouterHandlers.class);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

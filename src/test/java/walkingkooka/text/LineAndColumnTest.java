@@ -18,15 +18,15 @@
 package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LineAndColumnTest extends ClassTestCase<LineAndColumn>
-        implements ToStringTesting<LineAndColumn> {
+public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
+        ToStringTesting<LineAndColumn> {
 
     private final static int LINE_NUMBER = 1;
     private final static int COLUMN_NUMBER = 2;
@@ -266,8 +266,7 @@ public class LineAndColumnTest extends ClassTestCase<LineAndColumn>
         return LineAndColumn.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

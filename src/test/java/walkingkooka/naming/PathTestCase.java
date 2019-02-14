@@ -18,15 +18,16 @@
 
 package walkingkooka.naming;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.type.MemberVisibility;
 
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
  */
-abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ClassTestCase<P>
-        implements PathTesting<P, N> {
+abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name>
+        implements ClassTesting2<P>,
+        PathTesting<P, N> {
 
     PathTestCase() {
         super();

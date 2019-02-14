@@ -17,12 +17,12 @@
 package walkingkooka.tree.pojo;
 
 import walkingkooka.naming.NameTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class PojoNodeAttributeNameTest extends ClassTestCase<PojoNodeAttributeName>
-        implements NameTesting<PojoNodeAttributeName, PojoNodeAttributeName> {
+public final class PojoNodeAttributeNameTest implements ClassTesting2<PojoNodeAttributeName>,
+        NameTesting<PojoNodeAttributeName, PojoNodeAttributeName> {
 
     @Override
     public void testWith() {

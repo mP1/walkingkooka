@@ -18,16 +18,16 @@
 package walkingkooka.naming;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class PropertiesNameTest extends ClassTestCase<PropertiesName>
-        implements NameTesting<PropertiesName, PropertiesName>,
-            SerializationTesting<PropertiesName> {
+final public class PropertiesNameTest implements ClassTesting2<PropertiesName>,
+        NameTesting<PropertiesName, PropertiesName>,
+        SerializationTesting<PropertiesName> {
 
     @Test
     public void testCreateContainsSeparatorFails() {

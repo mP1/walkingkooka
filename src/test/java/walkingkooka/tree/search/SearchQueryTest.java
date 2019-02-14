@@ -21,7 +21,8 @@ package walkingkooka.tree.search;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ResourceTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.FakeParserContext;
@@ -40,7 +41,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SearchQueryTest extends ClassTestCase<SearchQuery> {
+public final class SearchQueryTest implements ClassTesting2<SearchQuery>,
+        ResourceTesting {
 
     @Test
     public void testReplaceSelected() throws IOException {
@@ -141,8 +143,7 @@ public final class SearchQueryTest extends ClassTestCase<SearchQuery> {
         return SearchQuery.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

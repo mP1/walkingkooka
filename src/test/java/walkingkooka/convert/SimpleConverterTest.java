@@ -19,11 +19,11 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class SimpleConverterTest extends ClassTestCase<SimpleConverter>
-        implements ConverterTesting<SimpleConverter> {
+public final class SimpleConverterTest implements ClassTesting2<SimpleConverter>,
+        ConverterTesting<SimpleConverter> {
 
     @Test
     public void testSameType() {

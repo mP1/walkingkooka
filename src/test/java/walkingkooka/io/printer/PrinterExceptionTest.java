@@ -18,10 +18,8 @@
 package walkingkooka.io.printer;
 
 import walkingkooka.test.StandardThrowableTesting;
-import walkingkooka.test.TestCase;
 
-final public class PrinterExceptionTest extends TestCase
-        implements StandardThrowableTesting<PrinterException> {
+final public class PrinterExceptionTest implements StandardThrowableTesting<PrinterException> {
     
     @Override
     public Class<PrinterException> type() {

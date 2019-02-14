@@ -19,7 +19,7 @@ package walkingkooka.util.systemproperty;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
-        implements ConstantsTesting<SystemProperty>,
+final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
+        ConstantsTesting<SystemProperty>,
         HashCodeEqualsDefinedTesting<SystemProperty>,
         ToStringTesting<SystemProperty> {
 
@@ -149,8 +149,7 @@ final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
         return SystemProperty.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

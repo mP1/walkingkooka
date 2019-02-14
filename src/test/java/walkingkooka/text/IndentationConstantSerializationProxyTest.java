@@ -19,13 +19,13 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.io.serialize.SerializationProxyTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class IndentationConstantSerializationProxyTest extends ClassTestCase<IndentationConstantSerializationProxy>
-        implements SerializationProxyTesting<IndentationConstantSerializationProxy> {
+final public class IndentationConstantSerializationProxyTest implements ClassTesting2<IndentationConstantSerializationProxy>,
+        SerializationProxyTesting<IndentationConstantSerializationProxy> {
 
     @Test
     public void testToString() {

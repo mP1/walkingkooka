@@ -19,13 +19,13 @@
 package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase<DecimalFormatStringConverterSymbols>
-        implements HashCodeEqualsDefinedTesting<DecimalFormatStringConverterSymbols>,
+public final class DecimalFormatStringConverterSymbolsTest implements ClassTesting2<DecimalFormatStringConverterSymbols>,
+        HashCodeEqualsDefinedTesting<DecimalFormatStringConverterSymbols>,
         ToStringTesting<DecimalFormatStringConverterSymbols> {
 
     private final static String CURRENCY = "C";
@@ -82,8 +82,7 @@ public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase
         return DecimalFormatStringConverterSymbols.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

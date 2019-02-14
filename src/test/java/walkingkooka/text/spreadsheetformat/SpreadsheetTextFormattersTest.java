@@ -18,14 +18,14 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
-public final class SpreadsheetTextFormattersTest extends ClassTestCase<SpreadsheetTextFormatters>
-        implements PublicStaticHelperTesting<SpreadsheetTextFormatters> {
+public final class SpreadsheetTextFormattersTest implements ClassTesting2<SpreadsheetTextFormatters>,
+        PublicStaticHelperTesting<SpreadsheetTextFormatters> {
 
     @Override
     public Class<SpreadsheetTextFormatters> type() {

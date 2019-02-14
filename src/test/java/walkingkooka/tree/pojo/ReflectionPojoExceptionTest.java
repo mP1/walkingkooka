@@ -18,10 +18,10 @@
 
 package walkingkooka.tree.pojo;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class ReflectionPojoExceptionTest extends ClassTestCase<ReflectionPojoException> {
+public final class ReflectionPojoExceptionTest implements ClassTesting2<ReflectionPojoException> {
 
     @Override
     public Class<ReflectionPojoException> type() {
@@ -29,7 +29,7 @@ public final class ReflectionPojoExceptionTest extends ClassTestCase<ReflectionP
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

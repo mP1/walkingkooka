@@ -20,13 +20,13 @@ package walkingkooka.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicConverterContextTest extends ClassTestCase<BasicConverterContext>
-        implements ConverterContextTesting<BasicConverterContext> {
+public final class BasicConverterContextTest implements ClassTesting2<BasicConverterContext>,
+        ConverterContextTesting<BasicConverterContext> {
 
     private final static String CURRENCY = "$$";
     private final static char DECIMAL = 'D';

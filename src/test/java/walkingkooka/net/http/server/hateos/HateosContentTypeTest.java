@@ -19,10 +19,10 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosContentTypeTest extends ClassTestCase<HateosContentType<?>> {
+public final class HateosContentTypeTest implements ClassTesting2<HateosContentType<?>> {
 
     @Override
     public Class<HateosContentType<?>> type() {
@@ -30,7 +30,7 @@ public final class HateosContentTypeTest extends ClassTestCase<HateosContentType
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
@@ -29,10 +29,9 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<T, FakeParserContext>,
-        T extends ParserToken>
-        extends ClassTestCase<P>
-        implements ParserTesting<P, T, FakeParserContext>,
+public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<T, FakeParserContext>, T extends ParserToken>
+                implements ClassTesting2<P>,
+        ParserTesting<P, T, FakeParserContext>,
         TypeNameTesting<P> {
 
     DateTimeFormatterParserTestCase() {
@@ -121,7 +120,7 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     // ClassTestCase............................................................................................
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

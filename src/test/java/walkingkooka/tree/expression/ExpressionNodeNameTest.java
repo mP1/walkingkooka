@@ -19,12 +19,12 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionNodeNameTest extends ClassTestCase<ExpressionNodeName>
-        implements NameTesting2<ExpressionNodeName, ExpressionNodeName> {
+public final class ExpressionNodeNameTest implements ClassTesting2<ExpressionNodeName>,
+        NameTesting2<ExpressionNodeName, ExpressionNodeName> {
 
     @Override
     public ExpressionNodeName createName(final String name) {

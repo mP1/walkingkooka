@@ -19,7 +19,7 @@
 package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -29,8 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HsvTest extends ClassTestCase<Hsv>
-        implements HashCodeEqualsDefinedTesting<Hsv>,
+public final class HsvTest implements ClassTesting2<Hsv>,
+        HashCodeEqualsDefinedTesting<Hsv>,
         SerializationTesting<Hsv>,
         ToStringTesting<Hsv> {
 
@@ -245,8 +245,7 @@ public final class HsvTest extends ClassTestCase<Hsv>
         return Hsv.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

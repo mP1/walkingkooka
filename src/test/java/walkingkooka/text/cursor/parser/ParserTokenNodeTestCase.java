@@ -18,15 +18,15 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends ClassTestCase<ParserTokenNode>
-        implements NodeTesting<ParserTokenNode,
+public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> implements ClassTesting2<ParserTokenNode>,
+        NodeTesting<ParserTokenNode,
         ParserTokenNodeName,
         ParserTokenNodeAttributeName,
         String> {

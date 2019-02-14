@@ -18,10 +18,10 @@
 
 package walkingkooka.color;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class HslComponentTest extends ClassTestCase<HslComponent> {
+public final class HslComponentTest implements ClassTesting2<HslComponent> {
 
     @Override
     public Class<HslComponent> type() {
@@ -29,7 +29,7 @@ public final class HslComponentTest extends ClassTestCase<HslComponent> {
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

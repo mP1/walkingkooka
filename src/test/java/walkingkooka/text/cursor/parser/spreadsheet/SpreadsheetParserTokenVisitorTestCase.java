@@ -18,11 +18,9 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class SpreadsheetParserTokenVisitorTestCase<V extends SpreadsheetParserTokenVisitor> extends ClassTestCase<V>
-        implements SpreadsheetParserTokenVisitorTesting<V> {
+public abstract class SpreadsheetParserTokenVisitorTestCase<V extends SpreadsheetParserTokenVisitor> implements SpreadsheetParserTokenVisitorTesting<V> {
 
     SpreadsheetParserTokenVisitorTestCase() {
         super();

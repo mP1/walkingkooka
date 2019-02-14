@@ -21,7 +21,7 @@ package walkingkooka.compare;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.PredicateTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -29,8 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RangeTest extends ClassTestCase<Range<Integer>>
-        implements PredicateTesting<Range<Integer>, Integer>,
+public final class RangeTest implements ClassTesting2<Range<Integer>>,
+        PredicateTesting<Range<Integer>, Integer>,
         HashCodeEqualsDefinedTesting<Range<Integer>> {
 
     private final static Integer BELOW_LOWER_VALUE = 1000;
@@ -937,7 +937,7 @@ public final class RangeTest extends ClassTestCase<Range<Integer>>
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

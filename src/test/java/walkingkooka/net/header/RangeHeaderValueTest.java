@@ -437,8 +437,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
         return RangeHeaderValue.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

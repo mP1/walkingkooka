@@ -19,18 +19,17 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeSelectorConditionParserTokenTest extends ClassTestCase<NodeSelectorConditionParserToken<?>> {
+public final class NodeSelectorConditionParserTokenTest implements ClassTesting2<NodeSelectorConditionParserToken<?>> {
 
     @Override
     public Class<NodeSelectorConditionParserToken<?>> type() {
         return Cast.to(NodeSelectorConditionParserToken.class);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

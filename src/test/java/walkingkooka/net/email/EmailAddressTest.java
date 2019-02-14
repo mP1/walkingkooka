@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.net.HostAddressProblem;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
@@ -38,8 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-final public class EmailAddressTest extends ClassTestCase<EmailAddress>
-        implements HashCodeEqualsDefinedTesting<EmailAddress>,
+final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
+        HashCodeEqualsDefinedTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
         SerializationTesting<EmailAddress>,
         ToStringTesting<EmailAddress> {
@@ -1623,7 +1623,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

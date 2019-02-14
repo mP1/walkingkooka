@@ -18,14 +18,17 @@
 package walkingkooka.build.tostring;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class ToStringBuilderTestCase<T> extends TestCase {
+public abstract class ToStringBuilderTestCase<T> {
 
     static final String LABEL = "LABEL";
+
+    ToStringBuilderTestCase() {
+        super();
+    }
 
     @Test
     public void testAppendDefault() {

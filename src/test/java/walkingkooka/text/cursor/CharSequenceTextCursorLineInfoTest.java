@@ -18,7 +18,7 @@
 package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -26,8 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class CharSequenceTextCursorLineInfoTest extends ClassTestCase<CharSequenceTextCursorLineInfo>
-        implements TextCursorLineInfoTesting<CharSequenceTextCursorLineInfo> {
+final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<CharSequenceTextCursorLineInfo>,
+        TextCursorLineInfoTesting<CharSequenceTextCursorLineInfo> {
 
     private final static String TEXT = "123";
     private final static int POS = 1;
@@ -104,7 +104,7 @@ final public class CharSequenceTextCursorLineInfoTest extends ClassTestCase<Char
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

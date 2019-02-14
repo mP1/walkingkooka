@@ -314,8 +314,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
         return TokenHeaderValue.class;
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

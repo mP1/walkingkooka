@@ -32,7 +32,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
@@ -43,8 +43,8 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class RouterHttpRequestParametersMapTest extends ClassTestCase<RouterHttpRequestParametersMap>
-        implements MapTesting<RouterHttpRequestParametersMap, HttpRequestAttribute<?>, Object> {
+public final class RouterHttpRequestParametersMapTest implements ClassTesting2<RouterHttpRequestParametersMap>,
+        MapTesting<RouterHttpRequestParametersMap, HttpRequestAttribute<?>, Object> {
 
     @Test
     public void testContainsAndGet() {

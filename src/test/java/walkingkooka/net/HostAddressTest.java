@@ -19,7 +19,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
@@ -37,8 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class HostAddressTest extends ClassTestCase<HostAddress>
-        implements HashCodeEqualsDefinedTesting<HostAddress>,
+public final class HostAddressTest implements ClassTesting2<HostAddress>,
+        HashCodeEqualsDefinedTesting<HostAddress>,
         SerializationTesting<HostAddress>,
         ToStringTesting<HostAddress> {
 
@@ -1014,8 +1014,7 @@ public final class HostAddressTest extends ClassTestCase<HostAddress>
         this.toStringAndCheck(HostAddress.with(address), address);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

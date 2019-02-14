@@ -20,7 +20,7 @@ package walkingkooka.collect.iterable;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.enumeration.Enumerations;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Enumeration;
@@ -30,9 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class EnumerationIterableTest
-        extends ClassTestCase<EnumerationIterable<Object>>
-        implements IterableTesting<EnumerationIterable<Object>, Object> {
+final public class EnumerationIterableTest implements ClassTesting2<EnumerationIterable<Object>>,
+        IterableTesting<EnumerationIterable<Object>, Object> {
 
     @Test
     public void testWithNullEnumerationFails() {

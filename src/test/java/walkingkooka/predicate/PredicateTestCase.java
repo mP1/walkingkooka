@@ -18,7 +18,7 @@
 package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -28,9 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for all {@link Predicate} in this package.
  */
-abstract public class PredicateTestCase<P extends Predicate<T>, T>
-        extends ClassTestCase<P>
-        implements PredicateTesting<P, T> {
+abstract public class PredicateTestCase<P extends Predicate<T>, T> implements ClassTesting2<P>,
+        PredicateTesting<P, T> {
 
     PredicateTestCase() {
         super();

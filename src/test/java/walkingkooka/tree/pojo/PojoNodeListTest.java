@@ -17,17 +17,16 @@
 package walkingkooka.tree.pojo;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class PojoNodeListTest extends ClassTestCase<PojoNodeList<?, ?>> {
+public final class PojoNodeListTest implements ClassTesting2<PojoNodeList<?, ?>> {
     @Override
     public Class<PojoNodeList<?, ?>> type() {
         return Cast.to(PojoNodeList.class);
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    @Override public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

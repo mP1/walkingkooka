@@ -20,7 +20,6 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTesting;
@@ -28,8 +27,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.math.BigDecimal;
 
-public final class SpreadsheetParsersTest extends TestCase
-        implements ParserTesting<Parser<SpreadsheetParserToken, SpreadsheetParserContext>,
+public final class SpreadsheetParsersTest implements ParserTesting<Parser<SpreadsheetParserToken, SpreadsheetParserContext>,
         SpreadsheetParserToken,
         SpreadsheetParserContext> {
 

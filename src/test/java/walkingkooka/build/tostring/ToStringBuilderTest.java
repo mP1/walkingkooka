@@ -20,7 +20,7 @@ package walkingkooka.build.tostring;
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class ToStringBuilderTest extends ClassTestCase<ToStringBuilder>
-        implements BuilderTesting<ToStringBuilder, String> {
+final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>,
+        BuilderTesting<ToStringBuilder, String> {
     // constants
 
     private final static Object NULL = null;

@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends SpreadsheetColumnOrRowReference<R>> extends ClassTestCase<R>
-        implements ComparableTesting<R>,
+public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends SpreadsheetColumnOrRowReference<R>> implements ClassTesting2<R>,
+        ComparableTesting<R>,
         LowerOrUpperTesting<R>,
         HasJsonNodeTesting<R>,
         ToStringTesting<R> {
@@ -235,7 +235,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
     abstract int maxValue();
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

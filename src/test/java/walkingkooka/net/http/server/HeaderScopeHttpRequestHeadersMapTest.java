@@ -24,7 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.HttpHeaderScope;
 import walkingkooka.net.header.NotAcceptableHeaderException;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -32,8 +32,8 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeaderScopeHttpRequestHeadersMapTest extends ClassTestCase<HeaderScopeHttpRequestHeadersMap>
-        implements MapTesting<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
+public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2<HeaderScopeHttpRequestHeadersMap>,
+        MapTesting<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
