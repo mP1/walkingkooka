@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionReferenceTestCase<SpreadsheetCellReference>
         implements ComparableTesting<SpreadsheetCellReference>,
-        LowerOrUpperTesting<SpreadsheetCellReference> {
+        LowerOrUpperTesting<SpreadsheetCellReference>,
+        ParseStringTesting<SpreadsheetCellReference> {
 
     private final static int COLUMN = 123;
     private final static int ROW = 456;
@@ -312,6 +314,28 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
         return columnKind.column(column).setRow(rowKind.row(row));
     }
 
+    // ParseStringTesting.........................................................................................
+
+    @Test
+    public void testParseInvalidCellReferenceFails() {
+        this.parseFails("Invalid",
+                IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseCellReferenceRelative() {
+        this.parseAndCheck("A98",
+                SpreadsheetColumnReference.with(0, SpreadsheetReferenceKind.RELATIVE)
+                        .setRow(SpreadsheetRowReference.with(97, SpreadsheetReferenceKind.RELATIVE)));
+    }
+
+    @Test
+    public void testParseCellReferenceAbsolute() {
+        this.parseAndCheck("$A$98",
+                SpreadsheetColumnReference.with(0, SpreadsheetReferenceKind.ABSOLUTE)
+                        .setRow(SpreadsheetRowReference.with(97, SpreadsheetReferenceKind.ABSOLUTE)));
+    }
+
     // toString..................................................................................................
 
     @Test
@@ -372,7 +396,26 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
         return SpreadsheetCellReference.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting.........................................................................................
+
+
+    @Override
+    public SpreadsheetCellReference parse(final String text) {
+        return SpreadsheetCellReference.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
     }
 }

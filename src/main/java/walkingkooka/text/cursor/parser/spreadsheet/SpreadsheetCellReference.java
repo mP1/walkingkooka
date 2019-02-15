@@ -20,6 +20,13 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.Cast;
 import walkingkooka.compare.Comparators;
 import walkingkooka.compare.LowerOrUpper;
+import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.text.cursor.parser.ParserReporters;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.Objects;
 
@@ -30,6 +37,25 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
         implements Comparable<SpreadsheetCellReference>,
         LowerOrUpper<SpreadsheetCellReference> {
 
+    /**
+     * Parsers the text expecting a valid {@link SpreadsheetCellReference} or fails.
+     */
+    public static SpreadsheetCellReference parse(final String text) {
+        try {
+            final SpreadsheetCellReferenceParserToken token = PARSER.parse(TextCursors.charSequence(text),
+                    SpreadsheetParserContexts.basic(DecimalNumberContexts.basic("$", '.', '^', ',', '-', '%', '+')))
+                    .get().cast();
+            return token.cell();
+        } catch (final ParserException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    private static final Parser<ParserToken, ParserContext> PARSER = SpreadsheetParsers.columnAndRow().orReport(ParserReporters.basic());
+
+    /**
+     * Factory that creates a {@link SpreadsheetCellReference} with the given column and row.
+     */
     public static SpreadsheetCellReference with(final SpreadsheetColumnReference column, final SpreadsheetRowReference row) {
         checkColumn(column);
         checkRow(row);
