@@ -301,7 +301,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             math(predefined);
             misc(predefined);
 
-            final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> result = grammarLoader.grammar().get()
+            final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> result = GRAMMAR_LOADER.grammar().get()
                     .combinator(predefined,
                             new SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer());
 
@@ -314,11 +314,9 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     }
 
     /**
-     * The filename of the resource holding the parsers grammar.
+     * Handles loading, parsing and caching the grammar file and combinators.
      */
-    private final static String FILE_NAME = "spreadsheet-parsers.grammar";
-
-    private final static EbnfGrammarLoader grammarLoader = EbnfGrammarLoader.with(FILE_NAME, SpreadsheetParsers.class);
+    private final static EbnfGrammarLoader GRAMMAR_LOADER = EbnfGrammarLoader.with("spreadsheet-parsers.grammar", SpreadsheetParsers.class);
 
     private static Parser<ParserToken, ParserContext> symbol(final char c,
                                                              final BiFunction<String, String, ParserToken> factory,
