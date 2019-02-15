@@ -73,13 +73,16 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
      * {@see SpreadsheetColumnReferenceParser}
      */
     public static Parser<ParserToken, ParserContext> columnAndRow() {
-        return column().builder()
-                .required(row())
-                .build()
-                .transform((sequenceParserToken, spreadsheetParserContext) -> {
-                    return SpreadsheetParserToken.cellReference(sequenceParserToken.value(), sequenceParserToken.text()).cast();
-                });
+        return COLUMN_AND_ROW;
     }
+
+    private static final Parser<ParserToken, ParserContext> COLUMN_AND_ROW = column()
+            .builder()
+            .required(row())
+            .build()
+            .transform((sequenceParserToken, spreadsheetParserContext) -> {
+                return SpreadsheetParserToken.cellReference(sequenceParserToken.value(), sequenceParserToken.text()).cast();
+            });
 
     /**
      * Returns a {@link Parser} that parsers expressions.
