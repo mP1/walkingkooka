@@ -26,6 +26,7 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlAttributeName;
 import walkingkooka.tree.xml.XmlDocument;
@@ -156,6 +157,23 @@ final public class Link extends HeaderValueWithParameters2<Link,
     }
 
     // HasJsonNode..........................................................................................................
+
+    public static Link fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        if (!node.isObject()) {
+            throw new IllegalArgumentException("Node is not an object=" + node);
+        }
+
+        final JsonObjectNode object = node.cast();
+        final JsonNode href = object.getOrFail(HREF_JSON_PROPERTY);
+        if (!href.isString()) {
+            throw new IllegalArgumentException(HREF_JSON_PROPERTY + " not a string " + node);
+        }
+
+        final JsonStringNode string = href.cast();
+        return Link.with(Url.parse(string.value()));
+    }
 
     /**
      * Builds the json representation of this link, with the value assigned to HREF attribute.

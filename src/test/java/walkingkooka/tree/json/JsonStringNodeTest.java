@@ -102,4 +102,11 @@ public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNod
     Class<JsonStringNode> jsonNodeType() {
         return JsonStringNode.class;
     }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final JsonStringNode fromJsonNode(final JsonNode from) {
+        return JsonStringNode.fromJsonNode(from).cast();
+    }
 }

@@ -19,6 +19,7 @@
 package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.Equality;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -26,6 +27,7 @@ import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -67,6 +69,15 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     final static float LARGE_AMOUNT = 1 - SMALL_AMOUNT;
 
     // tests
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public void testFromJsonNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    // tests ..................................................................................
 
     abstract public void testHasAlpha();
 
@@ -729,10 +740,10 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
         return Equality.isAlmostEquals(component.value(), otherComponent.value(), epislon);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
-
 
     // TypeNameTesting .........................................................................................
 
@@ -744,5 +755,12 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     @Override
     public final String typeNameSuffix() {
         return Color.class.getSimpleName();
+    }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final C fromJsonNode(final JsonNode from) {
+        return Cast.to(Color.fromJsonNode(from));
     }
 }

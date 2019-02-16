@@ -100,6 +100,15 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
         assertNotSame(value,this.createReference(value));
     }
 
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final void testFromJsonNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    // setValue............................................................................................
+
     @Test
     public final void testSetValueInvalidFails() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -253,4 +262,12 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
     public final R createLowerOrUpper() {
         return this.createComparable();
     }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final R fromJsonNode(final JsonNode from) {
+        throw new UnsupportedOperationException();
+    }
+
 }

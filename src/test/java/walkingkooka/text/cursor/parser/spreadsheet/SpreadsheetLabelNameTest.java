@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.naming.PropertiesPath;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -109,6 +110,40 @@ final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferen
         this.createNameAndCheck("A" + (SpreadsheetRowReference.MAX + 1));
     }
 
+    // HasJsonNode..................................................................................................
+
+    @Test
+    public void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeNullFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public void testFromJsonNodeObjectFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    @Test
+    public void testFromJsonNodeString() {
+        final String value = "LABEL123";
+        this.fromJsonNodeAndCheck(JsonNode.string(value),
+                SpreadsheetLabelName.with(value));
+    }
+
     @Override
     SpreadsheetLabelName createReference() {
         return this.createComparable();
@@ -147,5 +182,12 @@ final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferen
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // HasJsonNodeTesting..........................................................................
+
+    @Override
+    public SpreadsheetLabelName fromJsonNode(final JsonNode from) {
+        return SpreadsheetLabelName.fromJsonNode(from);
     }
 }

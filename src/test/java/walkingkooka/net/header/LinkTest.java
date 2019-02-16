@@ -28,6 +28,8 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.xml.XmlNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -146,6 +148,48 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     // toJsonNode .......................................................................................
+
+    @Test
+    public void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeNullFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeStringFails() {
+        this.fromJsonNodeFails(JsonNode.string("fails!"));
+    }
+
+    @Test
+    public void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public void testFromJsonNodeObjectEmptyFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    @Test
+    public void testFromJsonNodeHrefNonStringFails() {
+        this.fromJsonNodeFails(JsonNode.object().set(JsonNodeName.with("href"), JsonNode.number(123)));
+    }
+
+    @Test
+    public void testFromJsonLink() {
+        final String href = "http://example.com";
+        this.fromJsonNodeAndCheck(JsonNode.object().set(JsonNodeName.with("href"), JsonNode.string(href)),
+                Link.with(Url.parse(href)));
+    }
 
     @Test
     public void testToJsonNode() {
@@ -280,7 +324,8 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         return Link.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 
@@ -289,5 +334,12 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     @Override
     public List<Link> parse(final String text) {
         return Link.parse(text);
+    }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final Link fromJsonNode(final JsonNode from) {
+        return Link.fromJsonNode(from);
     }
 }

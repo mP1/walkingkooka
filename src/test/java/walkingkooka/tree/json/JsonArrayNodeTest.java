@@ -414,4 +414,11 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         return newParent;
     }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final JsonArrayNode fromJsonNode(final JsonNode from) {
+        return JsonArrayNode.fromJsonNode(from).cast();
+    }
 }

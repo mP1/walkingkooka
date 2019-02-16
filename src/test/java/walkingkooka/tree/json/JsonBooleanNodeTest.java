@@ -99,4 +99,11 @@ public final class JsonBooleanNodeTest extends JsonLeafNodeTestCase<JsonBooleanN
     Class<JsonBooleanNode> jsonNodeType() {
         return JsonBooleanNode.class;
     }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final JsonBooleanNode fromJsonNode(final JsonNode from) {
+        return JsonBooleanNode.fromJsonNode(from).cast();
+    }
 }

@@ -27,6 +27,8 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonStringNode;
 
 import java.util.Objects;
 
@@ -36,6 +38,20 @@ import java.util.Objects;
 public final class SpreadsheetCellReference extends SpreadsheetExpressionReference
         implements Comparable<SpreadsheetCellReference>,
         LowerOrUpper<SpreadsheetCellReference> {
+
+    /**
+     * Accepts a json string and returns a {@link SpreadsheetCellReference} or fails.
+     */
+    public static SpreadsheetCellReference fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        if (!node.isString()) {
+            throw new IllegalArgumentException("Node is not a string " + node);
+        }
+
+        final JsonStringNode string = node.cast();
+        return parse(string.value());
+    }
 
     /**
      * Parsers the text expecting a valid {@link SpreadsheetCellReference} or fails.
