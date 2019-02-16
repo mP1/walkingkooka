@@ -139,6 +139,13 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testGetOrFailFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createJsonNode().getOrFail(JsonNodeName.with("unknown-property"));
+        });
+    }
+
+    @Test
     public void testSetAndGet() {
         final JsonNodeName key1 = this.key1();
         final JsonStringNode value1 = this.value1();
@@ -219,12 +226,19 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
         this.childCountCheck(empty, 0);
     }
-    
+
     private void getAndCheck(final JsonObjectNode object, final JsonNodeName key, final String value) {
         final Optional<JsonNode> got = object.get(key);
         assertNotEquals(Optional.empty(), got, "expected value for key " + key);
-        
-        assertEquals(value, JsonStringNode.class.cast(got.get()).value(), "incorrect string value for key=" + key);
+
+        // JsonStringNode retrieved will include the key component so a new JsonStringNode cant be created and assertEqual'd.
+        assertEquals(value,
+                JsonStringNode.class.cast(object.get(key).get()).value(),
+                "incorrect string value for get key=" + key);
+
+        assertEquals(value,
+                JsonStringNode.class.cast(object.getOrFail(key)).value(),
+                "incorrect JsonNode for getOrFail " + key);
     }
 
     // remove
