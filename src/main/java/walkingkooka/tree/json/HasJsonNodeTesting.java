@@ -18,9 +18,36 @@
 
 package walkingkooka.tree.json;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface HasJsonNodeTesting<H extends HasJsonNode> {
+
+    @Test
+    default void testFromJsonNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.fromJsonNode(null);
+        });
+    }
+
+    default void fromJsonNodeAndCheck(final JsonNode from, final H has) {
+        assertEquals(has,
+                this.fromJsonNode(from),
+                "fromJsonNode failed " + from);
+    }
+
+    default void fromJsonNodeFails(final JsonNode from) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.fromJsonNode(from);
+        });
+    }
+
+    /**
+     * Typically calls a static method that accepts a {@link JsonNode} and creates a {@link H object}.
+     */
+    H fromJsonNode(final JsonNode from);
 
     default void toJsonNodeAndCheck(final HasJsonNode has, final String json) {
         toJsonNodeAndCheck(has, JsonNode.parse(json));

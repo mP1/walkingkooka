@@ -24,6 +24,10 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonStringNode;
+
+import java.util.Objects;
 
 /**
  * A label or {@link Name} is a name to a cell reference, range and so on.
@@ -45,6 +49,20 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
     final static CharPredicate PART = INITIAL.or(DIGIT.or(CharPredicates.is('_')));
 
     final static int MAX_LENGTH = 255;
+
+    /**
+     * Accepts a json string and returns a {@link SpreadsheetLabelName} or fails.
+     */
+    public static SpreadsheetLabelName fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        if (!node.isString()) {
+            throw new IllegalArgumentException("Node is not a string " + node);
+        }
+
+        final JsonStringNode string = node.cast();
+        return with(string.value());
+    }
 
     /**
      * Factory that creates a {@link SpreadsheetLabelName}

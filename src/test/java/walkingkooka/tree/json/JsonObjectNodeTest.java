@@ -598,4 +598,11 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     Class<JsonObjectNode> jsonNodeType() {
         return JsonObjectNode.class;
     }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final JsonObjectNode fromJsonNode(final JsonNode from) {
+        return JsonObjectNode.fromJsonNode(from).cast();
+    }
 }

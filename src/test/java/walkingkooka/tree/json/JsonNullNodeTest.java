@@ -99,4 +99,11 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
     Class<JsonNullNode> jsonNodeType() {
         return JsonNullNode.class;
     }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public final JsonNullNode fromJsonNode(final JsonNode from) {
+        return JsonNullNode.fromJsonNode(from).cast();
+    }
 }

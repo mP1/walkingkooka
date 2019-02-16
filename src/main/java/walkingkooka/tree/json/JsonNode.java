@@ -55,6 +55,14 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         HashCodeEqualsDefined {
 
     /**
+     * Simply returns the given {@link JsonNode}.
+     */
+    public static JsonNode fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+        return node;
+    }
+
+    /**
      * Parsers the given json and returns its {@link JsonNode} equivalent.
      */
     public static JsonNode parse(final String text) {
@@ -279,7 +287,10 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
     abstract public boolean isString();
 
-    final <T extends JsonNode> T cast() {
+    /**
+     * Unsafe cast to a sub class of {@link JsonNode}.
+     */
+    public final <T extends JsonNode> T cast() {
         return Cast.to(this);
     }
 

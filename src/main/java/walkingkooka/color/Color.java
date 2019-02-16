@@ -25,6 +25,8 @@ import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonStringNode;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -46,6 +48,20 @@ abstract public class Color implements HashCodeEqualsDefined,
      * A constant holding white
      */
     public final static Color WHITE = Color.fromRgb(0xFFFFFF);
+
+    /**
+     * Creates a {@link Color} from a {@link JsonNode}.
+     */
+    public static Color fromJsonNode(final JsonNode from) {
+        Objects.requireNonNull(from, "from");
+
+        if (!from.isString()) {
+            throw new IllegalArgumentException("Node is not a String=" + from);
+        }
+
+        final JsonStringNode string = from.cast();
+        return parse(string.value());
+    }
 
     /**
      * Parses a {@link Color}, currently only #RGB and #RRGBB formats are supported<br>

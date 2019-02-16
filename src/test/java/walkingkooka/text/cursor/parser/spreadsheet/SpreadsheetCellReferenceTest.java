@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -336,6 +337,39 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
                         .setRow(SpreadsheetRowReference.with(97, SpreadsheetReferenceKind.ABSOLUTE)));
     }
 
+    // HasJsonNode..................................................................................................
+
+    @Test
+    public void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeNullFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public void testFromJsonNodeObjectFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    @Test
+    public void testFromJsonNodeString() {
+        this.fromJsonNodeAndCheck(JsonNode.string("$A$1"),
+                SpreadsheetCellReference.parse("$A$1"));
+    }
+
     // toString..................................................................................................
 
     @Test
@@ -417,5 +451,12 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     @Override
     public RuntimeException parseFailedExpected(final RuntimeException expected) {
         return expected;
+    }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public SpreadsheetCellReference fromJsonNode(final JsonNode from) {
+        return SpreadsheetCellReference.fromJsonNode(from);
     }
 }
