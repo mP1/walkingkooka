@@ -273,6 +273,10 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         throw new UnsupportedOperationException();
     }
 
+    // Value<Object>................................................................................................
+
+    public abstract Object value();
+
     // isXXX............................................................................................................
 
     abstract public boolean isArray();

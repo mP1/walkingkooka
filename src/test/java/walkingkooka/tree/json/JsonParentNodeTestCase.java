@@ -24,6 +24,7 @@ import walkingkooka.tree.search.SearchNode;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C extends List<JsonNode>>
         extends JsonNodeTestCase<N> {
@@ -61,6 +62,12 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
     @Override
     public final void testSetSameAttributes() {
         throw new UnsupportedOperationException();
+    }
+
+    public final void testValueFails() {
+        assertThrows(UnsupportedOperationException.class, ()-> {
+            this.createJsonNode().value();
+        });
     }
 
     @Test
