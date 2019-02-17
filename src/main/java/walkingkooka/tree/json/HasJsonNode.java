@@ -24,6 +24,22 @@ package walkingkooka.tree.json;
 public interface HasJsonNode {
 
     /**
+     * Shared function used to report a required property is missing within a static fromJsonNode.
+     */
+    static void requiredPropertyMissing(final JsonNodeName property,
+                                        final JsonNode node) {
+        throw new IllegalArgumentException("Required property " + property + " missing=" + node);
+    }
+
+    /**
+     * Shared function used to report a required property is missing within a static fromJsonNode.
+     */
+    static void unknownPropertyPresent(final JsonNodeName property,
+                                       final JsonNode node) {
+        throw new IllegalArgumentException("Unknown property " + property + " present=" + node);
+    }
+
+    /**
      * Returns the {@link JsonNode} equivalent of this object.
      */
     JsonNode toJsonNode();
