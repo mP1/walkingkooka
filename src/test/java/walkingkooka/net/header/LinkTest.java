@@ -181,13 +181,18 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     @Test
     public void testFromJsonNodeHrefNonStringFails() {
-        this.fromJsonNodeFails(JsonNode.object().set(JsonNodeName.with("href"), JsonNode.number(123)));
+        this.fromJsonNodeFails(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.number(123)));
+    }
+
+    @Test
+    public void testFromJsonNodeUnknownPropertyFails() {
+        this.fromJsonNodeFails(JsonNode.object().set(JsonNodeName.with("unknown-property"), JsonNode.number(123)));
     }
 
     @Test
     public void testFromJsonLink() {
         final String href = "http://example.com";
-        this.fromJsonNodeAndCheck(JsonNode.object().set(JsonNodeName.with("href"), JsonNode.string(href)),
+        this.fromJsonNodeAndCheck(JsonNode.object().set(Link.HREF_JSON_PROPERTY, JsonNode.string(href)),
                 Link.with(Url.parse(href)));
     }
 
