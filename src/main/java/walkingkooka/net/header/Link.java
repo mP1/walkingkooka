@@ -180,12 +180,12 @@ final public class Link extends HeaderValueWithParameters2<Link,
                     href = JsonStringNode.class.cast(child).value();
                     break;
                 default:
-                    throw new IllegalArgumentException("Unknown property " + name + "=" + node);
+                    HasJsonNode.unknownPropertyPresent(name, node);
             }
         }
 
         if (null == href) {
-            throw new IllegalArgumentException("Required property " + HREF_JSON_PROPERTY + " missing =" + node);
+            HasJsonNode.requiredPropertyMissing(HREF_JSON_PROPERTY, node);
         }
         return Link.with(Url.parse(href));
     }
