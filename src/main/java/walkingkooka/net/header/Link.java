@@ -158,6 +158,9 @@ final public class Link extends HeaderValueWithParameters2<Link,
 
     // HasJsonNode..........................................................................................................
 
+    /**
+     * Accepts a json object with a single required property href.
+     */
     public static Link fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
@@ -165,14 +168,26 @@ final public class Link extends HeaderValueWithParameters2<Link,
             throw new IllegalArgumentException("Node is not an object=" + node);
         }
 
-        final JsonObjectNode object = node.cast();
-        final JsonNode href = object.getOrFail(HREF_JSON_PROPERTY);
-        if (!href.isString()) {
-            throw new IllegalArgumentException(HREF_JSON_PROPERTY + " not a string " + node);
+        String href = null;
+
+        for (JsonNode child : node.children()) {
+            final JsonNodeName name = child.name();
+            switch (name.value()) {
+                case "href":
+                    if (!child.isString()) {
+                        throw new IllegalArgumentException("Property " + name + " is not a String=" + node);
+                    }
+                    href = JsonStringNode.class.cast(child).value();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown property " + name + "=" + node);
+            }
         }
 
-        final JsonStringNode string = href.cast();
-        return Link.with(Url.parse(string.value()));
+        if (null == href) {
+            throw new IllegalArgumentException("Required property " + HREF_JSON_PROPERTY + " missing =" + node);
+        }
+        return Link.with(Url.parse(href));
     }
 
     /**
@@ -197,7 +212,8 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * The attribute on the json object which will hold the {@link #value}.
      */
-    private final static JsonNodeName HREF_JSON_PROPERTY = JsonNodeName.with("href");
+    // @VisibleForTesting
+    final static JsonNodeName HREF_JSON_PROPERTY = JsonNodeName.with("href");
 
     // hasXmlNode..........................................................................................................
 
