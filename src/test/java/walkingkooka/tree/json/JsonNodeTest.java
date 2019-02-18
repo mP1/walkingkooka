@@ -29,6 +29,7 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeTest implements ClassTesting2<JsonNode>,
         ParseStringTesting<JsonNode> {
@@ -115,6 +116,13 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
     }
 
     @Test
+    public void testWrapLongFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNode.wrap(1L);
+        });
+    }
+
+    @Test
     public void testWrapDouble() {
         this.wrapAndCheck(123.5, JsonNode.number(123.5));
     }
@@ -165,6 +173,56 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
                 JsonNode.wrap(value),
                 "With value " + CharSequences.quoteIfChars(value));
     }
+
+    // wrapLong.............................................................................................
+
+    @Test
+    public void testWrapLong() {
+        assertEquals(JsonNode.string("0x1234"),
+                JsonNode.wrapLong(0x1234));
+    }
+
+    // fromJsonNodeLong.............................................................................................
+
+    @Test
+    public void testFromJsonNodeLongNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            JsonNode.fromJsonNodeLong(null);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeLongNonStringFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNode.fromJsonNodeLong(JsonNode.booleanNode(true));
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeLongNumberFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNode.fromJsonNodeLong(JsonNode.number(123));
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeLongMissingPrefixFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            JsonNode.fromJsonNodeLong(JsonNode.string("1234abc"));
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeLong() {
+        assertEquals(0x1234L, JsonNode.fromJsonNodeLong(JsonNode.string("0x1234")));
+    }
+
+    @Test
+    public void testFromJsonNodeLong2() {
+        assertEquals(0x1234ABCL, JsonNode.fromJsonNodeLong(JsonNode.string("0x1234ABC")));
+    }
+
+    // ClassTesting.............................................................................................
 
     @Override
     public Class<JsonNode> type() {
