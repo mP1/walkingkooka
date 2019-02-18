@@ -27,6 +27,7 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -114,6 +115,9 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
                 break;
             }
             if (value instanceof Number) {
+                if(value instanceof Long) {
+                    throw new IllegalArgumentException("Longs will lose precision use wrapLong=" + value);
+                }
                 jsonNode = number(Number.class.cast(value).doubleValue());
                 break;
             }
@@ -128,6 +132,36 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
         return jsonNode;
     }
+
+    /**
+     * Special case for {@link long} values which exceed the precision of a {@link JsonNumberNode}, and so must
+     * be encoded as a {@link String}
+     */
+    public static JsonNode wrapLong(final long value) {
+        return string(LONG_PREFIX + Long.toHexString(value).toLowerCase());
+    }
+
+    /**
+     * The inverse of {@link #wrapLong(long)}
+     */
+    public static long fromJsonNodeLong(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        if (!node.isString()) {
+            throw new IllegalArgumentException("Node is not a string=" + node);
+        }
+        final JsonStringNode string = node.cast();
+        final String text = string.value();
+        if (!text.startsWith(LONG_PREFIX)) {
+            throw new IllegalArgumentException("Long string missing prefix " + CharSequences.quote(LONG_PREFIX) + "=" + node);
+        }
+        return Long.parseLong(text.substring(2), 16);
+    }
+
+    /**
+     * Prefix included at the start of all longs encoded as a string.
+     */
+    private final static String LONG_PREFIX = "0x";
 
     public static JsonArrayNode array() {
         return JsonArrayNode.EMPTY;
