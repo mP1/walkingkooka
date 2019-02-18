@@ -22,8 +22,12 @@ import walkingkooka.Value;
 import walkingkooka.net.HostAddress;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonStringNode;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -32,7 +36,10 @@ import java.util.Optional;
  * NOTE Note that 8 tests from DominicsayersComIsemailEmailAddressTest still fail. Doing some research to find out if surrounding addresses
  * with [] is for emails only.
  */
-final public class EmailAddress implements Value<String>, HashCodeEqualsDefined, Serializable {
+final public class EmailAddress implements Value<String>,
+        HashCodeEqualsDefined,
+        HasJsonNode,
+        Serializable {
 
     /**
      * Tries to parse the email or returns an {@link Optional#empty()}.
@@ -132,7 +139,27 @@ final public class EmailAddress implements Value<String>, HashCodeEqualsDefined,
 
     private final HostAddress host;
 
-    // Object
+    // HasJsonNode...............................................................................
+
+    /**
+     * Accepts a json string holding an email.
+     */
+    public static EmailAddress fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        if (!node.isString()) {
+            throw new IllegalArgumentException("Node is not a string=" + node);
+        }
+
+        return parse(JsonStringNode.class.cast(node).text());
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        return JsonNode.string(this.toString());
+    }
+
+    // Object......................................................................
 
     @Override
     public int hashCode() {

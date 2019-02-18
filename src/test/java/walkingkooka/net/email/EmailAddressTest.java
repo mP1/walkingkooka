@@ -28,6 +28,8 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
@@ -40,6 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         HashCodeEqualsDefinedTesting<EmailAddress>,
+        HasJsonNodeTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
         SerializationTesting<EmailAddress>,
         ToStringTesting<EmailAddress> {
@@ -1602,6 +1605,49 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         return null != string ? string : "";
     }
 
+    // toJsonNode .......................................................................................
+
+    @Test
+    public void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeNullFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public void testFromJsonNodeObjectFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    @Test
+    public void testFromJsonNodeInvalidEmailFails() {
+        this.fromJsonNodeFails(JsonNode.string("!"));
+    }
+
+    @Test
+    public void testFromJsonNode() {
+        final String address = "user@example.com";
+        this.fromJsonNodeAndCheck(JsonNode.string(address), EmailAddress.parse(address));
+    }
+
+    @Test
+    public void testToJsonNodeRoundtrip() {
+        this.toJsonNodeRoundTripTwiceAndCheck(EmailAddress.parse("user@example.com"));
+    }
+
     // HashCodeEqualsDefined ..................................................................................................
 
     @Test
@@ -1630,6 +1676,13 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Override
     public EmailAddress createObject() {
         return EmailAddress.parse("user@example.com");
+    }
+
+    // HasJsonNodeTesting......................................................................................
+
+    @Override
+    public final EmailAddress fromJsonNode(final JsonNode from) {
+        return EmailAddress.fromJsonNode(from);
     }
 
     // ParseStringTesting ..................................................................................................
