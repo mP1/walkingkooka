@@ -35,7 +35,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     default void fromJsonNodeAndCheck(final JsonNode from, final H has) {
         assertEquals(has,
                 this.fromJsonNode(from),
-                "fromJsonNode failed " + from);
+                () -> "fromJsonNode failed " + from);
     }
 
     default void fromJsonNodeFails(final JsonNode from) {
@@ -57,5 +57,16 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
         assertEquals(json,
                 has.toJsonNode(),
                 () -> "toJsonNode doesnt match=" + has);
+    }
+
+    default void toJsonNodeRoundTripTwiceAndCheck(final HasJsonNode has) {
+        final JsonNode jsonNode = has.toJsonNode();
+
+        final HasJsonNode has2 = this.fromJsonNode(jsonNode);
+        final JsonNode jsonNode2 = has2.toJsonNode();
+
+        assertEquals(has2,
+                this.fromJsonNode(jsonNode2),
+                () -> "Roundtrip to -> from -> to failed has=" + has);
     }
 }
