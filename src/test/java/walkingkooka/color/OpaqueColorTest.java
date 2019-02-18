@@ -140,6 +140,11 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
                 JsonNode.string("#123456"));
     }
 
+    @Test
+    public void testToJsonRoundtrip() {
+        this.toJsonNodeRoundTripTwiceAndCheck(Color.fromRgb(0x123456));
+    }
+
     // Object............................................................................................
 
     @Test
