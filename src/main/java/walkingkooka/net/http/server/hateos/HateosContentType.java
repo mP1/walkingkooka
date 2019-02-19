@@ -27,7 +27,6 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilder;
-import java.math.BigInteger;
 import java.util.Collection;
 
 /**
@@ -71,7 +70,7 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
     /**
      * Helper called by {@link HateosHandlerBuilderRouterHateosHandlerContext}.
      */
-    abstract N addLinks(final BigInteger id,
+    abstract N addLinks(final Comparable<?> id,
                         final N node,
                         final HttpMethod method,
                         final AbsoluteUrl base,

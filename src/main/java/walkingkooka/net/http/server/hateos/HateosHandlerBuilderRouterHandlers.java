@@ -22,6 +22,8 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.tree.Node;
 
+import java.util.function.Function;
+
 /**
  * Holds all the handlers for a {@link HateosHandlerBuilderRouterKey}
  */
@@ -44,6 +46,8 @@ final class HateosHandlerBuilderRouterHandlers<N extends Node<N, ?, ?, ?>> {
     HateosHandlerBuilderRouterHandlers<N> copy() {
         final HateosHandlerBuilderRouterHandlers<N> handlers = new HateosHandlerBuilderRouterHandlers<>();
 
+        handlers.id = this.id;
+
         handlers.get = this.get;
         handlers.post = this.post;
         handlers.put = this.put;
@@ -53,12 +57,17 @@ final class HateosHandlerBuilderRouterHandlers<N extends Node<N, ?, ?, ?>> {
     }
 
     /**
+     * A parser function that converts a {@link String} from the url path and returns the {@link Comparable id}.
+     */
+    Function<String, Comparable<?>> id;
+
+    /**
      * These handlers will be null to indicate the method is not supported, otherwise the handler is invoked.
      */
-    HateosGetHandler<N> get;
-    HateosPostHandler<N> post;
-    HateosPutHandler<N> put;
-    HateosDeleteHandler<N> delete;
+    HateosGetHandler<?, N> get;
+    HateosPostHandler<?, N> post;
+    HateosPutHandler<?, N> put;
+    HateosDeleteHandler<?, N> delete;
 
     @Override
     public String toString() {

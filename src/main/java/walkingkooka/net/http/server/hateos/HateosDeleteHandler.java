@@ -21,22 +21,20 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.compare.Range;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
-
 /**
  * Handles DELETE requests for an resource.
  */
-public interface HateosDeleteHandler<N extends Node<N, ?, ?, ?>> extends HateosHandler<N> {
+public interface HateosDeleteHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandler<I, N> {
 
     /**
      * Deletes the request resource identified by the ID.
      */
-    void delete(final BigInteger id,
+    void delete(final I id,
                 final HateosHandlerContext<N> context);
 
     /**
      * Deletes the request entities identified by the range of IDs.
      */
-    void deleteCollection(final Range<BigInteger> ids,
+    void deleteCollection(final Range<I> ids,
                           final HateosHandlerContext<N> context);
 }

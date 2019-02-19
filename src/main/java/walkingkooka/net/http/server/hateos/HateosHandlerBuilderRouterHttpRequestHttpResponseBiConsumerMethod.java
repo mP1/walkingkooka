@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.net.UrlPathName;
@@ -41,7 +42,6 @@ import walkingkooka.tree.Node;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Optional;
@@ -66,6 +66,7 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
     }
 
     final void execute() {
+        Loop: //
         do {
             // verify correctly dispatched...
             int pathIndex = this.router.consumeBasePath(this.parameters);
@@ -100,15 +101,49 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
                 break;
             }
 
-            final int dash = idOrRange.indexOf('-');
-            if (-1 == dash) {
-                this.id(resourceName, idOrRange, pathIndex);
-            } else {
-                this.collection(resourceName, idOrRange, dash, pathIndex);
+            boolean escaped = false;
+            final StringBuilder component = new StringBuilder();
+            String begin = null;
+
+            for(char c : idOrRange.toCharArray()) {
+                if(escaped) {
+                    escaped = false;
+                    component.append(c);
+                    continue;
+                }
+                if(SEPARATOR ==c) {
+                    if(null==begin) {
+                        begin = component.toString();
+                        component.setLength(0);
+                        continue;
+                    }
+                    // second dash found error!!!
+                    this.badRequest("Invalid character within range "+ CharSequences.quoteAndEscape(component));
+                    break Loop;
+                }
+                if('\\' == c) {
+                    escaped = true;
+                    break;
+                }
+                component.append(c);
             }
 
+            if(null==begin) {
+                this.id(resourceName, component.toString(), pathIndex);
+                break;
+            }
+            this.collection(resourceName,
+                    begin,
+                    component.toString(),
+                    idOrRange,
+                    pathIndex);
         } while (false);
     }
+
+    /**
+     * A dash is used to separate ids.
+     */
+    final static char SEPARATOR = '-';
 
     // ID.............................................................................................................
 
@@ -141,77 +176,60 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
     private void id(final HateosResourceName resourceName,
                     final String id,
                     final int pathIndex) {
-        // $resourceName / id
-
-        BigInteger bigIntegerId = null;
-        try {
-            bigIntegerId = new BigInteger(id);
-        } catch (final IllegalArgumentException invalid) {
-            this.badRequest("Invalid id " + CharSequences.quoteAndEscape(id));
-        }
-
-        if (null != bigIntegerId) {
-            final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
-            if (null != linkRelation) {
-                this.id(resourceName, bigIntegerId, linkRelation);
-            }
+        final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
+        if (null != linkRelation) {
+            this.id(resourceName, id, linkRelation);
         }
     }
 
     abstract void id(final HateosResourceName resourceName,
-                     final BigInteger id,
+                     final String id,
                      final LinkRelation<?> linkRelation);
 
     // COLLECTION.....................................................................................................
 
     private void collection(final HateosResourceName resourceName,
-                            final String range,
-                            final int dash,
-                            int pathIndex) {
-        do {
-            if (0 == dash || dash == range.length() - 1) {
-                this.badRequest("Invalid id range " + CharSequences.quoteAndEscape(range));
-                break;
-            }
-
-            BigInteger lower;
-            try {
-                lower = new BigInteger(range.substring(0, dash));
-            } catch (final IllegalArgumentException badRequest) {
-                this.badRequest("Invalid beginning id " + CharSequences.quoteAndEscape(range));
-                break;
-            }
-
-            BigInteger upper;
-            try {
-                upper = new BigInteger(range.substring(dash + 1));
-            } catch (final IllegalArgumentException badRequest) {
-                this.badRequest("Invalid end id " + CharSequences.quoteAndEscape(range));
-                break;
-            }
-
-            Range<BigInteger> rangeOfIds;
-            try {
-                rangeOfIds = Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper));
-            } catch (final IllegalArgumentException invalid) {
-                this.badRequest("Invalid range " + CharSequences.quoteAndEscape(range));
-                break;
-            }
-
-            final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
-            if (null == linkRelation) {
-                break;
-            }
-
-            this.collection(resourceName, rangeOfIds, linkRelation);
-        } while (false);
+                            final String begin,
+                            final String end,
+                            final String rangeText,
+                            final int pathIndex) {
+        final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
+        if (null != linkRelation) {
+            this.collection(resourceName, begin, end, rangeText, linkRelation);
+        }
     }
 
     abstract void collection(final HateosResourceName resourceName,
-                             final Range<BigInteger> ids,
+                             final String begin,
+                             final String end,
+                             final String rangeText,
                              final LinkRelation<?> linkRelation);
 
     // HELPERS ......................................................................................................
+
+    /**
+     * Parses or converts the id text, reporting a bad request if this fails.
+     */
+    final Comparable<?> idOrBadRequest(final String id,
+                                       final HateosHandlerBuilderRouterHandlers<N> handlers) {
+        return this.idOrBadRequest(id, handlers, "id", id);
+    }
+
+    /**
+     * Parses or converts the id text, reporting a bad request if this fails.
+     */
+    private Comparable<?> idOrBadRequest(final String id,
+                                         final HateosHandlerBuilderRouterHandlers<N> handlers,
+                                         final String label, // id, range begin, range end
+                                         final String text) {
+        Comparable<?> parsed = null;
+        try {
+            parsed = handlers.id.apply(id);
+        } catch (final RuntimeException failed) {
+            this.badRequest("Invalid " + label + " " + CharSequences.quote(text));
+        }
+        return parsed;
+    }
 
     /**
      * If not empty parse the relation otherwise return a default of {@link LinkRelation#SELF}, a null indicates an invalid relation.
@@ -235,6 +253,24 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
         }
 
         return relation;
+    }
+
+    final Range<Comparable<?>> rangeOrBadRequest(final String begin,
+                                                 final String end,
+                                                 final HateosHandlerBuilderRouterHandlers<N> handlers,
+                                                 final String rangeText) {
+        Range<Comparable<?>> range = null;
+
+        final Comparable beginComparable = this.idOrBadRequest(begin, handlers, "range begin", rangeText);
+        if(null!=beginComparable) {
+            final Comparable endComparable = this.idOrBadRequest(end, handlers, "range end", rangeText);
+            if (null != endComparable) {
+                range = Cast.to(Range.greaterThanEquals(beginComparable)
+                        .and(Range.lessThanEquals(endComparable)));
+            }
+        }
+
+        return range;
     }
 
     /**
@@ -282,9 +318,9 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
         return handlers;
     }
 
-    final <H extends HateosHandler<N>> H handlerOrResponseMethodNot(final HateosResourceName resourceName,
-                                                                    final LinkRelation<?> linkRelation,
-                                                                    final H handler) {
+    final <H extends HateosHandler<?, N>> H handlerOrResponseMethodNotAllowed(final HateosResourceName resourceName,
+                                                                              final LinkRelation<?> linkRelation,
+                                                                              final H handler) {
         if (null == handler) {
             this.methodNotAllowed(resourceName, linkRelation);
         }

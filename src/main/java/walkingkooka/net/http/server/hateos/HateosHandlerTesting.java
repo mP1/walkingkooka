@@ -21,7 +21,7 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.Node;
 
-public interface HateosHandlerTesting<H extends HateosHandler<N>, N extends Node<N, ?, ?, ?>> extends TypeNameTesting<H> {
+public interface HateosHandlerTesting<H extends HateosHandler<I, N>, I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends TypeNameTesting<H> {
 
     H createHandler();
 

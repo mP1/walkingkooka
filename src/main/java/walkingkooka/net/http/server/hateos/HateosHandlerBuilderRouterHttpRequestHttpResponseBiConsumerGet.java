@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.Cast;
 import walkingkooka.compare.Range;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
@@ -26,7 +27,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -57,45 +57,69 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N ext
     }
 
     @Override
-    void idMissing(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
-        this.collection(resourceName, Range.all(), linkRelation);
+    void idMissing(final HateosResourceName resourceName,
+                   final LinkRelation<?> linkRelation) {
+        this.collection0(resourceName, linkRelation);
     }
 
     @Override
-    void wildcard(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
-        this.collection(resourceName, Range.all(), linkRelation);
+    void wildcard(final HateosResourceName resourceName,
+                  final LinkRelation<?> linkRelation) {
+        this.collection0(resourceName, linkRelation);
+    }
+
+    private void collection0(final HateosResourceName resourceName,
+                             final LinkRelation<?> linkRelation) {
+        final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        if (null != handlers) {
+            final HateosGetHandler<?, N> get = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.get);
+            if (null != get) {
+                this.collection1(Range.all(), get);
+            }
+        }
     }
 
     @Override
     void id(final HateosResourceName resourceName,
-            final BigInteger id,
+            final String idText,
             final LinkRelation<?> linkRelation) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
         if (null != handlers) {
-            final HateosGetHandler<N> get = this.handlerOrResponseMethodNot(resourceName, linkRelation, handlers.get);
-            if (null != get) {
-                this.setStatusAndBody("Get resource successful",
-                        get.get(id,
-                                this.request.parameters(),
-                                this.router.getContext));
+            final Comparable<?> id = this.idOrBadRequest(idText, handlers);
+            if (null != id) {
+                final HateosGetHandler<?, N> get = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.get);
+                if (null != get) {
+                    this.setStatusAndBody("Get resource successful",
+                            get.get(Cast.to(id), this.request.parameters(), this.router.getContext));
+                }
             }
         }
     }
 
     @Override
     void collection(final HateosResourceName resourceName,
-                    final Range<BigInteger> ids,
+                    final String beginText,
+                    final String endText,
+                    final String rangeText,
                     final LinkRelation<?> linkRelation) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
         if (null != handlers) {
-            final HateosGetHandler<N> get = this.handlerOrResponseMethodNot(resourceName, linkRelation, handlers.get);
-            if (null != get) {
-                this.setStatusAndBody("Get collection successful",
-                        get.getCollection(ids,
-                                this.request.parameters(),
-                                this.router.getContext));
+            final Range<Comparable<?>> range = this.rangeOrBadRequest(beginText, endText, handlers, rangeText);
+            if (null != range) {
+                final HateosGetHandler<?, N> get = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.get);
+                if (null != get) {
+                    this.collection1(range, get);
+                }
             }
         }
+    }
+
+    private void collection1(final Range<Comparable<?>> range,
+                             final HateosGetHandler<?, N> get) {
+        this.setStatusAndBody("Get collection successful",
+                get.getCollection(Cast.to(range),
+                        this.request.parameters(),
+                        this.router.getContext));
     }
 
     final void setStatusAndBody(final String message, final Optional<N> node) {

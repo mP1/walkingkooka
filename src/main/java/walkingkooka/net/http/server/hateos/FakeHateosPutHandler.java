@@ -21,16 +21,15 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.Objects;
 
 /**
  * A {@link HateosPutHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeHateosPutHandler<N extends Node<N, ?, ?, ?>> implements HateosPutHandler<N>, Fake {
+public class FakeHateosPutHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> implements HateosPutHandler<I, N>, Fake {
 
     @Override
-    public N put(final BigInteger id,
+    public N put(final I id,
                  final N resource,
                  final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");

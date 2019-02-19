@@ -21,13 +21,11 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
-
 public class FakeHateosHandlerContext<N extends Node<N, ?, ?, ?>> implements HateosHandlerContext<N>, Fake {
 
     @Override
     public N addLinks(final HateosResourceName name,
-                      final BigInteger id,
+                      final Comparable<?> id,
                       final N node) {
         throw new UnsupportedOperationException();
     }

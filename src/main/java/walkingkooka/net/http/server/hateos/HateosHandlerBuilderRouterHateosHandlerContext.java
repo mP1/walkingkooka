@@ -64,7 +64,7 @@ final class HateosHandlerBuilderRouterHateosHandlerContext<N extends Node<N, ?, 
      */
     @Override
     public N addLinks(final HateosResourceName name,
-                      final BigInteger id,
+                      final Comparable<?> id,
                       final N node) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(id, "id");

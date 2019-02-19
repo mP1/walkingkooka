@@ -22,8 +22,6 @@ import walkingkooka.Context;
 import walkingkooka.net.header.Link;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
-
 /**
  * A {@link Context} that accompanies all handlers and provides a service to retrieve all {@link Link} for an resource.
  */
@@ -33,6 +31,6 @@ public interface HateosHandlerContext<N extends Node<N, ?, ?, ?>> extends Contex
      * Adds links for this node.
      */
     N addLinks(final HateosResourceName name,
-               final BigInteger id,
+               final Comparable<?> id,
                final N node);
 }

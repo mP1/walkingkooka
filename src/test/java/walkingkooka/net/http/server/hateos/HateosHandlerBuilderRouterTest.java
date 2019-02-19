@@ -54,6 +54,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -71,17 +72,19 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     final static Range<BigInteger> ALL = Range.all();
     final static Range<BigInteger> RANGE = Range.greaterThanEquals(BigInteger.valueOf(123)).and(Range.lessThanEquals(BigInteger.valueOf(456)));
 
-    private final static FakeHateosGetHandler<JsonNode> GET_HANDLER = new FakeHateosGetHandler<>();
-    private final static FakeHateosPostHandler<JsonNode> POST_HANDLER = new FakeHateosPostHandler<>();
-    private final static FakeHateosPutHandler<JsonNode> PUT_HANDLER = new FakeHateosPutHandler<>();
-    private final static FakeHateosDeleteHandler<JsonNode> DELETE_HANDLER = new FakeHateosDeleteHandler<>();
+    private final static Function<String, BigInteger> ID_PARSER = BigInteger::new;
+
+    private final static FakeHateosGetHandler<BigInteger, JsonNode> GET_HANDLER = new FakeHateosGetHandler<>();
+    private final static FakeHateosPostHandler<BigInteger, JsonNode> POST_HANDLER = new FakeHateosPostHandler<>();
+    private final static FakeHateosPutHandler<BigInteger, JsonNode> PUT_HANDLER = new FakeHateosPutHandler<>();
+    private final static FakeHateosDeleteHandler<BigInteger, JsonNode> DELETE_HANDLER = new FakeHateosDeleteHandler<>();
 
 
     // GET RESOURCE ................................................................................................
 
     @Test
     public void testGetInvalidResourceNameBadRequest() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
                 "/api/999/123/self",
                 HttpStatusCode.BAD_REQUEST,
                 "Invalid resource name \"999\"",
@@ -90,7 +93,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetWithoutHandlersNotFound() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
                 "/api/resource3/123/xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz",
@@ -99,8 +102,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetInvalidIdBadRequest() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
-                "/api/resource3/abc123/self",
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
+                "/api/resource1/abc123/self",
                 HttpStatusCode.BAD_REQUEST,
                 "Invalid id \"abc123\"",
                 null);
@@ -108,25 +111,25 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetInvalidRangeBeginningBadRequest() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
-                "/api/resource3/-456/self",
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
+                "/api/resource1/-456/self",
                 HttpStatusCode.BAD_REQUEST,
-                "Invalid id range \"-456\"",
+                "Invalid range begin \"-456\"",
                 null);
     }
 
     @Test
     public void testGetInvalidRangeEndBadRequest() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
-                "/api/resource3/123-/self",
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
+                "/api/resource1/123-/self",
                 HttpStatusCode.BAD_REQUEST,
-                "Invalid id range \"123-\"",
+                "Invalid range end \"123-\"",
                 null);
     }
 
     @Test
     public void testGetInvalidLinkRelationBadRequest() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
                 "/api/resource1/123/999",
                 HttpStatusCode.BAD_REQUEST,
                 "Invalid link relation \"999\"",
@@ -165,8 +168,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeGetHandleAndCheck((b) -> {
                     this.addGetHandler(b, "{}", getted);
-                    b.get(this.resourceName1(), this.relation2(), GET_HANDLER);
-                    b.get(this.resourceName2(), this.relation1(), GET_HANDLER);
+                    b.get(this.resourceName1(), ID_PARSER, this.relation2(), GET_HANDLER);
+                    b.get(this.resourceName2(), ID_PARSER, this.relation1(), GET_HANDLER);
                 },
                 "/api/resource1/123/self?param1=value1",
                 HttpStatusCode.OK,
@@ -180,8 +183,9 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     public void testGetContextAddLinks() {
         final HateosHandlerBuilder<JsonNode> builder = this.builder();
         builder.get(this.resourceName1(),
+                ID_PARSER,
                 this.relation1(),
-                new FakeHateosGetHandler<JsonNode>() {
+                new FakeHateosGetHandler<BigInteger, JsonNode>() {
                     @Override
                     public Optional<JsonNode> get(final BigInteger id,
                                                   final Map<HttpRequestParameterName, List<String>> parameters,
@@ -190,6 +194,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     }
                 });
         builder.get(this.resourceName1(),
+                ID_PARSER,
                 this.relation2(),
                 GET_HANDLER);
 
@@ -218,8 +223,9 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                                final String reply,
                                final Latch getted) {
         builder.get(this.resourceName1(),
+                ID_PARSER,
                 this.relation1(),
-                new FakeHateosGetHandler<JsonNode>() {
+                new FakeHateosGetHandler<BigInteger, JsonNode>() {
 
                     @Override
                     public Optional<JsonNode> get(final BigInteger id,
@@ -241,7 +247,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetCollectionWithoutIdWithoutHandlersNotFound() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
                 "/api/resource3//xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz",
@@ -280,8 +286,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeGetHandleAndCheck((b) -> {
                     this.addGetCollectionHandler(b, ALL, "{}", getted);
-                    b.get(this.resourceName1(), this.relation2(), GET_HANDLER);
-                    b.get(this.resourceName2(), this.relation1(), GET_HANDLER);
+                    b.get(this.resourceName1(), ID_PARSER, this.relation2(), GET_HANDLER);
+                    b.get(this.resourceName2(), ID_PARSER, this.relation1(), GET_HANDLER);
                 },
                 "/api/resource1//self?param1=value1",
                 HttpStatusCode.OK,
@@ -295,7 +301,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetCollectionWildcardWithoutHandlersNotFound() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
                 "/api/resource3/*/xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz",
@@ -334,8 +340,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeGetHandleAndCheck((b) -> {
                     this.addGetCollectionHandler(b, ALL, "{}", getted);
-                    b.get(this.resourceName1(), this.relation2(), GET_HANDLER);
-                    b.get(this.resourceName2(), this.relation1(), GET_HANDLER);
+                    b.get(this.resourceName1(), ID_PARSER, this.relation2(), GET_HANDLER);
+                    b.get(this.resourceName2(), ID_PARSER, this.relation1(), GET_HANDLER);
                 },
                 "/api/resource1/*/self?param1=value1",
                 HttpStatusCode.OK,
@@ -349,7 +355,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetCollectionRangeWithoutHandlersNotFound() {
-        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), this.relation1(), GET_HANDLER),
+        this.routeGetHandleAndCheck((b) -> b.get(this.resourceName1(), ID_PARSER, this.relation1(), GET_HANDLER),
                 "/api/resource3/123-456/xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz",
@@ -388,8 +394,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeGetHandleAndCheck((b) -> {
                     this.addGetCollectionHandler(b, RANGE, "{}", getted);
-                    b.get(this.resourceName1(), this.relation2(), GET_HANDLER);
-                    b.get(this.resourceName2(), this.relation1(), GET_HANDLER);
+                    b.get(this.resourceName1(), ID_PARSER, this.relation2(), GET_HANDLER);
+                    b.get(this.resourceName2(), ID_PARSER, this.relation1(), GET_HANDLER);
                 },
                 "/api/resource1/123-456/self?param1=value1",
                 HttpStatusCode.OK,
@@ -406,8 +412,9 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                                          final String reply,
                                          final Latch getted) {
         builder.get(this.resourceName1(),
+                ID_PARSER,
                 this.relation1(),
-                new FakeHateosGetHandler<JsonNode>() {
+                new FakeHateosGetHandler<BigInteger, JsonNode>() {
 
                     @Override
                     public Optional<JsonNode> getCollection(final Range<BigInteger> i,
@@ -442,7 +449,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testPostIdWithoutHandlersNotFound() {
-        this.routePostHandleAndCheck((b) -> b.post(this.resourceName1(), this.relation1(), POST_HANDLER),
+        this.routePostHandleAndCheck((b) -> b.post(this.resourceName1(), ID_PARSER, this.relation1(), POST_HANDLER),
                 "/api/resource3/123/xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz",
@@ -481,8 +488,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routePostHandleAndCheck((b) -> {
                     this.addPostHandler(b, ID, "{}", posted);
-                    b.post(this.resourceName1(), this.relation2(), POST_HANDLER);
-                    b.post(this.resourceName2(), this.relation1(), POST_HANDLER);
+                    b.post(this.resourceName1(), ID_PARSER, this.relation2(), POST_HANDLER);
+                    b.post(this.resourceName2(), ID_PARSER, this.relation1(), POST_HANDLER);
                 },
                 "/api/resource1/123/self?param1=value1",
                 HttpStatusCode.OK,
@@ -496,7 +503,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testPostWithoutIdWithoutHandlersNotFound() {
-        this.routePostHandleAndCheck((b) -> b.post(this.resourceName1(), this.relation1(), POST_HANDLER),
+        this.routePostHandleAndCheck((b) -> b.post(this.resourceName1(), ID_PARSER, this.relation1(), POST_HANDLER),
                 "/api/resource3//xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz",
@@ -535,8 +542,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routePostHandleAndCheck((b) -> {
                     this.addPostHandler(b, NO_ID, "{}", posted);
-                    b.post(this.resourceName1(), this.relation2(), POST_HANDLER);
-                    b.post(this.resourceName2(), this.relation1(), POST_HANDLER);
+                    b.post(this.resourceName1(), ID_PARSER, this.relation2(), POST_HANDLER);
+                    b.post(this.resourceName2(), ID_PARSER, this.relation1(), POST_HANDLER);
                 },
                 "/api/resource1//self?param1=value1",
                 HttpStatusCode.OK,
@@ -550,7 +557,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testPostWildcardFails() {
-        this.routePostHandleAndCheck((b) -> b.post(this.resourceName1(), this.relation1(), POST_HANDLER),
+        this.routePostHandleAndCheck((b) -> b.post(this.resourceName1(), ID_PARSER, this.relation1(), POST_HANDLER),
                 "/api/resource1/*/self",
                 HttpStatusCode.BAD_REQUEST,
                 "Collections not supported",
@@ -561,7 +568,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testPostRangeWithoutHandlersBadRequest() {
-        this.routePostHandleAndCheck((b) -> b.post(this.resourceName1(), this.relation1(), POST_HANDLER),
+        this.routePostHandleAndCheck((b) -> b.post(this.resourceName1(), ID_PARSER, this.relation1(), POST_HANDLER),
                 "/api/resource3/123-456/xyz",
                 HttpStatusCode.BAD_REQUEST,
                 "Collections not supported",
@@ -573,8 +580,9 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                                 final String reply,
                                 final Latch posted) {
         builder.post(this.resourceName1(),
+                ID_PARSER,
                 this.relation1(),
-                new FakeHateosPostHandler<JsonNode>() {
+                new FakeHateosPostHandler<BigInteger, JsonNode>() {
 
                     @Override
                     public JsonNode post(final Optional<BigInteger> i,
@@ -607,7 +615,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testPutIdWithoutHandlersNotFound() {
-        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), this.relation1(), PUT_HANDLER),
+        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), ID_PARSER, this.relation1(), PUT_HANDLER),
                 "/api/resource3/123/xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz",
@@ -646,8 +654,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routePutHandleAndCheck((b) -> {
                     this.addPutHandler(b, ID, "{}", putted);
-                    b.put(this.resourceName1(), this.relation2(), PUT_HANDLER);
-                    b.put(this.resourceName2(), this.relation1(), PUT_HANDLER);
+                    b.put(this.resourceName1(), ID_PARSER, this.relation2(), PUT_HANDLER);
+                    b.put(this.resourceName2(), ID_PARSER, this.relation1(), PUT_HANDLER);
                 },
                 "/api/resource1/123/self?param1=value1",
                 HttpStatusCode.OK,
@@ -661,7 +669,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testPutWithoutIdBadRequest() {
-        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), this.relation1(), PUT_HANDLER),
+        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), ID_PARSER, this.relation1(), PUT_HANDLER),
                 "/api/resource1//self",
                 HttpStatusCode.BAD_REQUEST,
                 "Id required",
@@ -672,7 +680,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testPutWildcardBadRequest() {
-        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), this.relation1(), PUT_HANDLER),
+        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), ID_PARSER, this.relation1(), PUT_HANDLER),
                 "/api/resource1/*/self",
                 HttpStatusCode.BAD_REQUEST,
                 "Collections not supported",
@@ -683,7 +691,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testPutRangeWithoutHandlersNotFound() {
-        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), this.relation1(), PUT_HANDLER),
+        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), ID_PARSER, this.relation1(), PUT_HANDLER),
                 "/api/resource3/123-456/xyz",
                 HttpStatusCode.BAD_REQUEST,
                 "Collections not supported",
@@ -695,8 +703,9 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                                final String reply,
                                final Latch putted) {
         builder.put(this.resourceName1(),
+                ID_PARSER,
                 this.relation1(),
-                new FakeHateosPutHandler<JsonNode>() {
+                new FakeHateosPutHandler<BigInteger, JsonNode>() {
 
                     @Override
                     public JsonNode put(final BigInteger i,
@@ -729,7 +738,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testDeleteIdWithoutHandlersNotFound() {
-        this.routeDeleteHandleAndCheck((b) -> b.delete(this.resourceName1(), this.relation1(), DELETE_HANDLER),
+        this.routeDeleteHandleAndCheck((b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
                 "/api/resource3/123/xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz");
@@ -766,8 +775,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteHandleAndCheck((b) -> {
                     this.addDeleteHandler(b, deleted);
-                    b.delete(this.resourceName1(), this.relation2(), DELETE_HANDLER);
-                    b.delete(this.resourceName2(), this.relation1(), DELETE_HANDLER);
+                    b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
+                    b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
                 "/api/resource1/123/self",
                 HttpStatusCode.NO_CONTENT,
@@ -779,8 +788,9 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     private void addDeleteHandler(final HateosHandlerBuilder<JsonNode> builder,
                                   final Latch deleted) {
         builder.delete(this.resourceName1(),
+                ID_PARSER,
                 this.relation1(),
-                new FakeHateosDeleteHandler<JsonNode>() {
+                new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void delete(final BigInteger id, final HateosHandlerContext<JsonNode> context) {
                         assertEquals(ID, id, "id");
@@ -804,7 +814,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testDeleteCollectionWithoutIdWithoutHandlersNotFound() {
-        this.routeDeleteCollectionHandleAndCheck((b) -> b.delete(this.resourceName1(), this.relation1(), DELETE_HANDLER),
+        this.routeDeleteCollectionHandleAndCheck((b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
                 "/api/resource3//xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz");
@@ -841,8 +851,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck((b) -> {
                     this.addDeleteCollectionHandler(b, ALL, deleted);
-                    b.delete(this.resourceName1(), this.relation2(), DELETE_HANDLER);
-                    b.delete(this.resourceName2(), this.relation1(), DELETE_HANDLER);
+                    b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
+                    b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
                 "/api/resource1//self",
                 HttpStatusCode.NO_CONTENT,
@@ -855,7 +865,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testDeleteCollectionWildcardWithoutHandlersNotFound() {
-        this.routeDeleteCollectionHandleAndCheck((b) -> b.delete(this.resourceName1(), this.relation1(), DELETE_HANDLER),
+        this.routeDeleteCollectionHandleAndCheck((b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
                 "/api/resource3/*/xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz");
@@ -892,8 +902,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck((b) -> {
                     this.addDeleteCollectionHandler(b, ALL, deleted);
-                    b.delete(this.resourceName1(), this.relation2(), DELETE_HANDLER);
-                    b.delete(this.resourceName2(), this.relation1(), DELETE_HANDLER);
+                    b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
+                    b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
                 "/api/resource1/*/self",
                 HttpStatusCode.NO_CONTENT,
@@ -907,7 +917,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     @Test
     public void testDeleteCollectionRangeWithoutHandlersNotFound() {
         this.routeDeleteCollectionHandleAndCheck(
-                (b) -> b.delete(this.resourceName1(), this.relation1(), DELETE_HANDLER),
+                (b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
                 "/api/resource3/123-456/xyz",
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz");
@@ -946,8 +956,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck((b) -> {
                     this.addDeleteCollectionHandler(b, RANGE, deleted);
-                    b.delete(this.resourceName1(), this.relation2(), DELETE_HANDLER);
-                    b.delete(this.resourceName2(), this.relation1(), DELETE_HANDLER);
+                    b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
+                    b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
                 "/api/resource1/123-456/self",
                 HttpStatusCode.NO_CONTENT,
@@ -962,8 +972,9 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                                             final Range<BigInteger> range,
                                             final Latch deleted) {
         builder.delete(this.resourceName1(),
+                ID_PARSER,
                 this.relation1(),
-                new FakeHateosDeleteHandler<JsonNode>() {
+                new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void deleteCollection(final Range<BigInteger> r, final HateosHandlerContext<JsonNode> context) {
                         assertEquals(range, r, "range");
@@ -988,7 +999,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     @Override
     public HateosHandlerBuilderRouter<JsonNode> createRouter() {
         final HateosHandlerBuilder<JsonNode> builder = this.builder();
-        builder.get(this.resourceName1(), this.relation1(), new FakeHateosGetHandler<>());
+        builder.get(this.resourceName1(), ID_PARSER, this.relation1(), new FakeHateosGetHandler<BigInteger, JsonNode>());
         return Cast.to(builder.build()); // builder returns interface which is HHBR class.
     }
 

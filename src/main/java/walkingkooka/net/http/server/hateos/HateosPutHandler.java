@@ -20,17 +20,15 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
-
 /**
  * Handles PUT requests for an resource.
  */
-public interface HateosPutHandler<N extends Node<N, ?, ?, ?>> extends HateosHandler<N> {
+public interface HateosPutHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandler<I, N> {
 
     /**
      * Processes a put or update operation.
      */
-    N put(final BigInteger id,
+    N put(final I id,
           final N resource,
           final HateosHandlerContext<N> context);
 }

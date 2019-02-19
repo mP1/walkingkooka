@@ -22,14 +22,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixin interface for testing {@link HateosDeleteHandler}
  */
-public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, N> {
+public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>, I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, I, N> {
 
     @Test
     default void testDeleteNullIdFails() {
@@ -47,7 +45,7 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<N>, N 
         });
     }
 
-    default void delete(final BigInteger id,
+    default void delete(final I id,
                         final HateosHandlerContext<N> context) {
         this.createHandler().delete(id, context);
     }
@@ -68,14 +66,14 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<N>, N 
         });
     }
 
-    default void deleteCollection(final Range<BigInteger> collection,
+    default void deleteCollection(final Range<I> collection,
                                   final HateosHandlerContext<N> context) {
         this.createHandler().deleteCollection(collection, context);
     }
 
-    BigInteger id();
+    I id();
 
-    Range<BigInteger> collection();
+    Range<I> collection();
 
     N resource();
 

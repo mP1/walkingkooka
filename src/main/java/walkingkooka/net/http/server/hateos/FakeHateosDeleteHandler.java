@@ -22,16 +22,15 @@ import walkingkooka.compare.Range;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.Objects;
 
 /**
  * A {@link HateosDeleteHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeHateosDeleteHandler<N extends Node<N, ?, ?, ?>> implements HateosDeleteHandler<N>, Fake {
+public class FakeHateosDeleteHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> implements HateosDeleteHandler<I, N>, Fake {
 
     @Override
-    public void delete(final BigInteger id,
+    public void delete(final I id,
                        final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(context, "context");
@@ -40,7 +39,7 @@ public class FakeHateosDeleteHandler<N extends Node<N, ?, ?, ?>> implements Hate
     }
 
     @Override
-    public void deleteCollection(final Range<BigInteger> ids,
+    public void deleteCollection(final Range<I> ids,
                                  final HateosHandlerContext<N> context) {
         Objects.requireNonNull(ids, "ids");
         Objects.requireNonNull(context, "context");

@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.Cast;
 import walkingkooka.compare.Range;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
@@ -25,8 +26,6 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
-
-import java.math.BigInteger;
 
 /**
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
@@ -56,41 +55,67 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
     }
 
     @Override
-    void idMissing(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
-        this.collection(resourceName, Range.all(), linkRelation);
+    void idMissing(final HateosResourceName resourceName,
+                   final LinkRelation<?> linkRelation) {
+        this.collection0(resourceName, linkRelation);
     }
 
     @Override
-    void wildcard(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
-        this.collection(resourceName, Range.all(), linkRelation);
+    void wildcard(final HateosResourceName resourceName,
+                  final LinkRelation<?> linkRelation) {
+        this.collection0(resourceName, linkRelation);
+    }
+
+    private void collection0(final HateosResourceName resourceName,
+                             final LinkRelation<?> linkRelation) {
+        final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        if (null != handlers) {
+            final HateosDeleteHandler<?, N> delete = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.delete);
+            if (null != delete) {
+                this.collection1(Range.all(), delete);
+            }
+        }
     }
 
     @Override
     void id(final HateosResourceName resourceName,
-            final BigInteger id,
+            final String idText,
             final LinkRelation<?> linkRelation) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
         if (null != handlers) {
-            final HateosDeleteHandler<N> delete = this.handlerOrResponseMethodNot(resourceName, linkRelation, handlers.delete);
-            if (null != delete) {
-                delete.delete(id, this.router.deleteContext);
-                this.setStatusDeleted("resource");
+            final Comparable<?> id = this.idOrBadRequest(idText, handlers);
+            if (null != id) {
+                final HateosDeleteHandler<?, N> delete = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.delete);
+                if (null != delete) {
+                    delete.delete(Cast.to(id), this.router.deleteContext);
+                    this.setStatusDeleted("resource");
+                }
             }
         }
     }
 
     @Override
     void collection(final HateosResourceName resourceName,
-                    final Range<BigInteger> ids,
+                    final String beginText,
+                    final String endText,
+                    final String rangeText,
                     final LinkRelation<?> linkRelation) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
         if (null != handlers) {
-            final HateosDeleteHandler<N> delete = this.handlerOrResponseMethodNot(resourceName, linkRelation, handlers.delete);
-            if (null != delete) {
-                delete.deleteCollection(ids, this.router.deleteContext);
-                this.setStatusDeleted("collection");
+            final Range<Comparable<?>> range = this.rangeOrBadRequest(beginText, endText, handlers, rangeText);
+            if (null != range) {
+                final HateosDeleteHandler<?, N> delete = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.delete);
+                if (null != delete) {
+                    this.collection1(range, delete);
+                }
             }
         }
+    }
+
+    private void collection1(final Range<Comparable<?>> range,
+                             final HateosDeleteHandler<?, N> delete) {
+        delete.deleteCollection(Cast.to(range), this.router.deleteContext);
+        this.setStatusDeleted("collection");
     }
 
     private void setStatusDeleted(final String label) {

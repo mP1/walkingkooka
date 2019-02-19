@@ -18,13 +18,11 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.compare.Range;
+import walkingkooka.Cast;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
-
-import java.math.BigInteger;
 
 /**
  * Handles PUT requests.
@@ -53,34 +51,41 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N ext
     }
 
     @Override
-    void idMissing(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
+    void idMissing(final HateosResourceName resourceName,
+                   final LinkRelation<?> linkRelation) {
         this.badRequestIdRequired();
     }
 
     @Override
-    void wildcard(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
+    void wildcard(final HateosResourceName resourceName,
+                  final LinkRelation<?> linkRelation) {
         this.badRequestCollectionsUnsupported();
     }
 
     @Override
     void id(final HateosResourceName resourceName,
-            final BigInteger id,
+            final String idText,
             final LinkRelation<?> linkRelation) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
         if (null != handlers) {
-            final HateosPutHandler<N> put = this.handlerOrResponseMethodNot(resourceName, linkRelation, handlers.put);
-            if (null != put) {
-                this.setStatusAndBody("Put resource successful",
-                        put.put(id,
-                                this.resource(),
-                                this.router.putContext));
+            final Comparable<?> id = this.idOrBadRequest(idText, handlers);
+            if (null != id) {
+                final HateosPutHandler<?, N> put = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.put);
+                if (null != put) {
+                    this.setStatusAndBody("Put resource successful",
+                            put.put(Cast.to(id),
+                                    this.resource(),
+                                    this.router.putContext));
+                }
             }
         }
     }
 
     @Override
     void collection(final HateosResourceName resourceName,
-                    final Range<BigInteger> ids,
+                    final String beginText,
+                    final String endText,
+                    final String rangeText,
                     final LinkRelation<?> linkRelation) {
         this.badRequestCollectionsUnsupported();
     }

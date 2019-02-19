@@ -23,5 +23,5 @@ import walkingkooka.tree.Node;
 /**
  * Base class for all hateos handlers.
  */
-public interface HateosHandler<N extends Node<N, ?, ?, ?>> {
+public interface HateosHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> {
 }
