@@ -25,12 +25,12 @@ import java.util.Optional;
 /**
  * Represents a inclusive value within a {@link Range}
  */
-final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
+final class RangeBoundInclusive<C extends Comparable> extends RangeBound<C> {
 
     /**
      * Creates a {@link RangeBoundInclusive}.
      */
-    static <C extends Comparable<C>> RangeBoundInclusive<C> with(final C value) {
+    static <C extends Comparable<?>> RangeBoundInclusive<C> with(final C value) {
         checkValue(value);
         return new RangeBoundInclusive<C>(value);
     }
@@ -77,11 +77,13 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
     // Range.predicate...........................................
 
     @Override
+    @SuppressWarnings("unchecked")
     boolean lowerTest(final C value) {
         return this.value.compareTo(value) <= 0;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     boolean upperTest(final C value) {
         return this.value.compareTo(value) >= 0;
     }
@@ -94,11 +96,13 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     boolean lessThanOrEqual0(final RangeBoundExclusive<C> other) {
         return other.value.compareTo(this.value) < 0;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     boolean lessThanOrEqual0(final RangeBoundInclusive<C> other) {
         return other.value.compareTo(this.value) <= 0;
     }
@@ -111,6 +115,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     RangeBound<C> min0(final RangeBoundExclusive<C> other) {
         return this.value.compareTo(other.value) <= 0 ?
                 this :
@@ -118,6 +123,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     RangeBound<C> min0(final RangeBoundInclusive<C> other) {
         return this.value.compareTo(other.value) <= 0 ?
                 this :
@@ -130,6 +136,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     RangeBound<C> max0(final RangeBoundExclusive<C> other) {
         return this.value.compareTo(other.value) >= 0 ?
                 this :
@@ -137,6 +144,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     RangeBound<C> max0(final RangeBoundInclusive<C> other) {
         return this.value.compareTo(other.value) >= 0 ?
                 this :

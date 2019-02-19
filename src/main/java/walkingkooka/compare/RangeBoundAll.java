@@ -25,12 +25,12 @@ import java.util.Optional;
 /**
  * Represents a bound within a range that matches everything.
  */
-final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
+final class RangeBoundAll<C extends Comparable> extends RangeBound<C> {
 
     /**
      * Type safe getter
      */
-    static <C extends Comparable<C>> RangeBoundAll<C> instance() {
+    static <C extends Comparable<?>> RangeBoundAll<C> instance() {
         return Cast.to(INSTANCE);
     }
 
