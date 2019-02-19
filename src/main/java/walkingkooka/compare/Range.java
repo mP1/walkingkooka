@@ -29,12 +29,12 @@ import java.util.function.Predicate;
  * Two create a {@link Range} with both a lower and upper bound it is necessary to create a range for both
  * and then intersect them.
  */
-public final class Range<C extends Comparable<C>> implements Predicate<C>, HashCodeEqualsDefined {
+public final class Range<C extends Comparable> implements Predicate<C>, HashCodeEqualsDefined {
 
     /**
      * A {@link Range} that matches all values.
      */
-    public static <C extends Comparable<C>> Range<C> all() {
+    public static <C extends Comparable> Range<C> all() {
         return Cast.to(ALL);
     }
 
@@ -47,35 +47,35 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
     /**
      * A {@link Range} that holds a single value.
      */
-    public static <C extends Comparable<C>> Range<C> singleton(final C value) {
+    public static <C extends Comparable<?>> Range<C> singleton(final C value) {
         return new Range<C>(RangeBound.inclusive(value), RangeBound.inclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values less than but not including the given value.
      */
-    public static <C extends Comparable<C>> Range<C> lessThan(final C value) {
+    public static <C extends Comparable<?>> Range<C> lessThan(final C value) {
         return new Range<C>(RangeBound.all(), RangeBound.exclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values less than and including the given value.
      */
-    public static <C extends Comparable<C>> Range<C> lessThanEquals(final C value) {
+    public static <C extends Comparable<?>> Range<C> lessThanEquals(final C value) {
         return new Range<C>(RangeBound.all(), RangeBound.inclusive(value));
     }
 
     /**
      * A {@link Range} that matches all values greater than but not including the given value.
      */
-    public static <C extends Comparable<C>> Range<C> greaterThan(final C value) {
+    public static <C extends Comparable<?>> Range<C> greaterThan(final C value) {
         return new Range<C>(RangeBound.exclusive(value), RangeBound.all());
     }
 
     /**
      * A {@link Range} that matches all values greater than and including the given value.
      */
-    public static <C extends Comparable<C>> Range<C> greaterThanEquals(final C value) {
+    public static <C extends Comparable<?>> Range<C> greaterThanEquals(final C value) {
         return new Range<C>(RangeBound.inclusive(value), RangeBound.all());
     }
 
