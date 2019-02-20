@@ -21,15 +21,17 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
+import walkingkooka.net.header.Link;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.math.BigInteger;
 
-public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCase<HateosContentTypeXmlNode, XmlNode> {
+public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCase<HateosContentTypeXmlNode, XmlNode, HasXmlNode> {
 
     @Test
     public void testAddLinkSelf() throws Exception {
@@ -62,6 +64,13 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
                 HateosResourceName.with("entity"),
                 Sets.of(LinkRelation.SELF, LinkRelation.ITEM),
                 "<entity><value>1</value><links><link href=\"http://example.com/base/entity/123/item\" method=\"GET\" rel=\"item\" type=\"application/hal+xml\"/><link href=\"http://example.com/base/entity/123\" method=\"GET\" rel=\"self\" type=\"application/hal+xml\"/></links></entity>");
+    }
+
+    @Test
+    public void testToNode() {
+        final Link link = Link.with(Url.parse("http://example.com"));
+
+        this.toNodeAndCheck(link, link.toXmlNode());
     }
 
     @Override

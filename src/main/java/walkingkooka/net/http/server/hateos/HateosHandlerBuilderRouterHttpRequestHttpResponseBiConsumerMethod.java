@@ -50,12 +50,12 @@ import java.util.Optional;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N extends Node<N, ?, ?, ?>> {
+abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N extends Node<N, ?, ?, ?>, V> {
 
     /**
      * Package private ctor use factory.
      */
-    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod(final HateosHandlerBuilderRouter<N> router,
+    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod(final HateosHandlerBuilderRouter<N, V> router,
                                                                       final HttpRequest request,
                                                                       final HttpResponse response) {
         super();
@@ -373,7 +373,7 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
             throw new NotAcceptableHeaderException("AcceptCharset " + acceptCharset + " doesnt contain supported charset");
         }
 
-        final HateosContentType<N> hateosContentType = this.router.contentType;
+        final HateosContentType<N, V> hateosContentType = this.router.contentType;
         final MediaType contentType = hateosContentType.contentType();
 
         final String content = hateosContentType.toText(node);
@@ -390,7 +390,7 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
         this.response.setStatus(statusCode.setMessage(message));
     }
 
-    final HateosHandlerBuilderRouter<N> router;
+    final HateosHandlerBuilderRouter<N, V> router;
     final HttpRequest request;
 
     /**

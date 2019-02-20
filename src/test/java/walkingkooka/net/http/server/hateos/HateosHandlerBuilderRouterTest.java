@@ -44,6 +44,7 @@ import walkingkooka.net.http.server.TestRecordingHttpResponse;
 import walkingkooka.routing.RouterTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.Latch;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -59,8 +60,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class HateosHandlerBuilderRouterTest implements ClassTesting2<HateosHandlerBuilderRouter<JsonNode>>,
-        RouterTesting<HateosHandlerBuilderRouter<JsonNode>,
+public final class HateosHandlerBuilderRouterTest implements ClassTesting2<HateosHandlerBuilderRouter<JsonNode, HasJsonNode>>,
+        RouterTesting<HateosHandlerBuilderRouter<JsonNode, HasJsonNode>,
                         HttpRequestAttribute<?>,
                         BiConsumer<HttpRequest, HttpResponse>> {
 
@@ -181,7 +182,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetContextAddLinks() {
-        final HateosHandlerBuilder<JsonNode> builder = this.builder();
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
         builder.get(this.resourceName1(),
                 ID_PARSER,
                 this.relation1(),
@@ -219,7 +220,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                         "}"));
     }
 
-    private void addGetHandler(final HateosHandlerBuilder<JsonNode> builder,
+    private void addGetHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
                                final String reply,
                                final Latch getted) {
         builder.get(this.resourceName1(),
@@ -407,7 +408,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     // GET HELPERS.....................................................................................................
 
-    private void addGetCollectionHandler(final HateosHandlerBuilder<JsonNode> builder,
+    private void addGetCollectionHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
                                          final Range<BigInteger> ids,
                                          final String reply,
                                          final Latch getted) {
@@ -432,7 +433,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 });
     }
 
-    private void routeGetHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode>> build,
+    private void routeGetHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
                                         final String url,
                                         final HttpStatusCode status,
                                         final String statusMessage,
@@ -575,7 +576,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 null);
     }
 
-    private void addPostHandler(final HateosHandlerBuilder<JsonNode> builder,
+    private void addPostHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
                                 final BigInteger id,
                                 final String reply,
                                 final Latch posted) {
@@ -598,7 +599,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 });
     }
 
-    private void routePostHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode>> build,
+    private void routePostHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
                                          final String url,
                                          final HttpStatusCode status,
                                          final String statusMessage,
@@ -698,7 +699,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 null);
     }
 
-    private void addPutHandler(final HateosHandlerBuilder<JsonNode> builder,
+    private void addPutHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
                                final BigInteger id,
                                final String reply,
                                final Latch putted) {
@@ -721,7 +722,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 });
     }
 
-    private void routePutHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode>> build,
+    private void routePutHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
                                         final String url,
                                         final HttpStatusCode status,
                                         final String statusMessage,
@@ -785,7 +786,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         assertEquals(true, deleted.value(), "Deleted");
     }
 
-    private void addDeleteHandler(final HateosHandlerBuilder<JsonNode> builder,
+    private void addDeleteHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
                                   final Latch deleted) {
         builder.delete(this.resourceName1(),
                 ID_PARSER,
@@ -799,7 +800,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 });
     }
 
-    private void routeDeleteHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode>> build,
+    private void routeDeleteHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
                                            final String url,
                                            final HttpStatusCode status,
                                            final String statusMessage) {
@@ -968,7 +969,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     // DELETE HELPERS.....................................................................................................
 
-    private void addDeleteCollectionHandler(final HateosHandlerBuilder<JsonNode> builder,
+    private void addDeleteCollectionHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
                                             final Range<BigInteger> range,
                                             final Latch deleted) {
         builder.delete(this.resourceName1(),
@@ -983,7 +984,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 });
     }
 
-    private void routeDeleteCollectionHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode>> build,
+    private void routeDeleteCollectionHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
                                                      final String url,
                                                      final HttpStatusCode status,
                                                      final String statusMessage) {
@@ -997,13 +998,13 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     // HELPERS ............................................................................................
 
     @Override
-    public HateosHandlerBuilderRouter<JsonNode> createRouter() {
-        final HateosHandlerBuilder<JsonNode> builder = this.builder();
+    public HateosHandlerBuilderRouter<JsonNode, HasJsonNode> createRouter() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
         builder.get(this.resourceName1(), ID_PARSER, this.relation1(), new FakeHateosGetHandler<BigInteger, JsonNode>());
         return Cast.to(builder.build()); // builder returns interface which is HHBR class.
     }
 
-    private HateosHandlerBuilder<JsonNode> builder() {
+    private HateosHandlerBuilder<JsonNode, HasJsonNode> builder() {
         return HateosHandlerBuilder.with(
                 Url.parseAbsolute("http://www.example.com/api"),
                 HateosContentType.JSON);
@@ -1040,7 +1041,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         return entities;
     }
 
-    private void routeHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode>> build,
+    private void routeHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
                                      final HttpMethod method,
                                      final String url,
                                      final byte[] body,
@@ -1048,13 +1049,13 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                                      final HttpEntity... entities) {
         assertTrue(url.startsWith("/api"), url + " must start with /api");
 
-        final HateosHandlerBuilder<JsonNode> builder = this.builder();
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
         build.accept(builder);
 
         this.routeHandleAndCheck(builder, method, url, body, status, entities);
     }
 
-    private void routeHandleAndCheck(final HateosHandlerBuilder<JsonNode> builder,
+    private void routeHandleAndCheck(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
                                      final HttpMethod method,
                                      final String url,
                                      final byte[] body,
@@ -1138,7 +1139,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     }
 
     @Override
-    public Class<HateosHandlerBuilderRouter<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouter<JsonNode, HasJsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouter.class);
     }
 

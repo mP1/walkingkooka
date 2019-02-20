@@ -31,16 +31,16 @@ import walkingkooka.tree.Node;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N extends Node<N, ?, ?, ?>>
-        extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N> {
+final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N extends Node<N, ?, ?, ?>, V>
+        extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N, V> {
 
     /**
      * Factory called by {@link HateosHandlerBuilder#build()}
      */
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N> with(final HateosHandlerBuilderRouter<N> router,
+    static <N extends Node<N, ?, ?, ?>, V> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N, V> with(final HateosHandlerBuilderRouter<N, V> router,
                                                                                                                   final HttpRequest request,
                                                                                                                   final HttpResponse response) {
-        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N>(router,
+        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N, V>(router,
                 request,
                 response);
     }
@@ -48,7 +48,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete(final HateosHandlerBuilderRouter<N> router,
+    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete(final HateosHandlerBuilderRouter<N, V> router,
                                                                               final HttpRequest request,
                                                                               final HttpResponse response) {
         super(router, request, response);

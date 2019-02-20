@@ -19,12 +19,13 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
 public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPutTest extends
-        HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<JsonNode>> {
+        HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<JsonNode, HasJsonNode>> {
     @Override
-    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<JsonNode, HasJsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut.class);
     }
 }

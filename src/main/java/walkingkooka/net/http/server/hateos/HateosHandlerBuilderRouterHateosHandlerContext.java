@@ -23,7 +23,6 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -32,16 +31,16 @@ import java.util.stream.Collectors;
 /**
  * A {@link HateosHandlerContext} that is ued by {@link HateosHandlerBuilderRouter}.
  */
-final class HateosHandlerBuilderRouterHateosHandlerContext<N extends Node<N, ?, ?, ?>>
+final class HateosHandlerBuilderRouterHateosHandlerContext<N extends Node<N, ?, ?, ?>, V>
         implements HateosHandlerContext<N> {
 
     /**
      * Factory only called by {@link HateosHandlerBuilderRouter}
      */
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilderRouterHateosHandlerContext<N> with(final HttpMethod method,
-                                                                                               final HateosContentType<N> contentType,
-                                                                                               final AbsoluteUrl base,
-                                                                                               final Set<HateosHandlerBuilderRouterKey> nameAndLinkRelations) {
+    static <N extends Node<N, ?, ?, ?>, V> HateosHandlerBuilderRouterHateosHandlerContext<N, V> with(final HttpMethod method,
+                                                                                                     final HateosContentType<N, V> contentType,
+                                                                                                     final AbsoluteUrl base,
+                                                                                                     final Set<HateosHandlerBuilderRouterKey> nameAndLinkRelations) {
         return new HateosHandlerBuilderRouterHateosHandlerContext<>(method, contentType, base, nameAndLinkRelations);
     }
 
@@ -49,7 +48,7 @@ final class HateosHandlerBuilderRouterHateosHandlerContext<N extends Node<N, ?, 
      * Private ctor
      */
     private HateosHandlerBuilderRouterHateosHandlerContext(final HttpMethod method,
-                                                           final HateosContentType<N> contentType,
+                                                           final HateosContentType<N, V> contentType,
                                                            final AbsoluteUrl base,
                                                            final Set<HateosHandlerBuilderRouterKey> nameAndLinkRelations) {
         super();
@@ -98,7 +97,7 @@ final class HateosHandlerBuilderRouterHateosHandlerContext<N extends Node<N, ?, 
     /**
      * The content type for all handler processing.
      */
-    private final HateosContentType<N> contentType;
+    private final HateosContentType<N, V> contentType;
 
     /**
      * Hateos resource name to link relations.

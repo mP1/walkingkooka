@@ -29,6 +29,7 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpServerException;
+import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlDocument;
 import walkingkooka.tree.xml.XmlName;
 import walkingkooka.tree.xml.XmlNode;
@@ -43,7 +44,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
+final class HateosContentTypeXmlNode extends HateosContentType<XmlNode, HasXmlNode> {
 
     /**
      * Singleton
@@ -130,6 +131,13 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
      * The xml element that receives the actual links.
      */
     private final static XmlName LINKS = XmlName.element("links");
+
+    /**
+     * Converts the given value into a {@link XmlNode}.
+     */
+    public XmlNode toNode(final HasXmlNode value) {
+        return value.toXmlNode();
+    }
 
     @Override
     public String toString() {

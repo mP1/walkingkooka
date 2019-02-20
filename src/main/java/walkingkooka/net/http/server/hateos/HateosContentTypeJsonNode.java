@@ -32,6 +32,7 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -44,7 +45,7 @@ import java.util.Map;
 /**
  * The {@link HateosContentType} that handles {@link JsonNode}.
  */
-final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
+final class HateosContentTypeJsonNode extends HateosContentType<JsonNode, HasJsonNode> {
 
     /**
      * Singleton
@@ -130,6 +131,13 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      * The property that receives the actual links.
      */
     private final static JsonNodeName LINKS = JsonNodeName.with("_links");
+
+    /**
+     * Converts the given value into a {@link JsonNode}.
+     */
+    public JsonNode toNode(final HasJsonNode value) {
+        return value.toJsonNode();
+    }
 
     @Override
     public String toString() {

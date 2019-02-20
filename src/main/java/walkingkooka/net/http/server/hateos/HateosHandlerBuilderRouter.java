@@ -38,17 +38,17 @@ import java.util.function.BiConsumer;
 /**
  * Router which accepts a request and returns a {@link BiConsumer} that operates on the base {@!link UrlPath}.
  */
-final class HateosHandlerBuilderRouter<N extends Node<N, ?, ?, ?>>
-        extends HateosHandlerBuilder2<N>
+final class HateosHandlerBuilderRouter<N extends Node<N, ?, ?, ?>, V>
+        extends HateosHandlerBuilder2<N, V>
         implements Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> {
 
     /**
      * Factory called by {@link HateosHandlerBuilder#build()}
      */
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilderRouter<N> with(final AbsoluteUrl base,
-                                                                           final HateosContentType<N> contentType,
+    static <N extends Node<N, ?, ?, ?>, V> HateosHandlerBuilderRouter<N, V> with(final AbsoluteUrl base,
+                                                                           final HateosContentType<N, V> contentType,
                                                                            final Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderRouterHandlers<N>> handlers) {
-        return new HateosHandlerBuilderRouter<N>(base,
+        return new HateosHandlerBuilderRouter<N, V>(base,
                 contentType,
                 handlers);
     }
@@ -57,7 +57,7 @@ final class HateosHandlerBuilderRouter<N extends Node<N, ?, ?, ?>>
      * Private ctor use factory.
      */
     private HateosHandlerBuilderRouter(final AbsoluteUrl base,
-                                       final HateosContentType<N> contentType,
+                                       final HateosContentType<N, V> contentType,
                                        Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderRouterHandlers<N>> handlers) {
         super(base, contentType, handlers);
 
@@ -94,8 +94,8 @@ final class HateosHandlerBuilderRouter<N extends Node<N, ?, ?, ?>>
         return pathIndex;
     }
 
-    final HateosHandlerBuilderRouterHateosHandlerContext<N> getContext;
-    final HateosHandlerBuilderRouterHateosHandlerContext<N> postContext;
-    final HateosHandlerBuilderRouterHateosHandlerContext<N> putContext;
-    final HateosHandlerBuilderRouterHateosHandlerContext<N> deleteContext;
+    final HateosHandlerBuilderRouterHateosHandlerContext<N, V> getContext;
+    final HateosHandlerBuilderRouterHateosHandlerContext<N, V> postContext;
+    final HateosHandlerBuilderRouterHateosHandlerContext<N, V> putContext;
+    final HateosHandlerBuilderRouterHateosHandlerContext<N, V> deleteContext;
 }

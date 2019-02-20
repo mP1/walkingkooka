@@ -32,7 +32,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, N extends Node<N, ?, ?, ?>> implements ClassTesting2<C>,
+public abstract class HateosContentTypeTestCase<C extends HateosContentType<N, V>, N extends Node<N, ?, ?, ?>, V> implements ClassTesting2<C>,
         TypeNameTesting<C> {
 
     HateosContentTypeTestCase() {
@@ -63,6 +63,12 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
     abstract N parse(final String text) throws Exception;
 
     abstract C constant();
+
+    final void toNodeAndCheck(final V value, final N node) {
+        assertEquals(node,
+                this.constant().toNode(value),
+                () -> "Incorrect result calling toNode with " + value);
+    }
 
     @Override
     public final MemberVisibility typeVisibility() {

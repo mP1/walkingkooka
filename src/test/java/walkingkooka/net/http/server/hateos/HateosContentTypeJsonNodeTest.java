@@ -21,13 +21,15 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
+import walkingkooka.net.header.Link;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
 import java.math.BigInteger;
 
-public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCase<HateosContentTypeJsonNode, JsonNode> {
+public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCase<HateosContentTypeJsonNode, JsonNode, HasJsonNode> {
 
     @Test
     public void testAddLinkSelf() throws Exception {
@@ -89,6 +91,13 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
                         "    \"type\": \"application/hal+json\"\n" +
                         "  }]\n" +
                         "}");
+    }
+
+    @Test
+    public void testToNode() {
+        final Link link = Link.with(Url.parse("http://example.com"));
+
+        this.toNodeAndCheck(link, link.toJsonNode());
     }
 
     @Override

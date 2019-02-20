@@ -30,19 +30,19 @@ import java.util.function.BiConsumer;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extends Node<N, ?, ?, ?>> implements BiConsumer<HttpRequest, HttpResponse> {
+final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extends Node<N, ?, ?, ?>, V> implements BiConsumer<HttpRequest, HttpResponse> {
 
     /**
      * Factory called by {@link HateosHandlerBuilder#build()}
      */
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N> with(final HateosHandlerBuilderRouter<N> router) {
-        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N>(router);
+    static <N extends Node<N, ?, ?, ?>, V> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N, V> with(final HateosHandlerBuilderRouter<N, V> router) {
+        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N, V>(router);
     }
 
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer(final HateosHandlerBuilderRouter<N> router) {
+    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer(final HateosHandlerBuilderRouter<N, V> router) {
         super();
         this.router = router;
     }
@@ -84,7 +84,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extend
         response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(message));
     }
 
-    final HateosHandlerBuilderRouter<N> router;
+    final HateosHandlerBuilderRouter<N, V> router;
 
     @Override
     public String toString() {

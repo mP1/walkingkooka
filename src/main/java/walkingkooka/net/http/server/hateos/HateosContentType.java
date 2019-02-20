@@ -23,7 +23,9 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -33,17 +35,17 @@ import java.util.Collection;
  * Controls the content type of hateos messages. Ideally this should have been an enum but currently enums do not
  * support type parameters.
  */
-public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
+public abstract class HateosContentType<N extends Node<N, ?, ?, ?>, V> {
 
     /**
      * Selects JSON formatted bodies.
      */
-    public final static HateosContentType<JsonNode> JSON = HateosContentTypeJsonNode.instance();
+    public final static HateosContentType<JsonNode, HasJsonNode> JSON = HateosContentTypeJsonNode.instance();
 
     /**
      * Selects XML formatted bodies.
      */
-    public final static HateosContentType<XmlNode> XML = HateosContentTypeXmlNode.instance();
+    public final static HateosContentType<XmlNode, HasXmlNode> XML = HateosContentTypeXmlNode.instance();
 
     /**
      * Package private use constants.
@@ -76,6 +78,11 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
                         final AbsoluteUrl base,
                         final HateosResourceName resourceName,
                         final Collection<LinkRelation<?>> linkRelations);
+
+    /**
+     * Converts the given value into a {@link Node}.
+     */
+    public abstract N toNode(final V value);
 
     abstract public String toString();
 }
