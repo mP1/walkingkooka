@@ -23,7 +23,6 @@ import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin interface for testing {@link HateosGetHandler}
  */
-public interface HateosGetHandlerTesting<H extends HateosGetHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, N> {
+public interface HateosGetHandlerTesting<H extends HateosGetHandler<I, N>, I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, I, N> {
 
     @Test
     default void testGetNullIdFails() {
@@ -62,7 +61,7 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<N>, N extend
         });
     }
 
-    default Optional<N> get(final BigInteger id,
+    default Optional<N> get(final I id,
                             final Map<HttpRequestParameterName, List<String>> parameters,
                             final HateosHandlerContext<N> context) {
         return this.createHandler().get(id, parameters, context);
@@ -95,15 +94,15 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<N>, N extend
         });
     }
 
-    default Optional<N> getCollection(final Range<BigInteger> collection,
+    default Optional<N> getCollection(final Range<I> collection,
                                       final Map<HttpRequestParameterName, List<String>> parameters,
                                       final HateosHandlerContext<N> context) {
         return this.createHandler().getCollection(collection, parameters, context);
     }
 
-    BigInteger id();
+    I id();
 
-    Range<BigInteger> collection();
+    Range<I> collection();
 
     Map<HttpRequestParameterName, List<String>> parameters();
 

@@ -22,7 +22,6 @@ import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,19 +29,19 @@ import java.util.Optional;
 /**
  * Handles GET requests for an resource.
  */
-public interface HateosGetHandler<N extends Node<N, ?, ?, ?>> extends HateosHandler<N> {
+public interface HateosGetHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandler<I, N> {
 
     /**
      * Perform the GET operation.
      */
-    Optional<N> get(final BigInteger id,
+    Optional<N> get(final I id,
                     final Map<HttpRequestParameterName, List<String>> parameters,
                     final HateosHandlerContext<N> context);
 
     /**
      * Perform a batch operation on the requested ids.
      */
-    Optional<N> getCollection(final Range<BigInteger> ids,
+    Optional<N> getCollection(final Range<I> ids,
                               final Map<HttpRequestParameterName, List<String>> parameters,
                               final HateosHandlerContext<N> context);
 }

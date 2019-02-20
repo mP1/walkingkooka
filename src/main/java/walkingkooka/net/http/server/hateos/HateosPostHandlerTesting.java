@@ -21,7 +21,6 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin interface for testing {@link HateosPostHandler}
  */
-public interface HateosPostHandlerTesting<H extends HateosPostHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, N> {
+public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, I, N> {
 
     @Test
     default void testPostNullIdFails() {
@@ -58,13 +57,13 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<N>, N exte
         });
     }
 
-    default N post(final Optional<BigInteger> id,
-                     final N resource,
-                     final HateosHandlerContext<N> context) {
+    default N post(final Optional<I> id,
+                   final N resource,
+                   final HateosHandlerContext<N> context) {
         return this.createHandler().post(id, resource, context);
     }
 
-    Optional<BigInteger> id();
+    Optional<I> id();
 
     N resource();
 

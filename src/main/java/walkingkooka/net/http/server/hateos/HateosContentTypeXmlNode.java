@@ -39,7 +39,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +90,7 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
     }
 
     @Override
-    XmlNode addLinks(final BigInteger id,
+    XmlNode addLinks(final Comparable<?> id,
                      final XmlNode node,
                      final HttpMethod method,
                      final AbsoluteUrl base,

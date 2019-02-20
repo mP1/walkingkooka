@@ -25,6 +25,8 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HateosHandlerBuilderRouterHandlersTest implements ClassTesting2<HateosHandlerBuilderRouterHandlers<JsonNode>>,
@@ -34,10 +36,10 @@ public final class HateosHandlerBuilderRouterHandlersTest implements ClassTestin
     public void testCopy() {
         final HateosHandlerBuilderRouterHandlers<JsonNode> handlers = HateosHandlerBuilderRouterHandlers.with();
 
-        final FakeHateosGetHandler<JsonNode> get = new FakeHateosGetHandler<>();
-        final FakeHateosPostHandler<JsonNode> post = new FakeHateosPostHandler<>();
-        final FakeHateosPutHandler<JsonNode> put = new FakeHateosPutHandler<>();
-        final FakeHateosDeleteHandler<JsonNode> delete = new FakeHateosDeleteHandler<>();
+        final FakeHateosGetHandler<BigInteger, JsonNode> get = new FakeHateosGetHandler<>();
+        final FakeHateosPostHandler<BigInteger, JsonNode> post = new FakeHateosPostHandler<>();
+        final FakeHateosPutHandler<BigInteger, JsonNode> put = new FakeHateosPutHandler<>();
+        final FakeHateosDeleteHandler<BigInteger, JsonNode> delete = new FakeHateosDeleteHandler<>();
 
         handlers.get = get;
         handlers.post = post;
@@ -56,28 +58,28 @@ public final class HateosHandlerBuilderRouterHandlersTest implements ClassTestin
     public void testToString() {
         final HateosHandlerBuilderRouterHandlers<JsonNode> handlers = HateosHandlerBuilderRouterHandlers.with();
 
-        final FakeHateosGetHandler<JsonNode> get = new FakeHateosGetHandler<JsonNode>() {
+        final FakeHateosGetHandler<BigInteger, JsonNode> get = new FakeHateosGetHandler<BigInteger, JsonNode>() {
             public String toString() {
                 return "G1";
             }
 
             ;
         };
-        final FakeHateosPostHandler<JsonNode> post = new FakeHateosPostHandler<JsonNode>() {
+        final FakeHateosPostHandler<BigInteger, JsonNode> post = new FakeHateosPostHandler<BigInteger, JsonNode>() {
             public String toString() {
                 return "P2";
             }
 
             ;
         };
-        final FakeHateosPutHandler<JsonNode> put = new FakeHateosPutHandler<JsonNode>() {
+        final FakeHateosPutHandler<BigInteger, JsonNode> put = new FakeHateosPutHandler<BigInteger, JsonNode>() {
             public String toString() {
                 return "P3";
             }
 
             ;
         };
-        final FakeHateosDeleteHandler<JsonNode> delete = new FakeHateosDeleteHandler<JsonNode>() {
+        final FakeHateosDeleteHandler<BigInteger, JsonNode> delete = new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
             public String toString() {
                 return "D4";
             }

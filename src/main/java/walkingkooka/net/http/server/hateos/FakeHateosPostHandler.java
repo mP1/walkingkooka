@@ -21,17 +21,16 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
  * A {@link HateosPostHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeHateosPostHandler<N extends Node<N, ?, ?, ?>> implements HateosPostHandler<N>, Fake {
+public class FakeHateosPostHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> implements HateosPostHandler<I, N>, Fake {
 
     @Override
-    public N post(final Optional<BigInteger> id,
+    public N post(final Optional<I> id,
                   final N resource,
                   final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");

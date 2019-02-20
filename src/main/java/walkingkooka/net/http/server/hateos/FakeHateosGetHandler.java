@@ -23,7 +23,6 @@ import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -32,10 +31,10 @@ import java.util.Optional;
 /**
  * A {@link HateosGetHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeHateosGetHandler<N extends Node<N, ?, ?, ?>> implements HateosGetHandler<N>, Fake {
+public class FakeHateosGetHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> implements HateosGetHandler<I, N>, Fake {
 
     @Override
-    public Optional<N> get(final BigInteger id,
+    public Optional<N> get(final I id,
                            final Map<HttpRequestParameterName, List<String>> parameters,
                            final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
@@ -46,7 +45,7 @@ public class FakeHateosGetHandler<N extends Node<N, ?, ?, ?>> implements HateosG
     }
 
     @Override
-    public Optional<N> getCollection(final Range<BigInteger> ids,
+    public Optional<N> getCollection(final Range<I> ids,
                                      final Map<HttpRequestParameterName, List<String>> parameters,
                                      final HateosHandlerContext<N> context) {
         Objects.requireNonNull(ids, "ids");

@@ -20,18 +20,17 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 /**
  * Handles POST requests for an resource.
  */
-public interface HateosPostHandler<N extends Node<N, ?, ?, ?>> extends HateosHandler<N> {
+public interface HateosPostHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandler<I, N> {
 
     /**
      * Processes a post.
      */
-    N post(final Optional<BigInteger> id,
+    N post(final Optional<I> id,
            final N resource,
            final HateosHandlerContext<N> context);
 }

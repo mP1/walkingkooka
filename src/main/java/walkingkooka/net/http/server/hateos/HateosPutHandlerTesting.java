@@ -21,14 +21,12 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixin interface for testing {@link HateosPutHandler}
  */
-public interface HateosPutHandlerTesting<H extends HateosPutHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, N> {
+public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTesting<H, I, N> {
 
     @Test
     default void testPutNullIdFails() {
@@ -57,13 +55,13 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<N>, N extend
         });
     }
 
-    default N put(final BigInteger id,
+    default N put(final I id,
                   final N resource,
                   final HateosHandlerContext<N> context) {
         return this.createHandler().put(id, resource, context);
     }
 
-    BigInteger id();
+    I id();
 
     N resource();
 

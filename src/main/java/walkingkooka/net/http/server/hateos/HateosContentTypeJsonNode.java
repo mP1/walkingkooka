@@ -38,7 +38,6 @@ import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
 
 import javax.xml.parsers.DocumentBuilder;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Map;
 
@@ -95,7 +94,7 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      * </pre>
      */
     @Override
-    JsonNode addLinks(final BigInteger id,
+    JsonNode addLinks(final Comparable<?> id,
                       final JsonNode node,
                       final HttpMethod method,
                       final AbsoluteUrl base,

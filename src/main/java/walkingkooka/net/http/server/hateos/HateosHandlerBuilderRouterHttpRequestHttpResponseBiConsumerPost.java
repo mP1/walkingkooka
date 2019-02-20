@@ -18,14 +18,13 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.compare.Range;
+import walkingkooka.Cast;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -56,31 +55,14 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost<N ex
     }
 
     @Override
-    void idMissing(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
-        this.id(resourceName, Optional.empty(), linkRelation);
-    }
-
-    @Override
-    void wildcard(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
-        this.badRequestCollectionsUnsupported();
-    }
-
-    @Override
-    void id(final HateosResourceName resourceName,
-            final BigInteger id,
-            final LinkRelation<?> linkRelation) {
-        this.id(resourceName, Optional.of(id), linkRelation);
-    }
-
-    private void id(final HateosResourceName resourceName,
-                    final Optional<BigInteger> id,
-                    final LinkRelation<?> linkRelation) {
+    void idMissing(final HateosResourceName resourceName,
+                   final LinkRelation<?> linkRelation) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
         if (null != handlers) {
-            final HateosPostHandler<N> post = this.handlerOrResponseMethodNot(resourceName, linkRelation, handlers.post);
+            final HateosPostHandler<?, N> post = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.post);
             if (null != post) {
                 this.setStatusAndBody("Post resource successful",
-                        post.post(id,
+                        post.post(Cast.to(Optional.empty()),
                                 this.resource(),
                                 this.router.postContext));
             }
@@ -88,8 +70,35 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost<N ex
     }
 
     @Override
+    void wildcard(final HateosResourceName resourceName,
+                  final LinkRelation<?> linkRelation) {
+        this.badRequestCollectionsUnsupported();
+    }
+
+    @Override
+    void id(final HateosResourceName resourceName,
+            final String idText,
+            final LinkRelation<?> linkRelation) {
+        final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        if (null != handlers) {
+            final Comparable<?> id = this.idOrBadRequest(idText, handlers);
+            if (null != id) {
+                final HateosPostHandler<?, N> post = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.post);
+                if (null != post) {
+                    this.setStatusAndBody("Post resource successful",
+                            post.post(Cast.to(Optional.of(id)),
+                                    this.resource(),
+                                    this.router.postContext));
+                }
+            }
+        }
+    }
+
+    @Override
     void collection(final HateosResourceName resourceName,
-                    final Range<BigInteger> ids,
+                    final String beginText,
+                    final String endText,
+                    final String rangeText,
                     final LinkRelation<?> linkRelation) {
         this.badRequestCollectionsUnsupported();
     }
