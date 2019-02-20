@@ -20,10 +20,11 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase<M extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode>>
+public abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase<M extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode, HasJsonNode>>
                 implements ClassTesting2<M>,
         TypeNameTesting<M> {
 

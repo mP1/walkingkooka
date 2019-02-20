@@ -43,16 +43,16 @@ import java.util.function.Function;
  * A builder which collects all resource and relation mappings producing a {@link Router}.
  * The {@link Router} assumes that the transport and content-type have already been tested and filtered.
  */
-public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
-        extends HateosHandlerBuilder2<N>
+public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>, V>
+        extends HateosHandlerBuilder2<N, V>
         implements
         Builder<Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
     /**
      * Factory that creates a new {@link HateosHandlerBuilder} with the provided path being used when building links.
      */
-    public static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilder<N> with(final AbsoluteUrl base,
-                                                                            final HateosContentType<N> contentType) {
+    public static <N extends Node<N, ?, ?, ?>, V> HateosHandlerBuilder<N, V> with(final AbsoluteUrl base,
+                                                                                  final HateosContentType<N, V> contentType) {
         Objects.requireNonNull(base, "base");
         if (!base.query().equals(UrlQueryString.EMPTY)) {
             throw new IllegalArgumentException("Base should have no query string/query parameters but was " + base);
@@ -63,14 +63,14 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
 
         Objects.requireNonNull(contentType, "contentType");
 
-        return new HateosHandlerBuilder<N>(base, contentType);
+        return new HateosHandlerBuilder<N, V>(base, contentType);
     }
 
     /**
      * Private ctor use factory.
      */
     private HateosHandlerBuilder(final AbsoluteUrl base,
-                                 final HateosContentType<N> contentType) {
+                                 final HateosContentType<N, V> contentType) {
         super(base, contentType, Maps.sorted());
     }
 
@@ -78,10 +78,10 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      * Registers a new GET handler for the given hateos resource and relation combination.
      * It is assumed and required that the same id parser is given to all get/post/put/delete calls so ids can be parsed consistently.
      */
-    public <I extends Comparable<I>> HateosHandlerBuilder<N> get(final HateosResourceName name,
-                                                                 final Function<String, I> id,
-                                                                 final LinkRelation<?> relation,
-                                                                 final HateosGetHandler<I, N> handler) {
+    public <I extends Comparable<I>> HateosHandlerBuilder<N, V> get(final HateosResourceName name,
+                                                                    final Function<String, I> id,
+                                                                    final LinkRelation<?> relation,
+                                                                    final HateosGetHandler<I, N> handler) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.getOrCreateHandlers(name, relation);
         check(HttpMethod.GET, name, id, relation, handler, handlers, handlers.get);
         handlers.get = handler;
@@ -93,10 +93,10 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      * Registers a new POST handler for the given hateos resource and relation combination.
      * It is assumed and required that the same id parser is given to all get/post/put/delete calls so ids can be parsed consistently.
      */
-    public <I extends Comparable<I>> HateosHandlerBuilder<N> post(final HateosResourceName name,
-                                                                  final Function<String, I> id,
-                                                                  final LinkRelation<?> relation,
-                                                                  final HateosPostHandler<I, N> handler) {
+    public <I extends Comparable<I>> HateosHandlerBuilder<N, V> post(final HateosResourceName name,
+                                                                     final Function<String, I> id,
+                                                                     final LinkRelation<?> relation,
+                                                                     final HateosPostHandler<I, N> handler) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.getOrCreateHandlers(name, relation);
         check(HttpMethod.POST, name, id, relation, handler, handlers, handlers.post);
         handlers.post = handler;
@@ -108,10 +108,10 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      * Registers a new PUT handler for the given hateos resource and relation combination.
      * It is assumed and required that the same id parser is given to all get/post/put/delete calls so ids can be parsed consistently.
      */
-    public <I extends Comparable<I>> HateosHandlerBuilder<N> put(final HateosResourceName name,
-                                                                 final Function<String, I> id,
-                                                                 final LinkRelation<?> relation,
-                                                                 final HateosPutHandler<I, N> handler) {
+    public <I extends Comparable<I>> HateosHandlerBuilder<N, V> put(final HateosResourceName name,
+                                                                    final Function<String, I> id,
+                                                                    final LinkRelation<?> relation,
+                                                                    final HateosPutHandler<I, N> handler) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.getOrCreateHandlers(name, relation);
         check(HttpMethod.PUT, name, id, relation, handler, handlers, handlers.put);
         handlers.put = handler;
@@ -123,10 +123,10 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      * Registers a new handler for the given hateos resource and relation combination.
      * It is assumed and required that the same id parser is given to all get/post/put/delete calls so ids can be parsed consistently.
      */
-    public <I extends Comparable<I>> HateosHandlerBuilder<N> delete(final HateosResourceName name,
-                                                                    final Function<String, I> id,
-                                                                    final LinkRelation<?> relation,
-                                                                    final HateosDeleteHandler<I, N> handler) {
+    public <I extends Comparable<I>> HateosHandlerBuilder<N, V> delete(final HateosResourceName name,
+                                                                       final Function<String, I> id,
+                                                                       final LinkRelation<?> relation,
+                                                                       final HateosDeleteHandler<I, N> handler) {
         final HateosHandlerBuilderRouterHandlers<N> handlers = this.getOrCreateHandlers(name, relation);
         check(HttpMethod.DELETE, name, id, relation, handler, handlers, handlers.delete);
         handlers.delete = handler;

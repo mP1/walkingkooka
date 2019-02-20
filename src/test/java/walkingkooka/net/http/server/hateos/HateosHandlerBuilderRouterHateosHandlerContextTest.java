@@ -25,14 +25,15 @@ import walkingkooka.net.Url;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
 import java.util.Set;
 
-public final class HateosHandlerBuilderRouterHateosHandlerContextTest implements ClassTesting2<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>>,
-        HateosHandlerContextTesting<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>, JsonNode> {
+public final class HateosHandlerBuilderRouterHateosHandlerContextTest implements ClassTesting2<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode, HasJsonNode>>,
+        HateosHandlerContextTesting<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode, HasJsonNode>, JsonNode> {
 
     @Test
     public void testAddLinksSelf() {
@@ -61,7 +62,7 @@ public final class HateosHandlerBuilderRouterHateosHandlerContextTest implements
     }
 
     @Override
-    public HateosHandlerBuilderRouterHateosHandlerContext<JsonNode> createContext() {
+    public HateosHandlerBuilderRouterHateosHandlerContext<JsonNode, HasJsonNode> createContext() {
         return HateosHandlerBuilderRouterHateosHandlerContext.with(HttpMethod.GET,
                 HateosContentType.JSON,
                 Url.parseAbsolute("http://example.com/api/"),
@@ -113,7 +114,7 @@ public final class HateosHandlerBuilderRouterHateosHandlerContextTest implements
     }
 
     @Override
-    public Class<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>> type() {
+    public Class<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode, HasJsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHateosHandlerContext.class);
     }
 

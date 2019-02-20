@@ -33,16 +33,16 @@ import java.util.Optional;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N extends Node<N, ?, ?, ?>>
-        extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N> {
+final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N extends Node<N, ?, ?, ?>, V>
+        extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N, V> {
 
     /**
      * Factory called by {@link HateosHandlerBuilder#build()}
      */
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N> with(final HateosHandlerBuilderRouter<N> router,
+    static <N extends Node<N, ?, ?, ?>, V> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N, V> with(final HateosHandlerBuilderRouter<N, V> router,
                                                                                                                final HttpRequest request,
                                                                                                                final HttpResponse response) {
-        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N>(router,
+        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N, V>(router,
                 request,
                 response);
     }
@@ -50,7 +50,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N ext
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet(final HateosHandlerBuilderRouter<N> router,
+    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet(final HateosHandlerBuilderRouter<N, V> router,
                                                                            final HttpRequest request,
                                                                            final HttpResponse response) {
         super(router, request, response);

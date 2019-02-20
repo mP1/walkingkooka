@@ -27,16 +27,16 @@ import walkingkooka.tree.Node;
 /**
  * Handles PUT requests.
  */
-final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N extends Node<N, ?, ?, ?>>
-        extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N> {
+final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N extends Node<N, ?, ?, ?>, V>
+        extends HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N, V> {
 
     /**
      * Factory called by {@link HateosHandlerBuilder#build()}
      */
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N> with(final HateosHandlerBuilderRouter<N> router,
+    static <N extends Node<N, ?, ?, ?>, V> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N, V> with(final HateosHandlerBuilderRouter<N, V> router,
                                                                                                                final HttpRequest request,
                                                                                                                final HttpResponse response) {
-        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N>(router,
+        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N, V>(router,
                 request,
                 response);
     }
@@ -44,7 +44,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N ext
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut(final HateosHandlerBuilderRouter<N> router,
+    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut(final HateosHandlerBuilderRouter<N, V> router,
                                                                            final HttpRequest request,
                                                                            final HttpResponse response) {
         super(router, request, response);
