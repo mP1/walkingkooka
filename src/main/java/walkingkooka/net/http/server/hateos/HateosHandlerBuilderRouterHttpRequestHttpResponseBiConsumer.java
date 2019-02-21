@@ -52,31 +52,37 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extend
      */
     @Override
     public void accept(final HttpRequest request, final HttpResponse response) {
-        do {
-            final HttpMethod httpMethod = request.method();
-            if (httpMethod.equals(HttpMethod.GET)) {
-                HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet.with(this.router, request, response)
-                        .execute();
+        try {
+            do {
+                final HttpMethod httpMethod = request.method();
+                if (httpMethod.equals(HttpMethod.GET)) {
+                    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet.with(this.router, request, response)
+                            .execute();
+                    break;
+                }
+                if (httpMethod.equals(HttpMethod.POST)) {
+                    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost.with(this.router, request, response)
+                            .execute();
+                    break;
+                }
+                if (httpMethod.equals(HttpMethod.PUT)) {
+                    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut.with(this.router, request, response)
+                            .execute();
+                    break;
+                }
+                if (httpMethod.equals(HttpMethod.DELETE)) {
+                    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete.with(this.router, request, response)
+                            .execute();
+                    break;
+                }
+                methodNotAllowed(httpMethod.value(), response);
                 break;
-            }
-            if (httpMethod.equals(HttpMethod.POST)) {
-                HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost.with(this.router, request, response)
-                        .execute();
-                break;
-            }
-            if (httpMethod.equals(HttpMethod.PUT)) {
-                HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut.with(this.router, request, response)
-                        .execute();
-                break;
-            }
-            if (httpMethod.equals(HttpMethod.DELETE)) {
-                HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete.with(this.router, request, response)
-                        .execute();
-                break;
-            }
-            methodNotAllowed(httpMethod.value(), response);
-            break;
-        } while (false);
+            } while (false);
+        } catch (final UnsupportedOperationException unsupported) {
+            response.setStatus(HttpStatusCode.NOT_IMPLEMENTED.setMessage(unsupported.getMessage()));
+        } catch (final IllegalArgumentException badRequest) {
+            response.setStatus(HttpStatusCode.BAD_REQUEST.setMessage(badRequest.getMessage()));
+        }
     }
 
     static void methodNotAllowed(final String message,

@@ -181,6 +181,48 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     }
 
     @Test
+    public void testGetIllegalArgumentExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.get(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosGetHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public Optional<JsonNode> get(final BigInteger id,
+                                                  final Map<HttpRequestParameterName, List<String>> parameters,
+                                                  final HateosHandlerContext<JsonNode> context) {
+                        throw new IllegalArgumentException("Invalid parameter");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.GET,
+                "/api/resource1/123/self",
+                NO_BODY,
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid parameter"));
+    }
+
+    @Test
+    public void testGetUnsupportedOperationExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.get(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosGetHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public Optional<JsonNode> get(final BigInteger id,
+                                                  final Map<HttpRequestParameterName, List<String>> parameters,
+                                                  final HateosHandlerContext<JsonNode> context) {
+                        throw new UnsupportedOperationException("Not available 123");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.GET,
+                "/api/resource1/123/self",
+                NO_BODY,
+                HttpStatusCode.NOT_IMPLEMENTED.setMessage("Not available 123"));
+    }
+
+    @Test
     public void testGetContextAddLinks() {
         final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
         builder.get(this.resourceName1(),
@@ -296,6 +338,50 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 "{}");
 
         assertEquals(true, getted.value(), "Getted");
+    }
+
+    // GET COLLECTION THROWS ............................................................................................
+
+    @Test
+    public void testGetCollectionIllegalArgumentExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.get(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosGetHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public Optional<JsonNode> getCollection(final Range<BigInteger> id,
+                                                            final Map<HttpRequestParameterName, List<String>> parameters,
+                                                            final HateosHandlerContext<JsonNode> context) {
+                        throw new IllegalArgumentException("Invalid parameter");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.GET,
+                "/api/resource1/*/self",
+                NO_BODY,
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid parameter"));
+    }
+
+    @Test
+    public void testGetCollectionUnsupportedOperationExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.get(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosGetHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public Optional<JsonNode> getCollection(final Range<BigInteger> id,
+                                                            final Map<HttpRequestParameterName, List<String>> parameters,
+                                                            final HateosHandlerContext<JsonNode> context) {
+                        throw new UnsupportedOperationException("Not available 123");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.GET,
+                "/api/resource1/*/self",
+                NO_BODY,
+                HttpStatusCode.NOT_IMPLEMENTED.setMessage("Not available 123"));
     }
 
     // GET COLLECTION WILDCARD ................................................................................................
@@ -554,6 +640,50 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         assertEquals(true, posted.value(), "Posted");
     }
 
+    // POST RESOURCE THROWS................................................................................................
+
+    @Test
+    public void testPostIllegalArgumentExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.post(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosPostHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public JsonNode post(final Optional<BigInteger> id,
+                                         final JsonNode body,
+                                         final HateosHandlerContext<JsonNode> context) {
+                        throw new IllegalArgumentException("Invalid parameter");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.POST,
+                "/api/resource1/123/self",
+                BODY,
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid parameter"));
+    }
+
+    @Test
+    public void testPostUnsupportedOperationExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.post(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosPostHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public JsonNode post(final Optional<BigInteger> id,
+                                         final JsonNode body,
+                                         final HateosHandlerContext<JsonNode> context) {
+                        throw new UnsupportedOperationException("Not available 123");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.POST,
+                "/api/resource1/123/self",
+                BODY,
+                HttpStatusCode.NOT_IMPLEMENTED.setMessage("Not available 123"));
+    }
+
     // POST RESOURCE WILDCARD................................................................................................
 
     @Test
@@ -699,6 +829,50 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 null);
     }
 
+    // PUT RESOURCE THROWS................................................................................................
+
+    @Test
+    public void testPutIllegalArgumentExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.put(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosPutHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public JsonNode put(final BigInteger id,
+                                        final JsonNode body,
+                                        final HateosHandlerContext<JsonNode> context) {
+                        throw new IllegalArgumentException("Invalid parameter");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.PUT,
+                "/api/resource1/123/self",
+                BODY,
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid parameter"));
+    }
+
+    @Test
+    public void testPutUnsupportedOperationExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.put(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosPutHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public JsonNode put(final BigInteger id,
+                                        final JsonNode body,
+                                        final HateosHandlerContext<JsonNode> context) {
+                        throw new UnsupportedOperationException("Not available 123");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.PUT,
+                "/api/resource1/123/self",
+                BODY,
+                HttpStatusCode.NOT_IMPLEMENTED.setMessage("Not available 123"));
+    }
+
     private void addPutHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
                                final BigInteger id,
                                final String reply,
@@ -809,6 +983,48 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 url,
                 NO_BODY,
                 status.setMessage(statusMessage));
+    }
+
+    // DELETE RESOURCE THROWS................................................................................................
+
+    @Test
+    public void testDeleteIllegalArgumentExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.delete(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public void delete(final BigInteger id,
+                                       final HateosHandlerContext<JsonNode> context) {
+                        throw new IllegalArgumentException("Invalid parameter");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.DELETE,
+                "/api/resource1/123/self",
+                BODY,
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid parameter"));
+    }
+
+    @Test
+    public void testDeleteUnsupportedOperationExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.delete(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public void delete(final BigInteger id,
+                                       final HateosHandlerContext<JsonNode> context) {
+                        throw new UnsupportedOperationException("Not available 123");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.DELETE,
+                "/api/resource1/123/self",
+                BODY,
+                HttpStatusCode.NOT_IMPLEMENTED.setMessage("Not available 123"));
     }
 
     // DeleteCollection WithoutId RESOURCE ................................................................................................
@@ -965,6 +1181,48 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 "Delete collection successful");
 
         assertEquals(true, deleted.value(), "Deleted");
+    }
+
+    // DELETE COLLECTION THROWS ............................................................................................
+
+    @Test
+    public void testDeleteCollectionIllegalArgumentExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.delete(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public void deleteCollection(final Range<BigInteger> id,
+                                                 final HateosHandlerContext<JsonNode> context) {
+                        throw new IllegalArgumentException("Invalid parameter");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.DELETE,
+                "/api/resource1/*/self",
+                NO_BODY,
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid parameter"));
+    }
+
+    @Test
+    public void testDeleteCollectionUnsupportedOperationExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.delete(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public void deleteCollection(final Range<BigInteger> id,
+                                                 final HateosHandlerContext<JsonNode> context) {
+                        throw new UnsupportedOperationException("Not available 123");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.DELETE,
+                "/api/resource1/*/self",
+                NO_BODY,
+                HttpStatusCode.NOT_IMPLEMENTED.setMessage("Not available 123"));
     }
 
     // DELETE HELPERS.....................................................................................................
