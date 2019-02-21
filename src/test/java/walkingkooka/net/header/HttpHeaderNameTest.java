@@ -325,17 +325,17 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     // HttpRequestAttribute.................................................................................
 
     @Test
-    public void testParameterValue() {
+    public void testParameterValueRequest() {
         this.parameterValueAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
     }
 
     @Test
-    public void testParameterValue2() {
+    public void testParameterValueRequest2() {
         this.parameterValueAndCheck(HttpHeaderName.USER_AGENT, "Browser 123");
     }
 
     @Test
-    public void testParameterValueAbsent() {
+    public void testParameterValueRequestAbsent() {
         this.parameterValueAndCheck(HttpHeaderName.CONTENT_LENGTH, null);
     }
 
@@ -347,6 +347,15 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                         return Maps.one(header, value);
                     }
                 }));
+    }
+
+    @Test
+    public void testParameterValueMap() {
+        final HttpHeaderName<String> header = HttpHeaderName.USER_AGENT;
+        final String value = "Browser123";
+
+        assertEquals(Optional.ofNullable(value),
+                header.parameterValue(Maps.one(header, value)));
     }
 
     @Override

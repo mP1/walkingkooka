@@ -37,6 +37,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class CookieNameTest implements ClassTesting2<CookieName>,
         NameTesting2<CookieName, CookieName> {
 
+    private final static String NAME = "cookie123";
+    private final static String VALUE = "value123";
+
     /**
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
      * It also must not contain a separator character like the following: ( ) < > @ , ; : \ " /  [ ] ? = { }.
@@ -139,7 +142,6 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
         });
     }
 
-
     @Test
     public void testEqualsSignFails() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -163,9 +165,9 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
     }
 
     @Test
-    public void testParameterValue() {
-        final CookieName name = CookieName.with("cookie123");
-        assertEquals(Optional.of(Cookie.client(name, "value123")),
+    public void testParameterValueRequest() {
+        final CookieName name = this.cookieName();
+        assertEquals(Optional.of(Cookie.client(name, VALUE)),
                 name.parameterValue(new FakeHttpRequest() {
 
                     @Override
@@ -173,6 +175,14 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
                         return Maps.one(HttpHeaderName.COOKIE, Cookie.parseClientHeader("a=b;cookie123=value123;x=y"));
                     }
                 }));
+    }
+
+    @Test
+    public void testParameterValueMap() {
+        final CookieName name = this.cookieName();
+        final ClientCookie cookie = Cookie.client(name, VALUE);
+        assertEquals(Optional.of(cookie),
+                name.parameterValue(Maps.one(name, cookie)));
     }
 
     @Test
@@ -187,7 +197,11 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(CookieName.with("cookie123"), "cookie123");
+        this.toStringAndCheck(this.cookieName(), NAME);
+    }
+
+    private CookieName cookieName() {
+        return CookieName.with(NAME);
     }
 
     @Override
@@ -202,7 +216,7 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
 
     @Override
     public String nameText() {
-        return "cookie123";
+        return NAME;
     }
 
     @Override
