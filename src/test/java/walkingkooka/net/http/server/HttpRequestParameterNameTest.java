@@ -21,6 +21,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
@@ -36,7 +37,7 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
         NameTesting<HttpRequestParameterName, HttpRequestParameterName> {
 
     @Test
-    public void testParameterValue() {
+    public void testParameterValueRequest() {
         final HttpRequestParameterName name = HttpRequestParameterName.with("parameter1");
         final List<String> value = Lists.of("a", "b", "c");
 
@@ -48,6 +49,15 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
                         return value;
                     }
                 }));
+    }
+
+    @Test
+    public void testParameterValueMap() {
+        final HttpRequestParameterName name = HttpRequestParameterName.with("parameter1");
+        final List<String> value = Lists.of("a", "b", "c");
+
+        assertEquals(Optional.of(value),
+                name.parameterValue(Maps.one(name, value)));
     }
 
     @Override

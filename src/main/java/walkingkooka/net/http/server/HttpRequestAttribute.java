@@ -32,7 +32,7 @@ public interface HttpRequestAttribute<T> {
     /**
      * A typed getter that retrieves an attribute's value.
      */
-    default Optional<T> parameterValue(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    default Optional<T> parameterValue(final Map<? extends HttpRequestAttribute<?>, ? extends Object> parameters) {
         Objects.requireNonNull(parameters, "parameters");
 
         return Optional.ofNullable(Cast.to(parameters.get(this)));

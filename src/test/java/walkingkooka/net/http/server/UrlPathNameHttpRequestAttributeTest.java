@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPathName;
@@ -57,7 +58,7 @@ public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<
     }
 
     @Test
-    public void testParameterValue() {
+    public void testParameterValueRequest() {
         final UrlPathNameHttpRequestAttribute name = UrlPathNameHttpRequestAttribute.with(2);
 
         assertEquals(Optional.of(UrlPathName.with("path2")),
@@ -67,6 +68,15 @@ public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<
                         return Url.parseRelative("/path1/path2/path3");
                     }
                 }));
+    }
+
+    @Test
+    public void testParameterValueMap() {
+        final UrlPathNameHttpRequestAttribute name = UrlPathNameHttpRequestAttribute.with(2);
+        final UrlPathName value = UrlPathName.with("path2");
+
+        assertEquals(Optional.of(value),
+                name.parameterValue(Maps.one(name, value)));
     }
 
     @Test
