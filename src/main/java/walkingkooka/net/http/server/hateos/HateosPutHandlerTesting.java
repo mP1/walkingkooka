@@ -21,6 +21,7 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.Node;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -58,7 +59,31 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
     default N put(final I id,
                   final N resource,
                   final HateosHandlerContext<N> context) {
-        return this.createHandler().put(id, resource, context);
+        return this.put(this.createHandler(), id, resource, context);
+    }
+
+    default N put(final HateosPutHandler<I, N> handler,
+                  final I id,
+                  final N resource,
+                  final HateosHandlerContext<N> context) {
+        return handler.put(id, resource, context);
+    }
+
+    default void putAndCheck(final I id,
+                             final N resource,
+                             final HateosHandlerContext<N> context,
+                             final N result) {
+        this.putAndCheck(this.createHandler(), id, resource, context, result);
+    }
+
+    default void putAndCheck(final HateosPutHandler<I, N> handler,
+                             final I id,
+                             final N resource,
+                             final HateosHandlerContext<N> context,
+                             final N result) {
+        assertEquals(result,
+                this.put(handler, id, resource, context),
+                () -> handler + " id=" + id + ", resource: " + resource + ", context: " + context);
     }
 
     I id();
