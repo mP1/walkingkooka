@@ -18,12 +18,19 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
 public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGetTest extends
         HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<JsonNode, HasJsonNode>> {
+
+    @Test
+    public void testThrowsIllArgumentExceptionBadRequest() {
+
+    }
+
     @Override
     public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<JsonNode, HasJsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet.class);
