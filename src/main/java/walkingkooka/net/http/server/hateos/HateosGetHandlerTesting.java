@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -64,7 +65,39 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<I, N>, I ext
     default Optional<N> get(final I id,
                             final Map<HttpRequestParameterName, List<String>> parameters,
                             final HateosHandlerContext<N> context) {
-        return this.createHandler().get(id, parameters, context);
+        return this.get(this.createHandler(), id, parameters, context);
+    }
+
+    default Optional<N> get(final HateosGetHandler<I, N> handler,
+                            final I id,
+                            final Map<HttpRequestParameterName, List<String>> parameters,
+                            final HateosHandlerContext<N> context) {
+        return handler.get(id, parameters, context);
+    }
+
+    default void getAndCheck(final HateosGetHandler<I, N> handler,
+                             final I id,
+                             final Map<HttpRequestParameterName, List<String>> parameters,
+                             final HateosHandlerContext<N> context) {
+        this.getAndCheck(handler, id, parameters, context, Optional.empty());
+    }
+
+    default void getAndCheck(final HateosGetHandler<I, N> handler,
+                             final I id,
+                             final Map<HttpRequestParameterName, List<String>> parameters,
+                             final HateosHandlerContext<N> context,
+                             final N result) {
+        this.getAndCheck(handler, id, parameters, context, Optional.of(result));
+    }
+
+    default void getAndCheck(final HateosGetHandler<I, N> handler,
+                             final I id,
+                             final Map<HttpRequestParameterName, List<String>> parameters,
+                             final HateosHandlerContext<N> context,
+                             final Optional<N> result) {
+        assertEquals(result,
+                this.get(handler, id, parameters, context),
+                () -> handler + " id=" + id + ", parameters: " + parameters + ", context: " + context);
     }
 
     @Test
@@ -94,10 +127,42 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<I, N>, I ext
         });
     }
 
-    default Optional<N> getCollection(final Range<I> collection,
+    default Optional<N> getCollection(final Range<I> ids,
                                       final Map<HttpRequestParameterName, List<String>> parameters,
                                       final HateosHandlerContext<N> context) {
-        return this.createHandler().getCollection(collection, parameters, context);
+        return this.getCollection(this.createHandler(), ids, parameters, context);
+    }
+
+    default Optional<N> getCollection(final HateosGetHandler<I, N> handler,
+                                      final Range<I> ids,
+                                      final Map<HttpRequestParameterName, List<String>> parameters,
+                                      final HateosHandlerContext<N> context) {
+        return handler.getCollection(ids, parameters, context);
+    }
+
+    default void getCollectionAndCheck(final HateosGetHandler<I, N> handler,
+                                       final Range<I> ids,
+                                       final Map<HttpRequestParameterName, List<String>> parameters,
+                                       final HateosHandlerContext<N> context) {
+        this.getCollectionAndCheck(handler, ids, parameters, context, Optional.empty());
+    }
+
+    default void getCollectionAndCheck(final HateosGetHandler<I, N> handler,
+                                       final Range<I> ids,
+                                       final Map<HttpRequestParameterName, List<String>> parameters,
+                                       final HateosHandlerContext<N> context,
+                                       final N result) {
+        this.getCollectionAndCheck(handler, ids, parameters, context, Optional.of(result));
+    }
+
+    default void getCollectionAndCheck(final HateosGetHandler<I, N> handler,
+                                       final Range<I> ids,
+                                       final Map<HttpRequestParameterName, List<String>> parameters,
+                                       final HateosHandlerContext<N> context,
+                                       final Optional<N> result) {
+        assertEquals(result,
+                this.getCollection(handler, ids, parameters, context),
+                () -> handler + " ids=" + ids + ", parameters: " + parameters + ", context: " + context);
     }
 
     I id();

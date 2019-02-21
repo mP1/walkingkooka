@@ -23,6 +23,7 @@ import walkingkooka.tree.Node;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -60,7 +61,31 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
     default N post(final Optional<I> id,
                    final N resource,
                    final HateosHandlerContext<N> context) {
-        return this.createHandler().post(id, resource, context);
+        return this.post(this.createHandler(), id, resource, context);
+    }
+
+    default N post(final HateosPostHandler<I, N> handler,
+                   final Optional<I> id,
+                   final N resource,
+                   final HateosHandlerContext<N> context) {
+        return handler.post(id, resource, context);
+    }
+
+    default void postAndCheck(final Optional<I> id,
+                              final N resource,
+                              final HateosHandlerContext<N> context,
+                              final N result) {
+        this.postAndCheck(this.createHandler(), id, resource, context, result);
+    }
+
+    default void postAndCheck(final HateosPostHandler<I, N> handler,
+                              final Optional<I> id,
+                              final N resource,
+                              final HateosHandlerContext<N> context,
+                              final N result) {
+        assertEquals(result,
+                this.post(handler, id, resource, context),
+                () -> handler + " id=" + id + ", resource: " + resource + ", context: " + context);
     }
 
     Optional<I> id();
