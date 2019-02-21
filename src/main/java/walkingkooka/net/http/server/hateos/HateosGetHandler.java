@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.tree.Node;
@@ -30,6 +31,11 @@ import java.util.Optional;
  * Handles GET requests for an resource.
  */
 public interface HateosGetHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends HateosHandler<I, N> {
+
+    /**
+     * An empty {@link Map} with no parameters.
+     */
+    static Map<HttpRequestParameterName, List<String>> NO_PARAMETERS = Maps.empty();
 
     /**
      * Perform the GET operation.
