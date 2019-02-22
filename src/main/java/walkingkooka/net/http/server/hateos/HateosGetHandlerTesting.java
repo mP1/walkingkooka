@@ -37,29 +37,26 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<I, N>, I ext
 
     @Test
     default void testGetNullIdFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.get(null,
-                    this.parameters(),
-                    this.createContext());
-        });
+        this.getFails(null,
+                this.parameters(),
+                this.createContext(),
+                NullPointerException.class);
     }
 
     @Test
     default void testGetNullParametersFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.get(this.id(),
-                    null,
-                    this.createContext());
-        });
+        this.getFails(this.id(),
+                null,
+                this.createContext(),
+                NullPointerException.class);
     }
 
     @Test
     default void testGetNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.get(this.id(),
-                    this.parameters(),
-                    null);
-        });
+        this.getFails(this.id(),
+                this.parameters(),
+                null,
+                NullPointerException.class);
     }
 
     default Optional<N> get(final I id,
@@ -100,31 +97,45 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<I, N>, I ext
                 () -> handler + " id=" + id + ", parameters: " + parameters + ", context: " + context);
     }
 
+    default <T extends Throwable> T getFails(final I id,
+                                             final Map<HttpRequestParameterName, List<String>> parameters,
+                                             final HateosHandlerContext<N> context,
+                                             final Class<T> thrown) {
+        return this.getFails(id, parameters, context, thrown);
+    }
+
+    default <T extends Throwable> T getFails(final HateosGetHandler<I, N> handler,
+                                             final I id,
+                                             final Map<HttpRequestParameterName, List<String>> parameters,
+                                             final HateosHandlerContext<N> context,
+                                             final Class<T> thrown) {
+        return assertThrows(thrown, () -> {
+            this.get(handler, id, parameters, context);
+        });
+    }
+
     @Test
     default void testGetCollectionNullCollectionFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.getCollection(null,
+       this.getCollectionFails(null,
                     this.parameters(),
-                    this.createContext());
-        });
+                    this.createContext(),
+                    NullPointerException.class);
     }
 
     @Test
     default void testGetCollectionNullParametCollectionersFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.getCollection(this.collection(),
+        this.getCollectionFails(this.collection(),
                     null,
-                    this.createContext());
-        });
+                    this.createContext(),
+                    NullPointerException.class);
     }
 
     @Test
     default void testGetCollectionNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.getCollection(this.collection(),
+        this.getCollectionFails(this.collection(),
                     this.parameters(),
-                    null);
-        });
+                    null,
+                    NullPointerException.class);
     }
 
     default Optional<N> getCollection(final Range<I> ids,
@@ -163,6 +174,23 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<I, N>, I ext
         assertEquals(result,
                 this.getCollection(handler, ids, parameters, context),
                 () -> handler + " ids=" + ids + ", parameters: " + parameters + ", context: " + context);
+    }
+
+    default <T extends Throwable> T getCollectionFails(final Range<I> ids,
+                                                       final Map<HttpRequestParameterName, List<String>> parameters,
+                                                       final HateosHandlerContext<N> context,
+                                                       final Class<T> thrown) {
+        return this.getCollectionFails(ids, parameters, context, thrown);
+    }
+
+    default <T extends Throwable> T getCollectionFails(final HateosGetHandler<I, N> handler,
+                                                       final Range<I> ids,
+                                                       final Map<HttpRequestParameterName, List<String>> parameters,
+                                                       final HateosHandlerContext<N> context,
+                                                       final Class<T> thrown) {
+        return assertThrows(thrown, () -> {
+            this.getCollection(handler, ids, parameters, context);
+        });
     }
 
     I id();
