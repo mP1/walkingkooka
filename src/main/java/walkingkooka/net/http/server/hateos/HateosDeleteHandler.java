@@ -21,6 +21,8 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.compare.Range;
 import walkingkooka.tree.Node;
 
+import java.util.Optional;
+
 /**
  * Handles DELETE requests for an resource.
  */
@@ -30,11 +32,13 @@ public interface HateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
      * Deletes the request resource identified by the ID.
      */
     void delete(final I id,
+                final Optional<N> resource,
                 final HateosHandlerContext<N> context);
 
     /**
      * Deletes the request entities identified by the range of IDs.
      */
     void deleteCollection(final Range<I> ids,
+                          final Optional<N> resource,
                           final HateosHandlerContext<N> context);
 }

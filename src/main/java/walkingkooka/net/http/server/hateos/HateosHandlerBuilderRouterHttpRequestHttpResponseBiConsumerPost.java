@@ -61,10 +61,13 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost<N ex
         if (null != handlers) {
             final HateosPostHandler<?, N> post = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.post);
             if (null != post) {
-                this.setStatusAndBody("Post resource successful",
-                        post.post(Cast.to(Optional.empty()),
-                                this.resource(),
-                                this.router.postContext));
+                final Optional<N> resource = this.resourceOrBadRequest();
+                if (null != resource) {
+                    this.setStatusAndBody("Post resource successful",
+                            post.post(Cast.to(Optional.empty()),
+                                    resource.get(),
+                                    this.router.postContext));
+                }
             }
         }
     }
@@ -83,12 +86,15 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost<N ex
         if (null != handlers) {
             final Comparable<?> id = this.idOrBadRequest(idText, handlers);
             if (null != id) {
-                final HateosPostHandler<?, N> post = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.post);
-                if (null != post) {
-                    this.setStatusAndBody("Post resource successful",
-                            post.post(Cast.to(Optional.of(id)),
-                                    this.resource(),
-                                    this.router.postContext));
+                final Optional<N> resource = this.resourceOrBadRequest();
+                if(null!=resource) {
+                    final HateosPostHandler<?, N> post = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.post);
+                    if (null != post) {
+                        this.setStatusAndBody("Post resource successful",
+                                post.post(Cast.to(Optional.of(id)),
+                                        resource.get(),
+                                        this.router.postContext));
+                    }
                 }
             }
         }

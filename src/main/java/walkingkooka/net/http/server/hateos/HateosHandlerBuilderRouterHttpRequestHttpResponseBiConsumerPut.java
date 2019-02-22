@@ -24,6 +24,8 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
 
+import java.util.Optional;
+
 /**
  * Handles PUT requests.
  */
@@ -72,10 +74,13 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N ext
             if (null != id) {
                 final HateosPutHandler<?, N> put = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.put);
                 if (null != put) {
-                    this.setStatusAndBody("Put resource successful",
-                            put.put(Cast.to(id),
-                                    this.resource(),
-                                    this.router.putContext));
+                    final Optional<N> resource = this.resourceOrBadRequest();
+                    if(null!=resource) {
+                        this.setStatusAndBody("Put resource successful",
+                                put.put(Cast.to(id),
+                                        resource.get(),
+                                        this.router.putContext));
+                    }
                 }
             }
         }
