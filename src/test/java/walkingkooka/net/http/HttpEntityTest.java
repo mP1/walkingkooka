@@ -30,6 +30,7 @@ import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
 
 import java.nio.charset.Charset;
@@ -220,20 +221,76 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     // toString ....................................................................................................
 
     @Test
-    public void testToString() {
-        this.toStringAndCheck(HttpEntity.with(HEADERS, new byte[]{'A', 'B'}),
-                "Content-Length: 26\r\n\r\n4142");
+    public void testToStringText() {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8));
+        headers.put(HttpHeaderName.SERVER, "Server 123");
+
+        this.toStringAndCheck(HttpEntity.with(headers, new byte[]{'A', 'B', '\n', 'C'}),
+                "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
     }
 
     @Test
-    public void testToStringMultipleHeaders() {
+    public void testToStringBinary() throws Exception {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
-        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+
+        final String letters = "a";
+        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+                "Content-Length: 257\r\n\r\n" +
+                        "00000000 61                                              a               " + LineEnding.SYSTEM);
+    }
+
+    @Test
+    public void testToStringBinaryUnprintable() throws Exception {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+
+        final String letters = "\0";
+        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+                "Content-Length: 257\r\n\r\n" +
+                        "00000000 00                                              .               " + LineEnding.SYSTEM);
+    }
+
+    @Test
+    public void testToStringBinaryMultiLine() throws Exception {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+
+        final String letters = "abcdefghijklmnopq";
+        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+                "Content-Length: 257\r\n\r\n" +
+                        "00000000 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 abcdefghijklmnop" + LineEnding.SYSTEM +
+                        "00000010 71                                              q               " + LineEnding.SYSTEM);
+    }
+
+    @Test
+    public void testToStringBinaryMultiLine2() throws Exception {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+
+        final String letters = "\n\0cdefghijklmnopq";
+        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+                "Content-Length: 257\r\n\r\n" +
+                        "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.SYSTEM +
+                        "00000010 71                                              q               " + LineEnding.SYSTEM);
+    }
+
+    @Test
+    public void testToStringMultipleHeadersBinary() throws Exception {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY);
         headers.put(HttpHeaderName.SERVER, "Server 123");
 
-        this.toStringAndCheck(HttpEntity.with(headers, new byte[]{'A', 'B'}),
-                "Content-Length: 257\r\nContent-Type: text/plain\r\nServer: Server 123\r\n\r\n4142");
+        final String letters = "\n\0cdefghijklmnopq";
+        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+                "Content-Length: 257\r\n" +
+                        "Content-Type: application/octet-stream\r\n" +
+                        "Server: Server 123\r\n\r\n" +
+                        "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.SYSTEM +
+                        "00000010 71                                              q               " + LineEnding.SYSTEM);
     }
 
     // factory text............................................................................................

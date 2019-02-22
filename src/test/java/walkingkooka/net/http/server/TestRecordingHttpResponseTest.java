@@ -95,7 +95,7 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
                 "503 Problem x y z\n" +
                         "Server: Server 123\n" +
                         "\n" +
-                        "414243");
+                        "00000000 41 42 43                                        ABC             \n");
     }
 
     @Override public TestRecordingHttpResponse createResponse() {

@@ -30,6 +30,8 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.Ascii;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.LineEnding;
 
@@ -297,10 +299,61 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
         // body
         b.valueSeparator("");
-        b.enable(ToStringBuilderOption.HEX_BYTES);
-        b.valueLength(80);
-        b.value(this.body);
+
+        byte[] body = this.body;
+        final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.headerValue(this.headers);
+        if (mediaType.isPresent()) {
+            final Optional<CharsetName> charsetName = MediaTypeParameterName.CHARSET.parameterValue(mediaType.get());
+            if (charsetName.isPresent()) {
+                final Optional<Charset> charset = charsetName.get().charset();
+                if (charset.isPresent()) {
+                    b.value(new String(body, charset.get()));
+                    body = null;
+                }
+            }
+        }
+
+        if (null != body) {
+            // hex dump
+            // offset-HEX_DUMP_WIDTH-chars space hexdigit *HEX_DUMP_WIDTH space separated ascii
+            b.enable(ToStringBuilderOption.HEX_BYTES);
+            b.valueSeparator(" ");
+            b.labelSeparator(" ");
+
+            final int length = body.length;
+            for (int i = 0; i < length; i = i + HEX_DUMP_WIDTH) {
+                // offset
+                b.append(CharSequences.padLeft(Integer.toHexString(i), 8, '0').toString());
+                b.append(' ');
+
+                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
+                    final int k = i + j;
+                    if (k < length) {
+                        b.value(body[k]);
+                    } else {
+                        b.value("  ");
+                    }
+                }
+
+                b.append(' ');
+
+                for (int j = 0; j < HEX_DUMP_WIDTH; j++) {
+                    final int k = i + j;
+                    if (k < length) {
+                        final char c = (char) body[k];
+                        b.append(Ascii.isPrintable(c) ? c : UNPRINTABLE_CHAR);
+                    } else {
+                        b.append(' ');
+                    }
+                }
+
+                b.append(LineEnding.SYSTEM);
+            }
+        }
 
         return b.build();
     }
+
+    private final static int HEX_DUMP_WIDTH = 16;
+    private final static char UNPRINTABLE_CHAR = '.';
 }
