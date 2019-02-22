@@ -54,6 +54,12 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost<N ex
         super(router, request, response);
     }
 
+
+    @Override
+    HttpMethod method() {
+        return HttpMethod.POST;
+    }
+
     @Override
     void idMissing(final HateosResourceName resourceName,
                    final LinkRelation<?> linkRelation) {
