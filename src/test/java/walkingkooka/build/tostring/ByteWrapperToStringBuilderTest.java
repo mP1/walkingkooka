@@ -25,11 +25,22 @@ public final class ByteWrapperToStringBuilderTest extends WrapperToStringBuilder
     public void testValueWithHexEncoding() {
         final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.HEX_BYTES);
-        b.value(12);
+        b.value((byte)0x12);
         b.label(LABEL);
-        b.value(34);
+        b.value((byte)0x34);
 
         this.buildAndCheck(b, "12 " + LABEL + "=34");
+    }
+
+    @Test
+    public void testValueWithHexEncodingLetters() {
+        final ToStringBuilder b = ToStringBuilder.empty();
+        b.enable(ToStringBuilderOption.HEX_BYTES);
+        b.value((byte)0xFe);
+        b.label(LABEL);
+        b.value((byte)0x3f);
+
+        this.buildAndCheck(b, "fe " + LABEL + "=3f");
     }
 
     @Override

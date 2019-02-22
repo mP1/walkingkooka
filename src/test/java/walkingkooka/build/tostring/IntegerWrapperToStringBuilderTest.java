@@ -31,6 +31,16 @@ public final class IntegerWrapperToStringBuilderTest extends WrapperToStringBuil
         this.buildAndCheck(b, "00000001");
     }
 
+    @Test
+    public void testHexWholeNumberAFLetters() {
+        final ToStringBuilder b = this.builder();
+        b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
+
+        b.value(Integer.valueOf(0x1ABCDEF));
+
+        this.buildAndCheck(b, "01abcdef");
+    }
+
     @Override
     Integer defaultValue() {
         return 0;

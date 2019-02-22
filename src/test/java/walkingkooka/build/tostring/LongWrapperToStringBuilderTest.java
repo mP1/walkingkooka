@@ -31,6 +31,16 @@ public final class LongWrapperToStringBuilderTest extends WrapperToStringBuilder
         this.buildAndCheck(b, "0000000000000001");
     }
 
+    @Test
+    public void testValueHexWholeNumberWithAtoFLetters() {
+        final ToStringBuilder b = this.builder();
+        b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
+
+        b.value(Long.valueOf(0x1ABCDEF));
+
+        this.buildAndCheck(b, "0000000001abcdef");
+    }
+
     @Override
     Long defaultValue() {
         return 0L;
