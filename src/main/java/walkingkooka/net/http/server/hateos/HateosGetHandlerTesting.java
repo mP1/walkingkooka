@@ -101,7 +101,11 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<I, N>, I ext
                                              final Map<HttpRequestParameterName, List<String>> parameters,
                                              final HateosHandlerContext<N> context,
                                              final Class<T> thrown) {
-        return this.getFails(id, parameters, context, thrown);
+        return this.getFails(this.createHandler(),
+                id,
+                parameters,
+                context,
+                thrown);
     }
 
     default <T extends Throwable> T getFails(final HateosGetHandler<I, N> handler,
@@ -180,7 +184,11 @@ public interface HateosGetHandlerTesting<H extends HateosGetHandler<I, N>, I ext
                                                        final Map<HttpRequestParameterName, List<String>> parameters,
                                                        final HateosHandlerContext<N> context,
                                                        final Class<T> thrown) {
-        return this.getCollectionFails(ids, parameters, context, thrown);
+        return this.getCollectionFails(this.createHandler(),
+                ids,
+                parameters,
+                context,
+                thrown);
     }
 
     default <T extends Throwable> T getCollectionFails(final HateosGetHandler<I, N> handler,

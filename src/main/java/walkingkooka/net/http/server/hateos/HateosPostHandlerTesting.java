@@ -89,7 +89,11 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
                                               final N resource,
                                               final HateosHandlerContext<N> context,
                                               final Class<T> thrown) {
-        return this.postFails(id, resource, context, thrown);
+        return this.postFails(this.createHandler(),
+                id,
+                resource,
+                context,
+                thrown);
     }
 
     default <T extends Throwable> T postFails(final HateosPostHandler<I, N> handler,

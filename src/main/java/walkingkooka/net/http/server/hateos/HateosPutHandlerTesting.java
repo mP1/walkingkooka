@@ -87,7 +87,11 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
                                              final N resource,
                                              final HateosHandlerContext<N> context,
                                              final Class<T> thrown) {
-        return this.putFails(id, resource, context, thrown);
+        return this.putFails(this.createHandler(),
+                id,
+                resource,
+                context,
+                thrown);
     }
 
     default <T extends Throwable> T putFails(final HateosPutHandler<I, N> handler,
