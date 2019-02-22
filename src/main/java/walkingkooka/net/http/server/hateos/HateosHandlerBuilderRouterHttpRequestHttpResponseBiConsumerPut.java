@@ -20,6 +20,7 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
 import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
@@ -50,6 +51,11 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N ext
                                                                            final HttpRequest request,
                                                                            final HttpResponse response) {
         super(router, request, response);
+    }
+
+    @Override
+    HttpMethod method() {
+        return HttpMethod.PUT;
     }
 
     @Override

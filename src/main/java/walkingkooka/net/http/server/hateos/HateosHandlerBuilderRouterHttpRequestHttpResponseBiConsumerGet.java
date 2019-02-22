@@ -57,6 +57,11 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N ext
     }
 
     @Override
+    HttpMethod method() {
+        return HttpMethod.GET;
+    }
+
+    @Override
     void idMissing(final HateosResourceName resourceName,
                    final LinkRelation<?> linkRelation) {
         this.collection0(resourceName, linkRelation);

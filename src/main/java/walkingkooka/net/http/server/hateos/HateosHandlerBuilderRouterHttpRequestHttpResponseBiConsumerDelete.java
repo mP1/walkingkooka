@@ -57,6 +57,11 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
     }
 
     @Override
+    HttpMethod method() {
+        return HttpMethod.DELETE;
+    }
+
+    @Override
     void idMissing(final HateosResourceName resourceName,
                    final LinkRelation<?> linkRelation) {
         this.collection0(resourceName, linkRelation);

@@ -342,10 +342,12 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
                                                                               final LinkRelation<?> linkRelation,
                                                                               final H handler) {
         if (null == handler) {
-            this.methodNotAllowed(resourceName, linkRelation);
+            this.methodNotAllowed(this.method(), resourceName, linkRelation);
         }
         return handler;
     }
+
+    abstract HttpMethod method();
 
     // error reporting.............................................................................................
 
@@ -361,9 +363,10 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
         this.setStatus(HttpStatusCode.BAD_REQUEST, message);
     }
 
-    final void methodNotAllowed(final HateosResourceName resourceName,
+    final void methodNotAllowed(final HttpMethod method,
+                                final HateosResourceName resourceName,
                                 final LinkRelation<?> linkRelation) {
-        methodNotAllowed(message(resourceName, linkRelation));
+        methodNotAllowed(method + " " + message(resourceName, linkRelation));
     }
 
     private void methodNotAllowed(final String message) {
