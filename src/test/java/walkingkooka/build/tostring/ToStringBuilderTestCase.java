@@ -186,9 +186,9 @@ public abstract class ToStringBuilderTestCase<T> {
     final void buildAndCheck(final ToStringBuilder builder, final String expected) {
         final String built = builder.build();
         if (false == expected.equals(built)) {
-            assertEquals("options=" + builder.options.toString(),
-                    format(expected),
-                    format(built));
+            assertEquals(format(expected),
+                    format(built),
+                    "options=" + builder.options.toString());
         }
     }
 
