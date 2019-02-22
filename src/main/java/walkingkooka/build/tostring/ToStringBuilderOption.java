@@ -107,7 +107,7 @@ public enum ToStringBuilderOption {
      * Encodes the given value into its hex form and pads with leading zeroes of required.
      */
     static private void addHex(final long value, final StringBuilder buffer, final int pad) {
-        buffer.append(CharSequences.padLeft(Long.toHexString(value).toUpperCase(), pad, '0'));
+        buffer.append(CharSequences.padLeft(Long.toHexString(value).toLowerCase(), pad, '0'));
     }
 
     void add(final short value, final StringBuilder buffer) {
