@@ -31,18 +31,16 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
 
     @Test
     default void testDeleteNullIdFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.delete(null,
-                    this.createContext());
-        });
+        this.deleteFails(null,
+                this.createContext(),
+                NullPointerException.class);
     }
 
     @Test
     default void testDeleteNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.delete(this.id(),
-                    null);
-        });
+        this.deleteFails(this.id(),
+                null,
+                NullPointerException.class);
     }
 
     default void delete(final I id,
@@ -50,25 +48,59 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
         this.createHandler().delete(id, context);
     }
 
-    @Test
-    default void testDeleteCollectionNullIdRangeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.deleteCollection(null,
-                    this.createContext());
+    default <T extends Throwable> T deleteFails(final I id,
+                                                final HateosHandlerContext<N> context,
+                                                final Class<T> thrown) {
+        return this.deleteFails(this.createHandler(),
+                id,
+                context,
+                thrown);
+    }
+
+    default <T extends Throwable> T deleteFails(final HateosDeleteHandler<I, N> handler,
+                                                final I id,
+                                                final HateosHandlerContext<N> context,
+                                                final Class<T> thrown) {
+        return assertThrows(thrown, () -> {
+            handler.delete(id, context);
         });
     }
 
     @Test
+    default void testDeleteCollectionNullIdRangeFails() {
+        this.deleteCollectionFails(null,
+                this.createContext(),
+                NullPointerException.class);
+    }
+
+    @Test
     default void testDeleteCollectionNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.deleteCollection(this.collection(),
-                    null);
-        });
+        this.deleteCollectionFails(this.collection(),
+                null,
+                NullPointerException.class);
     }
 
     default void deleteCollection(final Range<I> collection,
                                   final HateosHandlerContext<N> context) {
         this.createHandler().deleteCollection(collection, context);
+    }
+
+    default <T extends Throwable> T deleteCollectionFails(final Range<I> ids,
+                                                          final HateosHandlerContext<N> context,
+                                                          final Class<T> thrown) {
+        return this.deleteCollectionFails(this.createHandler(),
+                ids,
+                context,
+                thrown);
+    }
+
+    default <T extends Throwable> T deleteCollectionFails(final HateosDeleteHandler<I, N> handler,
+                                                          final Range<I> ids,
+                                                          final HateosHandlerContext<N> context,
+                                                          final Class<T> thrown) {
+        return assertThrows(thrown, () -> {
+            handler.deleteCollection(ids, context);
+        });
     }
 
     I id();

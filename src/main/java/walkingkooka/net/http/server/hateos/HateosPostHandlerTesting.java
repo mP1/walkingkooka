@@ -33,29 +33,26 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
 
     @Test
     default void testPostNullIdFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.post(null,
-                    this.resource(),
-                    this.createContext());
-        });
+        this.postFails(null,
+                this.resource(),
+                this.createContext(),
+                NullPointerException.class);
     }
 
     @Test
     default void testPostNullResourceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.post(this.id(),
-                    null,
-                    this.createContext());
-        });
+        this.postFails(this.id(),
+                null,
+                this.createContext(),
+                NullPointerException.class);
     }
 
     @Test
     default void testPostNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.post(this.id(),
-                    this.resource(),
-                    null);
-        });
+        this.postFails(this.id(),
+                this.resource(),
+                null,
+                NullPointerException.class);
     }
 
     default N post(final Optional<I> id,
@@ -86,6 +83,23 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
         assertEquals(result,
                 this.post(handler, id, resource, context),
                 () -> handler + " id=" + id + ", resource: " + resource + ", context: " + context);
+    }
+
+    default <T extends Throwable> T postFails(final Optional<I> id,
+                                              final N resource,
+                                              final HateosHandlerContext<N> context,
+                                              final Class<T> thrown) {
+        return this.postFails(id, resource, context, thrown);
+    }
+
+    default <T extends Throwable> T postFails(final HateosPostHandler<I, N> handler,
+                                              final Optional<I> id,
+                                              final N resource,
+                                              final HateosHandlerContext<N> context,
+                                              final Class<T> thrown) {
+        return assertThrows(thrown, () -> {
+            this.post(handler, id, resource, context);
+        });
     }
 
     Optional<I> id();

@@ -31,29 +31,26 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
 
     @Test
     default void testPutNullIdFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.put(null,
-                    this.resource(),
-                    this.createContext());
-        });
+        this.putFails(null,
+                this.resource(),
+                this.createContext(),
+                NullPointerException.class);
     }
 
     @Test
     default void testPutNullResourceFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.put(this.id(),
-                    null,
-                    this.createContext());
-        });
+        this.putFails(this.id(),
+                null,
+                this.createContext(),
+                NullPointerException.class);
     }
 
     @Test
     default void testPutNullContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.put(this.id(),
-                    this.resource(),
-                    null);
-        });
+        this.putFails(this.id(),
+                this.resource(),
+                null,
+                NullPointerException.class);
     }
 
     default N put(final I id,
@@ -84,6 +81,23 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
         assertEquals(result,
                 this.put(handler, id, resource, context),
                 () -> handler + " id=" + id + ", resource: " + resource + ", context: " + context);
+    }
+
+    default <T extends Throwable> T putFails(final I id,
+                                             final N resource,
+                                             final HateosHandlerContext<N> context,
+                                             final Class<T> thrown) {
+        return this.putFails(id, resource, context, thrown);
+    }
+
+    default <T extends Throwable> T putFails(final HateosPutHandler<I, N> handler,
+                                             final I id,
+                                             final N resource,
+                                             final HateosHandlerContext<N> context,
+                                             final Class<T> thrown) {
+        return assertThrows(thrown, () -> {
+            this.put(handler, id, resource, context);
+        });
     }
 
     I id();
