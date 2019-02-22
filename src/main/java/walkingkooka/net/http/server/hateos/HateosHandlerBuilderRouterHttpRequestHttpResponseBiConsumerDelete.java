@@ -27,6 +27,8 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
 
+import java.util.Optional;
+
 /**
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
@@ -87,8 +89,13 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
             if (null != id) {
                 final HateosDeleteHandler<?, N> delete = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.delete);
                 if (null != delete) {
-                    delete.delete(Cast.to(id), this.router.deleteContext);
-                    this.setStatusDeleted("resource");
+                    final Optional<N> resource = this.resourceOrBadRequest();
+                    if (null != resource) {
+                        delete.delete(Cast.to(id),
+                                resource,
+                                this.router.deleteContext);
+                        this.setStatusDeleted("resource");
+                    }
                 }
             }
         }
@@ -114,8 +121,13 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
 
     private void collection1(final Range<Comparable<?>> range,
                              final HateosDeleteHandler<?, N> delete) {
-        delete.deleteCollection(Cast.to(range), this.router.deleteContext);
-        this.setStatusDeleted("collection");
+        final Optional<N> resource = this.resourceOrBadRequest();
+        if (null != resource) {
+            delete.deleteCollection(Cast.to(range),
+                    resource,
+                    this.router.deleteContext);
+            this.setStatusDeleted("collection");
+        }
     }
 
     private void setStatusDeleted(final String label) {

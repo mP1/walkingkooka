@@ -23,6 +23,7 @@ import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link HateosDeleteHandler} where all methods throw {@link UnsupportedOperationException}.
@@ -31,8 +32,10 @@ public class FakeHateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
 
     @Override
     public void delete(final I id,
+                       final Optional<N> resource,
                        final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
+        Objects.requireNonNull(resource, "resource");
         Objects.requireNonNull(context, "context");
 
         throw new UnsupportedOperationException();
@@ -40,8 +43,10 @@ public class FakeHateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
 
     @Override
     public void deleteCollection(final Range<I> ids,
+                                 final Optional<N> resource,
                                  final HateosHandlerContext<N> context) {
         Objects.requireNonNull(ids, "ids");
+        Objects.requireNonNull(resource, "resource");
         Objects.requireNonNull(context, "context");
 
         throw new UnsupportedOperationException();

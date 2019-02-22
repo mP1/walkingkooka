@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
 import walkingkooka.tree.Node;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -32,6 +34,15 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     @Test
     default void testDeleteNullIdFails() {
         this.deleteFails(null,
+                this.resource(),
+                this.createContext(),
+                NullPointerException.class);
+    }
+
+    @Test
+    default void testDeleteNullParametersFails() {
+        this.deleteFails(this.id(),
+                null,
                 this.createContext(),
                 NullPointerException.class);
     }
@@ -39,36 +50,50 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     @Test
     default void testDeleteNullContextFails() {
         this.deleteFails(this.id(),
+                this.resource(),
                 null,
                 NullPointerException.class);
     }
 
     default void delete(final I id,
+                        final Optional<N> resource,
                         final HateosHandlerContext<N> context) {
-        this.createHandler().delete(id, context);
+        this.createHandler().delete(id, resource, context);
     }
 
     default <T extends Throwable> T deleteFails(final I id,
+                                                final Optional<N> resource,
                                                 final HateosHandlerContext<N> context,
                                                 final Class<T> thrown) {
         return this.deleteFails(this.createHandler(),
                 id,
+                resource,
                 context,
                 thrown);
     }
 
     default <T extends Throwable> T deleteFails(final HateosDeleteHandler<I, N> handler,
                                                 final I id,
+                                                final Optional<N> resource,
                                                 final HateosHandlerContext<N> context,
                                                 final Class<T> thrown) {
         return assertThrows(thrown, () -> {
-            handler.delete(id, context);
+            handler.delete(id, resource, context);
         });
     }
 
     @Test
     default void testDeleteCollectionNullIdRangeFails() {
         this.deleteCollectionFails(null,
+                this.resource(),
+                this.createContext(),
+                NullPointerException.class);
+    }
+
+    @Test
+    default void testDeleteCollectionNullParametersFails() {
+        this.deleteCollectionFails(this.collection(),
+                null,
                 this.createContext(),
                 NullPointerException.class);
     }
@@ -76,38 +101,45 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     @Test
     default void testDeleteCollectionNullContextFails() {
         this.deleteCollectionFails(this.collection(),
+                resource(),
                 null,
                 NullPointerException.class);
     }
 
     default void deleteCollection(final Range<I> collection,
+                                  final Optional<N> resource,
                                   final HateosHandlerContext<N> context) {
-        this.createHandler().deleteCollection(collection, context);
+        this.createHandler().deleteCollection(collection,
+                resource,
+                context);
     }
 
     default <T extends Throwable> T deleteCollectionFails(final Range<I> ids,
+                                                          final Optional<N> resource,
                                                           final HateosHandlerContext<N> context,
                                                           final Class<T> thrown) {
         return this.deleteCollectionFails(this.createHandler(),
                 ids,
+                resource,
                 context,
                 thrown);
     }
 
     default <T extends Throwable> T deleteCollectionFails(final HateosDeleteHandler<I, N> handler,
                                                           final Range<I> ids,
+                                                          final Optional<N> resource,
                                                           final HateosHandlerContext<N> context,
                                                           final Class<T> thrown) {
         return assertThrows(thrown, () -> {
-            handler.deleteCollection(ids, context);
+            handler.deleteCollection(ids, resource, context);
         });
     }
 
     I id();
 
-    Range<I> collection();
+    Optional<N> resource();
 
-    N resource();
+    Range<I> collection();
 
     // TypeNameTesting .........................................................................................
 

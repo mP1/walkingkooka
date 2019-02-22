@@ -36,8 +36,8 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.HttpServerException;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.tree.Node;
 
 import java.io.IOException;
@@ -274,9 +274,25 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
     }
 
     /**
-     * Reads and parses the request body into a {@link Node}
+     * Reads and parses the request body into a {@link Node} returning null if reading or decoding the body fails.
      */
-    final N resource() {
+    final Optional<N> resourceOrBadRequest() {
+        Optional<N> resource = null;
+
+        final byte[] body = this.request.body();
+        if (null != body && body.length > 0) {
+            final N resourceNode = this.resourceOrNull();
+            if (null != resourceNode) {
+                resource = Optional.of(resourceNode);
+            }
+        } else {
+            resource = Optional.empty();
+        }
+
+        return resource;
+    }
+
+    private N resourceOrNull() {
         Charset charset = Charset.defaultCharset();
 
         final Optional<MediaType> contentType = HttpHeaderName.CONTENT_TYPE.headerValue(this.request.headers());
@@ -286,6 +302,8 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
                 charset = possible.get().charset().orElse(charset);
             }
         }
+
+        N resource;
 
         try (final StringReader reader = new StringReader(new String(request.body(), charset))) {
             final StringBuilder text = new StringBuilder();
@@ -300,10 +318,12 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
             }
 
             // TODO need a DocumentBuilder factory to support XML
-            return this.router.contentType.parse(null, text.toString());
-        } catch (final IOException cause) {
-            throw new HttpServerException(cause.getMessage(), cause);
+            resource = this.router.contentType.parse(null, text.toString());
+        } catch (final ParserReporterException | IOException cause) {
+            this.badRequest("Invalid content: " + cause.getMessage());
+            resource = null;
         }
+        return resource;
     }
 
     /**

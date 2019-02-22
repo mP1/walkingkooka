@@ -65,7 +65,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                         HttpRequestAttribute<?>,
                         BiConsumer<HttpRequest, HttpResponse>> {
 
-    final static byte[] NO_BODY = null;
+    final static byte[] NO_BODY = new byte[0];
     final static byte[] BODY = "{\"prop1\":\"value1\"}".getBytes(Charset.defaultCharset());
 
     final static BigInteger ID = BigInteger.valueOf(123);
@@ -912,9 +912,19 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     // DELETE RESOURCE ................................................................................................
 
     @Test
+    public void testDeleteIdInvalidBodyBadRequest() {
+        this.routeDeleteHandleAndCheck((b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
+                "/api/resource1/123/self",
+                "{".getBytes(Charset.defaultCharset()),
+                HttpStatusCode.BAD_REQUEST,
+                "Invalid content: End of text at (2,1) \"{\" expected [ OBJECT_PROPERTY, [{[ WHITESPACE ], SEPARATOR, OBJECT_PROPERTY_REQUIRED }]], [ WHITESPACE ], OBJECT_END");
+    }
+
+    @Test
     public void testDeleteIdWithoutHandlersNotFound() {
         this.routeDeleteHandleAndCheck((b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
                 "/api/resource3/123/xyz",
+                NO_BODY,
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz");
     }
@@ -923,21 +933,22 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     public void testDeleteIdWithRelationSelf() {
         final Latch deleted = Latch.create();
 
-        this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, deleted),
+        this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, NO_BODY, deleted),
                 "/api/resource1/123/self",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete resource successful");
 
         assertEquals(true, deleted.value(), "Deleted");
     }
 
-
     @Test
     public void testDeleteIdWithoutRelationDefaultsSelf() {
         final Latch deleted = Latch.create();
 
-        this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, deleted),
+        this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, NO_BODY, deleted),
                 "/api/resource1/123",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete resource successful");
 
@@ -949,11 +960,25 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteHandleAndCheck((b) -> {
-                    this.addDeleteHandler(b, deleted);
+                    this.addDeleteHandler(b, NO_BODY, deleted);
                     b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
                 "/api/resource1/123/self",
+                NO_BODY,
+                HttpStatusCode.NO_CONTENT,
+                "Delete resource successful");
+
+        assertEquals(true, deleted.value(), "Deleted");
+    }
+
+    @Test
+    public void testDeleteWithBody() {
+        final Latch deleted = Latch.create();
+
+        this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, BODY, deleted),
+                "/api/resource1/123/self",
+                BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete resource successful");
 
@@ -961,14 +986,23 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     }
 
     private void addDeleteHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
+                                  final byte[] resource,
                                   final Latch deleted) {
+
+        final Optional<JsonNode> resourceJson = Optional.ofNullable(null != resource && resource.length > 0 ?
+                JsonNode.parse(new String(resource)) :
+                null);
+
         builder.delete(this.resourceName1(),
                 ID_PARSER,
                 this.relation1(),
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
-                    public void delete(final BigInteger id, final HateosHandlerContext<JsonNode> context) {
+                    public void delete(final BigInteger id,
+                                       final Optional<JsonNode> r,
+                                       final HateosHandlerContext<JsonNode> context) {
                         assertEquals(ID, id, "id");
+                        assertEquals(resourceJson, r, "resource");
                         deleted.set("123 deleted");
                     }
                 });
@@ -976,12 +1010,13 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     private void routeDeleteHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
                                            final String url,
+                                           final byte[] resource,
                                            final HttpStatusCode status,
                                            final String statusMessage) {
         this.routeHandleAndCheck(build,
                 HttpMethod.DELETE,
                 url,
-                NO_BODY,
+                resource,
                 status.setMessage(statusMessage));
     }
 
@@ -996,6 +1031,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void delete(final BigInteger id,
+                                       final Optional<JsonNode> resource,
                                        final HateosHandlerContext<JsonNode> context) {
                         throw new IllegalArgumentException("Invalid parameter");
                     }
@@ -1016,6 +1052,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void delete(final BigInteger id,
+                                       final Optional<JsonNode> resource,
                                        final HateosHandlerContext<JsonNode> context) {
                         throw new UnsupportedOperationException("Not available 123");
                     }
@@ -1030,9 +1067,19 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     // DeleteCollection WithoutId RESOURCE ................................................................................................
 
     @Test
+    public void testDeleteCollectionWithInvalidBodyBadRequest() {
+        this.routeDeleteCollectionHandleAndCheck((b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
+                "/api/resource1/*/self",
+                "{".getBytes(Charset.defaultCharset()),
+                HttpStatusCode.BAD_REQUEST,
+                "Invalid content: End of text at (2,1) \"{\" expected [ OBJECT_PROPERTY, [{[ WHITESPACE ], SEPARATOR, OBJECT_PROPERTY_REQUIRED }]], [ WHITESPACE ], OBJECT_END");
+    }
+
+    @Test
     public void testDeleteCollectionWithoutIdWithoutHandlersNotFound() {
         this.routeDeleteCollectionHandleAndCheck((b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
                 "/api/resource3//xyz",
+                NO_BODY,
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz");
     }
@@ -1043,6 +1090,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck((b) -> this.addDeleteCollectionHandler(b, ALL, deleted),
                 "/api/resource1//self",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1056,6 +1104,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck((b) -> this.addDeleteCollectionHandler(b, ALL, deleted),
                 "/api/resource1/",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1072,6 +1121,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
                 "/api/resource1//self",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1084,6 +1134,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     public void testDeleteCollectionWildcardWithoutHandlersNotFound() {
         this.routeDeleteCollectionHandleAndCheck((b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
                 "/api/resource3/*/xyz",
+                NO_BODY,
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz");
     }
@@ -1094,6 +1145,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck((b) -> this.addDeleteCollectionHandler(b, ALL, deleted),
                 "/api/resource1/*/self",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1107,6 +1159,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck((b) -> this.addDeleteCollectionHandler(b, ALL, deleted),
                 "/api/resource1/*",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1123,6 +1176,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
                 "/api/resource1/*/self",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1136,6 +1190,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         this.routeDeleteCollectionHandleAndCheck(
                 (b) -> b.delete(this.resourceName1(), ID_PARSER, this.relation1(), DELETE_HANDLER),
                 "/api/resource3/123-456/xyz",
+                NO_BODY,
                 HttpStatusCode.NOT_FOUND,
                 "resource: resource3, link relation: xyz");
     }
@@ -1147,6 +1202,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         this.routeDeleteCollectionHandleAndCheck(
                 (b) -> this.addDeleteCollectionHandler(b, RANGE, deleted),
                 "/api/resource1/123-456/self",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1161,6 +1217,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         this.routeDeleteCollectionHandleAndCheck(
                 (b) -> this.addDeleteCollectionHandler(b, RANGE, deleted),
                 "/api/resource1/123-456",
+                NO_BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1177,6 +1234,24 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
                 "/api/resource1/123-456/self",
+                NO_BODY,
+                HttpStatusCode.NO_CONTENT,
+                "Delete collection successful");
+
+        assertEquals(true, deleted.value(), "Deleted");
+    }
+
+    @Test
+    public void testDeleteCollectionWithBody() {
+        final Latch deleted = Latch.create();
+
+        this.routeDeleteCollectionHandleAndCheck((b) -> {
+                    this.addDeleteCollectionHandler(b, RANGE, deleted);
+                    b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
+                    b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
+                },
+                "/api/resource1/123-456/self",
+                BODY,
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
@@ -1194,6 +1269,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void deleteCollection(final Range<BigInteger> id,
+                                                 final Optional<JsonNode> parameters,
                                                  final HateosHandlerContext<JsonNode> context) {
                         throw new IllegalArgumentException("Invalid parameter");
                     }
@@ -1214,6 +1290,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void deleteCollection(final Range<BigInteger> id,
+                                                 final Optional<JsonNode> parameters,
                                                  final HateosHandlerContext<JsonNode> context) {
                         throw new UnsupportedOperationException("Not available 123");
                     }
@@ -1235,7 +1312,9 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 this.relation1(),
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
-                    public void deleteCollection(final Range<BigInteger> r, final HateosHandlerContext<JsonNode> context) {
+                    public void deleteCollection(final Range<BigInteger> r,
+                                                 final Optional<JsonNode> parameters,
+                                                 final HateosHandlerContext<JsonNode> context) {
                         assertEquals(range, r, "range");
                         deleted.set("123-456 deleted");
                     }
@@ -1244,12 +1323,13 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     private void routeDeleteCollectionHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
                                                      final String url,
+                                                     final byte[] body,
                                                      final HttpStatusCode status,
                                                      final String statusMessage) {
         this.routeHandleAndCheck(build,
                 HttpMethod.DELETE,
                 url,
-                NO_BODY,
+                body,
                 status.setMessage(statusMessage));
     }
 
