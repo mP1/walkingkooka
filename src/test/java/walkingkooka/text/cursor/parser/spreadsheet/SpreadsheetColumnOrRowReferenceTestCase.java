@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -36,6 +37,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
         ComparableTesting<R>,
         LowerOrUpperTesting<R>,
         HasJsonNodeTesting<R>,
+        ParseStringTesting<R>,
         ToStringTesting<R> {
 
     final static int VALUE = 123;
