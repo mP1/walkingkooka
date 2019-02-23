@@ -19,14 +19,34 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNode, String>{
 
+    @Override
+    public void testToStringValueOrFail() {
+        // ignore
+    }
+
+    @Test
+    public void testStringValueOrFail() {
+        assertEquals("abc",
+                JsonStringNode.with("abc").stringValueOrFail());
+    }
+
+    @Test
+    public void testStringValueOrFail2() {
+        assertEquals("123",
+                JsonStringNode.with("123").stringValueOrFail());
+    }
+    
     @Test
     public void testSameValueDifferentCase() {
         this.checkNotEquals(JsonNode.string("ABC123"));
@@ -101,6 +121,11 @@ public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNod
     @Override
     Class<JsonStringNode> jsonNodeType() {
         return JsonStringNode.class;
+    }
+
+    @Override
+    List<String> propertiesNeverReturnNullSkipProperties() {
+        return Lists.of("booleanValueOrFail", "numberValueOrFail");
     }
 
     // HasJsonNodeTesting..................................................................
