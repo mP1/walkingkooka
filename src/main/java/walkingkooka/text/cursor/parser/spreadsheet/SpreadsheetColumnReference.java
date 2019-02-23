@@ -19,6 +19,15 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
+import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.text.cursor.parser.ParserReporters;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonStringNode;
 
 import java.util.Objects;
 
@@ -26,6 +35,39 @@ import java.util.Objects;
  * Represents a column reference
  */
 public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowReference<SpreadsheetColumnReference> {
+
+    /**
+     * Expects a {@link JsonStringNode} and returns a {@link SpreadsheetColumnReference}.
+     */
+    public static SpreadsheetColumnReference fromJsonNode(final JsonNode from) {
+        Objects.requireNonNull(from, "from");
+
+        if (!from.isString()) {
+            throw new IllegalArgumentException("Node is not a String=" + from);
+        }
+
+        final JsonStringNode string = from.cast();
+        return parse(string.value());
+    }
+
+    /**
+     * Parsers the text expecting a valid {@link SpreadsheetColumnReference} or fails.
+     */
+    public static SpreadsheetColumnReference parse(final String text) {
+        try {
+            final SpreadsheetColumnReferenceParserToken token = PARSER.parse(TextCursors.charSequence(text),
+                    SpreadsheetParserContexts.basic(DecimalNumberContexts.basic("$", '.', '^', ',', '-', '%', '+')))
+                    .get().cast();
+            return token.value();
+        } catch (final ParserException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    /**
+     * Leverages the {@link SpreadsheetParsers#column()} combined with an error reporter.
+     */
+    private static final Parser<ParserToken, ParserContext> PARSER = SpreadsheetParsers.column().orReport(ParserReporters.basic());
 
     // https://support.office.com/en-us/article/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
     final static int MAX = 16384;

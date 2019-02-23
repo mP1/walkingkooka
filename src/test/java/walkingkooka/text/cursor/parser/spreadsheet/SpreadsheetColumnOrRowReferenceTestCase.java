@@ -262,12 +262,4 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
     public final R createLowerOrUpper() {
         return this.createComparable();
     }
-
-    // HasJsonNodeTesting..................................................................
-
-    @Override
-    public final R fromJsonNode(final JsonNode from) {
-        throw new UnsupportedOperationException();
-    }
-
 }
