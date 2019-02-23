@@ -19,6 +19,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.tree.json.JsonNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -93,5 +94,12 @@ public final class SpreadsheetRowReferenceTest extends SpreadsheetColumnOrRowRef
     @Override
     public Class<SpreadsheetRowReference> type() {
         return SpreadsheetRowReference.class;
+    }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public SpreadsheetRowReference fromJsonNode(final JsonNode from) {
+        throw new UnsupportedOperationException();
     }
 }

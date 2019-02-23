@@ -19,11 +19,14 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ParseStringTesting;
+import walkingkooka.tree.json.JsonNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRowReferenceTestCase<SpreadsheetColumnReference> {
+public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRowReferenceTestCase<SpreadsheetColumnReference>
+        implements ParseStringTesting<SpreadsheetColumnReference> {
 
     @Test
     public void testSetRowNullFails() {
@@ -58,6 +61,90 @@ public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRow
     public void testLess2() {
         this.compareToAndCheckLess(SpreadsheetReferenceKind.ABSOLUTE.column(VALUE),
                 SpreadsheetReferenceKind.RELATIVE.column(VALUE + 999));
+    }
+
+    // parseString.....................................................................................................
+
+    @Test
+    public void testParseEmptyFails() {
+        this.parseFails("", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseInvalidFails() {
+        this.parseFails("!9", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseAbsolute() {
+        this.parseAndCheck("$A", SpreadsheetReferenceKind.ABSOLUTE.column(0));
+    }
+
+    @Test
+    public void testParseAbsolute2() {
+        this.parseAndCheck("$B", SpreadsheetReferenceKind.ABSOLUTE.column(1));
+    }
+
+    @Test
+    public void testParseRelative() {
+        this.parseAndCheck("A", SpreadsheetReferenceKind.RELATIVE.column(0));
+    }
+
+    @Test
+    public void testParseRelative2() {
+        this.parseAndCheck("B", SpreadsheetReferenceKind.RELATIVE.column(1));
+    }
+
+    // JsonNodeTesting.........................................................................................
+
+    @Test
+    public void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeNullFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public void testFromJsonNodeObjectFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    @Test
+    public void testFromJsonNodeStringInvalidFails() {
+        this.fromJsonNodeFails(JsonNode.string("!9"));
+    }
+
+    @Test
+    public void testFromJsonNodeStringAbsolute() {
+        this.fromJsonNodeAndCheck(JsonNode.string("$A"), SpreadsheetReferenceKind.ABSOLUTE.column(0));
+    }
+
+    @Test
+    public void testFromJsonNodeStringAbsolute2() {
+        this.fromJsonNodeAndCheck(JsonNode.string("$B"), SpreadsheetReferenceKind.ABSOLUTE.column(1));
+    }
+
+    @Test
+    public void testFromJsonNodeStringRelative() {
+        this.fromJsonNodeAndCheck(JsonNode.string("A"), SpreadsheetReferenceKind.RELATIVE.column(0));
+    }
+
+    @Test
+    public void testFromJsonNodeStringRelative2() {
+        this.fromJsonNodeAndCheck(JsonNode.string("B"), SpreadsheetReferenceKind.RELATIVE.column(1));
     }
 
     // toString.....................................................................................................
@@ -110,5 +197,29 @@ public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRow
     @Override
     public Class<SpreadsheetColumnReference> type() {
         return SpreadsheetColumnReference.class;
+    }
+
+    // ParseStringTesting............................................................................................
+
+    @Override
+    public SpreadsheetColumnReference parse(final String text) {
+        return SpreadsheetColumnReference.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    // HasJsonNodeTesting..................................................................
+
+    @Override
+    public SpreadsheetColumnReference fromJsonNode(final JsonNode from) {
+        return SpreadsheetColumnReference.fromJsonNode(from);
     }
 }
