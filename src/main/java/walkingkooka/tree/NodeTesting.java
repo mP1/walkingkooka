@@ -20,6 +20,7 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
@@ -112,7 +113,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Test
     default void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode());
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(), Predicates.never());
     }
 
     N createNode();

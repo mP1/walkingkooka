@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -89,7 +87,6 @@ abstract class XmlLeafNode extends XmlNode {
         throw new UnsupportedOperationException();
     }
 
-    @SkipPropertyNeverReturnsNullCheck(XmlDocumentType.class)
     @Override
     public final XmlDocument document() {
         XmlDocument document = this.document;

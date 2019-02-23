@@ -21,7 +21,6 @@ package walkingkooka.tree.json;
 import walkingkooka.NeverError;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +35,6 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
         this.value = value;
     }
 
-    @SkipPropertyNeverReturnsNullCheck(JsonNullNode.class)
     @Override
     public final V value() {
         return this.value;

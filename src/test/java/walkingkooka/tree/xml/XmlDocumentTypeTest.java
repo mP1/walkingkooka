@@ -23,6 +23,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
@@ -123,6 +124,12 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
     public void testWithoutEntities() throws Exception {
         final XmlDocumentType type = this.documentTypeFromXml();
         this.checkEntities(type, Maps.empty());
+    }
+
+    @Test
+    public void testPropertiesNeverReturnNull() throws Exception {
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(),
+                (m) -> m.getName().equals("document") || m.getName().equals("internalSubset"));
     }
 
     // toSearchNode.....................................................................................................

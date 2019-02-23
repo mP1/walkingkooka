@@ -242,7 +242,7 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
 
     @Override
     protected void endVisit(final SpreadsheetRangeParserToken token) {
-        throw new UnsupportedOperationException();
+        this.exit();
     }
 
     @Override

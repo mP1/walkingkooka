@@ -20,6 +20,8 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.predicate.Predicates;
+import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
@@ -223,7 +225,7 @@ public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesti
 
     @Test
     default void testPropertiesNeverReturnNull() throws Exception {
-        ParserTokenTesting2.propertiesNeverReturnNullCheck(this.createToken());
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createToken(), Predicates.never());
     }
 
     @Test

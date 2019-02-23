@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
 import walkingkooka.text.cursor.parser.LeafParserToken;
 
 import java.util.Objects;
@@ -36,7 +35,6 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken im
         this.value = value;
     }
 
-    @SkipPropertyNeverReturnsNullCheck(NodeSelectorDescendantParserToken.class)
     public final T value() {
         return this.value;
     }

@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.json;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
@@ -92,7 +93,7 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
     public final void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<JsonNodeParserToken> without = this.createToken().withoutSymbols();
         if (without.isPresent()) {
-            BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get());
+            BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get(), Predicates.never());
         }
     }
 
