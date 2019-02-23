@@ -19,6 +19,7 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
@@ -68,6 +69,12 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
         assertThrows(UnsupportedOperationException.class, ()-> {
             this.createJsonNode().value();
         });
+    }
+
+    @Test
+    public final void testPropertiesNeverReturnNull() throws Exception {
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createJsonNode(),
+                (m) -> m.getName().equals("value"));
     }
 
     @Test

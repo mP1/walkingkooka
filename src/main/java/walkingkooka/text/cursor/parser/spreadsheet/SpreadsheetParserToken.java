@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
@@ -677,7 +676,6 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     /**
      * Converts this token to its {@link ExpressionNode} equivalent.
      */
-    @SkipPropertyNeverReturnsNullCheck(SpreadsheetRangeParserToken.class)
     public final Optional<ExpressionNode> expressionNode() {
         return SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor.accept(this);
     }

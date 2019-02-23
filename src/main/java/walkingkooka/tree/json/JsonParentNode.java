@@ -19,7 +19,6 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
-import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
@@ -87,7 +86,6 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
     // Value....................................................................................................
 
     @Override
-    @SkipPropertyNeverReturnsNullCheck({JsonArrayNode.class, JsonObjectNode.class})
     public final Object value() {
         throw new UnsupportedOperationException();
     }

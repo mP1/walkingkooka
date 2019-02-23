@@ -23,7 +23,6 @@ import org.w3c.dom.Node;
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
@@ -104,7 +103,6 @@ public final class XmlDocumentType extends XmlLeafNode implements HasXmlPublicId
 
     // internal subset .........................................................................................................
 
-    @SkipPropertyNeverReturnsNullCheck(XmlDocumentType.class)
     public String internalSubset() {
         return this.documentTypeNode().getInternalSubset();
     }

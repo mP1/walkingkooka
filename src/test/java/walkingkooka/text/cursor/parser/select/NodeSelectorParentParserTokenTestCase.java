@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
@@ -89,7 +90,7 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<NodeSelectorParserToken> without = this.createToken().withoutSymbols();
         if (without.isPresent()) {
-            BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get());
+            BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get(), Predicates.never());
         }
     }
 
