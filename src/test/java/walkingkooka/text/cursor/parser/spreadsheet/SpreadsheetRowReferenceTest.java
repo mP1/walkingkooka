@@ -64,6 +64,90 @@ public final class SpreadsheetRowReferenceTest extends SpreadsheetColumnOrRowRef
                 SpreadsheetReferenceKind.RELATIVE.row(VALUE + 999));
     }
 
+    // parseString.....................................................................................................
+
+    @Test
+    public void testParseEmptyFails() {
+        this.parseFails("", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseInvalidFails() {
+        this.parseFails("!9", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseAbsolute() {
+        this.parseAndCheck("$1", SpreadsheetReferenceKind.ABSOLUTE.row(0));
+    }
+
+    @Test
+    public void testParseAbsolute2() {
+        this.parseAndCheck("$2", SpreadsheetReferenceKind.ABSOLUTE.row(1));
+    }
+
+    @Test
+    public void testParseRelative() {
+        this.parseAndCheck("1", SpreadsheetReferenceKind.RELATIVE.row(0));
+    }
+
+    @Test
+    public void testParseRelative2() {
+        this.parseAndCheck("2", SpreadsheetReferenceKind.RELATIVE.row(1));
+    }
+
+    // JsonNodeTesting.........................................................................................
+
+    @Test
+    public void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeNullFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public void testFromJsonNodeObjectFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    @Test
+    public void testFromJsonNodeStringInvalidFails() {
+        this.fromJsonNodeFails(JsonNode.string("!9"));
+    }
+
+    @Test
+    public void testFromJsonNodeStringAbsolute() {
+        this.fromJsonNodeAndCheck(JsonNode.string("$1"), SpreadsheetReferenceKind.ABSOLUTE.row(0));
+    }
+
+    @Test
+    public void testFromJsonNodeStringAbsolute2() {
+        this.fromJsonNodeAndCheck(JsonNode.string("$2"), SpreadsheetReferenceKind.ABSOLUTE.row(1));
+    }
+
+    @Test
+    public void testFromJsonNodeStringRelative() {
+        this.fromJsonNodeAndCheck(JsonNode.string("1"), SpreadsheetReferenceKind.RELATIVE.row(0));
+    }
+
+    @Test
+    public void testFromJsonNodeStringRelative2() {
+        this.fromJsonNodeAndCheck(JsonNode.string("2"), SpreadsheetReferenceKind.RELATIVE.row(1));
+    }
+
     // toString........................................................................
 
     @Test
@@ -100,6 +184,23 @@ public final class SpreadsheetRowReferenceTest extends SpreadsheetColumnOrRowRef
 
     @Override
     public SpreadsheetRowReference fromJsonNode(final JsonNode from) {
-        throw new UnsupportedOperationException();
+        return SpreadsheetRowReference.fromJsonNode(from);
+    }
+
+    // ParseStringTesting............................................................................................
+
+    @Override
+    public SpreadsheetRowReference parse(final String text) {
+        return SpreadsheetRowReference.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
     }
 }

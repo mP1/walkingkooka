@@ -21,7 +21,13 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.compare.LowerOrUpper;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
@@ -36,6 +42,21 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
         LowerOrUpper<R>,
         HashCodeEqualsDefined,
         HasJsonNode {
+
+    /**
+     * Parsers the text expecting a valid {@link SpreadsheetRowReference} or fails.
+     */
+    static <T extends SpreadsheetParserToken> T parse0(final String text,
+                                                       final Parser<ParserToken, ParserContext> parser,
+                                                       final Class<T> type) {
+        try {
+            return type.cast(parser.parse(TextCursors.charSequence(text),
+                    SpreadsheetParserContexts.basic(DecimalNumberContexts.basic("$", '.', '^', ',', '-', '%', '+')))
+                    .get());
+        } catch (final ParserException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
 
     final static int CACHE_SIZE = 100;
 

@@ -19,11 +19,8 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
-import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
@@ -54,14 +51,7 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
      * Parsers the text expecting a valid {@link SpreadsheetColumnReference} or fails.
      */
     public static SpreadsheetColumnReference parse(final String text) {
-        try {
-            final SpreadsheetColumnReferenceParserToken token = PARSER.parse(TextCursors.charSequence(text),
-                    SpreadsheetParserContexts.basic(DecimalNumberContexts.basic("$", '.', '^', ',', '-', '%', '+')))
-                    .get().cast();
-            return token.value();
-        } catch (final ParserException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
+        return parse0(text, PARSER, SpreadsheetColumnReferenceParserToken.class).value();
     }
 
     /**
