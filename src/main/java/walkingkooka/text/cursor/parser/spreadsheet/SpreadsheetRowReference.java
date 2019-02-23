@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonStringNode;
 
 import java.util.Objects;
@@ -39,12 +40,11 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
     public static SpreadsheetRowReference fromJsonNode(final JsonNode from) {
         Objects.requireNonNull(from, "from");
 
-        if (!from.isString()) {
-            throw new IllegalArgumentException("Node is not a String=" + from);
+        try {
+            return parse(from.stringValueOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
         }
-
-        final JsonStringNode string = from.cast();
-        return parse(string.value());
     }
 
     /**

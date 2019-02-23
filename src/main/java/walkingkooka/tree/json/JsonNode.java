@@ -147,15 +147,15 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     public static long fromJsonNodeLong(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        if (!node.isString()) {
-            throw new IllegalArgumentException("Node is not a string=" + node);
+        try {
+            final String text = node.stringValueOrFail();
+            if (!text.startsWith(LONG_PREFIX)) {
+                throw new IllegalArgumentException("Long string missing prefix " + CharSequences.quote(LONG_PREFIX) + "=" + node);
+            }
+            return Long.parseLong(text.substring(2), 16);
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
         }
-        final JsonStringNode string = node.cast();
-        final String text = string.value();
-        if (!text.startsWith(LONG_PREFIX)) {
-            throw new IllegalArgumentException("Long string missing prefix " + CharSequences.quote(LONG_PREFIX) + "=" + node);
-        }
-        return Long.parseLong(text.substring(2), 16);
     }
 
     /**
@@ -310,6 +310,43 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     // Value<Object>................................................................................................
 
     public abstract Object value();
+
+    /**
+     * If a {@link JsonBooleanNode} returns the boolean value or fails.
+     */
+    public final boolean booleanValueOrFail() {
+        return this.valueOrFail(Boolean.class);
+    }
+
+    /**
+     * If a {@link JsonNumberNode} returns the number value or fails.
+     */
+    public final Number numberValueOrFail() {
+        return this.valueOrFail(Number.class);
+    }
+
+    /**
+     * If a {@link JsonStringNode} returns the string value or fails.
+     */
+    public final String stringValueOrFail() {
+        return this.valueOrFail(String.class);
+    }
+
+    private <V> V valueOrFail(final Class<V> type) {
+        if (this.isNull()) {
+            this.reportInvalidNode(type);
+        }
+
+        try {
+            return type.cast(this.value());
+        } catch (final ClassCastException | UnsupportedOperationException fail) {
+            return this.reportInvalidNode(type);
+        }
+    }
+
+    private <V> V reportInvalidNode(final Class<V> type) {
+        throw new JsonNodeException("Node is not a " + type.getSimpleName() + "=" + this);
+    }
 
     // isXXX............................................................................................................
 

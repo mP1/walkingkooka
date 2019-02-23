@@ -19,7 +19,7 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.BeanPropertiesTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
@@ -72,17 +72,16 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
     }
 
     @Test
-    public final void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createJsonNode(),
-                (m) -> m.getName().equals("value"));
-    }
-
-    @Test
     public final void testToSearchNodeEmpty() {
         this.toSearchNodeAndCheck(this.createJsonNode(), SearchNode.text("", ""));
     }
 
     final void checkChildren(final N node, final List<JsonNode> children) {
         assertEquals(children, node.children(), "children");
+    }
+
+    @Override
+    List<String> propertiesNeverReturnNullSkipProperties() {
+        return Lists.of("booleanValueOrFail", "numberValueOrFail", "stringValueOrFail", "value");
     }
 }

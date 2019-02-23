@@ -24,7 +24,7 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonNodeException;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -147,11 +147,11 @@ final public class EmailAddress implements Value<String>,
     public static EmailAddress fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        if (!node.isString()) {
-            throw new IllegalArgumentException("Node is not a string=" + node);
+        try {
+            return parse(node.stringValueOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
         }
-
-        return parse(JsonStringNode.class.cast(node).text());
     }
 
     @Override

@@ -19,20 +19,16 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.BeanPropertiesTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, Void>{
-
-    @Test
-    public void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createJsonNode(),
-                (m) -> m.getName().equals("value"));
-    }
 
     @Test
     public void testToSearchNode() {
@@ -105,6 +101,11 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
     @Override
     Class<JsonNullNode> jsonNodeType() {
         return JsonNullNode.class;
+    }
+
+    @Override
+    List<String> propertiesNeverReturnNullSkipProperties() {
+        return Lists.of("value", "booleanValueOrFail", "numberValueOrFail", "stringValueOrFail");
     }
 
     // HasJsonNodeTesting..................................................................

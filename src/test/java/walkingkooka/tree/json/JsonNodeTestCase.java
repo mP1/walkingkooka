@@ -25,6 +25,7 @@ import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
+import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
@@ -34,6 +35,7 @@ import walkingkooka.tree.NodeTesting2;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -80,6 +82,35 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
             this.createJsonNode().setAttributes(Maps.empty());
         });
     }
+
+    @Test
+    public void testToBooleanValueOrFail() {
+        assertThrows(JsonNodeException.class, () -> {
+            this.createNode().booleanValueOrFail();
+        });
+    }
+
+    @Test
+    public void testToNumberValueOrFail() {
+        assertThrows(JsonNodeException.class, () -> {
+            this.createNode().numberValueOrFail();
+        });
+    }
+
+    @Test
+    public void testToStringValueOrFail() {
+        assertThrows(JsonNodeException.class, () -> {
+            this.createNode().stringValueOrFail();
+        });
+    }
+
+    @Test
+    public final void testPropertiesNeverReturnNull() throws Exception {
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createJsonNode(),
+                (m) -> this.propertiesNeverReturnNullSkipProperties().contains(m.getName()));
+    }
+
+    abstract List<String> propertiesNeverReturnNullSkipProperties();
 
     @Test
     public final void testEqualsDifferentParent() {
