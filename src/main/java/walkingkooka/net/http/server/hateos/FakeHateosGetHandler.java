@@ -19,11 +19,10 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.compare.Range;
-import walkingkooka.net.http.server.HttpRequestParameterName;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,7 +34,7 @@ public class FakeHateosGetHandler<I extends Comparable<I>, N extends Node<N, ?, 
 
     @Override
     public Optional<N> get(final I id,
-                           final Map<HttpRequestParameterName, List<String>> parameters,
+                           final Map<HttpRequestAttribute<?>, Object> parameters,
                            final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(parameters, "parameters");
@@ -46,7 +45,7 @@ public class FakeHateosGetHandler<I extends Comparable<I>, N extends Node<N, ?, 
 
     @Override
     public Optional<N> getCollection(final Range<I> ids,
-                                     final Map<HttpRequestParameterName, List<String>> parameters,
+                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                      final HateosHandlerContext<N> context) {
         Objects.requireNonNull(ids, "ids");
         Objects.requireNonNull(parameters, "parameters");

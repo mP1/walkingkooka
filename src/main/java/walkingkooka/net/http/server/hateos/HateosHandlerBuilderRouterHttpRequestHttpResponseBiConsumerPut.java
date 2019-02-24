@@ -85,6 +85,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N ext
                         this.setStatusAndBody("Put resource successful",
                                 put.put(Cast.to(id),
                                         resource.get(),
+                                        this.parameters,
                                         this.router.putContext));
                     }
                 }

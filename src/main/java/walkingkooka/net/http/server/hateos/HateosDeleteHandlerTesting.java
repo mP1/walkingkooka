@@ -20,8 +20,10 @@ package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.tree.Node;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,6 +37,16 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     default void testDeleteNullIdFails() {
         this.deleteFails(null,
                 this.resource(),
+                this.parameters(),
+                this.createContext(),
+                NullPointerException.class);
+    }
+
+    @Test
+    default void testDeleteNullResourceFails() {
+        this.deleteFails(this.id(),
+                null,
+                this.parameters(),
                 this.createContext(),
                 NullPointerException.class);
     }
@@ -42,6 +54,7 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     @Test
     default void testDeleteNullParametersFails() {
         this.deleteFails(this.id(),
+                this.resource(),
                 null,
                 this.createContext(),
                 NullPointerException.class);
@@ -51,23 +64,27 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     default void testDeleteNullContextFails() {
         this.deleteFails(this.id(),
                 this.resource(),
+                this.parameters(),
                 null,
                 NullPointerException.class);
     }
 
     default void delete(final I id,
                         final Optional<N> resource,
+                        final Map<HttpRequestAttribute<?>, Object> parameters,
                         final HateosHandlerContext<N> context) {
-        this.createHandler().delete(id, resource, context);
+        this.createHandler().delete(id, resource, parameters, context);
     }
 
     default <T extends Throwable> T deleteFails(final I id,
                                                 final Optional<N> resource,
+                                                final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final HateosHandlerContext<N> context,
                                                 final Class<T> thrown) {
         return this.deleteFails(this.createHandler(),
                 id,
                 resource,
+                parameters,
                 context,
                 thrown);
     }
@@ -75,10 +92,11 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     default <T extends Throwable> T deleteFails(final HateosDeleteHandler<I, N> handler,
                                                 final I id,
                                                 final Optional<N> resource,
+                                                final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final HateosHandlerContext<N> context,
                                                 final Class<T> thrown) {
         return assertThrows(thrown, () -> {
-            handler.delete(id, resource, context);
+            handler.delete(id, resource, parameters, context);
         });
     }
 
@@ -86,6 +104,7 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     default void testDeleteCollectionNullIdRangeFails() {
         this.deleteCollectionFails(null,
                 this.resource(),
+                this.parameters(),
                 this.createContext(),
                 NullPointerException.class);
     }
@@ -93,6 +112,7 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     @Test
     default void testDeleteCollectionNullParametersFails() {
         this.deleteCollectionFails(this.collection(),
+                this.resource(),
                 null,
                 this.createContext(),
                 NullPointerException.class);
@@ -101,26 +121,31 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     @Test
     default void testDeleteCollectionNullContextFails() {
         this.deleteCollectionFails(this.collection(),
-                resource(),
+                this.resource(),
+                this.parameters(),
                 null,
                 NullPointerException.class);
     }
 
     default void deleteCollection(final Range<I> collection,
                                   final Optional<N> resource,
+                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                   final HateosHandlerContext<N> context) {
         this.createHandler().deleteCollection(collection,
                 resource,
+                parameters,
                 context);
     }
 
     default <T extends Throwable> T deleteCollectionFails(final Range<I> ids,
                                                           final Optional<N> resource,
+                                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                                           final HateosHandlerContext<N> context,
                                                           final Class<T> thrown) {
         return this.deleteCollectionFails(this.createHandler(),
                 ids,
                 resource,
+                parameters,
                 context,
                 thrown);
     }
@@ -128,10 +153,11 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
     default <T extends Throwable> T deleteCollectionFails(final HateosDeleteHandler<I, N> handler,
                                                           final Range<I> ids,
                                                           final Optional<N> resource,
+                                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                                           final HateosHandlerContext<N> context,
                                                           final Class<T> thrown) {
         return assertThrows(thrown, () -> {
-            handler.deleteCollection(ids, resource, context);
+            handler.deleteCollection(ids, resource, parameters, context);
         });
     }
 

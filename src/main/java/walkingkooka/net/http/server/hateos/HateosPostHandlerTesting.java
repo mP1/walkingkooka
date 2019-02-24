@@ -19,8 +19,10 @@
 package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.tree.Node;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,6 +37,7 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
     default void testPostNullIdFails() {
         this.postFails(null,
                 this.resource(),
+                this.parameters(),
                 this.createContext(),
                 NullPointerException.class);
     }
@@ -42,6 +45,16 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
     @Test
     default void testPostNullResourceFails() {
         this.postFails(this.id(),
+                null,
+                this.parameters(),
+                this.createContext(),
+                NullPointerException.class);
+    }
+
+    @Test
+    default void testPostNullParametersFails() {
+        this.postFails(this.id(),
+                this.resource(),
                 null,
                 this.createContext(),
                 NullPointerException.class);
@@ -51,47 +64,54 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
     default void testPostNullContextFails() {
         this.postFails(this.id(),
                 this.resource(),
+                this.parameters(),
                 null,
                 NullPointerException.class);
     }
 
     default N post(final Optional<I> id,
                    final N resource,
+                   final Map<HttpRequestAttribute<?>, Object> parameters,
                    final HateosHandlerContext<N> context) {
-        return this.post(this.createHandler(), id, resource, context);
+        return this.post(this.createHandler(), id, resource, parameters, context);
     }
 
     default N post(final HateosPostHandler<I, N> handler,
                    final Optional<I> id,
                    final N resource,
+                   final Map<HttpRequestAttribute<?>, Object> parameters,
                    final HateosHandlerContext<N> context) {
-        return handler.post(id, resource, context);
+        return handler.post(id, resource, parameters, context);
     }
 
     default void postAndCheck(final Optional<I> id,
                               final N resource,
+                              final Map<HttpRequestAttribute<?>, Object> parameters,
                               final HateosHandlerContext<N> context,
                               final N result) {
-        this.postAndCheck(this.createHandler(), id, resource, context, result);
+        this.postAndCheck(this.createHandler(), id, resource, parameters, context, result);
     }
 
     default void postAndCheck(final HateosPostHandler<I, N> handler,
                               final Optional<I> id,
                               final N resource,
+                              final Map<HttpRequestAttribute<?>, Object> parameters,
                               final HateosHandlerContext<N> context,
                               final N result) {
         assertEquals(result,
-                this.post(handler, id, resource, context),
+                this.post(handler, id, resource, parameters, context),
                 () -> handler + " id=" + id + ", resource: " + resource + ", context: " + context);
     }
 
     default <T extends Throwable> T postFails(final Optional<I> id,
                                               final N resource,
+                                              final Map<HttpRequestAttribute<?>, Object> parameters,
                                               final HateosHandlerContext<N> context,
                                               final Class<T> thrown) {
         return this.postFails(this.createHandler(),
                 id,
                 resource,
+                parameters,
                 context,
                 thrown);
     }
@@ -99,10 +119,11 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
     default <T extends Throwable> T postFails(final HateosPostHandler<I, N> handler,
                                               final Optional<I> id,
                                               final N resource,
+                                              final Map<HttpRequestAttribute<?>, Object> parameters,
                                               final HateosHandlerContext<N> context,
                                               final Class<T> thrown) {
         return assertThrows(thrown, () -> {
-            this.post(handler, id, resource, context);
+            this.post(handler, id, resource, parameters, context);
         });
     }
 

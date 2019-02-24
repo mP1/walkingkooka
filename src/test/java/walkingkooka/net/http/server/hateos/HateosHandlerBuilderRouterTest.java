@@ -25,6 +25,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -226,7 +227,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosGetHandler<BigInteger, JsonNode>() {
                     @Override
                     public Optional<JsonNode> get(final BigInteger id,
-                                                  final Map<HttpRequestParameterName, List<String>> parameters,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final HateosHandlerContext<JsonNode> context) {
                         throw new IllegalArgumentException("Invalid parameter");
                     }
@@ -248,7 +249,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosGetHandler<BigInteger, JsonNode>() {
                     @Override
                     public Optional<JsonNode> get(final BigInteger id,
-                                                  final Map<HttpRequestParameterName, List<String>> parameters,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final HateosHandlerContext<JsonNode> context) {
                         throw new UnsupportedOperationException("Not available 123");
                     }
@@ -270,7 +271,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosGetHandler<BigInteger, JsonNode>() {
                     @Override
                     public Optional<JsonNode> get(final BigInteger id,
-                                                  final Map<HttpRequestParameterName, List<String>> parameters,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final HateosHandlerContext<JsonNode> context) {
                         return Optional.of(context.addLinks(resourceName1(), id, JsonNode.parse("{\"p1\": \"v1\"}")));
                     }
@@ -312,12 +313,10 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
                     @Override
                     public Optional<JsonNode> get(final BigInteger id,
-                                                  final Map<HttpRequestParameterName, List<String>> parameters,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final HateosHandlerContext<JsonNode> context) {
                         assertEquals(ID, id, "id");
-                        assertEquals(Lists.of("value1"),
-                                parameters.get(HttpRequestParameterName.with("param1")),
-                                "parameters");
+                        checkParameters(parameters);
 
                         getted.set("123 getted");
                         return Optional.ofNullable(null != reply ?
@@ -395,7 +394,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosGetHandler<BigInteger, JsonNode>() {
                     @Override
                     public Optional<JsonNode> getCollection(final Range<BigInteger> id,
-                                                            final Map<HttpRequestParameterName, List<String>> parameters,
+                                                            final Map<HttpRequestAttribute<?>, Object> parameters,
                                                             final HateosHandlerContext<JsonNode> context) {
                         throw new IllegalArgumentException("Invalid parameter");
                     }
@@ -417,7 +416,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosGetHandler<BigInteger, JsonNode>() {
                     @Override
                     public Optional<JsonNode> getCollection(final Range<BigInteger> id,
-                                                            final Map<HttpRequestParameterName, List<String>> parameters,
+                                                            final Map<HttpRequestAttribute<?>, Object> parameters,
                                                             final HateosHandlerContext<JsonNode> context) {
                         throw new UnsupportedOperationException("Not available 123");
                     }
@@ -559,12 +558,10 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
                     @Override
                     public Optional<JsonNode> getCollection(final Range<BigInteger> i,
-                                                            final Map<HttpRequestParameterName, List<String>> parameters,
+                                                            final Map<HttpRequestAttribute<?>, Object> parameters,
                                                             final HateosHandlerContext<JsonNode> context) {
                         assertEquals(ids, i, "ids");
-                        assertEquals(Lists.of("value1"),
-                                parameters.get(HttpRequestParameterName.with("param1")),
-                                "parameters");
+                        checkParameters(parameters);
 
                         getted.set("123 getted");
                         return Optional.ofNullable(null != reply ?
@@ -749,7 +746,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosPostHandler<BigInteger, JsonNode>() {
                     @Override
                     public JsonNode post(final Optional<BigInteger> id,
-                                         final JsonNode body,
+                                         final JsonNode resource,
+                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                          final HateosHandlerContext<JsonNode> context) {
                         throw new IllegalArgumentException("Invalid parameter");
                     }
@@ -771,7 +769,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosPostHandler<BigInteger, JsonNode>() {
                     @Override
                     public JsonNode post(final Optional<BigInteger> id,
-                                         final JsonNode body,
+                                         final JsonNode resource,
+                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                          final HateosHandlerContext<JsonNode> context) {
                         throw new UnsupportedOperationException("Not available 123");
                     }
@@ -823,8 +822,10 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     @Override
                     public JsonNode post(final Optional<BigInteger> i,
                                          final JsonNode resource,
+                                         final Map<HttpRequestAttribute<?>, Object> parameters,
                                          final HateosHandlerContext<JsonNode> context) {
                         assertEquals(Optional.ofNullable(id), i, "id");
+                        checkParameters(parameters);
                         assertEquals(JsonNode.parse(post), resource, "resource");
 
                         posted.set("123 posted");
@@ -989,7 +990,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosPutHandler<BigInteger, JsonNode>() {
                     @Override
                     public JsonNode put(final BigInteger id,
-                                        final JsonNode body,
+                                        final JsonNode resource,
+                                        final Map<HttpRequestAttribute<?>, Object> parameters,
                                         final HateosHandlerContext<JsonNode> context) {
                         throw new IllegalArgumentException("Invalid parameter");
                     }
@@ -1011,7 +1013,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosPutHandler<BigInteger, JsonNode>() {
                     @Override
                     public JsonNode put(final BigInteger id,
-                                        final JsonNode body,
+                                        final JsonNode resource,
+                                        final Map<HttpRequestAttribute<?>, Object> parameters,
                                         final HateosHandlerContext<JsonNode> context) {
                         throw new UnsupportedOperationException("Not available 123");
                     }
@@ -1037,8 +1040,10 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     @Override
                     public JsonNode put(final BigInteger i,
                                         final JsonNode put,
+                                        final Map<HttpRequestAttribute<?>, Object> parameters,
                                         final HateosHandlerContext<JsonNode> context) {
                         assertEquals(id, i, "id");
+                        checkParameters(parameters);
                         assertEquals(JsonNode.parse(post), put, "json node");
 
                         putted.set("123 putted");
@@ -1102,7 +1107,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, NO_JSON, deleted),
-                "/api/resource1/123/self",
+                "/api/resource1/123/self?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1116,7 +1121,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, NO_JSON, deleted),
-                "/api/resource1/123",
+                "/api/resource1/123?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1134,7 +1139,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
-                "/api/resource1/123/self",
+                "/api/resource1/123/self?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1148,7 +1153,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, JSON, deleted),
-                "/api/resource1/123/self",
+                "/api/resource1/123/self?param1=value1",
                 this.contentType(),
                 BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1162,7 +1167,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteHandleAndCheck((b) -> this.addDeleteHandler(b, JSON, deleted),
-                "/api/resource1/123/self",
+                "/api/resource1/123/self?param1=value1",
                 this.contentTypeUtf16(),
                 BODYUTF16,
                 HttpStatusCode.NO_CONTENT,
@@ -1186,8 +1191,10 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     @Override
                     public void delete(final BigInteger id,
                                        final Optional<JsonNode> r,
+                                       final Map<HttpRequestAttribute<?>, Object> parameters,
                                        final HateosHandlerContext<JsonNode> context) {
                         assertEquals(ID, id, "id");
+                        checkParameters(parameters);
                         assertEquals(resourceJson, r, "resource");
                         deleted.set("123 deleted");
                     }
@@ -1220,6 +1227,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     @Override
                     public void delete(final BigInteger id,
                                        final Optional<JsonNode> resource,
+                                       final Map<HttpRequestAttribute<?>, Object> parameters,
                                        final HateosHandlerContext<JsonNode> context) {
                         throw new IllegalArgumentException("Invalid parameter");
                     }
@@ -1242,6 +1250,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     @Override
                     public void delete(final BigInteger id,
                                        final Optional<JsonNode> resource,
+                                       final Map<HttpRequestAttribute<?>, Object> parameters,
                                        final HateosHandlerContext<JsonNode> context) {
                         throw new UnsupportedOperationException("Not available 123");
                     }
@@ -1281,7 +1290,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteCollectionHandleAndCheck((b) -> this.addDeleteCollectionHandler(b, ALL, deleted),
-                "/api/resource1//self",
+                "/api/resource1//self?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1296,7 +1305,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteCollectionHandleAndCheck((b) -> this.addDeleteCollectionHandler(b, ALL, deleted),
-                "/api/resource1/",
+                "/api/resource1/?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1314,7 +1323,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
-                "/api/resource1//self",
+                "/api/resource1//self?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1340,7 +1349,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteCollectionHandleAndCheck((b) -> this.addDeleteCollectionHandler(b, ALL, deleted),
-                "/api/resource1/*/self",
+                "/api/resource1/*/self?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1355,7 +1364,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final Latch deleted = Latch.create();
 
         this.routeDeleteCollectionHandleAndCheck((b) -> this.addDeleteCollectionHandler(b, ALL, deleted),
-                "/api/resource1/*",
+                "/api/resource1/*?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1373,7 +1382,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
-                "/api/resource1/*/self",
+                "/api/resource1/*/self?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1401,7 +1410,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck(
                 (b) -> this.addDeleteCollectionHandler(b, RANGE, deleted),
-                "/api/resource1/123-456/self",
+                "/api/resource1/123-456/self?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1417,7 +1426,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
         this.routeDeleteCollectionHandleAndCheck(
                 (b) -> this.addDeleteCollectionHandler(b, RANGE, deleted),
-                "/api/resource1/123-456",
+                "/api/resource1/123-456?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1435,7 +1444,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
-                "/api/resource1/123-456/self",
+                "/api/resource1/123-456/self?param1=value1",
                 this.contentType(),
                 NO_BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1453,7 +1462,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                     b.delete(this.resourceName1(), ID_PARSER, this.relation2(), DELETE_HANDLER);
                     b.delete(this.resourceName2(), ID_PARSER, this.relation1(), DELETE_HANDLER);
                 },
-                "/api/resource1/123-456/self",
+                "/api/resource1/123-456/self?param1=value1",
                 this.contentType(),
                 BODY,
                 HttpStatusCode.NO_CONTENT,
@@ -1473,7 +1482,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void deleteCollection(final Range<BigInteger> id,
-                                                 final Optional<JsonNode> parameters,
+                                                 final Optional<JsonNode> resource,
+                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final HateosHandlerContext<JsonNode> context) {
                         throw new IllegalArgumentException("Invalid parameter");
                     }
@@ -1495,7 +1505,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void deleteCollection(final Range<BigInteger> id,
-                                                 final Optional<JsonNode> parameters,
+                                                 final Optional<JsonNode> resource,
+                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final HateosHandlerContext<JsonNode> context) {
                         throw new UnsupportedOperationException("Not available 123");
                     }
@@ -1519,9 +1530,11 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
                     @Override
                     public void deleteCollection(final Range<BigInteger> r,
-                                                 final Optional<JsonNode> parameters,
+                                                 final Optional<JsonNode> resource,
+                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final HateosHandlerContext<JsonNode> context) {
                         assertEquals(range, r, "range");
+                        checkParameters(parameters);
                         deleted.set("123-456 deleted");
                     }
                 });
@@ -1701,6 +1714,12 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 return this.method() + " " + this.url() + " " + parameters();
             }
         };
+    }
+
+    private void checkParameters(Map<HttpRequestAttribute<?>, Object> parameters) {
+        assertEquals(Lists.of("value1"),
+                parameters.get(UrlParameterName.with("param1")),
+                "parameters");
     }
 
     @Override
