@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
@@ -98,6 +99,13 @@ final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttrib
 
     private transient UrlPathName[] pathNames;
 
+    /**
+     * The query string url parameters.
+     */
+    Map<UrlParameterName, List<String>> urlParameters() {
+        return this.url().query().parameters();
+    }
+
     @Override
     public Set<Entry<HttpRequestAttribute<?>, Object>> entrySet() {
         return this.entrySet;
@@ -109,9 +117,10 @@ final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttrib
     public int size() {
         if(-1 == this.size) {
             this.size = HttpRequestAttributes.size() +
+                    this.pathNames().length +
+                    this.urlParameters().size() +
                     this.cookieCount() +
                     this.headers().size() +
-                    this.pathNames().length +
                     this.parameters().size();
         }
         return this.size;

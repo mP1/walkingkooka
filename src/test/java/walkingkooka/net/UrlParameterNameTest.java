@@ -19,11 +19,17 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTesting;
+import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class UrlParameterNameTest implements ClassTesting2<UrlParameterName>,
         NameTesting<UrlParameterName, UrlParameterName>,
@@ -37,6 +43,28 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testWithEncoding() {
         this.createNameAndCheck("abc%20xyz");
+    }
+
+    // HttpRequestAttribute...............................................
+
+    @Test
+    public void testParameterValueRequest() {
+        final UrlParameterName name = this.createName("param1");
+        assertEquals(Optional.of(Lists.of("value1")),
+                name.parameterValue(new FakeHttpRequest() {
+
+                    @Override
+                    public RelativeUrl url() {
+                        return Url.parseRelative("/file?param2=value2&param1=value1");
+                    }
+                }));
+    }
+
+    @Test
+    public void testParameterValueMap() {
+        final UrlParameterName name = this.createName("param1");
+        assertEquals(Optional.of(Lists.of("value1")),
+                name.parameterValue(UrlQueryString.with("param1=value1&param2=value2").parameters()));
     }
 
     @Override
