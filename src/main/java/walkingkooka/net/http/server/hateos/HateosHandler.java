@@ -18,10 +18,19 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.collect.map.Maps;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.tree.Node;
+
+import java.util.Map;
 
 /**
  * Base class for all hateos handlers.
  */
 public interface HateosHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> {
+
+    /**
+     * An empty {@link Map} with no parameters.
+     */
+    static Map<HttpRequestAttribute<?>, Object> NO_PARAMETERS = Maps.empty();
 }
