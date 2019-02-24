@@ -38,6 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -67,7 +68,7 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
 
     @Test
     public void testSize() {
-        this.sizeAndCheck(this.createSet(), 3 + 3 + 2 + HEADERS.size() + COOKIES.size());
+        this.sizeAndCheck(this.createSet(), 3 + 3 + 2 + 2 + HEADERS.size() + COOKIES.size());
     }
 
     @Test
@@ -108,11 +109,12 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
                                   final HttpProtocolVersion version,
                                   final RelativeUrl url,
                                   final Map<HttpHeaderName<?>, Object> headers) {
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator = this.createSet(transport,
+        final Set<Entry<HttpRequestAttribute<?>, Object>> set = this.createSet(transport,
                 method,
                 version,
                 url,
-                headers).iterator();
+                headers);
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator = set.iterator();
         this.checkEntry(iterator, HttpRequestAttributes.TRANSPORT, transport);
         this.checkEntry(iterator, HttpRequestAttributes.METHOD, method);
         this.checkEntry(iterator, HttpRequestAttributes.HTTP_PROTOCOL_VERSION, version);
@@ -123,6 +125,13 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
             this.checkEntry(iterator, HttpRequestAttributes.pathComponent(i), name);
             i++;
         }
+        int entryCount = 3 + i; // 3 = transport, method, protocolversion
+
+        final Map<UrlParameterName, List<String>> urlParameters = url.query().parameters();
+        for (UrlParameterName name : urlParameters.keySet()) {
+            this.checkEntry(iterator, name, urlParameters.get(name));
+            entryCount++;
+        }
 
         // headers
         for (Entry<HttpHeaderName<?>, Object> nameAndValue : headers.entrySet()) {
@@ -130,6 +139,7 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
             this.checkEntry(iterator,
                     header,
                     nameAndValue.getValue());
+            entryCount++;
         }
 
         // cookies
@@ -137,6 +147,7 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
             this.checkEntry(iterator,
                     cookie.name(),
                     cookie);
+            entryCount++;
         }
 
         // parameters
@@ -144,7 +155,10 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
             this.checkEntry(iterator,
                     HttpRequestParameterName.with(nameAndValue.getKey().value()),
                     nameAndValue.getValue());
+            entryCount++;
         }
+
+        this.sizeAndCheck(set, entryCount);
     }
 
     private void checkEntry(final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator,

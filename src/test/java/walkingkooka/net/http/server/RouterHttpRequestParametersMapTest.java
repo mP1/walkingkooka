@@ -24,6 +24,7 @@ import walkingkooka.collect.map.MapTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
@@ -63,6 +64,12 @@ public final class RouterHttpRequestParametersMapTest implements ClassTesting2<R
         int i = 0;
         for (UrlPathName name : this.url().path()) {
             this.checkEntry(iterator, HttpRequestAttributes.pathComponent(i), name);
+            i++;
+        }
+
+        // query string parameters
+        for (Entry<UrlParameterName, List<String>> nameAndValue : this.url().query().parameters().entrySet()) {
+            this.checkEntry(iterator, nameAndValue.getKey(), nameAndValue.getValue());
             i++;
         }
 
@@ -118,6 +125,11 @@ public final class RouterHttpRequestParametersMapTest implements ClassTesting2<R
         this.getAndCheck(HttpRequestAttributes.pathComponent(2), UrlPathName.with("file"));
     }
 
+    @Test
+    public void testSize() {
+        this.sizeAndCheck(this.createMap(), 11);
+    }
+
     @Override
     public RouterHttpRequestParametersMap createMap() {
         return this.createMap(transport(),
@@ -129,30 +141,30 @@ public final class RouterHttpRequestParametersMapTest implements ClassTesting2<R
     }
 
     private HttpTransport transport() {
-        return HttpTransport.SECURED;
+        return HttpTransport.SECURED; // 1
     }
 
     private HttpMethod method() {
-        return HttpMethod.GET;
+        return HttpMethod.GET; // 1
     }
 
     private RelativeUrl url() {
-        return Url.parseRelative("/path/file");
+        return Url.parseRelative("/path/file?param1=value1A&param1=value1B&param2=value2"); // 3 + 2
     }
 
     private HttpProtocolVersion protocolVersion() {
-        return HttpProtocolVersion.VERSION_1_1;
+        return HttpProtocolVersion.VERSION_1_1; // 1
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         headers.put(HttpHeaderName.CONNECTION, "Close");
         headers.put(HttpHeaderName.COOKIE, this.cookies());
-        return headers;
+        return headers; // 2
     }
 
     private List<ClientCookie> cookies() {
-        return Lists.of(Cookie.client(CookieName.with("cookie123"), "cookie-value-456"));
+        return Lists.of(Cookie.client(CookieName.with("cookie123"), "cookie-value-456")); // 1
     }
 
     private Map<HttpRequestParameterName, List<String>> parameters() {

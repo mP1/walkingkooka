@@ -50,19 +50,27 @@ final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<Htt
 
     @Override
     public Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator() {
-        // attributes, path, headers, cookies, parameters
+        // attributes, path, url-parameters, headers, cookies, request parameters
         final RouterHttpRequestParametersMap map = this.map;
         final HttpRequest request = map.request;
 
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> attributes = RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator.with(request);
 
-        // url query string parameters are ignored...
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> pathNames = RouterHttpRequestParametersMapPathComponentEntryIterator.with(map.pathNames());
+
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> urlParameterNames = Cast.to(map.urlParameters().entrySet().iterator());
+
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(request.headers().entrySet().iterator());
+
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = RouterHttpRequestParametersMapCookiesEntryIterator.with(HttpHeaderName.COOKIE.headerValue(request.headers()).orElse(ClientCookie.NO_COOKIES));
+
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> parameters = Cast.to(request.parameters().entrySet().iterator());
 
-        return Iterators.chain(attributes, Iterators.chain(pathNames, Iterators.chain(headers, Iterators.chain(cookies, parameters))));
+        return Iterators.chain(attributes,
+                Iterators.chain(pathNames,
+                        Iterators.chain(urlParameterNames,
+                                Iterators.chain(headers,
+                                        Iterators.chain(cookies, parameters)))));
     }
 
     @Override

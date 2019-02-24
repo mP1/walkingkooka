@@ -19,13 +19,20 @@
 package walkingkooka.net;
 
 import walkingkooka.naming.Name;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * The {@link Name} of a query string parameter.
  */
-public final class UrlParameterName extends NetName implements Comparable<UrlParameterName> {
+public final class UrlParameterName extends NetName
+        implements Comparable<UrlParameterName>,
+        HttpRequestAttribute<List<String>> {
 
     private final static long serialVersionUID = 1L;
 
@@ -44,6 +51,18 @@ public final class UrlParameterName extends NetName implements Comparable<UrlPar
     private UrlParameterName(final String name) {
         super(name);
     }
+
+    // HttpRequestAttribute..............................................................................................
+
+    /**
+     * A typed getter that retrieves a value from a {@link HttpRequest}
+     */
+    @Override
+    public Optional<List<String>> parameterValue(final HttpRequest request) {
+        return Optional.ofNullable(request.url().query().parameters().get(this));
+    }
+
+    // Comparable..............................................................................................
 
     @Override
     public int compareTo(final UrlParameterName other) {
