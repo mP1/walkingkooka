@@ -19,7 +19,10 @@
 package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.tree.Node;
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,6 +36,7 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
     default void testPutNullIdFails() {
         this.putFails(null,
                 this.resource(),
+                this.parameters(),
                 this.createContext(),
                 NullPointerException.class);
     }
@@ -40,6 +44,16 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
     @Test
     default void testPutNullResourceFails() {
         this.putFails(this.id(),
+                null,
+                this.parameters(),
+                this.createContext(),
+                NullPointerException.class);
+    }
+
+    @Test
+    default void testPutNullParametersFails() {
+        this.putFails(this.id(),
+                this.resource(),
                 null,
                 this.createContext(),
                 NullPointerException.class);
@@ -49,47 +63,54 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
     default void testPutNullContextFails() {
         this.putFails(this.id(),
                 this.resource(),
+                this.parameters(),
                 null,
                 NullPointerException.class);
     }
 
     default N put(final I id,
                   final N resource,
+                  final Map<HttpRequestAttribute<?>, Object> parameters,
                   final HateosHandlerContext<N> context) {
-        return this.put(this.createHandler(), id, resource, context);
+        return this.put(this.createHandler(), id, resource, parameters, context);
     }
 
     default N put(final HateosPutHandler<I, N> handler,
                   final I id,
                   final N resource,
+                  final Map<HttpRequestAttribute<?>, Object> parameters,
                   final HateosHandlerContext<N> context) {
-        return handler.put(id, resource, context);
+        return handler.put(id, resource, parameters, context);
     }
 
     default void putAndCheck(final I id,
                              final N resource,
+                             final Map<HttpRequestAttribute<?>, Object> parameters,
                              final HateosHandlerContext<N> context,
                              final N result) {
-        this.putAndCheck(this.createHandler(), id, resource, context, result);
+        this.putAndCheck(this.createHandler(), id, resource, parameters, context, result);
     }
 
     default void putAndCheck(final HateosPutHandler<I, N> handler,
                              final I id,
                              final N resource,
+                             final Map<HttpRequestAttribute<?>, Object> parameters,
                              final HateosHandlerContext<N> context,
                              final N result) {
         assertEquals(result,
-                this.put(handler, id, resource, context),
+                this.put(handler, id, resource, parameters, context),
                 () -> handler + " id=" + id + ", resource: " + resource + ", context: " + context);
     }
 
     default <T extends Throwable> T putFails(final I id,
                                              final N resource,
+                                             final Map<HttpRequestAttribute<?>, Object> parameters,
                                              final HateosHandlerContext<N> context,
                                              final Class<T> thrown) {
         return this.putFails(this.createHandler(),
                 id,
                 resource,
+                parameters,
                 context,
                 thrown);
     }
@@ -97,10 +118,11 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
     default <T extends Throwable> T putFails(final HateosPutHandler<I, N> handler,
                                              final I id,
                                              final N resource,
+                                             final Map<HttpRequestAttribute<?>, Object> parameters,
                                              final HateosHandlerContext<N> context,
                                              final Class<T> thrown) {
         return assertThrows(thrown, () -> {
-            this.put(handler, id, resource, context);
+            this.put(handler, id, resource, parameters, context);
         });
     }
 

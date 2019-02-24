@@ -19,9 +19,11 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.compare.Range;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -33,9 +35,11 @@ public class FakeHateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
     @Override
     public void delete(final I id,
                        final Optional<N> resource,
+                       final Map<HttpRequestAttribute<?>, Object> parameters,
                        final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(resource, "resource");
+        Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(context, "context");
 
         throw new UnsupportedOperationException();
@@ -44,9 +48,11 @@ public class FakeHateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
     @Override
     public void deleteCollection(final Range<I> ids,
                                  final Optional<N> resource,
+                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                  final HateosHandlerContext<N> context) {
         Objects.requireNonNull(ids, "ids");
         Objects.requireNonNull(resource, "resource");
+        Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(context, "context");
 
         throw new UnsupportedOperationException();

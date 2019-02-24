@@ -18,14 +18,19 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.Node;
+
+import java.util.Map;
 
 public interface HateosHandlerTesting<H extends HateosHandler<I, N>, I extends Comparable<I>, N extends Node<N, ?, ?, ?>> extends TypeNameTesting<H> {
 
     H createHandler();
 
     HateosHandlerContext<N> createContext();
+
+    Map<HttpRequestAttribute<?>, Object> parameters();
 
     // TypeNameTesting .........................................................................................
 

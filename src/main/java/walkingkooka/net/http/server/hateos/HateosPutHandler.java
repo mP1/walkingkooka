@@ -18,7 +18,10 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.tree.Node;
+
+import java.util.Map;
 
 /**
  * Handles PUT requests for an resource.
@@ -30,5 +33,6 @@ public interface HateosPutHandler<I extends Comparable<I>, N extends Node<N, ?, 
      */
     N put(final I id,
           final N resource,
+          final Map<HttpRequestAttribute<?>, Object> parameters,
           final HateosHandlerContext<N> context);
 }

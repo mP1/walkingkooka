@@ -19,8 +19,10 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.compare.Range;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.tree.Node;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -33,6 +35,7 @@ public interface HateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
      */
     void delete(final I id,
                 final Optional<N> resource,
+                final Map<HttpRequestAttribute<?>, Object> parameters,
                 final HateosHandlerContext<N> context);
 
     /**
@@ -40,5 +43,6 @@ public interface HateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
      */
     void deleteCollection(final Range<I> ids,
                           final Optional<N> resource,
+                          final Map<HttpRequestAttribute<?>, Object> parameters,
                           final HateosHandlerContext<N> context);
 }

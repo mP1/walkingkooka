@@ -98,6 +98,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
                     if (null != resource) {
                         delete.delete(Cast.to(id),
                                 resource,
+                                this.parameters,
                                 this.router.deleteContext);
                         this.setStatusDeleted("resource");
                     }
@@ -130,6 +131,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
         if (null != resource) {
             delete.deleteCollection(Cast.to(range),
                     resource,
+                    this.parameters,
                     this.router.deleteContext);
             this.setStatusDeleted("collection");
         }

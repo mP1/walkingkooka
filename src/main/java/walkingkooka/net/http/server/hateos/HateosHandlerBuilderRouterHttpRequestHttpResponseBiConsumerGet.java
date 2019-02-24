@@ -95,7 +95,9 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N ext
                 final HateosGetHandler<?, N> get = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.get);
                 if (null != get) {
                     this.setStatusAndBody("Get resource successful",
-                            get.get(Cast.to(id), this.request.parameters(), this.router.getContext));
+                            get.get(Cast.to(id),
+                                    this.parameters,
+                                    this.router.getContext));
                 }
             }
         }
@@ -123,7 +125,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N ext
                              final HateosGetHandler<?, N> get) {
         this.setStatusAndBody("Get collection successful",
                 get.getCollection(Cast.to(range),
-                        this.request.parameters(),
+                        this.parameters,
                         this.router.getContext));
     }
 
