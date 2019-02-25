@@ -32,8 +32,8 @@ public interface HateosPostHandler<I extends Comparable<I>, N extends Node<N, ?,
     /**
      * Processes a post.
      */
-    N post(final Optional<I> id,
-           final N resource,
+    Optional<N> post(final Optional<I> id,
+           final Optional<N> resource,
            final Map<HttpRequestAttribute<?>, Object> parameters,
            final HateosHandlerContext<N> context);
 }

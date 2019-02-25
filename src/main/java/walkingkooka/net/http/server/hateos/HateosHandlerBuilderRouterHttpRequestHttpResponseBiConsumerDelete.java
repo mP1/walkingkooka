@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.compare.Range;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
@@ -96,11 +95,11 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
                 if (null != delete) {
                     final Optional<N> resource = this.resourceOrBadRequest();
                     if (null != resource) {
-                        delete.delete(Cast.to(id),
-                                resource,
-                                this.parameters,
-                                this.router.deleteContext);
-                        this.setStatusDeleted("resource");
+                        this.setStatusAndBody("Delete resource successful",
+                                delete.delete(Cast.to(id),
+                                        resource,
+                                        this.parameters,
+                                        this.router.deleteContext));
                     }
                 }
             }
@@ -129,15 +128,11 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<N 
                              final HateosDeleteHandler<?, N> delete) {
         final Optional<N> resource = this.resourceOrBadRequest();
         if (null != resource) {
-            delete.deleteCollection(Cast.to(range),
-                    resource,
-                    this.parameters,
-                    this.router.deleteContext);
-            this.setStatusDeleted("collection");
+            this.setStatusAndBody("Delete collection successful",
+                    delete.deleteCollection(Cast.to(range),
+                            resource,
+                            this.parameters,
+                            this.router.deleteContext));
         }
-    }
-
-    private void setStatusDeleted(final String label) {
-        this.setStatus(HttpStatusCode.NO_CONTENT, "Delete " + label + " successful");
     }
 }

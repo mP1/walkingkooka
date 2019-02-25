@@ -33,10 +33,10 @@ import java.util.Optional;
 public class FakeHateosDeleteHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> implements HateosDeleteHandler<I, N>, Fake {
 
     @Override
-    public void delete(final I id,
-                       final Optional<N> resource,
-                       final Map<HttpRequestAttribute<?>, Object> parameters,
-                       final HateosHandlerContext<N> context) {
+    public Optional<N> delete(final I id,
+                              final Optional<N> resource,
+                              final Map<HttpRequestAttribute<?>, Object> parameters,
+                              final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(resource, "resource");
         Objects.requireNonNull(parameters, "parameters");
@@ -46,10 +46,10 @@ public class FakeHateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
     }
 
     @Override
-    public void deleteCollection(final Range<I> ids,
-                                 final Optional<N> resource,
-                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                 final HateosHandlerContext<N> context) {
+    public Optional<N> deleteCollection(final Range<I> ids,
+                                        final Optional<N> resource,
+                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                        final HateosHandlerContext<N> context) {
         Objects.requireNonNull(ids, "ids");
         Objects.requireNonNull(resource, "resource");
         Objects.requireNonNull(parameters, "parameters");

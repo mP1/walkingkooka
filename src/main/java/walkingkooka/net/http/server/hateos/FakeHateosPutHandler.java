@@ -24,6 +24,7 @@ import walkingkooka.tree.Node;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link HateosPutHandler} where all methods throw {@link UnsupportedOperationException}.
@@ -31,10 +32,10 @@ import java.util.Objects;
 public class FakeHateosPutHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> implements HateosPutHandler<I, N>, Fake {
 
     @Override
-    public N put(final I id,
-                 final N resource,
-                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                 final HateosHandlerContext<N> context) {
+    public Optional<N> put(final I id,
+                           final Optional<N> resource,
+                           final Map<HttpRequestAttribute<?>, Object> parameters,
+                           final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(resource, "resource");
         Objects.requireNonNull(parameters, "parameters");

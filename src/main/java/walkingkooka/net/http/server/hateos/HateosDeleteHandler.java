@@ -33,16 +33,16 @@ public interface HateosDeleteHandler<I extends Comparable<I>, N extends Node<N, 
     /**
      * Deletes the request resource identified by the ID.
      */
-    void delete(final I id,
-                final Optional<N> resource,
-                final Map<HttpRequestAttribute<?>, Object> parameters,
-                final HateosHandlerContext<N> context);
+    Optional<N> delete(final I id,
+                       final Optional<N> resource,
+                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                       final HateosHandlerContext<N> context);
 
     /**
      * Deletes the request entities identified by the range of IDs.
      */
-    void deleteCollection(final Range<I> ids,
-                          final Optional<N> resource,
-                          final Map<HttpRequestAttribute<?>, Object> parameters,
-                          final HateosHandlerContext<N> context);
+    Optional<N> deleteCollection(final Range<I> ids,
+                                 final Optional<N> resource,
+                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                 final HateosHandlerContext<N> context);
 }
