@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.tree.Node;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -68,42 +69,42 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
                 NullPointerException.class);
     }
 
-    default N put(final I id,
-                  final N resource,
-                  final Map<HttpRequestAttribute<?>, Object> parameters,
-                  final HateosHandlerContext<N> context) {
+    default Optional<N> put(final I id,
+                            final Optional<N> resource,
+                            final Map<HttpRequestAttribute<?>, Object> parameters,
+                            final HateosHandlerContext<N> context) {
         return this.put(this.createHandler(), id, resource, parameters, context);
     }
 
-    default N put(final HateosPutHandler<I, N> handler,
-                  final I id,
-                  final N resource,
-                  final Map<HttpRequestAttribute<?>, Object> parameters,
-                  final HateosHandlerContext<N> context) {
+    default Optional<N> put(final HateosPutHandler<I, N> handler,
+                            final I id,
+                            final Optional<N> resource,
+                            final Map<HttpRequestAttribute<?>, Object> parameters,
+                            final HateosHandlerContext<N> context) {
         return handler.put(id, resource, parameters, context);
     }
 
     default void putAndCheck(final I id,
-                             final N resource,
+                             final Optional<N> resource,
                              final Map<HttpRequestAttribute<?>, Object> parameters,
                              final HateosHandlerContext<N> context,
-                             final N result) {
+                             final Optional<N> result) {
         this.putAndCheck(this.createHandler(), id, resource, parameters, context, result);
     }
 
     default void putAndCheck(final HateosPutHandler<I, N> handler,
                              final I id,
-                             final N resource,
+                             final Optional<N> resource,
                              final Map<HttpRequestAttribute<?>, Object> parameters,
                              final HateosHandlerContext<N> context,
-                             final N result) {
+                             final Optional<N> result) {
         assertEquals(result,
                 this.put(handler, id, resource, parameters, context),
                 () -> handler + " id=" + id + ", resource: " + resource + ", context: " + context);
     }
 
     default <T extends Throwable> T putFails(final I id,
-                                             final N resource,
+                                             final Optional<N> resource,
                                              final Map<HttpRequestAttribute<?>, Object> parameters,
                                              final HateosHandlerContext<N> context,
                                              final Class<T> thrown) {
@@ -117,7 +118,7 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
 
     default <T extends Throwable> T putFails(final HateosPutHandler<I, N> handler,
                                              final I id,
-                                             final N resource,
+                                             final Optional<N> resource,
                                              final Map<HttpRequestAttribute<?>, Object> parameters,
                                              final HateosHandlerContext<N> context,
                                              final Class<T> thrown) {
@@ -128,7 +129,7 @@ public interface HateosPutHandlerTesting<H extends HateosPutHandler<I, N>, I ext
 
     I id();
 
-    N resource();
+    Optional<N> resource();
 
     // TypeNameTesting .........................................................................................
 

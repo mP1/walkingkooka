@@ -69,23 +69,23 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
                 NullPointerException.class);
     }
 
-    default N post(final Optional<I> id,
-                   final N resource,
-                   final Map<HttpRequestAttribute<?>, Object> parameters,
-                   final HateosHandlerContext<N> context) {
+    default Optional<N> post(final Optional<I> id,
+                             final Optional<N> resource,
+                             final Map<HttpRequestAttribute<?>, Object> parameters,
+                             final HateosHandlerContext<N> context) {
         return this.post(this.createHandler(), id, resource, parameters, context);
     }
 
-    default N post(final HateosPostHandler<I, N> handler,
-                   final Optional<I> id,
-                   final N resource,
-                   final Map<HttpRequestAttribute<?>, Object> parameters,
-                   final HateosHandlerContext<N> context) {
+    default Optional<N> post(final HateosPostHandler<I, N> handler,
+                             final Optional<I> id,
+                             final Optional<N> resource,
+                             final Map<HttpRequestAttribute<?>, Object> parameters,
+                             final HateosHandlerContext<N> context) {
         return handler.post(id, resource, parameters, context);
     }
 
     default void postAndCheck(final Optional<I> id,
-                              final N resource,
+                              final Optional<N> resource,
                               final Map<HttpRequestAttribute<?>, Object> parameters,
                               final HateosHandlerContext<N> context,
                               final N result) {
@@ -94,7 +94,7 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
 
     default void postAndCheck(final HateosPostHandler<I, N> handler,
                               final Optional<I> id,
-                              final N resource,
+                              final Optional<N> resource,
                               final Map<HttpRequestAttribute<?>, Object> parameters,
                               final HateosHandlerContext<N> context,
                               final N result) {
@@ -104,7 +104,7 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
     }
 
     default <T extends Throwable> T postFails(final Optional<I> id,
-                                              final N resource,
+                                              final Optional<N> resource,
                                               final Map<HttpRequestAttribute<?>, Object> parameters,
                                               final HateosHandlerContext<N> context,
                                               final Class<T> thrown) {
@@ -118,7 +118,7 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
 
     default <T extends Throwable> T postFails(final HateosPostHandler<I, N> handler,
                                               final Optional<I> id,
-                                              final N resource,
+                                              final Optional<N> resource,
                                               final Map<HttpRequestAttribute<?>, Object> parameters,
                                               final HateosHandlerContext<N> context,
                                               final Class<T> thrown) {
@@ -129,7 +129,7 @@ public interface HateosPostHandlerTesting<H extends HateosPostHandler<I, N>, I e
 
     Optional<I> id();
 
-    N resource();
+    Optional<N> resource();
 
     // TypeNameTesting .........................................................................................
 

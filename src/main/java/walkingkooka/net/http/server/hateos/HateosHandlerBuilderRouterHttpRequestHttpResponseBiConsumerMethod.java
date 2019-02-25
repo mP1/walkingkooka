@@ -387,7 +387,15 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
     /**
      * Sets the status to successful and body to the bytes of the encoded text of {@link Node}.
      */
-    final void setStatusAndBody(final String message, final N node) {
+    final void setStatusAndBody(final String message, final Optional<N> node) {
+        if (node.isPresent()) {
+            this.setStatusAndBody(message, node.get());
+        } else {
+            this.setStatus(HttpStatusCode.NO_CONTENT, message);
+        }
+    }
+
+    private void setStatusAndBody(final String message, final N node) {
         this.setStatus(HttpStatusCode.OK, message);
 
         final AcceptCharset acceptCharset = HttpHeaderName.ACCEPT_CHARSET.headerValueOrFail(this.request.headers());

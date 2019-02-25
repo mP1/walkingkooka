@@ -32,10 +32,10 @@ import java.util.Optional;
 public class FakeHateosPostHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> implements HateosPostHandler<I, N>, Fake {
 
     @Override
-    public N post(final Optional<I> id,
-                  final N resource,
-                  final Map<HttpRequestAttribute<?>, Object> parameters,
-                  final HateosHandlerContext<N> context) {
+    public Optional<N> post(final Optional<I> id,
+                            final Optional<N> resource,
+                            final Map<HttpRequestAttribute<?>, Object> parameters,
+                            final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(resource, "resource");
         Objects.requireNonNull(parameters, "parameters");

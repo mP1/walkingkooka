@@ -26,6 +26,7 @@ import walkingkooka.tree.Node;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -69,11 +70,30 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
                 NullPointerException.class);
     }
 
-    default void delete(final I id,
-                        final Optional<N> resource,
-                        final Map<HttpRequestAttribute<?>, Object> parameters,
-                        final HateosHandlerContext<N> context) {
-        this.createHandler().delete(id, resource, parameters, context);
+    default Optional<N> delete(final I id,
+                               final Optional<N> resource,
+                               final Map<HttpRequestAttribute<?>, Object> parameters,
+                               final HateosHandlerContext<N> context) {
+        return this.createHandler().delete(id, resource, parameters, context);
+    }
+
+    default void deleteAndCheck(final I id,
+                                final Optional<N> resource,
+                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final HateosHandlerContext<N> context,
+                                final Optional<N> result) {
+        this.deleteAndCheck(this.createHandler(), id, resource, parameters, context, result);
+    }
+
+    default void deleteAndCheck(final HateosDeleteHandler<I, N> handler,
+                                final I id,
+                                final Optional<N> resource,
+                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final HateosHandlerContext<N> context,
+                                final Optional<N> result) {
+        assertEquals(result,
+                handler.delete(id, resource, parameters, context),
+                () -> handler + " id=" + id + ", resource: " + resource + ", context: " + context);
     }
 
     default <T extends Throwable> T deleteFails(final I id,

@@ -22,12 +22,9 @@ import walkingkooka.Cast;
 import walkingkooka.compare.Range;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
-
-import java.util.Optional;
 
 /**
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
@@ -127,13 +124,5 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet<N ext
                 get.getCollection(Cast.to(range),
                         this.parameters,
                         this.router.getContext));
-    }
-
-    final void setStatusAndBody(final String message, final Optional<N> node) {
-        if (node.isPresent()) {
-            this.setStatusAndBody(message, node.get());
-        } else {
-            this.setStatus(HttpStatusCode.NO_CONTENT, "No content available");
-        }
     }
 }

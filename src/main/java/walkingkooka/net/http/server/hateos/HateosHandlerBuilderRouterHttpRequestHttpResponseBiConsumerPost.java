@@ -71,7 +71,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost<N ex
                 if (null != resource) {
                     this.setStatusAndBody("Post resource successful",
                             post.post(Cast.to(Optional.empty()),
-                                    resource.get(),
+                                    resource,
                                     this.parameters,
                                     this.router.postContext));
                 }
@@ -99,7 +99,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost<N ex
                     if (null != post) {
                         this.setStatusAndBody("Post resource successful",
                                 post.post(Cast.to(Optional.of(id)),
-                                        resource.get(),
+                                        resource,
                                         this.parameters,
                                         this.router.postContext));
                     }
