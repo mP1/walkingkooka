@@ -157,6 +157,25 @@ public interface HateosDeleteHandlerTesting<H extends HateosDeleteHandler<I, N>,
                 context);
     }
 
+    default void deleteCollectionAndCheck(final Range<I> ids,
+                                          final Optional<N> resource,
+                                          final Map<HttpRequestAttribute<?>, Object> parameters,
+                                          final HateosHandlerContext<N> context,
+                                          final Optional<N> result) {
+        this.deleteCollectionAndCheck(this.createHandler(), ids, resource, parameters, context, result);
+    }
+
+    default void deleteCollectionAndCheck(final HateosDeleteHandler<I, N> handler,
+                                          final Range<I> ids,
+                                          final Optional<N> resource,
+                                          final Map<HttpRequestAttribute<?>, Object> parameters,
+                                          final HateosHandlerContext<N> context,
+                                          final Optional<N> result) {
+        assertEquals(result,
+                handler.deleteCollection(ids, resource, parameters, context),
+                () -> handler + " ids=" + ids + ", resource: " + resource + ", context: " + context);
+    }
+
     default <T extends Throwable> T deleteCollectionFails(final Range<I> ids,
                                                           final Optional<N> resource,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
