@@ -20,9 +20,11 @@ package walkingkooka.tree.json;
 
 import walkingkooka.collect.map.Maps;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Holds non public internal methods and state for {@link HasJsonNode}.
@@ -64,6 +66,28 @@ final class HasJsonNode2 {
     }
 
     /**
+     * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
+     * Essentially the inverse of {@link HasJsonNode#toJsonNode(List)}.
+     */
+    static <T> List<T> fromJsonNode(final JsonNode node, final Class<T> elementType) {
+        Objects.requireNonNull(node, "node");
+        Objects.requireNonNull(elementType, "elementType");
+
+        JsonArrayNode array;
+        try {
+            array = node.arrayOrFail();
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+        final Function<JsonNode, ? extends HasJsonNode> factory = registrationOrFail(elementType.getName())
+                .from;
+        return array.children()
+                .stream()
+                .map(n -> elementType.cast(factory.apply(n)))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Unwraps a wrapper holding a type and json form of a java instance.
      */
     static HasJsonNode fromJsonNodeWithType(final JsonNode node) {
@@ -83,15 +107,31 @@ final class HasJsonNode2 {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
 
+        return registrationOrFail(type)
+                .from.apply(object.getOrFail(VALUE));
+    }
+
+    final static JsonNodeName TYPE = JsonNodeName.with("type");
+
+    static HasJsonNode2Registration registrationOrFail(final String type) {
         final HasJsonNode2Registration registration = TYPENAME_TO_FACTORY.get(type);
         if(null==registration) {
             throw new IllegalArgumentException("Type " + type + " factory not registered.");
         }
-
-        return registration.from.apply(object.getOrFail(VALUE));
+        return registration;
     }
 
-    final static JsonNodeName TYPE = JsonNodeName.with("type");
+    /**
+     * Accepts a list of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
+        Objects.requireNonNull(list, "list");
+
+        return JsonObjectNode.array().setChildren(list.stream()
+                .map(e -> ((HasJsonNode) e).toJsonNode())
+                .collect(Collectors.toList()));
+    }
 
     /**
      * Serializes the node into json with a wrapper json object holding the type=json.
