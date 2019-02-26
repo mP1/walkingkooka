@@ -38,14 +38,18 @@ import java.util.Collection;
 public abstract class HateosContentType<N extends Node<N, ?, ?, ?>, V> {
 
     /**
-     * Selects JSON formatted bodies.
+     * Selects JSON formatted request and response bodies.
      */
-    public final static HateosContentType<JsonNode, HasJsonNode> JSON = HateosContentTypeJsonNode.instance();
+    public final static <V extends HasJsonNode> HateosContentType<JsonNode, V> json() {
+        return HateosContentTypeJsonNode.instance();
+    }
 
     /**
-     * Selects XML formatted bodies.
+     * Selects XML formatted request and response bodies.
      */
-    public final static HateosContentType<XmlNode, HasXmlNode> XML = HateosContentTypeXmlNode.instance();
+    public final static <V extends HasXmlNode> HateosContentType<XmlNode, V> xml() {
+        return HateosContentTypeXmlNode.instance();
+    }
 
     /**
      * Package private use constants.

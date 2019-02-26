@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.Link;
@@ -29,7 +30,7 @@ import walkingkooka.tree.json.JsonNode;
 
 import java.math.BigInteger;
 
-public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCase<HateosContentTypeJsonNode, JsonNode, HasJsonNode> {
+public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCase<HateosContentTypeJsonNode<HasJsonNode>, JsonNode, HasJsonNode> {
 
     @Test
     public void testAddLinkSelf() throws Exception {
@@ -101,7 +102,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     }
 
     @Override
-    HateosContentTypeJsonNode constant() {
+    HateosContentTypeJsonNode<HasJsonNode> constant() {
         return HateosContentTypeJsonNode.instance();
     }
 
@@ -111,7 +112,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     }
 
     @Override
-    public Class<HateosContentTypeJsonNode> type() {
-        return HateosContentTypeJsonNode.class;
+    public Class<HateosContentTypeJsonNode<HasJsonNode>> type() {
+        return Cast.to(HateosContentTypeJsonNode.class);
     }
 }

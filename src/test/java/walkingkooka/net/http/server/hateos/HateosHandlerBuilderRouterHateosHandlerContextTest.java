@@ -64,7 +64,7 @@ public final class HateosHandlerBuilderRouterHateosHandlerContextTest implements
     @Override
     public HateosHandlerBuilderRouterHateosHandlerContext<JsonNode, HasJsonNode> createContext() {
         return HateosHandlerBuilderRouterHateosHandlerContext.with(HttpMethod.GET,
-                HateosContentType.JSON,
+                HateosContentType.json(),
                 Url.parseAbsolute("http://example.com/api/"),
                 this.nameAndLinkRelations());
     }

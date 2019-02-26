@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.Link;
@@ -31,7 +32,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.math.BigInteger;
 
-public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCase<HateosContentTypeXmlNode, XmlNode, HasXmlNode> {
+public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCase<HateosContentTypeXmlNode<HasXmlNode>, XmlNode, HasXmlNode> {
 
     @Test
     public void testAddLinkSelf() throws Exception {
@@ -74,7 +75,7 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     }
 
     @Override
-    HateosContentTypeXmlNode constant() {
+    HateosContentTypeXmlNode<HasXmlNode> constant() {
         return HateosContentTypeXmlNode.instance();
     }
 
@@ -92,7 +93,7 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
     }
 
     @Override
-    public Class<HateosContentTypeXmlNode> type() {
-        return HateosContentTypeXmlNode.class;
+    public Class<HateosContentTypeXmlNode<HasXmlNode>> type() {
+        return Cast.to(HateosContentTypeXmlNode.class);
     }
 }

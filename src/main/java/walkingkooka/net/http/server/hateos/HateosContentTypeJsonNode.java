@@ -45,14 +45,17 @@ import java.util.Map;
 /**
  * The {@link HateosContentType} that handles {@link JsonNode}.
  */
-final class HateosContentTypeJsonNode extends HateosContentType<JsonNode, HasJsonNode> {
+final class HateosContentTypeJsonNode<V extends HasJsonNode> extends HateosContentType<JsonNode, V> {
 
     /**
      * Singleton
      */
-    final static HateosContentTypeJsonNode instance() {
-        return new HateosContentTypeJsonNode();
+    @SuppressWarnings("unchecked")
+    final static <V extends HasJsonNode> HateosContentTypeJsonNode<V> instance() {
+        return INSTANCE;
     }
+
+    private final static HateosContentTypeJsonNode INSTANCE = new HateosContentTypeJsonNode<>();
 
     /**
      * Private ctor use singleton.

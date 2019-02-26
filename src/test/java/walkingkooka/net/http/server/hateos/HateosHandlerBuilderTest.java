@@ -414,7 +414,7 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
     }
 
     private HateosContentType<JsonNode, HasJsonNode> contentType() {
-        return HateosContentType.JSON;
+        return HateosContentType.json();
     }
 
     @Override
