@@ -44,14 +44,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-final class HateosContentTypeXmlNode extends HateosContentType<XmlNode, HasXmlNode> {
+final class HateosContentTypeXmlNode<V extends HasXmlNode> extends HateosContentType<XmlNode, V> {
 
     /**
      * Singleton
      */
-    final static HateosContentTypeXmlNode instance() {
-        return new HateosContentTypeXmlNode();
+    @SuppressWarnings("unchecked")
+    final static <V extends HasXmlNode> HateosContentTypeXmlNode<V> instance() {
+        return INSTANCE;
     }
+
+    private final static HateosContentTypeXmlNode INSTANCE = new HateosContentTypeXmlNode<>();
+
 
     /**
      * Private ctor use singleton.

@@ -1488,7 +1488,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     private HateosHandlerBuilder<JsonNode, HasJsonNode> builder() {
         return HateosHandlerBuilder.with(
                 Url.parseAbsolute("http://www.example.com/api"),
-                HateosContentType.JSON);
+                HateosContentType.json());
     }
 
     private HateosResourceName resourceName1() {
@@ -1508,7 +1508,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     }
 
     private MediaType contentType() {
-        return HateosContentType.JSON.contentType();
+        return HateosContentType.json().contentType();
     }
 
     private MediaType contentTypeUtf16() {
@@ -1529,7 +1529,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
             final byte[] bytes = this.bytes(body, contentType);
 
             final Map<HttpHeaderName<?>, Object> headers = Maps.sorted();
-            headers.put(HttpHeaderName.CONTENT_TYPE, HateosContentType.JSON.contentType().setCharset(charsetName));
+            headers.put(HttpHeaderName.CONTENT_TYPE, HateosContentType.json().contentType().setCharset(charsetName));
             headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(bytes(body, contentType).length));
 
             entities = new HttpEntity[]{HttpEntity.with(headers, bytes)};
