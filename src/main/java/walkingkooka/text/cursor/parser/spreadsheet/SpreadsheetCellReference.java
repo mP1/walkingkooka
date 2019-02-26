@@ -27,6 +27,7 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
@@ -50,6 +51,10 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
+    }
+
+    static {
+        HasJsonNode.register(SpreadsheetCellReference.class, SpreadsheetCellReference::fromJsonNode);
     }
 
     /**

@@ -159,6 +159,10 @@ final public class EmailAddress implements Value<String>,
         return JsonNode.string(this.toString());
     }
 
+    static {
+        HasJsonNode.register(EmailAddress.class, EmailAddress::fromJsonNode);
+    }
+
     // Object......................................................................
 
     @Override

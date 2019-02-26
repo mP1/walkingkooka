@@ -24,6 +24,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
@@ -61,6 +62,10 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
+    }
+
+    static {
+        HasJsonNode.register(SpreadsheetLabelName.class, SpreadsheetLabelName::fromJsonNode);
     }
 
     /**

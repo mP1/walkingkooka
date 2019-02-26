@@ -28,6 +28,16 @@ import java.util.Objects;
  */
 final class OpaqueColor extends Color {
 
+    static OpaqueColor fromJsonNode0(final JsonNode from) {
+        Objects.requireNonNull(from, "from");
+
+        try {
+            return OpaqueColor.class.cast(fromJsonNode(from));
+        } catch (final ClassCastException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
     /**
      * Creates a new {@link Color} with the provided components.
      */

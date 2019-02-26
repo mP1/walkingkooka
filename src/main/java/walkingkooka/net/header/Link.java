@@ -216,6 +216,10 @@ final public class Link extends HeaderValueWithParameters2<Link,
     // @VisibleForTesting
     final static JsonNodeName HREF_JSON_PROPERTY = JsonNodeName.with("href");
 
+    static {
+        HasJsonNode.register(Link.class, Link::fromJsonNode);
+    }
+
     // hasXmlNode..........................................................................................................
 
     /**
