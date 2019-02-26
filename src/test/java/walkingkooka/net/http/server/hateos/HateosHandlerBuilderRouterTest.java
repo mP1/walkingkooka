@@ -911,8 +911,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 "/api/resource3/123-456/xyz",
                 this.contentType(),
                 JSON,
-                HttpStatusCode.BAD_REQUEST,
-                "Collections not supported",
+                HttpStatusCode.NOT_FOUND,
+                "resource: resource3, link relation: xyz",
                 null);
     }
 
@@ -1001,6 +1001,201 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 this.bytes(post, contentType),
                 status.setMessage(statusMessage),
                 this.httpEntity(reply, contentType));
+    }
+
+    // PutCollection WithoutId RANGE ................................................................................................
+
+    @Test
+    public void testPutCollectionWithoutIdRange() {
+        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), ID_PARSER, this.relation1(), PUT_HANDLER),
+                "/api/resource1//self",
+                this.contentType(),
+                JSON,
+                HttpStatusCode.BAD_REQUEST,
+                "Id required",
+                null);
+    }
+
+    // PutCollectionWildcard ...................................................................................................
+
+    @Test
+    public void testPutCollectionWildcardWithoutHandlersNotFound() {
+        this.routePutHandleAndCheck((b) -> b.put(this.resourceName1(), ID_PARSER, this.relation1(), PUT_HANDLER),
+                "/api/resource1/*/self",
+                this.contentType(),
+                JSON,
+                HttpStatusCode.BAD_REQUEST,
+                "Collections not supported",
+                null);
+    }
+
+    // PutCollection Range  ................................................................................................
+
+    @Test
+    public void testPutCollectionRangeWithoutHandlersNotFound() {
+        this.routePutCollectionHandleAndCheck(
+                (b) -> b.put(this.resourceName1(), ID_PARSER, this.relation1(), PUT_HANDLER),
+                "/api/resource3/123-456/xyz",
+                this.contentType(),
+                NO_BODY,
+                HttpStatusCode.NOT_FOUND,
+                "resource: resource3, link relation: xyz",
+                NO_JSON);
+    }
+
+    @Test
+    public void testPutCollectionRangeWithRelationSelf() {
+        this.routePutCollectionHandleAndCheck(
+                (b) -> this.addPutCollectionHandler(b, RANGE, JSON2),
+                "/api/resource1/123-456/self?param1=value1",
+                this.contentType(),
+                NO_BODY,
+                HttpStatusCode.OK,
+                "Put collection successful",
+                JSON2);
+    }
+
+
+    @Test
+    public void testPutCollectionRangeWithoutRelationDefaultsSelf() {
+        this.routePutCollectionHandleAndCheck(
+                (b) -> this.addPutCollectionHandler(b, RANGE, JSON2),
+                "/api/resource1/123-456?param1=value1",
+                this.contentType(),
+                NO_BODY,
+                HttpStatusCode.OK,
+                "Put collection successful",
+                JSON2);
+    }
+
+    @Test
+    public void testPutCollectionRangeIgnoresAlternatives() {
+        this.routePutCollectionHandleAndCheck((b) -> {
+                    this.addPutCollectionHandler(b, RANGE, JSON2);
+                    b.put(this.resourceName1(), ID_PARSER, this.relation2(), PUT_HANDLER);
+                    b.put(this.resourceName2(), ID_PARSER, this.relation1(), PUT_HANDLER);
+                },
+                "/api/resource1/123-456/self?param1=value1",
+                this.contentType(),
+                NO_BODY,
+                HttpStatusCode.OK,
+                "Put collection successful",
+                JSON2);
+    }
+
+    @Test
+    public void testPutCollectionWithoutBody() {
+        this.routePutCollectionHandleAndCheck((b) -> {
+                    this.addPutCollectionHandler(b, RANGE, NO_JSON);
+                    b.put(this.resourceName1(), ID_PARSER, this.relation2(), PUT_HANDLER);
+                    b.put(this.resourceName2(), ID_PARSER, this.relation1(), PUT_HANDLER);
+                },
+                "/api/resource1/123-456/self?param1=value1",
+                this.contentType(),
+                BODY,
+                HttpStatusCode.NO_CONTENT,
+                "Put collection successful",
+                NO_JSON);
+    }
+
+    @Test
+    public void testPutCollectionWithBody() {
+        this.routePutCollectionHandleAndCheck((b) -> {
+                    this.addPutCollectionHandler(b, RANGE, JSON2);
+                    b.put(this.resourceName1(), ID_PARSER, this.relation2(), PUT_HANDLER);
+                    b.put(this.resourceName2(), ID_PARSER, this.relation1(), PUT_HANDLER);
+                },
+                "/api/resource1/123-456/self?param1=value1",
+                this.contentType(),
+                BODY,
+                HttpStatusCode.OK,
+                "Put collection successful",
+                JSON2);
+    }
+
+    // PUT COLLECTION THROWS ............................................................................................
+
+    @Test
+    public void testPutCollectionIllegalArgumentExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.put(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosPutHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public Optional<JsonNode> putCollection(final Range<BigInteger> id,
+                                                               final Optional<JsonNode> resource,
+                                                               final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                               final HateosHandlerContext<JsonNode> context) {
+                        throw new IllegalArgumentException("Invalid parameter");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.PUT,
+                "/api/resource1/1-2/self",
+                this.contentType(),
+                NO_BODY,
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid parameter"));
+    }
+
+    @Test
+    public void testPutCollectionUnsupportedOperationExceptionThrownBadRequest() {
+        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.builder();
+        builder.put(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosPutHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public Optional<JsonNode> putCollection(final Range<BigInteger> id,
+                                                               final Optional<JsonNode> resource,
+                                                               final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                               final HateosHandlerContext<JsonNode> context) {
+                        throw new UnsupportedOperationException("Not available 123");
+                    }
+                });
+        this.routeHandleAndCheck(builder,
+                HttpMethod.PUT,
+                "/api/resource1/1-2/self",
+                this.contentType(),
+                NO_BODY,
+                HttpStatusCode.NOT_IMPLEMENTED.setMessage("Not available 123"));
+    }
+
+    // PUT HELPERS.....................................................................................................
+
+    private void addPutCollectionHandler(final HateosHandlerBuilder<JsonNode, HasJsonNode> builder,
+                                            final Range<BigInteger> range,
+                                            final String response) {
+        builder.put(this.resourceName1(),
+                ID_PARSER,
+                this.relation1(),
+                new FakeHateosPutHandler<BigInteger, JsonNode>() {
+                    @Override
+                    public Optional<JsonNode> putCollection(final Range<BigInteger> r,
+                                                               final Optional<JsonNode> resource,
+                                                               final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                               final HateosHandlerContext<JsonNode> context) {
+                        assertEquals(range, r, "range");
+                        checkParameters(parameters);
+                        return jsonNode(response);
+                    }
+                });
+    }
+
+    private void routePutCollectionHandleAndCheck(final Consumer<HateosHandlerBuilder<JsonNode, HasJsonNode>> build,
+                                                     final String url,
+                                                     final MediaType contentType,
+                                                     final byte[] body,
+                                                     final HttpStatusCode status,
+                                                     final String statusMessage,
+                                                     final String response) {
+        this.routeHandleAndCheck(build,
+                HttpMethod.PUT,
+                url,
+                contentType,
+                body,
+                status.setMessage(statusMessage),
+                httpEntity(response, contentType()));
     }
 
     // DELETE RESOURCE ................................................................................................

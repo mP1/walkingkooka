@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.tree.Node;
 
@@ -36,4 +37,12 @@ public interface HateosPutHandler<I extends Comparable<I>, N extends Node<N, ?, 
                     final Optional<N> resource,
                     final Map<HttpRequestAttribute<?>, Object> parameters,
                     final HateosHandlerContext<N> context);
+
+    /**
+     * Processes a put or update operation for a collection.
+     */
+    Optional<N> putCollection(final Range<I> ids,
+                              final Optional<N> resource,
+                              final Map<HttpRequestAttribute<?>, Object> parameters,
+                              final HateosHandlerContext<N> context);
 }
