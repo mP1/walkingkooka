@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
@@ -37,6 +38,19 @@ public class FakeHateosPutHandler<I extends Comparable<I>, N extends Node<N, ?, 
                            final Map<HttpRequestAttribute<?>, Object> parameters,
                            final HateosHandlerContext<N> context) {
         Objects.requireNonNull(id, "id");
+        Objects.requireNonNull(resource, "resource");
+        Objects.requireNonNull(parameters, "parameters");
+        Objects.requireNonNull(context, "context");
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<N> putCollection(final Range<I> ids,
+                              final Optional<N> resource,
+                              final Map<HttpRequestAttribute<?>, Object> parameters,
+                              final HateosHandlerContext<N> context) {
+        Objects.requireNonNull(ids, "ids");
         Objects.requireNonNull(resource, "resource");
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(context, "context");

@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
+import walkingkooka.compare.Range;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequest;
@@ -99,6 +100,22 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut<N ext
                     final String endText,
                     final String rangeText,
                     final LinkRelation<?> linkRelation) {
-        this.badRequestCollectionsUnsupported();
+        final HateosHandlerBuilderRouterHandlers<N> handlers = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        if (null != handlers) {
+            final Range<Comparable<?>> range = this.rangeOrBadRequest(beginText, endText, handlers, rangeText);
+            if (null != range) {
+                final HateosPutHandler<?, N> put = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, handlers.put);
+                if (null != put) {
+                    final Optional<N> resource = this.resourceOrBadRequest();
+                    if (null != resource) {
+                        this.setStatusAndBody("Put collection successful",
+                                put.putCollection(Cast.to(range),
+                                        resource,
+                                        this.parameters,
+                                        this.router.putContext));
+                    }
+                }
+            }
+        }
     }
 }
