@@ -125,7 +125,7 @@ public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNod
 
     @Override
     List<String> propertiesNeverReturnNullSkipProperties() {
-        return Lists.of("booleanValueOrFail", "numberValueOrFail");
+        return Lists.of(BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, OBJECT_OR_FAIL);
     }
 
     // HasJsonNodeTesting..................................................................

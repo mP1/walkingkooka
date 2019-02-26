@@ -19,7 +19,6 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
@@ -78,10 +77,5 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
 
     final void checkChildren(final N node, final List<JsonNode> children) {
         assertEquals(children, node.children(), "children");
-    }
-
-    @Override
-    List<String> propertiesNeverReturnNullSkipProperties() {
-        return Lists.of("booleanValueOrFail", "numberValueOrFail", "stringValueOrFail", "value");
     }
 }
