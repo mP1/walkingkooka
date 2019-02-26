@@ -43,5 +43,10 @@ public abstract class SpreadsheetExpressionReferenceTestCase<R extends Spreadshe
         this.toJsonNodeRoundTripTwiceAndCheck(this.createReference());
     }
 
+    @Test
+    public final void testToJsonNodeWithTypeRoundTrip() {
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createReference());
+    }
+
     abstract R createReference();
 }

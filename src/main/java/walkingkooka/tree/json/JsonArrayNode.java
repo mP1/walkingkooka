@@ -34,6 +34,13 @@ import java.util.stream.Collectors;
  */
 public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
 
+    /**
+     * Simply returns the given {@link JsonNode}.
+     */
+    static JsonArrayNode fromJsonNode0(final JsonNode node) {
+        return node.cast();
+    }
+
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonArrayNode.class);
 
     final static JsonArrayNode EMPTY = new JsonArrayNode(NAME, NO_INDEX, Lists.empty());

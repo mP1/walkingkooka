@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.json;
 
+import java.util.function.Function;
+
 /**
  * Interface implemented by objects that can be expressed or have a {@link JsonNode} equivalent.
  */
@@ -37,6 +39,28 @@ public interface HasJsonNode {
     static void unknownPropertyPresent(final JsonNodeName property,
                                        final JsonNode node) {
         throw new IllegalArgumentException("Unknown property " + property + " present=" + node);
+    }
+
+    /**
+     * Registers a factory that parses a {@link JsonNode} into a value for the given {@link Class}.
+     */
+    static <T extends HasJsonNode> void register(final Class<T> type,
+                                                 final Function<JsonNode, T> from) {
+        HasJsonNode2.register(type, from);
+    }
+
+    /**
+     * Assumes a wrapper object with the type and value, basically the inverse of {@link HasJsonNode#toJsonNodeWithType()}.
+     */
+    static HasJsonNode fromJsonNodeWithType(final JsonNode node) {
+        return HasJsonNode2.fromJsonNodeWithType(node);
+    }
+
+    /**
+     * Wraps the {@link JsonNode} with a type name declaration.
+     */
+    default JsonNode toJsonNodeWithType() {
+        return HasJsonNode2.toJsonNode(this);
     }
 
     /**

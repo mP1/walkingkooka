@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesting2<JsonNode>,
-        HasJsonNodeTesting<N>,
+        HasJsonNodeTesting<JsonNode>,
         HasSearchNodeTesting<N>,
         IsMethodTesting<N>,
         NodeTesting2<JsonNode, JsonNodeName, Name, Object> {

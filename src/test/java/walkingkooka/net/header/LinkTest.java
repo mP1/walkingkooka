@@ -218,6 +218,11 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
                 .set(Link.HREF_JSON_PROPERTY, JsonNode.string("http://example.com")));
     }
 
+    @Test
+    public void testToJsonWithTypeRoundtrip() {
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createLink());
+    }
+
     // toXmlNode .......................................................................................
 
     @Test

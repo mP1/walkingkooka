@@ -1648,6 +1648,11 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         this.toJsonNodeRoundTripTwiceAndCheck(EmailAddress.parse("user@example.com"));
     }
 
+    @Test
+    public void testToJsonNodeWithTypeRoundtrip() {
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(EmailAddress.parse("user@example.com"));
+    }
+
     // HashCodeEqualsDefined ..................................................................................................
 
     @Test

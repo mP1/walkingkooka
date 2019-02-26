@@ -23,6 +23,7 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonStringNode;
@@ -45,6 +46,10 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
+    }
+
+    static {
+        HasJsonNode.register(SpreadsheetColumnReference.class, SpreadsheetColumnReference::fromJsonNode);
     }
 
     /**

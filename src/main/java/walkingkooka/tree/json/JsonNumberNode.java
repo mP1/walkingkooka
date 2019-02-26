@@ -26,6 +26,13 @@ import walkingkooka.tree.search.SearchNode;
  */
 public final class JsonNumberNode extends JsonLeafNode<Double>{
 
+    /**
+     * Simply returns the given {@link JsonNode}.
+     */
+    static JsonNumberNode fromJsonNode0(final JsonNode node) {
+        return node.cast();
+    }
+
     static JsonNumberNode with(final double value) {
         return new JsonNumberNode(NAME, NO_INDEX, value);
     }

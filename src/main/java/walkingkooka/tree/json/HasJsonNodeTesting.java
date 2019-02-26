@@ -21,9 +21,20 @@ package walkingkooka.tree.json;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface HasJsonNodeTesting<H extends HasJsonNode> {
+
+    @Test
+    default void testHasJsonNodeFactoryRegistered() {
+        final String type = this.type().getName();
+
+        assertNotEquals(
+                null,
+                HasJsonNode2.TYPENAME_TO_FACTORY.get(type),
+                ()->"Type: " + type + " factory not registered -> HasJsonNode.register()=" + HasJsonNode2.TYPENAME_TO_FACTORY);
+    }
 
     @Test
     default void testFromJsonNullFails() {
@@ -69,4 +80,17 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
                 this.fromJsonNode(jsonNode2),
                 () -> "Roundtrip to -> from -> to failed has=" + has);
     }
+
+    default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final HasJsonNode has) {
+        final JsonNode jsonNode = has.toJsonNode();
+
+        final HasJsonNode has2 = this.fromJsonNode(jsonNode);
+        final JsonNode jsonNode2 = has2.toJsonNodeWithType();
+
+        assertEquals(has2,
+                HasJsonNode.fromJsonNodeWithType(jsonNode2),
+                () -> "Roundtrip to -> from -> to failed has=" + has);
+    }
+
+    Class<H> type();
 }
