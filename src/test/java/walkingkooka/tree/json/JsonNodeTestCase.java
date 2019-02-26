@@ -124,6 +124,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
 
     abstract List<String> propertiesNeverReturnNullSkipProperties();
 
+    final static String ARRAY_OR_FAIL = "arrayOrFail";
     final static String BOOLEAN_VALUE_OR_FAIL = "booleanValueOrFail";
     final static String NUMBER_VALUE_OR_FAIL = "numberValueOrFail";
     final static String OBJECT_OR_FAIL = "objectOrFail";

@@ -608,6 +608,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     @Override
     List<String> propertiesNeverReturnNullSkipProperties() {
-        return Lists.of(BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, STRING_VALUE_OR_FAIL, VALUE);
+        return Lists.of(ARRAY_OR_FAIL, BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, STRING_VALUE_OR_FAIL, VALUE);
     }
 }
