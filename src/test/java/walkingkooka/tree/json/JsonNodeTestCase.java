@@ -105,12 +105,30 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     }
 
     @Test
+    public void testObjectOrFail() {
+        final N node = this.createJsonNode();
+        if (node instanceof JsonObjectNode) {
+            assertSame(node, node.objectOrFail());
+        } else {
+            assertThrows(JsonNodeException.class, () -> {
+                node.objectOrFail();
+            });
+        }
+    }
+
+    @Test
     public final void testPropertiesNeverReturnNull() throws Exception {
         BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createJsonNode(),
                 (m) -> this.propertiesNeverReturnNullSkipProperties().contains(m.getName()));
     }
 
     abstract List<String> propertiesNeverReturnNullSkipProperties();
+
+    final static String BOOLEAN_VALUE_OR_FAIL = "booleanValueOrFail";
+    final static String NUMBER_VALUE_OR_FAIL = "numberValueOrFail";
+    final static String OBJECT_OR_FAIL = "objectOrFail";
+    final static String STRING_VALUE_OR_FAIL = "stringValueOrFail";
+    final static String VALUE = "value";
 
     @Test
     public final void testEqualsDifferentParent() {

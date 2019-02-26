@@ -257,6 +257,11 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
     }
 
     @Override
+    public JsonObjectNode objectOrFail() {
+        return this;
+    }
+
+    @Override
     public void accept(final JsonNodeVisitor visitor){
         if(Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);

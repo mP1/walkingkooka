@@ -421,4 +421,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     public final JsonArrayNode fromJsonNode(final JsonNode from) {
         return JsonArrayNode.fromJsonNode(from).cast();
     }
+
+    @Override
+    List<String> propertiesNeverReturnNullSkipProperties() {
+        return Lists.of(BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, OBJECT_OR_FAIL, STRING_VALUE_OR_FAIL, VALUE);
+    }
 }

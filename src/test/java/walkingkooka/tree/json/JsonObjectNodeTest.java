@@ -605,4 +605,9 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     public final JsonObjectNode fromJsonNode(final JsonNode from) {
         return JsonObjectNode.fromJsonNode(from).cast();
     }
+
+    @Override
+    List<String> propertiesNeverReturnNullSkipProperties() {
+        return Lists.of(BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, STRING_VALUE_OR_FAIL, VALUE);
+    }
 }

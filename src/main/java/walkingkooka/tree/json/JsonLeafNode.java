@@ -73,6 +73,14 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
         return false;
     }
 
+    /**
+     * leaf objects are not an object and always fail.
+     */
+    @Override
+    public final JsonObjectNode objectOrFail() {
+        return this.reportInvalidNode(Object.class);
+    }
+
     @Override
     public final List<JsonNode> children() {
         return Lists.empty();

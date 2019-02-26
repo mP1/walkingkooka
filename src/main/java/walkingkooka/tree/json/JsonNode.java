@@ -344,7 +344,15 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         }
     }
 
-    private <V> V reportInvalidNode(final Class<V> type) {
+    /**
+     * Type safe cast that reports a nice message about the failing object.
+     */
+    public abstract JsonObjectNode objectOrFail();
+
+    /**
+     * Reports a failed attempt to extract a value or cast a node.
+     */
+    final <V> V reportInvalidNode(final Class<?> type) {
         throw new JsonNodeException("Node is not a " + type.getSimpleName() + "=" + this);
     }
 

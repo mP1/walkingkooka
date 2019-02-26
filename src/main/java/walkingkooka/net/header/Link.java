@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.JsonStringNode;
@@ -164,30 +165,30 @@ final public class Link extends HeaderValueWithParameters2<Link,
     public static Link fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        if (!node.isObject()) {
-            throw new IllegalArgumentException("Node is not an object=" + node);
-        }
+        try {
+            String href = null;
 
-        String href = null;
-
-        for (JsonNode child : node.children()) {
-            final JsonNodeName name = child.name();
-            switch (name.value()) {
-                case "href":
-                    if (!child.isString()) {
-                        throw new IllegalArgumentException("Property " + name + " is not a String=" + node);
-                    }
-                    href = JsonStringNode.class.cast(child).value();
-                    break;
-                default:
-                    HasJsonNode.unknownPropertyPresent(name, node);
+            for (JsonNode child : node.objectOrFail().children()) {
+                final JsonNodeName name = child.name();
+                switch (name.value()) {
+                    case "href":
+                        if (!child.isString()) {
+                            throw new IllegalArgumentException("Property " + name + " is not a String=" + node);
+                        }
+                        href = JsonStringNode.class.cast(child).value();
+                        break;
+                    default:
+                        HasJsonNode.unknownPropertyPresent(name, node);
+                }
             }
-        }
 
-        if (null == href) {
-            HasJsonNode.requiredPropertyMissing(HREF_JSON_PROPERTY, node);
+            if (null == href) {
+                HasJsonNode.requiredPropertyMissing(HREF_JSON_PROPERTY, node);
+            }
+            return Link.with(Url.parse(href));
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
         }
-        return Link.with(Url.parse(href));
     }
 
     /**
