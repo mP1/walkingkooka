@@ -183,6 +183,14 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
     }
 
     /**
+     * Is an array return this.
+     */
+    @Override
+    public final JsonArrayNode arrayOrFail() {
+        return this;
+    }
+
+    /**
      * Arrays are not an object.
      */
     @Override

@@ -263,6 +263,14 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return true;
     }
 
+    /**
+     * Objects are not an array so fail.
+     */
+    @Override
+    public final JsonArrayNode arrayOrFail() {
+        return this.reportInvalidNode("Array");
+    }
+
     @Override
     public JsonObjectNode objectOrFail() {
         return this;

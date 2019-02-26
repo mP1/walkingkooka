@@ -345,6 +345,11 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     }
 
     /**
+     * Type safe cast that reports a nice message about the failing array.
+     */
+    public abstract JsonArrayNode arrayOrFail();
+
+    /**
      * Type safe cast that reports a nice message about the failing object.
      */
     public abstract JsonObjectNode objectOrFail();
@@ -353,7 +358,14 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Reports a failed attempt to extract a value or cast a node.
      */
     final <V> V reportInvalidNode(final Class<?> type) {
-        throw new JsonNodeException("Node is not a " + type.getSimpleName() + "=" + this);
+        return reportInvalidNode(type.getSimpleName());
+    }
+
+    /**
+     * Reports a failed attempt to extract a value or cast a node.
+     */
+    final <V> V reportInvalidNode(final String type) {
+        throw new JsonNodeException("Node is not a " + type + "=" + this);
     }
 
     // isXXX............................................................................................................
