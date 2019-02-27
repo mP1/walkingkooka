@@ -33,7 +33,8 @@ public final class JsonStringNode extends JsonLeafNode<String>{
      * Simply returns the given {@link JsonNode}.
      */
     static JsonStringNode fromJsonNode0(final JsonNode node) {
-        return node.cast();
+        return node.toJsonNode()
+                .cast();
     }
 
     static JsonStringNode with(final String value) {
