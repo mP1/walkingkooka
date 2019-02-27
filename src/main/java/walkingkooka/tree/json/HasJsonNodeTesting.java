@@ -20,8 +20,10 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -87,6 +89,18 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
                 list2,
                 HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(list2)),
                 () -> "Roundtrip to -> from -> to failed list=" + list);
+    }
+
+    @Test
+    default void testToJsonNodeRoundtripTwiceSet() {
+        final Set<HasJsonNode> set = Sets.of(this.createHasJsonNode());
+        final JsonNode json = HasJsonNode.toJsonNode(set);
+        final Set<HasJsonNode> set2 = Sets.of(json);
+
+        assertEquals(
+                set2,
+                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(set2)),
+                () -> "Roundtrip to -> from -> to failed set=" + set);
     }
 
     /**
