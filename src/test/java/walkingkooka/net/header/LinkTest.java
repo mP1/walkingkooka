@@ -212,17 +212,6 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         this.toJsonNodeAndCheck(Link.parse(link).get(0), json);
     }
 
-    @Test
-    public void testToJsonNodeRoundtrip() {
-        this.toJsonNodeRoundTripTwiceAndCheck(JsonNode.object()
-                .set(Link.HREF_JSON_PROPERTY, JsonNode.string("http://example.com")));
-    }
-
-    @Test
-    public void testToJsonWithTypeRoundtrip() {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createLink());
-    }
-
     // toXmlNode .......................................................................................
 
     @Test
@@ -355,7 +344,12 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     // HasJsonNodeTesting..................................................................
 
     @Override
-    public final Link fromJsonNode(final JsonNode from) {
+    public Link createHasJsonNode() {
+        return this.createLink();
+    }
+
+    @Override
+    public Link fromJsonNode(final JsonNode from) {
         return Link.fromJsonNode(from);
     }
 }

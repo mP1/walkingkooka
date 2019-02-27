@@ -760,6 +760,11 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     // HasJsonNodeTesting..................................................................
 
     @Override
+    public final C createHasJsonNode() {
+        return this.createObject();
+    }
+
+    @Override
     public final C fromJsonNode(final JsonNode from) {
         return Cast.to(Color.fromJsonNode(from));
     }

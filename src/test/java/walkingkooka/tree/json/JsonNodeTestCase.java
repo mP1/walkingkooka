@@ -145,11 +145,6 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     }
 
     @Test
-    public final void testToJsonNodeRoundtrip() {
-        this.toJsonNodeRoundTripTwiceAndCheck(this.createNode());
-    }
-
-    @Test
     public void testToJsonNodeRemovesParent() {
         final N node = this.createJsonNode();
         final JsonNode parent = JsonNode.object()
@@ -220,5 +215,12 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     @Override
     public final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // HasJsonNode.........................................................................................
+
+    @Override
+    public final N createHasJsonNode() {
+        return this.createJsonNode();
     }
 }

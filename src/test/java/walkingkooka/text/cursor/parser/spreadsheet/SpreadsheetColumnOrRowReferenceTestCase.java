@@ -215,16 +215,6 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
         this.toJsonNodeAndCheck(reference, JsonNode.string(reference.toString()));
     }
 
-    @Test
-    public final void testToJsonRoundtrip() {
-        this.toJsonNodeRoundTripTwiceAndCheck(this.createReference());
-    }
-
-    @Test
-    public final void testToJsonWithTypeRoundtrip() {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createReference());
-    }
-
     // helper......................................................................................
 
     final R createReference() {
@@ -273,5 +263,12 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
     @Override
     public final R createLowerOrUpper() {
         return this.createComparable();
+    }
+
+    // HasJsonNode.......................................................................................
+
+    @Override
+    public final R createHasJsonNode() {
+        return this.createReference();
     }
 }

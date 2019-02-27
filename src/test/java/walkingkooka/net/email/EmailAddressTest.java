@@ -1643,16 +1643,6 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         this.fromJsonNodeAndCheck(JsonNode.string(address), EmailAddress.parse(address));
     }
 
-    @Test
-    public void testToJsonNodeRoundtrip() {
-        this.toJsonNodeRoundTripTwiceAndCheck(EmailAddress.parse("user@example.com"));
-    }
-
-    @Test
-    public void testToJsonNodeWithTypeRoundtrip() {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(EmailAddress.parse("user@example.com"));
-    }
-
     // HashCodeEqualsDefined ..................................................................................................
 
     @Test
@@ -1684,6 +1674,11 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     // HasJsonNodeTesting......................................................................................
+
+    @Override
+    public EmailAddress createHasJsonNode() {
+        return this.createObject();
+    }
 
     @Override
     public final EmailAddress fromJsonNode(final JsonNode from) {
