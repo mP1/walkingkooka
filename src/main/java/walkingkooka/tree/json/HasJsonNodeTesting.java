@@ -80,10 +80,12 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     @Test
     default void testToJsonNodeRoundtripTwiceList() {
         final List<HasJsonNode> list = Lists.of(this.createHasJsonNode());
+        final JsonNode json = HasJsonNode.toJsonNode(list);
+        final List<HasJsonNode> list2 = Lists.of(json);
 
         assertEquals(
-                list,
-                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(list)),
+                list2,
+                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(list2)),
                 () -> "Roundtrip to -> from -> to failed list=" + list);
     }
 
