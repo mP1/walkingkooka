@@ -59,6 +59,13 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
         return new JsonNullNode(name, index, value);
     }
 
+    // HasJsonNode...............................................................................................
+
+    @Override
+    JsonNodeName defaultName() {
+        return NAME;
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override

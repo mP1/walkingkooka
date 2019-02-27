@@ -62,6 +62,13 @@ public final class JsonStringNode extends JsonLeafNode<String>{
         return new JsonStringNode(name, index, value);
     }
 
+    // HasJsonNode...............................................................................................
+
+    @Override
+    JsonNodeName defaultName() {
+        return NAME;
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override

@@ -161,6 +161,13 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
         return copy;
     }
 
+    // HasJsonNode...............................................................................................
+
+    @Override
+    JsonNodeName defaultName() {
+        return NAME;
+    }
+
     // HasSearchNode............................................................................................................
 
     @Override

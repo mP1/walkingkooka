@@ -394,12 +394,16 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     // HasJsonNode .......................................................................................................
 
     /**
-     * Already a {@link JsonNode}
+     * Already a {@link JsonNode} remove the parent if necessary.
      */
     @Override
     public JsonNode toJsonNode() {
-        return this;
+        return this.isRoot() ?
+                this :
+                this.setParent(NO_PARENT, this.defaultName(), NO_INDEX);
     }
+
+    abstract JsonNodeName defaultName();
 
     // Object .......................................................................................................
 

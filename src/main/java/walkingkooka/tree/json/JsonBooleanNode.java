@@ -57,6 +57,13 @@ public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
         return new JsonBooleanNode(name, index, value);
     }
 
+    // HasJsonNode...............................................................................................
+
+    @Override
+    JsonNodeName defaultName() {
+        return NAME;
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override

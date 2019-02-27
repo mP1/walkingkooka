@@ -136,10 +136,20 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
         this.checkNotEquals(JsonNode.array().appendChild(this.createObject()));
     }
 
+    // ToJsonNodeTesting...............................................................................................
+
     @Test
     public final void testToJsonNode() {
         final N node = this.createJsonNode();
         assertSame(node, node.toJsonNode());
+    }
+
+    @Test
+    public void testToJsonNodeRemovesParent() {
+        final N node = this.createJsonNode();
+        final JsonNode parent = JsonNode.object()
+                .appendChild(node);
+        this.toJsonNodeAndCheck(parent.children().get(0), node);
     }
 
     @Test
