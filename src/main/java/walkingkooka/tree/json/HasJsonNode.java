@@ -89,6 +89,13 @@ public interface HasJsonNode {
     }
 
     /**
+     * Sub classes such as enums should override this, to return the "public" type.
+     */
+    default Class<?> toJsonNodeType() {
+        return this.getClass();
+    }
+
+    /**
      * Returns the {@link JsonNode} equivalent of this object.
      */
     JsonNode toJsonNode();

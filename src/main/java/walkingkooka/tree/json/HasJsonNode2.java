@@ -204,7 +204,12 @@ final class HasJsonNode2 {
      * Serializes the node into json with a wrapper json object holding the type=json.
      */
     static JsonNode toJsonNode(final HasJsonNode has) {
-        return registrationOrFail(has.getClass().getName())
+        final Class<?> type = has.toJsonNodeType();
+        if (!type.isInstance(has)) {
+            throw new JsonNodeException("Type " + type.getName() + " is not compatible with " + has.getClass().getName());
+        }
+
+        return registrationOrFail(type.getName())
                 .objectWithType().set(VALUE, has.toJsonNode());
     }
 

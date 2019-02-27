@@ -26,6 +26,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
@@ -56,6 +57,14 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
         assertThrows(IllegalArgumentException.class, () -> {
             this.fromJsonNode(from);
         });
+    }
+
+    @Test
+    default void testToJsonNodeType() {
+        final H has = this.createHasJsonNode();
+        final Class<?> type = has.toJsonNodeType();
+        assertTrue(type.isInstance(has),
+                has + " is not an instance of " + type.getName());
     }
 
     @Test
