@@ -145,6 +145,11 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     }
 
     @Test
+    public final void testToJsonNodeRoundtrip() {
+        this.toJsonNodeRoundTripTwiceAndCheck(this.createNode());
+    }
+
+    @Test
     public void testToJsonNodeRemovesParent() {
         final N node = this.createJsonNode();
         final JsonNode parent = JsonNode.object()

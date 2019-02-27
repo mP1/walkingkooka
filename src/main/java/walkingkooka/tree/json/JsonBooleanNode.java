@@ -30,7 +30,8 @@ public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
      * Simply returns the given {@link JsonNode}.
      */
     static JsonBooleanNode fromJsonNode0(final JsonNode node) {
-        return node.cast();
+        return node.toJsonNode()
+                .cast();
     }
 
     static JsonBooleanNode with(final boolean value) {

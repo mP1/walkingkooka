@@ -30,7 +30,8 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
      * Simply returns the given {@link JsonNode}.
      */
     static JsonNullNode fromJsonNode0(final JsonNode node) {
-        return node.cast();
+        return node.toJsonNode()
+                .cast();
     }
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonNullNode.class);
