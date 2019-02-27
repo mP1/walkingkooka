@@ -105,6 +105,21 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
 
     // HasJsonNode............................................................................................
 
+    @Override
+    public void testToJsonNodeRoundtripTwice() {
+        // ignore
+    }
+
+    @Override
+    public void testToJsonNodeWithTypeRoundtripTwice() {
+        // ignore
+    }
+
+    @Override
+    public void testToJsonNodeRoundtripTwiceList() {
+        // ignore
+    }
+
     @Test
     public void testToJsonNode() {
         assertThrows(UnsupportedOperationException.class, () -> {

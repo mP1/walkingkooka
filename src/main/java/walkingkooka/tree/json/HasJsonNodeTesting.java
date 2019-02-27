@@ -58,6 +58,26 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
         });
     }
 
+    @Test
+    default void testToJsonNodeRoundtripTwice() {
+        this.toJsonNodeRoundTripTwiceAndCheck(this.createHasJsonNode());
+    }
+
+    @Test
+    default void testToJsonNodeWithTypeRoundtripTwice() {
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createHasJsonNode());
+    }
+
+    @Test
+    default void testToJsonNodeRoundtripTwiceList() {
+        final List<HasJsonNode> list = Lists.of(this.createHasJsonNode());
+
+        assertEquals(
+                list,
+                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(list)),
+                () -> "Roundtrip to -> from -> to failed list=" + list);
+    }
+
     /**
      * Typically calls a static method that accepts a {@link JsonNode} and creates a {@link H object}.
      */
@@ -93,13 +113,9 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
         assertEquals(has2,
                 HasJsonNode.fromJsonNodeWithType(jsonNode2),
                 () -> "Roundtrip to -> from -> to failed has=" + has);
-
-        final List<HasJsonNode> list = Lists.of(has);
-        assertEquals(
-                list,
-                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(list)),
-                () -> "Roundtrip to -> from -> to failed list=" + list);
     }
+
+    H createHasJsonNode();
 
     Class<H> type();
 }
