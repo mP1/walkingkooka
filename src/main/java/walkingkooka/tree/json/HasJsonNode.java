@@ -19,6 +19,7 @@
 package walkingkooka.tree.json;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -51,7 +52,7 @@ public interface HasJsonNode {
     }
 
     /**
-     * Accepts a list of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
@@ -59,13 +60,29 @@ public interface HasJsonNode {
     }
 
     /**
-     * Accepts a list of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
         return HasJsonNode2.toJsonNodeWithType(list);
     }
 
+    /**
+     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNode(final Set<? extends HasJsonNode> set) {
+        return HasJsonNode2.toJsonNode(set);
+    }
+
+    /**
+     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNodeWithType(final Set<? extends HasJsonNode> set) {
+        return HasJsonNode2.toJsonNodeWithType(set);
+    }
+    
     /**
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
      * Essentially the inverse of {@link #toJsonNode(List)}.

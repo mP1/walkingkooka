@@ -20,11 +20,13 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -198,7 +200,7 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         }
     }
 
-    // toJsonNode List..........................................................................
+    // toJsonNode List....................................................................................
 
     @Test
     public void testToJsonNodeListWithTypeColorRoundtrip() {
@@ -213,7 +215,7 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
           "fromJsonNodeWithType " + json + " failed");
     }
 
-    // toJsonNode List..........................................................................
+    // toJsonNode List......................................................................................
 
     @Test
     public void testToJsonNodeListNullFails() {
@@ -230,6 +232,41 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         assertEquals(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()),
                 HasJsonNode.toJsonNode(Lists.of(color1, color2)));
     }
+
+    // toJsonNode Set....................................................................................
+
+    @Test
+    public void testToJsonNodeSetWithTypeColorRoundtrip() {
+        final Color color1 = Color.fromRgb(0x111);
+        final Color color2 = Color.fromRgb(0x222);
+        final Set<Color> set = Sets.of(color1, color2);
+
+        final JsonNode json = HasJsonNode2.toJsonNodeWithType(set);
+        assertEquals(
+                set,
+                HasJsonNode2.fromJsonNodeWithType(json),
+                "fromJsonNodeWithType " + json + " failed");
+    }
+
+    // toJsonNode Set......................................................................................
+
+    @Test
+    public void testToJsonNodeSetNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode.toJsonNode((Set<JsonNode>) null);
+        });
+    }
+
+    @Test
+    public void testToJsonNodeSet() {
+        final Color color1 = Color.fromRgb(0x111);
+        final Color color2 = Color.fromRgb(0x222);
+
+        assertEquals(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()),
+                HasJsonNode.toJsonNode(Sets.of(color1, color2)));
+    }
+    
+    // ClassTesting..........................................................................................
 
     @Override
     public MemberVisibility typeVisibility() {

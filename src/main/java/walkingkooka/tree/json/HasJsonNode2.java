@@ -20,11 +20,15 @@ package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -50,7 +54,10 @@ final class HasJsonNode2 {
      * The type name for lists.
      */
     // @VisibleForTesting
-    final static String LIST = "List";
+    final static String LIST = List.class.getSimpleName();
+
+    // @VisibleForTesting
+    final static String SET = Set.class.getSimpleName();
 
     // register.........................................................................................................
 
@@ -65,7 +72,8 @@ final class HasJsonNode2 {
         register0(JsonArrayNode.class, JsonArrayNode::fromJsonNode0);
         register0(JsonObjectNode.class, JsonObjectNode::fromJsonNode0);
 
-        register1(LIST, HasJsonNode2::fromJsonNodeWithTypeList);
+        LIST_REGISTRATION = register1(LIST, HasJsonNode2::fromJsonNodeWithTypeList);
+        SET_REGISTRATION = register1(SET, HasJsonNode2::fromJsonNodeWithTypeSet);
     }
 
     /**
@@ -90,13 +98,16 @@ final class HasJsonNode2 {
     /**
      * Registers a factory for a type that implements {@link HasJsonNode}.
      */
-    static void register1(final String type,
-                          final Function<JsonNode, ?> from) {
-        HasJsonNode2Registration previous = TYPENAME_TO_FACTORY.get(type);
+    static HasJsonNode2Registration register1(final String type,
+                                              final Function<JsonNode, ?> from) {
+        final HasJsonNode2Registration previous = TYPENAME_TO_FACTORY.get(type);
         if(null!=previous) {
             throw new IllegalArgumentException("Type " + type + " factory already registered to " + previous);
         }
-        TYPENAME_TO_FACTORY.put(type, HasJsonNode2Registration.with(type, from));
+
+        final HasJsonNode2Registration registration = HasJsonNode2Registration.with(type, from);
+        TYPENAME_TO_FACTORY.put(type, registration);
+        return registration;
     }
 
     // fromJsonNode.........................................................................................................
@@ -155,6 +166,19 @@ final class HasJsonNode2 {
      */
     // @VisibleForTesting
     static <T> List<T> fromJsonNodeWithTypeList(final JsonNode node) {
+        return fromJsonNodeWithTypeCollection(node, Collectors.toList());
+    }
+
+    /**
+     * Expects a {@link JsonArrayNode} holding objects tagged with type and values.
+     */
+    // @VisibleForTesting
+    static <T> Set<T> fromJsonNodeWithTypeSet(final JsonNode node) {
+        return fromJsonNodeWithTypeCollection(node, Collectors.toCollection(Sets::ordered));
+    }
+
+    private static <C extends Collection<T>, T> C fromJsonNodeWithTypeCollection(final JsonNode node,
+                                                                                 final Collector<T, ?, C> collector) {
         Objects.requireNonNull(node, "node");
 
         // container must be an array
@@ -165,40 +189,73 @@ final class HasJsonNode2 {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
 
-        return Cast.to(array.children()
+        return array.children()
                 .stream()
-                .map(HasJsonNode2::fromJsonNodeWithType)
-                .collect(Collectors.toList()));
+                .map(n -> Cast.<T>to(fromJsonNodeWithType(n)))
+                .collect(collector);
     }
 
     // toJsonNode.........................................................................................................
 
     /**
-     * Accepts a list of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
         Objects.requireNonNull(list, "list");
 
-        return JsonObjectNode.array()
-                .setChildren(list.stream()
-                .map(e -> ((HasJsonNode) e).toJsonNode())
-                .collect(Collectors.toList()));
+        return toJsonNode0(list);
     }
 
     /**
-     * Accepts a list of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNode(final Set<? extends HasJsonNode> set) {
+        Objects.requireNonNull(set, "set");
+
+        return toJsonNode0(set);
+    }
+
+    private static JsonNode toJsonNode0(final Collection<? extends HasJsonNode> collection) {
+        return JsonObjectNode.array()
+                .setChildren(collection.stream()
+                        .map(e -> ((HasJsonNode) e).toJsonNode())
+                        .collect(Collectors.toList()));
+    }
+
+    /**
+     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
         Objects.requireNonNull(list, "list");
 
-        return registrationOrFail(LIST)
-                .objectWithType()
-                .set(VALUE, JsonObjectNode.array().setChildren(list.stream()
+        return toJsonNodeWithType0(list, LIST_REGISTRATION);
+    }
+
+    private final static HasJsonNode2Registration LIST_REGISTRATION;
+
+    /**
+     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNodeWithType(final Set<? extends HasJsonNode> set) {
+        Objects.requireNonNull(set, "set");
+
+        return toJsonNodeWithType0(set, SET_REGISTRATION);
+    }
+
+    private static JsonNode toJsonNodeWithType0(final Collection<? extends HasJsonNode> collection,
+                                                final HasJsonNode2Registration registration) {
+
+        return registration.objectWithType()
+                .set(VALUE, JsonObjectNode.array().setChildren(collection.stream()
                         .map(e -> ((HasJsonNode) e).toJsonNodeWithType())
                         .collect(Collectors.toList())));
     }
+
+    private final static HasJsonNode2Registration SET_REGISTRATION;
 
     /**
      * Serializes the node into json with a wrapper json object holding the type=json.
