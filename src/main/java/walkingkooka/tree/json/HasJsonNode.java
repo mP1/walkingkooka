@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.json;
 
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -47,6 +48,22 @@ public interface HasJsonNode {
     static <T extends HasJsonNode> void register(final Class<T> type,
                                                  final Function<JsonNode, T> from) {
         HasJsonNode2.register(type, from);
+    }
+
+    /**
+     * Accepts a list of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
+        return HasJsonNode2.toJsonNode(list);
+    }
+
+    /**
+     * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
+     * Essentially the inverse of {@link #toJsonNode(List)}.
+     */
+    static <T> List<T> fromJsonNode(final JsonNode node, final Class<T> elementType) {
+        return HasJsonNode2.fromJsonNode(node, elementType);
     }
 
     /**
