@@ -22,19 +22,21 @@ import java.util.function.Function;
 
 final class HasJsonNode2Registration {
 
-    static HasJsonNode2Registration with(final Function<JsonNode, ? extends HasJsonNode> from,
-                                         final Class<? extends HasJsonNode> type) {
-        return new HasJsonNode2Registration(from, type);
+    static HasJsonNode2Registration with(final String type, final Function<JsonNode, ?> from) {
+        return new HasJsonNode2Registration(type, from);
     }
 
-    private HasJsonNode2Registration(final Function<JsonNode, ? extends HasJsonNode> from,
-                                     final Class<?> type) {
+    private HasJsonNode2Registration(final String type,
+                                     final Function<JsonNode, ?> from) {
         super();
         this.from = from;
         this.type = type;
     }
 
-    final Function<JsonNode, ? extends HasJsonNode> from;
+    /**
+     * A {@link Function} which typically calls a static fromJsonNode method.
+     */
+    final Function<JsonNode, ?> from;
 
     /**
      * The {@link JsonObjectNode} holding type=$typename must be created lazily after all registration. Attempts to create
@@ -43,12 +45,15 @@ final class HasJsonNode2Registration {
     JsonObjectNode objectWithType() {
         if (null == this.objectWithType) {
             this.objectWithType = JsonNode.object()
-                    .set(HasJsonNode2.TYPE, JsonNode.string(this.type.getName()));
+                    .set(HasJsonNode2.TYPE, JsonNode.string(this.type));
         }
         return this.objectWithType;
     }
 
-    private final Class<?> type;
+    /**
+     * The fully qualified type name.
+     */
+    private final String type;
 
     private JsonObjectNode objectWithType;
 

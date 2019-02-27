@@ -59,6 +59,14 @@ public interface HasJsonNode {
     }
 
     /**
+     * Accepts a list of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
+        return HasJsonNode2.toJsonNodeWithType(list);
+    }
+
+    /**
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
      * Essentially the inverse of {@link #toJsonNode(List)}.
      */
@@ -69,7 +77,7 @@ public interface HasJsonNode {
     /**
      * Assumes a wrapper object with the type and value, basically the inverse of {@link HasJsonNode#toJsonNodeWithType()}.
      */
-    static HasJsonNode fromJsonNodeWithType(final JsonNode node) {
+    static <T> T fromJsonNodeWithType(final JsonNode node) {
         return HasJsonNode2.fromJsonNodeWithType(node);
     }
 

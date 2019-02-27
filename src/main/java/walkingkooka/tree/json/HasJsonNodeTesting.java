@@ -19,6 +19,9 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -90,6 +93,12 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
         assertEquals(has2,
                 HasJsonNode.fromJsonNodeWithType(jsonNode2),
                 () -> "Roundtrip to -> from -> to failed has=" + has);
+
+        final List<HasJsonNode> list = Lists.of(has);
+        assertEquals(
+                list,
+                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(list)),
+                () -> "Roundtrip to -> from -> to failed list=" + list);
     }
 
     Class<H> type();
