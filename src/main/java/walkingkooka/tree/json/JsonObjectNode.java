@@ -242,6 +242,13 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return new JsonObjectNode(name, index, children);
     }
 
+    // HasJsonNode...............................................................................................
+
+    @Override
+    JsonNodeName defaultName() {
+        return NAME;
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override

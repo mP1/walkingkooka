@@ -59,6 +59,13 @@ public final class JsonNumberNode extends JsonLeafNode<Double>{
         return new JsonNumberNode(name, index, value);
     }
 
+    // HasJsonNode...............................................................................................
+
+    @Override
+    JsonNodeName defaultName() {
+        return NAME;
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override
