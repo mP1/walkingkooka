@@ -162,6 +162,44 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
                 "fromJsonNodeWithType " + json);
     }
 
+    // toJsonNode..........................................................................
+
+    @Test
+    public void testToJsonWithType() {
+        final String typeName = TestHasJsonNode.class.getName();
+
+        try {
+            HasJsonNode2.register(TestHasJsonNode.class, TestHasJsonNode::fromJsonNode);
+            assertEquals(JsonNode.object()
+                            .set(HasJsonNode2.TYPE, JsonNode.string(typeName))
+                            .set(HasJsonNode2.VALUE, JsonNode.string("FIRST")),
+                    TestHasJsonNode.FIRST.toJsonNodeWithType());
+        } finally {
+            HasJsonNode2.TYPENAME_TO_FACTORY.remove(typeName);
+        }
+    }
+
+    enum TestHasJsonNode implements HasJsonNode {
+        FIRST,
+        SECOND;
+
+        static TestHasJsonNode fromJsonNode(final JsonNode node) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public JsonNode toJsonNode() {
+            return JsonNode.string(this.name());
+        }
+
+        @Override
+        public Class<TestHasJsonNode> toJsonNodeType() {
+            return TestHasJsonNode.class;
+        }
+    }
+
+    // toJsonNode List..........................................................................
+
     @Test
     public void testToJsonNodeListWithTypeColorRoundtrip() {
         final Color color1 = Color.fromRgb(0x111);
