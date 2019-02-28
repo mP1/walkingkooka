@@ -59,14 +59,14 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     @Test
     public void testFromJsonNodeListNullNodeFails() {
         assertThrows(NullPointerException.class, () -> {
-            HasJsonNode2.fromJsonNode(null, Color.class);
+            HasJsonNode2.fromJsonNodeList(null, Color.class);
         });
     }
 
     @Test
     public void testFromJsonNodeListNullElementTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            HasJsonNode2.fromJsonNode(JsonNode.array(), null);
+            HasJsonNode2.fromJsonNodeList(JsonNode.array(), null);
         });
     }
 
@@ -97,7 +97,7 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
 
     private void fromJsonNodeListFails(final JsonNode list) {
         assertThrows(IllegalArgumentException.class, () -> {
-            HasJsonNode2.fromJsonNode(list, Color.class);
+            HasJsonNode2.fromJsonNodeList(list, Color.class);
         });
     }
 
@@ -107,7 +107,7 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         final Color color2 = Color.fromRgb(0x222);
 
         assertEquals(Lists.of(color1, color2),
-                HasJsonNode2.fromJsonNode(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()), Color.class));
+                HasJsonNode2.fromJsonNodeList(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()), Color.class));
     }
 
     // fromJsonNodeWithType List, element type..........................................................................
@@ -160,6 +160,116 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
                 .set(HasJsonNode2.VALUE, JsonNode.array().appendChild(color1.toJsonNodeWithType()).appendChild(color2.toJsonNodeWithType()));
 
         assertEquals(Lists.of(color1, color2),
+                HasJsonNode2.fromJsonNodeWithType(json),
+                "fromJsonNodeWithType " + json);
+    }
+
+    // fromJsonNode Set, element type..........................................................................
+
+    @Test
+    public void testFromJsonNodeSetNullNodeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode2.fromJsonNodeSet(null, Color.class);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeSetNullElementTypeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode2.fromJsonNodeSet(JsonNode.array(), null);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeSetBooleanFails() {
+        this.fromJsonNodeSetFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeSetNullFails() {
+        this.fromJsonNodeSetFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeSetNumberFails() {
+        this.fromJsonNodeSetFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeSetStringFails() {
+        this.fromJsonNodeSetFails(JsonNode.string("abc123"));
+    }
+
+    @Test
+    public void testFromJsonNodeSetObjectFails() {
+        this.fromJsonNodeSetFails(JsonNode.object());
+    }
+
+    private void fromJsonNodeSetFails(final JsonNode set) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            HasJsonNode2.fromJsonNodeSet(set, Color.class);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeSet() {
+        final Color color1 = Color.fromRgb(0x111);
+        final Color color2 = Color.fromRgb(0x222);
+
+        assertEquals(Sets.of(color1, color2),
+                HasJsonNode2.fromJsonNodeSet(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()), Color.class));
+    }
+
+    // fromJsonNodeWithType Set, element type..........................................................................
+
+    @Test
+    public void testFromJsonNodeWithTypeSetNullNodeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode2.fromJsonNodeWithTypeSet(null);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetBooleanFails() {
+        this.fromJsonNodeWithTypeSetFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetNullFails() {
+        this.fromJsonNodeWithTypeSetFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetNumberFails() {
+        this.fromJsonNodeWithTypeSetFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetStringFails() {
+        this.fromJsonNodeWithTypeSetFails(JsonNode.string("abc123"));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetObjectFails() {
+        this.fromJsonNodeWithTypeSetFails(JsonNode.object());
+    }
+
+    private void fromJsonNodeWithTypeSetFails(final JsonNode set) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            HasJsonNode2.fromJsonNodeWithTypeSet(set);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSet() {
+        final Color color1 = Color.fromRgb(0x111);
+        final Color color2 = Color.fromRgb(0x222);
+
+        final JsonNode json = JsonNode.object()
+                .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.SET))
+                .set(HasJsonNode2.VALUE, JsonNode.array().appendChild(color1.toJsonNodeWithType()).appendChild(color2.toJsonNodeWithType()));
+
+        assertEquals(Sets.of(color1, color2),
                 HasJsonNode2.fromJsonNodeWithType(json),
                 "fromJsonNodeWithType " + json);
     }

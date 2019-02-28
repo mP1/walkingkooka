@@ -87,10 +87,18 @@ public interface HasJsonNode {
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
      * Essentially the inverse of {@link #toJsonNode(List)}.
      */
-    static <T> List<T> fromJsonNode(final JsonNode node, final Class<T> elementType) {
-        return HasJsonNode2.fromJsonNode(node, elementType);
+    static <T> List<T> fromJsonNodeList(final JsonNode node, final Class<T> elementType) {
+        return HasJsonNode2.fromJsonNodeList(node, elementType);
     }
 
+    /**
+     * Accepts a json array which holds a {@link Set} and uses the element type to determine the elements and reads them from json.
+     * Essentially the inverse of {@link #toJsonNode(Set)}.
+     */
+    static <T> Set<T> fromJsonNodeSet(final JsonNode node, final Class<T> elementType) {
+        return HasJsonNode2.fromJsonNodeSet(node, elementType);
+    }
+    
     /**
      * Assumes a wrapper object with the type and value, basically the inverse of {@link HasJsonNode#toJsonNodeWithType()}.
      */
