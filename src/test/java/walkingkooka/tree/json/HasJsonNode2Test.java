@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTesting;
+import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
@@ -360,7 +361,7 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         final Color color2 = Color.fromRgb(0x222);
         final List<Color> list = Lists.of(color1, color2);
 
-        final JsonNode json = HasJsonNode2.toJsonNodeWithType(list);
+        final JsonNode json = HasJsonNode2.toJsonNodeWithTypeList(list);
         assertEquals(
           list,
           HasJsonNode2.fromJsonNodeWithType(json),
@@ -392,7 +393,7 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         final Color color2 = Color.fromRgb(0x222);
         final Set<Color> set = Sets.of(color1, color2);
 
-        final JsonNode json = HasJsonNode2.toJsonNodeWithType(set);
+        final JsonNode json = HasJsonNode2.toJsonNodeWithTypeSet(set);
         assertEquals(
                 set,
                 HasJsonNode2.fromJsonNodeWithType(json),
@@ -414,6 +415,57 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
 
         assertEquals(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()),
                 HasJsonNode.toJsonNode(Sets.of(color1, color2)));
+    }
+
+    // toJsonNodeWithType....................................................................................
+
+    @Test
+    public void testToJsonNodeWithTypeNull() {
+        this.toJsonNodeWithTypeAndCheck(null, JsonNode.nullNode());
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeBooleanTrue() {
+        this.toJsonNodeWithTypeAndCheck(Boolean.TRUE, JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeBooleanFalse() {
+        this.toJsonNodeWithTypeAndCheck(Boolean.FALSE, JsonNode.booleanNode(false));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeNumber() {
+        this.toJsonNodeWithTypeAndCheck(123, JsonNode.number(123L));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeString() {
+        this.toJsonNodeWithTypeAndCheck("abc", JsonNode.string("abc"));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeList() {
+        final List<Object> list = Lists.of(true, 1, "abc");
+        this.toJsonNodeWithTypeAndCheck(list, HasJsonNode2.toJsonNodeWithTypeList(list));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeListColor() {
+        final List<Object> list = Lists.of(Color.fromRgb(0x123));
+        this.toJsonNodeWithTypeAndCheck(list, HasJsonNode2.toJsonNodeWithTypeList(list));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeSetColor() {
+        final Set<Object> set = Sets.of(Color.fromRgb(0x123));
+        this.toJsonNodeWithTypeAndCheck(set, HasJsonNode2.toJsonNodeWithTypeSet(set));
+    }
+
+    private void toJsonNodeWithTypeAndCheck(final Object value, final JsonNode expected) {
+        assertEquals(expected,
+                HasJsonNode2.toJsonNodeWithType(value),
+                "value " + CharSequences.quoteIfChars(value) + " toJsonNodeWithType failed");
     }
     
     // ClassTesting..........................................................................................

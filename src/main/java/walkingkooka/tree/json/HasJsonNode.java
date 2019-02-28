@@ -101,11 +101,18 @@ public interface HasJsonNode {
     // toJsonNodeWithType .................................................................................................
 
     /**
+     * Supports all basic types such as primitive wrappers including null, {@link String} and implementations of {@link HasJsonNode}.
+     */
+    static JsonNode toJsonNodeWithType(final Object object) {
+        return HasJsonNode2.toJsonNodeWithType(object);
+    }
+
+    /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNodeWithType()}.
      */
     static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
-        return HasJsonNode2.toJsonNodeWithType(list);
+        return HasJsonNode2.toJsonNodeWithTypeList(list);
     }
 
     /**
@@ -113,14 +120,14 @@ public interface HasJsonNode {
      * is converted to json using {@link HasJsonNode#toJsonNodeWithType()}.
      */
     static JsonNode toJsonNodeWithType(final Set<? extends HasJsonNode> set) {
-        return HasJsonNode2.toJsonNodeWithType(set);
+        return HasJsonNode2.toJsonNodeWithTypeSet(set);
     }
 
     /**
      * Wraps the {@link JsonNode} with a type name declaration.
      */
     default JsonNode toJsonNodeWithType() {
-        return HasJsonNode2.toJsonNode(this);
+        return HasJsonNode2.toJsonNodeWithTypeHasJsonNode(this);
     }
 
     /**

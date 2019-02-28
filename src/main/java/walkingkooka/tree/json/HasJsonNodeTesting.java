@@ -87,7 +87,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
         assertEquals(
                 list2,
-                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(list2)),
+                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithTypeList(list2)),
                 () -> "Roundtrip to -> from -> to failed list=" + list);
     }
 
@@ -99,7 +99,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
         assertEquals(
                 set2,
-                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(set2)),
+                HasJsonNode.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithTypeSet(set2)),
                 () -> "Roundtrip to -> from -> to failed set=" + set);
     }
 
