@@ -47,13 +47,6 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         });
     }
 
-    @Test
-    public void testFromJsonNodeWithTypeNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HasJsonNode2.fromJsonNodeWithType(null);
-        });
-    }
-
     // fromJsonNode List, element type..........................................................................
 
     @Test
@@ -76,7 +69,7 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
-    public void testFromJsonNodeListNullFails() {
+    public void testFromJsonNodeListJsonNullNodeFails() {
         this.fromJsonNodeListFails(JsonNode.nullNode());
     }
 
@@ -108,6 +101,53 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
 
         assertEquals(Lists.of(color1, color2),
                 HasJsonNode2.fromJsonNodeList(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()), Color.class));
+    }
+
+    // fromJsonNodeWithType .....................................................................................
+
+    @Test
+    public void testFromJsonNodeWithTypeNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode2.fromJsonNodeWithType(null);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeBooleanFails() {
+        this.fromJsonNodeWithTypeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeJsonNullNodeFails() {
+        this.fromJsonNodeWithTypeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeNumberFails() {
+        this.fromJsonNodeWithTypeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeStringFails() {
+        this.fromJsonNodeWithTypeFails(JsonNode.string("abc123"));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeObjectFails() {
+        this.fromJsonNodeWithTypeFails(JsonNode.object());
+    }
+
+    private void fromJsonNodeWithTypeFails(final JsonNode node) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            HasJsonNode2.fromJsonNodeWithType(node);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeWithUnknownTypeFails() {
+        assertThrows(UnsupportedTypeJsonNodeException.class, () -> {
+            HasJsonNode2.fromJsonNodeWithType(JsonNode.object().set(HasJsonNode2.TYPE, JsonNode.string(this.getClass().getName())));
+        });
     }
 
     // fromJsonNodeWithType List, element type..........................................................................
