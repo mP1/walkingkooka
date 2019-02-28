@@ -23,6 +23,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Represents an immutable json string.
@@ -99,6 +100,15 @@ public final class JsonStringNode extends JsonLeafNode<String>{
     public boolean isString() {
         return true;
     }
+
+    // functional .................................................................................................
+
+    @Override
+    final void ifPresent0(final Consumer<? super JsonNode> consumer) {
+        consumer.accept(this);
+    }
+
+    // Visitor .................................................................................................
 
     @Override
     public void accept(final JsonNodeVisitor visitor){

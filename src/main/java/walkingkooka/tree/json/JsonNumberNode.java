@@ -21,6 +21,8 @@ package walkingkooka.tree.json;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.tree.search.SearchNode;
 
+import java.util.function.Consumer;
+
 /**
  * Represents an immutable json number.
  */
@@ -96,6 +98,15 @@ public final class JsonNumberNode extends JsonLeafNode<Double>{
     public boolean isString() {
         return false;
     }
+
+    // functional .................................................................................................
+
+    @Override
+    final void ifPresent0(final Consumer<? super JsonNode> consumer) {
+        consumer.accept(this);
+    }
+
+    // Visitor .................................................................................................
 
     @Override
     public void accept(final JsonNodeVisitor visitor){
