@@ -45,7 +45,7 @@ final class HasJsonNode2 {
     private static HasJsonNode2Registration registrationOrFail(final String type) {
         final HasJsonNode2Registration registration = TYPENAME_TO_FACTORY.get(type);
         if (null == registration) {
-            throw new IllegalArgumentException("Type " + type + " factory not registered.");
+            throw new UnsupportedTypeJsonNodeException("Type " + type + " not supported (factory or builtin)");
         }
         return registration;
     }
