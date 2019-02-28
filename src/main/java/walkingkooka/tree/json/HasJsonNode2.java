@@ -140,6 +140,14 @@ final class HasJsonNode2 {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(elementType, "elementType");
 
+        return node.isNull() ?
+                null :
+                fromJsonNodeCollection0(node, elementType, collector);
+    }
+
+    private static <C extends Collection<T>, T> C fromJsonNodeCollection0(final JsonNode node,
+                                                                          final Class<T> elementType,
+                                                                          final Collector<T, ?, C> collector) {
         JsonArrayNode array;
         try {
             array = node.arrayOrFail();
@@ -224,8 +232,6 @@ final class HasJsonNode2 {
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
-        Objects.requireNonNull(list, "list");
-
         return toJsonNode0(list);
     }
 
@@ -234,16 +240,16 @@ final class HasJsonNode2 {
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNode(final Set<? extends HasJsonNode> set) {
-        Objects.requireNonNull(set, "set");
-
         return toJsonNode0(set);
     }
 
     private static JsonNode toJsonNode0(final Collection<? extends HasJsonNode> collection) {
-        return JsonObjectNode.array()
-                .setChildren(collection.stream()
-                        .map(e -> ((HasJsonNode) e).toJsonNode())
-                        .collect(Collectors.toList()));
+        return null == collection ?
+                JsonNode.nullNode() :
+                JsonObjectNode.array()
+                        .setChildren(collection.stream()
+                                .map(e -> ((HasJsonNode) e).toJsonNode())
+                                .collect(Collectors.toList()));
     }
 
     // toJsonNodeWithType.........................................................................................................
@@ -253,8 +259,6 @@ final class HasJsonNode2 {
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
-        Objects.requireNonNull(list, "list");
-
         return toJsonNodeWithType0(list, LIST_REGISTRATION);
     }
 
@@ -265,18 +269,18 @@ final class HasJsonNode2 {
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNodeWithType(final Set<? extends HasJsonNode> set) {
-        Objects.requireNonNull(set, "set");
-
         return toJsonNodeWithType0(set, SET_REGISTRATION);
     }
 
     private static JsonNode toJsonNodeWithType0(final Collection<? extends HasJsonNode> collection,
                                                 final HasJsonNode2Registration registration) {
 
-        return registration.objectWithType()
-                .set(VALUE, JsonObjectNode.array().setChildren(collection.stream()
-                        .map(e -> ((HasJsonNode) e).toJsonNodeWithType())
-                        .collect(Collectors.toList())));
+        return null == collection ?
+                JsonNode.nullNode() :
+                registration.objectWithType()
+                        .set(VALUE, JsonObjectNode.array().setChildren(collection.stream()
+                                .map(e -> ((HasJsonNode) e).toJsonNodeWithType())
+                                .collect(Collectors.toList())));
     }
 
     private final static HasJsonNode2Registration SET_REGISTRATION;
@@ -285,6 +289,12 @@ final class HasJsonNode2 {
      * Serializes the node into json with a wrapper json object holding the type=json.
      */
     static JsonNode toJsonNode(final HasJsonNode has) {
+        return null == has ?
+                JsonNode.nullNode() :
+                toJsonNode0(has);
+    }
+
+    static JsonNode toJsonNode0(final HasJsonNode has) {
         final Class<?> type = has.toJsonNodeType();
         if (!type.isInstance(has)) {
             throw new JsonNodeException("Type " + type.getName() + " is not compatible with " + has.getClass().getName());

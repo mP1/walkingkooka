@@ -24,6 +24,8 @@ import java.util.function.Function;
 
 /**
  * Interface implemented by objects that can be expressed or have a {@link JsonNode} equivalent.
+ * All static methods from methods return a {@link JsonNullNode} if given a null, and all static to methods
+ * return null when given a {@link JsonNullNode}.
  */
 public interface HasJsonNode {
 
