@@ -87,6 +87,14 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         return Optional.ofNullable(wrap0(value));
     }
 
+    static JsonNode wrapOrFail(final Object value) {
+        final JsonNode node = wrap0(value);
+        if (null == node) {
+            throw new UnsupportedTypeJsonNodeException("Unsupported type " + value.getClass() + "=" + value);
+        }
+        return node;
+    }
+
     private static JsonNode wrap0(final Object value) {
         JsonNode jsonNode;
 

@@ -137,9 +137,6 @@ final class HasJsonNode2 {
     private static <C extends Collection<T>, T> C fromJsonNodeCollection(final JsonNode node,
                                                                          final Class<T> elementType,
                                                                          final Collector<T, ?, C> collector) {
-        Objects.requireNonNull(node, "node");
-        Objects.requireNonNull(elementType, "elementType");
-
         return node.isNull() ?
                 null :
                 fromJsonNodeCollection0(node, elementType, collector);
@@ -255,11 +252,28 @@ final class HasJsonNode2 {
     // toJsonNodeWithType.........................................................................................................
 
     /**
+     * Accepts an {@link Object} including null and returns its {@link JsonNode} equivalent. If the type is not
+     * a basic type with built in support, or {@link List} or {@link Set} or does not implement {@link HasJsonNode}
+     * an {@link IllegalArgumentException} will be thrown.
+     */
+    static JsonNode toJsonNodeWithType(final Object object) {
+        return null == object ?
+                JsonNode.nullNode() :
+                object instanceof List ?
+                        toJsonNodeWithTypeList(Cast.to(object)) :
+                        object instanceof Set ?
+                                toJsonNodeWithTypeSet(Cast.to(object)) :
+                                object instanceof HasJsonNode ?
+                                        toJsonNodeWithTypeHasJsonNode(Cast.to(object)) :
+                                        JsonNode.wrapOrFail(object);
+    }
+
+    /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
-        return toJsonNodeWithType0(list, LIST_REGISTRATION);
+    static JsonNode toJsonNodeWithTypeList(final List<? extends Object> list) {
+        return toJsonNodeWithTypeCollection(list, LIST_REGISTRATION);
     }
 
     private final static HasJsonNode2Registration LIST_REGISTRATION;
@@ -268,18 +282,18 @@ final class HasJsonNode2 {
      * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNodeWithType(final Set<? extends HasJsonNode> set) {
-        return toJsonNodeWithType0(set, SET_REGISTRATION);
+    static JsonNode toJsonNodeWithTypeSet(final Set<? extends Object> set) {
+        return toJsonNodeWithTypeCollection(set, SET_REGISTRATION);
     }
 
-    private static JsonNode toJsonNodeWithType0(final Collection<? extends HasJsonNode> collection,
-                                                final HasJsonNode2Registration registration) {
+    private static JsonNode toJsonNodeWithTypeCollection(final Collection<? extends Object> collection,
+                                                         final HasJsonNode2Registration registration) {
 
         return null == collection ?
                 JsonNode.nullNode() :
                 registration.objectWithType()
                         .set(VALUE, JsonObjectNode.array().setChildren(collection.stream()
-                                .map(e -> ((HasJsonNode) e).toJsonNodeWithType())
+                                .map(HasJsonNode2::toJsonNodeWithType)
                                 .collect(Collectors.toList())));
     }
 
@@ -288,7 +302,7 @@ final class HasJsonNode2 {
     /**
      * Serializes the node into json with a wrapper json object holding the type=json.
      */
-    static JsonNode toJsonNode(final HasJsonNode has) {
+    static JsonNode toJsonNodeWithTypeHasJsonNode(final HasJsonNode has) {
         return null == has ?
                 JsonNode.nullNode() :
                 toJsonNode0(has);
@@ -301,7 +315,8 @@ final class HasJsonNode2 {
         }
 
         return registrationOrFail(type.getName())
-                .objectWithType().set(VALUE, has.toJsonNode());
+                .objectWithType()
+                .set(VALUE, has.toJsonNode());
     }
 
     // @VisibleForTesting
