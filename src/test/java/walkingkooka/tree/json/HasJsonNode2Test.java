@@ -69,8 +69,9 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
-    public void testFromJsonNodeListJsonNullNodeFails() {
-        this.fromJsonNodeListFails(JsonNode.nullNode());
+    public void testFromJsonNodeListJsonNullNode() {
+        assertEquals(null,
+                HasJsonNode.fromJsonNodeList(JsonNode.nullNode(), Color.class));
     }
 
     @Test
@@ -226,8 +227,9 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
-    public void testFromJsonNodeSetNullFails() {
-        this.fromJsonNodeSetFails(JsonNode.nullNode());
+    public void testFromJsonNodeSetJsonNullNodeFails() {
+        assertEquals(null,
+                HasJsonNode.fromJsonNodeSet(JsonNode.nullNode(), Color.class));
     }
 
     @Test
@@ -368,10 +370,9 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     // toJsonNode List......................................................................................
 
     @Test
-    public void testToJsonNodeListNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HasJsonNode.toJsonNode((List<JsonNode>) null);
-        });
+    public void testToJsonNodeListNull() {
+        assertEquals(JsonNode.nullNode(),
+                HasJsonNode.toJsonNode((List<JsonNode>) null));
     }
 
     @Test
@@ -401,10 +402,9 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     // toJsonNode Set......................................................................................
 
     @Test
-    public void testToJsonNodeSetNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HasJsonNode.toJsonNode((Set<JsonNode>) null);
-        });
+    public void testToJsonNodeSetNull() {
+        assertEquals(JsonNode.nullNode(),
+                HasJsonNode.toJsonNode((Set<JsonNode>) null));
     }
 
     @Test
