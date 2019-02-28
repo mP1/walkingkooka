@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -122,13 +121,6 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
     @Override
     public final boolean isString() {
         return false;
-    }
-
-    // functional .................................................................................................
-
-    @Override
-    final void ifPresent0(final Consumer<? super JsonNode> consumer) {
-        consumer.accept(this);
     }
 
     // Visitor .................................................................................................

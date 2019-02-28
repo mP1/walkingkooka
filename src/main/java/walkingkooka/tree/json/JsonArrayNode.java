@@ -206,6 +206,16 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
         return this.reportInvalidNode(Object.class);
     }
 
+    // functional .................................................................................................
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Optional<JsonArrayNode> optional() {
+        return Optional.of(this);
+    }
+
+    // Visitor .................................................................................................
+
     @Override
     public void accept(final JsonNodeVisitor visitor){
         if(Visiting.CONTINUE == visitor.startVisit(this)) {

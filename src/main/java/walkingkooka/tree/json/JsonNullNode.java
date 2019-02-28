@@ -21,7 +21,7 @@ package walkingkooka.tree.json;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.tree.search.SearchNode;
 
-import java.util.function.Consumer;
+import java.util.Optional;
 
 /**
  * Represents a json null.
@@ -102,8 +102,9 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
     // functional .................................................................................................
 
     @Override
-    void ifPresent0(final Consumer<? super JsonNode> consumer) {
-        // nop
+    @SuppressWarnings("unchecked")
+    public Optional<JsonNullNode> optional() {
+        return Optional.empty();
     }
 
     // Visitor .................................................................................................

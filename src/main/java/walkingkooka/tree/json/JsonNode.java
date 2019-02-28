@@ -44,7 +44,6 @@ import walkingkooka.tree.search.HasSearchNode;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 /**
  * Base class for all json nodes, all of which are immutable. Note that performing a seemingly mutable operation
@@ -395,15 +394,9 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     // functional methods ..........................................................................................
 
     /**
-     * Invokes the consumer if this node is not null.
+     * Returns an {@link Optional} holding this {@link JsonNode} if not a {@link JsonNullNode}.
      */
-    public final void ifPresent(final Consumer<? super JsonNode> consumer) {
-        Objects.requireNonNull(consumer, "consumer");
-
-        this.ifPresent0(consumer);
-    }
-
-    abstract void ifPresent0(final Consumer<? super JsonNode> consumer);
+    public abstract <N extends JsonNode> Optional<N> optional();
 
     // HasJsonNode .......................................................................................................
 
