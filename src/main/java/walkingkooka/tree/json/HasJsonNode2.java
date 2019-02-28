@@ -228,19 +228,19 @@ final class HasJsonNode2 {
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
-        return toJsonNode0(list);
+    static JsonNode toJsonNodeList(final List<? extends HasJsonNode> list) {
+        return toJsonNodeCollection(list);
     }
 
     /**
      * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNode(final Set<? extends HasJsonNode> set) {
-        return toJsonNode0(set);
+    static JsonNode toJsonNodeSet(final Set<? extends HasJsonNode> set) {
+        return toJsonNodeCollection(set);
     }
 
-    private static JsonNode toJsonNode0(final Collection<? extends HasJsonNode> collection) {
+    private static JsonNode toJsonNodeCollection(final Collection<? extends HasJsonNode> collection) {
         return null == collection ?
                 JsonNode.nullNode() :
                 JsonObjectNode.array()
@@ -301,14 +301,15 @@ final class HasJsonNode2 {
 
     /**
      * Serializes the node into json with a wrapper json object holding the type=json.
+     * This helper is only called by {@link HasJsonNode#toJsonNodeWithType()}
      */
     static JsonNode toJsonNodeWithTypeHasJsonNode(final HasJsonNode has) {
         return null == has ?
                 JsonNode.nullNode() :
-                toJsonNode0(has);
+                toJsonNodeWithTypeHasJsonNode0(has);
     }
 
-    static JsonNode toJsonNode0(final HasJsonNode has) {
+    static JsonNode toJsonNodeWithTypeHasJsonNode0(final HasJsonNode has) {
         final Class<?> type = has.toJsonNodeType();
         if (!type.isInstance(has)) {
             throw new JsonNodeException("Type " + type.getName() + " is not compatible with " + has.getClass().getName());

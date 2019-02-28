@@ -87,7 +87,7 @@ public interface HasJsonNode {
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
-        return HasJsonNode2.toJsonNode(list);
+        return HasJsonNode2.toJsonNodeList(list);
     }
 
     /**
@@ -95,7 +95,7 @@ public interface HasJsonNode {
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
     static JsonNode toJsonNode(final Set<? extends HasJsonNode> set) {
-        return HasJsonNode2.toJsonNode(set);
+        return HasJsonNode2.toJsonNodeSet(set);
     }
 
     // toJsonNodeWithType .................................................................................................
@@ -105,22 +105,6 @@ public interface HasJsonNode {
      */
     static JsonNode toJsonNodeWithType(final Object object) {
         return HasJsonNode2.toJsonNodeWithType(object);
-    }
-
-    /**
-     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
-     * is converted to json using {@link HasJsonNode#toJsonNodeWithType()}.
-     */
-    static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
-        return HasJsonNode2.toJsonNodeWithTypeList(list);
-    }
-
-    /**
-     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
-     * is converted to json using {@link HasJsonNode#toJsonNodeWithType()}.
-     */
-    static JsonNode toJsonNodeWithType(final Set<? extends HasJsonNode> set) {
-        return HasJsonNode2.toJsonNodeWithTypeSet(set);
     }
 
     /**
