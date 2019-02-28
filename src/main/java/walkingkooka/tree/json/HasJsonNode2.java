@@ -101,7 +101,7 @@ final class HasJsonNode2 {
     static HasJsonNode2Registration register1(final String type,
                                               final Function<JsonNode, ?> from) {
         final HasJsonNode2Registration previous = TYPENAME_TO_FACTORY.get(type);
-        if(null!=previous) {
+        if (null != previous) {
             throw new IllegalArgumentException("Type " + type + " factory already registered to " + previous);
         }
 
@@ -153,6 +153,8 @@ final class HasJsonNode2 {
                 .map(n -> elementType.cast(factory.apply(n)))
                 .collect(collector);
     }
+
+    // fromJsonNodeWithType.........................................................................................................
 
     /**
      * Unwraps a wrapper holding a type and json form of a java instance.
@@ -243,6 +245,8 @@ final class HasJsonNode2 {
                         .map(e -> ((HasJsonNode) e).toJsonNode())
                         .collect(Collectors.toList()));
     }
+
+    // toJsonNodeWithType.........................................................................................................
 
     /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element

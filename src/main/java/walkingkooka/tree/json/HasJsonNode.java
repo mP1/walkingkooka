@@ -51,38 +51,8 @@ public interface HasJsonNode {
         HasJsonNode2.register(type, from);
     }
 
-    /**
-     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
-     * is converted to json using {@link HasJsonNode#toJsonNode()}.
-     */
-    static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
-        return HasJsonNode2.toJsonNode(list);
-    }
+    // fromJsonNode.......................................................................................................
 
-    /**
-     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
-     * is converted to json using {@link HasJsonNode#toJsonNode()}.
-     */
-    static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
-        return HasJsonNode2.toJsonNodeWithType(list);
-    }
-
-    /**
-     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
-     * is converted to json using {@link HasJsonNode#toJsonNode()}.
-     */
-    static JsonNode toJsonNode(final Set<? extends HasJsonNode> set) {
-        return HasJsonNode2.toJsonNode(set);
-    }
-
-    /**
-     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
-     * is converted to json using {@link HasJsonNode#toJsonNode()}.
-     */
-    static JsonNode toJsonNodeWithType(final Set<? extends HasJsonNode> set) {
-        return HasJsonNode2.toJsonNodeWithType(set);
-    }
-    
     /**
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
      * Essentially the inverse of {@link #toJsonNode(List)}.
@@ -98,12 +68,50 @@ public interface HasJsonNode {
     static <T> Set<T> fromJsonNodeSet(final JsonNode node, final Class<T> elementType) {
         return HasJsonNode2.fromJsonNodeSet(node, elementType);
     }
-    
+
+    // fromJsonNodeWithType.......................................................................................................
+
     /**
      * Assumes a wrapper object with the type and value, basically the inverse of {@link HasJsonNode#toJsonNodeWithType()}.
      */
     static <T> T fromJsonNodeWithType(final JsonNode node) {
         return HasJsonNode2.fromJsonNodeWithType(node);
+    }
+
+    // toJsonNode .................................................................................................
+
+    /**
+     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
+        return HasJsonNode2.toJsonNode(list);
+    }
+
+    /**
+     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNode(final Set<? extends HasJsonNode> set) {
+        return HasJsonNode2.toJsonNode(set);
+    }
+
+    // toJsonNodeWithType .................................................................................................
+
+    /**
+     * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNodeWithType()}.
+     */
+    static JsonNode toJsonNodeWithType(final List<? extends HasJsonNode> list) {
+        return HasJsonNode2.toJsonNodeWithType(list);
+    }
+
+    /**
+     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNodeWithType()}.
+     */
+    static JsonNode toJsonNodeWithType(final Set<? extends HasJsonNode> set) {
+        return HasJsonNode2.toJsonNodeWithType(set);
     }
 
     /**
