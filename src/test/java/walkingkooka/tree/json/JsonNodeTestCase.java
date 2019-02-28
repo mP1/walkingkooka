@@ -28,6 +28,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.test.Latch;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
@@ -41,6 +42,8 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesting2<JsonNode>,
         HasJsonNodeTesting<JsonNode>,
@@ -83,6 +86,33 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
         });
     }
 
+    // Functional.................................................................................................
+
+    @Test
+    public final void testIfPresentNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createJsonNode().ifPresent(null);
+        });
+    }
+
+    @Test
+    public final void testIfPresent() {
+        final N node = this.createJsonNode();
+
+        if (node.isNull()) {
+            node.ifPresent((n) -> fail("Consumer should not have been invoked"));
+        } else {
+            final Latch invoked = Latch.create();
+            node.ifPresent((n) -> {
+                assertSame(node, n);
+                invoked.set("Consumer invoked");
+            });
+
+            assertTrue(invoked.value(), "Consumer not invoked");
+        }
+    }
+
+    // ToXXXValueOrFail.................................................................................................
     @Test
     public void testToBooleanValueOrFail() {
         assertThrows(JsonNodeException.class, () -> {
