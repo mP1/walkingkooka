@@ -116,7 +116,27 @@ final class HasJsonNode2 {
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
      * Essentially the inverse of {@link HasJsonNode#toJsonNode(List)}.
      */
-    static <T> List<T> fromJsonNode(final JsonNode node, final Class<T> elementType) {
+    static <T> List<T> fromJsonNodeList(final JsonNode node,
+                                        final Class<T> elementType) {
+        return fromJsonNodeCollection(node,
+                elementType,
+                Collectors.toList());
+    }
+
+    /**
+     * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
+     * Essentially the inverse of {@link HasJsonNode#toJsonNode(List)}.
+     */
+    static <T> Set<T> fromJsonNodeSet(final JsonNode node,
+                                      final Class<T> elementType) {
+        return fromJsonNodeCollection(node,
+                elementType,
+                Collectors.toCollection(Sets::ordered));
+    }
+
+    private static <C extends Collection<T>, T> C fromJsonNodeCollection(final JsonNode node,
+                                                                         final Class<T> elementType,
+                                                                         final Collector<T, ?, C> collector) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(elementType, "elementType");
 
@@ -131,7 +151,7 @@ final class HasJsonNode2 {
         return array.children()
                 .stream()
                 .map(n -> elementType.cast(factory.apply(n)))
-                .collect(Collectors.toList());
+                .collect(collector);
     }
 
     /**
