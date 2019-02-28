@@ -284,6 +284,16 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return this;
     }
 
+    // functional .................................................................................................
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Optional<JsonObjectNode> optional() {
+        return Optional.of(this);
+    }
+
+    // Visitor .................................................................................................
+
     @Override
     public void accept(final JsonNodeVisitor visitor){
         if(Visiting.CONTINUE == visitor.startVisit(this)) {
