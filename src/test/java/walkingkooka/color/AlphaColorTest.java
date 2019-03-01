@@ -125,6 +125,11 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
         // ignore
     }
 
+    @Override
+    public void testToJsonNodeRoundtripTwiceMap() {
+        // ignore
+    }
+
     @Test
     public void testToJsonNode() {
         assertThrows(UnsupportedOperationException.class, () -> {
