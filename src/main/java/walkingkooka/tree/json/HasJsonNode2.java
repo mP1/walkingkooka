@@ -167,6 +167,22 @@ final class HasJsonNode2 {
     static <T> T fromJsonNodeWithType(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
+        return Cast.to(node.isNull() ?
+                null :
+                node.isBoolean() ?
+                        node.booleanValueOrFail() :
+                        node.isNumber() ?
+                                node.numberValueOrFail() :
+                                node.isString() ?
+                                        node.stringValueOrFail() :
+                                        fromJsonNodeWithType0(node));
+    }
+
+    /**
+     * Contains the logic to examine the object type property and then locate and dispatch the factory which will
+     * create an instance from the object in json form.
+     */
+    private static <T> T fromJsonNodeWithType0(final JsonNode node) {
         JsonObjectNode object;
         try {
             object = node.objectOrFail();
@@ -206,6 +222,13 @@ final class HasJsonNode2 {
 
     private static <C extends Collection<T>, T> C fromJsonNodeWithTypeCollection(final JsonNode node,
                                                                                  final Collector<T, ?, C> collector) {
+        return node.isNull() ?
+                null :
+                fromJsonNodeWithTypeCollection0(node, collector);
+    }
+
+    private static <C extends Collection<T>, T> C fromJsonNodeWithTypeCollection0(final JsonNode node,
+                                                                                  final Collector<T, ?, C> collector) {
         Objects.requireNonNull(node, "node");
 
         // container must be an array

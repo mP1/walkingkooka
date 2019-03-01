@@ -115,41 +115,48 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
-    public void testFromJsonNodeWithTypeBooleanFails() {
-        this.fromJsonNodeWithTypeFails(JsonNode.booleanNode(true));
+    public void testFromJsonNodeWithTypeBooleanTrue() {
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.booleanNode(true), true);
     }
 
     @Test
-    public void testFromJsonNodeWithTypeJsonNullNodeFails() {
-        this.fromJsonNodeWithTypeFails(JsonNode.nullNode());
+    public void testFromJsonNodeWithTypeBooleanFalse() {
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.booleanNode(false), false);
     }
 
     @Test
-    public void testFromJsonNodeWithTypeNumberFails() {
-        this.fromJsonNodeWithTypeFails(JsonNode.number(123));
+    public void testFromJsonNodeWithTypeJsonNullNode() {
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.nullNode(), null);
     }
 
     @Test
-    public void testFromJsonNodeWithTypeStringFails() {
-        this.fromJsonNodeWithTypeFails(JsonNode.string("abc123"));
+    public void testFromJsonNodeWithTypeNumber() {
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.number(123), 123.0);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeString() {
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.string("abc123"), "abc123");
     }
 
     @Test
     public void testFromJsonNodeWithTypeObjectFails() {
-        this.fromJsonNodeWithTypeFails(JsonNode.object());
-    }
-
-    private void fromJsonNodeWithTypeFails(final JsonNode node) {
         assertThrows(IllegalArgumentException.class, () -> {
-            HasJsonNode2.fromJsonNodeWithType(node);
+            HasJsonNode2.fromJsonNodeWithType(JsonNode.object());
         });
     }
 
     @Test
-    public void testFromJsonNodeWithUnknownTypeFails() {
+    public void testFromJsonNodeWithTypeUnknownTypeFails() {
         assertThrows(UnsupportedTypeJsonNodeException.class, () -> {
             HasJsonNode2.fromJsonNodeWithType(JsonNode.object().set(HasJsonNode2.TYPE, JsonNode.string(this.getClass().getName())));
         });
+    }
+
+    private void fromJsonNodeWithTypeAndCheck(final JsonNode node, final Object value) {
+        assertEquals(value,
+                HasJsonNode2.fromJsonNodeWithType(node),
+                "fromJsonNodeWithType(JsonNode) failed=" + node);
     }
 
     // fromJsonNodeWithType List, element type..........................................................................
@@ -167,8 +174,8 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
-    public void testFromJsonNodeWithTypeListNullFails() {
-        this.fromJsonNodeWithTypeListFails(JsonNode.nullNode());
+    public void testFromJsonNodeWithTypeListNull() {
+        this.fromJsonNodeWithTypeListAndCheck(JsonNode.nullNode(), null);
     }
 
     @Test
@@ -197,13 +204,27 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         final Color color1 = Color.fromRgb(0x111);
         final Color color2 = Color.fromRgb(0x222);
 
-        final JsonNode json = JsonNode.object()
-                .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.LIST))
-                .set(HasJsonNode2.VALUE, JsonNode.array().appendChild(color1.toJsonNodeWithType()).appendChild(color2.toJsonNodeWithType()));
+        fromJsonNodeWithTypeListAndCheck(JsonNode.object()
+                        .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.LIST))
+                        .set(HasJsonNode2.VALUE, JsonNode.array().appendChild(color1.toJsonNodeWithType()).appendChild(color2.toJsonNodeWithType())),
+                Lists.of(color1, color2));
+    }
 
-        assertEquals(Lists.of(color1, color2),
-                HasJsonNode2.fromJsonNodeWithType(json),
-                "fromJsonNodeWithType " + json);
+    @Test
+    public void testFromJsonNodeWithTypeList2() {
+        final String string1 = "a1";
+        final String string2 = "b2";
+
+        fromJsonNodeWithTypeListAndCheck(JsonNode.object()
+                        .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.LIST))
+                        .set(HasJsonNode2.VALUE, JsonNode.array().appendChild(JsonNode.string(string1)).appendChild(JsonNode.string(string2))),
+                Lists.of(string1, string2));
+    }
+
+    private void fromJsonNodeWithTypeListAndCheck(final JsonNode from, final List<?> list) {
+        assertEquals(list,
+                HasJsonNode2.fromJsonNodeWithType(from),
+                "fromJsonNodeWithType(List) failed: " + from);
     }
 
     // fromJsonNode Set, element type..........................................................................
@@ -278,8 +299,8 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
-    public void testFromJsonNodeWithTypeSetNullFails() {
-        this.fromJsonNodeWithTypeSetFails(JsonNode.nullNode());
+    public void testFromJsonNodeWithTypeSetNull() {
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.nullNode(), null);
     }
 
     @Test
@@ -308,13 +329,27 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         final Color color1 = Color.fromRgb(0x111);
         final Color color2 = Color.fromRgb(0x222);
 
-        final JsonNode json = JsonNode.object()
+        fromJsonNodeWithTypeSetAndCheck(JsonNode.object()
                 .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.SET))
-                .set(HasJsonNode2.VALUE, JsonNode.array().appendChild(color1.toJsonNodeWithType()).appendChild(color2.toJsonNodeWithType()));
+                .set(HasJsonNode2.VALUE, JsonNode.array().appendChild(color1.toJsonNodeWithType()).appendChild(color2.toJsonNodeWithType())),
+                Sets.of(color1, color2));
+    }
 
-        assertEquals(Sets.of(color1, color2),
-                HasJsonNode2.fromJsonNodeWithType(json),
-                "fromJsonNodeWithType " + json);
+    @Test
+    public void testFromJsonNodeWithTypeSet2() {
+        final String string1 = "a1";
+        final String string2 = "b2";
+
+        fromJsonNodeWithTypeSetAndCheck(JsonNode.object()
+                        .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.SET))
+                        .set(HasJsonNode2.VALUE, JsonNode.array().appendChild(JsonNode.string(string1)).appendChild(JsonNode.string(string2))),
+                Sets.of(string1, string2));
+    }
+
+    private void fromJsonNodeWithTypeSetAndCheck(final JsonNode from, final Set<?> set) {
+        assertEquals(set,
+                HasJsonNode2.fromJsonNodeWithType(from),
+                "fromJsonNodeWithType(Set) failed: " + from);
     }
 
     // toJsonNode..........................................................................
