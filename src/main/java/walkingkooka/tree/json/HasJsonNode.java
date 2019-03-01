@@ -19,6 +19,7 @@
 package walkingkooka.tree.json;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -71,6 +72,14 @@ public interface HasJsonNode {
         return HasJsonNode2.fromJsonNodeSet(node, elementType);
     }
 
+    /**
+     * Accepts a json object which holds a {@link Map} using the key and element types to deserialize the json.
+     * This is essentially the inverse of {@link #toJsonNode(Map}
+     */
+    static <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node, final Class<K> keyType, final Class<V> valueType) {
+        return HasJsonNode2.fromJsonNodeMap(node, keyType, valueType);
+    }
+
     // fromJsonNodeWithType.......................................................................................................
 
     /**
@@ -96,6 +105,14 @@ public interface HasJsonNode {
      */
     static JsonNode toJsonNode(final Set<?> set) {
         return HasJsonNode2.toJsonNodeSet(set);
+    }
+
+    /**
+     * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     */
+    static JsonNode toJsonNode(final Map<?, ?> map) {
+        return HasJsonNode2.toJsonNodeMap(map);
     }
 
     // toJsonNodeWithType .................................................................................................
