@@ -71,8 +71,9 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
 
     @Test
     public void testFromJsonNodeListJsonNullNode() {
-        assertEquals(null,
-                HasJsonNode.fromJsonNodeList(JsonNode.nullNode(), Color.class));
+        this.fromJsonNodeListAndCheck(JsonNode.nullNode(),
+                Object.class,
+                null);
     }
 
     @Test
@@ -101,8 +102,31 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         final Color color1 = Color.fromRgb(0x111);
         final Color color2 = Color.fromRgb(0x222);
 
-        assertEquals(Lists.of(color1, color2),
-                HasJsonNode2.fromJsonNodeList(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()), Color.class));
+        this.fromJsonNodeListAndCheck(JsonNode.array()
+                        .appendChild(color1.toJsonNode())
+                        .appendChild(color2.toJsonNode()),
+                Color.class,
+                Lists.of(color1, color2));
+    }
+
+    @Test
+    public void testFromJsonNodeList2() {
+        final String string1 = "value1";
+        final String string2 = "value2";
+
+        this.fromJsonNodeListAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string(string1))
+                        .appendChild(JsonNode.string(string2)),
+                String.class,
+                Lists.of(string1, string2));
+    }
+
+    private <E> void fromJsonNodeListAndCheck(final JsonNode node,
+                                             final Class<E> elementType,
+                                             final List<E> list) {
+        assertEquals(list,
+                HasJsonNode2.fromJsonNodeList(node, elementType),
+                () -> "fromJsonNodeList(List) failed=" + node);
     }
 
     // fromJsonNodeWithType .....................................................................................
@@ -249,9 +273,10 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
-    public void testFromJsonNodeSetJsonNullNodeFails() {
-        assertEquals(null,
-                HasJsonNode.fromJsonNodeSet(JsonNode.nullNode(), Color.class));
+    public void testFromJsonNodeSetJsonNullNode() {
+        this.fromJsonNodeSetAndCheck(JsonNode.nullNode(),
+                Object.class,
+                null);
     }
 
     @Test
@@ -280,8 +305,31 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         final Color color1 = Color.fromRgb(0x111);
         final Color color2 = Color.fromRgb(0x222);
 
-        assertEquals(Sets.of(color1, color2),
-                HasJsonNode2.fromJsonNodeSet(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()), Color.class));
+        this.fromJsonNodeSetAndCheck(JsonNode.array()
+                        .appendChild(color1.toJsonNode())
+                        .appendChild(color2.toJsonNode()),
+                Color.class,
+                Sets.of(color1, color2));
+    }
+
+    @Test
+    public void testFromJsonNodeSet2() {
+        final String string1 = "value1";
+        final String string2 = "value2";
+
+        this.fromJsonNodeSetAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string(string1))
+                        .appendChild(JsonNode.string(string2)),
+                String.class,
+                Sets.of(string1, string2));
+    }
+
+    private <E> void fromJsonNodeSetAndCheck(final JsonNode node,
+                                             final Class<E> elementType,
+                                             final Set<E> set) {
+        assertEquals(set,
+                HasJsonNode2.fromJsonNodeSet(node, elementType),
+                () -> "fromJsonNodeSet(Set) failed=" + node);
     }
 
     // fromJsonNodeWithType Set, element type..........................................................................

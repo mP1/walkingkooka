@@ -74,6 +74,10 @@ final class HasJsonNode2 {
 
         LIST_REGISTRATION = register1(LIST, HasJsonNode2::fromJsonNodeWithTypeList);
         SET_REGISTRATION = register1(SET, HasJsonNode2::fromJsonNodeWithTypeSet);
+
+        register0(Boolean.class, HasJsonNode2::fromJsonNodeBoolean);
+        register0(Number.class, HasJsonNode2::fromJsonNodeNumber);
+        register0(String.class, HasJsonNode2::fromJsonNodeString);
     }
 
     /**
@@ -90,8 +94,8 @@ final class HasJsonNode2 {
     /**
      * Registers a factory for a type that implements {@link HasJsonNode}.
      */
-    static <T extends HasJsonNode> void register0(final Class<T> type,
-                                                  final Function<JsonNode, T> from) {
+    static <T> void register0(final Class<T> type,
+                              final Function<JsonNode, T> from) {
         register1(type.getName(), from);
     }
 
@@ -157,6 +161,24 @@ final class HasJsonNode2 {
                 .stream()
                 .map(n -> elementType.cast(factory.apply(n)))
                 .collect(collector);
+    }
+
+    private static Boolean fromJsonNodeBoolean(final JsonNode node) {
+        return node.isNull() ?
+                null :
+                node.booleanValueOrFail();
+    }
+
+    private static Number fromJsonNodeNumber(final JsonNode node) {
+        return node.isNull() ?
+                null :
+                node.numberValueOrFail();
+    }
+
+    private static String fromJsonNodeString(final JsonNode node) {
+        return node.isNull() ?
+                null :
+                node.stringValueOrFail();
     }
 
     // fromJsonNodeWithType.........................................................................................................
