@@ -86,7 +86,7 @@ public interface HasJsonNode {
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNode(final List<? extends HasJsonNode> list) {
+    static JsonNode toJsonNode(final List<?> list) {
         return HasJsonNode2.toJsonNodeList(list);
     }
 
@@ -94,7 +94,7 @@ public interface HasJsonNode {
      * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNode(final Set<? extends HasJsonNode> set) {
+    static JsonNode toJsonNode(final Set<?> set) {
         return HasJsonNode2.toJsonNodeSet(set);
     }
 

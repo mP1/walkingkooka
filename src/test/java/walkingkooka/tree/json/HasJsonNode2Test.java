@@ -353,7 +353,7 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
         }
     }
 
-    // toJsonNode List....................................................................................
+    // toJsonNodeWithType List....................................................................................
 
     @Test
     public void testToJsonNodeListWithTypeColorRoundtrip() {
@@ -372,20 +372,41 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
 
     @Test
     public void testToJsonNodeListNull() {
-        assertEquals(JsonNode.nullNode(),
-                HasJsonNode.toJsonNode((List<JsonNode>) null));
+        this.toJsonNodeListAndCheck(null, JsonNode.nullNode());
     }
 
     @Test
-    public void testToJsonNodeList() {
+    public void testToJsonNodeListHasJsonNode() {
         final Color color1 = Color.fromRgb(0x111);
         final Color color2 = Color.fromRgb(0x222);
 
-        assertEquals(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()),
-                HasJsonNode.toJsonNode(Lists.of(color1, color2)));
+        this.toJsonNodeListAndCheck(Lists.of(color1, color2),
+                JsonNode.array()
+                        .appendChild(color1.toJsonNode())
+                        .appendChild(color2.toJsonNode()));
     }
 
-    // toJsonNode Set....................................................................................
+    @Test
+    public void testToJsonNodeListString() {
+        final String string1 = "a1";
+        final String string2 = "b2";
+
+        this.toJsonNodeListAndCheck(Lists.of(string1, string2),
+                JsonNode.array()
+                        .appendChild(JsonNode.string(string1))
+                        .appendChild(JsonNode.string(string2)));
+    }
+
+    private void toJsonNodeListAndCheck(final List<?> list, final JsonNode expected) {
+        assertEquals(expected,
+                HasJsonNode2.toJsonNodeList(list),
+                "toJsonNodeList(List) failed");
+        assertEquals(expected,
+                HasJsonNode.toJsonNode(list),
+                "toJsonNode(Object) failed");
+    }
+
+    // toJsonNodeWithType Set....................................................................................
 
     @Test
     public void testToJsonNodeSetWithTypeColorRoundtrip() {
@@ -404,17 +425,38 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
 
     @Test
     public void testToJsonNodeSetNull() {
-        assertEquals(JsonNode.nullNode(),
-                HasJsonNode.toJsonNode((Set<JsonNode>) null));
+        this.toJsonNodeSetAndCheck(null, JsonNode.nullNode());
     }
 
     @Test
-    public void testToJsonNodeSet() {
+    public void testToJsonNodeSetHasJsonNode() {
         final Color color1 = Color.fromRgb(0x111);
         final Color color2 = Color.fromRgb(0x222);
 
-        assertEquals(JsonNode.array().appendChild(color1.toJsonNode()).appendChild(color2.toJsonNode()),
-                HasJsonNode.toJsonNode(Sets.of(color1, color2)));
+        this.toJsonNodeSetAndCheck(Sets.of(color1, color2),
+                JsonNode.array()
+                        .appendChild(color1.toJsonNode())
+                        .appendChild(color2.toJsonNode()));
+    }
+
+    @Test
+    public void testToJsonNodeSetString() {
+        final String string1 = "a1";
+        final String string2 = "b2";
+
+        this.toJsonNodeSetAndCheck(Sets.of(string1, string2),
+                JsonNode.array()
+                        .appendChild(JsonNode.string(string1))
+                        .appendChild(JsonNode.string(string2)));
+    }
+
+    private void toJsonNodeSetAndCheck(final Set<?> set, final JsonNode expected) {
+        assertEquals(expected,
+                HasJsonNode2.toJsonNodeSet(set),
+                "toJsonNodeSet(Set) failed");
+        assertEquals(expected,
+                HasJsonNode.toJsonNode(set),
+                "toJsonNode(Object) failed");
     }
 
     // toJsonNodeWithType....................................................................................
