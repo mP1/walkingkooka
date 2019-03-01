@@ -57,6 +57,7 @@ final class HasJsonNode2Registration {
 
     private JsonObjectNode objectWithType;
 
+    @Override
     public String toString() {
         return this.from.toString();
     }

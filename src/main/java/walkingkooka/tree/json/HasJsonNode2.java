@@ -474,9 +474,11 @@ final class HasJsonNode2 {
 
     private static JsonNode toJsonNodeWithTypeMap0(final Map<?, ?> map) {
         return MAP_REGISTRATION.objectWithType()
-                .setChildren(map.entrySet().stream()
-                        .map(HasJsonNode2::toMapChildrenEntry)
-                        .collect(Collectors.toList()));
+                .set(VALUE, JsonNode.array()
+                        .setChildren(map.entrySet()
+                                .stream()
+                                .map(HasJsonNode2::toMapChildrenEntry)
+                                .collect(Collectors.toList())));
     }
 
     private final static HasJsonNode2Registration MAP_REGISTRATION;

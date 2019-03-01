@@ -100,6 +100,31 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
+    public void testFromJsonNodeListNull() {
+        this.fromJsonNodeListAndCheck(null, Boolean.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListBooleanTrue() {
+        this.fromJsonNodeListAndCheck(Boolean.TRUE, Boolean.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListBooleanFalse() {
+        this.fromJsonNodeListAndCheck(Boolean.FALSE, Boolean.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListNumber() {
+        this.fromJsonNodeListAndCheck(123.5, Number.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListString() {
+        this.fromJsonNodeListAndCheck("abc123", String.class);
+    }
+
+    @Test
     public void testFromJsonNodeList() {
         final Color color1 = Color.fromRgb(0x111);
         final Color color2 = Color.fromRgb(0x222);
@@ -121,6 +146,14 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
                         .appendChild(JsonNode.string(string2)),
                 String.class,
                 Lists.of(string1, string2));
+    }
+
+    private <E> void fromJsonNodeListAndCheck(final E value,
+                                             final Class<E> elementType) {
+        this.fromJsonNodeListAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.wrapOrFail(value)),
+                elementType,
+                Lists.of(value));
     }
 
     private <E> void fromJsonNodeListAndCheck(final JsonNode node,
@@ -303,6 +336,31 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
+    public void testFromJsonNodeSetNull() {
+        this.fromJsonNodeSetAndCheck(null, Boolean.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetBooleanTrue() {
+        this.fromJsonNodeSetAndCheck(Boolean.TRUE, Boolean.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetBooleanFalse() {
+        this.fromJsonNodeSetAndCheck(Boolean.FALSE, Boolean.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetNumber() {
+        this.fromJsonNodeSetAndCheck(123.5, Number.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetString() {
+        this.fromJsonNodeSetAndCheck("abc123", String.class);
+    }
+
+    @Test
     public void testFromJsonNodeSet() {
         final Color color1 = Color.fromRgb(0x111);
         final Color color2 = Color.fromRgb(0x222);
@@ -324,6 +382,14 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
                         .appendChild(JsonNode.string(string2)),
                 String.class,
                 Sets.of(string1, string2));
+    }
+
+    private <E> void fromJsonNodeSetAndCheck(final E value,
+                                             final Class<E> elementType) {
+        this.fromJsonNodeSetAndCheck(JsonNode.array()
+                .appendChild(JsonNode.wrapOrFail(value)),
+                elementType,
+                Sets.of(value));
     }
 
     private <E> void fromJsonNodeSetAndCheck(final JsonNode node,
@@ -458,35 +524,30 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     }
 
     @Test
-    public void testFromJsonNodeMap() {
-        final Color key = Color.fromRgb(0x111);
-        final Color value = Color.fromRgb(0x222);
+    public void testFromJsonNodeMapBoolean() {
+        this.fromJsonNodeMapAndCheck(Boolean.TRUE, Boolean.FALSE, Boolean.class, Boolean.class);
+    }
 
-        this.fromJsonNodeMapAndCheck(JsonNode.array()
-                        .appendChild(JsonNode.object()
-                                .set(HasJsonNode2.ENTRY_KEY, key.toJsonNode())
-                                .set(HasJsonNode2.ENTRY_VALUE, value.toJsonNode())),
-                Maps.one(key, value),
+    @Test
+    public void testFromJsonNodeMapNumber() {
+        this.fromJsonNodeMapAndCheck(1.0, 2.0, Number.class, Number.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMapString() {
+        this.fromJsonNodeMapAndCheck("key1", "value1", String.class, String.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMapHasJsonNode() {
+        this.fromJsonNodeMapAndCheck(Color.fromRgb(0x111),
+                Color.fromRgb(0x222),
                 Color.class,
                 Color.class);
     }
 
     @Test
     public void testFromJsonNodeMap2() {
-        final String key = "key1";
-        final String value = "value2";
-
-        this.fromJsonNodeMapAndCheck(JsonNode.array()
-                        .appendChild(JsonNode.object()
-                                .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key))
-                                .set(HasJsonNode2.ENTRY_VALUE, JsonNode.string(value))),
-                Maps.one(key, value),
-                String.class,
-                String.class);
-    }
-
-    @Test
-    public void testFromJsonNodeMap3() {
         final String key1 = "key1";
         final Color value1 = Color.fromRgb(0x111);
 
@@ -509,12 +570,25 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
                 Color.class);
     }
 
+    private <K, V> void fromJsonNodeMapAndCheck(final K key,
+                                                final V value,
+                                                final Class<K> keyType,
+                                                final Class<V> valueType) {
+        this.fromJsonNodeMapAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, JsonNode.wrapOrFail(key))
+                                .set(HasJsonNode2.ENTRY_VALUE, JsonNode.wrapOrFail(value))),
+                Maps.one(key, value),
+                keyType,
+                valueType);
+    }
+
     private <K, V> void fromJsonNodeMapAndCheck(final JsonNode node,
                                                 final Map<K, V> map,
-                                                final Class<K> key,
-                                                final Class<V> value) {
+                                                final Class<K> keyType,
+                                                final Class<V> valueType) {
         assertEquals(map,
-                HasJsonNode2.fromJsonNodeMap(node, key, value),
+                HasJsonNode2.fromJsonNodeMap(node, keyType, valueType),
                 () -> "fromJsonNode(Map) failed: " + node);
     }
 
@@ -876,7 +950,75 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
                 HasJsonNode2.toJsonNodeWithType(value),
                 "value " + CharSequences.quoteIfChars(value) + " toJsonNodeWithType failed");
     }
-    
+
+    // toJsonNodeWithType fromJsonNodeWithType Rountrip .........................................................................................
+
+    @Test
+    public void testRoundtripNull() {
+        this.roundtripAndCheck(null);
+    }
+
+    @Test
+    public void testRoundtripBooleanTrue() {
+        this.roundtripAndCheck(Boolean.TRUE);
+    }
+
+    @Test
+    public void testRoundtripBooleanFalse() {
+        this.roundtripAndCheck(Boolean.FALSE);
+    }
+
+    @Test
+    public void testRoundtripNumber() {
+        this.roundtripAndCheck(123.5);
+    }
+
+    @Test
+    public void testRoundtripString() {
+        this.roundtripAndCheck("abc123");
+    }
+
+    @Test
+    public void testRoundtripHasJsonNode() {
+        this.roundtripAndCheck(Color.fromRgb(0x123));
+    }
+
+    @Test
+    public void testRoundtripListPrimitive() {
+        this.roundtripAndCheck(Lists.of("abc123"));
+    }
+
+    @Test
+    public void testRoundtripList() {
+        this.roundtripAndCheck(Lists.of(Color.fromRgb(0x123)));
+    }
+
+    @Test
+    public void testRoundtripSetPrimitive() {
+        this.roundtripAndCheck(Sets.of("abc123"));
+    }
+
+    @Test
+    public void testRoundtripSet() {
+        this.roundtripAndCheck(Sets.of(Color.fromRgb(0x123)));
+    }
+
+    @Test
+    public void testRoundtripMapPrimitive() {
+        this.roundtripAndCheck(Maps.one("key1", "value1"));
+    }
+
+    @Test
+    public void testRoundtripMap() {
+        this.roundtripAndCheck(Maps.one(Color.fromRgb(0x1), Color.fromRgb(0x2)));
+    }
+
+    private void roundtripAndCheck(final Object value) {
+        assertEquals(value,
+                HasJsonNode2.fromJsonNodeWithType(HasJsonNode2.toJsonNodeWithType(value)),
+                () -> "roundtrip " + value);
+    }
+
     // ClassTesting..........................................................................................
 
     @Override
