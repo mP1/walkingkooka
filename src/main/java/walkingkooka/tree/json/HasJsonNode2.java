@@ -226,26 +226,26 @@ final class HasJsonNode2 {
 
     /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
-     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     * is converted to json using {@link HasJsonNode#toJsonNode()} or stored in its basic form.
      */
-    static JsonNode toJsonNodeList(final List<? extends HasJsonNode> list) {
+    static JsonNode toJsonNodeList(final List<?> list) {
         return toJsonNodeCollection(list);
     }
 
     /**
      * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
-     * is converted to json using {@link HasJsonNode#toJsonNode()}.
+     * is converted to json using {@link HasJsonNode#toJsonNode()} or stored in its basic form.
      */
-    static JsonNode toJsonNodeSet(final Set<? extends HasJsonNode> set) {
+    static JsonNode toJsonNodeSet(final Set<?> set) {
         return toJsonNodeCollection(set);
     }
 
-    private static JsonNode toJsonNodeCollection(final Collection<? extends HasJsonNode> collection) {
+    private static JsonNode toJsonNodeCollection(final Collection<?> collection) {
         return null == collection ?
                 JsonNode.nullNode() :
                 JsonObjectNode.array()
                         .setChildren(collection.stream()
-                                .map(e -> ((HasJsonNode) e).toJsonNode())
+                                .map(JsonNode::wrapOrFail)
                                 .collect(Collectors.toList()));
     }
 
