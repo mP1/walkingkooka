@@ -62,7 +62,8 @@ final class JsonObjectNodeList extends AbstractList<JsonNode> {
 
     @Override
     public String toString() {
-        return "[[[MAP=" + this.nameToValues.toString() + " LIST=" + this.list() + "]]]";
+        final String toString = this.nameToValues.toString();
+        return '[' + toString.substring(1, toString.length() - 1) + ']';
     }
 
     final Map<JsonNodeName, JsonNode> nameToValues;
