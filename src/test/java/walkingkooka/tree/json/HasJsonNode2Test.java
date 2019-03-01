@@ -20,6 +20,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTesting;
@@ -27,6 +28,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -400,6 +402,220 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
                 "fromJsonNodeWithType(Set) failed: " + from);
     }
 
+    // fromJsonNode Map, element type..........................................................................
+
+    @Test
+    public void testFromJsonNodeMapNullNodeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode2.fromJsonNodeMap(null, Object.class, Object.class);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeMapNullKeyTypeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode2.fromJsonNodeMap(JsonNode.array(), null, Object.class);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeMapNullValueTypeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode2.fromJsonNodeMap(JsonNode.array(), Object.class, null);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeMapBooleanFails() {
+        this.fromJsonNodeMapFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeMapJsonNullNodeFails() {
+        assertEquals(null,
+                HasJsonNode.fromJsonNodeMap(JsonNode.nullNode(), Object.class, Object.class));
+    }
+
+    @Test
+    public void testFromJsonNodeMapNumberFails() {
+        this.fromJsonNodeMapFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeMapStringFails() {
+        this.fromJsonNodeMapFails(JsonNode.string("abc123"));
+    }
+
+    @Test
+    public void testFromJsonNodeMapObjectFails() {
+        this.fromJsonNodeMapFails(JsonNode.object());
+    }
+
+    private void fromJsonNodeMapFails(final JsonNode map) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            HasJsonNode2.fromJsonNodeMap(map, Color.class, String.class);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeMap() {
+        final Color key = Color.fromRgb(0x111);
+        final Color value = Color.fromRgb(0x222);
+
+        this.fromJsonNodeMapAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, key.toJsonNode())
+                                .set(HasJsonNode2.ENTRY_VALUE, value.toJsonNode())),
+                Maps.one(key, value),
+                Color.class,
+                Color.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMap2() {
+        final String key = "key1";
+        final String value = "value2";
+
+        this.fromJsonNodeMapAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key))
+                                .set(HasJsonNode2.ENTRY_VALUE, JsonNode.string(value))),
+                Maps.one(key, value),
+                String.class,
+                String.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMap3() {
+        final String key1 = "key1";
+        final Color value1 = Color.fromRgb(0x111);
+
+        final String key2 = "key2";
+        final Color value2 = Color.fromRgb(0x222);
+
+        final Map<String, Color> map = Maps.ordered();
+        map.put(key1, value1);
+        map.put(key2, value2);
+
+        this.fromJsonNodeMapAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key1))
+                                .set(HasJsonNode2.ENTRY_VALUE, value1.toJsonNode()))
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key2))
+                                .set(HasJsonNode2.ENTRY_VALUE, value2.toJsonNode())),
+                map,
+                String.class,
+                Color.class);
+    }
+
+    private <K, V> void fromJsonNodeMapAndCheck(final JsonNode node,
+                                                final Map<K, V> map,
+                                                final Class<K> key,
+                                                final Class<V> value) {
+        assertEquals(map,
+                HasJsonNode2.fromJsonNodeMap(node, key, value),
+                () -> "fromJsonNode(Map) failed: " + node);
+    }
+
+    // fromJsonNodeWithType Map ..............................................................................
+
+    @Test
+    public void testFromJsonNodeWithTypeMapNullNodeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNode2.fromJsonNodeWithTypeMap(null);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMapBooleanFails() {
+        this.fromJsonNodeWithTypeMapFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMapNull() {
+        this.fromJsonNodeWithTypeMapAndCheck(JsonNode.nullNode(), null);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMapNumberFails() {
+        this.fromJsonNodeWithTypeMapFails(JsonNode.number(123));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMapStringFails() {
+        this.fromJsonNodeWithTypeMapFails(JsonNode.string("abc123"));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMapObjectFails() {
+        this.fromJsonNodeWithTypeMapFails(JsonNode.object());
+    }
+
+    private void fromJsonNodeWithTypeMapFails(final JsonNode map) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            HasJsonNode2.fromJsonNodeWithTypeMap(map);
+        });
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMap() {
+        final Color key = Color.fromRgb(0x111);
+        final Color value = Color.fromRgb(0x222);
+
+        this.fromJsonNodeWithTypeMapAndCheck(JsonNode.object()
+                        .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.MAP))
+                        .set(HasJsonNode2.VALUE, JsonNode.array()
+                                .appendChild(JsonNode.object()
+                                        .set(HasJsonNode2.ENTRY_KEY, key.toJsonNodeWithType())
+                                        .set(HasJsonNode2.ENTRY_VALUE, value.toJsonNodeWithType()))),
+                Maps.one(key, value));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMap2() {
+        final String key = "key1";
+        final String value = "value1";
+
+        this.fromJsonNodeWithTypeMapAndCheck(JsonNode.object()
+                        .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.MAP))
+                        .set(HasJsonNode2.VALUE, JsonNode.array()
+                                .appendChild(JsonNode.object()
+                                        .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key))
+                                        .set(HasJsonNode2.ENTRY_VALUE, JsonNode.string(value)))),
+                Maps.one(key, value));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMap3() {
+        final String key1 = "key1";
+        final Color value1 = Color.fromRgb(0x111);
+
+        final String key2 = "key2";
+        final Color value2 = Color.fromRgb(0x222);
+
+        final Map<String, Color> map = Maps.ordered();
+        map.put(key1, value1);
+        map.put(key2, value2);
+
+        this.fromJsonNodeWithTypeMapAndCheck(JsonNode.object()
+                        .set(HasJsonNode2.TYPE, JsonNode.string(HasJsonNode2.MAP))
+                        .set(HasJsonNode2.VALUE, JsonNode.array()
+                                .appendChild(JsonNode.object()
+                                        .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key1))
+                                        .set(HasJsonNode2.ENTRY_VALUE, value1.toJsonNodeWithType()))
+                                .appendChild(JsonNode.object()
+                                        .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key2))
+                                        .set(HasJsonNode2.ENTRY_VALUE, value2.toJsonNodeWithType()))),
+                map);
+    }
+
+    private void fromJsonNodeWithTypeMapAndCheck(final JsonNode from, final Map<?, ?> map) {
+        assertEquals(map,
+                HasJsonNode2.fromJsonNodeWithType(from),
+                ()-> "fromJsonNodeWithType(Map) failed: " + from);
+    }
+
     // toJsonNode..........................................................................
 
     @Test
@@ -542,6 +758,68 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
                 "toJsonNode(Object) failed");
     }
 
+    // toJsonNode Map......................................................................................
+
+    @Test
+    public void testToJsonNodeMapNull() {
+        this.toJsonNodeMapAndCheck(null, JsonNode.nullNode());
+    }
+
+    @Test
+    public void testToJsonNodeMapHasJsonNode() {
+        final Color key1 = Color.fromRgb(0x111);
+        final Color value1 = Color.fromRgb(0xfff);
+
+        final Color key2 = Color.fromRgb(0x222);
+        final Color value2 = Color.fromRgb(0xeee);
+
+        final Map<Color, Color> map = Maps.ordered();
+        map.put(key1, value1);
+        map.put(key2, value2);
+
+        this.toJsonNodeMapAndCheck(map,
+                JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, key1.toJsonNode())
+                                .set(HasJsonNode2.ENTRY_VALUE, value1.toJsonNode()))
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, key2.toJsonNode())
+                                .set(HasJsonNode2.ENTRY_VALUE, value2.toJsonNode()))
+        );
+    }
+
+    @Test
+    public void testToJsonNodeMapString() {
+        final String key1 = "key1";
+        final String value1 = "value1";
+
+        final String key2 = "key2";
+        final String value2 = "value2";
+
+        final Map<String, String> map = Maps.ordered();
+        map.put(key1, value1);
+        map.put(key2, value2);
+
+        this.toJsonNodeMapAndCheck(map,
+                JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key1))
+                                .set(HasJsonNode2.ENTRY_VALUE, JsonNode.string(value1)))
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNode2.ENTRY_KEY, JsonNode.string(key2))
+                                .set(HasJsonNode2.ENTRY_VALUE, JsonNode.string(value2)))
+        );
+    }
+
+    private void toJsonNodeMapAndCheck(final Map<?, ?> map, final JsonNode expected) {
+        assertEquals(expected,
+                HasJsonNode2.toJsonNodeMap(map),
+                "toJsonNodeMap(Map) failed");
+        assertEquals(expected,
+                HasJsonNode.toJsonNode(map),
+                "toJsonNode(Object) failed");
+    }
+
     // toJsonNodeWithType....................................................................................
 
     @Test
@@ -585,6 +863,12 @@ public final class HasJsonNode2Test implements ClassTesting<HasJsonNode2> {
     public void testToJsonNodeWithTypeSetColor() {
         final Set<Object> set = Sets.of(Color.fromRgb(0x123));
         this.toJsonNodeWithTypeAndCheck(set, HasJsonNode2.toJsonNodeWithTypeSet(set));
+    }
+
+    @Test
+    public void testToJsonNodeWithTypeMapColor() {
+        final Map<Object, Object> map = Maps.one("key", Color.fromRgb(0x123));
+        this.toJsonNodeWithTypeAndCheck(map, HasJsonNode2.toJsonNodeWithTypeMap(map));
     }
 
     private void toJsonNodeWithTypeAndCheck(final Object value, final JsonNode expected) {

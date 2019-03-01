@@ -25,6 +25,7 @@ import walkingkooka.collect.set.Sets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
@@ -59,6 +60,9 @@ final class HasJsonNode2 {
     // @VisibleForTesting
     final static String SET = Set.class.getSimpleName();
 
+    // @VisibleForTesting
+    final static String MAP = Map.class.getSimpleName();
+
     // register.........................................................................................................
 
     /**
@@ -74,6 +78,7 @@ final class HasJsonNode2 {
 
         LIST_REGISTRATION = register1(LIST, HasJsonNode2::fromJsonNodeWithTypeList);
         SET_REGISTRATION = register1(SET, HasJsonNode2::fromJsonNodeWithTypeSet);
+        MAP_REGISTRATION = register1(MAP, HasJsonNode2::fromJsonNodeWithTypeMap);
 
         register0(Boolean.class, HasJsonNode2::fromJsonNodeBoolean);
         register0(Number.class, HasJsonNode2::fromJsonNodeNumber);
@@ -161,6 +166,52 @@ final class HasJsonNode2 {
                 .stream()
                 .map(n -> elementType.cast(factory.apply(n)))
                 .collect(collector);
+    }
+
+    static <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node,
+                                            final Class<K> keyType,
+                                            final Class<V> valueType) {
+        Objects.requireNonNull(keyType, "keyType");
+        Objects.requireNonNull(valueType, "valueType");
+
+        return node.isNull() ?
+                null :
+                fromJsonNodeMap0(node, keyType, valueType);
+    }
+
+    private static <K, V> Map<K, V> fromJsonNodeMap0(final JsonNode node,
+                                                     final Class<K> keyType,
+                                                     final Class<V> valueType) {
+        Objects.requireNonNull(keyType, "keyType");
+        Objects.requireNonNull(valueType, "valueType");
+
+        JsonArrayNode array;
+        try {
+            array = node.arrayOrFail();
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+
+        final Function<JsonNode, ?> keyFactory = registrationOrFail(keyType.getName())
+                .from;
+        final Function<JsonNode, ?> valueFactory = registrationOrFail(valueType.getName())
+                .from;
+
+        final Map<K, V> map = Maps.ordered();
+
+        for (JsonNode entry : array.children()) {
+            JsonObjectNode entryObject;
+            try {
+                entryObject = entry.objectOrFail();
+            } catch (final JsonNodeException cause) {
+                throw new IllegalArgumentException(cause.getMessage(), cause);
+            }
+
+            map.put(keyType.cast(keyFactory.apply(entryObject.getOrFail(ENTRY_KEY))),
+                    valueType.cast(valueFactory.apply(entryObject.getOrFail(ENTRY_VALUE))));
+        }
+
+        return map;
     }
 
     private static Boolean fromJsonNodeBoolean(final JsonNode node) {
@@ -267,6 +318,53 @@ final class HasJsonNode2 {
                 .collect(collector);
     }
 
+
+    /**
+     * Expects a {@link JsonArrayNode} holding entries of the {@link Map} tagged with type and values.
+     */
+    // @VisibleForTesting
+    static <K, V> Map<K, V> fromJsonNodeWithTypeMap(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        return node.isNull() ?
+                null :
+                fromJsonNodeWithTypeMap0(node);
+    }
+
+    /**
+     * Accepts an array of entry objects each holding the key and value.
+     */
+    private static <K, V> Map<K, V> fromJsonNodeWithTypeMap0(final JsonNode node) {
+
+        // container must be an array
+        JsonArrayNode array;
+        try {
+            array = node.arrayOrFail();
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+
+        final Map<K, V> map = Maps.ordered();
+
+        for (JsonNode child : array.children()) {
+            JsonObjectNode childObject;
+            try {
+                childObject = child.objectOrFail();
+            } catch (final JsonNodeException cause) {
+                throw new IllegalArgumentException(cause.getMessage(), cause);
+            }
+
+            map.put(fromJsonNodeWithType(childObject.getOrFail(ENTRY_KEY)),
+                    fromJsonNodeWithType(childObject.getOrFail(ENTRY_VALUE)));
+        }
+
+        return map;
+    }
+
+    final static JsonNodeName ENTRY_KEY = JsonNodeName.with("key");
+    final static JsonNodeName ENTRY_VALUE = JsonNodeName.with("value");
+
+
     // toJsonNode.........................................................................................................
 
     /**
@@ -294,6 +392,25 @@ final class HasJsonNode2 {
                                 .collect(Collectors.toList()));
     }
 
+    /**
+     * Accepts a {@link Map} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
+     * is converted to json using {@link HasJsonNode#toJsonNode()} or stored in its basic form.
+     */
+    static JsonNode toJsonNodeMap(final Map<?, ?> map) {
+        return null == map ?
+                JsonNode.nullNode() :
+                JsonObjectNode.array()
+                        .setChildren(map.entrySet().stream()
+                                .map(HasJsonNode2::toJsonNodeMapEntry)
+                                .collect(Collectors.toList()));
+    }
+
+    private static JsonNode toJsonNodeMapEntry(final Entry<?, ?> entry) {
+        return JsonNode.object()
+                .set(ENTRY_KEY, JsonNode.wrapOrFail(entry.getKey()))
+                .set(ENTRY_VALUE, JsonNode.wrapOrFail(entry.getValue()));
+    }
+
     // toJsonNodeWithType.........................................................................................................
 
     /**
@@ -308,9 +425,11 @@ final class HasJsonNode2 {
                         toJsonNodeWithTypeList(Cast.to(object)) :
                         object instanceof Set ?
                                 toJsonNodeWithTypeSet(Cast.to(object)) :
-                                object instanceof HasJsonNode ?
-                                        toJsonNodeWithTypeHasJsonNode(Cast.to(object)) :
-                                        JsonNode.wrapOrFail(object);
+                                object instanceof Map ?
+                                        toJsonNodeWithTypeMap(Cast.to(object)) :
+                                        object instanceof HasJsonNode ?
+                                                toJsonNodeWithTypeHasJsonNode(Cast.to(object)) :
+                                                JsonNode.wrapOrFail(object);
     }
 
     /**
@@ -343,6 +462,30 @@ final class HasJsonNode2 {
     }
 
     private final static HasJsonNode2Registration SET_REGISTRATION;
+
+    /**
+     * Accepts a {@link Map} and returns its {@link JsonNode} equivalent.
+     */
+    static JsonNode toJsonNodeWithTypeMap(final Map<?, ?> map) {
+        return null == map ?
+                JsonNode.nullNode() :
+                toJsonNodeWithTypeMap0(map);
+    }
+
+    private static JsonNode toJsonNodeWithTypeMap0(final Map<?, ?> map) {
+        return MAP_REGISTRATION.objectWithType()
+                .setChildren(map.entrySet().stream()
+                        .map(HasJsonNode2::toMapChildrenEntry)
+                        .collect(Collectors.toList()));
+    }
+
+    private final static HasJsonNode2Registration MAP_REGISTRATION;
+
+    private static JsonNode toMapChildrenEntry(final Entry<?, ?> entry) {
+        return JsonNode.object()
+                .set(ENTRY_KEY, toJsonNodeWithType(entry.getKey()))
+                .set(ENTRY_VALUE, toJsonNodeWithType(entry.getValue()));
+    }
 
     /**
      * Serializes the node into json with a wrapper json object holding the type=json.
