@@ -18,10 +18,22 @@
 
 package walkingkooka.tree.json;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HasJsonNode2RegistrationTest implements ClassTesting<HasJsonNode2Registration> {
+import java.util.function.Function;
+
+public final class HasJsonNode2RegistrationTest implements ClassTesting<HasJsonNode2Registration>,
+        ToStringTesting<HasJsonNode2Registration> {
+
+    @Test
+    public void testToString() {
+        final Function<JsonNode, ?> function = Function.identity();
+        this.toStringAndCheck(function, function.toString());
+    }
+
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
