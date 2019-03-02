@@ -35,7 +35,7 @@ final class SetContainsPredicate<T> implements Predicate<T> {
     static <T> SetContainsPredicate<T> with(final Set<T> set) {
         Objects.requireNonNull(set, "set");
 
-        final Set<T> copy = Sets.hash();
+        final Set<T> copy = Sets.ordered();
         copy.addAll(set);
         return new SetContainsPredicate<>(copy);
     }
