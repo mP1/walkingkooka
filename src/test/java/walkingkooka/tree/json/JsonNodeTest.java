@@ -111,6 +111,16 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
     }
 
     @Test
+    public void testWrapByte() {
+        this.wrapAndCheck((byte)123, JsonNode.number(123));
+    }
+
+    @Test
+    public void testWrapShort() {
+        this.wrapAndCheck((short)123, JsonNode.number(123));
+    }
+
+    @Test
     public void testWrapInteger() {
         this.wrapAndCheck(123, JsonNode.number(123));
     }
@@ -120,6 +130,11 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
         assertThrows(IllegalArgumentException.class, () -> {
             JsonNode.wrap(1L);
         });
+    }
+
+    @Test
+    public void testWrapFloat() {
+        this.wrapAndCheck(123.5f, JsonNode.number(123.5));
     }
 
     @Test
