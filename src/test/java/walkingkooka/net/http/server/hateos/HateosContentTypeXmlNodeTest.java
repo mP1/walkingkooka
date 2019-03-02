@@ -64,7 +64,7 @@ public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCas
                 Url.parseAbsolute("http://example.com/base"),
                 HateosResourceName.with("entity"),
                 Sets.of(LinkRelation.SELF, LinkRelation.ITEM),
-                "<entity><value>1</value><links><link href=\"http://example.com/base/entity/123/item\" method=\"GET\" rel=\"item\" type=\"application/hal+xml\"/><link href=\"http://example.com/base/entity/123\" method=\"GET\" rel=\"self\" type=\"application/hal+xml\"/></links></entity>");
+                "<entity><value>1</value><links><link href=\"http://example.com/base/entity/123\" method=\"GET\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/base/entity/123/item\" method=\"GET\" rel=\"item\" type=\"application/hal+xml\"/></links></entity>");
     }
 
     @Test

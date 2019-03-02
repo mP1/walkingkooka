@@ -81,14 +81,14 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
                 "{\n" +
                         "  \"prop1\": \"value1\",\n" +
                         "  \"_links\": [{\n" +
-                        "    \"href\": \"http://example.com/base/entity/123/item\",\n" +
-                        "    \"method\": \"GET\",\n" +
-                        "    \"rel\": \"item\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }, {\n" +
                         "    \"href\": \"http://example.com/base/entity/123\",\n" +
                         "    \"method\": \"GET\",\n" +
                         "    \"rel\": \"self\",\n" +
+                        "    \"type\": \"application/hal+json\"\n" +
+                        "  }, {\n" +
+                        "    \"href\": \"http://example.com/base/entity/123/item\",\n" +
+                        "    \"method\": \"GET\",\n" +
+                        "    \"rel\": \"item\",\n" +
                         "    \"type\": \"application/hal+json\"\n" +
                         "  }]\n" +
                         "}");

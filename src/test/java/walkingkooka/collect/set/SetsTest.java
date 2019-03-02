@@ -18,12 +18,14 @@
 package walkingkooka.collect.set;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,26 +43,26 @@ final public class SetsTest implements ClassTesting2<Sets>,
     }
 
     @Test
-    public void testAs() {
+    public void testOf() {
         assertEquals(Sets.empty(), Sets.of());
     }
 
     @Test
-    public void testAsOneElement() {
+    public void testOfOneElement() {
         assertEquals(Sets.of("element"), Sets.of("element"));
     }
 
     @Test
-    public void testHashSetWithManyElements() {
+    public void testOfManyOrdered() {
         final Object object1 = "first";
         final Object object2 = "second";
         final Object object3 = "third";
 
-        final Set<Object> hashSet = Sets.hash();
-        hashSet.add(object1);
-        hashSet.add(object2);
-        hashSet.add(object3);
-        assertEquals(hashSet, Sets.of(object1, object2, object3));
+        final List<Object> list = Lists.array();
+        list.add(object1);
+        list.add(object2);
+        list.add(object3);
+        assertEquals(list, new ArrayList<>(Sets.of(object1, object2, object3)));
     }
 
     // helpers

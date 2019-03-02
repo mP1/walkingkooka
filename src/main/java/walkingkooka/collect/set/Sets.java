@@ -75,7 +75,7 @@ final public class Sets implements PublicStaticHelper {
     public static <E> Set<E> of(final E... elements) {
         Objects.requireNonNull(elements, "elements");
 
-        final Set<E> set = Sets.hash();
+        final Set<E> set = ordered();
         Collections.addAll(set, elements);
         return set;
     }
