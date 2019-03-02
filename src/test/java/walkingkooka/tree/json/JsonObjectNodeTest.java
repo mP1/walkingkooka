@@ -34,6 +34,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -227,6 +228,21 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.childCountCheck(empty, 0);
     }
 
+    @Test
+    public void testSetChildrenSameKeyDifferentValueType() {
+        final JsonNodeName key1 = this.key1();
+        final JsonNode value1 = this.value1();
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(key1, value1);
+
+        final JsonNode value2 = JsonNode.object();
+        final JsonObjectNode object2 = JsonNode.object()
+                .set(key1, value2);
+
+        assertNotSame(object, object2);
+    }
+
     private void getAndCheck(final JsonObjectNode object, final JsonNodeName key, final String value) {
         final Optional<JsonNode> got = object.get(key);
         assertNotEquals(Optional.empty(), got, "expected value for key " + key);
@@ -401,6 +417,26 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.checkNotEquals(
                 object.set(property, JsonNode.object().set(JsonNodeName.with("p"), JsonNode.string("child1"))),
                 object.set(property, JsonNode.array().appendChild(JsonNode.string("child2"))));
+    }
+
+    @Test
+    public void testEqualsSameKeyDifferentValueType() {
+        final JsonObjectNode object = JsonNode.object();
+        final JsonNodeName property = this.property();
+
+        this.checkNotEquals(
+                object.set(property, JsonNode.object()),
+                object.set(property, JsonNode.string("string")));
+    }
+
+    @Test
+    public void testEqualsSameKeyDifferentValueType2() {
+        final JsonObjectNode object = JsonNode.object();
+        final JsonNodeName property = this.property();
+
+        this.checkNotEquals(
+                object.set(property, JsonNode.object()),
+                object.set(property, JsonNode.array()));
     }
 
     private JsonNodeName property() {
