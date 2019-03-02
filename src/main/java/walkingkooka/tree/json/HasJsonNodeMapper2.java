@@ -18,47 +18,33 @@
 
 package walkingkooka.tree.json;
 
-import java.util.function.Function;
+abstract class HasJsonNodeMapper2<T> extends HasJsonNodeMapper<T> {
 
-final class HasJsonNode2Registration {
-
-    static HasJsonNode2Registration with(final String type, final Function<JsonNode, ?> from) {
-        return new HasJsonNode2Registration(type, from);
-    }
-
-    private HasJsonNode2Registration(final String type,
-                                     final Function<JsonNode, ?> from) {
+    HasJsonNodeMapper2() {
         super();
-        this.from = from;
-        this.type = type;
     }
 
-    /**
-     * A {@link Function} which typically calls a static fromJsonNode method.
-     */
-    final Function<JsonNode, ?> from;
+    abstract T fromJsonNode0(final JsonNode node);
+
+    @Override
+    final JsonNode toJsonNode0(final T value) {
+        return this.objectWithType()
+                .set(HasJsonNodeMapper.VALUE, this.toJsonNodeObjectValue(value));
+    }
 
     /**
      * The {@link JsonObjectNode} holding type=$typename must be created lazily after all registration. Attempts to create
      * during registration will result in exceptions when the {@link JsonObjectNode} is created and the TYPE property set.
      */
-    JsonObjectNode objectWithType() {
+    final JsonObjectNode objectWithType() {
         if (null == this.objectWithType) {
             this.objectWithType = JsonNode.object()
-                    .set(HasJsonNode2.TYPE, JsonNode.string(this.type));
+                    .set(HasJsonNodeMapper.TYPE, this.typeName());
         }
         return this.objectWithType;
     }
 
-    /**
-     * The fully qualified type name.
-     */
-    private final String type;
-
     private JsonObjectNode objectWithType;
 
-    @Override
-    public String toString() {
-        return this.from.toString();
-    }
+    abstract JsonNode toJsonNodeObjectValue(final T value);
 }

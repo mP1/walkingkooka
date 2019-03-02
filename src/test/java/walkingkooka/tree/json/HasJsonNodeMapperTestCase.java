@@ -18,29 +18,33 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting;
-import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
-import java.util.function.Function;
+public abstract class HasJsonNodeMapperTestCase<M extends HasJsonNodeMapper<T>, T> implements ClassTesting<M>,
+        TypeNameTesting<M> {
 
-public final class HasJsonNode2RegistrationTest implements ClassTesting<HasJsonNode2Registration>,
-        ToStringTesting<HasJsonNode2Registration> {
-
-    @Test
-    public void testToString() {
-        final Function<JsonNode, ?> function = Function.identity();
-        this.toStringAndCheck(function, function.toString());
+    HasJsonNodeMapperTestCase() {
+        super();
     }
 
+    // ClassTesting................................................................................
+
     @Override
-    public MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 
+    // TypeNameTesting................................................................................
+
     @Override
-    public Class<HasJsonNode2Registration> type() {
-        return HasJsonNode2Registration.class;
+    public final String typeNamePrefix() {
+        return HasJsonNode.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "";
     }
 }

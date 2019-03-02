@@ -54,7 +54,7 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
     }
 
     static {
-        HasJsonNode.register(SpreadsheetCellReference.class, SpreadsheetCellReference::fromJsonNode);
+        HasJsonNode.register("spreadsheet-cell-reference", SpreadsheetCellReference::fromJsonNode, SpreadsheetCellReference.class);
     }
 
     /**

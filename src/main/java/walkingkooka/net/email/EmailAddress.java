@@ -160,7 +160,7 @@ final public class EmailAddress implements Value<String>,
     }
 
     static {
-        HasJsonNode.register(EmailAddress.class, EmailAddress::fromJsonNode);
+        HasJsonNode.register("email", EmailAddress::fromJsonNode, EmailAddress.class);
     }
 
     // Object......................................................................
