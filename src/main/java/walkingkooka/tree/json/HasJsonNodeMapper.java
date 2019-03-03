@@ -129,7 +129,7 @@ abstract class HasJsonNodeMapper<T> {
      * Registers a {@link HasJsonNodeMapper} using only its type name.
      */
     static <T extends JsonNode> void registerJsonNode(final Class<T> type) {
-        final HasJsonNodeJsonNodeMapper mapper = HasJsonNodeJsonNodeMapper.with(type);
+        final HasJsonNodeJsonNodeMapper<T> mapper = HasJsonNodeJsonNodeMapper.with(type);
         register1(mapper.typeName().value(), mapper, type);
     }
 
