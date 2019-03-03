@@ -50,9 +50,7 @@ abstract public class Color implements HashCodeEqualsDefined,
     public final static Color WHITE = Color.fromRgb(0xFFFFFF);
 
     static {
-        HasJsonNode.register(Color.class, Color::fromJsonNode);
-        HasJsonNode.register(AlphaColor.class, AlphaColor::fromJsonNode0);
-        HasJsonNode.register(OpaqueColor.class, OpaqueColor::fromJsonNode0);
+        HasJsonNode.register("color", Color::fromJsonNode, Color.class, AlphaColor.class, OpaqueColor.class);
     }
 
     /**

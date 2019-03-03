@@ -49,7 +49,7 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
     }
 
     static {
-        HasJsonNode.register(SpreadsheetColumnReference.class, SpreadsheetColumnReference::fromJsonNode);
+        HasJsonNode.register("spreadsheet-column-reference", SpreadsheetColumnReference::fromJsonNode, SpreadsheetColumnReference.class);
     }
 
     /**

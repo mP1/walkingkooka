@@ -65,7 +65,7 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
     }
 
     static {
-        HasJsonNode.register(SpreadsheetLabelName.class, SpreadsheetLabelName::fromJsonNode);
+        HasJsonNode.register("spreadsheet-label-name", SpreadsheetLabelName::fromJsonNode, SpreadsheetLabelName.class);
     }
 
     /**
