@@ -18,21 +18,21 @@
 
 package walkingkooka.tree.json;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
-final class HasJsonNodeBigDecimalMapper extends HasJsonNodeMapper2<BigDecimal> {
+final class HasJsonNodeBigIntegerMapper extends HasJsonNodeMapper2<BigInteger> {
 
-    final static HasJsonNodeBigDecimalMapper instance() {
-        return new HasJsonNodeBigDecimalMapper();
+    final static HasJsonNodeBigIntegerMapper instance() {
+        return new HasJsonNodeBigIntegerMapper();
     }
 
-    private HasJsonNodeBigDecimalMapper() {
+    private HasJsonNodeBigIntegerMapper() {
         super();
     }
 
     @Override
-    BigDecimal fromJsonNode0(final JsonNode node) {
-        return new BigDecimal(node.stringValueOrFail());
+    BigInteger fromJsonNode0(final JsonNode node) {
+        return new BigInteger(node.stringValueOrFail());
     }
 
     @Override
@@ -40,10 +40,10 @@ final class HasJsonNodeBigDecimalMapper extends HasJsonNodeMapper2<BigDecimal> {
         return TYPE_NAME;
     }
 
-    private final JsonStringNode TYPE_NAME = JsonStringNode.with("big-decimal");
+    private final JsonStringNode TYPE_NAME = JsonStringNode.with("big-integer");
 
     @Override
-    JsonNode toJsonNodeObjectValue(final BigDecimal value) {
+    JsonNode toJsonNodeObjectValue(final BigInteger value) {
         return JsonNode.string(value.toString());
     }
 }

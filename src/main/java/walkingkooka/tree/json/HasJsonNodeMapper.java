@@ -24,6 +24,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.text.CharSequences;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,7 @@ abstract class HasJsonNodeMapper<T> {
         register0(HasJsonNodeStringMapper.instance(), String.class);
 
         register0(HasJsonNodeBigDecimalMapper.instance(), BigDecimal.class);
+        register0(HasJsonNodeBigIntegerMapper.instance(), BigInteger.class);
 
         register0(HasJsonNodeNumberMapper.instance(), Number.class);
 
