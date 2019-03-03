@@ -26,6 +26,7 @@ import walkingkooka.text.CharSequences;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
@@ -81,6 +82,7 @@ abstract class HasJsonNodeMapper<T> {
         register0(HasJsonNodeBigIntegerMapper.instance(), BigInteger.class);
 
         register0(HasJsonNodeLocalDateMapper.instance(), LocalDate.class);
+        register0(HasJsonNodeLocalDateTimeMapper.instance(), LocalDateTime.class);
         register0(HasJsonNodeLocalTimeMapper.instance(), LocalTime.class);
 
         registerListSetOrMap(HasJsonNodeListMapper.instance());
