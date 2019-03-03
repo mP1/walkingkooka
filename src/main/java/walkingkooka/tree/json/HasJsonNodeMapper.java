@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.text.CharSequences;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,8 @@ abstract class HasJsonNodeMapper<T> {
         register0(HasJsonNodeFloatMapper.instance(), Float.class);
         register0(HasJsonNodeDoubleMapper.instance(), Double.class);
         register0(HasJsonNodeStringMapper.instance(), String.class);
+
+        register0(HasJsonNodeBigDecimalMapper.instance(), BigDecimal.class);
 
         register0(HasJsonNodeNumberMapper.instance(), Number.class);
 
@@ -506,9 +509,18 @@ abstract class HasJsonNodeMapper<T> {
      * Returns the value from its {@link JsonNode} representation.
      */
     final T fromJsonNode(final JsonNode node) {
-        return node.isNull() ?
-                null :
-                this.fromJsonNode0(node);
+        try {
+            return node.isNull() ?
+                    null :
+                    this.fromJsonNode0(node);
+        } catch (final NullPointerException | JsonNodeException cause) {
+            throw cause;
+        } catch (final RuntimeException cause) {
+            final String message = cause.getMessage();
+            throw new JsonNodeException(CharSequences.isNullOrEmpty(message) ?
+                    node.toString() :
+                    message, cause);
+        }
     }
 
     abstract T fromJsonNode0(final JsonNode node);
