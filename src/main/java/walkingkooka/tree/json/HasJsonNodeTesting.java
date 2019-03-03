@@ -19,13 +19,16 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -34,13 +37,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
     @Test
-    default void testHasJsonNodeFactoryRegistered() {
-        final String type = this.type().getName();
+    default void testHasJsonNodeFactoryRegistered() throws Exception{
+        final Class<H> type = this.type();
+        final String typeName = this.type().getName();
 
-        assertNotEquals(
-                null,
-                HasJsonNodeMapper.TYPENAME_TO_FACTORY.get(type),
-                ()->"Type: " + type + " factory not registered -> HasJsonNode.register()=" + HasJsonNodeMapper.TYPENAME_TO_FACTORY);
+        if (type.isEnum()) {
+            final Object[] values = Cast.to(type.getMethod("values").invoke(null));
+            assertEquals(Lists.empty(),
+                    Arrays.stream(values)
+                            .filter(e -> HasJsonNodeMapper.TYPENAME_TO_FACTORY.get(e.getClass().getName()) == null)
+                            .collect(Collectors.toList()),
+                    () -> "Not all enum: " + typeName + " value types not registered -> HasJsonNode.register()=" + HasJsonNodeMapper.TYPENAME_TO_FACTORY);
+
+        } else {
+            assertNotEquals(
+                    null,
+                    HasJsonNodeMapper.TYPENAME_TO_FACTORY.get(typeName),
+                    () -> "Type: " + typeName + " factory not registered -> HasJsonNode.register()=" + HasJsonNodeMapper.TYPENAME_TO_FACTORY);
+        }
     }
 
     @Test
