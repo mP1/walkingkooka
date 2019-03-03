@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -99,6 +102,21 @@ public final class ExpressionEqualsNode extends ExpressionComparisonBinaryNode {
     @Override
     boolean isComparisonTrue(final int comparisonResult) {
         return 0 == comparisonResult;
+    }
+
+    // HasJsonNode....................................................................................................
+
+    // @VisibleForTesting
+    static ExpressionEqualsNode fromJsonNode(final JsonNode node) {
+        final JsonArrayNode array = node.arrayOrFail();
+
+        return ExpressionEqualsNode.with(
+                HasJsonNode.fromJsonNodeWithType(array.get(0)),
+                HasJsonNode.fromJsonNodeWithType(array.get(1)));
+    }
+
+    static {
+        register(SYMBOL, ExpressionEqualsNode::fromJsonNode, ExpressionEqualsNode.class);
     }
 
     // object .........................................................................................................

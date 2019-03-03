@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -184,5 +185,12 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
     @Override
     public final Number toValue(final ExpressionEvaluationContext context) {
         return this.toNumber(context);
+    }
+
+    // HasJsonNode....................................................................................................
+
+    @Override
+    public final JsonNode toJsonNode() {
+        return this.value().toJsonNodeWithType();
     }
 }

@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -145,5 +146,12 @@ public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCas
     @Override
     Class<ExpressionNegativeNode> expressionNodeType() {
         return ExpressionNegativeNode.class;
+    }
+
+    // HasJsonNodeTesting...........................................................................................
+
+    @Override
+    public ExpressionNegativeNode fromJsonNode(final JsonNode from) {
+        return ExpressionNegativeNode.fromJsonNode(from);
     }
 }

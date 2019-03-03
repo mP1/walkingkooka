@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -33,12 +36,12 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
 
     public final static String SYMBOL = "*";
 
-    static ExpressionMultiplicationNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionMultiplicationNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionMultiplicationNode(NO_INDEX, left, right);
     }
 
-    private ExpressionMultiplicationNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionMultiplicationNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -91,8 +94,8 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -102,7 +105,7 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
 
     @Override
     String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left +SYMBOL + right); // MAYBE try and convert right to int and times the string.
+        throw new UnsupportedOperationException(left + SYMBOL + right); // MAYBE try and convert right to int and times the string.
     }
 
     @Override
@@ -123,6 +126,21 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
     @Override
     long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
         return left * right;
+    }
+
+    // HasJsonNode....................................................................................................
+
+    // @VisibleForTesting
+    static ExpressionMultiplicationNode fromJsonNode(final JsonNode node) {
+        final JsonArrayNode array = node.arrayOrFail();
+
+        return ExpressionMultiplicationNode.with(
+                HasJsonNode.fromJsonNodeWithType(array.get(0)),
+                HasJsonNode.fromJsonNodeWithType(array.get(1)));
+    }
+
+    static {
+        register(SYMBOL, ExpressionMultiplicationNode::fromJsonNode, ExpressionMultiplicationNode.class);
     }
 
     // Object .........................................................................................................

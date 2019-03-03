@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -87,5 +90,12 @@ abstract class ExpressionValueNode<V> extends ExpressionLeafNode<V> {
     @Override
     public final V toValue(final ExpressionEvaluationContext context) {
         return this.value();
+    }
+
+    // HasJsonNode....................................................................................................
+
+    @Override
+    public final JsonNode toJsonNode() {
+        return HasJsonNode.toJsonNodeObject(this.value());
     }
 }

@@ -23,6 +23,7 @@ import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetColumnReference;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetReferenceKind;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetRowReference;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.MathContext;
@@ -161,5 +162,12 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
     @Override
     Class<ExpressionReferenceNode> expressionNodeType() {
         return ExpressionReferenceNode.class;
+    }
+
+    // HasJsonNodeTesting...........................................................................................
+
+    @Override
+    public ExpressionReferenceNode fromJsonNode(final JsonNode from) {
+        return ExpressionReferenceNode.fromJsonNode(from);
     }
 }

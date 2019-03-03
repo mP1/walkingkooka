@@ -25,6 +25,8 @@ import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -35,8 +37,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
-public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionNodeName, Name, Object> {
+public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionNodeName, Name, Object>,
+        HasJsonNode {
+
+    /**
+     * Sub classes register themselves
+     */
+    static <N extends ExpressionNode> void register(final String suffix,
+                                                    final Function<JsonNode, N> factory,
+                                                    final Class<N> type) {
+        HasJsonNode.register("expression" + suffix, factory, type);
+    }
 
     /**
      * The {@link PathSeparator} for node selector paths.
