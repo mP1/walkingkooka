@@ -59,6 +59,14 @@ public interface HasJsonNode {
     // fromJsonNode.......................................................................................................
 
     /**
+     * Accepts a {@link JsonNode} which does not hold a type and uses the {@link Class} parameter to dispatch the reading from json.
+     * This is useful to perform the inverted operation after making json from a java object of a single type.
+     */
+    static <T> T fromJsonNode(final JsonNode node, final Class<T> type) {
+        return HasJsonNodeMapper.fromJsonNode(node, type);
+    }
+
+    /**
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
      * Essentially the inverse of {@link #toJsonNode(List)}.
      */

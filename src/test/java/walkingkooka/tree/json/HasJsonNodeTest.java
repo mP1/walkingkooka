@@ -32,6 +32,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
     @Test
+    public void testFromJsonNodeAndType() {
+        final Color color = Color.fromRgb(0x123);
+
+        assertEquals(color,
+                HasJsonNode.fromJsonNode(color.toJsonNode(), Color.class));
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeString() {
+        final String string = "abc123";
+
+        assertEquals(string,
+                HasJsonNode.fromJsonNode(JsonNode.string(string), String.class));
+    }
+
+    @Test
     public void testFromJsonNodeListAndElementType() {
         final Color color = Color.fromRgb(0x123);
 

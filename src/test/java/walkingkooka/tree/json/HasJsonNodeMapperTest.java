@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -62,6 +63,108 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     public void testRegisterNullClassesFails() {
         assertThrows(NullPointerException.class, () -> {
             HasJsonNodeMapper.register("!", JsonNode::fromJsonNode, null);
+        });
+    }
+
+    // fromJsonNodeWithType Object ..............................................................................
+
+    @Test
+    public void testFromJsonNodeAndTypeNullNodeFails() {
+        this.fromJsonNodeAndTypeAndFail(null, Object.class, NullPointerException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeNullTypeFails() {
+        this.fromJsonNodeAndTypeAndFail(JsonNode.string("1a"), null, NullPointerException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeJsonBooleanTrue() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.booleanNode(true), Boolean.class, true);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeJsonBooleanFalse() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.booleanNode(false), Boolean.class, false);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeByte() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.number(1), (byte) 1);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeByteWithTypeFail() {
+        this.fromJsonNodeAndTypeAndFail(HasJsonNodeMapMapper.toJsonNodeWithType((byte) 1), Byte.class, JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeShort() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.number(1), (short) 1);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeInteger() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.number(1), 1);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeLong() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.wrapLong(1), 1L);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeFloat() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.number(1.5), 1.5f);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeDouble() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.number(1.5), 1.5);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeJsonNodeNull() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.nullNode(), String.class, null);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeString() {
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.string("abc123"), "abc123");
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeHasJsonNode() {
+        final EmailAddress email = EmailAddress.parse("user@example.com");
+
+        this.fromJsonNodeAndTypeAndCheck(email.toJsonNode(), email);
+    }
+
+    @Test
+    public void testFromJsonNodeAndTypeHasJsonNode2() {
+        final Color color = Color.fromRgb(0x123);
+
+        this.fromJsonNodeAndTypeAndCheck(color.toJsonNode(), color);
+    }
+
+    private <T> void fromJsonNodeAndTypeAndCheck(final JsonNode node,
+                                                 final T value) {
+        this.fromJsonNodeAndTypeAndCheck(node, Cast.to(value.getClass()), value);
+    }
+
+    private <T> void fromJsonNodeAndTypeAndCheck(final JsonNode node,
+                                                 final Class<T> type,
+                                                 final T value) {
+        assertEquals(value,
+                HasJsonNodeMapMapper.fromJsonNode(node, type),
+                () -> "fromJsonNode(JsonNode, Class) failed=" + node + " " + type.getName());
+    }
+
+    private void fromJsonNodeAndTypeAndFail(final JsonNode node,
+                                            final Class<?> type,
+                                            final Class<? extends Throwable> thrown) {
+        assertThrows(thrown, () -> {
+            HasJsonNodeMapper.fromJsonNode(node, type);
         });
     }
 
