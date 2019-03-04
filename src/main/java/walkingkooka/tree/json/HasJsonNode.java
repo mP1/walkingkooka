@@ -68,7 +68,7 @@ public interface HasJsonNode {
 
     /**
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
-     * Essentially the inverse of {@link #toJsonNode(List)}.
+     * Essentially the inverse of {@link #toJsonNodeList(List)}.
      */
     static <T> List<T> fromJsonNodeList(final JsonNode node, final Class<T> elementType) {
         return HasJsonNodeMapper.fromJsonNodeList(node, elementType);
@@ -76,7 +76,7 @@ public interface HasJsonNode {
 
     /**
      * Accepts a json array which holds a {@link Set} and uses the element type to determine the elements and reads them from json.
-     * Essentially the inverse of {@link #toJsonNode(Set)}.
+     * Essentially the inverse of {@link #toJsonNodeSet(Set)}.
      */
     static <T> Set<T> fromJsonNodeSet(final JsonNode node, final Class<T> elementType) {
         return HasJsonNodeMapper.fromJsonNodeSet(node, elementType);
@@ -84,7 +84,7 @@ public interface HasJsonNode {
 
     /**
      * Accepts a json object which holds a {@link Map} using the key and element types to deserialize the json.
-     * This is essentially the inverse of {@link #toJsonNode(Map}
+     * This is essentially the inverse of {@link #toJsonNodeMap(Map}
      */
     static <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node, final Class<K> keyType, final Class<V> valueType) {
         return HasJsonNodeMapper.fromJsonNodeMap(node, keyType, valueType);
@@ -125,10 +125,17 @@ public interface HasJsonNode {
     // toJsonNode .................................................................................................
 
     /**
+     * Accepts an {@link Object} and creates a {@link JsonNode} equivalent. The inverse operation would be {@link #fromJsonNode(JsonNode, Class)}.
+     */
+    static JsonNode toJsonNodeObject(final Object object) {
+        return HasJsonNodeMapper.toJsonNodeObject(object);
+    }
+
+    /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNode(final List<?> list) {
+    static JsonNode toJsonNodeList(final List<?> list) {
         return HasJsonNodeMapper.toJsonNodeList(list);
     }
 
@@ -136,7 +143,7 @@ public interface HasJsonNode {
      * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNode(final Set<?> set) {
+    static JsonNode toJsonNodeSet(final Set<?> set) {
         return HasJsonNodeMapper.toJsonNodeSet(set);
     }
 
@@ -144,7 +151,7 @@ public interface HasJsonNode {
      * Accepts a {@link Set} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element
      * is converted to json using {@link HasJsonNode#toJsonNode()}.
      */
-    static JsonNode toJsonNode(final Map<?, ?> map) {
+    static JsonNode toJsonNodeMap(final Map<?, ?> map) {
         return HasJsonNodeMapper.toJsonNodeMap(map);
     }
 

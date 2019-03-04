@@ -935,7 +935,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
                 () -> "fromJsonNodeWithType(Map) failed: " + from);
     }
 
-    // toJsonNode..........................................................................
+    // toJsonNodeWithType..........................................................................
 
     @Test
     public void testToJsonWithType() {
@@ -1010,7 +1010,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
                 HasJsonNodeMapper.toJsonNodeList(list),
                 "toJsonNodeList(List) failed");
         assertEquals(expected,
-                HasJsonNode.toJsonNode(list),
+                HasJsonNode.toJsonNodeList(list),
                 "toJsonNode(Object) failed");
     }
 
@@ -1060,7 +1060,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
                 HasJsonNodeMapper.toJsonNodeSet(set),
                 "toJsonNodeSet(Set) failed");
         assertEquals(expected,
-                HasJsonNode.toJsonNode(set),
+                HasJsonNode.toJsonNodeSet(set),
                 "toJsonNode(Object) failed");
     }
 
@@ -1117,6 +1117,70 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
         );
     }
 
+    // toJsonNodeObject....................................................................................
+
+    @Test
+    public void testToJsonNodeObjectNull() {
+        this.toJsonNodeObjectAndCheck(null, JsonNode.nullNode());
+    }
+
+    @Test
+    public void testToJsonNodeObjectBooleanTrue() {
+        this.toJsonNodeObjectAndCheck(Boolean.TRUE, JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testToJsonNodeObjectBooleanFalse() {
+        this.toJsonNodeObjectAndCheck(Boolean.FALSE, JsonNode.booleanNode(false));
+    }
+
+    @Test
+    public void testToJsonNodeObjectByte() {
+        this.toJsonNodeObjectAndCheck(Byte.MAX_VALUE);
+    }
+
+    @Test
+    public void testToJsonNodeObjectShort() {
+        this.toJsonNodeObjectAndCheck(Short.MAX_VALUE);
+    }
+
+    @Test
+    public void testToJsonNodeObjectInteger() {
+        this.toJsonNodeObjectAndCheck(Integer.MAX_VALUE);
+    }
+
+    @Test
+    public void testToJsonNodeObjectLong() {
+        this.toJsonNodeObjectAndCheck(Long.MAX_VALUE, this.typeNameAndValue(Long.MAX_VALUE));
+    }
+
+    @Test
+    public void testToJsonNodeObjectFloat() {
+        this.toJsonNodeObjectAndCheck(123.5f);
+    }
+
+    @Test
+    public void testToJsonNodeObjectDouble() {
+        this.toJsonNodeObjectAndCheck(123.5, JsonNode.number(123.5));
+    }
+
+    private void toJsonNodeObjectAndCheck(final Number value) {
+        this.toJsonNodeObjectAndCheck(value,
+                this.typeNameAndValue(value.getClass(),
+                        JsonNode.number(value.doubleValue())));
+    }
+
+    @Test
+    public void testToJsonNodeObjectString() {
+        this.toJsonNodeObjectAndCheck("abc", JsonNode.string("abc"));
+    }
+
+    private void toJsonNodeObjectAndCheck(final Object value, final JsonNode expected) {
+        assertEquals(expected,
+                HasJsonNodeMapper.toJsonNodeWithType(value),
+                "value " + CharSequences.quoteIfChars(value) + " toJsonNodeObject failed");
+    }
+    
     // toJsonNodeWithType....................................................................................
 
     @Test
@@ -1314,7 +1378,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
                 HasJsonNodeMapper.toJsonNodeMap(map),
                 "toJsonNodeMap(Map) failed");
         assertEquals(expected,
-                HasJsonNode.toJsonNode(map),
+                HasJsonNode.toJsonNodeMap(map),
                 "toJsonNode(Object) failed");
     }
 

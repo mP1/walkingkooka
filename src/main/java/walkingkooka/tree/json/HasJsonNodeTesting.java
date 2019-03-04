@@ -89,7 +89,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     @Test
     default void testToJsonNodeRoundtripTwiceList() {
         final List<HasJsonNode> list = Lists.of(this.createHasJsonNode());
-        final JsonNode json = HasJsonNode.toJsonNode(list);
+        final JsonNode json = HasJsonNode.toJsonNodeList(list);
         final List<HasJsonNode> list2 = Lists.of(json);
 
         assertEquals(
@@ -101,7 +101,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     @Test
     default void testToJsonNodeRoundtripTwiceSet() {
         final Set<HasJsonNode> set = Sets.of(this.createHasJsonNode());
-        final JsonNode json = HasJsonNode.toJsonNode(set);
+        final JsonNode json = HasJsonNode.toJsonNodeSet(set);
         final Set<HasJsonNode> set2 = Sets.of(json);
 
         assertEquals(
