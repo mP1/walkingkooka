@@ -33,7 +33,12 @@ public final class HasJsonNodeMapMapperTest extends HasJsonNodeMapperTestCase2<H
 
     @Test
     public void testToEmptyMap() {
-        this.toJsonNodeAndCheck(Maps.empty(), this.typeAndValue(JsonNode.array()));
+        this.toJsonNodeWithTypeAndCheck(Maps.empty(), this.typeAndValue(JsonNode.array()));
+    }
+
+    @Override
+    public void testRoundtripToJsonNodeObjectFromJsonNodeWithType() {
+        // ignore
     }
 
     @Override

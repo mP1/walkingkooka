@@ -28,14 +28,6 @@ import java.util.Optional;
  */
 public final class JsonNumberNode extends JsonLeafNode<Double>{
 
-    /**
-     * Simply returns the given {@link JsonNode}.
-     */
-    static JsonNumberNode fromJsonNode0(final JsonNode node) {
-        return node.toJsonNode()
-                .cast();
-    }
-
     static JsonNumberNode with(final double value) {
         return new JsonNumberNode(NAME, NO_INDEX, value);
     }

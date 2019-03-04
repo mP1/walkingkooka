@@ -28,14 +28,6 @@ import java.util.Optional;
  */
 public final class JsonNullNode extends JsonLeafNode<Void>{
 
-    /**
-     * Simply returns the given {@link JsonNode}.
-     */
-    static JsonNullNode fromJsonNode0(final JsonNode node) {
-        return node.toJsonNode()
-                .cast();
-    }
-
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonNullNode.class);
 
     final static JsonNullNode INSTANCE = new JsonNullNode(NAME,NO_INDEX, null);

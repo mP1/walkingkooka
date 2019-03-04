@@ -26,12 +26,12 @@ public final class HasJsonNodeLocalTimeMapperTest extends HasJsonNodeMapperTestC
 
     @Test
     public void testRoundtripNoon() {
-        this.toJsonNodeAndCheck(LocalTime.NOON, this.typeAndValue(JsonNode.string("12:00")));
+        this.toJsonNodeWithTypeAndCheck(LocalTime.NOON, this.typeAndValue(JsonNode.string("12:00")));
     }
 
     @Test
     public void testRoundtripLocalTimeMAX() {
-        this.toJsonNodeAndCheck(LocalTime.MAX, this.typeAndValue(JsonNode.string(LocalTime.MAX.toString())));
+        this.toJsonNodeWithTypeAndCheck(LocalTime.MAX, this.typeAndValue(JsonNode.string(LocalTime.MAX.toString())));
     }
 
     @Test

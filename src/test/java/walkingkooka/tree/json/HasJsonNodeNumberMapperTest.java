@@ -53,7 +53,7 @@ public final class HasJsonNodeNumberMapperTest extends HasJsonNodeMapperTestCase
     }
 
     private void toJsonNodeAndCheck2(final Number value) {
-        this.toJsonNodeAndCheck(value, JsonNode.number(value.doubleValue()));
+        this.toJsonNodeWithTypeAndCheck(value, JsonNode.number(value.doubleValue()));
     }
 
     @Override

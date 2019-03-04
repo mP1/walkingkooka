@@ -34,14 +34,19 @@ final class HasJsonNodeStringMapper extends HasJsonNodeMapper<String> {
     }
 
     @Override
-    JsonNode toJsonNode0(final String value) {
-        return JsonNode.string(value);
+    JsonNode toJsonNodeWithType0(final String value) {
+        return this.toJsonNode0(value);
     }
 
     @Override
     JsonStringNode typeName() {
-        return JSON_STRING_NODE;
+        return TYPE_NAME;
     }
 
-    private final JsonStringNode JSON_STRING_NODE = JsonStringNode.with("string");
+    private final JsonStringNode TYPE_NAME = JsonStringNode.with("string");
+
+    @Override
+    JsonNode toJsonNode0(final String value) {
+        return JsonNode.string(value);
+    }
 }

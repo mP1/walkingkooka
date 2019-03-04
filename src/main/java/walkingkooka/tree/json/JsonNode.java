@@ -27,7 +27,6 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -79,97 +78,6 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     private final static Parser<JsonNodeParserToken, JsonNodeParserContext> PARSER = JsonNodeParsers.value()
             .orReport(ParserReporters.basic())
             .cast();
-
-    /**
-     * Accepts a value and if its supported returns a {@link JsonNode}. {@link Optional} are also unwrapped.
-     */
-    public static Optional<JsonNode> wrap(final Object value) {
-        return Optional.ofNullable(wrap0(value));
-    }
-
-    static JsonNode wrapOrFail(final Object value) {
-        final JsonNode node = wrap0(value);
-        if (null == node) {
-            throw new UnsupportedTypeJsonNodeException("Unsupported type " + value.getClass() + "=" + value);
-        }
-        return node;
-    }
-
-    private static JsonNode wrap0(final Object value) {
-        JsonNode jsonNode;
-
-        do {
-            if (null == value) {
-                jsonNode = JsonNode.nullNode();
-                break;
-            }
-            if (value instanceof Optional) {
-                final Optional<?> optional = Optional.class.cast(value);
-                jsonNode = optional.isPresent() ?
-                        wrap0(optional.get()) :
-                        null;
-                break;
-            }
-            if (value instanceof JsonNode) {
-                jsonNode = JsonNode.class.cast(value);
-                break;
-            }
-            if (value instanceof HasJsonNode) {
-                jsonNode = HasJsonNode.class.cast(value).toJsonNode();
-                break;
-            }
-            if (value instanceof Boolean) {
-                jsonNode = booleanNode(Boolean.class.cast(value));
-                break;
-            }
-            if (value instanceof Number) {
-                if(value instanceof Long) {
-                    throw new IllegalArgumentException("Longs will lose precision use wrapLong=" + value);
-                }
-                jsonNode = number(Number.class.cast(value).doubleValue());
-                break;
-            }
-            if (value instanceof String) {
-                jsonNode = string(String.class.cast(value));
-                break;
-            }
-
-            // unsupported type answer is Optional.empty
-            jsonNode = null;
-        } while (false);
-
-        return jsonNode;
-    }
-
-    /**
-     * Special case for {@link long} values which exceed the precision of a {@link JsonNumberNode}, and so must
-     * be encoded as a {@link String}
-     */
-    public static JsonNode wrapLong(final long value) {
-        return string(LONG_PREFIX + Long.toHexString(value).toLowerCase());
-    }
-
-    /**
-     * The inverse of {@link #wrapLong(long)}
-     */
-    public static long fromJsonNodeLong(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-
-        try {
-            final String text = node.stringValueOrFail();
-            if (!text.startsWith(LONG_PREFIX)) {
-                throw new IllegalArgumentException("Long string missing prefix " + CharSequences.quote(LONG_PREFIX) + "=" + node);
-            }
-            return Long.parseLong(text.substring(2), 16);
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-    }
-
-    /**
-     * Prefix included at the start of all longs encoded as a string.
-     */
-    private final static String LONG_PREFIX = "0x";
 
     public static JsonArrayNode array() {
         return JsonArrayNode.EMPTY;

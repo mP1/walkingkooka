@@ -49,23 +49,16 @@ abstract class HasJsonNodeCollectionMapper<C extends Collection<?>> extends HasJ
     abstract Collector<?, ?, C> collector();
 
     @Override
-    final JsonNode toJsonNodeObjectValue(final C value) {
+    final JsonNode toJsonNode0(final C value) {
         return JsonObjectNode.array()
                 .setChildren(value.stream()
-                        .map(HasJsonNodeMapper::toJsonNodeWithType)
+                        .map(HasJsonNodeMapper::toJsonNodeWithTypeObject)
                         .collect(Collectors.toList()));
-    }
-
-    final JsonNode toJsonNodeWithTypeCollection(final C collection) {
-        return null == collection ?
-                JsonNode.nullNode() :
-                this.objectWithType()
-                        .set(VALUE, this.toJsonNodeObjectValue(collection));
     }
 
     final JsonNode toJsonNodeWithTypeCollection0(final C collection) {
         return null == collection ?
                 JsonNode.nullNode() :
-                this.toJsonNodeObjectValue(collection);
+                this.toJsonNode0(collection);
     }
 }

@@ -43,7 +43,7 @@ final class HasJsonNodeBigDecimalMapper extends HasJsonNodeMapper2<BigDecimal> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("big-decimal");
 
     @Override
-    JsonNode toJsonNodeObjectValue(final BigDecimal value) {
+    JsonNode toJsonNode0(final BigDecimal value) {
         return JsonNode.string(value.toString());
     }
 }

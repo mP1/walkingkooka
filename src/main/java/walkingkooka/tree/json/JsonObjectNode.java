@@ -39,14 +39,6 @@ import java.util.stream.Collectors;
  */
 public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
 
-    /**
-     * Simply returns the given {@link JsonNode}.
-     */
-    static JsonObjectNode fromJsonNode0(final JsonNode node) {
-        return node.toJsonNode()
-                .cast();
-    }
-
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonObjectNode.class);
 
     /**

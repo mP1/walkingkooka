@@ -43,7 +43,7 @@ abstract class HasJsonNodeMapper3<T extends Number> extends HasJsonNodeMapper2<T
     abstract T fromJsonNode2(final Number number);
 
     @Override
-    final JsonNode toJsonNodeObjectValue(final T value) {
+    final JsonNode toJsonNode0(final T value) {
         return JsonNode.number(value.doubleValue());
     }
 }

@@ -30,14 +30,6 @@ import java.util.Optional;
  */
 public final class JsonStringNode extends JsonLeafNode<String>{
 
-    /**
-     * Simply returns the given {@link JsonNode}.
-     */
-    static JsonStringNode fromJsonNode0(final JsonNode node) {
-        return node.toJsonNode()
-                .cast();
-    }
-
     static JsonStringNode with(final String value) {
         Objects.requireNonNull(value, "value");
         return new JsonStringNode(NAME, NO_INDEX, value);

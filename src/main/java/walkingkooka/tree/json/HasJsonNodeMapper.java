@@ -391,7 +391,10 @@ abstract class HasJsonNodeMapper<T> {
      * Accepts an {@link Object} and creates a {@link JsonNode} equivalent. The inverse operation would be {@link #fromJsonNode(JsonNode, Class)}.
      */
     static JsonNode toJsonNodeObject(final Object object) {
-        return JsonNode.wrapOrFail(object);
+        return null == object ?
+                JsonNode.nullNode() :
+                mapperOrFail(object.getClass().getName())
+                        .toJsonNode(object);
     }
 
     /**
@@ -415,7 +418,7 @@ abstract class HasJsonNodeMapper<T> {
                 JsonNode.nullNode() :
                 JsonObjectNode.array()
                         .setChildren(collection.stream()
-                                .map(JsonNode::wrapOrFail)
+                                .map(HasJsonNodeMapper::toJsonNodeObject)
                                 .collect(Collectors.toList()));
     }
 
@@ -434,15 +437,15 @@ abstract class HasJsonNodeMapper<T> {
 
     private static JsonNode toJsonNodeMapEntry(final Entry<?, ?> entry) {
         return JsonNode.object()
-                .set(ENTRY_KEY, JsonNode.wrapOrFail(entry.getKey()))
-                .set(ENTRY_VALUE, JsonNode.wrapOrFail(entry.getValue()));
+                .set(ENTRY_KEY, toJsonNodeObject(entry.getKey()))
+                .set(ENTRY_VALUE, toJsonNodeObject(entry.getValue()));
     }
 
 
     static JsonNode toJsonNodeWithTypeMapEntry(final Entry<?, ?> entry) {
         return JsonNode.object()
-                .set(ENTRY_KEY, toJsonNodeWithType(entry.getKey()))
-                .set(ENTRY_VALUE, toJsonNodeWithType(entry.getValue()));
+                .set(ENTRY_KEY, toJsonNodeWithTypeObject(entry.getKey()))
+                .set(ENTRY_VALUE, toJsonNodeWithTypeObject(entry.getValue()));
     }
 
     final static JsonNodeName ENTRY_KEY = JsonNodeName.with("key");
@@ -478,30 +481,30 @@ abstract class HasJsonNodeMapper<T> {
      * a basic type with built in support, or {@link List} or {@link Set} or does not implement {@link HasJsonNode}
      * an {@link IllegalArgumentException} will be thrown.
      */
-    static JsonNode toJsonNodeWithType(final Object value) {
+    static JsonNode toJsonNodeWithTypeObject(final Object value) {
         return null == value ?
                 JsonNode.nullNode() :
                 value instanceof List ?
-                        toJsonNodeWithType0("list", Cast.to(value)) :
+                        toJsonNodeWithTypeObject1("list", Cast.to(value)) :
                         value instanceof Set ?
-                                toJsonNodeWithType0("set", Cast.to(value)) :
+                                toJsonNodeWithTypeObject1("set", Cast.to(value)) :
                                 value instanceof Map ?
-                                        toJsonNodeWithType0("map", Cast.to(value)) :
-                                        toJsonNodeWithType0(value);
+                                        toJsonNodeWithTypeObject1("map", Cast.to(value)) :
+                                        toJsonNodeWithTypeObject0(value);
     }
 
     /**
      * Locates the mapper for the given value using its class.
      */
-    private static JsonNode toJsonNodeWithType0(final Object value) {
-        return toJsonNodeWithType0(value.getClass().getName(), value);
+    private static JsonNode toJsonNodeWithTypeObject0(final Object value) {
+        return toJsonNodeWithTypeObject1(value.getClass().getName(), value);
     }
 
     /**
      * Locates the mapper for the given value using its class.
      */
-    private static JsonNode toJsonNodeWithType0(final String typeName, final Object value) {
-        return mapperOrFail(typeName).toJsonNode(value);
+    private static JsonNode toJsonNodeWithTypeObject1(final String typeName, final Object value) {
+        return mapperOrFail(typeName).toJsonNodeWithType(value);
     }
 
     /**
@@ -520,13 +523,17 @@ abstract class HasJsonNodeMapper<T> {
             throw new JsonNodeException("Type " + type.getName() + " is not compatible with " + has.getClass().getName());
         }
 
-        return mapperOrFail(type.getName()).toJsonNode0(has);
+        return mapperOrFail(type.getName()).toJsonNodeWithType0(has);
     }
 
     // @VisibleForTesting
     final static JsonNodeName VALUE = JsonNodeName.with("value");
 
+    // instance...................................................................................................
 
+    /**
+     * Package private to limit sub classing.
+     */
     HasJsonNodeMapper() {
         super();
     }
@@ -552,7 +559,20 @@ abstract class HasJsonNodeMapper<T> {
     abstract T fromJsonNode0(final JsonNode node);
 
     /**
-     * Creates the {@link JsonNode} representation of the given value.
+     * Creates the {@link JsonNode} with the type representation of the given value.
+     */
+    final JsonNode toJsonNodeWithType(final T value) {
+        return null == value ?
+                JsonNode.nullNode() :
+                this.toJsonNodeWithType0(value);
+    }
+
+    abstract JsonNode toJsonNodeWithType0(final T value);
+
+    abstract JsonStringNode typeName();
+
+    /**
+     * Creates the {@link JsonNode} representation of the given value without any type/value enclosing object.
      */
     final JsonNode toJsonNode(final T value) {
         return null == value ?
@@ -561,8 +581,6 @@ abstract class HasJsonNodeMapper<T> {
     }
 
     abstract JsonNode toJsonNode0(final T value);
-
-    abstract JsonStringNode typeName();
 
     @Override
     public final String toString() {
