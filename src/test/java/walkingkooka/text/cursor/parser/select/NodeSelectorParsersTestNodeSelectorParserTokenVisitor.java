@@ -374,7 +374,7 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
 
     private void add(final NodeSelectorParserToken token) {
         if (null == token) {
-            throw new NullPointerException("Null token returned for " + token);
+            throw new NullPointerException("Null token returned");
         }
         this.children.add(token);
     }

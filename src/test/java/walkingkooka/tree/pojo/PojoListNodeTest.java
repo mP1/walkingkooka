@@ -280,7 +280,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
 
     static class TestImmutableParent {
 
-        TestImmutableParent(final List<? extends Object> list) {
+        TestImmutableParent(final List<?> list) {
             this.list = list;
         }
 

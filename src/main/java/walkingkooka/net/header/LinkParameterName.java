@@ -111,7 +111,7 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
             LinkHeaderParser.UNQUOTED_PARAMETER_VALUE));
 
     /**
-     * A non standard parameter to hold the {@linkHttpMethod} for this resource
+     * A non standard parameter to hold the {@link HttpMethod} for this resource
      */
     public final static LinkParameterName<HttpMethod> METHOD = CONSTANTS.register("method", HeaderValueConverter.method());
 

@@ -22,7 +22,7 @@ import walkingkooka.tree.Node;
 
 final class HasJsonNodeJsonNodeMapper<T extends JsonNode> extends HasJsonNodeMapper2<T> {
 
-    final static <T extends JsonNode> HasJsonNodeJsonNodeMapper<T> with(final Class<T> type) {
+    static <T extends JsonNode> HasJsonNodeJsonNodeMapper<T> with(final Class<T> type) {
         return new HasJsonNodeJsonNodeMapper<>(type);
     }
 

@@ -103,7 +103,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        this.path.stream().forEach(i -> b.predicate(i.toString()));
+        this.path.forEach(i -> b.predicate(i.toString()));
     }
 
     private final List<Integer> path;

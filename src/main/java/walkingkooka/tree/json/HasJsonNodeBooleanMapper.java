@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 
 final class HasJsonNodeBooleanMapper extends HasJsonNodeMapper<Boolean> {
 
-    final static HasJsonNodeBooleanMapper instance() {
+    static HasJsonNodeBooleanMapper instance() {
         return new HasJsonNodeBooleanMapper();
     }
 

@@ -34,7 +34,7 @@ final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> 
      * Creates a new instance with the given date offset.
      * A value of zero is 1/1/1970.
      */
-    final static NumberLocalDateTimeConverter with(final long offset){
+    static NumberLocalDateTimeConverter with(final long offset){
         return new NumberLocalDateTimeConverter(offset);
     }
 

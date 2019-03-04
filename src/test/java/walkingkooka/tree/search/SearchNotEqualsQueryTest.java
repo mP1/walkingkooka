@@ -351,7 +351,7 @@ public final class SearchNotEqualsQueryTest extends SearchValueComparisonLeafQue
 
         final SearchBigDecimalNode bigDecimalNode = this.bigDecimalNode(VALUE);
         final SearchBigIntegerNode bigIntegerNode = this.bigIntegerNode(VALUE);
-        final SearchDoubleNode doubleNode = this.doubleNode(VALUE);;
+        final SearchDoubleNode doubleNode = this.doubleNode(VALUE);
         final SearchLocalDateTimeNode dateTimeNode = this.localDateTimeNode(DATETIME);
         final SearchLocalTimeNode timeNode = this.localTimeNode(TIME);
         final SearchLongNode longNode = this.longNode(VALUE);

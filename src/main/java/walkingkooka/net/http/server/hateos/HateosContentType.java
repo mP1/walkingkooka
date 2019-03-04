@@ -40,14 +40,14 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>, V> {
     /**
      * Selects JSON formatted request and response bodies.
      */
-    public final static <V extends HasJsonNode> HateosContentType<JsonNode, V> json() {
+    public static <V extends HasJsonNode> HateosContentType<JsonNode, V> json() {
         return HateosContentTypeJsonNode.instance();
     }
 
     /**
      * Selects XML formatted request and response bodies.
      */
-    public final static <V extends HasXmlNode> HateosContentType<XmlNode, V> xml() {
+    public static <V extends HasXmlNode> HateosContentType<XmlNode, V> xml() {
         return HateosContentTypeXmlNode.instance();
     }
 

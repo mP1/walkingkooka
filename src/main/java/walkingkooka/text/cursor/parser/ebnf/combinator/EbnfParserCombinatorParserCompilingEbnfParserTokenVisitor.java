@@ -106,10 +106,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
             EbnfRuleParserToken rule = this.identifierToRule.get(identifier);
 
             EbnfParserToken token = rule.token();
-            for(;;) {
-                if(!token.isIdentifier()) {
-                    break;
-                }
+            while(token.isIdentifier()) {
                 final EbnfIdentifierParserToken tokenIdentifier = token.cast();
                 token=this.identifierToRule.get(tokenIdentifier.value()).token();
             }
@@ -175,10 +172,9 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
     @Override
     protected void endVisit(final EbnfConcatenationParserToken token) {
         final SequenceParserBuilder<ParserContext> b = Parsers.sequenceParserBuilder();
-        this.children.stream()
-                .forEach(p -> {
-                    this.concatenationParserToken(p, b);
-                });
+        this.children.forEach(p -> {
+            this.concatenationParserToken(p, b);
+        });
         final Parser<SequenceParserToken, ParserContext> parser = b.build()
                 .setToString(token.toString());
         this.exit();
@@ -264,10 +260,9 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
     @Override
     protected void endVisit(final EbnfRangeParserToken token) {
         final SequenceParserBuilder<ParserContext> b = Parsers.sequenceParserBuilder();
-        this.children.stream()
-                .forEach(p -> {
-                    b.required(p);
-                });
+        this.children.forEach(p -> {
+            b.required(p);
+        });
         final Parser<SequenceParserToken, ParserContext> parser = b.build()
                 .setToString(token.toString());
         this.exit();

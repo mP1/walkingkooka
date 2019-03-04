@@ -105,10 +105,7 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
             final ReaderConsumingCharSequence chars = ReaderConsumingCharSequence.with(reader, 1);
 
             final StringBuilder read = new StringBuilder();
-            for(;;) {
-                if(read.length() == chars.length()) {
-                    break;
-                }
+            while(read.length() != chars.length()) {
                 read.append(chars.charAt(read.length()));
             }
 

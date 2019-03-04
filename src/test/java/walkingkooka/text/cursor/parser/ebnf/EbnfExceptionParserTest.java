@@ -33,7 +33,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
     public void testCommentIdentifierExceptionIdentifier() {
         final String text = COMMENT1 + IDENTIFIER1 + EXCEPTION + IDENTIFIER2;
         this.parseAndCheck(text,
-                this.token(text, comment1(), this.identifier1(), this.exceptionToken(), this.identifier2()),
+                this.token(text, comment1(), this.identifier1(), exceptionToken(), this.identifier2()),
                 text);
     }
 
@@ -41,7 +41,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
     public void testWhitespaceIdentifierExceptionIdentifier() {
         final String text = WHITESPACE1 + IDENTIFIER1 + EXCEPTION + IDENTIFIER2;
         this.parseAndCheck(text,
-                this.token(text, whitespace1(), this.identifier1(), this.exceptionToken(), this.identifier2()),
+                this.token(text, whitespace1(), this.identifier1(), exceptionToken(), this.identifier2()),
                 text);
     }
     
@@ -49,7 +49,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
     public void testIdentifierExceptionWhitespaceIdentifier() {
         final String text = IDENTIFIER1 + EXCEPTION + WHITESPACE1 + IDENTIFIER2;
         this.parseAndCheck(text,
-                this.token(text, identifier1(), this.exceptionToken(), whitespace1(), this.identifier2()),
+                this.token(text, identifier1(), exceptionToken(), whitespace1(), this.identifier2()),
                 text);
     }
 
@@ -57,7 +57,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
     public void testIdentifierExceptionCommentIdentifier() {
         final String text = IDENTIFIER1 + EXCEPTION + COMMENT1 + IDENTIFIER2;
         this.parseAndCheck(text,
-                this.token(text, identifier1(), this.exceptionToken(), comment1(), this.identifier2()),
+                this.token(text, identifier1(), exceptionToken(), comment1(), this.identifier2()),
                 text);
     }
 
@@ -65,7 +65,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
     public void testIdentifierExceptionIdentifierWhitespace() {
         final String text = IDENTIFIER1 + EXCEPTION + IDENTIFIER2;
         this.parseAndCheck(text + WHITESPACE1,
-                this.token(text, identifier1(), this.exceptionToken(), this.identifier2()),
+                this.token(text, identifier1(), exceptionToken(), this.identifier2()),
                 text,
                 WHITESPACE1);
     }
@@ -74,7 +74,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
     public void testIdentifierExceptionIdentifierComment() {
         final String text = IDENTIFIER1 + EXCEPTION + IDENTIFIER2;
         this.parseAndCheck(text + COMMENT1,
-                this.token(text, identifier1(), this.exceptionToken(), this.identifier2()),
+                this.token(text, identifier1(), exceptionToken(), this.identifier2()),
                 text,
                 COMMENT1);
     }
@@ -90,7 +90,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
 
     @Override
     final EbnfExceptionParserToken token(final String text) {
-        return token(text, this.exceptionToken(), this.identifier1());
+        return token(text, exceptionToken(), this.identifier1());
     }
 
     private EbnfExceptionParserToken token(final String text, final ParserToken...tokens) {

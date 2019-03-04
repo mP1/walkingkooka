@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 
 final class HasJsonNodeShortMapper extends HasJsonNodeMapper3<Short> {
 
-    final static HasJsonNodeShortMapper instance() {
+    static HasJsonNodeShortMapper instance() {
         return new HasJsonNodeShortMapper();
     }
 

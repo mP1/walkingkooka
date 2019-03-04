@@ -90,7 +90,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
-     * Reports an unknown value type given to {@link #valueOrFailFail(Object)}
+     * Reports an unknown value type given to {@link #valueOrFail}
      */
     private static ExpressionNode valueOrFailFail(final Object value) {
         throw new IllegalArgumentException("Unknown value " + CharSequences.quoteIfChars(value));

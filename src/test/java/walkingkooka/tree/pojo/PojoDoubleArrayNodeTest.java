@@ -213,7 +213,7 @@ public final class PojoDoubleArrayNodeTest extends PojoArrayNodeTestCase<PojoDou
         
         @Override
         public String toString() {
-            return this.getClass().getSimpleName() + "=" + this.array.toString();
+            return this.getClass().getSimpleName() + "=" + Arrays.toString(this.array);
         }
     }
 
@@ -230,7 +230,7 @@ public final class PojoDoubleArrayNodeTest extends PojoArrayNodeTestCase<PojoDou
         }
 
         public TestImmutableParent setArray(final double[] array) {
-            return this.array.equals(array) ? this : new TestImmutableParent(array);
+            return Arrays.equals(this.array, array) ? this : new TestImmutableParent(array);
         }
 
         @Override

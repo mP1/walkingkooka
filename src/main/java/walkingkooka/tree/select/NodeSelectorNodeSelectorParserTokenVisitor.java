@@ -72,7 +72,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
         return new NodeSelectorNodeSelectorParserTokenVisitor<>(NodeSelectorBuilder.relative(node, SEPARATOR),
                 nameFactory,
                 functions).acceptAndBuild(token);
-    };
+    }
 
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 

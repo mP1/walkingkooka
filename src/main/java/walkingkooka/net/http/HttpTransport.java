@@ -31,5 +31,5 @@ public enum HttpTransport {
     /**
      * Secured aka HTTPS
      */
-    SECURED;
+    SECURED
 }

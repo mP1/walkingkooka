@@ -72,7 +72,7 @@ final class LastModifiedAwareHttpResponse extends BufferingHttpResponse {
 
     /**
      * If the response status code is a successful, and the last modified in the response is less than or equal to
-     * the request last modified, then a {@linkl HttpStatusCode#NO_CONTENT} is sent instead and TRUE returned.
+     * the request last modified, then a {@link HttpStatusCode#NO_CONTENT} is sent instead and TRUE returned.
      */
     @Override
     void addEntity(final HttpStatus status,

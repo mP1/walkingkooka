@@ -200,7 +200,6 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
      * Creates and then registers the constant.
      */
     static private MediaType registerConstant(final String text) {
-        ;
         final MediaType mimeType = parse(text);
         CONSTANTS.put(text, mimeType);
         return mimeType;

@@ -34,7 +34,7 @@ public interface ExpressionEvaluationContext extends Context, DecimalNumberConte
     /**
      * Constant for functions without any parameters.
      */
-    public final static List<Object> NO_PARAMETERS = Lists.empty();
+    List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
      * Locates a function with the given name and then executes it with the provided parameter values (not {@link ExpressionNode}

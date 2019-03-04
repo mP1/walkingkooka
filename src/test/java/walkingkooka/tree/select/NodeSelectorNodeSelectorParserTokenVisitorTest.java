@@ -603,7 +603,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     public void testAbsoluteNodeNameAttributeValueEndsWith() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "x1");
-        ;
 
         final TestNode root = node("root", leaf1, leaf2);
 
@@ -649,7 +648,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     public void testAbsoluteNodeNameAttributeValueStartsWith() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "1x");
-        ;
 
         final TestNode root = node("root", leaf1, leaf2);
 
@@ -695,7 +693,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     public void testAbsoluteNodeNameAttributeValueStringLength() {
         final TestNode leaf1 = node("leaf1", "a");
         final TestNode leaf2 = node("leaf2", "zz");
-        ;
 
         final TestNode root = node("root", leaf1, leaf2);
 

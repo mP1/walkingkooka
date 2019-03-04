@@ -53,7 +53,6 @@ final class HeaderScopeHttpResponse extends WrapperHttpResponse {
 
         entity.headers()
                 .entrySet()
-                .stream()
                 .forEach(this::checkHeader);
 
         this.response.addEntity(entity);

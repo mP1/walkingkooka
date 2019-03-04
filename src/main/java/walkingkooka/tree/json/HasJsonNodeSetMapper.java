@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 final class HasJsonNodeSetMapper extends HasJsonNodeCollectionMapper<Set<?>> {
 
-    final static HasJsonNodeSetMapper instance() {
+    static HasJsonNodeSetMapper instance() {
         return new HasJsonNodeSetMapper();
     }
 

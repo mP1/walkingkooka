@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 
 final class HasJsonNodeNumberMapper extends HasJsonNodeMapper<Number> {
 
-    final static HasJsonNodeNumberMapper instance() {
+    static HasJsonNodeNumberMapper instance() {
         return new HasJsonNodeNumberMapper();
     }
 

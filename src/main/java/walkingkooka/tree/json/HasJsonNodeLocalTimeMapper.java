@@ -22,7 +22,7 @@ import java.time.LocalTime;
 
 final class HasJsonNodeLocalTimeMapper extends HasJsonNodeMapper2<LocalTime> {
 
-    final static HasJsonNodeLocalTimeMapper instance() {
+    static HasJsonNodeLocalTimeMapper instance() {
         return new HasJsonNodeLocalTimeMapper();
     }
 

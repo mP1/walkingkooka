@@ -112,8 +112,8 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     @Test
     public void testConstantUtfDash8Aliases() {
         final Charset charset = Charset.forName("UTF-8");
-        charset.aliases().stream()
-                .forEach(this::constantAndCheck);
+        charset.aliases().
+                forEach(this::constantAndCheck);
     }
 
     private void constantAndCheck(final String name) {

@@ -142,8 +142,7 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
 
     @Test
     public void testIsGetOrHead() throws Exception {
-        this.constants().stream()
-                .forEach(this::isGetOrHeadCheck);
+        this.constants().forEach(this::isGetOrHeadCheck);
     }
 
     private void isGetOrHeadCheck(final HttpMethod constant) {

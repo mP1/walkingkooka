@@ -29,7 +29,7 @@ final class LocalDateTimeDoubleConverter extends LocalDateTimeConverter2<Double>
      * Creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    final static LocalDateTimeDoubleConverter with(final long offset) {
+    static LocalDateTimeDoubleConverter with(final long offset) {
         return new LocalDateTimeDoubleConverter(offset);
     }
 

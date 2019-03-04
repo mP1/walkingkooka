@@ -69,7 +69,7 @@ public final class NeverErrorTest implements StandardThrowableTesting<NeverError
     enum TestEnum {
         A,
         B,
-        C;
+        C
     }
 
     @Override

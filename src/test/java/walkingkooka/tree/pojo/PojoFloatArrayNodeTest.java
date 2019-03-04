@@ -213,7 +213,7 @@ public final class PojoFloatArrayNodeTest extends PojoArrayNodeTestCase<PojoFloa
         
         @Override
         public String toString() {
-            return this.getClass().getSimpleName() + "=" + this.array.toString();
+            return this.getClass().getSimpleName() + "=" + Arrays.toString(this.array);
         }
     }
 
@@ -230,7 +230,7 @@ public final class PojoFloatArrayNodeTest extends PojoArrayNodeTestCase<PojoFloa
         }
 
         public TestImmutableParent setArray(final float[] array) {
-            return this.array.equals(array) ? this : new TestImmutableParent(array);
+            return Arrays.equals(this.array, array) ? this : new TestImmutableParent(array);
         }
 
         @Override
@@ -249,7 +249,7 @@ public final class PojoFloatArrayNodeTest extends PojoArrayNodeTestCase<PojoFloa
 
         @Override
         public String toString() {
-            return this.getClass().getSimpleName() + "=" + this.array.toString();
+            return this.getClass().getSimpleName() + "=" + Arrays.toString(this.array);
         }
     }
 }

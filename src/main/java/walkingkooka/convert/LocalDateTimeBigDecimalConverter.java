@@ -30,7 +30,7 @@ final class LocalDateTimeBigDecimalConverter extends LocalDateTimeConverter2<Big
      * Creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    final static LocalDateTimeBigDecimalConverter with(final long offset) {
+    static LocalDateTimeBigDecimalConverter with(final long offset) {
         return new LocalDateTimeBigDecimalConverter(offset);
     }
 

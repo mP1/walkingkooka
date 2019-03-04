@@ -40,8 +40,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
         final List<Parser<ParserToken, C>> copy = Lists.array();
 
         // visit all parsers,. flattening any that are themselves AlternativesParser
-        parsers.stream()
-                .forEach(p -> tryFlatten(p, copy));
+        parsers.forEach(p -> tryFlatten(p, copy));
 
         final List<Parser<ParserToken, C>> withoutCustomToString =unwrapAllCustomToStringParsers(copy);
         final boolean allCustomToStringParsers = withoutCustomToString.size() == copy.size();

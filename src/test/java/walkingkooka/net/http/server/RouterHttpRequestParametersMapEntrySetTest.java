@@ -53,7 +53,7 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
     private final static RelativeUrl URL = Url.parseRelative("/path1/file2.html?parameter1=parameter-value-1&parameter-2=parameter-value-2");
     private final static List<ClientCookie> COOKIES = Cookie.parseClientHeader("cookie1=cookievalue1;cookie2=cookievalue2");
 
-    private final static Map<HttpHeaderName<?>, Object> headers() {
+    private static Map<HttpHeaderName<?>, Object> headers() {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
 
         headers.put(HttpHeaderName.CONTENT_LENGTH, "1");

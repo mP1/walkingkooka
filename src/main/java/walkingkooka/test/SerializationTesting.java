@@ -91,7 +91,7 @@ public interface SerializationTesting<S extends Serializable> extends Testing {
      * ObjectInputStream} that is aware of the original's {@link ClassLoader}.
      */
     @SuppressWarnings("unchecked")
-    default <S extends Serializable> S cloneUsingSerialization(final Serializable object)
+    default <SS extends Serializable> SS cloneUsingSerialization(final Serializable object)
             throws IOException, ClassNotFoundException {
         assertNotNull(object, "object to be cloned is null");
 
@@ -123,7 +123,7 @@ public interface SerializationTesting<S extends Serializable> extends Testing {
                     }
                 }
             };
-            return (S) deserializer.readObject();
+            return (SS) deserializer.readObject();
         } finally {
             thread.setContextClassLoader(classLoader);
         }

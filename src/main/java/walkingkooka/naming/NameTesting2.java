@@ -37,49 +37,49 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
     /**
      * All upper case ascii letters
      */
-    final static String ASCII_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    String ASCII_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /**
      * All lower case ascii letters
      */
-    final static String ASCII_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    String ASCII_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
 
     /**
      * All ascii letters
      */
-    final static String ASCII_LETTERS = ASCII_UPPERCASE + ASCII_LOWERCASE;
+    String ASCII_LETTERS = ASCII_UPPERCASE + ASCII_LOWERCASE;
 
     /**
      * The digits 0 .. 9
      */
-    final static String ASCII_DIGITS = "09123456789";
+    String ASCII_DIGITS = "09123456789";
 
     /**
      * All ascii letters and digits
      */
-    final static String ASCII_LETTERS_DIGITS = ASCII_LETTERS + ASCII_DIGITS;
+    String ASCII_LETTERS_DIGITS = ASCII_LETTERS + ASCII_DIGITS;
 
     /**
      * Space or tab
      */
-    final static String SPACE_HTAB = " \t";
+    String SPACE_HTAB = " \t";
 
     /**
      * Space, tab, CR and NL.
      */
-    final static String WHITESPACE = SPACE_HTAB + "\r\n";
+    String WHITESPACE = SPACE_HTAB + "\r\n";
 
     /**
      * All ascii characters
      */
-    final static String ASCII = IntStream.rangeClosed(0, 127)
+    String ASCII = IntStream.rangeClosed(0, 127)
             .mapToObj(c -> String.valueOf((char)c))
             .collect(Collectors.joining(""));
 
     /**
      * All control characters between 0 and 31 including tab, CR and NL.
      */
-    final static String CONTROL = IntStream.rangeClosed(0, 31)
+    String CONTROL = IntStream.rangeClosed(0, 31)
             .mapToObj(i -> String.valueOf((char)i))
             .collect(Collectors.joining(""));
 
@@ -87,7 +87,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
     /**
      * All ascii characters from space (32) to 127.
      */
-    final static String ASCII_NON_CONTROL = IntStream.rangeClosed(32, 127)
+    String ASCII_NON_CONTROL = IntStream.rangeClosed(32, 127)
             .mapToObj(i -> String.valueOf((char)i))
             .collect(Collectors.joining(""));
 
@@ -104,7 +104,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
      *                    ; to use within parameter values
      * </pre>
      */
-    final static String RFC2045_TSPECIAL = "()<>@,;:\\\"/[]?=";
+    String RFC2045_TSPECIAL = "()<>@,;:\\\"/[]?=";
 
     /**
      * <a href="https://tools.ietf.org/html/rfc2045#page-5"></a>
@@ -119,13 +119,13 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
      *                    ; to use within parameter values
      * </pre>
      */
-    final static String RFC2045 = subtract(ASCII,
+    String RFC2045 = subtract(ASCII,
             CONTROL + WHITESPACE + RFC2045_TSPECIAL);
 
     /**
      * All characters above 127 and 255.
      */
-    final static String BYTE_NON_ASCII = IntStream.rangeClosed(128, 255)
+    String BYTE_NON_ASCII = IntStream.rangeClosed(128, 255)
             .mapToObj(i -> String.valueOf((char)i))
             .collect(Collectors.joining(""));
 

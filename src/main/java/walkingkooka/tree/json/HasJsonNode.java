@@ -84,7 +84,7 @@ public interface HasJsonNode {
 
     /**
      * Accepts a json object which holds a {@link Map} using the key and element types to deserialize the json.
-     * This is essentially the inverse of {@link #toJsonNodeMap(Map}
+     * This is essentially the inverse of {@link #toJsonNodeMap
      */
     static <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node, final Class<K> keyType, final Class<V> valueType) {
         return HasJsonNodeMapper.fromJsonNodeMap(node, keyType, valueType);

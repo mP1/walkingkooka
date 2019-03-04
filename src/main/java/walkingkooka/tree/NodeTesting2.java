@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface NodeTesting2<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE extends Object>
+        AVALUE>
         extends
         NodeTesting<N, NAME, ANAME, AVALUE> {
 

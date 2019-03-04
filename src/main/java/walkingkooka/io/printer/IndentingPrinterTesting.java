@@ -31,7 +31,7 @@ public interface IndentingPrinterTesting<P extends IndentingPrinter>
 
     // constants
 
-    static Indentation INDENTATION = Indentation.with("  ");
+    Indentation INDENTATION = Indentation.with("  ");
 
     // tests
 

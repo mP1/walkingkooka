@@ -32,7 +32,6 @@ public final class XmlCDataSectionTest extends XmlTextNodeTestCase<XmlCDataSecti
     @Test
     public void testWithEmptyText() {
         this.xmlDocument().createCDataSection("");
-        ;
     }
 
     @Test

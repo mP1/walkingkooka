@@ -69,7 +69,7 @@ public final class NodeSelectorDescendantOrSelfParserTokenTest extends NodeSelec
 
     @Override
     public String text() {
-        return String.valueOf(this.value());
+        return this.value();
     }
 
     @Override

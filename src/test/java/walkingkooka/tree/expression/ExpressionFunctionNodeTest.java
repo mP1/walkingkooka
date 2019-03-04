@@ -158,7 +158,7 @@ public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTest
     }
 
     final ExpressionEvaluationContext context(final String functionValue) {
-        final ExpressionEvaluationContext context = this.context();
+        final ExpressionEvaluationContext context = context();
 
         return new FakeExpressionEvaluationContext() {
 

@@ -127,7 +127,7 @@ abstract class ExpressionTemplateFunction<T> implements ExpressionFunction<T> {
     /**
      * Retrieves the parameter at the index or throws a nice exception message.
      */
-    final <T> T parameter(final List<?> parameters, final int i, final Class<T> type, final ExpressionFunctionContext context) {
+    final <TT> TT parameter(final List<?> parameters, final int i, final Class<TT> type, final ExpressionFunctionContext context) {
         return context.convert(this.parameter(parameters, i), type);
     }
 

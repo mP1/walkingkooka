@@ -141,8 +141,7 @@ final class BigDecimalFractionSpreadsheetTextFormatter extends SpreadsheetTextFo
      * Applies the pattern and value into text.
      */
     private String format2(final BigDecimalFractionSpreadsheetTextFormatterComponentContext context) {
-        this.components.stream()
-                .forEach(c -> c.append(context));
+        this.components.forEach(c -> c.append(context));
         return context.formattedText();
     }
 

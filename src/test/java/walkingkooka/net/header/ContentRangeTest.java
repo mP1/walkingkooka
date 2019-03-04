@@ -455,10 +455,10 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
                 SIZE);
     }
 
-    private final void toHeaderTextAndCheck(final String headerText,
-                                            final RangeHeaderValueUnit unit,
-                                            final Optional<Range<Long>> range,
-                                            final Optional<Long> size) {
+    private void toHeaderTextAndCheck(final String headerText,
+                                      final RangeHeaderValueUnit unit,
+                                      final Optional<Range<Long>> range,
+                                      final Optional<Long> size) {
         this.toHeaderTextAndCheck(
                 ContentRange.with(unit, range, size),
                 headerText);
@@ -484,10 +484,10 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
         );
     }
 
-    private final void toStringAndCheck(final RangeHeaderValueUnit unit,
-                                        final Optional<Range<Long>> range,
-                                        final Optional<Long> size,
-                                        final String toString) {
+    private void toStringAndCheck(final RangeHeaderValueUnit unit,
+                                  final Optional<Range<Long>> range,
+                                  final Optional<Long> size,
+                                  final String toString) {
         this.toStringAndCheck(ContentRange.with(unit, range, size).toString(),
                 toString);
     }
@@ -504,9 +504,9 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
         return Optional.of(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)));
     }
 
-    private final ContentRange range(final RangeHeaderValueUnit unit,
-                                     final Optional<Range<Long>> range,
-                                     final Optional<Long> size) {
+    private ContentRange range(final RangeHeaderValueUnit unit,
+                               final Optional<Range<Long>> range,
+                               final Optional<Long> size) {
         return ContentRange.with(unit, range, size);
     }
 

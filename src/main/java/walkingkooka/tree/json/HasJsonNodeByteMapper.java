@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 
 final class HasJsonNodeByteMapper extends HasJsonNodeMapper3<Byte> {
 
-    final static HasJsonNodeByteMapper instance() {
+    static HasJsonNodeByteMapper instance() {
         return new HasJsonNodeByteMapper();
     }
 

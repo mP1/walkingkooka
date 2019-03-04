@@ -32,5 +32,5 @@ public interface HateosHandler<I extends Comparable<I>, N extends Node<N, ?, ?, 
     /**
      * An empty {@link Map} with no parameters.
      */
-    static Map<HttpRequestAttribute<?>, Object> NO_PARAMETERS = Maps.empty();
+    Map<HttpRequestAttribute<?>, Object> NO_PARAMETERS = Maps.empty();
 }

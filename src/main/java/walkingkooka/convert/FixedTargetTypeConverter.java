@@ -53,7 +53,7 @@ abstract class FixedTargetTypeConverter<T> extends ConverterTemplate {
     /**
      * Returns the {@link String} as a signed offset including a plus or minus when the value is non zero.
      */
-    final static String toStringOffset(final long offset) {
+    static String toStringOffset(final long offset) {
         return 0 == offset ?
                "" :
                toStringOffset0(offset);

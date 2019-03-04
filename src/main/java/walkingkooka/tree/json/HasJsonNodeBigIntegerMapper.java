@@ -22,7 +22,7 @@ import java.math.BigInteger;
 
 final class HasJsonNodeBigIntegerMapper extends HasJsonNodeMapper2<BigInteger> {
 
-    final static HasJsonNodeBigIntegerMapper instance() {
+    static HasJsonNodeBigIntegerMapper instance() {
         return new HasJsonNodeBigIntegerMapper();
     }
 

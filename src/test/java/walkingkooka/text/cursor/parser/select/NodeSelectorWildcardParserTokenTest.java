@@ -69,7 +69,7 @@ public final class NodeSelectorWildcardParserTokenTest extends NodeSelectorNonSy
 
     @Override
     public String text() {
-        return String.valueOf(this.value());
+        return this.value();
     }
 
     @Override

@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 
 final class HasJsonNodeBigDecimalMapper extends HasJsonNodeMapper2<BigDecimal> {
 
-    final static HasJsonNodeBigDecimalMapper instance() {
+    static HasJsonNodeBigDecimalMapper instance() {
         return new HasJsonNodeBigDecimalMapper();
     }
 

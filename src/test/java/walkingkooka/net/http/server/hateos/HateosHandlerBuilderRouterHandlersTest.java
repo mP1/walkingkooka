@@ -63,28 +63,24 @@ public final class HateosHandlerBuilderRouterHandlersTest implements ClassTestin
                 return "G1";
             }
 
-            ;
         };
         final FakeHateosPostHandler<BigInteger, JsonNode> post = new FakeHateosPostHandler<BigInteger, JsonNode>() {
             public String toString() {
                 return "P2";
             }
 
-            ;
         };
         final FakeHateosPutHandler<BigInteger, JsonNode> put = new FakeHateosPutHandler<BigInteger, JsonNode>() {
             public String toString() {
                 return "P3";
             }
 
-            ;
         };
         final FakeHateosDeleteHandler<BigInteger, JsonNode> delete = new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
             public String toString() {
                 return "D4";
             }
 
-            ;
         };
 
         handlers.get = get;

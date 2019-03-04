@@ -65,7 +65,7 @@ public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> e
         checkEqualsAndHashCode(object1, object2);
     }
 
-    abstract T createObject();
+    T createObject();
 
     default void checkEquals(final Object actual) {
         checkEquals(this.createObject(), actual);

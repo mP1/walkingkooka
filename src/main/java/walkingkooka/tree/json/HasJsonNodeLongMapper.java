@@ -22,7 +22,7 @@ import walkingkooka.text.CharSequences;
 
 final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
 
-    final static HasJsonNodeLongMapper instance() {
+    static HasJsonNodeLongMapper instance() {
         return new HasJsonNodeLongMapper();
     }
 

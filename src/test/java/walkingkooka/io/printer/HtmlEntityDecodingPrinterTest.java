@@ -144,7 +144,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
     @Test
     public void testHexNumericEntityThenText() {
         final char c = 0x4f;
-        this.printAndCheck("before " + String.valueOf(c) + " after", "before &#x04f;", " after");
+        this.printAndCheck("before " + c + " after", "before &#x04f;", " after");
     }
 
     @Test

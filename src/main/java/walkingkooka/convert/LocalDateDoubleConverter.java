@@ -27,7 +27,7 @@ final class LocalDateDoubleConverter extends LocalDateConverter<Double> {
      * Factory that creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    static final LocalDateDoubleConverter with(final long offset) {
+    static LocalDateDoubleConverter with(final long offset) {
         return new LocalDateDoubleConverter(offset);
     }
 

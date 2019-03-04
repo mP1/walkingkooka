@@ -135,7 +135,7 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
     }
 
     final ExpressionEvaluationContext context(final String referenceText) {
-        final ExpressionEvaluationContext context = this.context();
+        final ExpressionEvaluationContext context = context();
         final ExpressionReference value = this.value();
 
         return new FakeExpressionEvaluationContext() {
