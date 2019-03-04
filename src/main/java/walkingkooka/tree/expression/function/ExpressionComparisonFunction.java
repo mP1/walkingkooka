@@ -34,7 +34,7 @@ final class ExpressionComparisonFunction extends ExpressionTemplateFunction<Bool
     /**
      * Factory
      */
-    static final ExpressionComparisonFunction with(final ComparisonRelation relation) {
+    static ExpressionComparisonFunction with(final ComparisonRelation relation) {
         Objects.requireNonNull(relation, "relation");
 
         return new ExpressionComparisonFunction(relation);

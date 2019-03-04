@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import walkingkooka.net.NetException;
 
 /**
- * The exception thrown if parsing or converting a header value from {@linK String} to its type fails.
+ * The exception thrown if parsing or converting a header value from {@link String} to its type fails.
  */
 public class HeaderException extends NetException {
 

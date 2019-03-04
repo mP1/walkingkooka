@@ -97,7 +97,7 @@ public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCas
     @Test
     public void testToLocalDate() {
         assertThrows(ExpressionEvaluationException.class, () -> {
-            this.createExpressionNode().toLocalDate(this.context());
+            this.createExpressionNode().toLocalDate(context());
         });
     }
 

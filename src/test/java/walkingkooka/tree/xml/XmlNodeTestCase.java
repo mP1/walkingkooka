@@ -215,7 +215,6 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
     final void checkEntities(final XmlDocumentType node, final Map<String, String> entities) {
         final Map<String, String> entities2 = Maps.ordered();
         node.entities().entrySet()
-                .stream()
                 .forEach(e -> entities2.put(e.getKey().value(), e.getValue().toString()));
         assertEquals(entities, entities2,"entities");
 
@@ -236,7 +235,6 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
     final void checkNotations(final XmlDocumentType node, final Map<String, String> notations) {
         final Map<String, String> notations2 = Maps.ordered();
         node.notations().entrySet()
-                .stream()
                 .forEach(e -> notations2.put(e.getKey().value(), e.getValue().toString()));
         assertEquals(notations, notations2,"notations");
 

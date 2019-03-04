@@ -82,11 +82,6 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> imp
         return false;
     }
 
-    @Override
-    public Class<A> type() {
-        return this.type();
-    }
-
     // TypeNameTesting .........................................................................................
 
     @Override

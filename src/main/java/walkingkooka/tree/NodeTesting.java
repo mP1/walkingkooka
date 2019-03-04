@@ -46,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE extends Object>
+        AVALUE>
         extends
         VisitableTesting<N>,
         HashCodeEqualsDefinedTesting<N>,

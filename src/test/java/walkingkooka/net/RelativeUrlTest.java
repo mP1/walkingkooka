@@ -32,7 +32,7 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl>
     // parseRelative..........................................................................................
 
     @Test
-    public void testParseNullFails() { ;
+    public void testParseNullFails() {
         assertThrows(NullPointerException.class, () -> {
             RelativeUrl.parse(null);
         });

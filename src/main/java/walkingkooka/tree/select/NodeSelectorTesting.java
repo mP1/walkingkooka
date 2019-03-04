@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface NodeSelectorTesting <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE extends Object>{
+        AVALUE>{
 
     @Test
     default void testSelectorSelf() {

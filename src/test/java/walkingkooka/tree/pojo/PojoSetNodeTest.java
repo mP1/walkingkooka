@@ -302,7 +302,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
 
     static class TestImmutableParent {
 
-        TestImmutableParent(final Set<? extends Object> set) {
+        TestImmutableParent(final Set<?> set) {
             this.set = set;
         }
 

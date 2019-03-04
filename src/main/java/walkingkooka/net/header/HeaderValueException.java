@@ -19,7 +19,7 @@
 package walkingkooka.net.header;
 
 /**
- * The exception thrown if parsing or converting a header value from {@linK String} to its type fails.
+ * The exception thrown if parsing or converting a header value from {@link String} to its type fails.
  */
 public class HeaderValueException extends HeaderException {
 

@@ -79,8 +79,7 @@ final class BigDecimalSpreadsheetTextFormatter extends SpreadsheetTextFormatter3
     BigDecimalSpreadsheetTextFormatterFormat format;
 
     private String format1(final BigDecimalSpreadsheetTextFormatterComponentContext context) {
-        this.components.stream()
-                .forEach(c -> c.append(context));
+        this.components.forEach(c -> c.append(context));
         return context.formattedText();
     }
 

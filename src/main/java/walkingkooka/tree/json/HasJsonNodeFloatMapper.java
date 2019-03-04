@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 
 final class HasJsonNodeFloatMapper extends HasJsonNodeMapper3<Float> {
 
-    final static HasJsonNodeFloatMapper instance() {
+    static HasJsonNodeFloatMapper instance() {
         return new HasJsonNodeFloatMapper();
     }
 

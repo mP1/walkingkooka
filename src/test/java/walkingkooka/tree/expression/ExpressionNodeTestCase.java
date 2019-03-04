@@ -321,7 +321,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
         return ConverterContexts.fake();
     }
 
-    static ExpressionEvaluationContext context() {;
+    static ExpressionEvaluationContext context() {
         final Function<ConverterContext, ParserContext> parserContext = (c)-> ParserContexts.basic(c);
 
         final Converter stringBigDecimal = Converters.parser(BigDecimal.class,

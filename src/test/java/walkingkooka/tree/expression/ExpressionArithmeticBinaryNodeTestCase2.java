@@ -68,7 +68,7 @@ public abstract class ExpressionArithmeticBinaryNodeTestCase2<N extends Expressi
 
     private void evaluate(final ExpressionNode node) {
         try {
-            node.toValue(this.context());
+            node.toValue(context());
             fail("Evaluating " + node + " should have failed");
         } catch (final UnsupportedOperationException expected) {
             // expected

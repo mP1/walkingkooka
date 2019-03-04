@@ -30,7 +30,7 @@ final class UnquotedStringHeaderValueConverter extends StringHeaderValueConverte
     /**
      * Factory that creates a new {@link UnquotedStringHeaderValueConverter}.
      */
-    final static UnquotedStringHeaderValueConverter with(final CharPredicate predicate) {
+    static UnquotedStringHeaderValueConverter with(final CharPredicate predicate) {
         return new UnquotedStringHeaderValueConverter(predicate);
     }
 

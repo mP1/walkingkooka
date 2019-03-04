@@ -29,7 +29,7 @@ final class LocalDateBigDecimalConverter extends LocalDateConverter<BigDecimal> 
      * Factory that creates an instance with the given date offset.
      * A value of zero = 1/1/1970,.
      */
-    static final LocalDateBigDecimalConverter with(final long offset) {
+    static LocalDateBigDecimalConverter with(final long offset) {
         return new LocalDateBigDecimalConverter(offset);
     }
 

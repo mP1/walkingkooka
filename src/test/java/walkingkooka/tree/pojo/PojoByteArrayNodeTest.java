@@ -223,7 +223,7 @@ public final class PojoByteArrayNodeTest extends PojoArrayNodeTestCase<PojoByteA
         
         @Override
         public String toString() {
-            return this.getClass().getSimpleName() + "=" + this.array.toString();
+            return this.getClass().getSimpleName() + "=" + Arrays.toString(this.array);
         }
     }
 
@@ -240,7 +240,7 @@ public final class PojoByteArrayNodeTest extends PojoArrayNodeTestCase<PojoByteA
         }
 
         public TestImmutableParent setArray(final byte[] array) {
-            return this.array.equals(array) ? this : new TestImmutableParent(array);
+            return Arrays.equals(this.array, array) ? this : new TestImmutableParent(array);
         }
 
         @Override
@@ -259,7 +259,7 @@ public final class PojoByteArrayNodeTest extends PojoArrayNodeTestCase<PojoByteA
 
         @Override
         public String toString() {
-            return this.getClass().getSimpleName() + "=" + this.array.toString();
+            return this.getClass().getSimpleName() + "=" + Arrays.toString(this.array);
         }
     }
 }

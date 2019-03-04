@@ -144,7 +144,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
     }
 
     @Test
-    public void testSetChildrenWithParentImmutable2() { ;
+    public void testSetChildrenWithParentImmutable2() {
         final TestImmutableLeaf child = new TestImmutableLeaf(STRING0);
         final TestImmutableBranch parent = new TestImmutableBranch(child, null);
         final TestImmutableBranch grandParent = new TestImmutableBranch(null, parent);

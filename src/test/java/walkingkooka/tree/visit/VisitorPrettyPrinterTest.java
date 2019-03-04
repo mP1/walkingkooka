@@ -181,7 +181,7 @@ public final class VisitorPrettyPrinterTest implements ClassTesting2<VisitorPret
         return Indentation.with("  ");
     }
 
-    private final Function<Object, String> typeName() {
+    private Function<Object, String> typeName() {
         return (o -> o.toString());
     }
 

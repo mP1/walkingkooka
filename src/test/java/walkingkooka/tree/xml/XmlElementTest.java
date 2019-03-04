@@ -473,7 +473,6 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
 
         final Map<String, Object> rawAttributes = Maps.ordered();
         attributes.entrySet()
-                .stream()
                 .forEach(e -> rawAttributes.put(e.getKey().toString(), e.getValue()));
 
         final Map<String, Object> actualRawAttributes = Maps.ordered();

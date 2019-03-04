@@ -35,8 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public final class BeanPropertiesTesting {
 
     /**
-     * Checks that all properties do not return null. A property is a method that returns non void and is not marked with
-     * {@Link SkipPropertyNeverReturnsNullCheck}.
+     * Checks that all properties do not return null.
      */
     public static void allPropertiesNeverReturnNullCheck(final Object object,
                                                          final Predicate<Method> skip) throws Exception {
@@ -54,7 +53,7 @@ public final class BeanPropertiesTesting {
     }
 
     /**
-     * Keep instance methods, that return something, take no parameters, arent a Object member or tagged with {@link SkipPropertyNeverReturnsNullCheck}
+     * Keep instance methods, that return something, take no parameters, arent a Object member.
      */
     private static boolean propertiesNeverReturnNullCheckFilter(final Method method,
                                                                 final Object object,

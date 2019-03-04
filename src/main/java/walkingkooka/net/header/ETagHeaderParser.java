@@ -79,7 +79,7 @@ abstract class ETagHeaderParser extends HeaderParser {
         this.position++;
 
         if (!this.hasMoreCharacters()) {
-            this.fail(incompleteWeakIndicator(text));
+            fail(incompleteWeakIndicator(text));
         }
         if ('/' != this.character()) {
             this.failInvalidCharacter();
@@ -93,7 +93,6 @@ abstract class ETagHeaderParser extends HeaderParser {
     void endOfText() {
         if (this.requireValue) {
             this.missingValue();
-            ;
         }
     }
 

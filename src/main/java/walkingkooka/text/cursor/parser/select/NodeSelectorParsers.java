@@ -344,11 +344,11 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             NodeSelectorNodeNameParserToken::nodeName,
             NODE_NAME_IDENTIFIER);
 
-    private final static <T extends NodeSelectorParserToken, N extends Name> Parser<ParserToken, ParserContext> name(final CharPredicate initial,
-                                                                                                                     final CharPredicate part,
-                                                                                                                     final Function<String, N> nameFactory,
-                                                                                                                     final BiFunction<N, String, T> parserTokenFactory,
-                                                                                                                     final EbnfIdentifierName name) {
+    private static <T extends NodeSelectorParserToken, N extends Name> Parser<ParserToken, ParserContext> name(final CharPredicate initial,
+                                                                                                               final CharPredicate part,
+                                                                                                               final Function<String, N> nameFactory,
+                                                                                                               final BiFunction<N, String, T> parserTokenFactory,
+                                                                                                               final EbnfIdentifierName name) {
         return Parsers.stringInitialAndPartCharPredicate(initial,
                 CharPredicates.letterOrDigit().or(part),
                 1,

@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequest;
@@ -36,7 +37,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 /**
- * Router which accepts a request and returns a {@link BiConsumer} that operates on the base {@!link UrlPath}.
+ * Router which accepts a request and returns a {@link BiConsumer} that operates on the base {@link UrlPath}.
  */
 final class HateosHandlerBuilderRouter<N extends Node<N, ?, ?, ?>, V>
         extends HateosHandlerBuilder2<N, V>

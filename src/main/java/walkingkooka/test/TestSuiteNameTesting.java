@@ -42,5 +42,5 @@ public interface TestSuiteNameTesting<T> extends Testing {
     /**
      * The type being tested.
      */
-    abstract public Class<T> type();
+    Class<T> type();
 }

@@ -50,7 +50,7 @@ final class HateosContentTypeXmlNode<V extends HasXmlNode> extends HateosContent
      * Singleton
      */
     @SuppressWarnings("unchecked")
-    final static <V extends HasXmlNode> HateosContentTypeXmlNode<V> instance() {
+    static <V extends HasXmlNode> HateosContentTypeXmlNode<V> instance() {
         return INSTANCE;
     }
 

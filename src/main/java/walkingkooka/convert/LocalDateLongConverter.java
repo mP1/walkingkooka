@@ -27,7 +27,7 @@ final class LocalDateLongConverter extends LocalDateConverter<Long> {
      * Factory that creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    static final LocalDateLongConverter with(final long offset) {
+    static LocalDateLongConverter with(final long offset) {
         return new LocalDateLongConverter(offset);
     }
 

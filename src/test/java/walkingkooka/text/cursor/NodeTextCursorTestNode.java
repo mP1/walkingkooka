@@ -43,7 +43,7 @@ final class NodeTextCursorTestNode extends FakeNode<NodeTextCursorTestNode, Stri
             i++;
         }
 
-        this.children.stream().forEach( n -> n.parent = Optional.of(this));
+        this.children.forEach( n -> n.parent = Optional.of(this));
 
         this.text = text;
     }

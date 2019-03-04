@@ -137,7 +137,7 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
     private boolean canSatisfyRange(final int contentLength) {
         return this.range.value()
                 .stream()
-                .allMatch(r -> this.canSatisfyRange0(contentLength, r));
+                .allMatch(r -> canSatisfyRange0(contentLength, r));
     }
 
     private static boolean canSatisfyRange0(final int contentLength, final Range<Long> range) {

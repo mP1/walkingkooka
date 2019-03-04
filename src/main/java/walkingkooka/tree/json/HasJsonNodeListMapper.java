@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 final class HasJsonNodeListMapper extends HasJsonNodeCollectionMapper<List<?>> {
 
-    final static HasJsonNodeListMapper instance() {
+    static HasJsonNodeListMapper instance() {
         return new HasJsonNodeListMapper();
     }
 

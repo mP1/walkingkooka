@@ -27,14 +27,14 @@ public abstract class ExpressionLogicalBinaryNodeTestCase<N extends ExpressionLo
     @Test
     public final void testEvaluateBigDecimalWithFractionFails() {
         assertThrows(ExpressionEvaluationConversionException.class, () -> {
-            this.createExpressionNode(bigDecimal(1.5), bigDecimal(0)).toText(this.context());
+            this.createExpressionNode(bigDecimal(1.5), bigDecimal(0)).toText(context());
         });
     }
 
     @Test
     public final void testEvaluateDoubleWithFractionFails() {
         assertThrows(ExpressionEvaluationConversionException.class, () -> {
-            this.createExpressionNode(doubleValue(1.5), doubleValue(0)).toText(this.context());
+            this.createExpressionNode(doubleValue(1.5), doubleValue(0)).toText(context());
         });
     }
 }

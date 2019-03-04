@@ -65,7 +65,7 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
     abstract boolean childrenEquals(final List<JsonNode> children);
 
     /**
-     * Returns a new {@Link JsonParentNode} with the given children and also updates the parent/ancestors.
+     * Returns a new {@link JsonParentNode} with the given children and also updates the parent/ancestors.
      */
     final JsonParentNode<C> replaceChildren(final C children) {
         return this.create(this.name, this.index, children)

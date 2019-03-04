@@ -29,7 +29,7 @@ final class LocalDateTimeLongConverter extends LocalDateTimeConverter2<Long> {
      * Creates a new instance with the given date offset.
      * A value of zero = 1/1/1970.
      */
-    final static LocalDateTimeLongConverter with(final long offset) {
+    static LocalDateTimeLongConverter with(final long offset) {
         return new LocalDateTimeLongConverter(offset);
     }
 

@@ -79,14 +79,14 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
     /**
      * The number of values
      */
-    final static int size() {
+    static int size() {
         return VALUES.length;
     }
 
     /**
      * Returns an entry holding this attribute as the key and the actual request value as the value.
      */
-    final static Entry<HttpRequestAttribute<?>, Object> entry(final int position, final HttpRequest request) {
+    static Entry<HttpRequestAttribute<?>, Object> entry(final int position, final HttpRequest request) {
         if (position >= VALUES.length) {
             throw new NoSuchElementException();
         }
@@ -97,7 +97,7 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
     /**
      * Returns the {@link #toString()} for the iterator entry.
      */
-    final static String iteratorEntryToString(final int position, final HttpRequest request) {
+    static String iteratorEntryToString(final int position, final HttpRequest request) {
         return position < VALUES.length ?
                 VALUES[position] + "=" + VALUES[position].parameterValue(request).get() :
                 "";

@@ -22,7 +22,7 @@ import java.util.function.Function;
 
 final class HasJsonNodeHasJsonNodeMapper<T extends HasJsonNode> extends HasJsonNodeMapper2<T> {
 
-    final static <T extends HasJsonNode> HasJsonNodeHasJsonNodeMapper<T> with(final String typeName,
+    static <T extends HasJsonNode> HasJsonNodeHasJsonNodeMapper<T> with(final String typeName,
                                                                               final Function<JsonNode, T> fromJsonNode) {
         return new HasJsonNodeHasJsonNodeMapper<>(typeName, fromJsonNode);
     }

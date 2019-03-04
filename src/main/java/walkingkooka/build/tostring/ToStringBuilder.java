@@ -797,10 +797,6 @@ final public class ToStringBuilder implements Builder<String> {
                 this.valueEnumeration((Enumeration<?>) value);
                 break;
             }
-            if (value instanceof Optional) {
-                this.value(Cast.<Optional>to(value));
-                break;
-            }
             if (value instanceof boolean[]) {
                 this.value((boolean[]) value);
                 break;

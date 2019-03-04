@@ -212,7 +212,7 @@ public final class PojoBooleanArrayNodeTest extends PojoArrayNodeTestCase<PojoBo
         
         @Override
         public String toString() {
-            return this.getClass().getSimpleName() + "=" + this.array.toString();
+            return this.getClass().getSimpleName() + "=" + Arrays.toString(this.array);
         }
     }
 
@@ -229,7 +229,7 @@ public final class PojoBooleanArrayNodeTest extends PojoArrayNodeTestCase<PojoBo
         }
 
         public TestImmutableParent setArray(final boolean[] array) {
-            return this.array.equals(array) ? this : new TestImmutableParent(array);
+            return Arrays.equals(this.array, array) ? this : new TestImmutableParent(array);
         }
 
         @Override
@@ -248,7 +248,7 @@ public final class PojoBooleanArrayNodeTest extends PojoArrayNodeTestCase<PojoBo
 
         @Override
         public String toString() {
-            return this.getClass().getSimpleName() + "=" + this.array.toString();
+            return this.getClass().getSimpleName() + "=" + Arrays.toString(this.array);
         }
     }
 }

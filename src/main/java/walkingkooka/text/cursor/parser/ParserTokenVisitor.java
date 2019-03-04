@@ -125,6 +125,6 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
      * Useful to dispatch and visit all the child nodes of a parent.
      */
     protected final void acceptTokens(final List<? extends ParserToken> tokens) {
-        tokens.stream().forEach( t -> this.accept(t));
+        tokens.forEach( t -> this.accept(t));
     }
 }

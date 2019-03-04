@@ -31,7 +31,7 @@ final class QuotedStringHeaderValueConverter extends StringHeaderValueConverter 
     /**
      * Factory that creates a new {@link QuotedStringHeaderValueConverter}.
      */
-    final static QuotedStringHeaderValueConverter with(final CharPredicate predicate,
+    static QuotedStringHeaderValueConverter with(final CharPredicate predicate,
                                                        final boolean supportBackslashEscaping) {
         return new QuotedStringHeaderValueConverter(predicate, supportBackslashEscaping);
     }

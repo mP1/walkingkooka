@@ -134,7 +134,7 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
     private void testParseAllCustomToStringParsers(final String text) {
         this.parseAndCheck(this.createParser1(PARSER1.setToString("1"), PARSER2.setToString("2")),
                 text,
-                this.string(text),
+                string(text),
                 text);
     }
 

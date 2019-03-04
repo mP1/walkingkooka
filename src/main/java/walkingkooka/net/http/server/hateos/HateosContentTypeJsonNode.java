@@ -51,7 +51,7 @@ final class HateosContentTypeJsonNode<V extends HasJsonNode> extends HateosConte
      * Singleton
      */
     @SuppressWarnings("unchecked")
-    final static <V extends HasJsonNode> HateosContentTypeJsonNode<V> instance() {
+    static <V extends HasJsonNode> HateosContentTypeJsonNode<V> instance() {
         return INSTANCE;
     }
 

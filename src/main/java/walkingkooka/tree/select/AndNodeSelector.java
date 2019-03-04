@@ -72,8 +72,7 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
             }
         }
 
-        all.stream()
-                .forEach(n -> context.selected(n));
+        all.forEach(n -> context.selected(n));
     }
 
     @Override
