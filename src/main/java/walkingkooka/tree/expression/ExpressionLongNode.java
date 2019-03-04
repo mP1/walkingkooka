@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+
 /**
  * A long number value.
  */
@@ -96,6 +99,17 @@ public final class ExpressionLongNode extends ExpressionValueNode<Long> {
     @Override
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
+    }
+
+    // HasJsonNode....................................................................................................
+
+    // @VisibleForTesting
+    static ExpressionLongNode fromJsonNode(final JsonNode node) {
+        return ExpressionLongNode.with(HasJsonNode.fromJsonNode(node, Long.class));
+    }
+
+    static {
+        register("-long", ExpressionLongNode::fromJsonNode, ExpressionLongNode.class);
     }
 
     // Object ....................................................................................................

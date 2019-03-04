@@ -21,6 +21,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.time.LocalDateTime;
@@ -155,5 +156,12 @@ public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCas
     @Override
     Class<ExpressionLocalTimeNode> expressionNodeType() {
         return ExpressionLocalTimeNode.class;
+    }
+
+    // HasJsonNodeTesting...........................................................................................
+
+    @Override
+    public ExpressionLocalTimeNode fromJsonNode(final JsonNode from) {
+        return ExpressionLocalTimeNode.fromJsonNode(from);
     }
 }

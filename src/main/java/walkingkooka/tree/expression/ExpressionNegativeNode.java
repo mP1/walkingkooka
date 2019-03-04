@@ -19,6 +19,8 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.NeverError;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -141,6 +143,17 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
     @Override
     public String toText(final ExpressionEvaluationContext context) {
         return context.convert(this.toNumber(context), String.class);
+    }
+
+    // HasJsonNode....................................................................................................
+
+    // @VisibleForTesting
+    static ExpressionNegativeNode fromJsonNode(final JsonNode node) {
+        return ExpressionNegativeNode.with(HasJsonNode.fromJsonNodeWithType(node));
+    }
+
+    static {
+        register("-negative", ExpressionNegativeNode::fromJsonNode, ExpressionNegativeNode.class);
     }
 
     // Object ....................................................................................................

@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+
 /**
  * A boolean value.
  */
@@ -96,6 +99,17 @@ public final class ExpressionBooleanNode extends ExpressionValueNode<Boolean> {
     @Override
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
+    }
+
+    // HasJsonNode....................................................................................................
+
+    // @VisibleForTesting
+    static ExpressionBooleanNode fromJsonNode(final JsonNode node) {
+        return ExpressionBooleanNode.with(HasJsonNode.fromJsonNode(node, Boolean.class));
+    }
+
+    static {
+        register("-boolean", ExpressionBooleanNode::fromJsonNode, ExpressionBooleanNode.class);
     }
 
     // Object ....................................................................................................

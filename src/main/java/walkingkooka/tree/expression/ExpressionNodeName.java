@@ -22,12 +22,18 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
+
+import java.util.Objects;
 
 /**
  * The name of an expression node.
  */
 public final class ExpressionNodeName implements Name,
-        Comparable<ExpressionNodeName> {
+        Comparable<ExpressionNodeName>,
+        HasJsonNode {
 
     public static ExpressionNodeName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
@@ -56,6 +62,30 @@ public final class ExpressionNodeName implements Name,
     }
 
     private final String name;
+
+    // HasJsonNode...............................................................................
+
+    /**
+     * Accepts a json string holding the name.
+     */
+    public static ExpressionNodeName fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        try {
+            return with(node.stringValueOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        return JsonNode.string(this.toString());
+    }
+
+    static {
+        HasJsonNode.register("expression-node-name", ExpressionNodeName::fromJsonNode, ExpressionNodeName.class);
+    }
 
     // Object..................................................................................................
 

@@ -19,6 +19,8 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -186,6 +188,16 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
 
     final static boolean isFloatDouble(final Object value) {
         return value instanceof Float || value instanceof Double;
+    }
+
+    // HasJsonNode....................................................................................................
+
+    /**
+     * Converts both left and right into a {@link walkingkooka.tree.json.JsonArrayNode}.
+     */
+    @Override
+    public final JsonNode toJsonNode() {
+        return HasJsonNode.toJsonNodeWithTypeList(this.children());
     }
 
     // Object........................................................................................................

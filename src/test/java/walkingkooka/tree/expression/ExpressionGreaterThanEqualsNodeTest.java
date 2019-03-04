@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -554,5 +555,12 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
     @Override
     Class<ExpressionGreaterThanEqualsNode> expressionNodeType() {
         return ExpressionGreaterThanEqualsNode.class;
+    }
+
+    // HasJsonNodeTesting...........................................................................................
+
+    @Override
+    public ExpressionGreaterThanEqualsNode fromJsonNode(final JsonNode from) {
+        return ExpressionGreaterThanEqualsNode.fromJsonNode(from);
     }
 }

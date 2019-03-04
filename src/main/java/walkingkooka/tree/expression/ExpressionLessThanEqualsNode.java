@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -101,6 +104,21 @@ public final class ExpressionLessThanEqualsNode extends ExpressionComparisonBina
         return comparisonResult <= 0;
     }
 
+    // HasJsonNode....................................................................................................
+
+    // @VisibleForTesting
+    static ExpressionLessThanEqualsNode fromJsonNode(final JsonNode node) {
+        final JsonArrayNode array = node.arrayOrFail();
+
+        return ExpressionLessThanEqualsNode.with(
+                HasJsonNode.fromJsonNodeWithType(array.get(0)),
+                HasJsonNode.fromJsonNodeWithType(array.get(1)));
+    }
+
+    static {
+        register(SYMBOL, ExpressionLessThanEqualsNode::fromJsonNode, ExpressionLessThanEqualsNode.class);
+    }
+    
     // Object .........................................................................................................
 
     @Override

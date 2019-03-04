@@ -19,6 +19,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigInteger;
@@ -133,5 +134,12 @@ public final class ExpressionBigIntegerNodeTest extends ExpressionLeafNodeTestCa
     @Override
     Class<ExpressionBigIntegerNode> expressionNodeType() {
         return ExpressionBigIntegerNode.class;
+    }
+
+    // HasJsonNodeTesting...........................................................................................
+
+    @Override
+    public ExpressionBigIntegerNode fromJsonNode(final JsonNode from) {
+        return ExpressionBigIntegerNode.fromJsonNode(from);
     }
 }

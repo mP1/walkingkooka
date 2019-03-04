@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigInteger;
@@ -286,5 +287,12 @@ public final class ExpressionOrNodeTest extends ExpressionLogicalBinaryNodeTestC
     @Override
     Class<ExpressionOrNode> expressionNodeType() {
         return ExpressionOrNode.class;
+    }
+
+    // HasJsonNodeTesting...........................................................................................
+
+    @Override
+    public ExpressionOrNode fromJsonNode(final JsonNode from) {
+        return ExpressionOrNode.fromJsonNode(from);
     }
 }

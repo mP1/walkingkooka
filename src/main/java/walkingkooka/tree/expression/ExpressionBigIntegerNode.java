@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -100,6 +103,17 @@ public final class ExpressionBigIntegerNode extends ExpressionValueNode<BigInteg
     @Override
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
+    }
+
+    // HasJsonNode....................................................................................................
+
+    // @VisibleForTesting
+    static ExpressionBigIntegerNode fromJsonNode(final JsonNode node) {
+        return ExpressionBigIntegerNode.with(HasJsonNode.fromJsonNode(node, BigInteger.class));
+    }
+
+    static {
+        register("-big-integer", ExpressionBigIntegerNode::fromJsonNode, ExpressionBigIntegerNode.class);
     }
 
     // Object ....................................................................................................
