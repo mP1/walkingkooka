@@ -174,7 +174,7 @@ abstract class HasJsonNodeMapper<T> {
 
     /**
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
-     * Essentially the inverse of {@link HasJsonNode#toJsonNode(List)}.
+     * Essentially the inverse of {@link HasJsonNode#toJsonNodeList(List)}.
      */
     static <T> List<T> fromJsonNodeList(final JsonNode node,
                                         final Class<T> elementType) {
@@ -185,7 +185,7 @@ abstract class HasJsonNodeMapper<T> {
 
     /**
      * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
-     * Essentially the inverse of {@link HasJsonNode#toJsonNode(List)}.
+     * Essentially the inverse of {@link HasJsonNode#toJsonNodeList(List)}.
      */
     static <T> Set<T> fromJsonNodeSet(final JsonNode node,
                                       final Class<T> elementType) {
@@ -386,6 +386,13 @@ abstract class HasJsonNodeMapper<T> {
     final static JsonNodeName TYPE = JsonNodeName.with("type");
 
     // toJsonNode.........................................................................................................
+
+    /**
+     * Accepts an {@link Object} and creates a {@link JsonNode} equivalent. The inverse operation would be {@link #fromJsonNode(JsonNode, Class)}.
+     */
+    static JsonNode toJsonNodeObject(final Object object) {
+        return JsonNode.wrapOrFail(object);
+    }
 
     /**
      * Accepts a {@link List} of elements which are assumed to be the same type and creates a {@link JsonArrayNode}. Each element

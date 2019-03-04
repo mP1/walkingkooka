@@ -113,6 +113,14 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
     }
 
     @Test
+    public void testToJsonNodeObject() {
+        final Color color = Color.fromRgb(0x123);
+
+        assertEquals(color.toJsonNode(),
+                HasJsonNode.toJsonNodeObject(color.toJsonNode()));
+    }
+
+    @Test
     public void testToJsonNodeWithTypeList() {
         final Color color = Color.fromRgb(0x123);
 
