@@ -66,8 +66,6 @@ final class GeneralSpreadsheetTextFormatter implements SpreadsheetTextFormatter<
     }
 
     private Optional<SpreadsheetFormattedText> formatNonText(final Object value, final SpreadsheetTextFormatContext context) {
-        Optional<SpreadsheetFormattedText> result;
-
         final BigDecimal bigDecimal = this.toBigDecimal(value, context);
         final String text = this.decimalFormatConverter(context)
                 .convert(bigDecimal, String.class, ConverterContexts.basic(context));

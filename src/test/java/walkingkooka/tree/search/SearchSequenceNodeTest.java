@@ -414,10 +414,6 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
         return SearchSequenceNode.with(this.children());
     }
 
-    private SearchSequenceNode createSearchNode(final SearchNode...children) {
-        return SearchSequenceNode.with(Lists.of(children));
-    }
-
     @Override
     List<SearchNode> children() {
         return Lists.of(this.child1(), this.child2());

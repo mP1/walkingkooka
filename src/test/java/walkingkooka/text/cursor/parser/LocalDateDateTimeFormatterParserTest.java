@@ -81,7 +81,7 @@ public final class LocalDateDateTimeFormatterParserTest extends LocalDateTimeFor
 
     @Test
     public void testYearSeparatorMonthSeparatorDay() {
-        final LocalDate d = LocalDate.parse("2001-12-31", this.formatter());
+        LocalDate.parse("2001-12-31", this.formatter());
         this.parseAndCheck2("2001-12-31");
     }
 

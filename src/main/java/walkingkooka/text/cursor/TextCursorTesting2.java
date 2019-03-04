@@ -139,7 +139,6 @@ public interface TextCursorTesting2<C extends TextCursor>
         final C cursor = this.createTextCursor("text\nnext");
         cursor.next();
 
-        final TextCursorLineInfo info = cursor.lineInfo();
         this.lineInfoCheck(cursor, "text", 1, 2);
     }
 

@@ -429,8 +429,6 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetCollectionWildcardWithRelationSelf() {
-        final Latch getted = Latch.create();
-
         this.routeGetHandleAndCheck((b) -> this.addGetCollectionHandler(b, ALL, JSON2),
                 "/api/resource1/*/self?param1=value1",
                 this.contentType(),
@@ -441,8 +439,6 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
 
     @Test
     public void testGetCollectionWildcardWithoutRelationDefaultsSelf() {
-        final Latch getted = Latch.create();
-
         this.routeGetHandleAndCheck((b) -> this.addGetCollectionHandler(b, ALL, JSON2),
                 "/api/resource1/*?param1=value1",
                 this.contentType(),

@@ -47,8 +47,6 @@ final class HasJsonNodeMapMapper extends HasJsonNodeMapper2<Map<?, ?>> {
                         .collect(Collectors.toList()));
     }
 
-    private final static HasJsonNodeMapMapper MAPPER = instance();
-
     private static JsonNode toMapChildrenEntry(final Entry<?, ?> entry) {
         return JsonNode.object()
                 .set(ENTRY_KEY, toJsonNodeWithTypeObject(entry.getKey()))

@@ -116,22 +116,13 @@ public class RepeatedParserTest extends Parser2TestCase<RepeatedParser<ParserCon
         this.toStringAndCheck(this.createParser(), "{" + PARSER + "}");
     }
 
-    @Override public RepeatedParser<ParserContext> createParser() {
+    @Override
+    public RepeatedParser<ParserContext> createParser() {
         return RepeatedParser.with(PARSER);
     }
 
     private static StringParserToken string(final String s) {
         return ParserTokens.string(s, s);
-    }
-
-    private static String repeat(final String TEXT, final int count) {
-        final StringBuilder b = new StringBuilder();
-
-        for(int i = 0; i < count; i++) {
-            b.append(TEXT);
-        }
-
-        return b.toString();
     }
 
     @Override

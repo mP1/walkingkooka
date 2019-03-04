@@ -23,11 +23,6 @@ package walkingkooka.net.header;
  */
 final public class LanguageTagParameterName<V> extends HeaderParameterName<V> implements Comparable<LanguageTagParameterName<?>> {
 
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
-            MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
-            true,
-            MediaTypeHeaderParser.UNQUOTED_PARAMETER_VALUE);
-
     private final static HeaderParameterNameConstants<LanguageTagParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             LanguageTagParameterName::new,
             HeaderValueConverter.quotedUnquotedString(

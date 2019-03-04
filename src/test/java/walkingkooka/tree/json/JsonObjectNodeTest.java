@@ -307,10 +307,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
         final JsonObjectNode empty = JsonNode.object();
 
-        final JsonObjectNode zzz = empty.set(key1, value1)
-                .set(key2, value2)
-                .remove(key1);
-
         final JsonObjectNode object = empty.set(key1, value1)
                 .set(key2, value2)
                 .remove(key1)

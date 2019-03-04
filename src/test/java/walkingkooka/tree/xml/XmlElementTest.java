@@ -80,7 +80,6 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
             ATTRIBUTE_NAME2,
             ATTRIBUTE_VALUE2);
 
-    private final static Map<XmlAttributeName, String> ATTRIBUTES_NS1 = Maps.one(ATTRIBUTE_NAME_NS1, ATTRIBUTE_VALUE1);
     private final static Map<XmlAttributeName, String> ATTRIBUTES_NS2 = attributes(ATTRIBUTE_NAME_NS1,
             ATTRIBUTE_VALUE1,
             ATTRIBUTE_NAME_NS2,
@@ -428,10 +427,10 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
         final DocumentBuilder b1 = this.documentBuilder();
         final DocumentBuilder b2 = this.documentBuilder();
         final XmlDocument root1 = XmlNode.createDocument(b1);
-        final XmlDocument root2 = XmlNode.createDocument(b1);
+        final XmlDocument root2 = XmlNode.createDocument(b2);
 
         final XmlElement element1 = root1.createElement(XmlName.element("element1"));
-        final XmlElement element2 = root1.createElement(XmlName.element("element2"));
+        final XmlElement element2 = root2.createElement(XmlName.element("element2"));
 
         element1.appendChild(element2);
     }

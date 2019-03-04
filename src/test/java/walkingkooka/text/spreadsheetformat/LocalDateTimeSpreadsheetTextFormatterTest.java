@@ -35,8 +35,6 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
         LocalDateTime,
         SpreadsheetFormatDateTimeParserToken> {
 
-    private final static String GENERAL_FORMATTED = "GeneralFormatted";
-
     // year.............................................................................................
 
     @Test

@@ -44,28 +44,27 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
 
     @Test
     public void testHasNextAndNextConsole() {
-        this.iterateAndCheck(TRANSPORT, METHOD, PROTOCOL, true);
+        this.iterateAndCheck(TRANSPORT, METHOD, PROTOCOL);
     }
 
     @Test
     public void testHasNextAndNextConsole2() {
-        this.iterateAndCheck(HttpTransport.SECURED, HttpMethod.GET, HttpProtocolVersion.VERSION_1_0, true);
+        this.iterateAndCheck(HttpTransport.SECURED, HttpMethod.GET, HttpProtocolVersion.VERSION_1_0);
     }
 
     @Test
     public void testNextConsole() {
-        this.iterateAndCheck(TRANSPORT, METHOD, PROTOCOL, false);
+        this.iterateAndCheck(TRANSPORT, METHOD, PROTOCOL);
     }
 
     @Test
     public void testNextConsole2() {
-        this.iterateAndCheck(HttpTransport.SECURED, HttpMethod.GET, HttpProtocolVersion.VERSION_1_0, false);
+        this.iterateAndCheck(HttpTransport.SECURED, HttpMethod.GET, HttpProtocolVersion.VERSION_1_0);
     }
 
     private void iterateAndCheck(final HttpTransport transport,
                                  final HttpMethod method,
-                                 final HttpProtocolVersion version,
-                                 final boolean hasNext) {
+                                 final HttpProtocolVersion version) {
         final RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator iterator = this.createIterator(transport, method, version);
 
         this.hasNextCheckTrue(iterator, "iterator should have 3 entries");

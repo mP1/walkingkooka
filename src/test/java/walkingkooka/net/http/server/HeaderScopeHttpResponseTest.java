@@ -20,7 +20,6 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -32,11 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCase<HeaderScopeHttpResponse> {
-
-    private final static HttpHeaderName<String> HEADER = HttpHeaderName.SERVER;
-    private final static String VALUE = "Server 123";
-    private final static String TOSTRING = HeaderScopeHttpResponseTest.class.getSimpleName() + ".toString";
-
 
     @Test
     public void testSetStatus() {

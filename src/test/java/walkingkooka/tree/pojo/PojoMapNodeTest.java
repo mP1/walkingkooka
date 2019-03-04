@@ -39,17 +39,14 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     private final static String KEY0 = "key0";
     private final static String KEY1 = "key1";
     private final static String KEY2 = "key2";
-    private final static String KEY3 = "key3";
 
     private final static String VALUE0 = "value0";
     private final static String VALUE1 = "value1";
     private final static String VALUE2 = "value2";
-    private final static String VALUE3 = "value3";
 
     private final static Entry<Object, Object> ENTRY0 = Maps.entry(KEY0, VALUE0);
     private final static Entry<Object, Object> ENTRY1 = Maps.entry(KEY1, VALUE1);
     private final static Entry<Object, Object> ENTRY2 = Maps.entry(KEY2, VALUE2);
-    private final static Entry<Object, Object> ENTRY3 = Maps.entry(KEY3, VALUE3);
 
     // children.......................................................................................................
 

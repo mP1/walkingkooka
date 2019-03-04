@@ -182,7 +182,7 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
                 this.characterFromTerminal(token.cast()) :
                 token.isIdentifier() ?
                         this.characterFromIdentifierReference(token.cast()) :
-                        failInvalidRangeBound("Invalid range bound, expected terminal or identifier indirectly pointing to a terminal but got " + token, token);
+                        failInvalidRangeBound("Invalid range bound, expected terminal or identifier indirectly pointing to a terminal but got " + token);
     }
 
     private char characterFromIdentifierReference(final EbnfIdentifierParserToken identifier) {
@@ -194,12 +194,12 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
         final String value = terminal.value();
         final CharSequence unescaped = CharSequences.unescape(value);
         if(unescaped.length() != 1) {
-            failInvalidRangeBound("The range terminal does not contain a single character=" + terminal, terminal);
+            failInvalidRangeBound("The range terminal does not contain a single character=" + terminal);
         }
         return unescaped.charAt(0);
     }
 
-    private static char failInvalidRangeBound(final String message, final EbnfParserToken token) {
+    private static char failInvalidRangeBound(final String message) {
         throw new IllegalArgumentException(message);
     }
 

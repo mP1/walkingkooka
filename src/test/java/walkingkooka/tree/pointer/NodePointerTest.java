@@ -48,8 +48,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     private final static JsonNodeName DEF = JsonNodeName.with("def");
     private final static JsonNodeName GHI = JsonNodeName.with("ghi");
     private final static JsonNodeName JKL = JsonNodeName.with("jkl");
-    private final static JsonNodeName TILDE = JsonNodeName.with("tilde~0");
-    private final static JsonNodeName SLASH = JsonNodeName.with("slash~1");
+
     private final static Function<String, JsonNodeName> NAME_FACTORY = (s -> JsonNodeName.with(s));
 
     private final static String TEXT = "text123";

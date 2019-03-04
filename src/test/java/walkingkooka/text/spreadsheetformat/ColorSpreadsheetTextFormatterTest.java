@@ -133,14 +133,6 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
         return SpreadsheetTextFormatContexts.fake();
     }
 
-    private Color red() {
-        return Color.fromRgb(0x0FF);
-    }
-
-    private Color color12() {
-        return Color.fromRgb(0x00F);
-    }
-
     @Override
     public Class<ColorSpreadsheetTextFormatter<String>> type() {
         return Cast.to(ColorSpreadsheetTextFormatter.class);
