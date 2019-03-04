@@ -65,7 +65,7 @@ final public class CustomToStringNodeSelectorTest
         final CustomToStringNodeSelector custom = this.createSelector(wrapped, TOSTRING);
 
         final String toString2 = "CustomToString2";
-        final CustomToStringNodeSelector again = this.createSelector(wrapped, toString2);
+        final CustomToStringNodeSelector again = this.createSelector(custom, toString2);
         assertEquals(wrapped, again.selector, "selector");
         assertEquals(toString2, again.toString(), "toString");
     }

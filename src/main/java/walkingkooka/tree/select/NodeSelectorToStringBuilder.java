@@ -53,13 +53,13 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
 
     void self() {
         this.commit();
-        this.appendSeparator(true);
+        this.appendSeparator();
         this.b.append('.');
     }
 
     void parent() {
         this.commit();
-        this.appendSeparator(true);
+        this.appendSeparator();
         this.b.append("..");
     }
 
@@ -106,7 +106,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
                 (null != predicate ? 4 : 0);
 
         if(action > 0) {
-            this.appendSeparator(false);
+            this.appendSeparator();
         }
 
         final StringBuilder b = this.b;
@@ -151,7 +151,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         }
     }
 
-    private void appendSeparator(final boolean skipInitial) {
+    private void appendSeparator() {
         final StringBuilder b = this.b;
 
         final PathSeparator separator = this.separator;

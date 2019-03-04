@@ -141,10 +141,6 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
         this.toStringAndCheck(RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(iterator), iterator.toString());
     }
 
-    private RouterHttpRequestParametersMapHttpHeaderEntryIterator createIterator() {
-        return this.createIterator(this.headers2());
-    }
-
     private RouterHttpRequestParametersMapHttpHeaderEntryIterator createIterator(final Map<HttpHeaderName<?>, Object> headers) {
         return RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(headers.entrySet().iterator());
     }

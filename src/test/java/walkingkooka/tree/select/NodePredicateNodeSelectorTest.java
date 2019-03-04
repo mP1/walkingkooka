@@ -83,6 +83,4 @@ final public class NodePredicateNodeSelectorTest extends
                                                                                                final NodeSelector<TestNode, StringName, StringName, Object> selector) {
         return Cast.to(NodePredicateNodeSelector.with(node).append(selector));
     }
-
-    private final TestNode node = TestNode.with("node1");
 }

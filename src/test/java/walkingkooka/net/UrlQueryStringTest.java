@@ -456,10 +456,6 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
 
     // UrlQueryString.parameters().get() -> List
 
-    private void parametersGetAbsent(final UrlQueryString queryString, final String key) {
-        parametersGetAndCheck0(queryString, key, Lists.empty());
-    }
-
     private void parametersGetAndCheck(final UrlQueryString queryString, final String key, final String...values) {
         parametersGetAndCheck0(queryString, key, Lists.of(values));
     }

@@ -40,7 +40,7 @@ public final class BeanPropertiesTesting {
     public static void allPropertiesNeverReturnNullCheck(final Object object,
                                                          final Predicate<Method> skip) throws Exception {
         final List<Method> properties = Arrays.stream(object.getClass().getMethods())
-                .filter((m) -> propertiesNeverReturnNullCheckFilter(m, object, skip))
+                .filter((m) -> propertiesNeverReturnNullCheckFilter(m, skip))
                 .collect(Collectors.toList());
         assertNotEquals(0,
                 properties.size(),
@@ -56,7 +56,6 @@ public final class BeanPropertiesTesting {
      * Keep instance methods, that return something, take no parameters, arent a Object member.
      */
     private static boolean propertiesNeverReturnNullCheckFilter(final Method method,
-                                                                final Object object,
                                                                 final Predicate<Method> skip) {
         return !MethodAttributes.STATIC.is(method) &&
                 method.getReturnType() != Void.class &&

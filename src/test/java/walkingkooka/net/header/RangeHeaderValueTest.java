@@ -209,7 +209,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     private void parseFails2(final String text) {
-        this.parseFails("bytes=100-150,200-250,225-300", HeaderValueException.class);
+        this.parseFails(text, HeaderValueException.class);
     }
 
     @Test
