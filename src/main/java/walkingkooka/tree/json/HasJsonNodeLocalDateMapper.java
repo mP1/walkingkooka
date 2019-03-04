@@ -43,7 +43,7 @@ final class HasJsonNodeLocalDateMapper extends HasJsonNodeMapper2<LocalDate> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("local-date");
 
     @Override
-    JsonNode toJsonNodeObjectValue(final LocalDate value) {
+    JsonNode toJsonNode0(final LocalDate value) {
         return JsonNode.string(value.toString());
     }
 }

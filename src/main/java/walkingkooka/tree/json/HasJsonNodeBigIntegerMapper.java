@@ -43,7 +43,7 @@ final class HasJsonNodeBigIntegerMapper extends HasJsonNodeMapper2<BigInteger> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("big-integer");
 
     @Override
-    JsonNode toJsonNodeObjectValue(final BigInteger value) {
+    JsonNode toJsonNode0(final BigInteger value) {
         return JsonNode.string(value.toString());
     }
 }

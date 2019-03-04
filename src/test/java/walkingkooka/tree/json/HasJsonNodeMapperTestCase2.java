@@ -52,13 +52,18 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
     }
 
     @Test
-    public final void testToJsonNodeNull() {
+    public final void testToJsonNodeWithNull() {
         this.toJsonNodeAndCheck(null, JsonNode.nullNode());
     }
 
     @Test
     public final void testToJsonNode() {
-        this.toJsonNodeAndCheck(this.value(), this.nodeWithType());
+        this.toJsonNodeAndCheck(this.value(), this.node());
+    }
+
+    @Test
+    public final void testToJsonNodeWithTypeNull() {
+        this.toJsonNodeWithTypeAndCheck(null, JsonNode.nullNode());
     }
 
     @Test
@@ -67,30 +72,55 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
     }
 
     @Test
-    public final void testRoundtripValue() {
-        final T value = this.value();
-
-        assertEquals(value,
-                HasJsonNodeMapper.fromJsonNodeWithType(this.mapper().toJsonNode(value)),
-                () -> "rountrip starting with value failed " + value);
+    public final void testToJsonNodeWithType2() {
+        this.toJsonNodeWithTypeObjectAndCheck(this.value(), this.nodeWithType());
     }
 
     @Test
-    public final void testRoundtripNodeWithType() {
-        final JsonNode maybe = this.nodeWithType();
+    public final void testRoundtripMapperToJsonNodeWithTypeFromJsonNodeWithType() {
+        final T value = this.value();
 
-        assertEquals(maybe,
-                this.mapper().toJsonNode(HasJsonNodeMapper.fromJsonNodeWithType(maybe)),
-                () -> "rountrip starting with node failed " + this.node());
+        final JsonNode json = this.mapper().toJsonNodeWithType(value);
+
+        assertEquals(value,
+                HasJsonNodeMapper.fromJsonNodeWithType(json),
+                () -> "roundtrip starting with value failed fromValue: " + value + " -> json: " + json);
     }
 
     @Test
-    public final void testRoundtrip() {
+    public final void testRoundtripFromJsonNodeWithTypeMapperToJsonNodeWithType() {
+        final JsonNode json = this.nodeWithType();
+
+        final T value = HasJsonNodeMapper.fromJsonNodeWithType(json);
+
+        assertEquals(json,
+                this.mapper().toJsonNodeWithType(value),
+                () -> "roundtrip starting with node failed, json: " + json + " -> value:: " + value);
+    }
+
+    @Test
+    public final void testRoundtripToJsonNodeWithTypeObjectFromJsonNodeWithType() {
         final T value = this.value();
 
+        final JsonNode json = HasJsonNodeMapper.toJsonNodeWithTypeObject(value);
+
         assertEquals(value,
-                HasJsonNodeMapper.fromJsonNodeWithType(HasJsonNodeMapper.toJsonNodeWithType(value)),
-                () -> "rountrip starting with value failed " + value);
+                HasJsonNodeMapper.fromJsonNodeWithType(json),
+                () -> "roundtrip starting with value failed, value: " + value + " -> json: " + json);
+    }
+
+    /**
+     * Overridden to ignore by List, Map, Set.
+     */
+    @Test
+    public void testRoundtripToJsonNodeObjectFromJsonNodeWithType() {
+        final T value = this.value();
+        final Class<?> valueType = value.getClass();
+        final JsonNode json = HasJsonNodeMapper.toJsonNodeObject(value);
+
+        assertEquals(value,
+                HasJsonNodeMapper.fromJsonNode(json, valueType),
+                () -> "roundtrip starting with value failed, value: " + value + " " + valueType.getName() + " -> json: " + json);
     }
 
     @Test
@@ -138,13 +168,15 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
                 () -> "fromJsonNode failed " + node);
     }
 
-    final void toJsonNodeFailed(final T value, final Class<? extends Throwable> thrown) {
+    final void toJsonNodeWithTypeFailed(final T value,
+                                        final Class<? extends Throwable> thrown) {
         assertThrows(thrown, () -> {
-            this.mapper().toJsonNode(value);
+            this.mapper().toJsonNodeWithType(value);
         });
     }
 
-    final void toJsonNodeAndCheck(final T value, final JsonNode node) {
+    final void toJsonNodeAndCheck(final T value,
+                                  final JsonNode node) {
         this.toJsonNodeAndCheck(this.mapper(), value, node);
     }
 
@@ -156,10 +188,24 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
                 () -> "toJsonNode failed " + node);
     }
 
-    final void toJsonNodeWithTypeAndCheck(final T value, final JsonNode node) {
+    final void toJsonNodeWithTypeAndCheck(final T value,
+                                          final JsonNode node) {
+        this.toJsonNodeWithTypeAndCheck(this.mapper(), value, node);
+    }
+
+    final void toJsonNodeWithTypeAndCheck(final HasJsonNodeMapper<T> mapper,
+                                          final T value,
+                                          final JsonNode node) {
         assertEquals(node,
-                HasJsonNode.toJsonNodeWithType(value),
-                () -> "HasJsonNode.toJsonNodeWithType failed " + node);
+                mapper.toJsonNodeWithType(value),
+                () -> "toJsonNodeWithType failed " + node);
+    }
+
+    final void toJsonNodeWithTypeObjectAndCheck(final T value,
+                                                final JsonNode node) {
+        assertEquals(node,
+                HasJsonNodeMapMapper.toJsonNodeWithTypeObject(value),
+                () -> "HasJsonNode.toJsonNodeWithTypeObject failed " + node);
     }
 
     abstract String typeName();

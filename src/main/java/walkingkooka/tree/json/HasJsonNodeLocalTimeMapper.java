@@ -43,7 +43,7 @@ final class HasJsonNodeLocalTimeMapper extends HasJsonNodeMapper2<LocalTime> {
     private final JsonStringNode TYPE_NAME = JsonStringNode.with("local-time");
 
     @Override
-    JsonNode toJsonNodeObjectValue(final LocalTime value) {
+    JsonNode toJsonNode0(final LocalTime value) {
         return JsonNode.string(value.toString());
     }
 }

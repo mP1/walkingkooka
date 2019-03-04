@@ -37,7 +37,7 @@ public final class HasJsonNodeLongMapperTest extends HasJsonNodeMapperTestCase2<
 
     @Override
     JsonNode node() {
-        return JsonNode.wrapLong(this.value());
+        return JsonNode.string("0x" + Long.toHexString(this.value()));
     }
 
     @Override

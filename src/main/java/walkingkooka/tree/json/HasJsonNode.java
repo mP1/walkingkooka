@@ -184,7 +184,7 @@ public interface HasJsonNode {
      * Supports all basic types such as primitive wrappers including null, {@link String} and implementations of {@link HasJsonNode}.
      */
     static JsonNode toJsonNodeWithType(final Object object) {
-        return HasJsonNodeMapper.toJsonNodeWithType(object);
+        return HasJsonNodeMapper.toJsonNodeWithTypeObject(object);
     }
 
     /**

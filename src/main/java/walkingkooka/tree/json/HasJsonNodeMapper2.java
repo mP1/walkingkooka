@@ -27,9 +27,9 @@ abstract class HasJsonNodeMapper2<T> extends HasJsonNodeMapper<T> {
     abstract T fromJsonNode0(final JsonNode node);
 
     @Override
-    final JsonNode toJsonNode0(final T value) {
+    final JsonNode toJsonNodeWithType0(final T value) {
         return this.objectWithType()
-                .set(HasJsonNodeMapper.VALUE, this.toJsonNodeObjectValue(value));
+                .set(HasJsonNodeMapper.VALUE, this.toJsonNode0(value));
     }
 
     /**
@@ -45,6 +45,4 @@ abstract class HasJsonNodeMapper2<T> extends HasJsonNodeMapper<T> {
     }
 
     private JsonObjectNode objectWithType;
-
-    abstract JsonNode toJsonNodeObjectValue(final T value);
 }

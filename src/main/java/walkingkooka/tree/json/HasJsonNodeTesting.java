@@ -118,7 +118,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
         assertEquals(
                 map2,
-                HasJsonNode.fromJsonNodeWithType(HasJsonNodeMapper.toJsonNodeWithType(map2)),
+                HasJsonNode.fromJsonNodeWithType(HasJsonNodeMapper.toJsonNodeWithTypeObject(map2)),
                 () -> "Roundtrip to -> from -> to failed map=" + map);
     }
 

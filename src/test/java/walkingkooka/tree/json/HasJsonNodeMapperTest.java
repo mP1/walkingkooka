@@ -95,7 +95,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testFromJsonNodeAndTypeByteWithTypeFail() {
-        this.fromJsonNodeAndTypeAndFail(HasJsonNodeMapMapper.toJsonNodeWithType((byte) 1), Byte.class, JsonNodeException.class);
+        this.fromJsonNodeAndTypeAndFail(HasJsonNodeMapMapper.toJsonNodeWithTypeObject((byte) 1), Byte.class, JsonNodeException.class);
     }
 
     @Test
@@ -110,7 +110,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testFromJsonNodeAndTypeLong() {
-        this.fromJsonNodeAndTypeAndCheck(JsonNode.wrapLong(1), 1L);
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.string("0x123"), 0x123L);
     }
 
     @Test
@@ -269,7 +269,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     private <E> void fromJsonNodeListAndCheck(final E value,
                                               final Class<E> elementType) {
         this.fromJsonNodeListAndCheck(JsonNode.array()
-                        .appendChild(JsonNode.wrapOrFail(value)),
+                        .appendChild(HasJsonNode.toJsonNodeObject(value)),
                 elementType,
                 Lists.of(value));
     }
@@ -383,7 +383,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     private <E> void fromJsonNodeSetAndCheck(final E value,
                                              final Class<E> elementType) {
         this.fromJsonNodeSetAndCheck(JsonNode.array()
-                        .appendChild(JsonNode.wrapOrFail(value)),
+                        .appendChild(HasJsonNodeMapper.toJsonNodeObject(value)),
                 elementType,
                 Sets.of(value));
     }
@@ -504,8 +504,8 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
                                                 final Class<V> valueType) {
         this.fromJsonNodeMapAndCheck(JsonNode.array()
                         .appendChild(JsonNode.object()
-                                .set(HasJsonNodeMapper.ENTRY_KEY, JsonNode.wrapOrFail(key))
-                                .set(HasJsonNodeMapper.ENTRY_VALUE, JsonNode.wrapOrFail(value))),
+                                .set(HasJsonNodeMapper.ENTRY_KEY, HasJsonNodeMapper.toJsonNodeObject(key))
+                                .set(HasJsonNodeMapper.ENTRY_VALUE, HasJsonNodeMapper.toJsonNodeObject(value))),
                 Maps.one(key, value),
                 keyType,
                 valueType);
@@ -1177,7 +1177,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     private void toJsonNodeObjectAndCheck(final Object value, final JsonNode expected) {
         assertEquals(expected,
-                HasJsonNodeMapper.toJsonNodeWithType(value),
+                HasJsonNodeMapper.toJsonNodeWithTypeObject(value),
                 "value " + CharSequences.quoteIfChars(value) + " toJsonNodeObject failed");
     }
     
@@ -1297,7 +1297,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     private void toJsonNodeWithTypeAndCheck(final Object value, final JsonNode expected) {
         assertEquals(expected,
-                HasJsonNodeMapper.toJsonNodeWithType(value),
+                HasJsonNodeMapper.toJsonNodeWithTypeObject(value),
                 "value " + CharSequences.quoteIfChars(value) + " toJsonNodeWithType failed");
     }
 
@@ -1395,7 +1395,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     }
 
     private JsonNode typeNameAndValue(final long value) {
-        return this.typeNameAndValue("long", JsonNode.wrapLong(value));
+        return this.typeNameAndValue("long", JsonNode.string("0x" + Long.toHexString(value)));
     }
 
     private JsonNode typeNameAndValue(final Class<?> type, final JsonNode value) {
@@ -1416,7 +1416,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     private void roundtripAndCheck(final Object value) {
         assertEquals(value,
-                HasJsonNodeMapper.fromJsonNodeWithType(HasJsonNodeMapper.toJsonNodeWithType(value)),
+                HasJsonNodeMapper.fromJsonNodeWithType(HasJsonNodeMapper.toJsonNodeWithTypeObject(value)),
                 () -> "roundtrip " + value);
     }
 

@@ -51,8 +51,8 @@ final class HasJsonNodeMapMapper extends HasJsonNodeMapper2<Map<?, ?>> {
 
     private static JsonNode toMapChildrenEntry(final Entry<?, ?> entry) {
         return JsonNode.object()
-                .set(ENTRY_KEY, toJsonNodeWithType(entry.getKey()))
-                .set(ENTRY_VALUE, toJsonNodeWithType(entry.getValue()));
+                .set(ENTRY_KEY, toJsonNodeWithTypeObject(entry.getKey()))
+                .set(ENTRY_VALUE, toJsonNodeWithTypeObject(entry.getValue()));
     }
 
     private HasJsonNodeMapMapper() {
@@ -97,7 +97,7 @@ final class HasJsonNodeMapMapper extends HasJsonNodeMapper2<Map<?, ?>> {
     private final JsonStringNode JSON_STRING_NODE = JsonStringNode.with("map");
 
     @Override
-    JsonNode toJsonNodeObjectValue(final Map<?, ?> map) {
+    JsonNode toJsonNode0(final Map<?, ?> map) {
         return JsonNode.array()
                 .setChildren(map.entrySet()
                         .stream()

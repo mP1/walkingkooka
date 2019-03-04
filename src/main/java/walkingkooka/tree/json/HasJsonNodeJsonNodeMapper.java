@@ -49,7 +49,7 @@ final class HasJsonNodeJsonNodeMapper<T extends JsonNode> extends HasJsonNodeMap
     private final JsonStringNode typeName;
 
     @Override
-    JsonNode toJsonNodeObjectValue(final T value) {
+    JsonNode toJsonNode0(final T value) {
         return value;
     }
 }
