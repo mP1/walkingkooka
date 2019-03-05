@@ -20,10 +20,14 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.color.Color;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -324,6 +328,489 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 expected);
     }
 
+    // HasJsonNode.......................................................................................
+
+    @Test
+    public void testFromJsonNodeWithType() {
+        this.fromJsonNodeWithTypeAndFail(JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeList() {
+        this.fromJsonNodeWithTypeListAndCheck(JsonNode.array(), Lists.empty());
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeList2() {
+        final String string = "abc123";
+
+        this.fromJsonNodeWithTypeListAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string(string)),
+                Lists.of(string));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSet() {
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array(), Sets.empty());
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSet2() {
+        final String string = "abc123";
+
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string(string)),
+                Sets.of(string));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMap() {
+        this.fromJsonNodeWithTypeMapAndCheck(JsonNode.array(),
+                Maps.empty());
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMap2() {
+        final String key = "key1";
+        final Color value = Color.fromRgb(0x123);
+
+        this.fromJsonNodeWithTypeMapAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNodeMapper.ENTRY_KEY, JsonNode.string(key))
+                                .set(HasJsonNodeMapper.ENTRY_VALUE, value.toJsonNodeWithType())),
+                Maps.one(key, value));
+    }
+
+    @Test
+    public void testFromJsonNodeListBoolean() {
+        this.fromJsonNodeListAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.booleanNode(true))
+                        .appendChild(JsonNode.booleanNode(false)),
+                Boolean.class,
+                Lists.of(true, false));
+    }
+
+    @Test
+    public void testFromJsonNodeListByte() {
+        this.fromJsonNodeListNumberAndCheck((byte)1, Byte.MAX_VALUE, Byte.MIN_VALUE, Byte.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListShort() {
+        this.fromJsonNodeListNumberAndCheck((short)1, Short.MAX_VALUE, Short.MIN_VALUE, Short.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListInteger() {
+        this.fromJsonNodeListNumberAndCheck(1, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListLong() {
+        this.fromJsonNodeListNumberAndCheck(1L, 2L, -3L, Long.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListFloat() {
+        this.fromJsonNodeListNumberAndCheck(1.0f, Float.MAX_VALUE, Float.MIN_VALUE, Float.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListDouble() {
+        this.fromJsonNodeListNumberAndCheck(1.0, Double.MAX_VALUE, Double.MIN_VALUE, Double.class);
+    }
+    
+    private <N extends Number> void fromJsonNodeListNumberAndCheck(final N number1,
+                                                final N number2,
+                                                final N number3,
+                                                                   final Class<N> type) {
+        this.fromJsonNodeListAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.number(number1.doubleValue()))
+                        .appendChild(JsonNode.number(number2.doubleValue()))
+                        .appendChild(JsonNode.number(number3.doubleValue())),
+                type,
+                Lists.of(number1, number2, number3));
+    }
+
+    @Test
+    public void testFromJsonNodeListString() {
+        final String string1 = "a1";
+        final String string2 = "b2";
+        final String string3 = "c3";
+
+        this.fromJsonNodeListAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string(string1))
+                        .appendChild(JsonNode.string(string2))
+                        .appendChild(JsonNode.string(string3)),
+                String.class,
+                Lists.of(string1, string2, string3));
+    }
+
+    @Test
+    public void testFromJsonNodeListHasJson() {
+        final Color color1 = Color.fromRgb(0x122);
+        final Color color2 = Color.fromRgb(0x222);
+        final Color color3 = Color.fromRgb(0x333);
+
+        this.fromJsonNodeListAndCheck(JsonNode.array()
+                        .appendChild(color1.toJsonNode())
+                        .appendChild(color2.toJsonNode())
+                        .appendChild(color3.toJsonNode()),
+                Color.class,
+                Lists.of(color1, color2, color3));
+    }
+
+    @Test
+    public void testFromJsonNodeListJsonNode() {
+        final JsonNode json1 = JsonNode.booleanNode(true);
+        //final JsonNode json2 = JsonNode.nullNode();
+        final JsonNode json3 = JsonNode.number(123.5);
+        final JsonNode json4 = JsonNode.string("abc123");
+        final JsonNode json5 = JsonNode.array()
+                .appendChild(JsonNode.number(2));
+        final JsonNode json6 = JsonNode.object();
+
+        this.fromJsonNodeListAndCheck(JsonNode.array()
+                        .appendChild(json1)
+                        //              .appendChild(json2)
+                        .appendChild(json3)
+                        .appendChild(json4)
+                        .appendChild(json5)
+                        .appendChild(json6),
+                JsonNode.class,
+                Lists.of(json1, json3, json4, json5, json6));
+    }
+
+    @Test
+    public void testFromJsonNodeSetBoolean() {
+        this.fromJsonNodeSetAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.booleanNode(true))
+                        .appendChild(JsonNode.booleanNode(false)),
+                Boolean.class,
+                Sets.of(true, false));
+    }
+
+    @Test
+    public void testFromJsonNodeSetByte() {
+        this.fromJsonNodeSetNumberAndCheck((byte)1, Byte.MAX_VALUE, Byte.MIN_VALUE, Byte.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetShort() {
+        this.fromJsonNodeSetNumberAndCheck((short)1, Short.MAX_VALUE, Short.MIN_VALUE, Short.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetInteger() {
+        this.fromJsonNodeSetNumberAndCheck(1, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetLong() {
+        this.fromJsonNodeSetNumberAndCheck(1L, 2L, -3L, Long.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetFloat() {
+        this.fromJsonNodeSetNumberAndCheck(1.0f, Float.MAX_VALUE, Float.MIN_VALUE, Float.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetDouble() {
+        this.fromJsonNodeSetNumberAndCheck(1.0, Double.MAX_VALUE, Double.MIN_VALUE, Double.class);
+    }
+
+    private <N extends Number> void fromJsonNodeSetNumberAndCheck(final N number1,
+                                                                   final N number2,
+                                                                   final N number3,
+                                                                   final Class<N> type) {
+        this.fromJsonNodeSetAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.number(number1.doubleValue()))
+                        .appendChild(JsonNode.number(number2.doubleValue()))
+                        .appendChild(JsonNode.number(number3.doubleValue())),
+                type,
+                Sets.of(number1, number2, number3));
+    }
+
+    @Test
+    public void testFromJsonNodeSetString() {
+        final String string1 = "a1";
+        final String string2 = "b2";
+        final String string3 = "c3";
+
+        this.fromJsonNodeSetAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string(string1))
+                        .appendChild(JsonNode.string(string2))
+                        .appendChild(JsonNode.string(string3)),
+                String.class,
+                Sets.of(string1, string2, string3));
+    }
+
+    @Test
+    public void testFromJsonNodeSetHasJson() {
+        final Color color1 = Color.fromRgb(0x122);
+        final Color color2 = Color.fromRgb(0x222);
+        final Color color3 = Color.fromRgb(0x333);
+
+        this.fromJsonNodeSetAndCheck(JsonNode.array()
+                        .appendChild(color1.toJsonNode())
+                        .appendChild(color2.toJsonNode())
+                        .appendChild(color3.toJsonNode()),
+                Color.class,
+                Sets.of(color1, color2, color3));
+    }
+
+    @Test
+    public void testFromJsonNodeSetJsonNode() {
+        final JsonNode json1 = JsonNode.booleanNode(true);
+        //final JsonNode json2 = JsonNode.nullNode();
+        final JsonNode json3 = JsonNode.number(123.5);
+        final JsonNode json4 = JsonNode.string("abc123");
+        final JsonNode json5 = JsonNode.array()
+                .appendChild(JsonNode.number(2));
+        final JsonNode json6 = JsonNode.object();
+
+        this.fromJsonNodeSetAndCheck(JsonNode.array()
+                        .appendChild(json1)
+                        //              .appendChild(json2)
+                        .appendChild(json3)
+                        .appendChild(json4)
+                        .appendChild(json5)
+                        .appendChild(json6),
+                JsonNode.class,
+                Sets.of(json1, json3, json4, json5, json6));
+    }
+
+    // fromJsonNodeMap.....................................................................................
+
+    @Test
+    public void testFromJsonNodeMapBoolean() {
+        this.fromJsonNodeMapAndCheck(Boolean.TRUE, Boolean.FALSE, Boolean.class, Boolean.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMapNumber() {
+        this.fromJsonNodeMapAndCheck(1.0, 2.0, Number.class, Number.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMapString() {
+        this.fromJsonNodeMapAndCheck("key1", "value1", String.class, String.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMapHasJsonNode() {
+        this.fromJsonNodeMapAndCheck(Color.fromRgb(0x111),
+                Color.fromRgb(0x222),
+                Color.class,
+                Color.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMap2() {
+        final String key1 = "key1";
+        final Color value1 = Color.fromRgb(0x111);
+
+        final String key2 = "key2";
+        final Color value2 = Color.fromRgb(0x222);
+
+        final Map<String, Color> map = Maps.ordered();
+        map.put(key1, value1);
+        map.put(key2, value2);
+
+        this.fromJsonNodeMapAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNodeMapper.ENTRY_KEY, JsonNode.string(key1))
+                                .set(HasJsonNodeMapper.ENTRY_VALUE, value1.toJsonNode()))
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNodeMapper.ENTRY_KEY, JsonNode.string(key2))
+                                .set(HasJsonNodeMapper.ENTRY_VALUE, value2.toJsonNode())),
+                map,
+                String.class,
+                Color.class);
+    }
+
+    private <K, V> void fromJsonNodeMapAndCheck(final K key,
+                                                final V value,
+                                                final Class<K> keyType,
+                                                final Class<V> valueType) {
+        this.fromJsonNodeMapAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.object()
+                                .set(HasJsonNodeMapper.ENTRY_KEY, HasJsonNodeMapper.toJsonNodeObject(key))
+                                .set(HasJsonNodeMapper.ENTRY_VALUE, HasJsonNodeMapper.toJsonNodeObject(value))),
+                Maps.one(key, value),
+                keyType,
+                valueType);
+    }
+
+    private <K, V> void fromJsonNodeMapAndCheck(final JsonArrayNode node,
+                                                final Map<K, V> map,
+                                                final Class<K> keyType,
+                                                final Class<V> valueType) {
+        assertEquals(map,
+                node.fromJsonNodeMap(keyType, valueType),
+                () -> "fromJsonNode(Map) failed: " + node);
+    }
+
+    // fromJsonNodeWithType List, element type..........................................................................
+
+    @Test
+    public void testFromJsonNodeWithTypeListByte() {
+        this.fromJsonNodeWithTypeListAndCheck(Byte.MAX_VALUE, Byte.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeListShort() {
+        this.fromJsonNodeWithTypeListAndCheck(Short.MAX_VALUE, Short.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeListInteger() {
+        this.fromJsonNodeWithTypeListAndCheck(Integer.MAX_VALUE, Integer.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeListLong() {
+        this.fromJsonNodeWithTypeListAndCheck(Long.MAX_VALUE, Long.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeListFloat() {
+        this.fromJsonNodeWithTypeListAndCheck(Float.MAX_VALUE, Float.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeListDouble() {
+        this.fromJsonNodeWithTypeListAndCheck(Double.MAX_VALUE, Double.MIN_VALUE);
+    }
+
+    private void fromJsonNodeWithTypeListAndCheck(final Number number1,
+                                                  final Number number2) {
+        this.fromJsonNodeWithTypeListAndCheck(JsonNode.array()
+                        .appendChild(HasJsonNode.toJsonNodeWithType(number1))
+                        .appendChild(HasJsonNode.toJsonNodeWithType(number2)),
+                number1, number2);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeListString() {
+        final String string1 = "a1";
+        final String string2 = "b2";
+
+        this.fromJsonNodeWithTypeListAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string(string1))
+                        .appendChild(JsonNode.string(string2)),
+                string1, string2);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeListHasJsonNode() {
+        final Color color1 = Color.fromRgb(0x111);
+        final Color color2 = Color.fromRgb(0x222);
+
+        this.fromJsonNodeWithTypeListAndCheck(JsonNode.array()
+                        .appendChild(color1.toJsonNodeWithType())
+                        .appendChild(color2.toJsonNodeWithType()),
+                color1, color2);
+    }
+
+    private void fromJsonNodeWithTypeListAndCheck(final JsonArrayNode array,
+                                                  final Object... values) {
+        assertEquals(Lists.of(values),
+                array.fromJsonNodeWithTypeList(),
+                () -> "fromJsonNodeWithTypeList() failed: " + array);
+    }
+
+    // fromJsonNodeWithType Set, element type..........................................................................
+
+    @Test
+    public void testFromJsonNodeWithTypeSetBoolean() {
+        final Boolean boolean1 = true;
+        final Boolean boolean2 = false;
+
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.booleanNode(boolean1))
+                        .appendChild(JsonNode.booleanNode(boolean2)),
+                boolean1, boolean2);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetByte() {
+        this.fromJsonNodeWithTypeSetAndCheck(Byte.MAX_VALUE, Byte.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetShort() {
+        this.fromJsonNodeWithTypeSetAndCheck(Short.MAX_VALUE, Short.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetInteger() {
+        this.fromJsonNodeWithTypeSetAndCheck(Integer.MAX_VALUE, Integer.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetFloat() {
+        this.fromJsonNodeWithTypeSetAndCheck(Float.MAX_VALUE, Float.MIN_VALUE);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetDouble() {
+        this.fromJsonNodeWithTypeSetAndCheck(Double.MAX_VALUE, Double.MIN_VALUE);
+    }
+
+    private void fromJsonNodeWithTypeSetAndCheck(final Number number1,
+                                                 final Number number2) {
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
+                        .appendChild(HasJsonNode.toJsonNodeWithType(number1))
+                        .appendChild(HasJsonNode.toJsonNodeWithType(number2)),
+                number1, number2);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetLong() {
+        final Long long1 = 1L;
+        final Long long2 = 2L;
+
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
+                        .appendChild(HasJsonNode.toJsonNodeWithType(long1))
+                        .appendChild(HasJsonNode.toJsonNodeWithType(long2)),
+                long1, long2);
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
+                        .appendChild(HasJsonNode.toJsonNodeWithType(long1))
+                        .appendChild(HasJsonNode.toJsonNodeWithType(long2)),
+                long1, long2);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetString() {
+        final String string1 = "a1";
+        final String string2 = "b2";
+
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string(string1))
+                        .appendChild(JsonNode.string(string2)),
+                string1, string2);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeSetHasJsonNode() {
+        final Color color1 = Color.fromRgb(0x111);
+        final Color color2 = Color.fromRgb(0x222);
+
+        this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
+                        .appendChild(color1.toJsonNodeWithType())
+                        .appendChild(color2.toJsonNodeWithType()),
+                color1, color2);
+    }
+
+    private void fromJsonNodeWithTypeSetAndCheck(final JsonArrayNode array,
+                                                 final Object... values) {
+        assertEquals(Sets.of(values),
+                array.fromJsonNodeWithTypeSet(),
+                "fromJsonNodeWithTypeSet() failed: " + array);
+    }
+
     // toSearchNode .......................................................................................
 
     @Test
@@ -391,6 +878,11 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     }
 
     @Override
+    String nodeTypeName() {
+        return "json-array";
+    }
+
+    @Override
     Class<JsonArrayNode> jsonNodeType() {
         return JsonArrayNode.class;
     }
@@ -424,6 +916,14 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Override
     List<String> propertiesNeverReturnNullSkipProperties() {
-        return Lists.of(BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, OBJECT_OR_FAIL, STRING_VALUE_OR_FAIL, VALUE);
+        return Lists.of(BOOLEAN_VALUE_OR_FAIL,
+                FROM_WITH_TYPE_LIST,
+                FROM_WITH_TYPE_SET,
+                FROM_WITH_TYPE_MAP,
+                FROM_WITH_TYPE,
+                NUMBER_VALUE_OR_FAIL,
+                OBJECT_OR_FAIL,
+                STRING_VALUE_OR_FAIL,
+                VALUE);
     }
 }

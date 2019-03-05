@@ -18,15 +18,22 @@
 
 package walkingkooka.tree.json;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -155,6 +162,90 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
     }
 
     // HasJsonNode...............................................................................................
+
+    @Override 
+    <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
+        return fromJsonNodeCollection(elementType,
+                Collectors.toList());
+    }
+
+    @Override 
+    <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
+        return fromJsonNodeCollection(elementType,
+                Collectors.toCollection(Sets::ordered));
+    }
+
+    private <C extends Collection<T>, T> C fromJsonNodeCollection(final Class<T> elementType,
+                                                                  final Collector<T, ?, C> collector) {
+        final HasJsonNodeMapper<T> mapper = HasJsonNodeMapper.mapperOrFail(elementType);
+        return this.children()
+                .stream()
+                .map(n -> mapper.fromJsonNode(n))
+                .collect(collector);
+    }
+
+    @Override 
+    <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
+        final HasJsonNodeMapper<K> keyMapper = HasJsonNodeMapper.mapperOrFail(keyType);
+        final HasJsonNodeMapper<V> valueMapper = HasJsonNodeMapper.mapperOrFail(valueType);
+
+        final Map<K, V> map = Maps.ordered();
+
+        for (JsonNode entry : this.children()) {
+            JsonObjectNode entryObject;
+            try {
+                entryObject = entry.objectOrFail();
+            } catch (final JsonNodeException cause) {
+                throw new IllegalArgumentException(cause.getMessage(), cause);
+            }
+
+            map.put(keyMapper.fromJsonNode(entryObject.getOrFail(HasJsonNodeMapper.ENTRY_KEY)),
+                    valueMapper.fromJsonNode(entryObject.getOrFail(HasJsonNodeMapper.ENTRY_VALUE)));
+        }
+
+        return map;
+    }
+
+    @Override
+    public <T> List<T> fromJsonNodeWithTypeList() {
+        return this.fromJsonNodeWithTypeCollection(Collectors.toList());
+    }
+
+    @Override
+    public <T> Set<T> fromJsonNodeWithTypeSet() {
+        return this.fromJsonNodeWithTypeCollection(Collectors.toCollection(Sets::ordered));
+    }
+
+    private <C extends Collection<T>, T> C fromJsonNodeWithTypeCollection(final Collector<T, ?, C> collector) {
+        return this.children()
+                .stream()
+                .map(n -> Cast.<T>to(n.fromJsonNodeWithType()))
+                .collect(collector);
+    }
+
+    @Override
+    public <K, V> Map<K, V> fromJsonNodeWithTypeMap() {
+        final Map<K, V> map = Maps.ordered();
+
+        for (JsonNode child : this.children()) {
+            JsonObjectNode childObject;
+            try {
+                childObject = child.objectOrFail();
+            } catch (final JsonNodeException cause) {
+                throw new IllegalArgumentException(cause.getMessage(), cause);
+            }
+
+            map.put(childObject.getOrFail(HasJsonNodeMapper.ENTRY_KEY).fromJsonNodeWithType(),
+                    childObject.getOrFail(HasJsonNodeMapper.ENTRY_VALUE).fromJsonNodeWithType());
+        }
+
+        return map;
+    }
+
+    @Override
+    public <T> T fromJsonNodeWithType() {
+        return this.reportInvalidNodeObject();
+    }
 
     @Override
     JsonNodeName defaultName() {

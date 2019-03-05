@@ -53,6 +53,11 @@ public final class HasJsonNodeByteMapperTest extends HasJsonNodeMapperTestCase2<
     }
 
     @Override
+    Byte jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "byte";
     }

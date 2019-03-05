@@ -18,12 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.Cast;
-import walkingkooka.collect.set.Sets;
-
 import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 final class HasJsonNodeSetMapper extends HasJsonNodeCollectionMapper<Set<?>> {
 
@@ -45,14 +40,14 @@ final class HasJsonNodeSetMapper extends HasJsonNodeCollectionMapper<Set<?>> {
     private final static HasJsonNodeSetMapper INSTANCE = instance();
 
     @Override
-    Collector<?, ?, Set<?>> collector() {
-        return Cast.to(Collectors.toCollection(Sets::ordered));
+    final Set<?> fromJsonNode0(final JsonNode node) {
+        return node.fromJsonNodeWithTypeSet();
     }
 
     @Override
     JsonStringNode typeName() {
-        return JSON_STRING_NODE;
+        return TYPE_NAME;
     }
 
-    private final JsonStringNode JSON_STRING_NODE = JsonStringNode.with("set");
+    private final JsonStringNode TYPE_NAME = JsonStringNode.with("set");
 }

@@ -77,6 +77,11 @@ public final class HasJsonNodeMapMapperTest extends HasJsonNodeMapperTestCase2<H
     }
 
     @Override
+    Map<?, ?> jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "map";
     }

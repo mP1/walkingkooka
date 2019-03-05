@@ -18,11 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.Cast;
-
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 final class HasJsonNodeListMapper extends HasJsonNodeCollectionMapper<List<?>> {
 
@@ -44,14 +40,14 @@ final class HasJsonNodeListMapper extends HasJsonNodeCollectionMapper<List<?>> {
     private final static HasJsonNodeListMapper INSTANCE = instance();
 
     @Override
-    Collector<?, ?, List<?>> collector() {
-        return Cast.to(Collectors.toList());
+    final List<?> fromJsonNode0(final JsonNode node) {
+        return node.fromJsonNodeWithTypeList();
     }
 
     @Override
     JsonStringNode typeName() {
-        return JSON_STRING_NODE;
+        return TYPE_NAME;
     }
 
-    private final JsonStringNode JSON_STRING_NODE = JsonStringNode.with("list");
+    private final JsonStringNode TYPE_NAME = JsonStringNode.with("list");
 }

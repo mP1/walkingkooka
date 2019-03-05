@@ -40,9 +40,11 @@ import walkingkooka.text.cursor.parser.json.JsonNodeParsers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.search.HasSearchNode;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Base class for all json nodes, all of which are immutable. Note that performing a seemingly mutable operation
@@ -271,6 +273,20 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     public abstract JsonObjectNode objectOrFail();
 
     /**
+     * Reports a json node is not an object.
+     */
+    final <V> V reportInvalidNodeObject() {
+        return this.reportInvalidNode(Object.class);
+    }
+
+    /**
+     * Reports a json node is not an array.
+     */
+    final <V> V reportInvalidNodeArray() {
+        return this.reportInvalidNode("Array");
+    }
+
+    /**
      * Reports a failed attempt to extract a value or cast a node.
      */
     final <V> V reportInvalidNode(final Class<?> type) {
@@ -317,10 +333,82 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     // HasJsonNode .......................................................................................................
 
     /**
+     * Attempts to convert this node to the requested {@link Class type}.
+     */
+    public final <T> T fromJsonNode(final Class<T> type) {
+        Objects.requireNonNull(type, "type");
+
+        return this.fromJsonNode0(type);
+    }
+
+    abstract <T> T fromJsonNode0(final Class<T> type);
+
+    /**
+     * Assumes this json object is an array holding elements that will be converted to the requested element type, returning
+     * a {@link Set} of them.
+     */
+    public final <T> List<T> fromJsonNodeList(final Class<T> elementType) {
+        Objects.requireNonNull(elementType, "elementType");
+
+        return this.fromJsonNodeList0(elementType);
+    }
+
+    abstract <T> List<T> fromJsonNodeList0(final Class<T> elementType);
+
+    /**
+     * Assumes this json object is an array holding elements that will be converted to the requested element type, returning
+     * a {@link Set} of them.
+     */
+    public final <T> Set<T> fromJsonNodeSet(final Class<T> elementType) {
+        Objects.requireNonNull(elementType, "elementType");
+
+        return this.fromJsonNodeSet0(elementType);
+    }
+
+    abstract <T> Set<T> fromJsonNodeSet0(final Class<T> elementType);
+
+    /**
+     * Assumes this json object is an array holding elements holding elements of the requested element type, returning
+     * a {@link Map} of them.
+     */
+    public final <K, V> Map<K, V> fromJsonNodeMap(final Class<K> keyType, final Class<V> valueType) {
+        Objects.requireNonNull(keyType, "keyType");
+        Objects.requireNonNull(valueType, "valueType");
+
+        return this.fromJsonNodeMap0(keyType, valueType);
+    }
+
+    abstract <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType);
+
+    // fromJsonNodeWithType.......................................................................................................
+
+    /**
+     * Assumes a {@link JsonArrayNode} holding objects tagged with type and values.
+     */
+    public abstract <T> List<T> fromJsonNodeWithTypeList();
+
+    /**
+     * Assumes a {@link JsonArrayNode} holding objects tagged with type and values.
+     */
+    public abstract <T> Set<T> fromJsonNodeWithTypeSet();
+
+    /**
+     * Assumes a {@link JsonArrayNode} holding entries of the {@link Map} tagged with type and values.
+     */
+    public abstract <K, V> Map<K, V> fromJsonNodeWithTypeMap();
+
+    /**
+     * Assumes a wrapper object with the type and value, basically the inverse of {@link HasJsonNode#toJsonNodeWithType()}.
+     */
+    public abstract <T> T fromJsonNodeWithType();
+
+    // toJsonNode.......................................................................................................
+
+    /**
      * Already a {@link JsonNode} remove the parent if necessary.
      */
     @Override
-    public JsonNode toJsonNode() {
+    public final JsonNode toJsonNode() {
         return this.isRoot() ?
                 this :
                 this.setParent(NO_PARENT, this.defaultName(), NO_INDEX);

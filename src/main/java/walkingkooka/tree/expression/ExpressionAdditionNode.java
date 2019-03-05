@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
@@ -142,8 +141,8 @@ public final class ExpressionAdditionNode extends ExpressionArithmeticBinaryNode
         final JsonArrayNode array = node.arrayOrFail();
 
         return ExpressionAdditionNode.with(
-                HasJsonNode.fromJsonNodeWithType(array.get(0)),
-                HasJsonNode.fromJsonNodeWithType(array.get(1)));
+                array.get(0).fromJsonNodeWithType(),
+                array.get(1).fromJsonNodeWithType());
     }
 
     static {

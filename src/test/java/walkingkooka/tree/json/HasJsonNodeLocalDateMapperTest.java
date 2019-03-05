@@ -55,6 +55,11 @@ public final class HasJsonNodeLocalDateMapperTest extends HasJsonNodeMapperTestC
     }
 
     @Override
+    LocalDate jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "local-date";
     }

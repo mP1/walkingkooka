@@ -18,9 +18,9 @@
 
 package walkingkooka.tree.json;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -56,76 +56,12 @@ public interface HasJsonNode {
         HasJsonNodeMapper.register(typeName, from, types);
     }
 
-    // fromJsonNode.......................................................................................................
-
-    /**
-     * Accepts a {@link JsonNode} which does not hold a type and uses the {@link Class} parameter to dispatch the reading from json.
-     * This is useful to perform the inverted operation after making json from a java object of a single type.
-     */
-    static <T> T fromJsonNode(final JsonNode node, final Class<T> type) {
-        return HasJsonNodeMapper.fromJsonNode(node, type);
-    }
-
-    /**
-     * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
-     * Essentially the inverse of {@link #toJsonNodeList(List)}.
-     */
-    static <T> List<T> fromJsonNodeList(final JsonNode node, final Class<T> elementType) {
-        return HasJsonNodeMapper.fromJsonNodeList(node, elementType);
-    }
-
-    /**
-     * Accepts a json array which holds a {@link Set} and uses the element type to determine the elements and reads them from json.
-     * Essentially the inverse of {@link #toJsonNodeSet(Set)}.
-     */
-    static <T> Set<T> fromJsonNodeSet(final JsonNode node, final Class<T> elementType) {
-        return HasJsonNodeMapper.fromJsonNodeSet(node, elementType);
-    }
-
-    /**
-     * Accepts a json object which holds a {@link Map} using the key and element types to deserialize the json.
-     * This is essentially the inverse of {@link #toJsonNodeMap
-     */
-    static <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node, final Class<K> keyType, final Class<V> valueType) {
-        return HasJsonNodeMapper.fromJsonNodeMap(node, keyType, valueType);
-    }
-
-    // fromJsonNodeWithType.......................................................................................................
-
-    /**
-     * Expects a {@link JsonArrayNode} holding objects tagged with type and values.
-     */
-    static <T> List<T> fromJsonNodeWithTypeList(final JsonNode node) {
-        return HasJsonNodeMapper.fromJsonNodeWithTypeList(node);
-    }
-
-    /**
-     * Expects a {@link JsonArrayNode} holding objects tagged with type and values.
-     */
-    static <T> Set<T> fromJsonNodeWithTypeSet(final JsonNode node) {
-        return HasJsonNodeMapper.fromJsonNodeWithTypeSet(node);
-    }
-
-    /**
-     * Expects a {@link JsonArrayNode} holding entries of the {@link Map} tagged with type and values.
-     */
-    static <K, V> Map<K, V> fromJsonNodeWithTypeMap(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-
-        return HasJsonNodeMapper.fromJsonNodeWithTypeMap(node);
-    }
-
-    /**
-     * Assumes a wrapper object with the type and value, basically the inverse of {@link HasJsonNode#toJsonNodeWithType()}.
-     */
-    static <T> T fromJsonNodeWithType(final JsonNode node) {
-        return HasJsonNodeMapper.fromJsonNodeWithType(node);
-    }
-
     // toJsonNode .................................................................................................
 
     /**
-     * Accepts an {@link Object} and creates a {@link JsonNode} equivalent. The inverse operation would be {@link #fromJsonNode(JsonNode, Class)}.
+     * Accepts an {@link Object} and creates a {@link JsonNode} equivalent. The inverse operation would be {@link JsonNode#fromJsonNode(Class)}.
+     * This is useful for types that do not implement {@link HasJsonNode} but are probably handled automatically eg: {@link String}
+     * and {@link LocalDate}.
      */
     static JsonNode toJsonNodeObject(final Object object) {
         return HasJsonNodeMapper.toJsonNodeObject(object);

@@ -31,6 +31,11 @@ final class HasJsonNodeLocalDateTimeMapper extends HasJsonNodeMapper2<LocalDateT
     }
 
     @Override
+    LocalDateTime fromJsonNodeNull() {
+        return null;
+    }
+
+    @Override
     LocalDateTime fromJsonNode0(final JsonNode node) {
         return LocalDateTime.parse(node.stringValueOrFail());
     }

@@ -34,6 +34,11 @@ final class HasJsonNodeBooleanMapper extends HasJsonNodeMapper<Boolean> {
     }
 
     @Override
+    Boolean fromJsonNodeNull() {
+        return null;
+    }
+
+    @Override
     JsonNode toJsonNodeWithType0(final Boolean value) {
         return this.toJsonNode0(value);
     }

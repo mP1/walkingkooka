@@ -29,6 +29,11 @@ abstract class HasJsonNodeMapper3<T extends Number> extends HasJsonNodeMapper2<T
         return this.fromJsonNode1(node.numberValueOrFail());
     }
 
+    @Override
+    final T fromJsonNodeNull() {
+        return null;
+    }
+
     /**
      * Ensures that no precision is lost.
      */

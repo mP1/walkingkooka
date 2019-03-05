@@ -18,20 +18,24 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.tree.Node;
+import walkingkooka.Cast;
 
 final class HasJsonNodeJsonNodeMapper<T extends JsonNode> extends HasJsonNodeMapper2<T> {
 
-    static <T extends JsonNode> HasJsonNodeJsonNodeMapper<T> with(final Class<T> type) {
-        return new HasJsonNodeJsonNodeMapper<>(type);
+    static <T extends JsonNode> HasJsonNodeJsonNodeMapper<T> with(final Class<T> type,
+                                                                  final String typeName) {
+        return new HasJsonNodeJsonNodeMapper<>(type, typeName);
     }
 
-    private HasJsonNodeJsonNodeMapper(final Class<T> type) {
+    private HasJsonNodeJsonNodeMapper(final Class<T> type, final String typeName) {
         super();
         this.type = type;
+        this.typeName = JsonStringNode.with(typeName);
+    }
 
-        final String simple = type.getSimpleName();
-        this.typeName = JsonStringNode.with(simple.substring(0, simple.length() - Node.class.getSimpleName().length()));
+    @Override
+    T fromJsonNodeNull() {
+        return Cast.to(JsonNode.nullNode());
     }
 
     @Override

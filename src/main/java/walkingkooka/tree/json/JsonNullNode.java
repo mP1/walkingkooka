@@ -21,7 +21,10 @@ package walkingkooka.tree.json;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.tree.search.SearchNode;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents a json null.
@@ -56,6 +59,52 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
 
     // HasJsonNode...............................................................................................
 
+    <T> T fromJsonNode0(final Class<T> type) {
+        return null;
+    }
+
+    <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
+        return null;
+    }
+
+    <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
+        return null;
+    }
+
+    <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
+        return null;
+    }
+
+    /**
+     * Returns null
+     */
+    @Override
+    public <T> T fromJsonNodeWithType() {
+        return null;
+    }
+
+    /**
+     * Returns null
+     */
+    @Override
+    public <T> List<T> fromJsonNodeWithTypeList() {
+        return null;
+    }
+
+    /**
+     * Returns null
+     */
+    public <T> Set<T> fromJsonNodeWithTypeSet() {
+        return null;
+    }
+
+    /**
+     * Returns null
+     */
+    public <K, V> Map<K, V> fromJsonNodeWithTypeMap() {
+        return null;
+    }
+
     @Override
     JsonNodeName defaultName() {
         return NAME;
@@ -89,6 +138,32 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
     @Override
     public boolean isString() {
         return false;
+    }
+
+    // HasText......................................................................................................
+
+    @Override
+    public final String text() {
+        return NULL;
+    }
+
+    private final static String NULL = "null";
+
+    // Object......................................................................................................
+
+    @Override
+    public final int hashCode() {
+        return this.name.hashCode();
+    }
+
+    @Override
+    final boolean equalsDescendants(final JsonNode other) {
+        return true;
+    }
+
+    @Override
+    final boolean equalsValue(final JsonNode other) {
+        return true;
     }
 
     // functional .................................................................................................

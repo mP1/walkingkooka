@@ -53,6 +53,11 @@ public final class HasJsonNodeShortMapperTest extends HasJsonNodeMapperTestCase2
     }
 
     @Override
+    Short jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "short";
     }

@@ -48,6 +48,11 @@ public final class HasJsonNodeFloatMapperTest extends HasJsonNodeMapperTestCase2
     }
 
     @Override
+    Float jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "float";
     }

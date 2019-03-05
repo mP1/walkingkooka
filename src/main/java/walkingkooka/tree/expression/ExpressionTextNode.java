@@ -19,7 +19,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
@@ -109,7 +108,7 @@ public final class ExpressionTextNode extends ExpressionValueNode<String> {
 
     // @VisibleForTesting
     static ExpressionTextNode fromJsonNode(final JsonNode node) {
-        return ExpressionTextNode.with(HasJsonNode.fromJsonNode(node, String.class));
+        return ExpressionTextNode.with(node.fromJsonNode(String.class));
     }
 
     static {

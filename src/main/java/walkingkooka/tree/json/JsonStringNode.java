@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * Represents an immutable json string.
  */
-public final class JsonStringNode extends JsonLeafNode<String>{
+public final class JsonStringNode extends JsonLeafNonNullNode<String>{
 
     static JsonStringNode with(final String value) {
         Objects.requireNonNull(value, "value");
@@ -75,11 +75,6 @@ public final class JsonStringNode extends JsonLeafNode<String>{
 
     @Override
     public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean isNull() {
         return false;
     }
 

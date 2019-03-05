@@ -38,8 +38,10 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
 
     @Test
     public final void testFromJsonNodeJsonNullNode() {
-        this.fromJsonNodeAndCheck(JsonNode.nullNode(), null);
+        this.fromJsonNodeAndCheck(JsonNode.nullNode(), this.jsonNullNode());
     }
+
+    abstract T jsonNullNode();
 
     @Test
     public final void testFromJsonNode() {
@@ -119,7 +121,7 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
         final JsonNode json = HasJsonNodeMapper.toJsonNodeObject(value);
 
         assertEquals(value,
-                HasJsonNodeMapper.fromJsonNode(json, valueType),
+                HasJsonNodeMapper.mapperOrFail(valueType).fromJsonNode(json),
                 () -> "roundtrip starting with value failed, value: " + value + " " + valueType.getName() + " -> json: " + json);
     }
 
@@ -164,7 +166,7 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
     final void fromJsonNodeWithTypeAndCheck(final JsonNode node,
                                             final T value) {
         assertEquals(value,
-                HasJsonNode.fromJsonNodeWithType(node),
+                node.fromJsonNodeWithType(),
                 () -> "fromJsonNode failed " + node);
     }
 
@@ -216,7 +218,7 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
 
     final JsonObjectNode typeAndValue(final String typeName, final JsonNode value) {
         return JsonNode.object()
-                .set(HasJsonNodeMapper.TYPE, JsonNode.string(typeName))
-                .set(HasJsonNodeMapper.VALUE, value);
+                .set(JsonObjectNode.TYPE, JsonNode.string(typeName))
+                .set(JsonObjectNode.VALUE, value);
     }
 }

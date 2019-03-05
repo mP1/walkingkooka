@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Represents an immutable json boolean.
  */
-public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
+public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean>{
 
     static JsonBooleanNode with(final boolean value) {
         return new JsonBooleanNode(NAME, NO_INDEX, value);
@@ -52,13 +52,6 @@ public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
         return new JsonBooleanNode(name, index, value);
     }
 
-    // HasJsonNode...............................................................................................
-
-    @Override
-    JsonNodeName defaultName() {
-        return NAME;
-    }
-
     // HasSearchNode...............................................................................................
 
     @Override
@@ -75,11 +68,6 @@ public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
     }
 
     @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
     public boolean isNumber() {
         return false;
     }
@@ -87,6 +75,13 @@ public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
     @Override
     public boolean isString() {
         return false;
+    }
+
+    // HasJsonNode.................................................................................................
+
+    @Override
+    JsonNodeName defaultName() {
+        return NAME;
     }
 
     // functional .................................................................................................

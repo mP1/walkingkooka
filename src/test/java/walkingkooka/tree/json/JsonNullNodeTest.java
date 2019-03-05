@@ -30,6 +30,62 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, Void>{
 
+    // fromJsonNodeWithType..............................................................................
+
+    @Test
+    public final void testFromJsonNodeWithType() {
+        this.fromJsonNodeWithTypeAndCheck(this.createNode(), null);
+    }
+
+    @Test
+    public final void testFromJsonNodeWithTypeList() {
+        this.fromJsonNodeWithTypeListAndCheck(this.createNode(), null);
+    }
+
+    @Test
+    public final void testFromJsonNodeWithTypeSet() {
+        this.fromJsonNodeWithTypeSetAndCheck(this.createNode(), null);
+    }
+
+    @Test
+    public final void testFromJsonNodeWithTypeMap() {
+        this.fromJsonNodeWithTypeMapAndCheck(this.createNode(), null);
+    }
+
+    // fromJsonNode..................................................................................
+
+    @Test
+    public final void testFromJsonNode() {
+        this.fromJsonNodeAndCheck(this.createNode(), JsonNode.nullNode());
+    }
+
+    @Test
+    public final void testFromJsonNodeClass() {
+        this.fromJsonNodeAndCheck(this.createNode(), JsonNullNode.class, null);
+    }
+
+    @Test
+    public final void testFromJsonNodeList() {
+        this.fromJsonNodeListAndCheck(this.createNode(), Void.class, null);
+    }
+
+    @Test
+    public final void testFromJsonNodeSetFails() {
+        this.fromJsonNodeSetAndCheck(this.createNode(), Void.class, null);
+    }
+
+    @Test
+    public final void testFromJsonNodeMapFails() {
+        this.fromJsonNodeMapAndCheck(this.createNode(), Void.class, Void.class, null);
+    }
+
+    @Override
+    String nodeTypeName() {
+        return "json-null";
+    }
+
+    // toSearchNode..............................................................................
+    
     @Test
     public void testToSearchNode() {
         this.toSearchNodeAndCheck(this.createJsonNode(), SearchNode.text("null", "null"));
@@ -105,7 +161,16 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
 
     @Override
     List<String> propertiesNeverReturnNullSkipProperties() {
-        return Lists.of(ARRAY_OR_FAIL, BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, OBJECT_OR_FAIL, STRING_VALUE_OR_FAIL, VALUE);
+        return Lists.of(ARRAY_OR_FAIL,
+                BOOLEAN_VALUE_OR_FAIL,
+                FROM_WITH_TYPE_LIST,
+                FROM_WITH_TYPE_SET,
+                FROM_WITH_TYPE_MAP,
+                FROM_WITH_TYPE,
+                NUMBER_VALUE_OR_FAIL,
+                OBJECT_OR_FAIL,
+                STRING_VALUE_OR_FAIL,
+                VALUE);
     }
 
     // HasJsonNodeTesting..................................................................

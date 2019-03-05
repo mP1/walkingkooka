@@ -67,6 +67,11 @@ public final class HasJsonNodeSetMapperTest extends HasJsonNodeMapperTestCase2<H
     }
 
     @Override
+    Set<?> jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "set";
     }

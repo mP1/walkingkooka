@@ -265,7 +265,7 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
 
         return ExpressionFunctionNode.with(
                 ExpressionNodeName.fromJsonNode(array.get(0)),
-                HasJsonNode.fromJsonNodeWithTypeList(array.get(1)));
+                array.get(1).fromJsonNodeWithTypeList());
     }
 
     /**
