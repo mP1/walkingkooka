@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.text.CharSequences;
-
 final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
 
     static HasJsonNodeLongMapper instance() {
@@ -34,10 +32,7 @@ final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
     Long fromJsonNode0(final JsonNode node) {
         try {
             final String text = node.stringValueOrFail();
-            if (!text.startsWith(LONG_PREFIX)) {
-                throw new IllegalArgumentException("Long string missing prefix " + CharSequences.quote(LONG_PREFIX) + "=" + node);
-            }
-            return Long.parseLong(text.substring(2), 16);
+            return Long.parseLong(text);
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
@@ -52,11 +47,6 @@ final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
 
     @Override
     JsonNode toJsonNode0(final Long value) {
-        return JsonNode.string(LONG_PREFIX + Long.toHexString(value).toLowerCase());
+        return JsonNode.string(value.toString());
     }
-
-    /**
-     * Prefix included at the start of all longs encoded as a string.
-     */
-    private final static String LONG_PREFIX = "0x";
 }

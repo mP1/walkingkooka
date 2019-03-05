@@ -110,7 +110,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testFromJsonNodeAndTypeLong() {
-        this.fromJsonNodeAndTypeAndCheck(JsonNode.string("0x123"), 0x123L);
+        this.fromJsonNodeAndTypeAndCheck(JsonNode.string("123"), 123L);
     }
 
     @Test
@@ -1395,7 +1395,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     }
 
     private JsonNode typeNameAndValue(final long value) {
-        return this.typeNameAndValue("long", JsonNode.string("0x" + Long.toHexString(value)));
+        return this.typeNameAndValue("long", JsonNode.string(Long.toString(value)));
     }
 
     private JsonNode typeNameAndValue(final Class<?> type, final JsonNode value) {
