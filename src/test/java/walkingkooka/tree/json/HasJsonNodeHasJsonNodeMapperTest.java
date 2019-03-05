@@ -44,6 +44,11 @@ public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeMapperTes
     }
 
     @Override
+    Color jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "color";
     }

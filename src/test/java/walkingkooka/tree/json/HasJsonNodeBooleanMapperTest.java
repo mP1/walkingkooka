@@ -63,6 +63,11 @@ public final class HasJsonNodeBooleanMapperTest extends HasJsonNodeMapperTestCas
     }
 
     @Override
+    Boolean jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "boolean";
     }

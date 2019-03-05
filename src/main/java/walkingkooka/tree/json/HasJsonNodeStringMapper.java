@@ -34,6 +34,11 @@ final class HasJsonNodeStringMapper extends HasJsonNodeMapper<String> {
     }
 
     @Override
+    String fromJsonNodeNull() {
+        return null;
+    }
+
+    @Override
     JsonNode toJsonNodeWithType0(final String value) {
         return this.toJsonNode0(value);
     }

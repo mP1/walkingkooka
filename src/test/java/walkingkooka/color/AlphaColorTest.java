@@ -116,17 +116,17 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
     }
 
     @Override
-    public void testToJsonNodeRoundtripTwiceList() {
+    public void testToJsonNodeRoundtripList() {
         // ignore
     }
 
     @Override
-    public void testToJsonNodeRoundtripTwiceSet() {
+    public void testToJsonNodeRoundtripSet() {
         // ignore
     }
 
     @Override
-    public void testToJsonNodeRoundtripTwiceMap() {
+    public void testToJsonNodeRoundtripMap() {
         // ignore
     }
 

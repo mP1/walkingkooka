@@ -60,6 +60,11 @@ public final class HasJsonNodeBigIntegerMapperTest extends HasJsonNodeMapperTest
     }
 
     @Override
+    BigInteger jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "big-integer";
     }

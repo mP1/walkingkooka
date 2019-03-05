@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.collect.map.Maps;
-
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -58,48 +56,33 @@ final class HasJsonNodeMapMapper extends HasJsonNodeMapper2<Map<?, ?>> {
     }
 
     /**
-     * Accepts an array of entry objects each holding the key and value.
+     * {@see JsonArrayNode#fromJsonNodeWithTypeMap}
      */
     @Override
     Map<?, ?> fromJsonNode0(final JsonNode node) {
-        // container must be an array
-        JsonArrayNode array;
-        try {
-            array = node.arrayOrFail();
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
+        return node.fromJsonNodeWithTypeMap();
+    }
 
-        final Map<?, ?> map = Maps.ordered();
-
-        for (JsonNode child : array.children()) {
-            JsonObjectNode childObject;
-            try {
-                childObject = child.objectOrFail();
-            } catch (final JsonNodeException cause) {
-                throw new IllegalArgumentException(cause.getMessage(), cause);
-            }
-
-            map.put(HasJsonNodeMapper.fromJsonNodeWithType(childObject.getOrFail(HasJsonNodeMapper.ENTRY_KEY)),
-                    HasJsonNodeMapper.fromJsonNodeWithType(childObject.getOrFail(HasJsonNodeMapper.ENTRY_VALUE)));
-        }
-
-        return map;
+    @Override
+    Map<?, ?> fromJsonNodeNull() {
+        return null;
     }
 
     @Override
     JsonStringNode typeName() {
-        return JSON_STRING_NODE;
+        return TYPE_NAME;
     }
 
-    private final JsonStringNode JSON_STRING_NODE = JsonStringNode.with("map");
+    private final JsonStringNode TYPE_NAME = JsonStringNode.with("map");
 
     @Override
     JsonNode toJsonNode0(final Map<?, ?> map) {
-        return JsonNode.array()
-                .setChildren(map.entrySet()
-                        .stream()
-                        .map(HasJsonNodeMapper::toJsonNodeWithTypeMapEntry)
-                        .collect(Collectors.toList()));
+        return HasJsonNodeMapper.toJsonNodeMapNotNull(map, HasJsonNodeMapMapper::toJsonNodeWithTypeMapEntry);
+    }
+
+    private static JsonNode toJsonNodeWithTypeMapEntry(final Entry<?, ?> entry) {
+        return JsonNode.object()
+                .set(ENTRY_KEY, toJsonNodeWithTypeObject(entry.getKey()))
+                .set(ENTRY_VALUE, toJsonNodeWithTypeObject(entry.getValue()));
     }
 }

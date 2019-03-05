@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Represents an immutable json number.
  */
-public final class JsonNumberNode extends JsonLeafNode<Double>{
+public final class JsonNumberNode extends JsonLeafNonNullNode<Double>{
 
     static JsonNumberNode with(final double value) {
         return new JsonNumberNode(NAME, NO_INDEX, value);
@@ -73,11 +73,6 @@ public final class JsonNumberNode extends JsonLeafNode<Double>{
 
     @Override
     public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean isNull() {
         return false;
     }
 

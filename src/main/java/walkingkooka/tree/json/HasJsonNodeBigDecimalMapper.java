@@ -31,6 +31,11 @@ final class HasJsonNodeBigDecimalMapper extends HasJsonNodeMapper2<BigDecimal> {
     }
 
     @Override
+    BigDecimal fromJsonNodeNull() {
+        return null;
+    }
+
+    @Override
     BigDecimal fromJsonNode0(final JsonNode node) {
         return new BigDecimal(node.stringValueOrFail());
     }

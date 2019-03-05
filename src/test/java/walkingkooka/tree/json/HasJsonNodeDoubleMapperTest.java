@@ -41,6 +41,11 @@ public final class HasJsonNodeDoubleMapperTest extends HasJsonNodeMapperTestCase
     }
 
     @Override
+    Double jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "double";
     }

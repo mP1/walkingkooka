@@ -440,6 +440,13 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testArrayOrFail() {
+        assertThrows(JsonNodeException.class, () -> {
+           this.createJsonNode().arrayOrFail();
+        });
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<JsonNode> visited = Lists.array();
@@ -540,6 +547,67 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testFromJsonNodeListFails() {
+        this.fromJsonNodeListAndFail(Void.class, JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetFails() {
+        this.fromJsonNodeSetAndFail(Void.class, JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMapFails() {
+        this.fromJsonNodeMapAndFail(Void.class, Void.class, JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeListWithTypeFails() {
+        this.fromJsonNodeWithTypeListAndFail(JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeSetWithTypeFails() {
+        this.fromJsonNodeWithTypeSetAndFail(JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeMapWithTypeFails() {
+        this.fromJsonNodeWithTypeMapAndFail(JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeWithType() {
+        final String value = "abc123";
+
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.object()
+                        .set(JsonObjectNode.TYPE, JsonNode.string("string"))
+                        .set(JsonObjectNode.VALUE, JsonNode.string(value)),
+                value);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMissingTypePropertyFails() {
+        this.fromJsonNodeWithTypeAndFail(JsonNode.object()
+                        .set(JsonObjectNode.VALUE, JsonNode.string("abc")),
+                IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeIncorrectTypePropertyFails() {
+        this.fromJsonNodeWithTypeAndFail(JsonNode.object()
+                        .set(JsonObjectNode.TYPE, JsonNode.number(123)),
+                IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeMissingValuePropertyFails() {
+        this.fromJsonNodeWithTypeAndFail(JsonNode.object()
+                        .set(JsonObjectNode.TYPE, JsonNode.string("string")),
+                IllegalArgumentException.class);
+    }
+
+    @Test
     public void testToSearchNode() {
         final JsonBooleanNode booleanNode = JsonNode.booleanNode(true);
         final JsonNumberNode number = JsonNode.number(2);
@@ -631,6 +699,11 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         return JsonObjectNode.class;
     }
 
+    @Override
+    String nodeTypeName() {
+        return "json-object";
+    }
+
     // HasJsonNodeTesting..................................................................
 
     @Override
@@ -640,6 +713,14 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     @Override
     List<String> propertiesNeverReturnNullSkipProperties() {
-        return Lists.of(ARRAY_OR_FAIL, BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, STRING_VALUE_OR_FAIL, VALUE);
+        return Lists.of(ARRAY_OR_FAIL,
+                BOOLEAN_VALUE_OR_FAIL,
+                FROM_WITH_TYPE_LIST,
+                FROM_WITH_TYPE_SET,
+                FROM_WITH_TYPE_MAP,
+                FROM_WITH_TYPE,
+                NUMBER_VALUE_OR_FAIL,
+                STRING_VALUE_OR_FAIL,
+                VALUE);
     }
 }

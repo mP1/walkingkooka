@@ -28,10 +28,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class JsonBooleanNodeTest extends JsonLeafNodeTestCase<JsonBooleanNode, Boolean>{
+public final class JsonBooleanNodeTest extends JsonLeafNonNullNodeTestCase<JsonBooleanNode, Boolean>{
 
     @Override
-    public void testToBooleanValueOrFail() {
+    public void testBooleanValueOrFail() {
         // ignore
     }
 
@@ -46,6 +46,42 @@ public final class JsonBooleanNodeTest extends JsonLeafNodeTestCase<JsonBooleanN
         assertEquals(false,
                 JsonBooleanNode.with(false).booleanValueOrFail());
     }
+
+    // fromJsonNodeWithType.........................................................................................
+
+    @Test
+    public void testFromJsonNodeWithTypeTrue() {
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.booleanNode(true), true);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeFalse() {
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.booleanNode(false), false);
+    }
+
+    // fromJsonNodeWithType.........................................................................................
+
+    @Test
+    public void testFromJsonNodeBooleanClassTrue() {
+        this.fromJsonNodeAndCheck(JsonNode.booleanNode(true), Boolean.class, true);
+    }
+
+    @Test
+    public void testFromJsonNodeBooleanClassFalse() {
+        this.fromJsonNodeAndCheck(JsonNode.booleanNode(false), Boolean.class, false);
+    }
+
+    @Test
+    public void testFromJsonNodeNumberClassFails() {
+        this.fromJsonNodeAndFail(Number.class, JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeStringClassFails() {
+        this.fromJsonNodeAndFail(String.class, JsonNodeException.class);
+    }
+
+    // toSearchNode.........................................................................................
 
     @Test
     public void testToSearchNodeTrue() {
@@ -116,13 +152,25 @@ public final class JsonBooleanNodeTest extends JsonLeafNodeTestCase<JsonBooleanN
     }
 
     @Override
+    String nodeTypeName() {
+        return "json-boolean";
+    }
+
+    @Override
     Class<JsonBooleanNode> jsonNodeType() {
         return JsonBooleanNode.class;
     }
 
     @Override
     List<String> propertiesNeverReturnNullSkipProperties() {
-        return Lists.of(ARRAY_OR_FAIL, NUMBER_VALUE_OR_FAIL, OBJECT_OR_FAIL, STRING_VALUE_OR_FAIL);
+        return Lists.of(ARRAY_OR_FAIL,
+                FROM_WITH_TYPE_LIST,
+                FROM_WITH_TYPE_SET,
+                FROM_WITH_TYPE_MAP,
+                FROM_WITH_TYPE,
+                NUMBER_VALUE_OR_FAIL,
+                OBJECT_OR_FAIL,
+                STRING_VALUE_OR_FAIL);
     }
 
     // HasJsonNodeTesting..................................................................

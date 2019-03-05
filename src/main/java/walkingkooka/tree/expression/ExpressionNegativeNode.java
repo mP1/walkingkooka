@@ -19,7 +19,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.NeverError;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -149,7 +148,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     // @VisibleForTesting
     static ExpressionNegativeNode fromJsonNode(final JsonNode node) {
-        return ExpressionNegativeNode.with(HasJsonNode.fromJsonNodeWithType(node));
+        return ExpressionNegativeNode.with(node.fromJsonNodeWithType());
     }
 
     static {

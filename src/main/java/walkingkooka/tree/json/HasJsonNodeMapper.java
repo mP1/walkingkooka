@@ -20,7 +20,6 @@ package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.text.CharSequences;
 
 import java.math.BigDecimal;
@@ -35,7 +34,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -50,9 +48,16 @@ abstract class HasJsonNodeMapper<T> {
     final static Map<String, HasJsonNodeMapper<?>> TYPENAME_TO_FACTORY = Maps.ordered();
 
     /**
+     * Returns the mapper for the given {@link Class}.
+     */
+    static <T> HasJsonNodeMapper<T> mapperOrFail(final Class<T> type) {
+        return mapperOrFail(type.getName());
+    }
+
+    /**
      * Returns the mapper for the given type name.
      */
-    private static <T> HasJsonNodeMapper<T> mapperOrFail(final String type) {
+    static <T> HasJsonNodeMapper<T> mapperOrFail(final String type) {
         final HasJsonNodeMapper<T> mapper = Cast.to(TYPENAME_TO_FACTORY.get(type));
         if (null == mapper) {
             throw new UnsupportedTypeJsonNodeException("Type " + CharSequences.quote(type) + " not supported, currently: " + TYPENAME_TO_FACTORY.keySet());
@@ -89,13 +94,13 @@ abstract class HasJsonNodeMapper<T> {
         registerListSetOrMap(HasJsonNodeSetMapper.instance());
         registerListSetOrMap(HasJsonNodeMapMapper.instance());
 
-        registerJsonNode(JsonNode.class);
-        registerJsonNode(JsonBooleanNode.class);
-        registerJsonNode(JsonNullNode.class);
-        registerJsonNode(JsonNumberNode.class);
-        registerJsonNode(JsonStringNode.class);
-        registerJsonNode(JsonObjectNode.class);
-        registerJsonNode(JsonArrayNode.class);
+        registerJsonNode(JsonNode.class, "json-node");
+        registerJsonNode(JsonBooleanNode.class, "json-boolean");
+        registerJsonNode(JsonNullNode.class, "json-null");
+        registerJsonNode(JsonNumberNode.class, "json-number");
+        registerJsonNode(JsonStringNode.class, "json-string");
+        registerJsonNode(JsonObjectNode.class, "json-object");
+        registerJsonNode(JsonArrayNode.class, "json-array");
     }
 
     /**
@@ -128,8 +133,8 @@ abstract class HasJsonNodeMapper<T> {
     /**
      * Registers a {@link HasJsonNodeMapper} using only its type name.
      */
-    static <T extends JsonNode> void registerJsonNode(final Class<T> type) {
-        final HasJsonNodeJsonNodeMapper<T> mapper = HasJsonNodeJsonNodeMapper.with(type);
+    static <T extends JsonNode> void registerJsonNode(final Class<T> type, final String typeName) {
+        final HasJsonNodeJsonNodeMapper<T> mapper = HasJsonNodeJsonNodeMapper.with(type, typeName);
         register1(mapper.typeName().value(), mapper, type);
     }
 
@@ -159,189 +164,7 @@ abstract class HasJsonNodeMapper<T> {
         TYPENAME_TO_FACTORY.put(type, mapper);
     }
 
-    // fromJsonNode.........................................................................................................
-
-    /**
-     * Accepts a {@link JsonNode} which does not hold a type and uses the {@link Class} parameter to dispatch the reading from json.
-     * This is useful to perform the inverted operation after making json from a java object of a single type.
-     */
-    static <T> T fromJsonNode(final JsonNode node, final Class<T> type) {
-        Objects.requireNonNull(node, "node");
-        Objects.requireNonNull(type, "type");
-
-        return type.cast(mapperOrFail(type.getName()).fromJsonNode(node));
-    }
-
-    /**
-     * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
-     * Essentially the inverse of {@link HasJsonNode#toJsonNodeList(List)}.
-     */
-    static <T> List<T> fromJsonNodeList(final JsonNode node,
-                                        final Class<T> elementType) {
-        return fromJsonNodeCollection(node,
-                elementType,
-                Collectors.toList());
-    }
-
-    /**
-     * Accepts a json array which holds a {@link List} and uses the element type to determine the elements and reads them from json.
-     * Essentially the inverse of {@link HasJsonNode#toJsonNodeList(List)}.
-     */
-    static <T> Set<T> fromJsonNodeSet(final JsonNode node,
-                                      final Class<T> elementType) {
-        return fromJsonNodeCollection(node,
-                elementType,
-                Collectors.toCollection(Sets::ordered));
-    }
-
-    private static <C extends Collection<T>, T> C fromJsonNodeCollection(final JsonNode node,
-                                                                         final Class<T> elementType,
-                                                                         final Collector<T, ?, C> collector) {
-        return node.isNull() ?
-                null :
-                fromJsonNodeCollection0(node, elementType, collector);
-    }
-
-    private static <C extends Collection<T>, T> C fromJsonNodeCollection0(final JsonNode node,
-                                                                          final Class<T> elementType,
-                                                                          final Collector<T, ?, C> collector) {
-        final HasJsonNodeMapper<T> mapper = mapperOrFail(elementType.getName());
-        return array(node).children()
-                .stream()
-                .map(n -> mapper.fromJsonNode(n))
-                .collect(collector);
-    }
-
-    static <K, V> Map<K, V> fromJsonNodeMap(final JsonNode node,
-                                            final Class<K> keyType,
-                                            final Class<V> valueType) {
-        Objects.requireNonNull(keyType, "keyType");
-        Objects.requireNonNull(valueType, "valueType");
-
-        return node.isNull() ?
-                null :
-                fromJsonNodeMap0(node, keyType, valueType);
-    }
-
-    private static <K, V> Map<K, V> fromJsonNodeMap0(final JsonNode node,
-                                                     final Class<K> keyType,
-                                                     final Class<V> valueType) {
-        Objects.requireNonNull(keyType, "keyType");
-        Objects.requireNonNull(valueType, "valueType");
-
-        final HasJsonNodeMapper<K> keyMapper = mapperOrFail(keyType.getName());
-        final HasJsonNodeMapper<V> valueMapper = mapperOrFail(valueType.getName());
-
-        final Map<K, V> map = Maps.ordered();
-
-        for (JsonNode entry : array(node).children()) {
-            JsonObjectNode entryObject;
-            try {
-                entryObject = entry.objectOrFail();
-            } catch (final JsonNodeException cause) {
-                throw new IllegalArgumentException(cause.getMessage(), cause);
-            }
-
-            map.put(keyMapper.fromJsonNode(entryObject.getOrFail(ENTRY_KEY)),
-                    valueMapper.fromJsonNode(entryObject.getOrFail(ENTRY_VALUE)));
-        }
-
-        return map;
-    }
-
-    private static JsonArrayNode array(final JsonNode node) {
-        try {
-            return node.arrayOrFail();
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-    }
-
     // fromJsonNodeWithType.........................................................................................................
-
-    /**
-     * Expects a {@link JsonArrayNode} holding objects tagged with type and values.
-     */
-    // @VisibleForTesting
-    static <T> List<T> fromJsonNodeWithTypeList(final JsonNode node) {
-        return fromJsonNodeWithTypeCollection(node, Collectors.toList());
-    }
-
-    /**
-     * Expects a {@link JsonArrayNode} holding objects tagged with type and values.
-     */
-    // @VisibleForTesting
-    static <T> Set<T> fromJsonNodeWithTypeSet(final JsonNode node) {
-        return fromJsonNodeWithTypeCollection(node, Collectors.toCollection(Sets::ordered));
-    }
-
-    private static <C extends Collection<T>, T> C fromJsonNodeWithTypeCollection(final JsonNode node,
-                                                                                 final Collector<T, ?, C> collector) {
-        return node.isNull() ?
-                null :
-                fromJsonNodeWithTypeCollection0(node, collector);
-    }
-
-    private static <C extends Collection<T>, T> C fromJsonNodeWithTypeCollection0(final JsonNode node,
-                                                                                  final Collector<T, ?, C> collector) {
-        Objects.requireNonNull(node, "node");
-
-        // container must be an array
-        JsonArrayNode array;
-        try {
-            array = node.arrayOrFail();
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-
-        return array.children()
-                .stream()
-                .map(n -> Cast.<T>to(fromJsonNodeWithType(n)))
-                .collect(collector);
-    }
-
-
-    /**
-     * Expects a {@link JsonArrayNode} holding entries of the {@link Map} tagged with type and values.
-     */
-    // @VisibleForTesting
-    static <K, V> Map<K, V> fromJsonNodeWithTypeMap(final JsonNode node) {
-        Objects.requireNonNull(node, "node");
-
-        return node.isNull() ?
-                null :
-                fromJsonNodeWithTypeMap0(node);
-    }
-
-    /**
-     * Accepts an array of entry objects each holding the key and value.
-     */
-    private static <K, V> Map<K, V> fromJsonNodeWithTypeMap0(final JsonNode node) {
-
-        // container must be an array
-        JsonArrayNode array;
-        try {
-            array = node.arrayOrFail();
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-
-        final Map<K, V> map = Maps.ordered();
-
-        for (JsonNode child : array.children()) {
-            JsonObjectNode childObject;
-            try {
-                childObject = child.objectOrFail();
-            } catch (final JsonNodeException cause) {
-                throw new IllegalArgumentException(cause.getMessage(), cause);
-            }
-
-            map.put(fromJsonNodeWithType(childObject.getOrFail(ENTRY_KEY)),
-                    fromJsonNodeWithType(childObject.getOrFail(ENTRY_VALUE)));
-        }
-
-        return map;
-    }
 
     /**
      * Unwraps a wrapper holding a type and json form of a java instance.
@@ -357,38 +180,13 @@ abstract class HasJsonNodeMapper<T> {
                                 node.numberValueOrFail() :
                                 node.isString() ?
                                         node.stringValueOrFail() :
-                                        fromJsonNodeWithType0(node));
+                                        node.fromJsonNodeWithType());
     }
-
-    /**
-     * Contains the logic to examine the object type property and then locate and dispatch the mapper which will
-     * create an instance from the object in json form.
-     */
-    private static <T> T fromJsonNodeWithType0(final JsonNode node) {
-        JsonObjectNode object;
-        try {
-            object = node.objectOrFail();
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-
-        String type;
-        try {
-            type = object.getOrFail(TYPE).stringValueOrFail();
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-
-        return Cast.to(mapperOrFail(type).fromJsonNode(object.getOrFail(VALUE)));
-    }
-
-    // HasJsonNodeMapper
-    final static JsonNodeName TYPE = JsonNodeName.with("type");
 
     // toJsonNode.........................................................................................................
 
     /**
-     * Accepts an {@link Object} and creates a {@link JsonNode} equivalent. The inverse operation would be {@link #fromJsonNode(JsonNode, Class)}.
+     * Accepts an {@link Object} and creates a {@link JsonNode} equivalent.
      */
     static JsonNode toJsonNodeObject(final Object object) {
         return null == object ?
@@ -429,23 +227,26 @@ abstract class HasJsonNodeMapper<T> {
     static JsonNode toJsonNodeMap(final Map<?, ?> map) {
         return null == map ?
                 JsonNode.nullNode() :
-                JsonObjectNode.array()
-                        .setChildren(map.entrySet().stream()
-                                .map(HasJsonNodeMapper::toJsonNodeMapEntry)
-                                .collect(Collectors.toList()));
+                toJsonNodeMapNotNull(map);
+    }
+
+    // HasJsonNodeMapMapper
+    static JsonNode toJsonNodeMapNotNull(final Map<?, ?> map) {
+        return toJsonNodeMapNotNull(map, HasJsonNodeMapper::toJsonNodeMapEntry);
+    }
+
+    static JsonNode toJsonNodeMapNotNull(final Map<?, ?> map,
+                                                  final Function<Entry<?, ?>, JsonNode> entry) {
+        return JsonObjectNode.array()
+                .setChildren(map.entrySet().stream()
+                        .map(entry)
+                        .collect(Collectors.toList()));
     }
 
     private static JsonNode toJsonNodeMapEntry(final Entry<?, ?> entry) {
         return JsonNode.object()
                 .set(ENTRY_KEY, toJsonNodeObject(entry.getKey()))
                 .set(ENTRY_VALUE, toJsonNodeObject(entry.getValue()));
-    }
-
-
-    static JsonNode toJsonNodeWithTypeMapEntry(final Entry<?, ?> entry) {
-        return JsonNode.object()
-                .set(ENTRY_KEY, toJsonNodeWithTypeObject(entry.getKey()))
-                .set(ENTRY_VALUE, toJsonNodeWithTypeObject(entry.getValue()));
     }
 
     final static JsonNodeName ENTRY_KEY = JsonNodeName.with("key");
@@ -526,9 +327,6 @@ abstract class HasJsonNodeMapper<T> {
         return mapperOrFail(type.getName()).toJsonNodeWithType0(has);
     }
 
-    // @VisibleForTesting
-    final static JsonNodeName VALUE = JsonNodeName.with("value");
-
     // instance...................................................................................................
 
     /**
@@ -544,7 +342,7 @@ abstract class HasJsonNodeMapper<T> {
     final T fromJsonNode(final JsonNode node) {
         try {
             return node.isNull() ?
-                    null :
+                    this.fromJsonNodeNull() :
                     this.fromJsonNode0(node);
         } catch (final NullPointerException | JsonNodeException cause) {
             throw cause;
@@ -555,6 +353,8 @@ abstract class HasJsonNodeMapper<T> {
                     message, cause);
         }
     }
+
+    abstract T fromJsonNodeNull();
 
     abstract T fromJsonNode0(final JsonNode node);
 

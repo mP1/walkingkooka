@@ -28,14 +28,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNode, String>{
+public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonStringNode, String>{
 
     @Override
-    public void testToStringValueOrFail() {
-        // ignore
-    }
-
-    @Test
     public void testStringValueOrFail() {
         assertEquals("abc",
                 JsonStringNode.with("abc").stringValueOrFail());
@@ -51,6 +46,28 @@ public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNod
     public void testSameValueDifferentCase() {
         this.checkNotEquals(JsonNode.string("ABC123"));
     }
+
+    // fromJsonNodeWithType.........................................................................................
+
+    @Test
+    public void testFromJsonNodeWithType() {
+        final String string = "abc123";
+        this.fromJsonNodeWithTypeAndCheck(JsonNode.string(string), string);
+    }
+
+    // fromJsonNodeWithType.........................................................................................
+
+    @Test
+    public void testFromJsonNodeBooleanClassFails() {
+        this.fromJsonNodeAndFail(Boolean.class, JsonNodeException.class);
+    }
+
+    @Test
+    public void testFromJsonNodeNumberClassFails() {
+        this.fromJsonNodeAndFail(Number.class, JsonNodeException.class);
+    }
+
+    // toSearchNode...............................................................................................
 
     @Test
     public void testToSearchNode() {
@@ -119,13 +136,25 @@ public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNod
     }
 
     @Override
+    String nodeTypeName() {
+        return "json-string";
+    }
+
+    @Override
     Class<JsonStringNode> jsonNodeType() {
         return JsonStringNode.class;
     }
 
     @Override
     List<String> propertiesNeverReturnNullSkipProperties() {
-        return Lists.of(ARRAY_OR_FAIL, BOOLEAN_VALUE_OR_FAIL, NUMBER_VALUE_OR_FAIL, OBJECT_OR_FAIL);
+        return Lists.of(ARRAY_OR_FAIL,
+                BOOLEAN_VALUE_OR_FAIL,
+                FROM_WITH_TYPE_LIST,
+                FROM_WITH_TYPE_SET,
+                FROM_WITH_TYPE_MAP,
+                FROM_WITH_TYPE,
+                NUMBER_VALUE_OR_FAIL,
+                OBJECT_OR_FAIL);
     }
 
     // HasJsonNodeTesting..................................................................

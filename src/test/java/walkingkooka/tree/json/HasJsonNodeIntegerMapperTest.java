@@ -53,6 +53,11 @@ public final class HasJsonNodeIntegerMapperTest extends HasJsonNodeMapperTestCas
     }
 
     @Override
+    Integer jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "int";
     }

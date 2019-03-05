@@ -34,6 +34,11 @@ final class HasJsonNodeDoubleMapper extends HasJsonNodeMapper<Double> {
     }
 
     @Override
+    Double fromJsonNodeNull() {
+        return null;
+    }
+
+    @Override
     JsonNode toJsonNodeWithType0(final Double value) {
         return this.toJsonNode0(value);
     }

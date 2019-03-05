@@ -175,7 +175,7 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
 
     // @VisibleForTesting
     static ExpressionReferenceNode fromJsonNode(final JsonNode node) {
-        return with(HasJsonNode.fromJsonNodeWithType(node));
+        return with(node.fromJsonNodeWithType());
     }
 
     @Override

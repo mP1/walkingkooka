@@ -87,38 +87,32 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     }
 
     @Test
-    default void testToJsonNodeRoundtripTwiceList() {
+    default void testToJsonNodeRoundtripList() {
         final List<HasJsonNode> list = Lists.of(this.createHasJsonNode());
-        final JsonNode json = HasJsonNode.toJsonNodeList(list);
-        final List<HasJsonNode> list2 = Lists.of(json);
 
-        assertEquals(
-                list2,
-                HasJsonNode.fromJsonNodeWithType(HasJsonNode.toJsonNodeWithType(list2)),
+        assertEquals(list,
+                HasJsonNode.toJsonNodeWithType(list)
+                        .fromJsonNodeWithType(),
                 () -> "Roundtrip to -> from -> to failed list=" + list);
     }
 
     @Test
-    default void testToJsonNodeRoundtripTwiceSet() {
+    default void testToJsonNodeRoundtripSet() {
         final Set<HasJsonNode> set = Sets.of(this.createHasJsonNode());
-        final JsonNode json = HasJsonNode.toJsonNodeSet(set);
-        final Set<HasJsonNode> set2 = Sets.of(json);
 
-        assertEquals(
-                set2,
-                HasJsonNode.fromJsonNodeWithType(HasJsonNode.toJsonNodeWithType(set2)),
+        assertEquals(set,
+                HasJsonNode.toJsonNodeWithType(set)
+                        .fromJsonNodeWithType(),
                 () -> "Roundtrip to -> from -> to failed set=" + set);
     }
 
     @Test
-    default void testToJsonNodeRoundtripTwiceMap() {
+    default void testToJsonNodeRoundtripMap() {
         final Map<String, HasJsonNode> map = Maps.one("key123", this.createHasJsonNode());
-        final JsonNode json = HasJsonNode.toJsonNodeWithType(map);
-        final Map<?, ?> map2 = HasJsonNode.fromJsonNodeWithType(json);
 
-        assertEquals(
-                map2,
-                HasJsonNode.fromJsonNodeWithType(HasJsonNodeMapper.toJsonNodeWithTypeObject(map2)),
+        assertEquals(map,
+                HasJsonNode.toJsonNodeWithType(map)
+                        .fromJsonNodeWithType(),
                 () -> "Roundtrip to -> from -> to failed map=" + map);
     }
 
@@ -151,12 +145,16 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     default void toJsonNodeWithTypeRoundTripTwiceAndCheck(final HasJsonNode has) {
         final JsonNode jsonNode = has.toJsonNodeWithType();
 
-        final HasJsonNode has2 = HasJsonNode.fromJsonNodeWithType(jsonNode);
+        final HasJsonNode has2 = jsonNode.fromJsonNodeWithType();
         final JsonNode jsonNode2 = HasJsonNode.toJsonNodeWithType(has2);
 
         assertEquals(has2,
-                HasJsonNode.fromJsonNodeWithType(jsonNode2),
+                jsonNode2.fromJsonNodeWithType(),
                 () -> "Roundtrip to -> from -> to failed has=" + has);
+
+        assertEquals(has2,
+                HasJsonNodeMapper.fromJsonNodeWithType(jsonNode2),
+                () -> "HasJsonNodeMapper roundtrip to -> from -> to failed has=" + has);
     }
 
     H createHasJsonNode();

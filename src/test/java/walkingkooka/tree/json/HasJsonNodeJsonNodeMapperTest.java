@@ -21,25 +21,23 @@ package walkingkooka.tree.json;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeJsonNodeMapper<JsonStringNode>, JsonStringNode> {
+public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeJsonNodeMapper<JsonNode>, JsonNode> {
 
     @Test
     public void testToJsonWithType() {
         final JsonStringNode string = JsonNode.string("abc123");
         this.toJsonNodeWithTypeAndCheck(string,
-                JsonNode.object()
-                .set(HasJsonNodeMapper.TYPE, JsonNode.string("JsonString"))
-                .set(HasJsonNodeMapper.VALUE, string));
+                this.typeAndValue("json-string", string));;
     }
 
     @Override
-    HasJsonNodeJsonNodeMapper<JsonStringNode> mapper() {
-        return HasJsonNodeJsonNodeMapper.with(JsonStringNode.class);
+    HasJsonNodeJsonNodeMapper<JsonNode> mapper() {
+        return HasJsonNodeJsonNodeMapper.with(JsonNode.class, "json-string");
     }
 
     @Override
     JsonStringNode value() {
-        return JsonNode.string("json-string-node value");
+        return JsonNode.string("json-string value");
     }
 
     @Override
@@ -53,12 +51,17 @@ public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCa
     }
 
     @Override
-    String typeName() {
-        return "JsonString";
+    JsonNode jsonNullNode() {
+        return JsonNode.nullNode();
     }
 
     @Override
-    public Class<HasJsonNodeJsonNodeMapper<JsonStringNode>> type() {
+    String typeName() {
+        return "json-string";
+    }
+
+    @Override
+    public Class<HasJsonNodeJsonNodeMapper<JsonNode>> type() {
         return Cast.to(HasJsonNodeJsonNodeMapper.class);
     }
 }

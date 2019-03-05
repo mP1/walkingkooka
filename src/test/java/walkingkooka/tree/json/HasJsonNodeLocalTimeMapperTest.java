@@ -70,6 +70,11 @@ public final class HasJsonNodeLocalTimeMapperTest extends HasJsonNodeMapperTestC
     }
 
     @Override
+    LocalTime jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "local-time";
     }

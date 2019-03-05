@@ -31,7 +31,6 @@ import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContext;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParsers;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -323,7 +322,7 @@ public final class ExpressionNodeTest implements ClassTesting2<ExpressionNode> {
         final ExpressionNode expressionNode = this.parse(expression).expressionNode().get();
         final JsonNode jsonNode = expressionNode.toJsonNodeWithType();
         assertEquals(expressionNode,
-                HasJsonNode.fromJsonNodeWithType(jsonNode),
+                jsonNode.fromJsonNodeWithType(),
                 () -> "parse " + CharSequences.quote(expression) + " to json " + jsonNode + " then read back failed");
     }
 

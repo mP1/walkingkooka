@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -130,7 +129,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     // @VisibleForTesting
     static ExpressionNotNode fromJsonNode(final JsonNode node) {
-        return ExpressionNotNode.with(HasJsonNode.fromJsonNodeWithType(node));
+        return ExpressionNotNode.with(node.fromJsonNodeWithType());
     }
 
     static {

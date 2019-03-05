@@ -18,40 +18,17 @@
 
 package walkingkooka.tree.json;
 
-public final class HasJsonNodeLongMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeLongMapper, Long> {
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.type.MemberVisibility;
 
+public final class JsonLeafNonNullNodeTest implements ClassTesting2<JsonLeafNonNullNode> {
     @Override
-    HasJsonNodeLongMapper mapper() {
-        return HasJsonNodeLongMapper.instance();
+    public Class<JsonLeafNonNullNode> type() {
+        return JsonLeafNonNullNode.class;
     }
 
     @Override
-    Long value() {
-        return 123L;
-    }
-
-    @Override
-    boolean requiresTypeName() {
-        return true;
-    }
-
-    @Override
-    JsonNode node() {
-        return JsonNode.string(Long.toString(this.value()));
-    }
-
-    @Override
-    Long jsonNullNode() {
-        return null;
-    }
-
-    @Override
-    String typeName() {
-        return "long";
-    }
-
-    @Override
-    public Class<HasJsonNodeLongMapper> type() {
-        return HasJsonNodeLongMapper.class;
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

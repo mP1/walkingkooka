@@ -139,6 +139,20 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     }
 
     @Test
+    public final void testArrayOrFailFails() {
+        assertThrows(JsonNodeException.class, () -> {
+            this.createJsonNode().arrayOrFail();
+        });
+    }
+
+    @Test
+    public final void testObjectOrFailFails() {
+        assertThrows(JsonNodeException.class, () -> {
+            this.createJsonNode().objectOrFail();
+        });
+    }
+
+    @Test
     public void testEqualsDifferentValue() {
         this.checkNotEquals(JsonNode.number(99));
     }

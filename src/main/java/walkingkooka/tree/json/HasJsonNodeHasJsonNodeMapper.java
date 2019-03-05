@@ -35,6 +35,11 @@ final class HasJsonNodeHasJsonNodeMapper<T extends HasJsonNode> extends HasJsonN
     }
 
     @Override
+    T fromJsonNodeNull() {
+        return null;
+    }
+
+    @Override
     T fromJsonNode0(final JsonNode node) {
         return this.fromJsonNode.apply(node);
     }

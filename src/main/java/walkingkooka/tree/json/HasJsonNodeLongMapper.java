@@ -29,11 +29,22 @@ final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
     }
 
     @Override
+    Long fromJsonNodeNull() {
+        return null;
+    }
+
+    @Override
     Long fromJsonNode0(final JsonNode node) {
+        return node.isNumber() ?
+                node.numberValueOrFail().longValue() :
+                this.fromJsonNode1(node);
+    }
+
+    private Long fromJsonNode1(final JsonNode node) {
         try {
             final String text = node.stringValueOrFail();
             return Long.parseLong(text);
-        } catch (final JsonNodeException cause) {
+        } catch (final NumberFormatException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
     }

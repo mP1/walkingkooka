@@ -55,6 +55,11 @@ public final class HasJsonNodeBigDecimalMapperTest extends HasJsonNodeMapperTest
     }
 
     @Override
+    BigDecimal jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "big-decimal";
     }

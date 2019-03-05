@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
 /**
@@ -105,7 +104,7 @@ public final class ExpressionBooleanNode extends ExpressionValueNode<Boolean> {
 
     // @VisibleForTesting
     static ExpressionBooleanNode fromJsonNode(final JsonNode node) {
-        return ExpressionBooleanNode.with(HasJsonNode.fromJsonNode(node, Boolean.class));
+        return ExpressionBooleanNode.with(node.fromJsonNode(Boolean.class));
     }
 
     static {

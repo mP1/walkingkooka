@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.json;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.CharSequences;
@@ -32,6 +33,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -236,6 +238,63 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
     }
 
     // HasJsonNode...............................................................................................
+
+    @Override
+    <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
+        return this.reportInvalidNodeArray();
+    }
+
+    @Override
+    <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
+        return this.reportInvalidNodeArray();
+    }
+
+    @Override
+    <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
+        return this.reportInvalidNodeArray();
+    }
+
+    @Override
+    public <T> List<T> fromJsonNodeWithTypeList() {
+        return this.reportInvalidNodeArray();
+    }
+
+    @Override
+    public <T> Set<T> fromJsonNodeWithTypeSet() {
+        return this.reportInvalidNodeArray();
+    }
+
+    @Override
+    public <K, V> Map<K, V> fromJsonNodeWithTypeMap() {
+        return this.reportInvalidNodeArray();
+    }
+
+    /**
+     * Expects an object with two keys, the first holding the type and the second holding the value.
+     * <pre>
+     * {
+     *     "type": "string",
+     *     "value": "abc"
+     * }
+     * </pre>
+     */
+    @Override
+    public <T> T fromJsonNodeWithType() {
+        String type;
+        try {
+            type = this.getOrFail(TYPE).stringValueOrFail();
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+
+        return Cast.to(HasJsonNodeMapper.mapperOrFail(type).fromJsonNode(this.getOrFail(VALUE)));
+    }
+
+    // @VisibleTesting
+    final static JsonNodeName TYPE = JsonNodeName.with("type");
+
+    // @VisibleForTesting
+    final static JsonNodeName VALUE = JsonNodeName.with("value");
 
     @Override
     JsonNodeName defaultName() {

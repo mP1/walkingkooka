@@ -77,6 +77,11 @@ public final class HasJsonNodeNumberMapperTest extends HasJsonNodeMapperTestCase
     }
 
     @Override
+    Number jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "number";
     }

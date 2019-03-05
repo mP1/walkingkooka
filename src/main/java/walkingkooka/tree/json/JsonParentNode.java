@@ -90,6 +90,13 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
         throw new UnsupportedOperationException();
     }
 
+    // HasJsonNode................................................................................................
+
+    @Override
+    final <T> T fromJsonNode0(final Class<T> type) {
+        return HasJsonNodeMapper.mapperOrFail(type).fromJsonNode(this);
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override

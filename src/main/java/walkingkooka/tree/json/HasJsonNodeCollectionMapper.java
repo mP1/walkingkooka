@@ -18,10 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.Cast;
-
 import java.util.Collection;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 abstract class HasJsonNodeCollectionMapper<C extends Collection<?>> extends HasJsonNodeMapper2<C> {
@@ -31,22 +28,9 @@ abstract class HasJsonNodeCollectionMapper<C extends Collection<?>> extends HasJ
     }
 
     @Override
-    final C fromJsonNode0(final JsonNode node) {
-        // container must be an array
-        JsonArrayNode array;
-        try {
-            array = node.arrayOrFail();
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-
-        return array.children()
-                .stream()
-                .map(n -> HasJsonNodeMapper.fromJsonNodeWithType(n))
-                .collect(Cast.to(this.collector()));
+    final C fromJsonNodeNull() {
+        return null;
     }
-
-    abstract Collector<?, ?, C> collector();
 
     @Override
     final JsonNode toJsonNode0(final C value) {

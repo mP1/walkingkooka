@@ -19,7 +19,6 @@
 package walkingkooka.tree.expression;
 
 
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
 import java.time.LocalDate;
@@ -110,7 +109,7 @@ public final class ExpressionLocalDateNode extends ExpressionValueNode<LocalDate
 
     // @VisibleForTesting
     static ExpressionLocalDateNode fromJsonNode(final JsonNode node) {
-        return ExpressionLocalDateNode.with(HasJsonNode.fromJsonNode(node, LocalDate.class));
+        return ExpressionLocalDateNode.with(node.fromJsonNode(LocalDate.class));
     }
 
     static {

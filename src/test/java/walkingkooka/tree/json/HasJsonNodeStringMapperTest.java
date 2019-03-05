@@ -41,6 +41,11 @@ public final class HasJsonNodeStringMapperTest extends HasJsonNodeMapperTestCase
     }
 
     @Override
+    String jsonNullNode() {
+        return null;
+    }
+
+    @Override
     String typeName() {
         return "string";
     }
