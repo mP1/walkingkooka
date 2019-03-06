@@ -33,7 +33,10 @@ import java.util.WeakHashMap;
 /**
  * A {@link Value} including an enumeration of standards methods that contains the HTTP request methods.
  */
-public final class HttpMethod implements Value<String>, HeaderValue, HashCodeEqualsDefined {
+public final class HttpMethod implements Value<String>,
+        HeaderValue,
+        Comparable<HttpMethod>,
+        HashCodeEqualsDefined {
 
     /**
      * A cache of all {@link HttpMethod versions}. Placed above constants so it is initialized before constants
@@ -192,12 +195,8 @@ public final class HttpMethod implements Value<String>, HeaderValue, HashCodeEqu
     }
 
     private boolean equals0(final HttpMethod other) {
-        return CASE_SENSITIVITY.equals(this.value, other.value);
+        return 0 == this.compareTo(other);
     }
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
-    // Object
 
     /**
      * Dumps the method name.
@@ -205,5 +204,14 @@ public final class HttpMethod implements Value<String>, HeaderValue, HashCodeEqu
     @Override
     public String toString() {
         return this.value;
+    }
+
+    // Comparable..........................................................................................................
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+
+    @Override
+    public int compareTo(final HttpMethod other) {
+        return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
     }
 }
