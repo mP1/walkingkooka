@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.header.HeaderValueTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
@@ -38,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         HeaderValueTesting<HttpMethod>,
+        ComparableTesting<HttpMethod>,
         ConstantsTesting<HttpMethod> {
 
     @Test
@@ -190,6 +192,18 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         this.toStringAndCheck(HttpMethod.GET, "GET");
     }
 
+    // Comparable..........................................................................................
+
+    @Test
+    public void testCompareBefore() {
+        this.compareToAndCheckLess(HttpMethod.POST); // GET < POST
+    }
+
+    @Test
+    public void testCompareAfter() {
+        this.compareToAndCheckMore(HttpMethod.DELETE); // GET > DELETE
+    }
+
     @Override
     public HttpMethod createHeaderValue() {
         return HttpMethod.GET;
@@ -210,18 +224,34 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
         return true;
     }
 
+    // ClassTesting.................................................................................
+
     @Override
     public Class<HttpMethod> type() {
         return HttpMethod.class;
     }
 
     @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
+
+    // ConstantsTesting.................................................................................
+
+    @Override
     public Set<HttpMethod> intentionalDuplicateConstants() {
         return Sets.empty();
     }
 
+    // ComparableTesting.................................................................................
+
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public HttpMethod createObject() {
+        return this.createComparable();
+    }
+
+    @Override
+    public HttpMethod createComparable() {
+        return HttpMethod.GET;
     }
 }
