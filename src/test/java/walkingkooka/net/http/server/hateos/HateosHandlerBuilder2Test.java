@@ -22,9 +22,9 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerBuilder2Test implements ClassTesting2<HateosHandlerBuilder2<?, ?>> {
+public final class HateosHandlerBuilder2Test implements ClassTesting2<HateosHandlerBuilder2<?>> {
     @Override
-    public Class<HateosHandlerBuilder2<?, ?>> type() {
+    public Class<HateosHandlerBuilder2<?>> type() {
         return Cast.to(HateosHandlerBuilder2.class);
     }
 

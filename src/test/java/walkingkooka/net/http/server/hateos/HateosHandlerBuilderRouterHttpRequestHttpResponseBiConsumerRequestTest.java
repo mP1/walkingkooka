@@ -20,15 +20,14 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTest implements
-        ClassTesting<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode, HasJsonNode>> {
+public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequestTest implements
+        ClassTesting<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode, HateosContentTypeJsonNode>> {
     @Override
-    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<JsonNode, HasJsonNode>> type() {
-        return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod.class);
+    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode, HateosContentTypeJsonNode>> type() {
+        return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest.class);
     }
 
     @Override

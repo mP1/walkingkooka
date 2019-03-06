@@ -22,10 +22,10 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosContentTypeTest implements ClassTesting2<HateosContentType<?, ?>> {
+public final class HateosContentTypeTest implements ClassTesting2<HateosContentType<?>> {
 
     @Override
-    public Class<HateosContentType<?, ?>> type() {
+    public Class<HateosContentType<?>> type() {
         return Cast.to(HateosContentType.class);
     }
 

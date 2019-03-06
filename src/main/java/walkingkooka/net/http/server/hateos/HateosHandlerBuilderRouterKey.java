@@ -24,15 +24,17 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import java.util.Objects;
 
 /**
- * Used as a key within a map holding all handlers.
+ * Used as a key within a map holding all mappers.
  */
 final class HateosHandlerBuilderRouterKey implements HashCodeEqualsDefined, Comparable<HateosHandlerBuilderRouterKey> {
 
-    static HateosHandlerBuilderRouterKey with(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
+    static HateosHandlerBuilderRouterKey with(final HateosResourceName resourceName,
+                                              final LinkRelation<?> linkRelation) {
         return new HateosHandlerBuilderRouterKey(resourceName, linkRelation);
     }
 
-    private HateosHandlerBuilderRouterKey(final HateosResourceName resourceName, final LinkRelation<?> linkRelation) {
+    private HateosHandlerBuilderRouterKey(final HateosResourceName resourceName,
+                                          final LinkRelation<?> linkRelation) {
         this.resourceName = resourceName;
         this.linkRelation = linkRelation;
     }
@@ -40,6 +42,8 @@ final class HateosHandlerBuilderRouterKey implements HashCodeEqualsDefined, Comp
     final HateosResourceName resourceName;
 
     final LinkRelation<?> linkRelation;
+
+    // HashCodeEqualsDefined ...........................................................................................
 
     @Override
     public int hashCode() {
@@ -63,6 +67,8 @@ final class HateosHandlerBuilderRouterKey implements HashCodeEqualsDefined, Comp
     public String toString() {
         return this.resourceName + " " + this.linkRelation;
     }
+
+    // Comparable........................................................................................................
 
     @Override
     public int compareTo(final HateosHandlerBuilderRouterKey other) {

@@ -26,11 +26,10 @@ import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.TestRecordingHttpResponse;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode, HasJsonNode>> {
+public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
 
     @Test
     public void testMethodNotSupported() {
@@ -52,7 +51,7 @@ public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTe
     }
 
     @Override
-    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode, HasJsonNode>> type() {
+    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> type() {
         return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer.class);
     }
 

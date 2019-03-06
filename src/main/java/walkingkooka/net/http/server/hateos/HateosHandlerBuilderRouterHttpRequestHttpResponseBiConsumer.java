@@ -24,64 +24,56 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.tree.Node;
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 
 /**
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extends Node<N, ?, ?, ?>, V> implements BiConsumer<HttpRequest, HttpResponse> {
+final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extends Node<N, ?, ?, ?>,
+        H extends HateosContentType<N>>
+        implements BiConsumer<HttpRequest, HttpResponse> {
 
     /**
-     * Factory called by {@link HateosHandlerBuilder#build()}
+     * Factory called by {@link HateosHandlerBuilderRouter#route}
      */
-    static <N extends Node<N, ?, ?, ?>, V> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N, V> with(final HateosHandlerBuilderRouter<N, V> router) {
-        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N, V>(router);
+    static <N extends Node<N, ?, ?, ?>,
+            H extends HateosContentType<N>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N, H> with(final HateosHandlerBuilderRouter<N> router) {
+        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N, H>(router);
     }
 
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer(final HateosHandlerBuilderRouter<N, V> router) {
+    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer(final HateosHandlerBuilderRouter<N> router) {
         super();
         this.router = router;
     }
 
     /**
-     * Tests the method and calls a sub class of {@link HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod}.
+     * Tests the method and calls the matching {@link HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest}.
      */
     @Override
     public void accept(final HttpRequest request, final HttpResponse response) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+
         try {
-            do {
-                final HttpMethod httpMethod = request.method();
-                if (httpMethod.equals(HttpMethod.GET)) {
-                    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerGet.with(this.router, request, response)
-                            .execute();
-                    break;
-                }
-                if (httpMethod.equals(HttpMethod.POST)) {
-                    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPost.with(this.router, request, response)
-                            .execute();
-                    break;
-                }
-                if (httpMethod.equals(HttpMethod.PUT)) {
-                    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerPut.with(this.router, request, response)
-                            .execute();
-                    break;
-                }
-                if (httpMethod.equals(HttpMethod.DELETE)) {
-                    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete.with(this.router, request, response)
-                            .execute();
-                    break;
-                }
+            final HttpMethod httpMethod = request.method();
+            if (httpMethod.equals(HttpMethod.GET) ||
+                    httpMethod.equals(HttpMethod.POST) ||
+                    httpMethod.equals(HttpMethod.PUT) ||
+                    httpMethod.equals(HttpMethod.DELETE)) {
+                HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest.with(this.router, request, response)
+                        .execute();
+            } else {
                 methodNotAllowed(httpMethod.value(), response);
-                break;
-            } while (false);
+            }
         } catch (final UnsupportedOperationException unsupported) {
-            response.setStatus(HttpStatusCode.NOT_IMPLEMENTED.setMessage(unsupported.getMessage()));
+            response.setStatus(HttpStatusCode.NOT_IMPLEMENTED.setMessageOrDefault(unsupported.getMessage()));
         } catch (final IllegalArgumentException badRequest) {
-            response.setStatus(HttpStatusCode.BAD_REQUEST.setMessage(badRequest.getMessage()));
+            response.setStatus(HttpStatusCode.BAD_REQUEST.setMessageOrDefault(badRequest.getMessage()));
         }
     }
 
@@ -90,7 +82,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extend
         response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(message));
     }
 
-    final HateosHandlerBuilderRouter<N, V> router;
+    private final HateosHandlerBuilderRouter<N> router;
 
     @Override
     public String toString() {

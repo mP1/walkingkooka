@@ -18,15 +18,23 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.test.Fake;
-import walkingkooka.tree.Node;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.xml.XmlNode;
 
-public class FakeHateosHandlerContext<N extends Node<N, ?, ?, ?>> implements HateosHandlerContext<N>, Fake {
+public class FakeHateosResource<I extends Comparable<I>> implements HateosResource<I>{
 
     @Override
-    public N addLinks(final HateosResourceName name,
-                      final Comparable<?> id,
-                      final N node) {
+    public I id() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public XmlNode toXmlNode() {
         throw new UnsupportedOperationException();
     }
 }

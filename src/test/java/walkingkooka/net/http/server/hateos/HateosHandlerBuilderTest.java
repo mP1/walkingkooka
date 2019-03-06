@@ -22,13 +22,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.routing.Router;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -39,10 +39,12 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandlerBuilder<JsonNode, HasJsonNode>>,
-        BuilderTesting<HateosHandlerBuilder<JsonNode, HasJsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
+public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandlerBuilder<JsonNode>>,
+        BuilderTesting<HateosHandlerBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
-    private final static Function<String, BigInteger> ID_PARSER = BigInteger::new;
+    private final static Function<String, BigInteger> STRING_TO_ID = BigInteger::new;
+    private final static Class<EmailAddress> RESOURCE_TYPE = EmailAddress.class;
+    private final static Function<EmailAddress, BigInteger> RESOURCE_TO_ID = (e) -> BigInteger.valueOf(e.user().length());
 
     // creation ..........................................................................................
 
@@ -74,317 +76,72 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
         });
     }
 
-    // get ..........................................................................................
+    // add ..........................................................................................
 
     @Test
-    public void testGetNullResourceNameFails() {
+    public void testAddNullResourceNameFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().get(null, ID_PARSER, LinkRelation.SELF, this.getHandler());
+            this.createBuilder().add(null, LinkRelation.SELF, this.mapper());
         });
     }
 
     @Test
-    public void testGetNullIdFails() {
+    public void testAddNullIdFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().get(this.resourceName1(), null, LinkRelation.SELF, this.getHandler());
+            this.createBuilder().add(this.resourceName1(), null, this.mapper());
         });
     }
 
     @Test
-    public void testGetNullRelationFails() {
+    public void testAddNullRelationFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().get(this.resourceName1(), ID_PARSER,null, this.getHandler());
+            this.createBuilder().add(this.resourceName1(), LinkRelation.SELF, null);
         });
     }
 
     @Test
-    public void testGetNullHandlerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().get(this.resourceName1(), ID_PARSER, LinkRelation.SELF, null);
-        });
-    }
-
-    @Test
-    public void testGetDuplicateResourceAndRelationFails() {
+    public void testAddDuplicateResourceNameAndRelationFails() {
         final HateosResourceName resourceName = this.resourceName1();
         final LinkRelation<?> relation = LinkRelation.SELF;
 
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.get(resourceName, ID_PARSER, relation, this.getHandler());
+        final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
+        builder.add(resourceName, relation, this.mapper());
 
         assertThrows(IllegalArgumentException.class, () -> {
-            builder.get(resourceName, ID_PARSER, relation, this.getHandler());
+            builder.add(resourceName, relation, this.mapper());
         });
     }
 
     @Test
-    public void testGetRepeatedResourceAndRelationFails() {
-        final HateosResourceName resourceName = this.resourceName1();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-        final HateosGetHandler<BigInteger, JsonNode> handler = this.getHandler();
+    public void testAddMany() {
+        final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
 
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.get(resourceName, ID_PARSER, relation, handler);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            builder.get(resourceName, ID_PARSER, relation, handler);
-        });
+        assertSame(builder, builder.add(this.resourceName1(), LinkRelation.SELF, this.mapper()));
+        assertSame(builder, builder.add(this.resourceName2(), LinkRelation.SELF, this.mapper()));
+        assertSame(builder, builder.add(this.resourceName1(), LinkRelation.ITEM, this.mapper()));
     }
 
-    @Test
-    public void testGet() {
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-        assertSame(builder, builder.get(this.resourceName1(), ID_PARSER, relation, this.getHandler()));
-        assertSame(builder, builder.get(this.resourceName2(), ID_PARSER, relation, this.getHandler()));
-        assertSame(builder, builder.get(this.resourceName1(), ID_PARSER, LinkRelation.ITEM, this.getHandler()));
-    }
-
-    private HateosGetHandler<BigInteger, JsonNode> getHandler() {
-        return new FakeHateosGetHandler<BigInteger, JsonNode>() {
-            @Override
-            public String toString() {
-                return "get123";
-            }
-        };
-    }
-
-    // post ..........................................................................................
-
-    @Test
-    public void testPostNullResourceNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().post(null, ID_PARSER, LinkRelation.SELF, this.postHandler());
-        });
-    }
-
-    @Test
-    public void testPostNullIdFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().post(this.resourceName1(), null,LinkRelation.SELF, this.postHandler());
-        });
-    }
-
-    @Test
-    public void testPostNullRelationFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().post(this.resourceName1(), ID_PARSER,null, this.postHandler());
-        });
-    }
-
-    @Test
-    public void testPostNullHandlerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().post(this.resourceName1(), ID_PARSER, LinkRelation.SELF, null);
-        });
-    }
-
-    @Test
-    public void testPostDuplicateResourceAndRelationFails() {
-        final HateosResourceName resourceName = this.resourceName1();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.post(resourceName, ID_PARSER, relation, this.postHandler());
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            builder.post(resourceName, ID_PARSER, relation, this.postHandler());
-        });
-    }
-
-    @Test
-    public void testPostRepeatedResourceAndRelationFails() {
-        final HateosResourceName resourceName = this.resourceName1();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-        final HateosPostHandler<BigInteger, JsonNode> handler = this.postHandler();
-
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.post(resourceName, ID_PARSER, relation, handler);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            builder.post(resourceName, ID_PARSER, relation, handler);
-        });
-    }
-
-    @Test
-    public void testPost() {
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-        assertSame(builder, builder.post(this.resourceName1(), ID_PARSER, relation, this.postHandler()));
-        assertSame(builder, builder.post(this.resourceName2(), ID_PARSER, relation, this.postHandler()));
-        assertSame(builder, builder.post(this.resourceName1(), ID_PARSER, LinkRelation.ITEM, this.postHandler()));
-    }
-
-    private HateosPostHandler<BigInteger, JsonNode> postHandler() {
-        return new FakeHateosPostHandler<BigInteger, JsonNode>() {
-            @Override
-            public String toString() {
-                return "post234";
-            }
-        };
-    }
-
-    // put ..........................................................................................
-
-    @Test
-    public void testPutNullResourceNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().put(null, ID_PARSER, LinkRelation.SELF, this.putHandler());
-        });
-    }
-
-    @Test
-    public void testPutNullIdFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().put(this.resourceName1(), null,LinkRelation.SELF, this.putHandler());
-        });
-    }
-    
-    @Test
-    public void testPutNullRelationFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().put(this.resourceName1(), ID_PARSER,null, this.putHandler());
-        });
-    }
-
-    @Test
-    public void testPutNullHandlerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().put(this.resourceName1(), ID_PARSER, LinkRelation.SELF, null);
-        });
-    }
-
-    @Test
-    public void testPutDuplicateResourceAndRelationFails() {
-        final HateosResourceName resourceName = this.resourceName1();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.put(resourceName, ID_PARSER, relation, this.putHandler());
-        
-        assertThrows(IllegalArgumentException.class, () -> {
-            builder.put(resourceName, ID_PARSER, relation, this.putHandler());
-        });
-    }
-
-    @Test
-    public void testPutRepeatedResourceAndRelationFails() {
-        final HateosResourceName resourceName = this.resourceName1();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-        final HateosPutHandler<BigInteger, JsonNode> handler = this.putHandler();
-
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.put(resourceName, ID_PARSER, relation, handler);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            builder.put(resourceName, ID_PARSER, relation, handler);
-        });
-    }
-
-    @Test
-    public void testPut() {
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-        assertSame(builder, builder.put(this.resourceName1(), ID_PARSER, relation, this.putHandler()));
-        assertSame(builder, builder.put(this.resourceName2(), ID_PARSER, relation, this.putHandler()));
-        assertSame(builder, builder.put(this.resourceName1(), ID_PARSER, LinkRelation.ITEM, this.putHandler()));
-    }
-
-    private HateosPutHandler<BigInteger, JsonNode> putHandler() {
-        return new FakeHateosPutHandler<BigInteger, JsonNode>() {
-            @Override
-            public String toString() {
-                return "put345";
-            }
-        };
-    }
-    // delete ..........................................................................................
-
-    @Test
-    public void testDeleteNullResourceNameFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().delete(null, ID_PARSER, LinkRelation.SELF, this.deleteHandler());
-        });
-    }
-
-    @Test
-    public void testDeleteNullIdFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().delete(this.resourceName1(), null, LinkRelation.SELF, this.deleteHandler());
-        });
-    }
-
-    @Test
-    public void testDeleteNullRelationFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().delete(this.resourceName1(), ID_PARSER,null, this.deleteHandler());
-        });
-    }
-
-    @Test
-    public void testDeleteNullHandlerFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().delete(this.resourceName1(), ID_PARSER, LinkRelation.SELF, null);
-        });
-    }
-
-    @Test
-    public void testDeleteDuplicateResourceAndRelationFails() {
-        final HateosResourceName resourceName = this.resourceName1();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.delete(resourceName, ID_PARSER, relation, this.deleteHandler());
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            builder.delete(resourceName, ID_PARSER, relation, this.deleteHandler());
-        });
-    }
-
-    @Test
-    public void testDeleteRepeatedResourceAndRelationFails() {
-        final HateosResourceName resourceName = this.resourceName1();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-        final HateosDeleteHandler<BigInteger, JsonNode> handler = this.deleteHandler();
-
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.delete(resourceName, ID_PARSER, relation, handler);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            builder.delete(resourceName, ID_PARSER, relation, handler);
-        });
-    }
-
-    @Test
-    public void testDelete() {
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        final LinkRelation<?> relation = LinkRelation.SELF;
-        assertSame(builder, builder.delete(this.resourceName1(), ID_PARSER, relation, this.deleteHandler()));
-        assertSame(builder, builder.delete(this.resourceName2(), ID_PARSER, relation, this.deleteHandler()));
-        assertSame(builder, builder.delete(this.resourceName1(), ID_PARSER, LinkRelation.ITEM, this.deleteHandler()));
-    }
-
-    private HateosDeleteHandler<BigInteger, JsonNode> deleteHandler() {
-        return new FakeHateosDeleteHandler<BigInteger, JsonNode>() {
-            @Override
-            public String toString() {
-                return "delete456";
-            }
-        };
-    }
 
     // toString....................................................................................................
 
     @Test
     public void testToString() {
-        final HateosHandlerBuilder<JsonNode, HasJsonNode> builder = this.createBuilder();
-        builder.get(this.resourceName1(), ID_PARSER, LinkRelation.SELF, this.getHandler());
-        builder.post(this.resourceName1(), ID_PARSER, LinkRelation.SELF, this.postHandler());
-        builder.put(this.resourceName1(), ID_PARSER, LinkRelation.SELF, this.putHandler());
-        builder.delete(this.resourceName1(), ID_PARSER, LinkRelation.SELF, this.deleteHandler());
+        final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
+        builder.add(this.resourceName1(), LinkRelation.SELF, this.mapper().get(this.handler("get123")).post(this.handler("post123")));
+        builder.add(this.resourceName2(), LinkRelation.SELF, this.mapper().post(this.handler("post234")));
+        builder.add(this.resourceName1(), LinkRelation.ITEM, this.mapper().put(this.handler("put345")));
+        builder.add(this.resourceName2(), LinkRelation.ITEM, this.mapper().delete(this.handler("delete456")));
 
         this.toStringAndCheck(builder,
-                "http://example.com/api JSON {resource1 self=GET=get123 POST=post234 PUT=put345 DELETE=delete456}");
+                "http://example.com/api JSON {resource1 item=PUT=put345, resource1 self=GET=get123 POST=post123, resource2 item=DELETE=delete456, resource2 self=POST=post234}");
+    }
+
+    private HateosHandler<BigInteger, TestHateosResource> handler(final String toString) {
+        return new FakeHateosHandler<BigInteger, TestHateosResource>() {
+            public String toString() {
+                return toString;
+            }
+        };
     }
 
     // helpers ..........................................................................................
@@ -400,25 +157,29 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
     // helpers ..........................................................................................
 
     @Override
-    public HateosHandlerBuilder<JsonNode, HasJsonNode> createBuilder() {
+    public HateosHandlerBuilder<JsonNode> createBuilder() {
         return this.createBuilder("http://example.com/api");
     }
 
-    private HateosHandlerBuilder<JsonNode, HasJsonNode> createBuilder(final String url) {
+    private HateosHandlerBuilder<JsonNode> createBuilder(final String url) {
         return this.createBuilder(url, this.contentType());
     }
 
-    private HateosHandlerBuilder<JsonNode, HasJsonNode> createBuilder(final String url,
-                                                                      final HateosContentType<JsonNode, HasJsonNode> contentType) {
+    private HateosHandlerBuilder<JsonNode> createBuilder(final String url,
+                                                         final HateosContentType<JsonNode> contentType) {
         return HateosHandlerBuilder.with(AbsoluteUrl.parse(url), contentType);
     }
 
-    private HateosContentType<JsonNode, HasJsonNode> contentType() {
+    private HateosContentType<JsonNode> contentType() {
         return HateosContentType.json();
     }
 
+    private HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mapper() {
+        return HateosHandlerBuilderMapper.with(BigInteger::new, TestHateosResource.class);
+    }
+
     @Override
-    public Class<HateosHandlerBuilder<JsonNode, HasJsonNode>> type() {
+    public Class<HateosHandlerBuilder<JsonNode>> type() {
         return Cast.to(HateosHandlerBuilder.class);
     }
 

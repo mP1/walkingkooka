@@ -29,7 +29,7 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpServerException;
-import walkingkooka.tree.xml.HasXmlNode;
+import walkingkooka.tree.Node;
 import walkingkooka.tree.xml.XmlDocument;
 import walkingkooka.tree.xml.XmlName;
 import walkingkooka.tree.xml.XmlNode;
@@ -43,18 +43,15 @@ import java.io.StringWriter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-final class HateosContentTypeXmlNode<V extends HasXmlNode> extends HateosContentType<XmlNode, V> {
+final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
 
     /**
      * Singleton
      */
     @SuppressWarnings("unchecked")
-    static <V extends HasXmlNode> HateosContentTypeXmlNode<V> instance() {
-        return INSTANCE;
-    }
-
-    private final static HateosContentTypeXmlNode INSTANCE = new HateosContentTypeXmlNode<>();
+    final static HateosContentTypeXmlNode INSTANCE = new HateosContentTypeXmlNode();
 
 
     /**
@@ -71,9 +68,33 @@ final class HateosContentTypeXmlNode<V extends HasXmlNode> extends HateosContent
 
     private final static MediaType CONTENT_TYPE = MediaType.with("application", "hal+xml");
 
+    /**
+     * Reads a resource object from its {@link XmlNode} representation.
+     */
     @Override
-    XmlNode parse(final DocumentBuilder documentBuilder,
-                  final String text) {
+    <R extends HateosResource<I>, I extends Comparable<I>> R fromNode(final String text,
+                                                                      final DocumentBuilder documentBuilder,
+                                                                      final Class<R> resourceType) {
+        return fromXmlNode(parseXml(documentBuilder, text), resourceType);
+    }
+
+
+    /**
+     * Reads a list of resource objects from their {@link Node} representation.
+     */
+    @Override
+    <R extends HateosResource<I>, I extends Comparable<I>> List<R> fromNodeList(final String text,
+                                                                                final DocumentBuilder documentBuilder,
+                                                                                final Class<R> resourceType) {
+        return parseXml(documentBuilder, text)
+                .children()
+                .stream()
+                .map(c -> fromXmlNode(c, resourceType))
+                .collect(Collectors.toList());
+    }
+
+    private XmlNode parseXml(final DocumentBuilder documentBuilder,
+                             final String text) {
         try {
             return XmlNode.fromXml(documentBuilder, new StringReader(text));
         } catch (final Exception cause) {
@@ -81,33 +102,48 @@ final class HateosContentTypeXmlNode<V extends HasXmlNode> extends HateosContent
         }
     }
 
+    private <R extends HateosResource<I>, I extends Comparable<I>> R fromXmlNode(final XmlNode node, final Class<R> resourceType) {
+        throw new UnsupportedOperationException();
+    }
+
+
     @Override
-    String toText(final XmlNode node) {
-        try {
-            final StringWriter writer = new StringWriter();
-            final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            node.toXml(transformer, writer);
-            writer.flush();
-            return writer.toString();
-        } catch (final TransformerException cause) {
-            throw new HttpServerException(cause.getMessage(), cause);
-        }
+    <R extends HateosResource<I>, I extends Comparable<I>> String toText(final R resource,
+                                                                         final DocumentBuilder documentBuilder,
+                                                                         final HttpMethod method,
+                                                                         final AbsoluteUrl base,
+                                                                         final HateosResourceName resourceName,
+                                                                         final Collection<LinkRelation<?>> linkRelations) {
+        return toXmlText(addLinks(resource, method, base, resourceName, linkRelations));
     }
 
     @Override
-    XmlNode addLinks(final Comparable<?> id,
-                     final XmlNode node,
-                     final HttpMethod method,
-                     final AbsoluteUrl base,
-                     final HateosResourceName resourceName,
-                     final Collection<LinkRelation<?>> linkRelations) {
+    <R extends HateosResource<I>, I extends Comparable<I>> String toTextList(final List<R> resources,
+                                                                             final DocumentBuilder documentBuilder,
+                                                                             final HttpMethod method,
+                                                                             final AbsoluteUrl base,
+                                                                             final HateosResourceName resourceName,
+                                                                             final Collection<LinkRelation<?>> linkRelations) {
+        return toXmlText(
+                XmlNode.createDocument(documentBuilder)
+                        .createElement(XmlName.element("list"))
+                        .setChildren(resources.stream()
+                        .map(r -> addLinks(r, method, base, resourceName, linkRelations))
+                        .collect(Collectors.toList())));
+    }
 
+    private <R extends HateosResource<I>, I extends Comparable<I>> XmlNode addLinks(final R resource,
+                                                                                    final HttpMethod method,
+                                                                                    final AbsoluteUrl base,
+                                                                                    final HateosResourceName resourceName,
+                                                                                    final Collection<LinkRelation<?>> linkRelations) {
+        final XmlNode node = resource.toXmlNode();
         final XmlDocument document = node.document();
 
         // base + resource name.
         final UrlPath pathAndResourceNameAndId = base.path()
                 .append(UrlPathName.with(resourceName.value()))
-                .append(UrlPathName.with(id.toString()));
+                .append(UrlPathName.with(resource.id().toString()));
 
         final List<XmlNode> links = Lists.array();
 
@@ -131,17 +167,22 @@ final class HateosContentTypeXmlNode<V extends HasXmlNode> extends HateosContent
                         .setChildren(links));
     }
 
+    private String toXmlText(final XmlNode node) {
+        try {
+            final StringWriter writer = new StringWriter();
+            final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            node.toXml(transformer, writer);
+            writer.flush();
+            return writer.toString();
+        } catch (final TransformerException cause) {
+            throw new HttpServerException(cause.getMessage(), cause);
+        }
+    }
+
     /**
      * The xml element that receives the actual links.
      */
     private final static XmlName LINKS = XmlName.element("links");
-
-    /**
-     * Converts the given value into a {@link XmlNode}.
-     */
-    public XmlNode toNode(final HasXmlNode value) {
-        return value.toXmlNode();
-    }
 
     @Override
     public String toString() {

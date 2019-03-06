@@ -18,9 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.compare.Range;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
@@ -37,7 +35,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.tree.Node;
 
 import java.io.IOException;
@@ -50,14 +47,22 @@ import java.util.Optional;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod<N extends Node<N, ?, ?, ?>, V> {
+final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N extends Node<N, ?, ?, ?>,
+        H extends HateosContentType<N>> {
+
+    static <N extends Node<N, ?, ?, ?>,
+            H extends HateosContentType<N>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N, H> with(final HateosHandlerBuilderRouter<N> router,
+                                                                                                                          final HttpRequest request,
+                                                                                                                          final HttpResponse response) {
+        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<>(router, request, response);
+    }
 
     /**
      * Package private ctor use factory.
      */
-    HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod(final HateosHandlerBuilderRouter<N, V> router,
-                                                                      final HttpRequest request,
-                                                                      final HttpResponse response) {
+    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest(final HateosHandlerBuilderRouter<N> router,
+                                                                               final HttpRequest request,
+                                                                               final HttpResponse response) {
         super();
         this.router = router;
         this.request = request;
@@ -66,19 +71,20 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
     }
 
     final void execute() {
-        Loop: //
+        Loop:
+//
         do {
             // verify correctly dispatched...
             int pathIndex = this.router.consumeBasePath(this.parameters);
             if (-1 == pathIndex) {
-                badRequest("Bad routing.");
+                this.badRequest("Bad routing");
                 break;
             }
 
             // extract resource name......................................................................................
             final String resourceNameString = this.pathComponentOrNull(pathIndex);
-            if (null == resourceNameString) {
-                this.badRequest("Resource name missing.");
+            if (CharSequences.isNullOrEmpty(resourceNameString)) {
+                this.badRequest("Missing resource name");
                 break;
             }
 
@@ -105,30 +111,30 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
             final StringBuilder component = new StringBuilder();
             String begin = null;
 
-            for(char c : idOrRange.toCharArray()) {
-                if(escaped) {
+            for (char c : idOrRange.toCharArray()) {
+                if (escaped) {
                     escaped = false;
                     component.append(c);
                     continue;
                 }
-                if(SEPARATOR ==c) {
-                    if(null==begin) {
+                if ('\\' == c) {
+                    escaped = true;
+                    continue;
+                }
+                if (SEPARATOR == c) {
+                    if (null == begin) {
                         begin = component.toString();
                         component.setLength(0);
                         continue;
                     }
                     // second dash found error!!!
-                    this.badRequest("Invalid character within range "+ CharSequences.quoteAndEscape(component));
+                    this.badRequest("Invalid character within range " + CharSequences.quoteAndEscape(idOrRange));
                     break Loop;
-                }
-                if('\\' == c) {
-                    escaped = true;
-                    break;
                 }
                 component.append(c);
             }
 
-            if(null==begin) {
+            if (null == begin) {
                 this.id(resourceName, component.toString(), pathIndex);
                 break;
             }
@@ -147,16 +153,33 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
 
     // ID.............................................................................................................
 
+    private void id(final HateosResourceName resourceName,
+                    final String id,
+                    final int pathIndex) {
+        final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
+        if (null != linkRelation) {
+            this.id0(resourceName, id, linkRelation);
+        }
+    }
+
+    private void id0(final HateosResourceName resourceName,
+                     final String idText,
+                     final LinkRelation<?> linkRelation) {
+        final HateosHandlerBuilderMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        if (null != mapper) {
+            mapper.handleId(resourceName, idText, linkRelation, this);
+        }
+    }
+
+    // ID MISSING.............................................................................................................
+
     private void idMissing(final HateosResourceName resourceName,
                            final int pathIndex) {
         final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
         if (null != linkRelation) {
-            this.idMissing(resourceName, linkRelation);
+            this.idMissingOrWildcard(resourceName, linkRelation);
         }
     }
-
-    abstract void idMissing(final HateosResourceName resourceName,
-                            final LinkRelation<?> linkRelation);
 
     // WILDCARD.............................................................................................................
 
@@ -164,30 +187,23 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
                           final int pathIndex) {
         final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
         if (null != linkRelation) {
-            this.wildcard(resourceName, linkRelation);
+            this.idMissingOrWildcard(resourceName, linkRelation);
         }
     }
 
-    abstract void wildcard(final HateosResourceName resourceName,
-                           final LinkRelation<?> linkRelation);
-
-    // ID.............................................................................................................
-
-    private void id(final HateosResourceName resourceName,
-                    final String id,
-                    final int pathIndex) {
-        final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
-        if (null != linkRelation) {
-            this.id(resourceName, id, linkRelation);
+    private void idMissingOrWildcard(final HateosResourceName resourceName,
+                                     final LinkRelation<?> linkRelation) {
+        final HateosHandlerBuilderMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        if (null != mapper) {
+            mapper.handleCollection(resourceName, linkRelation, this);
         }
     }
-
-    abstract void id(final HateosResourceName resourceName,
-                     final String id,
-                     final LinkRelation<?> linkRelation);
 
     // COLLECTION.....................................................................................................
 
+    /**
+     * Dispatches a collection resource request, but with the range outstanding and unparsed.
+     */
     private void collection(final HateosResourceName resourceName,
                             final String begin,
                             final String end,
@@ -195,41 +211,18 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
                             final int pathIndex) {
         final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
         if (null != linkRelation) {
-            this.collection(resourceName, begin, end, rangeText, linkRelation);
+            final HateosHandlerBuilderMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
+            if (null != mapper) {
+                mapper.handleCollection(resourceName,
+                        begin,
+                        end,
+                        rangeText,
+                        linkRelation, this);
+            }
         }
     }
-
-    abstract void collection(final HateosResourceName resourceName,
-                             final String begin,
-                             final String end,
-                             final String rangeText,
-                             final LinkRelation<?> linkRelation);
 
     // HELPERS ......................................................................................................
-
-    /**
-     * Parses or converts the id text, reporting a bad request if this fails.
-     */
-    final Comparable<?> idOrBadRequest(final String id,
-                                       final HateosHandlerBuilderRouterHandlers<N> handlers) {
-        return this.idOrBadRequest(id, handlers, "id", id);
-    }
-
-    /**
-     * Parses or converts the id text, reporting a bad request if this fails.
-     */
-    private Comparable<?> idOrBadRequest(final String id,
-                                         final HateosHandlerBuilderRouterHandlers<N> handlers,
-                                         final String label, // id, range begin, range end
-                                         final String text) {
-        Comparable<?> parsed = null;
-        try {
-            parsed = handlers.id.apply(id);
-        } catch (final RuntimeException failed) {
-            this.badRequest("Invalid " + label + " " + CharSequences.quote(text));
-        }
-        return parsed;
-    }
 
     /**
      * If not empty parse the relation otherwise return a default of {@link LinkRelation#SELF}, a null indicates an invalid relation.
@@ -255,118 +248,68 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
         return relation;
     }
 
-    final Range<Comparable<?>> rangeOrBadRequest(final String begin,
-                                                 final String end,
-                                                 final HateosHandlerBuilderRouterHandlers<N> handlers,
-                                                 final String rangeText) {
-        Range<Comparable<?>> range = null;
-
-        final Comparable beginComparable = this.idOrBadRequest(begin, handlers, "range begin", rangeText);
-        if(null!=beginComparable) {
-            final Comparable endComparable = this.idOrBadRequest(end, handlers, "range end", rangeText);
-            if (null != endComparable) {
-                range = Cast.to(Range.greaterThanEquals(beginComparable)
-                        .and(Range.lessThanEquals(endComparable)));
-            }
-        }
-
-        return range;
-    }
-
     /**
-     * Reads and parses the request body into a {@link Node} returning null if reading or decoding the body fails.
+     * Reads and returns the body as text, with null signifying an error occured and a bad request response set.
      */
-    final Optional<N> resourceOrBadRequest() {
-        Optional<N> resource = null;
+    String resourceTextOrBadRequest() {
+        String text = "";
 
         final byte[] body = this.request.body();
         if (null != body && body.length > 0) {
-            final N resourceNode = this.resourceOrNull();
-            if (null != resourceNode) {
-                resource = Optional.of(resourceNode);
-            }
-        } else {
-            resource = Optional.empty();
-        }
+            Charset charset = Charset.defaultCharset();
 
-        return resource;
-    }
-
-    private N resourceOrNull() {
-        Charset charset = Charset.defaultCharset();
-
-        final Optional<MediaType> contentType = HttpHeaderName.CONTENT_TYPE.headerValue(this.request.headers());
-        if (contentType.isPresent()) {
-            final Optional<CharsetName> possible = MediaTypeParameterName.CHARSET.parameterValue(contentType.get());
-            if (possible.isPresent()) {
-                charset = possible.get().charset().orElse(charset);
-            }
-        }
-
-        N resource;
-
-        try (final StringReader reader = new StringReader(new String(request.body(), charset))) {
-            final StringBuilder text = new StringBuilder();
-            final char[] buffer = new char[4096];
-
-            for (; ; ) {
-                final int fill = reader.read(buffer);
-                if (-1 == fill) {
-                    break;
+            final Optional<MediaType> contentType = HttpHeaderName.CONTENT_TYPE.headerValue(this.request.headers());
+            if (contentType.isPresent()) {
+                final Optional<CharsetName> possible = MediaTypeParameterName.CHARSET.parameterValue(contentType.get());
+                if (possible.isPresent()) {
+                    charset = possible.get().charset().orElse(charset);
                 }
-                text.append(buffer, 0, fill);
             }
 
-            // TODO need a DocumentBuilder factory to support XML
-            resource = this.router.contentType.parse(null, text.toString());
-        } catch (final ParserReporterException | IOException cause) {
-            this.badRequest("Invalid content: " + cause.getMessage());
-            resource = null;
+            try (final StringReader reader = new StringReader(new String(request.body(), charset))) {
+                final StringBuilder b = new StringBuilder();
+                final char[] buffer = new char[4096];
+
+                for (; ; ) {
+                    final int fill = reader.read(buffer);
+                    if (-1 == fill) {
+                        break;
+                    }
+                    b.append(buffer, 0, fill);
+                }
+
+                // TODO need a DocumentBuilder factory to support XML
+                text = b.toString();
+            } catch (final IOException cause) {
+                this.badRequest("Invalid content: " + cause.getMessage());
+                text = null;
+            }
         }
-        return resource;
+
+        return text;
     }
 
     /**
-     * Locates the {@link HateosHandlerBuilderRouterHandlers} or writes {@link HttpStatusCode#NOT_FOUND} or {@link HttpStatusCode#METHOD_NOT_ALLOWED}
+     * Locates the {@link HateosHandlerBuilderMapper} or writes {@link HttpStatusCode#NOT_FOUND} or {@link HttpStatusCode#METHOD_NOT_ALLOWED}
      */
-    final HateosHandlerBuilderRouterHandlers<N> handlersOrResponseNotFound(final HateosResourceName resourceName,
-                                                                           final LinkRelation<?> linkRelation) {
-        final HateosHandlerBuilderRouterHandlers<N> handlers = this.router.handlers.get(HateosHandlerBuilderRouterKey.with(resourceName, linkRelation));
-        if (null == handlers) {
+    private HateosHandlerBuilderMapper<?, ?> handlersOrResponseNotFound(final HateosResourceName resourceName,
+                                                                        final LinkRelation<?> linkRelation) {
+        final HateosHandlerBuilderMapper<?, ?> mapper = this.router.mappers.get(HateosHandlerBuilderRouterKey.with(resourceName, linkRelation));
+        if (null == mapper) {
             notFound(resourceName, linkRelation);
         }
-        return handlers;
+        return mapper;
     }
-
-    final <H extends HateosHandler<?, N>> H handlerOrResponseMethodNotAllowed(final HateosResourceName resourceName,
-                                                                              final LinkRelation<?> linkRelation,
-                                                                              final H handler) {
-        if (null == handler) {
-            this.methodNotAllowed(this.method(), resourceName, linkRelation);
-        }
-        return handler;
-    }
-
-    abstract HttpMethod method();
 
     // error reporting.............................................................................................
-
-    final void badRequestIdRequired() {
-        this.badRequest("Id required");
-    }
-
-    final void badRequestCollectionsUnsupported() {
-        this.badRequest("Collections not supported");
-    }
 
     final void badRequest(final String message) {
         this.setStatus(HttpStatusCode.BAD_REQUEST, message);
     }
 
-    final void methodNotAllowed(final HttpMethod method,
-                                final HateosResourceName resourceName,
+    final void methodNotAllowed(final HateosResourceName resourceName,
                                 final LinkRelation<?> linkRelation) {
-        methodNotAllowed(method + " " + message(resourceName, linkRelation));
+        this.methodNotAllowed(this.request.method() + " " + message(resourceName, linkRelation));
     }
 
     private void methodNotAllowed(final String message) {
@@ -387,15 +330,15 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
     /**
      * Sets the status to successful and body to the bytes of the encoded text of {@link Node}.
      */
-    final void setStatusAndBody(final String message, final Optional<N> node) {
-        if (node.isPresent()) {
-            this.setStatusAndBody(message, node.get());
+    void setStatusAndBody(final String message, final String content) {
+        if (null != content) {
+            this.setStatusAndBody0(message, content);
         } else {
             this.setStatus(HttpStatusCode.NO_CONTENT, message);
         }
     }
 
-    private void setStatusAndBody(final String message, final N node) {
+    private void setStatusAndBody0(final String message, final String content) {
         this.setStatus(HttpStatusCode.OK, message);
 
         final AcceptCharset acceptCharset = HttpHeaderName.ACCEPT_CHARSET.headerValueOrFail(this.request.headers());
@@ -404,10 +347,9 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
             throw new NotAcceptableHeaderException("AcceptCharset " + acceptCharset + " doesnt contain supported charset");
         }
 
-        final HateosContentType<N, V> hateosContentType = this.router.contentType;
+        final HateosContentType<N> hateosContentType = this.hateosContentType();
         final MediaType contentType = hateosContentType.contentType();
 
-        final String content = hateosContentType.toText(node);
         final byte[] contentBytes = content.getBytes(charset.get());
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
@@ -417,11 +359,16 @@ abstract class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethod
         this.response.addEntity(HttpEntity.with(headers, contentBytes));
     }
 
-    final void setStatus(final HttpStatusCode statusCode, final String message) {
+    private void setStatus(final HttpStatusCode statusCode, final String message) {
         this.response.setStatus(statusCode.setMessage(message));
     }
 
-    final HateosHandlerBuilderRouter<N, V> router;
+    HateosContentType hateosContentType() {
+        return this.router.contentType;
+    }
+
+    final HateosHandlerBuilderRouter<N> router;
+
     final HttpRequest request;
 
     /**
