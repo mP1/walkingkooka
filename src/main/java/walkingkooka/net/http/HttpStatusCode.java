@@ -18,6 +18,8 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.text.CharSequences;
+
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -251,6 +253,16 @@ public enum HttpStatusCode {
      */
     public HttpStatus setMessage(final String message) {
         return this.message.equals(message) ?
+                this.status() :
+                HttpStatus.with(this, message);
+    }
+
+    /**
+     * Creates a new {@link HttpStatus} with this code and the given message.
+     * If the message is null or empty the status with its default message is returned.
+     */
+    public HttpStatus setMessageOrDefault(final String message) {
+        return CharSequences.isNullOrEmpty(message) || message.trim().isEmpty() || this.message.equals(message) ?
                 this.status() :
                 HttpStatus.with(this, message);
     }

@@ -129,6 +129,50 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         assertEquals(message, status.message(), "message");
     }
 
+    // setMessageOrDefault..............................................................
+
+    @Test
+    public void testSetMessageOrDefaultNullDefaults() {
+        this.setMessageOrDefaultAndCheck(HttpStatusCode.OK,
+                null,
+                HttpStatusCode.OK.status());
+    }
+
+    @Test
+    public void testSetMessageOrDefaultEmptyDefaults() {
+        this.setMessageOrDefaultAndCheck(HttpStatusCode.OK,
+                "",
+                HttpStatusCode.OK.status());
+    }
+
+    @Test
+    public void testSetMessageOrDefaultWhitespaceDefaults() {
+        this.setMessageOrDefaultAndCheck(HttpStatusCode.OK,
+                "   ",
+                HttpStatusCode.OK.status());
+    }
+
+    @Test
+    public void testSetMessageOrDefault() {
+        final String message = "message 123";
+        this.setMessageOrDefaultAndCheck(HttpStatusCode.OK,
+                message,
+                HttpStatus.with(HttpStatusCode.OK, message));
+    }
+
+    @Test
+    public void testSetMessageOrDefaultDefault() {
+        assertSame(HttpStatusCode.OK.status(),
+                HttpStatusCode.OK.setMessage(HttpStatusCode.OK.message),
+                "set message with default should return constant");
+    }
+
+    private void setMessageOrDefaultAndCheck(final HttpStatusCode code,
+                                             final String message,
+                                             final HttpStatus status) {
+        assertEquals(status, code.setMessageOrDefault(message));
+    }
+
     @Override
     public Class<HttpStatusCode> type() {
         return HttpStatusCode.class;
