@@ -16,21 +16,15 @@
  *
  */
 
-package walkingkooka.net.http.server.hateos;
-
-import walkingkooka.Context;
-import walkingkooka.net.header.Link;
-import walkingkooka.tree.Node;
+package walkingkooka;
 
 /**
- * A {@link Context} that accompanies all handlers and provides a service to retrieve all {@link Link} for an resource.
+ * Defines a single method or a value or entity to return its unique id.
  */
-public interface HateosHandlerContext<N extends Node<N, ?, ?, ?>> extends Context {
+public interface HasId<I> {
 
     /**
-     * Adds links for this node.
+     * Returns the id of this entity.
      */
-    N addLinks(final HateosResourceName name,
-               final Comparable<?> id,
-               final N node);
+    I id();
 }

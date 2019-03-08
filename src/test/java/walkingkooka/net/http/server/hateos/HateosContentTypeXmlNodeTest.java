@@ -20,80 +20,65 @@ package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.set.Sets;
-import walkingkooka.net.Url;
-import walkingkooka.net.header.Link;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.LinkRelation;
-import walkingkooka.net.http.HttpMethod;
-import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlNode;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
 import java.math.BigInteger;
 
-public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCase<HateosContentTypeXmlNode<HasXmlNode>, XmlNode, HasXmlNode> {
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class HateosContentTypeXmlNodeTest extends HateosContentTypeTestCase<HateosContentTypeXmlNode, XmlNode> {
 
     @Test
-    public void testAddLinkSelf() throws Exception {
-        this.addLinksAndCheck(BigInteger.valueOf(123),
-                "<entity><value>1</value></entity>",
-                HttpMethod.GET,
-                Url.parseAbsolute("http://example.com/base"),
-                HateosResourceName.with("entity"),
-                Sets.of(LinkRelation.SELF),
-                "<entity><value>1</value><links><link href=\"http://example.com/base/entity/123\" method=\"GET\" rel=\"self\" type=\"application/hal+xml\"/></links></entity>");
+    public void testFromNodeFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.contentType().fromNode("<test1/>", documentBuilder(), TestHateosResource.class);
+        });
     }
 
     @Test
-    public void testAddLinkNonSelf() throws Exception {
-        this.addLinksAndCheck(BigInteger.valueOf(123),
-                "<entity><value>1</value></entity>",
-                HttpMethod.GET,
-                Url.parseAbsolute("http://example.com/base"),
-                HateosResourceName.with("entity"),
-                Sets.of(LinkRelation.ITEM),
-                "<entity><value>1</value><links><link href=\"http://example.com/base/entity/123/item\" method=\"GET\" rel=\"item\" type=\"application/hal+xml\"/></links></entity>");
+    public void testFromNodeListFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.contentType().fromNodeList("<test1/>", documentBuilder(), TestHateosResource.class);
+        });
     }
 
     @Test
-    public void testAddLinkManyRelations() throws Exception {
-        this.addLinksAndCheck(BigInteger.valueOf(123),
-                "<entity><value>1</value></entity>",
-                HttpMethod.GET,
-                Url.parseAbsolute("http://example.com/base"),
-                HateosResourceName.with("entity"),
-                Sets.of(LinkRelation.SELF, LinkRelation.ITEM),
-                "<entity><value>1</value><links><link href=\"http://example.com/base/entity/123\" method=\"GET\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/base/entity/123/item\" method=\"GET\" rel=\"item\" type=\"application/hal+xml\"/></links></entity>");
+    public void testToText() {
+        this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
+                Lists.of(LinkRelation.SELF),
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/123\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/></links></test1>");
     }
 
     @Test
-    public void testToNode() {
-        final Link link = Link.with(Url.parse("http://example.com"));
+    public void testToTextNonSelfLinkRelation() {
+        this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
+                Lists.of(LinkRelation.ITEM),
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/123/item\" method=\"PUT\" rel=\"item\" type=\"application/hal+xml\"/></links></test1>");
+    }
 
-        this.toNodeAndCheck(link, link.toXmlNode());
+    @Test
+    public void testToTextSeveralLinks() {
+        this.toTextAndCheck(TestHateosResource.with(BigInteger.valueOf(123)),
+                Lists.of(LinkRelation.ITEM, LinkRelation.ABOUT),
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test1><id>123</id><links><link href=\"http://example.com/api/test/123/item\" method=\"PUT\" rel=\"item\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/123/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1>");
+    }
+
+    @Test
+    public void testToTextList() {
+        this.toTextListAndCheck(Lists.of(TestHateosResource.with(BigInteger.valueOf(111)), TestHateosResource.with(BigInteger.valueOf(222))),
+                Lists.of(LinkRelation.SELF, LinkRelation.ABOUT),
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list><test1><id>111</id><links><link href=\"http://example.com/api/test/111\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/111/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1><test1><id>222</id><links><link href=\"http://example.com/api/test/222\" method=\"PUT\" rel=\"self\" type=\"application/hal+xml\"/><link href=\"http://example.com/api/test/222/about\" method=\"PUT\" rel=\"about\" type=\"application/hal+xml\"/></links></test1></list>");
     }
 
     @Override
-    HateosContentTypeXmlNode<HasXmlNode> constant() {
-        return HateosContentTypeXmlNode.instance();
+    HateosContentTypeXmlNode contentType() {
+        return HateosContentTypeXmlNode.INSTANCE;
     }
 
     @Override
-    XmlNode parse(final String text) throws Exception {
-        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(false);
-        factory.setValidating(false);
-        factory.setExpandEntityReferences(false);
-        return XmlNode.fromXml(factory.newDocumentBuilder(),
-                new StringReader(text))
-                .element()
-                .get()
-                .normalize();
-    }
-
-    @Override
-    public Class<HateosContentTypeXmlNode<HasXmlNode>> type() {
+    public Class<HateosContentTypeXmlNode> type() {
         return Cast.to(HateosContentTypeXmlNode.class);
     }
 }

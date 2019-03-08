@@ -64,7 +64,8 @@ public final class HateosHandlerBuilderRouterKeyTest implements ClassTesting2<Ha
         return HateosHandlerBuilderRouterKey.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -21,39 +21,35 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.test.Fake;
-import walkingkooka.tree.Node;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link HateosDeleteHandler} where all methods throw {@link UnsupportedOperationException}.
+ * A {@link HateosHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeHateosDeleteHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> implements HateosDeleteHandler<I, N>, Fake {
+public class FakeHateosHandler<I extends Comparable<I>, R extends HateosResource<I>> implements HateosHandler<I, R>, Fake {
 
     @Override
-    public Optional<N> delete(final I id,
-                              final Optional<N> resource,
-                              final Map<HttpRequestAttribute<?>, Object> parameters,
-                              final HateosHandlerContext<N> context) {
+    public Optional<R> handle(final I id,
+                              final Optional<R> resource,
+                              final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(resource, "resource");
         Objects.requireNonNull(parameters, "parameters");
-        Objects.requireNonNull(context, "context");
 
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<N> deleteCollection(final Range<I> ids,
-                                        final Optional<N> resource,
-                                        final Map<HttpRequestAttribute<?>, Object> parameters,
-                                        final HateosHandlerContext<N> context) {
+    public List<R> handleCollection(final Range<I> ids,
+                                    final List<R> resources,
+                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(ids, "ids");
-        Objects.requireNonNull(resource, "resource");
+        Objects.requireNonNull(resources, "resources");
         Objects.requireNonNull(parameters, "parameters");
-        Objects.requireNonNull(context, "context");
 
         throw new UnsupportedOperationException();
     }

@@ -26,19 +26,19 @@ import java.util.Map;
 /**
  * Base class for both the builder and router implementation.
  */
-abstract class HateosHandlerBuilder2<N extends Node<N, ?, ?, ?>, V> {
+abstract class HateosHandlerBuilder2<N extends Node<N, ?, ?, ?>> {
 
     /**
      * Package private to limit sub classing.
      */
     HateosHandlerBuilder2(final AbsoluteUrl base,
-                          final HateosContentType<N, V> contentType,
-                          final Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderRouterHandlers<N>> handlers) {
+                          final HateosContentType<N> contentType,
+                          final Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderMapper<?, ?>> mappers) {
         super();
         this.base = base;
         this.contentType = contentType;
 
-        this.handlers = handlers;
+        this.mappers = mappers;
     }
 
     /**
@@ -49,18 +49,17 @@ abstract class HateosHandlerBuilder2<N extends Node<N, ?, ?, ?>, V> {
     /**
      * The content type for all handler processing.
      */
-    final HateosContentType<N, V> contentType;
+    final HateosContentType<N> contentType;
 
     /**
-     * A map of resource and relations to handlers.
+     * A map of resource and relations to mappers.
      */
-    final Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderRouterHandlers<N>> handlers;
-
+    final Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderMapper<?, ?>> mappers;
 
     // Object .........................................................................................................
 
     @Override
     public final String toString() {
-        return this.base + " " + this.contentType + " " + this.handlers;
+        return this.base + " " + this.contentType + " " + this.mappers;
     }
 }

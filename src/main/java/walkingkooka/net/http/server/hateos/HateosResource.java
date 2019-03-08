@@ -18,14 +18,17 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.Cast;
+import walkingkooka.HasId;
 import walkingkooka.tree.json.HasJsonNode;
-import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.xml.HasXmlNode;
+import walkingkooka.tree.xml.XmlNode;
 
-public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDeleteTest extends
-        HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerMethodTestCase<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<JsonNode, HasJsonNode>> {
-    @Override
-    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete<JsonNode, HasJsonNode>> type() {
-        return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerDelete.class);
+/**
+ * Interface to be implemened by all values/entites that are registered with a {@link HateosResourceName}.
+ */
+public interface HateosResource<I extends Comparable<I>> extends HasId<I>, HasJsonNode, HasXmlNode {
+
+    default XmlNode toXmlNode() {
+        throw new UnsupportedOperationException(); // #1092
     }
 }

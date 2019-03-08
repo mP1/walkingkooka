@@ -32,30 +32,25 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * The {@link HateosContentType} that handles {@link JsonNode}.
  */
-final class HateosContentTypeJsonNode<V extends HasJsonNode> extends HateosContentType<JsonNode, V> {
+final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
 
     /**
      * Singleton
      */
-    @SuppressWarnings("unchecked")
-    static <V extends HasJsonNode> HateosContentTypeJsonNode<V> instance() {
-        return INSTANCE;
-    }
-
-    private final static HateosContentTypeJsonNode INSTANCE = new HateosContentTypeJsonNode<>();
+    final static HateosContentTypeJsonNode INSTANCE = new HateosContentTypeJsonNode();
 
     /**
      * Private ctor use singleton.
@@ -71,19 +66,25 @@ final class HateosContentTypeJsonNode<V extends HasJsonNode> extends HateosConte
 
     private final static MediaType CONTENT_TYPE = MediaType.with("application", "hal+json");
 
-
+    /**
+     * Reads a resource object from its {@link JsonNode} representation.
+     */
     @Override
-    JsonNode parse(final DocumentBuilder documentBuilder,
-                   final String text) {
-        return JsonNode.parse(text);
+    <R extends HateosResource<I>, I extends Comparable<I>> R fromNode(final String text,
+                                                                      final DocumentBuilder documentBuilder,
+                                                                      final Class<R> resourceType) {
+        return JsonNode.parse(text)
+                .fromJsonNode(resourceType);
     }
 
+    /**
+     * Reads a list of resource objects from their {@link JsonNode} representation.
+     */
     @Override
-    String toText(final JsonNode node) {
-        final StringBuilder b = new StringBuilder();
-        final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.SYSTEM));
-        node.printJson(printer);
-        return b.toString();
+    <R extends HateosResource<I>, I extends Comparable<I>> List<R> fromNodeList(final String text,
+                                                                                final DocumentBuilder documentBuilder,
+                                                                                final Class<R> resourceType) {
+        return JsonNode.parse(text).fromJsonNodeList(resourceType);
     }
 
     /**
@@ -98,17 +99,38 @@ final class HateosContentTypeJsonNode<V extends HasJsonNode> extends HateosConte
      * </pre>
      */
     @Override
-    JsonNode addLinks(final Comparable<?> id,
-                      final JsonNode node,
-                      final HttpMethod method,
-                      final AbsoluteUrl base,
-                      final HateosResourceName resourceName,
-                      final Collection<LinkRelation<?>> linkRelations) {
+    <R extends HateosResource<I>, I extends Comparable<I>> String toText(final R resource,
+                                                                         final DocumentBuilder documentBuilder,
+                                                                         final HttpMethod method,
+                                                                         final AbsoluteUrl base,
+                                                                         final HateosResourceName resourceName,
+                                                                         final Collection<LinkRelation<?>> linkRelations) {
+        return toJsonText(addLinks(resource, method, base, resourceName, linkRelations));
+    }
 
+    @Override
+    <R extends HateosResource<I>, I extends Comparable<I>> String toTextList(final List<R> resources,
+                                                                             final DocumentBuilder documentBuilder,
+                                                                             final HttpMethod method,
+                                                                             final AbsoluteUrl base,
+                                                                             final HateosResourceName resourceName,
+                                                                             final Collection<LinkRelation<?>> linkRelations) {
+        return toJsonText(
+                JsonNode.array().setChildren(resources.
+                        stream()
+                        .map(r -> addLinks(r, method, base, resourceName, linkRelations))
+                        .collect(Collectors.toList())));
+    }
+
+    private <R extends HateosResource<I>, I extends Comparable<I>> JsonNode addLinks(final R resource,
+                                                                                     final HttpMethod method,
+                                                                                     final AbsoluteUrl base,
+                                                                                     final HateosResourceName resourceName,
+                                                                                     final Collection<LinkRelation<?>> linkRelations) {
         // base + resource name.
         final UrlPath pathAndResourceNameAndId = base.path()
                 .append(UrlPathName.with(resourceName.value()))
-                .append(UrlPathName.with(id.toString()));
+                .append(UrlPathName.with(resource.id().toString())); // TODO encode id
 
         JsonArrayNode links = JsonNode.array();
 
@@ -127,7 +149,9 @@ final class HateosContentTypeJsonNode<V extends HasJsonNode> extends HateosConte
             links = links.appendChild(link.toJsonNode());
         }
 
-        return JsonObjectNode.class.cast(node).set(LINKS, links);
+        return resource.toJsonNode()
+                .objectOrFail()
+                .set(LINKS, links);
     }
 
     /**
@@ -135,11 +159,11 @@ final class HateosContentTypeJsonNode<V extends HasJsonNode> extends HateosConte
      */
     private final static JsonNodeName LINKS = JsonNodeName.with("_links");
 
-    /**
-     * Converts the given value into a {@link JsonNode}.
-     */
-    public JsonNode toNode(final HasJsonNode value) {
-        return value.toJsonNode();
+    private String toJsonText(final JsonNode node) {
+        final StringBuilder b = new StringBuilder();
+        final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.SYSTEM));
+        node.printJson(printer);
+        return b.toString();
     }
 
     @Override

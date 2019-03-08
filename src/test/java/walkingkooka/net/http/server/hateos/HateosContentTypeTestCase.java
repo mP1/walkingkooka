@@ -18,57 +18,96 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 import walkingkooka.type.MemberVisibility;
 
-import java.math.BigInteger;
-import java.util.Set;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.Collection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class HateosContentTypeTestCase<C extends HateosContentType<N, V>, N extends Node<N, ?, ?, ?>, V> implements ClassTesting2<C>,
+public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, N extends Node<N, ?, ?, ?>> implements ClassTesting2<C>,
         TypeNameTesting<C> {
 
     HateosContentTypeTestCase() {
         super();
     }
 
-    final void addLinksAndCheck(final BigInteger id,
-                                final String node,
-                                final HttpMethod method,
-                                final AbsoluteUrl base,
-                                final HateosResourceName resourceName,
-                                final Set<LinkRelation<?>> linkRelations,
-                                final String expected) throws Exception {
-        assertEquals(this.parse(expected),
-                this.addLinks(id, this.parse(node), method, base, resourceName, linkRelations),
-                "add links " + id + " " + CharSequences.quoteAndEscape(node) + " " + method + " " + base + " " + linkRelations);
+    final void fromNodeAndCheck(final String text,
+                                final Class<TestHateosResource> resourceType,
+                                final TestHateosResource resource) {
+        assertEquals(resource,
+                this.contentType()
+                        .fromNode(text, this.documentBuilder(), resourceType),
+                () -> "fromNode failed: " + text);
     }
 
-    final N addLinks(final BigInteger id,
-                     final N node,
-                     final HttpMethod method,
-                     final AbsoluteUrl base,
-                     final HateosResourceName resourceName,
-                     final Set<LinkRelation<?>> linkRelations) {
-        return this.constant().addLinks(id, node, method, base, resourceName, linkRelations);
+    final void fromNodeListAndCheck(final String text,
+                                    final Class<TestHateosResource> resourceType,
+                                    final TestHateosResource... resources) {
+        assertEquals(Lists.of(resources),
+                this.contentType()
+                        .fromNodeList(text, this.documentBuilder(), resourceType),
+                () -> "fromNodeList failed: " + text);
     }
 
-    abstract N parse(final String text) throws Exception;
+    final <R extends HateosResource<I>, I extends Comparable<I>> void toTextAndCheck(final R resource,
+                                                                                     final Collection<LinkRelation<?>> linkRelations,
+                                                                                     final String text) {
+        final AbsoluteUrl base = AbsoluteUrl.parseAbsolute("http://example.com/api");
+        final HateosResourceName resourceName = HateosResourceName.with("test");
 
-    abstract C constant();
-
-    final void toNodeAndCheck(final V value, final N node) {
-        assertEquals(node,
-                this.constant().toNode(value),
-                () -> "Incorrect result calling toNode with " + value);
+        assertEquals(text,
+                this.contentType()
+                        .toText(resource,
+                                this.documentBuilder(),
+                                HttpMethod.PUT,
+                                base,
+                                resourceName,
+                                linkRelations),
+                () -> "toText failed: " + resource + " PUT " + base + " " + resourceName + " " + linkRelations);
     }
+
+    final <R extends HateosResource<I>, I extends Comparable<I>> void toTextListAndCheck(final List<R> resources,
+                                                                                         final Collection<LinkRelation<?>> linkRelations,
+                                                                                         final String text) {
+        final AbsoluteUrl base = AbsoluteUrl.parseAbsolute("http://example.com/api");
+        final HateosResourceName resourceName = HateosResourceName.with("test");
+
+        assertEquals(text,
+                this.contentType()
+                        .toTextList(resources,
+                                this.documentBuilder(),
+                                HttpMethod.PUT,
+                                base,
+                                resourceName,
+                                linkRelations),
+                () -> "toTextList failed: " + resources + " PUT " + base + " " + resourceName + " " + linkRelations);
+    }
+
+    abstract C contentType();
+
+    final DocumentBuilder documentBuilder() {
+        try {
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(false);
+            factory.setValidating(false);
+            factory.setExpandEntityReferences(false);
+            return factory.newDocumentBuilder();
+        } catch (final Exception cause) {
+            throw new Error(cause);
+        }
+    }
+
+    // ClassTesting.....................................................................................
 
     @Override
     public final MemberVisibility typeVisibility() {

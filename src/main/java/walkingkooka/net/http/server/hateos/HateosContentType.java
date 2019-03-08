@@ -23,32 +23,31 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.xml.HasXmlNode;
 import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Controls the content type of hateos messages. Ideally this should have been an enum but currently enums do not
  * support type parameters.
  */
-public abstract class HateosContentType<N extends Node<N, ?, ?, ?>, V> {
+public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
 
     /**
      * Selects JSON formatted request and response bodies.
      */
-    public static <V extends HasJsonNode> HateosContentType<JsonNode, V> json() {
-        return HateosContentTypeJsonNode.instance();
+    public static HateosContentType<JsonNode> json() {
+        return HateosContentTypeJsonNode.INSTANCE;
     }
 
     /**
      * Selects XML formatted request and response bodies.
      */
-    public static <V extends HasXmlNode> HateosContentType<XmlNode, V> xml() {
-        return HateosContentTypeXmlNode.instance();
+    public static HateosContentType<XmlNode> xml() {
+        return HateosContentTypeXmlNode.INSTANCE;
     }
 
     /**
@@ -64,29 +63,38 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>, V> {
     public abstract MediaType contentType();
 
     /**
-     * Parses the text into a {@link Node}
+     * Reads a resource object from its {@link Node} representation.
      */
-    abstract N parse(final DocumentBuilder documentBuilder, final String text);
+    abstract <R extends HateosResource<I>, I extends Comparable<I>> R fromNode(final String text,
+                                                                               final DocumentBuilder documentBuilder,
+                                                                               final Class<R> resourceType);
 
     /**
-     * Formats the node as text.
+     * Reads a list of resource objects from their {@link Node} representation.
      */
-    abstract String toText(final N node);
+    abstract <R extends HateosResource<I>, I extends Comparable<I>> List<R> fromNodeList(final String text,
+                                                                                         final DocumentBuilder documentBuilder,
+                                                                                         final Class<R> resourceType);
 
     /**
-     * Helper called by {@link HateosHandlerBuilderRouterHateosHandlerContext}.
+     * Adds links to the resource, converts it to a text.
      */
-    abstract N addLinks(final Comparable<?> id,
-                        final N node,
-                        final HttpMethod method,
-                        final AbsoluteUrl base,
-                        final HateosResourceName resourceName,
-                        final Collection<LinkRelation<?>> linkRelations);
+    abstract <R extends HateosResource<I>, I extends Comparable<I>> String toText(final R resource,
+                                                                                  final DocumentBuilder documentBuilder,
+                                                                                  final HttpMethod method,
+                                                                                  final AbsoluteUrl base,
+                                                                                  final HateosResourceName resourceName,
+                                                                                  final Collection<LinkRelation<?>> linkRelations);
 
     /**
-     * Converts the given value into a {@link Node}.
+     * Adds links to the resource, converts it to a text.
      */
-    public abstract N toNode(final V value);
+    abstract <R extends HateosResource<I>, I extends Comparable<I>> String toTextList(final List<R> resource,
+                                                                                      final DocumentBuilder documentBuilder,
+                                                                                      final HttpMethod method,
+                                                                                      final AbsoluteUrl base,
+                                                                                      final HateosResourceName resourceName,
+                                                                                      final Collection<LinkRelation<?>> linkRelations);
 
     abstract public String toString();
 }

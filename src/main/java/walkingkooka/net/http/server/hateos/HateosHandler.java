@@ -19,18 +19,34 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.tree.Node;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
- * Base class for all hateos handlers.
+ * Handles both single resources and collection requests producing their response.
  */
-public interface HateosHandler<I extends Comparable<I>, N extends Node<N, ?, ?, ?>> {
+public interface HateosHandler<I extends Comparable<I>, R extends HateosResource<I>> {
 
     /**
      * An empty {@link Map} with no parameters.
      */
     Map<HttpRequestAttribute<?>, Object> NO_PARAMETERS = Maps.empty();
+
+    /**
+     * Handles a request resource identified by the ID.
+     */
+    Optional<R> handle(final I id,
+                       final Optional<R> resource,
+                       final Map<HttpRequestAttribute<?>, Object> parameters);
+
+    /**
+     * Handles a request which involves a collection of resources.
+     */
+    List<R> handleCollection(final Range<I> ids,
+                             final List<R> resources,
+                             final Map<HttpRequestAttribute<?>, Object> parameters);
 }
