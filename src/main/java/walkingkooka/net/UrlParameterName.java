@@ -25,7 +25,10 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * The {@link Name} of a query string parameter.
@@ -50,6 +53,32 @@ public final class UrlParameterName extends NetName
      */
     private UrlParameterName(final String name) {
         super(name);
+    }
+
+    /**
+     * Assumes a single required parameter value and converts using the given {@link Function} or fails.
+     */
+    public <T> T parameterValueOrFail(final Map<HttpRequestAttribute<?>, ?> parameters,
+                                      final Function<String, T> converter) {
+        Objects.requireNonNull(parameters, "parameters");
+        Objects.requireNonNull(converter, "converter");
+
+        final Optional<List<String>> maybeValues = this.parameterValue(parameters);
+        if (!maybeValues.isPresent()) {
+            throw new IllegalArgumentException("Required parameter " + this + " missing");
+        }
+        final List<String> values = maybeValues.get();
+        if (values.size() != 1) {
+            throw new IllegalArgumentException("Required parameter " + this + " incorrect=" + values);
+        }
+        final String value = values.get(0);
+        try {
+            return converter.apply(value);
+        } catch (final NullPointerException | IllegalArgumentException cause) {
+            throw cause;
+        } catch (final Exception cause) {
+            throw new IllegalArgumentException("Invalid parameter " + this + " value " + CharSequences.quoteIfChars(value));
+        }
     }
 
     // HttpRequestAttribute..............................................................................................
