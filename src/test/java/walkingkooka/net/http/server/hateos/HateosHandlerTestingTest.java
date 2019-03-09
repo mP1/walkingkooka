@@ -40,11 +40,6 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Hate
 
     }
 
-    @Override
-    public void testTypeNaming() {
-
-    }
-
     @Test
     public void testHandleIdAndCheck() {
         final BigInteger id = this.id();

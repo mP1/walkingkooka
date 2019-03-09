@@ -184,13 +184,13 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R>, I extends C
 
     @Override
     default String typeNameSuffix() {
-        return "DeleteHandler";
+        return HateosHandler.class.getSimpleName();
     }
 
     // TypeNameTesting .........................................................................................
 
     @Override
     default String typeNamePrefix() {
-        return "Hateos";
+        return "";
     }
 }
