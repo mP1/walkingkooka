@@ -35,6 +35,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Collection;
@@ -127,6 +128,19 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
                                                             final AbsoluteUrl base,
                                                             final HateosResourceName resourceName,
                                                             final Collection<LinkRelation<?>> linkRelations) {
+        final JsonNode node = resource.toJsonNode();
+        return node.isObject() ?
+                this.addLinks0(resource, node.objectOrFail(), method, base, resourceName, linkRelations) :
+                node;
+
+    }
+
+    private <R extends HateosResource<?>> JsonNode addLinks0(final R resource,
+                                                             final JsonObjectNode object,
+                                                             final HttpMethod method,
+                                                             final AbsoluteUrl base,
+                                                             final HateosResourceName resourceName,
+                                                             final Collection<LinkRelation<?>> linkRelations) {
         // base + resource name.
         final UrlPath pathAndResourceNameAndId = base.path()
                 .append(UrlPathName.with(resourceName.value()))
@@ -151,9 +165,7 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
             links = links.appendChild(link.toJsonNode());
         }
 
-        return resource.toJsonNode()
-                .objectOrFail()
-                .set(LINKS, links);
+        return object.set(LINKS, links);
     }
 
     /**

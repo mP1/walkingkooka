@@ -106,6 +106,13 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     }
 
     @Test
+    public void testToTextLinksSkippedForNonObject() {
+        this.toTextAndCheck(TestHateosResource3.with("abc123"),
+                Lists.of(LinkRelation.SELF),
+                "\"abc123\"");
+    }
+
+    @Test
     public void testToTextList() {
         this.toTextListAndCheck(Lists.of(TestHateosResource.with(BigInteger.valueOf(111)), TestHateosResource.with(BigInteger.valueOf(222))),
                 Lists.of(LinkRelation.SELF, LinkRelation.ABOUT),
