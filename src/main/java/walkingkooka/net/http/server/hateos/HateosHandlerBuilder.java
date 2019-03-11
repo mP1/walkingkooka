@@ -72,7 +72,7 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
     /**
      * Adds a mapper for the given hateos resource and relation combination.
      */
-    public <I extends Comparable<I>, R extends HateosResource<I>> HateosHandlerBuilder<N> add(final HateosResourceName name,
+    public <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerBuilder<N> add(final HateosResourceName name,
                                                                                               final LinkRelation<?> relation,
                                                                                               final HateosHandlerBuilderMapper<I, R> mapper) {
         Objects.requireNonNull(name, "name");

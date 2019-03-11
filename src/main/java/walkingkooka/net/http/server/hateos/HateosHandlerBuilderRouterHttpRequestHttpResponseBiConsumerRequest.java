@@ -363,7 +363,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N
         this.response.setStatus(statusCode.setMessage(message));
     }
 
-    HateosContentType hateosContentType() {
+    HateosContentType<N> hateosContentType() {
         return this.router.contentType;
     }
 

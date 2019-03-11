@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * Handles both single resources and collection requests producing their response.
  */
-public interface HateosHandler<I extends Comparable<I>, R extends HateosResource<I>> {
+public interface HateosHandler<I extends Comparable<I>, R extends HateosResource<?>> {
 
     /**
      * An empty {@link Map} with no parameters.

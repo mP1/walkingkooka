@@ -65,36 +65,36 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
     /**
      * Reads a resource object from its {@link Node} representation.
      */
-    abstract <R extends HateosResource<I>, I extends Comparable<I>> R fromNode(final String text,
-                                                                               final DocumentBuilder documentBuilder,
-                                                                               final Class<R> resourceType);
+    abstract <R extends HateosResource<?>> R fromNode(final String text,
+                                                      final DocumentBuilder documentBuilder,
+                                                      final Class<R> resourceType);
 
     /**
      * Reads a list of resource objects from their {@link Node} representation.
      */
-    abstract <R extends HateosResource<I>, I extends Comparable<I>> List<R> fromNodeList(final String text,
-                                                                                         final DocumentBuilder documentBuilder,
-                                                                                         final Class<R> resourceType);
+    abstract <R extends HateosResource<?>> List<R> fromNodeList(final String text,
+                                                                final DocumentBuilder documentBuilder,
+                                                                final Class<R> resourceType);
 
     /**
      * Adds links to the resource, converts it to a text.
      */
-    abstract <R extends HateosResource<I>, I extends Comparable<I>> String toText(final R resource,
-                                                                                  final DocumentBuilder documentBuilder,
-                                                                                  final HttpMethod method,
-                                                                                  final AbsoluteUrl base,
-                                                                                  final HateosResourceName resourceName,
-                                                                                  final Collection<LinkRelation<?>> linkRelations);
+    abstract <R extends HateosResource<?>> String toText(final R resource,
+                                                         final DocumentBuilder documentBuilder,
+                                                         final HttpMethod method,
+                                                         final AbsoluteUrl base,
+                                                         final HateosResourceName resourceName,
+                                                         final Collection<LinkRelation<?>> linkRelations);
 
     /**
      * Adds links to the resource, converts it to a text.
      */
-    abstract <R extends HateosResource<I>, I extends Comparable<I>> String toTextList(final List<R> resource,
-                                                                                      final DocumentBuilder documentBuilder,
-                                                                                      final HttpMethod method,
-                                                                                      final AbsoluteUrl base,
-                                                                                      final HateosResourceName resourceName,
-                                                                                      final Collection<LinkRelation<?>> linkRelations);
+    abstract <R extends HateosResource<?>> String toTextList(final List<R> resource,
+                                                             final DocumentBuilder documentBuilder,
+                                                             final HttpMethod method,
+                                                             final AbsoluteUrl base,
+                                                             final HateosResourceName resourceName,
+                                                             final Collection<LinkRelation<?>> linkRelations);
 
     abstract public String toString();
 }

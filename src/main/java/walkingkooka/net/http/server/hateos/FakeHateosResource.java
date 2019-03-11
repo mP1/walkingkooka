@@ -21,7 +21,7 @@ package walkingkooka.net.http.server.hateos;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.xml.XmlNode;
 
-public class FakeHateosResource<I extends Comparable<I>> implements HateosResource<I>{
+public class FakeHateosResource<I> implements HateosResource<I>{
 
     @Override
     public I id() {

@@ -36,17 +36,17 @@ import java.util.function.Function;
 /**
  * Holds all the mappers for a router mapping.
  */
-public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends HateosResource<I>> {
+public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends HateosResource<?>> {
 
     /**
      * Created by the builder with one for each resource name.
      */
-    public static <I extends Comparable<I>, R extends HateosResource<I>> HateosHandlerBuilderMapper<I, R> with(final Function<String, I> stringToId,
+    public static <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerBuilderMapper<I, R> with(final Function<String, I> stringToId,
                                                                                                                final Class<R> resourceType) {
         Objects.requireNonNull(stringToId, "stringToId");
         Objects.requireNonNull(resourceType, "resourceType");
 
-        return new HateosHandlerBuilderMapper(stringToId, resourceType);
+        return new HateosHandlerBuilderMapper<>(stringToId, resourceType);
     }
 
     private HateosHandlerBuilderMapper(final Function<String, I> stringToId,
@@ -99,8 +99,8 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
     /**
      * Makes a defensive copy of this mappers. This is necessary when the router is created and the map copied from the builder.
      */
-    HateosHandlerBuilderMapper copy() {
-        final HateosHandlerBuilderMapper handlers = new HateosHandlerBuilderMapper(this.stringToId, this.resourceType);
+    HateosHandlerBuilderMapper<I, R> copy() {
+        final HateosHandlerBuilderMapper<I, R> handlers = new HateosHandlerBuilderMapper<>(this.stringToId, this.resourceType);
 
         handlers.get = this.get;
         handlers.post = this.post;

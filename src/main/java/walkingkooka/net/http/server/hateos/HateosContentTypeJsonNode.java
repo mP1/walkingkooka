@@ -70,9 +70,9 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      * Reads a resource object from its {@link JsonNode} representation.
      */
     @Override
-    <R extends HateosResource<I>, I extends Comparable<I>> R fromNode(final String text,
-                                                                      final DocumentBuilder documentBuilder,
-                                                                      final Class<R> resourceType) {
+    <R extends HateosResource<?>> R fromNode(final String text,
+                                             final DocumentBuilder documentBuilder,
+                                             final Class<R> resourceType) {
         return JsonNode.parse(text)
                 .fromJsonNode(resourceType);
     }
@@ -81,9 +81,9 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      * Reads a list of resource objects from their {@link JsonNode} representation.
      */
     @Override
-    <R extends HateosResource<I>, I extends Comparable<I>> List<R> fromNodeList(final String text,
-                                                                                final DocumentBuilder documentBuilder,
-                                                                                final Class<R> resourceType) {
+    <R extends HateosResource<?>> List<R> fromNodeList(final String text,
+                                                       final DocumentBuilder documentBuilder,
+                                                       final Class<R> resourceType) {
         return JsonNode.parse(text).fromJsonNodeList(resourceType);
     }
 
@@ -99,22 +99,22 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
      * </pre>
      */
     @Override
-    <R extends HateosResource<I>, I extends Comparable<I>> String toText(final R resource,
-                                                                         final DocumentBuilder documentBuilder,
-                                                                         final HttpMethod method,
-                                                                         final AbsoluteUrl base,
-                                                                         final HateosResourceName resourceName,
-                                                                         final Collection<LinkRelation<?>> linkRelations) {
+    <R extends HateosResource<?>> String toText(final R resource,
+                                                final DocumentBuilder documentBuilder,
+                                                final HttpMethod method,
+                                                final AbsoluteUrl base,
+                                                final HateosResourceName resourceName,
+                                                final Collection<LinkRelation<?>> linkRelations) {
         return toJsonText(addLinks(resource, method, base, resourceName, linkRelations));
     }
 
     @Override
-    <R extends HateosResource<I>, I extends Comparable<I>> String toTextList(final List<R> resources,
-                                                                             final DocumentBuilder documentBuilder,
-                                                                             final HttpMethod method,
-                                                                             final AbsoluteUrl base,
-                                                                             final HateosResourceName resourceName,
-                                                                             final Collection<LinkRelation<?>> linkRelations) {
+    <R extends HateosResource<?>> String toTextList(final List<R> resources,
+                                                    final DocumentBuilder documentBuilder,
+                                                    final HttpMethod method,
+                                                    final AbsoluteUrl base,
+                                                    final HateosResourceName resourceName,
+                                                    final Collection<LinkRelation<?>> linkRelations) {
         return toJsonText(
                 JsonNode.array().setChildren(resources.
                         stream()
@@ -122,11 +122,11 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
                         .collect(Collectors.toList())));
     }
 
-    private <R extends HateosResource<I>, I extends Comparable<I>> JsonNode addLinks(final R resource,
-                                                                                     final HttpMethod method,
-                                                                                     final AbsoluteUrl base,
-                                                                                     final HateosResourceName resourceName,
-                                                                                     final Collection<LinkRelation<?>> linkRelations) {
+    private <R extends HateosResource<?>> JsonNode addLinks(final R resource,
+                                                            final HttpMethod method,
+                                                            final AbsoluteUrl base,
+                                                            final HateosResourceName resourceName,
+                                                            final Collection<LinkRelation<?>> linkRelations) {
         // base + resource name.
         final UrlPath pathAndResourceNameAndId = base.path()
                 .append(UrlPathName.with(resourceName.value()))

@@ -95,7 +95,7 @@ public final class HateosHandlerBuilderMapperTest implements ClassTesting2<Hateo
         };
     }
 
-    private HateosHandlerBuilderMapper mapper() {
+    private HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mapper() {
         return HateosHandlerBuilderMapper.with(STRING_TO_ID,
                 RESOURCE_TYPE);
     }
