@@ -72,9 +72,9 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
      * Reads a resource object from its {@link XmlNode} representation.
      */
     @Override
-    <R extends HateosResource<I>, I extends Comparable<I>> R fromNode(final String text,
-                                                                      final DocumentBuilder documentBuilder,
-                                                                      final Class<R> resourceType) {
+    <R extends HateosResource<?>> R fromNode(final String text,
+                                             final DocumentBuilder documentBuilder,
+                                             final Class<R> resourceType) {
         return fromXmlNode(parseXml(documentBuilder, text), resourceType);
     }
 
@@ -83,9 +83,9 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
      * Reads a list of resource objects from their {@link Node} representation.
      */
     @Override
-    <R extends HateosResource<I>, I extends Comparable<I>> List<R> fromNodeList(final String text,
-                                                                                final DocumentBuilder documentBuilder,
-                                                                                final Class<R> resourceType) {
+    <R extends HateosResource<?>> List<R> fromNodeList(final String text,
+                                                       final DocumentBuilder documentBuilder,
+                                                       final Class<R> resourceType) {
         return parseXml(documentBuilder, text)
                 .children()
                 .stream()
@@ -102,28 +102,28 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
         }
     }
 
-    private <R extends HateosResource<I>, I extends Comparable<I>> R fromXmlNode(final XmlNode node, final Class<R> resourceType) {
+    private <R extends HateosResource<?>, I extends Comparable<I>> R fromXmlNode(final XmlNode node, final Class<R> resourceType) {
         throw new UnsupportedOperationException();
     }
 
 
     @Override
-    <R extends HateosResource<I>, I extends Comparable<I>> String toText(final R resource,
-                                                                         final DocumentBuilder documentBuilder,
-                                                                         final HttpMethod method,
-                                                                         final AbsoluteUrl base,
-                                                                         final HateosResourceName resourceName,
-                                                                         final Collection<LinkRelation<?>> linkRelations) {
+    <R extends HateosResource<?>> String toText(final R resource,
+                                                final DocumentBuilder documentBuilder,
+                                                final HttpMethod method,
+                                                final AbsoluteUrl base,
+                                                final HateosResourceName resourceName,
+                                                final Collection<LinkRelation<?>> linkRelations) {
         return toXmlText(addLinks(resource, method, base, resourceName, linkRelations));
     }
 
     @Override
-    <R extends HateosResource<I>, I extends Comparable<I>> String toTextList(final List<R> resources,
-                                                                             final DocumentBuilder documentBuilder,
-                                                                             final HttpMethod method,
-                                                                             final AbsoluteUrl base,
-                                                                             final HateosResourceName resourceName,
-                                                                             final Collection<LinkRelation<?>> linkRelations) {
+    <R extends HateosResource<?>> String toTextList(final List<R> resources,
+                                                    final DocumentBuilder documentBuilder,
+                                                    final HttpMethod method,
+                                                    final AbsoluteUrl base,
+                                                    final HateosResourceName resourceName,
+                                                    final Collection<LinkRelation<?>> linkRelations) {
         return toXmlText(
                 XmlNode.createDocument(documentBuilder)
                         .createElement(XmlName.element("list"))
@@ -132,11 +132,11 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
                         .collect(Collectors.toList())));
     }
 
-    private <R extends HateosResource<I>, I extends Comparable<I>> XmlNode addLinks(final R resource,
-                                                                                    final HttpMethod method,
-                                                                                    final AbsoluteUrl base,
-                                                                                    final HateosResourceName resourceName,
-                                                                                    final Collection<LinkRelation<?>> linkRelations) {
+    private <R extends HateosResource<?>> XmlNode addLinks(final R resource,
+                                                           final HttpMethod method,
+                                                           final AbsoluteUrl base,
+                                                           final HateosResourceName resourceName,
+                                                           final Collection<LinkRelation<?>> linkRelations) {
         final XmlNode node = resource.toXmlNode();
         final XmlDocument document = node.document();
 

@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin interface for testing {@link HateosHandler}
  */
-public interface HateosHandlerTesting<H extends HateosHandler<I, R>, I extends Comparable<I>, R extends HateosResource<I>>
+public interface HateosHandlerTesting<H extends HateosHandler<I, R>, I extends Comparable<I>, R extends HateosResource<?>>
         extends ClassTesting2<H>,
         TypeNameTesting<H> {
 

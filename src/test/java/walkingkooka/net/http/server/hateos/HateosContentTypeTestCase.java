@@ -59,9 +59,9 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
                 () -> "fromNodeList failed: " + text);
     }
 
-    final <R extends HateosResource<I>, I extends Comparable<I>> void toTextAndCheck(final R resource,
-                                                                                     final Collection<LinkRelation<?>> linkRelations,
-                                                                                     final String text) {
+    final <R extends HateosResource<?>> void toTextAndCheck(final R resource,
+                                                            final Collection<LinkRelation<?>> linkRelations,
+                                                            final String text) {
         final AbsoluteUrl base = AbsoluteUrl.parseAbsolute("http://example.com/api");
         final HateosResourceName resourceName = HateosResourceName.with("test");
 
@@ -76,9 +76,9 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
                 () -> "toText failed: " + resource + " PUT " + base + " " + resourceName + " " + linkRelations);
     }
 
-    final <R extends HateosResource<I>, I extends Comparable<I>> void toTextListAndCheck(final List<R> resources,
-                                                                                         final Collection<LinkRelation<?>> linkRelations,
-                                                                                         final String text) {
+    final <R extends HateosResource<?>> void toTextListAndCheck(final List<R> resources,
+                                                                final Collection<LinkRelation<?>> linkRelations,
+                                                                final String text) {
         final AbsoluteUrl base = AbsoluteUrl.parseAbsolute("http://example.com/api");
         final HateosResourceName resourceName = HateosResourceName.with("test");
 

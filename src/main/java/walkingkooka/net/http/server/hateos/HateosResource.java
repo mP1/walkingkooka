@@ -26,7 +26,7 @@ import walkingkooka.tree.xml.XmlNode;
 /**
  * Interface to be implemened by all values/entites that are registered with a {@link HateosResourceName}.
  */
-public interface HateosResource<I extends Comparable<I>> extends HasId<I>, HasJsonNode, HasXmlNode {
+public interface HateosResource<I> extends HasId<I>, HasJsonNode, HasXmlNode {
 
     default XmlNode toXmlNode() {
         throw new UnsupportedOperationException(); // #1092

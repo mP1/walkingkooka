@@ -590,6 +590,41 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 this.httpEntity("", this.contentType()));
     }
 
+    @Test
+    public void testIdDifferentTypeFromHateosResourceIdType() {
+        final Long id = 123L;
+        final TestHateosResource requestResource = TestHateosResource.with(BigInteger.valueOf(99));
+        final TestHateosResource responseResource = TestHateosResource.with(BigInteger.valueOf(id));
+
+        final HateosHandlerBuilder<JsonNode> builder = this.builder()
+                .add(this.resourceName1(), this.relation1(), HateosHandlerBuilderMapper.with(Long::parseLong, TestHateosResource.class)
+                        .get(new FakeHateosHandler<Long, TestHateosResource>() {
+                            @Override
+                            public Optional<TestHateosResource> handle(final Long i,
+                                                                       final Optional<TestHateosResource> resource,
+                                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                assertEquals(id, i, "id");
+                                return Optional.of(responseResource);
+                            }
+                        }));
+        this.routeAndCheck(builder,
+                HttpMethod.GET,
+                "/api/resource1/123/self",
+                this.contentType(),
+                requestResource.toJsonNode().toString(),
+                HttpStatusCode.OK.setMessage("GET resource successful"),
+                this.httpEntity("{\n" +
+                                "  \"id\": \"123\",\n" +
+                                "  \"_links\": [{\n" +
+                                "    \"href\": \"http://www.example.com/api/resource1/123\",\n" +
+                                "    \"method\": \"GET\",\n" +
+                                "    \"rel\": \"self\",\n" +
+                                "    \"type\": \"application/hal+json\"\n" +
+                                "  }]\n" +
+                                "}",
+                        this.contentType()));
+    }
+
     // GET COLLECTION  ................................................................................................
 
     @Test
