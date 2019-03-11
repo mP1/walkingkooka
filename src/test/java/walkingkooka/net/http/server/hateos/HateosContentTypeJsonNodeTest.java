@@ -61,6 +61,51 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
     }
 
     @Test
+    public void testToTextDashEscaped() {
+        this.toTextAndCheck(TestHateosResource2.with("abc-def"),
+                Lists.of(LinkRelation.SELF),
+                "{\n" +
+                        "  \"id\": \"abc-def\",\n" +
+                        "  \"_links\": [{\n" +
+                        "    \"href\": \"http://example.com/api/test/abc\\\\-def\",\n" +
+                        "    \"method\": \"PUT\",\n" +
+                        "    \"rel\": \"self\",\n" +
+                        "    \"type\": \"application/hal+json\"\n" +
+                        "  }]\n" +
+                        "}");
+    }
+
+    @Test
+    public void testToTextBackslashEscaped() {
+        this.toTextAndCheck(TestHateosResource2.with("abc\\def"),
+                Lists.of(LinkRelation.SELF),
+                "{\n" +
+                        "  \"id\": \"abc\\\\def\",\n" +
+                        "  \"_links\": [{\n" +
+                        "    \"href\": \"http://example.com/api/test/abc\\\\\\\\def\",\n" +
+                        "    \"method\": \"PUT\",\n" +
+                        "    \"rel\": \"self\",\n" +
+                        "    \"type\": \"application/hal+json\"\n" +
+                        "  }]\n" +
+                        "}");
+    }
+
+    @Test
+    public void testToTextEscaped() {
+        this.toTextAndCheck(TestHateosResource2.with("abc-def\\ghi"),
+                Lists.of(LinkRelation.SELF),
+                "{\n" +
+                        "  \"id\": \"abc-def\\\\ghi\",\n" +
+                        "  \"_links\": [{\n" +
+                        "    \"href\": \"http://example.com/api/test/abc\\\\-def\\\\\\\\ghi\",\n" +
+                        "    \"method\": \"PUT\",\n" +
+                        "    \"rel\": \"self\",\n" +
+                        "    \"type\": \"application/hal+json\"\n" +
+                        "  }]\n" +
+                        "}");
+    }
+
+    @Test
     public void testToTextList() {
         this.toTextListAndCheck(Lists.of(TestHateosResource.with(BigInteger.valueOf(111)), TestHateosResource.with(BigInteger.valueOf(222))),
                 Lists.of(LinkRelation.SELF, LinkRelation.ABOUT),
