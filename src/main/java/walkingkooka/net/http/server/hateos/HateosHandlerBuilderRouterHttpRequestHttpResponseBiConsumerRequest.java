@@ -47,13 +47,11 @@ import java.util.Optional;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N extends Node<N, ?, ?, ?>,
-        H extends HateosContentType<N>> {
+final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N extends Node<N, ?, ?, ?>> {
 
-    static <N extends Node<N, ?, ?, ?>,
-            H extends HateosContentType<N>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N, H> with(final HateosHandlerBuilderRouter<N> router,
-                                                                                                                          final HttpRequest request,
-                                                                                                                          final HttpResponse response) {
+    static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N> with(final HateosHandlerBuilderRouter<N> router,
+                                                                                                                   final HttpRequest request,
+                                                                                                                   final HttpResponse response) {
         return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<>(router, request, response);
     }
 
