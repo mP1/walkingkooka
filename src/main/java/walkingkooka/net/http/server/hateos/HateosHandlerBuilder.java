@@ -40,7 +40,7 @@ import java.util.function.BiConsumer;
  * The {@link Router} assumes that the transport and content-type have already been tested and filtered.
  */
 public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
-        extends HateosHandlerBuilder2<N>
+        extends HateosHandler2<N>
         implements Builder<Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
     /**
@@ -74,13 +74,13 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      */
     public <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerBuilder<N> add(final HateosResourceName name,
                                                                                               final LinkRelation<?> relation,
-                                                                                              final HateosHandlerBuilderMapper<I, R> mapper) {
+                                                                                              final HateosHandlerMapper<I, R> mapper) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(relation, "relation");
         Objects.requireNonNull(mapper, "mapper");
 
-        final HateosHandlerBuilderRouterKey key = HateosHandlerBuilderRouterKey.with(name, relation);
-        final HateosHandlerBuilderMapper<I, R> value = mapper.copy();
+        final HateosHandlerRouterKey key = HateosHandlerRouterKey.with(name, relation);
+        final HateosHandlerMapper<I, R> value = mapper.copy();
 
         if(this.mappers.containsKey(key)) {
             throw new IllegalArgumentException("Mapping " + key + " already used");
@@ -97,10 +97,10 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      */
     @Override
     public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> build() throws BuilderException {
-        final Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderMapper<?, ?>> copy = Maps.sorted();
+        final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?>> copy = Maps.sorted();
         copy.putAll(this.mappers);
 
-        return HateosHandlerBuilderRouter.with(this.base,
+        return HateosHandlerRouter.with(this.base,
                 this.contentType,
                 copy);
     }

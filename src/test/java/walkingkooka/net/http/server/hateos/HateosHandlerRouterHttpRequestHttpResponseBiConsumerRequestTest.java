@@ -23,11 +23,11 @@ import walkingkooka.test.ClassTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequestTest implements
-        ClassTesting<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode>> {
+public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequestTest implements
+        ClassTesting<HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode>> {
     @Override
-    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode>> type() {
-        return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest.class);
+    public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode>> type() {
+        return Cast.to(HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest.class);
     }
 
     @Override

@@ -62,8 +62,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class HateosHandlerBuilderRouterTest implements ClassTesting2<HateosHandlerBuilderRouter<JsonNode>>,
-        RouterTesting<HateosHandlerBuilderRouter<JsonNode>,
+public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandlerRouter<JsonNode>>,
+        RouterTesting<HateosHandlerRouter<JsonNode>,
                 HttpRequestAttribute<?>,
                 BiConsumer<HttpRequest, HttpResponse>> {
 
@@ -597,7 +597,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         final TestHateosResource responseResource = TestHateosResource.with(BigInteger.valueOf(id));
 
         final HateosHandlerBuilder<JsonNode> builder = this.builder()
-                .add(this.resourceName1(), this.relation1(), HateosHandlerBuilderMapper.with(Long::parseLong, TestHateosResource.class)
+                .add(this.resourceName1(), this.relation1(), HateosHandlerMapper.with(Long::parseLong, TestHateosResource.class)
                         .get(new FakeHateosHandler<Long, TestHateosResource>() {
                             @Override
                             public Optional<TestHateosResource> handle(final Long i,
@@ -870,7 +870,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     // HELPERS ............................................................................................
 
     @Override
-    public HateosHandlerBuilderRouter<JsonNode> createRouter() {
+    public HateosHandlerRouter<JsonNode> createRouter() {
         final HateosHandlerBuilder<JsonNode> builder = this.builder();
         //builder.add(this.resourceName1(), this.relation1(), new FakeHateosGetHandler<BigInteger, JsonNode>());
         return Cast.to(builder.build()); // builder returns interface which is HHBR class.
@@ -931,8 +931,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
         return entities;
     }
 
-    private HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mapper() {
-        return HateosHandlerBuilderMapper.with(BigInteger::new, TestHateosResource.class);
+    private HateosHandlerMapper<BigInteger, TestHateosResource> mapper() {
+        return HateosHandlerMapper.with(BigInteger::new, TestHateosResource.class);
     }
 
     private void routeGetAndCheck(final HateosHandler<BigInteger, TestHateosResource> handler,
@@ -957,7 +957,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                                final String body,
                                final HttpStatus status,
                                final HttpEntity... entities) {
-        final HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mapper = this.mapper();
+        final HateosHandlerMapper<BigInteger, TestHateosResource> mapper = this.mapper();
         do {
             if (method.equals(HttpMethod.GET)) {
                 mapper.get(handler);
@@ -987,7 +987,7 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
                 entities);
     }
 
-    private void routeAndCheck(final HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mapper,
+    private void routeAndCheck(final HateosHandlerMapper<BigInteger, TestHateosResource> mapper,
                                final HttpMethod method,
                                final String url,
                                final MediaType contentType,
@@ -1108,8 +1108,8 @@ public final class HateosHandlerBuilderRouterTest implements ClassTesting2<Hateo
     }
 
     @Override
-    public Class<HateosHandlerBuilderRouter<JsonNode>> type() {
-        return Cast.to(HateosHandlerBuilderRouter.class);
+    public Class<HateosHandlerRouter<JsonNode>> type() {
+        return Cast.to(HateosHandlerRouter.class);
     }
 
     @Override

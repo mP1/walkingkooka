@@ -31,28 +31,28 @@ import java.util.function.BiConsumer;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extends Node<N, ?, ?, ?>,
+final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<N, ?, ?, ?>,
         H extends HateosContentType<N>>
         implements BiConsumer<HttpRequest, HttpResponse> {
 
     /**
-     * Factory called by {@link HateosHandlerBuilderRouter#route}
+     * Factory called by {@link HateosHandlerRouter#route}
      */
     static <N extends Node<N, ?, ?, ?>,
-            H extends HateosContentType<N>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N, H> with(final HateosHandlerBuilderRouter<N> router) {
-        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N, H>(router);
+            H extends HateosContentType<N>> HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N, H> with(final HateosHandlerRouter<N> router) {
+        return new HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N, H>(router);
     }
 
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer(final HateosHandlerBuilderRouter<N> router) {
+    private HateosHandlerRouterHttpRequestHttpResponseBiConsumer(final HateosHandlerRouter<N> router) {
         super();
         this.router = router;
     }
 
     /**
-     * Tests the method and calls the matching {@link HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest}.
+     * Tests the method and calls the matching {@link HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest}.
      */
     @Override
     public void accept(final HttpRequest request, final HttpResponse response) {
@@ -65,7 +65,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extend
                     httpMethod.equals(HttpMethod.POST) ||
                     httpMethod.equals(HttpMethod.PUT) ||
                     httpMethod.equals(HttpMethod.DELETE)) {
-                HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest.with(this.router, request, response)
+                HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest.with(this.router, request, response)
                         .execute();
             } else {
                 methodNotAllowed(httpMethod.value(), response);
@@ -82,7 +82,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<N extend
         response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.setMessage(message));
     }
 
-    private final HateosHandlerBuilderRouter<N> router;
+    private final HateosHandlerRouter<N> router;
 
     @Override
     public String toString() {

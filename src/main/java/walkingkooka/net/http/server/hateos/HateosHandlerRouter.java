@@ -43,17 +43,17 @@ import java.util.stream.Collectors;
 /**
  * Router which accepts a request and returns a {@link BiConsumer} that operates on the base {@link UrlPath}.
  */
-final class HateosHandlerBuilderRouter<N extends Node<N, ?, ?, ?>>
-        extends HateosHandlerBuilder2<N>
+final class HateosHandlerRouter<N extends Node<N, ?, ?, ?>>
+        extends HateosHandler2<N>
         implements Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> {
 
     /**
      * Factory called by {@link HateosHandlerBuilder#build()}
      */
-    static <N extends Node<N, ?, ?, ?>, H extends HasId<Comparable<?>>> HateosHandlerBuilderRouter<N> with(final AbsoluteUrl base,
-                                                                                                           final HateosContentType<N> contentType,
-                                                                                                           final Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderMapper<?, ?>> handlers) {
-        return new HateosHandlerBuilderRouter<N>(base,
+    static <N extends Node<N, ?, ?, ?>, H extends HasId<Comparable<?>>> HateosHandlerRouter<N> with(final AbsoluteUrl base,
+                                                                                                    final HateosContentType<N> contentType,
+                                                                                                    final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?>> handlers) {
+        return new HateosHandlerRouter<N>(base,
                 contentType,
                 handlers);
     }
@@ -61,14 +61,14 @@ final class HateosHandlerBuilderRouter<N extends Node<N, ?, ?, ?>>
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerBuilderRouter(final AbsoluteUrl base,
-                                       final HateosContentType<N> contentType,
-                                       final Map<HateosHandlerBuilderRouterKey, HateosHandlerBuilderMapper<?, ?>> handlers) {
+    private HateosHandlerRouter(final AbsoluteUrl base,
+                                final HateosContentType<N> contentType,
+                                final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?>> handlers) {
         super(base, contentType, handlers);
 
-        final Set<HateosHandlerBuilderRouterKey> nameAndLinkRelations = handlers.keySet();
+        final Set<HateosHandlerRouterKey> nameAndLinkRelations = handlers.keySet();
         final Map<HateosResourceName, List<LinkRelation<?>>> nameToLinkRelations = Maps.ordered();
-        for (HateosHandlerBuilderRouterKey key : nameAndLinkRelations) {
+        for (HateosHandlerRouterKey key : nameAndLinkRelations) {
             final HateosResourceName name = key.resourceName;
             nameToLinkRelations.put(name,
                     nameAndLinkRelations.stream()
@@ -88,7 +88,7 @@ final class HateosHandlerBuilderRouter<N extends Node<N, ?, ?, ?>>
         Objects.requireNonNull(parameters, "parameters");
 
         return Optional.ofNullable(-1 != consumeBasePath(parameters) ?
-                HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer.with(this) :
+                HateosHandlerRouterHttpRequestHttpResponseBiConsumer.with(this) :
                 null);
     }
 

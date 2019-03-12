@@ -174,8 +174,8 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
         return HateosContentType.json();
     }
 
-    private HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mapper() {
-        return HateosHandlerBuilderMapper.with(BigInteger::new, TestHateosResource.class);
+    private HateosHandlerMapper<BigInteger, TestHateosResource> mapper() {
+        return HateosHandlerMapper.with(BigInteger::new, TestHateosResource.class);
     }
 
     @Override
