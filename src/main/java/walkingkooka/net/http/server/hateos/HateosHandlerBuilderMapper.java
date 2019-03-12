@@ -116,7 +116,7 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
     <N extends Node<N, ?, ?, ?>, H extends HateosContentType<N>> void handleId(final HateosResourceName resourceName,
                                                                                final String idText,
                                                                                final LinkRelation<?> linkRelation,
-                                                                               final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N, H> request) {
+                                                                               final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final I id = this.idOrBadRequest(idText, request);
         if (null != id) {
             final HateosHandler<I, R> handler = this.handlerOrResponseMethodNotAllowed(resourceName,
@@ -169,7 +169,7 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
      */
     <N extends Node<N, ?, ?, ?>, H extends HateosContentType<N>> void handleCollection(final HateosResourceName resourceName,
                                                                                        final LinkRelation<?> linkRelation,
-                                                                                       final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N, H> request) {
+                                                                                       final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
 
         final HateosHandler<I, R> handler = this.handlerOrResponseMethodNotAllowed(resourceName,
                 linkRelation,
@@ -187,7 +187,7 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
                                                                                        final String end,
                                                                                        final String rangeText,
                                                                                        final LinkRelation<?> linkRelation,
-                                                                                       final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N, H> request) {
+                                                                                       final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final Range<I> range = this.rangeOrBadRequest(begin, end, rangeText, request);
         if (null != range) {
             final HateosHandler<I, R> handler = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, request);
@@ -200,7 +200,7 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
     private <N extends Node<N, ?, ?, ?>, H extends HateosContentType<N>> void collection0(final HateosResourceName resourceName,
                                                                                           final Range<I> ids,
                                                                                           final HateosHandler<I, R> handler,
-                                                                                          final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N, H> request) {
+                                                                                          final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final String requestText = request.resourceTextOrBadRequest();
         if (null != requestText) {
             final HateosContentType<N> hateosContentType = request.hateosContentType();
@@ -250,7 +250,7 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
      * Parses or converts the id text, reporting a bad request if this fails.
      */
     private I idOrBadRequest(final String id,
-                             final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<?, ?> request) {
+                             final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<?> request) {
         return this.idOrBadRequest(id, "id", id, request);
     }
 
@@ -260,7 +260,7 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
     private I idOrBadRequest(final String id,
                              final String label, // id, range begin, range end
                              final String text,
-                             final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<?, ?> request) {
+                             final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<?> request) {
         I parsed = null;
         try {
             parsed = this.stringToId.apply(id);
@@ -276,7 +276,7 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
     private Range<I> rangeOrBadRequest(final String begin,
                                        final String end,
                                        final String rangeText,
-                                       final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<?, ?> request) {
+                                       final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<?> request) {
         Range<I> range = null;
 
         final I beginComparable = this.idOrBadRequest(begin, "range begin", rangeText, request);
@@ -301,7 +301,7 @@ public final class HateosHandlerBuilderMapper<I extends Comparable<I>, R extends
      */
     private HateosHandler<I, R> handlerOrResponseMethodNotAllowed(final HateosResourceName resourceName,
                                                                   final LinkRelation<?> linkRelation,
-                                                                  final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<?, ?> request) {
+                                                                  final HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<?> request) {
         HateosHandler<I, R> handler = null;
 
         do {
