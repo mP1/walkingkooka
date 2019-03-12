@@ -87,6 +87,12 @@ public abstract class HateosContentType<N extends Node<N, ?, ?, ?>> {
                                                          final Collection<LinkRelation<?>> linkRelations);
 
     /**
+     * Converts the count to text.
+     */
+    abstract <R extends HateosResource<?>> String toTextValue(final Object value,
+                                                              final DocumentBuilder documentBuilder);
+
+    /**
      * Adds links to the resource, converts it to a text.
      */
     abstract <R extends HateosResource<?>> String toTextList(final List<R> resource,

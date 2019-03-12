@@ -56,10 +56,10 @@ public final class HateosHandlerMapperTest implements ClassTesting2<HateosHandle
     public void testCopy() {
         final HateosHandlerMapper<BigInteger, TestHateosResource> mappers = this.mapper();
 
-        final FakeHateosHandler<BigInteger, TestHateosResource> get = new FakeHateosHandler<>();
-        final FakeHateosHandler<BigInteger, TestHateosResource> post = new FakeHateosHandler<>();
-        final FakeHateosHandler<BigInteger, TestHateosResource> put = new FakeHateosHandler<>();
-        final FakeHateosHandler<BigInteger, TestHateosResource> delete = new FakeHateosHandler<>();
+        final HateosHandlerMapperMapping<BigInteger, TestHateosResource> get = this.mapping();
+        final HateosHandlerMapperMapping<BigInteger, TestHateosResource> post = this.mapping();
+        final HateosHandlerMapperMapping<BigInteger, TestHateosResource> put = this.mapping();
+        final HateosHandlerMapperMapping<BigInteger, TestHateosResource> delete = this.mapping();
 
         mappers.get = get;
         mappers.post = post;
@@ -74,25 +74,33 @@ public final class HateosHandlerMapperTest implements ClassTesting2<HateosHandle
         assertSame(delete, copy.delete, "DELETE");
     }
 
+    private HateosHandlerMapperMapping<BigInteger, TestHateosResource> mapping() {
+        return this.mapping(new FakeHateosHandler<>());
+    }
+
     @Test
     public void testToString() {
         final HateosHandlerMapper<BigInteger, TestHateosResource> mappers = this.mapper();
 
-        mappers.get = this.handler("G1");
-        mappers.post = this.handler("P2");
-        mappers.put = this.handler("P3");
-        mappers.delete = this.handler("D4");
+        mappers.get = this.mapping("G1");
+        mappers.post = this.mapping("P2");
+        mappers.put = this.mapping("P3");
+        mappers.delete = this.mapping("D4");
         ;
 
         this.toStringAndCheck(mappers, "GET=G1 POST=P2 PUT=P3 DELETE=D4");
     }
 
-    private FakeHateosHandler<BigInteger, TestHateosResource> handler(final String toString) {
-        return new FakeHateosHandler<BigInteger, TestHateosResource>() {
+    private HateosHandlerMapperMapping<BigInteger, TestHateosResource> mapping(final String toString) {
+        return this.mapping(new FakeHateosHandler<BigInteger, TestHateosResource>() {
             public String toString() {
                 return toString;
             }
-        };
+        });
+    }
+
+    private HateosHandlerMapperMapping<BigInteger, TestHateosResource> mapping(final HateosHandler<BigInteger, TestHateosResource> handler) {
+        return HateosHandlerMapperMapping.hateosHandler(handler);
     }
 
     private HateosHandlerMapper<BigInteger, TestHateosResource> mapper() {
