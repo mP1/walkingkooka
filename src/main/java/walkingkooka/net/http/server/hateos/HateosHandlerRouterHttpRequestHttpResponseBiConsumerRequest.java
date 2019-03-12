@@ -47,20 +47,20 @@ import java.util.Optional;
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
  * {@link HateosHandlerBuilder}.
  */
-final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N extends Node<N, ?, ?, ?>> {
+final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extends Node<N, ?, ?, ?>> {
 
-    static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N> with(final HateosHandlerBuilderRouter<N> router,
-                                                                                                                   final HttpRequest request,
-                                                                                                                   final HttpResponse response) {
-        return new HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<>(router, request, response);
+    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> with(final HateosHandlerRouter<N> router,
+                                                                                                            final HttpRequest request,
+                                                                                                            final HttpResponse response) {
+        return new HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<>(router, request, response);
     }
 
     /**
      * Package private ctor use factory.
      */
-    private HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest(final HateosHandlerBuilderRouter<N> router,
-                                                                               final HttpRequest request,
-                                                                               final HttpResponse response) {
+    private HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest(final HateosHandlerRouter<N> router,
+                                                                        final HttpRequest request,
+                                                                        final HttpResponse response) {
         super();
         this.router = router;
         this.request = request;
@@ -163,7 +163,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N
     private void id0(final HateosResourceName resourceName,
                      final String idText,
                      final LinkRelation<?> linkRelation) {
-        final HateosHandlerBuilderMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        final HateosHandlerMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
         if (null != mapper) {
             mapper.handleId(resourceName, idText, linkRelation, this);
         }
@@ -191,7 +191,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N
 
     private void idMissingOrWildcard(final HateosResourceName resourceName,
                                      final LinkRelation<?> linkRelation) {
-        final HateosHandlerBuilderMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
+        final HateosHandlerMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
         if (null != mapper) {
             mapper.handleCollection(resourceName, linkRelation, this);
         }
@@ -209,7 +209,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N
                             final int pathIndex) {
         final LinkRelation<?> linkRelation = this.linkRelationOrDefaultOrResponseBadRequest(pathIndex + 2);
         if (null != linkRelation) {
-            final HateosHandlerBuilderMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
+            final HateosHandlerMapper<?, ?> mapper = this.handlersOrResponseNotFound(resourceName, linkRelation);
             if (null != mapper) {
                 mapper.handleCollection(resourceName,
                         begin,
@@ -288,11 +288,11 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N
     }
 
     /**
-     * Locates the {@link HateosHandlerBuilderMapper} or writes {@link HttpStatusCode#NOT_FOUND} or {@link HttpStatusCode#METHOD_NOT_ALLOWED}
+     * Locates the {@link HateosHandlerMapper} or writes {@link HttpStatusCode#NOT_FOUND} or {@link HttpStatusCode#METHOD_NOT_ALLOWED}
      */
-    private HateosHandlerBuilderMapper<?, ?> handlersOrResponseNotFound(final HateosResourceName resourceName,
-                                                                        final LinkRelation<?> linkRelation) {
-        final HateosHandlerBuilderMapper<?, ?> mapper = this.router.mappers.get(HateosHandlerBuilderRouterKey.with(resourceName, linkRelation));
+    private HateosHandlerMapper<?, ?> handlersOrResponseNotFound(final HateosResourceName resourceName,
+                                                                 final LinkRelation<?> linkRelation) {
+        final HateosHandlerMapper<?, ?> mapper = this.router.mappers.get(HateosHandlerRouterKey.with(resourceName, linkRelation));
         if (null == mapper) {
             notFound(resourceName, linkRelation);
         }
@@ -365,7 +365,7 @@ final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerRequest<N
         return this.router.contentType;
     }
 
-    final HateosHandlerBuilderRouter<N> router;
+    final HateosHandlerRouter<N> router;
 
     final HttpRequest request;
 

@@ -29,7 +29,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
+public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
 
     @Test
     public void testMethodNotSupported() {
@@ -45,14 +45,14 @@ public final class HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumerTe
             }
         };
         final TestRecordingHttpResponse response = HttpResponses.testRecording();
-        HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer.with(null)
+        HateosHandlerRouterHttpRequestHttpResponseBiConsumer.with(null)
                 .accept(request, response);
         response.check(request, HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("XYZ"));
     }
 
     @Override
-    public Class<HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> type() {
-        return Cast.to(HateosHandlerBuilderRouterHttpRequestHttpResponseBiConsumer.class);
+    public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> type() {
+        return Cast.to(HateosHandlerRouterHttpRequestHttpResponseBiConsumer.class);
     }
 
     @Override

@@ -30,8 +30,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HateosHandlerBuilderMapperTest implements ClassTesting2<HateosHandlerBuilderMapper<BigInteger, TestHateosResource>>,
-        ToStringTesting<HateosHandlerBuilderMapper<BigInteger, TestHateosResource>> {
+public final class HateosHandlerMapperTest implements ClassTesting2<HateosHandlerMapper<BigInteger, TestHateosResource>>,
+        ToStringTesting<HateosHandlerMapper<BigInteger, TestHateosResource>> {
 
     private final static Function<String, BigInteger> STRING_TO_ID = BigInteger::new;
     private final static Class<TestHateosResource> RESOURCE_TYPE = TestHateosResource.class;
@@ -39,7 +39,7 @@ public final class HateosHandlerBuilderMapperTest implements ClassTesting2<Hateo
     @Test
     public void testWithNullStringToIdFails() {
         assertThrows(NullPointerException.class, () -> {
-            HateosHandlerBuilderMapper.with(null,
+            HateosHandlerMapper.with(null,
                     RESOURCE_TYPE);
         });
     }
@@ -47,14 +47,14 @@ public final class HateosHandlerBuilderMapperTest implements ClassTesting2<Hateo
     @Test
     public void testWithNullResourceTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            HateosHandlerBuilderMapper.with(STRING_TO_ID,
+            HateosHandlerMapper.with(STRING_TO_ID,
                     null);
         });
     }
 
     @Test
     public void testCopy() {
-        final HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mappers = this.mapper();
+        final HateosHandlerMapper<BigInteger, TestHateosResource> mappers = this.mapper();
 
         final FakeHateosHandler<BigInteger, TestHateosResource> get = new FakeHateosHandler<>();
         final FakeHateosHandler<BigInteger, TestHateosResource> post = new FakeHateosHandler<>();
@@ -66,7 +66,7 @@ public final class HateosHandlerBuilderMapperTest implements ClassTesting2<Hateo
         mappers.put = put;
         mappers.delete = delete;
 
-        final HateosHandlerBuilderMapper<BigInteger, TestHateosResource> copy = mappers.copy();
+        final HateosHandlerMapper<BigInteger, TestHateosResource> copy = mappers.copy();
 
         assertSame(get, copy.get, "GET");
         assertSame(post, copy.post, "POST");
@@ -76,7 +76,7 @@ public final class HateosHandlerBuilderMapperTest implements ClassTesting2<Hateo
 
     @Test
     public void testToString() {
-        final HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mappers = this.mapper();
+        final HateosHandlerMapper<BigInteger, TestHateosResource> mappers = this.mapper();
 
         mappers.get = this.handler("G1");
         mappers.post = this.handler("P2");
@@ -95,14 +95,14 @@ public final class HateosHandlerBuilderMapperTest implements ClassTesting2<Hateo
         };
     }
 
-    private HateosHandlerBuilderMapper<BigInteger, TestHateosResource> mapper() {
-        return HateosHandlerBuilderMapper.with(STRING_TO_ID,
+    private HateosHandlerMapper<BigInteger, TestHateosResource> mapper() {
+        return HateosHandlerMapper.with(STRING_TO_ID,
                 RESOURCE_TYPE);
     }
 
     @Override
-    public Class<HateosHandlerBuilderMapper<BigInteger, TestHateosResource>> type() {
-        return Cast.to(HateosHandlerBuilderMapper.class);
+    public Class<HateosHandlerMapper<BigInteger, TestHateosResource>> type() {
+        return Cast.to(HateosHandlerMapper.class);
     }
 
     @Override

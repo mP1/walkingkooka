@@ -26,15 +26,15 @@ import java.util.Objects;
 /**
  * Used as a key within a map holding all mappers.
  */
-final class HateosHandlerBuilderRouterKey implements HashCodeEqualsDefined, Comparable<HateosHandlerBuilderRouterKey> {
+final class HateosHandlerRouterKey implements HashCodeEqualsDefined, Comparable<HateosHandlerRouterKey> {
 
-    static HateosHandlerBuilderRouterKey with(final HateosResourceName resourceName,
-                                              final LinkRelation<?> linkRelation) {
-        return new HateosHandlerBuilderRouterKey(resourceName, linkRelation);
+    static HateosHandlerRouterKey with(final HateosResourceName resourceName,
+                                       final LinkRelation<?> linkRelation) {
+        return new HateosHandlerRouterKey(resourceName, linkRelation);
     }
 
-    private HateosHandlerBuilderRouterKey(final HateosResourceName resourceName,
-                                          final LinkRelation<?> linkRelation) {
+    private HateosHandlerRouterKey(final HateosResourceName resourceName,
+                                   final LinkRelation<?> linkRelation) {
         this.resourceName = resourceName;
         this.linkRelation = linkRelation;
     }
@@ -53,10 +53,10 @@ final class HateosHandlerBuilderRouterKey implements HashCodeEqualsDefined, Comp
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HateosHandlerBuilderRouterKey && this.equals0((HateosHandlerBuilderRouterKey) other);
+                other instanceof HateosHandlerRouterKey && this.equals0((HateosHandlerRouterKey) other);
     }
 
-    private boolean equals0(final HateosHandlerBuilderRouterKey other) {
+    private boolean equals0(final HateosHandlerRouterKey other) {
         return this.compareTo(other) == 0;
     }
 
@@ -71,7 +71,7 @@ final class HateosHandlerBuilderRouterKey implements HashCodeEqualsDefined, Comp
     // Comparable........................................................................................................
 
     @Override
-    public int compareTo(final HateosHandlerBuilderRouterKey other) {
+    public int compareTo(final HateosHandlerRouterKey other) {
         int result = this.resourceName.compareTo(other.resourceName);
         if (0 == result) {
             result = this.linkRelation.compareTo(other.linkRelation);

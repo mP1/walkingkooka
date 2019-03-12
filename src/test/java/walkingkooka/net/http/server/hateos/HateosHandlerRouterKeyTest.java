@@ -27,18 +27,18 @@ import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class HateosHandlerBuilderRouterKeyTest implements ClassTesting2<HateosHandlerBuilderRouterKey>,
-        ComparableTesting<HateosHandlerBuilderRouterKey>,
-        ToStringTesting<HateosHandlerBuilderRouterKey> {
+public final class HateosHandlerRouterKeyTest implements ClassTesting2<HateosHandlerRouterKey>,
+        ComparableTesting<HateosHandlerRouterKey>,
+        ToStringTesting<HateosHandlerRouterKey> {
 
     @Test
     public void testDifferentResourceName() {
-        this.checkNotEquals(HateosHandlerBuilderRouterKey.with(HateosResourceName.with("different"), this.linkRelation()));
+        this.checkNotEquals(HateosHandlerRouterKey.with(HateosResourceName.with("different"), this.linkRelation()));
     }
 
     @Test
     public void testDifferentLinkRelation() {
-        this.checkNotEquals(HateosHandlerBuilderRouterKey.with(this.resourceName(), LinkRelation.with("different")));
+        this.checkNotEquals(HateosHandlerRouterKey.with(this.resourceName(), LinkRelation.with("different")));
     }
 
     @Test
@@ -47,8 +47,8 @@ public final class HateosHandlerBuilderRouterKeyTest implements ClassTesting2<Ha
     }
 
     @Override
-    public HateosHandlerBuilderRouterKey createComparable() {
-        return HateosHandlerBuilderRouterKey.with(this.resourceName(), this.linkRelation());
+    public HateosHandlerRouterKey createComparable() {
+        return HateosHandlerRouterKey.with(this.resourceName(), this.linkRelation());
     }
 
     private HateosResourceName resourceName() {
@@ -60,8 +60,8 @@ public final class HateosHandlerBuilderRouterKeyTest implements ClassTesting2<Ha
     }
 
     @Override
-    public Class<HateosHandlerBuilderRouterKey> type() {
-        return HateosHandlerBuilderRouterKey.class;
+    public Class<HateosHandlerRouterKey> type() {
+        return HateosHandlerRouterKey.class;
     }
 
     @Override
