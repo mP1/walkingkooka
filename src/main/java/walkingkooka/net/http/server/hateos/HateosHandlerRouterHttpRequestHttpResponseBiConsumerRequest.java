@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.AcceptCharset;
@@ -40,6 +41,7 @@ import walkingkooka.tree.Node;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -294,9 +296,53 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extend
                                                                  final LinkRelation<?> linkRelation) {
         final HateosHandlerMapper<?, ?> mapper = this.router.mappers.get(HateosHandlerRouterKey.with(resourceName, linkRelation));
         if (null == mapper) {
-            notFound(resourceName, linkRelation);
+            this.notFound(resourceName, linkRelation);
         }
         return mapper;
+    }
+
+    /**
+     * Using the given request resource text (request body) read that into an {@link Optional optional} {@link HateosResource resource}.
+     */
+    <R extends HateosResource<?>> Optional<R> resourceOrBadRequest(final String requestText,
+                                                                   final HateosContentType<N> hateosContentType,
+                                                                   final Class<R> resourceType,
+                                                                   final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
+        Optional<R> resource;
+
+        if (requestText.isEmpty()) {
+            resource = Optional.empty();
+        } else {
+            try {
+                resource = Optional.of(hateosContentType.fromNode(requestText, null, resourceType));
+            } catch (final Exception cause) {
+                request.badRequest("Invalid " + hateosContentType + ": " + cause.getMessage());
+                resource = null;
+            }
+        }
+        return resource;
+    }
+
+    /**
+     * Using the given request resource text (request body) read that into a {@link List list} of {@link HateosResource resources}.
+     */
+    <R extends HateosResource<?>> List<R> resourcesListOrBadRequest(final String requestText,
+                                                                    final HateosContentType<N> hateosContentType,
+                                                                    final Class<R> resourceType,
+                                                                    final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
+        List<R> resources;
+
+        if (requestText.isEmpty()) {
+            resources = Lists.empty();
+        } else {
+            try {
+                resources = hateosContentType.fromNodeList(requestText, null, resourceType);
+            } catch (final Exception cause) {
+                request.badRequest("Invalid " + hateosContentType + ": " + cause.getMessage());
+                resources = null;
+            }
+        }
+        return resources;
     }
 
     // error reporting.............................................................................................

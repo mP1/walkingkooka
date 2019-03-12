@@ -32,6 +32,7 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -107,6 +108,15 @@ final class HateosContentTypeJsonNode extends HateosContentType<JsonNode> {
                                                 final HateosResourceName resourceName,
                                                 final Collection<LinkRelation<?>> linkRelations) {
         return toJsonText(addLinks(resource, method, base, resourceName, linkRelations));
+    }
+
+    /**
+     * Converts the count to text holding JSON.
+     */
+    @Override
+    String toTextValue(final Object value,
+                       final DocumentBuilder documentBuilder) {
+        return HasJsonNode.toJsonNodeObject(value).toString();
     }
 
     @Override

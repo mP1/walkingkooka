@@ -117,6 +117,15 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
         return toXmlText(addLinks(resource, method, base, resourceName, linkRelations));
     }
 
+    /**
+     * Converts the value to text with XML.
+     */
+    @Override
+    String toTextValue(final Object value,
+                       final DocumentBuilder documentBuilder) {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     <R extends HateosResource<?>> String toTextList(final List<R> resources,
                                                     final DocumentBuilder documentBuilder,
