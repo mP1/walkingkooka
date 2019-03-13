@@ -37,6 +37,7 @@ import java.util.Optional;
  * with [] is for emails only.
  */
 final public class EmailAddress implements Value<String>,
+        Comparable<EmailAddress>,
         HashCodeEqualsDefined,
         HasJsonNode,
         Serializable {
@@ -163,11 +164,11 @@ final public class EmailAddress implements Value<String>,
         HasJsonNode.register("email", EmailAddress::fromJsonNode, EmailAddress.class);
     }
 
-    // Object......................................................................
+    // Object....................................................................................................
 
     @Override
     public int hashCode() {
-        return this.user.hashCode() ^ this.host.hashCode();
+        return Objects.hash(this.user, this.host);
     }
 
     @Override
@@ -187,7 +188,18 @@ final public class EmailAddress implements Value<String>,
         return this.address;
     }
 
-    // Serializable
+    // Comparable....................................................................................................
+
+    @Override
+    public int compareTo(final EmailAddress other) {
+        int result = this.user.compareTo(other.user);
+        if (0 == result) {
+            result = this.host.compareTo(other.host);
+        }
+        return result;
+    }
+
+    // Serializable....................................................................................................
 
     private final static long serialVersionUID = 1L;
 }
