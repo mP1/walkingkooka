@@ -21,6 +21,7 @@ package walkingkooka.net.email;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -41,6 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
+        ComparableTesting<EmailAddress>,
         HashCodeEqualsDefinedTesting<EmailAddress>,
         HasJsonNodeTesting<EmailAddress>,
         ParseStringTesting<EmailAddress>,
@@ -1647,7 +1649,34 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Test
     public void testEqualsDifferentEmail() {
-        this.checkNotEquals(EmailAddress.parse("different@server"));
+        this.checkNotEquals(EmailAddress.parse("different@different.example"));
+    }
+
+    // Comparable.......................................................................................................
+
+    @Test
+    public void testCompareEqualsHostDifferentCase() {
+        this.compareToAndCheckEqual(EmailAddress.parse("user@EXAMPLE.COM"));
+    }
+
+    @Test
+    public void testCompareEqualsUserDifferentCase() {
+        this.compareToAndCheckMore(EmailAddress.parse("USER@EXAMPLE.com"));
+    }
+
+    @Test
+    public void testCompareLessUserDifferentCase2() {
+        this.compareToAndCheckLess(EmailAddress.parse("zebra@example.com"));
+    }
+
+    @Test
+    public void testCompareLess() {
+        this.compareToAndCheckLess(EmailAddress.parse("zebra@example.com"));
+    }
+
+    @Test
+    public void testCompareLessHostDifferentCase() {
+        this.compareToAndCheckLess(EmailAddress.parse("zebra@EXAMPLE.com"));
     }
 
     // toString.................................................................
@@ -1671,6 +1700,13 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     @Override
     public EmailAddress createObject() {
         return EmailAddress.parse("user@example.com");
+    }
+
+    // ComparableTesting ..................................................................................................
+
+    @Override
+    public EmailAddress createComparable() {
+        return this.createObject();
     }
 
     // HasJsonNodeTesting......................................................................................
@@ -1706,7 +1742,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     @Override
     public EmailAddress serializableInstance() {
-        return EmailAddress.parse("user@server");
+        return EmailAddress.parse("user@example.com");
     }
 
     @Override
