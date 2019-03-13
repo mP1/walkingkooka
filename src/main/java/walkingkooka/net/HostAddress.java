@@ -30,7 +30,10 @@ import java.io.Serializable;
  * syntactical correctness no network query is ever attempted. <br>
  * Most of the tests and info was gathered from <a href="http://www.dominicsayers.com/source/beta/is_email/test/?all"></a>}
  */
-public final class HostAddress implements Value<String>, HashCodeEqualsDefined, Serializable {
+public final class HostAddress implements Value<String>,
+        Comparable<HostAddress>,
+        HashCodeEqualsDefined,
+        Serializable {
 
     /**
      * Creates a {@link HostAddress} after verifying address and components, values etc.
@@ -695,7 +698,14 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
         b.append(this.address);
     }
 
-    // Serializable
+    // Comparable.............................................................................................
+
+    @Override
+    public int compareTo(final HostAddress other) {
+        return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
+    }
+
+    // Serializable.........................................................................................
 
     private final static long serialVersionUID = 1L;
 }
