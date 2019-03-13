@@ -19,6 +19,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
@@ -38,9 +39,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class HostAddressTest implements ClassTesting2<HostAddress>,
+        ComparableTesting<HostAddress>,
         HashCodeEqualsDefinedTesting<HostAddress>,
         SerializationTesting<HostAddress>,
         ToStringTesting<HostAddress> {
+
+    private final static String HOST = "example.com";
 
     // tests
 
@@ -280,7 +284,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Test
     public void testCaseUnimportant() {
-        this.checkEqualsAndHashCode(HostAddress.with("ADDRESS"));
+        this.checkEqualsAndHashCode(HostAddress.with(HOST.toUpperCase()));
     }
 
     @Test
@@ -1006,6 +1010,23 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         return CharSequences.bigEndianHexDigits(hexDigits);
     }
 
+    // Comparable...................................................................................................
+
+    @Test
+    public void testCompareLess() {
+        this.compareToAndCheckLess(HostAddress.with("zebra.com"));
+    }
+
+    @Test
+    public void testCompareLessCaseInsignificant() {
+        this.compareToAndCheckLess(HostAddress.with("ZEBRA.com"));
+    }
+
+    @Test
+    public void testCompareEqualsCaseInsignificant() {
+        this.compareToAndCheckEqual(HostAddress.with(HOST.toUpperCase()));
+    }
+
     // toString...................................................................................................
 
     @Test
@@ -1037,13 +1058,22 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     @Override
     public HostAddress createObject() {
-        return HostAddress.with("address");
+        return HostAddress.with(HOST.toLowerCase());
     }
 
     @Override
     public Class<HostAddress> type() {
         return HostAddress.class;
     }
+
+    // ComparableTesting..........................................................................................
+
+    @Override
+    public HostAddress createComparable() {
+        return this.createObject();
+    }
+
+    // SerializableTesting..........................................................................................
 
     @Override
     public HostAddress serializableInstance() {
