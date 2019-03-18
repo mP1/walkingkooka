@@ -44,7 +44,7 @@ final class SpreadsheetColumnReferenceParser extends SpreadsheetColumnOrRowRefer
 
     // @Visible SpreadsheetLabelNameParser
     static int valueFromDigit0(final char c) {
-        final int digit = c - 'A';
+        final int digit = Character.toUpperCase(c) - 'A';
         return digit >= 0 && digit < RADIX ? digit + 1 : -1;
     }
 
