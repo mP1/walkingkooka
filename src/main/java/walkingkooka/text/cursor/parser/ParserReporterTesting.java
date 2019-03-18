@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public interface ParserReporterTesting<R extends ParserReporter<T, C>, T extends ParserToken, C extends ParserContext>
+public interface ParserReporterTesting<R extends ParserReporter<C>, T extends ParserToken, C extends ParserContext>
         extends ToStringTesting<R>, TypeNameTesting<R> {
 
     @Test
@@ -60,35 +60,35 @@ public interface ParserReporterTesting<R extends ParserReporter<T, C>, T extends
     C createContext();
 
     default void reportAndCheck(final String text,
-                                final Parser<T, C> parser,
+                                final Parser<C> parser,
                                 final String messageContains) {
         this.reportAndCheck(text, this.createContext(), parser, messageContains);
     }
 
     default void reportAndCheck(final String text,
                                 final C context,
-                                final Parser<T, C> parser,
+                                final Parser<C> parser,
                                 final String messageContains) {
         this.reportAndCheck(TextCursors.charSequence(text), context, parser, messageContains);
     }
 
     default void reportAndCheck(final TextCursor cursor,
-                                final Parser<T, C> parser,
+                                final Parser<C> parser,
                                 final String messageContains) {
         this.reportAndCheck(cursor, this.createContext(), parser, messageContains);
     }
 
     default void reportAndCheck(final TextCursor cursor,
                                 final C context,
-                                final Parser<T, C> parser,
+                                final Parser<C> parser,
                                 final String messageContains) {
         this.reportAndCheck(this.createParserReporter(), cursor, context, parser, messageContains);
     }
 
-    default void reportAndCheck(final ParserReporter<T, C> reporter,
+    default void reportAndCheck(final ParserReporter<C> reporter,
                                 final TextCursor cursor,
                                 final C context,
-                                final Parser<T, C> parser,
+                                final Parser<C> parser,
                                 final String messageContains) {
         assertFalse(CharSequences.isNullOrEmpty(messageContains), "messageContains must not be null or empty");
 
@@ -106,14 +106,14 @@ public interface ParserReporterTesting<R extends ParserReporter<T, C>, T extends
 
     default void report(final TextCursor cursor,
                         final C context,
-                        final Parser<T, C> parser) {
+                        final Parser<C> parser) {
         this.report(this.createParserReporter(), cursor, context, parser);
     }
 
-    default void report(final ParserReporter<T, C> reporter,
+    default void report(final ParserReporter<C> reporter,
                         final TextCursor cursor,
                         final C context,
-                        final Parser<T, C> parser) {
+                        final Parser<C> parser) {
         reporter.report(cursor, context, parser);
     }
 

@@ -27,6 +27,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContext;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserToken;
@@ -328,7 +329,7 @@ public final class ExpressionNodeTest implements ClassTesting2<ExpressionNode> {
 
     private SpreadsheetParserToken parse(final String parse){
         final TextCursor cursor = TextCursors.charSequence(parse);
-        final Optional<SpreadsheetParserToken> spreadsheetFormula = this.createParser().parse(cursor,
+        final Optional<ParserToken> spreadsheetFormula = this.createParser().parse(cursor,
                 SpreadsheetParserContexts.basic(decimalNumberContext()));
         if(!spreadsheetFormula.isPresent()){
             fail("Parser failed to parse " + CharSequences.quoteAndEscape(parse));
@@ -340,14 +341,14 @@ public final class ExpressionNodeTest implements ClassTesting2<ExpressionNode> {
         if(!leftOver.isEmpty()){
             fail("Parser left " + CharSequences.quoteAndEscape(leftOver) + " from " + CharSequences.quoteAndEscape(parse));
         }
-        return spreadsheetFormula.get();
+        return spreadsheetFormula.get().cast();
     }
 
     private DecimalNumberContext decimalNumberContext() {
         return DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%','+');
     }
 
-    private Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
+    private Parser<SpreadsheetParserContext> createParser() {
         return SpreadsheetParsers.expression();
     }
 

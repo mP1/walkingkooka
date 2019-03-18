@@ -33,9 +33,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext>,
-                SpreadsheetFormatParserToken,
-                SpreadsheetFormatParserContext> {
+public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<SpreadsheetFormatParserContext>,
+        SpreadsheetFormatParserContext> {
 
     // color........................................................................................................
 
@@ -107,7 +106,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseThrows2(this.colorParser(), tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> colorParser() {
+    private Parser<SpreadsheetFormatParserContext> colorParser() {
         return SpreadsheetFormatParsers.color();
     }
 
@@ -313,7 +312,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseThrows2(this.conditionParser(), tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> conditionParser() {
+    private Parser<SpreadsheetFormatParserContext> conditionParser() {
         return SpreadsheetFormatParsers.condition();
     }
 
@@ -905,7 +904,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseThrows2(this.dateParser(), tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> dateParser() {
+    private Parser<SpreadsheetFormatParserContext> dateParser() {
         return SpreadsheetFormatParsers.date();
     }
 
@@ -1838,7 +1837,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseThrows2(this.bigDecimalParser(), tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> bigDecimalParser() {
+    private Parser<SpreadsheetFormatParserContext> bigDecimalParser() {
         return SpreadsheetFormatParsers.bigDecimal();
     }
 
@@ -2475,7 +2474,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseThrows2(this.fractionParser(), tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> fractionParser() {
+    private Parser<SpreadsheetFormatParserContext> fractionParser() {
         return SpreadsheetFormatParsers.fraction();
     }
 
@@ -2532,7 +2531,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
                 general);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> generalParser() {
+    private Parser<SpreadsheetFormatParserContext> generalParser() {
         return SpreadsheetFormatParsers.general();
     }
 
@@ -2718,7 +2717,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseThrows2(this.textParser(), tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> textParser() {
+    private Parser<SpreadsheetFormatParserContext> textParser() {
         return SpreadsheetFormatParsers.text();
     }
 
@@ -3330,7 +3329,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseThrows2(this.timeParser(), tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> timeParser() {
+    private Parser<SpreadsheetFormatParserContext> timeParser() {
         return SpreadsheetFormatParsers.time();
     }
 
@@ -3585,7 +3584,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseAndCheck2(this.dateTimeParser(), SpreadsheetFormatParserToken::dateTime, tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> dateTimeParser() {
+    private Parser<SpreadsheetFormatParserContext> dateTimeParser() {
         return SpreadsheetFormatParsers.dateTime();
     }
 
@@ -3851,7 +3850,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         this.parseAndCheck2(this.expressionParser(), SpreadsheetFormatParserToken::expression, tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> expressionParser() {
+    private Parser<SpreadsheetFormatParserContext> expressionParser() {
         return SpreadsheetFormatParsers.expression();
     }
 
@@ -3863,7 +3862,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
 
     // helpers................................................................................................
 
-    private void parseAndCheck2(final Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser,
+    private void parseAndCheck2(final Parser<SpreadsheetFormatParserContext> parser,
                                 final BiFunction<List<ParserToken>, String, SpreadsheetFormatParserToken> factory,
                                 final SpreadsheetFormatParserToken... tokens) {
         final List<ParserToken> list = Lists.of(tokens);
@@ -3887,13 +3886,13 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
                 textLower);
     }
 
-    private void parseThrows2(final Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser,
+    private void parseThrows2(final Parser<SpreadsheetFormatParserContext> parser,
                               final SpreadsheetFormatParserToken... tokens) {
         this.parseThrows(parser.orFailIfCursorNotEmpty(ParserReporters.basic()),
                 ParserToken.text(Lists.of(tokens)));
     }
 
-    @Override public Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> createParser() {
+    @Override public Parser<SpreadsheetFormatParserContext> createParser() {
         return SpreadsheetFormatParsers.expression();
     }
 

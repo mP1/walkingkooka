@@ -24,7 +24,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FixedParserTest extends ParserTestCase<FixedParser<StringParserToken, ParserContext>, StringParserToken> {
+public final class FixedParserTest extends ParserTestCase<FixedParser<ParserContext>> {
 
     private final static StringParserToken RESULT = ParserTokens.string("abc", "");
 
@@ -52,7 +52,7 @@ public final class FixedParserTest extends ParserTestCase<FixedParser<StringPars
 
     @Test
     public void testParseEmptyOptionalResult() {
-        final Optional<StringParserToken> result = Optional.empty();
+        final Optional<ParserToken> result = Optional.empty();
          this.parseAndCheck(this.createParser(result),
                  this.createContext(),
                  TextCursors.charSequence(""),
@@ -67,11 +67,11 @@ public final class FixedParserTest extends ParserTestCase<FixedParser<StringPars
     }
 
     @Override
-    public FixedParser<StringParserToken, ParserContext> createParser() {
+    public FixedParser<ParserContext> createParser() {
         return this.createParser(Optional.of(RESULT));
     }
 
-    private FixedParser<StringParserToken, ParserContext> createParser(final Optional<StringParserToken> result) {
+    private FixedParser<ParserContext> createParser(final Optional<ParserToken> result) {
         return FixedParser.with(result);
     }
 
@@ -81,7 +81,7 @@ public final class FixedParserTest extends ParserTestCase<FixedParser<StringPars
     }
 
     @Override
-    public Class<FixedParser<StringParserToken, ParserContext>> type() {
+    public Class<FixedParser<ParserContext>> type() {
         return Cast.to(FixedParser.class);
     }
 }

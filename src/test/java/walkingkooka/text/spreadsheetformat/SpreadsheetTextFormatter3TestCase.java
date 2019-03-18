@@ -62,17 +62,18 @@ public abstract class SpreadsheetTextFormatter3TestCase<F extends SpreadsheetTex
         return this.parsePatternOrFail(this.parser(), pattern).cast();
     }
 
-    final SpreadsheetFormatParserToken parsePatternOrFail(final Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser, final String pattern) {
+    final SpreadsheetFormatParserToken parsePatternOrFail(final Parser<SpreadsheetFormatParserContext> parser, final String pattern) {
         return parser.orFailIfCursorNotEmpty(ParserReporters.basic())
                 .parse(TextCursors.charSequence(pattern), SpreadsheetFormatParserContexts.basic(ParserContexts.basic(decimalNumberContext())))
-                .get();
+                .get()
+                .cast();
     }
 
     private DecimalNumberContext decimalNumberContext() {
         return DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%','+');
     }
 
-    abstract Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser();
+    abstract Parser<SpreadsheetFormatParserContext> parser();
 
     abstract F createFormatter0(T token);
 }

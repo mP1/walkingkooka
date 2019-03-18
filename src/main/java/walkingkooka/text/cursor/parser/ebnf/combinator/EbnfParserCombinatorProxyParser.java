@@ -29,10 +29,10 @@ import java.util.Optional;
 /**
  * A proxy for a parser.
  */
-final class EbnfParserCombinatorProxyParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
+final class EbnfParserCombinatorProxyParser<C extends ParserContext> implements Parser<C> {
 
-    static <T extends ParserToken, C extends ParserContext> EbnfParserCombinatorProxyParser<T, C> with(final EbnfIdentifierParserToken identifier){
-        return new EbnfParserCombinatorProxyParser<T, C>(identifier);
+    static <C extends ParserContext> EbnfParserCombinatorProxyParser<C> with(final EbnfIdentifierParserToken identifier){
+        return new EbnfParserCombinatorProxyParser<C>(identifier);
     }
 
     private EbnfParserCombinatorProxyParser(final EbnfIdentifierParserToken identifier){
@@ -40,7 +40,7 @@ final class EbnfParserCombinatorProxyParser<T extends ParserToken, C extends Par
     }
 
     @Override
-    public Optional<T> parse(final TextCursor cursor, final C context) {
+    public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         return this.parser.parse(cursor, context);
     }
 
@@ -49,7 +49,7 @@ final class EbnfParserCombinatorProxyParser<T extends ParserToken, C extends Par
     /**
      * The actual parser is once its rule is eventually visited completely.
      */
-    Parser<T, C> parser;
+    Parser<C> parser;
 
     /**
      * Return the identifier rather than the full rule definition, this will help prevent cycles and very long and complex toStrings.

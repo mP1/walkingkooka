@@ -47,7 +47,7 @@ import java.util.function.BiFunction;
 final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
 
     @Override
-    public Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserContext> parser) {
         return parser.transform(this::alternatives); // leave alternative declarations as is.
     }
 
@@ -56,17 +56,17 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, ParserContext> parser) {
+    public Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<ParserContext> parser) {
         return parser.cast();
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserContext> parser) {
         throw new UnsupportedOperationException(token.text()); // there are no exception tokens.
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserContext> parser) {
         return parser; //leaver group definitions as they are.
     }
 
@@ -75,8 +75,8 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
      * created.
      */
     @Override
-    public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token,
-                                                         final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> identifier(final EbnfIdentifierParserToken token,
+                                            final Parser<ParserContext> parser) {
         final EbnfIdentifierName name = token.value();
         return name.equals(SpreadsheetFormatParsers.COLOR_IDENTIFIER) ?
                 parser.transform(this::color) :
@@ -222,33 +222,33 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
                 .value();
     }
 
-    private Parser<ParserToken, ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserToken, ParserContext> parser) {
+    private Parser<ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserContext> parser) {
         return name.value().endsWith("REQUIRED") ?
                 parser.orReport(ParserReporters.basic()) :
                 parser; // leave as is...
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserContext> parser) {
         return parser; // leave optionals alone...
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, ParserContext> parserd) {
+    public Parser<ParserContext> range(final EbnfRangeParserToken token, final Parser<ParserContext> parserd) {
         throw new UnsupportedOperationException(token.text()); // there are no ranges...
     }
 
     @Override
-    public Parser<RepeatedParserToken, ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<RepeatedParserToken, ParserContext> parser) {
+    public Parser<ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<ParserContext> parser) {
         return parser.transform(this::repeated);
     }
 
-    private RepeatedParserToken repeated(final RepeatedParserToken sequence, final ParserContext context) {
-        return sequence;
+    private RepeatedParserToken repeated(final ParserToken repeated, final ParserContext context) {
+        return repeated.cast();
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, ParserContext> parser) {
+    public Parser<ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<ParserContext> parser) {
         return parser.cast();
     }
 }

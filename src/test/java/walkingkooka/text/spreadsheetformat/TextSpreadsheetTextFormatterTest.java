@@ -21,7 +21,6 @@ package walkingkooka.text.spreadsheetformat;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 
@@ -100,7 +99,7 @@ public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextForma
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+    Parser<SpreadsheetFormatParserContext> parser() {
         return SpreadsheetFormatParsers.text();
     }
 

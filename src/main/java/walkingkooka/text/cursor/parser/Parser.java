@@ -29,17 +29,17 @@ import java.util.function.BiFunction;
  * The value (an {@link java.util.Optional} will contain the parsed value and text when successful or be empty when
  * not.
  */
-public interface Parser<T extends ParserToken, C extends ParserContext> {
+public interface Parser<C extends ParserContext> {
 
     /**
      * Attempts to parse the text given by the {@link TextCursor}.
      */
-    Optional<T> parse(final TextCursor cursor, final C context);
+    Optional<ParserToken> parse(final TextCursor cursor, final C context);
 
     /**
      * Creates a parser that matches this parser and fails the given parser.
      */
-    default Parser<T, C> andNot(final Parser<T, C> parser) {
+    default Parser<C> andNot(final Parser<C> parser) {
         return Parsers.andNot(this, parser);
     }
 
@@ -54,7 +54,7 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     /**
      * Combines this parser with another.
      */
-    default Parser<ParserToken, C> or(final Parser<? extends T, C> parser) {
+    default Parser<C> or(final Parser<C> parser) {
         Objects.requireNonNull(parser, "parser");
 
         return Parsers.alternatives(Lists.of(this.cast(), parser.cast()));
@@ -63,13 +63,13 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     /**
      * Makes this a repeating token.
      */
-    default Parser<RepeatedParserToken, C> repeating(){
+    default Parser<C> repeating(){
         return Parsers.repeated(this.cast());
     }
 
 
-    default Parser<T, C> setToString(final String toString) {
-        final Parser<T, C> toStringParser = Parsers.customToString(this, toString);
+    default Parser<C> setToString(final String toString) {
+        final Parser<C> toStringParser = Parsers.customToString(this, toString);
         return this.equals(toStringParser) ?
                 this :
                 toStringParser;
@@ -78,29 +78,29 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     /**
      * {@see TransformingParser}
      */
-    default <R extends ParserToken> Parser<R, C> transform(final BiFunction<T, C, R> transformer) {
+    default Parser<C> transform(final BiFunction<ParserToken, C, ParserToken> transformer) {
         return TransformingParser.with(this, transformer);
     }
 
     /**
      * The {@link ParserReporter} will be triggered if this {@link Parser} failed and returned a {@link Optional#empty()}.
      */
-    default Parser<T, C> orReport(final ParserReporter<T, C> reporter) {
-        final Parser<ParserToken, C> that = this.cast();
+    default Parser<C> orReport(final ParserReporter<C> reporter) {
+        final Parser<C> that = this.cast();
         return Parsers.alternatives(Lists.of(that, Parsers.report(ParserReporterCondition.ALWAYS, Cast.to(reporter), that))).cast();
     }
 
     /**
      * Returns a {@link Parser} which will use the {@link ParserReporter} if the {@link TextCursor} is not empty.
      */
-    default Parser<T, C> orFailIfCursorNotEmpty(final ParserReporter<T, C> reporter) {
+    default Parser<C> orFailIfCursorNotEmpty(final ParserReporter<C> reporter) {
         return Parsers.report(ParserReporterCondition.NOT_EMPTY, Cast.to(reporter), this);
     }
 
     /**
      * Helper that makes casting and working around generics a little less noisy.
      */
-    default <P extends Parser<?, ?>> P cast() {
+    default <P extends Parser<?>> P cast() {
         return Cast.to(this);
     }
 }

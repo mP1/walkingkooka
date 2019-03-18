@@ -21,7 +21,6 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
@@ -38,9 +37,9 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
      * Accepts a grammar and returns a {@link Map} holding all identifiers(the names) to a parser.
      * The {@link Map} will be used as defaults, any new definitions in the grammar will replace those in the map.
      */
-    public static Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> transform(final EbnfGrammarParserToken grammar,
-                                                                                        final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser,
-                                                                                        final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
+    public static Map<EbnfIdentifierName, Parser<ParserContext>> transform(final EbnfGrammarParserToken grammar,
+                                                                           final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
+                                                                           final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
         Objects.requireNonNull(grammar, "grammar");
         Objects.requireNonNull(identifierToParser, "identifierToParser");
         Objects.requireNonNull(syntaxTreeTransformer, "syntaxTreeTransformer");
@@ -50,9 +49,9 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
             syntaxTreeTransformer);
     }
 
-    private static Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> transform0(final EbnfGrammarParserToken grammar,
-                                                                                          final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser,
-                                                                                          final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
+    private static Map<EbnfIdentifierName, Parser<ParserContext>> transform0(final EbnfGrammarParserToken grammar,
+                                                                             final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
+                                                                             final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
 
         grammar.checkIdentifiers(identifierToParser.keySet());
         preloadProxies(grammar, identifierToParser);
@@ -65,7 +64,7 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
     /**
      * Fill the {@link Map identifierToParser} with proxies, allowing forward references in the grammar.
      */
-    private static void preloadProxies(final EbnfGrammarParserToken grammar, final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser) {
+    private static void preloadProxies(final EbnfGrammarParserToken grammar, final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser) {
         grammar.value()
                 .stream()
                 .map(m -> EbnfParserToken.class.cast(m))
@@ -73,7 +72,7 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
                 .forEach(t -> addProxy(t.cast(), identifierToParser));
     }
 
-    private static void addProxy(final EbnfRuleParserToken rule, final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser) {
+    private static void addProxy(final EbnfRuleParserToken rule, final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser) {
         final EbnfIdentifierParserToken identifierParserToken = rule.identifier();
         final EbnfIdentifierName identifierName = identifierParserToken.value();
 

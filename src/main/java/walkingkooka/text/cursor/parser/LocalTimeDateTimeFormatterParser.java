@@ -25,7 +25,7 @@ import java.time.temporal.TemporalAccessor;
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link LocalTime}.
  */
-final class LocalTimeDateTimeFormatterParser<C extends ParserContext> extends LocalDateTimeFormatterParser<LocalTimeParserToken, C>{
+final class LocalTimeDateTimeFormatterParser<C extends ParserContext> extends LocalDateTimeFormatterParser<C>{
 
     static <C extends ParserContext> LocalTimeDateTimeFormatterParser<C> with(final DateTimeFormatter formatter, final String pattern) {
         return new LocalTimeDateTimeFormatterParser<>(formatter, pattern);

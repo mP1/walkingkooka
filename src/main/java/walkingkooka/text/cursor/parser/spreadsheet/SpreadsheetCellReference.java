@@ -26,7 +26,6 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
@@ -71,7 +70,7 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
         }
     }
 
-    private static final Parser<ParserToken, ParserContext> PARSER = SpreadsheetParsers.columnAndRow().orReport(ParserReporters.basic());
+    private static final Parser<ParserContext> PARSER = SpreadsheetParsers.columnAndRow().orReport(ParserReporters.basic());
 
     /**
      * Factory that creates a {@link SpreadsheetCellReference} with the given column and row.

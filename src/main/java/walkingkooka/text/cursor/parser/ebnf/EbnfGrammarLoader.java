@@ -23,6 +23,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -88,7 +89,7 @@ public final class EbnfGrammarLoader {
                         CharSequences.readerConsuming(
                                 new InputStreamReader(inputStream2, Charset.defaultCharset()),
                                 4096));
-                final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser()
+                final Optional<ParserToken> grammar = EbnfParserToken.grammarParser()
                         .orFailIfCursorNotEmpty(ParserReporters.basic())
                         .parse(grammarFile, EbnfParserContexts.basic());
                 if (grammar.isPresent()) {

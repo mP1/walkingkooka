@@ -68,16 +68,17 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Parsers the given json and returns its {@link JsonNode} equivalent.
      */
     public static JsonNode parse(final String text) {
-        return PARSER.parse(TextCursors.charSequence(text),
+        final JsonNodeParserToken token = PARSER.parse(TextCursors.charSequence(text),
                 JsonNodeParserContexts.basic())
                 .get()
-                .toJsonNode().get();
+                .cast();
+         return token.toJsonNode().get();
     }
 
     /**
      * Parser that will consume json or report a parsing error.
      */
-    private final static Parser<JsonNodeParserToken, JsonNodeParserContext> PARSER = JsonNodeParsers.value()
+    private final static Parser<JsonNodeParserContext> PARSER = JsonNodeParsers.value()
             .orReport(ParserReporters.basic())
             .cast();
 

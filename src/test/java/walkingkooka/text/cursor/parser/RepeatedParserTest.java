@@ -29,7 +29,7 @@ public class RepeatedParserTest extends Parser2TestCase<RepeatedParser<ParserCon
         RepeatedParserToken> {
 
     private final static String TEXT = "abc";
-    private final static Parser<ParserToken, ParserContext> PARSER = CaseSensitivity.SENSITIVE.parser(TEXT).cast();
+    private final static Parser<ParserContext> PARSER = CaseSensitivity.SENSITIVE.parser(TEXT).cast();
 
     @Test
     public void testWithNullParserFails() {

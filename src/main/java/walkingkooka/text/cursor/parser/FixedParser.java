@@ -25,9 +25,9 @@ import java.util.Optional;
  * A {@link Parser} that consumes nothing from the {@link TextCursor} and returns a fixed {@link Optional} with or
  * without a {@link ParserToken}.
  */
-final class FixedParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
+final class FixedParser<C extends ParserContext> implements Parser<C> {
 
-    static <T extends ParserToken, C extends ParserContext> FixedParser<T, C> with(final Optional<T> result) {
+    static <C extends ParserContext> FixedParser<C> with(final Optional<ParserToken> result) {
         Objects.requireNonNull(result, "result");
         if(result.isPresent()) {
             final String text = result.get().text();
@@ -39,17 +39,17 @@ final class FixedParser<T extends ParserToken, C extends ParserContext> implemen
         return new FixedParser<>(result);
     }
 
-    private FixedParser(final Optional<T> result) {
+    private FixedParser(final Optional<ParserToken> result) {
         this.result = result;
     }
 
     @Override
-    public Optional<T> parse(final TextCursor cursor, final C context) {
+    public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         return this.result;
 
     }
 
-    private final Optional<T> result;
+    private final Optional<ParserToken> result;
 
     @Override
     public String toString() {

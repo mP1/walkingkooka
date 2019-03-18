@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
 import java.time.LocalDateTime;
@@ -516,7 +515,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+    Parser<SpreadsheetFormatParserContext> parser() {
         return SpreadsheetFormatParsers.dateTime();
     }
 

@@ -30,7 +30,7 @@ import java.util.Optional;
  * A {@link Parser} that parser that parsers {@link BigDecimal} numbers, including the sign, decimals and any exponent.
  * Note unlike {@link DoubleParser} which returns doubles, NAN and +/- INFINITY is not supported.
  */
-final class BigDecimalParser<C extends ParserContext> extends Parser2<BigDecimalParserToken, C> {
+final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
 
     /**
      * Factory that creates a {@link BigDecimalParser}
@@ -70,14 +70,14 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<BigDecimal
      * Concepts such as negative zero which are not supported by bigdecimal natively end up being plain zero.
      */
     @Override
-    Optional<BigDecimalParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
         final char decimalPoint = context.decimalPoint();
         final int minusSign = context.minusSign();
         final int plusSign = context.plusSign();
         final char littleE = Character.toLowerCase(context.exponentSymbol());
         final char bigE = Character.toUpperCase(littleE);
 
-        Optional<BigDecimalParserToken> token = Optional.empty();
+        BigDecimalParserToken token = null;
 
         // optional(+/-)
         // 0 OR 1-9
@@ -205,7 +205,7 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<BigDecimal
             }
         }
 
-        return token;
+        return Optional.ofNullable(token);
     }
 
     private static int digit(final char c) {
@@ -221,10 +221,9 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<BigDecimal
         return value * RADIX + digit;
     }
 
-    private static Optional<BigDecimalParserToken> token(final BigDecimal value, final TextCursorSavePoint save){
+    private static BigDecimalParserToken token(final BigDecimal value, final TextCursorSavePoint save){
         return BigDecimalParserToken.with(value,
-                save.textBetween().toString())
-                .success();
+                save.textBetween().toString());
     }
 
     private final MathContext context;

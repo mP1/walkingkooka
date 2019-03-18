@@ -25,7 +25,6 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatFractionParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
 import java.math.BigDecimal;
@@ -404,7 +403,7 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+    Parser<SpreadsheetFormatParserContext> parser() {
         return SpreadsheetFormatParsers.fraction();
     }
 

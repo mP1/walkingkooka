@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A {@link Builder} that may be used to build a sequence of tokens, some required or optional.
  */
-public final class SequenceParserBuilder<C extends ParserContext> implements Builder<Parser<SequenceParserToken, C>> {
+public final class SequenceParserBuilder<C extends ParserContext> implements Builder<Parser<C>> {
 
     static <C extends ParserContext> SequenceParserBuilder<C> empty() {
         return new SequenceParserBuilder<>();
@@ -35,16 +35,16 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
         super();
     }
 
-    public SequenceParserBuilder<C> optional(final Parser<ParserToken, C> parser) {
+    public SequenceParserBuilder<C> optional(final Parser<C> parser) {
         return this.add(new SequenceParserOptionalComponent<>(parser));
     }
 
-    public SequenceParserBuilder<C> required(final Parser<ParserToken, C> parser) {
+    public SequenceParserBuilder<C> required(final Parser<C> parser) {
         return this.add(new SequenceParserRequiredComponent<>(parser));
     }
 
     @Override
-    public Parser<SequenceParserToken, C> build() throws BuilderException {
+    public Parser<C> build() throws BuilderException {
         if(this.components.size() < 2){
             throw new BuilderException("Sequence requires at least 2 parsers=" + this.components);
         }

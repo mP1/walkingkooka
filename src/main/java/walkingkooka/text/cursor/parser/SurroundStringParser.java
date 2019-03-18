@@ -25,7 +25,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that only requires an opening string and is terminated by another closing string.
  */
-final class SurroundStringParser<C extends ParserContext> extends Parser2<StringParserToken, C> {
+final class SurroundStringParser<C extends ParserContext> extends Parser2<C> {
 
     static <C extends ParserContext> SurroundStringParser<C> with(final String open, final String close) {
         CharSequences.failIfNullOrEmpty(open, "open");
@@ -40,8 +40,9 @@ final class SurroundStringParser<C extends ParserContext> extends Parser2<String
     }
 
     @Override
-    Optional<StringParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
-        Optional<StringParserToken> result = Optional.empty();
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+        StringParserToken result = null;
+
         int matched = 0;
         final String open = this.open;
 
@@ -69,8 +70,7 @@ final class SurroundStringParser<C extends ParserContext> extends Parser2<String
                         if(close.length() == matched) {
                             // close found, match!!!
                             final String text = start.textBetween().toString();
-                            result = StringParserToken.with(text, text)
-                                    .success();
+                            result = StringParserToken.with(text, text);
                             break;
                         }
                         continue;
@@ -82,8 +82,7 @@ final class SurroundStringParser<C extends ParserContext> extends Parser2<String
                         if(close.length() == matched) {
                             // close found, match!!!
                             final String text = start.textBetween().toString();
-                            result = StringParserToken.with(text, text)
-                                    .success();
+                            result = StringParserToken.with(text, text);
                             break;
                         }
                     }
@@ -95,7 +94,7 @@ final class SurroundStringParser<C extends ParserContext> extends Parser2<String
             }
         }
 
-        return result;
+        return Optional.ofNullable(result);
     }
 
     private final String open;

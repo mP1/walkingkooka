@@ -20,9 +20,9 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class Parser2Test implements ClassTesting2<Parser2<?, ?>> {
+public final class Parser2Test implements ClassTesting2<Parser2<?>> {
     @Override
-    public Class<Parser2<?, ?>> type() {
+    public Class<Parser2<?>> type() {
         return Cast.to(Parser2.class);
     }
 

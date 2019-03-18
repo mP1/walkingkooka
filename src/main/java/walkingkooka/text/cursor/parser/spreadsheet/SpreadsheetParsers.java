@@ -22,10 +22,15 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.cursor.parser.BigDecimalParserToken;
+import walkingkooka.text.cursor.parser.CharacterParserToken;
+import walkingkooka.text.cursor.parser.DoubleQuotedParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.text.cursor.parser.SequenceParserToken;
+import walkingkooka.text.cursor.parser.StringParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarLoader;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.type.PublicStaticHelper;
@@ -42,13 +47,13 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * A {@link Parser} that returns a cell reference token of some sort.
      */
-    public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> cellReferences() {
+    public static Parser<SpreadsheetParserContext> cellReferences() {
         return parserFromGrammar(CELL_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName CELL_IDENTIFIER = EbnfIdentifierName.with("CELL");
 
-    private static void cellReferences(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
+    private static void cellReferences(final Map<EbnfIdentifierName, Parser<ParserContext>> predefined) {
         predefined.put(COLUMN_ROW_IDENTIFIER, columnAndRow());
         predefined.put(LABEL_NAME_IDENTIFIER, labelName());
         predefined.put(BETWEEN_SYMBOL_IDENTIFIER, BETWEEN_SYMBOL);
@@ -58,36 +63,36 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private static final EbnfIdentifierName LABEL_NAME_IDENTIFIER = EbnfIdentifierName.with("LABEL_NAME");
     private static final EbnfIdentifierName BETWEEN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("BETWEEN_SYMBOL");
 
-    private static final Parser<ParserToken, ParserContext> BETWEEN_SYMBOL = symbol(':',
+    private static final Parser<ParserContext> BETWEEN_SYMBOL = symbol(':',
             SpreadsheetParserToken::betweenSymbol,
             SpreadsheetBetweenSymbolParserToken.class);
 
     /**
      * {@see SpreadsheetColumnReferenceParser}
      */
-    public static Parser<ParserToken, ParserContext> column() {
+    public static Parser<ParserContext> column() {
         return Cast.to(SpreadsheetColumnReferenceParser.INSTANCE);
     }
 
     /**
      * {@see SpreadsheetColumnReferenceParser}
      */
-    public static Parser<ParserToken, ParserContext> columnAndRow() {
+    public static Parser<ParserContext> columnAndRow() {
         return COLUMN_AND_ROW;
     }
 
-    private static final Parser<ParserToken, ParserContext> COLUMN_AND_ROW = column()
+    private static final Parser<ParserContext> COLUMN_AND_ROW = column()
             .builder()
             .required(row())
             .build()
             .transform((sequenceParserToken, spreadsheetParserContext) -> {
-                return SpreadsheetParserToken.cellReference(sequenceParserToken.value(), sequenceParserToken.text()).cast();
+                return SpreadsheetParserToken.cellReference(SequenceParserToken.class.cast(sequenceParserToken).value(), sequenceParserToken.text()).cast();
             });
 
     /**
      * Returns a {@link Parser} that parsers expressions.
      */
-    public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> expression() {
+    public static Parser<SpreadsheetParserContext> expression() {
         return parserFromGrammar(EXPRESSION_IDENTIFIER);
     }
 
@@ -96,7 +101,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that parsers function invocations, starting with the name and parameters.
      */
-    public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> function() {
+    public static Parser<SpreadsheetParserContext> function() {
         return parserFromGrammar(FUNCTION_IDENTIFIER);
     }
 
@@ -105,25 +110,25 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * A parser that returns {@see SpreadsheetFunctionName}
      */
-    public static Parser<ParserToken, ParserContext> functionName() {
+    public static Parser<ParserContext> functionName() {
         return FUNCTION_NAME;
     }
 
-    private final static Parser<ParserToken, ParserContext> FUNCTION_NAME = Parsers.<SpreadsheetParserContext>stringInitialAndPartCharPredicate(
+    private final static Parser<ParserContext> FUNCTION_NAME = Parsers.<SpreadsheetParserContext>stringInitialAndPartCharPredicate(
             SpreadsheetFunctionName.INITIAL,
             SpreadsheetFunctionName.PART,
             1,
             SpreadsheetFunctionName.MAX_LENGTH)
-            .transform((stringParserToken, spreadsheetParserContext) -> Cast.to(SpreadsheetParserToken.functionName(SpreadsheetFunctionName.with(stringParserToken.value()), stringParserToken.text())))
+            .transform((stringParserToken, spreadsheetParserContext) -> Cast.to(SpreadsheetParserToken.functionName(SpreadsheetFunctionName.with(StringParserToken.class.cast(stringParserToken).value()), stringParserToken.text())))
             .setToString(SpreadsheetFunctionName.class.getSimpleName())
             .cast();
 
-    private static void functions(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
+    private static void functions(final Map<EbnfIdentifierName, Parser<ParserContext>> predefined) {
         predefined.put(FUNCTION_NAME_IDENTIFIER, functionName());
         predefined.put(FUNCTION_PARAMETER_SEPARATOR_SYMBOL_IDENTIFIER, FUNCTION_PARAMETER_SEPARATOR_SYMBOL);
     }
 
-    private static final Parser<ParserToken, ParserContext> FUNCTION_PARAMETER_SEPARATOR_SYMBOL = symbol(',',
+    private static final Parser<ParserContext> FUNCTION_PARAMETER_SEPARATOR_SYMBOL = symbol(',',
             SpreadsheetParserToken::functionParameterSeparatorSymbol,
             SpreadsheetFunctionParameterSeparatorSymbolParserToken.class);
 
@@ -134,14 +139,14 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * {@see SpreadsheetLabelNameParser}
      */
-    public static Parser<ParserToken, ParserContext> labelName() {
+    public static Parser<ParserContext> labelName() {
         return SpreadsheetLabelNameParser.INSTANCE.cast();
     }
 
     /**
      * A {@link Parser} that returns a range which will include cell references or labels.
      */
-    public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> range() {
+    public static Parser<SpreadsheetParserContext> range() {
         return parserFromGrammar(RANGE_IDENTIFIER);
     }
 
@@ -150,13 +155,13 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * {@see SpreadsheetRowReferenceParser}
      */
-    public static Parser<ParserToken, ParserContext> row() {
+    public static Parser<ParserContext> row() {
         return Cast.to(SpreadsheetRowReferenceParser.INSTANCE);
     }
 
     // conditions.............................................................................................................
 
-    private static void conditions(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
+    private static void conditions(final Map<EbnfIdentifierName, Parser<ParserContext>> predefined) {
         predefined.put(EQUALS_SYMBOL_IDENTIFIER, EQUALS_SYMBOL);
         predefined.put(NOT_EQUALS_SYMBOL_IDENTIFIER, NOT_EQUALS_SYMBOL);
 
@@ -166,22 +171,22 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
         predefined.put(LESS_THAN_EQUALS_SYMBOL_IDENTIFIER, LESS_THAN_EQUALS_SYMBOL);
     }
 
-    private static final Parser<ParserToken, ParserContext> EQUALS_SYMBOL = symbol("==",
+    private static final Parser<ParserContext> EQUALS_SYMBOL = symbol("==",
             SpreadsheetParserToken::equalsSymbol,
             SpreadsheetEqualsSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> NOT_EQUALS_SYMBOL = symbol("!=",
+    private static final Parser<ParserContext> NOT_EQUALS_SYMBOL = symbol("!=",
             SpreadsheetParserToken::notEqualsSymbol,
             SpreadsheetNotEqualsSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> GREATER_THAN_SYMBOL = symbol('>',
+    private static final Parser<ParserContext> GREATER_THAN_SYMBOL = symbol('>',
             SpreadsheetParserToken::greaterThanSymbol,
             SpreadsheetGreaterThanSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> GREATER_THAN_EQUALS_SYMBOL = symbol(">=",
+    private static final Parser<ParserContext> GREATER_THAN_EQUALS_SYMBOL = symbol(">=",
             SpreadsheetParserToken::greaterThanEqualsSymbol,
             SpreadsheetGreaterThanEqualsSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> LESS_THAN_SYMBOL = symbol('<',
+    private static final Parser<ParserContext> LESS_THAN_SYMBOL = symbol('<',
             SpreadsheetParserToken::lessThanSymbol,
             SpreadsheetLessThanSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> LESS_THAN_EQUALS_SYMBOL = symbol("<=",
+    private static final Parser<ParserContext> LESS_THAN_EQUALS_SYMBOL = symbol("<=",
             SpreadsheetParserToken::lessThanEqualsSymbol,
             SpreadsheetLessThanEqualsSymbolParserToken.class);
 
@@ -195,7 +200,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
 
     // math.............................................................................................................
 
-    private static void math(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
+    private static void math(final Map<EbnfIdentifierName, Parser<ParserContext>> predefined) {
         predefined.put(PLUS_SYMBOL_IDENTIFIER, PLUS_SYMBOL);
         predefined.put(MINUS_SYMBOL_IDENTIFIER, MINUS_SYMBOL);
 
@@ -211,25 +216,25 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private static final EbnfIdentifierName DIVIDE_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("DIVIDE_SYMBOL");
     private static final EbnfIdentifierName POWER_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("POWER_SYMBOL");
 
-    private static final Parser<ParserToken, ParserContext> PLUS_SYMBOL = symbol('+',
+    private static final Parser<ParserContext> PLUS_SYMBOL = symbol('+',
             SpreadsheetParserToken::plusSymbol,
             SpreadsheetPlusSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> MINUS_SYMBOL = symbol('-',
+    private static final Parser<ParserContext> MINUS_SYMBOL = symbol('-',
             SpreadsheetParserToken::minusSymbol,
             SpreadsheetMinusSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> MULTIPLY_SYMBOL = symbol('*',
+    private static final Parser<ParserContext> MULTIPLY_SYMBOL = symbol('*',
             SpreadsheetParserToken::multiplySymbol,
             SpreadsheetMultiplySymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> DIVIDE_SYMBOL = symbol('/',
+    private static final Parser<ParserContext> DIVIDE_SYMBOL = symbol('/',
             SpreadsheetParserToken::divideSymbol,
             SpreadsheetDivideSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> POWER_SYMBOL = symbol('^',
+    private static final Parser<ParserContext> POWER_SYMBOL = symbol('^',
             SpreadsheetParserToken::powerSymbol,
             SpreadsheetPowerSymbolParserToken.class);
 
     // misc.............................................................................................................
 
-    private static void misc(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
+    private static void misc(final Map<EbnfIdentifierName, Parser<ParserContext>> predefined) {
         predefined.put(NUMBER_IDENTIFIER, NUMBER);
         predefined.put(PERCENT_SYMBOL_IDENTIFIER, PERCENT_SYMBOL);
 
@@ -242,8 +247,8 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     }
 
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
-    private static final Parser<ParserToken, ParserContext> NUMBER = Parsers.bigDecimal(MathContext.UNLIMITED)
-            .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigDecimal(numberParserToken.value(), numberParserToken.text()))
+    private static final Parser<ParserContext> NUMBER = Parsers.bigDecimal(MathContext.UNLIMITED)
+            .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigDecimal(BigDecimalParserToken.class.cast(numberParserToken).value(), numberParserToken.text()))
             .cast();
 
     private static final EbnfIdentifierName PERCENT_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("PERCENT_SYMBOL");
@@ -252,36 +257,36 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private static final EbnfIdentifierName TEXT_IDENTIFIER = EbnfIdentifierName.with("TEXT");
     private static final EbnfIdentifierName WHITESPACE_IDENTIFIER = EbnfIdentifierName.with("WHITESPACE");
 
-    private static final Parser<ParserToken, ParserContext> PERCENT_SYMBOL = symbol('%',
+    private static final Parser<ParserContext> PERCENT_SYMBOL = symbol('%',
             SpreadsheetParserToken::percentSymbol,
             SpreadsheetPercentSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> OPEN_PARENTHESIS_SYMBOL = symbol('(',
+    private static final Parser<ParserContext> OPEN_PARENTHESIS_SYMBOL = symbol('(',
             SpreadsheetParserToken::openParenthesisSymbol,
             SpreadsheetOpenParenthesisSymbolParserToken.class);
-    private static final Parser<ParserToken, ParserContext> CLOSE_PARENTHESIS_SYMBOL = symbol(')',
+    private static final Parser<ParserContext> CLOSE_PARENTHESIS_SYMBOL = symbol(')',
             SpreadsheetParserToken::closeParenthesisSymbol,
             SpreadsheetCloseParenthesisSymbolParserToken.class);
 
     /**
      * Text
      */
-    public static Parser<ParserToken, ParserContext> text() {
+    public static Parser<ParserContext> text() {
         return TEXT;
     }
 
-    private final static Parser<ParserToken, ParserContext> TEXT = Parsers.doubleQuoted()
-            .transform((doubleQuotedParserToken, spreadsheetParserContext) -> SpreadsheetParserToken.text(doubleQuotedParserToken.value(), doubleQuotedParserToken.text()).cast())
+    private final static Parser<ParserContext> TEXT = Parsers.doubleQuoted()
+            .transform((doubleQuotedParserToken, spreadsheetParserContext) -> SpreadsheetParserToken.text(DoubleQuotedParserToken.class.cast(doubleQuotedParserToken).value(), doubleQuotedParserToken.text()).cast())
             .setToString(SpreadsheetTextParserToken.class.getSimpleName());
 
     /**
      * Whitespace
      */
-    public static Parser<ParserToken, ParserContext> whitespace() {
+    public static Parser<ParserContext> whitespace() {
         return WHITESPACE;
     }
 
-    private final static Parser<ParserToken, ParserContext> WHITESPACE = Parsers.<SpreadsheetParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
-            .transform((stringParserToken, spreadsheetParserContext) -> SpreadsheetParserToken.whitespace(stringParserToken.value(), stringParserToken.text()).cast())
+    private final static Parser<ParserContext> WHITESPACE = Parsers.<SpreadsheetParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
+            .transform((stringParserToken, spreadsheetParserContext) -> SpreadsheetParserToken.whitespace(StringParserToken.class.cast(stringParserToken).value(), stringParserToken.text()).cast())
             .setToString(SpreadsheetWhitespaceParserToken.class.getSimpleName())
             .cast();
 
@@ -291,9 +296,9 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * Uses the grammar file to fetch one of the parsers.
      */
-    private static Parser<SpreadsheetParserToken, SpreadsheetParserContext> parserFromGrammar(final EbnfIdentifierName parserName) {
+    private static Parser<SpreadsheetParserContext> parserFromGrammar(final EbnfIdentifierName parserName) {
         try {
-            final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined = Maps.sorted();
+            final Map<EbnfIdentifierName, Parser<ParserContext>> predefined = Maps.sorted();
 
             cellReferences(predefined);
             conditions(predefined);
@@ -301,7 +306,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             math(predefined);
             misc(predefined);
 
-            final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> result = GRAMMAR_LOADER.grammar().get()
+            final Map<EbnfIdentifierName, Parser<ParserContext>> result = GRAMMAR_LOADER.grammar().get()
                     .combinator(predefined,
                             new SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer());
 
@@ -318,20 +323,20 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
      */
     private final static EbnfGrammarLoader GRAMMAR_LOADER = EbnfGrammarLoader.with("spreadsheet-parsers.grammar", SpreadsheetParsers.class);
 
-    private static Parser<ParserToken, ParserContext> symbol(final char c,
-                                                             final BiFunction<String, String, ParserToken> factory,
-                                                             final Class<? extends SpreadsheetSymbolParserToken> tokenClass) {
+    private static Parser<ParserContext> symbol(final char c,
+                                                final BiFunction<String, String, ParserToken> factory,
+                                                final Class<? extends SpreadsheetSymbolParserToken> tokenClass) {
         return Parsers.character(CharPredicates.is(c))
-                .transform((charParserToken, context) -> factory.apply(charParserToken.value().toString(), charParserToken.text()))
+                .transform((charParserToken, context) -> factory.apply(CharacterParserToken.class.cast(charParserToken).value().toString(), charParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
                 .cast();
     }
 
-    private static Parser<ParserToken, ParserContext> symbol(final String text,
-                                                             final BiFunction<String, String, ParserToken> factory,
-                                                             final Class<? extends SpreadsheetSymbolParserToken> tokenClass) {
+    private static Parser<ParserContext> symbol(final String text,
+                                                final BiFunction<String, String, ParserToken> factory,
+                                                final Class<? extends SpreadsheetSymbolParserToken> tokenClass) {
         return CaseSensitivity.INSENSITIVE.parser(text)
-                .transform((stringParserToken, context) -> factory.apply(stringParserToken.value(), stringParserToken.text()))
+                .transform((stringParserToken, context) -> factory.apply(StringParserToken.class.cast(stringParserToken).value(), stringParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
                 .cast();
     }

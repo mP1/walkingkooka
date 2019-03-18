@@ -29,9 +29,9 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<T, FakeParserContext>, T extends ParserToken>
+public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<FakeParserContext>, T extends ParserToken>
                 implements ClassTesting2<P>,
-        ParserTesting<P, T, FakeParserContext>,
+        ParserTesting<P, FakeParserContext>,
         TypeNameTesting<P> {
 
     DateTimeFormatterParserTestCase() {

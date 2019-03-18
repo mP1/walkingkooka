@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that parser that parsers double numbers, including the sign, decimals and any exponent.
  */
-final class DoubleParser<C extends ParserContext> extends Parser2<DoubleParserToken, C> {
+final class DoubleParser<C extends ParserContext> extends Parser2<C> {
 
     /**
      * Factory that creates a {@link DoubleParser}
@@ -80,14 +80,14 @@ final class DoubleParser<C extends ParserContext> extends Parser2<DoubleParserTo
      * Reads character by character until a non digit is found, using a {@link BigInteger} to hold the value.
      */
     @Override
-    Optional<DoubleParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
         final char decimalPoint = context.decimalPoint();
         final char minusSign = context.minusSign();
         final char plusSign = context.plusSign();
         final char littleE = Character.toLowerCase(context.exponentSymbol());
         final char bigE = Character.toUpperCase(littleE);
 
-        Optional<DoubleParserToken> token = Optional.empty();
+        Optional<ParserToken> token = Optional.empty();
 
         // optional(+/-)
         // 0 OR 1-9
@@ -333,7 +333,7 @@ final class DoubleParser<C extends ParserContext> extends Parser2<DoubleParserTo
         return value * RADIX + digit;
     }
 
-    private static Optional<DoubleParserToken> token(final double value, final TextCursorSavePoint save){
+    private static Optional<ParserToken> token(final double value, final TextCursorSavePoint save){
         return DoubleParserToken.with(value,
                 save.textBetween().toString())
                 .success();

@@ -17,11 +17,10 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserToken;
 
 public final class EbnfRhsParserTest extends EbnfParserTestCase2<EbnfParserToken>{
 
-    @Override public Parser<ParserToken, EbnfParserContext> createParser() {
+    @Override public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.RHS;
     }
 

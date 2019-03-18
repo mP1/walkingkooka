@@ -26,8 +26,7 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 
-public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeParserToken, JsonNodeParserContext>,
-        JsonNodeParserToken,
+public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeParserContext>,
         JsonNodeParserContext> {
 
     @Test
@@ -328,7 +327,7 @@ public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeP
         this.parseThrows("[123 !ABC]", '1', 2, 1);
     }
 
-    @Override public Parser<JsonNodeParserToken, JsonNodeParserContext> createParser() {
+    @Override public Parser<JsonNodeParserContext> createParser() {
         return JsonNodeParsers.value()
                 .orReport(ParserReporters.basic())
                 .cast();

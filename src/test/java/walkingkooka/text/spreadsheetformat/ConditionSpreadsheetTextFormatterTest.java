@@ -28,7 +28,6 @@ import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
 import java.math.BigDecimal;
@@ -188,7 +187,7 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+    Parser<SpreadsheetFormatParserContext> parser() {
         return SpreadsheetFormatParsers.condition();
     }
 

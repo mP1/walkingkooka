@@ -27,7 +27,6 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserException;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
@@ -47,7 +46,7 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
      * Parsers the text expecting a valid {@link SpreadsheetRowReference} or fails.
      */
     static <T extends SpreadsheetParserToken> T parse0(final String text,
-                                                       final Parser<ParserToken, ParserContext> parser,
+                                                       final Parser<ParserContext> parser,
                                                        final Class<T> type) {
         try {
             return type.cast(parser.parse(TextCursors.charSequence(text),

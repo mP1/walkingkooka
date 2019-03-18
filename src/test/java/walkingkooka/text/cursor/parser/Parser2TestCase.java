@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-public abstract class Parser2TestCase<P extends Parser2<T, ParserContext>, T extends ParserToken> extends ParserTestCase<P, T> {
+public abstract class Parser2TestCase<P extends Parser2<ParserContext>, T extends ParserToken> extends ParserTestCase<P> {
 
     Parser2TestCase() {
         super();

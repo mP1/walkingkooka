@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class OffsetDateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<T, FakeParserContext>,
+public abstract class OffsetDateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<FakeParserContext>,
         T extends ParserToken>
         extends DateTimeFormatterParserTestCase<P, T>{
 

@@ -28,7 +28,7 @@ import java.util.Optional;
  * A {@link Parser} that uses two {@link walkingkooka.predicate.character.CharPredicate}.
  * The final matched token must have a length between min and max.
  */
-final class StringInitialAndPartCharPredicateParser<C extends ParserContext> extends Parser2<StringParserToken, C> {
+final class StringInitialAndPartCharPredicateParser<C extends ParserContext> extends Parser2<C> {
 
     /**
      * Factory that creates a new {@link StringInitialAndPartCharPredicateParser}
@@ -63,13 +63,13 @@ final class StringInitialAndPartCharPredicateParser<C extends ParserContext> ext
     }
 
     @Override
-    Optional<StringParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
-        Optional<StringParserToken> result = null;
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+        StringParserToken result = null;
 
         if (!cursor.isEmpty()) {
             final char first = cursor.at();
             if (!this.initial.test(first)) {
-                result = Optional.empty();
+                result = null;
             } else {
                 final StringBuilder text = new StringBuilder();
                 text.append(first);
@@ -99,19 +99,18 @@ final class StringInitialAndPartCharPredicateParser<C extends ParserContext> ext
             }
         }
 
-        return result;
+        return Optional.ofNullable(result);
     }
 
-    private Optional<StringParserToken> stringParserToken(final StringBuilder text) {
+    private StringParserToken stringParserToken(final StringBuilder text) {
         return text.length() < this.minLength ?
-                Optional.empty() :
+                null :
                 stringParserToken0(text);
     }
 
-    private static Optional<StringParserToken> stringParserToken0(final StringBuilder text) {
+    private static StringParserToken stringParserToken0(final StringBuilder text) {
         final String finalText = text.toString();
-        return StringParserToken.with(finalText, finalText)
-                .success();
+        return StringParserToken.with(finalText, finalText);
     }
 
     private final CharPredicate initial;

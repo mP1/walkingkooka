@@ -307,7 +307,7 @@ public enum CaseSensitivity {
     /**
      * Creates a {@link Parser} that returns {@link StringParserToken} which honours this {@link CaseSensitivity}.
      */
-    final public <C extends ParserContext> Parser<StringParserToken, C> parser(final String text) {
+    final public <C extends ParserContext> Parser<C> parser(final String text) {
         return Parsers.string(text, this);
     }
 

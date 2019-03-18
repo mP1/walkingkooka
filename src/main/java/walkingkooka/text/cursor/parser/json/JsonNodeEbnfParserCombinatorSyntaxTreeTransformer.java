@@ -22,9 +22,7 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.RepeatedParserToken;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
-import walkingkooka.text.cursor.parser.StringParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfExceptionParserToken;
@@ -54,26 +52,26 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token,
-                                                           final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> alternatives(final EbnfAlternativeParserToken token,
+                                              final Parser<ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token,
-                                                            final Parser<SequenceParserToken, ParserContext> parser) {
+    public Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token,
+                                               final Parser<ParserContext> parser) {
         return parser.cast();
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> exception(final EbnfExceptionParserToken token,
-                                                        final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> exception(final EbnfExceptionParserToken token,
+                                           final Parser<ParserContext> parser) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> group(final EbnfGroupParserToken token,
-                                                    final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> group(final EbnfGroupParserToken token,
+                                       final Parser<ParserContext> parser) {
         return parser;
     }
 
@@ -81,8 +79,8 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
      * If the identifier name ends in "REQUIRED" mark the parser so that it reports a failure.
      */
     @Override
-    public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token,
-                                                         final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> identifier(final EbnfIdentifierParserToken token,
+                                            final Parser<ParserContext> parser) {
         final EbnfIdentifierName name = token.value();
         return name.equals(JsonNodeParsers.ARRAY_IDENTIFIER) ?
                 parser.transform(this::array) :
@@ -105,34 +103,34 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
         return token.flat().value();
     }
 
-    private Parser<ParserToken, ParserContext> requiredCheck(final EbnfIdentifierName name,
-                                                             final Parser<ParserToken, ParserContext> parser) {
+    private Parser<ParserContext> requiredCheck(final EbnfIdentifierName name,
+                                                final Parser<ParserContext> parser) {
         return name.value().endsWith("REQUIRED") || JsonNodeParsers.REPORT_FAILURE_IDENTIFIER_NAMES.contains(name) ?
                 parser.orReport(ParserReporters.basic()) :
                 parser; // leave as is...
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> optional(final EbnfOptionalParserToken token,
-                                                       final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> optional(final EbnfOptionalParserToken token,
+                                          final Parser<ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> range(final EbnfRangeParserToken token,
-                                                    final Parser<SequenceParserToken, ParserContext> parserd) {
+    public Parser<ParserContext> range(final EbnfRangeParserToken token,
+                                       final Parser<ParserContext> parserd) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Parser<RepeatedParserToken, ParserContext> repeated(final EbnfRepeatedParserToken token,
-                                                               final Parser<RepeatedParserToken, ParserContext> parser) {
+    public Parser<ParserContext> repeated(final EbnfRepeatedParserToken token,
+                                          final Parser<ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> terminal(final EbnfTerminalParserToken token,
-                                                       final Parser<StringParserToken, ParserContext> parser) {
+    public Parser<ParserContext> terminal(final EbnfTerminalParserToken token,
+                                          final Parser<ParserContext> parser) {
         throw new UnsupportedOperationException(token.toString());
     }
 }

@@ -18,15 +18,12 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.RepeatedParserToken;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
-import walkingkooka.text.cursor.parser.StringParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfExceptionParserToken;
@@ -48,12 +45,12 @@ import java.util.List;
 final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
 
     @Override
-    public Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, Parser<SequenceParserToken, ParserContext> parser) {
+    public Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token, Parser<ParserContext> parser) {
         return parser.transform(this::concatenation);
     }
 
@@ -66,7 +63,11 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
      * BINARY_EXPRESSION       = EXPRESSION2, [ WHITESPACE ], BINARY_OPERATOR, [ WHITESPACE ], EXPRESSION2;
      * </pre>
      */
-    private ParserToken concatenation(final SequenceParserToken sequence, final ParserContext context) {
+    private ParserToken concatenation(final ParserToken sequence, final ParserContext context) {
+        return this.concatenation0(sequence.cast(), context);
+    }
+
+    private ParserToken concatenation0(final SequenceParserToken sequence, final ParserContext context) {
         ParserToken result;
 
         for (; ; ) {
@@ -168,12 +169,12 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserContext> parser) {
         return parser;
     }
 
@@ -182,8 +183,8 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
      * created.
      */
     @Override
-    public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token,
-                                                         final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> identifier(final EbnfIdentifierParserToken token,
+                                            final Parser<ParserContext> parser) {
         final EbnfIdentifierName name = token.value();
         return name.equals(SpreadsheetParsers.FUNCTION_IDENTIFIER) ?
                 parser.transform(this::function) :
@@ -223,14 +224,14 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
                 .value();
     }
 
-    private Parser<ParserToken, ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserToken, ParserContext> parser) {
+    private Parser<ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserContext> parser) {
         return name.value().endsWith("REQUIRED") ?
                 parser.orReport(ParserReporters.basic()) :
                 parser; // leave as is...
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, ParserContext> parser) {
+    public Parser<ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserContext> parser) {
         return parser;
     }
 
@@ -238,17 +239,21 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
      * Accepts the bounds tokens and creates a {@link SpreadsheetRangeParserToken}
      */
     @Override
-    public Parser<ParserToken, ParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, ParserContext> parser) {
-        return parser.transform((sequenceParserToken, spreadsheetParserContext) -> SpreadsheetParserToken.range(Cast.to(sequenceParserToken.value()), sequenceParserToken.text()));
+    public Parser<ParserContext> range(final EbnfRangeParserToken token, final Parser<ParserContext> parser) {
+        return parser.transform(this::range0);
+    }
+
+    private ParserToken range0(final ParserToken token, final ParserContext context) {
+        return SpreadsheetParserToken.range(SequenceParserToken.class.cast(token).value(), token.text());
     }
 
     @Override
-    public Parser<RepeatedParserToken, ParserContext> repeated(final EbnfRepeatedParserToken token, Parser<RepeatedParserToken, ParserContext> parser) {
+    public Parser<ParserContext> repeated(final EbnfRepeatedParserToken token, Parser<ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, ParserContext> parser) {
+    public Parser<ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<ParserContext> parser) {
         throw new UnsupportedOperationException(token.toString());
     }
 }

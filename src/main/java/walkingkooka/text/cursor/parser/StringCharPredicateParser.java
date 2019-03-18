@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that matches a one or more characters using the provided {@link CharPredicate}
  */
-final class StringCharPredicateParser<C extends ParserContext> extends Parser2<StringParserToken, C> {
+final class StringCharPredicateParser<C extends ParserContext> extends Parser2<C> {
 
     static <C extends ParserContext> StringCharPredicateParser<C> with(final CharPredicate predicate, final int minLength, final int maxLength) {
         Objects.requireNonNull(predicate, "predicate");
@@ -47,7 +47,7 @@ final class StringCharPredicateParser<C extends ParserContext> extends Parser2<S
     }
 
     @Override
-    Optional<StringParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
         return this.predicate.test(cursor.at()) ?
                 this.consumeRemaining(cursor, start) :
                 this.fail();
@@ -55,7 +55,7 @@ final class StringCharPredicateParser<C extends ParserContext> extends Parser2<S
 
     private final CharPredicate predicate;
 
-    private Optional<StringParserToken> consumeRemaining(final TextCursor cursor, final TextCursorSavePoint start) {
+    private Optional<ParserToken> consumeRemaining(final TextCursor cursor, final TextCursorSavePoint start) {
         cursor.next();
 
         int i = 1;
@@ -73,7 +73,7 @@ final class StringCharPredicateParser<C extends ParserContext> extends Parser2<S
     private final int minLength;
     private final int maxLength;
 
-    private static Optional<StringParserToken> stringParserToken(final TextCursorSavePoint start) {
+    private static Optional<ParserToken> stringParserToken(final TextCursorSavePoint start) {
         final String text = start.textBetween().toString();
         return StringParserToken.with(text, text).success();
     }

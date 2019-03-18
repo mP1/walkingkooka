@@ -18,7 +18,6 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
@@ -37,7 +36,7 @@ import java.util.function.Function;
 final class ParserConverter<V, PT extends ParserToken & Value<V>, PC extends ParserContext> implements Converter {
 
     static <V, PT extends ParserToken & Value<V>, PC extends ParserContext> ParserConverter<V, PT, PC> with(final Class<V> type,
-                                                                                                            final Parser<PT, PC> parser,
+                                                                                                            final Parser<PC> parser,
                                                                                                             final Function<ConverterContext, PC> context) {
         Objects.requireNonNull(type, "type");
         Objects.requireNonNull(parser, "parser");
@@ -49,7 +48,7 @@ final class ParserConverter<V, PT extends ParserToken & Value<V>, PC extends Par
     /**
      * Private ctor use factory.
      */
-    private ParserConverter(final Class<V> type, final Parser<PT, PC> parser, final Function<ConverterContext, PC> context) {
+    private ParserConverter(final Class<V> type, final Parser<PC> parser, final Function<ConverterContext, PC> context) {
         this.type = type;
         this.parser = parser;
         this.context = context;
@@ -70,14 +69,14 @@ final class ParserConverter<V, PT extends ParserToken & Value<V>, PC extends Par
         this.failIfUnsupportedType(value, type, context);
 
         final TextCursor cursor = TextCursors.charSequence((String) value);
-        final Optional<PT> result = this.parser.parse(cursor, this.context.apply(context));
+        final Optional<ParserToken> result = this.parser.parse(cursor, this.context.apply(context));
         if (!result.isPresent()) {
             this.failConversion(value, type);
         }
-        return Cast.to(result.get().value());
+        return type.cast(Value.class.cast(result.get()).value());
     }
 
-    private final Parser<PT, PC> parser;
+    private final Parser<PC> parser;
     private final Function<ConverterContext, PC> context;
 
     @Override

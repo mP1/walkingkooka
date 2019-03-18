@@ -25,7 +25,6 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
-import walkingkooka.text.cursor.parser.RepeatedParserToken;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
 import walkingkooka.text.cursor.parser.StringParserToken;
 
@@ -39,19 +38,19 @@ import java.util.stream.Collectors;
  * <br>
  * <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form">EBNF</a>
  */
-final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfParserContext> {
+final class EbnfGrammarParser implements Parser<EbnfParserContext> {
 
     /**
      * This needs to be initialized before references below to avoid forward reference problems.
      */
-    private static final Parser<ParserToken, EbnfParserContext> WHITESPACE_OR_COMMENT = whitespaceOrComment();
+    private static final Parser<EbnfParserContext> WHITESPACE_OR_COMMENT = whitespaceOrComment();
 
-    private static Parser<ParserToken, EbnfParserContext> whitespaceOrComment() {
-        final Parser<EbnfWhitespaceParserToken, EbnfParserContext> whitespace = Parsers.<EbnfParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
-                .transform((string, context) -> EbnfWhitespaceParserToken.with(string.value(), string.text()))
+    private static Parser<EbnfParserContext> whitespaceOrComment() {
+        final Parser<EbnfParserContext> whitespace = Parsers.<EbnfParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
+                .transform((string, context) -> EbnfWhitespaceParserToken.with(StringParserToken.class.cast(string).value(), string.text()))
                 .setToString("whitespace");
-        final Parser<ParserToken, EbnfParserContext> comment = Parsers.<EbnfParserContext>surround("(*", "*)")
-                .transform((string, context) -> EbnfCommentParserToken.with(string.value(), string.text()))
+        final Parser<EbnfParserContext> comment = Parsers.<EbnfParserContext>surround("(*", "*)")
+                .transform((string, context) -> EbnfCommentParserToken.with(StringParserToken.class.cast(string).value(), string.text()))
                 .setToString("comment")
                 .cast();
 
@@ -65,11 +64,11 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * identifier = letter , { letter | digit | "_" } ;
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> IDENTIFIER =
+    final static Parser<EbnfParserContext> IDENTIFIER =
             identifier()
             .setToString("identifier");
 
-    private static Parser<ParserToken, EbnfParserContext> identifier() {
+    private static Parser<EbnfParserContext> identifier() {
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .required(Parsers.character(EbnfIdentifierName.INITIAL).cast())
                 .required(Parsers.character(EbnfIdentifierName.PART).repeating().orReport(ParserReporters.basic()).cast())
@@ -79,9 +78,9 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .cast();
     }
 
-    private static EbnfIdentifierParserToken ebnfIdentifierParserToken(final SequenceParserToken tokens, final EbnfParserContext context) {
+    private static EbnfIdentifierParserToken ebnfIdentifierParserToken(final ParserToken tokens, final EbnfParserContext context) {
         final StringBuilder b = new StringBuilder();
-        for(ParserToken c : tokens.flat().value()) {
+        for(ParserToken c : SequenceParserToken.class.cast(tokens).flat().value()) {
             final CharacterParserToken character = c.cast();
             b.append(character.value());
         }
@@ -97,14 +96,14 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * </pre>
      * The above definition isnt actually correct, a terminal must be either single or quoted, and supports backslash, and unicode sequences within.
      */
-    final static Parser<ParserToken, EbnfParserContext> TERMINAL = EbnfTerminalParser.INSTANCE;
+    final static Parser<EbnfParserContext> TERMINAL = EbnfTerminalParser.INSTANCE;
 
     /**
      * <pre>
      * lhs = identifier ;
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> LHS = IDENTIFIER;
+    final static Parser<EbnfParserContext> LHS = IDENTIFIER;
 
     /**
      * <pre>
@@ -117,7 +116,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      *      | rhs , "," , rhs ;
      * </pre>
      */
-    static final Parser<ParserToken, EbnfParserContext> RHS = new Parser<ParserToken, EbnfParserContext>() {
+    static final Parser<EbnfParserContext> RHS = new Parser<EbnfParserContext>() {
 
         @Override
         public Optional<ParserToken> parse(TextCursor cursor, EbnfParserContext context) {
@@ -134,11 +133,11 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * "[" , rhs , "]"
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> OPTIONAL = optional();
+    final static Parser<EbnfParserContext> OPTIONAL = optional();
 
-    private static Parser<ParserToken, EbnfParserContext> optional() {
-        final Parser<ParserToken, EbnfParserContext> open = symbol('[', "optional_open");
-        final Parser<ParserToken, EbnfParserContext> close = symbol(']', "optional_close");
+    private static Parser<EbnfParserContext> optional() {
+        final Parser<EbnfParserContext> open = symbol('[', "optional_open");
+        final Parser<EbnfParserContext> close = symbol(']', "optional_close");
 
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .required(open)
@@ -155,11 +154,11 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * "{" , rhs , "}"
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> REPETITION = repetition();
+    final static Parser<EbnfParserContext> REPETITION = repetition();
 
-    private static Parser<ParserToken, EbnfParserContext> repetition() {
-        final Parser<ParserToken, EbnfParserContext> open = symbol('{', "repetition_open");
-        final Parser<ParserToken, EbnfParserContext> close = symbol('}', "repetition_close");
+    private static Parser<EbnfParserContext> repetition() {
+        final Parser<EbnfParserContext> open = symbol('{', "repetition_open");
+        final Parser<EbnfParserContext> close = symbol('}', "repetition_close");
 
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .required(open)
@@ -176,11 +175,11 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * "(" , rhs , ")"
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> GROUPING = group();
+    final static Parser<EbnfParserContext> GROUPING = group();
 
-    private static Parser<ParserToken, EbnfParserContext> group() {
-        final Parser<ParserToken, EbnfParserContext> open = symbol('(', "group_open");
-        final Parser<ParserToken, EbnfParserContext> close = symbol(')', "group_close");
+    private static Parser<EbnfParserContext> group() {
+        final Parser<EbnfParserContext> open = symbol('(', "group_open");
+        final Parser<EbnfParserContext> close = symbol(')', "group_close");
 
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .required(open)
@@ -197,7 +196,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * "(" , rhs , ")"
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> RHS2 = IDENTIFIER
+    final static Parser<EbnfParserContext> RHS2 = IDENTIFIER
             .or(OPTIONAL)
             .or(REPETITION)
             .or(GROUPING)
@@ -210,12 +209,12 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * </pre>
      * To avoid left recursion problems the first rhs is replaced as RHS2
      */
-    final static Parser<ParserToken, EbnfParserContext> ALTERNATIVE = alternative();
+    final static Parser<EbnfParserContext> ALTERNATIVE = alternative();
 
-    private static Parser<ParserToken, EbnfParserContext> alternative() {
-        final Parser<ParserToken, EbnfParserContext> separator = symbol('|', "alt_separator");
+    private static Parser<EbnfParserContext> alternative() {
+        final Parser<EbnfParserContext> separator = symbol('|', "alt_separator");
 
-        final Parser<SequenceParserToken, EbnfParserContext> required = Parsers.<EbnfParserContext>sequenceParserBuilder()
+        final Parser<EbnfParserContext> required = Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
                 .optional(WHITESPACE_OR_COMMENT)
@@ -223,14 +222,14 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
                 .build();
-        final Parser<RepeatedParserToken, EbnfParserContext> optionalRepeating = Parsers.<EbnfParserContext>sequenceParserBuilder()
+        final Parser<EbnfParserContext> optionalRepeating = Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(separator)
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
                 .build()
                 .repeating();
-        final Parser<SequenceParserToken, EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
+        final Parser<EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
                 .required(required.cast())
                 .optional(optionalRepeating.cast())
                 .build());
@@ -244,12 +243,12 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * </pre>
      * To avoid left recursion problems the first rhs is replaced as RHS2
      */
-    final static Parser<ParserToken, EbnfParserContext> CONCATENATION = concatenation();
+    final static Parser<EbnfParserContext> CONCATENATION = concatenation();
 
-    private static Parser<ParserToken, EbnfParserContext> concatenation() {
-        final Parser<ParserToken, EbnfParserContext> separator = symbol(',', "concat_separator");
+    private static Parser<EbnfParserContext> concatenation() {
+        final Parser<EbnfParserContext> separator = symbol(',', "concat_separator");
 
-        final Parser<SequenceParserToken, EbnfParserContext> required = Parsers.<EbnfParserContext>sequenceParserBuilder()
+        final Parser<EbnfParserContext> required = Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
                 .optional(WHITESPACE_OR_COMMENT)
@@ -257,14 +256,14 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
                 .build();
-        final Parser<RepeatedParserToken, EbnfParserContext> optionalRepeating = Parsers.<EbnfParserContext>sequenceParserBuilder()
+        final Parser<EbnfParserContext> optionalRepeating = Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(separator)
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
                 .build()
                 .repeating();
-        final Parser<SequenceParserToken, EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
+        final Parser<EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
                 .required(required.cast())
                 .optional(optionalRepeating.cast())
                 .build());
@@ -277,10 +276,10 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * "-" , rhs
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> EXCEPTION = exception();
+    final static Parser<EbnfParserContext> EXCEPTION = exception();
 
-    private static Parser<ParserToken, EbnfParserContext> exception() {
-        final Parser<ParserToken, EbnfParserContext> separator = symbol('-', "exception_separator");
+    private static Parser<EbnfParserContext> exception() {
+        final Parser<EbnfParserContext> separator = symbol('-', "exception_separator");
 
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .optional(WHITESPACE_OR_COMMENT)
@@ -298,10 +297,10 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * range = terminal, '..', terminal
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> RANGE = range();
+    final static Parser<EbnfParserContext> RANGE = range();
 
-    private static Parser<ParserToken, EbnfParserContext> range() {
-        final Parser<ParserToken, EbnfParserContext> separator = symbol("..", "range_separator");
+    private static Parser<EbnfParserContext> range() {
+        final Parser<EbnfParserContext> separator = symbol("..", "range_separator");
 
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .optional(WHITESPACE_OR_COMMENT)
@@ -319,12 +318,12 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * lhs , "=" , rhs , ";" ;
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> RULE = rule();
+    final static Parser<EbnfParserContext> RULE = rule();
 
-    private static Parser<ParserToken, EbnfParserContext> rule() {
-        final Parser<ParserToken, EbnfParserContext> assign = symbol('=', "assign")
+    private static Parser<EbnfParserContext> rule() {
+        final Parser<EbnfParserContext> assign = symbol('=', "assign")
                 .orReport(ParserReporters.basic());
-        final Parser<ParserToken, EbnfParserContext> termination = symbol(';', "termination")
+        final Parser<EbnfParserContext> termination = symbol(';', "termination")
                 .orReport(ParserReporters.basic());
 
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
@@ -343,7 +342,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
     /**
      * Matches any of the tokens, assumes that any leading or trailing whitespace or comments is handled elsewhere...(parent)
      */
-    private static Parser<ParserToken, EbnfParserContext> rhs() {
+    private static Parser<EbnfParserContext> rhs() {
         if(null==RHS_CACHE) {
             RHS_CACHE = ALTERNATIVE
                     .or(CONCATENATION)
@@ -359,14 +358,14 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         return RHS_CACHE;
     }
 
-    private static Parser<ParserToken, EbnfParserContext> RHS_CACHE;
+    private static Parser<EbnfParserContext> RHS_CACHE;
 
     /**
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
-    private static Parser<ParserToken, EbnfParserContext> symbol(final char c, final String name){
+    private static Parser<EbnfParserContext> symbol(final char c, final String name){
         return Parsers.character(CharPredicates.is(c))
-                .transform((character, context) -> EbnfSymbolParserToken.with(character.value().toString(), character.text()))
+                .transform((character, context) -> EbnfSymbolParserToken.with(CharacterParserToken.class.cast(character).value().toString(), character.text()))
                 .setToString(name)
                 .cast();
     }
@@ -374,9 +373,9 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
     /**
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
-    private static Parser<ParserToken, EbnfParserContext> symbol(final String symbol, final String name){
+    private static Parser<EbnfParserContext> symbol(final String symbol, final String name){
         return CaseSensitivity.SENSITIVE.parser(symbol)
-                .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
+                .transform((string, context) -> EbnfSymbolParserToken.with(StringParserToken.class.cast(string).value(), string.text()))
                 .setToString(name)
                 .cast();
     }
@@ -400,15 +399,15 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         return string.toString();
     }
 
-    private static BiFunction<SequenceParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<ParserToken>, String, EbnfParserToken> wrapper) {
+    private static BiFunction<ParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<ParserToken>, String, ParserToken> wrapper) {
         return (sequence, context) -> {
             final List<EbnfParserToken> many = filterNonEbnfParserTokens(sequence);
             return wrapper.apply(Cast.to(many), sequence.text());
         };
     }
 
-    private static List<EbnfParserToken> filterNonEbnfParserTokens(final SequenceParserToken sequence) {
-        return sequence.flat()
+    private static List<EbnfParserToken> filterNonEbnfParserTokens(final ParserToken sequence) {
+        return SequenceParserToken.class.cast(sequence).flat()
                 .value()
                 .stream()
                 .filter(token -> token instanceof EbnfParserToken)
@@ -421,9 +420,9 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * grammar = { rule } ;
      * </pre>
      */
-    final static Parser<EbnfGrammarParserToken, EbnfParserContext> GRAMMAR = grammar();
+    final static Parser<EbnfParserContext> GRAMMAR = grammar();
 
-    private static Parser<EbnfGrammarParserToken, EbnfParserContext> grammar() {
+    private static Parser<EbnfParserContext> grammar() {
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RULE.orReport(ParserReporters.basic()))
@@ -434,14 +433,14 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .cast();
     }
 
-    private static EbnfGrammarParserToken grammarParserToken(final SequenceParserToken sequence, final EbnfParserContext context) {
-        return EbnfGrammarParserToken.with(sequence.flat()
+    private static EbnfGrammarParserToken grammarParserToken(final ParserToken sequence, final EbnfParserContext context) {
+        return EbnfGrammarParserToken.with(SequenceParserToken.class.cast(sequence).flat()
                 .value(),
                 sequence.text());
     }
 
     @Override
-    public Optional<EbnfGrammarParserToken> parse(final TextCursor cursor, final EbnfParserContext context) {
+    public Optional<ParserToken> parse(final TextCursor cursor, final EbnfParserContext context) {
         return GRAMMAR.parse(cursor, context);
     }
 
