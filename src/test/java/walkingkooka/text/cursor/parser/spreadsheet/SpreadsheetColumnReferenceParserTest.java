@@ -68,6 +68,11 @@ public final class SpreadsheetColumnReferenceParserTest extends SpreadsheetParse
     }
 
     @Test
+    public void testRelativeReferenceLowerCase() {
+        this.parseAndCheck2(AD_TEXT.toLowerCase(), SpreadsheetReferenceKind.RELATIVE, AD_VALUE, TEXT_AFTER);
+    }
+
+    @Test
     public void testAbsoluteReference() {
         this.parseAndCheck2("$" + AD_TEXT, SpreadsheetReferenceKind.ABSOLUTE, AD_VALUE);
     }
@@ -85,6 +90,11 @@ public final class SpreadsheetColumnReferenceParserTest extends SpreadsheetParse
     @Test
     public void testAbsoluteReference3() {
         this.parseAndCheck2("$" + AD_TEXT, SpreadsheetReferenceKind.ABSOLUTE, AD_VALUE, TEXT_AFTER);
+    }
+
+    @Test
+    public void testAbsoluteReferenceLowerCase() {
+        this.parseAndCheck2("$" + AD_TEXT.toLowerCase(), SpreadsheetReferenceKind.ABSOLUTE, AD_VALUE, TEXT_AFTER);
     }
 
     @Test
