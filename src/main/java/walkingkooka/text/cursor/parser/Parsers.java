@@ -34,128 +34,128 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see AlternativesParser}
      */
-    public static <C extends ParserContext> Parser<ParserToken,C> alternatives(final List<Parser<ParserToken, C>> parsers){
+    public static <C extends ParserContext> Parser<C> alternatives(final List<Parser<C>> parsers){
         return AlternativesParser.with(parsers);
     }
 
     /**
      * {@see AndNotParser}
      */
-    static <T extends ParserToken, C extends ParserContext> Parser<T, C> andNot(final Parser<T, C> left, final Parser<T, C> right){
+    static <T extends ParserToken, C extends ParserContext> Parser<C> andNot(final Parser<C> left, final Parser<C> right){
         return AndNotParser.with(left, right);
     }
 
     /**
      * {@see BigDecimalParser}
      */
-    public static <C extends ParserContext> Parser<BigDecimalParserToken, C> bigDecimal(final MathContext context) {
+    public static <C extends ParserContext> Parser<C> bigDecimal(final MathContext context) {
         return BigDecimalParser.with(context);
     }
 
     /**
      * {@see BigIntegerParser}
      */
-    public static <C extends ParserContext> Parser<BigIntegerParserToken, C> bigInteger(final int radix) {
+    public static <C extends ParserContext> Parser<C> bigInteger(final int radix) {
         return BigIntegerParser.with(radix);
     }
 
     /**
      * {@see CharacterCharPredicateParser}
      */
-    public static <C extends ParserContext> Parser<CharacterParserToken, C> character(final CharPredicate predicate) {
+    public static <C extends ParserContext> Parser<C> character(final CharPredicate predicate) {
         return CharacterCharPredicateParser.with(predicate);
     }
 
     /**
      * {@see CustomToStringParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> customToString(final Parser<T, C> parser, final String toString) {
+    public static <T extends ParserToken, C extends ParserContext> Parser<C> customToString(final Parser<C> parser, final String toString) {
         return CustomToStringParser.wrap(parser, toString);
     }
 
     /**
      * {@see DoubleParser}
      */
-    public static <C extends ParserContext> Parser<DoubleParserToken, C> doubleParser(){
+    public static <C extends ParserContext> Parser<C> doubleParser(){
         return DoubleParser.instance();
     }
 
     /**
      * {@see DoubleQuotedParserToken}
      */
-    public static <C extends ParserContext> Parser<DoubleQuotedParserToken, C> doubleQuoted(){
+    public static <C extends ParserContext> Parser<C> doubleQuoted(){
         return DoubleQuotedParser.instance();
     }
 
     /**
      * {@see FakeParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> fake() {
+    public static <T extends ParserToken, C extends ParserContext> Parser<C> fake() {
         return FakeParser.create();
     }
 
     /**
      * {@see FixedParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> fixed(final Optional<T> result) {
+    public static <C extends ParserContext> Parser<C> fixed(final Optional<ParserToken> result) {
         return FixedParser.with(result);
     }
     
     /**
      * {@see LocalDateDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<LocalDateParserToken, C> localDate(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> localDate(final DateTimeFormatter formatter, final String pattern){
         return LocalDateDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see LocalDateTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<LocalDateTimeParserToken, C> localDateTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> localDateTime(final DateTimeFormatter formatter, final String pattern){
         return LocalDateTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see LocalTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<LocalTimeParserToken, C> localTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> localTime(final DateTimeFormatter formatter, final String pattern){
         return LocalTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see LongParser}
      */
-    public static <C extends ParserContext> Parser<LongParserToken, C> longParser(final int radix) {
+    public static <C extends ParserContext> Parser<C> longParser(final int radix) {
         return LongParser.with(radix);
     }
 
     /**
      * {@see OffsetDateTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<OffsetDateTimeParserToken, C> offsetDateTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> offsetDateTime(final DateTimeFormatter formatter, final String pattern){
         return OffsetDateTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see OffsetTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<OffsetTimeParserToken, C> offsetTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> offsetTime(final DateTimeFormatter formatter, final String pattern){
         return OffsetTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see RepeatedParser}
      */
-    public static <C extends ParserContext> Parser<RepeatedParserToken, C> repeated(final Parser<ParserToken, C> parser){
+    public static <C extends ParserContext> Parser<C> repeated(final Parser<C> parser){
         return RepeatedParser.with(parser);
     }
 
     /**
      * {@see ReportingParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> report(final ParserReporterCondition condition,
-                                                                                       final ParserReporter<T, C> reporter,
-                                                                                       final Parser<T, C> parser) {
+    public static <T extends ParserToken, C extends ParserContext> Parser<C> report(final ParserReporterCondition condition,
+                                                                                    final ParserReporter<C> reporter,
+                                                                                    final Parser<C> parser) {
         return ReportingParser.with(condition, reporter, parser);
     }
 
@@ -169,63 +169,63 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see SingleQuotedParserToken}
      */
-    public static <C extends ParserContext> Parser<SingleQuotedParserToken, C> singleQuoted(){
+    public static <C extends ParserContext> Parser<C> singleQuoted(){
         return SingleQuotedParser.instance();
     }
 
     /**
      * {@see StringCharPredicateParser}
      */
-    public static <C extends ParserContext> Parser<StringParserToken, C> stringCharPredicate(final CharPredicate predicate,
-                                                                                             final int minLength,
-                                                                                             final int maxLength) {
+    public static <C extends ParserContext> Parser<C> stringCharPredicate(final CharPredicate predicate,
+                                                                          final int minLength,
+                                                                          final int maxLength) {
         return StringCharPredicateParser.with(predicate, minLength, maxLength);
     }
 
     /**
      * {@see StringInitialAndPartCharPredicateParser}
      */
-    public static <C extends ParserContext> Parser<StringParserToken, C> stringInitialAndPartCharPredicate(final CharPredicate initial,
-                                                                                     final CharPredicate part,
-                                                                                     final int minLength,
-                                                                                     final int maxLength) {
+    public static <C extends ParserContext> Parser<C> stringInitialAndPartCharPredicate(final CharPredicate initial,
+                                                                                        final CharPredicate part,
+                                                                                        final int minLength,
+                                                                                        final int maxLength) {
         return StringInitialAndPartCharPredicateParser.with(initial, part, minLength, maxLength);
     }
 
         /**
          * {@see StringParser}
          */
-    public static <C extends ParserContext> Parser<StringParserToken, C> string(final String literal,
-                                                                                final CaseSensitivity caseSensitivity) {
+    public static <C extends ParserContext> Parser<C> string(final String literal,
+                                                             final CaseSensitivity caseSensitivity) {
         return StringParser.with(literal, caseSensitivity);
     }
 
     /**
      * {@see SurroundStringParser}
      */
-    public static <C extends ParserContext> Parser<StringParserToken, C> surround(final String open, final String close) {
+    public static <C extends ParserContext> Parser<C> surround(final String open, final String close) {
         return SurroundStringParser.with(open, close);
     }
 
     /**
      * {@see TransformingParser}
      */
-    public static <TIN extends ParserToken, TOUT extends ParserToken, C extends ParserContext> Parser<TOUT, C> transform(final Parser<TIN, C> parser,
-                                                                                                                    final BiFunction<TIN, C, TOUT> transformer) {
+    public static <C extends ParserContext> Parser<C> transform(final Parser<C> parser,
+                                                                final BiFunction<ParserToken, C, ParserToken> transformer) {
         return TransformingParser.with(parser, transformer);
     }
 
     /**
      * {@see UnicodeEscapeCharacterParser}
      */
-    public static <C extends ParserContext> Parser<CharacterParserToken, C> unicodeEscapeCharacter() {
+    public static <C extends ParserContext> Parser<C> unicodeEscapeCharacter() {
         return UnicodeEscapeCharacterParser.get();
     }
 
     /**
      * {@see ZonedDateTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<ZonedDateTimeParserToken, C> zonedDateTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> zonedDateTime(final DateTimeFormatter formatter, final String pattern){
         return ZonedDateTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 

@@ -26,6 +26,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserTokenInvalidReferencesException;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
@@ -195,7 +196,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
             final Class<?> classs = this.getClass();
             final String text = this.resourceAsText(classs, classs.getSimpleName() + "/" + resourceName);
             final TextCursor cursor = TextCursors.charSequence(text);
-            final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser()
+            final Optional<ParserToken> grammar = EbnfParserToken.grammarParser()
                     .parse(cursor, EbnfParserContexts.basic());
             if (!grammar.isPresent()) {
                 fail("Failed to parse a grammar from " + CharSequences.quote(resourceName) + "\n" + text);
@@ -206,7 +207,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
                 final CharSequence remaining = save.textBetween();
                 fail("Failed to parse all of grammar from " + CharSequences.quote(resourceName) + " text remaining: " + remaining + "\n\n" + CharSequences.escape(remaining) + "\n\nGrammar File:\n" + text);
             }
-            return grammar.get();
+            return grammar.get().cast();
         } catch (final IOException cause) {
             throw new Error("failed to read grammar from " + CharSequences.quote(resourceName));
         }

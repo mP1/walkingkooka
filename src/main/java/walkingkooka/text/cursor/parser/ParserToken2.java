@@ -67,8 +67,8 @@ abstract class ParserToken2<V> implements ParserToken, Value<V> {
      */
     abstract ParserToken replaceText(final String text);
 
-    public final <T extends ParserToken2<V>> Optional<T> success() {
-        return Cast.to(Optional.of(this));
+    public final Optional<ParserToken> success() {
+        return Optional.of(this);
     }
 
     // Object

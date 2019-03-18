@@ -108,18 +108,18 @@ public final class SearchQueryTest implements ClassTesting2<SearchQuery>,
 
         // boring tokenize on space...
 
-        final Parser<ParserToken, ParserContext> words = Parsers.stringCharPredicate(CharPredicates.letterOrDigit(), 1, 100).cast();
-        final Parser<ParserToken, ParserContext> whitespace = Parsers.stringCharPredicate(CharPredicates.whitespace(), 1, 100).cast();
-        final Parser<ParserToken, ParserContext> other = Parsers.stringCharPredicate(CharPredicates.whitespace().or(CharPredicates.letterOrDigit()).negate(), 1, 100).cast();
+        final Parser<ParserContext> words = Parsers.stringCharPredicate(CharPredicates.letterOrDigit(), 1, 100).cast();
+        final Parser<ParserContext> whitespace = Parsers.stringCharPredicate(CharPredicates.whitespace(), 1, 100).cast();
+        final Parser<ParserContext> other = Parsers.stringCharPredicate(CharPredicates.whitespace().or(CharPredicates.letterOrDigit()).negate(), 1, 100).cast();
 
-        final Parser<RepeatedParserToken, ParserContext> parser = Parsers.repeated(
+        final Parser<ParserContext> parser = Parsers.repeated(
                 Parsers.alternatives(Lists.of(words, whitespace, other)))
                 .orReport(ParserReporters.basic());
 
-        final Optional<RepeatedParserToken> tokens = parser.parse(TextCursors.charSequence(input), new FakeParserContext());
+        final Optional<ParserToken> tokens = parser.parse(TextCursors.charSequence(input), new FakeParserContext());
 
         // convert into SearchTextNodes
-        final SearchSequenceNode nodes = SearchNode.sequence(tokens.get().flat().value().stream()
+        final SearchSequenceNode nodes = SearchNode.sequence(RepeatedParserToken.class.cast(tokens.get()).flat().value().stream()
                 .map( t -> SearchNode.text(t.text(), t.text()))
                 .collect(Collectors.toList()));
 

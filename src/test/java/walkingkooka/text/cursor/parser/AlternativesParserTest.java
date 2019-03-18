@@ -28,13 +28,13 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AlternativesParserTest extends ParserTestCase<AlternativesParser<ParserContext>,
-        ParserToken> {
+public class AlternativesParserTest extends ParserTestCase<AlternativesParser<ParserContext>
+        > {
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
-    private final static Parser<ParserToken, ParserContext> PARSER1 = parser(TEXT1);
-    private final static Parser<ParserToken, ParserContext> PARSER2 = parser(TEXT2);
+    private final static Parser<ParserContext> PARSER1 = parser(TEXT1);
+    private final static Parser<ParserContext> PARSER2 = parser(TEXT2);
 
     @Test
     public void testWithNullParsersFails() {
@@ -57,7 +57,7 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
 
     @Test
     public void testWith() {
-        final List<Parser<ParserToken, ParserContext>> parsers = Lists.of(PARSER1, PARSER2);
+        final List<Parser<ParserContext>> parsers = Lists.of(PARSER1, PARSER2);
         final AlternativesParser<ParserContext> parser = AlternativesParser.with(parsers).cast();
         assertNotSame(parsers, parser.parsers);
         assertEquals(parsers, parser.parsers);
@@ -65,8 +65,8 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
 
     @Test
     public void testWithAllCustomToStringParsers() {
-        final List<Parser<ParserToken, ParserContext>> parsers = Lists.of(PARSER1.setToString("1"), PARSER2.setToString("2"));
-        final CustomToStringParser<ParserToken, ParserContext> custom = AlternativesParser.with(parsers).cast();
+        final List<Parser<ParserContext>> parsers = Lists.of(PARSER1.setToString("1"), PARSER2.setToString("2"));
+        final CustomToStringParser<ParserContext> custom = AlternativesParser.with(parsers).cast();
         final AlternativesParser<ParserContext> alt = custom.parser.cast();
         assertEquals(Lists.of(PARSER1, PARSER2), alt.parsers, "parsers");
         assertEquals("(1 | 2)", custom.toString(), "custom toString");
@@ -111,7 +111,7 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
     public void testOr() {
         final AlternativesParser<ParserContext> parser = createParser();
 
-        final Parser<ParserToken, ParserContext> parser3 = parser("text3");
+        final Parser<ParserContext> parser3 = parser("text3");
         assertEquals(this.createParser0(PARSER1, PARSER2, parser3), parser.or(parser3));
     }
 
@@ -148,12 +148,12 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
     }
 
     @SafeVarargs
-    private final AlternativesParser<ParserContext> createParser0(final Parser<ParserToken, ParserContext>...parsers) {
+    private final AlternativesParser<ParserContext> createParser0(final Parser<ParserContext>...parsers) {
         return this.createParser1(parsers).cast();
     }
 
     @SafeVarargs
-    private final Parser<ParserToken, ParserContext> createParser1(final Parser<ParserToken, ParserContext>...parsers) {
+    private final Parser<ParserContext> createParser1(final Parser<ParserContext>...parsers) {
         return AlternativesParser.with(Cast.to(Lists.of(parsers)));
     }
 
@@ -161,7 +161,7 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
         return ParserTokens.string(s, s);
     }
 
-    private static Parser<ParserToken, ParserContext> parser(final String string) {
+    private static Parser<ParserContext> parser(final String string) {
         return CaseSensitivity.SENSITIVE.parser(string).cast();
     }
 

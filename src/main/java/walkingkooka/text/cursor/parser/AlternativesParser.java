@@ -29,23 +29,23 @@ import java.util.stream.Collectors;
 /**
  * A {@link Parser} that tries all parsers until one is matched and then ignores the remainder.
  */
-final class AlternativesParser<C extends ParserContext> implements Parser<ParserToken, C>, HashCodeEqualsDefined {
+final class AlternativesParser<C extends ParserContext> implements Parser<C>, HashCodeEqualsDefined {
 
     /**
      * Factory that creates a {@link Parser} possibly simplifying things.
      */
-    static <C extends ParserContext> Parser<ParserToken, C> with(final List<Parser<ParserToken, C>> parsers){
+    static <C extends ParserContext> Parser<C> with(final List<Parser<C>> parsers){
         Objects.requireNonNull(parsers, "parsers");
 
-        final List<Parser<ParserToken, C>> copy = Lists.array();
+        final List<Parser<C>> copy = Lists.array();
 
         // visit all parsers,. flattening any that are themselves AlternativesParser
         parsers.forEach(p -> tryFlatten(p, copy));
 
-        final List<Parser<ParserToken, C>> withoutCustomToString =unwrapAllCustomToStringParsers(copy);
+        final List<Parser<C>> withoutCustomToString =unwrapAllCustomToStringParsers(copy);
         final boolean allCustomToStringParsers = withoutCustomToString.size() == copy.size();
 
-        final Parser<ParserToken, C> created = with0(allCustomToStringParsers ?
+        final Parser<C> created = with0(allCustomToStringParsers ?
                         withoutCustomToString :
                         copy);
 
@@ -58,8 +58,8 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
      * Loop over all parsers, and if any is a {@link AlternativesParser} add its children parsers, effectively
      * flattening.
      */
-    private static <C extends ParserContext> void tryFlatten(final Parser<ParserToken, C> parser,
-                                                             final List<Parser<ParserToken, C>> copy) {
+    private static <C extends ParserContext> void tryFlatten(final Parser<C> parser,
+                                                             final List<Parser<C>> copy) {
         if(parser instanceof AlternativesParser) {
             final AlternativesParser<C> alt = parser.cast();
             copy.addAll(alt.parsers);
@@ -71,19 +71,19 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
     /**
      * Loop over all parsers, unwrapping all {@link CustomToStringParser}.
      */
-    private static <C extends ParserContext> List<Parser<ParserToken, C>> unwrapAllCustomToStringParsers(final List<Parser<ParserToken, C>> parsers) {
+    private static <C extends ParserContext> List<Parser<C>> unwrapAllCustomToStringParsers(final List<Parser<C>> parsers) {
         return parsers.stream()
                 .filter(p -> p instanceof CustomToStringParser)
                 .map(p -> CustomToStringParser.class.cast(p).parser.cast())
-                .map(p -> Cast.<Parser<ParserToken, C>>to(p))
+                .map(p -> Cast.<Parser<C>>to(p))
                 .collect(Collectors.toList());
     }
 
     /**
      * The actual factory method that accepts the copy of parsers that have been processed and possibly simplified.
      */
-    private static <C extends ParserContext> Parser<ParserToken, C> with0(final List<Parser<ParserToken, C>> parsers){
-        Parser<ParserToken, C> parser;
+    private static <C extends ParserContext> Parser<C> with0(final List<Parser<C>> parsers){
+        Parser<C> parser;
 
         switch(parsers.size()){
             case 0:
@@ -102,7 +102,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
     /**
      * Private ctor
      */
-    private AlternativesParser(final List<Parser<ParserToken, C>> parsers){
+    private AlternativesParser(final List<Parser<C>> parsers){
         super();
         this.parsers = parsers;
     }
@@ -115,7 +115,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
     public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         Optional<ParserToken> token = Optional.empty();
 
-        for(Parser<ParserToken, C> parser : this.parsers) {
+        for(Parser<C> parser : this.parsers) {
             Optional<ParserToken> possible = parser.parse(cursor, context);
             if(possible.isPresent()){
                 token = possible;
@@ -127,11 +127,11 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
     }
 
     @Override
-    public Parser<ParserToken, C> or(final Parser<? extends ParserToken, C> parser) {
+    public Parser<C> or(final Parser<C> parser) {
         Objects.requireNonNull(parser, "parser");
 
         // append the new parser to the current list and make a new AlternativesParser
-        final List<Parser<ParserToken, C>> parsers = Lists.array();
+        final List<Parser<C>> parsers = Lists.array();
         parsers.addAll(this.parsers);
         parsers.add(parser.cast());
 
@@ -139,7 +139,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
     }
 
     // @VisibleForTesting
-    final List<Parser<ParserToken, C>> parsers;
+    final List<Parser<C>> parsers;
 
     // Object.................................................................................................
 
@@ -162,7 +162,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
         return toString0(this.parsers);
     }
 
-    private static <CC extends ParserContext> String toString0(final List<Parser<ParserToken, CC>> parsers) {
+    private static <CC extends ParserContext> String toString0(final List<Parser<CC>> parsers) {
         return parsers.stream()
                 .map(p -> p.toString())
                 .collect(Collectors.joining(" | ", "(", ")"));

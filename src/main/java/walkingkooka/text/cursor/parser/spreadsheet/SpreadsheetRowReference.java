@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
@@ -62,7 +61,7 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
     /**
      * Leverages the {@link SpreadsheetParsers#row()} combined with an error reporter.
      */
-    private static final Parser<ParserToken, ParserContext> PARSER = SpreadsheetParsers.row().orReport(ParserReporters.basic());
+    private static final Parser<ParserContext> PARSER = SpreadsheetParsers.row().orReport(ParserReporters.basic());
     
     // https://support.office.com/en-us/article/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
     final static int MAX = 1_048_576;

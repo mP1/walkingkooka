@@ -26,7 +26,7 @@ import java.util.Optional;
  * A {@link Parser} that matches a number using a given radix. Note it does not require or match a leading prefix.
  * Note this only parses numeric digits and not any leading minus sign.
  */
-final class BigIntegerParser<C extends ParserContext> extends Parser2<BigIntegerParserToken, C> {
+final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
 
     /**
      * Factory that creates a {@link BigIntegerParser}
@@ -51,11 +51,11 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<BigInteger
      * Reads character by character until a non digit is found, using a {@link BigInteger} to hold the value.
      */
     @Override
-    Optional<BigIntegerParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
         final char minusSign = context.minusSign();
         final char plusSign = context.plusSign();
 
-        Optional<BigIntegerParserToken> token;
+        BigIntegerParserToken token;
 
         final int radix = this.radix;
         BigInteger number = BigInteger.ZERO;
@@ -65,7 +65,7 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<BigInteger
         for(;;){
             if(cursor.isEmpty()) {
                 token = empty ?
-                        Optional.empty() :
+                        null :
                         this.createToken(number, save);
                 break;
             }
@@ -87,7 +87,7 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<BigInteger
             final int digit = Character.digit(c, radix);
             if(-1 == digit){
                 token = empty ?
-                        Optional.empty() :
+                        null :
                         this.createToken(number, save);
                 break;
             }
@@ -107,13 +107,12 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<BigInteger
             }
         }
 
-        return token;
+        return Optional.ofNullable(token);
     }
 
-    private Optional<BigIntegerParserToken> createToken(final BigInteger value, final TextCursorSavePoint save){
+    private BigIntegerParserToken createToken(final BigInteger value, final TextCursorSavePoint save){
         return BigIntegerParserToken.with(value,
-                save.textBetween().toString())
-                .success();
+                save.textBetween().toString());
     }
 
     private final int radix;

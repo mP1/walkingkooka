@@ -25,8 +25,8 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.MemberVisibility;
 
-public final class BasicParserReporterTest implements ClassTesting2<BasicParserReporter<StringParserToken, FakeParserContext>>,
-        ParserReporterTesting<BasicParserReporter<StringParserToken, FakeParserContext>, StringParserToken, FakeParserContext> {
+public final class BasicParserReporterTest implements ClassTesting2<BasicParserReporter<FakeParserContext>>,
+        ParserReporterTesting<BasicParserReporter<FakeParserContext>, StringParserToken, FakeParserContext> {
 
     @Test
     public void testReport() {
@@ -52,7 +52,7 @@ public final class BasicParserReporterTest implements ClassTesting2<BasicParserR
     }
 
     @Override
-    public BasicParserReporter<StringParserToken, FakeParserContext> createParserReporter() {
+    public BasicParserReporter<FakeParserContext> createParserReporter() {
         return BasicParserReporter.get();
     }
 
@@ -62,7 +62,7 @@ public final class BasicParserReporterTest implements ClassTesting2<BasicParserR
     }
 
     @Override
-    public Class<BasicParserReporter<StringParserToken, FakeParserContext>> type() {
+    public Class<BasicParserReporter<FakeParserContext>> type() {
         return Cast.to(BasicParserReporter.class);
     }
 

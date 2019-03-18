@@ -27,13 +27,13 @@ import java.util.Optional;
 /**
  * Wraps another {@link Parser} replacing or ignoring its {@link Parser#toString()} with the provided {@link String}.
  */
-final class CustomToStringParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C>, HashCodeEqualsDefined {
+final class CustomToStringParser<C extends ParserContext> implements Parser<C>, HashCodeEqualsDefined {
 
-    static <T extends ParserToken, C extends ParserContext> Parser<T, C> wrap(final Parser<T, C> parser, final String toString) {
+    static <C extends ParserContext> Parser<C> wrap(final Parser<C> parser, final String toString) {
         Objects.requireNonNull(parser, "parser");
         Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
 
-        Parser<T, C> result;
+        Parser<C> result;
 
         for(;;){
             if(parser.toString().equals(toString)){
@@ -41,10 +41,10 @@ final class CustomToStringParser<T extends ParserToken, C extends ParserContext>
                 break;
             }
 
-            Parser<T, C> wrap = parser;
+            Parser<C> wrap = parser;
             if(parser instanceof CustomToStringParser) {
                 // unwrap then re-wrap the parser...
-                final CustomToStringParser<T, C> custom = Cast.to(wrap);
+                final CustomToStringParser<C> custom = Cast.to(wrap);
                 wrap = custom.parser;
             }
             result = new CustomToStringParser<>(wrap, toString);
@@ -54,25 +54,25 @@ final class CustomToStringParser<T extends ParserToken, C extends ParserContext>
         return result;
     }
 
-    private CustomToStringParser(final Parser<T, C> parser, final String toString) {
+    private CustomToStringParser(final Parser<C> parser, final String toString) {
         this.parser = parser;
         this.toString = toString;
     }
 
     @Override
-    public Optional<T> parse(final TextCursor cursor, final C context) {
+    public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         return this.parser.parse(cursor, context);
     }
 
     @Override
-    public Parser<T, C> setToString(final String toString) {
+    public Parser<C> setToString(final String toString) {
         return this.toString.equals(toString) ?
                 this :
                 wrap(this.parser, toString);
     }
 
     // @VisibleForTesting
-    final Parser<T, C> parser;
+    final Parser<C> parser;
 
     // Object.................................................................................................
 
@@ -87,7 +87,7 @@ final class CustomToStringParser<T extends ParserToken, C extends ParserContext>
                other instanceof CustomToStringParser && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final CustomToStringParser<?, ?> other) {
+    private boolean equals0(final CustomToStringParser<?> other) {
         return this.parser.equals(other.parser) &&
                this.toString.equals(other.toString);
     }

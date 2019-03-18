@@ -22,9 +22,9 @@ import walkingkooka.text.cursor.TextCursor;
 
 import java.util.Optional;
 
-final class FakeParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C>{
+final class FakeParser<C extends ParserContext> implements Parser<C>{
 
-    static <T extends ParserToken, C extends ParserContext> FakeParser<T, C> create() {
+    static <T extends ParserToken, C extends ParserContext> FakeParser<C> create() {
         return new FakeParser<>();
     }
 
@@ -33,7 +33,7 @@ final class FakeParser<T extends ParserToken, C extends ParserContext> implement
     }
 
     @Override
-    public Optional<T> parse(final TextCursor cursor, final C context) {
+    public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         throw new UnsupportedOperationException();
     }
 }

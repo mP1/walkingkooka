@@ -27,25 +27,25 @@ import java.util.Optional;
 /**
  * A parser that implements a only returns a token if the first matches and the second fails.
  */
-final class AndNotParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
+final class AndNotParser<C extends ParserContext> implements Parser<C> {
 
-    static <T extends ParserToken, C extends ParserContext> AndNotParser<T, C> with(final Parser<T, C> left, final Parser<? extends ParserToken, C> right){
+    static <T extends ParserToken, C extends ParserContext> AndNotParser<C> with(final Parser<C> left, final Parser<C> right){
         Objects.requireNonNull(left, "left");
         Objects.requireNonNull(right, "right");
 
-        return new AndNotParser<T, C>(left, right);
+        return new AndNotParser<C>(left, right);
     }
 
-    private AndNotParser(final Parser<T, C> left, final Parser<? extends ParserToken, C> right){
+    private AndNotParser(final Parser<C> left, final Parser<C> right){
         this.left = left;
         this.right = right;
     }
 
     @Override
-    public Optional<T> parse(final TextCursor cursor, final C context) {
+    public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         final TextCursorSavePoint save = cursor.save();
 
-        Optional<T> leftResult = this.left.parse(cursor, context);
+        Optional<ParserToken> leftResult = this.left.parse(cursor, context);
         if(leftResult.isPresent()){
 
             final TextCursorSavePoint save2 = cursor.save();
@@ -65,8 +65,8 @@ final class AndNotParser<T extends ParserToken, C extends ParserContext> impleme
         return leftResult;
     }
 
-    private final Parser<T, C> left;
-    private final Parser<? extends ParserToken, C> right;
+    private final Parser<C> left;
+    private final Parser<C> right;
 
     @Override
     public String toString() {

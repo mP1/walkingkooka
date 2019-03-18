@@ -21,13 +21,14 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.Optional;
 
 /**
  * Base class for either a column or row reference {@link Parser}.
  */
-abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafParserToken> implements Parser<T, SpreadsheetParserContext> {
+abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafParserToken> implements Parser<SpreadsheetParserContext> {
 
     /**
      * Package private ctor use singleton
@@ -40,8 +41,8 @@ abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafPa
     // required digits
     // SpreadsheetRowReference/SpreadsheetColumnReference
     @Override
-    public final Optional<T> parse(final TextCursor cursor, final SpreadsheetParserContext context) {
-        Optional<T> result = Optional.empty();
+    public final Optional<ParserToken> parse(final TextCursor cursor, final SpreadsheetParserContext context) {
+        Optional<ParserToken> result = Optional.empty();
 
         if (!cursor.isEmpty()) {
             final TextCursorSavePoint save = cursor.save();
@@ -61,10 +62,10 @@ abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafPa
         return result;
     }
 
-    private Optional<T> parseReference(final TextCursor cursor,
-                                       final SpreadsheetReferenceKind absoluteOrRelative,
-                                       final TextCursorSavePoint save) {
-        Optional<T> result;
+    private Optional<ParserToken> parseReference(final TextCursor cursor,
+                                                 final SpreadsheetReferenceKind absoluteOrRelative,
+                                                 final TextCursorSavePoint save) {
+        Optional<ParserToken> result;
 
         int value = 0;
         int digitCounter = 0;
@@ -94,18 +95,18 @@ abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafPa
 
     abstract int radix();
 
-    private Optional<T> token(final int digitCounter,
-                              final SpreadsheetReferenceKind absoluteOrRelative,
-                              final int value,
-                              final TextCursorSavePoint save) {
+    private Optional<ParserToken> token(final int digitCounter,
+                                        final SpreadsheetReferenceKind absoluteOrRelative,
+                                        final int value,
+                                        final TextCursorSavePoint save) {
         return digitCounter > 0 ?
                 token0(absoluteOrRelative, value, save) :
                 Optional.empty();
     }
 
-    private Optional<T> token0(final SpreadsheetReferenceKind absoluteOrRelative,
-                               final int value,
-                               final TextCursorSavePoint save) {
+    private Optional<ParserToken> token0(final SpreadsheetReferenceKind absoluteOrRelative,
+                                         final int value,
+                                         final TextCursorSavePoint save) {
         try {
             return Optional.of(this.token1(absoluteOrRelative, value, save.textBetween().toString()));
         } catch (final RuntimeException cause) {
@@ -113,7 +114,7 @@ abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafPa
         }
     }
 
-    abstract T token1(final SpreadsheetReferenceKind absoluteOrRelative,
-                      final int row,
-                      final String text);
+    abstract ParserToken token1(final SpreadsheetReferenceKind absoluteOrRelative,
+                                final int row,
+                                final String text);
 }

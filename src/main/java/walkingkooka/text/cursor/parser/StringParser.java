@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that only matches the given {@link String} which must not be null or empty.
  */
-final class StringParser<C extends ParserContext> extends Parser2<StringParserToken, C> implements HashCodeEqualsDefined {
+final class StringParser<C extends ParserContext> extends Parser2<C> implements HashCodeEqualsDefined {
 
     static <C extends ParserContext> StringParser<C> with(final String string, final CaseSensitivity caseSensitivity) {
         CharSequences.failIfNullOrEmpty(string, "string");
@@ -44,16 +44,15 @@ final class StringParser<C extends ParserContext> extends Parser2<StringParserTo
     }
 
     @Override
-    Optional<StringParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
         final String string = this.string;
         final CaseSensitivity caseSensitivity = this.caseSensitivity;
 
-        Optional<StringParserToken> result;
+        StringParserToken result = null;
         int matched = 0;
 
         for(;;) {
             if(cursor.isEmpty() || false == caseSensitivity.isEqual(string.charAt(matched), cursor.at())) {
-                result = Optional.empty();
                 break;
             }
             matched++;
@@ -61,12 +60,12 @@ final class StringParser<C extends ParserContext> extends Parser2<StringParserTo
 
             if(string.length() == matched) {
                 final String text = start.textBetween().toString();
-                result = StringParserToken.with(text, text).success();
+                result = StringParserToken.with(text, text);
                 break;
             }
         }
 
-        return result;
+        return Optional.ofNullable(result);
     }
 
     private final String string;

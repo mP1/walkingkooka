@@ -32,19 +32,19 @@ import java.util.Optional;
  * Unrecognized character 'X' at ... expected A | B | C
  * </pre>
  */
-final class BasicParserReporter<T extends ParserToken, C extends ParserContext> implements ParserReporter<T, C> {
+final class BasicParserReporter<C extends ParserContext> implements ParserReporter<C> {
 
     /**
      * Type safe getter.
      */
-    static <T extends ParserToken, C extends ParserContext> BasicParserReporter<T, C> get() {
+    static <C extends ParserContext> BasicParserReporter<C> get() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private final static BasicParserReporter<ParserToken, ParserContext> INSTANCE = new BasicParserReporter<>();
+    private final static BasicParserReporter<ParserContext> INSTANCE = new BasicParserReporter<>();
 
     /**
      * Private ctor use singleton getter.
@@ -54,7 +54,7 @@ final class BasicParserReporter<T extends ParserToken, C extends ParserContext> 
     }
 
     @Override
-    public Optional<T> report(final TextCursor cursor, final C context, final Parser<T, C> parser) throws ParserReporterException {
+    public Optional<ParserToken> report(final TextCursor cursor, final C context, final Parser<C> parser) throws ParserReporterException {
         Objects.requireNonNull(cursor, "cursor");
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(parser, "parser");

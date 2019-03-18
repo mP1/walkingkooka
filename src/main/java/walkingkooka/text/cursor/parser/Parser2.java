@@ -26,14 +26,14 @@ import java.util.Optional;
  * A template parser that only calls the abstract method if the cursor is not empty and also restores the cursor position,
  * on failures.
  */
-abstract class Parser2<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
+abstract class Parser2<C extends ParserContext> implements Parser<C> {
 
     Parser2() {
         super();
     }
 
     @Override
-    public final Optional<T> parse(final TextCursor cursor, final C context) {
+    public final Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         return cursor.isEmpty() ?
                 this.fail() :
                 this.tryParse(cursor, context);
@@ -42,14 +42,14 @@ abstract class Parser2<T extends ParserToken, C extends ParserContext> implement
     /**
      * Returns an empty optional which matches an unsuccessful parser attempt.
      */
-    final Optional<T> fail() {
+    final Optional<ParserToken> fail() {
         return Optional.empty();
     }
 
-    private Optional<T> tryParse(final TextCursor cursor, final C context) {
+    private Optional<ParserToken> tryParse(final TextCursor cursor, final C context) {
         final TextCursorSavePoint start = cursor.save();
 
-        final Optional<T> result = this.tryParse0(cursor, context, start);
+        final Optional<ParserToken> result = this.tryParse0(cursor, context, start);
         if(!result.isPresent()){
             // unsuccessful restore cursor to original position...
             start.restore();
@@ -60,5 +60,5 @@ abstract class Parser2<T extends ParserToken, C extends ParserContext> implement
     /**
      * This method is invoked with the first character and a {@link TextCursorSavePoint}.
      */
-    abstract Optional<T> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start);
+    abstract Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start);
 }

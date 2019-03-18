@@ -26,10 +26,10 @@ import java.util.Optional;
  * A reporter may be used to report a parse failure. Typically its the last in a chain, so if other {@link Parser parsers},
  * fail the reporter will then be called.
  */
-public interface ParserReporter<T extends ParserToken, C extends ParserContext> {
+public interface ParserReporter<C extends ParserContext> {
 
     /**
      * Handles a parse failure.
      */
-    Optional<T> report(final TextCursor cursor, final C context, final Parser<T, C> parser) throws ParserReporterException;
+    Optional<ParserToken> report(final TextCursor cursor, final C context, final Parser<C> parser) throws ParserReporterException;
 }

@@ -31,8 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base for numerous parsers in this package.
  */
-public abstract class ParserTestCase<P extends Parser<T, ParserContext>, T extends ParserToken> implements ClassTesting2<P>,
-        ParserTesting<P, T, ParserContext>,
+public abstract class ParserTestCase<P extends Parser<ParserContext>> implements ClassTesting2<P>,
+        ParserTesting<P, ParserContext>,
         ToStringTesting<P>,
         TypeNameTesting<P> {
 
@@ -54,7 +54,7 @@ public abstract class ParserTestCase<P extends Parser<T, ParserContext>, T exten
 
     @Test
     public final void testRepeating() {
-        final Parser<RepeatedParserToken, ParserContext> parser = this.createParser().repeating();
+        final Parser<ParserContext> parser = this.createParser().repeating();
         assertEquals(RepeatedParser.class, parser.getClass(), () -> parser.toString());
     }
 
@@ -62,7 +62,7 @@ public abstract class ParserTestCase<P extends Parser<T, ParserContext>, T exten
     public void testOr() {
         final P parser = this.createParser();
         final P parser2 = this.createParser();
-        assertEquals(Parsers.alternatives(Lists.<Parser<ParserToken, ParserContext>>of(parser.cast(), parser2.cast())), parser.or(parser2));
+        assertEquals(Parsers.alternatives(Lists.<Parser<ParserContext>>of(parser.cast(), parser2.cast())), parser.or(parser2));
     }
 
     @Override
@@ -70,7 +70,7 @@ public abstract class ParserTestCase<P extends Parser<T, ParserContext>, T exten
         return ParserContexts.fake();
     }
 
-    final TextCursor parseFailAndCheck(final Parser <T, ParserContext> parser, final TextCursor cursor) {
+    final TextCursor parseFailAndCheck(final Parser <ParserContext> parser, final TextCursor cursor) {
         return this.parseFailAndCheck(parser, this.createContext(), cursor);
     }
 

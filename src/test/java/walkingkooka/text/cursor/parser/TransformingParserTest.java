@@ -27,12 +27,12 @@ import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TransformingParserTest extends ParserTestCase<TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext>, BigIntegerParserToken> {
+public class TransformingParserTest extends ParserTestCase<TransformingParser<ParserContext>> {
 
     private final static int RADIX = 10;
-    private final static Parser<StringParserToken, ParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
-    private final static BiFunction<StringParserToken, ParserContext, BigIntegerParserToken> TRANSFORMER = (t, c) -> {
-        return ParserTokens.bigInteger(new BigInteger(t.value(), RADIX), t.text());
+    private final static Parser<ParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
+    private final static BiFunction<ParserToken, ParserContext, ParserToken> TRANSFORMER = (t, c) -> {
+        return ParserTokens.bigInteger(new BigInteger(StringParserToken.class.cast(t).value(), RADIX), t.text());
     };
 
     @Test
@@ -84,7 +84,7 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<St
         this.toStringAndCheck(this.createParser(), PARSER.toString());
     }
 
-    @Override public TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext> createParser() {
+    @Override public TransformingParser<ParserContext> createParser() {
         return TransformingParser.with(PARSER, TRANSFORMER);
     }
 
@@ -100,7 +100,7 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<St
                 textAfter);
     }
 
-    private TextCursor parseAndCheck4(final Parser<BigIntegerParserToken, ParserContext> parser, final String from, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck4(final Parser<ParserContext> parser, final String from, final long value, final String text, final String textAfter){
         return this.parseAndCheck(parser,
                 this.createContext(),
                 TextCursors.charSequence(from),
@@ -110,7 +110,7 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<St
     }
 
     @Override
-    public Class<TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext>> type() {
+    public Class<TransformingParser<ParserContext>> type() {
         return Cast.to(TransformingParser.class);
     }
 }

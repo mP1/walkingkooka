@@ -85,7 +85,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
         return ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
     }
 
-    private Parser<BigDecimalParserToken, ParserContext> bigDecimalParser() {
+    private Parser<ParserContext> bigDecimalParser() {
         return Parsers.bigDecimal(MathContext.DECIMAL32);
     }
 

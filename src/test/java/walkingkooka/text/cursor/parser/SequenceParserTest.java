@@ -28,9 +28,9 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
     private final static String TEXT3 = "123";
-    private final static Parser<ParserToken, ParserContext> PARSER1 = parser(TEXT1);
-    private final static Parser<ParserToken, ParserContext> PARSER2 = parser(TEXT2);
-    private final static Parser<ParserToken, ParserContext> PARSER3 = parser(TEXT3);
+    private final static Parser<ParserContext> PARSER1 = parser(TEXT1);
+    private final static Parser<ParserContext> PARSER2 = parser(TEXT2);
+    private final static Parser<ParserContext> PARSER3 = parser(TEXT3);
     private final static StringParserToken TOKEN1 = string(TEXT1);
     private final static StringParserToken TOKEN2 = string(TEXT2);
     private final static StringParserToken TOKEN3 = string(TEXT3);
@@ -199,7 +199,7 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
                 .build());
     }
 
-    private static Parser<ParserToken, ParserContext> parser(final String string) {
+    private static Parser<ParserContext> parser(final String string) {
         return CaseSensitivity.SENSITIVE.parser(string).cast();
     }
 

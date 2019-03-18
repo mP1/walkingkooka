@@ -169,8 +169,8 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         }
     }
 
-    public <C extends ParserContext> Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> combinator(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser,
-                                                                                                final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
+    public <C extends ParserContext> Map<EbnfIdentifierName, Parser<ParserContext>> combinator(final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
+                                                                                               final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
         return EbnfParserCombinators.transform(this, identifierToParser, syntaxTreeTransformer);
     }
 

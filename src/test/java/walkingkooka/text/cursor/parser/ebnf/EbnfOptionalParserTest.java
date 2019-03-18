@@ -23,7 +23,7 @@ import java.util.List;
 
 public final class EbnfOptionalParserTest extends EbnfParserTestCase4<EbnfOptionalParserToken> {
 
-    @Override public Parser<ParserToken, EbnfParserContext> createParser() {
+    @Override public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.OPTIONAL;
     }
 

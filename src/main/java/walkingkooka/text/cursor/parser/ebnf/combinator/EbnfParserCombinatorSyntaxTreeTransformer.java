@@ -21,10 +21,6 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 import walkingkooka.Context;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.RepeatedParserToken;
-import walkingkooka.text.cursor.parser.SequenceParserToken;
-import walkingkooka.text.cursor.parser.StringParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfExceptionParserToken;
@@ -45,21 +41,21 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
  */
 public interface EbnfParserCombinatorSyntaxTreeTransformer extends Context {
 
-    Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser);
+    Parser<ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserContext> parser);
 
-    Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, ParserContext> parser);
+    Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<ParserContext> parser);
 
-    Parser<ParserToken, ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, ParserContext> parser);
+    Parser<ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserContext> parser);
 
-    Parser<ParserToken, ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, ParserContext> parser);
+    Parser<ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserContext> parser);
 
-    Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, ParserContext> parser);
+    Parser<ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserContext> parser);
 
-    Parser<ParserToken, ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, ParserContext> parser);
+    Parser<ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserContext> parser);
 
-    Parser<ParserToken, ParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, ParserContext> parserd);
+    Parser<ParserContext> range(final EbnfRangeParserToken token, final Parser<ParserContext> parserd);
 
-    Parser<RepeatedParserToken, ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<RepeatedParserToken, ParserContext> parser);
+    Parser<ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<ParserContext> parser);
 
-    Parser<ParserToken, ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, ParserContext> parser);
+    Parser<ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<ParserContext> parser);
 }

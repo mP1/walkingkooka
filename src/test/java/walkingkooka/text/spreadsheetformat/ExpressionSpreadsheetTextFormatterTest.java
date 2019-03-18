@@ -26,7 +26,6 @@ import walkingkooka.math.Fraction;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatExpressionParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
 import java.math.BigDecimal;
@@ -240,7 +239,7 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+    Parser<SpreadsheetFormatParserContext> parser() {
         return SpreadsheetFormatParsers.expression();
     }
 

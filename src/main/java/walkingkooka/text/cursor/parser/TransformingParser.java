@@ -26,35 +26,35 @@ import java.util.function.BiFunction;
  * A {@link Parser} that delegates to another parser, and runs the given {@link BiFunction} on successful
  * tokens.
  */
-final class TransformingParser<TIN extends ParserToken, TOUT extends ParserToken, C extends ParserContext> implements Parser<TOUT, C> {
+final class TransformingParser<C extends ParserContext> implements Parser<C> {
 
-    static <TIN extends ParserToken, TOUT extends ParserToken, C extends ParserContext> TransformingParser<TIN, TOUT, C> with(Parser<TIN, C> parser, BiFunction<TIN, C, TOUT> transformer) {
+    static <C extends ParserContext> TransformingParser<C> with(Parser<C> parser, BiFunction<ParserToken, C, ParserToken> transformer) {
         Objects.requireNonNull(parser, "parser");
         Objects.requireNonNull(transformer, "transformer");
 
         return new TransformingParser<>(parser, transformer);
     }
 
-    private TransformingParser(Parser<TIN, C> parser, BiFunction<TIN, C, TOUT> transformer) {
+    private TransformingParser(Parser<C> parser, BiFunction<ParserToken, C, ParserToken> transformer) {
         this.parser = parser;
         this.transformer = transformer;
     }
 
     @Override
-    public Optional<TOUT> parse(final TextCursor cursor, final C context) {
-        final Optional<TIN> token = this.parser.parse(cursor, context);
+    public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
+        final Optional<ParserToken> token = this.parser.parse(cursor, context);
         return token.isPresent() ?
                 Optional.of(this.transformer.apply(token.get(), context)) :
                 Optional.empty();
 
     }
 
-    private final Parser<TIN, C> parser;
+    private final Parser<C> parser;
 
     /**
      * A {@link BiFunction} that transforms successful tokens into another.
      */
-    private final BiFunction<TIN, C, TOUT> transformer;
+    private final BiFunction<ParserToken, C, ParserToken> transformer;
 
     @Override
     public String toString() {

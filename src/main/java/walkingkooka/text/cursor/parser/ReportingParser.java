@@ -27,14 +27,14 @@ import java.util.Optional;
  * A {@link Parser} that acts as a bridge invoking a {@link ParserReporter}. The reporter will
  * typically throw an exception with a message noting a parse failure of the parser in this instance.
  */
-final class ReportingParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
+final class ReportingParser<C extends ParserContext> implements Parser<C> {
 
     /**
      * Static factory
      */
-    static <T extends ParserToken, C extends ParserContext> ReportingParser<T, C> with(final ParserReporterCondition condition,
-                                                                                       final ParserReporter<T, C> reporter,
-                                                                                       final Parser<T, C> parser) {
+    static <C extends ParserContext> ReportingParser<C> with(final ParserReporterCondition condition,
+                                                                                    final ParserReporter<C> reporter,
+                                                                                    final Parser<C> parser) {
         Objects.requireNonNull(condition, "condition");
         Objects.requireNonNull(reporter, "reporter");
         Objects.requireNonNull(parser, "parser");
@@ -45,7 +45,7 @@ final class ReportingParser<T extends ParserToken, C extends ParserContext> impl
     /**
      * Private ctor
      */
-    private ReportingParser(final ParserReporterCondition condition, final ParserReporter<T, C> reporter, final Parser<T, C> parser) {
+    private ReportingParser(final ParserReporterCondition condition, final ParserReporter<C> reporter, final Parser<C> parser) {
         super();
 
         this.condition = condition;
@@ -54,16 +54,16 @@ final class ReportingParser<T extends ParserToken, C extends ParserContext> impl
     }
 
     @Override
-    public Optional<T> parse(final TextCursor cursor, final C context) {
+    public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         return this.condition.parse(cursor, this, context);
     }
 
-    final Optional<T> report(final TextCursor cursor, final C context) {
+    final Optional<ParserToken> report(final TextCursor cursor, final C context) {
         return this.reporter.report(cursor, context, this.parser);
     }
 
-    final Optional<T> reportIfNotEmpty(final TextCursor cursor, final C context) {
-        final Optional<T> result = this.parser.parse(cursor, context);
+    final Optional<ParserToken> reportIfNotEmpty(final TextCursor cursor, final C context) {
+        final Optional<ParserToken> result = this.parser.parse(cursor, context);
         return cursor.isEmpty() ?
                result :
                this.report(cursor, context);
@@ -71,9 +71,9 @@ final class ReportingParser<T extends ParserToken, C extends ParserContext> impl
 
     private final ParserReporterCondition condition;
 
-    private final ParserReporter<T, C> reporter;
+    private final ParserReporter<C> reporter;
 
-    private final Parser<T, C> parser;
+    private final Parser<C> parser;
 
     @Override
     public String toString() {

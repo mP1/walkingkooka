@@ -27,8 +27,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.math.BigDecimal;
 
-public final class SpreadsheetParsersTest implements ParserTesting<Parser<SpreadsheetParserToken, SpreadsheetParserContext>,
-        SpreadsheetParserToken,
+public final class SpreadsheetParsersTest implements ParserTesting<Parser<SpreadsheetParserContext>,
         SpreadsheetParserContext> {
 
     @Test
@@ -718,7 +717,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
         this.parseAndCheck(from, expected, text);
     }
 
-    private Parser<SpreadsheetParserToken, SpreadsheetParserContext> functionParser() {
+    private Parser<SpreadsheetParserContext> functionParser() {
         return SpreadsheetParsers.function();
     }
 
@@ -777,7 +776,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
         return "Unrecognized character " + CharSequences.quoteIfChars(c) + " at (" + column + "," + row + ")";
     }
 
-    @Override public Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
+    @Override public Parser<SpreadsheetParserContext> createParser() {
         return SpreadsheetParsers.expression();
     }
 

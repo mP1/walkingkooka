@@ -30,10 +30,10 @@ public enum ParserReporterCondition {
     /**
      * Invoke the {@link ParserReporter} unconditionally.
      */
-    ALWAYS{
-        <T extends ParserToken, C extends ParserContext> Optional<T> parse(final TextCursor cursor,
-                                                                           final ReportingParser<T, C> parser,
-                                                                           final C context) {
+    ALWAYS {
+        <C extends ParserContext> Optional<ParserToken> parse(final TextCursor cursor,
+                                                              final ReportingParser<C> parser,
+                                                              final C context) {
             return parser.report(cursor, context);
         }
     },
@@ -42,14 +42,14 @@ public enum ParserReporterCondition {
      * The {@link ParserReporter} should only be triggered when the {@link TextCursor} is not empty.
      */
     NOT_EMPTY {
-        <T extends ParserToken, C extends ParserContext> Optional<T> parse(final TextCursor cursor,
-                                                                           final ReportingParser<T, C> parser,
-                                                                           final C context) {
+        <C extends ParserContext> Optional<ParserToken> parse(final TextCursor cursor,
+                                                              final ReportingParser<C> parser,
+                                                              final C context) {
             return parser.reportIfNotEmpty(cursor, context);
         }
     };
 
-    abstract <T extends ParserToken, C extends ParserContext> Optional<T> parse(final TextCursor cursor,
-                                                                                final ReportingParser<T, C> parser,
-                                                                                final C context);
+    abstract <C extends ParserContext> Optional<ParserToken> parse(final TextCursor cursor,
+                                                                   final ReportingParser<C> parser,
+                                                                   final C context);
 }

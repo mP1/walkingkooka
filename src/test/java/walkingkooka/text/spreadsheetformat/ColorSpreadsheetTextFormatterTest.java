@@ -24,7 +24,6 @@ import walkingkooka.color.Color;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
 import java.util.Optional;
@@ -114,7 +113,7 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+    Parser<SpreadsheetFormatParserContext> parser() {
         return SpreadsheetFormatParsers.color();
     }
 

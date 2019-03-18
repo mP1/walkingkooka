@@ -26,7 +26,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AndNotParserTest extends ParserTestCase<AndNotParser<StringParserToken, ParserContext>, StringParserToken> {
+public final class AndNotParserTest extends ParserTestCase<AndNotParser<ParserContext>> {
 
     private final static String LEFT = "left";
     private final static String RIGHT = "right";
@@ -94,33 +94,33 @@ public final class AndNotParserTest extends ParserTestCase<AndNotParser<StringPa
                 after);
     }
 
-    @Override public AndNotParser<StringParserToken, ParserContext> createParser() {
+    @Override public AndNotParser<ParserContext> createParser() {
         return this.createParser(this.left(), this.right());
     }
 
-    protected AndNotParser<StringParserToken, ParserContext> createParser(final Parser<StringParserToken, ParserContext> left,
-                                                                          final Parser<StringParserToken, ParserContext> right) {
+    protected AndNotParser<ParserContext> createParser(final Parser<ParserContext> left,
+                                                       final Parser<ParserContext> right) {
         return AndNotParser.with(left, right);
     }
 
-    private Parser<StringParserToken, ParserContext> left() {
+    private Parser<ParserContext> left() {
         return string(LEFT);
     }
 
-    private Parser<StringParserToken, ParserContext> right() {
+    private Parser<ParserContext> right() {
         return string(RIGHT);
     }
 
-    private <T extends ParserToken> Parser<T, ParserContext> missing() {
+    private <T extends ParserToken> Parser<ParserContext> missing() {
         return Parsers.fixed(Optional.empty());
     }
 
-    private Parser<StringParserToken, ParserContext> string(final String string) {
+    private Parser<ParserContext> string(final String string) {
         return CaseSensitivity.SENSITIVE.parser(string);
     }
 
     @Override
-    public Class<AndNotParser<StringParserToken, ParserContext>> type() {
+    public Class<AndNotParser<ParserContext>> type() {
         return Cast.to(AndNotParser.class);
     }
 }

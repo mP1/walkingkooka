@@ -40,7 +40,7 @@ import java.util.Optional;
  * The pattern that created the {@link DateTimeFormatter} must be given to the factory so the preliminary phase can
  * try its simple parsing.
  */
-abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserContext> extends Parser2<T, C> {
+abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<C> {
 
     // values between 0 -> Character.MAX are literal required characters. values beginning with TEXT are character classes.
     final static int TEXT = 100000;
@@ -256,9 +256,9 @@ abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserCo
     }
 
     @Override
-    Optional<T> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
         try {
-            Optional<T> result;
+            Optional<ParserToken> result;
 
             int patternIndex = 0;
             int pattern = this.patterns[patternIndex];
@@ -401,7 +401,7 @@ abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserCo
      * Tests if the cursor has advanced over a string of characters which consumes the entire pattern. If so
      * {@link DateTimeFormatter#parse(CharSequence)} will be called.
      */
-    private Optional<T> createParseTokenOrFail(final int pos, final int textLength, final TextCursor cursor, final TextCursorSavePoint save){
+    private Optional<ParserToken> createParseTokenOrFail(final int pos, final int textLength, final TextCursor cursor, final TextCursorSavePoint save){
         // need to see if remaining nodes could have been consumed... eg SSS could follow previous ss.
         boolean create = true;
         if(pos < this.patterns.length) {
@@ -455,7 +455,7 @@ abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserCo
            Optional.empty();
     }
 
-    private Optional<T> createParserToken(final int textLength, final TextCursor cursor, final TextCursorSavePoint save) {
+    private Optional<ParserToken> createParserToken(final int textLength, final TextCursor cursor, final TextCursorSavePoint save) {
         save.restore();
         final TemporalAccessor parsed = this.formatter.parse(new DateTimeFormatterParserTextCursorCharSequence(cursor, textLength));
         return Optional.of(this.createParserToken(parsed,
@@ -465,7 +465,7 @@ abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserCo
     /**
      * Factory that creates a {@link ParserToken} with the date or time or date time value.
      */
-    abstract T createParserToken(final TemporalAccessor temporalAccessor, final String text);
+    abstract ParserToken createParserToken(final TemporalAccessor temporalAccessor, final String text);
 
     // Object.............................................................................................................
 
@@ -486,7 +486,7 @@ abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserCo
      */
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final DateTimeFormatterParser<?, ?> other) {
+    private boolean equals0(final DateTimeFormatterParser<?> other) {
         return this.formatter.equals(other.formatter) &&
                this.pattern.equals(other.pattern);
     }

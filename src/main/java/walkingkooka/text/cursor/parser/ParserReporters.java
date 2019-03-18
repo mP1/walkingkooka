@@ -25,7 +25,7 @@ public final class ParserReporters implements PublicStaticHelper {
     /**
      * {@see BasicParserReporter}
      */
-    public static <T extends ParserToken, C extends ParserContext> ParserReporter<T, C> basic() {
+    public static <T extends ParserToken, C extends ParserContext> ParserReporter<C> basic() {
         return BasicParserReporter.get();
     }
 

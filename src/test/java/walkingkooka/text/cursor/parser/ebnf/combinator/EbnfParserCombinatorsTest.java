@@ -39,8 +39,6 @@ import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokens;
 import walkingkooka.text.cursor.parser.Parsers;
-import walkingkooka.text.cursor.parser.RepeatedParserToken;
-import walkingkooka.text.cursor.parser.SequenceParserToken;
 import walkingkooka.text.cursor.parser.StringParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
@@ -70,7 +68,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParserCombinators>,
-        ParserTesting<Parser<ParserToken, FakeParserContext>, ParserToken, FakeParserContext>,
+        ParserTesting<Parser<FakeParserContext>, FakeParserContext>,
         PublicStaticHelperTesting<EbnfParserCombinators>,
         ResourceTesting {
 
@@ -93,7 +91,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
     @Test
     public void testAlternative() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         final String text = "abc";
         this.parseAndCheck2(parser, text, this.string(text), text);
@@ -104,7 +102,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
     @Test
     public void testConcatenation() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         final String text1 = "abc";
         final String text2 = "xyz";
@@ -117,7 +115,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
     @Test
     public void testException() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         final String text = "match";
         this.parseAndCheck2(parser, text, this.string(text), text);
@@ -159,7 +157,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
     @Test
     public void testOptional() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         final String text = "optional-text-abc";
         this.parseAndCheck2(parser, text, this.string(text), text);
@@ -169,7 +167,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
     @Test
     public void testRepeat() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         final String text = "abc";
         final String after = "123";
@@ -207,7 +205,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
     }
 
     private void parseRangeAndCheck() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         final String text = "m";
         final String after = "123";
@@ -240,7 +238,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
     @Test
     public void testComplex() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         final ParserToken i = this.string("i");
         final ParserToken p = this.string("p");
@@ -285,7 +283,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
     @Test
     public void testComplex2() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         final ParserToken i = this.string("i");
         final ParserToken p = this.string("p");
@@ -325,7 +323,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
     @Test
     public void testReplaceToken() {
-        final Parser<ParserToken, FakeParserContext> parser = createParser2();
+        final Parser<FakeParserContext> parser = createParser2();
 
         // <8> is optional
         {
@@ -351,37 +349,37 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
         this.parseAndCheck2(this.createParser2(), textCursor, expected, text, textAfter);
     }
 
-    private void parseAndCheck2(final Parser<ParserToken, FakeParserContext> parser, final String textCursor, final ParserToken expected, final String text) {
+    private void parseAndCheck2(final Parser<FakeParserContext> parser, final String textCursor, final ParserToken expected, final String text) {
         this.parseAndCheck(parser, textCursor, expected, text, "");
     }
 
-    private void parseAndCheck2(final Parser<ParserToken, FakeParserContext> parser, final String textCursor, final ParserToken expected, final String text, final String textAfter) {
+    private void parseAndCheck2(final Parser<FakeParserContext> parser, final String textCursor, final ParserToken expected, final String text, final String textAfter) {
         this.parseAndCheck(parser, textCursor, expected, text, textAfter);
     }
 
     @Override
-    public Parser<ParserToken, FakeParserContext> createParser() {
+    public Parser<FakeParserContext> createParser() {
         return this.createParser("default.grammar");
     }
 
-    private Parser<ParserToken, FakeParserContext> createParser2() {
+    private Parser<FakeParserContext> createParser2() {
         return this.createParser(this.currentTestName() + ".grammar");
     }
 
     /**
      * Parses the grammar file, uses the transformer to convert each rule into parsers and then returns the parser for the rule called "TEST".
      */
-    private Parser<ParserToken, FakeParserContext> createParser(final String grammarResourceFile) {
+    private Parser<FakeParserContext> createParser(final String grammarResourceFile) {
         final EbnfGrammarParserToken grammar = this.grammar(grammarResourceFile);
 
-        final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> defaults = Maps.hash();
+        final Map<EbnfIdentifierName, Parser<ParserContext>> defaults = Maps.hash();
         defaults.put(EbnfIdentifierName.with("LETTERS"), Parsers.stringCharPredicate(CharPredicates.letter(), 1, Integer.MAX_VALUE).cast());
         defaults.put(EbnfIdentifierName.with("DUPLICATED"), Parsers.fake());
 
-        final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> all = grammar.combinator(defaults,
+        final Map<EbnfIdentifierName, Parser<ParserContext>> all = grammar.combinator(defaults,
                 this.syntaxTreeTransformer(grammar));
 
-        final Parser<ParserToken, FakeParserContext> test = Cast.to(all.get(TEST));
+        final Parser<FakeParserContext> test = Cast.to(all.get(TEST));
         assertNotNull(test, TEST + " parser not found in grammar\n" + grammar);
         return test;
     }
@@ -393,7 +391,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
             final Class<?> classs = this.getClass();
             final String text = this.resourceAsText(classs, classs.getSimpleName() + "/" + resourceName);
             final TextCursor cursor = TextCursors.charSequence(text);
-            final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser()
+            final Optional<ParserToken> grammar = EbnfParserToken.grammarParser()
                     .parse(cursor, EbnfParserContexts.basic());
             if (!grammar.isPresent()) {
                 fail("Failed to parse a grammar from " + CharSequences.quote(resourceName) + "\n" + text);
@@ -404,7 +402,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
                 final CharSequence remaining = save.textBetween();
                 fail("Failed to parse all of grammar from " + CharSequences.quote(resourceName) + " text remaining: " + remaining + "\n\n" + CharSequences.escape(remaining) + "\n\nGrammar File:\n" + text);
             }
-            return grammar.get();
+            return grammar.get().cast();
         } catch (final IOException cause) {
             throw new Error("failed to read grammar from " + CharSequences.quote(resourceName));
         }
@@ -424,39 +422,39 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
 
         return new EbnfParserCombinatorSyntaxTreeTransformer() {
             @Override
-            public Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser) {
+            public Parser<ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, ParserContext> parser) {
+            public Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<ParserContext> parser) {
                 return parser.transform((sequenceParserToken, fakeParserContext) -> {
                     return sequenceParserToken;
                 });
             }
 
             @Override
-            public Parser<ParserToken, ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, ParserContext> parser) {
+            public Parser<ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, ParserContext> parser) {
+            public Parser<ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, ParserContext> parser) {
+            public Parser<ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, ParserContext> parser) {
+            public Parser<ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, ParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, ParserContext> ignored) {
+            public Parser<ParserContext> range(final EbnfRangeParserToken token, final Parser<ParserContext> ignored) {
                 final char begin = this.characterForIdentifierOrTerminal(token.begin());
                 final char end = this.characterForIdentifierOrTerminal(token.end());
 
@@ -496,16 +494,16 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
             }
 
             @Override
-            public Parser<RepeatedParserToken, ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<RepeatedParserToken, ParserContext> parser) {
+            public Parser<ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, ParserContext> parser) {
+            public Parser<ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<ParserContext> parser) {
                 return parser.transform((stringParserToken, contextIgnored) -> {
                     ParserToken result = stringParserToken;
                     try {
-                        result = number(stringParserToken.value());
+                        result = number(StringParserToken.class.cast(stringParserToken).value());
                     } catch (final NumberFormatException ignore) {
                     }
                     return result;

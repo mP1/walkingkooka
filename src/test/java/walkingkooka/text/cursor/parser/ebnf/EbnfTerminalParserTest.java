@@ -18,7 +18,6 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserToken;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -126,7 +125,7 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
         return '"' + text + '"';
     }
 
-    @Override public Parser<ParserToken, EbnfParserContext> createParser() {
+    @Override public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.TERMINAL;
     }
 

@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserToken;
 
 // TODO EbnfGrammarParser - ClassTesting2
 public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarParserToken>{
@@ -113,7 +112,7 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
         return rule(RULE2, identifier2(), assignmentToken(), terminal2(), terminatorToken());
     }
 
-    @Override public Parser<ParserToken, EbnfParserContext> createParser() {
+    @Override public Parser<EbnfParserContext> createParser() {
         return Cast.to(EbnfGrammarParser.GRAMMAR);
     }
 }

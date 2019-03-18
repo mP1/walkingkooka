@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 abstract class SequenceParserComponent<C extends ParserContext> implements HashCodeEqualsDefined {
 
-    SequenceParserComponent(final Parser<ParserToken, C> parser) {
+    SequenceParserComponent(final Parser<C> parser) {
         Objects.requireNonNull(parser, "parser");
 
         this.parser = parser;
@@ -40,7 +40,7 @@ abstract class SequenceParserComponent<C extends ParserContext> implements HashC
 
     abstract boolean abortIfMissing();
 
-    final Parser<ParserToken, C> parser;
+    final Parser<C> parser;
 
     // Object .............................................................................................................
 

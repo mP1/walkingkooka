@@ -25,10 +25,10 @@ import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetParserContext>,
+public abstract class SpreadsheetParserTestCase<P extends Parser<SpreadsheetParserContext>,
         T extends SpreadsheetParserToken>
         implements ClassTesting2<P>,
-        ParserTesting<P, T, SpreadsheetParserContext>,
+        ParserTesting<P, SpreadsheetParserContext>,
         TypeNameTesting<P> {
 
     SpreadsheetParserTestCase() {

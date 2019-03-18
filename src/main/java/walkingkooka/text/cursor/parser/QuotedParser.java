@@ -24,13 +24,13 @@ import java.util.Optional;
 /**
  * This parser matches quoted strings, with support backslash escaping and unicode sequences in the form of backlash-u-4-hex-digits
  */
-abstract class QuotedParser<T extends QuotedParserToken, C extends ParserContext> extends Parser2<T, C> {
+abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
 
     QuotedParser() {
     }
 
     @Override
-    Optional<T> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
         return this.quoteChar() == cursor.at()?
                 this.tryParse1(cursor, start) :
                 this.fail();
@@ -38,12 +38,12 @@ abstract class QuotedParser<T extends QuotedParserToken, C extends ParserContext
 
     abstract char quoteChar();
 
-    private Optional<T> tryParse1(final TextCursor cursor, final TextCursorSavePoint start) {
+    private Optional<ParserToken> tryParse1(final TextCursor cursor, final TextCursorSavePoint start) {
         final char quote = this.quoteChar();
 
         cursor.next();
 
-        Optional<T> result = null;
+        Optional<ParserToken> result = null;
         boolean backslashed = false;
         int unicodeDigitCounter = -1;
         char unicodeCharValue = 0;
@@ -122,7 +122,7 @@ abstract class QuotedParser<T extends QuotedParserToken, C extends ParserContext
     /**
      * Factory method that creates the token upon a successful match.
      */
-    abstract T token(final String content, final String rawText);
+    abstract QuotedParserToken token(final String content, final String rawText);
 
     // VisibleForTesting
     static String missingTerminatingQuote(final char quote){

@@ -27,7 +27,7 @@ import java.util.Optional;
  * A {@link Parser} that matches a long number using a given radix. Note it does not require or match a leading prefix.
  * Note this only parses numeric digits and not any leading minus sign.
  */
-final class LongParser<C extends ParserContext> extends Parser2<LongParserToken, C> {
+final class LongParser<C extends ParserContext> extends Parser2<C> {
 
     /**
      * Factory that creates a {@link LongParser}
@@ -51,11 +51,11 @@ final class LongParser<C extends ParserContext> extends Parser2<LongParserToken,
      * Reads character by character until a non digit is found, using a {@link Long} to hold the value.
      */
     @Override
-    Optional<LongParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+    Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
         final char minusSign = context.minusSign();
         final char plusSign = context.plusSign();
 
-        Optional<LongParserToken> token ;
+        LongParserToken token ;
 
         final int radix = this.radix;
         long number = 0;
@@ -66,7 +66,7 @@ final class LongParser<C extends ParserContext> extends Parser2<LongParserToken,
         for(;;){
             if(cursor.isEmpty()) {
                 token = empty ?
-                        Optional.empty() :
+                        null :
                         this.createToken(number, save);
                 break;
             }
@@ -87,7 +87,7 @@ final class LongParser<C extends ParserContext> extends Parser2<LongParserToken,
             final int digit = Character.digit(c, radix);
             if(-1 == digit){
                 token = empty ?
-                        Optional.empty() :
+                        null :
                         this.createToken(number, save);
                 break;
             }
@@ -108,13 +108,12 @@ final class LongParser<C extends ParserContext> extends Parser2<LongParserToken,
             throw new ParserException("Number overflow " + CharSequences.quote(save.textBetween()));
         }
 
-        return token;
+        return Optional.ofNullable(token);
     }
 
-    private Optional<LongParserToken> createToken(final Long value, final TextCursorSavePoint save){
+    private LongParserToken createToken(final Long value, final TextCursorSavePoint save){
         return LongParserToken.with(value,
-                save.textBetween().toString())
-                .success();
+                save.textBetween().toString());
     }
 
     private final int radix;

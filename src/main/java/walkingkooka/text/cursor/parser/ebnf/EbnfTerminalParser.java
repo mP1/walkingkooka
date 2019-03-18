@@ -28,20 +28,20 @@ import java.util.Optional;
 /**
  * Handles parsing a terminal literal, including support for backslash escape sequence and unicode sequences.
  */
-final class EbnfTerminalParser implements Parser<EbnfTerminalParserToken, EbnfParserContext> {
+final class EbnfTerminalParser implements Parser<EbnfParserContext> {
 
     /**
      * Singleton instance
      */
-    final static Parser<ParserToken, EbnfParserContext> INSTANCE = new EbnfTerminalParser().cast();
+    final static Parser<EbnfParserContext> INSTANCE = new EbnfTerminalParser().cast();
 
     private EbnfTerminalParser(){
         super();
     }
 
     @Override
-    public Optional<EbnfTerminalParserToken> parse(final TextCursor cursor, final EbnfParserContext context) {
-        Optional<EbnfTerminalParserToken> result = Optional.empty();
+    public Optional<ParserToken> parse(final TextCursor cursor, final EbnfParserContext context) {
+        EbnfTerminalParserToken result = null;
 
         for(;;){
             if(cursor.isEmpty()){
@@ -116,9 +116,9 @@ final class EbnfTerminalParser implements Parser<EbnfTerminalParserToken, EbnfPa
 
                 // closing quote character...
                 if(open == c) {
-                    result = Optional.of(EbnfTerminalParserToken.with(
+                    result = EbnfTerminalParserToken.with(
                             raw.toString(),
-                            start.textBetween().toString()));
+                            start.textBetween().toString());
                     break;
                 }
                 if('\\' == c) {
@@ -130,7 +130,7 @@ final class EbnfTerminalParser implements Parser<EbnfTerminalParserToken, EbnfPa
             break;
         }
 
-        return result;
+        return Optional.ofNullable(result);
     }
 
     public String toString() {

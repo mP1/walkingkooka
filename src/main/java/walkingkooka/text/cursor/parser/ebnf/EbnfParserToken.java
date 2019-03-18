@@ -151,7 +151,7 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfGrammarParser}
      */
-    public static Parser<EbnfGrammarParserToken, EbnfParserContext> grammarParser() {
+    public static Parser<EbnfParserContext> grammarParser() {
         return EbnfGrammarParser.GRAMMAR;
     }
 
