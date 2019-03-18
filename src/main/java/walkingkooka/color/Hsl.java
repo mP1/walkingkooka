@@ -162,9 +162,9 @@ final public class Hsl implements HashCodeEqualsDefined, Serializable {
      */
     public Color toColor() {
         // vars
-        float red = 0;
-        float green = 0;
-        float blue = 0;
+        float red;
+        float green;
+        float blue;
 
         // constants
         final float saturation = this.saturation.value;

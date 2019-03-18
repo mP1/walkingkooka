@@ -30,7 +30,7 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
 
     // constants
 
-    final static HeaderParameterNameConstants<CharsetHeaderValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
+    private final static HeaderParameterNameConstants<CharsetHeaderValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             CharsetHeaderValueParameterName::new,
             HeaderValueConverter.quotedUnquotedString(
                     AcceptCharsetHeaderParser.QUOTED_PARAMETER_VALUE,

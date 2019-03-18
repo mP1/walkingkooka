@@ -166,7 +166,6 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
      */
     //@Override
     private JsonObjectNode replaceChild0(final JsonNode newChild, final int index) {
-        int i = 0;
         final Map<JsonNodeName, JsonNode> newChildren = Maps.ordered();
         final JsonNodeName newChildName = newChild.name;
 
@@ -176,7 +175,6 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
                     newChildName.equals(name) ?
                     newChild :
                     nameAndValue.getValue());
-            i++;
         }
 
         return this.replaceChildren(JsonObjectNodeList.with(newChildren)).cast();

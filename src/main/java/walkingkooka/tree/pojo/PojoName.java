@@ -92,7 +92,7 @@ public final class PojoName implements Name,
 
     private final String name;
 
-    final int index;
+    private final int index;
 
     // Comparable....................................................................................................
 

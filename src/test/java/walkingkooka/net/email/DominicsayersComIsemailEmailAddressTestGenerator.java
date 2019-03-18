@@ -225,8 +225,8 @@ final public class DominicsayersComIsemailEmailAddressTestGenerator {
             this.comment = comment;
         }
 
-        String email;
-        boolean valid;
-        String comment;
+        final String email;
+        final boolean valid;
+        final String comment;
     }
 }

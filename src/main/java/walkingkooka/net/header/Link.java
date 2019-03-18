@@ -101,7 +101,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
                 this.replace(value);
     }
 
-    static void checkValue(final Url value) {
+    private static void checkValue(final Url value) {
         Objects.requireNonNull(value, "value");
     }
 
@@ -274,7 +274,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * A document builder which is lazily created and shared by all calls to {@link #toXmlNode()}.
      */
-    private static DocumentBuilder DOCUMENT_BUILDER = null;
+    private static final DocumentBuilder DOCUMENT_BUILDER = null;
 
     // Object................................................................................................................
 

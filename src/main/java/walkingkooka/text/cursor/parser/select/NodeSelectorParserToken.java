@@ -380,9 +380,8 @@ public abstract class NodeSelectorParserToken implements ParserToken {
         return Lists.readOnly(copy);
     }
 
-    static String checkTextNullOrEmpty(final String text) {
+    static void checkTextNullOrEmpty(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
-        return text;
     }
 
     static String checkTextNullOrWhitespace(final String text) {

@@ -223,7 +223,7 @@ public final class PojoDoubleArrayNodeTest extends PojoArrayNodeTestCase<PojoDou
             this.array = array;
         }
 
-        private double[] array;
+        private final double[] array;
 
         public double[] getArray() {
             return this.array;

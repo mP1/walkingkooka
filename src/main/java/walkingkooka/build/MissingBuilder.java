@@ -121,7 +121,7 @@ final public class MissingBuilder implements Builder<String> {
     /**
      * Counts the number of errors.
      */
-    int missing;
+    private int missing;
 
     /**
      * Returns the current number of missing properties or values.
@@ -133,7 +133,7 @@ final public class MissingBuilder implements Builder<String> {
     /**
      * Counts the number of totals.
      */
-    int totals;
+    private int totals;
 
     /**
      * Returns the comma separated list of missing items which will be empty if none are present.

@@ -68,7 +68,7 @@ final class NullReplacingPrinter implements Printer {
 
     // properties
 
-    final Printer printer;
+    private final Printer printer;
 
     private final String replacement;
 

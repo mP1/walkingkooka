@@ -123,9 +123,7 @@ final class ConcatCharSequence extends CharSequenceTemplate<ConcatCharSequence> 
 
     @Override
     String buildToString() {
-        return new StringBuilder()
-                .append(this.first)
-                .append(this.second)
-                .toString();
+        return String.valueOf(this.first) +
+                this.second;
     }
 }

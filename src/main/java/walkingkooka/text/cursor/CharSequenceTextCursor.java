@@ -62,7 +62,7 @@ final class CharSequenceTextCursor implements TextCursor {
     /**
      * Message that is thrown whenever a cursor has been exhausted and an attempt is made to retrieve the current character with {@link #at()}.
      */
-    static String cursorIsEmpty(final int position, final int to) {
+    private static String cursorIsEmpty(final int position, final int to) {
         return "Cursor is empty, position=" + position + " is NOT between 0 ... " + to;
     }
 

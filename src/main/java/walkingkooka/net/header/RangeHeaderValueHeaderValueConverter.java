@@ -18,13 +18,10 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.compare.Range;
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
- * A {@link HeaderValueConverter} that parses a header value into a {@link List<Range<Long>>}.
+ * A {@link HeaderValueConverter} that parses a header value into a {@link List&lt;Range&lt;Long&gt;&gt;}.
  * This is useful for headers such as {@link HttpHeaderName#RANGE}.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range"></a>
  * <pre>

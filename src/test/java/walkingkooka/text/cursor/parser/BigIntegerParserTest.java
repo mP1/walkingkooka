@@ -109,6 +109,7 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
         this.parseAndCheck3(16, "1234xyz", 0x1234, "1234", "xyz");
     }
 
+    @SuppressWarnings("OctalInteger")
     @Test
     public void testOctal() {
         this.parseAndCheck3(8, "012345678xyz", 01234567, "01234567", "8xyz");

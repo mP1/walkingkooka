@@ -85,8 +85,8 @@ public final class XmlName implements Name,
         return this.name;
     }
 
-    final String name;
-    final XmlNodeKind kind;
+    private final String name;
+    private final XmlNodeKind kind;
 
     final XmlElement createElement(final Document document) {
         return this.kind.createElement(this, document);

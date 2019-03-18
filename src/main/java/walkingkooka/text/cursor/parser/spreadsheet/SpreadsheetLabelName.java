@@ -152,7 +152,7 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
         return this.name;
     }
 
-    final String name;
+    private final String name;
 
     @Override
     public int compareTo(final SpreadsheetLabelName other) {

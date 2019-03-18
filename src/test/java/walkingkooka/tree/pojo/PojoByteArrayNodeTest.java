@@ -233,7 +233,7 @@ public final class PojoByteArrayNodeTest extends PojoArrayNodeTestCase<PojoByteA
             this.array = array;
         }
 
-        private byte[] array;
+        private final byte[] array;
 
         public byte[] getArray() {
             return this.array;

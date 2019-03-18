@@ -71,7 +71,7 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
         }
     }
 
-    final NodeSelector<N, NAME, ANAME, AVALUE> next;
+    private final NodeSelector<N, NAME, ANAME, AVALUE> next;
 
     // Object
 

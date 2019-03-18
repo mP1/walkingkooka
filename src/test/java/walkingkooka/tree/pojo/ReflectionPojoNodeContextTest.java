@@ -299,7 +299,7 @@ public final class ReflectionPojoNodeContextTest implements ClassTesting2<Reflec
 
     static class TestGetter {
 
-        String x = STRING;
+        final String x = STRING;
 
         public String x() {
             return x;
@@ -308,7 +308,7 @@ public final class ReflectionPojoNodeContextTest implements ClassTesting2<Reflec
 
     static class TestGetGetter {
 
-        String x = STRING;
+        final String x = STRING;
 
         public String getX() {
             return x;

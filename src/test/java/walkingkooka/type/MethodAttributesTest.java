@@ -68,6 +68,7 @@ public final class MethodAttributesTest implements ClassTesting2<MethodAttribute
         final void finalMethod() {
         }
 
+        @SuppressWarnings("FinalStaticMethod")
         final static void finalStaticMethod() {
         }
 

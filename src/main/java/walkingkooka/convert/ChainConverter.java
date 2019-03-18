@@ -59,9 +59,9 @@ final class ChainConverter implements Converter {
                 context);
     }
 
-    private Converter first;
-    private Class<?> intermediateTargetType;
-    private Converter last;
+    private final Converter first;
+    private final Class<?> intermediateTargetType;
+    private final Converter last;
 
     @Override
     public String toString() {

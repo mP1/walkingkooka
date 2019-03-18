@@ -76,8 +76,8 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
      * Factory method called by various setters and parsers, that tries to match constants before creating an actual new
      * instance.
      */
-    static CharsetHeaderValue withParameters(final CharsetName charset,
-                                             final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
+    private static CharsetHeaderValue withParameters(final CharsetName charset,
+                                                     final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
         final CharsetHeaderValue result = parameters.isEmpty() ?
                 CONSTANTS.get(charset) :
                 null;
@@ -109,7 +109,7 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
                 this.replace(charsetName, this.parameters);
     }
 
-    static void checkValue(final CharsetName charsetName) {
+    private static void checkValue(final CharsetName charsetName) {
         Objects.requireNonNull(charsetName, "charsetName");
     }
 

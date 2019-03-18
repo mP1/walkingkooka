@@ -43,13 +43,12 @@ abstract class FixedSourceTypeTargetTypeConverter<S, T> extends FixedTargetTypeC
 
     @Override
     public final String toString() {
-        final StringBuilder b = new StringBuilder();
-        b.append(this.sourceType().getSimpleName());
-        b.append("->");
-        b.append(this.targetType().getSimpleName());
-        b.append(this.toStringSuffix());
 
-        return b.toString();
+        String b = this.sourceType().getSimpleName() +
+                "->" +
+                this.targetType().getSimpleName() +
+                this.toStringSuffix();
+        return b;
     }
 
     abstract String toStringSuffix();

@@ -124,7 +124,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
         }
     }
 
-    private Set<HttpMethod> methods = Sets.ordered();
+    private final Set<HttpMethod> methods = Sets.ordered();
 
     // path ......................................................................................
 

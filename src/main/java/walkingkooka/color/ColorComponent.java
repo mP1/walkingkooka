@@ -221,7 +221,7 @@ abstract public class ColorComponent implements HashCodeEqualsDefined, Serializa
     /**
      * Formats the given value adding a leading 0 to ensure the {@link String} is two characters.
      */
-    final String toHexString() {
+    private String toHexString() {
         return ColorComponent.TO_STRING[this.unsignedIntValue];
     }
 
@@ -230,7 +230,7 @@ abstract public class ColorComponent implements HashCodeEqualsDefined, Serializa
      */
     private final static String[] TO_STRING = ColorComponent.buildToStringLookup();
 
-    static String[] buildToStringLookup() {
+    private static String[] buildToStringLookup() {
         final String[] toString = new String[256];
         for (int i = 0; i < 16; i++) {
             toString[i] = '0' + Integer.toHexString(i).toLowerCase();

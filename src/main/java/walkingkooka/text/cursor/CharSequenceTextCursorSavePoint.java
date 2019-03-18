@@ -66,9 +66,9 @@ final class CharSequenceTextCursorSavePoint implements TextCursorSavePoint {
 
     // properties
 
-    final CharSequenceTextCursor cursor;
+    private final CharSequenceTextCursor cursor;
 
-    int position;
+    private int position;
 
     @Override
     public String toString() {

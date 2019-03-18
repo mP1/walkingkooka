@@ -66,7 +66,7 @@ public class NeverError extends Error {
                 .collect(Collectors.joining(",")));
     }
 
-    static String check(final String message) {
+    private static String check(final String message) {
         CharSequences.failIfNullOrEmpty(message, "message");
         return message;
     }

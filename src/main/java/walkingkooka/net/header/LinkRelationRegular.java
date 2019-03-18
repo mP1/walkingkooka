@@ -37,13 +37,13 @@ final class LinkRelationRegular extends LinkRelation<String> {
      *   ext-rel-type   = URI
      * </pre>
      */
-    static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
+    private static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
             .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
             .range('a', 'z')
             .build()
             .setToString("LinkRelation initial");
 
-    static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.builder()
+    private static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.builder()
             .range('A', 'Z') // include upper case because some predefined constants include upper case letters.
             .range('a', 'z')
             .range('0', '9')

@@ -146,7 +146,7 @@ public final class PojoIntArrayNodeTest extends PojoArrayNodeTestCase<PojoIntArr
 
     @Override
     void checkValue(final int[] expected, final int[] actual) {
-        Assertions.assertArrayEquals(expected, (int[])actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     private PojoIntArrayNode createPojoNode(final int[] values){
@@ -222,7 +222,7 @@ public final class PojoIntArrayNodeTest extends PojoArrayNodeTestCase<PojoIntArr
             this.array = array;
         }
 
-        private int[] array;
+        private final int[] array;
 
         public int[] getArray() {
             return this.array;

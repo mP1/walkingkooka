@@ -290,7 +290,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
 
     private final String type;
 
-    static String checkType(final String type) {
+    private static String checkType(final String type) {
         return check(type, "type");
     }
 
@@ -317,14 +317,14 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
 
     private final String subType;
 
-    static String checkSubType(final String subType) {
+    private static String checkSubType(final String subType) {
         return check(subType, "subType");
     }
 
     /**
      * Checks that the value contains valid token characters.
      */
-    static String check(final String value, final String label) {
+    private static String check(final String value, final String label) {
         CharPredicates.failIfNullOrEmptyOrFalse(value, label, RFC2045TOKEN);
         return value;
     }

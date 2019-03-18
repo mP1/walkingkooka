@@ -284,7 +284,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
             this.list = list;
         }
 
-        private List<?> list;
+        private final List<?> list;
 
         public List<?> getList() {
             return this.list;

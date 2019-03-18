@@ -95,7 +95,7 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
         return this.headers;
     }
 
-    private HttpServletRequestHttpRequestHeadersMap headers;
+    private final HttpServletRequestHttpRequestHeadersMap headers;
 
     @Override
     public byte[] body() {

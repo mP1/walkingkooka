@@ -34,12 +34,12 @@ final public class ChainType implements HashCodeEqualsDefined, Serializable {
     /**
      * A read only cache of already prepared {@link ChainType types}.
      */
-    final static Map<String, ChainType> CONSTANTS = Maps.sorted();
+    private final static Map<String, ChainType> CONSTANTS = Maps.sorted();
 
     /**
      * Creates and adds a new {@link ChainType} to the cache being built.
      */
-    static ChainType registerConstant(final String type) {
+    private static ChainType registerConstant(final String type) {
         final ChainType chainType = new ChainType(type);
         ChainType.CONSTANTS.put(type, chainType);
         return chainType;

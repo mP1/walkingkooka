@@ -45,7 +45,7 @@ final public class XmlEntity extends XmlParentNode2 implements HasXmlPublicId, H
         super(node);
     }
 
-    Entity entityNode() {
+    private Entity entityNode() {
         return Cast.to(this.node);
     }
 
@@ -59,7 +59,7 @@ final public class XmlEntity extends XmlParentNode2 implements HasXmlPublicId, H
         return this.publicId;
     }
 
-    Optional<XmlPublicId> publicId;
+    private Optional<XmlPublicId> publicId;
 
     // HasSystemId ...................................................................................................
 
@@ -71,7 +71,7 @@ final public class XmlEntity extends XmlParentNode2 implements HasXmlPublicId, H
         return this.systemId;
     }
 
-    Optional<XmlSystemId> systemId;
+    private Optional<XmlSystemId> systemId;
 
     // notation ...................................................................................................
 

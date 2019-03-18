@@ -70,7 +70,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
     /**
      * Used to keep track of all node names, preventing duplicates.
      */
-    private static Set<String> names = Sets.sorted();
+    private static final Set<String> names = Sets.sorted();
 
     private TestNode(final StringName name,
                      final Optional<TestNode> parent,
@@ -106,7 +106,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         return this.parent;
     }
 
-    private Optional<TestNode> parent;
+    Optional<TestNode> parent;
 
     @Override
     public int index() {
@@ -133,7 +133,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         return this.children().get(i);
     }
 
-    private List<TestNode> children;
+    private final List<TestNode> children;
 
     @Override
     public Map<StringName, Object> attributes() {

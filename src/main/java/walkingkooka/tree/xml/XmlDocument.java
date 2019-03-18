@@ -71,7 +71,7 @@ public final class XmlDocument extends XmlParentNode {
         return this.documentType;
     }
 
-    Optional<XmlDocumentType> documentType;
+    private Optional<XmlDocumentType> documentType;
 
     // element .........................................................................................................
 
@@ -85,9 +85,9 @@ public final class XmlDocument extends XmlParentNode {
         return this.element;
     }
 
-    Optional<XmlElement> element;
+    private Optional<XmlElement> element;
 
-    <T extends XmlNode> Optional<T> getChildByNodeType(final int nodeType) {
+    private <T extends XmlNode> Optional<T> getChildByNodeType(final int nodeType) {
         return this.children.isEmpty() ? Optional.empty() : this.getChildByNodeType0(nodeType);
     }
 

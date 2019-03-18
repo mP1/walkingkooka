@@ -113,7 +113,7 @@ final class ContentDispositionHeaderParser extends HeaderParserWithParameters<Co
         return this.parameterName(PARAMETER_NAME, ContentDispositionParameterName::with);
     }
 
-    final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
+    private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
     String quotedParameterValue(final ContentDispositionParameterName<?> parameterName) {
@@ -134,5 +134,5 @@ final class ContentDispositionHeaderParser extends HeaderParserWithParameters<Co
         this.disposition = disposition;
     }
 
-    ContentDisposition disposition;
+    private ContentDisposition disposition;
 }

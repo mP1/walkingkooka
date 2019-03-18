@@ -147,13 +147,13 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
 
     // token predicates ................................................................................................
 
-    static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
+    private static final CharPredicate INITIAL_CHAR_PREDICATE = CharPredicates.builder()
             .range('A', 'Z')
             .range('a', 'z')
             .range('0', '9')
             .build()
             .setToString("Charset initial");
-    static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.rfc2045Token();
+    private static final CharPredicate PART_CHAR_PREDICATE = CharPredicates.rfc2045Token();
 
     // factory ..........................................................................................................
 

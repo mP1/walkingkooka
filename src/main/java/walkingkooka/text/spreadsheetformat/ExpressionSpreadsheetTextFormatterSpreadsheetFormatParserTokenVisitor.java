@@ -191,7 +191,7 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
      */
     private ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorFormatter formatter;
 
-    private List<ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorFormatter> formatters = Lists.array();
+    private final List<ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorFormatter> formatters = Lists.array();
 
     private int numberFormatters;
 

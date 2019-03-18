@@ -67,7 +67,7 @@ abstract class HasJsonNodeMapper<T> {
 
     // register.........................................................................................................
 
-    /**
+    /*
      * To avoid race conditions register {@link JsonNode} here, all instance methods create the singleton
      * rather than referencing private static which would be null at this time because their super class
      * this is now running.

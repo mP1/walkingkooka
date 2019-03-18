@@ -87,7 +87,7 @@ final class HeaderScopeHttpRequest implements HttpRequest {
         return this.request.parameterValues(parameterName);
     }
 
-    private HttpRequest request;
+    private final HttpRequest request;
 
     @Override
     public String toString() {

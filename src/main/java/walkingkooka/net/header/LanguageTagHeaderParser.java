@@ -38,25 +38,25 @@ abstract class LanguageTagHeaderParser extends HeaderParserWithParameters<Langua
         return LanguageTag.with(this.token(LANGUAGE_TAG, LanguageTagName::with));
     }
 
-    final static CharPredicate LANGUAGE_TAG = RFC2045TOKEN;
+    private final static CharPredicate LANGUAGE_TAG = RFC2045TOKEN;
 
     @Override final LanguageTagParameterName<?> parameterName() {
         return this.parameterName(PARAMETER_NAME, LanguageTagParameterName::with);
     }
 
-    final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
+    private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override final String quotedParameterValue(final LanguageTagParameterName<?> parameterName) {
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
-    final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
+    private final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override final String unquotedParameterValue(final LanguageTagParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 
-    final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
+    private final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
     @Override final void missingValue() {
         this.failEmptyToken(LANGUAGE);

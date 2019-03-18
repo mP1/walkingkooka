@@ -350,7 +350,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
             this.map = map;
         }
 
-        private Map<Object, Object> map;
+        private final Map<Object, Object> map;
 
         public Map<Object, Object> getMap() {
             return this.map;
@@ -381,7 +381,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     }
 
     static class TestImmutableLeaf {
-        String x;
+        final String x;
 
         TestImmutableLeaf(final String x){
             this.x = x;

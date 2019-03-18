@@ -65,7 +65,7 @@ final public class XmlNotation extends XmlLeafNode implements HasXmlPublicId, Ha
         return this.publicId;
     }
 
-    Optional<XmlPublicId> publicId;
+    private Optional<XmlPublicId> publicId;
 
     // HasSystemId ........................................................................................
 
@@ -77,7 +77,7 @@ final public class XmlNotation extends XmlLeafNode implements HasXmlPublicId, Ha
         return this.systemId;
     }
 
-    Optional<XmlSystemId> systemId;
+    private Optional<XmlSystemId> systemId;
 
     // XmlNode .................................................................................................
 

@@ -48,30 +48,33 @@ public final class Converters implements PublicStaticHelper {
     /**
      * Hours per day.
      */
-    static final long HOURS_PER_DAY = 24;
+    private static final long HOURS_PER_DAY = 24;
 
     /**
      * Mins per day.
      */
-    static final long MINUTES_PER_HOUR = 60;
+    private static final long MINUTES_PER_HOUR = 60;
 
     /**
      * Seconds per day.
      */
-    static final long SECONDS_PER_MINUTE = 60;
+    private static final long SECONDS_PER_MINUTE = 60;
 
     /**
      * Nanos per second.
      */
     static final long NANOS_PER_SECOND =  1000_000_000L;
+
     /**
      * Nanos per minute.
      */
-    static final long NANOS_PER_MINUTE = NANOS_PER_SECOND * SECONDS_PER_MINUTE;
+    private static final long NANOS_PER_MINUTE = NANOS_PER_SECOND * SECONDS_PER_MINUTE;
+
     /**
      * Nanos per hour.
      */
-    static final long NANOS_PER_HOUR = NANOS_PER_MINUTE * MINUTES_PER_HOUR;
+    private static final long NANOS_PER_HOUR = NANOS_PER_MINUTE * MINUTES_PER_HOUR;
+
     /**
      * Nanos per day.
      */

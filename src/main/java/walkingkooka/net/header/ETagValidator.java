@@ -50,7 +50,7 @@ public enum ETagValidator {
     /**
      * Prefix used by {@link ETagNonWildcard#toString()}.
      */
-    String prefix;
+    final String prefix;
 
     /**
      * Factory that creates a {@link ETag} with this validator and the given {@link String value}.

@@ -55,7 +55,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
         return this.children;
     }
 
-    final List<ExpressionNode> children;
+    private final List<ExpressionNode> children;
 
     final ExpressionNode setChildren0(final List<ExpressionNode> children) {
         Objects.requireNonNull(children, "children");
@@ -83,7 +83,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
         return this.replaceChildren(newChildren);
     }
 
-    final ExpressionParentNode replaceChildren(final List<ExpressionNode> children) {
+    private ExpressionParentNode replaceChildren(final List<ExpressionNode> children) {
         this.replaceChildrenCheck(children);
         return this.wrap0(this.index, children)
                 .replaceChild(this.parent())
@@ -165,7 +165,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
     /**
      * Only returns true if the descendants of this node and the given children are equal ignoring the parents.
      */
-    final boolean equalsDescendants1(final List<ExpressionNode> otherChildren) {
+    private boolean equalsDescendants1(final List<ExpressionNode> otherChildren) {
         final List<ExpressionNode> children = this.children();
         final int count = children.size();
         boolean equals = count == otherChildren.size();

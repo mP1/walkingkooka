@@ -27,7 +27,7 @@ public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCa
     public void testToJsonWithType() {
         final JsonStringNode string = JsonNode.string("abc123");
         this.toJsonNodeWithTypeAndCheck(string,
-                this.typeAndValue("json-string", string));;
+                this.typeAndValue("json-string", string));
     }
 
     @Override

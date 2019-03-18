@@ -307,7 +307,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
         return ExpressionXorNode.with(left, right);
     }
 
-    final static Optional<ExpressionNode> NO_PARENT = Optional.empty();
+    private final static Optional<ExpressionNode> NO_PARENT = Optional.empty();
 
     /**
      * Package private ctor to limit sub classing.
@@ -334,7 +334,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
         return copy;
     }
 
-    Optional<ExpressionNode> parent;
+    private Optional<ExpressionNode> parent;
 
 //    abstract ExpressionNode
 

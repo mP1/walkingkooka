@@ -440,11 +440,9 @@ final public class CharSequences implements PublicStaticHelper {
                 startsWith(chars, "\"") &&
                 endsWith(chars, "\"");
 
-        return new StringBuilder()
-                .append('"')
-                .append(escape(quoted ? chars.subSequence(1, length -1) : chars))
-                .append('"')
-                .toString();
+        return "\"" +
+                escape(quoted ? chars.subSequence(1, length - 1) : chars) +
+                '"';
     }
 
     /**

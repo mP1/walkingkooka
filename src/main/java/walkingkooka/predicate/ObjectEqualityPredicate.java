@@ -56,7 +56,7 @@ final class ObjectEqualityPredicate<T> implements Predicate<T>, HashCodeEqualsDe
         return this.value.equals(value);
     }
 
-    final T value;
+    private final T value;
 
     // bject
     @Override

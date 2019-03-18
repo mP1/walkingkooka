@@ -224,7 +224,7 @@ public final class PojoObjectArrayNodeTest extends PojoArrayNodeTestCase<PojoObj
             this.array = array;
         }
 
-        private String[] array;
+        private final String[] array;
 
         public String[] getArray() {
             return this.array;

@@ -57,12 +57,12 @@ public final class PojoObjectNodeChildrenListTest extends PojoNodeListTestCase<P
             this.y = y;
         }
 
-        private String x;
+        private final String x;
 
         public String getX(){
             return this.x;
         }
-        private String y;
+        private final String y;
 
         public String getY() {
             return this.y;

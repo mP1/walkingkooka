@@ -62,7 +62,7 @@ final public class Throwables implements PublicStaticHelper {
         return CharSequences.isNullOrEmpty(result) ? Throwables.NONE : result;
     }
 
-    final static String NONE = "<none>";
+    private final static String NONE = "<none>";
 
     /**
      * Stop creation

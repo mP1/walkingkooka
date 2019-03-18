@@ -172,17 +172,17 @@ public final class HostAddress implements Value<String>,
     /**
      * The number of octets in an ip4 address.
      */
-    final static int IP4_OCTET_COUNT = Ip4Address.OCTET_COUNT;
+    private final static int IP4_OCTET_COUNT = Ip4Address.OCTET_COUNT;
 
     /**
      * The number of groups in an ip6 address.
      */
-    final static int IP6_GROUP_COUNT = 8;
+    private final static int IP6_GROUP_COUNT = 8;
 
     /**
      * The number of characters in an ip6 address block
      */
-    final static int IP6_GROUP_LENGTH = 4;
+    private final static int IP6_GROUP_LENGTH = 4;
 
     /**
      * The size in bytes required to hold an ip6 address
@@ -192,7 +192,7 @@ public final class HostAddress implements Value<String>,
     /**
      * The maximum number of ip6 blocks before an ip4 dot address
      */
-    final static int MAX_BLOCKS_BEFORE_IP4 = 8 - 2;
+    private final static int MAX_BLOCKS_BEFORE_IP4 = 8 - 2;
 
     /**
      * The maximum number of characters in a label.
@@ -202,12 +202,12 @@ public final class HostAddress implements Value<String>,
     /**
      * The maximum value that may be held in an ip4 octet.
      */
-    final static int MAX_OCTET_VALUE = 255;
+    private final static int MAX_OCTET_VALUE = 255;
 
     /**
      * An empty byte array
      */
-    final static byte[] EMPTY = new byte[0];
+    private final static byte[] EMPTY = new byte[0];
 
     /**
      * Tries to parse an {@link String address} returning null if successful or {@link HostAddressProblem}

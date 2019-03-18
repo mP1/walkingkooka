@@ -72,7 +72,7 @@ public final class ReflectionImmutableWritablePojoPropertyTest implements ClassT
     }
 
     static class TestBean{
-        String x;
+        final String x;
 
         TestBean(final String x){
             this.x = x;
