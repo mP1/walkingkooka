@@ -86,7 +86,6 @@ public final class HateosHandlerMapperTest implements ClassTesting2<HateosHandle
         mappers.post = this.mapping("P2");
         mappers.put = this.mapping("P3");
         mappers.delete = this.mapping("D4");
-        ;
 
         this.toStringAndCheck(mappers, "GET=G1 POST=P2 PUT=P3 DELETE=D4");
     }

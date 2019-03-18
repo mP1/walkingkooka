@@ -73,7 +73,7 @@ abstract class XmlParentNode extends XmlNode {
         return copy;
     }
 
-    static void cloneChildren(final org.w3c.dom.Node source, final org.w3c.dom.Node dest) {
+    private static void cloneChildren(final org.w3c.dom.Node source, final org.w3c.dom.Node dest) {
         final NodeList children = source.getChildNodes();
         final int count = children.getLength();
         for (int i = 0; i < count; i++) {

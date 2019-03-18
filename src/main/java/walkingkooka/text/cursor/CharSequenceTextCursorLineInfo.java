@@ -82,8 +82,8 @@ final class CharSequenceTextCursorLineInfo implements TextCursorLineInfo {
     /**
      * Static helper used to create the at column and line number text.
      */
-    static String summary(final int column, final int lineNumber) {
-        return '(' + String.valueOf(column) + ',' + String.valueOf(lineNumber) + ')';
+    private static String summary(final int column, final int lineNumber) {
+        return '(' + String.valueOf(column) + ',' + lineNumber + ')';
     }
 
     // Object
@@ -113,7 +113,7 @@ final class CharSequenceTextCursorLineInfo implements TextCursorLineInfo {
     /**
      * Helper that builds the toString representation for this object.
      */
-    static String toString(final int lineNumber, final CharSequence line) {
+    private static String toString(final int lineNumber, final CharSequence line) {
         return "Line: " + lineNumber + '=' + CharSequences.quoteAndEscape(line);
     }
 }

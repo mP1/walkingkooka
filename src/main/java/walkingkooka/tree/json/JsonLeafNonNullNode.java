@@ -55,7 +55,8 @@ abstract class JsonLeafNonNullNode<V> extends JsonLeafNode<V> {
     /**
      * Not an array of entries therefore cant be a map.
      */
-    final <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
+    final <KK, VV> Map<KK, VV> fromJsonNodeMap0(final Class<KK> keyType,
+                                                final Class<VV> valueType) {
         return this.reportInvalidNodeObject();
     }
 

@@ -37,7 +37,7 @@ final class GeneralSpreadsheetTextFormatter implements SpreadsheetTextFormatter<
     /**
      * The {@link GeneralSpreadsheetTextFormatter} singleton instance.
      */
-    static GeneralSpreadsheetTextFormatter INSTANCE = new GeneralSpreadsheetTextFormatter();
+    static final GeneralSpreadsheetTextFormatter INSTANCE = new GeneralSpreadsheetTextFormatter();
 
     /**
      * Private ctor use factory

@@ -37,9 +37,12 @@ public final class UrlCredentials implements HashCodeEqualsDefined, Serializable
      */
     public final static Optional<UrlCredentials> NO_CREDENTIALS = Optional.empty();
 
-    final static CharacterConstant SEPARATOR = CharacterConstant.with(':');
+    /**
+     * The character that separates user and password components.
+     */
+    public final static CharacterConstant SEPARATOR = CharacterConstant.with(':');
 
-    final static char SUFFIX = '@';
+    private final static char SUFFIX = '@';
 
     /**
      * Factory that creates a {@link UrlCredentials}

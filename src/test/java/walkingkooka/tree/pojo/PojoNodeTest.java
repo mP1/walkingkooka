@@ -75,12 +75,12 @@ public final class PojoNodeTest implements ClassTesting2<PojoNode>,
             this.list = Lists.of(list);
         }
 
-        Object x;
+        final Object x;
         public Object getX(){
             return x;
         }
 
-        List<Object> list;
+        final List<Object> list;
         public Object getList() {
             return this.list;
         }

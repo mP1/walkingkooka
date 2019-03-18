@@ -60,7 +60,7 @@ public enum HttpProtocolVersion implements Value<String> {
     /**
      * Private constructor
      */
-    private HttpProtocolVersion(final String value) {
+    HttpProtocolVersion(final String value) {
         this.value = value;
     }
 
@@ -72,7 +72,7 @@ public enum HttpProtocolVersion implements Value<String> {
         return this.value;
     }
 
-    private String value;
+    private final String value;
 
     @Override
     public String toString() {

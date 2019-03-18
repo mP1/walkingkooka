@@ -223,7 +223,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
             this.array = array;
         }
 
-        private long[] array;
+        private final long[] array;
 
         public long[] getArray() {
             return this.array;

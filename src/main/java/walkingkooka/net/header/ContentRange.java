@@ -62,12 +62,12 @@ public final class ContentRange implements HeaderValue {
      * </pre>
      * without any spaces.
      */
-    public static Optional<Range<Long>> NO_RANGE = Optional.empty();
+    public static final Optional<Range<Long>> NO_RANGE = Optional.empty();
 
     /**
      * Constant to be used when no size is present or known.
      */
-    public static Optional<Long> NO_SIZE = Optional.empty();
+    public static final Optional<Long> NO_SIZE = Optional.empty();
 
     /**
      * Parses a header value into its {@link List} of {@link ContentRange} equivalent.

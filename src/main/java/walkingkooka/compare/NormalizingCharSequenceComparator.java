@@ -56,7 +56,7 @@ final class NormalizingCharSequenceComparator<S extends CharSequence>
 
     @Override
     public int compare(final S chars1, final S chars2) {
-        int value = Comparators.EQUAL;
+        int value;
 
         final CharPredicate predicate = this.predicate;
 

@@ -292,10 +292,10 @@ public enum HttpStatusCode {
         return this.category;
     }
 
-    private HttpStatusCodeCategory category;
+    private final HttpStatusCodeCategory category;
 
     /**
      * The default message for this code.
      */
-    String message;
+    final String message;
 }

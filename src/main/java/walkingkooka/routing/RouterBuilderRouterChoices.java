@@ -28,8 +28,6 @@ import java.util.function.Predicate;
 
 /**
  * A container for a fork, where several routes have some common parameters but diverge with different values.
- *
- * @param <K, T>
  */
 final class RouterBuilderRouterChoices<K, T> extends RouterBuilderRouter<K, T> {
 

@@ -306,7 +306,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
             this.set = set;
         }
 
-        private Set<?> set;
+        private final Set<?> set;
 
         public Set<?> getSet() {
             return this.set;

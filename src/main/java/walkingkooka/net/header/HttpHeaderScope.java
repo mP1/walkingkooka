@@ -97,11 +97,11 @@ public enum HttpHeaderScope {
 
     abstract boolean isNotAcceptable(final HasHeaderScope other);
 
-    final <T> void failInvalidHeader(final HttpHeaderName<T> name, final T value) {
+    private <T> void failInvalidHeader(final HttpHeaderName<T> name, final T value) {
         throw new NotAcceptableHeaderException(invalidHeader(name, value));
     }
 
-    static <T> String invalidHeader(final HttpHeaderName<T> name, final T value) {
+    private static <T> String invalidHeader(final HttpHeaderName<T> name, final T value) {
         return "Invalid header " + name + "=" + name.headerText(value);
     }
 }

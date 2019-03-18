@@ -33,7 +33,7 @@ final public class NodeSelectorAttributeName extends NodeSelectorNameValue imple
 
     final static CharPredicate PART = INITIAL.or(CharPredicates.range('0', '9').or(CharPredicates.is('_')));
 
-    final static int MAX_LENGTH = 255;
+    private final static int MAX_LENGTH = 255;
 
     /**
      * Factory that creates a {@link NodeSelectorAttributeName}

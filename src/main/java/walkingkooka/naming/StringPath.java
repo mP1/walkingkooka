@@ -111,7 +111,7 @@ final public class StringPath
         return this.parent;
     }
 
-    final StringName name;
+    private final StringName name;
 
     @Override
     public StringName name() {

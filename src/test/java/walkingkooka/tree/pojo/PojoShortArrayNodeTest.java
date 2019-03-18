@@ -222,7 +222,7 @@ public final class PojoShortArrayNodeTest extends PojoArrayNodeTestCase<PojoShor
             this.array = array;
         }
 
-        private short[] array;
+        private final short[] array;
 
         public short[] getArray() {
             return this.array;

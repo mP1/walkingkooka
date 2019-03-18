@@ -67,7 +67,7 @@ public class InvalidCharacterException extends IllegalArgumentException {
         return this.position;
     }
 
-    private int position;
+    private final int position;
 
     @Override
     public String getMessage() {

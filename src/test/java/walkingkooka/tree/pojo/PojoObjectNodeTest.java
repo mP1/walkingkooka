@@ -247,7 +247,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
     }
 
     static class TestImmutableLeaf {
-        String x;
+        final String x;
 
         TestImmutableLeaf(final String x){
             this.x = x;
@@ -288,7 +288,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
             this.z = z;
         }
 
-        TestImmutableLeaf y;
+        final TestImmutableLeaf y;
 
         public TestImmutableLeaf getY(){
             return this.y;
@@ -298,7 +298,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
             return Objects.equals(this.y, y) ? this: new TestImmutableBranch(y, this.z);
         }
 
-        TestImmutableBranch z;
+        final TestImmutableBranch z;
 
         public TestImmutableBranch getZ(){
             return this.z;

@@ -107,7 +107,7 @@ public final class CustomToStringParserTest extends ParserTestCase<CustomToStrin
     public void testOr() {
         final CustomToStringParser<ParserToken, ParserContext> parser1 = this.createParser().cast();
         final CustomToStringParser<ParserToken, ParserContext> parser2 = this.createParser().cast();
-        assertEquals(Parsers.alternatives(Lists.<Parser<ParserToken, ParserContext>>of(parser1, parser2)), parser1.or(parser2));
+        assertEquals(Parsers.alternatives(Lists.of(parser1, parser2)), parser1.or(parser2));
     }
 
     @Test

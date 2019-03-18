@@ -1513,7 +1513,7 @@ final public class ToStringBuilder implements Builder<String> {
 
     int valueLength;
 
-    int maxValueLength;
+    private int maxValueLength;
 
     /**
      * Sets the maximum length of the {@link String} that will be returned. Once this limit is
@@ -1534,9 +1534,9 @@ final public class ToStringBuilder implements Builder<String> {
 
     int globalLength;
 
-    int maxGlobalLength;
+    private int maxGlobalLength;
 
-    int callerBufferLengthSnapshot;
+    private int callerBufferLengthSnapshot;
 
     /**
      * A counter that records the number of recursive calls, involving of value adding another
@@ -1616,7 +1616,7 @@ final public class ToStringBuilder implements Builder<String> {
     /**
      * A counter that is incremented each time a value is added.
      */
-    int valuesAdded;
+    private int valuesAdded;
 
     // options
 

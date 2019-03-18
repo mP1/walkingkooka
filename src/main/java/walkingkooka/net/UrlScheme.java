@@ -41,12 +41,12 @@ public final class UrlScheme extends NetName
     /**
      * A read only cache of already prepared {@link UrlScheme schemes}.
      */
-    final static Map<String, UrlScheme> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+    private final static Map<String, UrlScheme> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
      * Creates and adds a new {@link UrlScheme} to the cache being built.
      */
-    static UrlScheme registerConstant(final String scheme) {
+    private static UrlScheme registerConstant(final String scheme) {
         final UrlScheme urlScheme = new UrlScheme(scheme);
         UrlScheme.CONSTANTS.put(scheme, urlScheme);
         return urlScheme;

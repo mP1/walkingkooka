@@ -97,7 +97,7 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
                 this.replace(value);
     }
 
-    static void checkValue(final LanguageTagName value) {
+    private static void checkValue(final LanguageTagName value) {
         Objects.requireNonNull(value, "value");
     }
 

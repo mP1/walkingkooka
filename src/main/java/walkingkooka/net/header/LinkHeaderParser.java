@@ -102,14 +102,14 @@ final class LinkHeaderParser extends HeaderParserWithParameters<Link,
         this.failMissingValue(LINK);
     }
 
-    static String LINK = "Link value";
+    private static final String LINK = "Link value";
 
     @Override
     LinkParameterName<?> parameterName() {
         return this.parameterName(PARAMETER_NAME, LinkParameterName::with);
     }
 
-    final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
+    private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
     String quotedParameterValue(final LinkParameterName<?> parameterName) {
@@ -170,5 +170,5 @@ final class LinkHeaderParser extends HeaderParserWithParameters<Link,
         this.links.add(link);
     }
 
-    private List<Link> links = Lists.array();
+    private final List<Link> links = Lists.array();
 }

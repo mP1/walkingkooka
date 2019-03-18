@@ -36,7 +36,7 @@ import java.util.function.Function;
  */
 public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> {
 
-    final static String NONE = "-";
+    private final static String NONE = "-";
 
     /**
      * Accepts and parses a {@link String} holding a pointer.

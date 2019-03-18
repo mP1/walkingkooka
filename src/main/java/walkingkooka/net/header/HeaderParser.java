@@ -47,13 +47,13 @@ abstract class HeaderParser {
         this.position = 0;
     }
 
-    final static char BACKSLASH = '\\';
-    final static char DOUBLE_QUOTE = '"';
-    final static char TOKEN_SEPARATOR = ';';
-    final static char MULTIVALUE_SEPARATOR = ',';
-    final static char KEYVALUE_SEPARATOR = '=';
+    private final static char BACKSLASH = '\\';
+    private final static char DOUBLE_QUOTE = '"';
+    private final static char TOKEN_SEPARATOR = ';';
+    private final static char MULTIVALUE_SEPARATOR = ',';
+    private final static char KEYVALUE_SEPARATOR = '=';
     final static char WILDCARD = '*';
-    final static char SLASH = '/';
+    private final static char SLASH = '/';
 
     final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
     final static CharPredicate RFC2045SPECIAL = CharPredicates.rfc2045TokenSpecial();
@@ -129,8 +129,8 @@ abstract class HeaderParser {
     /**
      * Uses the predicate to match characters, and then passes that text providing its not empty to the factory.
      */
-    final <T> Optional<T> tokenOptional(final CharPredicate predicate,
-                                        final Function<String, T> factory) {
+    private  <T> Optional<T> tokenOptional(final CharPredicate predicate,
+                                           final Function<String, T> factory) {
         final int start = this.position;
         final String tokenText = this.token(predicate);
 

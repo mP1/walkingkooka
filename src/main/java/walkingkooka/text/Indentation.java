@@ -30,15 +30,17 @@ import java.util.Objects;
  * A {@link Value} and {@link CharSequence} that holds the indentation that may be added to an
  * {@link IndentingPrinter}
  */
-final public class Indentation
-        implements Value<String>, HashCodeEqualsDefined, Serializable, CharSequence {
+final public class Indentation implements Value<String>,
+        HashCodeEqualsDefined,
+        Serializable,
+        CharSequence {
 
     /**
      * The max length of the last constant.
      */
     final static int COUNT = 30;
 
-    final static char INDENTATION_CONSTANT_CHAR = ' ';
+    private final static char INDENTATION_CONSTANT_CHAR = ' ';
 
     static {
         final Indentation[] indentations = new Indentation[Indentation.COUNT];

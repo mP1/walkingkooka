@@ -103,7 +103,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> implements ClassTe
     abstract V differentValue();
 
     private void checkValue(final PojoNode node, final V value) {
-        checkValue((V)value, Cast.to(node.value()));
+        checkValue(value, Cast.to(node.value()));
     }
 
     abstract void checkValue(V expected, V actual);

@@ -223,7 +223,7 @@ public final class PojoFloatArrayNodeTest extends PojoArrayNodeTestCase<PojoFloa
             this.array = array;
         }
 
-        private float[] array;
+        private final float[] array;
 
         public float[] getArray() {
             return this.array;

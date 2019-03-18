@@ -42,7 +42,7 @@ public enum CookieVersion {
     /**
      * Private constructor which stores the value.
      */
-    private CookieVersion(final int value) {
+    CookieVersion(final int value) {
         this.value = value;
     }
 

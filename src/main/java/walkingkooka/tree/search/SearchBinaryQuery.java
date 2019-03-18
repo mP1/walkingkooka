@@ -79,7 +79,7 @@ abstract class SearchBinaryQuery extends SearchParentQuery{
         this.left.visit(node, this.context(context));
     }
 
-    final SearchQuery left;
+    private final SearchQuery left;
 
     /**
      * Factory that creates the binary query custom {@link SearchQueryContext}.

@@ -102,7 +102,7 @@ public class LongParserTest extends Parser2TestCase<LongParser<ParserContext>, L
 
     @Test
     public void testOctal() {
-        this.parseAndCheck3(8, "012345678xyz", 01234567, "01234567", "8xyz");
+        this.parseAndCheck3(8, "012345678xyz", 342391, "01234567", "8xyz");
     }
 
     @Test

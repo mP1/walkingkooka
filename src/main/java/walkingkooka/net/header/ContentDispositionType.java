@@ -69,7 +69,7 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
     /**
      * A read only cache of already prepared {@link ContentDispositionType names}. These constants are incomplete.
      */
-    final static Map<String, ContentDispositionType> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+    private final static Map<String, ContentDispositionType> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
      * Creates and adds a new {@link ContentDispositionType} to the cache being built.

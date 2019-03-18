@@ -84,7 +84,7 @@ final class AcceptCharsetHeaderParser extends HeaderParserWithParameters<Charset
         return this.parameterName(PARAMETER_NAME, CharsetHeaderValueParameterName::with);
     }
 
-    final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
+    private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
     String quotedParameterValue(final CharsetHeaderValueParameterName<?> parameterName) {
@@ -113,5 +113,5 @@ final class AcceptCharsetHeaderParser extends HeaderParserWithParameters<Charset
     /**
      * Aggregates all charsets.
      */
-    final List<CharsetHeaderValue> charsets = Lists.array();
+    private final List<CharsetHeaderValue> charsets = Lists.array();
 }

@@ -233,7 +233,7 @@ public final class PojoCharArrayNodeTest extends PojoArrayNodeTestCase<PojoCharA
             this.array = array;
         }
 
-        private char[] array;
+        private final char[] array;
 
         public char[] getArray() {
             return this.array;

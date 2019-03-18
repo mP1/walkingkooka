@@ -74,7 +74,7 @@ final class NodeTextCursorTestNode extends FakeNode<NodeTextCursorTestNode, Stri
         return this.children;
     }
 
-    private List<NodeTextCursorTestNode> children;
+    private final List<NodeTextCursorTestNode> children;
 
     @Override
     public String text() {

@@ -107,5 +107,5 @@ enum BigDecimalSpreadsheetTextFormatterFormat {
             final BigDecimalSpreadsheetTextFormatter formatter,
             final SpreadsheetTextFormatContext context);
 
-    final static BigDecimalSpreadsheetTextFormatterDigits NO_EXPONENT = BigDecimalSpreadsheetTextFormatterDigits.exponent(BigDecimalSpreadsheetTextFormatterMinusSign.NOT_REQUIRED, "");
+    private final static BigDecimalSpreadsheetTextFormatterDigits NO_EXPONENT = BigDecimalSpreadsheetTextFormatterDigits.exponent(BigDecimalSpreadsheetTextFormatterMinusSign.NOT_REQUIRED, "");
 }

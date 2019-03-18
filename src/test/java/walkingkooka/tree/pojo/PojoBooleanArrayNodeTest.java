@@ -222,7 +222,7 @@ public final class PojoBooleanArrayNodeTest extends PojoArrayNodeTestCase<PojoBo
             this.array = array;
         }
 
-        private boolean[] array;
+        private final boolean[] array;
 
         public boolean[] getArray() {
             return this.array;

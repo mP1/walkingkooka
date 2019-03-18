@@ -284,7 +284,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     abstract SearchNode replace0(final int beginOffset, final int endOffset, final SearchNode replace, final String text);
 
     /**
-     * Extracts the {@SearchNode} that matches the begin and end offset.
+     * Extracts the {@link SearchNode} that matches the begin and end offset.
      */
     final SearchNode extract(final int beginOffset, final int endOffset) {
         final String text = this.checkBeginOffsetEndOffset(beginOffset, endOffset);

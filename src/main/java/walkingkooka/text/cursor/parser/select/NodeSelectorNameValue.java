@@ -39,7 +39,7 @@ abstract class NodeSelectorNameValue implements Name {
         return this.name;
     }
 
-    final String name;
+    private final String name;
 
     // Object
 

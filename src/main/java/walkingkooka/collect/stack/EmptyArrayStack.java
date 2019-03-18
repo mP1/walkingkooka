@@ -41,7 +41,7 @@ final class EmptyArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Seria
     }
 
     @SuppressWarnings("rawtypes")
-    final static EmptyArrayStack INSTANCE = new EmptyArrayStack();
+    private final static EmptyArrayStack<?> INSTANCE = new EmptyArrayStack<>();
 
     private EmptyArrayStack() {
         super();

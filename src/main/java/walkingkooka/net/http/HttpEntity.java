@@ -169,7 +169,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
         Objects.requireNonNull(header, "header");
     }
 
-    private Map<HttpHeaderName<?>, Object> headers;
+    private final Map<HttpHeaderName<?>, Object> headers;
 
     private static Map<HttpHeaderName<?>, Object> checkHeaders(final Map<HttpHeaderName<?>, Object> headers) {
         Objects.requireNonNull(headers, "headers");

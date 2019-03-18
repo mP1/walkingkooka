@@ -49,5 +49,5 @@ final class ETagListHeaderParser extends ETagHeaderParser {
         this.etags.add(etag);
     }
 
-    private List<ETag> etags = Lists.array();
+    private final List<ETag> etags = Lists.array();
 }

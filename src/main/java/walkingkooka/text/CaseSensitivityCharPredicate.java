@@ -48,9 +48,9 @@ final class CaseSensitivityCharPredicate
         return this.sensitivity.isEqual(this.c, c);
     }
 
-    final char c;
+    private final char c;
 
-    final CaseSensitivity sensitivity;
+    private final CaseSensitivity sensitivity;
 
     // Object
 

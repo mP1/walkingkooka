@@ -41,7 +41,7 @@ final class LowerCasingCharPredicate implements CharPredicate, HashCodeEqualsDef
                 LowerCasingCharPredicate.wrapUnconditionally(predicate);
     }
 
-    static CharPredicate wrapUnconditionally(final CharPredicate predicate) {
+    private static CharPredicate wrapUnconditionally(final CharPredicate predicate) {
         return new LowerCasingCharPredicate(predicate);
     }
 

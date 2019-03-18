@@ -49,7 +49,7 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
      */
     public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
-    final static Optional<PojoNode> NO_PARENT = Optional.empty();
+    private final static Optional<PojoNode> NO_PARENT = Optional.empty();
 
     /**
      * Factory that creates a pojo that will act as the root.
@@ -183,7 +183,7 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
         return this;
     }
 
-    Optional<PojoNode> parent;
+    private Optional<PojoNode> parent;
 
     // children ..........................................................................................................
 

@@ -26,7 +26,7 @@ final class BigDecimalSpreadsheetTextFormatterDecimalPointSymbolComponent extend
     /**
      * Singleton
      */
-    static BigDecimalSpreadsheetTextFormatterDecimalPointSymbolComponent INSTANCE = new BigDecimalSpreadsheetTextFormatterDecimalPointSymbolComponent();
+    static final BigDecimalSpreadsheetTextFormatterDecimalPointSymbolComponent INSTANCE = new BigDecimalSpreadsheetTextFormatterDecimalPointSymbolComponent();
 
     /**
      * Private ctor use singleton

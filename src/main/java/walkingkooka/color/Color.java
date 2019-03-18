@@ -89,7 +89,7 @@ abstract public class Color implements HashCodeEqualsDefined,
      * Only parses #RGB and #RRGGBB text, other forms will result in a {@link IllegalArgumentException}.
      */
     private static Color parseHash(final String text) {
-        int value = 0;
+        int value;
 
         final int textLength = text.length();
         switch (textLength) {
@@ -131,7 +131,7 @@ abstract public class Color implements HashCodeEqualsDefined,
                 rgb & Color.WITHOUT_ALPHA);
     }
 
-    final static int WITHOUT_ALPHA = 0x00FFFFFF;
+    private final static int WITHOUT_ALPHA = 0x00FFFFFF;
 
     /**
      * Creates a {@link Color} from the given ARGB value.

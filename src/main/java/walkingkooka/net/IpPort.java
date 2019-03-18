@@ -50,12 +50,12 @@ public final class IpPort implements Comparable<IpPort>, HashCodeEqualsDefined, 
     /**
      * A read only cache of already prepared {@link IpPort ports}.
      */
-    final static Map<Integer, IpPort> CONSTANTS = Maps.sorted();
+    private final static Map<Integer, IpPort> CONSTANTS = Maps.sorted();
 
     /**
      * Creates and adds a new {@link IpPort} to the cache being built.
      */
-    static IpPort registerConstant(final int port) {
+    private static IpPort registerConstant(final int port) {
         final IpPort ipPort = new IpPort(port);
         IpPort.CONSTANTS.put(port, ipPort);
         return ipPort;

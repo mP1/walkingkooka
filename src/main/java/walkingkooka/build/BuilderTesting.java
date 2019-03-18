@@ -28,7 +28,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -73,7 +72,6 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ToStringTesting
     }
 
     default void buildFails(final String message) {
-        assertNotNull("expectedMessage", message);
         this.buildFails(this.createBuilder(), message);
     }
 

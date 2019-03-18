@@ -97,7 +97,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
     /**
      * Static so tests can clear the cache by manipulating the map when they wish.
      */
-    static Map<Path, Map<FilesystemNodeCacheAtom, String>> fileNodeToCache = Maps.ordered();
+    static final Map<Path, Map<FilesystemNodeCacheAtom, String>> fileNodeToCache = Maps.ordered();
 
     // Tests ...........................................................................................................
 
@@ -326,7 +326,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
     public FilesystemNode createNode() {
         return FilesystemNode.directory(home, new FilesystemNodeContext() {
 
-            private Map<Path, FilesystemNode> pathToFileNode = Maps.ordered();
+            private final Map<Path, FilesystemNode> pathToFileNode = Maps.ordered();
 
             @Override
             public Path rootPath() {
