@@ -29,13 +29,18 @@ import java.util.List;
 /**
  * Represents a mapping between a request and a {@link HateosCollectionHandler}.
  */
-final class HateosHandlerMapperHateosCollectionHandlerMapping<I extends Comparable<I>, R extends HateosResource<?>> extends HateosHandlerMapperMapping<I,R>{
+final class HateosHandlerMapperHateosCollectionHandlerMapping<I extends Comparable<I>,
+        R extends HateosResource<?>,
+        S extends HateosResource<?>> extends HateosHandlerMapperMapping<I,R,S>{
 
-    static <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerMapperHateosCollectionHandlerMapping<I, R> with(final HateosCollectionHandler<I, R> handler) {
+    static <I extends Comparable<I>,
+            R extends HateosResource<?>,
+            S extends HateosResource<?>>
+    HateosHandlerMapperHateosCollectionHandlerMapping<I, R, S> with(final HateosCollectionHandler<I, R, S> handler) {
         return new HateosHandlerMapperHateosCollectionHandlerMapping<>(handler);
     }
 
-    private HateosHandlerMapperHateosCollectionHandlerMapping(final HateosCollectionHandler<I, R> handler) {
+    private HateosHandlerMapperHateosCollectionHandlerMapping(final HateosCollectionHandler<I, R, S> handler) {
         super();
         this.handler = handler;
     }
@@ -59,7 +64,7 @@ final class HateosHandlerMapperHateosCollectionHandlerMapping<I extends Comparab
         if (null != requestResource) {
             final HttpRequest httpRequest = request.request;
             final HttpMethod method = httpRequest.method();
-            final List<R> responseResource = this.handler.handle(id,
+            final List<S> responseResource = this.handler.handle(id,
                     requestResource,
                     request.parameters);
 
@@ -91,5 +96,5 @@ final class HateosHandlerMapperHateosCollectionHandlerMapping<I extends Comparab
         return this.handler.toString();
     }
 
-    private final HateosCollectionHandler<I, R> handler;
+    private final HateosCollectionHandler<I, R, S> handler;
 }

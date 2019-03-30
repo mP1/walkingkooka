@@ -30,7 +30,9 @@ import java.util.Optional;
  * Handles both single resources and collection requests producing their response.<br>
  * This assumes each ID maps to a single {@link HateosResource}.
  */
-public interface HateosMappingHandler<I extends Comparable<I>, R extends HateosResource<?>> {
+public interface HateosMappingHandler<I extends Comparable<I>,
+        R extends HateosResource<?>,
+        S extends HateosResource<?>> {
 
     /**
      * An empty {@link Map} with no parameters.
@@ -47,7 +49,7 @@ public interface HateosMappingHandler<I extends Comparable<I>, R extends HateosR
     /**
      * Handles a request which involves a collection of resources.
      */
-    List<R> handleCollection(final Range<I> ids,
+    List<S> handleCollection(final Range<I> ids,
                              final List<R> resources,
                              final Map<HttpRequestAttribute<?>, Object> parameters);
 }

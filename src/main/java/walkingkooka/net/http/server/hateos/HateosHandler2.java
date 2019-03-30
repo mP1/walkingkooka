@@ -33,7 +33,7 @@ abstract class HateosHandler2<N extends Node<N, ?, ?, ?>> {
      */
     HateosHandler2(final AbsoluteUrl base,
                    final HateosContentType<N> contentType,
-                   final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?>> mappers) {
+                   final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?, ?>> mappers) {
         super();
         this.base = base;
         this.contentType = contentType;
@@ -54,7 +54,7 @@ abstract class HateosHandler2<N extends Node<N, ?, ?, ?>> {
     /**
      * A map of resource and relations to mappers.
      */
-    final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?>> mappers;
+    final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?, ?>> mappers;
 
     // Object .........................................................................................................
 

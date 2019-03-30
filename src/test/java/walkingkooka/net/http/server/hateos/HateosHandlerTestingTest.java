@@ -32,8 +32,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class HateosHandlerTestingTest implements HateosHandlerTesting<HateosHandler<BigInteger, TestHateosResource>,
-        BigInteger, TestHateosResource> {
+public final class HateosHandlerTestingTest implements HateosHandlerTesting<HateosHandler<BigInteger, TestHateosResource, TestHateosResource2>,
+        BigInteger, TestHateosResource, TestHateosResource2> {
 
     @Override
     public void testTestNaming() {
@@ -46,13 +46,13 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Hate
         final Optional<TestHateosResource> resource = this.resource();
         final Map<HttpRequestAttribute<?>, Object> parameters = this.parameters();
 
-        final TestHateosResource resource2 = TestHateosResource.with(BigInteger.valueOf(222));
+        final TestHateosResource2 resource2 = TestHateosResource2.with(BigInteger.valueOf(222));
 
-        this.handleAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource>() {
+        this.handleAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                                 @Override
-                                public Optional<TestHateosResource> handle(final BigInteger i,
-                                                                           final Optional<TestHateosResource> r,
-                                                                           final Map<HttpRequestAttribute<?>, Object> p) {
+                                public Optional<TestHateosResource2> handle(final BigInteger i,
+                                                                            final Optional<TestHateosResource> r,
+                                                                            final Map<HttpRequestAttribute<?>, Object> p) {
                                     assertSame(id, i);
                                     assertSame(resource, r);
                                     assertSame(parameters, p);
@@ -72,13 +72,13 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Hate
         final List<TestHateosResource> resources = this.resourceCollection();
         final Map<HttpRequestAttribute<?>, Object> parameters = this.parameters();
 
-        final List<TestHateosResource> resources2 = Lists.of(TestHateosResource.with(BigInteger.valueOf(222)));
+        final List<TestHateosResource2> resources2 = Lists.of(TestHateosResource2.with(BigInteger.valueOf(222)));
 
-        this.handleCollectionAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource>() {
+        this.handleCollectionAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                                           @Override
-                                          public List<TestHateosResource> handleCollection(final Range<BigInteger> i,
-                                                                                           final List<TestHateosResource> r,
-                                                                                           final Map<HttpRequestAttribute<?>, Object> p) {
+                                          public List<TestHateosResource2> handleCollection(final Range<BigInteger> i,
+                                                                                            final List<TestHateosResource> r,
+                                                                                            final Map<HttpRequestAttribute<?>, Object> p) {
                                               assertSame(ids, i);
                                               assertSame(resources, r);
                                               assertSame(parameters, p);
@@ -93,7 +93,7 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Hate
     }
 
     @Override
-    public HateosHandler<BigInteger, TestHateosResource> createHandler() {
+    public HateosHandler<BigInteger, TestHateosResource, TestHateosResource2> createHandler() {
         return new FakeHateosHandler<>();
     }
 
@@ -128,7 +128,7 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Hate
     }
 
     @Override
-    public Class<HateosHandler<BigInteger, TestHateosResource>> type() {
+    public Class<HateosHandler<BigInteger, TestHateosResource, TestHateosResource2>> type() {
         return Cast.to(HateosHandler.class);
     }
 }

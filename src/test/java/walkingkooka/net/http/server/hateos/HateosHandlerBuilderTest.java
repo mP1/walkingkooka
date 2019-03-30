@@ -136,8 +136,8 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
                 "http://example.com/api JSON {resource1 item=PUT=put345, resource1 self=GET=get123 POST=post123, resource2 item=DELETE=delete456, resource2 self=POST=post234}");
     }
 
-    private HateosHandler<BigInteger, TestHateosResource> handler(final String toString) {
-        return new FakeHateosHandler<BigInteger, TestHateosResource>() {
+    private HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> handler(final String toString) {
+        return new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
             public String toString() {
                 return toString;
             }
@@ -174,8 +174,10 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
         return HateosContentType.json();
     }
 
-    private HateosHandlerMapper<BigInteger, TestHateosResource> mapper() {
-        return HateosHandlerMapper.with(BigInteger::new, TestHateosResource.class);
+    private HateosHandlerMapper<BigInteger, TestHateosResource, TestHateosResource3> mapper() {
+        return HateosHandlerMapper.with(BigInteger::new,
+                TestHateosResource.class,
+                TestHateosResource3.class);
     }
 
     @Override

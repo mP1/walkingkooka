@@ -72,15 +72,17 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
     /**
      * Adds a mapper for the given hateos resource and relation combination.
      */
-    public <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerBuilder<N> add(final HateosResourceName name,
+    public <I extends Comparable<I>,
+            R extends HateosResource<?>,
+            S extends HateosResource<?>> HateosHandlerBuilder<N> add(final HateosResourceName name,
                                                                                               final LinkRelation<?> relation,
-                                                                                              final HateosHandlerMapper<I, R> mapper) {
+                                                                                              final HateosHandlerMapper<I, R, S> mapper) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(relation, "relation");
         Objects.requireNonNull(mapper, "mapper");
 
         final HateosHandlerRouterKey key = HateosHandlerRouterKey.with(name, relation);
-        final HateosHandlerMapper<I, R> value = mapper.copy();
+        final HateosHandlerMapper<I, R, S> value = mapper.copy();
 
         if(this.mappers.containsKey(key)) {
             throw new IllegalArgumentException("Mapping " + key + " already used");
@@ -97,7 +99,7 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      */
     @Override
     public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> build() throws BuilderException {
-        final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?>> copy = Maps.sorted();
+        final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?, ?>> copy = Maps.sorted();
         copy.putAll(this.mappers);
 
         return HateosHandlerRouter.with(this.base,

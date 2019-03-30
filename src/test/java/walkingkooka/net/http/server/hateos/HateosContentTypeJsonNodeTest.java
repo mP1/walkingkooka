@@ -62,7 +62,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
 
     @Test
     public void testToTextDashEscaped() {
-        this.toTextAndCheck(TestHateosResource2.with("abc-def"),
+        this.toTextAndCheck(TestHateosResource3.with("abc-def"),
                 Lists.of(LinkRelation.SELF),
                 "{\n" +
                         "  \"id\": \"abc-def\",\n" +
@@ -77,7 +77,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
 
     @Test
     public void testToTextBackslashEscaped() {
-        this.toTextAndCheck(TestHateosResource2.with("abc\\def"),
+        this.toTextAndCheck(TestHateosResource3.with("abc\\def"),
                 Lists.of(LinkRelation.SELF),
                 "{\n" +
                         "  \"id\": \"abc\\\\def\",\n" +
@@ -92,7 +92,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
 
     @Test
     public void testToTextEscaped() {
-        this.toTextAndCheck(TestHateosResource2.with("abc-def\\ghi"),
+        this.toTextAndCheck(TestHateosResource3.with("abc-def\\ghi"),
                 Lists.of(LinkRelation.SELF),
                 "{\n" +
                         "  \"id\": \"abc-def\\\\ghi\",\n" +
@@ -107,7 +107,7 @@ public final class HateosContentTypeJsonNodeTest extends HateosContentTypeTestCa
 
     @Test
     public void testToTextLinksSkippedForNonObject() {
-        this.toTextAndCheck(TestHateosResource3.with("abc123"),
+        this.toTextAndCheck(TestHateosResource4.with("abc123"),
                 Lists.of(LinkRelation.SELF),
                 "\"abc123\"");
     }

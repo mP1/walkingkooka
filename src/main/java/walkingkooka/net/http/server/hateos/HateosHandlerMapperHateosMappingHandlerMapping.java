@@ -31,13 +31,18 @@ import java.util.Optional;
 /**
  * Represents a mapping between a request and a {@link HateosHandler}.
  */
-final class HateosHandlerMapperHateosMappingHandlerMapping<I extends Comparable<I>, R extends HateosResource<?>> extends HateosHandlerMapperMapping<I,R>{
+final class HateosHandlerMapperHateosMappingHandlerMapping<I extends Comparable<I>,
+        R extends HateosResource<?>,
+        S extends HateosResource<?>> extends HateosHandlerMapperMapping<I,R,S>{
 
-    static <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerMapperHateosMappingHandlerMapping<I, R> with(final HateosMappingHandler<I, R> handler) {
+    static <I extends Comparable<I>,
+            R extends HateosResource<?>,
+            S extends HateosResource<?>>
+    HateosHandlerMapperHateosMappingHandlerMapping<I, R, S> with(final HateosMappingHandler<I, R, S> handler) {
         return new HateosHandlerMapperHateosMappingHandlerMapping<>(handler);
     }
 
-    private HateosHandlerMapperHateosMappingHandlerMapping(final HateosMappingHandler<I, R> handler) {
+    private HateosHandlerMapperHateosMappingHandlerMapping(final HateosMappingHandler<I, R, S> handler) {
         super();
         this.handler = handler;
     }
@@ -89,7 +94,7 @@ final class HateosHandlerMapperHateosMappingHandlerMapping<I extends Comparable<
             final HttpRequest httpRequest = request.request;
             final HttpMethod method = httpRequest.method();
             String responseText = null;
-            final List<R> responseResources = this.handler.handleCollection(ids,
+            final List<S> responseResources = this.handler.handleCollection(ids,
                     requestResources,
                     request.parameters);
             if (!responseResources.isEmpty()) {
@@ -114,5 +119,5 @@ final class HateosHandlerMapperHateosMappingHandlerMapping<I extends Comparable<
         return this.handler.toString();
     }
 
-    private final HateosMappingHandler<I, R> handler;
+    private final HateosMappingHandler<I, R, S> handler;
 }

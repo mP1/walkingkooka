@@ -27,28 +27,29 @@ import walkingkooka.tree.xml.XmlName;
 import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.math.BigInteger;
 
-public final class TestHateosResource2 extends FakeHateosResource<String> {
+public final class TestHateosResource2 extends FakeHateosResource<BigInteger> {
 
     static TestHateosResource2 fromJsonNode(final JsonNode node) {
-        return with(node.objectOrFail().getOrFail(ID).fromJsonNode(String.class));
+        return with(node.objectOrFail().getOrFail(ID).fromJsonNode(BigInteger.class));
     }
 
-    static TestHateosResource2 with(final String id) {
+    static TestHateosResource2 with(final BigInteger id) {
         return new TestHateosResource2(id);
     }
 
-    private TestHateosResource2(final String id) {
+    private TestHateosResource2(final BigInteger id) {
         super();
         this.id = id;
     }
 
     @Override
-    public String id() {
+    public BigInteger id() {
         return this.id;
     }
 
-    private final String id;
+    private final BigInteger id;
 
     @Override
     public JsonNode toJsonNode() {

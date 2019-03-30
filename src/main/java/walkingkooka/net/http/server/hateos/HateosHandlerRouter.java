@@ -18,7 +18,6 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.HasId;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
@@ -50,9 +49,9 @@ final class HateosHandlerRouter<N extends Node<N, ?, ?, ?>>
     /**
      * Factory called by {@link HateosHandlerBuilder#build()}
      */
-    static <N extends Node<N, ?, ?, ?>, H extends HasId<Comparable<?>>> HateosHandlerRouter<N> with(final AbsoluteUrl base,
-                                                                                                    final HateosContentType<N> contentType,
-                                                                                                    final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?>> handlers) {
+    static <N extends Node<N, ?, ?, ?>> HateosHandlerRouter<N> with(final AbsoluteUrl base,
+                                                                    final HateosContentType<N> contentType,
+                                                                    final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?, ?>> handlers) {
         return new HateosHandlerRouter<N>(base,
                 contentType,
                 handlers);
@@ -63,7 +62,7 @@ final class HateosHandlerRouter<N extends Node<N, ?, ?, ?>>
      */
     private HateosHandlerRouter(final AbsoluteUrl base,
                                 final HateosContentType<N> contentType,
-                                final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?>> handlers) {
+                                final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?, ?>> handlers) {
         super(base, contentType, handlers);
 
         final Set<HateosHandlerRouterKey> nameAndLinkRelations = handlers.keySet();

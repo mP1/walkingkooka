@@ -23,28 +23,37 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.tree.Node;
 
 /**
- * Holds all the mappers for a router mapping.
+ * Holds all the mappers for a handler mapping.
  */
-abstract class HateosHandlerMapperMapping<I extends Comparable<I>, R extends HateosResource<?>> {
+abstract class HateosHandlerMapperMapping<I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>> {
 
     /**
      * {@see HateosHandlerMapperHateosHandlerMapping}
      */
-    static <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerMapperMapping<I, R> hateosHandler(final HateosHandler<I, R> handler) {
+    static <I extends Comparable<I>,
+            R extends HateosResource<?>,
+            S extends HateosResource<?>>
+    HateosHandlerMapperMapping<I, R, S> hateosHandler(final HateosHandler<I, R, S> handler) {
         return HateosHandlerMapperHateosHandlerMapping.with(handler);
     }
 
     /**
      * {@see HateosHandlerMapperHateosCollectionHandlerMapping}
      */
-    static <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerMapperMapping<I, R> hateosCollectionHandler(final HateosCollectionHandler<I, R> handler) {
+    static <I extends Comparable<I>,
+            R extends HateosResource<?>,
+            S extends HateosResource<?>>
+    HateosHandlerMapperMapping<I, R, S> hateosCollectionHandler(final HateosCollectionHandler<I, R, S> handler) {
         return HateosHandlerMapperHateosCollectionHandlerMapping.with(handler);
     }
 
     /**
      * {@see HateosHandlerMapperHateosMappingHandlerMapping}
      */
-    static <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerMapperMapping<I, R> hateosMappingHandler(final HateosMappingHandler<I, R> handler) {
+    static <I extends Comparable<I>,
+            R extends HateosResource<?>,
+            S extends HateosResource<?>>
+    HateosHandlerMapperMapping<I, R, S> hateosMappingHandler(final HateosMappingHandler<I, R, S> handler) {
         return HateosHandlerMapperHateosMappingHandlerMapping.with(handler);
     }
 

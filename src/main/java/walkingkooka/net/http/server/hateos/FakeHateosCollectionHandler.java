@@ -28,10 +28,12 @@ import java.util.Objects;
 /**
  * A {@link HateosHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeHateosCollectionHandler<I extends Comparable<I>, R extends HateosResource<?>> implements HateosCollectionHandler<I, R>, Fake {
+public class FakeHateosCollectionHandler<I extends Comparable<I>,
+        R extends HateosResource<?>,
+        S extends HateosResource<?>> implements HateosCollectionHandler<I, R, S>, Fake {
 
     @Override
-    public List<R> handle(final I id,
+    public List<S> handle(final I id,
                           final List<R> resource,
                           final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(id, "id");
