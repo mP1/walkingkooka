@@ -18,7 +18,9 @@
 
 package walkingkooka.net.http.server.hateos;
 
-public abstract class HateosHandlerMapperMappingTestCase2<I extends Comparable<I>, R extends HateosResource<?>, M extends HateosHandlerMapperMapping<I, R>> {
+public abstract class HateosHandlerMapperMappingTestCase2<I extends Comparable<I>,
+        R extends HateosResource<?>,
+        S extends HateosResource<?>, M extends HateosHandlerMapperMapping<I, R, S>> {
 
     HateosHandlerMapperMappingTestCase2() {
         super();

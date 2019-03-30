@@ -31,13 +31,18 @@ import java.util.Optional;
 /**
  * Represents a mapping between a request and a {@link HateosHandler}.
  */
-final class HateosHandlerMapperHateosHandlerMapping<I extends Comparable<I>, R extends HateosResource<?>> extends HateosHandlerMapperMapping<I,R>{
+final class HateosHandlerMapperHateosHandlerMapping<I extends Comparable<I>,
+        R extends HateosResource<?>,
+        S extends HateosResource<?>>
+        extends HateosHandlerMapperMapping<I,R,S>{
 
-    static <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerMapperHateosHandlerMapping<I, R> with(final HateosHandler<I, R> handler) {
+    static <I extends Comparable<I>,
+            R extends HateosResource<?>,
+            S extends HateosResource<?>> HateosHandlerMapperHateosHandlerMapping<I, R, S> with(final HateosHandler<I, R, S> handler) {
         return new HateosHandlerMapperHateosHandlerMapping<>(handler);
     }
 
-    private HateosHandlerMapperHateosHandlerMapping(final HateosHandler<I, R> handler) {
+    private HateosHandlerMapperHateosHandlerMapping(final HateosHandler<I, R, S> handler) {
         super();
         this.handler = handler;
     }
@@ -62,11 +67,11 @@ final class HateosHandlerMapperHateosHandlerMapping<I extends Comparable<I>, R e
             final HttpRequest httpRequest = request.request;
             final HttpMethod method = httpRequest.method();
             String responseText = null;
-            Optional<R> maybeResponseResource = this.handler.handle(id,
+            Optional<S> maybeResponseResource = this.handler.handle(id,
                     requestResource,
                     request.parameters);
             if (maybeResponseResource.isPresent()) {
-                final R responseResource = maybeResponseResource.get();
+                final S responseResource = maybeResponseResource.get();
                 responseText = hateosContentType.toText(responseResource,
                         null,
                         method,
@@ -98,7 +103,7 @@ final class HateosHandlerMapperHateosHandlerMapping<I extends Comparable<I>, R e
             final HttpRequest httpRequest = request.request;
             final HttpMethod method = httpRequest.method();
             String responseText = null;
-            final List<R> responseResources = this.handler.handleCollection(ids,
+            final List<S> responseResources = this.handler.handleCollection(ids,
                     requestResources,
                     request.parameters);
             if (!responseResources.isEmpty()) {
@@ -123,5 +128,5 @@ final class HateosHandlerMapperHateosHandlerMapping<I extends Comparable<I>, R e
         return this.handler.toString();
     }
 
-    private final HateosHandler<I, R> handler;
+    private final HateosHandler<I, R, S> handler;
 }

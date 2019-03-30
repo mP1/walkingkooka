@@ -32,7 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixin interface for testing {@link HateosCollectionHandler}
  */
-public interface HateosCollectionHandlerTesting<H extends HateosCollectionHandler<I, R>, I extends Comparable<I>, R extends HateosResource<?>>
+public interface HateosCollectionHandlerTesting<H extends HateosCollectionHandler<I, R, S>,
+        I extends Comparable<I>,
+        R extends HateosResource<?>,
+        S extends HateosResource<?>>
         extends ClassTesting2<H>,
         TypeNameTesting<H> {
 
@@ -63,15 +66,15 @@ public interface HateosCollectionHandlerTesting<H extends HateosCollectionHandle
     default void handleCollectionAndCheck(final I id,
                                           final List<R> resources,
                                           final Map<HttpRequestAttribute<?>, Object> parameters,
-                                          final List<R> result) {
+                                          final List<S> result) {
         this.handleCollectionAndCheck(this.createHandler(), id, resources, parameters, result);
     }
 
-    default void handleCollectionAndCheck(final HateosCollectionHandler<I, R> handler,
+    default void handleCollectionAndCheck(final HateosCollectionHandler<I, R, S> handler,
                                           final I id,
                                           final List<R> resources,
                                           final Map<HttpRequestAttribute<?>, Object> parameters,
-                                          final List<R> result) {
+                                          final List<S> result) {
         assertEquals(result,
                 handler.handle(id, resources, parameters),
                 () -> handler + " id=" + id + ", resources: " + resources);
@@ -88,7 +91,7 @@ public interface HateosCollectionHandlerTesting<H extends HateosCollectionHandle
                 thrown);
     }
 
-    default <T extends Throwable> T handleCollectionFails(final HateosCollectionHandler<I, R> handler,
+    default <T extends Throwable> T handleCollectionFails(final HateosCollectionHandler<I, R, S> handler,
                                                           final I id,
                                                           final List<R> resources,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters,

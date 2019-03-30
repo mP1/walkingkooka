@@ -19,13 +19,19 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.xml.XmlDocument;
+import walkingkooka.tree.xml.XmlName;
 import walkingkooka.tree.xml.XmlNode;
+
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public final class TestHateosResource3 extends FakeHateosResource<String> {
 
     static TestHateosResource3 fromJsonNode(final JsonNode node) {
-        return with(node.stringValueOrFail());
+        return with(node.objectOrFail().getOrFail(ID).fromJsonNode(String.class));
     }
 
     static TestHateosResource3 with(final String id) {
@@ -46,12 +52,31 @@ public final class TestHateosResource3 extends FakeHateosResource<String> {
 
     @Override
     public JsonNode toJsonNode() {
-        return JsonNode.string(this.id);
+        return JsonNode.object()
+                .set(ID, HasJsonNode.toJsonNodeObject(this.id()));
     }
+
+    private final static JsonNodeName ID = JsonNodeName.with("id");
 
     @Override
     public XmlNode toXmlNode() {
-        throw new UnsupportedOperationException();
+        try {
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(false);
+            factory.setValidating(false);
+            factory.setExpandEntityReferences(false);
+
+            final XmlDocument document = XmlNode.createDocument(factory.newDocumentBuilder());
+            return document.createElement(XmlName.element("test1"))
+                    .appendChild(document.createElement(XmlName.element("id"))
+                            .appendChild(document.createText(this.id.toString())));
+        } catch (final Exception cause) {
+            throw new Error(cause.getMessage(), cause);
+        }
+    }
+
+    static {
+        HasJsonNode.register(TestHateosResource3.class.getName(), TestHateosResource3::fromJsonNode, TestHateosResource3.class);
     }
 
     @Override

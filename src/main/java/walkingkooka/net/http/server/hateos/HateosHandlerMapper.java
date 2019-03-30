@@ -31,24 +31,28 @@ import java.util.function.Function;
 /**
  * Holds all the mappers for a router mapping.
  */
-public final class HateosHandlerMapper<I extends Comparable<I>, R extends HateosResource<?>> {
+public final class HateosHandlerMapper<I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>> {
 
     /**
      * Created by the builder with one for each resource name.
      */
-    public static <I extends Comparable<I>, R extends HateosResource<?>> HateosHandlerMapper<I, R> with(final Function<String, I> stringToId,
-                                                                                                        final Class<R> resourceType) {
+    public static <I extends Comparable<I>,
+            R extends HateosResource<?>,
+            S extends HateosResource<?>> HateosHandlerMapper<I, R, S> with(final Function<String, I> stringToId,
+                                                                           final Class<R> inputResourceType,
+                                                                           final Class<S> outputResourceType) {
         Objects.requireNonNull(stringToId, "stringToId");
-        Objects.requireNonNull(resourceType, "resourceType");
+        Objects.requireNonNull(inputResourceType, "inputResourceType");
+        Objects.requireNonNull(outputResourceType, "outputResourceType");
 
-        return new HateosHandlerMapper<>(stringToId, resourceType);
+        return new HateosHandlerMapper<>(stringToId, inputResourceType);
     }
 
     private HateosHandlerMapper(final Function<String, I> stringToId,
-                                final Class<R> resourceType) {
+                                final Class<R> inputResourceType) {
         super();
         this.stringToId = stringToId;
-        this.resourceType = resourceType;
+        this.inputResourceType = inputResourceType;
     }
 
     // HateosHandler.............................................................................................
@@ -56,7 +60,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a GET {@link HateosHandler}.
      */
-    public HateosHandlerMapper<I, R> get(final HateosHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> get(final HateosHandler<I, R, S> handler) {
         checkHandler(handler);
         this.get = HateosHandlerMapperMapping.hateosHandler(handler);
         return this;
@@ -65,7 +69,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a POST {@link HateosHandler}.
      */
-    public HateosHandlerMapper<I, R> post(final HateosHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> post(final HateosHandler<I, R, S> handler) {
         checkHandler(handler);
         this.post = HateosHandlerMapperMapping.hateosHandler(handler);
         return this;
@@ -74,7 +78,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a PUT {@link HateosHandler}.
      */
-    public HateosHandlerMapper<I, R> put(final HateosHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> put(final HateosHandler<I, R, S> handler) {
         checkHandler(handler);
         this.put = HateosHandlerMapperMapping.hateosHandler(handler);
         return this;
@@ -83,7 +87,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a DELETE {@link HateosHandler}.
      */
-    public HateosHandlerMapper<I, R> delete(final HateosHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> delete(final HateosHandler<I, R, S> handler) {
         checkHandler(handler);
         this.delete = HateosHandlerMapperMapping.hateosHandler(handler);
         return this;
@@ -94,7 +98,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a GET {@link HateosCollectionHandler}.
      */
-    public HateosHandlerMapper<I, R> get(final HateosCollectionHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> get(final HateosCollectionHandler<I, R, S> handler) {
         checkHandler(handler);
         this.get = HateosHandlerMapperMapping.hateosCollectionHandler(handler);
         return this;
@@ -103,7 +107,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a POST {@link HateosCollectionHandler}.
      */
-    public HateosHandlerMapper<I, R> post(final HateosCollectionHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> post(final HateosCollectionHandler<I, R, S> handler) {
         checkHandler(handler);
         this.post = HateosHandlerMapperMapping.hateosCollectionHandler(handler);
         return this;
@@ -112,7 +116,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a PUT {@link HateosCollectionHandler}.
      */
-    public HateosHandlerMapper<I, R> put(final HateosCollectionHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> put(final HateosCollectionHandler<I, R, S> handler) {
         checkHandler(handler);
         this.put = HateosHandlerMapperMapping.hateosCollectionHandler(handler);
         return this;
@@ -121,7 +125,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a DELETE {@link HateosCollectionHandler}.
      */
-    public HateosHandlerMapper<I, R> delete(final HateosCollectionHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> delete(final HateosCollectionHandler<I, R, S> handler) {
         checkHandler(handler);
         this.delete = HateosHandlerMapperMapping.hateosCollectionHandler(handler);
         return this;
@@ -132,7 +136,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a GET {@link HateosMappingHandler}.
      */
-    public HateosHandlerMapper<I, R> get(final HateosMappingHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> get(final HateosMappingHandler<I, R, S> handler) {
         checkHandler(handler);
         this.get = HateosHandlerMapperMapping.hateosMappingHandler(handler);
         return this;
@@ -141,7 +145,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a POST {@link HateosMappingHandler}.
      */
-    public HateosHandlerMapper<I, R> post(final HateosMappingHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> post(final HateosMappingHandler<I, R, S> handler) {
         checkHandler(handler);
         this.post = HateosHandlerMapperMapping.hateosMappingHandler(handler);
         return this;
@@ -150,7 +154,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a PUT {@link HateosMappingHandler}.
      */
-    public HateosHandlerMapper<I, R> put(final HateosMappingHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> put(final HateosMappingHandler<I, R, S> handler) {
         checkHandler(handler);
         this.put = HateosHandlerMapperMapping.hateosMappingHandler(handler);
         return this;
@@ -159,7 +163,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Adds or replaces a DELETE {@link HateosMappingHandler}.
      */
-    public HateosHandlerMapper<I, R> delete(final HateosMappingHandler<I, R> handler) {
+    public HateosHandlerMapper<I, R, S> delete(final HateosMappingHandler<I, R, S> handler) {
         checkHandler(handler);
         this.delete = HateosHandlerMapperMapping.hateosMappingHandler(handler);
         return this;
@@ -174,8 +178,9 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Makes a defensive copy of this mappers. This is necessary when the router is created and the map copied from the builder.
      */
-    HateosHandlerMapper<I, R> copy() {
-        final HateosHandlerMapper<I, R> handlers = new HateosHandlerMapper<>(this.stringToId, this.resourceType);
+    HateosHandlerMapper<I, R, S> copy() {
+        final HateosHandlerMapper<I, R, S> handlers = new HateosHandlerMapper<>(this.stringToId,
+                this.inputResourceType);
 
         handlers.get = this.get;
         handlers.post = this.post;
@@ -194,7 +199,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
                                                final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final I id = this.idOrBadRequest(idText, request);
         if (null != id) {
-            final HateosHandlerMapperMapping<I, R> mapping = this.mappingOrResponseMethodNotAllowed(resourceName,
+            final HateosHandlerMapperMapping<I, R, S> mapping = this.mappingOrResponseMethodNotAllowed(resourceName,
                     linkRelation,
                     request);
             if (null != mapping) {
@@ -204,7 +209,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
                             id,
                             linkRelation,
                             requestText,
-                            this.resourceType,
+                            this.inputResourceType,
                             request);
                 }
             }
@@ -218,7 +223,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
                                                        final LinkRelation<?> linkRelation,
                                                        final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
 
-        final HateosHandlerMapperMapping<I, R> mapping = this.mappingOrResponseMethodNotAllowed(resourceName,
+        final HateosHandlerMapperMapping<I, R, S> mapping = this.mappingOrResponseMethodNotAllowed(resourceName,
                 linkRelation,
                 request);
         if (null != mapping) {
@@ -237,7 +242,7 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
                                                        final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final Range<I> range = this.rangeOrBadRequest(begin, end, rangeText, request);
         if (null != range) {
-            final HateosHandlerMapperMapping<I, R> mapping = this.mappingOrResponseMethodNotAllowed(resourceName, linkRelation, request);
+            final HateosHandlerMapperMapping<I, R, S> mapping = this.mappingOrResponseMethodNotAllowed(resourceName, linkRelation, request);
             if (null != mapping) {
                 this.collection0(resourceName, range, mapping, request);
             }
@@ -246,14 +251,14 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
 
     private <N extends Node<N, ?, ?, ?>> void collection0(final HateosResourceName resourceName,
                                                           final Range<I> ids,
-                                                          final HateosHandlerMapperMapping<I, R> mapping,
+                                                          final HateosHandlerMapperMapping<I, R, S> mapping,
                                                           final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final String requestText = request.resourceTextOrBadRequest();
         if (null != requestText) {
             mapping.handleCollection(resourceName,
                     ids,
                     requestText,
-                    this.resourceType,
+                    this.inputResourceType,
                     request);
         }
     }
@@ -313,10 +318,10 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * Locates the {@link HateosHandlerMapperMapping} for the given request method or sets the response to method not allowed.
      */
-    private HateosHandlerMapperMapping<I, R> mappingOrResponseMethodNotAllowed(final HateosResourceName resourceName,
+    private HateosHandlerMapperMapping<I, R, S> mappingOrResponseMethodNotAllowed(final HateosResourceName resourceName,
                                                                                final LinkRelation<?> linkRelation,
                                                                                final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<?> request) {
-        HateosHandlerMapperMapping<I, R> mapping = null;
+        HateosHandlerMapperMapping<I, R, S> mapping = null;
 
         do {
             final HttpMethod method = request.request.method();
@@ -347,12 +352,12 @@ public final class HateosHandlerMapper<I extends Comparable<I>, R extends Hateos
     /**
      * These mappers will be null to indicate the method is not supported, otherwise the handler is invoked.
      */
-    HateosHandlerMapperMapping<I, R> get;
-    HateosHandlerMapperMapping<I, R> post;
-    HateosHandlerMapperMapping<I, R> put;
-    HateosHandlerMapperMapping<I, R> delete;
+    HateosHandlerMapperMapping<I, R, S> get;
+    HateosHandlerMapperMapping<I, R, S> post;
+    HateosHandlerMapperMapping<I, R, S> put;
+    HateosHandlerMapperMapping<I, R, S> delete;
 
-    final Class<R> resourceType;
+    final Class<R> inputResourceType;
 
     @Override
     public String toString() {
