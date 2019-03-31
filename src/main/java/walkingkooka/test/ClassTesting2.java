@@ -65,9 +65,11 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
     default void testAllConstructorsVisibility() {
         final Class<T> type = this.type();
 
-        final MemberVisibility visibility = ClassAttributes.FINAL.is(type) ?
-                MemberVisibility.PRIVATE :
-                MemberVisibility.PACKAGE_PRIVATE;
+        final MemberVisibility visibility = Fake.class.isAssignableFrom(type) ?
+                MemberVisibility.PUBLIC :
+                ClassAttributes.FINAL.is(type) ?
+                        MemberVisibility.PRIVATE :
+                        MemberVisibility.PACKAGE_PRIVATE;
         assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getConstructors())
                 .filter(c -> false == visibility.is(c))
