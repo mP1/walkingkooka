@@ -18,31 +18,31 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.Cast;
-import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-import java.util.function.BiConsumer;
+public abstract class HateosHandlerRouterMapperHateosHandlerMappingTestCase<T extends HateosHandlerRouterMapperHateosHandlerMapping>
+        extends HateosHandlerRouterTestCase<T> {
 
-public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequestTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode>> {
-
-    @Override
-    public Class<HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<JsonNode>> type() {
-        return Cast.to(HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest.class);
+    HateosHandlerRouterMapperHateosHandlerMappingTestCase() {
+        super();
     }
 
+    // ClassTesting..........................................................................................
+
     @Override
-    public MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 
+    // TypeNameTesting..........................................................................................
+
     @Override
-    String typeNamePrefix2() {
-        return "HttpRequestHttpResponse";
+    public final String typeNamePrefix2() {
+        return "";
     }
 
     @Override
     public String typeNameSuffix() {
-        return BiConsumer.class.getSimpleName() + "Request";
+        return "Mapping";
     }
 }

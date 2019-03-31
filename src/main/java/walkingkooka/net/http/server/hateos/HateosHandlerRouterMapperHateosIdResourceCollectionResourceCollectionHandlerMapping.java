@@ -18,7 +18,6 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.compare.Range;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequest;
@@ -27,27 +26,24 @@ import walkingkooka.tree.Node;
 import java.util.List;
 
 /**
- * Represents a mapping between a request and a {@link HateosCollectionHandler}.
+ * A {@link HateosHandlerRouterMapperHateosIdHandlerMapping} for {@link HateosIdResourceCollectionResourceCollectionHandler}.
  */
-final class HateosHandlerMapperHateosCollectionHandlerMapping<I extends Comparable<I>,
+final class HateosHandlerRouterMapperHateosIdResourceCollectionResourceCollectionHandlerMapping<I extends Comparable<I>,
         R extends HateosResource<?>,
-        S extends HateosResource<?>> extends HateosHandlerMapperMapping<I,R,S>{
+        S extends HateosResource<?>>
+        extends HateosHandlerRouterMapperHateosIdHandlerMapping<HateosIdResourceCollectionResourceCollectionHandler<I, R, S>, I, R, S> {
 
     static <I extends Comparable<I>,
             R extends HateosResource<?>,
             S extends HateosResource<?>>
-    HateosHandlerMapperHateosCollectionHandlerMapping<I, R, S> with(final HateosCollectionHandler<I, R, S> handler) {
-        return new HateosHandlerMapperHateosCollectionHandlerMapping<>(handler);
+    HateosHandlerRouterMapperHateosIdResourceCollectionResourceCollectionHandlerMapping<I, R, S> with(final HateosIdResourceCollectionResourceCollectionHandler<I, R, S> handler) {
+        return new HateosHandlerRouterMapperHateosIdResourceCollectionResourceCollectionHandlerMapping<>(handler);
     }
 
-    private HateosHandlerMapperHateosCollectionHandlerMapping(final HateosCollectionHandler<I, R, S> handler) {
-        super();
-        this.handler = handler;
+    private HateosHandlerRouterMapperHateosIdResourceCollectionResourceCollectionHandlerMapping(final HateosIdResourceCollectionResourceCollectionHandler<I, R, S> handler) {
+        super(handler);
     }
 
-    /**
-     * Handles a request for a single resource id but many resources with the given parameters.
-     */
     @Override
     <N extends Node<N, ?, ?, ?>> void handleId(final HateosResourceName resourceName,
                                                final I id,
@@ -76,25 +72,4 @@ final class HateosHandlerMapperHateosCollectionHandlerMapping<I extends Comparab
                     request.router.linkRelations(resourceName)));
         }
     }
-
-    /**
-     * Handles for a range of ids is not supported.
-     */
-    @Override
-    <N extends Node<N, ?, ?, ?>> void handleCollection(final HateosResourceName resourceName,
-                                                       final Range<I> ids,
-                                                       final String requestText,
-                                                       final Class<R> resourceType,
-                                                       final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
-        request.badRequest(COLLECTION_NOT_SUPPORTED_MESSAGE);
-    }
-
-    final static String COLLECTION_NOT_SUPPORTED_MESSAGE = "Collection of ids not supported";
-
-    @Override
-    public String toString() {
-        return this.handler.toString();
-    }
-
-    private final HateosCollectionHandler<I, R, S> handler;
 }

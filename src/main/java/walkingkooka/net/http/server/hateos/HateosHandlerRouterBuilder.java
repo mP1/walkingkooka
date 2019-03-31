@@ -39,15 +39,15 @@ import java.util.function.BiConsumer;
  * A builder which collects all resource and relation mappings producing a {@link Router}.
  * The {@link Router} assumes that the transport and content-type have already been tested and filtered.
  */
-public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
-        extends HateosHandler2<N>
+public final class HateosHandlerRouterBuilder<N extends Node<N, ?, ?, ?>>
+        extends HateosHandlerRouter2<N>
         implements Builder<Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
     /**
-     * Factory that creates a new {@link HateosHandlerBuilder} with the provided path being used when building links.
+     * Factory that creates a new {@link HateosHandlerRouterBuilder} with the provided path being used when building links.
      */
-    public static <N extends Node<N, ?, ?, ?>> HateosHandlerBuilder<N> with(final AbsoluteUrl base,
-                                                                            final HateosContentType<N> contentType) {
+    public static <N extends Node<N, ?, ?, ?>> HateosHandlerRouterBuilder<N> with(final AbsoluteUrl base,
+                                                                                  final HateosContentType<N> contentType) {
         Objects.requireNonNull(base, "base");
         if (!base.query().equals(UrlQueryString.EMPTY)) {
             throw new IllegalArgumentException("Base should have no query string/query parameters but was " + base);
@@ -58,14 +58,14 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
 
         Objects.requireNonNull(contentType, "contentType");
 
-        return new HateosHandlerBuilder<N>(base, contentType);
+        return new HateosHandlerRouterBuilder<N>(base, contentType);
     }
 
     /**
      * Private ctor use factory.
      */
-    private HateosHandlerBuilder(final AbsoluteUrl base,
-                                 final HateosContentType<N> contentType) {
+    private HateosHandlerRouterBuilder(final AbsoluteUrl base,
+                                       final HateosContentType<N> contentType) {
         super(base, contentType, Maps.sorted());
     }
 
@@ -74,15 +74,15 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      */
     public <I extends Comparable<I>,
             R extends HateosResource<?>,
-            S extends HateosResource<?>> HateosHandlerBuilder<N> add(final HateosResourceName name,
-                                                                                              final LinkRelation<?> relation,
-                                                                                              final HateosHandlerMapper<I, R, S> mapper) {
+            S extends HateosResource<?>> HateosHandlerRouterBuilder<N> add(final HateosResourceName name,
+                                                                           final LinkRelation<?> relation,
+                                                                           final HateosHandlerRouterMapper<I, R, S> mapper) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(relation, "relation");
         Objects.requireNonNull(mapper, "mapper");
 
         final HateosHandlerRouterKey key = HateosHandlerRouterKey.with(name, relation);
-        final HateosHandlerMapper<I, R, S> value = mapper.copy();
+        final HateosHandlerRouterMapper<I, R, S> value = mapper.copy();
 
         if(this.mappers.containsKey(key)) {
             throw new IllegalArgumentException("Mapping " + key + " already used");
@@ -99,7 +99,7 @@ public final class HateosHandlerBuilder<N extends Node<N, ?, ?, ?>>
      */
     @Override
     public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> build() throws BuilderException {
-        final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?, ?>> copy = Maps.sorted();
+        final Map<HateosHandlerRouterKey, HateosHandlerRouterMapper<?, ?, ?>> copy = Maps.sorted();
         copy.putAll(this.mappers);
 
         return HateosHandlerRouter.with(this.base,

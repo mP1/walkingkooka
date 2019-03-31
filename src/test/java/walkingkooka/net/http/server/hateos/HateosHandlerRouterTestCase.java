@@ -18,11 +18,24 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.Cast;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 
-public final class HateosHandlerMapperMappingTest extends HateosHandlerMapperMappingTestCase<HateosHandlerMapperMapping<?, ?, ?>>{
-    @Override
-    public Class<HateosHandlerMapperMapping<?, ?, ?>> type() {
-        return Cast.to(HateosHandlerMapperMapping.class);
+public abstract class HateosHandlerRouterTestCase<T> implements ClassTesting2<T>,
+        ToStringTesting<T>,
+        TypeNameTesting<T> {
+
+    HateosHandlerRouterTestCase() {
+        super();
     }
+
+    // TypeNameTesting..........................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return HateosHandlerRouter.class.getSimpleName() + this.typeNamePrefix2();
+    }
+
+    abstract String typeNamePrefix2();
 }

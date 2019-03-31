@@ -18,25 +18,11 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.Cast;
 
-import java.util.Map;
-
-/**
- * Mixin interface for testing {@link HateosHandler}
- */
-public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
-        I extends Comparable<I>,
-        R extends HateosResource<?>,
-        S extends HateosResource<?>>
-        extends ClassTesting2<H>,
-        TypeNameTesting<H> {
-
-    H createHandler();
-
-    Map<HttpRequestAttribute<?>, Object> parameters();
-
-    I id();
+public final class HateosHandlerRouterMapperHateosIdRangeResourceCollectionResourceCollectionHandlerMappingTest extends HateosHandlerRouterMapperHateosHandlerMappingTestCase<HateosHandlerRouterMapperHateosIdRangeResourceCollectionResourceCollectionHandlerMapping<?, ?, ?>> {
+    @Override
+    public Class<HateosHandlerRouterMapperHateosIdRangeResourceCollectionResourceCollectionHandlerMapping<?, ?, ?>> type() {
+        return Cast.to(HateosHandlerRouterMapperHateosIdRangeResourceCollectionResourceCollectionHandlerMapping.class);
+    }
 }

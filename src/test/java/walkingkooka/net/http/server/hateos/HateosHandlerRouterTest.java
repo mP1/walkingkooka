@@ -26,7 +26,6 @@ import walkingkooka.compare.Range;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
-import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -46,7 +45,6 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.TestRecordingHttpResponse;
 import walkingkooka.routing.RouterTesting;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
@@ -62,10 +60,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandlerRouter<JsonNode>>,
-        RouterTesting<HateosHandlerRouter<JsonNode>,
-                HttpRequestAttribute<?>,
-                BiConsumer<HttpRequest, HttpResponse>> {
+public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<HateosHandlerRouter<JsonNode>>
+        implements RouterTesting<HateosHandlerRouter<JsonNode>,
+        HttpRequestAttribute<?>,
+        BiConsumer<HttpRequest, HttpResponse>> {
 
     private final static String NO_JSON = null;
 
@@ -74,9 +72,9 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     final static Range<BigInteger> ALL = Range.all();
     final static Range<BigInteger> RANGE = Range.greaterThanEquals(BigInteger.valueOf(123)).and(Range.lessThanEquals(BigInteger.valueOf(456)));
 
-    private final static HateosHandler<BigInteger, TestHateosResource, TestHateosResource2> HATEOS_HANDLER = new FakeHateosHandler<>();
-    private final static HateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> HATEOS_COLLECTION_HANDLER = new FakeHateosCollectionHandler<>();
-    private final static HateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2> HATEOS_MAPPING_HANDLER = new FakeHateosMappingHandler<>();
+    private final static HateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> HATEOS_COLLECTION_HANDLER = new FakeHateosIdResourceCollectionResourceCollectionHandler<>();
+    private final static HateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2> HATEOS_MAPPING_HANDLER = new FakeHateosIdResourceValueHandler<>();
+    private final static HateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2> HATEOS_RESOURCE_HANDLER = new FakeHateosIdResourceResourceHandler<>();
 
     // BAD REQUEST................................................................................................
 
@@ -184,7 +182,7 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     private void routeGetAndCheck(final String url,
                                   final HttpStatus status,
                                   final HttpEntity... entities) {
-        this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().get(HATEOS_HANDLER)),
+        this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().get(HATEOS_RESOURCE_HANDLER)),
                 url,
                 status,
                 entities);
@@ -198,41 +196,41 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    // HateosHandler..................................................................................................
+    // HandlerIdResourceResourceHandler..................................................................................................
 
     @Test
-    public void testHateosHandlerBadRequestIdAndInvalidJson() {
-        this.routeHateosHandlerPostAndCheck("/api/resource1/123/self",
+    public void testHateosIdResourceResourceHandlerBadRequestIdAndInvalidJson() {
+        this.routeHateosIdResourceResourceHandlerPostAndCheck("/api/resource1/123/self",
                 "!invalid json",
                 HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
     }
 
     @Test
-    public void testHateosHandlerBadRequestMissingIdAndInvalidJson() {
-        this.routeHateosHandlerPostAndCheck("/api/resource1//self",
+    public void testHateosIdResourceResourceHandlerBadRequestMissingIdAndInvalidJson() {
+        this.routeHateosIdResourceResourceHandlerPostAndCheck("/api/resource1//self",
                 "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
+                HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("POST resource: resource1, link relation: self"));
     }
 
     @Test
-    public void testHateosHandlerBadRequestWildcardAndInvalidJson() {
-        this.routeHateosHandlerPostAndCheck("/api/resource1/*/self",
+    public void testHateosIdResourceResourceHandlerBadRequestWildcardAndInvalidJson() {
+        this.routeHateosIdResourceResourceHandlerPostAndCheck("/api/resource1/*/self",
                 "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
+                HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("POST resource: resource1, link relation: self"));
     }
 
     @Test
-    public void testHateosHandlerBadRequestRangeAndInvalidJson() {
-        this.routeHateosHandlerPostAndCheck("/api/resource1/1-2/self",
+    public void testHateosIdResourceResourceHandlerBadRequestRangeAndInvalidJson() {
+        this.routeHateosIdResourceResourceHandlerPostAndCheck("/api/resource1/1-2/self",
                 "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
+                HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("POST resource: resource1, link relation: self"));
     }
 
-    private void routeHateosHandlerPostAndCheck(final String url,
-                                                final String requestBody,
-                                                final HttpStatus status,
-                                                final HttpEntity... entities) {
-        this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().post(HATEOS_HANDLER)),
+    private void routeHateosIdResourceResourceHandlerPostAndCheck(final String url,
+                                                                   final String requestBody,
+                                                                   final HttpStatus status,
+                                                                   final HttpEntity... entities) {
+        this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().post(HATEOS_RESOURCE_HANDLER)),
                 HttpMethod.POST,
                 url,
                 this.contentType(),
@@ -241,83 +239,40 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    // HateosCollectionHandler..................................................................................................
+    // HateosIdResourceValueHandler..................................................................................................
 
     @Test
-    public void testHateosCollectionHandlerBadRequestIdAndInvalidJson() {
-        this.routeHateosCollectionHandlerPostAndCheck("/api/resource1/123/self",
+    public void testHateosIdResourceValueHandlerBadRequestIdAndInvalidJson() {
+        this.routeHateosIdResourceValueHandlerPostAndCheck("/api/resource1/123/self",
                 "!invalid json",
                 HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
     }
 
     @Test
-    public void testHateosCollectionHandlerBadRequestMissingIdAndInvalidJson() {
-        this.routeHateosCollectionHandlerPostAndCheck("/api/resource1//self",
+    public void testHateosIdResourceValueHandlerBadRequestMissingIdAndInvalidJson() {
+        this.routeHateosIdResourceValueHandlerPostAndCheck("/api/resource1//self",
                 "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage(HateosHandlerMapperHateosCollectionHandlerMapping.COLLECTION_NOT_SUPPORTED_MESSAGE));
+                HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("POST resource: resource1, link relation: self"));
     }
 
     @Test
-    public void testHateosCollectionHandlerBadRequestWildcardAndInvalidJson() {
-        this.routeHateosCollectionHandlerPostAndCheck("/api/resource1/*/self",
+    public void testHateosIdResourceValueHandlerBadRequestWildcardAndInvalidJson() {
+        this.routeHateosIdResourceValueHandlerPostAndCheck("/api/resource1/*/self",
                 "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage(HateosHandlerMapperHateosCollectionHandlerMapping.COLLECTION_NOT_SUPPORTED_MESSAGE));
+                HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("POST resource: resource1, link relation: self"));
     }
 
     @Test
-    public void testHateosCollectionHandlerBadRequestRangeAndInvalidJson() {
-        this.routeHateosCollectionHandlerPostAndCheck("/api/resource1/1-2/self",
+    public void testHateosIdResourceValueHandlerBadRequestRangeAndInvalidJson() {
+        this.routeHateosIdResourceValueHandlerPostAndCheck("/api/resource1/1-2/self",
                 "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage(HateosHandlerMapperHateosCollectionHandlerMapping.COLLECTION_NOT_SUPPORTED_MESSAGE));
+                HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("POST resource: resource1, link relation: self"));
     }
 
-    private void routeHateosCollectionHandlerPostAndCheck(final String url,
-                                                          final String requestBody,
-                                                          final HttpStatus status,
-                                                          final HttpEntity... entities) {
-        this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().post(HATEOS_COLLECTION_HANDLER)),
-                HttpMethod.POST,
-                url,
-                this.contentType(),
-                requestBody,
-                status,
-                entities);
-    }
-
-    // HateosMappingHandler..................................................................................................
-
-    @Test
-    public void testHateosMappingHandlerBadRequestIdAndInvalidJson() {
-        this.routeHateosMappingHandlerPostAndCheck("/api/resource1/123/self",
-                "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
-    }
-
-    @Test
-    public void testHateosMappingHandlerBadRequestMissingIdAndInvalidJson() {
-        this.routeHateosMappingHandlerPostAndCheck("/api/resource1//self",
-                "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
-    }
-
-    @Test
-    public void testHateosMappingHandlerBadRequestWildcardAndInvalidJson() {
-        this.routeHateosMappingHandlerPostAndCheck("/api/resource1/*/self",
-                "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
-    }
-
-    @Test
-    public void testHateosMappingHandlerBadRequestRangeAndInvalidJson() {
-        this.routeHateosMappingHandlerPostAndCheck("/api/resource1/1-2/self",
-                "!invalid json",
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid JSON: Unrecognized character '!' at (1,1) \"!invalid json\" expected NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT"));
-    }
-
-    private void routeHateosMappingHandlerPostAndCheck(final String url,
-                                                       final String requestBody,
-                                                       final HttpStatus status,
-                                                       final HttpEntity... entities) {
+    private void routeHateosIdResourceValueHandlerPostAndCheck(final String url,
+                                                                final String requestBody,
+                                                                final HttpStatus status,
+                                                                final HttpEntity... entities) {
         this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().post(HATEOS_MAPPING_HANDLER)),
                 HttpMethod.POST,
                 url,
@@ -350,126 +305,67 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     // HateosHandler.handle...................................................................................
 
     @Test
-    public void testHateosHandlerNotImplementedResource() {
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public Optional<TestHateosResource2> handle(final BigInteger id,
-                                                                                        final Optional<TestHateosResource> resource,
-                                                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                throw new UnsupportedOperationException();
-                                            }
-                                        },
+    public void testHateosIdResourceResourceHandlerNotImplementedResource() {
+        this.routeHateosIdResourceResourceHandlerAndCheck(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                               @Override
+                                                               public Optional<TestHateosResource2> handle(final BigInteger id,
+                                                                                                           final Optional<TestHateosResource> resource,
+                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                   throw new UnsupportedOperationException();
+                                                               }
+                                                           },
                 "/api/resource1/1/self",
                 HttpStatusCode.NOT_IMPLEMENTED.status());
     }
 
     @Test
-    public void testHateosHandlerNotImplementedResource2() {
+    public void testHateosIdResourceResourceHandlerNotImplementedResource2() {
         final String message = "abc123";
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public Optional<TestHateosResource2> handle(final BigInteger id,
-                                                                                        final Optional<TestHateosResource> resource,
-                                                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                throw new UnsupportedOperationException(message);
-                                            }
-                                        },
+        this.routeHateosIdResourceResourceHandlerAndCheck(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                               @Override
+                                                               public Optional<TestHateosResource2> handle(final BigInteger id,
+                                                                                                           final Optional<TestHateosResource> resource,
+                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                   throw new UnsupportedOperationException(message);
+                                                               }
+                                                           },
                 "/api/resource1/1/self",
                 HttpStatusCode.NOT_IMPLEMENTED.setMessage(message));
     }
 
     @Test
-    public void testHateosHandlerInternalServerErrorResource() {
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public Optional<TestHateosResource2> handle(final BigInteger id,
-                                                                                        final Optional<TestHateosResource> resource,
-                                                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                throw new IllegalArgumentException();
-                                            }
-                                        },
+    public void testHateosIdResourceResourceHandlerInternalServerErrorResource() {
+        this.routeHateosIdResourceResourceHandlerAndCheck(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                               @Override
+                                                               public Optional<TestHateosResource2> handle(final BigInteger id,
+                                                                                                           final Optional<TestHateosResource> resource,
+                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                   throw new IllegalArgumentException();
+                                                               }
+                                                           },
                 "/api/resource1/1/self",
                 HttpStatusCode.BAD_REQUEST.status());
     }
 
     @Test
-    public void testHateosHandlerInternalServerErrorResource2() {
+    public void testHateosIdResourceResourceHandlerInternalServerErrorResource2() {
         final String message = "abc123";
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public Optional<TestHateosResource2> handle(final BigInteger id,
-                                                                                        final Optional<TestHateosResource> resource,
-                                                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                throw new IllegalArgumentException(message);
-                                            }
-                                        },
+        this.routeHateosIdResourceResourceHandlerAndCheck(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                               @Override
+                                                               public Optional<TestHateosResource2> handle(final BigInteger id,
+                                                                                                           final Optional<TestHateosResource> resource,
+                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                   throw new IllegalArgumentException(message);
+                                                               }
+                                                           },
                 "/api/resource1/1/self",
                 HttpStatusCode.BAD_REQUEST.setMessage(message));
     }
 
-
-    @Test
-    public void testHateosHandlerNotImplementedResourceCollection() {
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public List<TestHateosResource2> handleCollection(final Range<BigInteger> ids,
-                                                                                              final List<TestHateosResource> resources,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                throw new UnsupportedOperationException();
-                                            }
-                                        },
-                "/api/resource1/*/self",
-                HttpStatusCode.NOT_IMPLEMENTED.status());
-    }
-
-    @Test
-    public void testHateosHandlerNotImplementedResourceCollection2() {
-        final String message = "abc123";
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public List<TestHateosResource2> handleCollection(final Range<BigInteger> ids,
-                                                                                              final List<TestHateosResource> resources,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                throw new UnsupportedOperationException(message);
-                                            }
-                                        },
-                "/api/resource1/*/self",
-                HttpStatusCode.NOT_IMPLEMENTED.setMessage(message));
-    }
-
-    @Test
-    public void testHateosHandlerInternalServerErrorResourceCollection() {
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public List<TestHateosResource2> handleCollection(final Range<BigInteger> ids,
-                                                                                              final List<TestHateosResource> resources,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                throw new IllegalArgumentException();
-                                            }
-                                        },
-                "/api/resource1/*/self",
-                HttpStatusCode.BAD_REQUEST.status());
-    }
-
-    @Test
-    public void testHateosHandlerInternalServerErrorResourceCollection2() {
-        final String message = "abc123";
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public List<TestHateosResource2> handleCollection(final Range<BigInteger> ids,
-                                                                                              final List<TestHateosResource> resources,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                throw new IllegalArgumentException(message);
-                                            }
-                                        },
-                "/api/resource1/*/self",
-                HttpStatusCode.BAD_REQUEST.setMessage(message));
-    }
-
-    private void routeHateosHandlerAndCheck(final HateosHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                            final String url,
-                                            final HttpStatus status,
-                                            final HttpEntity... entities) {
+    private void routeHateosIdResourceResourceHandlerAndCheck(final HateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                               final String url,
+                                                               final HttpStatus status,
+                                                               final HttpEntity... entities) {
         this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().get(handler)),
                 HttpMethod.GET,
                 url,
@@ -479,70 +375,70 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    // HateosCollectionHandler.handle...................................................................................
+    // HateosIdResourceCollectionResourceCollectionHandler.handle...................................................................................
 
     @Test
-    public void testHateosCollectionHandlerNotImplementedResource() {
-        this.routeHateosCollectionHandlerAndCheck(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public List<TestHateosResource2> handle(final BigInteger id,
-                                                                                              final List<TestHateosResource> resources,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          throw new UnsupportedOperationException();
-                                                      }
-                                                  },
+    public void testHateosIdResourceCollectionResourceCollectionHandlerNotImplementedResource() {
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerAndCheck(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                   @Override
+                                                                                   public List<TestHateosResource2> handle(final BigInteger id,
+                                                                                                                           final List<TestHateosResource> resources,
+                                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                       throw new UnsupportedOperationException();
+                                                                                   }
+                                                                               },
                 "/api/resource1/1/self",
                 HttpStatusCode.NOT_IMPLEMENTED.status());
     }
 
     @Test
-    public void testHateosCollectionHandlerNotImplementedResource2() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerNotImplementedResource2() {
         final String message = "abc123";
-        this.routeHateosCollectionHandlerAndCheck(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public List<TestHateosResource2> handle(final BigInteger id,
-                                                                                              final List<TestHateosResource> resources,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          throw new UnsupportedOperationException(message);
-                                                      }
-                                                  },
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerAndCheck(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                   @Override
+                                                                                   public List<TestHateosResource2> handle(final BigInteger id,
+                                                                                                                           final List<TestHateosResource> resources,
+                                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                       throw new UnsupportedOperationException(message);
+                                                                                   }
+                                                                               },
                 "/api/resource1/1/self",
                 HttpStatusCode.NOT_IMPLEMENTED.setMessage(message));
     }
 
     @Test
-    public void testHateosCollectionHandlerInternalServerErrorResource() {
-        this.routeHateosCollectionHandlerAndCheck(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public List<TestHateosResource2> handle(final BigInteger id,
-                                                                                              final List<TestHateosResource> resources,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          throw new IllegalArgumentException();
-                                                      }
-                                                  },
+    public void testHateosIdResourceCollectionResourceCollectionHandlerInternalServerErrorResource() {
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerAndCheck(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                   @Override
+                                                                                   public List<TestHateosResource2> handle(final BigInteger id,
+                                                                                                                           final List<TestHateosResource> resources,
+                                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                       throw new IllegalArgumentException();
+                                                                                   }
+                                                                               },
                 "/api/resource1/1/self",
                 HttpStatusCode.BAD_REQUEST.status());
     }
 
     @Test
-    public void testHateosCollectionHandlerInternalServerErrorResource2() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerInternalServerErrorResource2() {
         final String message = "abc123";
-        this.routeHateosCollectionHandlerAndCheck(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public List<TestHateosResource2> handle(final BigInteger id,
-                                                                                              final List<TestHateosResource> resources,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          throw new IllegalArgumentException(message);
-                                                      }
-                                                  },
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerAndCheck(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                   @Override
+                                                                                   public List<TestHateosResource2> handle(final BigInteger id,
+                                                                                                                           final List<TestHateosResource> resources,
+                                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                       throw new IllegalArgumentException(message);
+                                                                                   }
+                                                                               },
                 "/api/resource1/1/self",
                 HttpStatusCode.BAD_REQUEST.setMessage(message));
     }
 
-    private void routeHateosCollectionHandlerAndCheck(final HateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                                      final String url,
-                                                      final HttpStatus status,
-                                                      final HttpEntity... entities) {
+    private void routeHateosIdResourceCollectionResourceCollectionHandlerAndCheck(final HateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                                                   final String url,
+                                                                                   final HttpStatus status,
+                                                                                   final HttpEntity... entities) {
         this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().get(handler)),
                 HttpMethod.GET,
                 url,
@@ -552,129 +448,70 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    // HateosMappingHandler.handle...................................................................................
+    // HateosIdResourceValueHandler.handle...................................................................................
 
     @Test
-    public void testHateosMappingHandlerNotImplementedResource() {
-        this.routeHateosMappingHandlerAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                   @Override
-                                                   public Optional<Object> handle(final BigInteger id,
-                                                                                  final Optional<TestHateosResource> resource,
-                                                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                       throw new UnsupportedOperationException();
-                                                   }
-                                               },
+    public void testHateosIdResourceValueHandlerNotImplementedResource() {
+        this.routeHateosIdResourceValueHandlerAndCheck(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                            @Override
+                                                            public Optional<Object> handle(final BigInteger id,
+                                                                                           final Optional<TestHateosResource> resource,
+                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                throw new UnsupportedOperationException();
+                                                            }
+                                                        },
                 "/api/resource1/1/self",
                 HttpStatusCode.NOT_IMPLEMENTED.status());
     }
 
     @Test
-    public void testHateosMappingHandlerNotImplementedResource2() {
+    public void testHateosIdResourceValueHandlerNotImplementedResource2() {
         final String message = "abc123";
-        this.routeHateosMappingHandlerAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                   @Override
-                                                   public Optional<Object> handle(final BigInteger id,
-                                                                                  final Optional<TestHateosResource> resource,
-                                                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                       throw new UnsupportedOperationException(message);
-                                                   }
-                                               },
+        this.routeHateosIdResourceValueHandlerAndCheck(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                            @Override
+                                                            public Optional<Object> handle(final BigInteger id,
+                                                                                           final Optional<TestHateosResource> resource,
+                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                throw new UnsupportedOperationException(message);
+                                                            }
+                                                        },
                 "/api/resource1/1/self",
                 HttpStatusCode.NOT_IMPLEMENTED.setMessage(message));
     }
 
     @Test
-    public void testHateosMappingHandlerInternalServerErrorResource() {
-        this.routeHateosMappingHandlerAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                   @Override
-                                                   public Optional<Object> handle(final BigInteger id,
-                                                                                  final Optional<TestHateosResource> resource,
-                                                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                       throw new IllegalArgumentException();
-                                                   }
-                                               },
+    public void testHateosIdResourceValueHandlerInternalServerErrorResource() {
+        this.routeHateosIdResourceValueHandlerAndCheck(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                            @Override
+                                                            public Optional<Object> handle(final BigInteger id,
+                                                                                           final Optional<TestHateosResource> resource,
+                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                throw new IllegalArgumentException();
+                                                            }
+                                                        },
                 "/api/resource1/1/self",
                 HttpStatusCode.BAD_REQUEST.status());
     }
 
     @Test
-    public void testHateosMappingHandlerInternalServerErrorResource2() {
+    public void testHateosIdResourceValueHandlerInternalServerErrorResource2() {
         final String message = "abc123";
-        this.routeHateosMappingHandlerAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                   @Override
-                                                   public Optional<Object> handle(final BigInteger id,
-                                                                                  final Optional<TestHateosResource> resource,
-                                                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                       throw new IllegalArgumentException(message);
-                                                   }
-                                               },
+        this.routeHateosIdResourceValueHandlerAndCheck(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                            @Override
+                                                            public Optional<Object> handle(final BigInteger id,
+                                                                                           final Optional<TestHateosResource> resource,
+                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                throw new IllegalArgumentException(message);
+                                                            }
+                                                        },
                 "/api/resource1/1/self",
                 HttpStatusCode.BAD_REQUEST.setMessage(message));
     }
 
-
-    @Test
-    public void testHateosMappingHandlerNotImplementedResourceCollection() {
-        this.routeHateosMappingHandlerAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                   @Override
-                                                   public List<TestHateosResource2> handleCollection(final Range<BigInteger> ids,
-                                                                                                     final List<TestHateosResource> resources,
-                                                                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                       throw new UnsupportedOperationException();
-                                                   }
-                                               },
-                "/api/resource1/*/self",
-                HttpStatusCode.NOT_IMPLEMENTED.status());
-    }
-
-    @Test
-    public void testHateosMappingHandlerNotImplementedResourceCollection2() {
-        final String message = "abc123";
-        this.routeHateosMappingHandlerAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                   @Override
-                                                   public List<TestHateosResource2> handleCollection(final Range<BigInteger> ids,
-                                                                                                     final List<TestHateosResource> resources,
-                                                                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                       throw new UnsupportedOperationException(message);
-                                                   }
-                                               },
-                "/api/resource1/*/self",
-                HttpStatusCode.NOT_IMPLEMENTED.setMessage(message));
-    }
-
-    @Test
-    public void testHateosMappingHandlerInternalServerErrorResourceCollection() {
-        this.routeHateosMappingHandlerAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                   @Override
-                                                   public List<TestHateosResource2> handleCollection(final Range<BigInteger> ids,
-                                                                                                     final List<TestHateosResource> resources,
-                                                                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                       throw new IllegalArgumentException();
-                                                   }
-                                               },
-                "/api/resource1/*/self",
-                HttpStatusCode.BAD_REQUEST.status());
-    }
-
-    @Test
-    public void testHateosMappingHandlerInternalServerErrorResourceCollection2() {
-        final String message = "abc123";
-        this.routeHateosMappingHandlerAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                   @Override
-                                                   public List<TestHateosResource2> handleCollection(final Range<BigInteger> ids,
-                                                                                                     final List<TestHateosResource> resources,
-                                                                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                       throw new IllegalArgumentException(message);
-                                                   }
-                                               },
-                "/api/resource1/*/self",
-                HttpStatusCode.BAD_REQUEST.setMessage(message));
-    }
-
-    private void routeHateosMappingHandlerAndCheck(final HateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                                   final String url,
-                                                   final HttpStatus status,
-                                                   final HttpEntity... entities) {
+    private void routeHateosIdResourceValueHandlerAndCheck(final HateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                            final String url,
+                                                            final HttpStatus status,
+                                                            final HttpEntity... entities) {
         this.routeAndCheck(this.builder().add(this.resourceName1(), this.relation1(), this.mapper().get(handler)),
                 HttpMethod.GET,
                 url,
@@ -686,7 +523,7 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
 
     // helpers.........................................................
 
-    private void routeAndCheck(final HateosHandlerBuilder<JsonNode> builder,
+    private void routeAndCheck(final HateosHandlerRouterBuilder<JsonNode> builder,
                                final String url,
                                final HttpStatus status,
                                final HttpEntity... entities) {
@@ -697,7 +534,7 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    private void routeAndCheck(final HateosHandlerBuilder<JsonNode> builder,
+    private void routeAndCheck(final HateosHandlerRouterBuilder<JsonNode> builder,
                                final HttpMethod method,
                                final String url,
                                final HttpStatus status,
@@ -714,20 +551,20 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     // HATEOSHANDLER GET RESOURCE ................................................................................................
 
     @Test
-    public void testHateosHandlerIdWithoutRequestResource() {
+    public void testHateosIdResourceResourceHandlerIdWithoutRequestResource() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource2 responseResource = this.resource2(234);
 
-        this.routeHateosHandlerGetAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                               @Override
-                                               public Optional<TestHateosResource2> handle(final BigInteger i,
-                                                                                           final Optional<TestHateosResource> r,
-                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                   assertEquals(id, i);
-                                                   assertEquals(Optional.empty(), r);
-                                                   return Optional.of(responseResource);
-                                               }
-                                           },
+        this.routeHateosIdResourceResourceHandlerGetAndCheck(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                  @Override
+                                                                  public Optional<TestHateosResource2> handle(final BigInteger i,
+                                                                                                              final Optional<TestHateosResource> r,
+                                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                      assertEquals(id, i);
+                                                                      assertEquals(Optional.empty(), r);
+                                                                      return Optional.of(responseResource);
+                                                                  }
+                                                              },
                 "/api/resource1/123/self",
                 this.contentType(),
                 "",
@@ -744,12 +581,12 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosHandlerIdWithRequestResourceAndResponseResource() {
+    public void testHateosIdResourceResourceHandlerIdWithRequestResourceAndResponseResource() {
         this.hateosHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentType());
     }
 
     @Test
-    public void testHateosHandlerIdWithRequestResourceAndResponseResourceDifferentCharset() {
+    public void testHateosIdResourceResourceHandlerIdWithRequestResourceAndResponseResourceDifferentCharset() {
         this.hateosHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentTypeUtf16());
     }
 
@@ -758,16 +595,16 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
         final TestHateosResource requestResource = TestHateosResource.with(id);
         final TestHateosResource2 responseResource = TestHateosResource2.with(BigInteger.valueOf(234));
 
-        this.routeHateosHandlerGetAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                               @Override
-                                               public Optional<TestHateosResource2> handle(final BigInteger i,
-                                                                                           final Optional<TestHateosResource> r,
-                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                   assertEquals(id, i);
-                                                   assertEquals(Optional.of(requestResource), r);
-                                                   return Optional.of(responseResource);
-                                               }
-                                           },
+        this.routeHateosIdResourceResourceHandlerGetAndCheck(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                  @Override
+                                                                  public Optional<TestHateosResource2> handle(final BigInteger i,
+                                                                                                              final Optional<TestHateosResource> r,
+                                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                      assertEquals(id, i);
+                                                                      assertEquals(Optional.of(requestResource), r);
+                                                                      return Optional.of(responseResource);
+                                                                  }
+                                                              },
                 "/api/resource1/123/self",
                 contentType,
                 requestResource.toJsonNode().toString(),
@@ -784,20 +621,20 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosHandlerIdWithRequestResourceAndWithoutResponseResourceGet() {
+    public void testHateosIdResourceResourceHandlerIdWithRequestResourceAndWithoutResponseResourceGet() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeHateosHandlerAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                            @Override
-                                            public Optional<TestHateosResource2> handle(final BigInteger i,
-                                                                                        final Optional<TestHateosResource> r,
-                                                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                assertEquals(id, i);
-                                                assertEquals(Optional.of(requestResource), r);
-                                                return Optional.empty();
-                                            }
-                                        },
+        this.routeHateosIdResourceResourceHandlerAndCheck(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                               @Override
+                                                               public Optional<TestHateosResource2> handle(final BigInteger i,
+                                                                                                           final Optional<TestHateosResource> r,
+                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                   assertEquals(id, i);
+                                                                   assertEquals(Optional.of(requestResource), r);
+                                                                   return Optional.empty();
+                                                               }
+                                                           },
                 HttpMethod.GET,
                 "/api/resource1/123/self",
                 this.contentType(),
@@ -807,11 +644,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosHandlerIdWithRequestResourceAndWithoutResponseResourcePost() {
+    public void testHateosIdResourceResourceHandlerIdWithRequestResourceAndWithoutResponseResourcePost() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeAndCheck(this.mapper().post(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().post(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public Optional<TestHateosResource2> handle(final BigInteger i,
                                                                 final Optional<TestHateosResource> r,
@@ -830,11 +667,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosHandlerIdWithRequestResourceAndWithoutResponseResourcePut() {
+    public void testHateosIdResourceResourceHandlerIdWithRequestResourceAndWithoutResponseResourcePut() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeAndCheck(this.mapper().put(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().put(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public Optional<TestHateosResource2> handle(final BigInteger i,
                                                                 final Optional<TestHateosResource> r,
@@ -853,11 +690,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosHandlerIdWithRequestResourceAndWithoutResponseResourceDelete() {
+    public void testHateosIdResourceResourceHandlerIdWithRequestResourceAndWithoutResponseResourceDelete() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeAndCheck(this.mapper().delete(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().delete(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public Optional<TestHateosResource2> handle(final BigInteger i,
                                                                 final Optional<TestHateosResource> r,
@@ -876,20 +713,20 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosHandlerIdEscaped() {
+    public void testHateosIdResourceResourceHandlerIdEscaped() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeHateosHandlerGetAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                               @Override
-                                               public Optional<TestHateosResource2> handle(final BigInteger i,
-                                                                                           final Optional<TestHateosResource> r,
-                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                   assertEquals(id, i);
-                                                   assertEquals(Optional.of(requestResource), r);
-                                                   return Optional.empty();
-                                               }
-                                           },
+        this.routeHateosIdResourceResourceHandlerGetAndCheck(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                  @Override
+                                                                  public Optional<TestHateosResource2> handle(final BigInteger i,
+                                                                                                              final Optional<TestHateosResource> r,
+                                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                      assertEquals(id, i);
+                                                                      assertEquals(Optional.of(requestResource), r);
+                                                                      return Optional.empty();
+                                                                  }
+                                                              },
                 "/api/resource1/\\1\\2\\3/self",
                 this.contentType(),
                 requestResource.toJsonNode().toString(),
@@ -898,14 +735,14 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosHandlerIdDifferentTypeFromHateosResourceIdType() {
+    public void testHateosIdResourceResourceHandlerIdDifferentTypeFromHateosResourceIdType() {
         final Long id = 123L;
         final TestHateosResource requestResource = TestHateosResource.with(BigInteger.valueOf(99));
         final TestHateosResource2 responseResource = TestHateosResource2.with(BigInteger.valueOf(id));
 
-        final HateosHandlerBuilder<JsonNode> builder = this.builder()
-                .add(this.resourceName1(), this.relation1(), HateosHandlerMapper.with(Long::parseLong, TestHateosResource.class, TestHateosResource2.class)
-                        .get(new FakeHateosHandler<Long, TestHateosResource, TestHateosResource2>() {
+        final HateosHandlerRouterBuilder<JsonNode> builder = this.builder()
+                .add(this.resourceName1(), this.relation1(), HateosHandlerRouterMapper.with(Long::parseLong, TestHateosResource.class, TestHateosResource2.class)
+                        .get(new FakeHateosIdResourceResourceHandler<Long, TestHateosResource, TestHateosResource2>() {
                             @Override
                             public Optional<TestHateosResource2> handle(final Long i,
                                                                         final Optional<TestHateosResource> resource,
@@ -932,13 +769,13 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                         this.contentType()));
     }
 
-    private void routeHateosHandlerGetAndCheck(final HateosHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                               final String url,
-                                               final MediaType contentType,
-                                               final String body,
-                                               final HttpStatus status,
-                                               final HttpEntity... entities) {
-        this.routeHateosHandlerAndCheck(handler,
+    private void routeHateosIdResourceResourceHandlerGetAndCheck(final HateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                                  final String url,
+                                                                  final MediaType contentType,
+                                                                  final String body,
+                                                                  final HttpStatus status,
+                                                                  final HttpEntity... entities) {
+        this.routeHateosIdResourceResourceHandlerAndCheck(handler,
                 HttpMethod.GET,
                 url,
                 contentType,
@@ -947,23 +784,23 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    // HateosCollectionHandler GET RESOURCE ................................................................................................
+    // HateosIdResourceCollectionResourceCollectionHandler GET RESOURCE ................................................................................................
 
     @Test
-    public void testHateosCollectionHandlerIdWithoutRequestResource() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdWithoutRequestResource() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource2 responseResource = this.resource2(234);
 
-        this.routeHateosCollectionHandlerGetAndCheck(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                         @Override
-                                                         public List<TestHateosResource2> handle(final BigInteger i,
-                                                                                                 final List<TestHateosResource> r,
-                                                                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                             assertEquals(id, i);
-                                                             assertEquals(Lists.empty(), r);
-                                                             return Lists.of(responseResource);
-                                                         }
-                                                     },
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerGetAndCheck(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                      @Override
+                                                                                      public List<TestHateosResource2> handle(final BigInteger i,
+                                                                                                                              final List<TestHateosResource> r,
+                                                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                          assertEquals(id, i);
+                                                                                          assertEquals(Lists.empty(), r);
+                                                                                          return Lists.of(responseResource);
+                                                                                      }
+                                                                                  },
                 "/api/resource1/123/self",
                 this.contentType(),
                 "",
@@ -980,30 +817,30 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosCollectionHandlerIdWithRequestResourceAndResponseResource() {
-        this.HateosCollectionHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentType());
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndResponseResource() {
+        this.HandlerIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentType());
     }
 
     @Test
-    public void testHateosCollectionHandlerIdWithRequestResourceAndResponseResourceDifferentCharset() {
-        this.HateosCollectionHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentTypeUtf16());
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndResponseResourceDifferentCharset() {
+        this.HandlerIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentTypeUtf16());
     }
 
-    private void HateosCollectionHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(final MediaType contentType) {
+    private void HandlerIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(final MediaType contentType) {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
         final TestHateosResource2 responseResource = TestHateosResource2.with(BigInteger.valueOf(234));
 
-        this.routeHateosCollectionHandlerGetAndCheck(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                         @Override
-                                                         public List<TestHateosResource2> handle(final BigInteger i,
-                                                                                                 final List<TestHateosResource> r,
-                                                                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                             assertEquals(id, i);
-                                                             assertEquals(Lists.of(requestResource), r);
-                                                             return Lists.of(responseResource);
-                                                         }
-                                                     },
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerGetAndCheck(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                      @Override
+                                                                                      public List<TestHateosResource2> handle(final BigInteger i,
+                                                                                                                              final List<TestHateosResource> r,
+                                                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                          assertEquals(id, i);
+                                                                                          assertEquals(Lists.of(requestResource), r);
+                                                                                          return Lists.of(responseResource);
+                                                                                      }
+                                                                                  },
                 "/api/resource1/123/self",
                 contentType,
                 this.toJsonArray(requestResource),
@@ -1020,20 +857,20 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosCollectionHandlerIdWithRequestResourceAndWithoutResponseResourceGet() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndWithoutResponseResourceGet() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeHateosCollectionHandlerAndCheck(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public List<TestHateosResource2> handle(final BigInteger i,
-                                                                                              final List<TestHateosResource> r,
-                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          assertEquals(id, i);
-                                                          assertEquals(Lists.of(requestResource), r);
-                                                          return Lists.empty();
-                                                      }
-                                                  },
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerAndCheck(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                   @Override
+                                                                                   public List<TestHateosResource2> handle(final BigInteger i,
+                                                                                                                           final List<TestHateosResource> r,
+                                                                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                       assertEquals(id, i);
+                                                                                       assertEquals(Lists.of(requestResource), r);
+                                                                                       return Lists.empty();
+                                                                                   }
+                                                                               },
                 HttpMethod.GET,
                 "/api/resource1/123/self",
                 this.contentType(),
@@ -1043,11 +880,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosCollectionHandlerIdWithRequestResourceAndWithoutResponseResourcePost() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndWithoutResponseResourcePost() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeAndCheck(this.mapper().post(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().post(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public List<TestHateosResource2> handle(final BigInteger i,
                                                             final List<TestHateosResource> r,
@@ -1066,11 +903,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosCollectionHandlerIdWithRequestResourceAndWithoutResponseResourcePut() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndWithoutResponseResourcePut() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeAndCheck(this.mapper().put(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().put(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public List<TestHateosResource2> handle(final BigInteger i,
                                                             final List<TestHateosResource> r,
@@ -1089,11 +926,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosCollectionHandlerIdWithRequestResourceAndWithoutResponseResourceDelete() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdWithRequestResourceAndWithoutResponseResourceDelete() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeAndCheck(this.mapper().delete(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().delete(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public List<TestHateosResource2> handle(final BigInteger i,
                                                             final List<TestHateosResource> r,
@@ -1112,20 +949,20 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosCollectionHandlerIdEscaped() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdEscaped() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
 
-        this.routeHateosCollectionHandlerGetAndCheck(new FakeHateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                         @Override
-                                                         public List<TestHateosResource2> handle(final BigInteger i,
-                                                                                                 final List<TestHateosResource> r,
-                                                                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                             assertEquals(id, i);
-                                                             assertEquals(Lists.of(requestResource), r);
-                                                             return Lists.empty();
-                                                         }
-                                                     },
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerGetAndCheck(new FakeHateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                      @Override
+                                                                                      public List<TestHateosResource2> handle(final BigInteger i,
+                                                                                                                              final List<TestHateosResource> r,
+                                                                                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                          assertEquals(id, i);
+                                                                                          assertEquals(Lists.of(requestResource), r);
+                                                                                          return Lists.empty();
+                                                                                      }
+                                                                                  },
                 "/api/resource1/\\1\\2\\3/self",
                 this.contentType(),
                 this.toJsonArray(requestResource),
@@ -1134,14 +971,14 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosCollectionHandlerIdDifferentTypeFromHateosResourceIdType() {
+    public void testHateosIdResourceCollectionResourceCollectionHandlerIdDifferentTypeFromHateosResourceIdType() {
         final Long id = 123L;
         final TestHateosResource requestResource = TestHateosResource.with(BigInteger.valueOf(99));
         final TestHateosResource2 responseResource = TestHateosResource2.with(BigInteger.valueOf(id));
 
-        final HateosHandlerBuilder<JsonNode> builder = this.builder()
-                .add(this.resourceName1(), this.relation1(), HateosHandlerMapper.with(Long::parseLong, TestHateosResource.class, TestHateosResource2.class)
-                        .get(new FakeHateosCollectionHandler<Long, TestHateosResource, TestHateosResource2>() {
+        final HateosHandlerRouterBuilder<JsonNode> builder = this.builder()
+                .add(this.resourceName1(), this.relation1(), HateosHandlerRouterMapper.with(Long::parseLong, TestHateosResource.class, TestHateosResource2.class)
+                        .get(new FakeHateosIdResourceCollectionResourceCollectionHandler<Long, TestHateosResource, TestHateosResource2>() {
                             @Override
                             public List<TestHateosResource2> handle(final Long i,
                                                                     final List<TestHateosResource> resources,
@@ -1168,13 +1005,13 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                         this.contentType()));
     }
 
-    private void routeHateosCollectionHandlerGetAndCheck(final HateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                                         final String url,
-                                                         final MediaType contentType,
-                                                         final String body,
-                                                         final HttpStatus status,
-                                                         final HttpEntity... entities) {
-        this.routeHateosCollectionHandlerAndCheck(handler,
+    private void routeHateosIdResourceCollectionResourceCollectionHandlerGetAndCheck(final HateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                                                      final String url,
+                                                                                      final MediaType contentType,
+                                                                                      final String body,
+                                                                                      final HttpStatus status,
+                                                                                      final HttpEntity... entities) {
+        this.routeHateosIdResourceCollectionResourceCollectionHandlerAndCheck(handler,
                 HttpMethod.GET,
                 url,
                 contentType,
@@ -1183,23 +1020,23 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    // HATEOSMAPPINGHANDLER GET RESOURCE ................................................................................................
+    // HateosIdResourceValueHandler GET RESOURCE ................................................................................................
 
     @Test
-    public void testHateosMappingHandlerIdWithoutRequestResource() {
+    public void testHateosIdResourceValueHandlerIdWithoutRequestResource() {
         final BigInteger id = BigInteger.valueOf(123);
         final Object response = 123;
 
-        this.routeHateosMappingHandlerGetAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public Object handle(final BigInteger i,
-                                                                           final Optional<TestHateosResource> r,
-                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          assertEquals(id, i);
-                                                          assertEquals(Optional.empty(), r);
-                                                          return response;
-                                                      }
-                                                  },
+        this.routeHateosIdResourceValueHandlerGetAndCheck(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                               @Override
+                                                               public Object handle(final BigInteger i,
+                                                                                    final Optional<TestHateosResource> r,
+                                                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                   assertEquals(id, i);
+                                                                   assertEquals(Optional.empty(), r);
+                                                                   return response;
+                                                               }
+                                                           },
                 "/api/resource1/123/self",
                 this.contentType(),
                 "",
@@ -1208,30 +1045,30 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerIdWithRequestResourceAndResponseResource() {
-        this.HateosMappingHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentType());
+    public void testHateosIdResourceValueHandlerIdWithRequestResourceAndResponseResource() {
+        this.HandlerIdResourceValueHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentType());
     }
 
     @Test
-    public void testHateosMappingHandlerIdWithRequestResourceAndResponseResourceDifferentCharset() {
-        this.HateosMappingHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentTypeUtf16());
+    public void testHateosIdResourceValueHandlerIdWithRequestResourceAndResponseResourceDifferentCharset() {
+        this.HandlerIdResourceValueHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(this.contentTypeUtf16());
     }
 
-    private void HateosMappingHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(final MediaType contentType) {
+    private void HandlerIdResourceValueHandlerIdWithRequestResourceAndResponseResourceDifferentCharset(final MediaType contentType) {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
         final Object response = 234;
 
-        this.routeHateosMappingHandlerGetAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public Object handle(final BigInteger i,
-                                                                           final Optional<TestHateosResource> r,
-                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          assertEquals(id, i);
-                                                          assertEquals(Optional.of(requestResource), r);
-                                                          return response;
-                                                      }
-                                                  },
+        this.routeHateosIdResourceValueHandlerGetAndCheck(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                               @Override
+                                                               public Object handle(final BigInteger i,
+                                                                                    final Optional<TestHateosResource> r,
+                                                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                   assertEquals(id, i);
+                                                                   assertEquals(Optional.of(requestResource), r);
+                                                                   return response;
+                                                               }
+                                                           },
                 "/api/resource1/123/self",
                 contentType,
                 requestResource.toJsonNode().toString(),
@@ -1240,12 +1077,12 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerIdWithRequestResourcePost() {
+    public void testHateosIdResourceValueHandlerIdWithRequestResourcePost() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
         final Object response = 234;
 
-        this.routeAndCheck(this.mapper().post(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().post(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public Object handle(final BigInteger i,
                                          final Optional<TestHateosResource> r,
@@ -1264,12 +1101,12 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerIdWithRequestResourcePut() {
+    public void testHateosIdResourceValueHandlerIdWithRequestResourcePut() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
         final Object response = 234;
 
-        this.routeAndCheck(this.mapper().put(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().put(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public Object handle(final BigInteger i,
                                          final Optional<TestHateosResource> r,
@@ -1288,12 +1125,12 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerIdWithRequestResourceDelete() {
+    public void testHateosIdResourceValueHandlerIdWithRequestResourceDelete() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
         final Object response = 234;
 
-        this.routeAndCheck(this.mapper().delete(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        this.routeAndCheck(this.mapper().delete(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
                     @Override
                     public Object handle(final BigInteger i,
                                          final Optional<TestHateosResource> r,
@@ -1312,21 +1149,21 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerIdEscaped() {
+    public void testHateosIdResourceValueHandlerIdEscaped() {
         final BigInteger id = BigInteger.valueOf(123);
         final TestHateosResource requestResource = TestHateosResource.with(id);
         final Object response = 234;
 
-        this.routeHateosMappingHandlerGetAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public Object handle(final BigInteger i,
-                                                                           final Optional<TestHateosResource> r,
-                                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          assertEquals(id, i);
-                                                          assertEquals(Optional.of(requestResource), r);
-                                                          return response;
-                                                      }
-                                                  },
+        this.routeHateosIdResourceValueHandlerGetAndCheck(new FakeHateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                               @Override
+                                                               public Object handle(final BigInteger i,
+                                                                                    final Optional<TestHateosResource> r,
+                                                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                   assertEquals(id, i);
+                                                                   assertEquals(Optional.of(requestResource), r);
+                                                                   return response;
+                                                               }
+                                                           },
                 "/api/resource1/\\1\\2\\3/self",
                 this.contentType(),
                 requestResource.toJsonNode().toString(),
@@ -1335,14 +1172,14 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerIdDifferentTypeFromHateosResourceIdType() {
+    public void testHateosIdResourceValueHandlerIdDifferentTypeFromHateosResourceIdType() {
         final Long id = 123L;
         final TestHateosResource requestResource = TestHateosResource.with(BigInteger.valueOf(99));
         final Object response = 234;
 
-        final HateosHandlerBuilder<JsonNode> builder = this.builder()
-                .add(this.resourceName1(), this.relation1(), HateosHandlerMapper.with(Long::parseLong, TestHateosResource.class, TestHateosResource2.class)
-                        .get(new FakeHateosMappingHandler<Long, TestHateosResource, TestHateosResource2>() {
+        final HateosHandlerRouterBuilder<JsonNode> builder = this.builder()
+                .add(this.resourceName1(), this.relation1(), HateosHandlerRouterMapper.with(Long::parseLong, TestHateosResource.class, TestHateosResource2.class)
+                        .get(new FakeHateosIdResourceValueHandler<Long, TestHateosResource, TestHateosResource2>() {
                             @Override
                             public Object handle(final Long i,
                                                  final Optional<TestHateosResource> resource,
@@ -1361,13 +1198,13 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                         this.contentType()));
     }
 
-    private void routeHateosMappingHandlerGetAndCheck(final HateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                                      final String url,
-                                                      final MediaType contentType,
-                                                      final String body,
-                                                      final HttpStatus status,
-                                                      final HttpEntity... entities) {
-        this.routeHateosMappingHandlerAndCheck(handler,
+    private void routeHateosIdResourceValueHandlerGetAndCheck(final HateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                               final String url,
+                                                               final MediaType contentType,
+                                                               final String body,
+                                                               final HttpStatus status,
+                                                               final HttpEntity... entities) {
+        this.routeHateosIdResourceValueHandlerAndCheck(handler,
                 HttpMethod.GET,
                 url,
                 contentType,
@@ -1376,254 +1213,14 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    // HATEOSHANDLER GET COLLECTION  ................................................................................................
-
-    @Test
-    public void testHateosHandlerAllWithoutRequestResourcesWithoutResponseResources() {
-        this.routeHateosHandlerGetCollectionAndCheck(Range.all(),
-                Lists.empty(),
-                Lists.empty(),
-                "/api/resource1//self",
-                this.contentType(),
-                "",
-                HttpStatusCode.NO_CONTENT.setMessage("GET resource collection successful"),
-                "");
-    }
-
-    @Test
-    public void testHateosHandlerAllWithoutRequestResourcesWithResponseResources() {
-        this.routeHateosHandlerGetCollectionAndCheck(Range.all(),
-                Lists.empty(),
-                Lists.of(TestHateosResource2.with(BigInteger.valueOf(123))),
-                "/api/resource1//self",
-                this.contentType(),
-                "",
-                HttpStatusCode.OK.setMessage("GET resource collection successful"),
-                "[{\n" +
-                        "  \"id\": \"123\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/123\",\n" +
-                        "    \"method\": \"GET\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}]");
-    }
-
-    @Test
-    public void testHateosHandlerAllWithRequestResourcesWithResponseResources() {
-        final List<TestHateosResource> request = Lists.of(TestHateosResource.with(BigInteger.valueOf(111)),
-                TestHateosResource.with(BigInteger.valueOf(222)));
-
-        this.routeHateosHandlerGetCollectionAndCheck(Range.all(),
-                request,
-                Lists.of(TestHateosResource2.with(BigInteger.valueOf(999))),
-                "/api/resource1//self",
-                this.contentType(),
-                HttpStatusCode.OK.setMessage("GET resource collection successful"),
-                "[{\n" +
-                        "  \"id\": \"999\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
-                        "    \"method\": \"GET\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}]");
-    }
-
-    @Test
-    public void testHateosHandlerWildcardWithoutRequestResourcesWithoutResponseResources() {
-        this.routeHateosHandlerGetCollectionAndCheck(Range.all(),
-                Lists.empty(),
-                Lists.empty(),
-                "/api/resource1/*/self",
-                this.contentType(),
-                "",
-                HttpStatusCode.NO_CONTENT.setMessage("GET resource collection successful"),
-                "");
-    }
-
-    @Test
-    public void testHateosHandlerWildcardWithoutRequestResourcesWithResponseResources() {
-        this.routeHateosHandlerGetCollectionAndCheck(Range.all(),
-                Lists.empty(),
-                Lists.of(TestHateosResource2.with(BigInteger.valueOf(123))),
-                "/api/resource1/*/self",
-                this.contentType(),
-                "",
-                HttpStatusCode.OK.setMessage("GET resource collection successful"),
-                "[{\n" +
-                        "  \"id\": \"123\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/123\",\n" +
-                        "    \"method\": \"GET\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}]");
-    }
-
-    @Test
-    public void testHateosHandlerWildcardWithRequestResourcesWithResponseResources() {
-        final List<TestHateosResource> request = Lists.of(TestHateosResource.with(BigInteger.valueOf(111)),
-                TestHateosResource.with(BigInteger.valueOf(222)));
-
-        this.routeHateosHandlerGetCollectionAndCheck(Range.all(),
-                request,
-                Lists.of(TestHateosResource2.with(BigInteger.valueOf(999))),
-                "/api/resource1/*/self",
-                this.contentType(),
-                HttpStatusCode.OK.setMessage("GET resource collection successful"),
-                "[{\n" +
-                        "  \"id\": \"999\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
-                        "    \"method\": \"GET\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}]");
-    }
-
-    @Test
-    public void testHateosHandlerRangeWithoutRequestResourcesWithoutResponseResources() {
-        this.routeHateosHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
-                Lists.empty(),
-                Lists.empty(),
-                "/api/resource1/1-2/self",
-                this.contentType(),
-                "",
-                HttpStatusCode.NO_CONTENT.setMessage("GET resource collection successful"),
-                "");
-    }
-
-    @Test
-    public void testHateosHandlerRangeIdEscaped() {
-        this.routeHateosHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
-                Lists.empty(),
-                Lists.empty(),
-                "/api/resource1/\\1-\\2/self",
-                this.contentType(),
-                "",
-                HttpStatusCode.NO_CONTENT.setMessage("GET resource collection successful"),
-                "");
-    }
-
-    @Test
-    public void testHateosHandlerRangeWithoutRequestResourcesWithResponseResources() {
-        this.routeHateosHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
-                Lists.empty(),
-                Lists.of(TestHateosResource2.with(BigInteger.valueOf(123))),
-                "/api/resource1/1-2/self",
-                this.contentType(),
-                "",
-                HttpStatusCode.OK.setMessage("GET resource collection successful"),
-                "[{\n" +
-                        "  \"id\": \"123\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/123\",\n" +
-                        "    \"method\": \"GET\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}]");
-    }
-
-    @Test
-    public void testHateosHandlerRangeWithRequestResourcesWithResponseResources() {
-        final List<TestHateosResource> request = Lists.of(TestHateosResource.with(BigInteger.valueOf(111)),
-                TestHateosResource.with(BigInteger.valueOf(222)));
-
-        this.routeHateosHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
-                request,
-                Lists.of(TestHateosResource2.with(BigInteger.valueOf(999))),
-                "/api/resource1/1-2/self",
-                this.contentType(),
-                HttpStatusCode.OK.setMessage("GET resource collection successful"),
-                "[{\n" +
-                        "  \"id\": \"999\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
-                        "    \"method\": \"GET\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}]");
-    }
-
-    @Test
-    public void testHateosHandlerRangeWithRequestResourcesWithResponseResourcesDifferentContentType() {
-        final List<TestHateosResource> request = Lists.of(TestHateosResource.with(BigInteger.valueOf(111)),
-                TestHateosResource.with(BigInteger.valueOf(222)));
-
-        this.routeHateosHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
-                request,
-                Lists.of(TestHateosResource2.with(BigInteger.valueOf(999))),
-                "/api/resource1/1-2/self",
-                this.contentTypeUtf16(),
-                HttpStatusCode.OK.setMessage("GET resource collection successful"),
-                "[{\n" +
-                        "  \"id\": \"999\",\n" +
-                        "  \"_links\": [{\n" +
-                        "    \"href\": \"http://www.example.com/api/resource1/999\",\n" +
-                        "    \"method\": \"GET\",\n" +
-                        "    \"rel\": \"self\",\n" +
-                        "    \"type\": \"application/hal+json\"\n" +
-                        "  }]\n" +
-                        "}]");
-    }
-
-    private void routeHateosHandlerGetCollectionAndCheck(final Range<BigInteger> range,
-                                                         final List<TestHateosResource> requestResources,
-                                                         final List<TestHateosResource2> responseResources,
-                                                         final String url,
-                                                         final MediaType contentType,
-                                                         final HttpStatus status,
-                                                         final String responseBody) {
-        this.routeHateosHandlerGetCollectionAndCheck(range,
-                requestResources,
-                responseResources,
-                url,
-                contentType,
-                HasJsonNode.toJsonNodeList(requestResources).toString(),
-                status,
-                responseBody);
-    }
-
-    private void routeHateosHandlerGetCollectionAndCheck(final Range<BigInteger> range,
-                                                         final List<TestHateosResource> requestResources,
-                                                         final List<TestHateosResource2> responseResources,
-                                                         final String url,
-                                                         final MediaType contentType,
-                                                         final String requestBody,
-                                                         final HttpStatus status,
-                                                         final String responseBody) {
-        this.routeHateosHandlerGetAndCheck(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                               @Override
-                                               public List<TestHateosResource2> handleCollection(final Range<BigInteger> i,
-                                                                                                 final List<TestHateosResource> r,
-                                                                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                   assertEquals(range, i);
-                                                   assertEquals(requestResources, r);
-                                                   return responseResources;
-                                               }
-                                           },
-                url,
-                contentType,
-                requestBody,
-                status,
-                this.httpEntity(responseBody, contentType));
-    }
-
-    private void routeHateosHandlerAndCheck(final HateosHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                            final HttpMethod method,
-                                            final String url,
-                                            final MediaType contentType,
-                                            final String body,
-                                            final HttpStatus status,
-                                            final HttpEntity... entities) {
-        final HateosHandlerMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper = this.mapper();
+    private void routeHateosIdResourceValueHandlerAndCheck(final HateosIdResourceValueHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                            final HttpMethod method,
+                                                            final String url,
+                                                            final MediaType contentType,
+                                                            final String body,
+                                                            final HttpStatus status,
+                                                            final HttpEntity... entities) {
+        final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper = this.mapper();
         do {
             if (method.equals(HttpMethod.GET)) {
                 mapper.get(handler);
@@ -1653,14 +1250,14 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    private void routeHateosCollectionHandlerAndCheck(final HateosCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                                      final HttpMethod method,
-                                                      final String url,
-                                                      final MediaType contentType,
-                                                      final String body,
-                                                      final HttpStatus status,
-                                                      final HttpEntity... entities) {
-        final HateosHandlerMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper = this.mapper();
+    private void routeHateosIdResourceResourceHandlerAndCheck(final HateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                               final HttpMethod method,
+                                                               final String url,
+                                                               final MediaType contentType,
+                                                               final String body,
+                                                               final HttpStatus status,
+                                                               final HttpEntity... entities) {
+        final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper = this.mapper();
         do {
             if (method.equals(HttpMethod.GET)) {
                 mapper.get(handler);
@@ -1690,11 +1287,48 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    // HateosMappingHandler GET COLLECTION  ................................................................................................
+    private void routeHateosIdResourceCollectionResourceCollectionHandlerAndCheck(final HateosIdResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                                                   final HttpMethod method,
+                                                                                   final String url,
+                                                                                   final MediaType contentType,
+                                                                                   final String body,
+                                                                                   final HttpStatus status,
+                                                                                   final HttpEntity... entities) {
+        final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper = this.mapper();
+        do {
+            if (method.equals(HttpMethod.GET)) {
+                mapper.get(handler);
+                break;
+            }
+            if (method.equals(HttpMethod.POST)) {
+                mapper.post(handler);
+                break;
+            }
+            if (method.equals(HttpMethod.PUT)) {
+                mapper.put(handler);
+                break;
+            }
+            if (method.equals(HttpMethod.DELETE)) {
+                mapper.delete(handler);
+                break;
+            }
+            fail("Unknown method=" + method);
+        } while (false);
+
+        this.routeAndCheck(mapper,
+                method,
+                url,
+                contentType,
+                body,
+                status,
+                entities);
+    }
+
+    // HateosIdRangeResourceCollectionResourceCollectionHandler ................................................................................................
 
     @Test
-    public void testHateosMappingHandlerAllWithoutRequestResourcesWithoutResponseResources() {
-        this.routeHateosMappingHandlerGetCollectionAndCheck(Range.all(),
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerAllWithoutRequestResourcesWithoutResponseResources() {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(Range.all(),
                 Lists.empty(),
                 Lists.empty(),
                 "/api/resource1//self",
@@ -1705,8 +1339,8 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerAllWithoutRequestResourcesWithResponseResources() {
-        this.routeHateosMappingHandlerGetCollectionAndCheck(Range.all(),
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerAllWithoutRequestResourcesWithResponseResources() {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(Range.all(),
                 Lists.empty(),
                 Lists.of(TestHateosResource2.with(BigInteger.valueOf(123))),
                 "/api/resource1//self",
@@ -1725,11 +1359,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerAllWithRequestResourcesWithResponseResources() {
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerAllWithRequestResourcesWithResponseResources() {
         final List<TestHateosResource> request = Lists.of(TestHateosResource.with(BigInteger.valueOf(111)),
                 TestHateosResource.with(BigInteger.valueOf(222)));
 
-        this.routeHateosMappingHandlerGetCollectionAndCheck(Range.all(),
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(Range.all(),
                 request,
                 Lists.of(TestHateosResource2.with(BigInteger.valueOf(999))),
                 "/api/resource1//self",
@@ -1747,8 +1381,8 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerWildcardWithoutRequestResourcesWithoutResponseResources() {
-        this.routeHateosMappingHandlerGetCollectionAndCheck(Range.all(),
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerWildcardWithoutRequestResourcesWithoutResponseResources() {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(Range.all(),
                 Lists.empty(),
                 Lists.empty(),
                 "/api/resource1/*/self",
@@ -1759,8 +1393,8 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerWildcardWithoutRequestResourcesWithResponseResources() {
-        this.routeHateosMappingHandlerGetCollectionAndCheck(Range.all(),
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerWildcardWithoutRequestResourcesWithResponseResources() {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(Range.all(),
                 Lists.empty(),
                 Lists.of(TestHateosResource2.with(BigInteger.valueOf(123))),
                 "/api/resource1/*/self",
@@ -1779,11 +1413,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerWildcardWithRequestResourcesWithResponseResources() {
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerWildcardWithRequestResourcesWithResponseResources() {
         final List<TestHateosResource> request = Lists.of(TestHateosResource.with(BigInteger.valueOf(111)),
                 TestHateosResource.with(BigInteger.valueOf(222)));
 
-        this.routeHateosMappingHandlerGetCollectionAndCheck(Range.all(),
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(Range.all(),
                 request,
                 Lists.of(TestHateosResource2.with(BigInteger.valueOf(999))),
                 "/api/resource1/*/self",
@@ -1801,8 +1435,8 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerRangeWithoutRequestResourcesWithoutResponseResources() {
-        this.routeHateosMappingHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerRangeWithoutRequestResourcesWithoutResponseResources() {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
                 Lists.empty(),
                 Lists.empty(),
                 "/api/resource1/1-2/self",
@@ -1813,8 +1447,8 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerRangeIdEscaped() {
-        this.routeHateosMappingHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerRangeIdEscaped() {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
                 Lists.empty(),
                 Lists.empty(),
                 "/api/resource1/\\1-\\2/self",
@@ -1825,8 +1459,8 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerRangeWithoutRequestResourcesWithResponseResources() {
-        this.routeHateosMappingHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerRangeWithoutRequestResourcesWithResponseResources() {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
                 Lists.empty(),
                 Lists.of(TestHateosResource2.with(BigInteger.valueOf(123))),
                 "/api/resource1/1-2/self",
@@ -1845,11 +1479,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerRangeWithRequestResourcesWithResponseResources() {
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerRangeWithRequestResourcesWithResponseResources() {
         final List<TestHateosResource> request = Lists.of(TestHateosResource.with(BigInteger.valueOf(111)),
                 TestHateosResource.with(BigInteger.valueOf(222)));
 
-        this.routeHateosMappingHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
                 request,
                 Lists.of(TestHateosResource2.with(BigInteger.valueOf(999))),
                 "/api/resource1/1-2/self",
@@ -1867,11 +1501,11 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     }
 
     @Test
-    public void testHateosMappingHandlerRangeWithRequestResourcesWithResponseResourcesDifferentContentType() {
+    public void testHateosIdRangeResourceCollectionResourceCollectionHandlerRangeWithRequestResourcesWithResponseResourcesDifferentContentType() {
         final List<TestHateosResource> request = Lists.of(TestHateosResource.with(BigInteger.valueOf(111)),
                 TestHateosResource.with(BigInteger.valueOf(222)));
 
-        this.routeHateosMappingHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(this.rangeBetween(1, 2),
                 request,
                 Lists.of(TestHateosResource2.with(BigInteger.valueOf(999))),
                 "/api/resource1/1-2/self",
@@ -1888,14 +1522,14 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                         "}]");
     }
 
-    private void routeHateosMappingHandlerGetCollectionAndCheck(final Range<BigInteger> range,
-                                                                final List<TestHateosResource> requestResources,
-                                                                final List<TestHateosResource2> responseResources,
-                                                                final String url,
-                                                                final MediaType contentType,
-                                                                final HttpStatus status,
-                                                                final String responseBody) {
-        this.routeHateosMappingHandlerGetCollectionAndCheck(range,
+    private void routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(final Range<BigInteger> range,
+                                                                                                    final List<TestHateosResource> requestResources,
+                                                                                                    final List<TestHateosResource2> responseResources,
+                                                                                                    final String url,
+                                                                                                    final MediaType contentType,
+                                                                                                    final HttpStatus status,
+                                                                                                    final String responseBody) {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(range,
                 requestResources,
                 responseResources,
                 url,
@@ -1905,24 +1539,25 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 responseBody);
     }
 
-    private void routeHateosMappingHandlerGetCollectionAndCheck(final Range<BigInteger> range,
-                                                                final List<TestHateosResource> requestResources,
-                                                                final List<TestHateosResource2> responseResources,
-                                                                final String url,
-                                                                final MediaType contentType,
-                                                                final String requestBody,
-                                                                final HttpStatus status,
-                                                                final String responseBody) {
-        this.routeHateosMappingHandlerGetAndCheck(new FakeHateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
-                                                      @Override
-                                                      public List<TestHateosResource2> handleCollection(final Range<BigInteger> i,
-                                                                                                        final List<TestHateosResource> r,
-                                                                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                                                          assertEquals(range, i);
-                                                          assertEquals(requestResources, r);
-                                                          return responseResources;
-                                                      }
-                                                  },
+    private void routeHateosIdRangeResourceCollectionResourceCollectionHandlerGetCollectionAndCheck(final Range<BigInteger> range,
+                                                                                                    final List<TestHateosResource> requestResources,
+                                                                                                    final List<TestHateosResource2> responseResources,
+                                                                                                    final String url,
+                                                                                                    final MediaType contentType,
+                                                                                                    final String requestBody,
+                                                                                                    final HttpStatus status,
+                                                                                                    final String responseBody) {
+        this.routeHateosIdRangeResourceCollectionResourceCollectionHandlerAndCheck(new FakeHateosIdRangeResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+                                                                                       @Override
+                                                                                       public List<TestHateosResource2> handle(final Range<BigInteger> i,
+                                                                                                                               final List<TestHateosResource> r,
+                                                                                                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                                           assertEquals(range, i);
+                                                                                           assertEquals(requestResources, r);
+                                                                                           return responseResources;
+                                                                                       }
+                                                                                   },
+                HttpMethod.GET,
                 url,
                 contentType,
                 requestBody,
@@ -1930,14 +1565,14 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 this.httpEntity(responseBody, contentType));
     }
 
-    private void routeHateosMappingHandlerAndCheck(final HateosMappingHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
-                                                   final HttpMethod method,
-                                                   final String url,
-                                                   final MediaType contentType,
-                                                   final String body,
-                                                   final HttpStatus status,
-                                                   final HttpEntity... entities) {
-        final HateosHandlerMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper = this.mapper();
+    private void routeHateosIdRangeResourceCollectionResourceCollectionHandlerAndCheck(final HateosIdRangeResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource2> handler,
+                                                                                       final HttpMethod method,
+                                                                                       final String url,
+                                                                                       final MediaType contentType,
+                                                                                       final String body,
+                                                                                       final HttpStatus status,
+                                                                                       final HttpEntity... entities) {
+        final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper = this.mapper();
         do {
             if (method.equals(HttpMethod.GET)) {
                 mapper.get(handler);
@@ -1971,7 +1606,7 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
 
     @Override
     public HateosHandlerRouter<JsonNode> createRouter() {
-        final HateosHandlerBuilder<JsonNode> builder = this.builder();
+        final HateosHandlerRouterBuilder<JsonNode> builder = this.builder();
         //builder.add(this.resourceName1(), this.relation1(), new FakeHateosGetHandler<BigInteger, JsonNode>());
         return Cast.to(builder.build()); // builder returns interface which is HHBR class.
     }
@@ -1987,8 +1622,8 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 .toString();
     }
 
-    private HateosHandlerBuilder<JsonNode> builder() {
-        return HateosHandlerBuilder.with(
+    private HateosHandlerRouterBuilder<JsonNode> builder() {
+        return HateosHandlerRouterBuilder.with(
                 this.base(),
                 HateosContentType.json());
     }
@@ -2046,7 +1681,7 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
         return entities;
     }
 
-    private void routeAndCheck(final HateosHandlerMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper,
+    private void routeAndCheck(final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper,
                                final HttpMethod method,
                                final String url,
                                final MediaType contentType,
@@ -2062,7 +1697,7 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 entities);
     }
 
-    private void routeAndCheck(final HateosHandlerBuilder<JsonNode> builder,
+    private void routeAndCheck(final HateosHandlerRouterBuilder<JsonNode> builder,
                                final HttpMethod method,
                                final String url,
                                final MediaType contentType,
@@ -2091,8 +1726,8 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
                 null;
     }
 
-    private HateosHandlerMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper() {
-        return HateosHandlerMapper.with(BigInteger::new,
+    private HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource2> mapper() {
+        return HateosHandlerRouterMapper.with(BigInteger::new,
                 TestHateosResource.class,
                 TestHateosResource2.class);
     }
@@ -2166,12 +1801,6 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
         };
     }
 
-    private void checkParameters(Map<HttpRequestAttribute<?>, Object> parameters) {
-        assertEquals(Lists.of("value1"),
-                parameters.get(UrlParameterName.with("param1")),
-                "parameters");
-    }
-
     @Override
     public Class<HateosHandlerRouter<JsonNode>> type() {
         return Cast.to(HateosHandlerRouter.class);
@@ -2180,5 +1809,10 @@ public final class HateosHandlerRouterTest implements ClassTesting2<HateosHandle
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    String typeNamePrefix2() {
+        return "";
     }
 }

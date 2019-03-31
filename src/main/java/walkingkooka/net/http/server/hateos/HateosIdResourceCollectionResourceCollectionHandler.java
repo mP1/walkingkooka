@@ -19,24 +19,23 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
 
+import java.util.List;
 import java.util.Map;
 
 /**
- * Mixin interface for testing {@link HateosHandler}
+ * Handles both single resources and collection requests producing their response.<br>
+ * This assumes each ID maps to a zero or more {@link HateosResource resources}.
  */
-public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
-        I extends Comparable<I>,
+public interface HateosIdResourceCollectionResourceCollectionHandler<I extends Comparable<I>,
         R extends HateosResource<?>,
         S extends HateosResource<?>>
-        extends ClassTesting2<H>,
-        TypeNameTesting<H> {
+        extends HateosHandler<I, R, S> {
 
-    H createHandler();
-
-    Map<HttpRequestAttribute<?>, Object> parameters();
-
-    I id();
+    /**
+     * Handles a request resource identified by the ID to multiple resources.
+     */
+    List<S> handle(final I id,
+                   final List<R> resources,
+                   final Map<HttpRequestAttribute<?>, Object> parameters);
 }

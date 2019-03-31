@@ -25,11 +25,12 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.TestRecordingHttpResponse;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest implements ClassTesting2<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
+import java.util.function.BiConsumer;
+
+public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
 
     @Test
     public void testMethodNotSupported() {
@@ -58,5 +59,15 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest impl
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    String typeNamePrefix2() {
+        return "HttpRequestHttpResponse";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return BiConsumer.class.getSimpleName();
     }
 }

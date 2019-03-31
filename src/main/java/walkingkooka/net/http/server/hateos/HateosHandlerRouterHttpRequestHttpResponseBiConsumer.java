@@ -29,7 +29,7 @@ import java.util.function.BiConsumer;
 
 /**
  * Router which accepts a request and then dispatches after testing the {@link HttpMethod}. This is the product of
- * {@link HateosHandlerBuilder}.
+ * {@link HateosHandlerRouterBuilder}.
  */
 final class HateosHandlerRouterHttpRequestHttpResponseBiConsumer<N extends Node<N, ?, ?, ?>,
         H extends HateosContentType<N>>

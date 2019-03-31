@@ -18,33 +18,30 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.compare.Range;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.tree.Node;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents a mapping between a request and a {@link HateosHandler}.
+ * A {@link HateosHandlerRouterMapperHateosIdHandlerMapping} for {@link HateosIdResourceResourceHandler}.
  */
-final class HateosHandlerMapperHateosHandlerMapping<I extends Comparable<I>,
+final class HateosHandlerRouterMapperHateosIdResourceResourceHandlerMapping<I extends Comparable<I>,
         R extends HateosResource<?>,
         S extends HateosResource<?>>
-        extends HateosHandlerMapperMapping<I,R,S>{
+        extends
+        HateosHandlerRouterMapperHateosIdHandlerMapping<HateosIdResourceResourceHandler<I, R, S>, I,R,S> {
 
     static <I extends Comparable<I>,
             R extends HateosResource<?>,
-            S extends HateosResource<?>> HateosHandlerMapperHateosHandlerMapping<I, R, S> with(final HateosHandler<I, R, S> handler) {
-        return new HateosHandlerMapperHateosHandlerMapping<>(handler);
+            S extends HateosResource<?>> HateosHandlerRouterMapperHateosIdResourceResourceHandlerMapping<I, R, S> with(final HateosIdResourceResourceHandler<I, R, S> handler) {
+        return new HateosHandlerRouterMapperHateosIdResourceResourceHandlerMapping<>(handler);
     }
 
-    private HateosHandlerMapperHateosHandlerMapping(final HateosHandler<I, R, S> handler) {
-        super();
-        this.handler = handler;
+    private HateosHandlerRouterMapperHateosIdResourceResourceHandlerMapping(final HateosIdResourceResourceHandler<I, R, S> handler) {
+        super(handler);
     }
 
     /**
@@ -83,50 +80,4 @@ final class HateosHandlerMapperHateosHandlerMapping<I extends Comparable<I>,
             request.setStatusAndBody(method + " resource successful", responseText);
         }
     }
-
-    /**
-     * Handles a request for a range of ids.
-     */
-    @Override
-    <N extends Node<N, ?, ?, ?>> void handleCollection(final HateosResourceName resourceName,
-                                                       final Range<I> ids,
-                                                       final String requestText,
-                                                       final Class<R> resourceType,
-                                                       final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
-        final HateosContentType<N> hateosContentType = request.hateosContentType();
-        final List<R> requestResources = request.resourcesListOrBadRequest(requestText,
-                hateosContentType,
-                resourceType,
-                request);
-
-        if (null != requestResources) {
-            final HttpRequest httpRequest = request.request;
-            final HttpMethod method = httpRequest.method();
-            String responseText = null;
-            final List<S> responseResources = this.handler.handleCollection(ids,
-                    requestResources,
-                    request.parameters);
-            if (!responseResources.isEmpty()) {
-                final AbsoluteUrl base = request.router.base;
-                final List<LinkRelation<?>> linkRelations = request.router.linkRelations(resourceName);
-
-                responseText = hateosContentType.toTextList(responseResources,
-                        null,
-                        method,
-                        base,
-                        resourceName,
-                        linkRelations);
-            }
-
-            request.setStatusAndBody(method + " resource collection successful",
-                    responseText);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return this.handler.toString();
-    }
-
-    private final HateosHandler<I, R, S> handler;
 }
