@@ -43,15 +43,15 @@ import java.util.stream.Collectors;
  * Router which accepts a request and returns a {@link BiConsumer} that operates on the base {@link UrlPath}.
  */
 final class HateosHandlerRouter<N extends Node<N, ?, ?, ?>>
-        extends HateosHandler2<N>
+        extends HateosHandlerRouter2<N>
         implements Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> {
 
     /**
-     * Factory called by {@link HateosHandlerBuilder#build()}
+     * Factory called by {@link HateosHandlerRouterBuilder#build()}
      */
     static <N extends Node<N, ?, ?, ?>> HateosHandlerRouter<N> with(final AbsoluteUrl base,
                                                                     final HateosContentType<N> contentType,
-                                                                    final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?, ?>> handlers) {
+                                                                    final Map<HateosHandlerRouterKey, HateosHandlerRouterMapper<?, ?, ?>> handlers) {
         return new HateosHandlerRouter<N>(base,
                 contentType,
                 handlers);
@@ -62,7 +62,7 @@ final class HateosHandlerRouter<N extends Node<N, ?, ?, ?>>
      */
     private HateosHandlerRouter(final AbsoluteUrl base,
                                 final HateosContentType<N> contentType,
-                                final Map<HateosHandlerRouterKey, HateosHandlerMapper<?, ?, ?>> handlers) {
+                                final Map<HateosHandlerRouterKey, HateosHandlerRouterMapper<?, ?, ?>> handlers) {
         super(base, contentType, handlers);
 
         final Set<HateosHandlerRouterKey> nameAndLinkRelations = handlers.keySet();

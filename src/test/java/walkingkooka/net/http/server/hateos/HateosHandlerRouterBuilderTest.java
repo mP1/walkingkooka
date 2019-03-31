@@ -28,7 +28,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.routing.Router;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -39,8 +38,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandlerBuilder<JsonNode>>,
-        BuilderTesting<HateosHandlerBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
+public final class HateosHandlerRouterBuilderTest extends HateosHandlerRouterTestCase<HateosHandlerRouterBuilder<JsonNode>>
+    implements BuilderTesting<HateosHandlerRouterBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
     private final static Function<String, BigInteger> STRING_TO_ID = BigInteger::new;
     private final static Class<EmailAddress> RESOURCE_TYPE = EmailAddress.class;
@@ -104,7 +103,7 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
         final HateosResourceName resourceName = this.resourceName1();
         final LinkRelation<?> relation = LinkRelation.SELF;
 
-        final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
+        final HateosHandlerRouterBuilder<JsonNode> builder = this.createBuilder();
         builder.add(resourceName, relation, this.mapper());
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -114,7 +113,7 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
 
     @Test
     public void testAddMany() {
-        final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
+        final HateosHandlerRouterBuilder<JsonNode> builder = this.createBuilder();
 
         assertSame(builder, builder.add(this.resourceName1(), LinkRelation.SELF, this.mapper()));
         assertSame(builder, builder.add(this.resourceName2(), LinkRelation.SELF, this.mapper()));
@@ -126,7 +125,7 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
 
     @Test
     public void testToString() {
-        final HateosHandlerBuilder<JsonNode> builder = this.createBuilder();
+        final HateosHandlerRouterBuilder<JsonNode> builder = this.createBuilder();
         builder.add(this.resourceName1(), LinkRelation.SELF, this.mapper().get(this.handler("get123")).post(this.handler("post123")));
         builder.add(this.resourceName2(), LinkRelation.SELF, this.mapper().post(this.handler("post234")));
         builder.add(this.resourceName1(), LinkRelation.ITEM, this.mapper().put(this.handler("put345")));
@@ -136,8 +135,8 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
                 "http://example.com/api JSON {resource1 item=PUT=put345, resource1 self=GET=get123 POST=post123, resource2 item=DELETE=delete456, resource2 self=POST=post234}");
     }
 
-    private HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> handler(final String toString) {
-        return new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
+    private HateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource3> handler(final String toString) {
+        return new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
             public String toString() {
                 return toString;
             }
@@ -157,32 +156,32 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
     // helpers ..........................................................................................
 
     @Override
-    public HateosHandlerBuilder<JsonNode> createBuilder() {
+    public HateosHandlerRouterBuilder<JsonNode> createBuilder() {
         return this.createBuilder("http://example.com/api");
     }
 
-    private HateosHandlerBuilder<JsonNode> createBuilder(final String url) {
+    private HateosHandlerRouterBuilder<JsonNode> createBuilder(final String url) {
         return this.createBuilder(url, this.contentType());
     }
 
-    private HateosHandlerBuilder<JsonNode> createBuilder(final String url,
-                                                         final HateosContentType<JsonNode> contentType) {
-        return HateosHandlerBuilder.with(AbsoluteUrl.parse(url), contentType);
+    private HateosHandlerRouterBuilder<JsonNode> createBuilder(final String url,
+                                                               final HateosContentType<JsonNode> contentType) {
+        return HateosHandlerRouterBuilder.with(AbsoluteUrl.parse(url), contentType);
     }
 
     private HateosContentType<JsonNode> contentType() {
         return HateosContentType.json();
     }
 
-    private HateosHandlerMapper<BigInteger, TestHateosResource, TestHateosResource3> mapper() {
-        return HateosHandlerMapper.with(BigInteger::new,
+    private HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource3> mapper() {
+        return HateosHandlerRouterMapper.with(BigInteger::new,
                 TestHateosResource.class,
                 TestHateosResource3.class);
     }
 
     @Override
-    public Class<HateosHandlerBuilder<JsonNode>> type() {
-        return Cast.to(HateosHandlerBuilder.class);
+    public Class<HateosHandlerRouterBuilder<JsonNode>> type() {
+        return Cast.to(HateosHandlerRouterBuilder.class);
     }
 
     @Override
@@ -193,5 +192,10 @@ public final class HateosHandlerBuilderTest implements ClassTesting2<HateosHandl
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    String typeNamePrefix2() {
+        return "";
     }
 }

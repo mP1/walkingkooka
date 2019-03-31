@@ -18,32 +18,41 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.test.ClassTesting;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class HateosHandlerMapperMappingTestCase<T extends HateosHandlerMapperMapping> implements TypeNameTesting<T>, ClassTesting<T> {
+import java.math.BigInteger;
+import java.util.Map;
 
-    HateosHandlerMapperMappingTestCase() {
+public abstract class HateosHandlerTestingTestCase<H extends HateosHandler<BigInteger, TestHateosResource, TestHateosResource2>>
+        implements HateosHandlerTesting<H, BigInteger, TestHateosResource, TestHateosResource2> {
+
+    HateosHandlerTestingTestCase() {
         super();
     }
 
-    // ClassTesting..........................................................................................
+    @Override
+    public final void testTestNaming() {
+
+    }
+
+    @Override
+    public final Map<HttpRequestAttribute<?>, Object> parameters() {
+        return HateosHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public final BigInteger id() {
+        return BigInteger.valueOf(111);
+    }
 
     @Override
     public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+        return MemberVisibility.PUBLIC;
     }
-
-    // TypeNameTesting..........................................................................................
 
     @Override
     public final String typeNamePrefix() {
-        return HateosHandlerMapper.class.getSimpleName();
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "Mapping";
+        return "";
     }
 }

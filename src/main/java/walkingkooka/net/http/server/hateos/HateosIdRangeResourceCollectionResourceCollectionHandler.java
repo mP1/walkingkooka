@@ -18,11 +18,22 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.Cast;
+import walkingkooka.compare.Range;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 
-public final class HateosHandlerMapperHateosHandlerMappingTest extends HateosHandlerMapperMappingTestCase<HateosHandlerMapperHateosHandlerMapping<?, ?, ?>> {
-    @Override
-    public Class<HateosHandlerMapperHateosHandlerMapping<?, ?, ?>> type() {
-        return Cast.to(HateosHandlerMapperHateosHandlerMapping.class);
-    }
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Handles a request with a range of ids and a collection of resources.
+ */
+public interface HateosIdRangeResourceCollectionResourceCollectionHandler<I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>>
+        extends HateosHandler<I, R, S> {
+
+    /**
+     * Handles a request which involves a collection of resources.
+     */
+    List<S> handle(final Range<I> ids,
+                   final List<R> resources,
+                   final Map<HttpRequestAttribute<?>, Object> parameters);
 }

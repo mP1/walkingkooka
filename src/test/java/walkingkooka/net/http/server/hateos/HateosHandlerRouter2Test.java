@@ -18,11 +18,18 @@
 
 package walkingkooka.net.http.server.hateos;
 
-public abstract class HateosHandlerMapperMappingTestCase2<I extends Comparable<I>,
-        R extends HateosResource<?>,
-        S extends HateosResource<?>, M extends HateosHandlerMapperMapping<I, R, S>> {
+import walkingkooka.Cast;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.type.MemberVisibility;
 
-    HateosHandlerMapperMappingTestCase2() {
-        super();
+public final class HateosHandlerRouter2Test implements ClassTesting2<HateosHandlerRouter2<?>> {
+    @Override
+    public Class<HateosHandlerRouter2<?>> type() {
+        return Cast.to(HateosHandlerRouter2.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

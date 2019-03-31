@@ -20,36 +20,24 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.test.Fake;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
- * A {@link HateosHandler} where all methods throw {@link UnsupportedOperationException}.
+ * A {@link HateosIdRangeResourceCollectionResourceCollectionHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeHateosMappingHandler<I extends Comparable<I>,
+public class FakeHateosIdRangeResourceCollectionResourceCollectionHandler<I extends Comparable<I>,
         R extends HateosResource<?>,
         S extends HateosResource<?>>
-        implements HateosMappingHandler<I, R, S>, Fake {
+        extends FakeHateosHandler<I, R, S>
+        implements HateosIdRangeResourceCollectionResourceCollectionHandler<I, R, S> {
 
     @Override
-    public Object handle(final I id,
-                         final Optional<R> resource,
-                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(id, "id");
-        Objects.requireNonNull(resource, "resource");
-        Objects.requireNonNull(parameters, "parameters");
-
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<S> handleCollection(final Range<I> ids,
-                                    final List<R> resources,
-                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public List<S> handle(final Range<I> ids,
+                          final List<R> resources,
+                          final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(ids, "ids");
         Objects.requireNonNull(resources, "resources");
         Objects.requireNonNull(parameters, "parameters");

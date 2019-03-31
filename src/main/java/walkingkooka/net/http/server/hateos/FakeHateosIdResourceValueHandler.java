@@ -19,24 +19,28 @@
 package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
 
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
- * Mixin interface for testing {@link HateosHandler}
+ * A {@link HateosHandler} where all methods throw {@link UnsupportedOperationException}.
  */
-public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
-        I extends Comparable<I>,
+public class FakeHateosIdResourceValueHandler<I extends Comparable<I>,
         R extends HateosResource<?>,
         S extends HateosResource<?>>
-        extends ClassTesting2<H>,
-        TypeNameTesting<H> {
+        extends FakeHateosHandler<I, R, S>
+        implements HateosIdResourceValueHandler<I, R, S> {
 
-    H createHandler();
+    @Override
+    public Object handle(final I id,
+                         final Optional<R> resource,
+                         final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(id, "id");
+        Objects.requireNonNull(resource, "resource");
+        Objects.requireNonNull(parameters, "parameters");
 
-    Map<HttpRequestAttribute<?>, Object> parameters();
-
-    I id();
+        throw new UnsupportedOperationException();
+    }
 }

@@ -20,9 +20,9 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
 
-public final class HateosHandlerMapperHateosCollectionHandlerMappingTest extends HateosHandlerMapperMappingTestCase<HateosHandlerMapperHateosCollectionHandlerMapping<?, ?, ?>> {
+public final class HateosHandlerRouterMapperHateosIdHandlerMappingTest extends HateosHandlerRouterMapperHateosHandlerMappingTestCase<HateosHandlerRouterMapperHateosIdHandlerMapping<?, ?, ?, ?>> {
     @Override
-    public Class<HateosHandlerMapperHateosCollectionHandlerMapping<?, ?, ?>> type() {
-        return Cast.to(HateosHandlerMapperHateosCollectionHandlerMapping.class);
+    public Class<HateosHandlerRouterMapperHateosIdHandlerMapping<?, ?, ?, ?>> type() {
+        return Cast.to(HateosHandlerRouterMapperHateosIdHandlerMapping.class);
     }
 }
