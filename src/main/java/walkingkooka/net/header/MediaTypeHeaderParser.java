@@ -22,6 +22,48 @@ import walkingkooka.predicate.character.CharPredicate;
 
 /**
  * Base class which parses text containing one or many media types.
+ * <a href="https://tools.ietf.org/html/rfc7231#section-3.1.1.1></a>
+ * <pre>
+ *    HTTP uses Internet media types [RFC2046] in the Content-Type
+ *    (Section 3.1.1.5) and Accept (Section 5.3.2) header fields in order
+ *    to provide open and extensible data typing and type negotiation.
+ *    Media types define both a data format and various processing models:
+ *    how to process that data in accordance with each context in which it
+ *    is received.
+ *
+ *      media-type = type "/" subtype *( OWS ";" OWS parameter )
+ *      type       = token
+ *      subtype    = token
+ *
+ *    The type/subtype MAY be followed by parameters in the form of
+ *    name=value pairs.
+ *
+ *      parameter      = token "=" ( token / quoted-string )
+ *
+ *    The type, subtype, and parameter name tokens are case-insensitive.
+ *    Parameter values might or might not be case-sensitive, depending on
+ *    the semantics of the parameter name.  The presence or absence of a
+ *    parameter might be significant to the processing of a media-type,
+ *    depending on its definition within the media type registry.
+ *
+ *    A parameter value that matches the token production can be
+ *    transmitted either as a token or within a quoted-string.  The quoted
+ *    and unquoted values are equivalent.  For example, the following
+ *    examples are all equivalent, but the first is preferred for
+ *    consistency:
+ *
+ *      text/html;charset=utf-8
+ *      text/html;charset=UTF-8
+ *      Text/HTML;Charset="utf-8"
+ *      text/html; charset="utf-8"
+ *
+ *    Internet media types ought to be registered with IANA according to
+ *    the procedures defined in [BCP13].
+ *
+ *       Note: Unlike some similar constructs in other header fields, media
+ *       type parameters do not allow whitespace (even "bad" whitespace)
+ *       around the "=" character.
+ * </pre>
  */
 abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaType,
         MediaTypeParameterName<?>> {
