@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,67 +29,45 @@ public final class MapToStringBuilderTest extends VectorToStringBuilderTestCase<
 
     @Test
     public void testLabelValue() {
-        final Map<String, String> map = Maps.ordered();
-        map.put("A", "1");
-        map.put("B", "2");
-        map.put("C", "3");
-
         final ToStringBuilder b = this.builder();
         b.labelSeparator("$");
         b.label(LABEL);
-        b.value(map);
+        b.value(Maps.of("A", "1", "B", "2", "C", "3"));
 
         this.buildAndCheck(b, LABEL+"$A$1, B$2, C$3");
     }
 
     @Test
     public void testValueList() {
-        final Map<String, List<Object>> map = Maps.ordered();
-        map.put("A", Lists.of(1, 2));
-        map.put("B", Lists.of(3, 4));
-
         final ToStringBuilder b = this.builder();
         b.labelSeparator("$");
         b.label(LABEL);
-        b.value(map);
+        b.value(Maps.of("A", Lists.of(1, 2), "B", Lists.of(3, 4)));
 
         this.buildAndCheck(b, LABEL+"$A$1, 2, B$3, 4");
     }
 
     @Test
     public void testQuoted() {
-        final Map<String, Object> map = Maps.ordered();
-        map.put("A", "1");
-        map.put("B", "2");
-        map.put("C", 333);
-
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
-        b.value(map);
+        b.value(Maps.of("A", "1", "B", "2", "C", 333));
 
         this.buildAndCheck(b, "A=\"1\", B=\"2\", C=333");
     }
 
     @Test
     public void testLabelSeparator() {
-        final Map<String, String> map = Maps.ordered();
-        map.put("A", "1");
-        map.put("B", "2");
-        map.put("C", "3");
-
         final ToStringBuilder b = this.builder();
         b.labelSeparator("$");
-        b.value(map);
+        b.value(Maps.of("A", "1", "B", "2", "C", "3"));
 
         this.buildAndCheck(b, "A$1, B$2, C$3");
     }
 
     @Test
     public void testSeparator() {
-        final Map<String, String> map = Maps.ordered();
-        map.put("A", "1");
-        map.put("B", "2");
-        map.put("C", "3");
+        final Map<String, String> map = Maps.of("A", "1", "B", "2", "C", "3");
 
         final ToStringBuilder b = this.builder();
         b.separator("$");
@@ -112,13 +89,7 @@ public final class MapToStringBuilderTest extends VectorToStringBuilderTestCase<
 
     @Override
     Map<String, Integer> value2() {
-        final Map<String, Integer> map = Maps.ordered();
-
-        map.put("A", 1);
-        map.put("B", 2);
-        map.put("C", 3);
-        
-        return map;
+        return Maps.of("A", 1, "B", 2, "C", 3);
     }
 
     @Override

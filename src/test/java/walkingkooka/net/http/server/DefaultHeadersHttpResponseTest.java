@@ -91,10 +91,8 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse("EN"));
-        headers.put(HttpHeaderName.SERVER, "Server 123");
-        return headers;
+        return Maps.of(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse("EN"),
+                HttpHeaderName.SERVER, "Server 123");
     }
 
     private DefaultHeadersHttpResponse createResponse(final Map<HttpHeaderName<?>, Object> headers,

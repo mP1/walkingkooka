@@ -58,11 +58,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest implement
             entries.put(e.getKey(), e.getValue());
         }
 
-        final Map<HttpHeaderName<?>, Object> expected = Maps.ordered();
-        expected.put(HEADER1, VALUE1);
-        expected.put(HEADER2, VALUE2);
-
-        assertEquals(expected, entries, "iterator entries");
+        assertEquals(Maps.of(HEADER1, VALUE1, HEADER2, VALUE2), entries, "iterator entries");
     }
 
     @Test

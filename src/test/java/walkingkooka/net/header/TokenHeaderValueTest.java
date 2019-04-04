@@ -276,10 +276,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
                                                                      final Object value1,
                                                                      final TokenHeaderValueParameterName<?> name2,
                                                                      final Object value2) {
-        final Map<TokenHeaderValueParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(name1, value1);
-        parameters.put(name2, value2);
-        return parameters;
+        return Maps.of(name1, value1, name2, value2);
     }
 
     private void check(final TokenHeaderValue token) {

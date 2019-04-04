@@ -493,10 +493,10 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     private Map<CharsetHeaderValueParameterName<?>, Object> parameters(
             final String parameterName1, final Object parameterValue1,
             final String parameterName2, final Object parameterValue2) {
-        final Map<CharsetHeaderValueParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(CharsetHeaderValueParameterName.with(parameterName1), parameterValue1);
-        parameters.put(CharsetHeaderValueParameterName.with(parameterName2), parameterValue2);
-        return parameters;
+        return Maps.of(CharsetHeaderValueParameterName.with(parameterName1),
+                parameterValue1,
+                CharsetHeaderValueParameterName.with(parameterName2),
+                parameterValue2);
     }
 
     @Override

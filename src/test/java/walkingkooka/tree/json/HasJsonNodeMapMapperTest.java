@@ -48,13 +48,9 @@ public final class HasJsonNodeMapMapperTest extends HasJsonNodeMapperTestCase2<H
 
     @Override
     Map<?, ?> value() {
-        final Map<Object, Object> map = Maps.ordered();
-
-        map.put(Boolean.TRUE, null);
-        map.put(123.5, "abc123");
-        map.put(Color.fromRgb(0x777), Boolean.FALSE);
-
-        return map;
+        return Maps.of(Boolean.TRUE, null,
+                123.5, "abc123",
+                Color.fromRgb(0x777), Boolean.FALSE);
     }
 
     @Override

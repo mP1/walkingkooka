@@ -36,12 +36,11 @@ public final class PojoMapNodeMapListTest extends PojoNodeListTestCase<PojoMapNo
         return list("different1-k", "different1-v", "different2-k", "different2-v");
     }
 
-    private List<Object> list(final String key1, final String value1, final String key2, final String value2) {
-        final Map<Object, Object> map = Maps.ordered();
-        map.put(key1, value1);
-        map.put(key2, value2);
-
-        return new ArrayList<>(map.entrySet());
+    private List<Object> list(final String key1,
+                              final String value1,
+                              final String key2,
+                              final String value2) {
+        return new ArrayList<>(Maps.of(key1, value1, key2, value2).entrySet());
     }
 
     @Override

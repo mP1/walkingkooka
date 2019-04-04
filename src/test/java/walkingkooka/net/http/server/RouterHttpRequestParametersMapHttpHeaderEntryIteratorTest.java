@@ -146,10 +146,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
     }
 
     private Map<HttpHeaderName<?>, Object> headers2() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(CONNECTION, CONNECTION_VALUE);
-        headers.put(CONTENT_LENGTH, CONTENT_LENGTH_VALUE);
-        return headers;
+        return Maps.of(CONNECTION, CONNECTION_VALUE, CONTENT_LENGTH, CONTENT_LENGTH_VALUE);
     }
 
     @Override

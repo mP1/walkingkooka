@@ -23,8 +23,6 @@ import walkingkooka.collect.list.ListTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ToStringTesting;
 
-import java.util.Map;
-
 public final class JsonObjectNodeListTest implements ListTesting<JsonObjectNodeList, JsonNode>,
         ToStringTesting<JsonObjectNodeList> {
 
@@ -35,11 +33,8 @@ public final class JsonObjectNodeListTest implements ListTesting<JsonObjectNodeL
 
     @Override
     public JsonObjectNodeList createList() {
-        final Map<JsonNodeName, JsonNode> map = Maps.ordered();
-        map.put(JsonNodeName.with("first"), JsonNode.booleanNode(true));
-        map.put(JsonNodeName.with("second"), JsonNode.booleanNode(false));
-
-        return JsonObjectNodeList.with(map);
+        return JsonObjectNodeList.with(Maps.of(JsonNodeName.with("first"), JsonNode.booleanNode(true),
+                JsonNodeName.with("second"), JsonNode.booleanNode(false)));
     }
 
     @Override

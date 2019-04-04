@@ -513,11 +513,8 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
                                                             final Object value,
                                                             final String name2,
                                                             final Object value2) {
-        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(MediaTypeParameterName.with(name), value);
-        parameters.put(MediaTypeParameterName.with(name2), value2);
-
-        return parameters;
+        return Maps.of(MediaTypeParameterName.with(name), value,
+                MediaTypeParameterName.with(name2), value2);
     }
 
     private void parseAndCheck(final String text, final String type, final String subtype) {

@@ -289,13 +289,11 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         multipart1.put(HttpHeaderName.CONTENT_TYPE, this.multipartContentType());
         multipart1.put(HttpHeaderName.CONTENT_LENGTH, BODY_LENGTH);
 
-        final Map<HttpHeaderName<?>, Object> multipart2 = Maps.ordered();
-        multipart2.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
-        multipart2.put(HttpHeaderName.CONTENT_RANGE, this.contentRange(1, 2));
+        final Map<HttpHeaderName<?>, Object> multipart2 = Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN,
+                HttpHeaderName.CONTENT_RANGE, this.contentRange(1, 2));
 
-        final Map<HttpHeaderName<?>, Object> multipart3 = Maps.ordered();
-        multipart3.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
-        multipart3.put(HttpHeaderName.CONTENT_RANGE, this.contentRange(10, 12));
+        final Map<HttpHeaderName<?>, Object> multipart3 = Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN,
+                HttpHeaderName.CONTENT_RANGE, this.contentRange(10, 12));
 
         this.setStatusAddEntityAndCheck("bytes=1-2,10-12",
                 IF_RANGE_ABSENT,

@@ -537,11 +537,10 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
                                final String type,
                                final String parameterName1, final Object parameterValue1,
                                final String parameterName2, final Object parameterValue2) {
-        final Map<ContentDispositionParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(ContentDispositionParameterName.with(parameterName1), parameterValue1);
-        parameters.put(ContentDispositionParameterName.with(parameterName2), parameterValue2);
-
-        this.parseAndCheck(headerValue, type, parameters);
+        this.parseAndCheck(headerValue,
+                type,
+                Maps.of(ContentDispositionParameterName.with(parameterName1), parameterValue1,
+                        ContentDispositionParameterName.with(parameterName2), parameterValue2));
     }
 
 

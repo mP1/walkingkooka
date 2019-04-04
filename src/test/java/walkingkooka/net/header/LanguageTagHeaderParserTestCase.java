@@ -68,9 +68,8 @@ public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeade
 
     @Test
     public final void testWildcardWithParameters() {
-        final Map<LanguageTagParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(LanguageTagParameterName.with("a"), "b");
-        parameters.put(LanguageTagParameterName.with("c"), "d");
+        final Map<LanguageTagParameterName<?>, Object> parameters = Maps.of(LanguageTagParameterName.with("a"), "b",
+                LanguageTagParameterName.with("c"), "d");
 
         this.parseAndCheck2("*; a=b; c=d",
                 LanguageTag.WILDCARD.setParameters(parameters));
