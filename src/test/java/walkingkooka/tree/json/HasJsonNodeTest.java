@@ -66,7 +66,7 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
                         .appendChild(JsonNode.object()
                                 .set(HasJsonNodeMapMapper.ENTRY_KEY, key.toJsonNode())
                                 .set(HasJsonNodeMapMapper.ENTRY_VALUE, value.toJsonNode())),
-                HasJsonNode.toJsonNodeMap(Maps.one(key, value)));
+                HasJsonNode.toJsonNodeMap(Maps.of(key, value)));
     }
 
     @Test
@@ -96,7 +96,7 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
                         .appendChild(JsonNode.object()
                                 .set(HasJsonNodeMapMapper.ENTRY_KEY, key.toJsonNodeWithType())
                                 .set(HasJsonNodeMapMapper.ENTRY_VALUE, value.toJsonNodeWithType())),
-                HasJsonNode.toJsonNodeWithTypeMap(Maps.one(key, value)));
+                HasJsonNode.toJsonNodeWithTypeMap(Maps.of(key, value)));
     }
 
     @Test

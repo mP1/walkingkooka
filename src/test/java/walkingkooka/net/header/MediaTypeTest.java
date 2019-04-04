@@ -243,7 +243,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Test
     public void testSetParametersInvalidQWeight() {
         assertThrows(HeaderValueException.class, () -> {
-            this.mediaType().setParameters(Maps.one(MediaTypeParameterName.Q_FACTOR, -1.0f));
+            this.mediaType().setParameters(Maps.of(MediaTypeParameterName.Q_FACTOR, -1.0f));
         });
     }
 
@@ -267,7 +267,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Test
     public void testSetParametersDifferent2() {
         final MediaType mediaType = this.mediaType();
-        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.one(MediaTypeParameterName.with("different"), "value789");
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.of(MediaTypeParameterName.with("different"), "value789");
         final MediaType different = mediaType.setParameters(parameters);
         check(different, TYPE, SUBTYPE, parameters);
     }
@@ -308,7 +308,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         this.check(MediaType.TEXT_PLAIN.setCharset(utf8),
                 "text",
                 "plain",
-                Maps.one(MediaTypeParameterName.CHARSET, utf8));
+                Maps.of(MediaTypeParameterName.CHARSET, utf8));
     }
 
     @Test
@@ -330,11 +330,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         this.check(with16,
                 "text",
                 "plain",
-                Maps.one(MediaTypeParameterName.CHARSET, utf16));
+                Maps.of(MediaTypeParameterName.CHARSET, utf16));
         this.check(with8,
                 "text",
                 "plain",
-                Maps.one(MediaTypeParameterName.CHARSET, utf8));
+                Maps.of(MediaTypeParameterName.CHARSET, utf8));
     }
 
     @Test
@@ -367,7 +367,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testSetCharset2() {
-        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.one(MediaTypeParameterName.Q_FACTOR, 0.5f);
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.of(MediaTypeParameterName.Q_FACTOR, 0.5f);
         final MediaType without = MediaType.TEXT_PLAIN.setParameters(parameters);
 
         final CharsetName charset = CharsetName.UTF_16;
@@ -431,28 +431,28 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     public void testParseWithUnquotedParameter() {
         this.parseAndCheck("type1/subtype1;abc=def",
                 MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.one(MediaTypeParameterName.with("abc"), "def")));
+                        .setParameters(Maps.of(MediaTypeParameterName.with("abc"), "def")));
     }
 
     @Test
     public void testParseWithQuotedParameter() {
         this.parseAndCheck("type1/subtype1;abc=\"d,\\\\ef\"",
                 MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.one(MediaTypeParameterName.with("abc"), "d,\\ef")));
+                        .setParameters(Maps.of(MediaTypeParameterName.with("abc"), "d,\\ef")));
     }
 
     @Test
     public void testParseWithBoundary() {
         this.parseAndCheck("type1/subtype1;boundary=def",
                 MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.one(MediaTypeParameterName.BOUNDARY, MediaTypeBoundary.with("def"))));
+                        .setParameters(Maps.of(MediaTypeParameterName.BOUNDARY, MediaTypeBoundary.with("def"))));
     }
 
     @Test
     public void testParseWithTitleStar() {
         this.parseAndCheck("type1/subtype1;title*=UTF-8''abc%20123",
                 MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.one(MediaTypeParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"))));
+                        .setParameters(Maps.of(MediaTypeParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"))));
     }
 
     // ParseStringTesting ........................................................................................
@@ -757,7 +757,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     private Map<MediaTypeParameterName<?>, Object> parameters(final String name, final Object value) {
-        return Maps.one(MediaTypeParameterName.with(name), value);
+        return Maps.of(MediaTypeParameterName.with(name), value);
     }
 
     @Override

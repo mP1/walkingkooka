@@ -68,7 +68,7 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     @Test
     public void testParse() {
         this.parseAndCheck("UTF-8;bcd=123 ",
-                AcceptCharset.with(Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8).setParameters(Maps.one(CharsetHeaderValueParameterName.with("bcd"), "123")))));
+                AcceptCharset.with(Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8).setParameters(Maps.of(CharsetHeaderValueParameterName.with("bcd"), "123")))));
     }
 
     // helpers.......................................................................................................

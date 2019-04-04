@@ -100,7 +100,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     private Map<HttpHeaderName<?>, Object> headersContentEncoding(final String headerValue) {
-        return Maps.one(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse(headerValue));
+        return Maps.of(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse(headerValue));
     }
 
     private byte[] gzip(final byte[] body) {
@@ -161,7 +161,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     private HttpRequest createRequest(final String acceptEncoding) {
-        return this.createRequest(Maps.one(HttpHeaderName.ACCEPT_ENCODING, TokenHeaderValue.parseList(acceptEncoding)));
+        return this.createRequest(Maps.of(HttpHeaderName.ACCEPT_ENCODING, TokenHeaderValue.parseList(acceptEncoding)));
     }
 
     private HttpRequest createRequest(final Map<HttpHeaderName<?>, Object> headers) {

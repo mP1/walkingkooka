@@ -99,17 +99,17 @@ public final class TokenHeaderValueListHeaderValueConverterTest extends
 
     private TokenHeaderValue en_NZ() {
         return TokenHeaderValue.with("EN_NZ")
-                .setParameters(Maps.one(TokenHeaderValueParameterName.Q, 1.0f));
+                .setParameters(Maps.of(TokenHeaderValueParameterName.Q, 1.0f));
     }
 
     private TokenHeaderValue es() {
         return TokenHeaderValue.with("ES")
-                .setParameters(Maps.one(TokenHeaderValueParameterName.Q, 0.5f));
+                .setParameters(Maps.of(TokenHeaderValueParameterName.Q, 0.5f));
     }
 
     private TokenHeaderValue fr() {
         return TokenHeaderValue.with("FR")
-                .setParameters(Maps.one(TokenHeaderValueParameterName.Q, 0.25f));
+                .setParameters(Maps.of(TokenHeaderValueParameterName.Q, 0.25f));
     }
 
     @Override

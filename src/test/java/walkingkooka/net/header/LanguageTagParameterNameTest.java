@@ -68,7 +68,7 @@ final public class LanguageTagParameterNameTest extends HeaderParameterNameTestC
         final Float value = 0.75f;
 
         this.parameterValueAndCheckPresent(parameter,
-                this.languageTag().setParameters(Maps.one(parameter, value)),
+                this.languageTag().setParameters(Maps.of(parameter, value)),
                 value);
     }
 

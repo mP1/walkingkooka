@@ -378,7 +378,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                         .appendChild(JsonNode.object()
                                 .set(HasJsonNodeMapper.ENTRY_KEY, JsonNode.string(key))
                                 .set(HasJsonNodeMapper.ENTRY_VALUE, value.toJsonNodeWithType())),
-                Maps.one(key, value));
+                Maps.of(key, value));
     }
 
     @Test
@@ -638,7 +638,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                         .appendChild(JsonNode.object()
                                 .set(HasJsonNodeMapper.ENTRY_KEY, HasJsonNodeMapper.toJsonNodeObject(key))
                                 .set(HasJsonNodeMapper.ENTRY_VALUE, HasJsonNodeMapper.toJsonNodeObject(value))),
-                Maps.one(key, value),
+                Maps.of(key, value),
                 keyType,
                 valueType);
     }

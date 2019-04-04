@@ -118,7 +118,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     }
 
     final Map<LanguageTagParameterName<?>, Object> parametersWithQFactor() {
-        return Maps.one(LanguageTagParameterName.Q_FACTOR, 0.75f);
+        return Maps.of(LanguageTagParameterName.Q_FACTOR, 0.75f);
     }
 
     @Test
@@ -148,7 +148,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     public void testParseWithParameters() {
         this.parseAndCheck("en; abc=123",
                 LanguageTag.with(LanguageTagName.with("en"))
-                        .setParameters(Maps.one(LanguageTagParameterName.with("abc"), "123")));
+                        .setParameters(Maps.of(LanguageTagParameterName.with("abc"), "123")));
     }
 
     @Override
@@ -242,7 +242,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
 
     private LanguageTag en075WithParameters() {
         return this.en()
-                .setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.75f));
+                .setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.75f));
     }
 
     private LanguageTag en() {

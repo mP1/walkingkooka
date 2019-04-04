@@ -56,7 +56,7 @@ public final class MediaTypeListHeaderValueConverterTest extends
     }
 
     private MediaType mediaType1() {
-        return MediaType.with("type1", "subType1").setParameters(Maps.one(MediaTypeParameterName.with("p1"), "v1"));
+        return MediaType.with("type1", "subType1").setParameters(Maps.of(MediaTypeParameterName.with("p1"), "v1"));
     }
 
     private MediaType mediaType2() {

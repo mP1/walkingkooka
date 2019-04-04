@@ -56,7 +56,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
     @Test
     public void testHasNextAndNextConsumeStringHeader() {
         this.iterateAndCheck(true,
-                Maps.one(CONNECTION, CONNECTION_VALUE),
+                Maps.of(CONNECTION, CONNECTION_VALUE),
                 CONNECTION,
                 CONNECTION_VALUE);
     }
@@ -64,7 +64,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest imp
     @Test
     public void testHasNextAndNextConsumeNonStringHeader() {
         this.iterateAndCheck(true,
-                Maps.one(CONTENT_LENGTH, CONTENT_LENGTH_VALUE),
+                Maps.of(CONTENT_LENGTH, CONTENT_LENGTH_VALUE),
                 CONTENT_LENGTH,
                 CONTENT_LENGTH_VALUE);
     }

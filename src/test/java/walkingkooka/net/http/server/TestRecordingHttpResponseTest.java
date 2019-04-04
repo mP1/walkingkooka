@@ -47,7 +47,7 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
         final TestRecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
-        final HttpEntity entity2 = HttpEntity.with(Maps.one(HttpHeaderName.SERVER, "part 2"), new byte[123]);
+        final HttpEntity entity2 = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "part 2"), new byte[123]);
         response.setStatus(status);
         response.addEntity(entity);
         response.addEntity(entity2);
@@ -74,14 +74,14 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
     public void testCheckDifferentEntityFails() {
         final TestRecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
-        final HttpEntity entity = HttpEntity.with(Maps.one(HttpHeaderName.SERVER, "Server 123"), new byte[123]);
+        final HttpEntity entity = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 123"), new byte[123]);
         response.setStatus(status);
         response.addEntity(entity);
 
         assertThrows(AssertionError.class, () -> {
             response.check(HttpRequests.fake(),
                     status,
-                    HttpEntity.with(Maps.one(HttpHeaderName.SERVER, "Server 456"), new byte[456]));
+                    HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 456"), new byte[456]));
         });
     }
 
@@ -107,7 +107,7 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
     }
 
     private HttpEntity entity() {
-        return HttpEntity.with(Maps.one(HttpHeaderName.SERVER, "Server 123"), new byte[]{65, 66, 67});
+        return HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 123"), new byte[]{65, 66, 67});
     }
 
     @Override

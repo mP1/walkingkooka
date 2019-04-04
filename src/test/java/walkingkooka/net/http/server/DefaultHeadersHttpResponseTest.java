@@ -67,7 +67,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         response.setStatus(status);
         response.addEntity(HttpEntity.with(responseHeaders, body));
 
-        final HttpEntity second = HttpEntity.with(Maps.one(HttpHeaderName.SERVER, "Server2"), new byte[2]);
+        final HttpEntity second = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server2"), new byte[2]);
         response.addEntity(second);
 
         final Map<HttpHeaderName<?>, Object> finalHeaders = Maps.ordered();

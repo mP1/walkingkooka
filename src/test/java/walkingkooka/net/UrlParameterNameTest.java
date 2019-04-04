@@ -77,7 +77,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testParameterValueOrFailSeveralValuesFails() {
         final UrlParameterName parameter = this.createComparable();
-        final Map<HttpRequestAttribute<?>, ?> parameters = Maps.one(parameter, Lists.of("1", "2", "3"));
+        final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("1", "2", "3"));
 
         this.parameterValueOrFail(parameter,
                 parameters,
@@ -88,7 +88,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testParameterValueOrFailConverterFails() {
         final UrlParameterName parameter = this.createComparable();
-        final Map<HttpRequestAttribute<?>, ?> parameters = Maps.one(parameter, Lists.of("A!!!"));
+        final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("A!!!"));
 
         this.parameterValueOrFail(parameter,
                 parameters,
@@ -117,7 +117,7 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     @Test
     public void testParameterValueOrFail() {
         final UrlParameterName parameter = this.createComparable();
-        final Map<HttpRequestAttribute<?>, ?> parameters = Maps.one(parameter, Lists.of("123"));
+        final Map<HttpRequestAttribute<?>, ?> parameters = Maps.of(parameter, Lists.of("123"));
         assertEquals(BigDecimal.valueOf(123),
                 parameter.parameterValueOrFail(parameters,
                         BigDecimal::new));

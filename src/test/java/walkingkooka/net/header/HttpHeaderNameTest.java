@@ -257,7 +257,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     private <T> Map<HttpHeaderName<?>, Object> headers(final HttpHeaderName<T> name, final T value) {
-        return Maps.one(name, value);
+        return Maps.of(name, value);
     }
 
     // toValue ...............................................................................................
@@ -344,7 +344,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 header.parameterValue(new FakeHttpRequest() {
                     @Override
                     public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.one(header, value);
+                        return Maps.of(header, value);
                     }
                 }));
     }
@@ -355,7 +355,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         final String value = "Browser123";
 
         assertEquals(Optional.ofNullable(value),
-                header.parameterValue(Maps.one(header, value)));
+                header.parameterValue(Maps.of(header, value)));
     }
 
     @Override

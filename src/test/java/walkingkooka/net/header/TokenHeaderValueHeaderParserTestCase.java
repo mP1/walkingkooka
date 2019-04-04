@@ -375,7 +375,7 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
 
     final Map<TokenHeaderValueParameterName<?>, Object> parameters(final TokenHeaderValueParameterName<?> name,
                                                                    final Object value) {
-        return Maps.one(name, value);
+        return Maps.of(name, value);
     }
 
     final Map<TokenHeaderValueParameterName<?>, Object> parameters(final String name1,

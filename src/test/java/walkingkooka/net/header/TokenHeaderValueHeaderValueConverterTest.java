@@ -39,7 +39,7 @@ public final class TokenHeaderValueHeaderValueConverterTest extends
     @Test
     public void testTokenWithQParameter() {
         this.parseAndCheck2("EN; q=0.5",
-                this.en().setParameters(Maps.one(TokenHeaderValueParameterName.Q, 0.5f)));
+                this.en().setParameters(Maps.of(TokenHeaderValueParameterName.Q, 0.5f)));
     }
 
 

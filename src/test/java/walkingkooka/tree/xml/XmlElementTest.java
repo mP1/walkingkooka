@@ -54,7 +54,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
     private final static XmlNameSpacePrefix PREFIX1 = XmlNode.prefix("ns1");
 
     private final static XmlAttributeName ATTRIBUTE_NAME_DEF1 = XmlNode.XMLNS.attributeName(PREFIX1.value());
-    private final static Map<XmlAttributeName, String> ATTRIBUTES_XMLNS1 = Maps.one(ATTRIBUTE_NAME_DEF1, NAMESPACE_URL1);
+    private final static Map<XmlAttributeName, String> ATTRIBUTES_XMLNS1 = Maps.of(ATTRIBUTE_NAME_DEF1, NAMESPACE_URL1);
 
     private final static String NAMESPACE_URL2 = "http://example.com/namespace2";
     private final static XmlNameSpacePrefix PREFIX2 = XmlNode.prefix("ns2");
@@ -73,7 +73,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
     private final static XmlAttributeName ATTRIBUTE_NAME_NS2 = ATTRIBUTE_NAME2.setPrefix(Optional.of(PREFIX1));
     private final static String ATTRIBUTE_VALUE2 = "value-2";
 
-    private final static Map<XmlAttributeName, String> ATTRIBUTES_1 = Maps.one(ATTRIBUTE_NAME1, ATTRIBUTE_VALUE1);
+    private final static Map<XmlAttributeName, String> ATTRIBUTES_1 = Maps.of(ATTRIBUTE_NAME1, ATTRIBUTE_VALUE1);
 
     private final static Map<XmlAttributeName, String> ATTRIBUTES_2 = attributes(ATTRIBUTE_NAME1,
             ATTRIBUTE_VALUE1,
@@ -369,7 +369,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
 
         this.toSearchNodeAndCheck(element,
                 SearchNode.text("", "")
-                        .setAttributes(Maps.one(SearchNodeAttributeName.with(ATTRIBUTE_NAME1.value()), ATTRIBUTE_VALUE1))
+                        .setAttributes(Maps.of(SearchNodeAttributeName.with(ATTRIBUTE_NAME1.value()), ATTRIBUTE_VALUE1))
                         .setName(SearchNodeName.with(PARENT.value())));
     }
 

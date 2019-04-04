@@ -220,7 +220,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     private Map<CharsetHeaderValueParameterName<?>, Object> parameters(final CharsetHeaderValueParameterName<?> name,
                                                                        final Object value) {
-        return Maps.one(name, value);
+        return Maps.of(name, value);
     }
 
     private Map<CharsetHeaderValueParameterName<?>, Object> parameters(final String name1,

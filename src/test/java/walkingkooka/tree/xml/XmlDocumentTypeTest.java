@@ -97,7 +97,7 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
     @Test
     public void testNotations() throws Exception {
         final XmlDocumentType type = this.documentTypeFromXml();
-        this.checkNotations(type, Maps.one("zip", "<!NOTATION zip PUBLIC \"zip viewer\">"));
+        this.checkNotations(type, Maps.of("zip", "<!NOTATION zip PUBLIC \"zip viewer\">"));
     }
 
     @Test
@@ -111,13 +111,13 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
     @Test
     public void testEntitiesPublicId() throws Exception {
         final XmlDocumentType type = this.documentTypeFromXml();
-        this.checkEntities(type, Maps.one("file", "<!ENTITY file PUBLIC \"//-/PublicId\" \"http://www.example.com/public\">"));
+        this.checkEntities(type, Maps.of("file", "<!ENTITY file PUBLIC \"//-/PublicId\" \"http://www.example.com/public\">"));
     }
 
     @Test
     public void testEntitiesSystemId() throws Exception {
         final XmlDocumentType type = this.documentTypeFromXml();
-        this.checkEntities(type, Maps.one("file", "<!ENTITY file SYSTEM \"http://www.example.com/system\">"));
+        this.checkEntities(type, Maps.of("file", "<!ENTITY file SYSTEM \"http://www.example.com/system\">"));
     }
 
     @Test

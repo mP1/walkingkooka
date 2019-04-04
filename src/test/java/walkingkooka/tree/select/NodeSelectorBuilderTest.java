@@ -141,9 +141,9 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     public void testAttributeEndsWith() {
         final StringName a = Names.string("a");
 
-        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(a, "xyz"));
-        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(a, "qrs"));
-        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.one(Names.string("b"), "abc"));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.of(a, "xyz"));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.of(a, "qrs"));
+        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.of(Names.string("b"), "abc"));
 
         final TestNode root = TestNode.with(ROOT, child1, child2, child3);
 
@@ -158,9 +158,9 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     public void testAttributeStartsWith() {
         final StringName a = Names.string("a");
 
-        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(a, "xyz"));
-        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(a, "qrs"));
-        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.one(Names.string("b"), "abc"));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.of(a, "xyz"));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.of(a, "qrs"));
+        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.of(Names.string("b"), "abc"));
 
         final TestNode root = TestNode.with(ROOT, child1, child2, child3);
 
@@ -232,8 +232,8 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testNameAndAttribute() {
-        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
-        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.of(ATTRIBUTE, VALUE));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.of(ATTRIBUTE, "different"));
         final TestNode parent = TestNode.with(PARENT, child1, child2);
         
         final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
@@ -246,8 +246,8 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testDeepPathNameAndAttribute() {
-        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
-        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.of(ATTRIBUTE, VALUE));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.of(ATTRIBUTE, "different"));
         final TestNode parent = TestNode.with(PARENT, child1, child2);
         final TestNode root = TestNode.with(ROOT, parent);
 
@@ -261,9 +261,9 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testMultipleAttribute() {
-        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
-        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
-        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.one(ATTRIBUTE, VALUE));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.of(ATTRIBUTE, VALUE));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.of(ATTRIBUTE, "different"));
+        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.of(ATTRIBUTE, VALUE));
         final TestNode parent = TestNode.with(PARENT, child1, child2, child3);
         final TestNode root = TestNode.with(ROOT, parent);
 
@@ -276,10 +276,10 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testOr() {
-        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, "123"));
-        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "456"));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.of(ATTRIBUTE, "123"));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.of(ATTRIBUTE, "456"));
         final TestNode parent1 = TestNode.with("parent1", child1, child2);
-        final TestNode parent2 = TestNode.with("parent2").setAttributes(Maps.one(ATTRIBUTE, "789"));
+        final TestNode parent2 = TestNode.with("parent2").setAttributes(Maps.of(ATTRIBUTE, "789"));
         final TestNode root = TestNode.with(ROOT, parent1, parent2);
 
         final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
@@ -292,11 +292,11 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testAnd() {
-        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, "123"));
-        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "222"));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.of(ATTRIBUTE, "123"));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.of(ATTRIBUTE, "222"));
         final TestNode parent1 = TestNode.with("parent1", child1, child2);
-        final TestNode parent2 = TestNode.with("parent2").setAttributes(Maps.one(ATTRIBUTE, "111"));
-        final TestNode parent3 = TestNode.with("parent3").setAttributes(Maps.one(ATTRIBUTE, "12345"));
+        final TestNode parent2 = TestNode.with("parent2").setAttributes(Maps.of(ATTRIBUTE, "111"));
+        final TestNode parent3 = TestNode.with("parent3").setAttributes(Maps.of(ATTRIBUTE, "12345"));
         final TestNode root = TestNode.with(ROOT, parent1, parent2, parent3);
 
         final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()

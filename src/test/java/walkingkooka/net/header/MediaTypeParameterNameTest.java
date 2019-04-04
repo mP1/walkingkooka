@@ -82,7 +82,7 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
         final Float value = 0.75f;
 
         this.parameterValueAndCheckPresent(parameter,
-                this.mediaType().setParameters(Maps.one(parameter, value)),
+                this.mediaType().setParameters(Maps.of(parameter, value)),
                 value);
     }
 
@@ -92,7 +92,7 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
         final CharsetName charsetName = CharsetName.UTF_8;
 
         this.parameterValueAndCheckPresent(parameter,
-                this.mediaType().setParameters(Maps.one(parameter, charsetName)),
+                this.mediaType().setParameters(Maps.of(parameter, charsetName)),
                 charsetName);
     }
 

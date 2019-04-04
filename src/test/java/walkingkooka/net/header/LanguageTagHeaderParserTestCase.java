@@ -63,7 +63,7 @@ public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeade
     @Test
     public final void testWildcardWithQWeight() {
         this.parseAndCheck2("*; q=0.75",
-                LanguageTag.WILDCARD.setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.75f)));
+                LanguageTag.WILDCARD.setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, 0.75f)));
     }
 
     @Test

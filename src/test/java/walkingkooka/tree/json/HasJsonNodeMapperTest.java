@@ -200,7 +200,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testToJsonNodeWithTypeMapHasJsonNode() {
-        final Map<Object, Object> map = Maps.one("key", Color.fromRgb(0x123));
+        final Map<Object, Object> map = Maps.of("key", Color.fromRgb(0x123));
         this.toJsonNodeWithTypeAndCheck(map,
                 this.typeNameAndValue("map",
                         HasJsonNodeMapper.toJsonNodeWithTypeMap(map)));
@@ -299,7 +299,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testRoundtripMapHasJsonNode() {
-        this.roundtripAndCheck(Maps.one(Color.fromRgb(0x1), Color.fromRgb(0x2)));
+        this.roundtripAndCheck(Maps.of(Color.fromRgb(0x1), Color.fromRgb(0x2)));
     }
 
     private void roundtripAndCheck(final Object value) {
