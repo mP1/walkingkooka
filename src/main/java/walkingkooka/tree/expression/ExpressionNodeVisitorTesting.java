@@ -23,7 +23,7 @@ import walkingkooka.tree.visit.VisitorTesting;
 /**
  * A mixin interface with tests and helpers to assist in testing a {@link ExpressionNodeVisitor}
  */
-public interface ExpressionNodeVisitorTesting<V extends ExpressionNodeVisitor> extends VisitorTesting<ExpressionNodeVisitor, ExpressionNode> {
+public interface ExpressionNodeVisitorTesting<V extends ExpressionNodeVisitor> extends VisitorTesting<V, ExpressionNode> {
 
     @Override
     default String typeNameSuffix() {
