@@ -93,7 +93,7 @@ final public class Maps implements PublicStaticHelper {
     /**
      * {@see Collections#singletonMap(Object, Object)
      */
-    static public <K, V> Map<K, V> one(final K key, final V value) {
+    static public <K, V> Map<K, V> of(final K key, final V value) {
         return Collections.singletonMap(key, value);
     }
 

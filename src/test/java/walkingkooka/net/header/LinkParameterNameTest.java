@@ -71,7 +71,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
         final List<LinkRelation<?>> value = LinkRelation.parse("prev");
 
         this.parameterValueAndCheckPresent(parameter,
-                this.link().setParameters(Maps.one(parameter, value)),
+                this.link().setParameters(Maps.of(parameter, value)),
                 value);
     }
 

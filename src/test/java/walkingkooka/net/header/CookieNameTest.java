@@ -172,7 +172,7 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
 
                     @Override
                     public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.one(HttpHeaderName.COOKIE, Cookie.parseClientHeader("a=b;cookie123=value123;x=y"));
+                        return Maps.of(HttpHeaderName.COOKIE, Cookie.parseClientHeader("a=b;cookie123=value123;x=y"));
                     }
                 }));
     }
@@ -182,7 +182,7 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
         final CookieName name = this.cookieName();
         final ClientCookie cookie = Cookie.client(name, VALUE);
         assertEquals(Optional.of(cookie),
-                name.parameterValue(Maps.one(name, cookie)));
+                name.parameterValue(Maps.of(name, cookie)));
     }
 
     @Test

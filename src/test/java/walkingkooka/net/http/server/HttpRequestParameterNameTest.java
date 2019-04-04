@@ -57,7 +57,7 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
         final List<String> value = Lists.of("a", "b", "c");
 
         assertEquals(Optional.of(value),
-                name.parameterValue(Maps.one(name, value)));
+                name.parameterValue(Maps.of(name, value)));
     }
 
     @Override

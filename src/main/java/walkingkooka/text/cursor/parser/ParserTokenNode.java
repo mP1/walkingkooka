@@ -127,7 +127,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
     @Override
     public final Map<ParserTokenNodeAttributeName, String> attributes() {
         if(null==this.attributes) {
-            this.attributes = Maps.one(ParserTokenNodeAttributeName.TEXT, this.token.text());
+            this.attributes = Maps.of(ParserTokenNodeAttributeName.TEXT, this.token.text());
         }
         return this.attributes;
     }

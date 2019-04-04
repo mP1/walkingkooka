@@ -37,7 +37,7 @@ public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
-    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HEADER, HEADER_VALUE);
+    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HEADER, HEADER_VALUE);
 
     @Test
     public void testContainsKeyResponseScopeHeader() {

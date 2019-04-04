@@ -44,7 +44,7 @@ public final class LanguageTagListHeaderParserTest extends LanguageTagHeaderPars
 
     private LanguageTag tag(final String tag, final float qFactor) {
         return this.tag(tag)
-                .setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, qFactor));
+                .setParameters(Maps.of(LanguageTagParameterName.Q_FACTOR, qFactor));
     }
 
     private LanguageTag tag(final String tag) {

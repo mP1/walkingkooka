@@ -107,7 +107,7 @@ public final class MapToStringBuilderTest extends VectorToStringBuilderTestCase<
 
     @Override
     Map<String, Integer> value1() {
-        return Maps.one("ABC", 123);
+        return Maps.of("ABC", 123);
     }
 
     @Override

@@ -506,7 +506,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     final Map<MediaTypeParameterName<?>, Object> parameters(final String name, final Object value) {
-        return Maps.one(MediaTypeParameterName.with(name), value);
+        return Maps.of(MediaTypeParameterName.with(name), value);
     }
 
     final Map<MediaTypeParameterName<?>, Object> parameters(final String name,

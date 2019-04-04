@@ -71,7 +71,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> implements ClassTe
     @Test
     public void testAttributes() {
         final N node = this.createPojoNode();
-        assertEquals(Maps.one(PojoNodeAttributeName.CLASS, node.value().getClass().getName()), node.attributes());
+        assertEquals(Maps.of(PojoNodeAttributeName.CLASS, node.value().getClass().getName()), node.attributes());
     }
 
     @Test

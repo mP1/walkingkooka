@@ -89,7 +89,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     @Test
     public void testParse() {
         this.parseAndCheck("attachment; filename=\"abc.jpg\"",
-                ContentDispositionType.ATTACHMENT.setParameters(Maps.one(ContentDispositionParameterName.FILENAME, ContentDispositionFileName.notEncoded("abc.jpg"))));
+                ContentDispositionType.ATTACHMENT.setParameters(Maps.of(ContentDispositionParameterName.FILENAME, ContentDispositionFileName.notEncoded("abc.jpg"))));
     }
 
     // toHeaderText ...........................................................................................
@@ -181,7 +181,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     private Map<ContentDispositionParameterName<?>, Object> parameters(final ContentDispositionParameterName<?> name,
                                                                        final Object value) {
-        return Maps.one(name, value);
+        return Maps.of(name, value);
     }
 
     private Map<ContentDispositionParameterName<?>, Object> parameters(final String name1,

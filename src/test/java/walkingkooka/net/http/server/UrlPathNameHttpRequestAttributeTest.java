@@ -76,7 +76,7 @@ public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<
         final UrlPathName value = UrlPathName.with("path2");
 
         assertEquals(Optional.of(value),
-                name.parameterValue(Maps.one(name, value)));
+                name.parameterValue(Maps.of(name, value)));
     }
 
     @Test

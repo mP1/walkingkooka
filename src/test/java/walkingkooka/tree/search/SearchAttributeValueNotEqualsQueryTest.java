@@ -27,9 +27,9 @@ public final class SearchAttributeValueNotEqualsQueryTest extends SearchAttribut
     @Test
     public void testSelect() {
         final SearchNode first = this.textNode("text-1")
-                .setAttributes(Maps.one(this.attributeName(), this.text()));
+                .setAttributes(Maps.of(this.attributeName(), this.text()));
         final SearchNode second = this.textNode("text-2")
-                .setAttributes(Maps.one(this.attributeName(), "different"));
+                .setAttributes(Maps.of(this.attributeName(), "different"));
 
         final SearchNode node = this.sequenceNode(first, second);
 
@@ -40,9 +40,9 @@ public final class SearchAttributeValueNotEqualsQueryTest extends SearchAttribut
     @Test
     public void testSelectDifferentCase() {
         final SearchNode first = this.textNode("text-1")
-                .setAttributes(Maps.one(this.attributeName(), this.text().toUpperCase()));
+                .setAttributes(Maps.of(this.attributeName(), this.text().toUpperCase()));
         final SearchNode second = this.textNode("text-2")
-                .setAttributes(Maps.one(this.attributeName(), "different"));
+                .setAttributes(Maps.of(this.attributeName(), "different"));
 
         final SearchNode node = this.sequenceNode(first, second);
 
@@ -55,9 +55,9 @@ public final class SearchAttributeValueNotEqualsQueryTest extends SearchAttribut
     @Test
     public void testSelectIgnoresNodesWithout() {
         final SearchNode first = this.textNode("text-1")
-                .setAttributes(Maps.one(this.attributeName(), this.text()));
+                .setAttributes(Maps.of(this.attributeName(), this.text()));
         final SearchNode second = this.textNode("text-2")
-                .setAttributes(Maps.one(this.attributeName(), "different"));
+                .setAttributes(Maps.of(this.attributeName(), "different"));
         final SearchNode third = this.textNode("text-3");
 
         final SearchNode node = this.sequenceNode(first, second, third);

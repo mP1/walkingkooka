@@ -120,7 +120,7 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
     public ContentDisposition setFilename(final ContentDispositionFileName filename) {
         Objects.requireNonNull(filename, "filename");
 
-        return this.setParameters(Maps.one(ContentDispositionParameterName.FILENAME, filename));
+        return this.setParameters(Maps.of(ContentDispositionParameterName.FILENAME, filename));
     }
 
     /**

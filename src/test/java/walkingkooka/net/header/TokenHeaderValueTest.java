@@ -126,7 +126,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
     public void testParse() {
         this.parseAndCheck("A;b=c",
                 TokenHeaderValue.with("A")
-                        .setParameters(Maps.one(TokenHeaderValueParameterName.with("b"), "c")));
+                        .setParameters(Maps.of(TokenHeaderValueParameterName.with("b"), "c")));
     }
 
     @Override
@@ -141,9 +141,9 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
         final String text = "A;b=c, DEF;ghi=jkl";
 
         assertEquals(Lists.of(TokenHeaderValue.with("A")
-                        .setParameters(Maps.one(TokenHeaderValueParameterName.with("b"), "c")),
+                        .setParameters(Maps.of(TokenHeaderValueParameterName.with("b"), "c")),
                 TokenHeaderValue.with("DEF")
-                        .setParameters(Maps.one(TokenHeaderValueParameterName.with("ghi"), "jkl"))),
+                        .setParameters(Maps.of(TokenHeaderValueParameterName.with("ghi"), "jkl"))),
                 TokenHeaderValue.parseList(text),
                 "Incorrect result parsing " + CharSequences.quoteAndEscape(text));
     }
@@ -259,7 +259,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
 
     private Map<TokenHeaderValueParameterName<?>, Object> parameters(final TokenHeaderValueParameterName<?> name,
                                                                      final Object value) {
-        return Maps.one(name, value);
+        return Maps.of(name, value);
     }
 
     private Map<TokenHeaderValueParameterName<?>, Object> parameters(final String name1,

@@ -262,7 +262,7 @@ public final class MediaTypeBoundary implements Value<String>,
      * Creates a {@link MediaType#MULTIPART_BYTE_RANGES} with this boundary parameter.
      */
     public MediaType multipartByteRanges() {
-        return MediaType.MULTIPART_BYTE_RANGES.setParameters(Maps.one(MediaTypeParameterName.BOUNDARY, this));
+        return MediaType.MULTIPART_BYTE_RANGES.setParameters(Maps.of(MediaTypeParameterName.BOUNDARY, this));
     }
 
     // Comparable....................................................................................................

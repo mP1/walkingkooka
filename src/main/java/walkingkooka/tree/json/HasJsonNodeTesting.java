@@ -108,7 +108,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
     @Test
     default void testToJsonNodeRoundtripMap() {
-        final Map<String, HasJsonNode> map = Maps.one("key123", this.createHasJsonNode());
+        final Map<String, HasJsonNode> map = Maps.of("key123", this.createHasJsonNode());
 
         assertEquals(map,
                 HasJsonNode.toJsonNodeWithType(map)

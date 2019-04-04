@@ -48,8 +48,8 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 26L;
 
-    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HEADER, HEADER_VALUE);
-    private final static Map<HttpHeaderName<?>, Object> INVALID_HEADERS = Maps.one(HttpHeaderName.SERVER, 999L);
+    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HEADER, HEADER_VALUE);
+    private final static Map<HttpHeaderName<?>, Object> INVALID_HEADERS = Maps.of(HttpHeaderName.SERVER, 999L);
     private final static byte[] BODY = "abcdefghijklmnopqrstuvwxyz".getBytes(Charset.forName("utf8"));
 
     private final static HttpHeaderName<?> DIFFERENT_HEADER = HttpHeaderName.SERVER;
@@ -107,7 +107,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testSetHeadersDifferent() {
         final HttpEntity entity = this.create();
-        final Map<HttpHeaderName<?>, Object> headers = Maps.one(HttpHeaderName.CONTENT_LENGTH, 456L);
+        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 456L);
         final HttpEntity different = entity.setHeaders(headers);
         this.check(different, headers, BODY);
     }
@@ -148,7 +148,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         final Long headerValue = 456L;
 
         this.check(entity.addHeader(HEADER, headerValue),
-                Maps.one(HEADER, headerValue),
+                Maps.of(HEADER, headerValue),
                 BODY);
     }
 
@@ -450,7 +450,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testEqualsDifferentHeaders() {
-        this.checkNotEquals(HttpEntity.with(Maps.one(HttpHeaderName.CONTENT_LENGTH, 456L), BODY));
+        this.checkNotEquals(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, 456L), BODY));
     }
 
     @Test

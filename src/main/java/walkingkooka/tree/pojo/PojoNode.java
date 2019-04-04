@@ -252,7 +252,7 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
         if(null==this.attributes) {
             final Object value = this.value();
             this.attributes = null != value ?
-                    Maps.one(PojoNodeAttributeName.CLASS, value.getClass().getName()) :
+                    Maps.of(PojoNodeAttributeName.CLASS, value.getClass().getName()) :
                     Maps.empty();
         }
         return this.attributes;

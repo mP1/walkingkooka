@@ -122,7 +122,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
 
     @Test
     public void testAttributes() {
-        assertEquals(Maps.one(ParserTokenNodeAttributeName.TEXT, TEXT), this.createParserTokenNode().attributes());
+        assertEquals(Maps.of(ParserTokenNodeAttributeName.TEXT, TEXT), this.createParserTokenNode().attributes());
     }
 
     @Test
@@ -130,7 +130,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
         final ParserTokenParentNode node = this.createParserTokenNode();
 
         final String differentText = "different";
-        final Map<ParserTokenNodeAttributeName, String> attributes = Maps.one(ParserTokenNodeAttributeName.TEXT, differentText);
+        final Map<ParserTokenNodeAttributeName, String> attributes = Maps.of(ParserTokenNodeAttributeName.TEXT, differentText);
         final ParserTokenNode different = node.setAttributes(attributes);
         assertNotSame(node, different);
 
@@ -144,7 +144,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
         final ParserTokenNode child = parent.children().get(0);
 
         final String differentText = "different";
-        final Map<ParserTokenNodeAttributeName, String> attributes = Maps.one(ParserTokenNodeAttributeName.TEXT, differentText);
+        final Map<ParserTokenNodeAttributeName, String> attributes = Maps.of(ParserTokenNodeAttributeName.TEXT, differentText);
         final ParserTokenNode differentChild = child.setAttributes(attributes);
         assertNotSame(child, differentChild);
 

@@ -49,7 +49,7 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> impleme
     @Test
     public final void testSetParameters() {
         final LanguageTagName name = this.createName("en");
-        final Map<LanguageTagParameterName<?>, Object> parameters = Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f);
+        final Map<LanguageTagParameterName<?>, Object> parameters = Maps.of(LanguageTagParameterName.Q_FACTOR, 0.5f);
         final LanguageTag tag = name.setParameters(parameters);
         assertSame(name, tag.value(), "value");
         assertEquals(parameters, tag.parameters(), "parameters");

@@ -60,7 +60,7 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
 
         final ContentDisposition disposition = type.setFilename(filename);
         assertEquals(type, disposition.type(),"type");
-        assertEquals(Maps.one(ContentDispositionParameterName.FILENAME, filename),
+        assertEquals(Maps.of(ContentDispositionParameterName.FILENAME, filename),
                 disposition.parameters(),
                 "parameters");
     }
@@ -76,7 +76,7 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
     public void testSetParameters() {
         final ContentDispositionFileName filename = ContentDispositionFileName.notEncoded("readme.txt");
         final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
-        final Map<ContentDispositionParameterName<?>, Object> parameters = Maps.one(ContentDispositionParameterName.FILENAME, filename);
+        final Map<ContentDispositionParameterName<?>, Object> parameters = Maps.of(ContentDispositionParameterName.FILENAME, filename);
         final ContentDisposition disposition = type.setParameters(parameters);
         assertEquals(type, disposition.type(), "type");
         assertEquals(parameters,

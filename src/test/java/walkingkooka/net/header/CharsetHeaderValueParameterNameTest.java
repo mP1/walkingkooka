@@ -88,7 +88,7 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
 
     private CharsetHeaderValue charsetHeaderValue() {
         return CharsetHeaderValue.with(CharsetName.UTF_8)
-                .setParameters(Maps.one(CharsetHeaderValueParameterName.Q_FACTOR, 0.5f));
+                .setParameters(Maps.of(CharsetHeaderValueParameterName.Q_FACTOR, 0.5f));
     }
 
     // toValue...........................................................................................

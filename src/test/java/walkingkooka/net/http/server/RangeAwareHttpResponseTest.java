@@ -375,7 +375,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     private <T> HttpEntity httpEntity(final HttpHeaderName<T> header,
                                       final T value,
                                       final byte[] bytes) {
-        return HttpEntity.with(Maps.one(header, value), bytes);
+        return HttpEntity.with(Maps.of(header, value), bytes);
     }
 
     private <T> HttpEntity httpEntity(final Map<HttpHeaderName<?>, Object> headers,

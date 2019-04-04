@@ -93,8 +93,8 @@ public final class RouterBuilderRouterTest implements ClassTesting2<RouterBuilde
                 .add(routing2)
                 .build();
 
-        this.routeAndCheck(routers, Maps.one(PATH_0, file1), ONE);
-        this.routeFails(routers, Maps.one(PATH_0, this.differentFile()));
+        this.routeAndCheck(routers, Maps.of(PATH_0, file1), ONE);
+        this.routeFails(routers, Maps.of(PATH_0, this.differentFile()));
     }
 
     @Test

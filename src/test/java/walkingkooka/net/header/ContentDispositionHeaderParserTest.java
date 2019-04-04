@@ -530,7 +530,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     private void parseAndCheck(final String headerValue,
                                final String type,
                                final String parameterName, final Object parameterValue) {
-        this.parseAndCheck(headerValue, type, Maps.one(ContentDispositionParameterName.with(parameterName), parameterValue));
+        this.parseAndCheck(headerValue, type, Maps.of(ContentDispositionParameterName.with(parameterName), parameterValue));
     }
 
     private void parseAndCheck(final String headerValue,

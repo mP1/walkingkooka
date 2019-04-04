@@ -115,7 +115,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     private Map<LinkParameterName<?>, Object> parameters() {
-        return Maps.one(LinkParameterName.REL, LinkRelation.parse("previous"));
+        return Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"));
     }
 
     final void check(final Link language,
@@ -137,7 +137,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     @Test
     public void testToHeaderTextListListOfOneWithParameters() {
         this.toHeaderTextListAndCheck("<http://example.com>;rel=previous",
-                this.createLink().setParameters(Maps.one(LinkParameterName.REL, LinkRelation.parse("previous"))));
+                this.createLink().setParameters(Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"))));
     }
 
     @Test
@@ -253,13 +253,13 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     @Test
     public void testEqualsDifferentParameters() {
-        this.checkNotEquals(this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
+        this.checkNotEquals(this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
     }
 
     @Test
     public void testEqualsDifferentParameters2() {
-        this.checkNotEquals(this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)),
-                this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, MediaType.BINARY)));
+        this.checkNotEquals(this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)),
+                this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.BINARY)));
     }
 
     // parse.......................................................................................
@@ -267,25 +267,25 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     @Test
     public void testParseLinkWithMedia() {
         this.parseAndCheck("<http://example.com>;media=\"abc 123\"",
-                this.createLink().setParameters(Maps.one(LinkParameterName.MEDIA, "abc 123")));
+                this.createLink().setParameters(Maps.of(LinkParameterName.MEDIA, "abc 123")));
     }
 
     @Test
     public void testParseLinkWithMethod() {
         this.parseAndCheck("<http://example.com>;method=GET",
-                this.createLink().setParameters(Maps.one(LinkParameterName.METHOD, HttpMethod.GET)));
+                this.createLink().setParameters(Maps.of(LinkParameterName.METHOD, HttpMethod.GET)));
     }
 
     @Test
     public void testParseLinkWithType() {
         this.parseAndCheck("<http://example.com>;type=text/plain",
-                this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
+                this.createLink().setParameters(Maps.of(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
     }
 
     @Test
     public void testParseSeveralLinks() {
         this.parseAndCheck("<http://example.com>;rel=previous, <http://example2.com>",
-                this.createLink().setParameters(Maps.one(LinkParameterName.REL, LinkRelation.parse("previous"))),
+                this.createLink().setParameters(Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"))),
                 Link.with(Url.parse("http://example2.com"))
         );
     }

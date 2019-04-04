@@ -487,7 +487,7 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
 
     private Map<CharsetHeaderValueParameterName<?>, Object> parameters(final CharsetHeaderValueParameterName<?> name,
                                                                        final Object value) {
-        return Maps.one(name, value);
+        return Maps.of(name, value);
     }
 
     private Map<CharsetHeaderValueParameterName<?>, Object> parameters(

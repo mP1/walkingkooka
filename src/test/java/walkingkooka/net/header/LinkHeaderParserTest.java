@@ -98,7 +98,7 @@ public final class LinkHeaderParserTest extends HeaderParserTestCase<LinkHeaderP
     }
 
     private <T> Link link(final LinkParameterName<T> parameterName, final T parameterValue) {
-        return this.link().setParameters(Maps.one(parameterName, parameterValue));
+        return this.link().setParameters(Maps.of(parameterName, parameterValue));
     }
 
     private void parseAndCheck2(final String text, final Link... links) {

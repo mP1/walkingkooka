@@ -207,7 +207,7 @@ public final class UrlQueryString
 
         return new UrlQueryString(encode(name, value),
             Lists.of(UrlParameterKeyValuePair.nameAndValue(name, value)),
-            Maps.one(name, values));
+            Maps.of(name, values));
     }
 
     private UrlQueryString addParameter1(final UrlParameterName name, final String value) {

@@ -279,11 +279,11 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
     }
 
     private Map<SearchNodeAttributeName, String> attributes() {
-        return Maps.one(SearchNodeAttributeName.with("attribute-1"), "attribute-value-1");
+        return Maps.of(SearchNodeAttributeName.with("attribute-1"), "attribute-value-1");
     }
 
     private Map<SearchNodeAttributeName, String> differentAttributes() {
-        return Maps.one(SearchNodeAttributeName.with("attribute-2"), "attribute-value-2");
+        return Maps.of(SearchNodeAttributeName.with("attribute-2"), "attribute-value-2");
     }
 
     @Override
