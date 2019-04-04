@@ -222,10 +222,9 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testToStringText() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
-        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8));
-        headers.put(HttpHeaderName.SERVER, "Server 123");
+        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L,
+                HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
+                HttpHeaderName.SERVER, "Server 123");
 
         this.toStringAndCheck(HttpEntity.with(headers, new byte[]{'A', 'B', '\n', 'C'}),
                 "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
@@ -233,8 +232,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testToStringBinary() throws Exception {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L);
 
         final String letters = "a";
         this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
@@ -244,8 +242,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testToStringBinaryUnprintable() throws Exception {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L);
 
         final String letters = "\0";
         this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
@@ -255,8 +252,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testToStringBinaryMultiLine() throws Exception {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L);
 
         final String letters = "abcdefghijklmnopq";
         this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
@@ -267,8 +263,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testToStringBinaryMultiLine2() throws Exception {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L);
 
         final String letters = "\n\0cdefghijklmnopq";
         this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
@@ -279,10 +274,9 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testToStringMultipleHeadersBinary() throws Exception {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
-        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.BINARY);
-        headers.put(HttpHeaderName.SERVER, "Server 123");
+        final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L,
+                HttpHeaderName.CONTENT_TYPE, MediaType.BINARY,
+                HttpHeaderName.SERVER, "Server 123");
 
         final String letters = "\n\0cdefghijklmnopq";
         this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),

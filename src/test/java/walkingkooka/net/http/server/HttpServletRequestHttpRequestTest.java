@@ -102,11 +102,7 @@ public final class HttpServletRequestHttpRequestTest implements ClassTesting2<Ht
 
     @Test
     public void testHeaders() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HEADER1, HEADERVALUE1);
-        headers.put(HEADER2, HEADERVALUE2);
-
-        assertEquals(headers,
+        assertEquals(Maps.of(HEADER1, HEADERVALUE1, HEADER2, HEADERVALUE2),
                 this.createRequest().headers());
     }
 
@@ -214,10 +210,7 @@ public final class HttpServletRequestHttpRequestTest implements ClassTesting2<Ht
 
             @Override
             public Map<String, String[]> getParameterMap() {
-                final Map<String, String[]> parameters = Maps.ordered();
-                parameters.put(PARAMETER1, array(VALUE1A, VALUE1B));
-                parameters.put(PARAMETER2, array(VALUE2));
-                return parameters;
+                return Maps.of(PARAMETER1, array(VALUE1A, VALUE1B), PARAMETER2, array(VALUE2));
             }
 
             private String[] array(final String... values) {

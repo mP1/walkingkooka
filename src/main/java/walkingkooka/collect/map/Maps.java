@@ -98,6 +98,54 @@ final public class Maps implements PublicStaticHelper {
     }
 
     /**
+     * A Map with two key/value pairs
+     */
+    static public <K, V> Map<K, V> of(final K key1,
+                                      final V value1,
+                                      final K key2,
+                                      final V value2) {
+        final Map<K, V> map = ordered();
+        map.put(key1, value1);
+        map.put(key2, value2);
+        return readOnly(map); // TODO update to 1.9
+    }
+
+    /**
+     * A Map with three key/value pairs
+     */
+    static public <K, V> Map<K, V> of(final K key1,
+                                      final V value1,
+                                      final K key2,
+                                      final V value2,
+                                      final K key3,
+                                      final V value3) {
+        final Map<K, V> map = ordered();
+        map.put(key1, value1);
+        map.put(key2, value2);
+        map.put(key3, value3);
+        return readOnly(map); // TODO update to 1.9
+    }
+
+    /**
+     * A Map with four key/value pairs
+     */
+    static public <K, V> Map<K, V> of(final K key1,
+                                      final V value1,
+                                      final K key2,
+                                      final V value2,
+                                      final K key3,
+                                      final V value3,
+                                      final K key4,
+                                      final V value4) {
+        final Map<K, V> map = ordered();
+        map.put(key1, value1);
+        map.put(key2, value2);
+        map.put(key3, value3);
+        map.put(key4, value4);
+        return readOnly(map); // TODO update to 1.9
+    }
+
+    /**
      * {@see LinkedHashMap}
      */
     static public <K, V> Map<K, V> ordered() {

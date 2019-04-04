@@ -614,10 +614,6 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         final String key2 = "key2";
         final Color value2 = Color.fromRgb(0x222);
 
-        final Map<String, Color> map = Maps.ordered();
-        map.put(key1, value1);
-        map.put(key2, value2);
-
         this.fromJsonNodeMapAndCheck(JsonNode.array()
                         .appendChild(JsonNode.object()
                                 .set(HasJsonNodeMapper.ENTRY_KEY, JsonNode.string(key1))
@@ -625,7 +621,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                         .appendChild(JsonNode.object()
                                 .set(HasJsonNodeMapper.ENTRY_KEY, JsonNode.string(key2))
                                 .set(HasJsonNodeMapper.ENTRY_VALUE, value2.toJsonNode())),
-                map,
+                Maps.of(key1, value1, key2, value2),
                 String.class,
                 Color.class);
     }

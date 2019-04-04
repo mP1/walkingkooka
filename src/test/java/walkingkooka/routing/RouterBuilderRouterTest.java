@@ -53,11 +53,9 @@ public final class RouterBuilderRouterTest implements ClassTesting2<RouterBuilde
                 .add(route)
                 .build();
 
-        final Map<StringName, Object> parameters = Maps.ordered();
-        parameters.put(PATH_0, file1);
-        parameters.put(Names.string("different"), "different-value");
-
-        this.routeAndCheck(routers, parameters, ONE);
+        this.routeAndCheck(routers,
+                Maps.of(PATH_0, file1, Names.string("different"), "different-value"),
+                ONE);
     }
 
     @Test
@@ -69,11 +67,8 @@ public final class RouterBuilderRouterTest implements ClassTesting2<RouterBuilde
                 .add(route)
                 .build();
 
-        final Map<StringName, Object> parameters = Maps.ordered();
-        parameters.put(PATH_0, this.file2());
-        parameters.put(PATH_1, this.differentFile());
-
-        this.routeFails(routers, parameters);
+        this.routeFails(routers,
+                Maps.of(PATH_0, this.file2(), PATH_1, this.differentFile()));
     }
 
     @Test
@@ -199,11 +194,9 @@ public final class RouterBuilderRouterTest implements ClassTesting2<RouterBuilde
                 .add(routing2)
                 .build();
 
-        final Map<StringName, Object> parameters = Maps.ordered();
-        parameters.put(PATH_0, dir);
-        parameters.put(PATH_1, file1);
-
-        this.routeAndCheck(routers, parameters, ONE);
+        this.routeAndCheck(routers,
+                Maps.of(PATH_0, dir, PATH_1, file1),
+                ONE);
     }
 
     //ONE=/dir-1/file-1

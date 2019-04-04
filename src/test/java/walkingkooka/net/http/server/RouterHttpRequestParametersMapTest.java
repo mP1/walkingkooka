@@ -157,10 +157,7 @@ public final class RouterHttpRequestParametersMapTest implements ClassTesting2<R
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONNECTION, "Close");
-        headers.put(HttpHeaderName.COOKIE, this.cookies());
-        return headers; // 2
+        return Maps.of(HttpHeaderName.CONNECTION, "Close", HttpHeaderName.COOKIE, this.cookies());
     }
 
     private List<ClientCookie> cookies() {

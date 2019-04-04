@@ -46,9 +46,8 @@ public final class LinkHeaderValueConverterTest extends
     // </TheBook/chapter2>;rel="previous"; title=Hello,
     @Test
     public void testParseLinkWithParameters() {
-        final Map<LinkParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(LinkParameterName.REL, LinkRelation.parse("previous"));
-        parameters.put(LinkParameterName.TITLE, "Hello");
+        final Map<LinkParameterName<?>, Object> parameters = Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"),
+                LinkParameterName.TITLE, "Hello");
 
         this.parseAndToTextAndCheck2("</TheBook/chapter2>;rel=previous;title=Hello",
                 Link.with(Url.parse("/TheBook/chapter2")).setParameters(parameters));
@@ -57,9 +56,8 @@ public final class LinkHeaderValueConverterTest extends
     // </TheBook/chapter2>;rel="previous"; title*=UTF-8'de'letztes%20Kapitel,
     @Test
     public void testParseLinkWithParameters2() {
-        final Map<LinkParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(LinkParameterName.REL, LinkRelation.parse("previous"));
-        parameters.put(LinkParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, Optional.of(LanguageTagName.with("de")), "letztes Kapitel"));
+        final Map<LinkParameterName<?>, Object> parameters = Maps.of(LinkParameterName.REL, LinkRelation.parse("previous"),
+                LinkParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, Optional.of(LanguageTagName.with("de")), "letztes Kapitel"));
 
         this.parseAndToTextAndCheck2("</TheBook/chapter2>;rel=previous;title*=UTF-8'de'letztes%20Kapitel",
                 Link.with(Url.parse("/TheBook/chapter2")).setParameters(parameters));

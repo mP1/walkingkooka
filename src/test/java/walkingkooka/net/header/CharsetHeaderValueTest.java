@@ -237,10 +237,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
                                                                        final Object value1,
                                                                        final CharsetHeaderValueParameterName<?> name2,
                                                                        final Object value2) {
-        final Map<CharsetHeaderValueParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(name1, value1);
-        parameters.put(name2, value2);
-        return parameters;
+        return Maps.of(name1, value1, name2, value2);
     }
 
     private void check(final CharsetHeaderValue charsetHeaderValue) {

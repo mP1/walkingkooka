@@ -26,7 +26,6 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
-import java.util.Map;
 
 public final class HttpServletRequestHttpRequestParametersMapTest implements ClassTesting2<HttpServletRequestHttpRequestParametersMap>,
         MapTesting<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
@@ -74,11 +73,7 @@ public final class HttpServletRequestHttpRequestParametersMapTest implements Cla
 
     @Override
     public HttpServletRequestHttpRequestParametersMap createMap() {
-        final Map<String, String[]> parameters = Maps.ordered();
-        parameters.put(KEY1, array(VALUE1A, VALUE1B));
-        parameters.put(KEY2, array(VALUE2));
-
-        return HttpServletRequestHttpRequestParametersMap.with(parameters);
+        return HttpServletRequestHttpRequestParametersMap.with(Maps.of(KEY1, array(VALUE1A, VALUE1B), KEY2, array(VALUE2)));
     }
 
     private static String[] array(final String... values) {

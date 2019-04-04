@@ -157,7 +157,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
 
     @Override
     HttpRequest createRequest() {
-        return this.createRequest(Maps.ordered());
+        return this.createRequest(Maps.empty());
     }
 
     private HttpRequest createRequest(final String acceptEncoding) {

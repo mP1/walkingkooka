@@ -339,9 +339,8 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testSetCharsetDifferent2() {
-        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.ordered();
-        parameters.put(MediaTypeParameterName.CHARSET, CharsetName.UTF_8);
-        parameters.put(MediaTypeParameterName.Q_FACTOR, 0.5f);
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.of(MediaTypeParameterName.CHARSET, CharsetName.UTF_8,
+                MediaTypeParameterName.Q_FACTOR, 0.5f);
 
         final MediaType with8 = MediaType.TEXT_PLAIN.setParameters(parameters);
 
@@ -350,9 +349,8 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
         assertNotSame(with8, with16);
 
-        final Map<MediaTypeParameterName<?>, Object> parameters2 = Maps.ordered();
-        parameters2.put(MediaTypeParameterName.CHARSET, utf16);
-        parameters2.put(MediaTypeParameterName.Q_FACTOR, 0.5f);
+        final Map<MediaTypeParameterName<?>, Object> parameters2 = Maps.of(MediaTypeParameterName.CHARSET, utf16,
+                MediaTypeParameterName.Q_FACTOR, 0.5f);
 
         this.check(with16,
                 "text",
@@ -375,14 +373,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
         assertNotSame(without, with16);
 
-        final Map<MediaTypeParameterName<?>, Object> parameters2 = Maps.ordered();
-        parameters2.put(MediaTypeParameterName.CHARSET, charset);
-        parameters2.put(MediaTypeParameterName.Q_FACTOR, 0.5f);
-
         this.check(with16,
                 "text",
                 "plain",
-                parameters2);
+                Maps.of(MediaTypeParameterName.CHARSET, charset,
+                        MediaTypeParameterName.Q_FACTOR, 0.5f));
 
         this.check(without,
                 "text",
