@@ -23,11 +23,11 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeChildElementNodePointerTest extends NodePointerTestCase<NodeChildElementNodePointer<JsonNode, JsonNodeName>> {
+public final class IndexedChildNodePointerTest extends NodePointerTestCase<IndexedChildNodePointer<JsonNode, JsonNodeName>> {
 
     @Override
-    public Class<NodeChildElementNodePointer<JsonNode, JsonNodeName>> type() {
-        return Cast.to(NodeChildElementNodePointer.class);
+    public Class<IndexedChildNodePointer<JsonNode, JsonNodeName>> type() {
+        return Cast.to(IndexedChildNodePointer.class);
     }
 
     @Override

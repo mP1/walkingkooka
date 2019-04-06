@@ -55,22 +55,22 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testIndexInvalidIndexFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.index(-1, JsonNode.class);
+            NodePointer.indexed(-1, JsonNode.class);
         });
     }
 
     @Test
     public void testIndexNullNodeClassFails() {
         assertThrows(NullPointerException.class, () -> {
-            NodePointer.index(0, null);
+            NodePointer.indexed(0, null);
         });
     }
 
     @Test
     public void testIndexInvalidIndexFails2() {
         assertThrows(IllegalArgumentException.class, () -> {
-            NodePointer.index(0, JsonNode.class)
-                    .index(-1);
+            NodePointer.indexed(0, JsonNode.class)
+                    .indexed(-1);
         });
     }
 
@@ -113,7 +113,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testToStringRelativeIndex() {
         this.toStringAndCheck(NodePointer.relative(1, JsonNode.class)
-                        .index(23),
+                        .indexed(23),
                 "1/23");
     }
 
@@ -133,7 +133,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testToStringChildIndex() {
-        this.toStringAndCheck(NodePointer.index(0, JsonNode.class),
+        this.toStringAndCheck(NodePointer.indexed(0, JsonNode.class),
                 "/0");
     }
 
@@ -147,24 +147,24 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testToStringChildNamedChildIndex() {
         this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
-                        .index(0),
+                        .indexed(0),
                 "/abc/0");
     }
 
     @Test
     public void testToStringChildNamedChildIndexX2() {
         this.toStringAndCheck(NodePointer.named(ABC, JsonNode.class)
-                        .index(0)
-                        .index(1),
+                        .indexed(0)
+                        .indexed(1),
                 "/abc/0/1");
     }
 
     @Test
     public void testToStringChildIndexChildNamedChildIndex() {
         this.toStringAndCheck("/0/abc/1",
-                NodePointer.index(0, JsonNode.class)
+                NodePointer.indexed(0, JsonNode.class)
                         .named(ABC)
-                        .index(1)
+                        .indexed(1)
                         .toString());
     }
 
@@ -194,10 +194,10 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testToStringChildIndexChildIndexChildIndexChildIndex() {
-        this.toStringAndCheck(NodePointer.index(0, JsonNode.class)
-                        .index(1)
-                        .index(2)
-                        .index(3),
+        this.toStringAndCheck(NodePointer.indexed(0, JsonNode.class)
+                        .indexed(1)
+                        .indexed(2)
+                        .indexed(3),
                 "/0/1/2/3");
     }
 
@@ -255,7 +255,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testIndexAbsent(){
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.index(55, JsonNode.class);
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(55, JsonNode.class);
         this.checkIsAbsolute(pointer);
 
         final JsonNode root = JsonNode.object()
@@ -265,7 +265,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testIndexAbsent2(){
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.index(1, JsonNode.class);
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(1, JsonNode.class);
         this.checkIsAbsolute(pointer);
 
         final JsonNode root = JsonNode.object()
@@ -275,7 +275,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testIndex(){
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.index(0, JsonNode.class);
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class);
         this.checkIsAbsolute(pointer);
 
         final JsonNode zero = JsonNode.string(TEXT);
@@ -286,7 +286,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testIndex2(){
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.index(1, JsonNode.class);
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(1, JsonNode.class);
         this.checkIsAbsolute(pointer);
 
         final JsonNode one = JsonNode.string(TEXT);
@@ -361,9 +361,9 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testIndexLastAbsent(){
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.index(0, JsonNode.class)
-                .index(1)
-                .index(2);
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class)
+                .indexed(1)
+                .indexed(2);
         this.checkIsAbsolute(pointer);
 
         final JsonNode def = JsonNode.string(TEXT);
@@ -375,8 +375,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testIndexLastAbsent2(){
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.index(0, JsonNode.class)
-                .index(99);
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class)
+                .indexed(99);
         this.checkIsAbsolute(pointer);
 
         final JsonNode def = JsonNode.string(TEXT);
@@ -388,8 +388,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testNestedArray(){
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.index(0, JsonNode.class)
-                .index(1);
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class)
+                .indexed(1);
         this.checkIsAbsolute(pointer);
 
         final JsonNode def = JsonNode.string(TEXT);
@@ -401,7 +401,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
 
     @Test
     public void testIndexForObject(){
-        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.index(0, JsonNode.class);
+        final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.indexed(0, JsonNode.class);
         this.checkIsAbsolute(pointer);
 
         final JsonNode def = JsonNode.string(TEXT);
@@ -414,7 +414,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testIndexForObject2(){
         final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.named(ABC, JsonNode.class)
-                .index(0);
+                .indexed(0);
         this.checkIsAbsolute(pointer);
 
         final JsonNode def = JsonNode.string(TEXT);
@@ -427,7 +427,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Test
     public void testRelativeNestedArray(){
         final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.relative(1, JsonNode.class)
-                .index(2);
+                .indexed(2);
         this.checkIsRelative(pointer);
 
         final JsonNode text = JsonNode.string(TEXT);

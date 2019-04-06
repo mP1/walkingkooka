@@ -34,7 +34,7 @@ public final class NoneNodePointerTest extends NodePointerTestCase<NoneNodePoint
 
     @Test
     public void testToStringArrayAppend() {
-        final NodePointer<JsonNode, JsonNodeName> array = NodePointer.index(123, JsonNode.class);
+        final NodePointer<JsonNode, JsonNodeName> array = NodePointer.indexed(123, JsonNode.class);
         this.toStringAndCheck(array.none(), "/123/-");
     }
 
