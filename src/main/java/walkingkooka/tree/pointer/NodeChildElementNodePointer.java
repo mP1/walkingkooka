@@ -53,27 +53,27 @@ final class NodeChildElementNodePointer<N extends Node<N, NAME, ?, ?>, NAME exte
     }
 
     @Override
-    final N nextNodeOrNull(final N node) {
+    N nextNodeOrNull(final N node) {
         final List<N> children = node.children();
         return this.index < children.size() ?
-               children.get(this.index) :
-               null;
+                children.get(this.index) :
+                null;
     }
 
     private final int index;
 
     @Override
-    public final boolean isRelative(){
+    public boolean isRelative() {
         return false;
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         b.append(SEPARATOR.character());
         b.append(this.index);
     }
 
     @Override
-    final void lastToString(final StringBuilder b){
+    void lastToString(final StringBuilder b) {
     }
 }

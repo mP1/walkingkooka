@@ -51,11 +51,11 @@ final class NodeChildNamedNodePointer<N extends Node<N, NAME, ?, ?>, NAME extend
     }
 
     @Override
-    final N nextNodeOrNull(final N node) {
+    N nextNodeOrNull(final N node) {
         N matched = null;
 
-        for(N child : node.children()) {
-            if(child.name().equals(this.name)){
+        for (N child : node.children()) {
+            if (child.name().equals(this.name)) {
                 matched = child;
                 break;
             }
@@ -66,18 +66,19 @@ final class NodeChildNamedNodePointer<N extends Node<N, NAME, ?, ?>, NAME extend
     private final NAME name;
 
     @Override
-    public final boolean isRelative(){
+    public boolean isRelative() {
         return false;
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         b.append(SEPARATOR.character());
         b.append(this.name.value()
                 .replace("~", "~0")
                 .replace("/", "~1")); // escape slash and tilde
     }
+
     @Override
-    final void lastToString(final StringBuilder b){
+    void lastToString(final StringBuilder b) {
     }
 }
