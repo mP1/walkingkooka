@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -32,10 +33,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 final public class MediaTypeTest extends HeaderValueWithParametersTestCase<MediaType, MediaTypeParameterName<?>>
-        implements ParseStringTesting<MediaType> {
+        implements ParseStringTesting<MediaType>,
+        PredicateTesting<MediaType, MediaType> {
 
     // constants
 
@@ -45,6 +46,10 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     private final static String PARAMETER_VALUE = "value456";
 
     // tests
+
+    @Override
+    public void testTypeNaming() {
+    }
 
     @Test
     public void testNullTypeFails() {
@@ -481,76 +486,51 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 MediaType.parseList("type1/subtype1,type2/subtype2"));
     }
 
-    // isCompatible .........................................................................
+    // test .........................................................................
 
     @Test
-    public void testIsCompatibleNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            MediaType.ALL.isCompatible(null);
-        });
-    }
-
-    @Test
-    public void testIsCompatibleWithSelf() {
-        final MediaType mediaType = MediaType.with("type", "subtype");
-        this.isCompatibleCheckTrue(mediaType, mediaType);
-    }
-
-    @Test
-    public void testIsCompatibleWithSelfDifferentCase() {
-        this.isCompatibleCheckTrue(MediaType.with("type", "subtype"),
+    public void testTestWithSelfDifferentCase() {
+        this.testTrue(MediaType.with("type", "subtype"),
                 MediaType.with("TYPE", "SUBTYPE"));
     }
 
     @Test
-    public void testIsCompatibleAnyAlwaysMatches() {
-        this.isCompatibleCheckTrue(MediaType.ALL, MediaType.with("custom", "custom2"));
+    public void testTestAnyAlwaysMatches() {
+        this.testTrue(MediaType.ALL, MediaType.with("custom", "custom2"));
     }
 
     @Test
-    public void testIsCompatibleAnyAndAnyMatches() {
-        this.isCompatibleCheckTrue(MediaType.ALL, MediaType.ALL);
+    public void testTestAnyAndAnyMatches() {
+        this.testTrue(MediaType.ALL, MediaType.ALL);
     }
 
     @Test
-    public void testIsCompatibleSameTypeWildcardSubType() {
+    public void testTestSameTypeWildcardSubType() {
         final String type = "custom";
-        this.isCompatibleCheckTrue(MediaType.with(type, MediaType.WILDCARD.string()),
+        this.testTrue(MediaType.with(type, MediaType.WILDCARD.string()),
                 MediaType.with(type, SUBTYPE));
     }
 
     @Test
-    public void testIsCompatibleDifferentTypeWildcardSubType() {
-        this.isCompatibleCheckFalse(MediaType.with("custom", MediaType.WILDCARD.string()),
+    public void testTestDifferentTypeWildcardSubType() {
+        this.testFalse(MediaType.with("custom", MediaType.WILDCARD.string()),
                 MediaType.with("different", SUBTYPE));
     }
 
     @Test
-    public void testIsCompatibleSameTypeSubType() {
-        this.isCompatibleCheckTrue(this.mediaType(), this.mediaType());
+    public void testTestSameTypeSubType() {
+        this.testTrue(this.mediaType(), this.mediaType());
     }
 
     @Test
-    public void testIsCompatibleDifferentTypeSameSubType() {
-        this.isCompatibleCheckFalse(this.mediaType(), MediaType.with("different", SUBTYPE));
+    public void testTestDifferentTypeSameSubType() {
+        this.testFalse(this.mediaType(), MediaType.with("different", SUBTYPE));
     }
 
     @Test
-    public void testIsCompatibleSameTypeDifferentSubType() {
+    public void testTestSameTypeDifferentSubType() {
         final String type = "type";
-        this.isCompatibleCheckFalse(MediaType.with(type, "subtype"), MediaType.with(type, "different"));
-    }
-
-    private void isCompatibleCheckTrue(final MediaType mediaType, final MediaType other) {
-        if (false == mediaType.isCompatible(other)) {
-            fail(mediaType + " should be compatible with " + other + " but FALSE was returned.");
-        }
-    }
-
-    private void isCompatibleCheckFalse(final MediaType mediaType, final MediaType other) {
-        if (mediaType.isCompatible(other)) {
-            fail(mediaType + " should NOT be compatible with " + other + " but TRUE was returned.");
-        }
+        this.testFalse(MediaType.with(type, "subtype"), MediaType.with(type, "different"));
     }
 
     // toHeaderText........................................................................................................
@@ -670,8 +650,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     public void testEqualsDifferentWhitespaceSameParametersStillEqual() {
         checkEqualsAndHashCode(MediaType.parse("a/b;   x=1"), MediaType.parse("a/b;x=1"));
     }
-
-
+    
     // toString........................................................................................................
 
     @Test
@@ -743,6 +722,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         return this.mediaType();
     }
 
+    @Override
+    public MediaType createPredicate() {
+        return this.mediaType();
+    }
+
     private MediaType mediaType() {
         return MediaType.withParameters(TYPE, SUBTYPE, parameters());
     }
@@ -769,6 +753,8 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     public boolean isResponse() {
         return true;
     }
+
+    // ClassTesting....................................................................................................
 
     @Override
     public Class<MediaType> type() {
