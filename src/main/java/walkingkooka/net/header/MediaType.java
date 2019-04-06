@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 
 /**
@@ -51,7 +52,8 @@ import java.util.Optional;
 final public class MediaType extends HeaderValueWithParameters2<MediaType,
         MediaTypeParameterName<?>,
         String>
-        implements HasQFactorWeight {
+        implements HasQFactorWeight,
+        Predicate<MediaType> {
 
     private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
 
@@ -384,7 +386,8 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
      * Tests if the given {@link MediaType} is compatible and understand wildcards that may appear in the type or sub type components. The
      * {@link MediaType#ALL} will of course be compatible with any other {@link MediaType}.
      */
-    public boolean isCompatible(final MediaType mediaType) {
+    @Override
+    public boolean test(final MediaType mediaType) {
         Objects.requireNonNull(mediaType, "mimeType");
 
         boolean compatible = true;
