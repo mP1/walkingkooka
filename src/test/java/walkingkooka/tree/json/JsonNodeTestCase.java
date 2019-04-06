@@ -31,7 +31,7 @@ import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.NodeTesting2;
+import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -49,7 +49,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
         HasJsonNodeTesting<JsonNode>,
         HasSearchNodeTesting<N>,
         IsMethodTesting<N>,
-        NodeTesting2<JsonNode, JsonNodeName, Name, Object> {
+        NodeTesting<JsonNode, JsonNodeName, Name, Object> {
 
     JsonNodeTestCase() {
         super();

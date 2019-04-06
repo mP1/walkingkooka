@@ -26,7 +26,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.NodeTesting2;
+import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
@@ -40,10 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassTesting2<SearchNode>,
         IsMethodTesting<N>,
-        NodeTesting2<SearchNode,
-                        SearchNodeName,
-                        SearchNodeAttributeName,
-                        String> {
+        NodeTesting<SearchNode, SearchNodeName, SearchNodeAttributeName, String> {
 
     SearchNodeTestCase() {
         super();

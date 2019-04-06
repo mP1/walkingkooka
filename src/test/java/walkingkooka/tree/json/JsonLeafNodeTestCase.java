@@ -76,51 +76,6 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
 
     abstract N setValue(final N node, final V value);
 
-    @Override
-    public final void testAppendChild() {
-        // Ignored
-    }
-
-    @Override
-    public final void testAppendChild2() {
-        // Ignored
-    }
-
-    @Override
-    public final void testRemoveChildFirst() {
-        // Ignored
-    }
-
-    @Override
-    public final void testRemoveChildLast() {
-        // Ignored
-    }
-
-    @Override
-    public final void testReplaceChildWithoutParent() {
-        // Ignored
-    }
-
-    @Override
-    public final void testReplaceChildDifferentParent() {
-        // Ignored
-    }
-
-    @Override
-    public final void testReplaceChild() {
-        // Ignored
-    }
-
-    @Override
-    public final void testSetChildrenSame() {
-        // Ignored
-    }
-
-    @Override
-    public final void testSetDifferentChildren() {
-        // Ignored
-    }
-
     @Test
     public final void testSetChildrenFails() {
         assertThrows(UnsupportedOperationException.class, () -> {

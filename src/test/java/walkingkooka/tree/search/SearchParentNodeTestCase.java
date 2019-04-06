@@ -20,6 +20,7 @@ package walkingkooka.tree.search;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.NodeTesting2;
 
 import java.util.List;
 
@@ -28,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SearchParentNodeTestCase<N extends SearchParentNode> extends SearchNodeTestCase<N> {
+public abstract class SearchParentNodeTestCase<N extends SearchParentNode> extends SearchNodeTestCase<N>
+        implements NodeTesting2<SearchNode, SearchNodeName, SearchNodeAttributeName, String> {
 
     SearchParentNodeTestCase() {
         super();

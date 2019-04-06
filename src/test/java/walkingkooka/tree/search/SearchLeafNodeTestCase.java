@@ -176,51 +176,6 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         assertNotEquals(this.createSearchNode(), this.createSearchNode(this.differentText(), this.differentValue()));
     }
 
-    @Override
-    public void testAppendChild() {
-        // Ignored
-    }
-
-    @Override
-    public void testAppendChild2() {
-        // Ignored
-    }
-
-    @Override
-    public void testRemoveChildFirst() {
-        // Ignored
-    }
-
-    @Override
-    public void testRemoveChildLast() {
-        // Ignored
-    }
-
-    @Override
-    public void testReplaceChildWithoutParent() {
-        // Ignored
-    }
-
-    @Override
-    public void testReplaceChildDifferentParent() {
-        // Ignored
-    }
-
-    @Override
-    public void testReplaceChild() {
-        // Ignored
-    }
-
-    @Override
-    public void testSetChildrenSame() {
-        // Ignored
-    }
-
-    @Override
-    public void testSetDifferentChildren() {
-        // Ignored
-    }
-
     @Test
     public final void testText() {
         assertEquals(this.text(), this.createSearchNode().text());
