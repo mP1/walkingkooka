@@ -101,7 +101,7 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
     }
 
     @Override
-    final JsonNode setChild(final JsonNode newChild, final int index) {
+    final JsonNode setChild0(final JsonNode newChild, final int index) {
         throw new NeverError(this.getClass().getSimpleName() + ".setChild");
     }
 }

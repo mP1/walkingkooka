@@ -199,7 +199,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
     }
 
     @Override
-    final JsonNode setChild(final JsonNode newChild, final int index) {
+    final JsonNode setChild0(final JsonNode newChild, final int index) {
         return JsonParentNodeChildPredicate.INSTANCE.test( this.children.get(index), newChild) ?
                 this :
                 this.replaceChild0(newChild, index).children.nameToValues.get(newChild.name);

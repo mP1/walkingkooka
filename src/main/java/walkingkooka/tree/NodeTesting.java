@@ -40,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * A mixin interface that contains tests and helpers to assist testing of {@link Node} implementations..
@@ -101,6 +102,24 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     @Test
     default void testChildrenIndices() {
         this.childrenCheck(this.createNode());
+    }
+
+    @Test
+    default void testSetChildIndexInvalidFails() {
+        final N node = this.createNode();
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            node.setChild(-1, node);
+        });
+    }
+
+    @Test
+    default void testSetChildIndexNullNodeFails() {
+        final N node = this.createNode();
+
+        assertThrows(NullPointerException.class, () -> {
+            node.setChild(0, null);
+        });
     }
 
     @Test

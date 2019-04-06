@@ -186,7 +186,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Sub classes must create a new copy of the parent and replace the identified child using its index or similar,
      * and also sets its parent after creation, returning the equivalent child at the same index.
      */
-    abstract JsonNode setChild(final JsonNode newChild, final int index);
+    abstract JsonNode setChild0(final JsonNode newChild, final int index);
 
     /**
      * Only ever called after during the completion of a setChildren, basically used to recreate the parent graph
@@ -195,7 +195,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     final JsonNode replaceChild(final Optional<JsonNode> previousParent, final int index) {
         return previousParent.isPresent() ?
                 previousParent.get()
-                        .setChild(this, index) :
+                        .setChild0(this, index) :
                 this;
     }
 

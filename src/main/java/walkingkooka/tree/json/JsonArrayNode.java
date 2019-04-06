@@ -102,10 +102,18 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
         return this.children().get(index);
     }
 
+    @Override
+    public JsonArrayNode setChild(final int index, final JsonNode element) {
+        return this.set(index, element);
+    }
+
     /**
      * Sets or replaces the element at the given index, returning a new array if necessary.
      */
     public JsonArrayNode set(final int index, final JsonNode element) {
+        if (index < 0) {
+            throw new IllegalArgumentException("Invalid index " + index + "=" + this);
+        }
         Objects.requireNonNull(element, "element");
 
         final List<JsonNode> children = this.copyChildren();
@@ -140,7 +148,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
      * Creates a new list of children and replaces the child at the given slot, returning the new child.
      */
     @Override
-    final JsonNode setChild(final JsonNode newChild, final int index) {
+    final JsonNode setChild0(final JsonNode newChild, final int index) {
         final List<JsonNode> newChildren = this.copyChildren();
         newChildren.set(index, newChild);
 
