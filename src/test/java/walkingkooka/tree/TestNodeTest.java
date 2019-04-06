@@ -22,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ResourceTesting;
@@ -109,6 +110,39 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
                 TestNode.with("child1"),
                 TestNode.with("child3")),
                 root.setChild(1, child3));
+    }
+
+    @Test
+    public void testSetChildNameReplaces() {
+        final TestNode child3 = TestNode.with("child3");
+        final TestNode root = TestNode.with("root", TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        assertEquals(TestNode.with("root", TestNode.with("child3"), TestNode.with("child2")),
+                root.setChild(Names.string("child1"), child3));
+    }
+
+    @Test
+    public void testSetChildNameReplaces2() {
+        final TestNode child3 = TestNode.with("child3");
+        final TestNode root = TestNode.with("root", TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        assertEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child3")),
+                root.setChild(Names.string("child2"), child3));
+    }
+
+    @Test
+    public void testSetChildNameAppends() {
+        final TestNode child3 = TestNode.with("child3");
+        final TestNode root = TestNode.with("root", TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        assertEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")),
+                root.setChild(Names.string("unknown"), child3));
     }
 
     @Test

@@ -114,6 +114,11 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return this.get(name).orElseThrow(() -> new IllegalArgumentException("Unknown property " + name + "=" + this));
     }
 
+    @Override
+    public JsonObjectNode setChild(final JsonNodeName name, final JsonNode value) {
+        return this.set(name, value);
+    }
+
     /**
      * Sets a new property or replaces an existing.
      */

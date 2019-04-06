@@ -138,6 +138,21 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
+     * Replaces if an existing child has the {@link Name} or appends a new child.
+     */
+    default N setChild(final NAME name, final N child) {
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(child, "child");
+
+        return this.children()
+                .stream()
+                .filter(c -> c.name().equals(name))
+                .findFirst()
+                .map(c -> this.replaceChild(c, child))
+                .orElse(this.appendChild(child));
+    }
+
+    /**
      * Appends a new child.
      */
     default N appendChild(final N child) {
