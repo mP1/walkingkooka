@@ -54,12 +54,12 @@ final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     @Override
-    final N nextNodeOrNull(final N node) {
+    N nextNodeOrNull(final N node) {
         N next = node;
 
-        for(int i = 0; i < this.ancestorCount; i++){
+        for (int i = 0; i < this.ancestorCount; i++) {
             final Optional<N> parent = next.parent();
-            if(!parent.isPresent()) {
+            if (!parent.isPresent()) {
                 next = null;
                 break;
             }
@@ -73,18 +73,18 @@ final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name
     private final boolean hash;
 
     @Override
-    public final boolean isRelative(){
+    public boolean isRelative() {
         return true;
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         b.append(this.ancestorCount);
     }
 
     @Override
-    final void lastToString(final StringBuilder b){
-        if(this.hash) {
+    void lastToString(final StringBuilder b) {
+        if (this.hash) {
             b.append('#');
         }
     }

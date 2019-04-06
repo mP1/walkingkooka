@@ -61,23 +61,23 @@ final class NoneNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
     }
 
     @Override
-    final N nextNodeOrNull(final N node) {
+    N nextNodeOrNull(final N node) {
         return null;
     }
 
     @Override
-    public final boolean isRelative(){
+    public boolean isRelative() {
         return false;
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    void toString0(final StringBuilder b) {
         b.append(this.toString);
     }
 
     private final String toString;
 
     @Override
-    final void lastToString(final StringBuilder b){
+    void lastToString(final StringBuilder b) {
     }
 }
