@@ -31,6 +31,10 @@ public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<Parse
 
     private final static String TEXT = "abc123";
 
+    @Override
+    public void testParentWithoutChild() {
+    }
+
     @Test
     public void testChildren() {
         assertEquals(Lists.empty(), this.createParserTokenNode().children(), "no children");
