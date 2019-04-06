@@ -24,12 +24,14 @@ import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Holds a ETAG.
  * <a href="https://en.wikipedia.org/wiki/HTTP_ETag"></a>
  */
 public abstract class ETag implements HeaderValue,
+        Predicate<ETag>,
         Value<String> {
 
     /**
@@ -74,12 +76,13 @@ public abstract class ETag implements HeaderValue,
      * Only returns true if etag is matched by the given etag. If this is a wildcard it matches any other etag.
      * If the argument is a wildcard a false is always returned even if this is a wildcard.
      */
-    public final boolean isMatch(final ETag etag) {
+    @Override
+    public final boolean test(final ETag etag) {
         Objects.requireNonNull(etag, "etag");
-        return !etag.isWildcard() && this.isMatch0(etag);
+        return !etag.isWildcard() && this.test0(etag);
     }
 
-    abstract boolean isMatch0(final ETag etag);
+    abstract boolean test0(final ETag etag);
 
     // value.....................................................................................................
 
