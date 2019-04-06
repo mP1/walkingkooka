@@ -86,6 +86,32 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     }
 
     @Test
+    public void testSetChildIndex() {
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode root = TestNode.with("root", TestNode.with("child1"));
+
+        TestNode.clear();
+
+        assertEquals(TestNode.with("root", TestNode.with("child2")),
+                root.setChild(0, child2));
+    }
+
+    @Test
+    public void testSetChildIndex2() {
+        final TestNode child3 = TestNode.with("child3");
+        final TestNode root = TestNode.with("root",
+                TestNode.with("child1"),
+                TestNode.with("child2"));
+
+        TestNode.clear();
+
+        assertEquals(TestNode.with("root",
+                TestNode.with("child1"),
+                TestNode.with("child3")),
+                root.setChild(1, child3));
+    }
+
+    @Test
     @Override
     public void testEquals() {
         final TestNode node1 = TestNode.with(this.currentTestName() + "-" + this.i);

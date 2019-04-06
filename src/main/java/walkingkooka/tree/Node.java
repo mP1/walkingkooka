@@ -124,6 +124,20 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     N setChildren(final List<N> children);
 
     /**
+     * Sets or replaces the child at the given index.<br>
+     * Sub classes such as {@link walkingkooka.tree.json.JsonArrayNode} may wish to support
+     * auto expanding the children list with null slots.
+     */
+    default N setChild(final int index, final N child) {
+        if (index < 0) {
+            throw new IllegalArgumentException("Invalid index " + index + "=" + this);
+        }
+        Objects.requireNonNull(child, "child");
+
+        return this.replaceChild(this.children().get(index), child);
+    }
+
+    /**
      * Appends a new child.
      */
     default N appendChild(final N child) {
