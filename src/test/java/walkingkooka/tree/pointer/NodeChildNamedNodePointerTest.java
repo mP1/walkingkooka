@@ -26,7 +26,7 @@ import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeChildNamedNodePointerTest implements ClassTesting2<NodeChildNamedNodePointer<?, ?, ?, ?>> {
+public final class NodeChildNamedNodePointerTest implements ClassTesting2<NodeChildNamedNodePointer<?, ?>> {
 
     @Test
     public void testWithSlash() {
@@ -38,12 +38,12 @@ public final class NodeChildNamedNodePointerTest implements ClassTesting2<NodeCh
         this.checkToString(NodeChildNamedNodePointer.with(JsonNodeName.with("tilde~")), "/tilde~0");
     }
 
-    private void checkToString(final NodePointer<?, ?, ?, ?> pointer, final String toString) {
+    private void checkToString(final NodePointer<?, ?> pointer, final String toString) {
         assertEquals(toString, pointer.toString());
     }
 
     @Override
-    public Class<NodeChildNamedNodePointer<?, ?, ?, ?>> type() {
+    public Class<NodeChildNamedNodePointer<?, ?>> type() {
         return Cast.to(NodeChildNamedNodePointer.class);
     }
 

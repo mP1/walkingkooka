@@ -33,12 +33,12 @@ import walkingkooka.tree.Node;
  * ...
  * </pre>
  */
-final class NoneNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NodePointer<N, NAME, ANAME, AVALUE>{
+final class NoneNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
      * Creates a {@link NoneNodePointer}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NoneNodePointer<N, NAME, ANAME, AVALUE> with(final String toString) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NoneNodePointer<N, NAME> with(final String toString) {
         return new NoneNodePointer<>(toString);
     }
 
@@ -51,13 +51,13 @@ final class NoneNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
     }
 
     @Override
-    NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
+    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
         final StringBuilder b = new StringBuilder();
         b.append(this.toString);
         pointer.toString0(b);
         pointer.lastToString(b);
 
-        return new NoneNodePointer<N, NAME, ANAME, AVALUE>(b.toString());
+        return NoneNodePointer.with(b.toString());
     }
 
     @Override

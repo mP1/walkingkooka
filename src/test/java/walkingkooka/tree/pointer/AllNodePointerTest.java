@@ -24,8 +24,8 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class AllNodePointerTest implements ClassTesting2<AllNodePointer<?, ?, ?, ?>>,
-        ToStringTesting<AllNodePointer<?, ?, ?, ?>> {
+public final class AllNodePointerTest implements ClassTesting2<AllNodePointer<?, ?>>,
+        ToStringTesting<AllNodePointer<?, ?>> {
 
     @Test
     public void testToString() {
@@ -33,11 +33,12 @@ public final class AllNodePointerTest implements ClassTesting2<AllNodePointer<?,
     }
 
     @Override
-    public Class<AllNodePointer<?, ?, ?, ?>> type() {
+    public Class<AllNodePointer<?, ?>> type() {
         return Cast.to(AllNodePointer.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -22,9 +22,9 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeChildElementNodePointerTest implements ClassTesting2<NodeChildElementNodePointer<?, ?, ?, ?>> {
+public final class NodeChildElementNodePointerTest implements ClassTesting2<NodeChildElementNodePointer<?, ?>> {
     @Override
-    public Class<NodeChildElementNodePointer<?, ?, ?, ?>> type() {
+    public Class<NodeChildElementNodePointer<?, ?>> type() {
         return Cast.to(NodeChildElementNodePointer.class);
     }
 

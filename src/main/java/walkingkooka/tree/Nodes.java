@@ -38,7 +38,7 @@ final public class Nodes implements PublicStaticHelper {
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NodePointer<N, NAME, ANAME, AVALUE> pointer(final N node) {
+            AVALUE> NodePointer<N, NAME> pointer(final N node) {
 
         return pointer0(node);
     }
@@ -46,7 +46,7 @@ final public class Nodes implements PublicStaticHelper {
     private static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NodePointer<N, NAME, ANAME, AVALUE> pointer0(final N node) {
+            AVALUE> NodePointer<N, NAME> pointer0(final N node) {
 
         final Optional<N> parent = node.parent();
         return parent.isPresent() ?
@@ -57,10 +57,10 @@ final public class Nodes implements PublicStaticHelper {
     private static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NodePointer<N, NAME, ANAME, AVALUE> pointer1(final N parent,
-                                                                 final N node) {
+            AVALUE> NodePointer<N, NAME> pointer1(final N parent,
+                                                  final N node) {
 
-        final NodePointer<N, NAME, ANAME, AVALUE> back = pointer0(parent);
+        final NodePointer<N, NAME> back = pointer0(parent);
         return node.hasUniqueNameAmongstSiblings() ?
                back.named(node.name()) :
                back.index(node.index());

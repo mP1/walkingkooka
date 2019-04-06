@@ -34,20 +34,20 @@ import java.util.function.Function;
  * <br>
  * <a href="http://json-schema.org/latest/relative-json-pointer.html#RFC4627">spec</a>
  */
-public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> {
+public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> {
 
     private final static String NONE = "-";
 
     /**
      * Accepts and parses a {@link String} holding a pointer.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> parse(final String pointer, final Function<String, NAME> nameFactory, final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> parse(final String pointer, final Function<String, NAME> nameFactory, final Class<N> nodeType) {
         Objects.requireNonNull(pointer, "pointer");
         Objects.requireNonNull(nameFactory, "name factory function");
-        Objects.requireNonNull(nodeType, "nodeType");
+        checkNodeType(nodeType);
 
         final String[] components = pointer.split(SEPARATOR.string());
-        NodePointer<N, NAME, ANAME, AVALUE> result = all(nodeType);
+        NodePointer<N, NAME> result = all(nodeType);
         boolean relative = true;
         boolean hash = false;
 
@@ -92,92 +92,92 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     /**
      * Type safe null for use to mark no next. Intended for use only within this package.
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> absent() {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> absent() {
         return null;
     }
 
     /**
      * Creates a match all.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> all(final Class<N> nodeType) {
-        Objects.requireNonNull(nodeType, "nodeType");
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> all(final Class<N> nodeType) {
+        checkNodeType(nodeType);
         return AllNodePointer.get();
     }
 
     /**
      * Creates an array element pointer.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> index(final int index, final Class<N> nodeType) {
-        Objects.requireNonNull(nodeType, "nodeType");
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> index(final int index, final Class<N> nodeType) {
+        checkNodeType(nodeType);
         return NodeChildElementNodePointer.with(index);
     }
 
     /**
      * Creates an object property pointer
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> named(final NAME name, final Class<N> nodeType) {
-        Objects.requireNonNull(nodeType, "nodeType");
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> named(final NAME name, final Class<N> nodeType) {
+        checkNodeType(nodeType);
         return NodeChildNamedNodePointer.with(name);
     }
 
     /**
      * Creates pointer that never matches anything.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> none(final Class<N> nodeType) {
-        Objects.requireNonNull(nodeType, "nodeType");
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> none(final Class<N> nodeType) {
+        checkNodeType(nodeType);
         return NoneNodePointer.with(NONE);
     }
 
     /**
      * Creates an relative.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> relative(final int ancestor, final Class<N> nodeType) {
-        Objects.requireNonNull(nodeType, "nodeType");
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relative(final int ancestor, final Class<N> nodeType) {
+        checkNodeType(nodeType);
         return RelativeNodePointer.with(ancestor, false);
     }
 
     /**
      * Creates an relative.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> relativeHash(final int ancestor, final Class<N> nodeType) {
-        Objects.requireNonNull(nodeType, "nodeType");
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relativeHash(final int ancestor, final Class<N> nodeType) {
+        checkNodeType(nodeType);
         return RelativeNodePointer.with(ancestor, true);
     }
 
     /**
      * Package private ctor to limit sub classing.
      */
-    NodePointer(final NodePointer<N, NAME, ANAME, AVALUE> next) {
+    NodePointer(final NodePointer<N, NAME> next) {
         this.next = next;
     }
 
     /**
      * Appends a child name to this pointer.
      */
-    public final NodePointer<N, NAME, ANAME, AVALUE> named(final NAME name) {
+    public final NodePointer<N, NAME> named(final NAME name) {
         return this.append(NodeChildNamedNodePointer.with(name));
     }
 
     /**
      * Appends a none pointer, equivalent to the "-" token within a string pointer.
      */
-    public final NodePointer<N, NAME, ANAME, AVALUE> none() {
+    public final NodePointer<N, NAME> none() {
         return this.append(NoneNodePointer.with("/" + NONE));
     }
 
     /**
      * Appends an index to this pointer.
      */
-    public final NodePointer<N, NAME, ANAME, AVALUE> index(final int index) {
+    public final NodePointer<N, NAME> index(final int index) {
         return this.append(NodeChildElementNodePointer.with(index));
     }
 
     /**
      * Appends an index to this pointer.
      */
-    abstract NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer);
+    abstract NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer);
 
-    final NodePointer<N, NAME, ANAME, AVALUE> appendToNext(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
+    final NodePointer<N, NAME> appendToNext(final NodePointer<N, NAME> pointer) {
         return null == this.next ?
                pointer :
                this.next.append(pointer);
@@ -192,7 +192,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         Optional<N> result;
 
         N current = node;
-        NodePointer<N, NAME, ANAME, AVALUE> pointer = this;
+        NodePointer<N, NAME> pointer = this;
 
         for(;;) {
             N next = pointer.nextNodeOrNull(current);
@@ -216,7 +216,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     /**
      * The next part in the pointer or null.
      */
-    private final NodePointer<N, NAME, ANAME, AVALUE> next;
+    private final NodePointer<N, NAME> next;
 
     /**
      * Tests if this is a absolute pointer, basically the opposite of {@link #isRelative()}
@@ -237,7 +237,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     public final String toString() {
         final StringBuilder b = new StringBuilder();
 
-        NodePointer<N, NAME, ANAME, AVALUE> pointer = this;
+        NodePointer<N, NAME> pointer = this;
         for(;;) {
             pointer.toString0(b);
 
@@ -256,4 +256,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     abstract void toString0(final StringBuilder b);
 
     abstract void lastToString(final StringBuilder b);
+
+    private static <N extends Node<N, ?, ?, ?>> void checkNodeType(Class<N> nodeType) {
+        Objects.requireNonNull(nodeType, "nodeType");
+    }
 }

@@ -26,27 +26,27 @@ import java.util.Objects;
 /**
  * Represents a component that matches a node by its name from a parent.
  */
-final class NodeChildNamedNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NodePointer<N, NAME, ANAME, AVALUE>{
+final class NodeChildNamedNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
      * Creates a new {@link NodeChildNamedNodePointer}.
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeChildNamedNodePointer<N, NAME, ANAME, AVALUE> with(final NAME name) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodeChildNamedNodePointer<N, NAME> with(final NAME name) {
         Objects.requireNonNull(name, "name");
 
-        return new NodeChildNamedNodePointer<N, NAME, ANAME, AVALUE>(name, absent());
+        return new NodeChildNamedNodePointer<N, NAME>(name, absent());
     }
 
     /**
      * Private ctor.
      */
-    private NodeChildNamedNodePointer(final NAME name, final NodePointer<N, NAME, ANAME, AVALUE> next) {
+    private NodeChildNamedNodePointer(final NAME name, final NodePointer<N, NAME> next) {
         super(next);
         this.name = name;
     }
 
     @Override
-    NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
+    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
         return new NodeChildNamedNodePointer<>(this.name, this.appendToNext(pointer));
     }
 
