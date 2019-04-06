@@ -20,12 +20,11 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.ToStringTesting;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-public final class AllNodePointerTest implements ClassTesting2<AllNodePointer<?, ?>>,
-        ToStringTesting<AllNodePointer<?, ?>> {
+public final class AllNodePointerTest extends NodePointerTestCase<AllNodePointer<JsonNode, JsonNodeName>> {
 
     @Test
     public void testToString() {
@@ -33,7 +32,7 @@ public final class AllNodePointerTest implements ClassTesting2<AllNodePointer<?,
     }
 
     @Override
-    public Class<AllNodePointer<?, ?>> type() {
+    public Class<AllNodePointer<JsonNode, JsonNodeName>> type() {
         return Cast.to(AllNodePointer.class);
     }
 

@@ -18,31 +18,29 @@
 
 package walkingkooka.tree.pointer;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.type.MemberVisibility;
 
-public final class NodeChildNamedNodePointerTest extends NodePointerTestCase<NodeChildNamedNodePointer<JsonNode, JsonNodeName>> {
+public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNodeName>> implements ClassTesting2<N>,
+        ToStringTesting<N>,
+        TypeNameTesting<N> {
 
-    @Test
-    public void testWithSlash() {
-        this.toStringAndCheck(NodeChildNamedNodePointer.with(JsonNodeName.with("slash/")), "/slash~1");
+    NodePointerTestCase() {
+        super();
     }
 
-    @Test
-    public void testWithTilde() {
-        this.toStringAndCheck(NodeChildNamedNodePointer.with(JsonNodeName.with("tilde~")), "/tilde~0");
+    // TypeNameTesting.......................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
     }
 
     @Override
-    public Class<NodeChildNamedNodePointer<JsonNode, JsonNodeName>> type() {
-        return Cast.to(NodeChildNamedNodePointer.class);
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final String typeNameSuffix() {
+        return NodePointer.class.getSimpleName();
     }
 }

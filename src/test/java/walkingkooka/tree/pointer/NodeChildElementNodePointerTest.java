@@ -19,12 +19,14 @@
 package walkingkooka.tree.pointer;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeChildElementNodePointerTest implements ClassTesting2<NodeChildElementNodePointer<?, ?>> {
+public final class NodeChildElementNodePointerTest extends NodePointerTestCase<NodeChildElementNodePointer<JsonNode, JsonNodeName>> {
+
     @Override
-    public Class<NodeChildElementNodePointer<?, ?>> type() {
+    public Class<NodeChildElementNodePointer<JsonNode, JsonNodeName>> type() {
         return Cast.to(NodeChildElementNodePointer.class);
     }
 
