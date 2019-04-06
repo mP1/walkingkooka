@@ -16,26 +16,14 @@
  *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree;
 
-import walkingkooka.tree.TreeException;
+import walkingkooka.test.StandardThrowableTesting;
 
-/**
- * General purpose base class for all {@link NodeSelector} exceptions.
- */
-public class NodeSelectorException extends TreeException {
+public final class TreeExceptionTest implements StandardThrowableTesting<TreeException> {
 
-    private static final long serialVersionUID = 1L;
-
-    protected NodeSelectorException() {
-        super();
-    }
-
-    public NodeSelectorException(final String message) {
-        super(message);
-    }
-
-    public NodeSelectorException(final String message, final Throwable cause) {
-        super(message, cause);
+    @Override
+    public Class<TreeException> type() {
+        return TreeException.class;
     }
 }
