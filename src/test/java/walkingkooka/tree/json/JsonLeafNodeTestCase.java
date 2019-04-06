@@ -152,6 +152,10 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
         });
     }
 
+    @Override
+    public void testParentWithoutChild() {
+    }
+
     @Test
     public void testEqualsDifferentValue() {
         this.checkNotEquals(JsonNode.number(99));

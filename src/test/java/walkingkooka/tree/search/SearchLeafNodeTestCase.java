@@ -54,6 +54,10 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         assertSame(node, node.setValue(node.value()));
     }
 
+    @Override
+    public void testParentWithoutChild() {
+    }
+
     @Test
     public void testSetDifferentValue() {
         final N node = this.createSearchNode();

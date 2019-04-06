@@ -18,6 +18,7 @@
 package walkingkooka.tree;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.predicate.Predicates;
@@ -73,6 +74,21 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default void testParentCached() {
         final N node = this.createNode();
         this.checkCached(node, "parent", node.parent(), node.parent());
+    }
+
+    @Test
+    default void testParentWithoutRoot() {
+        this.parentWithoutAndCheck(this.createNode().root());
+    }
+
+    @Test
+    default void testParentWithoutChild() {
+        final N parent = this.createNode();
+        final List<N> children = parent.children();
+        assertNotEquals(Lists.empty(), children, "expected at least 1 child");
+
+        this.parentWithoutAndCheck(children.get(0), parent.removeChild(0));
+        this.checkWithoutParent(this.createNode());
     }
 
     @Test
@@ -147,6 +163,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default void checkWithoutParent(final N node) {
         assertEquals(Optional.empty(), node.parent(), "parent");
         assertEquals(true, node.isRoot(), "root");
+        assertEquals(Optional.empty(), node.parentWithout(), () -> "parent without " + node);
     }
 
     default void checkWithParent(final N node) {
@@ -162,6 +179,14 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
 
     default void parentCheck(final N node, final N parent) {
         assertSame(parent, node.parent(), () -> "parent of " + node);
+    }
+
+    default void parentWithoutAndCheck(final N node) {
+        assertEquals(Optional.empty(), node.parentWithout(), () -> "node parentWithout " + node);
+    }
+
+    default void parentWithoutAndCheck(final N node, final N parentWithout) {
+        assertEquals(Optional.of(parentWithout), node.parentWithout(), () -> "node parentWithout " + node);
     }
 
     default N appendChildAndCheck(final N parent, final N child) {
