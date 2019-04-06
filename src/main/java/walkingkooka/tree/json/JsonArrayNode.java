@@ -109,6 +109,8 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
 
     /**
      * Sets or replaces the element at the given index, returning a new array if necessary.
+     * If the given index is passed the current number of children, {@link JsonNullNode} will be used to fill the new slots.
+     * This matches behaviour in javascript.
      */
     public JsonArrayNode set(final int index, final JsonNode element) {
         if (index < 0) {
@@ -117,7 +119,16 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
         Objects.requireNonNull(element, "element");
 
         final List<JsonNode> children = this.copyChildren();
-        children.set(index, element);
+
+        if (index >= children.size()) {
+            while (index > children.size()) {
+                children.add(nullNode());
+            }
+            children.add(element);
+        } else {
+            children.set(index, element);
+        }
+
         return this.setChildren0(children).cast();
     }
 

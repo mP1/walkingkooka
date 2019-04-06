@@ -155,6 +155,49 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         this.checkWithoutParent(differentChild);
     }
 
+    @Test
+    public void testSetExpands() {
+        final JsonNode first = JsonNode.nullNode();
+        final JsonNode second = JsonNode.nullNode();
+        final JsonNode third = JsonNode.string("A2");
+
+        this.checkEquals(JsonNode.array().appendChild(first).appendChild(second).appendChild(third),
+                JsonNode.array().set(2, third));
+    }
+
+    @Test
+    public void testSetExpands2() {
+        final JsonNode first = JsonNode.string("A0");
+
+        this.checkEquals(JsonNode.array().appendChild(first),
+                JsonNode.array().set(0, first));
+    }
+
+    @Test
+    public void testSetExpands3() {
+        final JsonNode first = JsonNode.string("A0");
+        final JsonNode second = JsonNode.nullNode();
+        final JsonNode third = JsonNode.string("A2");
+
+        final JsonArrayNode array = JsonNode.array().appendChild(first);
+
+        this.checkEquals(JsonNode.array().appendChild(first).appendChild(second).appendChild(third),
+                array.set(2, third));
+    }
+
+    @Test
+    public void testSetExpands4() {
+        final JsonNode first = JsonNode.string("A0");
+        final JsonNode second = JsonNode.nullNode();
+        final JsonNode third = JsonNode.nullNode();
+        final JsonNode fourth = JsonNode.string("A3");
+
+        final JsonArrayNode array = JsonNode.array().appendChild(first);
+
+        this.checkEquals(JsonNode.array().appendChild(first).appendChild(second).appendChild(third).appendChild(fourth),
+                array.set(3, fourth));
+    }
+
     // remove
 
     @Test
