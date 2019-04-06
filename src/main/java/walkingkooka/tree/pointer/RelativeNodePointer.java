@@ -26,33 +26,30 @@ import java.util.Optional;
 /**
  * Represents the opening relative pointer..
  */
-final class RelativeNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NodePointer<N, NAME, ANAME, AVALUE>{
+final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
      * Creates a {@link RelativeNodePointer}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> RelativeNodePointer<N, NAME, ANAME, AVALUE> with(final int ancestorCount, final boolean hash) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> RelativeNodePointer<N, NAME> with(final int ancestorCount, final boolean hash) {
         if(ancestorCount < 0) {
             throw new IllegalArgumentException("Invalid ancestorCount " + ancestorCount + " values should be greater or equal to 0");
         }
 
-        return new RelativeNodePointer<N, NAME, ANAME, AVALUE>(ancestorCount, hash, absent());
+        return new RelativeNodePointer<N, NAME>(ancestorCount, hash, absent());
     }
 
     /**
      * Private ctor.
      */
-    private RelativeNodePointer(final int ancestorCount, final boolean hash, final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
+    private RelativeNodePointer(final int ancestorCount, final boolean hash, final NodePointer<N, NAME> pointer) {
         super(pointer);
         this.ancestorCount = ancestorCount;
         this.hash = hash;
     }
 
     @Override
-    NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
+    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
         return new RelativeNodePointer<>(this.ancestorCount, this.hash, this.appendToNext(pointer));
     }
 

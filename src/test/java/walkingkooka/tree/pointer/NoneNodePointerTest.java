@@ -26,18 +26,18 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-public final class NoneNodePointerTest implements ClassTesting2<NoneNodePointer<?, ?, ?, ?>>,
-        ToStringTesting<NoneNodePointer<?, ?, ?, ?>> {
+public final class NoneNodePointerTest implements ClassTesting2<NoneNodePointer<?, ?>>,
+        ToStringTesting<NoneNodePointer<?, ?>> {
 
     @Test
     public void testToStringElementAppend() {
-        final NodePointer<?, ?, ?, ?> element = NodePointer.named(JsonNodeName.with("abc"), JsonNode.class);
+        final NodePointer<?, ?> element = NodePointer.named(JsonNodeName.with("abc"), JsonNode.class);
         this.toStringAndCheck(element.none(), "/abc/-");
     }
 
     @Test
     public void testToStringArrayAppend() {
-        final NodePointer<?, ?, ?, ?> array = NodePointer.index(123, JsonNode.class);
+        final NodePointer<?, ?> array = NodePointer.index(123, JsonNode.class);
         this.toStringAndCheck(array.none(), "/123/-");
     }
 
@@ -47,7 +47,7 @@ public final class NoneNodePointerTest implements ClassTesting2<NoneNodePointer<
     }
 
     @Override
-    public Class<NoneNodePointer<?, ?, ?, ?>> type() {
+    public Class<NoneNodePointer<?, ?>> type() {
         return Cast.to(NoneNodePointer.class);
     }
 

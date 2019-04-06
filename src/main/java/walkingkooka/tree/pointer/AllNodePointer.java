@@ -25,12 +25,12 @@ import walkingkooka.tree.Node;
 /**
  * Matches all the nodes, or the start node.
  */
-final class AllNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NodePointer<N, NAME, ANAME, AVALUE>{
+final class AllNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
      * Creates a {@link AllNodePointer}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AllNodePointer<N, NAME, ANAME, AVALUE> get() {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> AllNodePointer<N, NAME> get() {
         return Cast.to(INSTANCE);
     }
 
@@ -39,12 +39,12 @@ final class AllNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends 
     /**
      * Private ctor.
      */
-    AllNodePointer() {
+    private AllNodePointer() {
         super(null);
     }
 
     @Override
-    NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
+    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
         return pointer;
     }
 

@@ -143,7 +143,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
             NAME2 extends Name,
             ANAME2 extends Name,
             AVALUE2> void traverseAndCheck(final N2 node) {
-        final NodePointer<N2, NAME2, ANAME2, AVALUE2> pointer = node.pointer();
+        final NodePointer<N2, NAME2> pointer = node.pointer();
 
         assertEquals(Optional.of(node),
                 pointer.traverse(node.root()),

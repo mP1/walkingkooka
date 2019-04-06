@@ -26,7 +26,7 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RelativeNodePointerTest implements ClassTesting2<RelativeNodePointer<?, ?, ?, ?>> {
+public final class RelativeNodePointerTest implements ClassTesting2<RelativeNodePointer<?, ?>> {
 
     private final static boolean NO_HASH = false;
     private final static boolean HASH = !NO_HASH;
@@ -54,7 +54,7 @@ public final class RelativeNodePointerTest implements ClassTesting2<RelativeNode
     }
 
     private void createAndCheck(final int ancestorCount) {
-        final RelativeNodePointer<?, ?, ?, ?> pointer = RelativeNodePointer.with(ancestorCount, NO_HASH);
+        final RelativeNodePointer<?, ?> pointer = RelativeNodePointer.with(ancestorCount, NO_HASH);
         assertEquals(ancestorCount, pointer.ancestorCount, "ancestorCount");
     }
 
@@ -69,7 +69,7 @@ public final class RelativeNodePointerTest implements ClassTesting2<RelativeNode
     }
 
     @Override
-    public Class<RelativeNodePointer<?, ?, ?, ?>> type() {
+    public Class<RelativeNodePointer<?, ?>> type() {
         return Cast.to(RelativeNodePointer.class);
     }
 

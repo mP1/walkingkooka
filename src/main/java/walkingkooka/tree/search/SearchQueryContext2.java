@@ -56,7 +56,7 @@ final class SearchQueryContext2 extends SearchQueryContext {
     }
 
     private SearchNode equivalent(final SearchNode node) {
-        final NodePointer<SearchNode, SearchNodeName, SearchNodeAttributeName, String> pointer = node.pointer();
+        final NodePointer<SearchNode, SearchNodeName> pointer = node.pointer();
         final Optional<SearchNode> equivalent = pointer.traverse(this.result);
         if(!equivalent.isPresent()){
             throw new SearchQueryException("Unable to find equivalent node for match=" + node);

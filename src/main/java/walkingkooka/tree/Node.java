@@ -256,7 +256,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Returns a {@link NodePointer} that uniquely identifies this {@link Node} starting at the root.
      */
-    default NodePointer<N, NAME, ANAME, AVALUE> pointer() {
+    default NodePointer<N, NAME> pointer() {
        return Nodes.pointer(Cast.to(this));
     }
 }
