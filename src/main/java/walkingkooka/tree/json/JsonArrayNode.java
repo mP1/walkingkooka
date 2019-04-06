@@ -156,6 +156,41 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
     }
 
     /**
+     * Sets a new length for this {@link JsonArrayNode}. Shorter lengths truncate existing elements, while longer lengths
+     * insert {@link JsonNullNode}.
+     */
+    public JsonArrayNode setLength(final int length) {
+        if (length < 0) {
+            throw new IllegalArgumentException("Invalid length=" + length);
+        }
+
+        final int current = this.children().size();
+        return current == length ?
+                this :
+                length < current ?
+                        this.setLengthShorter(length) :
+                        this.setLengthLonger(length);
+    }
+
+    private JsonArrayNode setLengthShorter(final int length) {
+        final List<JsonNode> children = this.copyChildren();
+
+        while (length != children.size()) {
+            children.remove(length);
+        }
+        return this.setChildren0(children).cast();
+    }
+
+    private JsonArrayNode setLengthLonger(final int length) {
+        final List<JsonNode> children = this.copyChildren();
+
+        while (length != children.size()) {
+            children.add(nullNode());
+        }
+        return this.setChildren0(children).cast();
+    }
+
+    /**
      * Creates a new list of children and replaces the child at the given slot, returning the new child.
      */
     @Override
