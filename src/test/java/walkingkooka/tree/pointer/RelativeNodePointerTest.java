@@ -20,13 +20,14 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RelativeNodePointerTest implements ClassTesting2<RelativeNodePointer<?, ?>> {
+public final class RelativeNodePointerTest extends NodePointerTestCase<RelativeNodePointer<JsonNode, JsonNodeName>> {
 
     private final static boolean NO_HASH = false;
     private final static boolean HASH = !NO_HASH;
@@ -54,22 +55,22 @@ public final class RelativeNodePointerTest implements ClassTesting2<RelativeNode
     }
 
     private void createAndCheck(final int ancestorCount) {
-        final RelativeNodePointer<?, ?> pointer = RelativeNodePointer.with(ancestorCount, NO_HASH);
+        final RelativeNodePointer<JsonNode, JsonNodeName> pointer = RelativeNodePointer.with(ancestorCount, NO_HASH);
         assertEquals(ancestorCount, pointer.ancestorCount, "ancestorCount");
     }
 
     @Test
     public void testToString() {
-        assertEquals("1", RelativeNodePointer.with(1, NO_HASH).toString());
+        this.toStringAndCheck(RelativeNodePointer.with(1, NO_HASH), "1");
     }
 
     @Test
     public void testToStringHash() {
-        assertEquals("1#", RelativeNodePointer.with(1, HASH).toString());
+        this.toStringAndCheck(RelativeNodePointer.with(1, HASH), "1#");
     }
 
     @Override
-    public Class<RelativeNodePointer<?, ?>> type() {
+    public Class<RelativeNodePointer<JsonNode, JsonNodeName>> type() {
         return Cast.to(RelativeNodePointer.class);
     }
 
