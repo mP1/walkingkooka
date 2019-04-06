@@ -18,9 +18,9 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.tree.NodeException;
+import walkingkooka.tree.TreeException;
 
-public class SearchException extends NodeException {
+public class SearchException extends TreeException {
 
     private static final long serialVersionUID = 1L;
 

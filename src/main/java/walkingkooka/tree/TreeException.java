@@ -13,23 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree;
 
-public class NodeException extends TreeException {
+import walkingkooka.SystemException;
+
+public class TreeException extends SystemException {
 
     private static final long serialVersionUID = 1L;
 
-    protected NodeException() {
+    protected TreeException() {
         super();
     }
 
-    public NodeException(final String message) {
+    public TreeException(final String message) {
         super(message);
     }
 
-    public NodeException(final String message, final Throwable cause) {
+    public TreeException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

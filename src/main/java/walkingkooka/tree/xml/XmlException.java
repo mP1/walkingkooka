@@ -18,12 +18,12 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.SystemException;
+import walkingkooka.tree.TreeException;
 
 /**
- * Base class for any {@link XmlNode} related operation
+ * Base class for any {@link XmlNode} exception
  */
-public class XmlException extends SystemException {
+public class XmlException extends TreeException {
 
     protected XmlException() {
         super();
