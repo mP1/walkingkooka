@@ -71,6 +71,16 @@ final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     }
 
     @Override
+    N add0(final N node, final N value) {
+        return node.setChild(this.name, value);
+    }
+
+    @Override
+    N remove0(final N node) {
+        return this.removeOrFail(node);
+    }
+
+    @Override
     void toString0(final StringBuilder b) {
         b.append(SEPARATOR.character());
         b.append(this.name.value()

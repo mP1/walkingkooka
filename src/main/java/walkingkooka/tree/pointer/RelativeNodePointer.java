@@ -78,6 +78,18 @@ final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     @Override
+    N add0(final N node, final N value) {
+        return this.next.add0(node, value);
+    }
+
+    @Override
+    N remove0(final N node) {
+        return this.traverseOrFail(node)
+                .parentWithout()
+                .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
+    }
+
+    @Override
     void toString0(final StringBuilder b) {
         b.append(this.ancestorCount);
     }

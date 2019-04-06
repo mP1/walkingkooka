@@ -22,6 +22,7 @@ import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 final public class Optionals implements PublicStaticHelper {
@@ -34,6 +35,19 @@ final public class Optionals implements PublicStaticHelper {
         return optional.isPresent() ?
                 Stream.of(optional.get()) :
                 Stream.empty();
+    }
+
+    /**
+     * Remove after upgrading to JDK 9.
+     */
+    public static <T> void ifPresentOrElse(final Optional<T> optional,
+                                           final Consumer<? super T> action,
+                                           final Runnable emptyAction) {
+        if (optional.isPresent()) {
+            action.accept(optional.get());
+        } else {
+            emptyAction.run();
+        }
     }
 
     /**

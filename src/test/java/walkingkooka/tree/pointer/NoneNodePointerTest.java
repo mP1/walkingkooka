@@ -20,11 +20,44 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class NoneNodePointerTest extends NodePointerTestCase<NoneNodePointer<JsonNode, JsonNodeName>> {
+
+    @Test
+    public void testAdd() {
+        final JsonArrayNode array = JsonNode.array();
+        final JsonNode add = JsonNode.string("add");
+
+        this.addAndCheck(this.createNodePointer(),
+                array,
+                add,
+                array.appendChild(add));
+    }
+
+    @Test
+    public void testAdd2() {
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(JsonNode.string("a1"));
+        final JsonNode add = JsonNode.string("add");
+
+        this.addAndCheck(this.createNodePointer(),
+                array,
+                add,
+                array.appendChild(add));
+    }
+
+    @Test
+    public void testRemoveFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNodePointer().remove(JsonNode.object());
+        });
+    }
 
     @Test
     public void testToStringElementAppend() {
@@ -41,6 +74,11 @@ public final class NoneNodePointerTest extends NodePointerTestCase<NoneNodePoint
     @Test
     public void testToString() {
         this.toStringAndCheck(NoneNodePointer.with("-"), "-");
+    }
+
+    @Override
+    NoneNodePointer<JsonNode, JsonNodeName> createNodePointer() {
+        return NoneNodePointer.with("someToString");
     }
 
     @Override

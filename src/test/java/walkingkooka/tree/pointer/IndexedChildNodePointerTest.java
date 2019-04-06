@@ -18,12 +18,113 @@
 
 package walkingkooka.tree.pointer;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
 public final class IndexedChildNodePointerTest extends NodePointerTestCase<IndexedChildNodePointer<JsonNode, JsonNodeName>> {
+
+    // add..................................................................................................
+
+    @Test
+    public void testAddUnknownPathFails() {
+        this.addAndFail(NodePointer.indexed(1, JsonNode.class).append(IndexedChildNodePointer.with(99)),
+                JsonNode.array(),
+                JsonNode.string("!"));
+    }
+
+    @Test
+    public void testAddUnknownPathFails2() {
+        this.addAndFail(NodePointer.indexed(1, JsonNode.class).append(IndexedChildNodePointer.with(99)),
+                JsonNode.object(),
+                JsonNode.string("!"));
+    }
+
+    @Test
+    public void testAddReplaceFirstChild() {
+        this.addAndCheck2(0);
+    }
+
+    @Test
+    public void testAddReplaceChild() {
+        this.addAndCheck2(1);
+    }
+
+    @Test
+    public void testAddReplaceLastChild() {
+        this.addAndCheck2(2);
+    }
+
+    private void addAndCheck2(final int index) {
+        final JsonArrayNode start = JsonNode.array()
+                .appendChild(JsonNode.string("value-0a"))
+                .appendChild(JsonNode.string("value-1b"))
+                .appendChild(JsonNode.string("value-2c"));
+
+        final JsonNode add = JsonNode.string("add");
+
+        this.addAndCheck(IndexedChildNodePointer.with(index),
+                start,
+                add,
+                start.set(index, add));
+    }
+
+    // remove..................................................................................................
+
+    @Test
+    public void testRemoveUnknownPathFails() {
+        this.removeAndFail(IndexedChildNodePointer.with(0),
+                JsonNode.object());
+    }
+
+    @Test
+    public void testRemoveUnknownPathFails2() {
+        this.removeAndFail(IndexedChildNodePointer.with(1),
+                JsonNode.array().appendChild(JsonNode.string("a")));
+    }
+
+    @Test
+    public void testRemoveChildIndex0() {
+        this.removeAndCheck2(JsonNode.array()
+                        .appendChild(JsonNode.string("a1"))
+                        .appendChild(JsonNode.string("b2")),
+                0);
+
+    }
+
+    @Test
+    public void testRemoveChildIndex1() {
+        this.removeAndCheck2(JsonNode.array()
+                        .appendChild(JsonNode.string("a1"))
+                        .appendChild(JsonNode.string("b2")),
+                1);
+
+    }
+
+    @Test
+    public void testRemoveChildIndex2() {
+        this.removeAndCheck2(JsonNode.array()
+                        .appendChild(JsonNode.string("a1"))
+                        .appendChild(JsonNode.string("b2"))
+                        .appendChild(JsonNode.string("c3")),
+                2);
+
+    }
+
+    private void removeAndCheck2(final JsonArrayNode node,
+                                 final int index) {
+        this.removeAndCheck(IndexedChildNodePointer.with(index),
+                node,
+                node.removeChild(index));
+    }
+
+    @Override
+    IndexedChildNodePointer<JsonNode, JsonNodeName> createNodePointer() {
+        return IndexedChildNodePointer.with(1);
+    }
 
     @Override
     public Class<IndexedChildNodePointer<JsonNode, JsonNodeName>> type() {

@@ -24,11 +24,32 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class AnyNodePointerTest extends NodePointerTestCase<AnyNodePointer<JsonNode, JsonNodeName>> {
+
+    @Test
+    public void testAddFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNodePointer().add(JsonNode.object(), JsonNode.string("add"));
+        });
+    }
+
+    @Test
+    public void testRemoveFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNodePointer().remove(JsonNode.object());
+        });
+    }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(AnyNodePointer.get(), "");
+    }
+
+    @Override
+    AnyNodePointer<JsonNode, JsonNodeName> createNodePointer() {
+        return AnyNodePointer.get();
     }
 
     @Override

@@ -59,6 +59,16 @@ final class AnyNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     }
 
     @Override
+    N add0(final N node, final N value) {
+        throw new UnsupportedOperationException("Add not supported for " + this);
+    }
+
+    @Override
+    N remove0(final N node) {
+        throw new UnsupportedOperationException("Remove not supported for " + this);
+    }
+
+    @Override
     void toString0(final StringBuilder b) {
         // nop
     }

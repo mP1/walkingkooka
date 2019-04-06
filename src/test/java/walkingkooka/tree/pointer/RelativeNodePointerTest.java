@@ -20,6 +20,7 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
@@ -33,7 +34,7 @@ public final class RelativeNodePointerTest extends NodePointerTestCase<RelativeN
     private final static boolean HASH = !NO_HASH;
 
     @Test
-    public void testWithNegativeFails() {
+    public void testWithNegativeIndexFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             RelativeNodePointer.with(-1, NO_HASH);
         });
@@ -60,6 +61,33 @@ public final class RelativeNodePointerTest extends NodePointerTestCase<RelativeN
     }
 
     @Test
+    public void testAdd() {
+        final JsonNode value = JsonNode.string("added");
+
+        final JsonArrayNode start = JsonNode.array()
+                .appendChild(JsonNode.string("first"))
+                .appendChild(JsonNode.string("replaced"));
+
+        this.addAndCheck(NodePointer.relative(0, JsonNode.class)
+                        .append(IndexedChildNodePointer.with(1)),
+                start,
+                value,
+                start.set(1, value));
+    }
+
+    @Test
+    public void testRemove() {
+        final JsonArrayNode start = JsonNode.array()
+                .appendChild(JsonNode.string("first"))
+                .appendChild(JsonNode.string("removed"));
+
+        this.removeAndCheck(NodePointer.relative(0, JsonNode.class)
+                        .append(IndexedChildNodePointer.with(1)),
+                start,
+                start.remove(1));
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(RelativeNodePointer.with(1, NO_HASH), "1");
     }
@@ -67,6 +95,11 @@ public final class RelativeNodePointerTest extends NodePointerTestCase<RelativeN
     @Test
     public void testToStringHash() {
         this.toStringAndCheck(RelativeNodePointer.with(1, HASH), "1#");
+    }
+
+    @Override
+    RelativeNodePointer<JsonNode, JsonNodeName> createNodePointer() {
+        return RelativeNodePointer.with(1, false);
     }
 
     @Override

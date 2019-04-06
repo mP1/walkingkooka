@@ -18,11 +18,16 @@
 
 package walkingkooka.tree.pointer;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.patch.NodePatchException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNodeName>> implements ClassTesting2<N>,
         ToStringTesting<N>,
@@ -30,6 +35,65 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
 
     NodePointerTestCase() {
         super();
+    }
+
+    // add.......................................................................
+
+    @Test
+    public final void testAddNullNodeFail() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createNodePointer().add(null, JsonNode.number(1));
+        });
+    }
+
+    @Test
+    public final void testAddNullAddNodeFail() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createNodePointer().add(JsonNode.object(), null);
+        });
+    }
+
+    // remove.......................................................................
+
+    @Test
+    public final void testRemoveNullNodeFail() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createNodePointer().remove(null);
+        });
+    }
+
+    abstract N createNodePointer();
+
+    final void addAndCheck(final NodePointer<JsonNode, JsonNodeName> pointer,
+                           final JsonNode base,
+                           final JsonNode add,
+                           final JsonNode result) {
+        assertEquals(result,
+                pointer.add(base, add),
+                () -> pointer + " add to " + base + ", " + add);
+    }
+
+    final void addAndFail(final NodePointer<JsonNode, JsonNodeName> pointer,
+                          final JsonNode base,
+                          final JsonNode add) {
+        assertThrows(NodePatchException.class, () -> {
+            pointer.add(base, add);
+        });
+    }
+
+    final void removeAndCheck(final NodePointer<JsonNode, JsonNodeName> pointer,
+                              final JsonNode node,
+                              final JsonNode result) {
+        assertEquals(result,
+                pointer.remove(node),
+                () -> pointer + " remove from " + node);
+    }
+
+    final void removeAndFail(final NodePointer<JsonNode, JsonNodeName> pointer,
+                             final JsonNode node) {
+        assertThrows(NodePatchException.class, () -> {
+            pointer.remove(node);
+        });
     }
 
     // TypeNameTesting.......................................................................
