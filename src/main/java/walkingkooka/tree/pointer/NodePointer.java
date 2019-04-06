@@ -47,7 +47,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         checkNodeType(nodeType);
 
         final String[] components = pointer.split(SEPARATOR.string());
-        NodePointer<N, NAME> result = all(nodeType);
+        NodePointer<N, NAME> result = any(nodeType);
         boolean relative = true;
         boolean hash = false;
 
@@ -70,7 +70,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                 final int number = Integer.parseInt(component);
                 result = result.append(relative ?
                        RelativeNodePointer.with(number, hash):
-                       index(number, nodeType));
+                       indexed(number, nodeType));
             } catch (final NumberFormatException mustBeName) {
                 if(relative) {
                     throw new IllegalArgumentException("Relative pointer expected number but got=" + CharSequences.quote(pointer));
@@ -99,17 +99,17 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     /**
      * Creates a match all.
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> all(final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> any(final Class<N> nodeType) {
         checkNodeType(nodeType);
-        return AllNodePointer.get();
+        return AnyNodePointer.get();
     }
 
     /**
      * Creates an array element pointer.
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> index(final int index, final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> indexed(final int index, final Class<N> nodeType) {
         checkNodeType(nodeType);
-        return NodeChildElementNodePointer.with(index);
+        return IndexedChildNodePointer.with(index);
     }
 
     /**
@@ -117,7 +117,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> named(final NAME name, final Class<N> nodeType) {
         checkNodeType(nodeType);
-        return NodeChildNamedNodePointer.with(name);
+        return NamedChildNodePointer.with(name);
     }
 
     /**
@@ -155,7 +155,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      * Appends a child name to this pointer.
      */
     public final NodePointer<N, NAME> named(final NAME name) {
-        return this.append(NodeChildNamedNodePointer.with(name));
+        return this.append(NamedChildNodePointer.with(name));
     }
 
     /**
@@ -168,8 +168,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     /**
      * Appends an index to this pointer.
      */
-    public final NodePointer<N, NAME> index(final int index) {
-        return this.append(NodeChildElementNodePointer.with(index));
+    public final NodePointer<N, NAME> indexed(final int index) {
+        return this.append(IndexedChildNodePointer.with(index));
     }
 
     /**

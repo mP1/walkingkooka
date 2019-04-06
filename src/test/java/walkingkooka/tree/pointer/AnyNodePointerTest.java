@@ -24,21 +24,16 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeChildNamedNodePointerTest extends NodePointerTestCase<NodeChildNamedNodePointer<JsonNode, JsonNodeName>> {
+public final class AnyNodePointerTest extends NodePointerTestCase<AnyNodePointer<JsonNode, JsonNodeName>> {
 
     @Test
-    public void testWithSlash() {
-        this.toStringAndCheck(NodeChildNamedNodePointer.with(JsonNodeName.with("slash/")), "/slash~1");
-    }
-
-    @Test
-    public void testWithTilde() {
-        this.toStringAndCheck(NodeChildNamedNodePointer.with(JsonNodeName.with("tilde~")), "/tilde~0");
+    public void testToString() {
+        this.toStringAndCheck(AnyNodePointer.get(), "");
     }
 
     @Override
-    public Class<NodeChildNamedNodePointer<JsonNode, JsonNodeName>> type() {
-        return Cast.to(NodeChildNamedNodePointer.class);
+    public Class<AnyNodePointer<JsonNode, JsonNodeName>> type() {
+        return Cast.to(AnyNodePointer.class);
     }
 
     @Override

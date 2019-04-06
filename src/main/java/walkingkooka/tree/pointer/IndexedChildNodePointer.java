@@ -18,40 +18,49 @@
 
 package walkingkooka.tree.pointer;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
+import java.util.List;
+
 /**
- * Matches all the nodes, or the start node.
+ * Represents a component that matches a node by its element.
  */
-final class AllNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
-     * Creates a {@link AllNodePointer}
+     * Creates a {@link IndexedChildNodePointer}
      */
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> AllNodePointer<N, NAME> get() {
-        return Cast.to(INSTANCE);
-    }
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> IndexedChildNodePointer<N, NAME> with(final int index) {
+        if(index < 0) {
+            throw new IllegalArgumentException("Invalid index " + index + " values should be greater or equal to 0");
+        }
 
-    private final static NodePointer INSTANCE = new AllNodePointer();
+        return new IndexedChildNodePointer<N, NAME>(index, absent());
+    }
 
     /**
      * Private ctor.
      */
-    private AllNodePointer() {
-        super(null);
+    private IndexedChildNodePointer(final int index, final NodePointer<N, NAME> pointer) {
+        super(pointer);
+        this.index = index;
     }
 
     @Override
     NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
-        return pointer;
+        return new IndexedChildNodePointer<N, NAME>(this.index, this.appendToNext(pointer));
     }
 
     @Override
     N nextNodeOrNull(final N node) {
-        return node;
+        final List<N> children = node.children();
+        return this.index < children.size() ?
+                children.get(this.index) :
+                null;
     }
+
+    private final int index;
 
     @Override
     public boolean isRelative() {
@@ -60,7 +69,8 @@ final class AllNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
 
     @Override
     void toString0(final StringBuilder b) {
-        // nop
+        b.append(SEPARATOR.character());
+        b.append(this.index);
     }
 
     @Override
