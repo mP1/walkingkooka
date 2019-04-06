@@ -19,13 +19,16 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.naming.Name;
+import walkingkooka.tree.NodeTesting2;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNode> extends ExpressionNodeTestCase<N> {
+public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNode> extends ExpressionNodeTestCase<N>
+        implements NodeTesting2<ExpressionNode, ExpressionNodeName, Name, Object> {
 
     ExpressionParentNodeTestCase() {
         super();

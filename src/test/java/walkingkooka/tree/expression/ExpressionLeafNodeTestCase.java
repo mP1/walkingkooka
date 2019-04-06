@@ -64,51 +64,6 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
         assertNotEquals(this.createExpressionNode(), this.createExpressionNode(this.differentValue()));
     }
 
-    @Override
-    public void testAppendChild() {
-        // Ignored
-    }
-
-    @Override
-    public void testAppendChild2() {
-        // Ignored
-    }
-
-    @Override
-    public void testRemoveChildFirst() {
-        // Ignored
-    }
-
-    @Override
-    public void testRemoveChildLast() {
-        // Ignored
-    }
-
-    @Override
-    public void testReplaceChildWithoutParent() {
-        // Ignored
-    }
-
-    @Override
-    public void testReplaceChildDifferentParent() {
-        // Ignored
-    }
-
-    @Override
-    public void testReplaceChild() {
-        // Ignored
-    }
-
-    @Override
-    public void testSetChildrenSame() {
-        // Ignored
-    }
-
-    @Override
-    public void testSetDifferentChildren() {
-        // Ignored
-    }
-
     @Test
     @Override
     public void testParentWithoutChild() {

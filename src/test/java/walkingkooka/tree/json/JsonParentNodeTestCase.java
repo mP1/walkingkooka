@@ -19,6 +19,8 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.naming.Name;
+import walkingkooka.tree.NodeTesting2;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
@@ -27,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C extends List<JsonNode>>
-        extends JsonNodeTestCase<N> {
+        extends JsonNodeTestCase<N>
+        implements NodeTesting2<JsonNode, JsonNodeName, Name, Object> {
 
     JsonParentNodeTestCase() {
         super();

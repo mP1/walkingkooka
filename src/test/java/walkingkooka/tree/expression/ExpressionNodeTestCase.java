@@ -34,7 +34,7 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.NodeTesting2;
+import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -55,7 +55,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implements ClassTesting2<ExpressionNode>,
         HasJsonNodeTesting<ExpressionNode>,
         IsMethodTesting<N>,
-        NodeTesting2<ExpressionNode, ExpressionNodeName, Name, Object> {
+        NodeTesting<ExpressionNode, ExpressionNodeName, Name, Object> {
 
     ExpressionNodeTestCase() {
         super();
