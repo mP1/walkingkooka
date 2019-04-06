@@ -121,7 +121,7 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
                                      final HasHeaders response) {
         final Optional<ETag> etag = HttpHeaderName.E_TAG.headerValue(response.headers());
         return etag.isPresent() &&
-                ifRange.etag().value().isMatch(etag.get());
+                ifRange.etag().value().test(etag.get());
     }
 
     private boolean isLastModifiedSatisified(final IfRange<?> ifRange,

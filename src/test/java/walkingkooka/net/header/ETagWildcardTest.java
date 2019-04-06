@@ -31,16 +31,16 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
         });
     }
 
-    // isMatch ...........................................................................................
+    // test ...........................................................................................
 
     @Test
-    public void testIsMatchStrongValue() {
-        this.isMatchAndCheck(ETagValidator.STRONG.setValue("abc"), true);
+    public void testTestStrongValue() {
+        this.testTrue(ETagValidator.STRONG.setValue("abc"));
     }
 
     @Test
-    public void testIsMatchWeakValue() {
-        this.isMatchAndCheck(ETagValidator.WEAK.setValue("abc"), true);
+    public void testTestWeakValue() {
+        this.testTrue(ETagValidator.WEAK.setValue("abc"));
     }
 
     @Test

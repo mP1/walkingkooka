@@ -19,13 +19,15 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E> {
+public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E>
+        implements PredicateTesting<E, ETag> {
 
     ETagTestCase() {
         super();
@@ -93,24 +95,19 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
     // isMatch ...........................................................................................
 
     @Test
-    public final void testIsMatchWildcard() {
-        this.isMatchAndCheck(ETag.wildcard(), false);
-    }
-
-    final void isMatchAndCheck(final ETag other, final boolean result) {
-        this.isMatchAndCheck(this.createETag(), other, result);
-    }
-
-    final void isMatchAndCheck(final ETag etag, final ETag other, final boolean result) {
-        assertEquals(result,
-                etag.isMatch(other),
-                etag + " is match " + other);
+    public final void testTestWildcard() {
+        this.testFalse(ETag.wildcard());
     }
 
     // helper ...........................................................................................................
 
     @Override
     public final E createHeaderValue() {
+        return this.createETag();
+    }
+
+    @Override
+    public final E createPredicate() {
         return this.createETag();
     }
 
@@ -147,5 +144,17 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return ETag.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

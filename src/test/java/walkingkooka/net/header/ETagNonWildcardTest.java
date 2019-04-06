@@ -47,59 +47,51 @@ public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
     private final static String DIFFERENT_VALUE = "FEDCBA9876543210";
 
     @Test
-    public void testIsMatchStrongStrongSameValue() {
-        this.isMatchAndCheck(ETagValidator.STRONG.setValue(VALUE),
-                ETagValidator.STRONG.setValue(VALUE),
-                true);
+    public void testTestStrongStrongSameValue() {
+        this.testTrue(ETagValidator.STRONG.setValue(VALUE),
+                ETagValidator.STRONG.setValue(VALUE));
     }
 
     @Test
-    public void testIsMatchStrongStrongDifferentValue() {
-        this.isMatchAndCheck(ETagValidator.STRONG.setValue(VALUE),
-                ETagValidator.STRONG.setValue(DIFFERENT_VALUE),
-                false);
+    public void testTestStrongStrongDifferentValue() {
+        this.testFalse(ETagValidator.STRONG.setValue(VALUE),
+                ETagValidator.STRONG.setValue(DIFFERENT_VALUE));
     }
 
     @Test
-    public void testIsMatchStrongWeakSameValue() {
-        this.isMatchAndCheck(ETagValidator.STRONG.setValue(VALUE),
-                ETagValidator.WEAK.setValue(VALUE),
-                true);
+    public void testTestStrongWeakSameValue() {
+        this.testTrue(ETagValidator.STRONG.setValue(VALUE),
+                ETagValidator.WEAK.setValue(VALUE));
     }
 
     @Test
-    public void testIsMatchStrongWeakDifferentValue() {
-        this.isMatchAndCheck(ETagValidator.STRONG.setValue(VALUE),
-                ETagValidator.WEAK.setValue(DIFFERENT_VALUE),
-                false);
+    public void testTestStrongWeakDifferentValue() {
+        this.testFalse(ETagValidator.STRONG.setValue(VALUE),
+                ETagValidator.WEAK.setValue(DIFFERENT_VALUE));
     }
 
     @Test
-    public void testIsMatchWeakStrongSameValue() {
-        this.isMatchAndCheck(ETagValidator.WEAK.setValue(VALUE),
-                ETagValidator.STRONG.setValue(VALUE),
-                true);
+    public void testTestWeakStrongSameValue() {
+        this.testTrue(ETagValidator.WEAK.setValue(VALUE),
+                ETagValidator.STRONG.setValue(VALUE));
     }
 
     @Test
-    public void testIsMatchWeakStrongDifferentValue() {
-        this.isMatchAndCheck(ETagValidator.WEAK.setValue(VALUE),
-                ETagValidator.STRONG.setValue(DIFFERENT_VALUE),
-                false);
+    public void testTestWeakStrongDifferentValue() {
+        this.testFalse(ETagValidator.WEAK.setValue(VALUE),
+                ETagValidator.STRONG.setValue(DIFFERENT_VALUE));
     }
 
     @Test
-    public void testIsMatchWeakWeakSameValue() {
-        this.isMatchAndCheck(ETagValidator.WEAK.setValue(VALUE),
-                ETagValidator.WEAK.setValue(VALUE),
-                true);
+    public void testTestWeakWeakSameValue() {
+        this.testTrue(ETagValidator.WEAK.setValue(VALUE),
+                ETagValidator.WEAK.setValue(VALUE));
     }
 
     @Test
-    public void testIsMatchWeakWeakDifferentValue() {
-        this.isMatchAndCheck(ETagValidator.WEAK.setValue(VALUE),
-                ETagValidator.WEAK.setValue(DIFFERENT_VALUE),
-                false);
+    public void testTestWeakWeakDifferentValue() {
+        this.testFalse(ETagValidator.WEAK.setValue(VALUE),
+                ETagValidator.WEAK.setValue(DIFFERENT_VALUE));
     }
 
     @Test
