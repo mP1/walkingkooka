@@ -285,6 +285,104 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 "updatedRoot");
     }
 
+    // setLength ...........................................................................................
+
+    @Test
+    public void testSetLength() {
+        final JsonArrayNode array = JsonNode.array();
+
+        assertSame(array, array.setLength(0));
+    }
+
+    @Test
+    public void testSetLength2() {
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(JsonNode.string("1"))
+                .appendChild(JsonNode.string("2"));
+
+        assertSame(array, array.setLength(2));
+    }
+
+    @Test
+    public void testSetLengthShorter() {
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(JsonNode.string("1"))
+                .appendChild(JsonNode.string("2"))
+                .appendChild(JsonNode.string("3"));
+
+        this.setLengthAndCheck(array,
+                0);
+    }
+
+    @Test
+    public void testSetLengthShorter2() {
+        final JsonNode child1 = JsonNode.string("1");
+        final JsonNode child2 = JsonNode.string("2");
+        final JsonNode child3 = JsonNode.string("3");
+
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(child1)
+                .appendChild(child2)
+                .appendChild(child3);
+
+        this.setLengthAndCheck(array,
+                2,
+                child1, child2);
+    }
+
+    @Test
+    public void testSetLengthLonger() {
+        this.setLengthAndCheck(JsonArrayNode.array(),
+                1,
+                JsonNode.nullNode());
+    }
+
+    @Test
+    public void testSetLengthLonger2() {
+        this.setLengthAndCheck(JsonArrayNode.array(),
+                2,
+                JsonNode.nullNode(), JsonNode.nullNode());
+    }
+
+    @Test
+    public void testSetLengthLonger3() {
+        final JsonNode child1 = JsonNode.string("1");
+        final JsonNode child2 = JsonNode.string("2");
+
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(child1)
+                .appendChild(child2);
+
+        this.setLengthAndCheck(array,
+                3,
+                child1, child2, JsonNode.nullNode());
+    }
+
+    @Test
+    public void testSetLengthLonger4() {
+        final JsonNode child1 = JsonNode.string("1");
+        final JsonNode child2 = JsonNode.string("2");
+
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(child1)
+                .appendChild(child2);
+
+        this.setLengthAndCheck(array,
+                4,
+                child1, child2, JsonNode.nullNode(), JsonNode.nullNode());
+    }
+
+    private void setLengthAndCheck(final JsonArrayNode array,
+                                   final int length,
+                                   final JsonNode... children) {
+        assertEquals(length, children.length, "expected children length doesnt match setLength length");
+        assertEquals(JsonNode.array().setChildren(Lists.of(children)),
+                array.setLength(length),
+                () -> "setLength " + length + " on " + array);
+    }
+
+    // Visitor ...........................................................................................
+
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
