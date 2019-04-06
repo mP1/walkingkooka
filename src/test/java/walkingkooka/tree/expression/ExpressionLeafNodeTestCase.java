@@ -109,6 +109,12 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
         // Ignored
     }
 
+    @Test
+    @Override
+    public void testParentWithoutChild() {
+        this.parentWithoutAndCheck(this.createNode());
+    }
+
     @Override
     final N createExpressionNode() {
         return this.createExpressionNode(this.value());

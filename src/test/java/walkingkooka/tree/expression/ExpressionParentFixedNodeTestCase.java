@@ -51,4 +51,11 @@ public abstract class ExpressionParentFixedNodeTestCase<N extends ExpressionPare
             super.testRemoveChildLast();
         });
     }
+
+    @Test
+    public void testParentWithoutChild() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            super.testParentWithoutChild();
+        });
+    }
 }

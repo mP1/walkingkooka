@@ -81,9 +81,13 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> implements ClassTe
         });
     }
 
-    @Test
+    @Override
     public final void testSetSameAttributes() {
         // ignore
+    }
+
+    @Override
+    public final void testParentWithoutChild() {
     }
 
     @Test

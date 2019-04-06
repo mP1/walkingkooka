@@ -46,6 +46,32 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     }
 
     @Test
+    public void testParentWithoutRoot() {
+        this.parentWithoutAndCheck(TestNode.with("root"));
+    }
+
+    @Test
+    public void testParentWithoutRootWithChildren() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode root = TestNode.with("root", child1, child2);
+
+        this.parentWithoutAndCheck(root);
+    }
+
+    @Test
+    @Override
+    public void testParentWithoutChild() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        TestNode.with("root", child1, child2);
+
+        TestNode.clear();
+
+        this.parentWithoutAndCheck(child1, TestNode.with("root", TestNode.with("child2")));
+    }
+
+    @Test
     public void testRoot() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");

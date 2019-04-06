@@ -70,6 +70,10 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
         });
     }
 
+    @Override
+    public void testParentWithoutChild() {
+    }
+
     @Test
     public final void testToSearchNodeEmpty() {
         this.toSearchNodeAndCheck(this.createJsonNode(), SearchNode.text("", ""));

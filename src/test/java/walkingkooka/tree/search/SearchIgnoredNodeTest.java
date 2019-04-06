@@ -116,6 +116,11 @@ public final class SearchIgnoredNodeTest extends SearchParentNodeTestCase<Search
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public void testParentWithoutChild() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testText() {
         assertEquals(this.child().text(), this.createSearchNode().text());

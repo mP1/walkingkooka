@@ -122,6 +122,11 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public void testParentWithoutChild() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testSetAttributesSame() {
         final SearchNode node = this.createSearchNode();

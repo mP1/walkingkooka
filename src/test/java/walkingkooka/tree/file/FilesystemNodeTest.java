@@ -258,6 +258,10 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
         return list;
     }
 
+    @Override
+    public void testParentWithoutChild() {
+    }
+
     @Test
     public void testSelectorUsage() {
         final FilesystemNode node = this.createNode();

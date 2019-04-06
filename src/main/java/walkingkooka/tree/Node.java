@@ -81,6 +81,14 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     Optional<N> parent();
 
     /**
+     * If a child belonging to a parent, returns the parent without the child otherwise returns {@link Optional#empty()}
+     */
+    default Optional<N> parentWithout() {
+        return this.parent()
+                .map(p -> p.removeChild(this.index()));
+    }
+
+    /**
      * Returns true if this node is the root.
      */
     default boolean isRoot() {

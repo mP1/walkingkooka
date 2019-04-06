@@ -85,6 +85,10 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
         this.checkWithParent(child);
     }
 
+    @Override
+    public void testParentWithoutChild() {
+    }
+
     // normalize .................................................................................................
 
     @Test
