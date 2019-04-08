@@ -30,6 +30,20 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JsonBooleanNodeTest extends JsonLeafNonNullNodeTestCase<JsonBooleanNode, Boolean>{
 
+    @Test
+    public void testWithTrue() {
+        this.withAndCheck(true);
+    }
+
+    @Test
+    public void testWithFalse() {
+        this.withAndCheck(false);
+    }
+
+    private void withAndCheck(final boolean value) {
+        assertSame(JsonBooleanNode.with(value), JsonBooleanNode.with(value));
+    }
+
     @Override
     public void testBooleanValueOrFail() {
         // ignore

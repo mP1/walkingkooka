@@ -29,10 +29,22 @@ import java.util.Optional;
 public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean>{
 
     static JsonBooleanNode with(final boolean value) {
-        return new JsonBooleanNode(NAME, NO_INDEX, value);
+        return value ?
+                TRUE :
+                FALSE;
     }
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonBooleanNode.class);
+
+    /**
+     * Singleton with a false value and no parent.
+     */
+    private final static JsonBooleanNode FALSE = new JsonBooleanNode(NAME, NO_INDEX, false);
+
+    /**
+     * Singleton with a true value and no parent.
+     */
+    private final static JsonBooleanNode TRUE = new JsonBooleanNode(NAME, NO_INDEX, true);
 
     private JsonBooleanNode(final JsonNodeName name, final int index, final boolean value) {
         super(name, index, value);
