@@ -27,35 +27,48 @@ import java.util.Optional;
 public class FakeNode<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         implements Node<N, NAME, ANAME, AVALUE>, Fake {
 
-    @Override public NAME name() {
+    @Override
+    public NAME name() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public int index() {
+    @Override
+    public int index() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public Optional<N> parent() {
+    @Override
+    public Optional<N> parent() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public boolean isRoot() {
+    @Override
+    public N removeParent() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public List<N> children() {
+    @Override
+    public boolean isRoot() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public N setChildren(List<N> children) {
+    @Override
+    public List<N> children() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public Map<ANAME, AVALUE> attributes() {
+    @Override
+    public N setChildren(List<N> children) {
         throw new UnsupportedOperationException();
     }
 
-    @Override public N setAttributes(Map<ANAME, AVALUE> attributes) {
+    @Override
+    public Map<ANAME, AVALUE> attributes() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public N setAttributes(Map<ANAME, AVALUE> attributes) {
         throw new UnsupportedOperationException();
     }
 }

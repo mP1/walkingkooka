@@ -78,6 +78,14 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return JsonObjectNodeList.with(nameToValues);
     }
 
+    /**
+     * Returns a {@link JsonObjectNode} with no parent but equivalent children.
+     */
+    @Override
+    public JsonObjectNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
     @Override
     boolean childrenEquals(final List<JsonNode> children) {
         final Map<JsonNodeName, JsonNode> nameToValues = this.children.nameToValues;

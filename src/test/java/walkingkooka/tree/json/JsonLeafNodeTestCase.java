@@ -77,6 +77,16 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     abstract N setValue(final N node, final V value);
 
     @Test
+    public final void testRemoveParentWithParent() {
+        final N node = this.createJsonNode();
+
+        final JsonNodeName a = JsonNodeName.with("prop");
+        final JsonObjectNode parent = JsonNode.object()
+                .set(a, node);
+        assertEquals(node, parent.getOrFail(a).removeParent());
+    }
+
+    @Test
     public final void testSetChildrenFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
             this.createJsonNode().setChildren(Lists.empty());

@@ -506,6 +506,20 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
 
     Optional<XmlNode> parent;
 
+    /**
+     * Sub classes should call this and cast to their type.
+     */
+    final XmlNode removeParent0() {
+        return this.isRoot() ?
+                this :
+                this.removeParent1();
+    }
+
+    /**
+     * Sub classes should clone the {@link org.w3c.dom.Node} but not the parent.
+     */
+    abstract XmlNode removeParent1();
+
     // Node.children........................................................................................................
 
     /**

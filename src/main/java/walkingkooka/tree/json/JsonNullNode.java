@@ -52,6 +52,14 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
         return this;
     }
 
+    /**
+     * Returns the singleton which doesnt have a parent.
+     */
+    @Override
+    public JsonNullNode removeParent() {
+        return INSTANCE;
+    }
+
     @Override
     JsonNullNode create(final JsonNodeName name, final int index, final Void value) {
         return new JsonNullNode(name, index, value);

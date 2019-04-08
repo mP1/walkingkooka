@@ -70,6 +70,15 @@ public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>
         this.parentWithoutAndCheck(this.createNode());
     }
 
+    @Test
+    public final void testRemoveParentWithParent() {
+        final N node = this.createExpressionNode();
+
+        final ExpressionNode parent = ExpressionNode.not(node);
+        assertEquals(node,
+                parent.children().get(0).removeParent());
+    }
+
     @Override
     final N createExpressionNode() {
         return this.createExpressionNode(this.value());

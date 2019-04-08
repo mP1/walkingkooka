@@ -72,6 +72,14 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
     }
 
     @Test
+    public final void testRemoveParentWithParent() {
+        final N node = this.createSearchNode();
+
+        final SearchIgnoredNode parent = node.ignored();
+        assertEquals(node, parent.child().removeParent());
+    }
+
+    @Test
     public final void testReplaceAll() {
         final N node = this.createSearchNode();
         final SearchNode replace = this.replaceNode();

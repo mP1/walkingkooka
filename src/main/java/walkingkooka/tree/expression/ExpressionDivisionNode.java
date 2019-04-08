@@ -49,6 +49,11 @@ public final class ExpressionDivisionNode extends ExpressionArithmeticBinaryNode
     }
 
     @Override
+    public ExpressionDivisionNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionDivisionNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

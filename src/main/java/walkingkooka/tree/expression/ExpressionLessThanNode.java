@@ -45,6 +45,11 @@ public final class ExpressionLessThanNode extends ExpressionComparisonBinaryNode
     }
 
     @Override
+    public ExpressionLessThanNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionLessThanNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

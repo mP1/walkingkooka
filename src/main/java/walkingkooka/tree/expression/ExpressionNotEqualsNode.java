@@ -45,6 +45,11 @@ public final class ExpressionNotEqualsNode extends ExpressionComparisonBinaryNod
     }
 
     @Override
+    public ExpressionNotEqualsNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionNotEqualsNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

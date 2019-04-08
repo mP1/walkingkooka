@@ -75,6 +75,11 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
     }
 
     @Override
+    public ExpressionFunctionNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

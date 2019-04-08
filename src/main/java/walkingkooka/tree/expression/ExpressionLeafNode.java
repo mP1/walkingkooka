@@ -57,16 +57,16 @@ abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> 
                 .cast();
     }
 
+    @Override
+    final ExpressionNode wrap(final int index) {
+        return this.wrap0(index);
+    }
+
     final ExpressionLeafNode wrap0(final int index) {
         return this.wrap1(index, this.value);
     }
 
     abstract ExpressionLeafNode wrap1(final int index, final V value);
-
-    @Override
-    final ExpressionNode wrap(final int index) {
-        return this.wrap0(index);
-    }
 
     @Override
     public final List<ExpressionNode> children() {

@@ -32,6 +32,14 @@ abstract class XmlLeafNode extends XmlNode {
         super(node);
     }
 
+    /**
+     * Leaf nodes dont have children or child nodes.
+     */
+    @Override
+    final XmlNode removeParent1() {
+        return this.wrap0(this.nodeCloneWithoutParentWithoutChildren());
+    }
+
     @Override final org.w3c.dom.Node nodeCloneWithoutParentWithChildren() {
         return this.nodeCloneWithoutParentWithoutChildren();
     }

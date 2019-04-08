@@ -51,6 +51,11 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
     }
 
     @Override
+    public ExpressionReferenceNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     ExpressionReferenceNode wrap1(final int index, final ExpressionReference value) {
         return new ExpressionReferenceNode(index, value);
     }

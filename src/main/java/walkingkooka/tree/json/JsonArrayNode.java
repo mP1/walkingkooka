@@ -78,6 +78,14 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
     }
 
     /**
+     * Returns a {@link JsonArrayNode} with no parent but equivalent children.
+     */
+    @Override
+    public JsonArrayNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    /**
      * Would be setter that returns an array instance with the provided children, creating a new instance if necessary.
      */
     @Override

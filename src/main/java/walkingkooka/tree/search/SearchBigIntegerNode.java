@@ -58,6 +58,11 @@ public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger>{
     }
 
     @Override
+    public SearchBigIntegerNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }

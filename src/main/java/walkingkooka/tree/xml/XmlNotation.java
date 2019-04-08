@@ -82,6 +82,11 @@ final public class XmlNotation extends XmlLeafNode implements HasXmlPublicId, Ha
     // XmlNode .................................................................................................
 
     @Override
+    public XmlNotation removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     XmlNotation wrap0(final Node node) {
         return new XmlNotation(node);
     }

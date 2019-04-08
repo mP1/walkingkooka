@@ -41,6 +41,11 @@ public final class ExpressionBooleanNode extends ExpressionValueNode<Boolean> {
     }
 
     @Override
+    public ExpressionBooleanNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     ExpressionBooleanNode wrap1(final int index, final Boolean value) {
         return new ExpressionBooleanNode(index, value);
     }

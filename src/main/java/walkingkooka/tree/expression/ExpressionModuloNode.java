@@ -50,6 +50,11 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
     }
 
     @Override
+    public ExpressionModuloNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionModuloNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

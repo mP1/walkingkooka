@@ -56,6 +56,11 @@ public final class SearchLongNode extends SearchLeafNode<Long>{
     }
 
     @Override
+    public SearchLongNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }

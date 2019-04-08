@@ -175,6 +175,11 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
         return this.parent;
     }
 
+    @Override
+    public PojoNode removeParent() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * This setter is used to recreate the entire graph including parents of parents receiving new children.
      */

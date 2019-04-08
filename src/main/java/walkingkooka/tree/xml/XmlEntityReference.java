@@ -52,6 +52,13 @@ final public class XmlEntityReference extends XmlParentNode2 {
         return Cast.to(this.node);
     }
 
+    // parent................................................................................................
+
+    @Override
+    public XmlEntityReference removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // children................................................................................................
 
     @Override

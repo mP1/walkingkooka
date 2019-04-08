@@ -59,6 +59,11 @@ public final class SearchLocalTimeNode extends SearchLeafNode<LocalTime>{
     }
 
     @Override
+    public SearchLocalTimeNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }

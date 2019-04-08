@@ -46,6 +46,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -143,6 +144,17 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
         final FilesystemNode root = this.createNode();
 
         checkAttributeEquals(root, FilesystemNodeAttributeName.HIDDEN, Boolean.FALSE.toString());
+    }
+
+    @Override
+    public final void testRemoveParent() {
+    }
+
+    @Test
+    public final void testRemoveParentFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNode().removeParent();
+        });
     }
 
     @Test

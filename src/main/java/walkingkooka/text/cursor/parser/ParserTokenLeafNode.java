@@ -36,6 +36,11 @@ final class ParserTokenLeafNode extends ParserTokenNode {
         super(token, parent, index);
     }
 
+    @Override
+    ParserTokenNode removeParent0() {
+        return new ParserTokenLeafNode(this.token, NO_PARENT, NO_INDEX);
+    }
+
     // children ...........................................................................................................
 
     @Override

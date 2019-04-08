@@ -79,7 +79,19 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     private final Optional<ParserTokenNode> parent;
 
-    private final static Optional<ParserTokenNode> NO_PARENT = Optional.empty();
+    /**
+     * Returns a {@link ParserTokenNode} with the same value.
+     */
+    @Override
+    public final ParserTokenNode removeParent() {
+        return this.isRoot() ?
+                this :
+                this.removeParent0();
+    }
+
+    abstract ParserTokenNode removeParent0();
+
+    final static Optional<ParserTokenNode> NO_PARENT = Optional.empty();
 
     // index ...........................................................................................................
 

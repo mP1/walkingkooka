@@ -42,6 +42,11 @@ public final class ExpressionDoubleNode extends ExpressionValueNode<Double> {
     }
 
     @Override
+    public ExpressionDoubleNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     ExpressionDoubleNode wrap1(final int index, final Double value) {
         return new ExpressionDoubleNode(index, value);
     }

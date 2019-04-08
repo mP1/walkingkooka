@@ -110,6 +110,11 @@ public final class XmlDocumentType extends XmlLeafNode implements HasXmlPublicId
     // Parent ......................................................................................................
 
     @Override
+    public XmlDocumentType removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public boolean isRoot() {
         return true;
     }

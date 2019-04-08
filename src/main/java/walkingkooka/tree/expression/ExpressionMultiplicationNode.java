@@ -50,6 +50,11 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
     }
 
     @Override
+    public ExpressionMultiplicationNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionMultiplicationNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

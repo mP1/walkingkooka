@@ -41,6 +41,11 @@ public final class ExpressionLongNode extends ExpressionValueNode<Long> {
     }
 
     @Override
+    public ExpressionLongNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     ExpressionLongNode wrap1(final int index, final Long value) {
         return new ExpressionLongNode(index, value);
     }

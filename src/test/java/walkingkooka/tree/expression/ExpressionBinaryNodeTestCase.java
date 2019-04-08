@@ -53,6 +53,15 @@ public abstract class ExpressionBinaryNodeTestCase<N extends ExpressionBinaryNod
     }
 
     @Test
+    public final void testRemoveParentWithParent() {
+        final N node = this.createExpressionNode();
+
+        final ExpressionNode parent = ExpressionNode.not(node);
+        assertEquals(node,
+                parent.children().get(0).removeParent());
+    }
+
+    @Test
     public final void testSetChildrenZeroFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             this.createExpressionNode().setChildren(ExpressionNode.NO_CHILDREN);

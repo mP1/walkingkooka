@@ -90,6 +90,17 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> implements ClassTe
     public final void testParentWithoutChild() {
     }
 
+    @Override
+    public final void testRemoveParent() {
+    }
+
+    @Test
+    public final void testRemoveParentFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNode().removeParent();
+        });
+    }
+
     @Test
     public final void testDifferentValue() {
         this.checkNotEquals(this.createPojoNode().setValue(this.differentValue()));

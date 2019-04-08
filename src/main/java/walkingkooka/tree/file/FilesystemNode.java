@@ -119,6 +119,14 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     private Optional<FilesystemNode> parent;
 
     /**
+     * It is not possible to remove the parent.
+     */
+    @Override
+    public FilesystemNode removeParent() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * Updating children is not supported.
      */
     @Override

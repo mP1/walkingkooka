@@ -36,6 +36,7 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestNodeTest implements ClassTesting2<TestNode>,
         NodeTesting2<TestNode, StringName, StringName, Object>,
@@ -70,6 +71,17 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         TestNode.clear();
 
         this.parentWithoutAndCheck(child1, TestNode.with("root", TestNode.with("child2")));
+    }
+
+    @Override
+    public final void testRemoveParent() {
+    }
+
+    @Test
+    public final void testRemoveParentFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNode().removeParent();
+        });
     }
 
     @Test

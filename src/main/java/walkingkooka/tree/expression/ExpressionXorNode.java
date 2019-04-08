@@ -49,6 +49,11 @@ public final class ExpressionXorNode extends ExpressionLogicalBinaryNode {
     }
 
     @Override
+    public ExpressionXorNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionXorNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

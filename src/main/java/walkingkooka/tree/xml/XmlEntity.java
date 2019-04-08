@@ -117,6 +117,13 @@ final public class XmlEntity extends XmlParentNode2 implements HasXmlPublicId, H
 
     private Optional<String> xmlVersion;
 
+    // parent................................................................................................
+
+    @Override
+    public XmlEntity removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // children................................................................................................
 
     @Override

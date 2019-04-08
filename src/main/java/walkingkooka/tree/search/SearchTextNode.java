@@ -58,6 +58,11 @@ public final class SearchTextNode extends SearchLeafNode<String>{
     }
 
     @Override
+    public SearchTextNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }

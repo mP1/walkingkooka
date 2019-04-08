@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
@@ -75,6 +74,12 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default void testParentCached() {
         final N node = this.createNode();
         this.checkCached(node, "parent", node.parent(), node.parent());
+    }
+
+    @Test
+    default void testRemoveParent() {
+        final N node = this.createNode();
+        this.removeParentAndCheck(node);
     }
 
     @Test
@@ -166,7 +171,8 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Test
     default void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(), Predicates.never());
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(),
+                (m) -> m.getName().equals("removeParent"));
     }
 
     N createNode();
@@ -194,6 +200,18 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
 
             this.childrenCheck(child);
             i++;
+        }
+    }
+
+    default void removeParentAndCheck(final N node) {
+        final N without = node.removeParent();
+        this.checkWithoutParent(without);
+
+        if (node.isRoot()) {
+            assertSame(node, without);
+        } else {
+            assertNotSame(node, without);
+            assertNotEquals(node, without, "node.removeParent result should not be equal to node");
         }
     }
 

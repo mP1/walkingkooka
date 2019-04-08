@@ -51,6 +51,11 @@ public final class XmlText extends XmlTextNode {
         return this.setText0(text).cast();
     }
 
+    @Override
+    public XmlText removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // XmlNode....................................................................................................
 
     @Override

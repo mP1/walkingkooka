@@ -59,6 +59,11 @@ public final class SearchLocalDateNode extends SearchLeafNode<LocalDate>{
     }
 
     @Override
+    public SearchLocalDateNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }
