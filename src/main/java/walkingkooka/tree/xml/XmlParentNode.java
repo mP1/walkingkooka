@@ -38,6 +38,13 @@ abstract class XmlParentNode extends XmlNode {
         this.children = XmlNodeChildList.wrap(node, this);
     }
 
+    // parent................................................................................................
+
+    @Override
+    final XmlNode removeParent1() {
+        return this.wrap0(this.nodeCloneWithoutParentWithChildren());
+    }
+
     // children................................................................................................
 
     @Override

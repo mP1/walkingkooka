@@ -45,6 +45,11 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionComparisonB
     }
 
     @Override
+    public ExpressionGreaterThanEqualsNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionGreaterThanEqualsNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

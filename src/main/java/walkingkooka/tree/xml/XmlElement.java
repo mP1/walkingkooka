@@ -150,6 +150,13 @@ public final class XmlElement extends XmlParentNode2 implements HasXmlNameSpaceP
         return this.wrap0(element);
     }
 
+    // parent................................................................................................
+
+    @Override
+    public XmlElement removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // XmlNode................................................................................................
 
     @Override

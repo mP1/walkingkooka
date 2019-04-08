@@ -39,6 +39,11 @@ final class ParserTokenParentNode extends ParserTokenNode{
         this.childrenParent = Optional.of(this);
     }
 
+    @Override
+    ParserTokenNode removeParent0() {
+        return new ParserTokenParentNode(this.token.cast(), NO_PARENT, NO_INDEX);
+    }
+
     // children ...........................................................................................................
 
     @Override

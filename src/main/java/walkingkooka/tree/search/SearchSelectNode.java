@@ -61,6 +61,11 @@ public final class SearchSelectNode extends SearchParentNode2 {
         return super.setName0(name).cast();
     }
 
+    @Override
+    public SearchSelectNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
     public SearchNode child() {
         return this.children().get(0);
     }

@@ -108,6 +108,14 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
 
     Optional<TestNode> parent;
 
+    /**
+     * It is not possible to remove the parent.
+     */
+    @Override
+    public TestNode removeParent() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public int index() {
         return this.index;

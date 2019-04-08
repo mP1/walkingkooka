@@ -47,7 +47,7 @@ public final class SearchMetaNode extends SearchParentNode {
      * Creates a new {@link SearchMetaNode} without taking a defensive copy.
      */
     static SearchMetaNode with0(final SearchNode child, final Map<SearchNodeAttributeName, String> attributes) {
-        return new SearchMetaNode(NO_INDEX, NAME, Lists.of(child), attributes);
+        return new SearchMetaNode(NO_INDEX, NAME, Lists.of(child), Maps.readOnly(attributes));
     }
 
     /**
@@ -61,7 +61,7 @@ public final class SearchMetaNode extends SearchParentNode {
         if(attributes.isEmpty()) {
             throw new IllegalArgumentException("Attributes must not be empty");
         }
-        this.attributes = Maps.readOnly(attributes);
+        this.attributes = attributes;
     }
 
     @Override
@@ -72,6 +72,11 @@ public final class SearchMetaNode extends SearchParentNode {
     @Override
     public SearchMetaNode setName(final SearchNodeName name) {
         return super.setName0(name).cast();
+    }
+
+    @Override
+    public SearchMetaNode removeParent() {
+        return this.removeParent0().cast();
     }
 
     public SearchNode child() {

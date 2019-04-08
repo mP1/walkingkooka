@@ -56,6 +56,14 @@ public final class JsonStringNode extends JsonLeafNonNullNode<String>{
         return new JsonStringNode(name, index, value);
     }
 
+    /**
+     * Returns a {@link JsonNumberNode} with the same value.
+     */
+    @Override
+    public JsonStringNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // HasJsonNode...............................................................................................
 
     @Override

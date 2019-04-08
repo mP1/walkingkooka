@@ -45,6 +45,11 @@ public final class ExpressionTextNode extends ExpressionValueNode<String> {
     }
 
     @Override
+    public ExpressionTextNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     ExpressionTextNode wrap1(final int index, final String value) {
         return new ExpressionTextNode(index, value);
     }

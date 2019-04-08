@@ -51,6 +51,11 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
     }
 
     @Override
+    public ExpressionNegativeNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionNegativeNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

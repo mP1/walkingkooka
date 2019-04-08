@@ -336,6 +336,15 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
 
     private Optional<ExpressionNode> parent;
 
+    /**
+     * Sub classes should call this and cast.
+     */
+    final ExpressionNode removeParent0() {
+        return this.isRoot() ?
+                this :
+                this.wrap(NO_INDEX);
+    }
+
 //    abstract ExpressionNode
 
     /**

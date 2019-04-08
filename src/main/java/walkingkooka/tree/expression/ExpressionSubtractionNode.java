@@ -50,6 +50,11 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
     }
 
     @Override
+    public ExpressionSubtractionNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionSubtractionNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

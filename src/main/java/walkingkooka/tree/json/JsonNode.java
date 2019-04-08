@@ -167,6 +167,15 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     }
 
     /**
+     * Sub classes should call this and cast.
+     */
+    final JsonNode removeParent0() {
+        return this.isRoot() ?
+                this :
+                this.create(this.defaultName(), NO_INDEX);
+    }
+
+    /**
      * This setter is used to recreate the entire graph including parents of parents receiving new children.
      * It is only ever called by a parent node and is used to adopt new children.
      */

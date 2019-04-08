@@ -46,6 +46,11 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
     }
 
     @Override
+    public ExpressionAndNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionAndNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

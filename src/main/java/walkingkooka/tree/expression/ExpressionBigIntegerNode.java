@@ -45,6 +45,11 @@ public final class ExpressionBigIntegerNode extends ExpressionValueNode<BigInteg
     }
 
     @Override
+    public ExpressionBigIntegerNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     ExpressionBigIntegerNode wrap1(final int index, final BigInteger value) {
         return new ExpressionBigIntegerNode(index, value);
     }

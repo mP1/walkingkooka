@@ -53,6 +53,11 @@ public final class SearchSequenceNode extends SearchParentNode2 {
     }
 
     @Override
+    public SearchSequenceNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     List<SearchNode> copyChildren(final List<SearchNode> children) {
         return copy(children);
     }

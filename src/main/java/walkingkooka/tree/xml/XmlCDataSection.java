@@ -43,6 +43,11 @@ final public class XmlCDataSection extends XmlTextNode {
         return this.setText0(text).cast();
     }
 
+    @Override
+    public XmlCDataSection removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // XmlNode...........................................................................................
 
     @Override

@@ -46,6 +46,11 @@ public final class ExpressionLocalDateTimeNode extends ExpressionValueNode<Local
     }
 
     @Override
+    public ExpressionLocalDateTimeNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     ExpressionLocalDateTimeNode wrap1(final int index, final LocalDateTime value) {
         return new ExpressionLocalDateTimeNode(index, value);
     }

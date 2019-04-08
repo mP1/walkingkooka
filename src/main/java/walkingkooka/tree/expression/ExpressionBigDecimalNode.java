@@ -46,6 +46,11 @@ public final class ExpressionBigDecimalNode extends ExpressionValueNode<BigDecim
     }
 
     @Override
+    public ExpressionBigDecimalNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     ExpressionBigDecimalNode wrap1(final int index, final BigDecimal value) {
         return new ExpressionBigDecimalNode(index, value);
     }

@@ -62,6 +62,11 @@ abstract class SearchParentNode extends SearchNode {
     }
 
     @Override
+    final SearchParentNode removeParent1() {
+        return this.replace0(NO_INDEX, this.defaultName(), this.copyChildren(this.children));
+    }
+
+    @Override
     public final List<SearchNode> children() {
         return this.children;
     }

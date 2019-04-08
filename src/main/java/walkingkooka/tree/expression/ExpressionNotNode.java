@@ -50,6 +50,11 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
     }
 
     @Override
+    public ExpressionNotNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionNotNode setChildren(final List<ExpressionNode> children) {
         return this.setChildren0(children).cast();
     }

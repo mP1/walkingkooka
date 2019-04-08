@@ -51,6 +51,11 @@ public final class ExpressionAdditionNode extends ExpressionArithmeticBinaryNode
     }
 
     @Override
+    public ExpressionAdditionNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    @Override
     public ExpressionAdditionNode setChildren(final List<ExpressionNode> children) {
         Objects.requireNonNull(children, "children");
 

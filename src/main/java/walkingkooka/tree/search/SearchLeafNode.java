@@ -90,7 +90,14 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
         return this.replace0(index, name, this.text, this.value);
     }
 
-    abstract SearchLeafNode replace0(final int index, final SearchNodeName name, final String text, final V value);
+    /**
+     * Sub classes of {@link SearchLeafNode} should call this and cast.
+     */
+    final SearchLeafNode removeParent1() {
+        return this.replace0(NO_INDEX, this.defaultName(), this.text, this.value);
+    }
+
+    abstract SearchLeafNode replace0(final int index,final SearchNodeName name, final String text, final V value);
 
     @Override
     SearchNode replaceAll(final SearchNode replace) {

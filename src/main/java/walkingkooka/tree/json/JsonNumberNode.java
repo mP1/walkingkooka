@@ -54,6 +54,14 @@ public final class JsonNumberNode extends JsonLeafNonNullNode<Double>{
         return new JsonNumberNode(name, index, value);
     }
 
+    /**
+     * Returns a {@link JsonNumberNode} with the same value.
+     */
+    @Override
+    public JsonNumberNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // HasJsonNode...............................................................................................
 
     @Override

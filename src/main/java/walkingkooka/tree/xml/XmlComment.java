@@ -45,6 +45,11 @@ final public class XmlComment extends XmlTextNode {
         return this.setText0(text).cast();
     }
 
+    @Override
+    public XmlComment removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // XmlNode.......................................................................................................
 
     @Override

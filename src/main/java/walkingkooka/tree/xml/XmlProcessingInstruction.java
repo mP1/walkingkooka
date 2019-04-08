@@ -70,6 +70,10 @@ final public class XmlProcessingInstruction extends XmlLeafNode implements Value
         return this.data();
     }
 
+    @Override
+    public XmlProcessingInstruction removeParent() {
+        return this.removeParent0().cast();
+    }
 
     // XmlNode ......................................................................................
 

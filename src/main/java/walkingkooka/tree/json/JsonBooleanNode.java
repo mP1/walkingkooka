@@ -52,6 +52,14 @@ public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean>{
         return new JsonBooleanNode(name, index, value);
     }
 
+    /**
+     * Returns a {@link JsonBooleanNode} with the same value.
+     */
+    @Override
+    public JsonBooleanNode removeParent() {
+        return this.removeParent0().cast();
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override
