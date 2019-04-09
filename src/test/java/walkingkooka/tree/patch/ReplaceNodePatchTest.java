@@ -95,6 +95,11 @@ public final class ReplaceNodePatchTest extends AddReplaceOrTestNodePatchTestCas
         return ReplaceNodePatch.with(this.pointer(path), value);
     }
 
+    @Override
+    String operation() {
+        return "replace";
+    }
+
     // ClassTesting2............................................................................
 
     @Override

@@ -88,6 +88,11 @@ public final class AddNodePatchTest extends AddReplaceOrTestNodePatchTestCase<Ad
         return AddNodePatch.with(this.pointer(path), value);
     }
 
+    @Override
+    String operation() {
+        return "add";
+    }
+
     // ClassTesting2............................................................................
 
     @Override

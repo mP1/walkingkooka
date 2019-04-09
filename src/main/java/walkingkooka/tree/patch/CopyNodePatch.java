@@ -20,6 +20,8 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
 
@@ -37,12 +39,12 @@ final class CopyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> exte
 
     private CopyNodePatch(final NodePointer<N, NAME> from,
                           final NodePointer<N, NAME> path,
-                          final NodePatch<N, NAME> next) {
+                          final NonEmptyNodePatch<N, NAME> next) {
         super(from, path, next);
     }
 
     @Override
-    NodePatch<N, NAME> append0(final NodePatch<N, NAME> patch) {
+    CopyNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> patch) {
         return new CopyNodePatch<>(this.from, this.path, patch);
     }
 
@@ -60,6 +62,16 @@ final class CopyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> exte
 
     @Override
     String operation() {
-        return "copy";
+        return COPY;
+    }
+
+    // HasJsonNode...............................................................................
+
+    private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
+            .set(OP_PROPERTY, JsonNode.string(COPY));
+
+    @Override
+    JsonObjectNode jsonObjectWithOp() {
+        return JSON_OBJECT_WITH_OPERATION;
     }
 }

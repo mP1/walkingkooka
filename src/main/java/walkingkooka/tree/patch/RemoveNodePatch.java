@@ -20,6 +20,8 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
@@ -36,12 +38,12 @@ final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
     }
 
     private RemoveNodePatch(final NodePointer<N, NAME> path,
-                            final NodePatch<N, NAME> next) {
+                            final NonEmptyNodePatch<N, NAME> next) {
         super(path, next);
     }
 
     @Override
-    NodePatch<N, NAME> append0(final NodePatch<N, NAME> next) {
+    RemoveNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> next) {
         return new RemoveNodePatch<>(this.path, next);
     }
 
@@ -69,7 +71,32 @@ final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
 
     @Override
     void toString0(final StringBuilder b) {
-        b.append("remove path=")
+        b.append(REMOVE + " path=")
                 .append(this.toString(this.path));
+    }
+
+    // HasJsonNode...............................................................................
+
+    private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
+            .set(OP_PROPERTY, JsonNode.string(REMOVE));
+
+    @Override
+    JsonObjectNode jsonObjectWithOp() {
+        return JSON_OBJECT_WITH_OPERATION;
+    }
+
+    /**
+     * <pre>
+     * {
+     *     "op": "add",
+     *     "path-name-type": "json-property-name",
+     *     "path": "/1/2/abc"
+     * }
+     * </pre>
+     */
+    @Override
+    JsonObjectNode toJsonNode0(final JsonObjectNode object) {
+        return this.setPath(this.setPathComponentType(object,
+                NonEmptyNodePatchNodePointerVisitor.pathNameType(this.path)));
     }
 }

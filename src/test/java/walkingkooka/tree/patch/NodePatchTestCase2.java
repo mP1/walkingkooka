@@ -19,8 +19,10 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.TypeNameTesting;
+import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
@@ -30,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase<P>
         implements HashCodeEqualsDefinedTesting<P>,
+        HasJsonNodeTesting<P>,
         TypeNameTesting<P> {
 
     NodePatchTestCase2() {
@@ -124,12 +127,41 @@ public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeN
         });
     }
 
+    // HasJsonNode..................................................................................
+
+    @Test
+    public final void testFromJsonBooleanNodeFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public final void testFromJsonNullNodeFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public final void testFromJsonNumberNodeFails() {
+        this.fromJsonNodeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public final void testFromJsonObjectNodeFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    @Test
+    public final void testFromJsonStringNodeFails() {
+        this.fromJsonNodeFails(JsonNode.string("string123"));
+    }
+
+    // NodePatchTestCase2..................................................................................
+
+    abstract P createPatch();
+
     @Override
     public final P createObject() {
         return this.createPatch();
     }
-
-    abstract P createPatch();
 
     private NodePointer<JsonNode, JsonNodeName> path() {
         return NodePointer.any(JsonNode.class);
@@ -144,6 +176,18 @@ public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeN
     @Override
     public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    // HasJsonNodeTesting.................................................................................
+
+    @Override
+    public final P fromJsonNode(final JsonNode from) {
+        return Cast.to(NodePatch.fromJsonNode(from));
+    }
+
+    @Override
+    public final P createHasJsonNode() {
+        return this.createPatch();
     }
 
     // TypeNameTesting.................................................................................

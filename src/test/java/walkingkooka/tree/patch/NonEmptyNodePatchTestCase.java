@@ -55,10 +55,35 @@ public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<Json
                 this.createPatch().add(path2, this.value3()));
     }
 
+    @Test
+    public final void testFromJsonUnknownPropertyFails() {
+        this.fromJsonNodeFails2("[{\n" +
+                "  \"op\": \"$OP\",\n" +
+                "  \"unexpected-property\": \"fromJson must fail!\"\n" +
+                "}]");
+    }
+
     @Override
     final P createPatch() {
         return this.createPatch(this.path1());
     }
 
     abstract P createPatch(final NodePointer<JsonNode, JsonNodeName> path);
+
+    final void fromJsonNodeAndCheck2(final String json,
+                                     final NodePatch<JsonNode, JsonNodeName> patch) {
+        this.fromJsonNodeAndCheck(json.replace("$OP", this.operation()),
+                patch);
+    }
+
+    final void fromJsonNodeFails2(final String json) {
+        this.fromJsonNodeFails(json.replace("$OP", this.operation()));
+    }
+
+    final void toJsonNodeAndCheck2(final NodePatch<JsonNode, JsonNodeName> patch,
+                                   final String json) {
+        this.toJsonNodeAndCheck(patch, json.replace("$OP", this.operation()));
+    }
+
+    abstract String operation();
 }

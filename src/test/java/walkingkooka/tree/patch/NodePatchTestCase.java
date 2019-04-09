@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ClassTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -28,7 +28,7 @@ import walkingkooka.tree.pointer.NodePointer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NodePatchTestCase<P> implements ClassTesting2<P>,
+public abstract class NodePatchTestCase<P> implements ClassTesting<P>,
         ToStringTesting<P> {
 
     NodePatchTestCase() {

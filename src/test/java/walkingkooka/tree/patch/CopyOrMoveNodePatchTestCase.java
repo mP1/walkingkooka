@@ -47,6 +47,70 @@ public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<
                 JsonNode.object().set(this.property3(), this.value3()));
     }
 
+    @Test
+    public final void testFromJsonNodeValueTypeFails() {
+        this.fromJsonNodeFails2("[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"value-type\": \"json-property-name\"\n" +
+                        "}]");
+    }
+
+    @Test
+    public final void testFromJsonNodeValueFails() {
+        this.fromJsonNodeFails2("[{\n" +
+                "  \"op\": \"$OP\",\n" +
+                "  \"value\": true\n" +
+                "}]");
+    }
+
+    @Test
+    public final void testFromJsonNode() {
+        this.fromJsonNodeAndCheck2("[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"path-name-type\": \"json-property-name\",\n" +
+                        "  \"from\": \"/b2\",\n" +
+                        "  \"path\": \"/a1\"\n" +
+                        "}]",
+                this.createPatch());
+    }
+
+    @Test
+    public final void testFromJsonNodePathNameTypeNotRequired() {
+        this.fromJsonNodeAndCheck2("[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"from\": \"/123\",\n" +
+                        "  \"path\": \"/456\"\n" +
+                        "}]",
+                this.createPatch(this.pointer("/123"), this.pointer("/456")));
+    }
+
+    @Test
+    public final void testToJsonNode() {
+        this.toJsonNodeAndCheck2(this.createPatch(),
+                "[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"path-name-type\": \"json-property-name\",\n" +
+                        "  \"from\": \"/b2\",\n" +
+                        "  \"path\": \"/a1\"\n" +
+                        "}]");
+    }
+
+    @Test
+    public final void testToJsonNodePathNameTypeNotRequired() {
+        this.toJsonNodeAndCheck2(this.createPatch(this.pointer("/123"), this.pointer("/456")),
+                "[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"from\": \"/123\",\n" +
+                        "  \"path\": \"/456\"\n" +
+                        "}]");
+    }
+
+    @Test
+    public final void testToJsonNodeRoundtrip() {
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createPatch()
+                .move(this.path2(), this.path3())
+                .move(this.path3(), this.path1()));
+    }
 
     @Test
     public final void testEqualsDifferentFrom() {

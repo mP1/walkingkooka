@@ -21,6 +21,8 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
@@ -36,7 +38,7 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
 
     AddReplaceOrTestNodePatch(final NodePointer<N, NAME> path,
                               final N value,
-                              final NodePatch<N, NAME> next) {
+                              final NonEmptyNodePatch<N, NAME> next) {
         super(path, next);
         this.value = value;
     }
@@ -73,4 +75,27 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
      * Should return either "add" or "replace".
      */
     abstract String operation();
+
+    // HasJsonNode...............................................................................
+
+    /**
+     * <pre>
+     * {
+     *     "op": "add",
+     *     "path-name-type": "json-property-name",
+     *     "path": "/1/2/abc",
+     *     "value-type": "json-node",
+     *     "value": []
+     * }
+     * </pre>
+     */
+    @Override
+    final JsonObjectNode toJsonNode0(final JsonObjectNode object) {
+        final N value = this.value;
+
+        return this.setPath(this.setPathComponentType(object,
+                NonEmptyNodePatchNodePointerVisitor.pathNameType(this.path)))
+                .set(VALUE_TYPE_PROPERTY, typeOrFail(value))
+                .set(VALUE_PROPERTY, HasJsonNode.toJsonNodeObject(this.value));
+    }
 }

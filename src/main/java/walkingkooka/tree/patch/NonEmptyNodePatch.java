@@ -19,12 +19,19 @@
 package walkingkooka.tree.patch;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.pointer.NodePointer;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Base class for all non empty patch containing several helpers and a template for the function.
@@ -40,7 +47,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
     /**
      * Package private to limit sub-classing.
      */
-    NonEmptyNodePatch(final NodePointer<N, NAME> path, final NodePatch<N, NAME> next) {
+    NonEmptyNodePatch(final NodePointer<N, NAME> path, final NonEmptyNodePatch<N, NAME> next) {
         super();
         this.path = path;
         this.next = next;
@@ -101,14 +108,14 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      * Returns the next component of the patch which could be null if this is the last.
      */
     @Override
-    final NodePatch<N, NAME> nextOrNull() {
+    final NonEmptyNodePatch<N, NAME> nextOrNull() {
         return this.next;
     }
 
     /**
      * A null marks the last component in a patch sequence.
      */
-    final NodePatch<N, NAME> next;
+    final NonEmptyNodePatch<N, NAME> next;
 
     // HashCodeEqualsDefined................................................................................................
 
@@ -147,5 +154,86 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
 
     final static String toString(final NodePointer<?, ?> path) {
         return CharSequences.quote(path.toString()).toString();
+    }
+
+    // HasJsonNode.............................................................................................
+
+    /**
+     * A non empty patch collection is represented as an array with elements for each component.<br>
+     * <pre>
+     * {
+     *   "type": "patch",
+     *   "value": [{
+     *     "op": "move",
+     *     "path-name-type": "json-property-name",
+     *     "from": "/b2",
+     *     "path": "/a1"
+     *   }, {
+     *     "op": "move",
+     *     "path-name-type": "json-property-name",
+     *     "from": "/b2",
+     *     "path": "/c3"
+     *   }, {
+     *     "op": "move",
+     *     "path-name-type": "json-property-name",
+     *     "from": "/c3",
+     *     "path": "/a1"
+     *   }]
+     * }
+     * </pre>
+     */
+    @Override
+    public final JsonNode toJsonNode() {
+        final List<JsonNode> elements = Lists.array();
+
+        NonEmptyNodePatch<N, NAME> patch = this;
+        do {
+            elements.add(patch.toJsonNode0(patch.jsonObjectWithOp()));
+            patch = patch.nextOrNull();
+        } while (null != patch);
+
+        return JsonNode.array().setChildren(elements);
+    }
+
+    /**
+     * Sub classes must return an object with the op and path set.
+     */
+    abstract JsonObjectNode jsonObjectWithOp();
+
+    /**
+     * Sub classes must return an object representing just this object. The object will already have the op and path properties set.
+     */
+    abstract JsonObjectNode toJsonNode0(final JsonObjectNode object);
+
+    /**
+     * Adds the path component type properites if necessary to the given object.
+     */
+    final JsonObjectNode setPathComponentType(final JsonObjectNode object,
+                                              final Optional<JsonStringNode> pathComponentType) {
+        return pathComponentType
+                .map(t -> object.set(NodePatch.PATH_NAME_TYPE_PROPERTY, t))
+                .orElse(object);
+    }
+
+    /**
+     * Adds the path and path component type properites to the given object.
+     */
+    final JsonObjectNode setPath(final JsonObjectNode object) {
+        return object.set(NodePatch.PATH_PROPERTY, pathToJsonNode(this.path));
+    }
+
+    /**
+     * Makes a {@link JsonStringNode} from a {@link NodePointer}
+     */
+    static JsonStringNode pathToJsonNode(final NodePointer<?, ?> path) {
+        return JsonNode.string(path.toString());
+    }
+
+    /**
+     * Accepts a value such as a path or value and returns a {@link JsonStringNode} with the type name.
+     */
+    final JsonStringNode typeOrFail(final Object value) {
+        return HasJsonNode.typeName(value.getClass())
+                .orElseThrow(() -> new IllegalArgumentException("Type not registered as supporting json: " + value));
     }
 }
