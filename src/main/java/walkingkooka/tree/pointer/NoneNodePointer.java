@@ -71,6 +71,16 @@ final class NoneNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
     }
 
     @Override
+    N add0(final N node, final N value) {
+        return node.appendChild(value);
+    }
+
+    @Override
+    N remove0(final N node) {
+        throw new UnsupportedOperationException("Remove not supported for " + this);
+    }
+
+    @Override
     void toString0(final StringBuilder b) {
         b.append(this.toString);
     }

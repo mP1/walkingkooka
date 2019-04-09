@@ -22,6 +22,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.patch.NodePatchException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -187,22 +188,40 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      * Walks this pointer and returns the matching {@link Node}
      */
     public final Optional<N> traverse(final N node) {
-        Objects.requireNonNull(node, "node");
+        checkNode(node);
 
-        Optional<N> result;
+        return Optional.ofNullable(this.traverseOrNull(node));
+    }
+
+    /**
+     * Executes this pointer, throwing a {@link NodePatchException} if the traverse is unsuccessful.
+     */
+    final N traverseOrFail(final N node) {
+        final N found = this.traverseOrNull(node);
+        if (null == found) {
+            throw new NodePatchException("Unable to find " + this + " starting at " + node);
+        }
+        return found;
+    }
+
+    /**
+     * Executes this pointer, returning the node found or null if the traverse is unsuccessful.
+     */
+    private N traverseOrNull(final N node) {
+        N result;
 
         N current = node;
         NodePointer<N, NAME> pointer = this;
 
-        for(;;) {
-            N next = pointer.nextNodeOrNull(current);
-            if(null==next){
-                result = Optional.empty();
+        for (; ; ) {
+            final N next = pointer.nextNodeOrNull(current);
+            if (null == next) {
+                result = null;
                 break;
             }
             pointer = pointer.next;
-            if(null==pointer){
-                result = Optional.of(next);
+            if (null == pointer) {
+                result = next;
                 break;
             }
             current = next;
@@ -211,12 +230,47 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         return result;
     }
 
+    /**
+     * Very similar to {@link #traverse(Node)} but returns the second last node or fails.
+     */
+    final N traverseAndAddOrFail(final N node, final N value) {
+        N result;
+
+        N current = node;
+        N previous = null;
+        NodePointer<N, NAME> pointer = this;
+
+        for (; ; ) {
+            final NodePointer<N, NAME> nextPointer = pointer.next;
+            final N next = pointer.nextNodeOrNull(current);
+            if (null == next) {
+                result = null == nextPointer?
+                        pointer.add0(current, value)
+                        : null;
+                break;
+            }
+
+            if (null == nextPointer) {
+                result = pointer.add0(current, value);
+                break;
+            }
+            pointer = nextPointer;
+            previous = current;
+            current = next;
+        }
+
+        if(null == result) {
+            throw new NodePatchException("Unable to find " + pointer + " starting at " + node);
+        }
+        return result;
+    }
+
     abstract N nextNodeOrNull(final N node);
 
     /**
      * The next part in the pointer or null.
      */
-    private final NodePointer<N, NAME> next;
+    final NodePointer<N, NAME> next;
 
     /**
      * Tests if this is a absolute pointer, basically the opposite of {@link #isRelative()}
@@ -229,6 +283,44 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      * Tests if this is a relative pointer.
      */
     abstract public boolean isRelative();
+
+    // NodePatch helpers.................................................................................................
+
+    /**
+     * Uses this {@link NodePointer} to find the node that path and add the given node, returning the result.
+     */
+    final public N add(final N node, final N value) {
+        checkNode(node);
+        Objects.requireNonNull(value, "value");
+
+        return this.traverseAndAddOrFail(node, value);
+    }
+
+    /**
+     * Sub classes must add the value to the given {@link Node}.
+     */
+    abstract N add0(final N node, final N value);
+
+    /**
+     * Uses this {@link NodePointer} to find the node that path and remove the given node, returning the result.
+     */
+    final public N remove(final N node) {
+        checkNode(node);
+        return this.remove0(node);
+    }
+
+    abstract N remove0(final N node);
+
+    /**
+     * General purpose report that a remove fail.
+     */
+    final N removeOrFail(final N node) {
+        return this.traverseOrFail(node)
+                .parentWithout()
+                .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
+    }
+
+    // Object ..............................................................................................
 
     /**
      * Return the full node pointer string.
@@ -259,5 +351,11 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
 
     private static <N extends Node<N, ?, ?, ?>> void checkNodeType(Class<N> nodeType) {
         Objects.requireNonNull(nodeType, "nodeType");
+    }
+
+    // helpers....................................................................................................
+
+    private static void checkNode(final Node<?, ?, ?, ?> node) {
+        Objects.requireNonNull(node, "node");
     }
 }

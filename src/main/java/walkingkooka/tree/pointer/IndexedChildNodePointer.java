@@ -68,6 +68,16 @@ final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends 
     }
 
     @Override
+    N add0(final N node, final N value) {
+        return node.setChild(this.index, value);
+    }
+
+    @Override
+    N remove0(final N node) {
+        return this.removeOrFail(node);
+    }
+
+    @Override
     void toString0(final StringBuilder b) {
         b.append(SEPARATOR.character());
         b.append(this.index);
