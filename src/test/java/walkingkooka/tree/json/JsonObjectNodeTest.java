@@ -20,16 +20,20 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.MapTesting;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.Node;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +42,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectNode, JsonObjectNodeList>{
+public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectNode, JsonObjectNodeList>
+        implements MapTesting<Map<JsonNodeName, JsonNode>, JsonNodeName, JsonNode> {
 
     private final static String KEY1 = "key1";
     private final static String KEY2 = "key2";
@@ -379,6 +384,101 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     private void containsAndCheck(final JsonObjectNode object, final JsonNodeName name, final boolean contains) {
         assertEquals(contains, object.contains(name), () -> object + " contains " + name);
     }
+
+    // asMap.......................................................................................................
+
+    @Test
+    public void testMapWhenEmpty() {
+        this.checkEquals(Maps.empty(), JsonNode.object().asMap());
+    }
+
+    @Test
+    public void testMapWhenReadonly() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            JsonNode.object().asMap().put(JsonNodeName.with("prop"), JsonNode.string("value"));
+        });
+    }
+
+    @Test
+    public void testMapWhenReadonly2() {
+        final JsonNodeName property = JsonNodeName.with("prop");
+        final JsonObjectNode object = JsonNode.object()
+                .set(property, JsonNode.string("value"));
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            object.asMap().remove(property);
+        });
+    }
+
+    @Test
+    public void testMapContainsKey() {
+        final JsonNodeName property = JsonNodeName.with("prop1");
+        final JsonNode value = JsonNode.string("value1");
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(property, value)
+                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+        this.containsKeyAndCheck(object.asMap(), property);
+    }
+
+    @Test
+    public void testMapContainsKeyAbsent() {
+        final JsonNodeName property = JsonNodeName.with("prop1");
+        final JsonNode value = JsonNode.string("value1");
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(property, value)
+                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+        this.containsKeyAndCheckAbsent(object.asMap(), JsonNodeName.with("absent-property"));
+    }
+
+    @Test
+    public void testMapContainsValue() {
+        final JsonNodeName property = JsonNodeName.with("prop1");
+        final JsonNode value = JsonNode.string("value1");
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(property, value)
+                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+        this.containsValueAndCheck(object.asMap(),
+                object.getOrFail(property));
+    }
+
+    @Test
+    public void testMapContainsValueAbsent() {
+        final JsonNodeName property = JsonNodeName.with("prop1");
+        final JsonNode value = JsonNode.string("value1");
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(property, value)
+                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+        this.containsValueAndCheckAbsent(object.asMap(),
+                value); // match fails because value gotten has a parent the enclosing object
+    }
+
+    @Test
+    public void testMapGet() {
+        final JsonNodeName property = JsonNodeName.with("prop1");
+        final JsonNode value = JsonNode.string("value1");
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(property, value)
+                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+        this.getAndCheck(object.asMap(), property, object.getOrFail(property));
+    }
+
+    @Test
+    public void testMapGetAbsentKey() {
+        final JsonNodeName property = JsonNodeName.with("prop1");
+        final JsonNode value = JsonNode.string("value1");
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(property, value)
+                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+        this.getAndCheckAbsent(object.asMap(), JsonNodeName.with("absent-property"));
+    }
+
+    // equals.......................................................................................................
 
     @Test
     public void testEqualsDifferentChildren() {
@@ -722,5 +822,17 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 NUMBER_VALUE_OR_FAIL,
                 STRING_VALUE_OR_FAIL,
                 VALUE);
+    }
+
+    // MapTesting..........................................................................................
+
+    @Override
+    public final Map<JsonNodeName, JsonNode> createMap() {
+        return JsonNode.object().asMap();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return Node.class.getSimpleName();
     }
 }
