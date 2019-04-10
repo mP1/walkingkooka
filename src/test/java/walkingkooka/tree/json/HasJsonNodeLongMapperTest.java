@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.json;
 
+import java.time.LocalDateTime;
+
 public final class HasJsonNodeLongMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeLongMapper, Long> {
 
     @Override
@@ -48,6 +50,11 @@ public final class HasJsonNodeLongMapperTest extends HasJsonNodeMapperTestCase2<
     @Override
     String typeName() {
         return "long";
+    }
+
+    @Override
+    Class<Long> mapperType() {
+        return Long.class;
     }
 
     @Override

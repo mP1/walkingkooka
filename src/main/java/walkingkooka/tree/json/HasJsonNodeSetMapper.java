@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.json;
 
+import walkingkooka.Cast;
+
 import java.util.Set;
 
 final class HasJsonNodeSetMapper extends HasJsonNodeCollectionMapper<Set<?>> {
@@ -28,6 +30,11 @@ final class HasJsonNodeSetMapper extends HasJsonNodeCollectionMapper<Set<?>> {
 
     private HasJsonNodeSetMapper() {
         super();
+    }
+
+    @Override
+    Class<Set<?>> type() {
+        return Cast.to(Set.class);
     }
 
     /**

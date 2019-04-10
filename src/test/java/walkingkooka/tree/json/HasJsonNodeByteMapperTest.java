@@ -63,6 +63,11 @@ public final class HasJsonNodeByteMapperTest extends HasJsonNodeMapperTestCase2<
     }
 
     @Override
+    Class<Byte> mapperType() {
+        return Byte.class;
+    }
+
+    @Override
     public Class<HasJsonNodeByteMapper> type() {
         return HasJsonNodeByteMapper.class;
     }

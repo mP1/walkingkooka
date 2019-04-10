@@ -65,6 +65,11 @@ public final class HasJsonNodeBigDecimalMapperTest extends HasJsonNodeMapperTest
     }
 
     @Override
+    Class<BigDecimal> mapperType() {
+        return BigDecimal.class;
+    }
+
+    @Override
     public Class<HasJsonNodeBigDecimalMapper> type() {
         return HasJsonNodeBigDecimalMapper.class;
     }

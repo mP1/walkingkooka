@@ -63,6 +63,11 @@ public final class HasJsonNodeIntegerMapperTest extends HasJsonNodeMapperTestCas
     }
 
     @Override
+    Class<Integer> mapperType() {
+        return Integer.class;
+    }
+
+    @Override
     public Class<HasJsonNodeIntegerMapper> type() {
         return HasJsonNodeIntegerMapper.class;
     }

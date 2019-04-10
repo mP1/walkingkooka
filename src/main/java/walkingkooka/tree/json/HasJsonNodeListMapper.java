@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.json;
 
+import walkingkooka.Cast;
+
 import java.util.List;
 
 final class HasJsonNodeListMapper extends HasJsonNodeCollectionMapper<List<?>> {
@@ -28,6 +30,11 @@ final class HasJsonNodeListMapper extends HasJsonNodeCollectionMapper<List<?>> {
 
     private HasJsonNodeListMapper() {
         super();
+    }
+
+    @Override
+    Class<List<?>> type() {
+        return Cast.to(List.class);
     }
 
     /**

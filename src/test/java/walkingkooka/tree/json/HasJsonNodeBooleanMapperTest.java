@@ -73,6 +73,11 @@ public final class HasJsonNodeBooleanMapperTest extends HasJsonNodeMapperTestCas
     }
 
     @Override
+    Class<Boolean> mapperType() {
+        return Boolean.class;
+    }
+
+    @Override
     public Class<HasJsonNodeBooleanMapper> type() {
         return HasJsonNodeBooleanMapper.class;
     }

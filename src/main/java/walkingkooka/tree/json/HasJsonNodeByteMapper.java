@@ -29,6 +29,11 @@ final class HasJsonNodeByteMapper extends HasJsonNodeMapper3<Byte> {
     }
 
     @Override
+    Class<Byte> type() {
+        return Byte.class;
+    }
+
+    @Override
     Byte fromJsonNode2(final Number number) {
         return number.byteValue();
     }

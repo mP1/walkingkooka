@@ -19,6 +19,7 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.color.Color;
 
@@ -74,6 +75,11 @@ public final class HasJsonNodeListMapperTest extends HasJsonNodeMapperTestCase2<
     @Override
     String typeName() {
         return "list";
+    }
+
+    @Override
+    Class<List<?>> mapperType() {
+        return Cast.to(List.class);
     }
 
     @Override
