@@ -28,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
-        NameTesting<JsonNodeName, JsonNodeName> {
+        NameTesting<JsonNodeName, JsonNodeName>,
+        HasJsonNodeTesting<JsonNodeName> {
 
     @Test
     public void testWithNegativeIndexFails() {
@@ -40,6 +41,43 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     @Test
     public void testIndex() {
         assertEquals("123", JsonNodeName.index(123).value());
+    }
+
+    @Test
+    public void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(12.5));
+    }
+
+    @Test
+    public void testFromJsonNodeNulFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public void testFromJsonNodeString() {
+        final String value = "property-1a";
+        this.fromJsonNodeAndCheck(JsonNode.string(value), JsonNodeName.with(value));
+    }
+
+    @Test
+    public void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public void testFromJsonNodeObjectFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    @Test
+    public void testToJsonNode() {
+        final String value = "property-1a";
+        this.toJsonNodeAndCheck(JsonNodeName.with(value), JsonNode.string(value));
     }
 
     @Override
@@ -75,5 +113,17 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // HasJsonNodeTesting.....................................................................
+
+    @Override
+    public JsonNodeName fromJsonNode(final JsonNode from) {
+        return JsonNodeName.fromJsonNode(from);
+    }
+
+    @Override
+    public JsonNodeName createHasJsonNode() {
+        return JsonNodeName.with("property-1a");
     }
 }
