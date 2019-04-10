@@ -31,6 +31,11 @@ final class HasJsonNodeBigIntegerMapper extends HasJsonNodeMapper2<BigInteger> {
     }
 
     @Override
+    Class<BigInteger> type() {
+        return BigInteger.class;
+    }
+
+    @Override
     BigInteger fromJsonNodeNull() {
         return null;
     }

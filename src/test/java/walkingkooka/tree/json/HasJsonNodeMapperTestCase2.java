@@ -32,7 +32,15 @@ public abstract class HasJsonNodeMapperTestCase2<M extends HasJsonNodeMapper<T>,
     }
 
     @Test
-    public void testFromJsonNodeNullFails() {
+    public final void testType() {
+        final M mapper = this.mapper();
+        assertEquals(this.mapperType(), mapper.type(), () -> ".type failed for " + mapper);
+    }
+
+    abstract Class<T> mapperType();
+
+    @Test
+    public final void testFromJsonNodeNullFails() {
         this.fromJsonNodeFailed(null, NullPointerException.class);
     }
 

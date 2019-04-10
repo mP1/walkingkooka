@@ -70,6 +70,11 @@ public final class HasJsonNodeBigIntegerMapperTest extends HasJsonNodeMapperTest
     }
 
     @Override
+    Class<BigInteger> mapperType() {
+        return BigInteger.class;
+    }
+
+    @Override
     public Class<HasJsonNodeBigIntegerMapper> type() {
         return HasJsonNodeBigIntegerMapper.class;
     }

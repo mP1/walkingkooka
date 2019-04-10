@@ -51,6 +51,11 @@ public final class HasJsonNodeDoubleMapperTest extends HasJsonNodeMapperTestCase
     }
 
     @Override
+    Class<Double> mapperType() {
+        return Double.class;
+    }
+
+    @Override
     public Class<HasJsonNodeDoubleMapper> type() {
         return HasJsonNodeDoubleMapper.class;
     }

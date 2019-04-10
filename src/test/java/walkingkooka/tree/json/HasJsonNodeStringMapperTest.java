@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.json;
 
+import java.time.LocalDateTime;
+
 public final class HasJsonNodeStringMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeStringMapper, String> {
 
     @Override
@@ -48,6 +50,11 @@ public final class HasJsonNodeStringMapperTest extends HasJsonNodeMapperTestCase
     @Override
     String typeName() {
         return "string";
+    }
+
+    @Override
+    Class<String> mapperType() {
+        return String.class;
     }
 
     @Override

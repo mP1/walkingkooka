@@ -29,6 +29,11 @@ final class HasJsonNodeFloatMapper extends HasJsonNodeMapper3<Float> {
     }
 
     @Override
+    Class<Float> type() {
+        return Float.class;
+    }
+
+    @Override
     Float fromJsonNode2(final Number number) {
         return number.floatValue();
     }

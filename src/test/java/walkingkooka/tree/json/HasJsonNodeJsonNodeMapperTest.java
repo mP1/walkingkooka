@@ -21,7 +21,7 @@ package walkingkooka.tree.json;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeJsonNodeMapper<JsonNode>, JsonNode> {
+public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeJsonNodeMapper<JsonStringNode>, JsonNode> {
 
     @Test
     public void testToJsonWithType() {
@@ -31,8 +31,8 @@ public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCa
     }
 
     @Override
-    HasJsonNodeJsonNodeMapper<JsonNode> mapper() {
-        return HasJsonNodeJsonNodeMapper.with(JsonNode.class, "json-string");
+    HasJsonNodeJsonNodeMapper<JsonStringNode> mapper() {
+        return HasJsonNodeJsonNodeMapper.with(JsonStringNode.class, "json-string");
     }
 
     @Override
@@ -61,7 +61,12 @@ public final class HasJsonNodeJsonNodeMapperTest extends HasJsonNodeMapperTestCa
     }
 
     @Override
-    public Class<HasJsonNodeJsonNodeMapper<JsonNode>> type() {
+    Class<JsonNode> mapperType() {
+        return Cast.to(JsonStringNode.class);
+    }
+
+    @Override
+    public Class<HasJsonNodeJsonNodeMapper<JsonStringNode>> type() {
         return Cast.to(HasJsonNodeJsonNodeMapper.class);
     }
 }

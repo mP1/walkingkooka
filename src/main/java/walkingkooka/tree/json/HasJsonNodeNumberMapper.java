@@ -29,6 +29,11 @@ final class HasJsonNodeNumberMapper extends HasJsonNodeMapper<Number> {
     }
 
     @Override
+    Class<Number> type() {
+        return Number.class;
+    }
+
+    @Override
     Number fromJsonNode0(final JsonNode node) {
         return node.numberValueOrFail();
     }

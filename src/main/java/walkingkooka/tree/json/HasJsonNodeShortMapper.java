@@ -29,6 +29,11 @@ final class HasJsonNodeShortMapper extends HasJsonNodeMapper3<Short> {
     }
 
     @Override
+    Class<Short> type() {
+        return Short.class;
+    }
+
+    @Override
     Short fromJsonNode2(final Number number) {
         return number.shortValue();
     }

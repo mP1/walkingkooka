@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -112,7 +113,9 @@ abstract class HasJsonNodeMapper<T> {
         CharSequences.failIfNullOrEmpty(typeName, "typeName");
         Objects.requireNonNull(from, "from");
 
-        register1(typeName, HasJsonNodeHasJsonNodeMapper.with(typeName, from), types);
+        register1(typeName,
+                HasJsonNodeHasJsonNodeMapper.with(typeName, from, Cast.to(types[0])),
+                types);
     }
 
     /**
@@ -162,6 +165,15 @@ abstract class HasJsonNodeMapper<T> {
         }
 
         TYPENAME_TO_FACTORY.put(type, mapper);
+    }
+
+    /**
+     * Returns the {@link Class} for the given type name.
+     */
+    static Optional<Class<?>> registeredType(final JsonStringNode name) {
+        Objects.requireNonNull(name, "name");
+
+        return Optional.ofNullable(TYPENAME_TO_FACTORY.get(name.value())).map(m -> m.type());
     }
 
     // fromJsonNodeWithType.........................................................................................................
@@ -335,6 +347,11 @@ abstract class HasJsonNodeMapper<T> {
     HasJsonNodeMapper() {
         super();
     }
+
+    /**
+     * Returns the primary type ignoring others.
+     */
+    abstract Class<T> type();
 
     /**
      * Returns the value from its {@link JsonNode} representation.

@@ -29,6 +29,11 @@ final class HasJsonNodeIntegerMapper extends HasJsonNodeMapper3<Integer> {
     }
 
     @Override
+    Class<Integer> type() {
+        return Integer.class;
+    }
+
+    @Override
     Integer fromJsonNode2(final Number number) {
         return number.intValue();
     }

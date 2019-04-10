@@ -65,6 +65,11 @@ public final class HasJsonNodeLocalDateTimeMapperTest extends HasJsonNodeMapperT
     }
 
     @Override
+    Class<LocalDateTime> mapperType() {
+        return LocalDateTime.class;
+    }
+
+    @Override
     public Class<HasJsonNodeLocalDateTimeMapper> type() {
         return HasJsonNodeLocalDateTimeMapper.class;
     }

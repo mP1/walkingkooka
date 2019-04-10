@@ -58,6 +58,11 @@ public final class HasJsonNodeFloatMapperTest extends HasJsonNodeMapperTestCase2
     }
 
     @Override
+    Class<Float> mapperType() {
+        return Float.class;
+    }
+
+    @Override
     public Class<HasJsonNodeFloatMapper> type() {
         return HasJsonNodeFloatMapper.class;
     }

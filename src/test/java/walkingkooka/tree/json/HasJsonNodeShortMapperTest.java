@@ -20,6 +20,8 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 public final class HasJsonNodeShortMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeShortMapper, Short> {
 
     @Test
@@ -60,6 +62,11 @@ public final class HasJsonNodeShortMapperTest extends HasJsonNodeMapperTestCase2
     @Override
     String typeName() {
         return "short";
+    }
+
+    @Override
+    Class<Short> mapperType() {
+        return Short.class;
     }
 
     @Override

@@ -20,6 +20,8 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 public final class HasJsonNodeNumberMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeNumberMapper, Number> {
 
     @Test
@@ -84,6 +86,11 @@ public final class HasJsonNodeNumberMapperTest extends HasJsonNodeMapperTestCase
     @Override
     String typeName() {
         return "number";
+    }
+
+    @Override
+    Class<Number> mapperType() {
+        return Number.class;
     }
 
     @Override

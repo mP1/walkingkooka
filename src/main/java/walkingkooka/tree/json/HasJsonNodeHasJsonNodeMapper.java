@@ -23,16 +23,28 @@ import java.util.function.Function;
 final class HasJsonNodeHasJsonNodeMapper<T extends HasJsonNode> extends HasJsonNodeMapper2<T> {
 
     static <T extends HasJsonNode> HasJsonNodeHasJsonNodeMapper<T> with(final String typeName,
-                                                                              final Function<JsonNode, T> fromJsonNode) {
-        return new HasJsonNodeHasJsonNodeMapper<>(typeName, fromJsonNode);
+                                                                        final Function<JsonNode, T> fromJsonNode,
+                                                                        final Class<T> type) {
+        return new HasJsonNodeHasJsonNodeMapper<>(typeName,
+                fromJsonNode,
+                type);
     }
 
     private HasJsonNodeHasJsonNodeMapper(final String typeName,
-                                         final Function<JsonNode, T> fromJsonNode) {
+                                         final Function<JsonNode, T> fromJsonNode,
+                                         final Class<T> type) {
         super();
         this.typeName = JsonStringNode.with(typeName);
         this.fromJsonNode=fromJsonNode;
+        this.type = type;
     }
+
+    @Override
+    Class<T> type() {
+        return this.type;
+    }
+
+    private final Class<T> type;
 
     @Override
     T fromJsonNodeNull() {

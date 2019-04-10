@@ -29,6 +29,11 @@ final class HasJsonNodeLongMapper extends HasJsonNodeMapper2<Long> {
     }
 
     @Override
+    Class<Long> type() {
+        return Long.class;
+    }
+
+    @Override
     Long fromJsonNodeNull() {
         return null;
     }
