@@ -23,11 +23,14 @@ import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNodeName;
 
+import java.util.Objects;
+
 /**
  * The name of any property of object key.
  */
 public final class JsonNodeName implements Name,
-        Comparable<JsonNodeName> {
+        Comparable<JsonNodeName>,
+        HasJsonNode{
 
     private final static int INDEX_CACHE_SIZE = 128;
 
@@ -85,6 +88,30 @@ public final class JsonNodeName implements Name,
      */
     final SearchNodeName toSearchNodeName() {
         return SearchNodeName.with(this.name);
+    }
+
+    // HasJsonNode...............................................................................
+
+    /**
+     * Accepts a json string holding a {@link JsonNodeName}
+     */
+    public static JsonNodeName fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        try {
+            return with(node.stringValueOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        return JsonNode.string(this.name);
+    }
+
+    static {
+        HasJsonNode.register("json-property-name", JsonNodeName::fromJsonNode, JsonNodeName.class);
     }
 
     // Object..................................................................................................
