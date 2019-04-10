@@ -19,7 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.map.MapTesting;
+import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.HttpHeaderScope;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderScopeHttpRequestHeadersMapTest implements ClassTesting2<HeaderScopeHttpRequestHeadersMap>,
-        MapTesting<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
+        MapTesting2<HeaderScopeHttpRequestHeadersMap, HttpHeaderName<?>, Object> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;

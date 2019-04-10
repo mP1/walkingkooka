@@ -19,8 +19,6 @@
 package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Iterator;
@@ -34,8 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Interface with default methods which can be mixed in to assist testing of an {@link Map}.
  */
-public interface MapTesting<M extends Map<K, V>, K, V> extends ToStringTesting<M>,
-        TypeNameTesting<M> {
+public interface MapTesting<M extends Map<K, V>, K, V>  {
 
     @Test
     default void testIteratorContainsKeyAndSize() {
@@ -147,17 +144,5 @@ public interface MapTesting<M extends Map<K, V>, K, V> extends ToStringTesting<M
     default void sizeAndCheck(final Map<K, V> map, final int size) {
         assertEquals(size, map.size(), () -> "size of " + map);
         this.isEmptyAndCheck(map, 0 == size);
-    }
-
-    // TypeNameTesting .........................................................................................
-
-    @Override
-    default String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    default String typeNameSuffix() {
-        return Map.class.getSimpleName();
     }
 }

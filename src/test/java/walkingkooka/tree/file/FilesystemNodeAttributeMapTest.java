@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.collect.map.MapTesting;
+import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public final class FilesystemNodeAttributeMapTest implements ClassTesting2<FilesystemNodeAttributeMap>,
-        MapTesting<FilesystemNodeAttributeMap, FilesystemNodeAttributeName, String> {
+        MapTesting2<FilesystemNodeAttributeMap, FilesystemNodeAttributeName, String> {
 
     @Override
     public FilesystemNodeAttributeMap createMap() {
