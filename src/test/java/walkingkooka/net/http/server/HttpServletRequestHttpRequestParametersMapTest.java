@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.MapTesting;
+import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
@@ -28,7 +28,7 @@ import walkingkooka.type.MemberVisibility;
 import java.util.List;
 
 public final class HttpServletRequestHttpRequestParametersMapTest implements ClassTesting2<HttpServletRequestHttpRequestParametersMap>,
-        MapTesting<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
+        MapTesting2<HttpServletRequestHttpRequestParametersMap, HttpRequestParameterName, List<String>> {
 
     private final static String KEY1 = "parameter1";
     private final static String VALUE1A = "value1a";

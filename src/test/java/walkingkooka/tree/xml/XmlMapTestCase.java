@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.collect.map.MapTesting;
+import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
@@ -26,7 +26,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public abstract class XmlMapTestCase<M extends XmlMap<K, V>, K, V> implements ClassTesting2<M>,
-        MapTesting<M, K, V> {
+        MapTesting2<M, K, V> {
 
     XmlMapTestCase() {
         super();
