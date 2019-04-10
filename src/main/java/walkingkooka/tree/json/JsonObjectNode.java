@@ -246,6 +246,13 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return new JsonObjectNode(name, index, children);
     }
 
+    /**
+     * Returns a {@link Map} view of the object's properties.
+     */
+    public Map<JsonNodeName, JsonNode> asMap() {
+        return Maps.readOnly(this.children.nameToValues);
+    }
+
     // HasJsonNode...............................................................................................
 
     @Override
