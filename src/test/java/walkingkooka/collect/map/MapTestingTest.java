@@ -50,6 +50,16 @@ public final class MapTestingTest implements MapTesting<Map<String, Integer>, St
     }
 
     @Test
+    public void testContainsValueAbsent() {
+        final Map<String, Integer> map = Maps.ordered();
+
+        map.put(KEY1, VALUE1);
+        map.put(KEY2, VALUE2);
+
+        this.containsValueAndCheckAbsent(map, 999);
+    }
+
+    @Test
     public void testGet() {
         final Map<String, Integer> map = Maps.ordered();
 
