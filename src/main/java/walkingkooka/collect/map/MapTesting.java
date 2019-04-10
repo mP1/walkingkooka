@@ -114,6 +114,11 @@ public interface MapTesting<M extends Map<K, V>, K, V>  {
                 () -> map + " should contain value " + CharSequences.quoteIfChars(value));
     }
 
+    default void containsValueAndCheckAbsent(final Map<K, V> map, final V value) {
+        assertFalse(map.containsValue(value),
+                () -> map + " should contain value " + CharSequences.quoteIfChars(value));
+    }
+
     default void getAndCheck(final K key, final V value) {
         this.getAndCheck(this.createMap(), key, value);
     }
