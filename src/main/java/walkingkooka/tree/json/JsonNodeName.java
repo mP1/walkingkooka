@@ -110,10 +110,6 @@ public final class JsonNodeName implements Name,
         return JsonNode.string(this.name);
     }
 
-    static {
-        HasJsonNode.register("json-property-name", JsonNodeName::fromJsonNode, JsonNodeName.class);
-    }
-
     // Object..................................................................................................
 
     public final int hashCode() {
