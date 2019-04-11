@@ -18,6 +18,8 @@
 
 package walkingkooka.net;
 
+import walkingkooka.text.CharSequences;
+
 /**
  * Represents an ip4 or ip6 address without the required octets/atoms etc.
  */
@@ -35,11 +37,16 @@ final class HostAddressIncompleteProblem extends HostAddressProblem {
         super();
     }
 
-    private final static String MESSAGE = "Host incomplete";
+    private final static String MESSAGE = "Incomplete host";
+
+    @Override
+    void report(final String address) {
+        throw new IllegalArgumentException(this.message(address));
+    }
 
     @Override
     public String message(final String address) {
-        return HostAddressIncompleteProblem.MESSAGE;
+        return HostAddressIncompleteProblem.MESSAGE + " " + CharSequences.quoteAndEscape(address);
     }
 
     /**

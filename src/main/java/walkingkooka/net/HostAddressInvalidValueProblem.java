@@ -19,6 +19,7 @@
 package walkingkooka.net;
 
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 
 /**
  * Represents an invalid octet or atom value.
@@ -46,8 +47,13 @@ final class HostAddressInvalidValueProblem extends HostAddressProblem implements
     }
 
     @Override
+    void report(final String address) {
+        throw new IllegalArgumentException(this.message(address));
+    }
+
+    @Override
     public String message(final String address) {
-        return this.toString();
+        return this + "=" + CharSequences.quoteAndEscape(address);
     }
 
     /**

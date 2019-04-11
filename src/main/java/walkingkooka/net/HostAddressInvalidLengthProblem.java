@@ -19,6 +19,7 @@
 package walkingkooka.net;
 
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 
 /**
  * Represents an invalid label length such as an ip with long string of zeros
@@ -46,8 +47,13 @@ final class HostAddressInvalidLengthProblem extends HostAddressProblem implement
     }
 
     @Override
+    void report(final String address) {
+        throw new IllegalArgumentException(this.message(address));
+    }
+
+    @Override
     public String message(final String address) {
-        return this.toString();
+        return this.toString() + "=" + CharSequences.quoteAndEscape(address);
     }
 
     /**
@@ -78,6 +84,6 @@ final class HostAddressInvalidLengthProblem extends HostAddressProblem implement
 
     @Override
     public String toString() {
-        return "Host invalid length at " + this.at;
+        return "Invalid host length at " + this.at;
     }
 }

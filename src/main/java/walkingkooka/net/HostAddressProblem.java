@@ -73,9 +73,14 @@ abstract public class HostAddressProblem {
     }
 
     /**
+     * Reports by throwing an exception.
+     */
+    abstract void report(final String message);
+
+    /**
      * Builds a message using the address.
      */
-    abstract public String message(String address);
+    abstract public String message(final String address);
 
     /**
      * When true do not try the next parse method.
