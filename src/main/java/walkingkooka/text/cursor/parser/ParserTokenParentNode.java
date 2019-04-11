@@ -30,11 +30,11 @@ import java.util.stream.Collectors;
  */
 final class ParserTokenParentNode extends ParserTokenNode{
 
-    static ParserTokenParentNode with(final ParentParserToken token, final Optional<ParserTokenNode> parent, final int index) {
+    static ParserTokenParentNode with(final ParentParserToken<?> token, final Optional<ParserTokenNode> parent, final int index) {
         return new ParserTokenParentNode(token, parent, index);
     }
 
-    private ParserTokenParentNode(final ParentParserToken token, final Optional<ParserTokenNode> parent, final int index) {
+    private ParserTokenParentNode(final ParentParserToken<?> token, final Optional<ParserTokenNode> parent, final int index) {
         super(token, parent, index);
         this.childrenParent = Optional.of(this);
     }
@@ -91,7 +91,7 @@ final class ParserTokenParentNode extends ParserTokenNode{
     }
 
     private ParserTokenNode replaceChildren(final List<ParserToken> children) {
-        return new ParserTokenParentNode(ParentParserToken.class.cast(this.token).setValue(children),
+        return new ParserTokenParentNode(this.token().setValue(children).cast(),
                 null,
                 this.index())
                 .replaceChild0(this.parent());
@@ -106,7 +106,7 @@ final class ParserTokenParentNode extends ParserTokenNode{
         newChildren.addAll(this.valueAsList());
         newChildren.set(child.index(), child.value());
 
-        return new ParserTokenParentNode(ParentParserToken.class.cast(this.token).setValue(newChildren),
+        return new ParserTokenParentNode(this.token().setValue(newChildren).cast(),
                 null,
                 this.index())
                 .replaceChild0(this.parent());
@@ -114,9 +114,13 @@ final class ParserTokenParentNode extends ParserTokenNode{
 
     @Override
     ParserTokenNode replaceText(final String text) {
-        return new ParserTokenParentNode(ParentParserToken.class.cast(this.token.setText(text)),
+        return new ParserTokenParentNode(this.token.setText(text).cast(),
                 null,
                 this.index())
                 .replaceChild0(this.parent());
+    }
+
+    private ParentParserToken<?> token() {
+        return ParentParserToken.class.cast(this.token);
     }
 }

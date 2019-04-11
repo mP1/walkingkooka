@@ -50,6 +50,7 @@ public class NeverError extends Error {
     /**
      * Useful to report unexpected enums in a switch.
      */
+    @SafeVarargs
     public static <E extends Enum<E>, T> T unhandledCase(final Object value, final Object... expected) {
         throw new NeverError("Unhandled value: " + CharSequences.quoteIfChars(value) + " only expected: " + Arrays.stream(expected)
                 .map(m -> CharSequences.quoteIfChars(m))

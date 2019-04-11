@@ -55,17 +55,17 @@ final public class CustomToStringNodeSelectorTest
     @Test
     public void testWith() {
         final NodeSelector<TestNode, StringName, StringName, Object> wrapped = this.wrapped();
-        final CustomToStringNodeSelector custom = this.createSelector(wrapped);
+        final CustomToStringNodeSelector<TestNode, StringName, StringName, Object> custom = this.createSelector(wrapped);
         assertEquals(wrapped, custom.selector, "selector");
     }
 
     @Test
     public void testDoubleWrap() {
         final NodeSelector<TestNode, StringName, StringName, Object> wrapped = this.wrapped();
-        final CustomToStringNodeSelector custom = this.createSelector(wrapped, TOSTRING);
+        final CustomToStringNodeSelector<TestNode, StringName, StringName, Object> custom = this.createSelector(wrapped, TOSTRING);
 
         final String toString2 = "CustomToString2";
-        final CustomToStringNodeSelector again = this.createSelector(custom, toString2);
+        final CustomToStringNodeSelector<TestNode, StringName, StringName, Object> again = this.createSelector(custom, toString2);
         assertEquals(wrapped, again.selector, "selector");
         assertEquals(toString2, again.toString(), "toString");
     }
