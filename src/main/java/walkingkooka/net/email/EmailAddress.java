@@ -81,8 +81,8 @@ final public class EmailAddress implements Value<String>,
     /**
      * Message when a user name is too long.
      */
-    static String userNameTooLong(final int length) {
-        return "User too long=" + length;
+    static String userNameTooLong(final int length, final String address) {
+        return "User too long=" + length + " in " + CharSequences.quoteAndEscape(address);
     }
 
     /**

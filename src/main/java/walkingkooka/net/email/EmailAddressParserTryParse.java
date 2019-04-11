@@ -44,7 +44,7 @@ final class EmailAddressParserTryParse extends EmailAddressParser {
     }
 
     @Override
-    void userNameTooLong(final int length) {
+    void userNameTooLong(final int length, final String address) {
         // nop
     }
 

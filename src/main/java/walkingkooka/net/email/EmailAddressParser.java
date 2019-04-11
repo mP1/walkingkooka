@@ -115,7 +115,7 @@ abstract class EmailAddressParser {
                         break Exit;
                     }
                     if (userNameCharacterCount >= EmailAddress.MAX_LOCAL_LENGTH) {
-                        this.userNameTooLong(userNameCharacterCount);
+                        this.userNameTooLong(userNameCharacterCount, email);
                         break Exit;
                     }
                     user = email.substring(0, i);
@@ -164,7 +164,7 @@ abstract class EmailAddressParser {
     /**
      * Message when a user name is too long.
      */
-    abstract void userNameTooLong(final int length);
+    abstract void userNameTooLong(final int length, final String address);
 
     /**
      * Message when an email is missing a host.

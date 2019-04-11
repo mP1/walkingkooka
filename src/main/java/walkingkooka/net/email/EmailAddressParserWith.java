@@ -44,8 +44,8 @@ final class EmailAddressParserWith extends EmailAddressParser {
     }
 
     @Override
-    void userNameTooLong(final int length) {
-        this.fail(EmailAddress.userNameTooLong(length));
+    void userNameTooLong(final int length, final String address) {
+        this.fail(EmailAddress.userNameTooLong(length, address));
     }
 
     @Override
