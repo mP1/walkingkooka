@@ -34,27 +34,27 @@ final class EmailAddressParserTryParse extends EmailAddressParser {
     }
 
     @Override
-    void emailTooLong() {
+    void emailTooLong(final String email) {
         // nop
     }
 
     @Override
-    void missingUser(final String address) {
+    void missingUser(final String email) {
         // nop
     }
 
     @Override
-    void userNameTooLong(final int length) {
+    void userNameTooLong(final int length, final String email) {
         // nop
     }
 
     @Override
-    void missingHost(final String address) {
+    void missingHost(final String email) {
         // nop
     }
 
     @Override
-    void invalidCharacter(final String address, final int at) {
+    void invalidCharacter(final int at, final String email) {
         // nop
     }
 

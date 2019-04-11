@@ -26,7 +26,7 @@ public final class HostAddressIncompleteProblemTest extends HostAddressProblemTe
     public void testMessage() {
         this.messageAndCheck(HostAddressIncompleteProblem.INSTANCE,
                 "example.com!",
-                "Incomplete host \"example.com!\"");
+                "Incomplete host in \"example.com!\"");
     }
 
     @Override

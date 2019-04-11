@@ -66,7 +66,8 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         final char[] array = new char[EmailAddress.MAX_EMAIL_LENGTH - 5];
         Arrays.fill(array, 'x');
         final String email = "user@" + new String(array);
-        this.parseFails(email, EmailAddress.EMAIL_TOO_LONG);
+
+        this.parseFails(email, EmailAddress.EMAIL_TOO_LONG + " " + CharSequences.quoteAndEscape(email));
     }
 
     @Test
@@ -175,7 +176,9 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     public void testUsernameTooLongFails() {
         final char[] user = new char[EmailAddress.MAX_LOCAL_LENGTH];
         Arrays.fill(user, 'a');
-        this.parseFails(new String(user) + "@example.com", EmailAddress.userNameTooLong(EmailAddress.MAX_LOCAL_LENGTH));
+        final String email = new String(user) + "@example.com";
+
+        this.parseFails(email, EmailAddress.userNameTooLong(EmailAddress.MAX_LOCAL_LENGTH, email));
     }
 
     private void parseFails(final String email) {

@@ -19,6 +19,7 @@
 package walkingkooka.net.email;
 
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.text.CharSequences;
 
 /**
  * The {@link EmailAddressParser} which throws an {@link IllegalArgumentException} on any failed tests.
@@ -34,28 +35,28 @@ final class EmailAddressParserWith extends EmailAddressParser {
     }
 
     @Override
-    void emailTooLong() {
-        this.fail(EmailAddress.EMAIL_TOO_LONG);
+    void emailTooLong(final String email) {
+        this.fail(EmailAddress.EMAIL_TOO_LONG + " " + CharSequences.quoteAndEscape(email));
     }
 
     @Override
-    void missingUser(final String address) {
-        this.fail(EmailAddress.missingUser(address));
+    void missingUser(final String email) {
+        this.fail(EmailAddress.missingUser(email));
     }
 
     @Override
-    void userNameTooLong(final int length) {
-        this.fail(EmailAddress.userNameTooLong(length));
+    void userNameTooLong(final int length, final String email) {
+        this.fail(EmailAddress.userNameTooLong(length, email));
     }
 
     @Override
-    void missingHost(final String address) {
-        this.fail(EmailAddress.missingHost(address));
+    void missingHost(final String email) {
+        this.fail(EmailAddress.missingHost(email));
     }
 
     @Override
-    void invalidCharacter(final String address, final int at) {
-        throw new InvalidCharacterException(address, at);
+    void invalidCharacter(final int at, final String email) {
+        throw new InvalidCharacterException(email, at);
     }
 
     @Override
