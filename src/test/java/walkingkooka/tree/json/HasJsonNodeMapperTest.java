@@ -61,7 +61,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     @Test
     public void testRegisterNullClassesFails() {
         assertThrows(NullPointerException.class, () -> {
-            HasJsonNodeMapper.register("!", JsonNode::fromJsonNode, null);
+            HasJsonNodeMapper.register("!", JsonNode::fromJsonNode, (Class[])null);
         });
     }
 
