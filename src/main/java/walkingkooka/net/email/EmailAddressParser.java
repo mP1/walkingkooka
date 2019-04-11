@@ -43,7 +43,7 @@ abstract class EmailAddressParser {
         //
         do {
             if (email.length() >= EmailAddress.MAX_EMAIL_LENGTH) {
-                this.emailTooLong();
+                this.emailTooLong(email);
                 break;
             }
 
@@ -101,7 +101,7 @@ abstract class EmailAddressParser {
                 }
                 if ((false == quoted) && (c == '@')) {
                     if ('.' == wasPrevious) {
-                        this.invalidCharacter(email, i - 1);
+                        this.invalidCharacter(i - 1, email);
                         break;
                     }
                     userNameCharacterCount += charactersSinceDot;
@@ -115,7 +115,7 @@ abstract class EmailAddressParser {
                         break Exit;
                     }
                     if (userNameCharacterCount >= EmailAddress.MAX_LOCAL_LENGTH) {
-                        this.userNameTooLong(userNameCharacterCount);
+                        this.userNameTooLong(userNameCharacterCount, email);
                         break Exit;
                     }
                     user = email.substring(0, i);
@@ -128,7 +128,7 @@ abstract class EmailAddressParser {
                     break;
                 }
 
-                invalidCharacter(email, i);
+                invalidCharacter(i, email);
                 break Exit;
             }
             if (null == hostAddress) {
@@ -154,27 +154,27 @@ abstract class EmailAddressParser {
     /**
      * Email too long.
      */
-    abstract void emailTooLong();
+    abstract void emailTooLong(final String email);
 
     /**
      * Message when an email is missing a user.
      */
-    abstract void missingUser(final String address);
+    abstract void missingUser(final String email);
 
     /**
      * Message when a user name is too long.
      */
-    abstract void userNameTooLong(final int length);
+    abstract void userNameTooLong(final int length, final String email);
 
     /**
      * Message when an email is missing a host.
      */
-    abstract void missingHost(final String address);
+    abstract void missingHost(final String email);
 
     /**
      * Message when an email contains an invalid character
      */
-    abstract void invalidCharacter(final String address, final int at);
+    abstract void invalidCharacter(final int at, final String email);
 
     /**
      * An invalid host address.

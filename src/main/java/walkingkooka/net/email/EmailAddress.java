@@ -75,21 +75,21 @@ final public class EmailAddress implements Value<String>,
      * Message when an email is missing a user.
      */
     static String missingUser(final String address) {
-        return "Missing user=" + CharSequences.quote(address);
+        return "Email missing user=" + CharSequences.quote(address);
     }
 
     /**
      * Message when a user name is too long.
      */
-    static String userNameTooLong(final int length) {
-        return "User too long=" + length;
+    static String userNameTooLong(final int length, final String email) {
+        return "Email user too long=" + length + " in " + CharSequences.quoteAndEscape(email);
     }
 
     /**
      * Message when an email is missing a host.
      */
     static String missingHost(final String address) {
-        return "Missing host=" + CharSequences.quote(address);
+        return "Email missing host=" + CharSequences.quote(address);
     }
 
     /**

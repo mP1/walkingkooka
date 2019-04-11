@@ -37,7 +37,7 @@ final class HostAddressIncompleteProblem extends HostAddressProblem {
         super();
     }
 
-    private final static String MESSAGE = "Incomplete host";
+    private final static String MESSAGE = "Incomplete host in";
 
     @Override
     void report(final String address) {
