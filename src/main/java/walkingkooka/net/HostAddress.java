@@ -21,6 +21,7 @@ package walkingkooka.net;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 import java.io.Serializable;
@@ -56,12 +57,14 @@ public final class HostAddress implements Value<String>,
     /**
      * Useful when one wishes to create a {@link HostAddress} from the end of a {@link String}.
      */
-    static private HostAddress with(final String address, final int offset, final boolean mayHaveSquareBrackets,
+    static private HostAddress with(final String address,
+                                    final int offset,
+                                    final boolean mayHaveSquareBrackets,
                                     final boolean email) {
         final int length = address.length();
         final int trueLength = length - offset;
         if (trueLength >= HostAddress.MAX_LENGTH) {
-            HostAddress.fail(HostAddress.tooLong(trueLength));
+            throw new IllegalArgumentException(HostAddress.tooLong(trueLength, address));
         }
 
         int start = offset;
@@ -103,7 +106,7 @@ public final class HostAddress implements Value<String>,
                 break;
             }
             if (name.stopTrying()) {
-                HostAddress.fail(name.message(address));
+                name.report(address);
             }
 
             final Object ip4 = HostAddress.tryParseIp4(address, start, end, false);
@@ -113,7 +116,7 @@ public final class HostAddress implements Value<String>,
             }
             final HostAddressProblem ip4Problem = (HostAddressProblem) ip4;
             if (ip4Problem.stopTrying()) {
-                HostAddress.fail(ip4Problem.message(address));
+                ip4Problem.report(address);
             }
 
             final Object ip6 = HostAddress.tryParseIp6(address, start, end);
@@ -123,7 +126,7 @@ public final class HostAddress implements Value<String>,
             }
             final HostAddressProblem ip6Problem = (HostAddressProblem) ip6;
             if (ip6Problem.stopTrying()) {
-                HostAddress.fail(ip6Problem.message(address));
+                ip6Problem.report(address);
             }
 
             // report the invalid character that has the lowest at
@@ -134,17 +137,17 @@ public final class HostAddress implements Value<String>,
             if (report.priority() < ip6Problem.priority()) {
                 report = ip6Problem;
             }
-            HostAddress.fail(report.message(address));
+            report.report(address);
         }
 
         // brackets only valid for ip6 OR ip4 AND mayHaveXXX
         if (openSquareBracket) {
             if (false == (hostAddress.isIp6() || (hostAddress.isIp4() && mayHaveSquareBrackets))) {
-                HostAddress.fail(HostAddressInvalidCharacterProblem.with(offset).message(address));
+                HostAddressInvalidCharacterProblem.with(offset).report(address);
             }
         }
         if (missingClosingBracket) {
-            HostAddress.fail(HostAddressIncompleteProblem.INSTANCE.message(address));
+            HostAddressIncompleteProblem.INSTANCE.report(address);
         }
 
         return hostAddress;
@@ -153,15 +156,8 @@ public final class HostAddress implements Value<String>,
     /**
      * The entire address is too long.
      */
-    static String tooLong(final int length) {
-        return "Host length > " + HostAddress.MAX_LENGTH + "=" + length;
-    }
-
-    /**
-     * Throws a new {@link IllegalArgumentException}
-     */
-    private static void fail(final String message) {
-        throw new IllegalArgumentException(message);
+    static String tooLong(final int length, final String host) {
+        return "Host length > " + HostAddress.MAX_LENGTH + "=" + length + " in " + CharSequences.quote(host);
     }
 
     /**

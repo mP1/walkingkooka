@@ -18,6 +18,8 @@
 
 package walkingkooka.net;
 
+import walkingkooka.text.CharSequences;
+
 /**
  * Represents an address that most likely an ip4 without actually validating
  */
@@ -43,6 +45,18 @@ final class HostAddressProbablyIp4Problem extends HostAddressProblem {
         return false;
     }
 
+    @Override
+    void report(final String address) {
+        throw new IllegalArgumentException(this.message(address));
+    }
+
+    private final static String MESSAGE = "Host probably an ip4 dot notation address";
+
+    @Override
+    public String message(final String address) {
+        return MESSAGE + "=" + CharSequences.quoteAndEscape(address);
+    }
+
     /**
      * Let other problems take precedence
      */
@@ -51,15 +65,8 @@ final class HostAddressProbablyIp4Problem extends HostAddressProblem {
         return Integer.MIN_VALUE;
     }
 
-    private final static String MESSAGE = "Host probably an ip4 dot notation address";
-
-    @Override
-    public String message(final String address) {
-        return HostAddressProbablyIp4Problem.MESSAGE;
-    }
-
     @Override
     public String toString() {
-        return HostAddressProbablyIp4Problem.MESSAGE;
+        return MESSAGE;
     }
 }

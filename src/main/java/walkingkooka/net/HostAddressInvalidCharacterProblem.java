@@ -18,8 +18,8 @@
 
 package walkingkooka.net;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 
 /**
  * Represents an invalid character.
@@ -39,9 +39,17 @@ final class HostAddressInvalidCharacterProblem extends HostAddressProblem implem
     }
 
     @Override
+    void report(final String address) {
+        throw this.exception(address);
+    }
+
+    @Override
     public String message(final String address) {
-        final int at = this.at;
-        return "Host contains invalid character " + CharSequences.quoteAndEscape(address.charAt(at)) + " at " + at;
+        return this.exception(address).getMessage();
+    }
+
+    private InvalidCharacterException exception(final String address) {
+        return new InvalidCharacterException(address, this.at);
     }
 
     /**

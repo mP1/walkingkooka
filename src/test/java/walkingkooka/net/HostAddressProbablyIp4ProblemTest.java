@@ -18,32 +18,19 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import org.junit.jupiter.api.Test;
 
-public final class HostAddressProbablyIp4ProblemTest implements ClassTesting2<HostAddressProbablyIp4Problem>,
-        TypeNameTesting<HostAddressProbablyIp4Problem> {
+public final class HostAddressProbablyIp4ProblemTest extends HostAddressProblemTestCase<HostAddressProbablyIp4Problem> {
+
+    @Test
+    public void testMessage() {
+        this.messageAndCheck(HostAddressProbablyIp4Problem.INSTANCE,
+                "1.2.3.999",
+                "Host probably an ip4 dot notation address=\"1.2.3.999\"");
+    }
 
     @Override
     public Class<HostAddressProbablyIp4Problem> type() {
         return HostAddressProbablyIp4Problem.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
-    // TypeNameTesting .........................................................................................
-
-    @Override
-    public final String typeNamePrefix() {
-        return HostAddress.class.getSimpleName();
-    }
-
-    @Override
-    public final String typeNameSuffix() {
-        return "";
     }
 }

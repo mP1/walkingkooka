@@ -18,8 +18,17 @@
 
 package walkingkooka.net;
 
+import org.junit.jupiter.api.Test;
+
 public final class HostAddressInvalidValueProblemTest
         extends HostAddressProblemTestCase<HostAddressInvalidValueProblem> {
+
+    @Test
+    public void testMessage() {
+        this.messageAndCheck(HostAddressInvalidValueProblem.with(5),
+                "example.com",
+                "Host contains invalid value at 5=\"example.com\"");
+    }
 
     @Override
     public Class<HostAddressInvalidValueProblem> type() {

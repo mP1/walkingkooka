@@ -18,7 +18,16 @@
 
 package walkingkooka.net;
 
+import org.junit.jupiter.api.Test;
+
 public final class HostAddressIncompleteProblemTest extends HostAddressProblemTestCase<HostAddressIncompleteProblem> {
+
+    @Test
+    public void testMessage() {
+        this.messageAndCheck(HostAddressIncompleteProblem.INSTANCE,
+                "example.com!",
+                "Incomplete host \"example.com!\"");
+    }
 
     @Override
     public Class<HostAddressIncompleteProblem> type() {

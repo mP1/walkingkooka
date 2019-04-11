@@ -22,11 +22,21 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> implements ClassTesting2<P>,
         TypeNameTesting<P> {
 
     HostAddressProblemTestCase() {
         super();
+    }
+
+    final void messageAndCheck(final HostAddressProblem problem,
+                               final String address,
+                               final String message) {
+        assertEquals(message,
+                problem.message(address),
+                () -> problem + " " + address);
     }
 
     @Override

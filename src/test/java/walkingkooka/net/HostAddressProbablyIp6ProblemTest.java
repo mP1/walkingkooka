@@ -18,7 +18,16 @@
 
 package walkingkooka.net;
 
+import org.junit.jupiter.api.Test;
+
 public final class HostAddressProbablyIp6ProblemTest extends HostAddressProblemTestCase<HostAddressProbablyIp6Problem> {
+
+    @Test
+    public void testMessage() {
+        this.messageAndCheck(HostAddressProbablyIp6Problem.INSTANCE,
+                "!invalid",
+                "Host probably an ip6 dot notation address=\"!invalid\"");
+    }
 
     @Override
     public Class<HostAddressProbablyIp6Problem> type() {
