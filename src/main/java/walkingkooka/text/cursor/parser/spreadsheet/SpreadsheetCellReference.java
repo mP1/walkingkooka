@@ -93,8 +93,8 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
      * Row and column values of 0 and 0 will return this.
      */
     public SpreadsheetCellReference add(final int column, final int row) {
-        return this.setColumn(this.column().add(column))
-                .setRow(this.row().add(row));
+        return this.addColumn(column)
+                .addRow(row);
     }
 
     public SpreadsheetRowReference row() {
@@ -114,6 +114,13 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
         Objects.requireNonNull(row, "row");
     }
 
+    /**
+     * Adds a delta to the row, performing a would be update if the row value is not zero.
+     */
+    public SpreadsheetCellReference addRow(final int row) {
+        return this.setRow(this.row().add(row));
+    }
+
     public SpreadsheetColumnReference column() {
         return this.column;
     }
@@ -129,6 +136,13 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
 
     private static void checkColumn(final SpreadsheetColumnReference column) {
         Objects.requireNonNull(column, "column");
+    }
+
+    /**
+     * Adds a delta to the column, performing a would be update if the column value is not zero.
+     */
+    public SpreadsheetCellReference addColumn(final int column) {
+        return this.setColumn(this.column().add(column));
     }
 
     private SpreadsheetCellReference replace(final SpreadsheetColumnReference column, final SpreadsheetRowReference row) {

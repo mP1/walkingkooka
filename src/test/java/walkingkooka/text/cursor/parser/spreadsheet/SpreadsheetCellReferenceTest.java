@@ -108,16 +108,52 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
         this.checkRow(different, differentRow);
     }
 
+    // addColumn .............................................................................................
+
+    @Test
+    public void testAddColumnZero() {
+        final SpreadsheetCellReference cell = this.createReference();
+        assertSame(cell, cell.addColumn(0));
+    }
+
+    @Test
+    public void testAddColumnNonZero() {
+        final SpreadsheetCellReference cell = this.createReference();
+        final int delta = 10;
+
+        final SpreadsheetCellReference different = cell.addColumn(delta);
+        this.checkColumn(different, this.column().setValue(COLUMN + delta));
+        this.checkRow(different, this.row());
+    }
+
+    // addRow .............................................................................................
+
+    @Test
+    public void testAddRowZero() {
+        final SpreadsheetCellReference cell = this.createReference();
+        assertSame(cell, cell.addRow(0));
+    }
+
+    @Test
+    public void testAddRowNonZero() {
+        final SpreadsheetCellReference cell = this.createReference();
+        final int delta = 10;
+
+        final SpreadsheetCellReference different = cell.addRow(delta);
+        this.checkRow(different, this.row().setValue(ROW + delta));
+        this.checkColumn(different, this.column());
+    }
+
     // add .............................................................................................
 
     @Test
-    public void testAddColumnZeroAndRowZero() {
+    public void testAddColumnRowColumnZeroAndRowZero() {
         final SpreadsheetCellReference cell = this.createReference();
         assertSame(cell, cell.add(0, 0));
     }
 
     @Test
-    public void testAddColumnNonZeroAndRowNonZero() {
+    public void testAddColumnRowColumnNonZeroAndRowNonZero() {
         final SpreadsheetCellReference cell = this.createReference();
         final int column= 10;
         final int row = 100;
@@ -128,7 +164,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     }
 
     @Test
-    public void testAddColumnNonZero() {
+    public void testAddColumnRowColumnNonZero() {
         final SpreadsheetCellReference cell = this.createReference();
         final int column= 10;
 
@@ -138,7 +174,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     }
 
     @Test
-    public void testAddRowNonZero() {
+    public void testAddColumnRowRowNonZero() {
         final SpreadsheetCellReference cell = this.createReference();
         final int row = 100;
 
