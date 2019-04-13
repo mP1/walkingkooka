@@ -69,6 +69,11 @@ final class TestNodePatch<N extends Node<N, ?, ?, ?>> extends AddReplaceOrTestNo
     }
 
     @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof TestNodePatch;
+    }
+
+    @Override
     String operation() {
         return "test";
     }

@@ -23,7 +23,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<JsonNode>> extends NodePatchTestCase2<P> {
+public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<JsonNode>> extends NonEmptyNodePatchTestCase<P> {
 
     CopyOrMoveNodePatchTestCase(){
         super();
@@ -47,24 +47,29 @@ public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<
                 JsonNode.object().set(this.property3(), this.value3()));
     }
 
+
+    @Test
+    public final void testEqualsDifferentFrom() {
+        this.checkNotEquals(this.createPatch(this.path3(), this.path1()));
+    }
+
     @Test
     public final void testToString() {
-        this.toStringAndCheck(this.createPatch(), this.operation() + " from=\"/a1\" path=\"/b2\"");
+        this.toStringAndCheck(this.createPatch(), this.operation() + " from=\"/b2\" path=\"/a1\"");
     }
 
     abstract String operation();
 
     @Override
-    P createPatch() {
-        return this.createPatch(NodePointer.named(this.property1(), JsonNode.class),
-                NodePointer.named(this.property2(), JsonNode.class));
+    final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
+        return this.createPatch(this.path2(), path);
     }
 
     final P createPatch(final String from,
-                           final String path) {
+                        final String path) {
         return this.createPatch(this.pointer(from), this.pointer(path));
     }
 
     abstract P createPatch(final NodePointer<JsonNode, JsonNodeName> from,
-                                        final NodePointer<JsonNode, JsonNodeName> path);
+                           final NodePointer<JsonNode, JsonNodeName> path);
 }

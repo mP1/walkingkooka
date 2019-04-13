@@ -39,6 +39,10 @@ public abstract class NodePatchTestCase<P> implements ClassTesting2<P>,
         return JsonNode.parse(json).cast();
     }
 
+    final NodePointer<JsonNode, JsonNodeName> path1() {
+        return NodePointer.named(this.property1(), JsonNode.class);
+    }
+
     final JsonNodeName property1() {
         return JsonNodeName.with("a1");
     }
@@ -47,12 +51,20 @@ public abstract class NodePatchTestCase<P> implements ClassTesting2<P>,
         return JsonNode.string("value1");
     }
 
+    final NodePointer<JsonNode, JsonNodeName> path2() {
+        return NodePointer.named(this.property2(), JsonNode.class);
+    }
+
     final JsonNodeName property2() {
         return JsonNodeName.with("b2");
     }
 
     final JsonNode value2() {
         return JsonNode.string("value2");
+    }
+
+    final NodePointer<JsonNode, JsonNodeName> path3() {
+        return NodePointer.named(this.property3(), JsonNode.class);
     }
 
     final JsonNodeName property3() {

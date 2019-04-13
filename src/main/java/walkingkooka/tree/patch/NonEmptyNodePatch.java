@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
@@ -46,7 +47,8 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
 
     // Function............................................................................................
 
-    @Override final N apply0(final N node, final NodePointer<N, ?> start) {
+    @Override
+    final N apply0(final N node, final NodePointer<N, ?> start) {
         try {
             return this.apply1(node, start);
         } catch (final ApplyNodePatchException cause) {
@@ -107,6 +109,21 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
      * A null marks the last component in a patch sequence.
      */
     final NodePatch<N> next;
+
+    // HashCodeEqualsDefined................................................................................................
+
+    @Override
+    public final boolean equals(final Object other) {
+        return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
+    }
+
+    abstract boolean canBeEqual(final Object other);
+
+    private boolean equals0(final NonEmptyNodePatch<?> other) {
+        return this.equals1(other) && Objects.equals(this.next, other.next);
+    }
+
+    abstract boolean equals1(final NonEmptyNodePatch<?> other);
 
     // Object............................................................................................
 

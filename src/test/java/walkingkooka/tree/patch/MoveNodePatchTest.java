@@ -29,15 +29,15 @@ public final class MoveNodePatchTest extends CopyOrMoveNodePatchTestCase<MoveNod
     @Test
     public void testMoveChild() {
         this.applyAndCheck(this.createPatch(),
-                "{\"a1\": \"value1\"}",
-                "{\"b2\": \"value1\"}");
+                "{\"b2\": \"value1\"}",
+                "{\"a1\": \"value1\"}");
     }
 
     @Test
     public void testMoveChild2() {
         this.applyAndCheck(this.createPatch(),
-                "{\"a1\": \"value1\", \"c3\": \"value3\"}",
-                "{\"b2\": \"value1\", \"c3\": \"value3\"}");
+                "{\"b2\": \"value1\", \"c3\": \"value3\"}",
+                "{\"a1\": \"value1\", \"c3\": \"value3\"}");
     }
 
     @Test

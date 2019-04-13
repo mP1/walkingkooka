@@ -63,6 +63,11 @@ final class ReplaceNodePatch<N extends Node<N, ?, ?, ?>> extends AddReplaceOrTes
     }
 
     @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof ReplaceNodePatch;
+    }
+
+    @Override
     String operation() {
         return "replace";
     }

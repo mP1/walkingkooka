@@ -29,14 +29,14 @@ public final class CopyNodePatchTest extends CopyOrMoveNodePatchTestCase<CopyNod
     @Test
     public void testCopyChild() {
         this.applyAndCheck(this.createPatch(),
-                "{\"a1\": \"COPIED\"}",
+                "{\"b2\": \"COPIED\"}",
                 "{\"a1\": \"COPIED\", \"b2\": \"COPIED\"}");
     }
 
     @Test
     public void testCopyChild2() {
         this.applyAndCheck(this.createPatch(),
-                "{\"a1\": \"COPIED\", \"c3\": \"value3\"}",
+                "{\"b2\": \"COPIED\", \"c3\": \"value3\"}",
                 "{\"a1\": \"COPIED\", \"b2\": \"COPIED\", \"c3\": \"value3\"}");
     }
 
