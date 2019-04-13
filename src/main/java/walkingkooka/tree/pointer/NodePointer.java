@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.pointer;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
@@ -35,7 +37,7 @@ import java.util.function.Function;
  * <br>
  * <a href="http://json-schema.org/latest/relative-json-pointer.html#RFC4627">spec</a>
  */
-public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> {
+public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements HashCodeEqualsDefined {
 
     private final static String NONE = "-";
 
@@ -319,6 +321,22 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                 .parentWithout()
                 .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
     }
+
+    // HashCodeEqualsDefined...............................................................................
+
+    @Override
+    public final boolean equals(final Object other) {
+        return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
+    }
+
+    abstract boolean canBeEqual(final Object other);
+
+    private boolean equals0(final NodePointer<?, ?> other) {
+        return this.equals1(other) &&
+                Objects.equals(this.next, other.next);
+    }
+
+    abstract boolean equals1(final NodePointer<?, ?> other);
 
     // Object ..............................................................................................
 

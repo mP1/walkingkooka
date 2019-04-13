@@ -20,6 +20,7 @@ package walkingkooka.tree.pointer;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -30,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNodeName>> implements ClassTesting2<N>,
+        HashCodeEqualsDefinedTesting<N>,
         ToStringTesting<N>,
         TypeNameTesting<N> {
 
@@ -64,6 +66,11 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
 
     abstract N createNodePointer();
 
+    @Override
+    public final N createObject() {
+        return this.createNodePointer();
+    }
+
     final void addAndCheck(final NodePointer<JsonNode, JsonNodeName> pointer,
                            final JsonNode base,
                            final JsonNode add,
@@ -94,6 +101,28 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
         assertThrows(NodePatchException.class, () -> {
             pointer.remove(node);
         });
+    }
+
+    // equals ....................................................................................
+
+    @Test
+    public final void testEqualsDifferentNext() {
+        this.checkNotEquals(this.createObject().append(NodePointer.indexed(0, JsonNode.class)),
+                this.createObject().append(NodePointer.indexed(99, JsonNode.class)));
+    }
+
+    @Test
+    public final void testEqualsDifferentNext2() {
+        this.checkNotEquals(this.createObject(),
+                this.createObject().append(NodePointer.indexed(99, JsonNode.class)));
+    }
+
+    @Test
+    public final void testEqualsNext2() {
+        final NodePointer<JsonNode, JsonNodeName> next = NodePointer.indexed(99, JsonNode.class);
+
+        this.checkEquals(this.createObject().append(next),
+                this.createObject().append(next));
     }
 
     // TypeNameTesting.......................................................................

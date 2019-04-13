@@ -22,6 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
+import java.util.Objects;
+
 /**
  * Matches all the nodes, or the start node.
  */
@@ -66,6 +68,25 @@ final class AnyNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     @Override
     N remove0(final N node) {
         throw new UnsupportedOperationException("Remove not supported for " + this);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.next);
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof AnyNodePointer;
+    }
+
+    @Override
+    boolean equals1(final NodePointer<?, ?> other) {
+        return this.equals2(Cast.to(other));
+    }
+
+    private boolean equals2(final AnyNodePointer<?, ?> other) {
+        return true; // no properties to test ignoring next.
     }
 
     @Override

@@ -125,6 +125,11 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase<NamedCh
                 node,
                 node.remove(name));
     }
+
+    @Test
+    public final void testEqualsDifferentName() {
+        this.checkNotEquals(NamedChildNodePointer.with(JsonNodeName.with("different")));
+    }
     
     // toString................................................................................
 

@@ -18,8 +18,11 @@
 
 package walkingkooka.tree.pointer;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+
+import java.util.Objects;
 
 /**
  * Represents a reference to an invalid array element.
@@ -78,6 +81,25 @@ final class NoneNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
     @Override
     N remove0(final N node) {
         throw new UnsupportedOperationException("Remove not supported for " + this);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.next);
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof NoneNodePointer;
+    }
+
+    @Override
+    boolean equals1(final NodePointer<?, ?> other) {
+        return this.equals2(Cast.to(other));
+    }
+
+    private boolean equals2(final NoneNodePointer<?, ?> other) {
+        return this.toString.equals(other.toString);
     }
 
     @Override
