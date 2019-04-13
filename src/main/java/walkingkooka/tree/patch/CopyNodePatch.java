@@ -53,6 +53,11 @@ final class CopyNodePatch<N extends Node<N, ?, ?, ?>> extends CopyOrMoveNodePatc
     }
 
     @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof CopyNodePatch;
+    }
+
+    @Override
     String operation() {
         return "copy";
     }

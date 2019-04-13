@@ -24,7 +24,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class ReplaceNodePatchTest extends NodePatchTestCase2<ReplaceNodePatch<JsonNode>> {
+public final class ReplaceNodePatchTest extends AddReplaceOrTestNodePatchTestCase<ReplaceNodePatch<JsonNode>> {
 
     @Test
     public void testPathUnknownFails() {
@@ -79,8 +79,8 @@ public final class ReplaceNodePatchTest extends NodePatchTestCase2<ReplaceNodePa
     }
 
     @Override
-    ReplaceNodePatch<JsonNode> createPatch() {
-        return this.createPatch(this.property1(), this.value1());
+    ReplaceNodePatch<JsonNode> createPatch(final NodePointer<JsonNode, JsonNodeName> path, JsonNode value) {
+        return ReplaceNodePatch.with(path, value);
     }
 
     private ReplaceNodePatch<JsonNode> createPatch(final JsonNodeName property, final JsonNode value) {

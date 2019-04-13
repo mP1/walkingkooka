@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
@@ -29,7 +30,8 @@ import java.util.function.Function;
  * A {@link NodePatch} supports operations for a {@link Node} that match the functionality of json-patch with json.<br>
  * <A href="http://jsonpatch.com">jsonpatch.com</A>
  */
-public abstract class NodePatch<N extends Node<N, ?, ?, ?>> implements Function<N, N> {
+public abstract class NodePatch<N extends Node<N, ?, ?, ?>> implements HashCodeEqualsDefined,
+        Function<N, N> {
 
     /**
      * Returns an empty patch.

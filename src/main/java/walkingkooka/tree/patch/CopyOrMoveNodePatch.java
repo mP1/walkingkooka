@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.Cast;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -46,6 +47,23 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, ?, ?, ?>> extends NonEmptyN
     }
 
     final NodePointer<N, ?> from;
+
+    // Object........................................................................
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.from, this.path, this.next);
+    }
+
+    @Override
+    final boolean equals1(final NonEmptyNodePatch<?> other) {
+        return this.path.equals(other.path) &&
+                this.equals2(Cast.to(other));
+    }
+
+    private boolean equals2(final CopyOrMoveNodePatch<?> other) {
+        return this.from.equals(other.from);
+    }
 
     @Override
     final void toString0(final StringBuilder b) {

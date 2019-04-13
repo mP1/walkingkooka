@@ -21,6 +21,8 @@ package walkingkooka.tree.patch;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
+import java.util.Objects;
+
 /**
  * Represents an remove operation within a patch.
  */
@@ -45,6 +47,23 @@ final class RemoveNodePatch<N extends Node<N, ?, ?, ?>> extends NonEmptyNodePatc
     @Override
     final N apply1(final N node, final NodePointer<N, ?> start) {
         return this.remove0(node, this.path, start);
+    }
+
+    // Object........................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.path, this.next);
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof RemoveNodePatch;
+    }
+
+    @Override
+    boolean equals1(final NonEmptyNodePatch<?> other) {
+        return this.path.equals(other.path);
     }
 
     @Override

@@ -19,6 +19,7 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -28,7 +29,8 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode>> extends NodePatchTestCase<P>
-        implements TypeNameTesting<P> {
+        implements HashCodeEqualsDefinedTesting<P>,
+        TypeNameTesting<P> {
 
     NodePatchTestCase2() {
         super();
@@ -120,6 +122,11 @@ public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode>> extends 
         assertThrows(NullPointerException.class, () -> {
             this.createPatch().remove(null);
         });
+    }
+
+    @Override
+    public final P createObject() {
+        return this.createPatch();
     }
 
     abstract P createPatch();
