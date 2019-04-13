@@ -18,10 +18,12 @@
 
 package walkingkooka.tree.pointer;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a component that matches a node by its element.
@@ -75,6 +77,25 @@ final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends 
     @Override
     N remove0(final N node) {
         return this.removeOrFail(node);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.index, this.next);
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof IndexedChildNodePointer;
+    }
+
+    @Override
+    boolean equals1(final NodePointer<?, ?> other) {
+        return this.equals2(Cast.to(other));
+    }
+
+    private boolean equals2(final IndexedChildNodePointer<?, ?> other) {
+        return this.index == other.index;
     }
 
     @Override

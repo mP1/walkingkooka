@@ -121,6 +121,11 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase<Index
                 node.removeChild(index));
     }
 
+    @Test
+    public final void testEqualsDifferentIndex() {
+        this.checkNotEquals(IndexedChildNodePointer.with(99));
+    }
+
     @Override
     IndexedChildNodePointer<JsonNode, JsonNodeName> createNodePointer() {
         return IndexedChildNodePointer.with(1);

@@ -60,6 +60,11 @@ public final class NoneNodePointerTest extends NodePointerTestCase<NoneNodePoint
     }
 
     @Test
+    public final void testEqualsDifferent() {
+        this.checkNotEquals(NoneNodePointer.with("different"));
+    }
+
+    @Test
     public void testToStringElementAppend() {
         final NodePointer<JsonNode, JsonNodeName> element = NodePointer.named(JsonNodeName.with("abc"), JsonNode.class);
         this.toStringAndCheck(element.none(), "/abc/-");

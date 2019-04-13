@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.pointer;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
@@ -78,6 +79,25 @@ final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     @Override
     N remove0(final N node) {
         return this.removeOrFail(node);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.next);
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof NamedChildNodePointer;
+    }
+
+    @Override
+    boolean equals1(final NodePointer<?, ?> other) {
+        return this.equals2(Cast.to(other));
+    }
+
+    private boolean equals2(final NamedChildNodePointer<?, ?> other) {
+        return this.name.equals(other.name);
     }
 
     @Override

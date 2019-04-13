@@ -18,9 +18,11 @@
 
 package walkingkooka.tree.pointer;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -87,6 +89,26 @@ final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name
         return this.traverseOrFail(node)
                 .parentWithout()
                 .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.next);
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof RelativeNodePointer;
+    }
+
+    @Override
+    boolean equals1(final NodePointer<?, ?> other) {
+        return this.equals2(Cast.to(other));
+    }
+
+    private boolean equals2(final RelativeNodePointer<?, ?> other) {
+        return this.ancestorCount == other.ancestorCount &&
+                this.hash == other.hash;
     }
 
     @Override
