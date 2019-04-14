@@ -58,6 +58,17 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     }
 
     @Test
+    default void testTypeNameFromClass() {
+        final H has = this.createHasJsonNode();
+        final JsonNode node = has.toJsonNodeWithType();
+        if (node.isObject()) {
+            assertEquals(node.objectOrFail().get(JsonObjectNode.TYPE).map(n -> n.removeParent()),
+                    HasJsonNode.typeName(has.getClass()),
+                    () -> has + " & " + node);
+        }
+    }
+
+    @Test
     default void testFromJsonNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.fromJsonNode(null);

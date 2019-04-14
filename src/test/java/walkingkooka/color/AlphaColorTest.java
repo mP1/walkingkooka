@@ -106,6 +106,10 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
     // HasJsonNode............................................................................................
 
     @Override
+    public void testTypeNameFromClass() {
+    }
+
+    @Override
     public void testToJsonNodeRoundtripTwice() {
         // ignore
     }
