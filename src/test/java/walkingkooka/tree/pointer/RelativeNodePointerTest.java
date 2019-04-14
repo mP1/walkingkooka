@@ -28,7 +28,7 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RelativeNodePointerTest extends NodePointerTestCase<RelativeNodePointer<JsonNode, JsonNodeName>> {
+public final class RelativeNodePointerTest extends NodePointerTestCase2<RelativeNodePointer<JsonNode, JsonNodeName>> {
 
     private final static boolean NO_HASH = false;
     private final static boolean HASH = !NO_HASH;
@@ -69,7 +69,7 @@ public final class RelativeNodePointerTest extends NodePointerTestCase<RelativeN
                 .appendChild(JsonNode.string("replaced"));
 
         this.addAndCheck(NodePointer.relative(0, JsonNode.class)
-                        .append(IndexedChildNodePointer.with(1)),
+                        .appendToLast(IndexedChildNodePointer.with(1)),
                 start,
                 value,
                 start.set(1, value));
@@ -82,7 +82,7 @@ public final class RelativeNodePointerTest extends NodePointerTestCase<RelativeN
                 .appendChild(JsonNode.string("removed"));
 
         this.removeAndCheck(NodePointer.relative(0, JsonNode.class)
-                        .append(IndexedChildNodePointer.with(1)),
+                        .appendToLast(IndexedChildNodePointer.with(1)),
                 start,
                 start.remove(1));
     }
@@ -105,6 +105,11 @@ public final class RelativeNodePointerTest extends NodePointerTestCase<RelativeN
     @Test
     public void testToStringHash() {
         this.toStringAndCheck(RelativeNodePointer.with(1, HASH), "1#");
+    }
+
+    @Test
+    public void testToStringAndIndex() {
+        this.toStringAndCheck(RelativeNodePointer.with(1, NO_HASH), "1");
     }
 
     @Override

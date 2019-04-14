@@ -27,7 +27,28 @@ import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NoneNodePointerTest extends NodePointerTestCase<NoneNodePointer<JsonNode, JsonNodeName>> {
+public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodePointer<JsonNode, JsonNodeName>> {
+
+    @Test
+    public void testAppendIndexedFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNodePointer().indexed(1);
+        });
+    }
+
+    @Test
+    public void testAppendNamedFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNodePointer().named(JsonNodeName.with("fail!"));
+        });
+    }
+
+    @Test
+    public void testAppendAppendFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNodePointer().append();
+        });
+    }
 
     @Test
     public void testAdd() {
@@ -60,35 +81,30 @@ public final class NoneNodePointerTest extends NodePointerTestCase<NoneNodePoint
     }
 
     @Test
-    public final void testEqualsDifferent() {
-        this.checkNotEquals(NoneNodePointer.with("different"));
-    }
-
-    @Test
     public void testToStringElementAppend() {
         final NodePointer<JsonNode, JsonNodeName> element = NodePointer.named(JsonNodeName.with("abc"), JsonNode.class);
-        this.toStringAndCheck(element.none(), "/abc/-");
+        this.toStringAndCheck(element.append(), "/abc/-");
     }
 
     @Test
     public void testToStringArrayAppend() {
         final NodePointer<JsonNode, JsonNodeName> array = NodePointer.indexed(123, JsonNode.class);
-        this.toStringAndCheck(array.none(), "/123/-");
+        this.toStringAndCheck(array.append(), "/123/-");
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(NoneNodePointer.with("-"), "-");
+        this.toStringAndCheck(AppendNodePointer.create(), "/-");
     }
 
     @Override
-    NoneNodePointer<JsonNode, JsonNodeName> createNodePointer() {
-        return NoneNodePointer.with("someToString");
+    AppendNodePointer<JsonNode, JsonNodeName> createNodePointer() {
+        return AppendNodePointer.create();
     }
 
     @Override
-    public Class<NoneNodePointer<JsonNode, JsonNodeName>> type() {
-        return Cast.to(NoneNodePointer.class);
+    public Class<AppendNodePointer<JsonNode, JsonNodeName>> type() {
+        return Cast.to(AppendNodePointer.class);
     }
 
     @Override

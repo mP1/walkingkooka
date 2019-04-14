@@ -482,6 +482,11 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     }
 
     @Test
+    public void testParseAppendWithNextFails() {
+        this.parseFails("/-/1", UnsupportedOperationException.class);
+    }
+
+    @Test
     public void testParseThenTraverseElements() {
         final NodePointer<JsonNode, JsonNodeName> pointer = parse("/0/1");
 
@@ -516,7 +521,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     }
 
     @Test
-    public void testParseThenTraverseNone() {
+    public void testParseThenTraverseAppend() {
         final NodePointer<JsonNode, JsonNodeName> pointer = parse("/abc/-");
 
         final JsonNode def = JsonNode.string(TEXT);
@@ -527,18 +532,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     }
 
     @Test
-    public void testParseThenTraverseNone2() {
-        final NodePointer<JsonNode, JsonNodeName> pointer = parse("/-/def");
-
-        final JsonNode def = JsonNode.string(TEXT);
-
-        final JsonNode root = JsonNode.object()
-                .set(ABC, JsonNode.object().set(DEF, def));
-        this.traverseFail(pointer, root);
-    }
-
-    @Test
-    public void testParseThenTraverseNone3() {
+    public void testParseThenTraverseAppend2() {
         final NodePointer<JsonNode, JsonNodeName> pointer = parse("/abc/def/-");
 
         final JsonNode def = JsonNode.string(TEXT);
@@ -607,7 +601,9 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
     @Override
     public NodePointer<JsonNode, JsonNodeName> parse(final String pointer) {
         final NodePointer<JsonNode, JsonNodeName> parsed =  NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
-        assertEquals(pointer, parsed.toString(), "pointer.toString");
+        assertEquals(pointer,
+                parsed.toString(),
+                () -> "pointer.parse: " + CharSequences.quoteAndEscape(pointer));
         return parsed;
     }
 

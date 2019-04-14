@@ -25,7 +25,7 @@ import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class NamedChildNodePointerTest extends NodePointerTestCase<NamedChildNodePointer<JsonNode, JsonNodeName>> {
+public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedChildNodePointer<JsonNode, JsonNodeName>> {
 
     private final static JsonNodeName A1 = JsonNodeName.with("A1");
     private final static JsonNodeName B2 = JsonNodeName.with("B2");
@@ -37,14 +37,14 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase<NamedCh
 
     @Test
     public void testAddUnknownPathFails() {
-        this.addAndFail(NodePointer.named(A1, JsonNode.class).append(NamedChildNodePointer.with(B2)),
+        this.addAndFail(NodePointer.named(A1, JsonNode.class).appendToLast(NamedChildNodePointer.with(B2)),
                 JsonNode.array(),
                 A1_VALUE);
     }
 
     @Test
     public void testAddUnknownPathFails2() {
-        this.addAndFail(NodePointer.named(A1, JsonNode.class).append(IndexedChildNodePointer.with(99)),
+        this.addAndFail(NodePointer.named(A1, JsonNode.class).appendToLast(IndexedChildNodePointer.with(99)),
                 JsonNode.object(),
                 A1_VALUE);
     }

@@ -46,7 +46,7 @@ final class AnyNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     }
 
     @Override
-    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
+    NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
         return pointer;
     }
 

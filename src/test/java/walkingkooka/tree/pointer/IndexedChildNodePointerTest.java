@@ -25,20 +25,20 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-public final class IndexedChildNodePointerTest extends NodePointerTestCase<IndexedChildNodePointer<JsonNode, JsonNodeName>> {
+public final class IndexedChildNodePointerTest extends NodePointerTestCase2<IndexedChildNodePointer<JsonNode, JsonNodeName>> {
 
     // add..................................................................................................
 
     @Test
     public void testAddUnknownPathFails() {
-        this.addAndFail(NodePointer.indexed(1, JsonNode.class).append(IndexedChildNodePointer.with(99)),
+        this.addAndFail(NodePointer.indexed(1, JsonNode.class).appendToLast(IndexedChildNodePointer.with(99)),
                 JsonNode.array(),
                 JsonNode.string("!"));
     }
 
     @Test
     public void testAddUnknownPathFails2() {
-        this.addAndFail(NodePointer.indexed(1, JsonNode.class).append(IndexedChildNodePointer.with(99)),
+        this.addAndFail(NodePointer.indexed(1, JsonNode.class).appendToLast(IndexedChildNodePointer.with(99)),
                 JsonNode.object(),
                 JsonNode.string("!"));
     }

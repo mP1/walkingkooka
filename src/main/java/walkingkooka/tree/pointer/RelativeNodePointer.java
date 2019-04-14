@@ -52,8 +52,8 @@ final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     @Override
-    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
-        return new RelativeNodePointer<>(this.ancestorCount, this.hash, this.appendToNext(pointer));
+    NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
+        return new RelativeNodePointer<>(this.ancestorCount, this.hash, this.appendToLast0(pointer));
     }
 
     @Override

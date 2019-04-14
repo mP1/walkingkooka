@@ -50,8 +50,8 @@ final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends 
     }
 
     @Override
-    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
-        return new IndexedChildNodePointer<N, NAME>(this.index, this.appendToNext(pointer));
+    NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
+        return new IndexedChildNodePointer<>(this.index, this.appendToLast0(pointer));
     }
 
     @Override

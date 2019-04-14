@@ -47,8 +47,8 @@ final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     }
 
     @Override
-    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
-        return new NamedChildNodePointer<>(this.name, this.appendToNext(pointer));
+    NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
+        return new NamedChildNodePointer<>(this.name, this.appendToLast0(pointer));
     }
 
     @Override

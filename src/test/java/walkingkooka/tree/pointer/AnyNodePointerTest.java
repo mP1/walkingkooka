@@ -26,7 +26,7 @@ import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AnyNodePointerTest extends NodePointerTestCase<AnyNodePointer<JsonNode, JsonNodeName>> {
+public final class AnyNodePointerTest extends NodePointerTestCase2<AnyNodePointer<JsonNode, JsonNodeName>> {
 
     @Test
     public void testAddFails() {
