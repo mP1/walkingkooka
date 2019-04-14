@@ -36,31 +36,25 @@ import java.util.Objects;
  * ...
  * </pre>
  */
-final class NoneNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
-     * Creates a {@link NoneNodePointer}
+     * Creates a {@link AppendNodePointer}
      */
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NoneNodePointer<N, NAME> with(final String toString) {
-        return new NoneNodePointer<>(toString);
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> AppendNodePointer<N, NAME> create() {
+        return new AppendNodePointer<N, NAME>(absent());
     }
 
     /**
      * Private ctor.
      */
-    NoneNodePointer(final String toString) {
-        super(null);
-        this.toString = toString;
+    private AppendNodePointer(final NodePointer<N, NAME> next) {
+        super(next);
     }
 
     @Override
-    NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer) {
-        final StringBuilder b = new StringBuilder();
-        b.append(this.toString);
-        pointer.toString0(b);
-        pointer.lastToString(b);
-
-        return NoneNodePointer.with(b.toString());
+    NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -90,7 +84,7 @@ final class NoneNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NoneNodePointer;
+        return other instanceof AppendNodePointer;
     }
 
     @Override
@@ -98,16 +92,15 @@ final class NoneNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
         return this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final NoneNodePointer<?, ?> other) {
-        return this.toString.equals(other.toString);
+    private boolean equals2(final AppendNodePointer<?, ?> other) {
+        return true;
     }
 
     @Override
     void toString0(final StringBuilder b) {
-        b.append(this.toString);
+        b.append(SEPARATOR.character());
+        b.append(APPEND);
     }
-
-    private final String toString;
 
     @Override
     void lastToString(final StringBuilder b) {

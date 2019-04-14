@@ -103,28 +103,6 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
         });
     }
 
-    // equals ....................................................................................
-
-    @Test
-    public final void testEqualsDifferentNext() {
-        this.checkNotEquals(this.createObject().append(NodePointer.indexed(0, JsonNode.class)),
-                this.createObject().append(NodePointer.indexed(99, JsonNode.class)));
-    }
-
-    @Test
-    public final void testEqualsDifferentNext2() {
-        this.checkNotEquals(this.createObject(),
-                this.createObject().append(NodePointer.indexed(99, JsonNode.class)));
-    }
-
-    @Test
-    public final void testEqualsNext2() {
-        final NodePointer<JsonNode, JsonNodeName> next = NodePointer.indexed(99, JsonNode.class);
-
-        this.checkEquals(this.createObject().append(next),
-                this.createObject().append(next));
-    }
-
     // TypeNameTesting.......................................................................
 
     @Override

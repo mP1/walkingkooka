@@ -39,7 +39,7 @@ import java.util.function.Function;
  */
 public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements HashCodeEqualsDefined {
 
-    private final static String NONE = "-";
+    final static String APPEND = "-";
 
     /**
      * Accepts and parses a {@link String} holding a pointer.
@@ -73,15 +73,15 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
 
             try{
                 final int number = Integer.parseInt(component);
-                result = result.append(relative ?
+                result = result.appendToLast(relative ?
                        RelativeNodePointer.with(number, hash):
                        indexed(number, nodeType));
             } catch (final NumberFormatException mustBeName) {
                 if(relative) {
                     throw new IllegalArgumentException("Relative pointer expected number but got=" + CharSequences.quote(pointer));
                 }
-                if(NONE.equals(component)) {
-                    result = result.none();
+                if(APPEND.equals(component)) {
+                    result = result.append();
                 } else {
                     final NAME name = nameFactory.apply(component.replace("~1", "/")
                             .replace("~0", "~"));
@@ -131,15 +131,6 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     }
 
     /**
-     * Creates pointer that never matches anything.
-     */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> none(final Class<N> nodeType) {
-        checkNodeType(nodeType);
-
-        return NoneNodePointer.with(NONE);
-    }
-
-    /**
      * Creates an relative.
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relative(final int ancestor,
@@ -167,35 +158,35 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     }
 
     /**
-     * Appends a child name to this pointer.
+     * Appends a none pointer, equivalent to the "-" token within a string pointer.
      */
-    public final NodePointer<N, NAME> named(final NAME name) {
-        return this.append(NamedChildNodePointer.with(name));
+    public final NodePointer<N, NAME> append() {
+        return this.appendToLast(AppendNodePointer.create());
     }
 
     /**
-     * Appends a none pointer, equivalent to the "-" token within a string pointer.
+     * Appends a child name to this pointer.
      */
-    public final NodePointer<N, NAME> none() {
-        return this.append(NoneNodePointer.with("/" + NONE));
+    public final NodePointer<N, NAME> named(final NAME name) {
+        return this.appendToLast(NamedChildNodePointer.with(name));
     }
 
     /**
      * Appends an index to this pointer.
      */
     public final NodePointer<N, NAME> indexed(final int index) {
-        return this.append(IndexedChildNodePointer.with(index));
+        return this.appendToLast(IndexedChildNodePointer.with(index));
     }
 
     /**
-     * Appends one pointer to another.
+     * Appends one pointer to end.
      */
-    abstract NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer);
+    abstract NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer);
 
-    final NodePointer<N, NAME> appendToNext(final NodePointer<N, NAME> pointer) {
+    final NodePointer<N, NAME> appendToLast0(final NodePointer<N, NAME> pointer) {
         return null == this.next ?
                pointer :
-               this.next.append(pointer);
+               this.next.appendToLast(pointer);
     }
 
     /**

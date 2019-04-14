@@ -83,8 +83,8 @@ public final class TestNodePatchTest extends AddReplaceOrTestNodePatchTestCase<T
 
     @Test
     public void testPathAppendFails() {
-        this.applyFails(TestNodePatch.with(NodePointer.none(JsonNode.class), this.value1()),
-                JsonNode.array());
+        this.applyFails(TestNodePatch.with(NodePointer.parse("/-", JsonNodeName::with, JsonNode.class), this.value1()),
+                JsonNode.object());
     }
 
     @Test
