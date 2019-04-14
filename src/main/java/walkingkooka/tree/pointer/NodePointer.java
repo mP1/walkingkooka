@@ -44,9 +44,11 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     /**
      * Accepts and parses a {@link String} holding a pointer.
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> parse(final String pointer, final Function<String, NAME> nameFactory, final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> parse(final String pointer,
+                                                                                                final Function<String, NAME> nameFactory,
+                                                                                                final Class<N> nodeType) {
         Objects.requireNonNull(pointer, "pointer");
-        Objects.requireNonNull(nameFactory, "name factory function");
+        Objects.requireNonNull(nameFactory, "name factory");
         checkNodeType(nodeType);
 
         final String[] components = pointer.split(SEPARATOR.string());
@@ -104,22 +106,27 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> any(final Class<N> nodeType) {
         checkNodeType(nodeType);
+
         return AnyNodePointer.get();
     }
 
     /**
      * Creates an array element pointer.
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> indexed(final int index, final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> indexed(final int index,
+                                                                                                  final Class<N> nodeType) {
         checkNodeType(nodeType);
+
         return IndexedChildNodePointer.with(index);
     }
 
     /**
      * Creates an object property pointer
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> named(final NAME name, final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> named(final NAME name,
+                                                                                                final Class<N> nodeType) {
         checkNodeType(nodeType);
+
         return NamedChildNodePointer.with(name);
     }
 
@@ -128,22 +135,27 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> none(final Class<N> nodeType) {
         checkNodeType(nodeType);
+
         return NoneNodePointer.with(NONE);
     }
 
     /**
      * Creates an relative.
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relative(final int ancestor, final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relative(final int ancestor,
+                                                                                                   final Class<N> nodeType) {
         checkNodeType(nodeType);
+
         return RelativeNodePointer.with(ancestor, false);
     }
 
     /**
      * Creates an relative.
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relativeHash(final int ancestor, final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relativeHash(final int ancestor,
+                                                                                                       final Class<N> nodeType) {
         checkNodeType(nodeType);
+
         return RelativeNodePointer.with(ancestor, true);
     }
 
@@ -176,7 +188,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     }
 
     /**
-     * Appends an index to this pointer.
+     * Appends one pointer to another.
      */
     abstract NodePointer<N, NAME> append(final NodePointer<N, NAME> pointer);
 
@@ -239,7 +251,6 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         N result;
 
         N current = node;
-        N previous = null;
         NodePointer<N, NAME> pointer = this;
 
         for (; ; ) {
@@ -257,7 +268,6 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                 break;
             }
             pointer = nextPointer;
-            previous = current;
             current = next;
         }
 
@@ -308,6 +318,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     final public N remove(final N node) {
         checkNode(node);
+
         return this.remove0(node);
     }
 
