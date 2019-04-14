@@ -21,7 +21,6 @@ package walkingkooka.tree.json;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -64,8 +63,16 @@ public interface HasJsonNode {
      * Returns one of possibly many registered {@link Class types} for the given type name.
      */
     static Optional<Class<?>> registeredType(final JsonStringNode name) {
-        Objects.requireNonNull(name, "name");
         return HasJsonNodeMapper.registeredType(name);
+    }
+
+    // typeName .....................................................................................................
+
+    /**
+     * Returns the type name identifying the given {@link Class} providing it is registered.
+     */
+    static Optional<JsonStringNode> typeName(final Class<?> type) {
+        return HasJsonNodeMapper.typeName(type);
     }
 
     // toJsonNode .................................................................................................

@@ -26,8 +26,10 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.text.CharSequences;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -78,6 +80,38 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
         } finally {
             HasJsonNodeMapper.TYPENAME_TO_FACTORY.remove(name);
         }
+    }
+
+    @Test
+    public void testTypeNameNullClassFails() {
+        assertThrows(NullPointerException.class, () -> {
+            HasJsonNodeMapper.typeName(null);
+        });
+    }
+
+    @Test
+    public void testTypeNameUnknown() {
+        this.typeNameAndCheck(this.getClass(),
+                Optional.empty());
+    }
+
+    @Test
+    public void testTypeNameBigDecimal() {
+        this.typeNameAndCheck(BigDecimal.class,
+                Optional.of(JsonStringNode.with("big-decimal")));
+    }
+
+    @Test
+    public void testTypeNameJsonObjectNode() {
+        this.typeNameAndCheck(JsonObjectNode.class,
+                Optional.of(JsonStringNode.with("json-object")));
+    }
+
+    private void typeNameAndCheck(final Class<?> type,
+                                  final Optional<JsonStringNode> typeName) {
+        assertEquals(typeName,
+                HasJsonNodeMapper.typeName(type),
+                () -> "typeName of " + type.getName());
     }
 
     @Test

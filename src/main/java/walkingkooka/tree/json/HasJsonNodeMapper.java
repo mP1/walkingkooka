@@ -178,6 +178,15 @@ abstract class HasJsonNodeMapper<T> {
         return Optional.ofNullable(TYPENAME_TO_FACTORY.get(name.value())).map(m -> m.type());
     }
 
+    /**
+     * Returns the type name identifying the given {@link Class} providing it is registered.
+     */
+    static Optional<JsonStringNode> typeName(final Class<?> type) {
+        Objects.requireNonNull(type, "type");
+
+        return Optional.ofNullable(TYPENAME_TO_FACTORY.get(type.getName())).map(m -> m.typeName());
+    }
+
     // fromJsonNodeWithType.........................................................................................................
 
     /**
