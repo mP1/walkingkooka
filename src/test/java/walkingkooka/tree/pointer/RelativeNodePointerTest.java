@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -112,6 +112,107 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
         this.toStringAndCheck(RelativeNodePointer.with(1, NO_HASH), "1");
     }
 
+    @Test
+    public void testVisitor() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+            }
+
+        }.accept(this.createNodePointer());
+
+        assertEquals("1342", b.toString());
+    }
+
+    @Test
+    public void testVisitorWithNext() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("3");
+            }
+
+            @Override
+            protected Visiting startVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("6");
+            }
+
+        }.accept(this.createNodePointer().append());
+
+        assertEquals("1413262", b.toString());
+    }
+
+    @Test
+    public void testVisitorWithNextSkipped() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+                return Visiting.SKIP;
+            }
+
+            @Override
+            protected void endVisit(final RelativeNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("5");
+            }
+
+        }.accept(this.createNodePointer().append());
+
+        assertEquals("1452", b.toString());
+    }
+
     @Override
     RelativeNodePointer<JsonNode, JsonNodeName> createNodePointer() {
         return RelativeNodePointer.with(1, false);
@@ -120,10 +221,5 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
     @Override
     public Class<RelativeNodePointer<JsonNode, JsonNodeName>> type() {
         return Cast.to(RelativeNodePointer.class);
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -22,13 +22,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class NodePointerTestCase2<N extends NodePointer<JsonNode, JsonNodeName>> extends NodePointerTestCase<N> {
 
     NodePointerTestCase2() {
         super();
+    }
+
+    @Test
+    public void testNextAppend() {
+        this.nextAndCheck(this.createNodePointer().append(),
+                AppendNodePointer.create());
     }
 
     // equals ....................................................................................

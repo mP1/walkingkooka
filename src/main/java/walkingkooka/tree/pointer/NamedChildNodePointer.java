@@ -21,13 +21,14 @@ package walkingkooka.tree.pointer;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Objects;
 
 /**
  * Represents a component that matches a node by its name from a parent.
  */
-final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
      * Creates a new {@link NamedChildNodePointer}.
@@ -45,6 +46,15 @@ final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         super(next);
         this.name = name;
     }
+
+    /**
+     * Getter that returns the {@link Name} to match.
+     */
+    public NAME name() {
+        return this.name;
+    }
+
+    private final NAME name;
 
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
@@ -64,8 +74,6 @@ final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         return matched;
     }
 
-    private final NAME name;
-
     @Override
     public boolean isRelative() {
         return false;
@@ -80,6 +88,18 @@ final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     N remove0(final N node) {
         return this.removeOrFail(node);
     }
+
+    // NodePointerVisitor.............................................................................................
+
+    @Override
+    void accept(final NodePointerVisitor<N, NAME> visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptNext(visitor);
+        }
+        visitor.endVisit(this);
+    }
+
+    // HashCodeEqualsDefined...........................................................................................
 
     @Override
     public int hashCode() {

@@ -23,8 +23,9 @@ import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.tree.visit.Visiting;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodePointer<JsonNode, JsonNodeName>> {
@@ -97,6 +98,32 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
         this.toStringAndCheck(AppendNodePointer.create(), "/-");
     }
 
+    @Test
+    public void testVisitor() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("3");
+            }
+
+        }.accept(this.createNodePointer());
+
+        assertEquals("132", b.toString());
+    }
+
     @Override
     AppendNodePointer<JsonNode, JsonNodeName> createNodePointer() {
         return AppendNodePointer.create();
@@ -105,10 +132,5 @@ public final class AppendNodePointerTest extends NodePointerTestCase<AppendNodeP
     @Override
     public Class<AppendNodePointer<JsonNode, JsonNodeName>> type() {
         return Cast.to(AppendNodePointer.class);
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -26,6 +26,9 @@ import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.patch.NodePatchException;
+import walkingkooka.type.MemberVisibility;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -62,6 +65,20 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
         assertThrows(NullPointerException.class, () -> {
             this.createNodePointer().remove(null);
         });
+    }
+
+    // next.......................................................................
+
+    @Test
+    public final void testNextMissing() {
+        this.nextAndCheck(this.createNodePointer(), null);
+    }
+
+    final void nextAndCheck(final NodePointer<JsonNode, JsonNodeName> pointer,
+                            final NodePointer<JsonNode, JsonNodeName> next) {
+        assertEquals(Optional.ofNullable(next),
+                pointer.next(),
+                () -> " next of " + pointer);
     }
 
     abstract N createNodePointer();
@@ -101,6 +118,13 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
         assertThrows(NodePatchException.class, () -> {
             pointer.remove(node);
         });
+    }
+
+    // ClassTesting...........................................................................
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 
     // TypeNameTesting.......................................................................

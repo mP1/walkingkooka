@@ -21,6 +21,7 @@ package walkingkooka.tree.pointer;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +29,7 @@ import java.util.Objects;
 /**
  * Represents a component that matches a node by its element.
  */
-final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
      * Creates a {@link IndexedChildNodePointer}
@@ -49,6 +50,12 @@ final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends 
         this.index = index;
     }
 
+    public int index() {
+        return this.index;
+    }
+
+    private final int index;
+
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
         return new IndexedChildNodePointer<>(this.index, this.appendToLast0(pointer));
@@ -61,8 +68,6 @@ final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends 
                 children.get(this.index) :
                 null;
     }
-
-    private final int index;
 
     @Override
     public boolean isRelative() {
@@ -78,6 +83,18 @@ final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends 
     N remove0(final N node) {
         return this.removeOrFail(node);
     }
+
+    // NodePointerVisitor.............................................................................................
+
+    @Override
+    void accept(final NodePointerVisitor<N, NAME> visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptNext(visitor);
+        }
+        visitor.endVisit(this);
+    }
+
+    // HashCodeEqualsDefined...........................................................................................
 
     @Override
     public int hashCode() {
