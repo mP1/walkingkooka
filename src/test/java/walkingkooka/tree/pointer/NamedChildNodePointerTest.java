@@ -23,7 +23,9 @@ import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.tree.visit.Visiting;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedChildNodePointer<JsonNode, JsonNodeName>> {
 
@@ -32,6 +34,12 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
 
     private final static JsonNode A1_VALUE = JsonNode.string("a1-value");
     private final static JsonNode B2_VALUE = JsonNode.string("b2-value");
+
+    @Test
+    public void testWith() {
+        final NamedChildNodePointer<JsonNode, JsonNodeName> pointer = this.createNodePointer();
+        assertEquals(this.name(), pointer.name(), "name");
+    }
 
     // add..................................................................................................
 
@@ -143,18 +151,118 @@ public final class NamedChildNodePointerTest extends NodePointerTestCase2<NamedC
         this.toStringAndCheck(NamedChildNodePointer.with(JsonNodeName.with("tilde~")), "/tilde~0");
     }
 
+    @Test
+    public void testVisitor() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+            }
+
+        }.accept(this.createNodePointer());
+
+        assertEquals("1342", b.toString());
+    }
+
+    @Test
+    public void testVisitorWithNext() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("3");
+            }
+
+            @Override
+            protected Visiting startVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("5");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("6");
+            }
+
+        }.accept(this.createNodePointer().append());
+
+        assertEquals("1513262", b.toString());
+    }
+
+    @Test
+    public void testVisitorWithNextSkipped() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+                return Visiting.SKIP;
+            }
+
+            @Override
+            protected void endVisit(final NamedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("5");
+            }
+
+        }.accept(this.createNodePointer().append());
+
+        assertEquals("1452", b.toString());
+    }
+
     @Override
     NamedChildNodePointer<JsonNode, JsonNodeName> createNodePointer() {
-        return NamedChildNodePointer.with(JsonNodeName.with("someProperty"));
+        return NamedChildNodePointer.with(this.name());
+    }
+
+    private JsonNodeName name() {
+        return JsonNodeName.with("someProperty");
     }
 
     @Override
     public Class<NamedChildNodePointer<JsonNode, JsonNodeName>> type() {
         return Cast.to(NamedChildNodePointer.class);
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

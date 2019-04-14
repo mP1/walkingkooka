@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * Matches all the nodes, or the start node.
  */
-final class AnyNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class AnyNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
      * Creates a {@link AnyNodePointer}
@@ -69,6 +69,14 @@ final class AnyNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     N remove0(final N node) {
         throw new UnsupportedOperationException("Remove not supported for " + this);
     }
+
+    // NodePointerVisitor................................................................................
+
+    void accept(final NodePointerVisitor<N, NAME> visitor) {
+        visitor.visit(this);
+    }
+
+    // HashCodeEqualsDefined...............................................................................
 
     @Override
     public int hashCode() {

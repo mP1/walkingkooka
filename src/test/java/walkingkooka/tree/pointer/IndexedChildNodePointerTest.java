@@ -23,9 +23,17 @@ import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.tree.visit.Visiting;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class IndexedChildNodePointerTest extends NodePointerTestCase2<IndexedChildNodePointer<JsonNode, JsonNodeName>> {
+
+    @Test
+    public void testWith() {
+        final IndexedChildNodePointer<JsonNode, JsonNodeName> pointer = this.createNodePointer();
+        assertEquals(1, pointer.index(), "index");
+    }
 
     // add..................................................................................................
 
@@ -126,6 +134,107 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
         this.checkNotEquals(IndexedChildNodePointer.with(99));
     }
 
+    @Test
+    public void testVisitor() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+            }
+
+        }.accept(this.createNodePointer());
+
+        assertEquals("1342", b.toString());
+    }
+
+    @Test
+    public void testVisitorWithNext() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final AppendNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("3");
+            }
+
+            @Override
+            protected Visiting startVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("5");
+            }
+
+        }.accept(this.createNodePointer().append());
+
+        assertEquals("1413252", b.toString());
+    }
+
+    @Test
+    public void testVisitorWithNextSkipped() {
+        final StringBuilder b = new StringBuilder();
+
+        new FakeNodePointerVisitor<JsonNode, JsonNodeName>() {
+            @Override
+            protected Visiting startVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodePointer<JsonNode, JsonNodeName> node) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("4");
+                return Visiting.SKIP;
+            }
+
+            @Override
+            protected void endVisit(final IndexedChildNodePointer<JsonNode, JsonNodeName> node) {
+                b.append("5");
+            }
+
+        }.accept(this.createNodePointer().append());
+
+        assertEquals("1452", b.toString());
+    }
+
     @Override
     IndexedChildNodePointer<JsonNode, JsonNodeName> createNodePointer() {
         return IndexedChildNodePointer.with(1);
@@ -134,10 +243,5 @@ public final class IndexedChildNodePointerTest extends NodePointerTestCase2<Inde
     @Override
     public Class<IndexedChildNodePointer<JsonNode, JsonNodeName>> type() {
         return Cast.to(IndexedChildNodePointer.class);
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

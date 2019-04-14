@@ -25,6 +25,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.patch.NodePatchException;
+import walkingkooka.tree.visit.Visitable;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -37,7 +38,8 @@ import java.util.function.Function;
  * <br>
  * <a href="http://json-schema.org/latest/relative-json-pointer.html#RFC4627">spec</a>
  */
-public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements HashCodeEqualsDefined {
+public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements HashCodeEqualsDefined,
+        Visitable {
 
     final static String APPEND = "-";
 
@@ -268,6 +270,13 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         return result;
     }
 
+    /**
+     * Returns the next {@link NodePointer} in the chain.
+     */
+    public Optional<NodePointer<N, NAME>> next() {
+        return Optional.ofNullable(this.next);
+    }
+
     abstract N nextNodeOrNull(final N node);
 
     /**
@@ -322,6 +331,20 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         return this.traverseOrFail(node)
                 .parentWithout()
                 .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
+    }
+
+    // NodePointerVisitor................................................................................
+
+    abstract void accept(final NodePointerVisitor<N, NAME> visitor);
+
+    /**
+     * Visits the next component if one exists otherwise returns immediately.
+     */
+    final void acceptNext(final NodePointerVisitor<N, NAME> visitor) {
+        final NodePointer<N, NAME> next = this.next;
+        if (null != next) {
+            visitor.accept0(next);
+        }
     }
 
     // HashCodeEqualsDefined...............................................................................

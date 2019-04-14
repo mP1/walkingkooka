@@ -21,6 +21,7 @@ package walkingkooka.tree.pointer;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ import java.util.Objects;
  * ...
  * </pre>
  */
-final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
 
     /**
      * Creates a {@link AppendNodePointer}
@@ -76,6 +77,15 @@ final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> 
     N remove0(final N node) {
         throw new UnsupportedOperationException("Remove not supported for " + this);
     }
+
+    // NodePointerVisitor.............................................................................................
+
+    @Override
+    void accept(final NodePointerVisitor<N, NAME> visitor) {
+        visitor.visit(this);
+    }
+
+    // HashCodeEqualsDefined...........................................................................................
 
     @Override
     public int hashCode() {
