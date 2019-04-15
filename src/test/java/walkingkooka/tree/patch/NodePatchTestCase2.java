@@ -28,6 +28,7 @@ import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase<P>
@@ -152,6 +153,19 @@ public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeN
     @Test
     public final void testFromJsonStringNodeFails() {
         this.fromJsonNodeFails(JsonNode.string("string123"));
+    }
+
+    final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
+                                   final String json) {
+        this.toJsonPatchAndCheck(patch,
+                JsonNode.parse(json));
+    }
+
+    final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
+                                   final JsonNode node) {
+        assertEquals(node,
+                patch.toJsonPatch(),
+                () -> patch + " toJsonPatch");
     }
 
     // NodePatchTestCase2..................................................................................

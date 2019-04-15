@@ -113,6 +113,16 @@ public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<
     }
 
     @Test
+    public final void testToJsonPatch() {
+        this.toJsonPatchAndCheck2(this.createPatch(),
+                "[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"from\": \"/b2\",\n" +
+                        "  \"path\": \"/a1\"\n" +
+                        "}]");
+    }
+
+    @Test
     public final void testEqualsDifferentFrom() {
         this.checkNotEquals(this.createPatch(this.path3(), this.path1()));
     }

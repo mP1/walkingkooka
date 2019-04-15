@@ -124,6 +124,12 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
                 .add(this.path3(), this.value3()));
     }
 
+    @Test
+    public final void testToJsonPatch() {
+        this.toJsonPatchAndCheck2(this.createPatch(),
+                "[{\"op\": \"$OP\", \"path\": \"/a1\", \"value\": \"value1\"}]");
+    }
+
     @Override
     final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
         return this.createPatch(path, this.value1());
