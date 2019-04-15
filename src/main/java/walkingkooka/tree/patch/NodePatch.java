@@ -171,6 +171,15 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     // HasJsonNode...............................................................................
 
     /**
+     * Creates a json-patch json which is identical to the {@link #toJsonNode()} but without the type properties.
+     */
+    public final JsonArrayNode toJsonPatch() {
+        return this.toJsonNode0(NodePatchJsonFormat.JSON);
+    }
+
+    // HasJsonNode...............................................................................
+
+    /**
      * Accepts a json string holding a patch collection.
      * <pre>
      * {
@@ -278,4 +287,14 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 ReplaceNodePatch.class,
                 TestNodePatch.class);
     }
+
+    /**
+     * Creates a json-patch json which is identical to the {@link #toJsonNode()} but without the type properties.
+     */
+    @Override
+    public final JsonArrayNode toJsonNode() {
+        return this.toJsonNode0(NodePatchJsonFormat.NODE_PATCH);
+    }
+
+    abstract JsonArrayNode toJsonNode0(final NodePatchJsonFormat format);
 }

@@ -90,12 +90,12 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
      * </pre>
      */
     @Override
-    final JsonObjectNode toJsonNode0(final JsonObjectNode object) {
+    final JsonObjectNode toJsonNode1(final JsonObjectNode object,
+                                     final NodePatchJsonFormat format) {
         final N value = this.value;
 
-        return this.setPath(this.setPathComponentType(object,
-                NonEmptyNodePatchNodePointerVisitor.pathNameType(this.path)))
-                .set(VALUE_TYPE_PROPERTY, typeOrFail(value))
-                .set(VALUE_PROPERTY, HasJsonNode.toJsonNodeObject(this.value));
+        return format.setValueType(this.setPath(format.setPathComponentType(object, this.path)),
+                value)
+                .set(VALUE_PROPERTY, HasJsonNode.toJsonNodeObject(value));
     }
 }

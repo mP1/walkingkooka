@@ -62,6 +62,12 @@ public final class EmptyNodePatchTest extends NodePatchTestCase2<EmptyNodePatch<
     }
 
     @Test
+    public void testToJsonPatch() {
+        this.toJsonPatchAndCheck(EmptyNodePatch.get(JsonNode.class),
+                JsonNode.array());
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(EmptyNodePatch.get(JsonNode.class), "");
     }

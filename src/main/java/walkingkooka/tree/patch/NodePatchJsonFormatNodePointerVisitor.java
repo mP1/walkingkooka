@@ -32,16 +32,16 @@ import java.util.Optional;
 /**
  * Walks a {@link NodePointerVisitor} returning a {@link JsonStringNode} holding the path {@link Name} type if one is found.
  */
-final class NonEmptyNodePatchNodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointerVisitor<N, NAME> {
+final class NodePatchJsonFormatNodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointerVisitor<N, NAME> {
 
     static<N extends Node<N, NAME, ?, ?>, NAME extends Name> Optional<JsonStringNode> pathNameType(final NodePointer<N, NAME> path) {
-        final NonEmptyNodePatchNodePointerVisitor<N, NAME> visitor = new NonEmptyNodePatchNodePointerVisitor<>();
+        final NodePatchJsonFormatNodePointerVisitor<N, NAME> visitor = new NodePatchJsonFormatNodePointerVisitor<>();
         visitor.accept(path);
         return visitor.pathNameType;
     }
 
     // VisibleForTesting
-    NonEmptyNodePatchNodePointerVisitor() {
+    NodePatchJsonFormatNodePointerVisitor() {
         super();
     }
 
