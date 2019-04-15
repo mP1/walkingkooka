@@ -28,7 +28,7 @@ import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode>> extends NodePatchTestCase<P>
+public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase<P>
         implements HashCodeEqualsDefinedTesting<P>,
         TypeNameTesting<P> {
 

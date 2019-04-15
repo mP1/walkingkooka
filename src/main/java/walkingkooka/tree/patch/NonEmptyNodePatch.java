@@ -19,6 +19,7 @@
 package walkingkooka.tree.patch;
 
 import walkingkooka.Cast;
+import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
@@ -28,7 +29,7 @@ import java.util.Objects;
 /**
  * Base class for all non empty patch containing several helpers and a template for the function.
  */
-abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N> {
+abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatch<N, NAME> {
 
     // helpers......................................................................
 
@@ -39,7 +40,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
     /**
      * Package private to limit sub-classing.
      */
-    NonEmptyNodePatch(final NodePointer<N, ?> path, final NodePatch<N> next) {
+    NonEmptyNodePatch(final NodePointer<N, NAME> path, final NodePatch<N, NAME> next) {
         super();
         this.path = path;
         this.next = next;
@@ -48,7 +49,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
     // Function............................................................................................
 
     @Override
-    final N apply0(final N node, final NodePointer<N, ?> start) {
+    final N apply0(final N node, final NodePointer<N, NAME> start) {
         try {
             return this.apply1(node, start);
         } catch (final ApplyNodePatchException cause) {
@@ -58,14 +59,14 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
         }
     }
 
-    abstract N apply1(final N node, final NodePointer<N, ?> start);
+    abstract N apply1(final N node, final NodePointer<N, NAME> start);
 
     /**
      * Adds one node to the other and returns the node in the start position.
      */
     final N add0(final N node,
                  final N add,
-                 final NodePointer<N, ?> start) {
+                 final NodePointer<N, NAME> start) {
         return this.traverseStartOrFail(this.path.add(node, add), start);
     }
 
@@ -73,10 +74,9 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
      * Removes the {@link Node} at the given {@link NodePointer}.
      */
     final N remove0(final N node,
-                    final NodePointer<N, ?> path,
-                    final NodePointer<N, ?> start) {
-        return this.traverseStartOrFail(path.remove(node),
-                start);
+                    final NodePointer<N, NAME> path,
+                    final NodePointer<N, NAME> start) {
+        return this.traverseStartOrFail(path.remove(node), start);
     }
 
     /**
@@ -95,20 +95,20 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
 
     // helpers............................................................................................
 
-    final NodePointer<N, ?> path;
+    final NodePointer<N, NAME> path;
 
     /**
      * Returns the next component of the patch which could be null if this is the last.
      */
     @Override
-    final NodePatch<N> nextOrNull() {
+    final NodePatch<N, NAME> nextOrNull() {
         return this.next;
     }
 
     /**
      * A null marks the last component in a patch sequence.
      */
-    final NodePatch<N> next;
+    final NodePatch<N, NAME> next;
 
     // HashCodeEqualsDefined................................................................................................
 
@@ -119,11 +119,11 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final NonEmptyNodePatch<?> other) {
+    private boolean equals0(final NonEmptyNodePatch<?, ?> other) {
         return this.equals1(other) && Objects.equals(this.next, other.next);
     }
 
-    abstract boolean equals1(final NonEmptyNodePatch<?> other);
+    abstract boolean equals1(final NonEmptyNodePatch<?, ?> other);
 
     // Object............................................................................................
 
@@ -131,7 +131,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N
     public final String toString() {
         final StringBuilder b = new StringBuilder();
 
-        NodePatch<N> patch = this;
+        NodePatch<N, NAME> patch = this;
         String separator = "";
 
         do {

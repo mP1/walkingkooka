@@ -24,7 +24,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class MoveNodePatchTest extends CopyOrMoveNodePatchTestCase<MoveNodePatch<JsonNode>> {
+public final class MoveNodePatchTest extends CopyOrMoveNodePatchTestCase<MoveNodePatch<JsonNode, JsonNodeName>> {
 
     @Test
     public void testMoveChild() {
@@ -48,7 +48,7 @@ public final class MoveNodePatchTest extends CopyOrMoveNodePatchTestCase<MoveNod
     }
 
     @Override
-    MoveNodePatch<JsonNode> createPatch(final NodePointer<JsonNode, JsonNodeName> from,
+    MoveNodePatch<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> from,
                                         final NodePointer<JsonNode, JsonNodeName> path) {
         return MoveNodePatch.with(from, path);
     }
@@ -61,7 +61,7 @@ public final class MoveNodePatchTest extends CopyOrMoveNodePatchTestCase<MoveNod
     // ClassTesting2............................................................................
 
     @Override
-    public Class<MoveNodePatch<JsonNode>> type() {
+    public Class<MoveNodePatch<JsonNode, JsonNodeName>> type() {
         return Cast.to(MoveNodePatch.class);
     }
 

@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
@@ -30,13 +31,13 @@ import java.util.function.Function;
  * A {@link NodePatch} supports operations for a {@link Node} that match the functionality of json-patch with json.<br>
  * <A href="http://jsonpatch.com">jsonpatch.com</A>
  */
-public abstract class NodePatch<N extends Node<N, ?, ?, ?>> implements HashCodeEqualsDefined,
+public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements HashCodeEqualsDefined,
         Function<N, N> {
 
     /**
      * Returns an empty patch.
      */
-    public static <N extends Node<N, ?, ?, ?>> EmptyNodePatch<N> empty(final Class<N> type) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> EmptyNodePatch<N, NAME> empty(final Class<N> type) {
         return EmptyNodePatch.get(type);
     }
 
@@ -52,38 +53,38 @@ public abstract class NodePatch<N extends Node<N, ?, ?, ?>> implements HashCodeE
     /**
      * Adds an add operation to this patch.
      */
-    public NodePatch<N> add(final NodePointer<N, ?> path,
-                            final N value) {
+    public NodePatch<N, NAME> add(final NodePointer<N, NAME> path,
+                                  final N value) {
         return this.append(AddNodePatch.with(path, value));
     }
 
     /**
      * Adds a copy operation to this patch.
      */
-    public NodePatch<N> copy(final NodePointer<N, ?> from,
-                             final NodePointer<N, ?> path) {
+    public NodePatch<N, NAME> copy(final NodePointer<N, NAME> from,
+                                   final NodePointer<N, NAME> path) {
         return this.append(CopyNodePatch.with(from, path));
     }
 
     /**
      * Adds a copy operation to this patch.
      */
-    public NodePatch<N> move(final NodePointer<N, ?> from,
-                             final NodePointer<N, ?> path) {
+    public NodePatch<N, NAME> move(final NodePointer<N, NAME> from,
+                                   final NodePointer<N, NAME> path) {
         return this.append(MoveNodePatch.with(from, path));
     }
 
     /**
      * Adds an remove operation to this patch.
      */
-    public NodePatch<N> remove(final NodePointer<N, ?> path) {
+    public NodePatch<N, NAME> remove(final NodePointer<N, NAME> path) {
         return this.append(RemoveNodePatch.with(path));
     }
 
     /**
      * Adds an add operation to this patch.
      */
-    public NodePatch<N> replace(final NodePointer<N, ?> path,
+    public NodePatch<N, NAME> replace(final NodePointer<N, NAME> path,
                                 final N value) {
         return this.append(ReplaceNodePatch.with(path, value));
     }
@@ -91,20 +92,20 @@ public abstract class NodePatch<N extends Node<N, ?, ?, ?>> implements HashCodeE
     /**
      * Adds a test operation to this patch.
      */
-    public NodePatch<N> test(final NodePointer<N, ?> path,
-                             final N value) {
+    public NodePatch<N, NAME> test(final NodePointer<N, NAME> path,
+                                   final N value) {
         return this.append(TestNodePatch.with(path, value));
     }
 
-    final NodePatch<N> append(final NodePatch<N> patch) {
-        final NodePatch<N> next = this.nextOrNull();
+    final NodePatch<N, NAME> append(final NodePatch<N, NAME> patch) {
+        final NodePatch<N, NAME> next = this.nextOrNull();
         return this.append0(null != next ? next.append(patch) : patch);
     }
 
     /**
      * Used to concatenate multiple patch components.
      */
-    abstract NodePatch<N> append0(final NodePatch<N> patch);
+    abstract NodePatch<N, NAME> append0(final NodePatch<N, NAME> patch);
 
     // Function................................................................................................
 
@@ -115,8 +116,8 @@ public abstract class NodePatch<N extends Node<N, ?, ?, ?>> implements HashCodeE
     public final N apply(final N node) {
         Objects.requireNonNull(node, "node");
 
-        final NodePointer<N, ?> start = node.pointer();
-        NodePatch<N> currentPatch = this;
+        final NodePointer<N, NAME> start = node.pointer();
+        NodePatch<N, NAME> currentPatch = this;
         N currentNode = node;
 
         do {
@@ -130,12 +131,12 @@ public abstract class NodePatch<N extends Node<N, ?, ?, ?>> implements HashCodeE
     /**
      * Performs the actual operation. Base is necessary for two step operations such as replace which need to relocate prior to executing the second half.
      */
-    abstract N apply0(final N node, final NodePointer<N, ?> start);
+    abstract N apply0(final N node, final NodePointer<N, NAME> start);
 
     /**
      * Helper which locates the original start {@link Node} or fails.
      */
-    final N traverseStartOrFail(final N node, final NodePointer<N, ?> start) {
+    final N traverseStartOrFail(final N node, final NodePointer<N, NAME> start) {
         return start.traverse(node.root())
                 .orElseThrow(() -> new NodePointerException("Unable to navigate to starting node: " + node));
     }
@@ -143,7 +144,7 @@ public abstract class NodePatch<N extends Node<N, ?, ?, ?>> implements HashCodeE
     /**
      * Returns the next component in the patch or null if the end has been reached.
      */
-    abstract NodePatch<N> nextOrNull();
+    abstract NodePatch<N, NAME> nextOrNull();
 
     // Object................................................................................................
 

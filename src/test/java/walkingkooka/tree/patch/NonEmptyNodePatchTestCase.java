@@ -23,7 +23,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<JsonNode>> extends NodePatchTestCase2<P> {
+public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase2<P> {
 
     NonEmptyNodePatchTestCase() {
         super();

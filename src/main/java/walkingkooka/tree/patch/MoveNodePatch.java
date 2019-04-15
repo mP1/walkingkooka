@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
@@ -26,23 +27,23 @@ import walkingkooka.tree.pointer.NodePointerException;
 /**
  * Represents a move patch operation.
  */
-final class MoveNodePatch<N extends Node<N, ?, ?, ?>> extends CopyOrMoveNodePatch<N> {
+final class MoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends CopyOrMoveNodePatch<N, NAME> {
 
-    static <N extends Node<N, ?, ?, ?>> MoveNodePatch<N> with(final NodePointer<N, ?> from,
-                                                              final NodePointer<N, ?> path) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> MoveNodePatch<N, NAME> with(final NodePointer<N, NAME> from,
+                                                                                          final NodePointer<N, NAME> path) {
         checkFromAndPath(from, path);
 
         return new MoveNodePatch<>(from, path, null);
     }
 
-    private MoveNodePatch(final NodePointer<N, ?> from,
-                          final NodePointer<N, ?> path,
-                          final NodePatch<N> next) {
+    private MoveNodePatch(final NodePointer<N, NAME> from,
+                          final NodePointer<N, NAME> path,
+                          final NodePatch<N, NAME> next) {
         super(from, path, next);
     }
 
     @Override
-    NodePatch<N> append0(final NodePatch<N> patch) {
+    NodePatch<N, NAME> append0(final NodePatch<N, NAME> patch) {
         return new MoveNodePatch<>(this.from, this.path, patch);
     }
 
@@ -50,7 +51,7 @@ final class MoveNodePatch<N extends Node<N, ?, ?, ?>> extends CopyOrMoveNodePatc
      * Identical to COPY but the original node is removed.
      */
     @Override
-    N apply1(final N node, final NodePointer<N, ?> start) {
+    N apply1(final N node, final NodePointer<N, NAME> start) {
         final N copying = this.from.traverse(node)
                 .orElseThrow(() -> new NodePointerException("Unable to navigate to find node to copy from: " + node));
         return this.add0(this.remove0(node, this.from, start),

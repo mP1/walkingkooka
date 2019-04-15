@@ -24,7 +24,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class ReplaceNodePatchTest extends AddReplaceOrTestNodePatchTestCase<ReplaceNodePatch<JsonNode>> {
+public final class ReplaceNodePatchTest extends AddReplaceOrTestNodePatchTestCase<ReplaceNodePatch<JsonNode, JsonNodeName>> {
 
     @Test
     public void testPathUnknownFails() {
@@ -79,26 +79,26 @@ public final class ReplaceNodePatchTest extends AddReplaceOrTestNodePatchTestCas
     }
 
     @Override
-    ReplaceNodePatch<JsonNode> createPatch(final NodePointer<JsonNode, JsonNodeName> path, JsonNode value) {
+    ReplaceNodePatch<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path, JsonNode value) {
         return ReplaceNodePatch.with(path, value);
     }
 
-    private ReplaceNodePatch<JsonNode> createPatch(final JsonNodeName property, final JsonNode value) {
+    private ReplaceNodePatch<JsonNode, JsonNodeName> createPatch(final JsonNodeName property, final JsonNode value) {
         return ReplaceNodePatch.with(NodePointer.named(property, JsonNode.class), value);
     }
 
-    private ReplaceNodePatch<JsonNode> createPatch(final String path, final String value) {
+    private ReplaceNodePatch<JsonNode, JsonNodeName> createPatch(final String path, final String value) {
         return this.createPatch(path, JsonNode.parse(value));
     }
 
-    private ReplaceNodePatch<JsonNode> createPatch(final String path, final JsonNode value) {
+    private ReplaceNodePatch<JsonNode, JsonNodeName> createPatch(final String path, final JsonNode value) {
         return ReplaceNodePatch.with(this.pointer(path), value);
     }
 
     // ClassTesting2............................................................................
 
     @Override
-    public Class<ReplaceNodePatch<JsonNode>> type() {
+    public Class<ReplaceNodePatch<JsonNode, JsonNodeName>> type() {
         return Cast.to(ReplaceNodePatch.class);
     }
 

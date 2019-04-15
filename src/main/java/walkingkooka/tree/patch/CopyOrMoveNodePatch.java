@@ -19,6 +19,7 @@
 package walkingkooka.tree.patch;
 
 import walkingkooka.Cast;
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -27,10 +28,10 @@ import java.util.Objects;
 /**
  * Base class for both copy and move operations.
  */
-abstract class CopyOrMoveNodePatch<N extends Node<N, ?, ?, ?>> extends NonEmptyNodePatch<N> {
+abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NonEmptyNodePatch<N, NAME> {
 
-    static <N extends Node<N, ?, ?, ?>> void checkFromAndPath(final NodePointer<N, ?> from,
-                                                              final NodePointer<N, ?> path) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> void checkFromAndPath(final NodePointer<N, NAME> from,
+                                                                                    final NodePointer<N, NAME> path) {
         Objects.requireNonNull(from, "from");
         checkPath(path);
 
@@ -39,14 +40,14 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, ?, ?, ?>> extends NonEmptyN
         }
     }
 
-    CopyOrMoveNodePatch(final NodePointer<N, ?> from,
-                        final NodePointer<N, ?> path,
-                        final NodePatch<N> next) {
+    CopyOrMoveNodePatch(final NodePointer<N, NAME> from,
+                        final NodePointer<N, NAME> path,
+                        final NodePatch<N, NAME> next) {
         super(path, next);
         this.from = from;
     }
 
-    final NodePointer<N, ?> from;
+    final NodePointer<N, NAME> from;
 
     // Object........................................................................
 
@@ -56,12 +57,12 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, ?, ?, ?>> extends NonEmptyN
     }
 
     @Override
-    final boolean equals1(final NonEmptyNodePatch<?> other) {
+    final boolean equals1(final NonEmptyNodePatch<?, ?> other) {
         return this.path.equals(other.path) &&
                 this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final CopyOrMoveNodePatch<?> other) {
+    private boolean equals2(final CopyOrMoveNodePatch<?, ?> other) {
         return this.from.equals(other.from);
     }
 

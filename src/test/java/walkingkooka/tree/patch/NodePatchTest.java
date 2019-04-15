@@ -21,9 +21,10 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode>> {
+public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode, JsonNodeName>> {
 
     @Test
     public void testTest() {
@@ -174,7 +175,7 @@ public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode>> 
     // ClassTesting2........................................................................
 
     @Override
-    public Class<NodePatch<JsonNode>> type() {
+    public Class<NodePatch<JsonNode, JsonNodeName>> type() {
         return Cast.to(NodePatch.class);
     }
 
