@@ -25,7 +25,7 @@ import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 
 /**
- * Represents an add operation within a patch.
+ * Represents a REPLACE operation within a patch.
  */
 final class ReplaceNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends AddReplaceOrTestNodePatch<N, NAME> {
 

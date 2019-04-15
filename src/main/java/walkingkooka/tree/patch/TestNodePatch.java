@@ -26,7 +26,7 @@ import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.util.Optionals;
 
 /**
- * Represents a test node-patch operation.
+ * Represents a TEST node-patch operation.
  */
 final class TestNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends AddReplaceOrTestNodePatch<N, NAME> {
 

@@ -27,7 +27,7 @@ import walkingkooka.tree.pointer.NodePointerException;
 
 
 /**
- * Represents a move patch operation.
+ * Represents a MOVE patch operation.
  */
 final class MoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends CopyOrMoveNodePatch<N, NAME> {
 

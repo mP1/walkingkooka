@@ -60,7 +60,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     // public factory methods supporting the builder pattern to build up a patch.........................
 
     /**
-     * Adds an add operation to this patch.
+     * Adds an ADD operation to this patch.
      */
     public NodePatch<N, NAME> add(final NodePointer<N, NAME> path,
                                   final N value) {
@@ -68,7 +68,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     /**
-     * Adds a copy operation to this patch.
+     * Adds a COPY operation to this patch.
      */
     public NodePatch<N, NAME> copy(final NodePointer<N, NAME> from,
                                    final NodePointer<N, NAME> path) {
@@ -76,7 +76,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     /**
-     * Adds a copy operation to this patch.
+     * Adds a MOVE operation to this patch.
      */
     public NodePatch<N, NAME> move(final NodePointer<N, NAME> from,
                                    final NodePointer<N, NAME> path) {
@@ -84,28 +84,31 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     /**
-     * Adds an remove operation to this patch.
+     * Adds an REMOVE operation to this patch.
      */
     public NodePatch<N, NAME> remove(final NodePointer<N, NAME> path) {
         return this.append(RemoveNodePatch.with(path));
     }
 
     /**
-     * Adds an add operation to this patch.
+     * Adds an REPLACE operation to this patch.
      */
     public NodePatch<N, NAME> replace(final NodePointer<N, NAME> path,
-                                final N value) {
+                                      final N value) {
         return this.append(ReplaceNodePatch.with(path, value));
     }
 
     /**
-     * Adds a test operation to this patch.
+     * Adds a TEST operation to this patch.
      */
     public NodePatch<N, NAME> test(final NodePointer<N, NAME> path,
                                    final N value) {
         return this.append(TestNodePatch.with(path, value));
     }
 
+    /**
+     * Used to append a new patch operation to a previous creating a collection of patch ops.
+     */
     final NonEmptyNodePatch<N, NAME> append(final NonEmptyNodePatch<N, NAME> patch) {
         final NonEmptyNodePatch<N, NAME> next = this.nextOrNull();
         return this.append0(null != next ? next.append(patch) : patch);
@@ -138,7 +141,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     /**
-     * Performs the actual operation. Base is necessary for two step operations such as replace which need to relocate prior to executing the second half.
+     * Performs the actual operation.
      */
     abstract N apply0(final N node, final NodePointer<N, NAME> start);
 
