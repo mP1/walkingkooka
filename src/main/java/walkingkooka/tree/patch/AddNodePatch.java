@@ -20,6 +20,8 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 
 /**
@@ -37,12 +39,12 @@ final class AddNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> exten
 
     private AddNodePatch(final NodePointer<N, NAME> pointer,
                          final N value,
-                         final NodePatch<N, NAME> next) {
+                         final NonEmptyNodePatch<N, NAME> next) {
         super(pointer, value, next);
     }
 
     @Override
-    NodePatch<N, NAME> append0(final NodePatch<N, NAME> next) {
+    AddNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> next) {
         return new AddNodePatch<>(this.path,
                 this.value,
                 next);
@@ -60,6 +62,16 @@ final class AddNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> exten
 
     @Override
     String operation() {
-        return "add";
+        return ADD;
+    }
+
+    // HasJsonNode...............................................................................
+
+    private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
+            .set(OP_PROPERTY, JsonNode.string(ADD));
+
+    @Override
+    JsonObjectNode jsonObjectWithOp() {
+        return JSON_OBJECT_WITH_OPERATION;
     }
 }

@@ -20,6 +20,8 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
@@ -39,8 +41,17 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     }
 
     /**
+     * Creates an empty patch to begin addition of new operations.
+     */
+    @SuppressWarnings("unchecked")
+    static EmptyNodePatch<?, ?> getWildcard() {
+        return INSTANCE;
+    }
+
+    /**
      * Singleton instance
      */
+    @SuppressWarnings("unchecked")
     private final static EmptyNodePatch INSTANCE = new EmptyNodePatch<>();
 
     /**
@@ -54,7 +65,7 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
      * Adding a patch to this returns the patch.
      */
     @Override
-    NodePatch<N, NAME> append0(final NodePatch<N, NAME> next) {
+    NonEmptyNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> next) {
         return next;
     }
 
@@ -67,7 +78,7 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     }
 
     @Override
-    NodePatch<N, NAME> nextOrNull() {
+    NonEmptyNodePatch<N, NAME> nextOrNull() {
         return null; // end of patch.
     }
 
@@ -79,5 +90,18 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     @Override
     void toString0(final StringBuilder b) {
         throw new UnsupportedOperationException(); // never
+    }
+
+    // HasJsonNode.............................................................................................
+
+    /**
+     * An empty patch is represented as an empty {@link JsonArrayNode}.
+     * <pre>
+     * []
+     * </pre>
+     */
+    @Override
+    public JsonArrayNode toJsonNode() {
+        return JsonNode.array();
     }
 }

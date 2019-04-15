@@ -97,6 +97,11 @@ public final class TestNodePatchTest extends AddReplaceOrTestNodePatchTestCase<T
         return TestNodePatch.with(path, value);
     }
 
+    @Override
+    String operation() {
+        return "test";
+    }
+
     // ClassTesting2............................................................................
 
     @Override

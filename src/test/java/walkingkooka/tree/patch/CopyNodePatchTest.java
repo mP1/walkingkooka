@@ -49,7 +49,7 @@ public final class CopyNodePatchTest extends CopyOrMoveNodePatchTestCase<CopyNod
 
     @Override
     CopyNodePatch<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> from,
-                                        final NodePointer<JsonNode, JsonNodeName> path) {
+                                                      final NodePointer<JsonNode, JsonNodeName> path) {
         return CopyNodePatch.with(from, path);
     }
 

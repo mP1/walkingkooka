@@ -21,9 +21,12 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Base class for both copy and move operations.
@@ -42,7 +45,7 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
 
     CopyOrMoveNodePatch(final NodePointer<N, NAME> from,
                         final NodePointer<N, NAME> path,
-                        final NodePatch<N, NAME> next) {
+                        final NonEmptyNodePatch<N, NAME> next) {
         super(path, next);
         this.from = from;
     }
@@ -79,4 +82,28 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
      * Should return either "copy" or "move".
      */
     abstract String operation();
+
+    /**
+     * <pre>
+     * {
+     *     "op": "add",
+     *     "path-name-type": "json-property-name",
+     *     "from: "/1/2/from"
+     *     "path": "/1/2/target",
+     *     "value-type": "json-node",
+     *     "value": []
+     * }
+     * </pre>
+     */
+    @Override
+    final JsonObjectNode toJsonNode0(final JsonObjectNode object) {
+        Optional<JsonStringNode> type = NonEmptyNodePatchNodePointerVisitor.pathNameType(this.from);
+        if(!type.isPresent()) {
+            type = NonEmptyNodePatchNodePointerVisitor.pathNameType(this.path);
+        }
+
+        return this.setPath(
+                this.setPathComponentType(object, type)
+                .set(FROM_PROPERTY, pathToJsonNode(this.from)));
+    }
 }

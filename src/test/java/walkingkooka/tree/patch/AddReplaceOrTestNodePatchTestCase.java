@@ -34,6 +34,96 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
         this.checkNotEquals(this.createPatch(this.path1(), JsonNode.string("different")));
     }
 
+    @Test
+    public final void testFromJsonNodeFromPropertyFails() {
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"from\": \"/A1\", \"path\": \"/a1\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+    }
+
+    @Test
+    public final void testFromJsonNodePathNameTypeMissingFails() {
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path\": \"/a1\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+    }
+
+    @Test
+    public final void testFromJsonNodePathMissingFails() {
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+    }
+
+    @Test
+    public final void testFromJsonNodePathInvalidFails() {
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"!!!\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+    }
+
+    @Test
+    public final void testFromJsonNodeValueTypeMissingFails() {
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value\": \"value1\"}]");
+    }
+
+    @Test
+    public final void testFromJsonNodeValueMissingFails() {
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value-type\": \"json-string\"}]");
+    }
+
+    @Test
+    public final void testFromJsonNode() {
+        this.fromJsonNodeAndCheck2("[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"path-name-type\": \"json-property-name\",\n" +
+                        "  \"path\": \"/a1\",\n" +
+                        "  \"value-type\": \"json-string\",\n" +
+                        "  \"value\": \"value1\"\n" +
+                        "}]",
+                this.createPatch());
+    }
+
+    @Test
+    public final void testFromJsonNode2() {
+        this.fromJsonNodeAndCheck2("[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"path-name-type\": \"json-property-name\",\n" +
+                        "  \"path\": \"/b2\",\n" +
+                        "  \"value-type\": \"json-string\",\n" +
+                        "  \"value\": \"value2\"\n" +
+                        "}]",
+                this.createPatch(this.path2(), this.value2()));
+    }
+
+    @Test
+    public final void testFromJsonNodeMissingPathNameType() {
+        this.fromJsonNodeAndCheck2("[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"path-name-type\": \"json-property-name\",\n" +
+                        "  \"path\": \"/123\",\n" +
+                        "  \"value-type\": \"json-string\",\n" +
+                        "  \"value\": \"value1\"\n" +
+                        "}]",
+                this.createPatch(NodePointer.indexed(123, JsonNode.class)));
+    }
+
+    @Test
+    public final void testToJsonNode() {
+        this.toJsonNodeAndCheck2(this.createPatch(),
+                "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+    }
+
+    @Test
+    public final void testToJsonNode2() {
+        this.toJsonNodeAndCheck2(this.createPatch(this.path2(), this.value2()),
+                "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/b2\", \"value-type\": \"json-string\", \"value\": \"value2\"}]");
+    }
+
+    @Test
+    public final void testToJsonNodeRoundtrip() {
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createPatch()
+                .add(this.path2(), this.value2()));
+    }
+
+    public final void testToJsonNodeRoundtrip2() {
+        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createPatch()
+                .add(this.path2(), this.value2())
+                .add(this.path3(), this.value3()));
+    }
+
     @Override
     final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
         return this.createPatch(path, this.value1());
