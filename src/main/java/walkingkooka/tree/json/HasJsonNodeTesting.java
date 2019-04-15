@@ -75,11 +75,20 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
         });
     }
 
+    default void fromJsonNodeAndCheck(final String from,
+                                      final HasJsonNode has) {
+        this.fromJsonNodeAndCheck(JsonNode.parse(from), has);
+    }
+
     default void fromJsonNodeAndCheck(final JsonNode from,
                                       final HasJsonNode has) {
         assertEquals(has,
                 this.fromJsonNode(from),
                 () -> "fromJsonNode failed " + from);
+    }
+
+    default void fromJsonNodeFails(final String from) {
+        this.fromJsonNodeFails(JsonNode.parse(from));
     }
 
     default void fromJsonNodeFails(final JsonNode from) {
