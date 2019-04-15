@@ -31,7 +31,6 @@ import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Base class for all non empty patch containing several helpers and a template for the function.
@@ -205,16 +204,6 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      */
     abstract JsonObjectNode toJsonNode1(final JsonObjectNode object,
                                         final NodePatchJsonFormat format);
-
-    /**
-     * Adds the path component type properites if necessary to the given object.
-     */
-    final JsonObjectNode setPathComponentType(final JsonObjectNode object,
-                                              final Optional<JsonStringNode> pathComponentType) {
-        return pathComponentType
-                .map(t -> object.set(NodePatch.PATH_NAME_TYPE_PROPERTY, t))
-                .orElse(object);
-    }
 
     /**
      * Adds the path and path component type properites to the given object.
