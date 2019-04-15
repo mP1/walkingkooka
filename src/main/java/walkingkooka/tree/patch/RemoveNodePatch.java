@@ -27,7 +27,7 @@ import walkingkooka.tree.pointer.NodePointer;
 import java.util.Objects;
 
 /**
- * Represents an remove operation within a patch.
+ * Represents an REMOVE operation within a patch.
  */
 final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NonEmptyNodePatch<N, NAME> {
 
