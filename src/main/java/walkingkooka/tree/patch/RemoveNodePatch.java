@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -26,26 +27,26 @@ import java.util.Objects;
 /**
  * Represents an remove operation within a patch.
  */
-final class RemoveNodePatch<N extends Node<N, ?, ?, ?>> extends NonEmptyNodePatch<N> {
+final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NonEmptyNodePatch<N, NAME> {
 
-    static <N extends Node<N, ?, ?, ?>> RemoveNodePatch<N> with(final NodePointer<N, ?> path) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> RemoveNodePatch<N, NAME> with(final NodePointer<N, NAME> path) {
         checkPath(path);
 
         return new RemoveNodePatch<>(path, null);
     }
 
-    private RemoveNodePatch(final NodePointer<N, ?> path,
-                            final NodePatch<N> next) {
+    private RemoveNodePatch(final NodePointer<N, NAME> path,
+                            final NodePatch<N, NAME> next) {
         super(path, next);
     }
 
     @Override
-    NodePatch<N> append0(final NodePatch<N> next) {
+    NodePatch<N, NAME> append0(final NodePatch<N, NAME> next) {
         return new RemoveNodePatch<>(this.path, next);
     }
 
     @Override
-    final N apply1(final N node, final NodePointer<N, ?> start) {
+    final N apply1(final N node, final NodePointer<N, NAME> start) {
         return this.remove0(node, this.path, start);
     }
 
@@ -62,7 +63,7 @@ final class RemoveNodePatch<N extends Node<N, ?, ?, ?>> extends NonEmptyNodePatc
     }
 
     @Override
-    boolean equals1(final NonEmptyNodePatch<?> other) {
+    boolean equals1(final NonEmptyNodePatch<?, ?> other) {
         return this.path.equals(other.path);
     }
 

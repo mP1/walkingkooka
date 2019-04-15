@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
@@ -25,28 +26,28 @@ import walkingkooka.tree.pointer.NodePointerException;
 /**
  * Represents a copy patch operation.
  */
-final class CopyNodePatch<N extends Node<N, ?, ?, ?>> extends CopyOrMoveNodePatch<N> {
+final class CopyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends CopyOrMoveNodePatch<N, NAME> {
 
-    static <N extends Node<N, ?, ?, ?>> CopyNodePatch<N> with(final NodePointer<N, ?> from,
-                                                              final NodePointer<N, ?> path) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> CopyNodePatch<N, NAME> with(final NodePointer<N, NAME> from,
+                                                                                          final NodePointer<N, NAME> path) {
         checkFromAndPath(from, path);
 
         return new CopyNodePatch<>(from, path, null);
     }
 
-    private CopyNodePatch(final NodePointer<N, ?> from,
-                          final NodePointer<N, ?> path,
-                          final NodePatch<N> next) {
+    private CopyNodePatch(final NodePointer<N, NAME> from,
+                          final NodePointer<N, NAME> path,
+                          final NodePatch<N, NAME> next) {
         super(from, path, next);
     }
 
     @Override
-    NodePatch<N> append0(final NodePatch<N> patch) {
+    NodePatch<N, NAME> append0(final NodePatch<N, NAME> patch) {
         return new CopyNodePatch<>(this.from, this.path, patch);
     }
 
     @Override
-    N apply1(final N node, final NodePointer<N, ?> start) {
+    N apply1(final N node, final NodePointer<N, NAME> start) {
         final N copying = this.from.traverse(node)
                 .orElseThrow(() -> new NodePointerException("Unable to navigate to find node to copy from: " + node));
         return this.add0(node, copying, start);

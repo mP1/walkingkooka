@@ -28,25 +28,25 @@ public class ApplyNodePatchException extends NodePatchException {
     private static final long serialVersionUID = 1L;
 
     public ApplyNodePatchException(final String message,
-                                   final NodePatch<?> patch) {
+                                   final NodePatch<?, ?> patch) {
         super(message);
         this.patch = checkPatch(patch);
     }
 
     public ApplyNodePatchException(final String message,
-                                   final NodePatch<?> patch,
+                                   final NodePatch<?, ?> patch,
                                    final Throwable cause) {
         super(message, cause);
         this.patch = checkPatch(patch);
     }
 
-    private static NodePatch<?> checkPatch(final NodePatch<?> patch) {
+    private static NodePatch<?, ?> checkPatch(final NodePatch<?, ?> patch) {
         return Objects.requireNonNull(patch, "patch");
     }
 
-    public NodePatch<?> patch() {
+    public NodePatch<?, ?> patch() {
         return this.patch;
     }
 
-    private final NodePatch<?> patch;
+    private final NodePatch<?, ?> patch;
 }

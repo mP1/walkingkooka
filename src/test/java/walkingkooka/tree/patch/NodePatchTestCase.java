@@ -79,7 +79,7 @@ public abstract class NodePatchTestCase<P> implements ClassTesting2<P>,
         return NodePointer.parse(path, JsonNodeName::with, JsonNode.class);
     }
 
-    final void applyAndCheck(final NodePatch<JsonNode> patch,
+    final void applyAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
                              final String before,
                              final String expected) {
         this.applyAndCheck(patch,
@@ -87,7 +87,7 @@ public abstract class NodePatchTestCase<P> implements ClassTesting2<P>,
                 JsonNode.parse(expected));
     }
 
-    final void applyAndCheck(final NodePatch<JsonNode> patch,
+    final void applyAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
                              final JsonNode before,
                              final JsonNode expected) {
         assertEquals(expected,
@@ -95,12 +95,12 @@ public abstract class NodePatchTestCase<P> implements ClassTesting2<P>,
                 () -> "patch " + patch + " failed");
     }
 
-    final ApplyNodePatchException applyFails(final NodePatch<JsonNode> patch,
+    final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonNodeName> patch,
                                              final String json) {
         return this.applyFails(patch, JsonNode.parse(json));
     }
 
-    final ApplyNodePatchException applyFails(final NodePatch<JsonNode> patch,
+    final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonNodeName> patch,
                                              final JsonNode before) {
         return assertThrows(ApplyNodePatchException.class, () -> {
             patch.apply(before);

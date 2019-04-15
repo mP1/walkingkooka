@@ -18,37 +18,38 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
 /**
  * Represents an add operation within a patch.
  */
-final class AddNodePatch<N extends Node<N, ?, ?, ?>> extends AddReplaceOrTestNodePatch<N> {
+final class AddNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends AddReplaceOrTestNodePatch<N, NAME> {
 
-    static <N extends Node<N, ?, ?, ?>> AddNodePatch<N> with(final NodePointer<N, ?> path,
-                                                             final N value) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> AddNodePatch<N, NAME> with(final NodePointer<N, NAME> path,
+                                                                                         final N value) {
         checkPath(path);
         checkValue(value);
 
         return new AddNodePatch<>(path, value, null);
     }
 
-    private AddNodePatch(final NodePointer<N, ?> pointer,
+    private AddNodePatch(final NodePointer<N, NAME> pointer,
                          final N value,
-                         final NodePatch<N> next) {
+                         final NodePatch<N, NAME> next) {
         super(pointer, value, next);
     }
 
     @Override
-    NodePatch<N> append0(final NodePatch<N> next) {
+    NodePatch<N, NAME> append0(final NodePatch<N, NAME> next) {
         return new AddNodePatch<>(this.path,
                 this.value,
                 next);
     }
 
     @Override
-    final N apply1(final N node, final NodePointer<N, ?> start) {
+    final N apply1(final N node, final NodePointer<N, NAME> start) {
         return this.add0(node, this.value, start);
     }
 

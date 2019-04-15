@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -26,13 +27,13 @@ import java.util.Objects;
 /**
  * An empty patch, which also acts at the starting point for building a multi step patch.
  */
-final class EmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N> {
+final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatch<N, NAME> {
 
     /**
      * Creates an empty patch to begin addition of new operations.
      */
     @SuppressWarnings("unchecked")
-    static <N extends Node<N, ?, ?, ?>> EmptyNodePatch<N> get(final Class<N> type) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> EmptyNodePatch<N, NAME> get(final Class<N> type) {
         Objects.requireNonNull(type, "type");
         return INSTANCE;
     }
@@ -40,7 +41,6 @@ final class EmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N> {
     /**
      * Singleton instance
      */
-    @SuppressWarnings("unchecked")
     private final static EmptyNodePatch INSTANCE = new EmptyNodePatch<>();
 
     /**
@@ -54,7 +54,7 @@ final class EmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N> {
      * Adding a patch to this returns the patch.
      */
     @Override
-    NodePatch<N> append0(final NodePatch<N> next) {
+    NodePatch<N, NAME> append0(final NodePatch<N, NAME> next) {
         return next;
     }
 
@@ -62,12 +62,12 @@ final class EmptyNodePatch<N extends Node<N, ?, ?, ?>> extends NodePatch<N> {
      * Do nothing and return the original {@link Node}.
      */
     @Override
-    N apply0(final N node, final NodePointer<N, ?> start) {
+    N apply0(final N node, final NodePointer<N, NAME> start) {
         return node;
     }
 
     @Override
-    NodePatch<N> nextOrNull() {
+    NodePatch<N, NAME> nextOrNull() {
         return null; // end of patch.
     }
 

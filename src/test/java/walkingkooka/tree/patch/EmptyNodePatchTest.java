@@ -21,11 +21,12 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EmptyNodePatchTest extends NodePatchTestCase2<EmptyNodePatch<JsonNode>> {
+public final class EmptyNodePatchTest extends NodePatchTestCase2<EmptyNodePatch<JsonNode, JsonNodeName>> {
 
     @Test
     public void testWithNullTypeFails() {
@@ -36,7 +37,7 @@ public final class EmptyNodePatchTest extends NodePatchTestCase2<EmptyNodePatch<
 
     @Test
     public void testWith() {
-        final EmptyNodePatch<JsonNode> patch = EmptyNodePatch.get(JsonNode.class);
+        final EmptyNodePatch<JsonNode, JsonNodeName> patch = EmptyNodePatch.get(JsonNode.class);
         assertNotNull(patch);
     }
 
@@ -54,14 +55,14 @@ public final class EmptyNodePatchTest extends NodePatchTestCase2<EmptyNodePatch<
     }
 
     @Override
-    EmptyNodePatch<JsonNode> createPatch() {
+    EmptyNodePatch<JsonNode, JsonNodeName> createPatch() {
         return EmptyNodePatch.get(JsonNode.class);
     }
 
     // ClassTesting2............................................................................
 
     @Override
-    public Class<EmptyNodePatch<JsonNode>> type() {
+    public Class<EmptyNodePatch<JsonNode, JsonNodeName>> type() {
         return Cast.to(EmptyNodePatch.class);
     }
 

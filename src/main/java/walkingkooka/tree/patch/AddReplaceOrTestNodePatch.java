@@ -19,6 +19,7 @@
 package walkingkooka.tree.patch;
 
 import walkingkooka.Cast;
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -27,15 +28,15 @@ import java.util.Objects;
 /**
  * Base class for both add and replace.
  */
-abstract class AddReplaceOrTestNodePatch<N extends Node<N, ?, ?, ?>> extends NonEmptyNodePatch<N> {
+abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NonEmptyNodePatch<N, NAME> {
 
     static void checkValue(final Node<?, ?, ?, ?> node) {
         Objects.requireNonNull(node, "node");
     }
 
-    AddReplaceOrTestNodePatch(final NodePointer<N, ?> path,
+    AddReplaceOrTestNodePatch(final NodePointer<N, NAME> path,
                               final N value,
-                              final NodePatch<N> next) {
+                              final NodePatch<N, NAME> next) {
         super(path, next);
         this.value = value;
     }
@@ -50,12 +51,12 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, ?, ?, ?>> extends Non
     }
 
     @Override
-    final boolean equals1(final NonEmptyNodePatch<?> other) {
+    final boolean equals1(final NonEmptyNodePatch<?, ?> other) {
         return this.path.equals(other.path) &&
                 this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final AddReplaceOrTestNodePatch<?> other) {
+    private boolean equals2(final AddReplaceOrTestNodePatch<?, ?> other) {
         return this.value.equals(other.value);
     }
 

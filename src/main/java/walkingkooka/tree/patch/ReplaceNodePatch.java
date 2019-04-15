@@ -18,30 +18,31 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
 /**
  * Represents an add operation within a patch.
  */
-final class ReplaceNodePatch<N extends Node<N, ?, ?, ?>> extends AddReplaceOrTestNodePatch<N> {
+final class ReplaceNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends AddReplaceOrTestNodePatch<N, NAME> {
 
-    static <N extends Node<N, ?, ?, ?>> ReplaceNodePatch<N> with(final NodePointer<N, ?> path,
-                                                                 final N value) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> ReplaceNodePatch<N, NAME> with(final NodePointer<N, NAME> path,
+                                                                                             final N value) {
         checkPath(path);
         checkValue(value);
 
         return new ReplaceNodePatch<>(path, value, null);
     }
 
-    private ReplaceNodePatch(final NodePointer<N, ?> path,
+    private ReplaceNodePatch(final NodePointer<N, NAME> path,
                              final N value,
-                             final NodePatch<N> next) {
+                             final NodePatch<N, NAME> next) {
         super(path, value, next);
     }
 
     @Override
-    NodePatch<N> append0(final NodePatch<N> next) {
+    NodePatch<N, NAME> append0(final NodePatch<N, NAME> next) {
         return new ReplaceNodePatch<>(this.path,
                 this.value,
                 next);
@@ -56,7 +57,7 @@ final class ReplaceNodePatch<N extends Node<N, ?, ?, ?>> extends AddReplaceOrTes
      * </pre>
      */
     @Override
-    final N apply1(final N node, final NodePointer<N, ?> start) {
+    final N apply1(final N node, final NodePointer<N, NAME> start) {
         return this.add0(this.remove0(node, this.path, start),
                 this.value,
                 start);

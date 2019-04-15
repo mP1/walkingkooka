@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.util.Optionals;
@@ -25,10 +26,10 @@ import walkingkooka.util.Optionals;
 /**
  * Represents a test node-patch operation.
  */
-final class TestNodePatch<N extends Node<N, ?, ?, ?>> extends AddReplaceOrTestNodePatch<N> {
+final class TestNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends AddReplaceOrTestNodePatch<N, NAME> {
 
-    static <N extends Node<N, ?, ?, ?>> TestNodePatch<N> with(final NodePointer<N, ?> path,
-                                                              final N value) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> TestNodePatch<N, NAME> with(final NodePointer<N, NAME> path,
+                                                                                          final N value) {
         checkPath(path);
         checkValue(value);
 
@@ -37,14 +38,14 @@ final class TestNodePatch<N extends Node<N, ?, ?, ?>> extends AddReplaceOrTestNo
                 null);
     }
 
-    private TestNodePatch(final NodePointer<N, ?> path,
+    private TestNodePatch(final NodePointer<N, NAME> path,
                           final N value,
-                          final NodePatch<N> next) {
+                          final NodePatch<N, NAME> next) {
         super(path, value, next);
     }
 
     @Override
-    NodePatch<N> append0(final NodePatch<N> next) {
+    NodePatch<N, NAME> append0(final NodePatch<N, NAME> next) {
         return new TestNodePatch<>(this.path,
                 this.value,
                 next);
@@ -54,7 +55,7 @@ final class TestNodePatch<N extends Node<N, ?, ?, ?>> extends AddReplaceOrTestNo
      * Find the node at the path and then test its value and then return the original {@link Node}.
      */
     @Override
-    final N apply1(final N node, final NodePointer<N, ?> start) {
+    final N apply1(final N node, final NodePointer<N, NAME> start) {
         Optionals.ifPresentOrElse(this.path.traverse(node),
                 this::test,
                 this::throwFailed);
