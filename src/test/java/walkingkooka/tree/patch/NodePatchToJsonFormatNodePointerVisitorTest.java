@@ -31,8 +31,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodePatchJsonFormatNodePointerVisitorTest extends NodePatchTestCase<NodePatchJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>>
-        implements NodePointerVisitorTesting<NodePatchJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>, JsonNode, JsonNodeName> {
+public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatchTestCase<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>>
+        implements NodePointerVisitorTesting<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>, JsonNode, JsonNodeName> {
 
     @Test
     public void testPathNameTypeNameAbsentFromPath() {
@@ -51,23 +51,23 @@ public final class NodePatchJsonFormatNodePointerVisitorTest extends NodePatchTe
 
     private void pathNameTypeAndCheck(final String path, final String typeName) {
         assertEquals(Optional.ofNullable(typeName).map(JsonNode::string),
-                NodePatchJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonNodeName::with, JsonNode.class)),
+                NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonNodeName::with, JsonNode.class)),
                 () -> "path: " + CharSequences.quoteAndEscape(path));
     }
 
     @Override
-    public NodePatchJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> createVisitor() {
-        return new NodePatchJsonFormatNodePointerVisitor<>();
+    public NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> createVisitor() {
+        return new NodePatchToJsonFormatNodePointerVisitor<>();
     }
 
     @Override
     public String typeNamePrefix() {
-        return NodePatchJsonFormat.class.getSimpleName();
+        return NodePatchToJsonFormat.class.getSimpleName();
     }
 
     @Override
-    public Class<NodePatchJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>> type() {
-        return Cast.to(NodePatchJsonFormatNodePointerVisitor.class);
+    public Class<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>> type() {
+        return Cast.to(NodePatchToJsonFormatNodePointerVisitor.class);
     }
 
     @Override

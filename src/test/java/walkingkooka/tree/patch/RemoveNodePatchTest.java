@@ -152,6 +152,31 @@ public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveN
                 .remove(this.path3()));
     }
 
+    // fromJsonPatch/toJsonPatch..........................................................................................
+
+    @Test
+    public final void testFromJsonPatch() {
+        this.fromJsonPatchAndCheck2("[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"path\": \"/a1\"\n" +
+                        "}]",
+                this.createPatch());
+    }
+
+    @Test
+    public final void testToJsonPatch() {
+        this.toJsonPatchAndCheck2(this.createPatch(),
+                "[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"path\": \"/a1\"\n" +
+                        "}]");
+    }
+
+    @Test
+    public final void testToJsonPatchFromJsonPatch() {
+
+    }
+
     // toString.....................................................................................................
 
     @Test

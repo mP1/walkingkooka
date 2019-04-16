@@ -118,10 +118,19 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
                 .add(this.path2(), this.value2()));
     }
 
+    @Test
     public final void testToJsonNodeRoundtrip2() {
         this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createPatch()
                 .add(this.path2(), this.value2())
                 .add(this.path3(), this.value3()));
+    }
+
+    // fromJsonPatch/toJsonPatch..........................................................................................
+
+    @Test
+    public final void testFromJsonPatch() {
+        this.fromJsonPatchAndCheck2("[{\"op\": \"$OP\", \"path\": \"/a1\", \"value\": \"value1\"}]",
+                this.createPatch());
     }
 
     @Test

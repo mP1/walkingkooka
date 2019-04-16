@@ -19,9 +19,15 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
+
+import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase2<P> {
 
@@ -63,6 +69,11 @@ public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<Json
                 "}]");
     }
 
+    @Test
+    public final void testToJsonPatchRoundtrip() {
+        this.toJsonPatchRoundtripAndCheck(this.createPatch());
+    }
+
     @Override
     final P createPatch() {
         return this.createPatch(this.path1());
@@ -79,16 +90,59 @@ public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<Json
     final void fromJsonNodeFails2(final String json) {
         this.fromJsonNodeFails(json.replace("$OP", this.operation()));
     }
-
+    
     final void toJsonNodeAndCheck2(final NodePatch<JsonNode, JsonNodeName> patch,
                                    final String json) {
         this.toJsonNodeAndCheck(patch, json.replace("$OP", this.operation()));
+    }
+
+    final void fromJsonPatchAndCheck2(final String json,
+                                      final NodePatch<JsonNode, JsonNodeName> patch) {
+        this.fromJsonPatchAndCheck(json.replace("$OP", this.operation()),
+                patch);
+    }
+
+    final void fromJsonPatchFails2(final String json) {
+        this.fromJsonPatchFails(json.replace("$OP", this.operation()));
+    }
+
+    final void fromJsonPatchAndCheck(final String from,
+                                     final HasJsonNode has) {
+        this.fromJsonPatchAndCheck(JsonNode.parse(from), has);
+    }
+
+    final void fromJsonPatchAndCheck(final JsonNode from,
+                                     final HasJsonNode has) {
+        assertEquals(has,
+                this.fromJsonPatch(from),
+                () -> "fromJsonPatch failed " + from);
+    }
+
+    final void fromJsonPatchFails(final String from) {
+        this.fromJsonPatchFails(JsonNode.parse(from));
+    }
+
+    final void fromJsonPatchFails(final JsonNode from) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.fromJsonPatch(from);
+        });
+    }
+
+    final NodePatch<JsonNode, JsonNodeName> fromJsonPatch(final JsonNode node) {
+        return NodePatch.fromJsonPatch(node,
+                JsonNodeName::with,
+                Function.identity());
     }
 
     final void toJsonPatchAndCheck2(final NodePatch<JsonNode, JsonNodeName> patch,
                                     final String json) {
         this.toJsonPatchAndCheck(patch,
                 json.replace("$OP", this.operation()));
+    }
+
+    final void toJsonPatchRoundtripAndCheck(final NodePatch<JsonNode, JsonNodeName> patch) {
+        final JsonNode json = patch.toJsonPatch();
+        this.fromJsonPatchAndCheck(json, patch);
     }
 
     abstract String operation();

@@ -182,7 +182,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      * </pre>
      */
     @Override
-    final JsonArrayNode toJsonNode0(final NodePatchJsonFormat format) {
+    final JsonArrayNode toJsonNode0(final NodePatchToJsonFormat format) {
         final List<JsonNode> elements = Lists.array();
 
         NonEmptyNodePatch<N, NAME> patch = this;
@@ -203,7 +203,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      * Sub classes must return an object representing just this object. The object will already have the op and path properties set.
      */
     abstract JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                                        final NodePatchJsonFormat format);
+                                        final NodePatchToJsonFormat format);
 
     /**
      * Adds the path and path component type properites to the given object.

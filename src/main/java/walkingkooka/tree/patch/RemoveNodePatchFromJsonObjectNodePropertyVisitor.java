@@ -21,17 +21,19 @@ package walkingkooka.tree.patch;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonStringNode;
 
-final class RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor extends NodePatchJsonObjectNodePropertyVisitor {
+final class RemoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
 
-    static RemoveNodePatch<?, ?> remove(final JsonNode patch) {
-        final RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor visitor = new RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor(patch);
+    static RemoveNodePatch<?, ?> remove(final JsonNode patch,
+                                        final NodePatchFromJsonFormat format) {
+        final RemoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new RemoveNodePatchFromJsonObjectNodePropertyVisitor(patch, format);
         visitor.accept(patch);
-        return RemoveNodePatch.with(visitor.pathOrFail());
+        return RemoveNodePatch.with(visitor.path());
     }
 
     // VisibleForTesting
-    RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor(final JsonNode node) {
-        super(node);
+    RemoveNodePatchFromJsonObjectNodePropertyVisitor(final JsonNode node,
+                                                     final NodePatchFromJsonFormat format) {
+        super(node, format);
     }
 
     @Override

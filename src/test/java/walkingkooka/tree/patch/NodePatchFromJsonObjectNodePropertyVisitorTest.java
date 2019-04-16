@@ -20,15 +20,15 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.type.MemberVisibility;
 
-public final class NodePatchJsonFormatTest extends NodePatchTestCase<NodePatchJsonFormat> {
-
-    @Override
-    public Class<NodePatchJsonFormat> type() {
-        return NodePatchJsonFormat.class;
-    }
+public final class NodePatchFromJsonObjectNodePropertyVisitorTest extends NodePatchTestCase<NodePatchFromJsonObjectNodePropertyVisitor> {
 
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public Class<NodePatchFromJsonObjectNodePropertyVisitor> type() {
+        return NodePatchFromJsonObjectNodePropertyVisitor.class;
     }
 }
