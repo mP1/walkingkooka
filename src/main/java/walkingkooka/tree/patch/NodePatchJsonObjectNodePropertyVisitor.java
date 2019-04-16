@@ -53,7 +53,7 @@ abstract class NodePatchJsonObjectNodePropertyVisitor extends Visitor<JsonNode> 
                 case NodePatch.OP:
                     break;
                 case NodePatch.PATH_NAME_TYPE:
-                    this.visitPathComponentType(property);
+                    this.visitPathNameType(property);
                     break;
                 case NodePatch.FROM:
                     this.visitFrom(stringOrFail(property, propertyName));
@@ -75,14 +75,14 @@ abstract class NodePatchJsonObjectNodePropertyVisitor extends Visitor<JsonNode> 
 
     // PATH COMPONENT TYPE .............................................................................................
 
-    final void visitPathComponentType(final JsonNode pathComponentType) {
-        this.pathComponentType = typeOrFail(pathComponentType, NodePatch.PATH_NAME_TYPE_PROPERTY);
+    final void visitPathNameType(final JsonNode pathNameType) {
+        this.pathNameType = typeOrFail(pathNameType, NodePatch.PATH_NAME_TYPE_PROPERTY);
     }
 
-    private Class<?> pathComponentType;
+    private Class<?> pathNameType;
 
     final Class<Name> pathNameTypeOrFail() {
-        return Cast.to(propertyOrFail(this.pathComponentType, NodePatch.PATH_NAME_TYPE_PROPERTY));
+        return Cast.to(propertyOrFail(this.pathNameType, NodePatch.PATH_NAME_TYPE_PROPERTY));
     }
 
     // FROM ........................................................................................................

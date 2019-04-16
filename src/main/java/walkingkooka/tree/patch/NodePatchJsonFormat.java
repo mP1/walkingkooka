@@ -28,15 +28,15 @@ import java.util.Optional;
 enum NodePatchJsonFormat {
     JSON {
         @Override
-        JsonObjectNode setPathComponentType(final JsonObjectNode object,
-                                            final NodePointer<?, ?> path) {
+        JsonObjectNode setPathNameType(final JsonObjectNode object,
+                                       final NodePointer<?, ?> path) {
             return object;
         }
 
         @Override
-        JsonObjectNode setPathComponentType(final JsonObjectNode object,
-                                            final NodePointer<?, ?> from,
-                                            final NodePointer<?, ?> path) {
+        JsonObjectNode setPathNameType(final JsonObjectNode object,
+                                       final NodePointer<?, ?> from,
+                                       final NodePointer<?, ?> path) {
             return object;
         }
 
@@ -48,29 +48,29 @@ enum NodePatchJsonFormat {
     },
     NODE_PATCH {
         @Override
-        JsonObjectNode setPathComponentType(final JsonObjectNode object,
-                                            final NodePointer<?, ?> path) {
-            return this.setPathComponentType0(object,
+        JsonObjectNode setPathNameType(final JsonObjectNode object,
+                                       final NodePointer<?, ?> path) {
+            return this.setPathNameType0(object,
                     NodePatchJsonFormatNodePointerVisitor.pathNameType(path));
         }
 
         @Override
-        JsonObjectNode setPathComponentType(final JsonObjectNode object,
-                                            final NodePointer<?, ?> from,
-                                            final NodePointer<?, ?> path) {
+        JsonObjectNode setPathNameType(final JsonObjectNode object,
+                                       final NodePointer<?, ?> from,
+                                       final NodePointer<?, ?> path) {
             Optional<JsonStringNode> type = NodePatchJsonFormatNodePointerVisitor.pathNameType(from);
             if (!type.isPresent()) {
                 type = NodePatchJsonFormatNodePointerVisitor.pathNameType(path);
             }
-            return this.setPathComponentType0(object, type);
+            return this.setPathNameType0(object, type);
         }
 
         /**
          * Adds the path component type properites if necessary to the given object.
          */
-        private JsonObjectNode setPathComponentType0(final JsonObjectNode object,
-                                                     final Optional<JsonStringNode> pathComponentType) {
-            return pathComponentType
+        private JsonObjectNode setPathNameType0(final JsonObjectNode object,
+                                                final Optional<JsonStringNode> pathNameType) {
+            return pathNameType
                     .map(t -> object.set(NodePatch.PATH_NAME_TYPE_PROPERTY, t))
                     .orElse(object);
         }
@@ -91,12 +91,12 @@ enum NodePatchJsonFormat {
         }
     };
 
-    abstract JsonObjectNode setPathComponentType(final JsonObjectNode object,
-                                                 final NodePointer<?, ?> path);
+    abstract JsonObjectNode setPathNameType(final JsonObjectNode object,
+                                            final NodePointer<?, ?> path);
 
-    abstract JsonObjectNode setPathComponentType(final JsonObjectNode object,
-                                                 final NodePointer<?, ?> from,
-                                                 final NodePointer<?, ?> path);
+    abstract JsonObjectNode setPathNameType(final JsonObjectNode object,
+                                            final NodePointer<?, ?> from,
+                                            final NodePointer<?, ?> path);
 
     abstract JsonObjectNode setValueType(final JsonObjectNode object,
                                          final Object value);

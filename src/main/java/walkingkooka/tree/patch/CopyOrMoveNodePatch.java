@@ -97,7 +97,7 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
     final JsonObjectNode toJsonNode1(final JsonObjectNode object,
                                      final NodePatchJsonFormat format) {
         return this.setPath(
-                format.setPathComponentType(object, this.from, this.path)
+                format.setPathNameType(object, this.from, this.path)
                 .set(FROM_PROPERTY, pathToJsonNode(this.from)));
     }
 }
