@@ -97,6 +97,6 @@ final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
     @Override
     JsonObjectNode toJsonNode1(final JsonObjectNode object,
                                final NodePatchJsonFormat format) {
-        return this.setPath(format.setPathComponentType(object, this.path));
+        return this.setPath(format.setPathNameType(object, this.path));
     }
 }

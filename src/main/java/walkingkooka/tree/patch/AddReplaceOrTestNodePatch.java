@@ -94,7 +94,7 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
                                      final NodePatchJsonFormat format) {
         final N value = this.value;
 
-        return format.setValueType(this.setPath(format.setPathComponentType(object, this.path)),
+        return format.setValueType(this.setPath(format.setPathNameType(object, this.path)),
                 value)
                 .set(VALUE_PROPERTY, HasJsonNode.toJsonNodeObject(value));
     }
