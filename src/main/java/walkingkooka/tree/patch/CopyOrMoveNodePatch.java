@@ -95,7 +95,7 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
      */
     @Override
     final JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                                     final NodePatchJsonFormat format) {
+                                     final NodePatchToJsonFormat format) {
         return this.setPath(
                 format.setPathNameType(object, this.from, this.path)
                 .set(FROM_PROPERTY, pathToJsonNode(this.from)));

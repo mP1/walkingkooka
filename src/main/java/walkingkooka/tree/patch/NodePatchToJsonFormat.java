@@ -25,48 +25,29 @@ import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Optional;
 
-enum NodePatchJsonFormat {
-    JSON {
-        @Override
-        JsonObjectNode setPathNameType(final JsonObjectNode object,
-                                       final NodePointer<?, ?> path) {
-            return object;
-        }
+enum NodePatchToJsonFormat {
 
-        @Override
-        JsonObjectNode setPathNameType(final JsonObjectNode object,
-                                       final NodePointer<?, ?> from,
-                                       final NodePointer<?, ?> path) {
-            return object;
-        }
-
-        @Override
-        JsonObjectNode setValueType(final JsonObjectNode object,
-                                    final Object value) {
-            return object;
-        }
-    },
-    NODE_PATCH {
+    HAS_JSON_NODE {
         @Override
         JsonObjectNode setPathNameType(final JsonObjectNode object,
                                        final NodePointer<?, ?> path) {
             return this.setPathNameType0(object,
-                    NodePatchJsonFormatNodePointerVisitor.pathNameType(path));
+                    NodePatchToJsonFormatNodePointerVisitor.pathNameType(path));
         }
 
         @Override
         JsonObjectNode setPathNameType(final JsonObjectNode object,
                                        final NodePointer<?, ?> from,
                                        final NodePointer<?, ?> path) {
-            Optional<JsonStringNode> type = NodePatchJsonFormatNodePointerVisitor.pathNameType(from);
+            Optional<JsonStringNode> type = NodePatchToJsonFormatNodePointerVisitor.pathNameType(from);
             if (!type.isPresent()) {
-                type = NodePatchJsonFormatNodePointerVisitor.pathNameType(path);
+                type = NodePatchToJsonFormatNodePointerVisitor.pathNameType(path);
             }
             return this.setPathNameType0(object, type);
         }
 
         /**
-         * Adds the path component type properites if necessary to the given object.
+         * Adds the path component type properties if necessary to the given object.
          */
         private JsonObjectNode setPathNameType0(final JsonObjectNode object,
                                                 final Optional<JsonStringNode> pathNameType) {
@@ -88,6 +69,26 @@ enum NodePatchJsonFormat {
         private JsonStringNode typeOrFail(final Object value) {
             return HasJsonNode.typeName(value.getClass())
                     .orElseThrow(() -> new IllegalArgumentException("Type not registered as supporting json: " + value));
+        }
+    },
+    JSON_PATCH {
+        @Override
+        JsonObjectNode setPathNameType(final JsonObjectNode object,
+                                       final NodePointer<?, ?> path) {
+            return object;
+        }
+
+        @Override
+        JsonObjectNode setPathNameType(final JsonObjectNode object,
+                                       final NodePointer<?, ?> from,
+                                       final NodePointer<?, ?> path) {
+            return object;
+        }
+
+        @Override
+        JsonObjectNode setValueType(final JsonObjectNode object,
+                                    final Object value) {
+            return object;
         }
     };
 

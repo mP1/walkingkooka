@@ -101,7 +101,7 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
      * </pre>
      */
     @Override
-    JsonArrayNode toJsonNode0(final NodePatchJsonFormat format) {
+    JsonArrayNode toJsonNode0(final NodePatchToJsonFormat format) {
         return JsonNode.array();
     }
 }

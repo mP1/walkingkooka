@@ -18,10 +18,10 @@
 
 package walkingkooka.tree.patch;
 
-public final class RemoveNodePatchNodePatchJsonObjectNodePropertyVisitorTest extends NodePatchJsonObjectNodePropertyVisitorTestCase<RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor>{
+public final class RemoveNodePatchFromJsonObjectNodePropertyVisitorTest extends NodePatchFromJsonObjectNodePropertyVisitorTestCase<RemoveNodePatchFromJsonObjectNodePropertyVisitor> {
     @Override
-    public RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor createVisitor() {
-        return new RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor(null);
+    public RemoveNodePatchFromJsonObjectNodePropertyVisitor createVisitor() {
+        return new RemoveNodePatchFromJsonObjectNodePropertyVisitor(null, null);
     }
 
     @Override
@@ -30,7 +30,7 @@ public final class RemoveNodePatchNodePatchJsonObjectNodePropertyVisitorTest ext
     }
 
     @Override
-    public Class<RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor> type() {
-        return RemoveNodePatchNodePatchJsonObjectNodePropertyVisitor.class;
+    public Class<RemoveNodePatchFromJsonObjectNodePropertyVisitor> type() {
+        return RemoveNodePatchFromJsonObjectNodePropertyVisitor.class;
     }
 }

@@ -40,7 +40,7 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
                               final N value,
                               final NonEmptyNodePatch<N, NAME> next) {
         super(path, next);
-        this.value = value;
+        this.value = value.removeParent();
     }
 
     final N value;
@@ -91,7 +91,7 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
      */
     @Override
     final JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                                     final NodePatchJsonFormat format) {
+                                     final NodePatchToJsonFormat format) {
         final N value = this.value;
 
         return format.setValueType(this.setPath(format.setPathNameType(object, this.path)),

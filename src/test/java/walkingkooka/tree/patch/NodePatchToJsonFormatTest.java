@@ -18,19 +18,17 @@
 
 package walkingkooka.tree.patch;
 
-public final class AddReplaceOrTestNodePatchNodePatchJsonObjectNodePropertyVisitorTest extends NodePatchJsonObjectNodePropertyVisitorTestCase<AddReplaceOrTestNodePatchNodePatchJsonObjectNodePropertyVisitor>{
+import walkingkooka.type.MemberVisibility;
+
+public final class NodePatchToJsonFormatTest extends NodePatchTestCase<NodePatchToJsonFormat> {
+
     @Override
-    public AddReplaceOrTestNodePatchNodePatchJsonObjectNodePropertyVisitor createVisitor() {
-        return new AddReplaceOrTestNodePatchNodePatchJsonObjectNodePropertyVisitor(null);
+    public Class<NodePatchToJsonFormat> type() {
+        return NodePatchToJsonFormat.class;
     }
 
     @Override
-    public String typeNamePrefix() {
-        return AddReplaceOrTestNodePatch.class.getSimpleName();
-    }
-
-    @Override
-    public Class<AddReplaceOrTestNodePatchNodePatchJsonObjectNodePropertyVisitor> type() {
-        return AddReplaceOrTestNodePatchNodePatchJsonObjectNodePropertyVisitor.class;
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

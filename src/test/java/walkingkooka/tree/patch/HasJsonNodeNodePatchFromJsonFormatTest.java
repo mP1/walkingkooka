@@ -18,19 +18,24 @@
 
 package walkingkooka.tree.patch;
 
-public final class CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitorTest extends NodePatchJsonObjectNodePropertyVisitorTestCase<CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor>{
-    @Override
-    public CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor createVisitor() {
-        return new CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor(null);
+import org.junit.jupiter.api.Test;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.type.MemberVisibility;
+
+public final class HasJsonNodeNodePatchFromJsonFormatTest extends NodePatchTestCase<HasJsonNodeNodePatchFromJsonFormat> {
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(HasJsonNodeNodePatchFromJsonFormat.INSTANCE, HasJsonNode.class.getSimpleName());
     }
 
     @Override
-    public String typeNamePrefix() {
-        return CopyOrMoveNodePatch.class.getSimpleName();
+    public Class<HasJsonNodeNodePatchFromJsonFormat> type() {
+        return HasJsonNodeNodePatchFromJsonFormat.class;
     }
 
     @Override
-    public Class<CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor> type() {
-        return CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor.class;
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

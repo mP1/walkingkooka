@@ -24,7 +24,40 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode, JsonNodeName>> {
+
+    @Test
+    public void testFromJsonPatchNullJsonNodeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            NodePatch.fromJsonPatch(null, this.nameFactory(), this.valueFactory());
+        });
+    }
+
+    @Test
+    public void testFromJsonPatchNullNameFactoryFails() {
+        assertThrows(NullPointerException.class, () -> {
+            NodePatch.fromJsonPatch(JsonNode.object(), null, this.valueFactory());
+        });
+    }
+
+    @Test
+    public void testFromJsonPatchNulValueFactorylFails() {
+        assertThrows(NullPointerException.class, () -> {
+            NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), null);
+        });
+    }
+
+    private Function<String, JsonNodeName> nameFactory() {
+        return JsonNodeName::with;
+    }
+
+    private Function<JsonNode, JsonNode> valueFactory() {
+        return Function.identity();
+    }
 
     @Test
     public void testTest() {

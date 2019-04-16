@@ -23,39 +23,44 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.pointer.NodePointer;
 
-final class CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor extends NodePatchJsonObjectNodePropertyVisitor {
+final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
 
-    static CopyNodePatch<?, ?> copy(final JsonNode patch) {
-        final CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor(patch);
+    static CopyNodePatch<?, ?> copy(final JsonNode patch,
+                                    final NodePatchFromJsonFormat format) {
+        final CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch,
+                format);
         visitor.accept(patch);
-        return CopyNodePatch.with(Cast.to(visitor.fromOrFail()), Cast.to(visitor.pathOrFail()));
+        return CopyNodePatch.with(Cast.to(visitor.from()), visitor.path());
     }
 
-    static MoveNodePatch<?, ?> move(final JsonNode patch) {
-        final CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor(patch);
+    static MoveNodePatch<?, ?> move(final JsonNode patch,
+                                    final NodePatchFromJsonFormat format) {
+        final CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch,
+                format);
         visitor.accept(patch);
-        return MoveNodePatch.with(Cast.to(visitor.fromOrFail()), Cast.to(visitor.pathOrFail()));
+        return MoveNodePatch.with(Cast.to(visitor.from()), visitor.path());
     }
 
     // VisibleForTesting
-    CopyOrMoveNodePatchNodePatchJsonObjectNodePropertyVisitor(final JsonNode patch) {
-        super(patch);
+    CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(final JsonNode patch,
+                                                         final NodePatchFromJsonFormat format) {
+        super(patch, format);
     }
 
     // FROM ........................................................................................
 
-    final void visitFrom(final JsonStringNode from) {
+    void visitFrom(final JsonStringNode from) {
         this.from = from;
     }
 
-    final NodePointer<?, ?> fromOrFail() {
-        return this.pathOrFail0(this.from, NodePatch.FROM_PROPERTY);
+    NodePointer<?, ?> from() {
+        return this.pathOrFail(this.from, NodePatch.FROM_PROPERTY);
     }
 
     /**
      * Once all properties are visited this will be converted into a {@link NodePointer}
      */
-    private JsonStringNode from;
+    JsonStringNode from;
 
     @Override
     void visitValueType(final JsonNode valueType) {
