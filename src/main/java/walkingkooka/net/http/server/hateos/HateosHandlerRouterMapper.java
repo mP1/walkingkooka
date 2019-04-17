@@ -97,44 +97,6 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
         return this;
     }
 
-    // HateosIdResourceValueHandler.............................................................................................
-
-    /**
-     * Adds or replaces a GET {@link HateosIdResourceValueHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> get(final HateosIdResourceValueHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.getId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceValue(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a POST {@link HateosIdResourceValueHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> post(final HateosIdResourceValueHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.postId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceValue(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a PUT {@link HateosIdResourceValueHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> put(final HateosIdResourceValueHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.putId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceValue(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a DELETE {@link HateosIdResourceValueHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> delete(final HateosIdResourceValueHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.deleteId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceValue(handler);
-        return this;
-    }
-
     // HateosIdResourceResourceHandler.............................................................................................
 
     /**
