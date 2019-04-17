@@ -27,16 +27,6 @@ abstract class HateosHandlerRouterMapperHateosHandlerMapping<H extends HateosHan
         S extends HateosResource<?>> {
 
     /**
-     * {@see HateosHandlerRouterMapperHateosIdResourceValueHandlerMapping}
-     */
-    static <I extends Comparable<I>,
-            R extends HateosResource<?>,
-            S extends HateosResource<?>>
-    HateosHandlerRouterMapperHateosIdHandlerMapping<HateosIdResourceValueHandler<I, R, S>, I, R, S> idResourceValue(final HateosIdResourceValueHandler<I, R, S> handler) {
-        return HateosHandlerRouterMapperHateosIdResourceValueHandlerMapping.with(handler);
-    }
-
-    /**
      * {@see HateosHandlerRouterMapperHateosIdResourceResourceHandlerMapping}
      */
     static <I extends Comparable<I>,
