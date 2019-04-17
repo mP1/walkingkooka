@@ -20,17 +20,16 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Holds all the mappers for a router mapping.
@@ -62,84 +61,43 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
     // HateosIdResourceResourceHandler.............................................................................................
 
     /**
-     * Adds or replaces a GET {@link HateosIdRangeResourceCollectionResourceCollectionHandler}.
+     * Adds or replaces a GET {@link HateosHandler}.
      */
-    public HateosHandlerRouterMapper<I, R, S> get(final HateosIdRangeResourceCollectionResourceCollectionHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.getIdRange = HateosHandlerRouterMapperHateosHandlerMapping.idRangeResourceCollectionResourceCollection(handler);
+    public HateosHandlerRouterMapper<I, R, S> get(final HateosHandler<I, R, S> handler) {
+        this.get = this.checkHandler(handler);
         return this;
     }
 
     /**
-     * Adds or replaces a POST {@link HateosIdRangeResourceCollectionResourceCollectionHandler}.
+     * Adds or replaces a POST {@link HateosHandler}.
      */
-    public HateosHandlerRouterMapper<I, R, S> post(final HateosIdRangeResourceCollectionResourceCollectionHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.postIdRange = HateosHandlerRouterMapperHateosHandlerMapping.idRangeResourceCollectionResourceCollection(handler);
+    public HateosHandlerRouterMapper<I, R, S> post(final HateosHandler<I, R, S> handler) {
+        this.post = this.checkHandler(handler);
         return this;
     }
 
     /**
-     * Adds or replaces a PUT {@link HateosIdRangeResourceCollectionResourceCollectionHandler}.
+     * Adds or replaces a PUT {@link HateosHandler}.
      */
-    public HateosHandlerRouterMapper<I, R, S> put(final HateosIdRangeResourceCollectionResourceCollectionHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.putIdRange = HateosHandlerRouterMapperHateosHandlerMapping.idRangeResourceCollectionResourceCollection(handler);
+    public HateosHandlerRouterMapper<I, R, S> put(final HateosHandler<I, R, S> handler) {
+        this.put = this.checkHandler(handler);
         return this;
     }
 
     /**
-     * Adds or replaces a DELETE {@link HateosIdRangeResourceCollectionResourceCollectionHandler}.
+     * Adds or replaces a DELETE {@link HateosHandler}.
      */
-    public HateosHandlerRouterMapper<I, R, S> delete(final HateosIdRangeResourceCollectionResourceCollectionHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.deleteIdRange = HateosHandlerRouterMapperHateosHandlerMapping.idRangeResourceCollectionResourceCollection(handler);
+    public HateosHandlerRouterMapper<I, R, S> delete(final HateosHandler<I, R, S> handler) {
+        this.delete = this.checkHandler(handler);
         return this;
     }
 
-    // HateosIdResourceResourceHandler.............................................................................................
-
-    /**
-     * Adds or replaces a GET {@link HateosIdResourceResourceHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> get(final HateosIdResourceResourceHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.getId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceResource(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a POST {@link HateosIdResourceResourceHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> post(final HateosIdResourceResourceHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.postId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceResource(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a PUT {@link HateosIdResourceResourceHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> put(final HateosIdResourceResourceHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.putId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceResource(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a DELETE {@link HateosIdResourceResourceHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> delete(final HateosIdResourceResourceHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.deleteId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceResource(handler);
-        return this;
+    private HateosHandler<I, R, S> checkHandler(final HateosHandler<I, R, S> handler) {
+        Objects.requireNonNull(handler, "handler");
+        return handler;
     }
 
     // helpers.................................................................................................
-
-    private void checkHandler(final Object handler) {
-        Objects.requireNonNull(handler, "handler");
-    }
 
     /**
      * Makes a defensive copy of this mappers. This is necessary when the router is created and the map copied from the builder.
@@ -148,15 +106,10 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
         final HateosHandlerRouterMapper<I, R, S> handlers = new HateosHandlerRouterMapper<>(this.stringToId,
                 this.inputResourceType);
 
-        handlers.getId = this.getId;
-        handlers.postId = this.postId;
-        handlers.putId = this.putId;
-        handlers.deleteId = this.deleteId;
-
-        handlers.getIdRange = this.getIdRange;
-        handlers.postIdRange = this.postIdRange;
-        handlers.putIdRange = this.putIdRange;
-        handlers.deleteIdRange = this.deleteIdRange;
+        handlers.get = this.get;
+        handlers.post = this.post;
+        handlers.put = this.put;
+        handlers.delete = this.delete;
 
         return handlers;
     }
@@ -170,18 +123,37 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
                                                final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final I id = this.idOrBadRequest(idText, request);
         if (null != id) {
-            final HateosHandlerRouterMapperHateosIdHandlerMapping<?, I, R, S> mapping = this.mappingIdOrResponseMethodNotAllowed(resourceName,
+            final HateosHandler<I, R, S> handler = this.handlerOrResponseMethodNotAllowed(resourceName,
                     linkRelation,
                     request);
-            if (null != mapping) {
+            if (null != handler) {
                 final String requestText = request.resourceTextOrBadRequest();
                 if (null != request) {
-                    mapping.handleId(resourceName,
-                            id,
-                            linkRelation,
-                            requestText,
+                    final HateosContentType<N> hateosContentType = request.hateosContentType();
+                    final Optional<R> requestResource = request.resourceOrBadRequest(requestText,
+                            hateosContentType,
                             this.inputResourceType,
                             request);
+
+                    if (null != requestResource) {
+                        final HttpRequest httpRequest = request.request;
+                        final HttpMethod method = httpRequest.method();
+                        String responseText = null;
+                        Optional<S> maybeResponseResource = handler.handle(id,
+                                requestResource,
+                                request.parameters);
+                        if (maybeResponseResource.isPresent()) {
+                            final S responseResource = maybeResponseResource.get();
+                            responseText = hateosContentType.toText(responseResource,
+                                    null,
+                                    method,
+                                    request.router.base,
+                                    resourceName,
+                                    request.router.linkRelations(resourceName));
+                        }
+
+                        request.setStatusAndBody(method + " resource successful", responseText);
+                    }
                 }
             }
         }
@@ -193,11 +165,11 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
     <N extends Node<N, ?, ?, ?>> void handleIdRange(final HateosResourceName resourceName,
                                                     final LinkRelation<?> linkRelation,
                                                     final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
-        final HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> mapping = this.mappingIdRangeOrResponseMethodNotAllowed(resourceName,
+        final HateosHandler<I, R, S> handler = this.handlerOrResponseMethodNotAllowed(resourceName,
                 linkRelation,
                 request);
-        if (null != mapping) {
-            this.handleIdRange0(resourceName, Range.all(), mapping, request);
+        if (null != handler) {
+            this.handleIdRange0(resourceName, Range.all(), handler, request);
         }
     }
 
@@ -212,24 +184,44 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
                                                     final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final Range<I> range = this.rangeOrBadRequest(begin, end, rangeText, request);
         if (null != range) {
-            final HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> mapping = this.mappingIdRangeOrResponseMethodNotAllowed(resourceName, linkRelation, request);
-            if (null != mapping) {
-                this.handleIdRange0(resourceName, range, mapping, request);
+            final HateosHandler<I, R, S> handler = this.handlerOrResponseMethodNotAllowed(resourceName, linkRelation, request);
+            if (null != handler) {
+                this.handleIdRange0(resourceName, range, handler, request);
             }
         }
     }
 
     private <N extends Node<N, ?, ?, ?>> void handleIdRange0(final HateosResourceName resourceName,
                                                              final Range<I> ids,
-                                                             final HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> mapping,
+                                                             final HateosHandler<I, R, S> handler,
                                                              final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N> request) {
         final String requestText = request.resourceTextOrBadRequest();
         if (null != requestText) {
-            mapping.handleIdRange(resourceName,
-                    ids,
-                    requestText,
+            final HateosContentType<N> hateosContentType = request.hateosContentType();
+            final Optional<R> requestResource = request.resourceOrBadRequest(requestText,
+                    hateosContentType,
                     this.inputResourceType,
                     request);
+
+            if (null != requestResource) {
+                final HttpRequest httpRequest = request.request;
+                final HttpMethod method = httpRequest.method();
+                String responseText = null;
+                Optional<S> maybeResponseResource = handler.handleCollection(ids,
+                        requestResource,
+                        request.parameters);
+                if (maybeResponseResource.isPresent()) {
+                    final S responseResource = maybeResponseResource.get();
+                    responseText = hateosContentType.toText(responseResource,
+                            null,
+                            method,
+                            request.router.base,
+                            resourceName,
+                            request.router.linkRelations(resourceName));
+                }
+
+                request.setStatusAndBody(method + " resource successful", responseText);
+            }
         }
     }
 
@@ -286,29 +278,29 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
     final Function<String, I> stringToId;
 
     /**
-     * Locates the {@link HateosHandlerRouterMapperHateosIdHandlerMapping} for the given request method or sets the response to method not allowed.
+     * Locates the {@link HateosHandler} for the given request method or sets the response to method not allowed.
      */
-    private HateosHandlerRouterMapperHateosIdHandlerMapping<?, I, R, S> mappingIdOrResponseMethodNotAllowed(final HateosResourceName resourceName,
-                                                                                                            final LinkRelation<?> linkRelation,
-                                                                                                            final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<?> request) {
-        HateosHandlerRouterMapperHateosIdHandlerMapping<?, I, R, S> mapping = null;
+    private HateosHandler<I, R, S> handlerOrResponseMethodNotAllowed(final HateosResourceName resourceName,
+                                                                     final LinkRelation<?> linkRelation,
+                                                                     final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<?> request) {
+        HateosHandler<I, R, S> mapping = null;
 
         do {
             final HttpMethod method = request.request.method();
             if (HttpMethod.GET.equals(method)) {
-                mapping = this.getId;
+                mapping = this.get;
                 break;
             }
             if (HttpMethod.POST.equals(method)) {
-                mapping = this.postId;
+                mapping = this.post;
                 break;
             }
             if (HttpMethod.PUT.equals(method)) {
-                mapping = this.putId;
+                mapping = this.put;
                 break;
             }
             if (HttpMethod.DELETE.equals(method)) {
-                mapping = this.deleteId;
+                mapping = this.delete;
                 break;
             }
         } while (false);
@@ -322,54 +314,10 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
     /**
      * These mappers will be null to indicate the method is not supported, otherwise the handler is invoked.
      */
-    HateosHandlerRouterMapperHateosIdHandlerMapping<?, I, R, S> getId;
-    HateosHandlerRouterMapperHateosIdHandlerMapping<?, I, R, S> postId;
-    HateosHandlerRouterMapperHateosIdHandlerMapping<?, I, R, S> putId;
-    HateosHandlerRouterMapperHateosIdHandlerMapping<?, I, R, S> deleteId;
-    
-    //.................................................................................................................
-
-    /**
-     * Locates the {@link HateosHandlerRouterMapperHateosIdRangeHandlerMapping} for the given request method or sets the response to method not allowed.
-     */
-    private HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> mappingIdRangeOrResponseMethodNotAllowed(final HateosResourceName resourceName,
-                                                                                                                      final LinkRelation<?> linkRelation,
-                                                                                                                      final HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<?> request) {
-        HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> mapping = null;
-
-        do {
-            final HttpMethod method = request.request.method();
-            if (HttpMethod.GET.equals(method)) {
-                mapping = this.getIdRange;
-                break;
-            }
-            if (HttpMethod.POST.equals(method)) {
-                mapping = this.postIdRange;
-                break;
-            }
-            if (HttpMethod.PUT.equals(method)) {
-                mapping = this.putIdRange;
-                break;
-            }
-            if (HttpMethod.DELETE.equals(method)) {
-                mapping = this.deleteIdRange;
-                break;
-            }
-        } while (false);
-
-        if (null == mapping) {
-            request.methodNotAllowed(resourceName, linkRelation);
-        }
-        return mapping;
-    }
-
-    /**
-     * These mappers will be null to indicate the method is not supported, otherwise the handler is invoked.
-     */
-    HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> getIdRange;
-    HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> postIdRange;
-    HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> putIdRange;
-    HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> deleteIdRange;
+    HateosHandler<I, R, S> get;
+    HateosHandler<I, R, S> post;
+    HateosHandler<I, R, S> put;
+    HateosHandler<I, R, S> delete;
 
     final Class<R> inputResourceType;
 
@@ -378,19 +326,11 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
         final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
 
-        b.label(HttpMethod.GET.toString()).value(listWithoutNulls(this.getId, this.getIdRange));
-        b.label(HttpMethod.POST.toString()).value(listWithoutNulls(this.postId, this.postIdRange));
-        b.label(HttpMethod.PUT.toString()).value(listWithoutNulls(this.putId, this.putIdRange));
-        b.label(HttpMethod.DELETE.toString()).value(listWithoutNulls(this.deleteId, this.deleteIdRange));
+        b.label(HttpMethod.GET.toString()).value(this.get);
+        b.label(HttpMethod.POST.toString()).value(this.post);
+        b.label(HttpMethod.PUT.toString()).value(this.put);
+        b.label(HttpMethod.DELETE.toString()).value(this.delete);
 
         return b.build();
-    }
-
-    private List<?> listWithoutNulls(final HateosHandlerRouterMapperHateosIdHandlerMapping<?, I, R, S> id,
-                                     final HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, I, R, S> range) {
-        return Lists.of(id, range)
-                .stream()
-                .filter(e -> null != e)
-                .collect(Collectors.toList());
     }
 }

@@ -18,11 +18,39 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.compare.Range;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.test.Fake;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link HateosHandler} where all methods throw {@link UnsupportedOperationException}.
  */
 public class FakeHateosHandler<I extends Comparable<I>, R extends HateosResource<?>, S extends HateosResource<?>>
         implements HateosHandler<I, R, S>, Fake {
+
+    @Override
+    public Optional<S> handle(final I id,
+                              final Optional<R> resource,
+                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(id, "id");
+        Objects.requireNonNull(resource, "resource");
+        Objects.requireNonNull(parameters, "parameters");
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<S> handleCollection(final Range<I> ids,
+                                        final Optional<R> resource,
+                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(ids, "ids");
+        Objects.requireNonNull(resource, "resource");
+        Objects.requireNonNull(parameters, "parameters");
+
+        throw new UnsupportedOperationException();
+    }
 }
