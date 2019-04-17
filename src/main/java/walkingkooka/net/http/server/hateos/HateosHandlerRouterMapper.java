@@ -97,44 +97,6 @@ public final class HateosHandlerRouterMapper<I extends Comparable<I>, R extends 
         return this;
     }
 
-    // HateosIdResourceCollectionResourceCollectionHandler.............................................................................................
-
-    /**
-     * Adds or replaces a GET {@link HateosIdResourceCollectionResourceCollectionHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> get(final HateosIdResourceCollectionResourceCollectionHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.getId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceCollectionResourceCollection(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a POST {@link HateosIdResourceCollectionResourceCollectionHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> post(final HateosIdResourceCollectionResourceCollectionHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.postId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceCollectionResourceCollection(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a PUT {@link HateosIdResourceCollectionResourceCollectionHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> put(final HateosIdResourceCollectionResourceCollectionHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.putId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceCollectionResourceCollection(handler);
-        return this;
-    }
-
-    /**
-     * Adds or replaces a DELETE {@link HateosIdResourceCollectionResourceCollectionHandler}.
-     */
-    public HateosHandlerRouterMapper<I, R, S> delete(final HateosIdResourceCollectionResourceCollectionHandler<I, R, S> handler) {
-        checkHandler(handler);
-        this.deleteId = HateosHandlerRouterMapperHateosHandlerMapping.idResourceCollectionResourceCollection(handler);
-        return this;
-    }
-
     // HateosIdResourceValueHandler.............................................................................................
 
     /**
