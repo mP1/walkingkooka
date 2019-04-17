@@ -65,110 +65,46 @@ public final class HateosHandlerRouterMapperTest extends HateosHandlerRouterTest
     public void testCopy() {
         final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource3> mappers = this.mapper();
 
-        final HateosHandlerRouterMapperHateosIdHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> getId = this.idMapping();
-        final HateosHandlerRouterMapperHateosIdHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> postId = this.idMapping();
-        final HateosHandlerRouterMapperHateosIdHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> putId = this.idMapping();
-        final HateosHandlerRouterMapperHateosIdHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> deleteId = this.idMapping();
+        final HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> get = this.handler();
+        final HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> post = this.handler();
+        final HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> put = this.handler();
+        final HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> delete = this.handler();
         
-        mappers.getId = getId;
-        mappers.postId = postId;
-        mappers.putId = putId;
-        mappers.deleteId = deleteId;
-
-        final HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> getIdRange = this.idRangeMapping();
-        final HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> postIdRange = this.idRangeMapping();
-        final HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> putIdRange = this.idRangeMapping();
-        final HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> deleteIdRange = this.idRangeMapping();
-
-        mappers.getIdRange = getIdRange;
-        mappers.postIdRange = postIdRange;
-        mappers.putIdRange = putIdRange;
-        mappers.deleteIdRange = deleteIdRange;
+        mappers.get = get;
+        mappers.post = post;
+        mappers.put = put;
+        mappers.delete = delete;
 
         final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource3> copy = mappers.copy();
 
-        assertSame(getId, copy.getId, "GET");
-        assertSame(postId, copy.postId, "POST");
-        assertSame(putId, copy.putId, "PUT");
-        assertSame(deleteId, copy.deleteId, "DELETE");
-
-        assertSame(getIdRange, copy.getIdRange, "GET");
-        assertSame(postIdRange, copy.postIdRange, "POST");
-        assertSame(putIdRange, copy.putIdRange, "PUT");
-        assertSame(deleteIdRange, copy.deleteIdRange, "DELETE");
+        assertSame(get, copy.get, "GET");
+        assertSame(post, copy.post, "POST");
+        assertSame(put, copy.put, "PUT");
+        assertSame(delete, copy.delete, "DELETE");
     }
 
-    private HateosHandlerRouterMapperHateosIdHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> idMapping() {
-        return this.idMapping(new FakeHateosIdResourceResourceHandler<>());
+    private HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> handler() {
+        return new FakeHateosHandler<>();
     }
 
-    private HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> idRangeMapping() {
-        return this.idRangeMapping(new FakeHateosIdRangeResourceCollectionResourceCollectionHandler<>());
-    }
-    
     @Test
     public void testToString() {
         final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource3> mappers = this.mapper();
 
-        mappers.getId = this.idMapping("G1");
-        mappers.postId = this.idMapping("P2");
-        mappers.putId = this.idMapping("P3");
-        mappers.deleteId = this.idMapping("D4");
+        mappers.get = this.handler("G1");
+        mappers.post = this.handler("P2");
+        mappers.put = this.handler("P3");
+        mappers.delete = this.handler("D4");
 
         this.toStringAndCheck(mappers, "GET=G1 POST=P2 PUT=P3 DELETE=D4");
     }
-
-    @Test
-    public void testToString2() {
-        final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource3> mappers = this.mapper();
-
-        mappers.getIdRange = this.idRangeMapping("G1");
-        mappers.postIdRange = this.idRangeMapping("P2");
-        mappers.putIdRange = this.idRangeMapping("P3");
-        mappers.deleteIdRange = this.idRangeMapping("D4");
-
-        this.toStringAndCheck(mappers, "GET=G1 POST=P2 PUT=P3 DELETE=D4");
-    }
-
-    @Test
-    public void testToString3() {
-        final HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource3> mappers = this.mapper();
-
-        mappers.getId = this.idMapping("G1");
-        mappers.postId = this.idMapping("P2");
-        mappers.putId = this.idMapping("P3");
-        mappers.deleteId = this.idMapping("D4");
-
-        mappers.getIdRange = this.idRangeMapping("G5");
-        mappers.postIdRange = this.idRangeMapping("P6");
-        mappers.putIdRange = this.idRangeMapping("P7");
-        mappers.deleteIdRange = this.idRangeMapping("D8");
-
-        this.toStringAndCheck(mappers, "GET=G1, G5 POST=P2, P6 PUT=P3, P7 DELETE=D4, D8");
-    }
-
-    private HateosHandlerRouterMapperHateosIdHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> idMapping(final String toString) {
-        return this.idMapping(new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
+    
+    private HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> handler(final String toString) {
+        return new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
             public String toString() {
                 return toString;
             }
-        });
-    }
-
-    private HateosHandlerRouterMapperHateosIdHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> idMapping(final HateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource3> handler) {
-        return HateosHandlerRouterMapperHateosIdHandlerMapping.idResourceResource(handler);
-    }
-
-    private HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> idRangeMapping(final String toString) {
-        return this.idRangeMapping(new FakeHateosIdRangeResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
-            public String toString() {
-                return toString;
-            }
-        });
-    }
-
-    private HateosHandlerRouterMapperHateosIdRangeHandlerMapping<?, BigInteger, TestHateosResource, TestHateosResource3> idRangeMapping(final HateosIdRangeResourceCollectionResourceCollectionHandler<BigInteger, TestHateosResource, TestHateosResource3> handler) {
-        return HateosHandlerRouterMapperHateosIdRangeHandlerMapping.idRangeResourceCollectionResourceCollection(handler);
+        };
     }
 
     private HateosHandlerRouterMapper<BigInteger, TestHateosResource, TestHateosResource3> mapper() {

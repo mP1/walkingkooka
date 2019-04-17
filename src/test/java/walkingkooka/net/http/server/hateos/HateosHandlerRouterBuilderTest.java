@@ -135,8 +135,8 @@ public final class HateosHandlerRouterBuilderTest extends HateosHandlerRouterTes
                 "http://example.com/api JSON {resource1 item=PUT=put345, resource1 self=GET=get123 POST=post123, resource2 item=DELETE=delete456, resource2 self=POST=post234}");
     }
 
-    private HateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource3> handler(final String toString) {
-        return new FakeHateosIdResourceResourceHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
+    private HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> handler(final String toString) {
+        return new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
             public String toString() {
                 return toString;
             }

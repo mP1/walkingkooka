@@ -72,7 +72,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extend
 
     final void execute() {
         Loop:
-//
+
         do {
             // verify correctly dispatched...
             int pathIndex = this.router.consumeBasePath(this.parameters);
