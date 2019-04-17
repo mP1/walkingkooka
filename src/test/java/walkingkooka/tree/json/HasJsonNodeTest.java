@@ -36,7 +36,7 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
         final Color color = Color.fromRgb(0x123);
 
         assertEquals(color.toJsonNode(),
-                HasJsonNode.toJsonNodeObject(color.toJsonNode()));
+                HasJsonNode.toJsonNodeObject(color));
     }
 
     @Test
@@ -45,7 +45,7 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
         assertEquals(JsonNode.array()
                         .appendChild(color.toJsonNode()),
-                HasJsonNode.toJsonNodeList(Lists.of(color.toJsonNode())));
+                HasJsonNode.toJsonNodeList(Lists.of(color)));
     }
 
     @Test
@@ -54,7 +54,7 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
         assertEquals(JsonNode.array()
                         .appendChild(color.toJsonNode()),
-                HasJsonNode.toJsonNodeSet(Sets.of(color.toJsonNode())));
+                HasJsonNode.toJsonNodeSet(Sets.of(color)));
     }
 
     @Test
