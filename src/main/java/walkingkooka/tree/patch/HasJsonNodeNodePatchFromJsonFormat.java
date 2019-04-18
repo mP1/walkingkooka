@@ -32,7 +32,7 @@ import java.util.function.Function;
  */
 final class HasJsonNodeNodePatchFromJsonFormat extends NodePatchFromJsonFormat {
 
-    static HasJsonNodeNodePatchFromJsonFormat INSTANCE = new HasJsonNodeNodePatchFromJsonFormat();
+    static final HasJsonNodeNodePatchFromJsonFormat INSTANCE = new HasJsonNodeNodePatchFromJsonFormat();
 
     private HasJsonNodeNodePatchFromJsonFormat() {
         super();
