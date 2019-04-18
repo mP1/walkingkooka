@@ -71,9 +71,9 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
     final void toString0(final StringBuilder b) {
         b.append(this.operation())
                 .append(" from=")
-                .append(this.toString(this.from))
+                .append(toString(this.from))
                 .append(" path=")
-                .append(this.toString(this.path));
+                .append(toString(this.path));
     }
 
     /**

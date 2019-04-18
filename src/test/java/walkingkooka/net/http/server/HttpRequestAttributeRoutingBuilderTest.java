@@ -169,7 +169,7 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
     @Test
     public void testHeaderNullHeaderNameFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().header(null, Predicates.<Object>fake());
+            this.createBuilder().header(null, Predicates.fake());
         });
     }
 

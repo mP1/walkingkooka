@@ -83,7 +83,7 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
 
         final String differentText = this.createDifferentToken().text();
         final T different = token.setText(differentText).cast();
-        final T differentWithout = Cast.<T>to(different.withoutSymbols().get());
+        final T differentWithout = Cast.to(different.withoutSymbols().get());
         assertEquals(childrenWithout, differentWithout.value(), "children without");
 
         assertNotEquals(token.value().size(), differentWithout.value().size(), "without should have less tokens than with");

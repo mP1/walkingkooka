@@ -238,9 +238,9 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<JsonNode
         final NodePointer<JsonNode, JsonNodeName> pointer = NodePointer.relative(1, JsonNode.class);
         this.checkIsRelative(pointer);
 
-        final JsonNode root = JsonNode.object()
+        final JsonObjectNode root = JsonNode.object()
                 .set(DEF, JsonNode.string(TEXT));
-        this.traverseAndCheck(pointer, ((JsonObjectNode) root).get(DEF).get(), root.toString());
+        this.traverseAndCheck(pointer, root.get(DEF).get(), root.toString());
     }
 
     @Test

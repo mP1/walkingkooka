@@ -1284,7 +1284,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private NodeSelector<TestNode, StringName, StringName, Object> parseExpression(final String expression) {
-        return NodeSelectorNodeSelectorParserTokenVisitor.<TestNode, StringName, StringName, Object>with(this.parseOrFail(expression),
+        return NodeSelectorNodeSelectorParserTokenVisitor.with(this.parseOrFail(expression),
                 (s) -> Names.string(s.value()),
                 Predicates.always(),
                 TestNode.class);

@@ -79,7 +79,7 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
 
         final String differentText = this.createDifferentToken().text();
         final T different = token.setText(differentText).cast();
-        final T differentWithout = Cast.<T>to(different.withoutSymbols().get());
+        final T differentWithout = Cast.to(different.withoutSymbols().get());
         assertEquals(childrenWithout, differentWithout.value(), "children without");
 
         assertTrue(token.value().size() >= differentWithout.value().size(),

@@ -24,7 +24,7 @@ public final class CharSequenceToStringBuilderTest2 extends ScalarToStringBuilde
     @Test
     public void testValueDefaultEmpty() {
         final ToStringBuilder b = ToStringBuilder.empty();
-        b.value(new StringBuilder(""));
+        b.value(new StringBuilder());
 
         this.buildAndCheck(b, "");
     }

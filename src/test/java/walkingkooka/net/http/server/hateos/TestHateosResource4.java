@@ -70,6 +70,6 @@ public final class TestHateosResource4 extends FakeHateosResource<String> {
 
     @Override
     public String toString() {
-        return this.id.toString();
+        return this.id;
     }
 }

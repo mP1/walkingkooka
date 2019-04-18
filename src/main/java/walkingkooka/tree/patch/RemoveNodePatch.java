@@ -72,7 +72,7 @@ final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
     @Override
     void toString0(final StringBuilder b) {
         b.append(REMOVE + " path=")
-                .append(this.toString(this.path));
+                .append(toString(this.path));
     }
 
     // HasJsonNode...............................................................................
