@@ -48,7 +48,7 @@ abstract class PojoArrayNode extends PojoArrayOrCollectionNode {
     }
 
     /**
-     * Used by {@link PojoArrayNodeChildrenList} to fetch individual elements.
+     * Used by {@link PojoArrayNodeChildrenValueList} to fetch individual elements.
      */
     abstract Object elementValue(final int index);
 
