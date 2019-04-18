@@ -18,14 +18,10 @@
 
 package walkingkooka.compare;
 
-import walkingkooka.Cast;
-
-import java.util.Optional;
-
 /**
  * Represents a exclusive value within a {@link Range}
  */
-final class RangeBoundExclusive<C extends Comparable> extends RangeBound<C> {
+final class RangeBoundExclusive<C extends Comparable> extends RangeBoundExclusiveInclusive<C> {
 
     /**
      * Creates a {@link RangeBoundExclusive}.
@@ -39,16 +35,7 @@ final class RangeBoundExclusive<C extends Comparable> extends RangeBound<C> {
      * Private ctor use factory
      */
     private RangeBoundExclusive(final C value) {
-        super();
-        this.value = value;
-    }
-
-    /**
-     * Always false
-     */
-    @Override
-    public boolean isAll() {
-        return false;
+        super(value);
     }
 
     /**
@@ -64,14 +51,6 @@ final class RangeBoundExclusive<C extends Comparable> extends RangeBound<C> {
      */
     public boolean isInclusive() {
         return false;
-    }
-
-    /**
-     * ALways nothing.
-     */
-    @Override
-    public Optional<C> value() {
-        return Optional.of(this.value);
     }
 
     // Range.predicate...........................................
@@ -176,25 +155,12 @@ final class RangeBoundExclusive<C extends Comparable> extends RangeBound<C> {
     // Object....................................................................
 
     @Override
-    public int hashCode() {
-        return this.value.hashCode();
+    boolean canBeEquals(final Object other) {
+        return other instanceof RangeBoundExclusive;
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof RangeBoundExclusive &&
-                        this.equals0(Cast.to(other));
+    String label() {
+        return "Exclusive";
     }
-
-    private boolean equals0(final RangeBoundExclusive<?> other) {
-        return this.value.equals(other.value);
-    }
-
-    @Override
-    public String toString() {
-        return "Exclusive: " + this.value;
-    }
-
-    final C value;
 }

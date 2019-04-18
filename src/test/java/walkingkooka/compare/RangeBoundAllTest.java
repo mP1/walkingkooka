@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 
 import java.util.Optional;
 
-public final class RangeBoundAllTest extends RangeBoundTestCase<RangeBoundAll<Integer>> {
+public final class RangeBoundAllTest extends RangeBoundTestCase2<RangeBoundAll<Integer>> {
 
     @Test
     public void testValue() {

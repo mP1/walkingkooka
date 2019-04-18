@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 
 import java.util.Optional;
 
-public final class RangeBoundExclusiveTest extends RangeBoundTestCase<RangeBoundExclusive<Integer>> {
+public final class RangeBoundExclusiveTest extends RangeBoundTestCase2<RangeBoundExclusive<Integer>> {
 
     private final static int VALUE = 123;
 
