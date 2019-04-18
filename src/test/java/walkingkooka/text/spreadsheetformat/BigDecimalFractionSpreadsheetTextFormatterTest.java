@@ -413,8 +413,10 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
     }
 
     private MathContext mathContext() {
-        return MathContext.UNLIMITED;
+        return MATH_CONTEXT;
     }
+
+    private final static MathContext MATH_CONTEXT = MathContext.UNLIMITED;
 
     private Function<BigDecimal, Fraction> fractioner() {
         return this::makeIntoFraction;
@@ -429,8 +431,8 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
         final BigDecimal two = BigDecimal.valueOf(2);
 
         return Fraction.with(
-                value.scaleByPowerOfTen(scale).divide(two).toBigInteger(),
-                BigDecimal.ONE.scaleByPowerOfTen(scale).divide(two).toBigInteger());
+                value.scaleByPowerOfTen(scale).divide(two, MATH_CONTEXT).toBigInteger(),
+                BigDecimal.ONE.scaleByPowerOfTen(scale).divide(two, MATH_CONTEXT).toBigInteger());
     }
 
     @Override
