@@ -19,9 +19,12 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -30,6 +33,48 @@ import java.util.function.Predicate;
  * and then intersect them.
  */
 public final class Range<C extends Comparable> implements Predicate<C>, HashCodeEqualsDefined {
+
+    /**
+     * Assumes a character is a separator and uses the factory to create each component of the {@link Range}.
+     */
+    public static <C extends Comparable> Range<C> parse(final String text,
+                                                        final char separator,
+                                                        final Function<String, C> factory) {
+        CharSequences.failIfNullOrEmpty(text, "text");
+        Objects.requireNonNull(factory, "factory");
+
+        final int separatorIndex = text.indexOf(separator);
+        return -1 == separatorIndex ?
+                singleton(factory.apply(text)) :
+                parse0(text, separatorIndex, factory);
+    }
+
+    private static <C extends Comparable> Range<C> parse0(final String text,
+                                                          final int separator,
+                                                          final Function<String, C> factory) {
+        if (0 == separator) {
+            throw new IllegalArgumentException("Empty lower range in: " + CharSequences.quoteAndEscape(text));
+        }
+        if (text.length() - 1 == separator) {
+            throw new IllegalArgumentException("Empty upper range in: " + CharSequences.quoteAndEscape(text));
+        }
+
+        return greaterThanEquals(parse1(text, 0, separator, factory))
+                .and(lessThanEquals(parse1(text, separator + 1, text.length(), factory)));
+    }
+
+    private static <C extends Comparable> C parse1(final String text,
+                                                   final int start,
+                                                   final int end,
+                                                   final Function<String, C> factory) {
+        try {
+            return factory.apply(text.substring(start, end));
+        } catch (final InvalidCharacterException cause) {
+            throw cause.setTextAndPosition(text, start);
+        } catch (final RuntimeException cause) {
+            throw new IllegalArgumentException(cause);
+        }
+    }
 
     /**
      * A {@link Range} that matches all values.

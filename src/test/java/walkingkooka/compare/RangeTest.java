@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeTest implements ClassTesting2<Range<Integer>>,
+        ParseStringTesting<Range<Integer>>,
         PredicateTesting<Range<Integer>, Integer>,
         HashCodeEqualsDefinedTesting<Range<Integer>> {
 
@@ -817,6 +819,61 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         throw new UnsupportedOperationException();
     }
 
+    // parse ....................................................................................................
+
+    @Test
+    public void testParseNullTextFails() {
+        this.parseFails(null, NullPointerException.class);
+    }
+
+    @Test
+    public void testParseEmptyTextFails() {
+        this.parseFails("", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseNullFactoryFails() {
+        assertThrows(NullPointerException.class, () -> {
+            Range.parse("1", ':', null);
+        });
+    }
+
+    @Test
+    public void testParseEmptyLowerRangeFails() {
+        this.parseFails(":1", new IllegalArgumentException("Empty lower range in: \":1\""));
+    }
+
+    @Test
+    public void testParseEmptyUpperRangeFails() {
+        this.parseFails("1:", new IllegalArgumentException("Empty upper range in: \"1:\""));
+    }
+
+    @Test
+    public void testParseInvalidLowerRangeFails() {
+        this.parseFails("1A:2", new IllegalArgumentException("java.lang.NumberFormatException: For input string: \"1A\""));
+    }
+
+    @Test
+    public void testParseInvalidUpperRangeFails() {
+        this.parseFails("1:2B", new IllegalArgumentException("java.lang.NumberFormatException: For input string: \"2B\""));
+    }
+
+    @Test
+    public void testParseSingleton() {
+        this.parseAndCheck("123", Range.singleton(123));
+    }
+
+    @Test
+    public void testParseLowerAndUpper() {
+        this.parseAndCheck("123:456", Range.greaterThanEquals(123).and(Range.lessThanEquals(456)));
+    }
+
+    @Test
+    public void testParseLowerAndUpperDifferentSeparator() {
+        assertEquals(Range.greaterThanEquals(123).and(Range.lessThanEquals(456)),
+                Range.parse("123-456", '-', Integer::parseInt));
+    }
+
     // HashCodeEqualsDefined.....................................................................................
 
     // all.....................................................................................
@@ -908,6 +965,22 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     @Test
     public void testEqualsLessThanEqualsGreaterThanEquals() {
         this.checkNotEquals(Range.lessThanEquals(VALUE), Range.greaterThanEquals(VALUE));
+    }
+
+    // Parse ..........................................................................................
+
+    public Range<Integer> parse(final String text) {
+        return Range.parse(text, ':', Integer::valueOf);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
     }
 
     // helper...........................................................................................
