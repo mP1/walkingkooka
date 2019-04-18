@@ -839,13 +839,18 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     }
 
     @Test
+    public void testParseMissingSeparatorFails() {
+        this.parseFails("1", new IllegalArgumentException("Missing separator \':\' in \"1\""));
+    }
+
+    @Test
     public void testParseEmptyLowerRangeFails() {
-        this.parseFails(":1", new IllegalArgumentException("Empty lower range in: \":1\""));
+        this.parseFails(":1", new IllegalArgumentException("Empty lower range in \":1\""));
     }
 
     @Test
     public void testParseEmptyUpperRangeFails() {
-        this.parseFails("1:", new IllegalArgumentException("Empty upper range in: \"1:\""));
+        this.parseFails("1:", new IllegalArgumentException("Empty upper range in \"1:\""));
     }
 
     @Test
@@ -856,11 +861,6 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     @Test
     public void testParseInvalidUpperRangeFails() {
         this.parseFails("1:2B", new IllegalArgumentException("java.lang.NumberFormatException: For input string: \"2B\""));
-    }
-
-    @Test
-    public void testParseSingleton() {
-        this.parseAndCheck("123", Range.singleton(123));
     }
 
     @Test
