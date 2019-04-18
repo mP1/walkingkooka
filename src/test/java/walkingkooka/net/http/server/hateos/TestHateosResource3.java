@@ -69,7 +69,7 @@ public final class TestHateosResource3 extends FakeHateosResource<String> {
             final XmlDocument document = XmlNode.createDocument(factory.newDocumentBuilder());
             return document.createElement(XmlName.element("test1"))
                     .appendChild(document.createElement(XmlName.element("id"))
-                            .appendChild(document.createText(this.id.toString())));
+                            .appendChild(document.createText(this.id)));
         } catch (final Exception cause) {
             throw new Error(cause.getMessage(), cause);
         }
@@ -95,6 +95,6 @@ public final class TestHateosResource3 extends FakeHateosResource<String> {
 
     @Override
     public String toString() {
-        return this.id.toString();
+        return this.id;
     }
 }

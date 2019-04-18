@@ -66,7 +66,7 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
     final void toString0(final StringBuilder b) {
         b.append(this.operation())
                 .append(" path=")
-                .append(this.toString(this.path))
+                .append(toString(this.path))
                 .append(" value=")
                 .append(this.value);
     }

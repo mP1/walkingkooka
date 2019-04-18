@@ -152,7 +152,7 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
 
     @Test
     public void testEqualWithoutNames() {
-        this.checkEquals(SequenceParserBuilder.<ParserContext>empty()
+        this.checkEquals(SequenceParserBuilder.empty()
                 .required(PARSER1)
                 .required(PARSER2)
                 .optional(PARSER3)
@@ -161,7 +161,7 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
 
     @Test
     public void testEqualsDifferent() {
-        this.checkNotEquals(SequenceParserBuilder.<ParserContext>empty()
+        this.checkNotEquals(SequenceParserBuilder.empty()
                 .required(PARSER3)
                 .required(PARSER2)
                 .required(PARSER1)
@@ -170,7 +170,7 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
 
     @Test
     public void testEqualsDifferentRequiredOptionals() {
-        this.checkNotEquals(SequenceParserBuilder.<ParserContext>empty()
+        this.checkNotEquals(SequenceParserBuilder.empty()
                 .optional(PARSER1)
                 .required(PARSER2)
                 .required(PARSER3)
@@ -192,7 +192,7 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
     }
 
     @Override public SequenceParser<ParserContext> createParser() {
-        return Cast.to(SequenceParserBuilder.<ParserContext>empty()
+        return Cast.to(SequenceParserBuilder.empty()
                 .required(PARSER1)
                 .required(PARSER2)
                 .optional(PARSER3)

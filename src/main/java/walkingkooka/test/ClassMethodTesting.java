@@ -85,11 +85,11 @@ final class ClassMethodTesting<T>  {
             if (method.getDeclaringClass().isEnum()) {
                 if (name.equals("valueOf")) {
                     result = true;
-                    continue;
+                    break;
                 }
                 if (name.equals("values")) {
                     result = true;
-                    continue;
+                    break;
                 }
             }
         } while (false);

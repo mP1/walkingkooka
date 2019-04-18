@@ -99,7 +99,7 @@ public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextN
 
     @Override
     String text() {
-        return this.value().toString();
+        return this.value();
     }
 
     @Override
@@ -109,7 +109,7 @@ public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextN
 
     @Override
     String differentText() {
-        return this.differentValue().toString();
+        return this.differentValue();
     }
 
     @Override

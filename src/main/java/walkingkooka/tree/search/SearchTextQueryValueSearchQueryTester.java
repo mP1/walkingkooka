@@ -62,7 +62,7 @@ final class SearchTextQueryValueSearchQueryTester extends SearchComparableQueryV
 
     @Override
     final boolean test(final SearchTextNode node) {
-        return this.predicate.test(this.caseSensitivity.<String>comparator(), this.value, node.value());
+        return this.predicate.test(this.caseSensitivity.comparator(), this.value, node.value());
     }
 
     final CaseSensitivity caseSensitivity;

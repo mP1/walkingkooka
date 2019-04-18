@@ -86,7 +86,7 @@ abstract class JsonLeafNonNullNode<V> extends JsonLeafNode<V> {
     /**
      * Not a null or object therefore fail.
      */
-    public <K, V> Map<K, V> fromJsonNodeWithTypeMap() {
+    public <KK, VV> Map<KK, VV> fromJsonNodeWithTypeMap() {
         return this.reportInvalidNodeArray();
     }
 

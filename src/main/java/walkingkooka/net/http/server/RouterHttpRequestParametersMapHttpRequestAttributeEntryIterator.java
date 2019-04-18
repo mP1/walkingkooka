@@ -57,6 +57,6 @@ final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator impl
 
     @Override
     public String toString() {
-        return HttpRequestAttributes.iteratorEntryToString(this.position, this.request).toString();
+        return HttpRequestAttributes.iteratorEntryToString(this.position, this.request);
     }
 }

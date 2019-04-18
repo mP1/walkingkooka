@@ -53,7 +53,7 @@ final class LinkRelationConstantGenerator {
                 .named(XmlName.element("record"))
                 .build()
                 .accept(document,
-                        NodeSelectorContexts.<XmlNode, XmlName, XmlAttributeName, String>basic(LinkRelationConstantGenerator::potential,
+                        NodeSelectorContexts.basic(LinkRelationConstantGenerator::potential,
                                 LinkRelationConstantGenerator::record,
                                 LinkRelationConstantGenerator::functions,
                                 Converters.fake(),
