@@ -311,10 +311,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 ReplaceNodePatch.class,
                 TestNodePatch.class);
     }
-
-    /**
-     * Creates a json-patch json which is identical to the {@link #toJsonNode()} but without the type properties.
-     */
+    
     @Override
     public final JsonArrayNode toJsonNode() {
         return this.toJsonNode0(NodePatchToJsonFormat.HAS_JSON_NODE);

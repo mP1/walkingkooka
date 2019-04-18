@@ -72,7 +72,7 @@ abstract public class CookieDeletion implements HashCodeEqualsDefined {
     abstract public boolean isExpires();
 
     /**
-     * Helper used by {@link ServerCookie#toServletCookie(LocalDateTime)}
+     * Helper used by {@link ServerCookie#toJavaxServletCookie(LocalDateTime)}
      */
     abstract int toMaxAgeSeconds(LocalDateTime now);
 }

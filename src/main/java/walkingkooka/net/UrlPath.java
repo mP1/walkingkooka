@@ -43,7 +43,7 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
     private final static Optional<UrlPath> NO_PARENT = Optional.empty();
 
     /**
-     * Singleton {@link UrlPath} with a {@link PathSeparator#string}.
+     * Singleton {@link UrlPath} with a {@link PathSeparator#string()}.
      */
     public final static UrlPath ROOT = new UrlPath(UrlPath.SEPARATOR.string(), UrlPathName.ROOT, NO_PARENT);
 

@@ -245,7 +245,7 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
     private Stack<List<ExpressionNode>> previousChildren = Stacks.arrayList();
 
     /**
-     * Aggregates the child {@link ExpressionNode} for the current {@link walkingkooka.text.cursor.parser.select.NodeSelectorParentParserToken}.
+     * Aggregates the child {@link ExpressionNode}.
      */
     private List<ExpressionNode> children = Lists.array();
 
