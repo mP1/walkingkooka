@@ -36,6 +36,7 @@ public final class Range<C extends Comparable> implements Predicate<C>, HashCode
 
     /**
      * Assumes a character is a separator and uses the factory to create each component of the {@link Range}.
+     * The separator must be present otherwise an {@link IllegalArgumentException} will be thrown.
      */
     public static <C extends Comparable> Range<C> parse(final String text,
                                                         final char separator,
@@ -44,26 +45,22 @@ public final class Range<C extends Comparable> implements Predicate<C>, HashCode
         Objects.requireNonNull(factory, "factory");
 
         final int separatorIndex = text.indexOf(separator);
-        return -1 == separatorIndex ?
-                singleton(factory.apply(text)) :
-                parse0(text, separatorIndex, factory);
-    }
-
-    private static <C extends Comparable> Range<C> parse0(final String text,
-                                                          final int separator,
-                                                          final Function<String, C> factory) {
-        if (0 == separator) {
-            throw new IllegalArgumentException("Empty lower range in: " + CharSequences.quoteAndEscape(text));
-        }
-        if (text.length() - 1 == separator) {
-            throw new IllegalArgumentException("Empty upper range in: " + CharSequences.quoteAndEscape(text));
+        if (-1 == separatorIndex) {
+            throw new IllegalArgumentException("Missing separator " + CharSequences.quoteIfChars(separator) + " in " + CharSequences.quoteAndEscape(text));
         }
 
-        return greaterThanEquals(parse1(text, 0, separator, factory))
-                .and(lessThanEquals(parse1(text, separator + 1, text.length(), factory)));
+        if (0 == separatorIndex) {
+            throw new IllegalArgumentException("Empty lower range in " + CharSequences.quoteAndEscape(text));
+        }
+        if (text.length() - 1 == separatorIndex) {
+            throw new IllegalArgumentException("Empty upper range in " + CharSequences.quoteAndEscape(text));
+        }
+
+        return greaterThanEquals(parse0(text, 0, separatorIndex, factory))
+                .and(lessThanEquals(parse0(text, separatorIndex + 1, text.length(), factory)));
     }
 
-    private static <C extends Comparable> C parse1(final String text,
+    private static <C extends Comparable> C parse0(final String text,
                                                    final int start,
                                                    final int end,
                                                    final Function<String, C> factory) {
