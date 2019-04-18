@@ -133,6 +133,25 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
         });
     }
 
+    default UnsupportedOperationException handleUnsupported(final HateosHandler<I, R, S> handler) {
+        return this.handleFails(handler,
+                this.id(),
+                this.resource(),
+                this.parameters(),
+                UnsupportedOperationException.class);
+    }
+
+    default UnsupportedOperationException handleUnsupported(final HateosHandler<I, R, S> handler,
+                                                            final I id,
+                                                            final Optional<R> resource,
+                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return this.handleFails(handler,
+                id,
+                resource,
+                parameters,
+                UnsupportedOperationException.class);
+    }
+
     default void handleCollection(final Range<I> collection,
                                   final Optional<R> resources,
                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
@@ -177,6 +196,25 @@ public interface HateosHandlerTesting<H extends HateosHandler<I, R, S>,
         return assertThrows(thrown, () -> {
             handler.handleCollection(collection, resource, parameters);
         });
+    }
+
+    default UnsupportedOperationException handleCollectionUnsupported(final HateosHandler<I, R, S> handler) {
+        return this.handleCollectionFails(handler,
+                this.collection(),
+                this.resource(),
+                this.parameters(),
+                UnsupportedOperationException.class);
+    }
+
+    default UnsupportedOperationException handleCollectionUnsupported(final HateosHandler<I, R, S> handler,
+                                                                      final Range<I> collection,
+                                                                      final Optional<R> resource,
+                                                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return this.handleCollectionFails(handler,
+                collection,
+                resource,
+                parameters,
+                UnsupportedOperationException.class);
     }
 
     I id();

@@ -67,6 +67,12 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Fake
     }
 
     @Test
+    public void testHandleUnsupported() {
+        this.handleUnsupported(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        });
+    }
+
+    @Test
     public void testHandleCollectionAndCheck() {
         final Range<BigInteger> id = this.collection();
         final Optional<TestHateosResource> resources = Optional.of(TestHateosResource.with(BigInteger.valueOf(999)));
@@ -90,6 +96,12 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Fake
                 resources,
                 parameters,
                 resource2);
+    }
+
+    @Test
+    public void testHandleCollectionUnsupported() {
+        this.handleCollectionUnsupported(new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource2>() {
+        });
     }
 
     @Override
