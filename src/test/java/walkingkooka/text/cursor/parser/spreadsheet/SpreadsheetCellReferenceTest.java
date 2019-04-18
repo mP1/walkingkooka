@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
+import walkingkooka.compare.Range;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
@@ -371,6 +372,29 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
         this.parseAndCheck("$A$98",
                 SpreadsheetColumnReference.with(0, SpreadsheetReferenceKind.ABSOLUTE)
                         .setRow(SpreadsheetRowReference.with(97, SpreadsheetReferenceKind.ABSOLUTE)));
+    }
+
+    // parseRange....................................................................................................
+
+    @Test
+    public void testParseRange() {
+        assertEquals(Range.greaterThanEquals(SpreadsheetCellReference.parse("B2"))
+                        .and(Range.lessThanEquals(SpreadsheetCellReference.parse("D4"))),
+                SpreadsheetCellReference.parseRange("B2:D4"));
+    }
+
+    @Test
+    public void testParseRange2() {
+        assertEquals(Range.greaterThanEquals(SpreadsheetCellReference.parse("$B$2"))
+                        .and(Range.lessThanEquals(SpreadsheetCellReference.parse("$D$4"))),
+                SpreadsheetCellReference.parseRange("$B$2:$D$4"));
+    }
+
+    @Test
+    public void testParseRange3() {
+        assertEquals(Range.greaterThanEquals(SpreadsheetCellReference.parse("$B2"))
+                        .and(Range.lessThanEquals(SpreadsheetCellReference.parse("D$4"))),
+                SpreadsheetCellReference.parseRange("$B2:D$4"));
     }
 
     // HasJsonNode..................................................................................................

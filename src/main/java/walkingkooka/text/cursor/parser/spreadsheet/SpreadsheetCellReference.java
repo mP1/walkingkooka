@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.Cast;
 import walkingkooka.compare.Comparators;
 import walkingkooka.compare.LowerOrUpper;
+import walkingkooka.compare.Range;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
@@ -54,6 +55,13 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
 
     static {
         HasJsonNode.register("spreadsheet-cell-reference", SpreadsheetCellReference::fromJsonNode, SpreadsheetCellReference.class);
+    }
+
+    /**
+     * Parsers a range of cell referencs.
+     */
+    public static Range<SpreadsheetCellReference> parseRange(final String text) {
+        return Range.parse(text, ':', SpreadsheetCellReference::parse);
     }
 
     /**
