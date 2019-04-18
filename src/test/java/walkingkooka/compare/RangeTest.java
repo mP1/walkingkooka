@@ -24,6 +24,9 @@ import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeTest implements ClassTesting2<Range<Integer>>,
+        HasJsonNodeTesting<Range<Integer>>,
         ParseStringTesting<Range<Integer>>,
         PredicateTesting<Range<Integer>, Integer>,
         HashCodeEqualsDefinedTesting<Range<Integer>> {
@@ -967,6 +971,50 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         this.checkNotEquals(Range.lessThanEquals(VALUE), Range.greaterThanEquals(VALUE));
     }
 
+    // HasJsonNode...........................................................................................
+
+    @Test
+    public void testFromJsonNodeUnknownPropertyFails() {
+        this.fromJsonNodeFails("{\"unknown\": true}");
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripAll() {
+        this.toJsonNodeRoundTripTwiceAndCheck(Range.all());
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripSingleton() {
+        this.toJsonNodeRoundTripTwiceAndCheck(Range.singleton(123));
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripExclusiveExclusive() {
+        this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThan(123).and(Range.greaterThan(456)));
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripExclusiveInclusive() {
+        this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThan(123).and(Range.greaterThanEquals(456)));
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripInclusiveExclusive() {
+        this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThanEquals(123).and(Range.greaterThan(456)));
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripInclusiveInclusive() {
+        this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThanEquals(123).and(Range.greaterThanEquals(456)));
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripInclusiveInclusiveSpreadsheetCellReference() {
+        this.toJsonNodeRoundTripTwiceAndCheck(
+                Range.greaterThanEquals(SpreadsheetCellReference.parse("A1"))
+                        .and(Range.greaterThanEquals(SpreadsheetCellReference.parse("B2"))));
+    }
+
     // Parse ..........................................................................................
 
     public Range<Integer> parse(final String text) {
@@ -1004,6 +1052,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         assertEquals(upper, range.upperBound(), ()-> "upper " + range);
     }
 
+    // ClassTesting.........................................................................................
+
     @Override
     public Class<Range<Integer>> type() {
         return Cast.to(Range.class);
@@ -1012,5 +1062,17 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // HasJsonTesting.........................................................................................
+
+    @Override
+    public Range<Integer> createHasJsonNode() {
+        return this.createPredicate();
+    }
+
+    @Override
+    public Range<Integer> fromJsonNode(final JsonNode from) {
+        return Range.fromJsonNode(from);
     }
 }

@@ -20,6 +20,9 @@ package walkingkooka.compare;
 
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -133,6 +136,36 @@ abstract public class RangeBound<C extends Comparable> implements HashCodeEquals
     abstract RangeBound<C> max0(final RangeBoundExclusive<C> other);
 
     abstract RangeBound<C> max0(final RangeBoundInclusive<C> other);
+
+    // Range.toJsonNode......................................................................
+
+    static RangeBound<?> fromJsonNode(final JsonObjectNode node) {
+        RangeBound<?> bound = null;
+
+        for (JsonNode child : node.objectOrFail().children()) {
+            final JsonNodeName name = child.name();
+            switch (name.value()) {
+                case ALL:
+                    bound = RangeBoundAll.fromJsonNode0(child.objectOrFail());
+                    break;
+                case EXCLUSIVE:
+                    bound = RangeBoundExclusive.fromJsonNode0(child.objectOrFail());
+                    break;
+                case INCLUSIVE:
+                    bound = RangeBoundInclusive.fromJsonNode0(child.objectOrFail());
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown property " + name + "=" + node);
+            }
+        }
+        return bound;
+    }
+
+    abstract JsonObjectNode toJsonNode();
+
+    final static String ALL = "all";
+    final static String EXCLUSIVE = "exclusive";
+    final static String INCLUSIVE = "inclusive";
 
     // toString...............................................
 

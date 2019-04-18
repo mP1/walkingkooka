@@ -18,6 +18,9 @@
 
 package walkingkooka.compare;
 
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
+
 /**
  * Represents a exclusive value within a {@link Range}
  */
@@ -163,4 +166,17 @@ final class RangeBoundExclusive<C extends Comparable> extends RangeBoundExclusiv
     String label() {
         return "Exclusive";
     }
+
+    // Range.toJsonNode......................................................................
+
+    static RangeBound<?> fromJsonNode0(final JsonObjectNode node) {
+        return with(node.fromJsonNodeWithType());
+    }
+
+    @Override
+    final JsonNodeName property() {
+        return EXCLUSIVE_PROPERTY;
+    }
+
+    final static JsonNodeName EXCLUSIVE_PROPERTY = JsonNodeName.with(EXCLUSIVE);
 }

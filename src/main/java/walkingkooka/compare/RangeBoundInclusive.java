@@ -18,6 +18,9 @@
 
 package walkingkooka.compare;
 
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
+
 /**
  * Represents a inclusive value within a {@link Range}
  */
@@ -165,4 +168,17 @@ final class RangeBoundInclusive<C extends Comparable> extends RangeBoundExclusiv
     String label() {
         return "Inclusive";
     }
+
+    // Range.toJsonNode......................................................................
+
+    static RangeBound<?> fromJsonNode0(final JsonObjectNode node) {
+        return with(node.fromJsonNodeWithType());
+    }
+
+    @Override
+    final JsonNodeName property() {
+        return INCLUSIVE_PROPERTY;
+    }
+
+    final static JsonNodeName INCLUSIVE_PROPERTY = JsonNodeName.with(INCLUSIVE);
 }

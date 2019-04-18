@@ -19,6 +19,9 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.Optional;
 
@@ -50,6 +53,16 @@ abstract class RangeBoundExclusiveInclusive<C extends Comparable> extends RangeB
     public final Optional<C> value() {
         return Optional.of(this.value);
     }
+
+    // Range.toJsonNode......................................................................
+
+    @Override
+    final JsonObjectNode toJsonNode() {
+        return JsonObjectNode.object()
+                .set(this.property(), HasJsonNode.toJsonNodeWithType(this.value));
+    }
+
+    abstract JsonNodeName property();
 
     // Object....................................................................
 
