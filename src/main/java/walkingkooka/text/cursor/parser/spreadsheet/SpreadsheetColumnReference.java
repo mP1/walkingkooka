@@ -19,6 +19,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
+import walkingkooka.compare.Range;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -33,6 +34,13 @@ import java.util.Objects;
  * Represents a column reference
  */
 public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowReference<SpreadsheetColumnReference> {
+
+    /**
+     * Parsers a range of columns.
+     */
+    public static Range<SpreadsheetColumnReference> parseRange(final String text) {
+        return Range.parse(text, ':', SpreadsheetColumnReference::parse);
+    }
 
     /**
      * Expects a {@link JsonStringNode} and returns a {@link SpreadsheetColumnReference}.
