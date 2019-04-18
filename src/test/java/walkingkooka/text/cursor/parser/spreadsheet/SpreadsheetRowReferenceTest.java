@@ -19,6 +19,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.compare.Range;
 import walkingkooka.tree.json.JsonNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -94,6 +95,22 @@ public final class SpreadsheetRowReferenceTest extends SpreadsheetColumnOrRowRef
     @Test
     public void testParseRelative2() {
         this.parseAndCheck("2", SpreadsheetReferenceKind.RELATIVE.row(1));
+    }
+
+    // parseRange....................................................................................................
+
+    @Test
+    public void testParseRange() {
+        assertEquals(Range.greaterThanEquals(SpreadsheetRowReference.parse("2"))
+                        .and(Range.lessThanEquals(SpreadsheetRowReference.parse("4"))),
+                SpreadsheetRowReference.parseRange("2:4"));
+    }
+
+    @Test
+    public void testParseRange2() {
+        assertEquals(Range.greaterThanEquals(SpreadsheetRowReference.parse("$2"))
+                        .and(Range.lessThanEquals(SpreadsheetRowReference.parse("$5"))),
+                SpreadsheetRowReference.parseRange("$2:$5"));
     }
 
     // JsonNodeTesting.........................................................................................
