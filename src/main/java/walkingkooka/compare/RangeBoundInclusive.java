@@ -18,14 +18,10 @@
 
 package walkingkooka.compare;
 
-import walkingkooka.Cast;
-
-import java.util.Optional;
-
 /**
  * Represents a inclusive value within a {@link Range}
  */
-final class RangeBoundInclusive<C extends Comparable> extends RangeBound<C> {
+final class RangeBoundInclusive<C extends Comparable> extends RangeBoundExclusiveInclusive<C> {
 
     /**
      * Creates a {@link RangeBoundInclusive}.
@@ -39,16 +35,7 @@ final class RangeBoundInclusive<C extends Comparable> extends RangeBound<C> {
      * Private ctor use factory
      */
     private RangeBoundInclusive(final C value) {
-        super();
-        this.value = value;
-    }
-
-    /**
-     * Always false
-     */
-    @Override
-    public boolean isAll() {
-        return false;
+        super(value);
     }
 
     /**
@@ -64,14 +51,6 @@ final class RangeBoundInclusive<C extends Comparable> extends RangeBound<C> {
      */
     public boolean isInclusive() {
         return true;
-    }
-
-    /**
-     * ALways nothing.
-     */
-    @Override
-    public Optional<C> value() {
-        return Optional.of(this.value);
     }
 
     // Range.predicate...........................................
@@ -178,25 +157,12 @@ final class RangeBoundInclusive<C extends Comparable> extends RangeBound<C> {
     // Object........................................................................................
 
     @Override
-    public int hashCode() {
-        return this.value.hashCode();
+    boolean canBeEquals(final Object other) {
+        return other instanceof RangeBoundInclusive;
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof RangeBoundInclusive &&
-                        this.equals0(Cast.to(other));
+    String label() {
+        return "Inclusive";
     }
-
-    private boolean equals0(final RangeBoundInclusive<?> other) {
-        return this.value.equals(other.value);
-    }
-
-    @Override
-    public String toString() {
-        return "Inclusive: " + this.value;
-    }
-
-    final C value;
 }
