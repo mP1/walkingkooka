@@ -143,6 +143,30 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 .appendChild(value1)
                 .appendChild(value2);
 
+        final String differentValue = "different-0";
+        final JsonNode differentChild = JsonNode.string(differentValue);
+        final JsonArrayNode different = array.set(0, differentChild);
+
+        assertNotSame(array, different);
+        this.childrenCheck(different);
+        assertEquals(differentValue, JsonStringNode.class.cast(different.children().get(0)).value(), "child[0].value");
+        assertEquals(VALUE2, JsonStringNode.class.cast(different.children().get(1)).value(), "child[1].value");
+
+        // verify originals were not mutated.
+        this.checkWithoutParent(value1);
+        this.checkWithoutParent(value2);
+        this.checkWithoutParent(differentChild);
+    }
+
+    @Test
+    public void testSetDifferent2() {
+        final JsonStringNode value1 = this.value1();
+        final JsonStringNode value2 = this.value2();
+
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(value1)
+                .appendChild(value2);
+
         final String differentValue = "different-1";
         final JsonNode differentChild = JsonNode.string(differentValue);
         final JsonArrayNode different = array.set(1, differentChild);

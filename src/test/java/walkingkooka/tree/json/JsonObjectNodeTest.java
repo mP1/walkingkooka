@@ -230,6 +230,95 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testSetReplacesAndGet() {
+        final JsonNodeName key1 = this.key1();
+        final JsonStringNode value1 = this.value1();
+
+        final JsonNodeName key2 = this.key2();
+        final JsonStringNode value2 = this.value2();
+        final JsonStringNode value3 = this.value3();
+
+        final JsonObjectNode empty = JsonNode.object();
+
+        final JsonObjectNode object = empty.set(key1, value1)
+                .set(key2, value2)
+                .set(key1, value3);
+
+        this.childrenCheck(object);
+        this.childCountCheck(object, 2);
+        this.getAndCheck(object, key1, VALUE3);
+        this.getAndCheck(object, key2, VALUE2);
+
+        // verify originals were not mutated.
+        this.checkWithoutParent(value1);
+        this.checkWithoutParent(value2);
+
+        this.childCountCheck(empty, 0);
+    }
+
+    @Test
+    public void testSetReplacesAndGet2() {
+        final JsonNodeName key1 = this.key1();
+        final JsonStringNode value1 = this.value1();
+
+        final JsonNodeName key2 = this.key2();
+        final JsonStringNode value2 = this.value2();
+        final JsonStringNode value3 = this.value3();
+
+        final JsonObjectNode empty = JsonNode.object();
+
+        final JsonObjectNode object = empty.set(key1, value1)
+                .set(key2, value2)
+                .set(key2, value3);
+
+        this.childrenCheck(object);
+        this.childCountCheck(object, 2);
+        this.getAndCheck(object, key1, VALUE1);
+        this.getAndCheck(object, key2, VALUE3);
+
+        // verify originals were not mutated.
+        this.checkWithoutParent(value1);
+        this.checkWithoutParent(value2);
+
+        this.childCountCheck(empty, 0);
+    }
+
+    @Test
+    public void testSetReplacesAndGet3() {
+        final JsonNodeName key1 = this.key1();
+        final JsonStringNode value1 = this.value1();
+
+        final JsonNodeName key2 = this.key2();
+        final JsonStringNode value2 = this.value2();
+
+        final JsonNodeName key3 = this.key3();
+        final JsonStringNode value3 = this.value3();
+
+        final JsonStringNode value4 = this.value4();
+
+        final JsonObjectNode empty = JsonNode.object();
+
+        final JsonObjectNode object = empty.set(key1, value1)
+                .set(key2, value2)
+                .set(key3, value3)
+                .set(key3, value4);
+
+        this.childrenCheck(object);
+        this.childCountCheck(object, 3);
+        this.getAndCheck(object, key1, VALUE1);
+        this.getAndCheck(object, key2, VALUE2);
+        this.getAndCheck(object, key3, VALUE4);
+
+        // verify originals were not mutated.
+        this.checkWithoutParent(value1);
+        this.checkWithoutParent(value2);
+        this.checkWithoutParent(value3);
+        this.checkWithoutParent(value4);
+
+        this.childCountCheck(empty, 0);
+    }
+
+    @Test
     public void testSetChildrenSameKeyDifferentValueType() {
         final JsonNodeName key1 = this.key1();
         final JsonNode value1 = this.value1();
