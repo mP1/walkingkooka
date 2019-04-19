@@ -107,7 +107,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.childrenCheck(object);
         this.getAndCheck(object, key1, VALUE1);
 
-        assertSame(object, object.setChildren(Lists.of(JsonNode.string(VALUE1).setName(key1))));
+        assertSame(object, object.setChildren(Lists.of(value1.setName(key1))));
     }
 
     @Test
@@ -366,18 +366,18 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testContainsAbsent() {
         this.containsAndCheck(JsonNode.object()
-                        .set(JsonNodeName.with("prop1"), JsonNode.string("value1")),
+                        .set(key1(), this.value1()),
                 JsonNodeName.with("different-prop"),
                 false);
     }
 
     @Test
     public void testContainsPresent() {
-        final JsonNodeName property = JsonNodeName.with("prop123");
+        final JsonNodeName key = this.key1();
         this.containsAndCheck(JsonNode.object()
-                        .set(JsonNodeName.with("prop1"), JsonNode.string("value1"))
-                        .set(property, JsonNode.string("value2")),
-                property,
+                        .set(key1(), this.value1())
+                        .set(key, this.value2()),
+                key,
                 true);
     }
 
@@ -395,86 +395,86 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testMapWhenReadonly() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            JsonNode.object().asMap().put(JsonNodeName.with("prop"), JsonNode.string("value"));
+            JsonNode.object().asMap().put(this.key1(), this.value1());
         });
     }
 
     @Test
     public void testMapWhenReadonly2() {
-        final JsonNodeName property = JsonNodeName.with("prop");
-        final JsonObjectNode object = JsonNode.object()
-                .set(property, JsonNode.string("value"));
+        final JsonNodeName key1 = this.key1();
+        final JsonObjectNode value1 = JsonNode.object()
+                .set(key1, this.value1());
 
         assertThrows(UnsupportedOperationException.class, () -> {
-            object.asMap().remove(property);
+            value1.asMap().remove(key1);
         });
     }
 
     @Test
     public void testMapContainsKey() {
-        final JsonNodeName property = JsonNodeName.with("prop1");
-        final JsonNode value = JsonNode.string("value1");
+        final JsonNodeName key1 = key1();
+        final JsonNode value1 = this.value1();;
 
         final JsonObjectNode object = JsonNode.object()
-                .set(property, value)
-                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
-        this.containsKeyAndCheck(object.asMap(), property);
+                .set(key1, value1)
+                .set(this.key2(), this.value2());
+        this.containsKeyAndCheck(object.asMap(), key1);
     }
 
     @Test
     public void testMapContainsKeyAbsent() {
-        final JsonNodeName property = JsonNodeName.with("prop1");
-        final JsonNode value = JsonNode.string("value1");
+        final JsonNodeName key1 = key1();
+        final JsonNode value1 = this.value1();;
 
         final JsonObjectNode object = JsonNode.object()
-                .set(property, value)
-                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+                .set(key1, value1)
+                .set(this.key2(), this.value2());
         this.containsKeyAndCheckAbsent(object.asMap(), JsonNodeName.with("absent-property"));
     }
 
     @Test
     public void testMapContainsValue() {
-        final JsonNodeName property = JsonNodeName.with("prop1");
-        final JsonNode value = JsonNode.string("value1");
+        final JsonNodeName key1 = key1();
+        final JsonNode value1 = this.value1();;
 
         final JsonObjectNode object = JsonNode.object()
-                .set(property, value)
-                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+                .set(key1, value1)
+                .set(this.key2(), this.value2());
         this.containsValueAndCheck(object.asMap(),
-                object.getOrFail(property));
+                object.getOrFail(key1));
     }
 
     @Test
     public void testMapContainsValueAbsent() {
-        final JsonNodeName property = JsonNodeName.with("prop1");
-        final JsonNode value = JsonNode.string("value1");
+        final JsonNodeName key1 = key1();
+        final JsonNode value1 = this.value1();;
 
         final JsonObjectNode object = JsonNode.object()
-                .set(property, value)
-                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+                .set(key1, value1)
+                .set(this.key2(), this.value2());
         this.containsValueAndCheckAbsent(object.asMap(),
-                value); // match fails because value gotten has a parent the enclosing object
+                value1); // match fails because value gotten has a parent the enclosing object
     }
 
     @Test
     public void testMapGet() {
-        final JsonNodeName property = JsonNodeName.with("prop1");
-        final JsonNode value = JsonNode.string("value1");
+        final JsonNodeName key1 = key1();
+        final JsonNode value1 = this.value1();;
 
         final JsonObjectNode object = JsonNode.object()
-                .set(property, value)
-                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
-        this.getAndCheck(object.asMap(), property, object.getOrFail(property));
+                .set(key1, value1)
+                .set(this.key2(), this.value2());
+        this.getAndCheck(object.asMap(), key1, object.getOrFail(key1));
     }
 
     @Test
     public void testMapGetAbsentKey() {
-        final JsonNodeName property = JsonNodeName.with("prop1");
-        final JsonNode value = JsonNode.string("value1");
+        final JsonNodeName key = key1();
+        final JsonNode value = this.value1();;
 
         final JsonObjectNode object = JsonNode.object()
-                .set(property, value)
-                .set(JsonNodeName.with("prop2"), JsonNode.string("value2"));
+                .set(key, value)
+                .set(this.key2(), this.value2());
         this.getAndCheckAbsent(object.asMap(), JsonNodeName.with("absent-property"));
     }
 
@@ -493,7 +493,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     @Test
     public void testEqualsDifferentChildren3() {
-        final JsonNode value = JsonNode.string("value");
+        final JsonNode value = this.value1();
 
         this.checkNotEquals(JsonNode.object().set(property(), value),
                 JsonNode.object().set(JsonNodeName.with("different"), value));
