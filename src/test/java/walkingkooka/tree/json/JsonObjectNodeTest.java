@@ -48,6 +48,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     private final static String KEY1 = "key1";
     private final static String KEY2 = "key2";
     private final static String KEY3 = "key3";
+    private final static String KEY4 = "key4";
 
     @Override
     public void testAppendChild2() {
@@ -470,6 +471,34 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         assertEquals(contains, object.contains(name), () -> object + " contains " + name);
     }
 
+    // replace ....................................................................................................
+
+    @Test
+    public void testReplaceRoot() {
+        this.replaceAndCheck(JsonNode.object()
+                        .set(this.key1(), this.value1()),
+                JsonNode.object()
+                        .set(this.key2(), this.value2()));
+    }
+
+    @Test
+    public void testReplace() {
+        final JsonObjectNode root = JsonNode.object()
+                .set(this.key1(), this.value1());
+
+        final JsonObjectNode value2 = JsonNode.object()
+                .set(this.key3(), this.value3());
+
+        final JsonObjectNode replacement2 = JsonNode.object()
+                .set(this.key4(), this.value4());
+
+        final JsonNodeName key2 = this.key2();
+
+        this.replaceAndCheck(root.set(key2, value2).getOrFail(key2),
+                replacement2,
+                root.set(key2, replacement2).getOrFail(key2));
+    }
+
     // asMap.......................................................................................................
 
     @Test
@@ -865,6 +894,10 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     private JsonNodeName key3() {
         return JsonNodeName.with(KEY3);
+    }
+
+    private JsonNodeName key4() {
+        return JsonNodeName.with(KEY4);
     }
 
     @Override

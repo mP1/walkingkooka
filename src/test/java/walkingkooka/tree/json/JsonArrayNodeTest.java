@@ -407,6 +407,44 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 () -> "setLength " + length + " on " + array);
     }
 
+    // replace .......................................................................................................
+
+    @Test
+    public void testReplaceRoot() {
+        final JsonArrayNode node = JsonNode.array();
+        this.replaceAndCheck(node, node);
+    }
+
+    @Test
+    public void testReplace() {
+        final JsonNode value4 = this.value4();
+
+        final JsonArrayNode node = JsonNode.array()
+                .appendChild(JsonNode.array()
+                        .appendChild(this.value1()))
+                .appendChild(this.value2());
+
+        final int index = 0;
+        this.replaceAndCheck(node.get(index),
+                value4,
+                node.set(index, value4).get(index));
+    }
+
+    @Test
+    public void testReplace2() {
+        final JsonNode value4 = this.value4();
+
+        final JsonArrayNode node = JsonNode.array()
+                .appendChild(this.value1())
+                .appendChild(JsonNode.array()
+                        .appendChild(this.value2()));
+
+        final int index = 1;
+        this.replaceAndCheck(node.get(index),
+                value4,
+                node.set(index, value4).get(index));
+    }
+
     // Visitor ...........................................................................................
 
     @Test

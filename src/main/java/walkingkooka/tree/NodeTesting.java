@@ -244,6 +244,17 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         assertEquals(Optional.of(parentWithout), node.parentWithout(), () -> "node parentWithout " + node);
     }
 
+    default void replaceAndCheck(final N node, final N replaceWith) {
+        this.replaceAndCheck(node, replaceWith, replaceWith);
+    }
+
+    default void replaceAndCheck(final N node, final N replaceWith, final N result) {
+        assertEquals(result,
+                node.replace(replaceWith),
+                () -> node + " replace with " + replaceWith);
+        assertEquals(result.pointer(), node.pointer(), () -> "pointer for\n" + node + "\n" + result);
+    }
+
     default N appendChildAndCheck(final N parent, final N child) {
         final N newParent = parent.appendChild(child);
         assertNotSame(newParent, parent, "appendChild must not return the same node");
