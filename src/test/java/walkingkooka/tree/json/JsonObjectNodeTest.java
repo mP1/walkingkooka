@@ -49,10 +49,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     private final static String KEY2 = "key2";
     private final static String KEY3 = "key3";
 
-    private final static String VALUE1 = "value1";
-    private final static String VALUE2 = "value2";
-    private final static String VALUE3 = "value3";
-
     @Override
     public void testAppendChild2() {
         throw new UnsupportedOperationException();
@@ -780,18 +776,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
     private JsonNodeName key3() {
         return JsonNodeName.with(KEY3);
-    }
-
-    private JsonStringNode value1() {
-        return JsonNode.string(VALUE1);
-    }
-
-    private JsonStringNode value2() {
-        return JsonNode.string(VALUE2);
-    }
-
-    private JsonStringNode value3() {
-        return JsonNode.string(VALUE3);
     }
 
     @Override

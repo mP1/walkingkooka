@@ -32,6 +32,11 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
         extends JsonNodeTestCase<N>
         implements NodeTesting2<JsonNode, JsonNodeName, Name, Object> {
 
+    final static String VALUE1 = "value1";
+    final static String VALUE2 = "value2";
+    final static String VALUE3 = "value3";
+    final static String VALUE4 = "value4";
+
     JsonParentNodeTestCase() {
         super();
     }
@@ -80,6 +85,22 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
     @Test
     public final void testToSearchNodeEmpty() {
         this.toSearchNodeAndCheck(this.createJsonNode(), SearchNode.text("", ""));
+    }
+
+    final JsonStringNode value1() {
+        return JsonNode.string(VALUE1);
+    }
+
+    final JsonStringNode value2() {
+        return JsonNode.string(VALUE2);
+    }
+
+    final JsonStringNode value3() {
+        return JsonNode.string(VALUE3);
+    }
+
+    final JsonStringNode value4() {
+        return JsonNode.string(VALUE4);
     }
 
     final void checkChildren(final N node, final List<JsonNode> children) {
