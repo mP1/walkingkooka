@@ -189,6 +189,25 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
     private Optional<JsonNode> parent;
 
+    /**
+     * Replaces this {@link JsonNode} with the given {@link JsonNode} providing its different, keeping the parent and siblings.
+     * Note the replaced {@link JsonNode} will gain the name of the previous.
+     */
+    @Override
+    public final JsonNode replace(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        return this.isRoot() ?
+                node.removeParent() :
+                this.replace0(node);
+    }
+
+    private JsonNode replace0(final JsonNode node) {
+        return this.parent()
+                .map(p -> p.setChild(this.name, node).children().get(this.index))
+                .orElse(node);
+    }
+
 //    abstract JsonNode
 
     /**

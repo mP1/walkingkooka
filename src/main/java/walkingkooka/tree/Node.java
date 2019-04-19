@@ -119,6 +119,17 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
+     * Replaces this {@link Node} returning the result.
+     */
+    default N replace(final N node) {
+        Objects.requireNonNull(node, "node");
+
+        return this.parent()
+                .map(p -> p.replaceChild(Cast.to(this), node).children().get(this.index()))
+                .orElse(node.removeParent());
+    }
+
+    /**
      * Returns the children of this node.
      */
     List<N> children();

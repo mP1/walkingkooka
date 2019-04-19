@@ -87,6 +87,40 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     }
 
     @Test
+    public final void testReplace() {
+        final JsonNodeName key1 = JsonNodeName.with("key1");
+        final JsonNodeName key2 = JsonNodeName.with("key2");
+
+        final N value1 = this.createJsonNode(this.value());
+        final N value2 = this.createJsonNode(this.differentValue());
+
+        final JsonObjectNode before = JsonNode.object()
+                .set(key1, value1)
+                .set(key2, JsonNode.object());
+
+        this.replaceAndCheck(before.getOrFail(key1),
+                value2,
+                before.set(key1, value2).getOrFail(key1));
+    }
+
+    @Test
+    public final void testReplace2() {
+        final JsonNodeName key1 = JsonNodeName.with("key1");
+        final JsonNodeName key2 = JsonNodeName.with("key2");
+
+        final N value1 = this.createJsonNode(this.value());
+        final N value2 = this.createJsonNode(this.differentValue());
+
+        final JsonObjectNode before = JsonNode.object()
+                .set(key1, JsonNode.object())
+                .set(key2, value1);
+
+        this.replaceAndCheck(before.getOrFail(key2),
+                value2,
+                before.set(key2, value2).getOrFail(key2));
+    }
+
+    @Test
     public final void testSetChildrenFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
             this.createJsonNode().setChildren(Lists.empty());

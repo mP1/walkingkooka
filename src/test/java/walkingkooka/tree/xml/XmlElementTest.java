@@ -44,6 +44,7 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
     private final static XmlName PARENT = XmlName.element("parent");
     private final static XmlName CHILD = XmlName.element("child");
     private final static XmlName CHILD2 = XmlName.element("child2");
+    private final static XmlName CHILD3 = XmlName.element("child3");
     private final static XmlName GRAND_CHILD = XmlName.element("grand-child");
 
     private final static String TEXT = "text-1";
@@ -249,6 +250,34 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
 
         final XmlElement parent3 = parent2.removeChild(0);
         this.checkChildren("parent3", 1, parent3);
+    }
+
+    @Test
+    public void testReplace() {
+        final XmlElement parent = this.createNode();
+        final XmlElement child1 = parent.createElement(CHILD);
+        final XmlElement child2 = parent.createElement(CHILD2);
+        final XmlElement child3 = parent.createElement(CHILD3);
+
+        this.replaceAndCheck(parent.appendChild(child1)
+                        .appendChild(child2).children().get(0),
+                child3,
+                parent.appendChild(child3)
+                        .appendChild(child2).children().get(0));
+    }
+
+    @Test
+    public void testReplace2() {
+        final XmlElement parent = this.createNode();
+        final XmlElement child1 = parent.createElement(CHILD);
+        final XmlElement child2 = parent.createElement(CHILD2);
+        final XmlElement child3 = parent.createElement(CHILD3);
+
+        this.replaceAndCheck(parent.appendChild(child1)
+                        .appendChild(child2).children().get(1),
+                child3,
+                parent.appendChild(child1)
+                        .appendChild(child3).children().get(1));
     }
 
     // attributes ................................................................................................
