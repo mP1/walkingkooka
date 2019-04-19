@@ -155,11 +155,12 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         final Map<JsonNodeName, JsonNode> children = Maps.ordered();
 
         int i = 0;
-        for(Entry<JsonNodeName, JsonNode> nameAndValue : this.children.nameToValues.entrySet()) {
-            children.put(name,
-                    index == i ?
-                    value :
-                    nameAndValue.getValue());
+        for (Entry<JsonNodeName, JsonNode> nameAndValue : this.children.nameToValues.entrySet()) {
+            if (index == i) {
+                children.put(name, value);
+            } else {
+                children.put(nameAndValue.getKey(), nameAndValue.getValue());
+            }
             i++;
         }
 
