@@ -80,6 +80,22 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
         this.toJsonNodeAndCheck(JsonNodeName.with(value), JsonNode.string(value));
     }
 
+    @Test
+    public void testToJsonNodeIndex() {
+        final JsonNodeName name = JsonNodeName.index(1);
+        this.toJsonNodeAndCheck(name, JsonNode.string("1"));
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripIndex() {
+        this.toJsonNodeRoundTripTwiceAndCheck(JsonNodeName.index(1));
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripIndex2() {
+        this.toJsonNodeRoundTripTwiceAndCheck(JsonNodeName.index(JsonNodeName.INDEX_CACHE_SIZE + 1));
+    }
+
     @Override
     public JsonNodeName createName(final String name) {
         return JsonNodeName.with(name);

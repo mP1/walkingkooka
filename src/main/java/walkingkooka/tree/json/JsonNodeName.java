@@ -32,7 +32,11 @@ public final class JsonNodeName implements Name,
         Comparable<JsonNodeName>,
         HasJsonNode{
 
-    private final static int INDEX_CACHE_SIZE = 128;
+    /**
+     * The size of a cache for {@link JsonNodeName} by index
+     */
+    // VisibleForTesting
+    final static int INDEX_CACHE_SIZE = 128;
 
     /**
      * Creates a {@link JsonNodeName} from the index.
