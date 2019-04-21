@@ -61,7 +61,7 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
      * Parsers a range of cell referencs.
      */
     public static Range<SpreadsheetCellReference> parseRange(final String text) {
-        return Range.parse(text, ':', SpreadsheetCellReference::parse);
+        return Range.parse(text, SpreadsheetParsers.RANGE_SEPARATOR.character(), SpreadsheetCellReference::parse);
     }
 
     /**

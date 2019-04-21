@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.CharacterParserToken;
 import walkingkooka.text.cursor.parser.DoubleQuotedParserToken;
@@ -45,6 +46,11 @@ import java.util.function.BiFunction;
 public final class SpreadsheetParsers implements PublicStaticHelper {
 
     /**
+     * Range separator character used to separate the lower and upper bounds.
+     */
+    public static final CharacterConstant RANGE_SEPARATOR = CharacterConstant.with(':');
+
+    /**
      * A {@link Parser} that returns a cell reference token of some sort.
      */
     public static Parser<SpreadsheetParserContext> cellReferences() {
@@ -63,7 +69,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private static final EbnfIdentifierName LABEL_NAME_IDENTIFIER = EbnfIdentifierName.with("LABEL_NAME");
     private static final EbnfIdentifierName BETWEEN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("BETWEEN_SYMBOL");
 
-    private static final Parser<ParserContext> BETWEEN_SYMBOL = symbol(':',
+    private static final Parser<ParserContext> BETWEEN_SYMBOL = symbol(RANGE_SEPARATOR.character(),
             SpreadsheetParserToken::betweenSymbol,
             SpreadsheetBetweenSymbolParserToken.class);
 
