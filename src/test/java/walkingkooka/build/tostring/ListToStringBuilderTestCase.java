@@ -42,6 +42,72 @@ public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuild
         this.buildAndCheck(b, "\"ABC\", \'z\'");
     }
 
+    @Test
+    public final void testLabelValuesX3() {
+        final ToStringBuilder b = this.builder();
+        b.labelSeparator(": ");
+        b.valueSeparator(", ");
+
+        b.label(LABEL);
+        b.value(this.toValue(Lists.of(1, 2, 3)));
+
+        b.label("LABEL2");
+        b.value(this.toValue(Lists.of(4, 5, 6)));
+
+        b.label("LABEL3");
+        b.value(this.toValue(Lists.of(7, 8, 9)));
+
+
+        this.buildAndCheck(b, "LABEL: 1, 2, 3 LABEL2: 4, 5, 6 LABEL3: 7, 8, 9");
+    }
+
+    @Test
+    public final void testLabelUsesToStringBuilderX3() {
+        final ToStringBuilder b = this.builder();
+        b.labelSeparator(":: ");
+        b.valueSeparator(",, ");
+        b.separator("// ");
+
+        b.label(LABEL);
+        b.value(this.uses(this.toValue(Lists.of(1, 2, 3))));
+
+        b.label("LABEL2");
+        b.value(this.uses(this.toValue(Lists.of(4, 5, 6))));
+
+        b.label("LABEL3");
+        b.value(this.uses(this.toValue(Lists.of(7, 8, 9))));
+
+        this.buildAndCheck(b, "LABEL:: 1,, 2,, 3// LABEL2:: 4,, 5,, 6// LABEL3:: 7,, 8,, 9");
+    }
+
+    @Test
+    public final void testLabelValueUsesToStringBuilderX3() {
+        final ToStringBuilder b = this.builder();
+        b.labelSeparator(":: ");
+        b.valueSeparator(",, ");
+        b.separator("// ");
+
+        b.label(LABEL);
+        b.value(this.toValue(Lists.of(this.uses(1))));
+
+        b.label("LABEL2");
+        b.value(this.toValue(Lists.of(this.uses(2))));
+
+        b.label("LABEL3");
+        b.value(this.toValue(Lists.of(this.uses(3))));
+
+        this.buildAndCheck(b, "LABEL:: 1// LABEL2:: 2// LABEL3:: 3");
+    }
+
+    private UsesToStringBuilder uses(final Object values) {
+        return new UsesToStringBuilder() {
+            @Override
+            public void buildToString(ToStringBuilder builder) {
+                builder.value(values);
+            }
+        };
+    }
+
     @Override
     final T defaultValue() {
         return this.toValue(Lists.empty());
