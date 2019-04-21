@@ -193,7 +193,31 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Test
+    public void testValueImplementsUsesToStringBuilderNothing() {
+        this.buildAndCheck(ToStringBuilder.empty()//
+                        .separator("*")//
+                        .labelSeparator("=")//
+                        .valueSeparator(",")//
+                        .disable(ToStringBuilderOption.QUOTE)//
+                        .label("label1").value(this.createUsesToStringBuilder(""))//
+                        .label("label2").value(2), //
+                "label2=2");
+    }
+
+    @Test
     public void testValueImplementsUsesToStringBuilder() {
+        this.buildAndCheck(ToStringBuilder.empty()//
+                        .separator("*")//
+                        .labelSeparator("=")//
+                        .valueSeparator(",")//
+                        .disable(ToStringBuilderOption.QUOTE)//
+                        .label("label1").value(this.createUsesToStringBuilder(1))//
+                        .label("label2").value(2), //
+                "label1=1*label2=2");
+    }
+
+    @Test
+    public void testValueImplementsUsesToStringBuilder2() {
         this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .labelSeparator("=")//
@@ -602,12 +626,12 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
         return ToStringBuilder.empty();
     }
 
-    private UsesToStringBuilder createUsesToStringBuilder(final Object result) {
+    private UsesToStringBuilder createUsesToStringBuilder(final Object value) {
         return new UsesToStringBuilder() {
 
             @Override
             public void buildToString(final ToStringBuilder builder) {
-                builder.value(result);
+                builder.value(value);
             }
         };
     }
@@ -619,9 +643,9 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     private void buildAndCheck(final ToStringBuilder builder, final String expected) {
         final String built = builder.build();
         if (false == expected.equals(built)) {
-            assertEquals("options=" + builder.options.toString(),
-                    format(expected),
-                    format(built));
+            assertEquals(format(expected),
+                    format(built),
+                    () -> "options=" + builder.options.toString());
         }
     }
 

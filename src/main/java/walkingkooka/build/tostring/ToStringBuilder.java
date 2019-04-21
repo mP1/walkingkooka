@@ -932,8 +932,7 @@ final public class ToStringBuilder implements Builder<String> {
         this.maxGlobalLength = max;
         this.globalLength = max;
 
-        final int values = this.valuesAdded;
-        this.valuesAdded = 0;
+        final int bufferLengthBefore = this.buffer.length();
 
         // this is what makes #parent() work
         final Object parent = this.parent;
@@ -962,7 +961,10 @@ final public class ToStringBuilder implements Builder<String> {
             this.options = options;
             this.depth = depth;
 
-            this.valuesAdded = values;
+            // assume if the buffer increased then "values were added"...
+            if(bufferLengthBefore != this.buffer.length()) {
+                this.valuesAdded++;
+            }
 
             // restore parent and self.
             this.parent = parent;

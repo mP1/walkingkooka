@@ -203,10 +203,7 @@ public final class XmlDocumentType extends XmlLeafNode implements HasXmlPublicId
     @Override
     void buildDomNodeToString(final ToStringBuilder builder) {
         builder.append("<!DOCTYPE ");
-        builder.append(this.name().value());
-        builder.append(" ");
-
-        builder.separator(" ");
+        builder.value(this.name().value());
 
         buildToString(this.publicId(), this.systemId(), builder);
 
