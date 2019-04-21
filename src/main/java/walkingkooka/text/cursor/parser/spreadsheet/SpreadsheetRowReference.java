@@ -39,7 +39,7 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
      * Parsers a range of rows.
      */
     public static Range<SpreadsheetRowReference> parseRange(final String text) {
-        return Range.parse(text, ':', SpreadsheetRowReference::parse);
+        return Range.parse(text, SpreadsheetParsers.RANGE_SEPARATOR.character(), SpreadsheetRowReference::parse);
     }
     
     /**
