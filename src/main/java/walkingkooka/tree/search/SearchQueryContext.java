@@ -28,7 +28,7 @@ abstract class SearchQueryContext implements Context {
     /**
      * Package private to limit sub classing.
      */
-    SearchQueryContext(){
+    SearchQueryContext() {
         super();
     }
 

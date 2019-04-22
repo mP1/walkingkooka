@@ -32,7 +32,7 @@ public interface BiFunctionTesting<F extends BiFunction<T, U, R>, T, U, R> exten
         this.applyAndCheck(this.createBiFunction(), in1, in2, result);
     }
 
-    default  <TT, UU, RR> void applyAndCheck(final BiFunction<TT, UU, RR> function, final TT in1, final UU in2, final RR result) {
+    default <TT, UU, RR> void applyAndCheck(final BiFunction<TT, UU, RR> function, final TT in1, final UU in2, final RR result) {
         assertEquals(result,
                 function.apply(in1, in2),
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(in1) + "," + CharSequences.quoteIfChars(in2));

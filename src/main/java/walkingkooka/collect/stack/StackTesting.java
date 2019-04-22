@@ -37,7 +37,7 @@ public interface StackTesting<S extends Stack<T> & HashCodeEqualsDefined, T> ext
         SerializationTesting<S>,
         ToStringTesting<S>,
         TypeNameTesting<S> {
-    
+
     @Test
     default void testPeekWhenEmptyFails() {
         final Stack<String> stack = ArrayListStack.create();

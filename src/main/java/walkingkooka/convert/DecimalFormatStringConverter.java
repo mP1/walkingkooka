@@ -61,7 +61,7 @@ final class DecimalFormatStringConverter extends FixedTargetTypeConverter<String
         final ThreadLocal<Map<DecimalFormatStringConverterSymbols, DecimalFormat>> symbolToDecimalFormat = this.symbolToDecimalFormat;
 
         Map<DecimalFormatStringConverterSymbols, DecimalFormat> map = symbolToDecimalFormat.get();
-        if(null==map) {
+        if (null == map) {
             map = new HashMap<>();
             symbolToDecimalFormat.set(map);
         }
@@ -75,7 +75,7 @@ final class DecimalFormatStringConverter extends FixedTargetTypeConverter<String
                 context.percentageSymbol(),
                 context.plusSign());
         DecimalFormat format = map.get(symbols);
-        if(null==format) {
+        if (null == format) {
             format = new DecimalFormat(this.pattern, symbols.decimalFormatSymbols());
             map.put(symbols, format);
         }

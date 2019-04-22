@@ -66,8 +66,8 @@ final public class Hsl implements HashCodeEqualsDefined, Serializable {
      */
     Hsl setHue(final HueHslComponent hue) {
         return this.hue.equals(hue) ?
-               this :
-               this.replace(hue, this.saturation, this.lightness);
+                this :
+                this.replace(hue, this.saturation, this.lightness);
     }
 
     /**
@@ -231,14 +231,14 @@ final public class Hsl implements HashCodeEqualsDefined, Serializable {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof Hsl &&
-               this.equals0(Cast.to(other));
+                other instanceof Hsl &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final Hsl other) {
         return this.hue.equals(other.hue) &&
-               this.saturation.equals(other.saturation) &&
-               this.lightness.equals(other.lightness);
+                this.saturation.equals(other.saturation) &&
+                this.lightness.equals(other.lightness);
     }
 
     /**

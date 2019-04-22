@@ -47,7 +47,7 @@ final class PojoObjectNodeChildrenValueList extends PojoNodeList<PojoObjectNode,
     }
 
     @Override
-    boolean isSameType(final Object other){
+    boolean isSameType(final Object other) {
         return other instanceof PojoObjectNodeChildrenValueList;
     }
 

@@ -193,7 +193,7 @@ final public class CharPredicates implements PublicStaticHelper {
      * {@see CharPredicateGrammarEbnfParserTokenVisitor}
      */
     public static Map<EbnfIdentifierName, CharPredicate> fromGrammar(final EbnfGrammarParserToken grammar,
-                                                              final Map<EbnfIdentifierName, CharPredicate> predefined) {
+                                                                     final Map<EbnfIdentifierName, CharPredicate> predefined) {
         return CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(grammar, predefined);
     }
 

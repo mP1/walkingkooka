@@ -43,8 +43,8 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     }
 
     default <V> void toValueAndCheck(final HeaderName<V> name,
-                                       final String headerValue,
-                                       final V value) {
+                                     final String headerValue,
+                                     final V value) {
         assertEquals(value,
                 name.toValue(headerValue),
                 name + "=" + CharSequences.quoteIfNecessary(headerValue));
@@ -79,7 +79,7 @@ public interface HeaderNameTesting<N extends HeaderName<?>, C extends Comparable
     }
 
     default void checkValue(final HeaderName<?> name,
-                              final Object value) {
+                            final Object value) {
         assertSame(value,
                 name.checkValue(value),
                 name + " didnt return correct value=" + CharSequences.quoteIfChars(value));

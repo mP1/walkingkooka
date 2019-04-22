@@ -35,14 +35,14 @@ final class CustomToStringPredicate<T> implements Predicate<T>, HashCodeEqualsDe
 
         Predicate<T> result;
 
-        for(;;){
-            if(predicate.toString().equals(toString)){
+        for (; ; ) {
+            if (predicate.toString().equals(toString)) {
                 result = predicate;
                 break;
             }
 
             Predicate<T> wrap = predicate;
-            if(predicate instanceof CustomToStringPredicate) {
+            if (predicate instanceof CustomToStringPredicate) {
                 // unwrap then re-wrap the predicate...
                 final CustomToStringPredicate<T> custom = Cast.to(wrap);
                 wrap = custom.predicate;

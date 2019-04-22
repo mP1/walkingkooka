@@ -200,7 +200,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
     }
 
     @Override
-    PojoSetNode createEmptyPojoNode(){
+    PojoSetNode createEmptyPojoNode() {
         return this.createPojoNode(Sets.empty());
     }
 
@@ -219,7 +219,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
         return set(ELEMENT2);
     }
 
-    private PojoSetNode createPojoNode(final Set<Object> set){
+    private PojoSetNode createPojoNode(final Set<Object> set) {
         return Cast.to(PojoNode.wrap(SET,
                 set,
                 new ReflectionPojoNodeContext()));
@@ -239,7 +239,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
     private final List<PojoNode> children0(final PojoSetNode firstNode, final Object... values) {
         final List<PojoNode> children = Lists.array();
         int i = 0;
-        for(Object value : values){
+        for (Object value : values) {
             children.add(firstNode.createNode(PojoName.index(i), value));
             i++;
         }
@@ -253,7 +253,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
     }
 
     @SafeVarargs
-    private final <T> Set<T> set(final T...values) {
+    private final <T> Set<T> set(final T... values) {
         final Set<T> set = Sets.ordered();
         set.addAll(Lists.of(values));
         return set;
@@ -293,7 +293,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
         private boolean equals0(final TestMutableParent other) {
             return this.set.equals(other.set);
         }
-        
+
         @Override
         public String toString() {
             return this.getClass().getSimpleName() + "=" + this.set.toString();
@@ -339,15 +339,15 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
     static class TestMutableLeaf {
         String x;
 
-        TestMutableLeaf(final String x){
+        TestMutableLeaf(final String x) {
             this.setX(x);
         }
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
 
-        public void setX(final String x){
+        public void setX(final String x) {
             this.x = x;
         }
 
@@ -358,7 +358,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestMutableLeaf && equals0((TestMutableLeaf)other);
+            return other instanceof TestMutableLeaf && equals0((TestMutableLeaf) other);
         }
 
         private boolean equals0(final TestMutableLeaf other) {
@@ -366,7 +366,7 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "x=" + this.getX();
         }
     }

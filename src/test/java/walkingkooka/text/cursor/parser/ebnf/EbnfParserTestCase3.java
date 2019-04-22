@@ -18,7 +18,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
 
-public abstract class EbnfParserTestCase3<T extends EbnfParserToken> extends EbnfParserTestCase2<T>{
+public abstract class EbnfParserTestCase3<T extends EbnfParserToken> extends EbnfParserTestCase2<T> {
 
     EbnfParserTestCase3() {
         super();

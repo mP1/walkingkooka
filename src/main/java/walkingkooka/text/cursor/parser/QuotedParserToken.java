@@ -32,15 +32,14 @@ public abstract class QuotedParserToken extends ParserToken2<String> implements 
 
     abstract char quotedCharacter();
 
-    @Override
-    final boolean equals1(final ParserToken2<?> other) {
+    @Override final boolean equals1(final ParserToken2<?> other) {
         return true; // no extra properties to compare
     }
 
     // HasSearchNode ...............................................................................................
 
     @Override
-    public final SearchNode toSearchNode()  {
+    public final SearchNode toSearchNode() {
         final String text = this.text();
         return SearchNode.text(text, text);
     }

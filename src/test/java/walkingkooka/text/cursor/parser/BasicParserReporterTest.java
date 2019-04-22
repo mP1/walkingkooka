@@ -36,7 +36,7 @@ public final class BasicParserReporterTest implements ClassTesting2<BasicParserR
 
     @Test
     public void testReport2() {
-       // has a dependency on the results of TextCursorLineInfo methods...
+        // has a dependency on the results of TextCursorLineInfo methods...
         final TextCursor cursor = TextCursors.charSequence("abc def ghi");
         cursor.next();
         cursor.next();

@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinaryNodeTestCase<ExpressionAdditionNode>{
+public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinaryNodeTestCase<ExpressionAdditionNode> {
 
     @Test
     public void testAccept() {
@@ -76,9 +76,9 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
         }.accept(addition);
         assertEquals("1315215242", b.toString());
         assertEquals(Lists.of(addition, addition,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        addition, addition),
+                text1, text1, text1,
+                text2, text2, text2,
+                addition, addition),
                 visited,
                 "visited");
     }
@@ -101,126 +101,126 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
 
     @Test
     public void testEvaluateToBigDecimalBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), bigDecimal(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), bigDecimal(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), bigInteger(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), bigInteger(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), doubleValue(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), doubleValue(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalLocalDate() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), localDate(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), localDate(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalLocalDateTime() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), localDateTime(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), localDateTime(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalLocalTime() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), localTime(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), localTime(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalLong() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), longValue(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), longValue(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalText() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), text("34")), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), text("34")), 12 + 34);
     }
 
     // toBigInteger.....................................................................................
 
     @Test
     public void testEvaluateToBigIntegerBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), bigDecimal(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), bigDecimal(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), bigInteger(34)), 12+34);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), bigInteger(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), doubleValue(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), doubleValue(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerLocalDate() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), localDate(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), localDate(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerLocalDateTime() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), localDateTime(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), localDateTime(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerLocalTime() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), localTime(34)), 12+34);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(12), localTime(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerLong() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), longValue(34)), 12+34);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), longValue(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerText() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), text("34")), 12+34);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), text("34")), 12 + 34);
     }
 
     // toDouble.....................................................................................
 
     @Test
     public void testEvaluateToDoubleBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(12), bigDecimal(34)), 12.0+34.0);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(12), bigDecimal(34)), 12.0 + 34.0);
     }
 
     @Test
     public void testEvaluateToDoubleBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(12), bigInteger(34)), 12.0+34.0);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(12), bigInteger(34)), 12.0 + 34.0);
     }
 
     @Test
     public void testEvaluateToDoubleDouble() {
-        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), doubleValue(34)), 12.0+34.0);
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), doubleValue(34)), 12.0 + 34.0);
     }
 
     @Test
     public void testEvaluateToDoubleLocalDate() {
-        this.evaluateAndCheckLocalDate(this.createExpressionNode(doubleValue(12), localDate(34)), 12+34);
+        this.evaluateAndCheckLocalDate(this.createExpressionNode(doubleValue(12), localDate(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToDoubleLocalDateTime() {
-        this.evaluateAndCheckLocalDateTime(this.createExpressionNode(doubleValue(12), localDateTime(34)), 12.0+34.0);
+        this.evaluateAndCheckLocalDateTime(this.createExpressionNode(doubleValue(12), localDateTime(34)), 12.0 + 34.0);
     }
 
     @Test
     public void testEvaluateToDoubleLocalTime() {
-        this.evaluateAndCheckLocalTime(this.createExpressionNode(doubleValue(12), localTime(34)), 12+34);
+        this.evaluateAndCheckLocalTime(this.createExpressionNode(doubleValue(12), localTime(34)), 12 + 34);
     }
 
     @Test
     public void testEvaluateToDoubleLong() {
-        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), longValue(34)), 12.0+34.0);
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), longValue(34)), 12.0 + 34.0);
     }
 
     @Test
     public void testEvaluateToDoubleText() {
-        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), text("34.5")), 12.0+34.5);
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), text("34.5")), 12.0 + 34.5);
     }
 
     // toLocalDate..............................................................................................................
@@ -478,7 +478,7 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + "+" + RIGHT_TO_STRING;
     }
 

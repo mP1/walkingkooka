@@ -70,7 +70,7 @@ public abstract class ParserTestCase<P extends Parser<ParserContext>> implements
         return ParserContexts.fake();
     }
 
-    final TextCursor parseFailAndCheck(final Parser <ParserContext> parser, final TextCursor cursor) {
+    final TextCursor parseFailAndCheck(final Parser<ParserContext> parser, final TextCursor cursor) {
         return this.parseFailAndCheck(parser, this.createContext(), cursor);
     }
 

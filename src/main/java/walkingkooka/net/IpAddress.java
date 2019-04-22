@@ -85,7 +85,7 @@ abstract public class IpAddress implements Value<byte[]>, HashCodeEqualsDefined,
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-               this.canBeEqual(other) && this.equals0((IpAddress) other);
+                this.canBeEqual(other) && this.equals0((IpAddress) other);
     }
 
     abstract boolean canBeEqual(Object other);

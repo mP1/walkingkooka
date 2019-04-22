@@ -137,7 +137,7 @@ public abstract class SpreadsheetFormatParentParserTokenTestCase<T extends Sprea
     }
 
     final void checkValue(final SpreadsheetFormatParentParserToken<?> token, final List<ParserToken> value) {
-        assertEquals(value, token.value(),"value");
+        assertEquals(value, token.value(), "value");
     }
 
     final SpreadsheetFormatParserToken closeBracket() {

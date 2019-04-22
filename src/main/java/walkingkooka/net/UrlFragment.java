@@ -41,8 +41,8 @@ public final class UrlFragment implements Value<String>, HashCodeEqualsDefined, 
     public static UrlFragment with(final String value) throws NullPointerException, IllegalArgumentException {
         Objects.requireNonNull(value, "value");
         return value.isEmpty() ?
-               EMPTY :
-               new UrlFragment(value);
+                EMPTY :
+                new UrlFragment(value);
     }
 
     /**
@@ -86,7 +86,7 @@ public final class UrlFragment implements Value<String>, HashCodeEqualsDefined, 
     }
 
     final void toString0(final StringBuilder b) {
-        if(!this.value.isEmpty()) {
+        if (!this.value.isEmpty()) {
             b.append(Url.FRAGMENT_START.character());
             b.append(this.value);
         }

@@ -144,7 +144,7 @@ final public class NormalizingCharSequenceComparatorTest implements ClassTesting
     public void testEqualsDifferentCharPredicate() {
         this.checkNotEquals(NormalizingCharSequenceComparator.with(CharPredicates.never()));
     }
-    
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createComparator(), "normalizing " + PREDICATE);
@@ -163,7 +163,7 @@ final public class NormalizingCharSequenceComparatorTest implements ClassTesting
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
-    
+
     @Override
     public NormalizingCharSequenceComparator<String> createObject() {
         return this.createComparator();

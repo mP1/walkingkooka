@@ -42,7 +42,7 @@ import java.util.Set;
 public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttributeName, Object>,
         HasChildrenValues<Object, PojoNode>,
         Value<Object>,
-        Comparable<PojoNode>{
+        Comparable<PojoNode> {
 
     /**
      * The {@link PathSeparator} for node selector paths.
@@ -71,56 +71,56 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
                           final int index,
                           final PojoNodeContext context) {
         PojoNode wrapped;
-        for(;;){
-            if(PojoBasicNode.isBasic(value)){
+        for (; ; ) {
+            if (PojoBasicNode.isBasic(value)) {
                 wrapped = new PojoBasicNode(name, value, index, context);
                 break;
             }
-            if(value instanceof boolean[]) {
+            if (value instanceof boolean[]) {
                 wrapped = new PojoBooleanArrayNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof byte[]) {
+            if (value instanceof byte[]) {
                 wrapped = new PojoByteArrayNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof char[]) {
+            if (value instanceof char[]) {
                 wrapped = new PojoCharArrayNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof double[]) {
+            if (value instanceof double[]) {
                 wrapped = new PojoDoubleArrayNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof float[]) {
+            if (value instanceof float[]) {
                 wrapped = new PojoFloatArrayNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof int[]) {
+            if (value instanceof int[]) {
                 wrapped = new PojoIntArrayNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof List) {
+            if (value instanceof List) {
                 wrapped = new PojoListNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof long[]) {
+            if (value instanceof long[]) {
                 wrapped = new PojoLongArrayNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof Map) {
+            if (value instanceof Map) {
                 wrapped = new PojoMapNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof Object[]) {
+            if (value instanceof Object[]) {
                 wrapped = new PojoObjectArrayNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof Set) {
+            if (value instanceof Set) {
                 wrapped = new PojoSetNode(name, Cast.to(value), index, context);
                 break;
             }
-            if(value instanceof short[]) {
+            if (value instanceof short[]) {
                 wrapped = new PojoShortArrayNode(name, Cast.to(value), index, context);
                 break;
             }
@@ -183,7 +183,7 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
     /**
      * This setter is used to recreate the entire graph including parents of parents receiving new children.
      */
-    final PojoNode setParent(final Optional<PojoNode> parent){
+    final PojoNode setParent(final Optional<PojoNode> parent) {
         this.parent = parent;
         return this;
     }
@@ -254,7 +254,7 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
 
     @Override
     public final Map<PojoNodeAttributeName, Object> attributes() {
-        if(null==this.attributes) {
+        if (null == this.attributes) {
             final Object value = this.value();
             this.attributes = null != value ?
                     Maps.of(PojoNodeAttributeName.CLASS, value.getClass().getName()) :
@@ -291,7 +291,7 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
                         value,
                         index(),
                         this.context)
-                .replaceChild(this.parent());
+                        .replaceChild(this.parent());
     }
 
     // Comparable ......................................................................................................

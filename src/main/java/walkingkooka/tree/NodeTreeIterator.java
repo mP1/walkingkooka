@@ -47,7 +47,7 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
     @Override
     public boolean hasNext() {
         boolean has = null != this.next;
-        if(!has){
+        if (!has) {
             this.next = this.nextOrNull();
             has = null != this.next;
         }
@@ -59,9 +59,9 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
     public N next() {
         N give = this.next;
         this.next = null;
-        if(null==give) {
+        if (null == give) {
             this.next = this.nextOrNull();
-            if(null==this.next) {
+            if (null == this.next) {
                 throw new NoSuchElementException();
             }
             give = this.next;
@@ -75,7 +75,7 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     private N next;
 
-    private N nextOrNull()  {
+    private N nextOrNull() {
         N node = null;
 
         final Stack<N> stack = this.unprocessed;
@@ -99,7 +99,7 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
      * Starting at the given {@link Node} pushes the next sibling.
      */
     private void pushNextSibling(final N node) {
-        if(this.skipNextSibling) {
+        if (this.skipNextSibling) {
             this.skipNextSibling = false;
         } else {
             final Optional<N> nextSibling = node.nextSibling();

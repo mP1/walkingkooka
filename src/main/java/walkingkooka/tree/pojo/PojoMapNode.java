@@ -44,7 +44,7 @@ final class PojoMapNode extends PojoCollectionNode {
 
     @Override
     List<Object> valueAsList() {
-        if(null==this.list){
+        if (null == this.list) {
             this.list = new PojoMapNodeMapList(this.valueAsMap());
         }
         return this.list;
@@ -58,7 +58,7 @@ final class PojoMapNode extends PojoCollectionNode {
     @Override
     final PojoNode replaceChildren(final List<PojoNode> children){
         final Map<Object, Object> newChildren = this.createMap();
-        for(PojoNode child : children){
+        for (PojoNode child : children) {
             final Entry<Object, Object> value = Cast.to(child.value());
             newChildren.put(value.getKey(), value.getValue());
         }
@@ -72,10 +72,10 @@ final class PojoMapNode extends PojoCollectionNode {
         // copy all the old children except for $newChild
         final int index = newChild.index();
         int i = 0;
-        for(Entry<Object, Object> child : this.valueAsMap().entrySet()){
+        for (Entry<Object, Object> child : this.valueAsMap().entrySet()) {
             Object key = child.getKey();
             Object value = child.getValue();
-            if(i == index) {
+            if (i == index) {
                 child = Cast.to(newChild.value());
                 key = child.getKey();
                 value = child.getValue();
@@ -95,7 +95,7 @@ final class PojoMapNode extends PojoCollectionNode {
     PojoNode replaceChildrenValues(final List<Object> values) {
         final Map<Object, Object> copy = this.createMap();
 
-        for(Object value : values){
+        for (Object value : values) {
             final Entry<Object, Object> entry = Cast.to(value);
             copy.put(entry.getKey(), entry.getValue());
         }
@@ -107,7 +107,7 @@ final class PojoMapNode extends PojoCollectionNode {
         return this.context.createMap(this.value.getClass());
     }
 
-    private PojoNode wrap(final Map<Object, Object> values){
+    private PojoNode wrap(final Map<Object, Object> values) {
         return new PojoMapNode(this.name(),
                 values,
                 this.index(),

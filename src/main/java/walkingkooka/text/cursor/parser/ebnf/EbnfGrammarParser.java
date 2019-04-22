@@ -66,7 +66,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
      */
     final static Parser<EbnfParserContext> IDENTIFIER =
             identifier()
-            .setToString("identifier");
+                    .setToString("identifier");
 
     private static Parser<EbnfParserContext> identifier() {
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
@@ -80,7 +80,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
 
     private static EbnfIdentifierParserToken ebnfIdentifierParserToken(final ParserToken tokens, final EbnfParserContext context) {
         final StringBuilder b = new StringBuilder();
-        for(ParserToken c : SequenceParserToken.class.cast(tokens).flat().value()) {
+        for (ParserToken c : SequenceParserToken.class.cast(tokens).flat().value()) {
             final CharacterParserToken character = c.cast();
             b.append(character.value());
         }
@@ -343,7 +343,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
      * Matches any of the tokens, assumes that any leading or trailing whitespace or comments is handled elsewhere...(parent)
      */
     private static Parser<EbnfParserContext> rhs() {
-        if(null==RHS_CACHE) {
+        if (null == RHS_CACHE) {
             RHS_CACHE = ALTERNATIVE
                     .or(CONCATENATION)
                     .or(OPTIONAL)
@@ -363,7 +363,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
     /**
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
-    private static Parser<EbnfParserContext> symbol(final char c, final String name){
+    private static Parser<EbnfParserContext> symbol(final char c, final String name) {
         return Parsers.character(CharPredicates.is(c))
                 .transform((character, context) -> EbnfSymbolParserToken.with(CharacterParserToken.class.cast(character).value().toString(), character.text()))
                 .setToString(name)
@@ -373,7 +373,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
     /**
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
-    private static Parser<EbnfParserContext> symbol(final String symbol, final String name){
+    private static Parser<EbnfParserContext> symbol(final String symbol, final String name) {
         return CaseSensitivity.SENSITIVE.parser(symbol)
                 .transform((string, context) -> EbnfSymbolParserToken.with(StringParserToken.class.cast(string).value(), string.text()))
                 .setToString(name)
@@ -435,7 +435,7 @@ final class EbnfGrammarParser implements Parser<EbnfParserContext> {
 
     private static EbnfGrammarParserToken grammarParserToken(final ParserToken sequence, final EbnfParserContext context) {
         return EbnfGrammarParserToken.with(SequenceParserToken.class.cast(sequence).flat()
-                .value(),
+                        .value(),
                 sequence.text());
     }
 

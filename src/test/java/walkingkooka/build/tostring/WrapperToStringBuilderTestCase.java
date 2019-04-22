@@ -19,13 +19,11 @@ package walkingkooka.build.tostring;
 
 public abstract class WrapperToStringBuilderTestCase<T> extends ScalarToStringBuilderTestCase<T> {
 
-    @Override
-    final void append(final ToStringBuilder builder, final T value) {
+    @Override final void append(final ToStringBuilder builder, final T value) {
         builder.append((Object) value);
     }
 
-    @Override
-    final void value(final ToStringBuilder builder, final T value) {
-        builder.value((Object)value);
+    @Override final void value(final ToStringBuilder builder, final T value) {
+        builder.value((Object) value);
     }
 }

@@ -43,7 +43,7 @@ final class LocalDateTimeBigIntegerConverter extends LocalDateTimeConverter2<Big
 
     @Override
     BigInteger convert3(final long days, final double time, final LocalDateTime localDateTime) {
-        if(time != 0) {
+        if (time != 0) {
             this.failConversion(localDateTime);
         }
         return BigInteger.valueOf(days);

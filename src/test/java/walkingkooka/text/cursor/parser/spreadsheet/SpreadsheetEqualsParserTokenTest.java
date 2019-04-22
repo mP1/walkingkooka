@@ -116,7 +116,7 @@ public final class SpreadsheetEqualsParserTokenTest extends SpreadsheetBinaryPar
     }
 
     @Override
-    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right){
+    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionNode.equalsNode(left, right);
     }
 

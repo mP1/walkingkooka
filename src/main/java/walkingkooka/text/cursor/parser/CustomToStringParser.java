@@ -35,14 +35,14 @@ final class CustomToStringParser<C extends ParserContext> implements Parser<C>, 
 
         Parser<C> result;
 
-        for(;;){
-            if(parser.toString().equals(toString)){
+        for (; ; ) {
+            if (parser.toString().equals(toString)) {
                 result = parser;
                 break;
             }
 
             Parser<C> wrap = parser;
-            if(parser instanceof CustomToStringParser) {
+            if (parser instanceof CustomToStringParser) {
                 // unwrap then re-wrap the parser...
                 final CustomToStringParser<C> custom = Cast.to(wrap);
                 wrap = custom.parser;
@@ -84,12 +84,12 @@ final class CustomToStringParser<C extends ParserContext> implements Parser<C>, 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof CustomToStringParser && this.equals0(Cast.to(other));
+                other instanceof CustomToStringParser && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final CustomToStringParser<?> other) {
         return this.parser.equals(other.parser) &&
-               this.toString.equals(other.toString);
+                this.toString.equals(other.toString);
     }
 
     @Override

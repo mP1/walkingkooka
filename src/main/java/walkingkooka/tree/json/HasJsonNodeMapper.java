@@ -111,7 +111,7 @@ abstract class HasJsonNodeMapper<T> {
      */
     static synchronized <T extends HasJsonNode> void register(final String typeName,
                                                               final Function<JsonNode, T> from,
-                                                              final Class<?>...types) {
+                                                              final Class<?>... types) {
         CharSequences.failIfNullOrEmpty(typeName, "typeName");
         Objects.requireNonNull(from, "from");
 
@@ -146,12 +146,12 @@ abstract class HasJsonNodeMapper<T> {
     /**
      * Registers a mapper for a type name.
      */
-    private static <T> void register1(final String typeName, final HasJsonNodeMapper<T> mapper, final Class<?>...types) {
+    private static <T> void register1(final String typeName, final HasJsonNodeMapper<T> mapper, final Class<?>... types) {
         register2(typeName, mapper);
 
-        for(Class<?> type : types) {
+        for (Class<?> type : types) {
             final String name = type.getName();
-            if(!name.equals(typeName)) {
+            if (!name.equals(typeName)) {
                 register2(name, mapper);
             }
         }
@@ -259,7 +259,7 @@ abstract class HasJsonNodeMapper<T> {
     }
 
     static JsonNode toJsonNodeMapNotNull(final Map<?, ?> map,
-                                                  final Function<Entry<?, ?>, JsonNode> entry) {
+                                         final Function<Entry<?, ?>, JsonNode> entry) {
         return JsonObjectNode.array()
                 .setChildren(map.entrySet().stream()
                         .map(entry)

@@ -36,12 +36,12 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     public final static String SYMBOL = "-";
 
-    static ExpressionNegativeNode with(final ExpressionNode value){
+    static ExpressionNegativeNode with(final ExpressionNode value) {
         Objects.requireNonNull(value, "value");
         return new ExpressionNegativeNode(NO_INDEX, value);
     }
 
-    private ExpressionNegativeNode(final int index, final ExpressionNode value){
+    private ExpressionNegativeNode(final int index, final ExpressionNode value) {
         super(index, value);
     }
 
@@ -76,8 +76,8 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -102,12 +102,12 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     @Override
     public double toDouble(final ExpressionEvaluationContext context) {
-        return - this.value().toDouble(context);
+        return -this.value().toDouble(context);
     }
 
     @Override
     public long toLong(final ExpressionEvaluationContext context) {
-        return - this.value().toLong(context);
+        return -this.value().toLong(context);
     }
 
     @Override
@@ -121,7 +121,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
                                 this.applyDouble(Double.class.cast(number)) :
                                 number instanceof Long ?
                                         this.applyLong(Long.class.cast(number)) :
-                                            failToNumber(number);
+                                        failToNumber(number);
     }
 
     private BigDecimal applyBigDecimal(final BigDecimal bigDecimal, final ExpressionEvaluationContext context) {

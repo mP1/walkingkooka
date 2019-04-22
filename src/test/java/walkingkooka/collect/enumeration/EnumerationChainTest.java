@@ -79,7 +79,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
         assertTrue(enumerator.hasMoreElements(), "hasMoreElements from 1st enumerator");
-        assertSame( "1", enumerator.nextElement(), "next from 1st enumerator");
+        assertSame("1", enumerator.nextElement(), "next from 1st enumerator");
 
         assertTrue(enumerator.hasMoreElements(), "hasMoreElements from 1st enumerator");
         assertSame("2", enumerator.nextElement(), "next from 1st enumerator");
@@ -88,7 +88,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         assertSame("3", enumerator.nextElement(), "next from last enumerator");
 
         assertTrue(enumerator.hasMoreElements(), "hasMoreElements from last enumerator");
-        assertSame( "4", enumerator.nextElement(), "next from last enumerator");
+        assertSame("4", enumerator.nextElement(), "next from last enumerator");
 
         assertFalse(enumerator.hasMoreElements(), "hasMoreElements should be false when empty");
         this.checkNextElementFails(enumerator);

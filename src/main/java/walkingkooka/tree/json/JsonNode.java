@@ -72,7 +72,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
                 JsonNodeParserContexts.basic())
                 .get()
                 .cast();
-         return token.toJsonNode().get();
+        return token.toJsonNode().get();
     }
 
     /**
@@ -140,8 +140,8 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
     final JsonNode setName0(final JsonNodeName name) {
         return this.name.equals(name) ?
-               this :
-               this.replaceName(name);
+                this :
+                this.replaceName(name);
 
     }
 
@@ -450,8 +450,8 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-               this.canBeEqual(other) &&
-               this.equals0(Cast.to(other));
+                this.canBeEqual(other) &&
+                        this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);
@@ -463,7 +463,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     private boolean equalsAncestors(final JsonNode other) {
         boolean result = this.equalsNameAndValue(other);
 
-        if(result) {
+        if (result) {
             final Optional<JsonNode> parent = this.parent();
             final Optional<JsonNode> otherParent = other.parent();
             final boolean hasParent = parent.isPresent();
@@ -492,13 +492,14 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
     private boolean equalsNameAndValue(final JsonNode other) {
         return this.name.equals(other.name) &&
-               this.equalsValue(other);
+                this.equalsValue(other);
     }
 
     /**
      * Sub classes should do equals but ignore the parent and children properties.
      */
     abstract boolean equalsValue(final JsonNode other);
+
     /**
      * Pretty prints the entire json graph.
      */

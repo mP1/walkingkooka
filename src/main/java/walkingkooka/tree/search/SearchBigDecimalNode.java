@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 /**
  * A {@link SearchNode} that holds a {@link BigDecimal} value.
  */
-public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal>{
+public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal> {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchBigDecimalNode.class);
 
@@ -112,7 +112,7 @@ public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal>{
     // Visitor ..........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
+    public void accept(final SearchNodeVisitor visitor) {
         visitor.visit(this);
     }
 

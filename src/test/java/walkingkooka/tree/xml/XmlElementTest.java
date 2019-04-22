@@ -492,12 +492,12 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
     }
 
     private void checkPrefix(final XmlElement element, final String prefix) {
-        assertEquals(Optional.ofNullable(null != prefix ? XmlNode.prefix(prefix) : null), element.prefix(),"prefix");
+        assertEquals(Optional.ofNullable(null != prefix ? XmlNode.prefix(prefix) : null), element.prefix(), "prefix");
         assertEquals(prefix, element.node.getPrefix(), "w3c element prefix");
     }
 
     private void checkAttributes(final XmlElement element, final Map<XmlAttributeName, String> attributes) {
-        assertEquals(attributes, element.attributes(),"attributes");
+        assertEquals(attributes, element.attributes(), "attributes");
 
         final Map<String, Object> rawAttributes = Maps.ordered();
         attributes.entrySet()

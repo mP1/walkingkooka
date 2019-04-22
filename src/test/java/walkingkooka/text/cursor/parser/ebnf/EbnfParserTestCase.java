@@ -101,11 +101,11 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> implements P
         return EbnfParserToken.symbol(symbol, symbol);
     }
 
-    static EbnfRuleParserToken rule(final String text, final EbnfParserToken...tokens) {
+    static EbnfRuleParserToken rule(final String text, final EbnfParserToken... tokens) {
         return EbnfParserToken.rule(Lists.of(tokens), text);
     }
 
-    static EbnfRangeParserToken range(final String text, final EbnfParserToken...tokens) {
+    static EbnfRangeParserToken range(final String text, final EbnfParserToken... tokens) {
         return EbnfParserToken.range(Lists.of(tokens), text);
     }
 

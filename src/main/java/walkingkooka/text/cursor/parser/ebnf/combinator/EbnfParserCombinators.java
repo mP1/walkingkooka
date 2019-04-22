@@ -45,8 +45,8 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
         Objects.requireNonNull(syntaxTreeTransformer, "syntaxTreeTransformer");
 
         return transform0(EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor.clean(grammar),
-            identifierToParser,
-            syntaxTreeTransformer);
+                identifierToParser,
+                syntaxTreeTransformer);
     }
 
     private static Map<EbnfIdentifierName, Parser<ParserContext>> transform0(final EbnfGrammarParserToken grammar,

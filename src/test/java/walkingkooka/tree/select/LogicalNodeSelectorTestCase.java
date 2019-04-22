@@ -30,12 +30,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class LogicalNodeSelectorTestCase<S extends LogicalNodeSelector<TestNode, StringName, StringName, Object>>
-extends NodeSelectorTestCase<S>{
+        extends NodeSelectorTestCase<S> {
 
     private final static NodeSelector<TestNode, StringName, StringName, Object> SELECTOR = new FakeNodeSelector();
     private final static NodeSelector<TestNode, StringName, StringName, Object> SELECTOR2 = new FakeNodeSelector();
 
-    LogicalNodeSelectorTestCase(){
+    LogicalNodeSelectorTestCase() {
         super();
     }
 
@@ -65,27 +65,24 @@ extends NodeSelectorTestCase<S>{
                 NodeSelector.expression(ExpressionNode.text("different!"))));
     }
 
-    @Override
-    final S createSelector() {
+    @Override final S createSelector() {
         return this.createSelector(SELECTOR, SELECTOR2);
     }
 
-    @SafeVarargs
-    final S createSelector(final NodeSelector<TestNode, StringName, StringName, Object>...selectors) {
+    @SafeVarargs final S createSelector(final NodeSelector<TestNode, StringName, StringName, Object>... selectors) {
         return Cast.to(this.createSelector0(selectors));
     }
 
     @SafeVarargs
-    final NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final NodeSelector<TestNode, StringName, StringName, Object>...selectors) {
+    final NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final NodeSelector<TestNode, StringName, StringName, Object>... selectors) {
         return this.createSelector0(Lists.of(selectors));
     }
 
     abstract NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors);
 
-    @SafeVarargs
-    final void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                               final TestNode start,
-                               final String... nodes) {
+    @SafeVarargs final void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                            final TestNode start,
+                                            final String... nodes) {
         this.acceptAndCheckUsingContext(selector, start, nodes);
     }
 }

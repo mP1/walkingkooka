@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 
-public final class SpreadsheetLabelNameParserTest extends SpreadsheetParserTestCase<SpreadsheetLabelNameParser, SpreadsheetLabelNameParserToken>{
+public final class SpreadsheetLabelNameParserTest extends SpreadsheetParserTestCase<SpreadsheetLabelNameParser, SpreadsheetLabelNameParserToken> {
 
     @Test
     public void testWrongFirstCharFail() {

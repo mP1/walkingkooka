@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Interface with default methods implementing tests and other test helpers.
  */
-final class PublicStaticHelperTesting2{
+final class PublicStaticHelperTesting2 {
 
     static void methodFilterAndCheckNone(final Class<?> type,
                                          final Predicate<Method> predicate,

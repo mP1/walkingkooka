@@ -215,7 +215,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
      */
     private void maybeComplete(final NodeSelector<N, NAME, ANAME, AVALUE> axis) {
         final NodeSelectorNodeNameParserToken name = this.name;
-        if(null!=name || this.wildcard) {
+        if (null != name || this.wildcard) {
             this.complete(name, axis);
         }
     }
@@ -229,13 +229,13 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
 
     private void complete(final NodeSelectorNodeNameParserToken name, final NodeSelector<N, NAME, ANAME, AVALUE> axis) {
         final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> builder = this.builder;
-        if(null!=name) {
+        if (null != name) {
             builder.named(this.nameFactory.apply(name.value()));
         }
         this.predicates.stream()
                 .forEach(p -> builder.expression(p));
 
-        if(null!=axis) {
+        if (null != axis) {
             builder.append(axis);
         }
         this.reset();

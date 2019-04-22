@@ -36,7 +36,7 @@ import java.util.Objects;
  * ...
  * </pre>
  */
-public final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class AppendNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
      * Creates a {@link AppendNodePointer}

@@ -26,7 +26,7 @@ import java.math.BigInteger;
  */
 abstract class ExpressionComparisonBinaryNode extends ExpressionBinaryNode2 {
 
-    ExpressionComparisonBinaryNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    ExpressionComparisonBinaryNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 

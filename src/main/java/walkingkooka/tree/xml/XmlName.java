@@ -130,7 +130,7 @@ public final class XmlName implements Name,
     @Override
     public int compareTo(final XmlName other) {
         int value = CASE_SENSITIVITY.comparator().compare(this.name, other.name);
-        if(0 == value) {
+        if (0 == value) {
             value = CASE_SENSITIVITY.comparator().compare(this.kind.name(), other.kind.name());
         }
         return value;

@@ -25,7 +25,7 @@ import walkingkooka.tree.pointer.NodePointer;
 
 public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<JsonNode, JsonNodeName>> extends NonEmptyNodePatchTestCase<P> {
 
-    CopyOrMoveNodePatchTestCase(){
+    CopyOrMoveNodePatchTestCase() {
         super();
     }
 
@@ -50,9 +50,9 @@ public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<
     @Test
     public final void testFromJsonNodeValueTypeFails() {
         this.fromJsonNodeFails2("[{\n" +
-                        "  \"op\": \"$OP\",\n" +
-                        "  \"value-type\": \"json-property-name\"\n" +
-                        "}]");
+                "  \"op\": \"$OP\",\n" +
+                "  \"value-type\": \"json-property-name\"\n" +
+                "}]");
     }
 
     @Test
@@ -146,8 +146,7 @@ public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<
 
     abstract String operation();
 
-    @Override
-    final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
+    @Override final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
         return this.createPatch(this.path2(), path);
     }
 

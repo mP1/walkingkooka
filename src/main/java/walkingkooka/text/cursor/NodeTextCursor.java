@@ -34,7 +34,7 @@ import java.util.Objects;
 final class NodeTextCursor<N extends Node<N, NAME, ANAME, AVALUE> & HasText,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> implements TextCursor{
+        AVALUE> implements TextCursor {
 
     /**
      * Factory that creates a {@link TextCursor} using the provided {@link Node}
@@ -76,16 +76,16 @@ final class NodeTextCursor<N extends Node<N, NAME, ANAME, AVALUE> & HasText,
     }
 
     private void fillIfCursorEmpty() {
-        if(this.cursor.isEmpty()){
+        if (this.cursor.isEmpty()) {
             // grab next node, and fill StringBuilder $text.
-            for(;;){
-                if(!this.nodes.hasNext()){
+            for (; ; ) {
+                if (!this.nodes.hasNext()) {
                     break;
                 }
                 final N node = this.nodes.next();
 
                 // only consume text from nodes without any children...
-                if(node.children().isEmpty()){
+                if (node.children().isEmpty()) {
                     this.text.append(node.text());
                     break;
                 }

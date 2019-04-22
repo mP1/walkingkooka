@@ -63,7 +63,7 @@ public final class Converters implements PublicStaticHelper {
     /**
      * Nanos per second.
      */
-    static final long NANOS_PER_SECOND =  1000_000_000L;
+    static final long NANOS_PER_SECOND = 1000_000_000L;
 
     /**
      * Nanos per minute.
@@ -137,7 +137,7 @@ public final class Converters implements PublicStaticHelper {
     public static <S, T> Converter forward(final Converter converter, final Class<S> sourceType, final Class<T> targetType) {
         return ForwardingConverter.with(converter, sourceType, targetType);
     }
-    
+
     /**
      * {@see LocalDateBigDecimalConverter}
      */
@@ -325,9 +325,9 @@ public final class Converters implements PublicStaticHelper {
      * {@see NumberNumberConverter}
      */
     public static Converter numberNumber(final Converter bigDecimal,
-                                      final Converter bigInteger,
-                                      final Converter doubleConverter,
-                                      final Converter longConverter) {
+                                         final Converter bigInteger,
+                                         final Converter doubleConverter,
+                                         final Converter longConverter) {
         return NumberNumberConverter.with(bigDecimal, bigInteger, doubleConverter, longConverter);
     }
 
@@ -336,7 +336,7 @@ public final class Converters implements PublicStaticHelper {
      */
     public static <V, PT extends ParserToken & Value<V>, PC extends ParserContext> Converter parser(final Class<V> type,
                                                                                                     final Parser<PC> parser,
-                                                                                                    final Function<ConverterContext, PC> context){
+                                                                                                    final Function<ConverterContext, PC> context) {
         return ParserConverter.with(type, parser, context);
     }
 

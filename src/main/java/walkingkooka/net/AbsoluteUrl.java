@@ -220,8 +220,8 @@ public final class AbsoluteUrl extends Url {
         Objects.requireNonNull(host, "host");
 
         return this.host.equals(host) ?
-               this :
-               new AbsoluteUrl(this.scheme, this.credentials, host, this.port, this.path, this.query, this.fragment);
+                this :
+                new AbsoluteUrl(this.scheme, this.credentials, host, this.port, this.path, this.query, this.fragment);
     }
 
     final HostAddress host;
@@ -245,13 +245,13 @@ public final class AbsoluteUrl extends Url {
 
     @Override
     public AbsoluteUrl set(final UrlScheme scheme,
-                                    final Optional<UrlCredentials> credentials,
-                                    final HostAddress host,
-                                    final Optional<IpPort> port){
+                           final Optional<UrlCredentials> credentials,
+                           final HostAddress host,
+                           final Optional<IpPort> port) {
         return this.setScheme(scheme)
-               .setCredentials(credentials)
-               .setHost(host)
-               .setPort(port);
+                .setCredentials(credentials)
+                .setHost(host)
+                .setPort(port);
     }
 
     /**
@@ -278,7 +278,7 @@ public final class AbsoluteUrl extends Url {
     public boolean equals(final Object other) {
         return this == other ||
                 other instanceof AbsoluteUrl &&
-                this.equals0((AbsoluteUrl) other);
+                        this.equals0((AbsoluteUrl) other);
     }
 
     private boolean equals0(final AbsoluteUrl other) {
@@ -294,11 +294,11 @@ public final class AbsoluteUrl extends Url {
     @Override
     void toString0(final StringBuilder b) {
         this.scheme.toString0(b);
-        if(this.credentials.isPresent()) {
+        if (this.credentials.isPresent()) {
             this.credentials.get().toString0(b);
         }
         this.host.toString0(b);
-        if(this.port.isPresent()) {
+        if (this.port.isPresent()) {
             this.port.get().toString0(b);
         }
     }

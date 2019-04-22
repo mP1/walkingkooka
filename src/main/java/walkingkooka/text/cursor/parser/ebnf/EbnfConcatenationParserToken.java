@@ -100,7 +100,7 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken<Eb
 
     @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

@@ -35,7 +35,7 @@ final class HasJsonNodeHasJsonNodeMapper<T extends HasJsonNode> extends HasJsonN
                                          final Class<T> type) {
         super();
         this.typeName = JsonStringNode.with(typeName);
-        this.fromJsonNode=fromJsonNode;
+        this.fromJsonNode = fromJsonNode;
         this.type = type;
     }
 

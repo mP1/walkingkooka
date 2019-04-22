@@ -27,7 +27,7 @@ import java.util.Objects;
  */
 abstract class SearchValueComparisonLeafQuery extends SearchLeafQuery<SearchQueryValue> {
 
-    SearchValueComparisonLeafQuery(final SearchQueryValue value, final SearchQueryTester tester){
+    SearchValueComparisonLeafQuery(final SearchQueryValue value, final SearchQueryTester tester) {
         super(value);
         this.tester = tester;
     }

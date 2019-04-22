@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public interface TextCursorTesting2<C extends TextCursor>
         extends TextCursorTesting<C>,
         TypeNameTesting<C> {
-    
+
     @Test
     default void testIsEmptyNotEmpty() {
         final C cursor = this.createTextCursor("1");

@@ -34,13 +34,13 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
 
         return new RepeatedParserToken(tokens, text);
     }
-    
+
     private RepeatedParserToken(final List<ParserToken> tokens, final String text) {
         super(tokens, text);
     }
 
     @Override
-    public RepeatedParserToken setText(final String text){
+    public RepeatedParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -53,8 +53,7 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
         return this.setValue0(value).cast();
     }
 
-    @Override
-    final RepeatedParserToken replaceValue(final List<ParserToken> value) {
+    @Override final RepeatedParserToken replaceValue(final List<ParserToken> value) {
         return new RepeatedParserToken(value, this.text());
     }
 
@@ -69,8 +68,8 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

@@ -42,7 +42,7 @@ final class PrefixedNumberParserTokenBiFunction<C extends ParserContext> impleme
      */
     private final static PrefixedNumberParserTokenBiFunction INSTANCE = new PrefixedNumberParserTokenBiFunction();
 
-    private PrefixedNumberParserTokenBiFunction(){
+    private PrefixedNumberParserTokenBiFunction() {
         super();
     }
 
@@ -51,7 +51,7 @@ final class PrefixedNumberParserTokenBiFunction<C extends ParserContext> impleme
         try {
             return this.apply0(token);
         } catch (final ClassCastException | IllegalStateException | IndexOutOfBoundsException cause) {
-            throw new ParserException("Failure while applying to token="+ token + ", message: " + cause, cause);
+            throw new ParserException("Failure while applying to token=" + token + ", message: " + cause, cause);
         }
     }
 

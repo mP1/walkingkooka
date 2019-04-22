@@ -35,12 +35,12 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
 
     public final static String SYMBOL = "%";
 
-    static ExpressionModuloNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionModuloNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionModuloNode(NO_INDEX, left, right);
     }
 
-    private ExpressionModuloNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionModuloNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -74,7 +74,7 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
     public boolean isDivision() {
         return false;
     }
-    
+
     @Override
     public boolean isModulo() {
         return true;
@@ -98,8 +98,8 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

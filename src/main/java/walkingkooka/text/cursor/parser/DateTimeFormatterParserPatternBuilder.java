@@ -78,11 +78,11 @@ final class DateTimeFormatterParserPatternBuilder {
     }
 
     private void addPattern(final int c) {
-        if(this.patterns.isEmpty()) {
+        if (this.patterns.isEmpty()) {
             this.add(c);
         } else {
-            final DateTimeFormatterParserPatternBuilderToken pattern = this.patterns.get(this.patterns.size()-1);
-            if(pattern.requiresNew(c)) {
+            final DateTimeFormatterParserPatternBuilderToken pattern = this.patterns.get(this.patterns.size() - 1);
+            if (pattern.requiresNew(c)) {
                 this.add(c);
             } else {
                 pattern.increaseCount();
@@ -100,14 +100,14 @@ final class DateTimeFormatterParserPatternBuilder {
         final List<DateTimeFormatterParserPatternBuilderToken> finished = Lists.array();
 
         DateTimeFormatterParserPatternBuilderToken previous = null;
-        for(DateTimeFormatterParserPatternBuilderToken pattern : this.patterns) {
+        for (DateTimeFormatterParserPatternBuilderToken pattern : this.patterns) {
             DateTimeFormatterParserPatternBuilderToken p = pattern.finish();
-            if(null==previous) {
+            if (null == previous) {
                 finished.add(p);
                 previous = p;
                 continue;
             }
-            if(previous.isDifferent(p)){
+            if (previous.isDifferent(p)) {
                 finished.add(p);
             }
             previous = p;
@@ -121,7 +121,7 @@ final class DateTimeFormatterParserPatternBuilder {
     @Override
     public String toString() {
         return this.patterns.stream()
-                .map(m-> m.toString())
+                .map(m -> m.toString())
                 .collect(Collectors.joining(","));
     }
 }

@@ -58,8 +58,9 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
     public void testWith() {
         final String content = "   ";
         final Whitespace whitespace = Whitespace.with(content);
-        assertSame(content, whitespace.toString(),"toString");
+        assertSame(content, whitespace.toString(), "toString");
     }
+
     @Test
     public void testCharAt() {
         this.checkCharAt(" \t\r\n");

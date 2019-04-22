@@ -72,8 +72,8 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
                         MemberVisibility.PACKAGE_PRIVATE;
         assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getConstructors())
-                .filter(c -> false == visibility.is(c))
-                .collect(Collectors.toList()),
+                        .filter(c -> false == visibility.is(c))
+                        .collect(Collectors.toList()),
                 () -> "Found several constructors that are not " + visibility + " for type " + type.getName());
     }
 }

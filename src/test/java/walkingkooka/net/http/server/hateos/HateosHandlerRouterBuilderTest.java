@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HateosHandlerRouterBuilderTest extends HateosHandlerRouterTestCase<HateosHandlerRouterBuilder<JsonNode>>
-    implements BuilderTesting<HateosHandlerRouterBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
+        implements BuilderTesting<HateosHandlerRouterBuilder<JsonNode>, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> {
 
     private final static Function<String, BigInteger> STRING_TO_ID = BigInteger::new;
     private final static Class<EmailAddress> RESOURCE_TYPE = EmailAddress.class;

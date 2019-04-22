@@ -32,10 +32,10 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public interface NodeSelectorTesting <N extends Node<N, NAME, ANAME, AVALUE>,
+public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE>{
+        AVALUE> {
 
     @Test
     default void testSelectorSelf() {
@@ -83,7 +83,8 @@ public interface NodeSelectorTesting <N extends Node<N, NAME, ANAME, AVALUE>,
         final Set<N> selected = Sets.ordered();
         selector.accept(node,
                 this.nodeSelectorContext(
-                        (n) -> {}, // ignore potentials
+                        (n) -> {
+                        }, // ignore potentials
                         (n) -> selected.add(n))); // capture selecteds
 
         return selected.stream()

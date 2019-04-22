@@ -761,7 +761,7 @@ public final class SearchGreaterThanQueryTest extends SearchValueComparisonLeafQ
     SearchQueryValueSearchQueryTesterComparisonPredicate predicate() {
         return SearchQueryValueSearchQueryTesterComparisonPredicate.GREATER_THAN;
     }
-    
+
     @Override
     public Class<SearchGreaterThanQuery> type() {
         return SearchGreaterThanQuery.class;

@@ -132,9 +132,9 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
         final UrlPath path = this.createPath();
         final UrlQueryString queryString = UrlQueryString.with("a=b");
         final RelativeUrl url = path.addQueryString(queryString);
-        assertSame(path, url.path(),"path");
-        assertSame(queryString, url.query(),"queryString");
-        assertEquals(UrlFragment.EMPTY, url.fragment(),"fragment");
+        assertSame(path, url.path(), "path");
+        assertSame(queryString, url.query(), "queryString");
+        assertEquals(UrlFragment.EMPTY, url.fragment(), "fragment");
     }
 
     @Test
@@ -166,8 +166,8 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
 
     @Override
     public UrlPathName createName(final int n) {
-        final char c = (char)('a' + n);
-        return UrlPathName.with( c + "" + n);
+        final char c = (char) ('a' + n);
+        return UrlPathName.with(c + "" + n);
     }
 
     @Override
@@ -176,7 +176,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     }
 
     @Override
-    public UrlPath parsePath(final String name){
+    public UrlPath parsePath(final String name) {
         return UrlPath.parse(name);
     }
 

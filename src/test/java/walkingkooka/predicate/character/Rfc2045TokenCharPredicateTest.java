@@ -123,21 +123,21 @@ public final class Rfc2045TokenCharPredicateTest implements CharPredicateTesting
 
     @Test
     public void testLowercase() {
-        for(char c : "abcdefghijklmnopqrstuvwxyz".toCharArray()) {
+        for (char c : "abcdefghijklmnopqrstuvwxyz".toCharArray()) {
             this.testTrue(c);
         }
     }
 
     @Test
     public void testUppercase() {
-        for(char c : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+        for (char c : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
             this.testTrue(c);
         }
     }
 
     @Test
     public void testDigits() {
-        for(char c : "0123456789".toCharArray()) {
+        for (char c : "0123456789".toCharArray()) {
             this.testTrue(c);
         }
     }
@@ -147,9 +147,9 @@ public final class Rfc2045TokenCharPredicateTest implements CharPredicateTesting
         final CharPredicate rfc2045 = CharPredicates.rfc2045Token();
         final CharPredicate special = CharPredicates.rfc2045TokenSpecial();
 
-        for(int i= 0; i < Character.MAX_VALUE; i++) {
-            final char c = (char)i;
-            if(rfc2045.test(c)) {
+        for (int i = 0; i < Character.MAX_VALUE; i++) {
+            final char c = (char) i;
+            if (rfc2045.test(c)) {
                 this.testFalse(special, c);
             }
         }

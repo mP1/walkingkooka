@@ -110,7 +110,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
             HostAddress.with(address);
         });
-        if(null!=message){
+        if (null != message) {
             assertEquals(message, expected.getMessage(), "message");
         }
     }
@@ -710,7 +710,7 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
 
     private void parseIp4Fails(final String address, final int start, final int end, final boolean insideIp6,
                                final HostAddressProblem problem) {
-        assertEquals(problem, HostAddress.tryParseIp4(address, start, end, insideIp6),"problem");
+        assertEquals(problem, HostAddress.tryParseIp4(address, start, end, insideIp6), "problem");
     }
 
     // parseIp6 ...................................................................................................

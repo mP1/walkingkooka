@@ -74,7 +74,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
 
     void axis(final String toString) {
         // cant combine two axis.
-        if (null != this.axis ) {
+        if (null != this.axis) {
             this.commit();
         }
         // output this step with the given axis, and start afresh with any next axis/node/predicate additions.
@@ -83,14 +83,14 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
     }
 
     void node(final String toString) {
-        if(null!=this.node) {
+        if (null != this.node) {
             this.commit();
         }
         this.node = toString;
     }
 
     void predicate(final String toString) {
-        if(null!=this.predicate) {
+        if (null != this.predicate) {
             this.commit();
         }
         this.predicate = toString;
@@ -105,12 +105,12 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
                 (null != node ? 2 : 0) +
                 (null != predicate ? 4 : 0);
 
-        if(action > 0) {
+        if (action > 0) {
             this.appendSeparator();
         }
 
         final StringBuilder b = this.b;
-        switch(action) {
+        switch (action) {
             case 0:
                 break;
             case 1: // axis
@@ -157,10 +157,10 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         final PathSeparator separator = this.separator;
         final int length = b.length();
         if (length > 0) {
-                final char c = separator.character();
-                if (c != b.charAt(length - 1)) {
-                    b.append(c);
-                }
+            final char c = separator.character();
+            if (c != b.charAt(length - 1)) {
+                b.append(c);
+            }
 
         }
     }

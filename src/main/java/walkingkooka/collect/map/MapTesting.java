@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Interface with default methods which can be mixed in to assist testing of an {@link Map}.
  */
-public interface MapTesting<M extends Map<K, V>, K, V>  {
+public interface MapTesting<M extends Map<K, V>, K, V> {
 
     @Test
     default void testIteratorContainsKeyAndSize() {

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public final class CharArrayToStringBuilderTest extends VectorToStringBuilderTestCase<char[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value("\0ab".toCharArray());
@@ -31,7 +31,7 @@ public final class CharArrayToStringBuilderTest extends VectorToStringBuilderTes
     }
 
     @Test
-    public void testValueEscaped(){
+    public void testValueEscaped() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.ESCAPE);
 
@@ -42,7 +42,7 @@ public final class CharArrayToStringBuilderTest extends VectorToStringBuilderTes
     }
 
     @Test
-    public void testValueInline(){
+    public void testValueInline() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.INLINE_ELEMENTS);
 
@@ -53,7 +53,7 @@ public final class CharArrayToStringBuilderTest extends VectorToStringBuilderTes
     }
 
     @Test
-    public void testValueQuoted(){
+    public void testValueQuoted() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
 
@@ -64,7 +64,7 @@ public final class CharArrayToStringBuilderTest extends VectorToStringBuilderTes
     }
 
     @Test
-    public void testValueQuotedAndEscaped(){
+    public void testValueQuotedAndEscaped() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
         b.enable(ToStringBuilderOption.ESCAPE);

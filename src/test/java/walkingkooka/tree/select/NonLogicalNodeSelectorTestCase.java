@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase<S>{
+        extends NodeSelectorTestCase<S> {
 
-    NonLogicalNodeSelectorTestCase(){
+    NonLogicalNodeSelectorTestCase() {
         super();
     }
 
@@ -53,7 +53,8 @@ public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<Test
                                             final TestNode start,
                                             final String[] nodes) {
         final Set<TestNode> selected = Sets.ordered();
-        selector.accept(start, context((n)->{}, (n)->selected.add(n)));
+        selector.accept(start, context((n) -> {
+        }, (n) -> selected.add(n)));
         final List<String> selectedNames = selected
                 .stream()
                 .map(n -> n.name().value())

@@ -77,9 +77,9 @@ public final class ExpressionOrNodeTest extends ExpressionLogicalBinaryNodeTestC
         }.accept(or);
         assertEquals("1517217262", b.toString());
         assertEquals(Lists.of(or, or,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        or, or),
+                text1, text1, text1,
+                text2, text2, text2,
+                or, or),
                 visited,
                 "visited");
     }
@@ -141,66 +141,66 @@ public final class ExpressionOrNodeTest extends ExpressionLogicalBinaryNodeTestC
 
     @Test
     public void testEvaluateToBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), bigDecimal(3)), 6|3);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), bigDecimal(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToBigDecimal2() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), bigInteger(3)), 6|3);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), bigInteger(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToBigDecimal3() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), doubleValue(3)), 6|3);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), doubleValue(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToBigDecimal4() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), longValue(3)), 6|3);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), longValue(3)), 6 | 3);
     }
 
     // toBigInteger.....................................................................................
 
     @Test
     public void testEvaluateToBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(6), bigDecimal(3)), 6|3);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(6), bigDecimal(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToBigInteger2() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(6), bigInteger(3)), 6|3);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(6), bigInteger(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToBigInteger3() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(6), doubleValue(3)), 6|3);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(6), doubleValue(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToBigInteger4() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(6), longValue(3)), 6|3);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(6), longValue(3)), 6 | 3);
     }
 
     // toDouble.....................................................................................
 
     @Test
     public void testEvaluateToDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(6), bigDecimal(3)), 6|3);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(6), bigDecimal(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToDouble2() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(6), bigInteger(3)), 6|3);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(6), bigInteger(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToDouble3() {
-        this.evaluateAndCheckLong(this.createExpressionNode(doubleValue(6), doubleValue(3)), 6|3);
+        this.evaluateAndCheckLong(this.createExpressionNode(doubleValue(6), doubleValue(3)), 6 | 3);
     }
 
     @Test
     public void testEvaluateToDouble4() {
-        this.evaluateAndCheckLong(this.createExpressionNode(doubleValue(6), longValue(3)), 6|3);
+        this.evaluateAndCheckLong(this.createExpressionNode(doubleValue(6), longValue(3)), 6 | 3);
     }
 
     // toLong...............................................................................................
@@ -266,21 +266,21 @@ public final class ExpressionOrNodeTest extends ExpressionLogicalBinaryNodeTestC
 
     @Test
     public void testEvaluateToValueLongLong() {
-        this.evaluateAndCheckValue(this.createExpressionNode(longValue(6), longValue(3)), Long.valueOf(6|3));
+        this.evaluateAndCheckValue(this.createExpressionNode(longValue(6), longValue(3)), Long.valueOf(6 | 3));
     }
 
     @Test
     public void testEvaluateToValueBigIntegerBigInteger() {
-        this.evaluateAndCheckValue(this.createExpressionNode(bigInteger(6), bigInteger(3)), BigInteger.valueOf(6|3));
+        this.evaluateAndCheckValue(this.createExpressionNode(bigInteger(6), bigInteger(3)), BigInteger.valueOf(6 | 3));
     }
-    
+
     @Override
     ExpressionOrNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionOrNode.with(left, right);
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + "|" + RIGHT_TO_STRING;
     }
 

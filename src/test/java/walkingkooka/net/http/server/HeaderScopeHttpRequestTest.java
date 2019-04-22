@@ -49,7 +49,7 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HEADER, HEADER_VALUE);
-    private final static byte[] BYTES = new byte[]{ 1, 2, 3};
+    private final static byte[] BYTES = new byte[]{1, 2, 3};
     private final static Map<HttpRequestParameterName, List<String>> PARAMETERS = Maps.fake();
     private final static String TOSTRING = HeaderScopeHttpRequestTest.class.getSimpleName() + ".toString";
 

@@ -76,13 +76,13 @@ public final class ExpressionEqualsNodeTest extends ExpressionComparisonBinaryNo
         }.accept(equals);
         assertEquals("1315215242", b.toString());
         assertEquals(Lists.of(equals, equals,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        equals, equals),
+                text1, text1, text1,
+                text2, text2, text2,
+                equals, equals),
                 visited,
                 "visited");
     }
-    
+
     // BigDecimal.................................................................................................
 
     @Test
@@ -144,7 +144,7 @@ public final class ExpressionEqualsNodeTest extends ExpressionComparisonBinaryNo
         // left eq right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), text(12)), true);
     }
-    
+
     // BigInteger................................................................................................
 
     @Test
@@ -332,7 +332,6 @@ public final class ExpressionEqualsNodeTest extends ExpressionComparisonBinaryNo
     }
 
 
-
     // Long................................................................................................
 
     @Test
@@ -394,14 +393,14 @@ public final class ExpressionEqualsNodeTest extends ExpressionComparisonBinaryNo
         // left eq right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(12)), true);
     }
-    
+
     @Override
     ExpressionEqualsNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionEqualsNode.with(left, right);
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + "=" + RIGHT_TO_STRING;
     }
 

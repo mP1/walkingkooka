@@ -100,7 +100,7 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> implements Clas
     }
 
     private void checkSame(final String message, final SearchNode expected, final SearchNode actual) {
-        if(expected!=actual){
+        if (expected != actual) {
             assertSame(message,
                     this.toString(expected),
                     this.toString(expected));
@@ -108,7 +108,7 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> implements Clas
     }
 
     private void checkEquals(final String message, final SearchNode expected, final SearchNode actual) {
-        if(!expected.equals(actual)){
+        if (!expected.equals(actual)) {
             assertEquals(message,
                     this.toString(expected),
                     this.toString(actual));
@@ -142,7 +142,7 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> implements Clas
     final LocalTime localTime(final String value) {
         return LocalTime.parse(value, DateTimeFormatter.ISO_LOCAL_TIME);
     }
-    
+
     // Node...............................................................................
 
     final SearchNode before() {
@@ -196,7 +196,7 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> implements Clas
     final SearchLocalTimeNode localTimeNode(final LocalTime value) {
         return SearchNode.localTime(DateTimeFormatter.ISO_LOCAL_TIME.format(value), value);
     }
-    
+
     final SearchLongNode longNode(final long value) {
         return SearchNode.longNode(String.valueOf(value), value);
     }
@@ -209,7 +209,7 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> implements Clas
         return SearchNode.select(child);
     }
 
-    final SearchSequenceNode sequenceNode(final SearchNode...children) {
+    final SearchSequenceNode sequenceNode(final SearchNode... children) {
         return SearchNode.sequence(Lists.of(children));
     }
 

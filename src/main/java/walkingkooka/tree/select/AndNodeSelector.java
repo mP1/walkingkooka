@@ -58,16 +58,16 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
     void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         Set<N> all = null;
 
-        for(NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
+        for (NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
             final Set<N> current = Sets.ordered();
-            selector.accept0(node, AndNodeSelectorNodeSelectorContext.with(context, (s)->current.add(s)));
+            selector.accept0(node, AndNodeSelectorNodeSelectorContext.with(context, (s) -> current.add(s)));
 
-            if(null==all) {
+            if (null == all) {
                 all = current;
             } else {
                 all.retainAll(current);
             }
-            if(all.isEmpty()) {
+            if (all.isEmpty()) {
                 break;
             }
         }
@@ -76,11 +76,11 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
     }
 
     @Override
-    String operatorToString(){
+    String operatorToString() {
         return "&";
     }
 
-    boolean canBeEqual(final Object other){
+    boolean canBeEqual(final Object other) {
         return other instanceof AndNodeSelector;
     }
 }

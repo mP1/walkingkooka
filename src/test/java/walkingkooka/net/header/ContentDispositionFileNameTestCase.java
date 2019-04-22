@@ -36,7 +36,7 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
                      final String value,
                      final Optional<CharsetName> charsetName,
                      final Optional<LanguageTagName> language) {
-        assertEquals(value, filename.value(),"value");
+        assertEquals(value, filename.value(), "value");
         assertEquals(charsetName, filename.charsetName(), "charsetName");
         assertEquals(language, filename.language(), "language");
     }

@@ -41,20 +41,20 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
     }
 
     default void applyAndCheck2(final List<Object> parameters,
-                                        final V result) {
+                                final V result) {
         this.applyAndCheck2(this.createBiFunction(), parameters, result);
     }
 
     default <TT, RR> void applyAndCheck2(final ExpressionFunction<RR> function,
-                                                 final List<Object> parameters,
-                                                 final RR result) {
+                                         final List<Object> parameters,
+                                         final RR result) {
         this.applyAndCheck2(function, parameters, this.createContext(), result);
     }
 
     default <TT, RR> void applyAndCheck2(final ExpressionFunction<RR> function,
-                                                 final List<Object> parameters,
-                                                 final ExpressionFunctionContext context,
-                                                 final RR result) {
+                                         final List<Object> parameters,
+                                         final ExpressionFunctionContext context,
+                                         final RR result) {
         assertEquals(result,
                 function.apply(parameters, context),
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters));
@@ -69,7 +69,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         };
     }
 
-    default  <T> T convert(final Object value, final Class<T> target) {
+    default <T> T convert(final Object value, final Class<T> target) {
         if (target.isInstance(value)) {
             return target.cast(value);
         }

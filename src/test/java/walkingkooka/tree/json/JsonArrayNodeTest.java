@@ -73,14 +73,14 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testGet() {
-        final String[] values = new String[]{ "A1", "B2"};
+        final String[] values = new String[]{"A1", "B2"};
         final JsonNode first = JsonNode.string(values[0]);
         final JsonNode second = JsonNode.string(values[1]);
 
         final JsonArrayNode array = JsonNode.array().appendChild(first).appendChild(second);
         this.childrenCheck(array);
 
-        for(int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             final JsonStringNode element = array.children().get(i).cast();
             assertEquals(values[i], element.value(), "value");
         }
@@ -300,7 +300,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 .setChildren(Lists.of(grandChild1New))
                 .cast();
         this.childCountCheck(updatedChild, 1);
-        
+
         final JsonArrayNode updatedRoot = updatedChild.parent().get().cast();
         this.childCountCheck(updatedRoot, 2);
         assertEquals(JsonNode.array()
@@ -495,9 +495,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         }.accept(array);
         assertEquals("1517217262", b.toString());
         assertEquals(Lists.of(array, array,
-                        string1, string1, string1,
-                        string2, string2, string2,
-                        array, array),
+                string1, string1, string1,
+                string2, string2, string2,
+                array, array),
                 visited,
                 "visited");
     }
@@ -527,9 +527,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         this.selectorAcceptAndCheck(array,
                 JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
-                .descendant()
-                .named(expected.name())
-                .build(),
+                        .descendant()
+                        .named(expected.name())
+                        .build(),
                 expected);
     }
 
@@ -597,12 +597,12 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeListByte() {
-        this.fromJsonNodeListNumberAndCheck((byte)1, Byte.MAX_VALUE, Byte.MIN_VALUE, Byte.class);
+        this.fromJsonNodeListNumberAndCheck((byte) 1, Byte.MAX_VALUE, Byte.MIN_VALUE, Byte.class);
     }
 
     @Test
     public void testFromJsonNodeListShort() {
-        this.fromJsonNodeListNumberAndCheck((short)1, Short.MAX_VALUE, Short.MIN_VALUE, Short.class);
+        this.fromJsonNodeListNumberAndCheck((short) 1, Short.MAX_VALUE, Short.MIN_VALUE, Short.class);
     }
 
     @Test
@@ -624,10 +624,10 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     public void testFromJsonNodeListDouble() {
         this.fromJsonNodeListNumberAndCheck(1.0, Double.MAX_VALUE, Double.MIN_VALUE, Double.class);
     }
-    
+
     private <N extends Number> void fromJsonNodeListNumberAndCheck(final N number1,
-                                                final N number2,
-                                                final N number3,
+                                                                   final N number2,
+                                                                   final N number3,
                                                                    final Class<N> type) {
         this.fromJsonNodeListAndCheck(JsonNode.array()
                         .appendChild(JsonNode.number(number1.doubleValue()))
@@ -697,12 +697,12 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeSetByte() {
-        this.fromJsonNodeSetNumberAndCheck((byte)1, Byte.MAX_VALUE, Byte.MIN_VALUE, Byte.class);
+        this.fromJsonNodeSetNumberAndCheck((byte) 1, Byte.MAX_VALUE, Byte.MIN_VALUE, Byte.class);
     }
 
     @Test
     public void testFromJsonNodeSetShort() {
-        this.fromJsonNodeSetNumberAndCheck((short)1, Short.MAX_VALUE, Short.MIN_VALUE, Short.class);
+        this.fromJsonNodeSetNumberAndCheck((short) 1, Short.MAX_VALUE, Short.MIN_VALUE, Short.class);
     }
 
     @Test
@@ -726,9 +726,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     }
 
     private <N extends Number> void fromJsonNodeSetNumberAndCheck(final N number1,
-                                                                   final N number2,
-                                                                   final N number3,
-                                                                   final Class<N> type) {
+                                                                  final N number2,
+                                                                  final N number3,
+                                                                  final Class<N> type) {
         this.fromJsonNodeSetAndCheck(JsonNode.array()
                         .appendChild(JsonNode.number(number1.doubleValue()))
                         .appendChild(JsonNode.number(number2.doubleValue()))

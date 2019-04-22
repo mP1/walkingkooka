@@ -117,8 +117,8 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         assertEquals(name, function.functionName(), "functionName");
     }
 
-    private void checkParameters(final SpreadsheetFunctionParserToken function, final SpreadsheetParserToken...parameters) {
-        assertEquals(Lists.of(parameters), function.parameters(),"parameters");
+    private void checkParameters(final SpreadsheetFunctionParserToken function, final SpreadsheetParserToken... parameters) {
+        assertEquals(Lists.of(parameters), function.parameters(), "parameters");
     }
 
     @Override
@@ -140,7 +140,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         return function(FUNCTION);
     }
 
-    private SpreadsheetFunctionNameParserToken function(final String name){
+    private SpreadsheetFunctionNameParserToken function(final String name) {
         return SpreadsheetParserToken.functionName(this.functionName(name), name);
     }
 

@@ -20,7 +20,7 @@ package walkingkooka.io.printer;
 import walkingkooka.test.StandardThrowableTesting;
 
 final public class PrinterExceptionTest implements StandardThrowableTesting<PrinterException> {
-    
+
     @Override
     public Class<PrinterException> type() {
         return PrinterException.class;

@@ -143,12 +143,12 @@ public interface ParserTesting<P extends Parser<C>,
         cursor.end();
 
         CharSequence all = consumed;
-        if(all.length() == 0){
+        if (all.length() == 0) {
             all = after.textBetween();
         }
 
         final String textRemaining = after.textBetween().toString();
-        if(!token.equals(result)){
+        if (!token.equals(result)) {
             final CharSequence all2 = all;
             assertEquals(token.isPresent() ? this.parserTokenToString(token.get()) : "",
                     token.isPresent() ? this.parserTokenToString(token.get()) : "",
@@ -174,18 +174,18 @@ public interface ParserTesting<P extends Parser<C>,
         return this.parseFailAndCheck(this.createParser(), this.createContext(), cursor);
     }
 
-    default TextCursor parseFailAndCheck(final Parser <C> parser,
+    default TextCursor parseFailAndCheck(final Parser<C> parser,
                                          final String cursorText) {
         return this.parseFailAndCheck(parser, this.createContext(), cursorText);
     }
 
-    default TextCursor parseFailAndCheck(final Parser <C> parser,
+    default TextCursor parseFailAndCheck(final Parser<C> parser,
                                          final C context,
                                          final String cursorText) {
         return this.parseFailAndCheck(parser, context, TextCursors.charSequence(cursorText));
     }
 
-    default TextCursor parseFailAndCheck(final Parser <C> parser,
+    default TextCursor parseFailAndCheck(final Parser<C> parser,
                                          final C context,
                                          final TextCursor cursor) {
         final TextCursorSavePoint before = cursor.save();
@@ -256,19 +256,19 @@ public interface ParserTesting<P extends Parser<C>,
         this.parseThrows(this.createParser(), this.createContext(), cursor, messagePart);
     }
 
-    default void parseThrows(final Parser <C> parser, final String cursor) {
+    default void parseThrows(final Parser<C> parser, final String cursor) {
         this.parseThrows(parser, cursor, "");
     }
 
-    default void parseThrows(final Parser <C> parser, final String cursor, final String messagePart) {
+    default void parseThrows(final Parser<C> parser, final String cursor, final String messagePart) {
         this.parseThrows(parser, TextCursors.charSequence(cursor), messagePart);
     }
 
-    default void parseThrows(final Parser <C> parser, final TextCursor cursor, final String messagePart) {
+    default void parseThrows(final Parser<C> parser, final TextCursor cursor, final String messagePart) {
         this.parseThrows(parser, this.createContext(), cursor, messagePart);
     }
 
-    default void parseThrows(final Parser <C> parser,
+    default void parseThrows(final Parser<C> parser,
                              final C context,
                              final TextCursor cursor,
                              final String messagePart) {
@@ -280,7 +280,7 @@ public interface ParserTesting<P extends Parser<C>,
         assertEquals(true, message.contains(messagePart), () -> "Message: " + message + " missing " + messagePart);
     }
 
-    default  Optional<ParserToken> parse(final Parser <C> parser, final TextCursor cursor, final C context) {
+    default Optional<ParserToken> parse(final Parser<C> parser, final TextCursor cursor, final C context) {
         Objects.requireNonNull(parser, "parser");
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(cursor, "cursor");

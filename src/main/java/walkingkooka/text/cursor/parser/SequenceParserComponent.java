@@ -57,7 +57,7 @@ abstract class SequenceParserComponent<C extends ParserContext> implements HashC
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final SequenceParserComponent<?> other){
+    private boolean equals0(final SequenceParserComponent<?> other) {
         return this.parser.equals(other.parser);
     }
 

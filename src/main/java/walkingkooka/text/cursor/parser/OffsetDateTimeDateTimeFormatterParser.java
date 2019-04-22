@@ -25,7 +25,7 @@ import java.time.temporal.TemporalAccessor;
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link OffsetDateTime}.
  */
-final class OffsetDateTimeDateTimeFormatterParser<C extends ParserContext> extends OffsetDateTimeFormatterParser<C>{
+final class OffsetDateTimeDateTimeFormatterParser<C extends ParserContext> extends OffsetDateTimeFormatterParser<C> {
 
     static <C extends ParserContext> OffsetDateTimeDateTimeFormatterParser<C> with(final DateTimeFormatter formatter, final String pattern) {
         return new OffsetDateTimeDateTimeFormatterParser<>(formatter, pattern);
@@ -41,7 +41,7 @@ final class OffsetDateTimeDateTimeFormatterParser<C extends ParserContext> exten
     }
 
     @Override
-    void time(final char c, final String pattern){
+    void time(final char c, final String pattern) {
         // ok!
     }
 

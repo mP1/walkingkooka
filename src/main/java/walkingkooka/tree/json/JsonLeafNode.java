@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
 
-    JsonLeafNode(final JsonNodeName name, final int index, final V value){
+    JsonLeafNode(final JsonNodeName name, final int index, final V value) {
         super(name, index);
         this.value = value;
     }
@@ -46,8 +46,8 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
 
     final JsonLeafNode<V> setValue0(final V value) {
         return Objects.equals(this.value(), value) ?
-               this :
-               this.replaceValue(value);
+                this :
+                this.replaceValue(value);
     }
 
     final JsonLeafNode<V> replaceValue(final V value) {
@@ -56,8 +56,7 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
                 .cast();
     }
 
-    @Override
-    final JsonNode create(final JsonNodeName name, final int index) {
+    @Override final JsonNode create(final JsonNodeName name, final int index) {
         return this.create(name, index, this.value);
     }
 

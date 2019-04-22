@@ -82,7 +82,7 @@ final public class NotCharPredicateTest implements CharPredicateTesting<NotCharP
     public Class<NotCharPredicate> type() {
         return NotCharPredicate.class;
     }
-    
+
     @Override
     public NotCharPredicate createObject() {
         return this.createCharPredicate();

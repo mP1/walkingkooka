@@ -36,12 +36,12 @@ import java.util.Optional;
  */
 abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
 
-    static void check(final ExpressionNode left, final ExpressionNode right){
+    static void check(final ExpressionNode left, final ExpressionNode right) {
         Objects.requireNonNull(left, "left");
         Objects.requireNonNull(right, "right");
     }
 
-    ExpressionBinaryNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    ExpressionBinaryNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, Lists.of(left, right));
     }
 
@@ -54,12 +54,11 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
     }
 
     @Override
-    int expectedChildCount(){
+    int expectedChildCount() {
         return 2;
     }
 
-    @Override
-    final ExpressionBinaryNode wrap0(final int index, final List<ExpressionNode> children) {
+    @Override final ExpressionBinaryNode wrap0(final int index, final List<ExpressionNode> children) {
         return wrap1(index, children.get(0), children.get(1));
     }
 
@@ -107,14 +106,14 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
 
     // Visitor........................................................................................................
 
-    final void acceptValues(final ExpressionNodeVisitor visitor){
+    final void acceptValues(final ExpressionNodeVisitor visitor) {
         visitor.accept(this.left());
         visitor.accept(this.right());
     }
 
     // Evaluation ...................................................................................................
 
-    @Override 
+    @Override
     public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
         return this.apply(this.left(), this.right(), context)
                 .toBigDecimal(context);
@@ -155,7 +154,7 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
         return this.apply(this.left(), this.right(), context)
                 .toLocalTime(context);
     }
-    
+
     @Override
     public final long toLong(final ExpressionEvaluationContext context) {
         return this.apply(this.left(), this.right(), context)
@@ -175,8 +174,8 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
     }
 
     abstract ExpressionNode apply(final ExpressionNode left,
-                         final ExpressionNode right,
-                         final ExpressionEvaluationContext context);
+                                  final ExpressionNode right,
+                                  final ExpressionEvaluationContext context);
 
     abstract ExpressionNode applyBigInteger(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context);
 

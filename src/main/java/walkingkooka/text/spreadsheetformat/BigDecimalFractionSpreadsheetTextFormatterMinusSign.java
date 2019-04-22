@@ -58,7 +58,7 @@ enum BigDecimalFractionSpreadsheetTextFormatterMinusSign {
 
     static BigDecimalFractionSpreadsheetTextFormatterMinusSign fromSignum(final int value) {
         return value < 0 ?
-               REQUIRED :
-               NOT_REQUIRED;
+                REQUIRED :
+                NOT_REQUIRED;
     }
 }

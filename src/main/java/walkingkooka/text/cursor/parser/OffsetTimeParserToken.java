@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * The parser token for a time with the value contained in a {@link OffsetTime}.
  */
-public final class OffsetTimeParserToken extends ParserToken2<OffsetTime> implements LeafParserToken<OffsetTime>{
+public final class OffsetTimeParserToken extends ParserToken2<OffsetTime> implements LeafParserToken<OffsetTime> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(OffsetTimeParserToken.class);
 
@@ -38,7 +38,7 @@ public final class OffsetTimeParserToken extends ParserToken2<OffsetTime> implem
     }
 
     @Override
-    public OffsetTimeParserToken setText(final String text){
+    public OffsetTimeParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -53,7 +53,7 @@ public final class OffsetTimeParserToken extends ParserToken2<OffsetTime> implem
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

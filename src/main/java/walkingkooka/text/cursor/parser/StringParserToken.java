@@ -33,13 +33,13 @@ public final class StringParserToken extends ParserToken2<String> implements Lea
 
         return new StringParserToken(value, text);
     }
-    
+
     private StringParserToken(final String value, final String text) {
         super(value, text);
     }
 
     @Override
-    public StringParserToken setText(final String text){
+    public StringParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -54,7 +54,7 @@ public final class StringParserToken extends ParserToken2<String> implements Lea
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -71,7 +71,7 @@ public final class StringParserToken extends ParserToken2<String> implements Lea
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.text(this.text(), this.value());
     }
 }

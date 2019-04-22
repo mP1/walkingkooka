@@ -48,14 +48,13 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-         // no point appending a ancestor to another...
+        // no point appending a ancestor to another...
         return selector instanceof AncestorNodeSelector ?
                 this :
                 new AncestorNodeSelector<N, NAME, ANAME, AVALUE>(selector);
     }
 
-    @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.selectParent(node, context);
     }
 

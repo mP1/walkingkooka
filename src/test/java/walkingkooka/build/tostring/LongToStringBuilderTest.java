@@ -38,7 +38,7 @@ public final class LongToStringBuilderTest extends ScalarToStringBuilderTestCase
 
     @Override
     void value(final ToStringBuilder builder, final Long value) {
-        builder.value((long)value);
+        builder.value((long) value);
     }
 
     @Override

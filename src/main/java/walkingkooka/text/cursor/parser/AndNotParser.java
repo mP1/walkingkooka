@@ -29,14 +29,14 @@ import java.util.Optional;
  */
 final class AndNotParser<C extends ParserContext> implements Parser<C> {
 
-    static <T extends ParserToken, C extends ParserContext> AndNotParser<C> with(final Parser<C> left, final Parser<C> right){
+    static <T extends ParserToken, C extends ParserContext> AndNotParser<C> with(final Parser<C> left, final Parser<C> right) {
         Objects.requireNonNull(left, "left");
         Objects.requireNonNull(right, "right");
 
         return new AndNotParser<C>(left, right);
     }
 
-    private AndNotParser(final Parser<C> left, final Parser<C> right){
+    private AndNotParser(final Parser<C> left, final Parser<C> right) {
         this.left = left;
         this.right = right;
     }
@@ -46,13 +46,13 @@ final class AndNotParser<C extends ParserContext> implements Parser<C> {
         final TextCursorSavePoint save = cursor.save();
 
         Optional<ParserToken> leftResult = this.left.parse(cursor, context);
-        if(leftResult.isPresent()){
+        if (leftResult.isPresent()) {
 
             final TextCursorSavePoint save2 = cursor.save();
             save.restore();
 
             final Optional<? extends ParserToken> rightResult = this.right.parse(cursor, context);
-            if(rightResult.isPresent()) {
+            if (rightResult.isPresent()) {
                 leftResult = Optional.empty();
                 save.restore();
             } else {

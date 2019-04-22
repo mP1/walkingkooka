@@ -51,11 +51,11 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
      * An empty list with no children.
      */
     public final static List<SearchNode> NO_CHILDREN = Lists.empty();
-    
+
     /**
      * {@see SearchBigDecimalNode}
      */
-    public static SearchBigDecimalNode bigDecimal(final String text, final BigDecimal value){
+    public static SearchBigDecimalNode bigDecimal(final String text, final BigDecimal value) {
         return SearchBigDecimalNode.with(text, value);
     }
 
@@ -65,7 +65,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     public static SearchBigIntegerNode bigInteger(final String text, final BigInteger value) {
         return SearchBigIntegerNode.with(text, value);
     }
-    
+
     /**
      * {@see SearchDoubleNode}
      */
@@ -121,7 +121,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     public static SearchSelectNode select(final SearchNode child) {
         return SearchSelectNode.with(child);
     }
-    
+
     /**
      * {@see SearchSequenceNode}
      */
@@ -316,11 +316,11 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
         final String text = this.text();
         final int textLength = text.length();
 
-        if(beginOffset < 0 || beginOffset >= textLength) {
+        if (beginOffset < 0 || beginOffset >= textLength) {
             throw new IllegalArgumentException("Begin offset " + beginOffset + " not between 0 and " + textLength + " text=" + CharSequences.quoteAndEscape(text));
         }
-        if(endOffset < beginOffset || endOffset > textLength) {
-            throw new IllegalArgumentException("End offset " + endOffset + " not between " + beginOffset + " and " + textLength+ " text=" + CharSequences.quoteAndEscape(text));
+        if (endOffset < beginOffset || endOffset > textLength) {
+            throw new IllegalArgumentException("End offset " + endOffset + " not between " + beginOffset + " and " + textLength + " text=" + CharSequences.quoteAndEscape(text));
         }
         return text;
     }
@@ -335,7 +335,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     final SearchNode text0(final String text) {
         return text(text, text);
     }
-    
+
     /**
      * Only {@link SearchBigDecimalNode} returns true.
      */
@@ -434,6 +434,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     abstract SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer);
 
     // Visitor .......................................................................................................
+
     /**
      * Begins the visiting process.
      */
@@ -457,7 +458,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     private boolean equalsAncestors(final SearchNode other) {
         boolean result = this.equalsIgnoringParentAndChildren(other);
 
-        if(result) {
+        if (result) {
             final Optional<SearchNode> parent = this.parent();
             final Optional<SearchNode> otherParent = other.parent();
             final boolean hasParent = parent.isPresent();
@@ -488,7 +489,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
      */
     final boolean equalsIgnoringParentAndChildren(final SearchNode other) {
         return this.name.equals(other.name) &&
-               this.equalsIgnoringParentAndChildren0(other);
+                this.equalsIgnoringParentAndChildren0(other);
     }
 
     /**

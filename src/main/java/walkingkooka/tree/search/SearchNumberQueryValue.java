@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 /**
  * Base class for all values that are also {@link Comparable}.
  */
-abstract class SearchNumberQueryValue<N extends Number & Comparable<N>> extends SearchQueryValue{
+abstract class SearchNumberQueryValue<N extends Number & Comparable<N>> extends SearchQueryValue {
 
     SearchNumberQueryValue(final N value) {
         super();

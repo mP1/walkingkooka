@@ -55,7 +55,7 @@ public final class SpreadsheetTextParserTokenTest extends SpreadsheetNonSymbolPa
 
     @Test
     public void testWithWhitespace() {
-        final SpreadsheetTextParserToken token = this.createToken( "   ");
+        final SpreadsheetTextParserToken token = this.createToken("   ");
         this.checkText(token, "   ");
     }
 

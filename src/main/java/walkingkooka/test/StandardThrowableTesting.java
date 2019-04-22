@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * An interface with default methods which may be mixed into a test.
  */
-public interface StandardThrowableTesting<T extends Throwable> extends ThrowableTesting<T>{
+public interface StandardThrowableTesting<T extends Throwable> extends ThrowableTesting<T> {
 
     String MESSAGE = "message";
     Exception CAUSE = new Exception();

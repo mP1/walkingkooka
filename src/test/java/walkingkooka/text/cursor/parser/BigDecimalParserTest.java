@@ -259,7 +259,7 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
 
     @Test
     public void testNumberE2() {
-        this.parseAndCheck2("1E", 1,"~");
+        this.parseAndCheck2("1E", 1, "~");
     }
 
     @Test
@@ -269,7 +269,7 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
 
     @Test
     public void testNumberE4() {
-        this.parseAndCheck2("123E", 123,"~");
+        this.parseAndCheck2("123E", 123, "~");
     }
 
     @Test
@@ -404,23 +404,23 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
         return ParserContexts.basic(this.decimalNumberContext());
     }
 
-    private TextCursor parseAndCheck2(final String text){
+    private TextCursor parseAndCheck2(final String text) {
         return this.parseAndCheck2(text, "");
     }
 
-    private TextCursor parseAndCheck2(final String text, final long value){
+    private TextCursor parseAndCheck2(final String text, final long value) {
         return this.parseAndCheck2(text, BigDecimal.valueOf(value), "");
     }
 
-    private TextCursor parseAndCheck2(final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final String text, final String textAfter) {
         return this.parseAndCheck2(text, new BigDecimal(text), textAfter);
     }
 
-    private TextCursor parseAndCheck2(final String text, final long value, final String textAfter){
+    private TextCursor parseAndCheck2(final String text, final long value, final String textAfter) {
         return this.parseAndCheck2(text, BigDecimal.valueOf(value), textAfter);
     }
 
-    private TextCursor parseAndCheck2(final String text, final BigDecimal value, final String textAfter){
+    private TextCursor parseAndCheck2(final String text, final BigDecimal value, final String textAfter) {
         return this.parseAndCheck(text + textAfter, ParserTokens.bigDecimal(value, text), text, textAfter);
     }
 

@@ -43,7 +43,7 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     }
 
     @Test
-    public final void testPublicStaticFactoryMethod()  {
+    public final void testPublicStaticFactoryMethod() {
         PublicStaticFactoryTesting.check(SpreadsheetParserToken.class,
                 "Spreadsheet",
                 ParserToken.class,
@@ -81,7 +81,7 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     @Test
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<SpreadsheetParserToken> without = this.createToken().withoutSymbols();
-        if(without.isPresent()){
+        if (without.isPresent()) {
             BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get(), Predicates.never());
         }
     }

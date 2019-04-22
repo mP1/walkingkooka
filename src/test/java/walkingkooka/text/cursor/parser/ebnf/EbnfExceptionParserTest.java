@@ -44,7 +44,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
                 this.token(text, whitespace1(), this.identifier1(), exceptionToken(), this.identifier2()),
                 text);
     }
-    
+
     @Test
     public void testIdentifierExceptionWhitespaceIdentifier() {
         final String text = IDENTIFIER1 + EXCEPTION + WHITESPACE1 + IDENTIFIER2;
@@ -83,7 +83,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
     String text() {
         return EXCEPTION + IDENTIFIER1;
     }
-    
+
     @Override public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.EXCEPTION;
     }
@@ -93,7 +93,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
         return token(text, exceptionToken(), this.identifier1());
     }
 
-    private EbnfExceptionParserToken token(final String text, final ParserToken...tokens) {
+    private EbnfExceptionParserToken token(final String text, final ParserToken... tokens) {
         return EbnfParserToken.exception(Lists.of(tokens), text);
     }
 }

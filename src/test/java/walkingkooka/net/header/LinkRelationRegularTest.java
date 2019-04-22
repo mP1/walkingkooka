@@ -44,7 +44,7 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
 
     private void createAndCheck(final String text) {
         final LinkRelationRegular linkRelation = LinkRelationRegular.regular(text);
-        assertEquals(text, linkRelation.value(),"value");
+        assertEquals(text, linkRelation.value(), "value");
     }
 
     @Test

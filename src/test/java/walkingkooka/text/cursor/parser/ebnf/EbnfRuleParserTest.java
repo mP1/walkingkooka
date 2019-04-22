@@ -30,7 +30,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierAndAssignmentOnlyFails() {
-        this.parseThrowsEndOfText(IDENTIFIER1_TEXT +ASSIGNMENT);
+        this.parseThrowsEndOfText(IDENTIFIER1_TEXT + ASSIGNMENT);
     }
 
     @Test
@@ -40,12 +40,12 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testDoubleTerminalFails() {
-        this.parseThrows(IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + ASSIGNMENT + TERMINAL1_TEXT, ASSIGNMENT.charAt(0), 21, 1);
+        this.parseThrows(IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + ASSIGNMENT + TERMINAL1_TEXT, ASSIGNMENT.charAt(0), 21, 1);
     }
 
     @Test
     public void testIdentifierWhitespaceAssignmentTerminalTerminator() {
-        final String text = IDENTIFIER1_TEXT +WHITESPACE1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + WHITESPACE1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), whitespace1(), assignmentToken(), terminal1(), terminatorToken()),
                 text);
@@ -53,7 +53,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierCommentAssignmentTerminalTerminator() {
-        final String text = IDENTIFIER1_TEXT +COMMENT1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + COMMENT1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), comment1(), assignmentToken(), terminal1(), terminatorToken()),
                 text);
@@ -61,7 +61,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierWhitespaceCommentAssignmentTerminalTerminator() {
-        final String text = IDENTIFIER1_TEXT +WHITESPACE1 + COMMENT1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + WHITESPACE1 + COMMENT1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), whitespace1(), comment1(), assignmentToken(), terminal1(), terminatorToken()),
                 text);
@@ -69,17 +69,17 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierWhitespaceCommentWhitespaceAssignmentTerminalTerminator() {
-        final String text = IDENTIFIER1_TEXT +WHITESPACE1 + COMMENT1 + WHITESPACE2 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + WHITESPACE1 + COMMENT1 + WHITESPACE2 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), whitespace1(), comment1(), whitespace2(), assignmentToken(), terminal1(), terminatorToken()),
                 text);
     }
-    
+
     // assignment
 
     @Test
     public void testIdentifierAssignmentWhitespaceTerminalTerminator() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + WHITESPACE1 + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), whitespace1(), terminal1(), terminatorToken()),
                 text);
@@ -87,7 +87,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierAssignmentCommentTerminalTerminator() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + COMMENT1 + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + COMMENT1 + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), comment1(), terminal1(), terminatorToken()),
                 text);
@@ -95,7 +95,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierAssignmentWhitespaceCommentTerminalTerminator() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + COMMENT1 + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + WHITESPACE1 + COMMENT1 + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), whitespace1(), comment1(), terminal1(), terminatorToken()),
                 text);
@@ -108,12 +108,12 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
                 rule(text, identifier1(), assignmentToken(), whitespace1(), comment1(), whitespace2(), terminal1(), terminatorToken()),
                 text);
     }
-    
+
     // terminator
 
     @Test
     public void testIdentifierAssignmentTerminalWhitespaceTerminator() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), terminal1(), whitespace1(), terminatorToken()),
                 text);
@@ -121,7 +121,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierAssignmentTerminalCommentTerminator() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + COMMENT1 + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + COMMENT1 + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), terminal1(), comment1(), terminatorToken()),
                 text);
@@ -129,7 +129,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierAssignmentTerminalWhitespaceCommentTerminator() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + COMMENT1 + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + COMMENT1 + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), terminal1(), whitespace1(), comment1(), terminatorToken()),
                 text);
@@ -137,7 +137,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierAssignmentTerminalWhitespaceCommentWhitespaceTerminator() {
-        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + COMMENT1 + WHITESPACE2 +TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + COMMENT1 + WHITESPACE2 + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), terminal1(), whitespace1(), comment1(), whitespace2(), terminatorToken()),
                 text);
@@ -145,7 +145,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierAssignmentTerminalTerminator() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text + WHITESPACE1,
                 rule(text, identifier1(), assignmentToken(), terminal1(), terminatorToken()),
                 text,
@@ -154,7 +154,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierAssignmentIdentifierTerminator() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + IDENTIFIER2_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + IDENTIFIER2_TEXT + TERMINATOR;
         this.parseAndCheck(text + WHITESPACE1,
                 rule(text, identifier1(), assignmentToken(), identifier2(), terminatorToken()),
                 text,
@@ -164,7 +164,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testAlternatives() {
         final String altText = TERMINAL1_TEXT + ALTERNATIVE + TERMINAL2_TEXT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + altText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + altText + TERMINATOR;
 
         final EbnfParserToken alt = EbnfParserToken.alternative(Lists.of(terminal1(), altToken(), terminal2()), altText);
         this.parseAndCheck(text,
@@ -175,7 +175,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testAlternativesGroup() {
         final String altText = openGroupToken() + TERMINAL1_TEXT + closeGroupToken() + ALTERNATIVE + TERMINAL2_TEXT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + altText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + altText + TERMINATOR;
 
         final ParserToken group = EbnfParserToken.group(Lists.of(openGroupToken(), terminal1(), closeGroupToken()), OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP);
         final EbnfParserToken alt = EbnfParserToken.alternative(Lists.of(group, altToken(), terminal2()), altText);
@@ -201,7 +201,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testAlternativesRepeat() {
         final String altText = openRepeatToken() + TERMINAL1_TEXT + closeRepeatToken() + ALTERNATIVE + TERMINAL2_TEXT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + altText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + altText + TERMINATOR;
 
         final ParserToken repeated = EbnfParserToken.repeated(Lists.of(openRepeatToken(), terminal1(), closeRepeatToken()), OPEN_REPEAT + TERMINAL1_TEXT + CLOSE_REPEAT);
         final EbnfParserToken alt = EbnfParserToken.alternative(Lists.of(repeated, altToken(), terminal2()), altText);
@@ -214,7 +214,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testConcatenation() {
         final String concatText = TERMINAL1_TEXT + CONCAT + TERMINAL2_TEXT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + concatText + TERMINATOR;
 
         final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(terminal1(), concatToken(), terminal2()), concatText);
         this.parseAndCheck(text,
@@ -225,7 +225,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testConcatenationsGroup() {
         final String concatText = openGroupToken() + TERMINAL1_TEXT + closeGroupToken() + CONCAT + TERMINAL2_TEXT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + concatText + TERMINATOR;
 
         final ParserToken group = EbnfParserToken.group(Lists.of(openGroupToken(), terminal1(), closeGroupToken()), OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP);
         final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(group, concatToken(), terminal2()), concatText);
@@ -238,7 +238,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testConcatenationsOptional() {
         final String concatText = openOptionalToken() + TERMINAL1_TEXT + closeOptionalToken() + CONCAT + TERMINAL2_TEXT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + concatText + TERMINATOR;
 
         final ParserToken opt = EbnfParserToken.optional(Lists.of(openOptionalToken(), terminal1(), closeOptionalToken()), OPEN_OPTIONAL + TERMINAL1_TEXT + CLOSE_OPTIONAL);
 
@@ -251,7 +251,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testConcatenationsRepeat() {
         final String concatText = openRepeatToken() + TERMINAL1_TEXT + closeRepeatToken() + CONCAT + TERMINAL2_TEXT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + concatText + TERMINATOR;
 
         final ParserToken repeated = EbnfParserToken.repeated(Lists.of(openRepeatToken(), terminal1(), closeRepeatToken()), OPEN_REPEAT + TERMINAL1_TEXT + CLOSE_REPEAT);
         final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(repeated, concatToken(), terminal2()), concatText);
@@ -264,7 +264,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testGroup() {
         final String groupText = OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + groupText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + groupText + TERMINATOR;
 
         final EbnfParserToken terminal = terminal1();
         final EbnfParserToken group = EbnfParserToken.group(Lists.of(openGroupToken(), terminal, closeGroupToken()), groupText);
@@ -276,7 +276,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testWhitespaceGroup() {
         final String groupText = OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + groupText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + WHITESPACE1 + groupText + TERMINATOR;
 
         final EbnfParserToken terminal = terminal1();
         final EbnfParserToken group = EbnfParserToken.group(Lists.of(openGroupToken(), terminal, closeGroupToken()), groupText);
@@ -288,7 +288,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testOptional() {
         final String optionalText = OPEN_OPTIONAL + TERMINAL1_TEXT + CLOSE_OPTIONAL;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + optionalText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + optionalText + TERMINATOR;
 
         final EbnfParserToken terminal = terminal1();
         final EbnfParserToken optional = EbnfParserToken.optional(Lists.of(openOptionalToken(), terminal, closeOptionalToken()), optionalText);
@@ -300,7 +300,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testWhitespaceOptional() {
         final String optionalText = OPEN_OPTIONAL + TERMINAL1_TEXT + CLOSE_OPTIONAL;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + optionalText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + WHITESPACE1 + optionalText + TERMINATOR;
 
         final EbnfParserToken terminal = terminal1();
         final EbnfParserToken optional = EbnfParserToken.optional(Lists.of(openOptionalToken(), terminal, closeOptionalToken()), optionalText);
@@ -312,7 +312,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testRepeat() {
         final String repeatText = OPEN_REPEAT + TERMINAL1_TEXT + CLOSE_REPEAT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + repeatText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + repeatText + TERMINATOR;
 
         final EbnfParserToken terminal = terminal1();
         final EbnfParserToken repeat = EbnfParserToken.repeated(Lists.of(openRepeatToken(), terminal, closeRepeatToken()), repeatText);
@@ -324,7 +324,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testWhitespaceRepeat() {
         final String repeatText = OPEN_REPEAT + TERMINAL1_TEXT + CLOSE_REPEAT;
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + repeatText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + WHITESPACE1 + repeatText + TERMINATOR;
 
         final EbnfParserToken terminal = terminal1();
         final EbnfParserToken repeat = EbnfParserToken.repeated(Lists.of(openRepeatToken(), terminal, closeRepeatToken()), repeatText);
@@ -335,7 +335,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testTerminatorComments() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text + COMMENT1,
                 rule(text, identifier1(), assignmentToken(), terminal1(), terminatorToken()),
                 text,
@@ -344,7 +344,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIncludesRange() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), range(TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT, terminal1(), between(), terminal2()), terminatorToken()),
                 text);
@@ -352,16 +352,16 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testExceptionFails() {
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + EXCEPTION + TERMINAL2_TEXT + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + EXCEPTION + TERMINAL2_TEXT + TERMINATOR;
         this.parseThrows(text, EXCEPTION.charAt(0), 8, 1);
     }
 
     @Test
     public void testTokenThenException() {
         final String exceptionText = TERMINAL1_TEXT + EXCEPTION + TERMINAL2_TEXT;
-        final EbnfParserToken exception = EbnfParserToken.exception(Lists.of(terminal1(), exceptionToken(), terminal2()),exceptionText);
+        final EbnfParserToken exception = EbnfParserToken.exception(Lists.of(terminal1(), exceptionToken(), terminal2()), exceptionText);
 
-        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + exceptionText + TERMINATOR;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + exceptionText + TERMINATOR;
 
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), exception, terminatorToken()),

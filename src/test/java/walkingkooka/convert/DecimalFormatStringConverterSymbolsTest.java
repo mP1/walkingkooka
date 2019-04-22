@@ -63,7 +63,7 @@ public final class DecimalFormatStringConverterSymbolsTest implements ClassTesti
 
     @Test
     public void testEqualsDifferentPercentage() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS,  '!', PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, '!', PLUS));
     }
 
     @Test

@@ -45,8 +45,8 @@ final class PojoCharArrayNode extends PojoArrayNode {
         final char[] newChildren = new char[children.size()];
 
         int i = 0;
-        for(PojoNode child : children){
-            newChildren[i] = (char)child.value();
+        for (PojoNode child : children) {
+            newChildren[i] = (char) child.value();
             i++;
         }
 
@@ -57,7 +57,7 @@ final class PojoCharArrayNode extends PojoArrayNode {
     final PojoNode replaceChild(final PojoNode newChild) {
         final char[] newChildren = new char[this.childrenCount()];
 
-        newChildren[newChild.index()]=(char)newChild.value();
+        newChildren[newChild.index()] = (char) newChild.value();
 
         return this.wrap(newChildren);
     }
@@ -67,15 +67,15 @@ final class PojoCharArrayNode extends PojoArrayNode {
         final char[] newChildren = new char[values.size()];
 
         int i = 0;
-        for(Object child : values){
-            newChildren[i] = (char)child;
+        for (Object child : values) {
+            newChildren[i] = (char) child;
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    private PojoNode wrap(final char[] values){
+    private PojoNode wrap(final char[] values) {
         return new PojoCharArrayNode(this.name(),
                 values,
                 this.index(),
@@ -94,7 +94,7 @@ final class PojoCharArrayNode extends PojoArrayNode {
     }
 
     @Override
-    boolean equals0(final PojoNode other){
+    boolean equals0(final PojoNode other) {
         final PojoCharArrayNode otherArray = Cast.to(other);
         return Arrays.equals(this.valueAsCharArray(), otherArray.valueAsCharArray());
     }

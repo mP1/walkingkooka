@@ -184,7 +184,7 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
         this.response.addEntity(
                 entity.removeHeader(HttpHeaderName.CONTENT_TYPE)
                         .addHeader(HttpHeaderName.CONTENT_TYPE, boundary.multipartByteRanges())
-                .setBody(HttpEntity.NO_BODY)
+                        .setBody(HttpEntity.NO_BODY)
         );
 
         final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerValueOrFail(entity.headers());
@@ -201,7 +201,7 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
 
     private Range<Long> replaceUpperBoundsIfWildcard(final Range<Long> range, final long contentLength) {
         return range.upperBound().isAll() ?
-                Range.greaterThanEquals(range.lowerBound().value().get()).and(Range.lessThanEquals(contentLength -1)) :
+                Range.greaterThanEquals(range.lowerBound().value().get()).and(Range.lessThanEquals(contentLength - 1)) :
                 range;
     }
 

@@ -68,7 +68,7 @@ final public class ChainTypeTest implements ClassTesting2<ChainType>,
     public void testConstantsAreSingletons() throws Exception {
         this.constantsAreSingletons();
     }
-    
+
     // tests
 
     @Test

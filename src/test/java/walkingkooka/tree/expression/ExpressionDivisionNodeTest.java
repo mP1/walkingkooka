@@ -28,8 +28,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinaryNodeTestCase2<ExpressionDivisionNode>{
-    
+public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinaryNodeTestCase2<ExpressionDivisionNode> {
+
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -76,9 +76,9 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
         }.accept(division);
         assertEquals("1315215242", b.toString());
         assertEquals(Lists.of(division, division,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        division, division),
+                text1, text1, text1,
+                text2, text2, text2,
+                division, division),
                 visited,
                 "visited");
     }
@@ -101,82 +101,82 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
 
     @Test
     public void testEvaluateToBigDecimalBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), bigDecimal(0.5)), 50/0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), bigDecimal(0.5)), 50 / 0.5);
     }
 
     @Test
     public void testEvaluateToBigDecimalBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), bigInteger(10)), 50/10);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), bigInteger(10)), 50 / 10);
     }
 
     @Test
     public void testEvaluateToBigDecimalDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), doubleValue(0.5)), 50/0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), doubleValue(0.5)), 50 / 0.5);
     }
 
     @Test
     public void testEvaluateToBigDecimalLong() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), longValue(5)), 50/5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), longValue(5)), 50 / 5);
     }
 
 
     @Test
     public void testEvaluateToBigDecimalText() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), text(5)), 50/5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(50), text(5)), 50 / 5);
     }
 
     // toBigInteger...............................................................................................
 
     @Test
     public void testEvaluateToBigIntegerBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(50), bigDecimal(0.5)), 50/0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(50), bigDecimal(0.5)), 50 / 0.5);
     }
 
     @Test
     public void testEvaluateToBigIntegerBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(50), bigInteger(10)), 50/10);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(50), bigInteger(10)), 50 / 10);
     }
 
     @Test
     public void testEvaluateToBigIntegerDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(50), doubleValue(0.5)), 50/0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(50), doubleValue(0.5)), 50 / 0.5);
     }
 
     @Test
     public void testEvaluateToBigIntegerLong() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(50), longValue(10)), 50/10);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(50), longValue(10)), 50 / 10);
     }
 
     @Test
     public void testEvaluateToBigIntegerText() {
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(50), text(10)), 50/10);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(50), text(10)), 50 / 10);
     }
 
     // toDouble...............................................................................................
 
     @Test
     public void testEvaluateToDoubleBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(50), bigDecimal(0.5)), 50.0/0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(50), bigDecimal(0.5)), 50.0 / 0.5);
     }
 
     @Test
     public void testEvaluateToDoubleBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(50), bigInteger(5)), 50.0/5);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(50), bigInteger(5)), 50.0 / 5);
     }
 
     @Test
     public void testEvaluateToDoubleDouble() {
-        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(50), doubleValue(0.5)), 50.0/0.5);
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(50), doubleValue(0.5)), 50.0 / 0.5);
     }
 
     @Test
     public void testEvaluateToDoubleLong() {
-        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(50), longValue(5)), 50.0/5L);
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(50), longValue(5)), 50.0 / 5L);
     }
 
     @Test
     public void testEvaluateToDoubleText() {
-        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(50), text(5)), 50.0/5L);
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(50), text(5)), 50.0 / 5L);
     }
 
     // toLong...............................................................................................
@@ -234,7 +234,7 @@ public final class ExpressionDivisionNodeTest extends ExpressionArithmeticBinary
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + "/" + RIGHT_TO_STRING;
     }
 

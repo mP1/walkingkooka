@@ -40,7 +40,7 @@ public final class TypesTest implements ClassTesting2<Types>,
     public void testIsPrimitiveOrWrapperBooleanWrapper() {
         assertTrue(Types.isPrimitiveOrWrapper(Boolean.class));
     }
-    
+
     @Test
     public void testIsPrimitiveOrWrapperBytePrimitive() {
         assertTrue(Types.isPrimitiveOrWrapper(Byte.TYPE));

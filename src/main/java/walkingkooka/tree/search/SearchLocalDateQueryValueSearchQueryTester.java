@@ -48,7 +48,7 @@ abstract class SearchLocalDateQueryValueSearchQueryTester extends SearchQueryTes
     static SearchLocalDateQueryValueNotEqualsSearchQueryTester notEquals(final LocalDate value) {
         return SearchLocalDateQueryValueNotEqualsSearchQueryTester.with(value);
     }
-            
+
     SearchLocalDateQueryValueSearchQueryTester(final LocalDate value) {
         super(value);
     }

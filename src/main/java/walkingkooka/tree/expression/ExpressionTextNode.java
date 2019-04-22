@@ -35,7 +35,7 @@ public final class ExpressionTextNode extends ExpressionValueNode<String> {
         return new ExpressionTextNode(NO_INDEX, value);
     }
 
-    private ExpressionTextNode(final int index, final String text){
+    private ExpressionTextNode(final int index, final String text) {
         super(index, text);
     }
 
@@ -105,7 +105,7 @@ public final class ExpressionTextNode extends ExpressionValueNode<String> {
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

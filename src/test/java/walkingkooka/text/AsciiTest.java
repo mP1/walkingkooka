@@ -245,7 +245,7 @@ final public class AsciiTest implements ClassTesting2<Ascii>,
 
     @Test
     public void testIsNonAscii() {
-        this.isAndCheck((char)255, false);
+        this.isAndCheck((char) 255, false);
     }
 
     private void isAndCheck(final char c, final boolean expected) {
@@ -281,7 +281,7 @@ final public class AsciiTest implements ClassTesting2<Ascii>,
 
     @Test
     public void testIsDigitAfterNine() {
-        this.isDigitAndCheck('9'+ 1, false);
+        this.isDigitAndCheck('9' + 1, false);
     }
 
     @Test
@@ -299,8 +299,8 @@ final public class AsciiTest implements ClassTesting2<Ascii>,
 
     private void isDigitAndCheck(final int c, final boolean expected) {
         assertEquals(expected,
-                Ascii.isDigit((char)c),
-                "isLetter " + CharSequences.quoteAndEscape((char)c));
+                Ascii.isDigit((char) c),
+                "isLetter " + CharSequences.quoteAndEscape((char) c));
     }
 
     // test

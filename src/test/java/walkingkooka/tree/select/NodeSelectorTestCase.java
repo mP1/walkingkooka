@@ -108,13 +108,13 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
         this.acceptAndCheck0(selector,
                 start,
                 Arrays.stream(nodes)
-                        .map( n  -> n.name().value())
-                        .toArray(size  -> new String[ size]));
+                        .map(n -> n.name().value())
+                        .toArray(size -> new String[size]));
     }
 
     abstract void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                               final TestNode start,
-                               final String... nodes);
+                                  final TestNode start,
+                                  final String... nodes);
 
     final void acceptAndCheckUsingContext(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                           final TestNode start,
@@ -122,14 +122,14 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
         final Set<TestNode> potential = Sets.ordered();
         final Set<TestNode> selected = Sets.ordered();
         selector.accept(start, context(
-                (n)->potential.add(n),
-                (n)->selected.add(n)));
+                (n) -> potential.add(n),
+                (n) -> selected.add(n)));
         final List<String> selectedNames = selected.stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
         assertEquals(Lists.of(nodes), selectedNames, () -> "Selector.accept\n" + start);
         assertNotEquals(Sets.empty(), potential, "potentials must not be empty");
-        assertTrue(potential.contains(start), ()-> "potentials must include initial node=" + potential);
+        assertTrue(potential.contains(start), () -> "potentials must include initial node=" + potential);
     }
 
     final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final Consumer<TestNode> potential,
@@ -154,10 +154,10 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
 
             @Override
             public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-                if(type.isInstance(value)) {
+                if (type.isInstance(value)) {
                     return type.cast(value);
                 }
-                if(value instanceof String && type == Integer.class) {
+                if (value instanceof String && type == Integer.class) {
                     return type.cast(Integer.parseInt(String.valueOf(value)));
                 }
                 return failConversion(value, type);

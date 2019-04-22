@@ -73,12 +73,12 @@ public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<Singl
         }.accept(token);
         assertEquals("132", b.toString());
     }
-    
+
     @Override
     public SingleQuotedParserToken createToken(final String text) {
         return SingleQuotedParserToken.with(null == text ?
-                String.valueOf(null) :
-                text.substring(1, text.length() -1),
+                        String.valueOf(null) :
+                        text.substring(1, text.length() - 1),
                 text);
     }
 

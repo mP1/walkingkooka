@@ -53,7 +53,7 @@ public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Int
         this.childrenOf("abc123");
     }
 
-    private void childrenOf(final Object value){
+    private void childrenOf(final Object value) {
         final PojoBasicNode node = this.createPojoNode(value);
         this.childrenAndCheckNames(node);
         this.checkWithoutParent(node);
@@ -88,7 +88,7 @@ public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Int
 
     @Override
     PojoBasicNode createPojoNode() {
-          return this.createPojoNode(this.value());
+        return this.createPojoNode(this.value());
     }
 
     @Override

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public abstract class VectorToStringBuilderTestCase<T> extends ToStringBuilderTestCase<T> {
 
     @Test
-    public final void testValueNull(){
+    public final void testValueNull() {
         final ToStringBuilder b = this.builder();
 
         b.label(LABEL);
@@ -153,13 +153,11 @@ public abstract class VectorToStringBuilderTestCase<T> extends ToStringBuilderTe
         return null;
     }
 
-    @Override
-    final String defaultValueToString() {
+    @Override final String defaultValueToString() {
         return "";
     }
 
-    @Override
-    final String value2ToString() {
+    @Override final String value2ToString() {
         return this.value2ToString(ToStringBuilder.DEFAULT_VALUE_SEPARATOR);
     }
 

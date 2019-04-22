@@ -174,16 +174,16 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
 
         int mode = PREDICATE;
 
-        for(ParserToken token : sequenceParserToken.value()) {
+        for (ParserToken token : sequenceParserToken.value()) {
             final NodeSelectorParserToken selectorParserToken = token.cast();
 
-            if(selectorParserToken.isBracketOpenSymbol()){
+            if (selectorParserToken.isBracketOpenSymbol()) {
                 all.add(token);
                 continue;
             }
 
-            if(selectorParserToken.isBracketCloseSymbol()){
-                switch(mode) {
+            if (selectorParserToken.isBracketCloseSymbol()) {
+                switch (mode) {
                     case PREDICATE:
                         all.addAll(tokens);
                         break;
@@ -203,27 +203,27 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
             final boolean andSymbol = selectorParserToken.isAndSymbol();
             final boolean orSymbol = selectorParserToken.isOrSymbol();
 
-            switch(mode) {
+            switch (mode) {
                 case PREDICATE:
                     mode = andSymbol ? AND : orSymbol ? OR : PREDICATE;
                     break;
                 case AND:
-                    if(andSymbol || orSymbol) {
+                    if (andSymbol || orSymbol) {
                         final NodeSelectorAndParserToken and = and(tokens);
                         tokens.clear();
                         tokens.add(and);
                     }
-                    if(orSymbol) {
+                    if (orSymbol) {
                         mode = OR;
                     }
                     break;
                 case OR:
-                    if(andSymbol || orSymbol) {
+                    if (andSymbol || orSymbol) {
                         final NodeSelectorOrParserToken or = or(tokens);
                         tokens.clear();
                         tokens.add(or);
                     }
-                    if(andSymbol) {
+                    if (andSymbol) {
                         mode = AND;
                     }
                     break;

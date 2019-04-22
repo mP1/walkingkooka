@@ -35,12 +35,12 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     public final static String SYMBOL = "!";
 
-    static ExpressionNotNode with(final ExpressionNode value){
+    static ExpressionNotNode with(final ExpressionNode value) {
         Objects.requireNonNull(value, "value");
         return new ExpressionNotNode(NO_INDEX, value);
     }
 
-    private ExpressionNotNode(final int index, final ExpressionNode value){
+    private ExpressionNotNode(final int index, final ExpressionNode value) {
         super(index, value);
     }
 
@@ -75,15 +75,15 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
     }
 
     // evaluation .....................................................................................................
-    
+
     @Override
     public BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
         return new BigDecimal(this.toBigInteger(context));
@@ -98,7 +98,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
     public boolean toBoolean(final ExpressionEvaluationContext context) {
         return context.convert(this.toNumber(context), Boolean.class);
     }
-    
+
     @Override
     public double toDouble(final ExpressionEvaluationContext context) {
         return context.convert(this.value().toBigInteger(context).not(), Double.class);
@@ -106,7 +106,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     @Override
     public long toLong(final ExpressionEvaluationContext context) {
-        return ~ this.value().toLong(context);
+        return ~this.value().toLong(context);
     }
 
     @Override

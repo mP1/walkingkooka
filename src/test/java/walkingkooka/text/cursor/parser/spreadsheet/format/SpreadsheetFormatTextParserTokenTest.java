@@ -141,9 +141,9 @@ public final class SpreadsheetFormatTextParserTokenTest extends SpreadsheetForma
         }.accept(token);
         assertEquals("7137152871628428", b.toString());
         assertEquals(Lists.of(token, token, token,
-                        text, text, text, text, text,
-                        placeholder, placeholder, placeholder, placeholder, placeholder,
-                        token, token, token),
+                text, text, text, text, text,
+                placeholder, placeholder, placeholder, placeholder, placeholder,
+                token, token, token),
                 visited,
                 "visited");
     }

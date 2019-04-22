@@ -101,10 +101,10 @@ final class SearchContainsQuery extends SearchLeafQuery<SearchTextQueryValue> {
         final CaseSensitivity caseSensitivity = this.caseSensitivity;
 
         int replaceBegin = caseSensitivity.indexOf(nodeText, searchForText);
-        if(-1 != replaceBegin) {
+        if (-1 != replaceBegin) {
             // at least one part found...
             final int searchForTextLength = searchForText.length();
-            
+
             SearchNode current = node;
             do {
                 final int replaceEnd = replaceBegin + searchForTextLength;
@@ -114,7 +114,7 @@ final class SearchContainsQuery extends SearchLeafQuery<SearchTextQueryValue> {
                         replaceEnd,
                         extracted);
 
-                if(current.isSequence()) {
+                if (current.isSequence()) {
                     final SearchSequenceNode sequence = current.cast();
 
                     final List<SearchNode> newChildren = Lists.array();
@@ -122,7 +122,7 @@ final class SearchContainsQuery extends SearchLeafQuery<SearchTextQueryValue> {
 
                     final int lastIndex = newChildren.size() - 1;
                     final SearchNode last = newChildren.get(lastIndex);
-                    if(last.isSequence()) {
+                    if (last.isSequence()) {
                         newChildren.remove(lastIndex);
                         final SearchSequenceNode lastAsSequence = last.cast();
                         newChildren.addAll(lastAsSequence.children());
@@ -132,7 +132,7 @@ final class SearchContainsQuery extends SearchLeafQuery<SearchTextQueryValue> {
                 }
 
                 replaceBegin = caseSensitivity.indexOf(nodeText, searchForText, replaceEnd);
-            } while(-1 != replaceBegin);
+            } while (-1 != replaceBegin);
 
             context.success(node, current);
         }

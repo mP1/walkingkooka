@@ -29,11 +29,11 @@ import java.util.Set;
 /**
  * Represents a json null.
  */
-public final class JsonNullNode extends JsonLeafNode<Void>{
+public final class JsonNullNode extends JsonLeafNode<Void> {
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonNullNode.class);
 
-    final static JsonNullNode INSTANCE = new JsonNullNode(NAME,NO_INDEX, null);
+    final static JsonNullNode INSTANCE = new JsonNullNode(NAME, NO_INDEX, null);
 
     JsonNullNode(final JsonNodeName name, final int index, final Void value) {
         super(name, index, value);
@@ -185,7 +185,7 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
     // Visitor .................................................................................................
 
     @Override
-    public void accept(final JsonNodeVisitor visitor){
+    public void accept(final JsonNodeVisitor visitor) {
         visitor.visit(this);
     }
 

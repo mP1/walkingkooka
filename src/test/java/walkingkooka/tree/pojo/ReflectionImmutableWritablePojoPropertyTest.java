@@ -45,7 +45,7 @@ public final class ReflectionImmutableWritablePojoPropertyTest implements ClassT
     @Test
     public void testSetDifferent() {
         final TestBean instance = new TestBean(STRING);
-        final TestBean result = (TestBean)this.setAndCheck(instance, STRING2);
+        final TestBean result = (TestBean) this.setAndCheck(instance, STRING2);
         assertNotSame(instance, result);
         assertEquals(STRING2, result.x);
     }
@@ -71,22 +71,22 @@ public final class ReflectionImmutableWritablePojoPropertyTest implements ClassT
         return ReflectionImmutableWritablePojoProperty.class;
     }
 
-    static class TestBean{
+    static class TestBean {
         final String x;
 
-        TestBean(final String x){
+        TestBean(final String x) {
             this.x = x;
         }
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
 
-        public TestBean setX(final String x){
+        public TestBean setX(final String x) {
             return this.x.equals(x) ? this : new TestBean(x);
         }
 
-        public String toString(){
+        public String toString() {
             return "=" + STRING;
         }
     }

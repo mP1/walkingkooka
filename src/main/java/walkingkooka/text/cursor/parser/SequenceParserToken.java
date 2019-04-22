@@ -45,7 +45,7 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
     }
 
     @Override
-    public SequenceParserToken setText(final String text){
+    public SequenceParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -63,8 +63,7 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
         return this.setValue0(value).cast();
     }
 
-    @Override
-    final SequenceParserToken replaceValue(final List<ParserToken> value) {
+    @Override final SequenceParserToken replaceValue(final List<ParserToken> value) {
         return new SequenceParserToken(value, this.text());
     }
 
@@ -94,8 +93,8 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -113,16 +112,16 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
     public void checkTokenCount(final int expected) {
         final List<ParserToken> list = this.value();
         final int actual = list.size();
-        if(actual != expected ){
+        if (actual != expected) {
             throw new IllegalStateException("Expected " + expected + " but got " + actual + "=" + list);
         }
     }
 
     public <T extends ParserToken> T required(final int index, final Class<T> type) {
         final List<ParserToken> tokens = this.value();
-        try{
+        try {
             return type.cast(tokens.get(index));
-        } catch (final IndexOutOfBoundsException cause){
+        } catch (final IndexOutOfBoundsException cause) {
             throw new IndexOutOfBoundsException("Invalid index " + index + " must be between 0 and " + tokens.size());
         }
     }

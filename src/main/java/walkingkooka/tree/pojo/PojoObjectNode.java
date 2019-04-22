@@ -46,30 +46,29 @@ final class PojoObjectNode extends PojoNode2 {
      * Accepts all children, updating the properties of the value, support setters that return a new value.
      * If the final value is different from the original a new {@link PojoObjectNode} is created and wrapped.
      */
-    @Override
-    final PojoNode replaceChildren(final List<PojoNode> children){
+    @Override final PojoNode replaceChildren(final List<PojoNode> children) {
         final Object before = this.value();
         Object current = before;
 
         int i = 0;
         final Map<PojoName, PojoProperty> properties = this.nameToProperties();
-        for(PojoNode child : children) {
-            if(null==child) {
+        for (PojoNode child : children) {
+            if (null == child) {
                 throw new NullPointerException("Child at " + i + " has null " + PojoNode.class.getSimpleName());
             }
             final PojoProperty property = properties.get(child.name());
-            if(null==property){
+            if (null == property) {
                 throw new IllegalArgumentException("Unknown property " + CharSequences.quoteIfChars(child.name()) + " = " + child);
             }
             //if(!property.isReadOnly()){
-                // try and set property
-                final Object after = property.set(current, child.value());
-                if(null!=after){
-                    current = after;
-                }
+            // try and set property
+            final Object after = property.set(current, child.value());
+            if (null != after) {
+                current = after;
+            }
             //}
             i++;
-            if(i > properties.size()) {
+            if (i > properties.size()) {
                 throw new IndexOutOfBoundsException("Too many children " + i + "=" + child);
             }
         }
@@ -87,12 +86,12 @@ final class PojoObjectNode extends PojoNode2 {
 
         final PojoProperty property = this.properties().get(child.index());
         child.name().check(property);
-        if(property.isReadOnly()) {
+        if (property.isReadOnly()) {
             throw new UnsupportedOperationException("Property " + CharSequences.quoteIfChars(property.name()) + " is read only");
         }
 
         final Object after = property.set(before, child.value());
-        if(null!=after){
+        if (null != after) {
             current = after;
         }
 
@@ -111,8 +110,8 @@ final class PojoObjectNode extends PojoNode2 {
     }
 
     @Override
-    public List<Object> childrenValues(){
-        if(null==this.childrenValueList){
+    public List<Object> childrenValues() {
+        if (null == this.childrenValueList) {
             this.childrenValueList = PojoObjectNodeChildrenValueList.with(this);
         }
         return this.childrenValueList;
@@ -126,19 +125,19 @@ final class PojoObjectNode extends PojoNode2 {
         Object current = before;
 
         int i = 0;
-        for(PojoProperty property : this.nameToProperties().values()){
-            if(property.isReadOnly()){
+        for (PojoProperty property : this.nameToProperties().values()) {
+            if (property.isReadOnly()) {
                 continue;
             }
             final Object childValue = values.get(i);
             final Object after = property.set(current, childValue);
-            if(null!=after){
+            if (null != after) {
                 current = after;
             }
             i++;
         }
 
-        if(i > values.size()) {
+        if (i > values.size()) {
             throw new IndexOutOfBoundsException("Several child values unset=" + values.subList(i, values.size()));
         }
 
@@ -150,8 +149,7 @@ final class PojoObjectNode extends PojoNode2 {
         return this.properties().size();
     }
 
-    @Override
-    final public PojoObjectNode removeChild(final int child) {
+    @Override final public PojoObjectNode removeChild(final int child) {
         throw new UnsupportedOperationException();
     }
 
@@ -159,9 +157,9 @@ final class PojoObjectNode extends PojoNode2 {
      * Lazily fetches and caches all the pojo properties for this value.
      */
     final Map<PojoName, PojoProperty> nameToProperties() {
-        if(null==this.nameToProperties){
+        if (null == this.nameToProperties) {
             final Map<PojoName, PojoProperty> nameToProperties = Maps.ordered();
-            for(PojoProperty property : this.properties()) {
+            for (PojoProperty property : this.properties()) {
                 nameToProperties.put(property.name(), property);
             }
             this.nameToProperties = nameToProperties;
@@ -175,7 +173,7 @@ final class PojoObjectNode extends PojoNode2 {
     private Map<PojoName, PojoProperty> nameToProperties;
 
     final List<PojoProperty> properties() {
-        if(null==this.properties) {
+        if (null == this.properties) {
             this.properties = context.properties(this.value.getClass());
         }
         return this.properties;
@@ -184,7 +182,7 @@ final class PojoObjectNode extends PojoNode2 {
     private List<PojoProperty> properties;
 
     @Override
-    boolean equals0(final PojoNode other){
+    boolean equals0(final PojoNode other) {
         return this.equals1(other);
     }
 

@@ -24,7 +24,7 @@ final class SearchGreaterThanEqualsQuery extends SearchValueComparisonLeafQuery 
         return new SearchGreaterThanEqualsQuery(value, tester);
     }
 
-    private SearchGreaterThanEqualsQuery(final SearchQueryValue value, final SearchQueryTester tester){
+    private SearchGreaterThanEqualsQuery(final SearchQueryValue value, final SearchQueryTester tester) {
         super(value, tester);
     }
 

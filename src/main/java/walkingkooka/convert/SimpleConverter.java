@@ -21,7 +21,7 @@ package walkingkooka.convert;
 /**
  * Converter that returns the value if the requested target type is the same.
  */
-final class SimpleConverter implements Converter{
+final class SimpleConverter implements Converter {
 
     /**
      * Singleton

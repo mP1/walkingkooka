@@ -26,8 +26,7 @@ final class SequenceParserRequiredComponent<C extends ParserContext> extends Seq
         super(parser);
     }
 
-    @Override
-    final Optional<ParserToken> parse(final TextCursor cursor, final C context){
+    @Override final Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         return this.parser.parse(cursor, context);
     }
 

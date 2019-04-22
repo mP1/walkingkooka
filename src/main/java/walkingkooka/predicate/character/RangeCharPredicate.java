@@ -32,10 +32,10 @@ final class RangeCharPredicate implements CharPredicate, Serializable {
      * Factory that creates a char predicate that matches the given range of characters(both inclusive).
      */
     static CharPredicate with(final char start, final char end) {
-        if(start > end){
+        if (start > end) {
             throw new IllegalArgumentException("Start " + start + " less than end " + end);
         }
-        return start == end ? CharPredicates.is(start): new RangeCharPredicate(start, end);
+        return start == end ? CharPredicates.is(start) : new RangeCharPredicate(start, end);
     }
 
     /**

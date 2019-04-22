@@ -37,12 +37,12 @@ public final class NumberBigDecimalConverterTest extends NumberConverterTestCase
 
     @Test
     public void testByte() {
-        this.convertAndCheck((byte)123, BigDecimal.valueOf(123));
+        this.convertAndCheck((byte) 123, BigDecimal.valueOf(123));
     }
 
     @Test
     public void testShort() {
-        this.convertAndCheck((short)123, BigDecimal.valueOf(123));
+        this.convertAndCheck((short) 123, BigDecimal.valueOf(123));
     }
 
     @Test

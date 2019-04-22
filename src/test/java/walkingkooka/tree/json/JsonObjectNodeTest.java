@@ -153,7 +153,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonNodeName key1 = this.key1();
         final JsonStringNode value1 = this.value1();
         final JsonObjectNode empty = JsonNode.object();
-        
+
         final JsonObjectNode object = empty.set(key1, value1);
         this.childrenCheck(object);
         this.childCountCheck(object, 1);
@@ -213,7 +213,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
 
         final JsonNodeName key2 = this.key2();
         final JsonStringNode value2 = this.value2();
-        
+
         final JsonObjectNode empty = JsonNode.object();
 
         final JsonObjectNode object = empty.set(key1, value1)
@@ -527,7 +527,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testMapContainsKey() {
         final JsonNodeName key1 = key1();
-        final JsonNode value1 = this.value1();;
+        final JsonNode value1 = this.value1();
+        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -538,7 +539,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testMapContainsKeyAbsent() {
         final JsonNodeName key1 = key1();
-        final JsonNode value1 = this.value1();;
+        final JsonNode value1 = this.value1();
+        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -549,7 +551,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testMapContainsValue() {
         final JsonNodeName key1 = key1();
-        final JsonNode value1 = this.value1();;
+        final JsonNode value1 = this.value1();
+        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -561,7 +564,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testMapContainsValueAbsent() {
         final JsonNodeName key1 = key1();
-        final JsonNode value1 = this.value1();;
+        final JsonNode value1 = this.value1();
+        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -573,7 +577,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testMapGet() {
         final JsonNodeName key1 = key1();
-        final JsonNode value1 = this.value1();;
+        final JsonNode value1 = this.value1();
+        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -584,7 +589,8 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testMapGetAbsentKey() {
         final JsonNodeName key = key1();
-        final JsonNode value = this.value1();;
+        final JsonNode value = this.value1();
+        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key, value)
@@ -656,7 +662,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     @Test
     public void testArrayOrFail() {
         assertThrows(JsonNodeException.class, () -> {
-           this.createJsonNode().arrayOrFail();
+            this.createJsonNode().arrayOrFail();
         });
     }
 
@@ -708,9 +714,9 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         }.accept(object);
         assertEquals("1517217262", b.toString());
         assertEquals(Lists.of(object, object,
-                        string1, string1, string1,
-                        string2, string2, string2,
-                        object, object),
+                string1, string1, string1,
+                string2, string2, string2,
+                object, object),
                 visited,
                 "visited");
     }
@@ -878,7 +884,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.toStringAndCheck(object,
                 "{\n  \"key3\": [true, 2, \"third\"]\n}".replace("\n", LineEnding.SYSTEM.toString()));
     }
-    
+
     @Override
     JsonObjectNode createJsonNode() {
         return JsonNode.object();

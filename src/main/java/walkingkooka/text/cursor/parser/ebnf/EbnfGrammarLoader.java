@@ -42,7 +42,7 @@ public final class EbnfGrammarLoader {
      */
     public static EbnfGrammarLoader with(final String filename, final Class<?> klass) {
         CharSequences.failIfNullOrEmpty(filename, "filename");
-        Objects.requireNonNull(klass,"class");
+        Objects.requireNonNull(klass, "class");
 
         return new EbnfGrammarLoader(filename, klass);
     }
@@ -59,10 +59,10 @@ public final class EbnfGrammarLoader {
      * Lazily loads the loaded and stores the result including exceptions in {@link #loaded}
      */
     public Optional<EbnfGrammarParserToken> grammar() {
-        if(null== this.loaded) {
+        if (null == this.loaded) {
             this.loaded = loadGrammar();
         }
-        if(this.loaded instanceof RuntimeException) {
+        if (this.loaded instanceof RuntimeException) {
             throw (RuntimeException) this.loaded;
         }
         return Cast.to(this.loaded);

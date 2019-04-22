@@ -53,10 +53,10 @@ final class DirectoryFilesystemNode extends FilesystemNode {
      */
     @Override
     public List<FilesystemNode> children() {
-        if(null != this.children && this.mustLoad(FilesystemNodeCacheAtom.CHILDREN)){
+        if (null != this.children && this.mustLoad(FilesystemNodeCacheAtom.CHILDREN)) {
             this.children = null;
         }
-        if(null == this.children) {
+        if (null == this.children) {
             this.children = this.makeFileNodesFromDirectoryListing();
         }
         return this.children;
@@ -71,13 +71,13 @@ final class DirectoryFilesystemNode extends FilesystemNode {
         final List<FilesystemNode> children = Lists.array();
         final File[] files = this.path.toFile().listFiles();
 
-        if(null != files) {
+        if (null != files) {
             for (File file : files) {
                 final Path path = file.toPath();
-                if(file.isDirectory()) {
+                if (file.isDirectory()) {
                     children.add(this.context.directory(path));
                 }
-                if(file.isFile()) {
+                if (file.isFile()) {
                     children.add(this.context.file(path));
                 }
             }

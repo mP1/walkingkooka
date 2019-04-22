@@ -58,7 +58,7 @@ final class DateTimeFormatterParserTextCursorCharSequence implements CharSequenc
 
     private void fillBuffer(final int index) {
         while (this.b.length() <= index) {
-            if(this.cursor.isEmpty()){
+            if (this.cursor.isEmpty()) {
                 break;
             }
             this.b.append(this.cursor.at());

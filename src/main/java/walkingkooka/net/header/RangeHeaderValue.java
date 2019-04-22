@@ -66,7 +66,7 @@ public final class RangeHeaderValue implements HeaderValue,
      */
     public static RangeHeaderValue parse(final String header) {
         Objects.requireNonNull(header, "header");
-        if(header.isEmpty()) {
+        if (header.isEmpty()) {
             throw new HeaderValueException("Header text empty");
         }
 

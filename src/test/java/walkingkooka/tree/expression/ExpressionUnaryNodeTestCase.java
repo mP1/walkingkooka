@@ -116,8 +116,9 @@ public abstract class ExpressionUnaryNodeTestCase<N extends ExpressionUnaryNode>
     final ExpressionNode child() {
         return text(CHILD);
     }
+
     @Override
-    List<ExpressionNode> children(){
+    List<ExpressionNode> children() {
         return Lists.of(this.child());
     }
 

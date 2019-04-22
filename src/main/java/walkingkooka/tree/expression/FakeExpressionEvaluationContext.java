@@ -27,7 +27,7 @@ import java.util.Optional;
 
 public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext implements ExpressionEvaluationContext {
 
-    public FakeExpressionEvaluationContext(){
+    public FakeExpressionEvaluationContext() {
         super();
     }
 

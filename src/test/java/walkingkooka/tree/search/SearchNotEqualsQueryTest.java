@@ -761,7 +761,7 @@ public final class SearchNotEqualsQueryTest extends SearchValueComparisonLeafQue
     SearchQueryValueSearchQueryTesterComparisonPredicate predicate() {
         return SearchQueryValueSearchQueryTesterComparisonPredicate.NOT_EQUALS;
     }
-    
+
     @Override
     public Class<SearchNotEqualsQuery> type() {
         return SearchNotEqualsQuery.class;

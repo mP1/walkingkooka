@@ -54,7 +54,7 @@ public class StringCharPredicateParserTest extends Parser2TestCase<StringCharPre
     @Test
     public void testWithInvalidMaxLengthFails2() {
         assertThrows(IllegalArgumentException.class, () -> {
-            StringCharPredicateParser.with(DIGITS, MIN_LENGTH, MIN_LENGTH -1);
+            StringCharPredicateParser.with(DIGITS, MIN_LENGTH, MIN_LENGTH - 1);
         });
     }
 
@@ -122,11 +122,11 @@ public class StringCharPredicateParserTest extends Parser2TestCase<StringCharPre
         return StringCharPredicateParser.with(DIGITS, min, max);
     }
 
-    private TextCursor parseAndCheck2(final String in, final String value, final String text){
+    private TextCursor parseAndCheck2(final String in, final String value, final String text) {
         return this.parseAndCheck2(in, value, text, "");
     }
 
-    private TextCursor parseAndCheck2(final String in, final String value, final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final String in, final String value, final String text, final String textAfter) {
         return this.parseAndCheck(this.createParser(1, 4),
                 in,
                 StringParserToken.with(value, text),
@@ -134,11 +134,11 @@ public class StringCharPredicateParserTest extends Parser2TestCase<StringCharPre
                 textAfter);
     }
 
-    private TextCursor parseAndCheck3(final String in, final String value, final String text){
+    private TextCursor parseAndCheck3(final String in, final String value, final String text) {
         return this.parseAndCheck3(in, value, text, "");
     }
 
-    private TextCursor parseAndCheck3(final String in, final String value, final String text, final String textAfter){
+    private TextCursor parseAndCheck3(final String in, final String value, final String text, final String textAfter) {
         return this.parseAndCheck(in, StringParserToken.with(value, text), text, textAfter);
     }
 

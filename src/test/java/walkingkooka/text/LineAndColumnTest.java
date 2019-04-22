@@ -257,7 +257,7 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
         assertEquals(line, info.line(), "line()");
     }
 
-    private LineAndColumn create(){
+    private LineAndColumn create() {
         return LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, LINE);
     }
 

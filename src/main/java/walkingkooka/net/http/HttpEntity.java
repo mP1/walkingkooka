@@ -229,8 +229,8 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
                 bodyLength :
                 1 + upperBound.value().get().intValue(); //adjust $to to point to one + actual desired last byte.
 
-        if(to > bodyLength) {
-            throw new IllegalArgumentException("Part of range " + range + " is outside body 0.." + (bodyLength-1));
+        if (to > bodyLength) {
+            throw new IllegalArgumentException("Part of range " + range + " is outside body 0.." + (bodyLength - 1));
         }
 
         return 0 == from && to == bodyLength ?

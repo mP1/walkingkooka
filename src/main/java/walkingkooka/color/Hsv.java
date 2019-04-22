@@ -65,8 +65,8 @@ final public class Hsv implements HashCodeEqualsDefined, Serializable {
      */
     Hsv setHue(final HueHsvComponent hue) {
         return this.hue.equals(hue) ?
-               this :
-               this.replace(hue, this.saturation, this.value);
+                this :
+                this.replace(hue, this.saturation, this.value);
     }
 
     /**
@@ -74,8 +74,8 @@ final public class Hsv implements HashCodeEqualsDefined, Serializable {
      */
     Hsv setSaturation(final SaturationHsvComponent saturation) {
         return this.saturation.equals(saturation) ?
-               this :
-               this.replace(this.hue, saturation, this.value);
+                this :
+                this.replace(this.hue, saturation, this.value);
     }
 
     /**
@@ -84,8 +84,8 @@ final public class Hsv implements HashCodeEqualsDefined, Serializable {
     Hsv setValue(final ValueHsvComponent value) {
 
         return this.value.equals(value) ?
-               this :
-               this.replace(this.hue, this.saturation, value);
+                this :
+                this.replace(this.hue, this.saturation, value);
     }
 
     /**
@@ -182,14 +182,14 @@ final public class Hsv implements HashCodeEqualsDefined, Serializable {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof Hsv &&
-               this.equals0(Cast.to(other));
+                other instanceof Hsv &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final Hsv other) {
         return this.hue.equals(other.hue) &&
-               this.saturation.equals(other.saturation) &&
-               this.value.equals(other.value);
+                this.saturation.equals(other.saturation) &&
+                this.value.equals(other.value);
     }
 
     /**

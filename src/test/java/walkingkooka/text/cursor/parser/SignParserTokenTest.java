@@ -14,7 +14,7 @@
  *  * See the License for the specific language governing permissions and
  *  * limitations under the License.
  *  *
- *  
+ *
  */
 package walkingkooka.text.cursor.parser;
 
@@ -53,7 +53,7 @@ public final class SignParserTokenTest extends ParserTokenTestCase<SignParserTok
         }.accept(token);
         assertEquals("123", b.toString());
     }
-    
+
     @Override
     public SignParserToken createToken(final String text) {
         return SignParserToken.with(true, text);

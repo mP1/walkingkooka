@@ -38,7 +38,7 @@ public final class FloatToStringBuilderTest extends ScalarToStringBuilderTestCas
 
     @Override
     void value(final ToStringBuilder builder, final Float value) {
-        builder.value((float)value);
+        builder.value((float) value);
     }
 
     @Override

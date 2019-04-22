@@ -27,7 +27,7 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
-                implements ClassTesting2<P>,
+        implements ClassTesting2<P>,
         PredicateTesting<P, String>,
         HashCodeEqualsDefinedTesting<P>,
         SerializationTesting<P> {
@@ -39,8 +39,7 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
         super();
     }
 
-    @Test
-    final public void testWithNullCharacterSequenceFails() {
+    @Test final public void testWithNullCharacterSequenceFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createPredicate(null, SENSITIVITY);
         });
@@ -53,14 +52,12 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
         });
     }
 
-    @Test
-    final public void testToStringCaseSensitive() {
+    @Test final public void testToStringCaseSensitive() {
         this.toStringAndCheck(this.createPredicate(),
                 this.prefix() + CharSequences.quoteAndEscape(STRING));
     }
 
-    @Test
-    final public void testToStringCaseInsensitive() {
+    @Test final public void testToStringCaseInsensitive() {
         this.toStringAndCheck(this.createPredicateCaseInsensitivity(STRING),
                 this.prefix() + CharSequences.quoteAndEscape(STRING) + " (CaseInsensitive)");
     }
@@ -117,8 +114,7 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 
-    @Override 
-    final public P createObject() {
+    @Override final public P createObject() {
         return this.createPredicate(STRING, SENSITIVITY);
     }
 

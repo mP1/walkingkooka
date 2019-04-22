@@ -26,7 +26,7 @@ public final class ShortToStringBuilderTest extends ScalarToStringBuilderTestCas
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
 
-        b.value((short)1);
+        b.value((short) 1);
 
         this.buildAndCheck(b, "0001");
     }
@@ -38,7 +38,7 @@ public final class ShortToStringBuilderTest extends ScalarToStringBuilderTestCas
 
     @Override
     void value(final ToStringBuilder builder, final Short value) {
-        builder.value((short)value);
+        builder.value((short) value);
     }
 
     @Override

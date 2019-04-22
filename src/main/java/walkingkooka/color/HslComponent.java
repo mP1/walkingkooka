@@ -104,7 +104,7 @@ abstract public class HslComponent implements HashCodeEqualsDefined, Serializabl
     /**
      * Returns true if this is a {@link LightnessHslComponent}.
      */
-    public abstract boolean isLightness() ;
+    public abstract boolean isLightness();
 
     /**
      * Setter used to create a new {@link Hsl} with this component replaced if different
@@ -121,8 +121,8 @@ abstract public class HslComponent implements HashCodeEqualsDefined, Serializabl
     @Override
     final public boolean equals(final Object other) {
         return this == other ||
-               this.canBeEqual(other) &&
-               this.equals0(Cast.to(other));
+                this.canBeEqual(other) &&
+                        this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(Object other);

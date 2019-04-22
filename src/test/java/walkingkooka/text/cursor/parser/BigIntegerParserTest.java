@@ -127,7 +127,7 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
 
     private TextCursor parseAndCheck3(final String text, final int value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic(new FakeDecimalNumberContext(){
+                ParserContexts.basic(new FakeDecimalNumberContext() {
                     @Override
                     public char minusSign() {
                         return 'M';
@@ -162,15 +162,15 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
         return ParserContexts.basic(this.decimalNumberContext());
     }
 
-    private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter) {
         return this.parseAndCheck2(in, BigInteger.valueOf(value), text, textAfter);
     }
 
-    private TextCursor parseAndCheck2(final String in, final BigInteger value, final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final String in, final BigInteger value, final String text, final String textAfter) {
         return this.parseAndCheck(in, BigIntegerParserToken.with(value, text), text, textAfter);
     }
 
-    private TextCursor parseAndCheck3(final int radix, final String from, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck3(final int radix, final String from, final long value, final String text, final String textAfter) {
         return this.parseAndCheck(BigIntegerParser.with(radix),
                 this.createContext(),
                 TextCursors.charSequence(from),

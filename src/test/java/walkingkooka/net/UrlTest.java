@@ -51,7 +51,7 @@ public final class UrlTest implements ClassTesting2<Url>,
 
         this.parseAndCheck(text, Url.parseRelative(text));
     }
-    
+
     @Override
     public Class<Url> type() {
         return Url.class;

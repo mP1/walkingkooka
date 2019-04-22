@@ -38,7 +38,7 @@ public abstract class JsonNodeVisitor extends Visitor<JsonNode> {
     public final void accept(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
-        if(Visiting.CONTINUE == this.startVisit(node)) {
+        if (Visiting.CONTINUE == this.startVisit(node)) {
             node.accept(this);
         }
         this.endVisit(node);

@@ -119,7 +119,7 @@ public abstract class EbnfParserTokenVisitor extends ParserTokenVisitor {
     // EbnfLeafParserToken ....................................................................................
 
     final void acceptComment(final EbnfCommentParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
+        if (Visiting.CONTINUE == this.startVisit(token)) {
             this.visit(token);
         }
     }
@@ -129,7 +129,7 @@ public abstract class EbnfParserTokenVisitor extends ParserTokenVisitor {
     }
 
     final void acceptIdentifier(final EbnfIdentifierParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
+        if (Visiting.CONTINUE == this.startVisit(token)) {
             this.visit(token);
         }
     }

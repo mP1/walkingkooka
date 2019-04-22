@@ -49,11 +49,11 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
                 .forEach(checker);
 
         final EbnfParserToken begin = checker.begin;
-        if(null==begin){
+        if (null == begin) {
             throw new IllegalArgumentException("Range missing begin|identifier=" + text);
         }
         final EbnfParserToken end = checker.end;
-        if(null==end){
+        if (null == end) {
             throw new IllegalArgumentException("Range missing end terminal|identifier=" + text);
         }
 
@@ -137,7 +137,7 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
 
     @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

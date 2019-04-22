@@ -97,14 +97,14 @@ public final class SpreadsheetDivisionParserTokenTest extends SpreadsheetBinaryP
         }.accept(binary);
         assertEquals("713715287162871528428", b.toString());
         assertEquals(Lists.of(binary, binary, binary,
-                        left, left, left, left, left,
-                        symbol, symbol, symbol, symbol, symbol,
-                        right, right, right, right, right,
-                        binary, binary, binary),
+                left, left, left, left, left,
+                symbol, symbol, symbol, symbol, symbol,
+                right, right, right, right, right,
+                binary, binary, binary),
                 visited,
                 "visited");
     }
-    
+
     @Override
     SpreadsheetDivisionParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.division(tokens, text);
@@ -116,7 +116,7 @@ public final class SpreadsheetDivisionParserTokenTest extends SpreadsheetBinaryP
     }
 
     @Override
-    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right){
+    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionNode.division(left, right);
     }
 

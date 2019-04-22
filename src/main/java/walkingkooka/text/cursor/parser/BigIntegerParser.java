@@ -32,7 +32,7 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
      * Factory that creates a {@link BigIntegerParser}
      */
     static <C extends ParserContext> BigIntegerParser<C> with(final int radix) {
-        if(radix <= 0) {
+        if (radix <= 0) {
             throw new IllegalArgumentException("Radix " + radix + " must be > 0");
         }
 
@@ -62,8 +62,8 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
         boolean empty = true;
         boolean signed = false;
 
-        for(;;){
-            if(cursor.isEmpty()) {
+        for (; ; ) {
+            if (cursor.isEmpty()) {
                 token = empty ?
                         null :
                         this.createToken(number, save);
@@ -71,13 +71,13 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
             }
 
             char c = cursor.at();
-            if(empty && 10 == this.radix) {
-                if(minusSign == c){
+            if (empty && 10 == this.radix) {
+                if (minusSign == c) {
                     signed = true;
                     cursor.next();
                     continue;
                 }
-                if(plusSign == c){
+                if (plusSign == c) {
                     signed = false;
                     cursor.next();
                     continue;
@@ -85,7 +85,7 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
             }
 
             final int digit = Character.digit(c, radix);
-            if(-1 == digit){
+            if (-1 == digit) {
                 token = empty ?
                         null :
                         this.createToken(number, save);
@@ -101,7 +101,7 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
                     number.add(digitBigInteger);
 
             cursor.next();
-            if(cursor.isEmpty()){
+            if (cursor.isEmpty()) {
                 token = this.createToken(number, save);
                 break;
             }
@@ -110,7 +110,7 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
         return Optional.ofNullable(token);
     }
 
-    private BigIntegerParserToken createToken(final BigInteger value, final TextCursorSavePoint save){
+    private BigIntegerParserToken createToken(final BigInteger value, final TextCursorSavePoint save) {
         return BigIntegerParserToken.with(value,
                 save.textBetween().toString());
     }
@@ -121,6 +121,6 @@ final class BigIntegerParser<C extends ParserContext> extends Parser2<C> {
     @Override
     public String toString() {
         final int radix = this.radix;
-        return 10 == radix ? "BigInteger" : "BigInteger(base=" + radix+ ")";
+        return 10 == radix ? "BigInteger" : "BigInteger(base=" + radix + ")";
     }
 }

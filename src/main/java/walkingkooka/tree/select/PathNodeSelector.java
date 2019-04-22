@@ -98,7 +98,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
 
     @Override
     boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
-         return this.path.equals(PathNodeSelector.class.cast(other).path);
+        return this.path.equals(PathNodeSelector.class.cast(other).path);
     }
 
     @Override

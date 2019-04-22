@@ -45,8 +45,8 @@ final class PojoByteArrayNode extends PojoArrayNode {
         final byte[] newChildren = new byte[children.size()];
 
         int i = 0;
-        for(PojoNode child : children){
-            newChildren[i] = (byte)child.value();
+        for (PojoNode child : children) {
+            newChildren[i] = (byte) child.value();
             i++;
         }
 
@@ -57,7 +57,7 @@ final class PojoByteArrayNode extends PojoArrayNode {
     final PojoNode replaceChild(final PojoNode newChild) {
         final byte[] newChildren = new byte[this.childrenCount()];
 
-        newChildren[newChild.index()]=(byte)newChild.value();
+        newChildren[newChild.index()] = (byte) newChild.value();
 
         return this.wrap(newChildren);
     }
@@ -67,15 +67,15 @@ final class PojoByteArrayNode extends PojoArrayNode {
         final byte[] newChildren = new byte[values.size()];
 
         int i = 0;
-        for(Object child : values){
-            newChildren[i] = (byte)child;
+        for (Object child : values) {
+            newChildren[i] = (byte) child;
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    private PojoNode wrap(final byte[] values){
+    private PojoNode wrap(final byte[] values) {
         return new PojoByteArrayNode(this.name(),
                 values,
                 this.index(),
@@ -94,7 +94,7 @@ final class PojoByteArrayNode extends PojoArrayNode {
     }
 
     @Override
-    boolean equals0(final PojoNode other){
+    boolean equals0(final PojoNode other) {
         final PojoByteArrayNode otherArray = Cast.to(other);
         return Arrays.equals(this.valueAsByteArray(), otherArray.valueAsByteArray());
     }

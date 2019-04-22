@@ -51,7 +51,7 @@ final class PojoObjectNodeChildrenList extends PojoNodeFixedChildrenList<PojoObj
     }
 
     @Override
-    boolean isSameType(final Object other){
+    boolean isSameType(final Object other) {
         return other instanceof PojoObjectNodeChildrenList;
     }
 }

@@ -69,7 +69,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
 
     @Override
     void replaceChildrenCheck(final List<SearchNode> children) {
-        if(children.isEmpty()) {
+        if (children.isEmpty()) {
             throw new IllegalArgumentException("Expected at least one child");
         }
     }
@@ -98,7 +98,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
         final List<SearchNode> newChildren = Lists.array();
         int textOffset = 0;
 
-        for(SearchNode child : this.children()) {
+        for (SearchNode child : this.children()) {
             final String childText = child.text();
             final int childTextLength = childText.length();
 
@@ -108,20 +108,20 @@ public final class SearchSequenceNode extends SearchParentNode2 {
             textOffset = childEndOffset;
 
             // replace begin is after child, just add child
-            if(replaceBeginOffset >= childEndOffset) {
+            if (replaceBeginOffset >= childEndOffset) {
                 newChildren.add(child);
                 continue;
             }
 
             // replace end is before child, just add child
-            if(replaceEndOffset <= childBeginOffset) {
+            if (replaceEndOffset <= childBeginOffset) {
                 newChildren.add(child);
                 continue;
             }
 
-            if(childBeginOffset == replaceBeginOffset) {
+            if (childBeginOffset == replaceBeginOffset) {
                 // replacement
-                if(replaceEndOffset <= childEndOffset) {
+                if (replaceEndOffset <= childEndOffset) {
                     newChildren.add(
                             child.replace(
                                     0,
@@ -135,14 +135,14 @@ public final class SearchSequenceNode extends SearchParentNode2 {
                 newChildren.add(replace);
 
                 // part of child may remain...
-                if(replaceEndOffset < childEndOffset) {
+                if (replaceEndOffset < childEndOffset) {
                     newChildren.add(child.extract(replaceEndOffset - childBeginOffset, childEndOffset - childBeginOffset));
                 }
                 continue;
             }
 
-            if(replaceBeginOffset > childBeginOffset) {
-                if(replaceEndOffset <= childEndOffset) {
+            if (replaceBeginOffset > childBeginOffset) {
+                if (replaceEndOffset <= childEndOffset) {
                     newChildren.add(
                             child.replace(
                                     replaceBeginOffset - childBeginOffset,
@@ -157,8 +157,8 @@ public final class SearchSequenceNode extends SearchParentNode2 {
                 continue;
             }
 
-           // replace must have already been added...
-            if(replaceEndOffset >= childEndOffset) {
+            // replace must have already been added...
+            if (replaceEndOffset >= childEndOffset) {
                 continue;
             }
 
@@ -174,7 +174,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
         final List<SearchNode> extracted = Lists.array();
         int textOffset = 0;
 
-        for(SearchNode child : this.children()) {
+        for (SearchNode child : this.children()) {
             final String childText = child.text();
             final int childTextLength = childText.length();
 
@@ -224,7 +224,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
 
     @Override
     void select(final SearchQuery query, final SearchQueryContext context) {
-        for(SearchNode child : this.children) {
+        for (SearchNode child : this.children) {
             child.select(query, context);
         }
     }
@@ -245,7 +245,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
     @Override
     SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer) {
         final List<SearchNode> children = Lists.array();
-        for(SearchNode child : this.children()) {
+        for (SearchNode child : this.children()) {
             children.add(child.replaceSelected0(replacer));
         }
 
@@ -255,8 +255,8 @@ public final class SearchSequenceNode extends SearchParentNode2 {
     // Visitor.........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SearchNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

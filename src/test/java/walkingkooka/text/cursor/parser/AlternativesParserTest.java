@@ -118,7 +118,7 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
     @Test
     public void testEmptyParserReporter() {
         // AlternativesParser must not short circuit and skip trying all its parsers when its empty.
-        this.parseThrowsEndOfText(PARSER1.orReport(ParserReporters.basic()).cast(), "abc", 4,1);
+        this.parseThrowsEndOfText(PARSER1.orReport(ParserReporters.basic()).cast(), "abc", 4, 1);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createParser(), "(" + PARSER1 + " | " + PARSER2 +")");
+        this.toStringAndCheck(this.createParser(), "(" + PARSER1 + " | " + PARSER2 + ")");
     }
 
     @Override public AlternativesParser<ParserContext> createParser() {
@@ -148,12 +148,12 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
     }
 
     @SafeVarargs
-    private final AlternativesParser<ParserContext> createParser0(final Parser<ParserContext>...parsers) {
+    private final AlternativesParser<ParserContext> createParser0(final Parser<ParserContext>... parsers) {
         return this.createParser1(parsers).cast();
     }
 
     @SafeVarargs
-    private final Parser<ParserContext> createParser1(final Parser<ParserContext>...parsers) {
+    private final Parser<ParserContext> createParser1(final Parser<ParserContext>... parsers) {
         return AlternativesParser.with(Cast.to(Lists.of(parsers)));
     }
 

@@ -57,8 +57,8 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
     public final static Optional<TestNode> NO_PARENT = Optional.empty();
 
     public static TestNode with(final String name, final TestNode... children) {
-        if(!names.add(name)) {
-            Assertions.fail("Name " + CharSequences.quote(name)+ " must be unique per test");
+        if (!names.add(name)) {
+            Assertions.fail("Name " + CharSequences.quote(name) + " must be unique per test");
         }
 
         return new TestNode(Names.string(name),
@@ -83,7 +83,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         this.children = children;
 
         int i = 0;
-        for(TestNode child : children) {
+        for (TestNode child : children) {
             child.parent = Optional.of(this);
             child.index = i;
             i++;
@@ -137,7 +137,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
                 new TestNode(this.name, NO_PARENT, children, this.attributes);
     }
 
-    public TestNode child(final int i){
+    public TestNode child(final int i) {
         return this.children().get(i);
     }
 
@@ -165,8 +165,8 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         return Objects.hash(this.name(), this.attributes());
     }
 
-    public boolean equals(final Object other){
-        return this == other || other instanceof TestNode && equals0((TestNode)other);
+    public boolean equals(final Object other) {
+        return this == other || other instanceof TestNode && equals0((TestNode) other);
     }
 
     private boolean equals0(final TestNode other) {
@@ -181,8 +181,8 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         boolean equals = false;
 
         final Optional<TestNode> maybeParent = this.parent();
-        if(parent.isPresent()) {
-            if(other.isPresent()){
+        if (parent.isPresent()) {
+            if (other.isPresent()) {
                 final TestNode parent = maybeParent.get();
                 final TestNode otherParent = other.get();
 
@@ -204,12 +204,12 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         boolean equals = false;
 
         final List<TestNode> children = this.children();
-        if(children.size() == otherChildren.size()) {
+        if (children.size() == otherChildren.size()) {
             final Iterator<TestNode> i = children.iterator();
             final Iterator<TestNode> j = otherChildren.iterator();
             equals = true;
 
-            while(equals && i.hasNext()){
+            while (equals && i.hasNext()) {
                 equals &= i.next().equalsChild(j.next());
             }
         }

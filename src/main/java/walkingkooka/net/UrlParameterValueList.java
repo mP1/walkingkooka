@@ -40,10 +40,10 @@ final class UrlParameterValueList extends AbstractList<String> {
         this.values.add(value);
     }
 
-    void removeParameterValues(final String value){
+    void removeParameterValues(final String value) {
         // List.remove only removes the FIRST and not all values...
-        for(Iterator<String> i = this.values.iterator(); i.hasNext();){
-            if(i.next().equals(value)) {
+        for (Iterator<String> i = this.values.iterator(); i.hasNext(); ) {
+            if (i.next().equals(value)) {
                 i.remove();
             }
         }
@@ -62,7 +62,7 @@ final class UrlParameterValueList extends AbstractList<String> {
     private final List<String> values = Lists.array();
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.values.toString();
     }
 }

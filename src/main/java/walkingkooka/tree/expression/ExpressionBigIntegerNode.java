@@ -35,7 +35,7 @@ public final class ExpressionBigIntegerNode extends ExpressionValueNode<BigInteg
         return new ExpressionBigIntegerNode(NO_INDEX, value);
     }
 
-    private ExpressionBigIntegerNode(final int index, final BigInteger value){
+    private ExpressionBigIntegerNode(final int index, final BigInteger value) {
         super(index, value);
     }
 
@@ -105,7 +105,7 @@ public final class ExpressionBigIntegerNode extends ExpressionValueNode<BigInteg
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

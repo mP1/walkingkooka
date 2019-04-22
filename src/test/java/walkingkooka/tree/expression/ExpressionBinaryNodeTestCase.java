@@ -133,7 +133,7 @@ public abstract class ExpressionBinaryNodeTestCase<N extends ExpressionBinaryNod
     abstract N createExpressionNode(final ExpressionNode left, final ExpressionNode right);
 
     @Override
-    List<ExpressionNode> children(){
+    List<ExpressionNode> children() {
         return Lists.of(this.left(), this.right());
     }
 

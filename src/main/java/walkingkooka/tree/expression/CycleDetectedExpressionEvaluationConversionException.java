@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * This exception is thrown whenever a reference cycle is detected between {@link ExpressionNode}.
  */
-public final class CycleDetectedExpressionEvaluationConversionException extends ExpressionEvaluationConversionException{
+public final class CycleDetectedExpressionEvaluationConversionException extends ExpressionEvaluationConversionException {
 
     private static final long serialVersionUID = 1;
 

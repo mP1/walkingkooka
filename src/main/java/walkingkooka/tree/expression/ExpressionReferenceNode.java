@@ -35,13 +35,13 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionReferenceNode.class);
 
-    static ExpressionReferenceNode with(final ExpressionReference reference){
+    static ExpressionReferenceNode with(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
 
         return new ExpressionReferenceNode(NO_INDEX, reference);
     }
 
-    private ExpressionReferenceNode(final int index, final ExpressionReference reference){
+    private ExpressionReferenceNode(final int index, final ExpressionReference reference) {
         super(index, reference);
     }
 
@@ -111,7 +111,7 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

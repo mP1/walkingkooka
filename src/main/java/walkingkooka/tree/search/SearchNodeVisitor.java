@@ -37,7 +37,7 @@ public abstract class SearchNodeVisitor extends Visitor<SearchNode> {
     public final void accept(final SearchNode node) {
         Objects.requireNonNull(node, "node");
 
-        if(Visiting.CONTINUE == this.startVisit(node)) {
+        if (Visiting.CONTINUE == this.startVisit(node)) {
             node.accept(this);
         }
         this.endVisit(node);
@@ -66,7 +66,7 @@ public abstract class SearchNodeVisitor extends Visitor<SearchNode> {
     protected void endVisit(final SearchMetaNode node) {
         // nop
     }
-    
+
     protected Visiting startVisit(final SearchSelectNode node) {
         return Visiting.CONTINUE;
     }

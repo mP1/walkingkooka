@@ -27,25 +27,24 @@ import java.util.Optional;
  * Base class for all non logical (binary) selectors.
  */
 abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-    extends NodeSelector<N, NAME, ANAME, AVALUE> {
+        extends NodeSelector<N, NAME, ANAME, AVALUE> {
 
     NonLogicalNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super();
         this.next = next;
     }
 
-    @Override
-    final NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector){
+    @Override final NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return this.append1(this.next.append0(selector));
     }
-    
+
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
     /**
      * Used to match a node wrapped in an optional. Empty optionals have no effect.
      */
     final void select(final Optional<N> node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        if(node.isPresent()){
+        if (node.isPresent()) {
             this.select(node.get(), context);
         }
     }
@@ -57,16 +56,15 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
         this.next.accept0(node, context);
     }
 
-    @Override
-    final void toString0(final NodeSelectorToStringBuilder b) {
+    @Override final void toString0(final NodeSelectorToStringBuilder b) {
         this.toString1(b);
         this.toStringNext(b);
     }
 
     abstract void toString1(final NodeSelectorToStringBuilder b);
 
-    final void toStringNext(final NodeSelectorToStringBuilder b){
-        if(null!=this.next) {
+    final void toStringNext(final NodeSelectorToStringBuilder b) {
+        if (null != this.next) {
             this.next.toString0(b);
         }
     }
@@ -75,7 +73,7 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     // Object
 
-    public final int hashCode(){
+    public final int hashCode() {
         return this.hashCode0(this.next);
     }
 
@@ -93,8 +91,7 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     abstract boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other);
 
-    @Override
-    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
+    @Override final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
         return this;
     }
 }

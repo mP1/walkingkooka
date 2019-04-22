@@ -22,7 +22,7 @@ import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.Ascii;
 
 final public class AsciiPrintableCharPredicateTest
-                implements CharPredicateTesting<AsciiPrintableCharPredicate>,
+        implements CharPredicateTesting<AsciiPrintableCharPredicate>,
         SerializationTesting<AsciiPrintableCharPredicate> {
 
     @Test

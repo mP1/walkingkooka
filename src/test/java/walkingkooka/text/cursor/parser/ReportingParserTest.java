@@ -72,7 +72,7 @@ public final class ReportingParserTest extends ParserTestCase<ReportingParser<Pa
     public void testNotEmptyConditionCursorNotEmptyParserSuccessful() {
         this.parseAndCheck(this.createParser(ParserReporterCondition.NOT_EMPTY),
                 "A",
-                ParserTokens.character('A',"A"),
+                ParserTokens.character('A', "A"),
                 "A");
     }
 

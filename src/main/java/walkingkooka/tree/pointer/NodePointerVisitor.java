@@ -37,7 +37,7 @@ public abstract class NodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME ext
     }
 
     final void accept0(final NodePointer<N, NAME> node) {
-        if(Visiting.CONTINUE == this.startVisit(node)) {
+        if (Visiting.CONTINUE == this.startVisit(node)) {
             node.accept(this);
         }
         this.endVisit(node);

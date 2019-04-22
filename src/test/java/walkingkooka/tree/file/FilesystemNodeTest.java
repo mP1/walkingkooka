@@ -81,7 +81,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
     }
 
     @AfterEach
-    public void deleteDirectoryStructure() throws IOException{
+    public void deleteDirectoryStructure() throws IOException {
         Files.delete(subFile);
         Files.delete(subFile2);
         Files.delete(subSub);
@@ -163,7 +163,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
         final List<FilesystemNode> children = root.children();
         assertEquals(1, children.size(), "child count=" + children);
 
-        assertSame(children, root.children(),"children cached");
+        assertSame(children, root.children(), "children cached");
 
         final FilesystemNode child = root.children().get(0);
         assertEquals(sub(), child.name(), "child");
@@ -172,17 +172,17 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
         FilesystemNode subFile = null;
         FilesystemNode subFile2 = null;
 
-        for(FilesystemNode subChild : child.children()) {
+        for (FilesystemNode subChild : child.children()) {
             final FilesystemNodeName name = subChild.name();
-            if(name.equals(subSub())){
+            if (name.equals(subSub())) {
                 subSub = subChild;
                 continue;
             }
-            if(name.equals(subFile())){
+            if (name.equals(subFile())) {
                 subFile = subChild;
                 continue;
             }
-            if(name.equals(subFile2())){
+            if (name.equals(subFile2())) {
                 subFile2 = subChild;
                 continue;
             }
@@ -205,7 +205,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
 
     private void checkIsDirectoryAndIsFile(final FilesystemNode node, final boolean isDirectory) {
         assertEquals(node.isDirectory(), isDirectory, node + " isDirectory()");
-        assertEquals(node.isFile(), !isDirectory,node + " isFile()");
+        assertEquals(node.isFile(), !isDirectory, node + " isFile()");
     }
 
     @Test
@@ -243,7 +243,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
 
     @Test
     public void testFileAttributesValues() {
-        this.checkAttributes(this.subFileFileNode(),  FileFilesystemNode.ATTRIBUTE_NAMES);
+        this.checkAttributes(this.subFileFileNode(), FileFilesystemNode.ATTRIBUTE_NAMES);
     }
 
     private void checkAttributes(final FilesystemNode node, final Set<FilesystemNodeAttributeName> names) {
@@ -251,9 +251,9 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
         assertEquals(names.size(), read.size(), "read attributes size");
 
         final Map<FilesystemNodeAttributeName, String> attributes = Maps.ordered();
-        for(Entry<FilesystemNodeAttributeName, String> nameAndValue : read.entrySet()) {
+        for (Entry<FilesystemNodeAttributeName, String> nameAndValue : read.entrySet()) {
             final FilesystemNodeAttributeName name = nameAndValue.getKey();
-            assertNotNull(name,"name key must not be null");
+            assertNotNull(name, "name key must not be null");
             final String value = nameAndValue.getValue();
             assertNotNull("value must not be null", value);
 
@@ -261,7 +261,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
         }
         attributes.putAll(read);
 
-        assertEquals(toList(attributes.values()), toList(read.values()),"attribute values collection");
+        assertEquals(toList(attributes.values()), toList(read.values()), "attribute values collection");
     }
 
     private static List<String> toList(final Collection<String> values) {
@@ -288,9 +288,9 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
     private FilesystemNode subFileFileNode() {
         final FilesystemNode root = this.createNode();
         final FilesystemNode sub = root.children().get(0);
-        for(FilesystemNode subChild : sub.children()) {
+        for (FilesystemNode subChild : sub.children()) {
             final FilesystemNodeName name = subChild.name();
-            if(name.equals(subFile())){
+            if (name.equals(subFile())) {
                 return subChild;
             }
         }
@@ -327,7 +327,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
     private String checkAttributeContains(final FilesystemNode node, final FilesystemNodeAttributeName attribute, final String value) {
         final String actual = node.attributes().get(attribute);
         assertTrue(actual.contains(value),
-                ()->node.value().getFileName() + "." + attribute + "=" + CharSequences.quote(actual) + " doesnt contain " + CharSequences.quote(value));
+                () -> node.value().getFileName() + "." + attribute + "=" + CharSequences.quote(actual) + " doesnt contain " + CharSequences.quote(value));
         return actual;
     }
 
@@ -352,7 +352,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
             @Override
             public FilesystemNode directory(final Path path) {
                 FilesystemNode node = pathToFileNode.get(path);
-                if(null == node) {
+                if (null == node) {
                     node = FilesystemNode.directory(path, this);
                     pathToFileNode.put(path, node);
                 }
@@ -362,7 +362,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
             @Override
             public FilesystemNode file(final Path path) {
                 FilesystemNode node = pathToFileNode.get(path);
-                if(null == node) {
+                if (null == node) {
                     node = FilesystemNode.file(path, this);
                     pathToFileNode.put(path, node);
                 }
@@ -373,7 +373,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
             public boolean mustLoad(final FilesystemNode node, final FilesystemNodeCacheAtom atom) {
                 final Path path = node.value();
                 Map<FilesystemNodeCacheAtom, String> fileNodeCache = fileNodeToCache.get(path);
-                if(null == fileNodeCache) {
+                if (null == fileNodeCache) {
                     fileNodeCache = Maps.hash();
                     fileNodeToCache.put(path, fileNodeCache);
                 }
@@ -383,11 +383,11 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
 
             // just read the text for the path.
             @Override
-            public String text(final Path path) throws IOException{
+            public String text(final Path path) throws IOException {
                 final char[] buffer = new char[4096];
                 final StringBuilder text = new StringBuilder();
-                try(final Reader reader = new InputStreamReader(new FileInputStream(path.toFile()))){
-                    for(;;) {
+                try (final Reader reader = new InputStreamReader(new FileInputStream(path.toFile()))) {
+                    for (; ; ) {
                         final int read = reader.read(buffer);
                         if (-1 == read) {
                             break;

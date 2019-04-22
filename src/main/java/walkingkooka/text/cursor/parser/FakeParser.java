@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.TextCursor;
 
 import java.util.Optional;
 
-final class FakeParser<C extends ParserContext> implements Parser<C>{
+final class FakeParser<C extends ParserContext> implements Parser<C> {
 
     static <T extends ParserToken, C extends ParserContext> FakeParser<C> create() {
         return new FakeParser<>();

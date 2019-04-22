@@ -76,9 +76,9 @@ public final class ExpressionLessThanEqualsNodeTest extends ExpressionComparison
         }.accept(lte);
         assertEquals("1315215242", b.toString());
         assertEquals(Lists.of(lte, lte,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        lte, lte),
+                text1, text1, text1,
+                text2, text2, text2,
+                lte, lte),
                 visited,
                 "visited");
     }
@@ -488,13 +488,14 @@ public final class ExpressionLessThanEqualsNodeTest extends ExpressionComparison
         // left lte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(-99)), false);
     }
+
     @Override
     ExpressionLessThanEqualsNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionLessThanEqualsNode.with(left, right);
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + "<=" + RIGHT_TO_STRING;
     }
 

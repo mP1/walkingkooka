@@ -22,9 +22,9 @@ final class EbnfRuleParserTokenConsumer implements Consumer<EbnfParserToken> {
 
     @Override
     public void accept(final EbnfParserToken token) {
-        if(!token.isNoise()) {
-            if(null ==this.identifier) {
-                if(!token.isIdentifier()) {
+        if (!token.isNoise()) {
+            if (null == this.identifier) {
+                if (!token.isIdentifier()) {
                     throw new IllegalArgumentException("Rule expected identifier but got " + token);
                 }
                 identifier = token.cast();

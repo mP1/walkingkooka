@@ -47,7 +47,7 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
 
         boolean result;
 
-        switch(chars.length()) {
+        switch (chars.length()) {
             case 0:
                 result = false;
                 break;
@@ -61,7 +61,7 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
 
         return result;
     }
-    
+
     private boolean testInitial(final CharSequence chars) {
         return this.initial.test(chars.charAt(0));
     }
@@ -70,13 +70,13 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
         boolean result = true;
 
         final int length = chars.length();
-        for(int i = 1; result && i < length; i++) {
+        for (int i = 1; result && i < length; i++) {
             result &= this.remaining.test(chars.charAt(i));
         }
 
         return result;
     }
-    
+
     private final CharPredicate initial;
     private final CharPredicate remaining;
 
@@ -87,7 +87,7 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
     }
 
     public boolean equals(final Object other) {
-        return this == other || other instanceof InitialAndPartCharPredicateCharSequencePredicate && equals0((InitialAndPartCharPredicateCharSequencePredicate)other);
+        return this == other || other instanceof InitialAndPartCharPredicateCharSequencePredicate && equals0((InitialAndPartCharPredicateCharSequencePredicate) other);
     }
 
     private boolean equals0(final InitialAndPartCharPredicateCharSequencePredicate other) {
@@ -95,7 +95,7 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
     }
 
     public String toString() {
-        return "(" + this.initial + ", " + this.remaining +"*)";
+        return "(" + this.initial + ", " + this.remaining + "*)";
     }
 
     // Serializable

@@ -97,9 +97,9 @@ public final class SpreadsheetFormatDateTimeParserTokenTest extends SpreadsheetF
         }.accept(token);
         assertEquals("7137152871628428", b.toString());
         assertEquals(Lists.of(token, token, token,
-                        text, text, text, text, text,
-                        day, day, day, day, day,
-                        token, token, token),
+                text, text, text, text, text,
+                day, day, day, day, day,
+                token, token, token),
                 visited,
                 "visited");
     }

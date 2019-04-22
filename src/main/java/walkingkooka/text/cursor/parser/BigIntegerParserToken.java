@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link BigInteger}.
  */
-public final class BigIntegerParserToken extends ParserToken2<BigInteger> implements LeafParserToken<BigInteger>{
+public final class BigIntegerParserToken extends ParserToken2<BigInteger> implements LeafParserToken<BigInteger> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigIntegerParserToken.class);
 
@@ -40,7 +40,7 @@ public final class BigIntegerParserToken extends ParserToken2<BigInteger> implem
     }
 
     @Override
-    public BigIntegerParserToken setText(final String text){
+    public BigIntegerParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -55,7 +55,7 @@ public final class BigIntegerParserToken extends ParserToken2<BigInteger> implem
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -72,7 +72,7 @@ public final class BigIntegerParserToken extends ParserToken2<BigInteger> implem
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.bigInteger(this.text(), this.value());
     }
 }

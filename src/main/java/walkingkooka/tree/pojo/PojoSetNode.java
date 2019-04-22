@@ -44,7 +44,7 @@ final class PojoSetNode extends PojoCollectionNode {
 
     @Override
     List<Object> valueAsList() {
-        if(null==this.list){
+        if (null == this.list) {
             this.list = PojoSetNodeSetList.with(this.valueAsSet());
         }
         return this.list;
@@ -70,7 +70,7 @@ final class PojoSetNode extends PojoCollectionNode {
 
         final int index = this.index();
         int i = 0;
-        for(Object value : this.valueAsSet()){
+        for (Object value : this.valueAsSet()) {
             newChildren.add(index == i ?
                     newChild.value() :
                     value);
@@ -97,7 +97,7 @@ final class PojoSetNode extends PojoCollectionNode {
         return this.context.createSet(this.value.getClass());
     }
 
-    private PojoNode wrap(final Set<Object> values){
+    private PojoNode wrap(final Set<Object> values) {
         return new PojoSetNode(this.name(),
                 values,
                 this.index(),

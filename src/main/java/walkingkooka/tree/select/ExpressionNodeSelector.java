@@ -62,11 +62,10 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         return new ExpressionNodeSelector<N, NAME, ANAME, AVALUE>(this.expressionNode, selector);
     }
 
-    @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         try {
             final Object value = this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context));
-            if(value instanceof Boolean) {
+            if (value instanceof Boolean) {
                 this.booleanResult(node, Boolean.TRUE.equals(value), context);
             } else {
                 this.attemptIndex(node, value, context);
@@ -87,7 +86,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     private void booleanResult(final N node,
                                final boolean value,
                                final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        if(value) {
+        if (value) {
             context.selected(node);
         }
     }

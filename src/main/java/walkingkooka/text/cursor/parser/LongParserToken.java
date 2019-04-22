@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link Long}.
  */
-public final class LongParserToken extends ParserToken2<Long> implements LeafParserToken<Long>{
+public final class LongParserToken extends ParserToken2<Long> implements LeafParserToken<Long> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LongParserToken.class);
 
@@ -39,7 +39,7 @@ public final class LongParserToken extends ParserToken2<Long> implements LeafPar
     }
 
     @Override
-    public LongParserToken setText(final String text){
+    public LongParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -54,7 +54,7 @@ public final class LongParserToken extends ParserToken2<Long> implements LeafPar
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -71,7 +71,7 @@ public final class LongParserToken extends ParserToken2<Long> implements LeafPar
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.longNode(this.text(), this.value());
     }
 }

@@ -60,7 +60,7 @@ final class BasicParserReporter<C extends ParserContext> implements ParserReport
         Objects.requireNonNull(parser, "parser");
 
         final StringBuilder message = new StringBuilder();
-        if(cursor.isEmpty()){
+        if (cursor.isEmpty()) {
             message.append("End of text");
         } else {
             message.append("Unrecognized character ");
@@ -72,7 +72,7 @@ final class BasicParserReporter<C extends ParserContext> implements ParserReport
         message.append(info.summary());
 
         final CharSequence text = info.text();
-        if(text.length() > 0) {
+        if (text.length() > 0) {
             message.append(' ');
             message.append(CharSequences.quoteAndEscape(info.text()));
         }

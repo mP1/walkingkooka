@@ -45,8 +45,8 @@ final class PojoBooleanArrayNode extends PojoArrayNode {
         final boolean[] newChildren = new boolean[children.size()];
 
         int i = 0;
-        for(PojoNode child : children){
-            newChildren[i] = (boolean)child.value();
+        for (PojoNode child : children) {
+            newChildren[i] = (boolean) child.value();
             i++;
         }
 
@@ -57,7 +57,7 @@ final class PojoBooleanArrayNode extends PojoArrayNode {
     final PojoNode replaceChild(final PojoNode newChild) {
         final boolean[] newChildren = new boolean[this.childrenCount()];
 
-        newChildren[newChild.index()]=(boolean)newChild.value();
+        newChildren[newChild.index()] = (boolean) newChild.value();
 
         return this.wrap(newChildren);
     }
@@ -67,15 +67,15 @@ final class PojoBooleanArrayNode extends PojoArrayNode {
         final boolean[] newChildren = new boolean[values.size()];
 
         int i = 0;
-        for(Object child : values){
-            newChildren[i] = (boolean)child;
+        for (Object child : values) {
+            newChildren[i] = (boolean) child;
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    private PojoNode wrap(final boolean[] values){
+    private PojoNode wrap(final boolean[] values) {
         return new PojoBooleanArrayNode(this.name(),
                 values,
                 this.index(),

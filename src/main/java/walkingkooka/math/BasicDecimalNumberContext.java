@@ -67,8 +67,9 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     public String currencySymbol() {
         return this.currencySymbol;
     }
+
     private final String currencySymbol;
-    
+
     @Override
     public char decimalPoint() {
         return this.decimalPoint;
@@ -80,14 +81,16 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     public char exponentSymbol() {
         return this.exponentSymbol;
     }
+
     private final char exponentSymbol;
 
     @Override
     public char groupingSeparator() {
         return this.groupingSeparator;
     }
+
     private final char groupingSeparator;
-    
+
     @Override
     public char minusSign() {
         return this.minusSign;
@@ -99,8 +102,9 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     public char percentageSymbol() {
         return this.percentageSymbol;
     }
+
     private final char percentageSymbol;
-    
+
     @Override
     public char plusSign() {
         return this.plusSign;

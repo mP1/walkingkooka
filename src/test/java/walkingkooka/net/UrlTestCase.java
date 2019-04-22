@@ -77,7 +77,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
 
     public void testWith() {
         final U url = this.createUrl(PATH, QUERY, FRAGMENT);
-        this.checkPath(url,PATH);
+        this.checkPath(url, PATH);
         this.checkQueryString(url, QUERY);
         this.checkFragment(url, FRAGMENT);
     }
@@ -106,7 +106,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     }
 
     // would be setters
-    
+
     // setPath .......................................................................................................
 
     @Test
@@ -218,7 +218,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     }
 
     abstract U createUrl(UrlPath path, UrlQueryString query, UrlFragment fragment);
-    
+
     final void checkPath(final Url url, final UrlPath path) {
         assertEquals(path, url.path(), "path");
     }
@@ -228,7 +228,7 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
     }
 
     final void checkFragment(final Url url, final UrlFragment fragment) {
-        assertEquals(fragment, url.fragment(),"fragment");
+        assertEquals(fragment, url.fragment(), "fragment");
     }
 
     @Override

@@ -1147,7 +1147,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     private void checkPath(final ServerCookie cookie, final Optional<String> expected) {
-        assertEquals(expected, cookie.path(), () ->cookie + " path");
+        assertEquals(expected, cookie.path(), () -> cookie + " path");
     }
 
     private void checkComment(final ServerCookie cookie) {

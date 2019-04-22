@@ -73,7 +73,7 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
         final Predicate<String> first = CustomToStringPredicate.wrap(WRAPPED, "different");
         final CustomToStringPredicate<String> wrapped = Cast.to(CustomToStringPredicate.wrap(first, CUSTOM_TO_STRING));
         assertNotSame(first, wrapped);
-        assertSame(WRAPPED, wrapped.predicate,"wrapped predicate");
+        assertSame(WRAPPED, wrapped.predicate, "wrapped predicate");
         assertSame(CUSTOM_TO_STRING, wrapped.toString, "wrapped toString");
     }
 
@@ -94,12 +94,12 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
 
     @Test
     public void testEqualsDifferentWrappedPredicate() {
-        this.checkNotEquals(CustomToStringPredicate.wrap(Predicate.isEqual("different"),CUSTOM_TO_STRING));
+        this.checkNotEquals(CustomToStringPredicate.wrap(Predicate.isEqual("different"), CUSTOM_TO_STRING));
     }
 
     @Test
     public void testEqualsDifferentCustomToString() {
-        this.checkNotEquals(CustomToStringPredicate.wrap(WRAPPED,"different"));
+        this.checkNotEquals(CustomToStringPredicate.wrap(WRAPPED, "different"));
     }
 
     @Test

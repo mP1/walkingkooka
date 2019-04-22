@@ -23,7 +23,7 @@ package walkingkooka.tree.search;
  */
 abstract class SearchLeafQuery<V extends SearchQueryValue> extends SearchQuery {
 
-    SearchLeafQuery(final V value){
+    SearchLeafQuery(final V value) {
         this.value = value;
     }
 

@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  */
 abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
 
-    JsonParentNode(final JsonNodeName name, final int index, final C children){
+    JsonParentNode(final JsonNodeName name, final int index, final C children) {
         super(name, index);
 
         this.children = this.adoptChildren(children);
@@ -102,8 +102,8 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
     @Override
     public final SearchNode toSearchNode() {
         return this.children.isEmpty() ?
-               SearchNode.text("", "") :
-               this.toSearchNode0();
+                SearchNode.text("", "") :
+                this.toSearchNode0();
     }
 
     abstract SearchNode toSearchNode0();
@@ -132,8 +132,8 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
 
     // Visitor .................................................................................................
 
-    final void acceptValues(final JsonNodeVisitor visitor){
-        for(JsonNode node: this.children()){
+    final void acceptValues(final JsonNodeVisitor visitor) {
+        for (JsonNode node : this.children()) {
             visitor.accept(node);
         }
     }

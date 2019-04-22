@@ -90,7 +90,7 @@ public final class CustomToStringParserTest extends ParserTestCase<CustomToStrin
 
     @Test
     public void testDefaultMethodSetToStringCustomToString() {
-        assertSame(CUSTOM_TO_STRING,  this.createParser().setToString(CUSTOM_TO_STRING).toString());
+        assertSame(CUSTOM_TO_STRING, this.createParser().setToString(CUSTOM_TO_STRING).toString());
     }
 
     @Test

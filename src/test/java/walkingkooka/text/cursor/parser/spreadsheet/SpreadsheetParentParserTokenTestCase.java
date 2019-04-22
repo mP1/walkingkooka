@@ -105,25 +105,25 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         return this.createToken(text, this.tokens());
     }
 
-    final T createToken(final String text, final ParserToken...tokens) {
+    final T createToken(final String text, final ParserToken... tokens) {
         return this.createToken(text, Lists.of(tokens));
     }
 
     abstract List<ParserToken> tokens();
 
-    final void checkValue(final SpreadsheetParserToken token, final ParserToken...value){
+    final void checkValue(final SpreadsheetParserToken token, final ParserToken... value) {
         this.checkValue(token, Lists.of(value));
     }
 
-    final void checkValue(final SpreadsheetParserToken token, final List<ParserToken> value){
+    final void checkValue(final SpreadsheetParserToken token, final List<ParserToken> value) {
         this.checkValue(SpreadsheetParentParserToken.class.cast(token), value);
     }
 
-    final void checkValue(final SpreadsheetParentParserToken<?> token, final ParserToken...value){
+    final void checkValue(final SpreadsheetParentParserToken<?> token, final ParserToken... value) {
         this.checkValue(token, Lists.of(value));
     }
 
-    final void checkValue(final SpreadsheetParentParserToken<?> token, final List<ParserToken> value){
+    final void checkValue(final SpreadsheetParentParserToken<?> token, final List<ParserToken> value) {
         assertEquals(value, token.value(), "value");
     }
 
@@ -159,7 +159,7 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
     final SpreadsheetPercentSymbolParserToken percentSymbol() {
         return SpreadsheetParserToken.percentSymbol("%", "%");
     }
-    
+
     final SpreadsheetWhitespaceParserToken whitespace() {
         return SpreadsheetParserToken.whitespace(WHITESPACE, WHITESPACE);
     }

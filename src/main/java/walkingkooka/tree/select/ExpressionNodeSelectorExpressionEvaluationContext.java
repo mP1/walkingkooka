@@ -50,7 +50,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
             ANAME extends Name,
             AVALUE>
     ExpressionNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                           final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+                                                                                   final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return new ExpressionNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>(node, context);
     }
 

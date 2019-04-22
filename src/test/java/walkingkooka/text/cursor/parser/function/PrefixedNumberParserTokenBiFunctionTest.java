@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PrefixedNumberParserTokenBiFunctionTest implements ClassTesting2<PrefixedNumberParserTokenBiFunction<FakeParserContext>>,
         ParserBiFunctionTesting<PrefixedNumberParserTokenBiFunction<FakeParserContext>,
-        FakeParserContext,
-        BigIntegerParserToken> {
+                FakeParserContext,
+                BigIntegerParserToken> {
 
     @Test
     public void testInvalidFirstToken() {

@@ -182,21 +182,21 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
         return sequence(TEXT, STRING1, STRING2);
     }
 
-    private ParserTokenParentNode sequence(final String text, final ParserToken...tokens) {
+    private ParserTokenParentNode sequence(final String text, final ParserToken... tokens) {
         return Cast.to(ParserTokens.sequence(Lists.of(tokens), text).asNode());
     }
 
-    private List<ParserTokenNode> children(final ParserToken...tokens) {
+    private List<ParserTokenNode> children(final ParserToken... tokens) {
         return Arrays.stream(tokens)
                 .map(t -> t.asNode())
                 .collect(Collectors.toList());
     }
 
-    private void childrenCheck2(final ParserTokenNode node, final ParserToken...tokens) {
+    private void childrenCheck2(final ParserTokenNode node, final ParserToken... tokens) {
         this.childrenCheck(node);
 
         int i = 0;
-        for(ParserTokenNode child: node.children()) {
+        for (ParserTokenNode child : node.children()) {
             assertEquals(tokens[i], child.token, "token for child: " + i);
             i++;
         }

@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class IterablesTest implements ClassTesting2<Iterables>,
         PublicStaticHelperTesting<Iterables> {
 
-    private final static BiPredicate<String, String> EQUIVALENCY = (first, other)->first.equalsIgnoreCase(other);
+    private final static BiPredicate<String, String> EQUIVALENCY = (first, other) -> first.equalsIgnoreCase(other);
     private final static String A = "a";
     private final static String B = "b";
     private final static String C = "c";
@@ -98,11 +98,11 @@ final public class IterablesTest implements ClassTesting2<Iterables>,
         this.equalsAndCheck0(Lists.empty(), Lists.empty(), true);
     }
 
-    private void equalsAndCheck(final String...other) {
+    private void equalsAndCheck(final String... other) {
         this.equalsAndCheck0(Lists.of(other), true);
     }
 
-    private void notEqualsAndCheck(final String...other) {
+    private void notEqualsAndCheck(final String... other) {
         this.equalsAndCheck0(Lists.of(other), false);
     }
 

@@ -72,7 +72,7 @@ public final class SpreadsheetExpressionReferenceComparatorTest implements Class
     }
 
     // label v label ....................................................................................................
-    
+
     @Test
     public void testLabelEqual() {
         this.compareAndCheckEqual(this.label("abcdef"));

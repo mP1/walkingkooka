@@ -37,7 +37,7 @@ final class PojoLongArrayNode extends PojoArrayNode {
     private long[] valueAsLongArray() {
         return Cast.to(this.value);
     }
-    
+
     // children ..................................................................................
 
     @Override
@@ -45,8 +45,8 @@ final class PojoLongArrayNode extends PojoArrayNode {
         final long[] newChildren = new long[children.size()];
 
         int i = 0;
-        for(PojoNode child : children){
-            newChildren[i] = (long)child.value();
+        for (PojoNode child : children) {
+            newChildren[i] = (long) child.value();
             i++;
         }
 
@@ -57,7 +57,7 @@ final class PojoLongArrayNode extends PojoArrayNode {
     final PojoNode replaceChild(final PojoNode newChild) {
         final long[] newChildren = new long[this.childrenCount()];
 
-        newChildren[newChild.index()]=(long)newChild.value();
+        newChildren[newChild.index()] = (long) newChild.value();
 
         return this.wrap(newChildren);
     }
@@ -67,15 +67,15 @@ final class PojoLongArrayNode extends PojoArrayNode {
         final long[] newChildren = new long[values.size()];
 
         int i = 0;
-        for(Object child : values){
-            newChildren[i] = (long)child;
+        for (Object child : values) {
+            newChildren[i] = (long) child;
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    private PojoNode wrap(final long[] values){
+    private PojoNode wrap(final long[] values) {
         return new PojoLongArrayNode(this.name(),
                 values,
                 this.index(),
@@ -94,7 +94,7 @@ final class PojoLongArrayNode extends PojoArrayNode {
     }
 
     @Override
-    boolean equals0(final PojoNode other){
+    boolean equals0(final PojoNode other) {
         final PojoLongArrayNode otherArray = Cast.to(other);
         return Arrays.equals(this.valueAsLongArray(), otherArray.valueAsLongArray());
     }

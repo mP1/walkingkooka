@@ -42,7 +42,7 @@ public interface TypeNameTesting<T> extends Testing {
         final String prefix = this.typeNamePrefix();
         final String suffix = this.typeNameSuffix();
 
-        if(prefix.isEmpty() && suffix.isEmpty()) {
+        if (prefix.isEmpty() && suffix.isEmpty()) {
             fail("Both prefix and suffix are empty");
         }
 
@@ -83,7 +83,7 @@ public interface TypeNameTesting<T> extends Testing {
     default String subtractTypeNameSuffix() {
         final String name = this.type().getSimpleName();
         final String suffix = this.typeNameSuffix();
-        if(!name.endsWith(suffix)) {
+        if (!name.endsWith(suffix)) {
             fail("Type name " + CharSequences.quote(name) + " doesnt end with suffix " + CharSequences.quote(suffix));
         }
 

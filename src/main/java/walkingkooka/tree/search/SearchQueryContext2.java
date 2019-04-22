@@ -30,11 +30,11 @@ import java.util.Optional;
  */
 final class SearchQueryContext2 extends SearchQueryContext {
 
-    static SearchQueryContext2 with(final SearchNode start){
+    static SearchQueryContext2 with(final SearchNode start) {
         return new SearchQueryContext2(start);
     }
 
-    private SearchQueryContext2(final SearchNode start){
+    private SearchQueryContext2(final SearchNode start) {
         super();
         this.set(start);
     }
@@ -58,7 +58,7 @@ final class SearchQueryContext2 extends SearchQueryContext {
     private SearchNode equivalent(final SearchNode node) {
         final NodePointer<SearchNode, SearchNodeName> pointer = node.pointer();
         final Optional<SearchNode> equivalent = pointer.traverse(this.result);
-        if(!equivalent.isPresent()){
+        if (!equivalent.isPresent()) {
             throw new SearchQueryException("Unable to find equivalent node for match=" + node);
         }
         return equivalent.get();
@@ -66,10 +66,10 @@ final class SearchQueryContext2 extends SearchQueryContext {
 
     private void replace0(final SearchNode node, final SearchNode replacement) {
         final Optional<SearchNode> maybeParent = node.parent();
-        if(maybeParent.isPresent()) {
+        if (maybeParent.isPresent()) {
             final SearchNode parent = maybeParent.get();
 
-            if(parent.isSequence()) {
+            if (parent.isSequence()) {
                 this.replaceSequence(node, parent.cast(), replacement);
             } else {
                 this.replace(parent, replacement);

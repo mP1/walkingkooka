@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * The parser token for a single character match.
  */
-public final class CharacterParserToken extends ParserToken2<Character> implements LeafParserToken<Character>{
+public final class CharacterParserToken extends ParserToken2<Character> implements LeafParserToken<Character> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(CharacterParserToken.class);
 
@@ -38,7 +38,7 @@ public final class CharacterParserToken extends ParserToken2<Character> implemen
     }
 
     @Override
-    public CharacterParserToken setText(final String text){
+    public CharacterParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -53,7 +53,7 @@ public final class CharacterParserToken extends ParserToken2<Character> implemen
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -70,7 +70,7 @@ public final class CharacterParserToken extends ParserToken2<Character> implemen
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.text(this.text(), String.valueOf(this.value()));
     }
 }

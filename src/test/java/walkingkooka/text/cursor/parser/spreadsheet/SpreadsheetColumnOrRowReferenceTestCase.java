@@ -71,7 +71,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
 
     @Test
     public final void testWithAbsolute2() {
-        this.withAndCacheCheck(SpreadsheetColumnOrRowReference.CACHE_SIZE-1, SpreadsheetReferenceKind.RELATIVE);
+        this.withAndCacheCheck(SpreadsheetColumnOrRowReference.CACHE_SIZE - 1, SpreadsheetReferenceKind.RELATIVE);
     }
 
     @Test
@@ -81,7 +81,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
 
     @Test
     public final void testWithRelative2() {
-        this.withAndCacheCheck(SpreadsheetColumnOrRowReference.CACHE_SIZE-1, SpreadsheetReferenceKind.RELATIVE);
+        this.withAndCacheCheck(SpreadsheetColumnOrRowReference.CACHE_SIZE - 1, SpreadsheetReferenceKind.RELATIVE);
     }
 
     private void withAndCacheCheck(final int value, final SpreadsheetReferenceKind kind) {
@@ -99,7 +99,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
         this.checkValue(reference, value);
         this.checkKind(reference, REFERENCE_KIND);
 
-        assertNotSame(value,this.createReference(value));
+        assertNotSame(value, this.createReference(value));
     }
 
     // HasJsonNodeTesting..................................................................

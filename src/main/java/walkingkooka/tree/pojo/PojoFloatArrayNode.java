@@ -40,24 +40,22 @@ final class PojoFloatArrayNode extends PojoArrayNode {
 
     // children ..................................................................................
 
-    @Override
-    final PojoNode replaceChildren(final List<PojoNode> children){
+    @Override final PojoNode replaceChildren(final List<PojoNode> children) {
         final float[] newChildren = new float[children.size()];
 
         int i = 0;
-        for(PojoNode child : children){
-            newChildren[i] = (float)child.value();
+        for (PojoNode child : children) {
+            newChildren[i] = (float) child.value();
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    @Override
-    final PojoNode replaceChild(final PojoNode newChild) {
+    @Override final PojoNode replaceChild(final PojoNode newChild) {
         final float[] newChildren = new float[this.childrenCount()];
 
-        newChildren[newChild.index()]=(float)newChild.value();
+        newChildren[newChild.index()] = (float) newChild.value();
 
         return this.wrap(newChildren);
     }
@@ -67,15 +65,15 @@ final class PojoFloatArrayNode extends PojoArrayNode {
         final float[] newChildren = new float[values.size()];
 
         int i = 0;
-        for(Object child : values){
-            newChildren[i] = (float)child;
+        for (Object child : values) {
+            newChildren[i] = (float) child;
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    private PojoNode wrap(final float[] values){
+    private PojoNode wrap(final float[] values) {
         return new PojoFloatArrayNode(this.name(),
                 values,
                 this.index(),
@@ -88,19 +86,17 @@ final class PojoFloatArrayNode extends PojoArrayNode {
         return this.privateAsFloatArray()[index];
     }
 
-    @Override
-    final int childrenCount() {
+    @Override final int childrenCount() {
         return this.privateAsFloatArray().length;
     }
 
     @Override
-    boolean equals0(final PojoNode other){
+    boolean equals0(final PojoNode other) {
         final PojoFloatArrayNode otherArray = Cast.to(other);
         return Arrays.equals(this.privateAsFloatArray(), otherArray.privateAsFloatArray());
     }
 
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         return Arrays.toString(this.privateAsFloatArray());
     }
 }

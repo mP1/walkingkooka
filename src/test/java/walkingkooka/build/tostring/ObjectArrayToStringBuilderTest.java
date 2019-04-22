@@ -26,10 +26,10 @@ import java.util.stream.Collectors;
 public class ObjectArrayToStringBuilderTest extends VectorToStringBuilderTestCase<Object[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
-        b.value(new Object[]{false, (byte)0, (short)0, 0, 0L, 0.0f, 0.0, ""});
+        b.value(new Object[]{false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, ""});
 
         this.buildAndCheck(b, "LABEL=false, 0, 0, 0, 0, 0.0, 0.0, ");
     }
@@ -77,7 +77,7 @@ public class ObjectArrayToStringBuilderTest extends VectorToStringBuilderTestCas
 
     @Override
     Object[] value2() {
-        return new Object[]{true,(byte)1, (short)2,3, 4L, 5.0f, 6.0, "ABC"};
+        return new Object[]{true, (byte) 1, (short) 2, 3, 4L, 5.0f, 6.0, "ABC"};
     }
 
     @Override

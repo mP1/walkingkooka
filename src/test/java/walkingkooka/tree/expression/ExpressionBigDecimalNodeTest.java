@@ -27,7 +27,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionBigDecimalNodeTest extends ExpressionLeafNodeTestCase<ExpressionBigDecimalNode, BigDecimal>{
+public final class ExpressionBigDecimalNodeTest extends ExpressionLeafNodeTestCase<ExpressionBigDecimalNode, BigDecimal> {
 
     @Test
     public void testAccept() {

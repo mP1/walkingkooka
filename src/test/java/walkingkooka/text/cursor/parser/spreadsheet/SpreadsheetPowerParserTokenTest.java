@@ -104,7 +104,7 @@ public final class SpreadsheetPowerParserTokenTest extends SpreadsheetBinaryPars
                 visited,
                 "visited");
     }
-    
+
     @Override
     SpreadsheetPowerParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.power(tokens, text);
@@ -116,7 +116,7 @@ public final class SpreadsheetPowerParserTokenTest extends SpreadsheetBinaryPars
     }
 
     @Override
-    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right){
+    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionNode.power(left, right);
     }
 

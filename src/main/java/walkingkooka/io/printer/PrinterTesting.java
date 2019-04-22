@@ -94,14 +94,14 @@ public interface PrinterTesting<P extends Printer> extends ToStringTesting<P>,
     }
 
     default void checkEquals(final CharSequence expected,
-                            final CharSequence actual) {
+                             final CharSequence actual) {
         assertEquals(CharSequences.escape(expected),
                 CharSequences.escape(actual).toString());
     }
 
     default void checkEquals(final CharSequence expected,
-                            final CharSequence actual,
-                            final String message) {
+                             final CharSequence actual,
+                             final String message) {
         assertEquals(CharSequences.escape(expected),
                 CharSequences.escape(actual).toString(),
                 message);

@@ -35,7 +35,7 @@ final class ChainConverter implements Converter {
         Objects.requireNonNull(intermediateTargetType, "intermediateTargetType");
         Objects.requireNonNull(last, "last");
 
-       return new ChainConverter(first, intermediateTargetType, last);
+        return new ChainConverter(first, intermediateTargetType, last);
     }
 
     /**

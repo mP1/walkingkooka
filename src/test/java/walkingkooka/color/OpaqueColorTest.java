@@ -50,7 +50,7 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
             OpaqueColor.createOpaqueColor(RED, GREEN, null);
         });
     }
-    
+
     @Test
     public void testWith() {
         final OpaqueColor color = OpaqueColor.createOpaqueColor(RED, GREEN, BLUE);

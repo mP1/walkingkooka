@@ -89,8 +89,8 @@ public final class SpreadsheetFormatExpressionParserTokenTest extends Spreadshee
         }.accept(token);
         assertEquals("6136152A42A", b.toString());
         assertEquals(Lists.of(token, token, token,
-                        text, text, text, text, text,
-                        token, token, token),
+                text, text, text, text, text,
+                token, token, token),
                 visited,
                 "visited");
     }

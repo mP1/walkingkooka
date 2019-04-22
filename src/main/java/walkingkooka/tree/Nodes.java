@@ -50,7 +50,7 @@ final public class Nodes implements PublicStaticHelper {
 
         final Optional<N> parent = node.parent();
         return parent.isPresent() ?
-               pointer1(parent.get(), node) :
+                pointer1(parent.get(), node) :
                 NodePointer.any(Cast.to(node.getClass()));
     }
 
@@ -62,8 +62,8 @@ final public class Nodes implements PublicStaticHelper {
 
         final NodePointer<N, NAME> back = pointer0(parent);
         return node.hasUniqueNameAmongstSiblings() ?
-               back.named(node.name()) :
-               back.indexed(node.index());
+                back.named(node.name()) :
+                back.indexed(node.index());
     }
 
     /**

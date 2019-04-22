@@ -34,14 +34,14 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see AlternativesParser}
      */
-    public static <C extends ParserContext> Parser<C> alternatives(final List<Parser<C>> parsers){
+    public static <C extends ParserContext> Parser<C> alternatives(final List<Parser<C>> parsers) {
         return AlternativesParser.with(parsers);
     }
 
     /**
      * {@see AndNotParser}
      */
-    static <T extends ParserToken, C extends ParserContext> Parser<C> andNot(final Parser<C> left, final Parser<C> right){
+    static <T extends ParserToken, C extends ParserContext> Parser<C> andNot(final Parser<C> left, final Parser<C> right) {
         return AndNotParser.with(left, right);
     }
 
@@ -76,14 +76,14 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see DoubleParser}
      */
-    public static <C extends ParserContext> Parser<C> doubleParser(){
+    public static <C extends ParserContext> Parser<C> doubleParser() {
         return DoubleParser.instance();
     }
 
     /**
      * {@see DoubleQuotedParserToken}
      */
-    public static <C extends ParserContext> Parser<C> doubleQuoted(){
+    public static <C extends ParserContext> Parser<C> doubleQuoted() {
         return DoubleQuotedParser.instance();
     }
 
@@ -100,25 +100,25 @@ public final class Parsers implements PublicStaticHelper {
     public static <C extends ParserContext> Parser<C> fixed(final Optional<ParserToken> result) {
         return FixedParser.with(result);
     }
-    
+
     /**
      * {@see LocalDateDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<C> localDate(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> localDate(final DateTimeFormatter formatter, final String pattern) {
         return LocalDateDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see LocalDateTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<C> localDateTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> localDateTime(final DateTimeFormatter formatter, final String pattern) {
         return LocalDateTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see LocalTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<C> localTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> localTime(final DateTimeFormatter formatter, final String pattern) {
         return LocalTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
@@ -132,21 +132,21 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see OffsetDateTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<C> offsetDateTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> offsetDateTime(final DateTimeFormatter formatter, final String pattern) {
         return OffsetDateTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see OffsetTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<C> offsetTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> offsetTime(final DateTimeFormatter formatter, final String pattern) {
         return OffsetTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**
      * {@see RepeatedParser}
      */
-    public static <C extends ParserContext> Parser<C> repeated(final Parser<C> parser){
+    public static <C extends ParserContext> Parser<C> repeated(final Parser<C> parser) {
         return RepeatedParser.with(parser);
     }
 
@@ -169,7 +169,7 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see SingleQuotedParserToken}
      */
-    public static <C extends ParserContext> Parser<C> singleQuoted(){
+    public static <C extends ParserContext> Parser<C> singleQuoted() {
         return SingleQuotedParser.instance();
     }
 
@@ -192,9 +192,9 @@ public final class Parsers implements PublicStaticHelper {
         return StringInitialAndPartCharPredicateParser.with(initial, part, minLength, maxLength);
     }
 
-        /**
-         * {@see StringParser}
-         */
+    /**
+     * {@see StringParser}
+     */
     public static <C extends ParserContext> Parser<C> string(final String literal,
                                                              final CaseSensitivity caseSensitivity) {
         return StringParser.with(literal, caseSensitivity);
@@ -225,7 +225,7 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see ZonedDateTimeDateTimeFormatterParser}
      */
-    public static <C extends ParserContext> Parser<C> zonedDateTime(final DateTimeFormatter formatter, final String pattern){
+    public static <C extends ParserContext> Parser<C> zonedDateTime(final DateTimeFormatter formatter, final String pattern) {
         return ZonedDateTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 

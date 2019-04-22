@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class CharacterConstantTest implements ClassTesting2<CharacterConstant>,
-        CharSequenceTesting<CharacterConstant>{
+        CharSequenceTesting<CharacterConstant> {
 
     private final static char CHAR = 'a';
 
@@ -65,7 +65,7 @@ final public class CharacterConstantTest implements ClassTesting2<CharacterConst
     }
 
     private void check(final CharacterConstant constant, final char c) {
-        assertEquals( c, constant.character(), "character");
+        assertEquals(c, constant.character(), "character");
         assertEquals(String.valueOf(c), constant.string(), "string");
     }
 

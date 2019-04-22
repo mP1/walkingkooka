@@ -34,7 +34,7 @@ final public class NodePredicateNodeSelectorTest extends
 
     // constants
 
-    private final static Predicate<TestNode> PREDICATE = (n)-> n.name().value().equals("self");
+    private final static Predicate<TestNode> PREDICATE = (n) -> n.name().value().equals("self");
 
     @Test
     public void testWithNullPredicateFails() {

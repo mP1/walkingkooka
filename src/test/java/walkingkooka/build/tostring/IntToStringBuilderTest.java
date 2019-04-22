@@ -38,7 +38,7 @@ public final class IntToStringBuilderTest extends ScalarToStringBuilderTestCase<
 
     @Override
     void value(final ToStringBuilder builder, final Integer value) {
-        builder.value((int)value);
+        builder.value((int) value);
     }
 
     @Override

@@ -45,7 +45,7 @@ public final class BeanPropertiesTesting {
         assertNotEquals(0,
                 properties.size(),
                 "Found zero properties for type=" + object.getClass().getName());
-        for(Method method : properties) {
+        for (Method method : properties) {
             method.setAccessible(true);
             assertNotNull(method.invoke(object),
                     () -> "null should not have been returned by " + method + " for " + object);

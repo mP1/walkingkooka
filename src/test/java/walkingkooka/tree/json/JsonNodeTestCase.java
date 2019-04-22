@@ -56,7 +56,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     }
 
     @Test
-    public final void testPublicStaticFactoryMethod()  {
+    public final void testPublicStaticFactoryMethod() {
         PublicStaticFactoryTesting.check(JsonNode.class,
                 "Json",
                 Node.class,
@@ -181,35 +181,35 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
 
     @Test
     public final void testFromJsonNodeNullTypeFails() {
-        assertThrows(NullPointerException.class, () ->{
-           this.createJsonNode().fromJsonNode(NULL_CLASS);
+        assertThrows(NullPointerException.class, () -> {
+            this.createJsonNode().fromJsonNode(NULL_CLASS);
         });
     }
 
     @Test
     public final void testFromJsonNodeListNullTypeFails() {
-        assertThrows(NullPointerException.class, () ->{
+        assertThrows(NullPointerException.class, () -> {
             this.createJsonNode().fromJsonNodeList(NULL_CLASS);
         });
     }
 
     @Test
     public final void testFromJsonNodeSetNullTypeFails() {
-        assertThrows(NullPointerException.class, () ->{
+        assertThrows(NullPointerException.class, () -> {
             this.createJsonNode().fromJsonNodeSet(NULL_CLASS);
         });
     }
 
     @Test
     public final void testFromJsonNodeMapNullKeyTypeFails() {
-        assertThrows(NullPointerException.class, () ->{
+        assertThrows(NullPointerException.class, () -> {
             this.createJsonNode().fromJsonNodeMap(NULL_CLASS, Object.class);
         });
     }
 
     @Test
     public final void testFromJsonNodeMapNullValueTypeFails() {
-        assertThrows(NullPointerException.class, () ->{
+        assertThrows(NullPointerException.class, () -> {
             this.createJsonNode().fromJsonNodeMap(Object.class, NULL_CLASS);
         });
     }

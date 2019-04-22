@@ -56,7 +56,7 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
         assertEquals(tokens, token.value(), "tokens");
-        assertEquals(tokens, token.value(),"tokens not copied");
+        assertEquals(tokens, token.value(), "tokens not copied");
     }
 
     @Test

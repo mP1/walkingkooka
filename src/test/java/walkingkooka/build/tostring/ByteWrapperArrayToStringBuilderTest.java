@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 public class ByteWrapperArrayToStringBuilderTest extends VectorToStringBuilderTestCase<Byte[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value(new Byte[]{0, 1, 2});

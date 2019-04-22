@@ -24,7 +24,7 @@ import walkingkooka.Cast;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public final class LocalDateDateTimeFormatterParserTest extends LocalDateTimeFormatterParserTestCase<LocalDateDateTimeFormatterParser<FakeParserContext>, LocalDateParserToken>{
+public final class LocalDateDateTimeFormatterParserTest extends LocalDateTimeFormatterParserTestCase<LocalDateDateTimeFormatterParser<FakeParserContext>, LocalDateParserToken> {
 
 //    The ISO date formatter that formats or parses a date without an
 //     * offset, such as '2011-12-03'
@@ -87,7 +87,7 @@ public final class LocalDateDateTimeFormatterParserTest extends LocalDateTimeFor
 
     @Test
     public void testYearMonthDay() {
-        this.parseAndCheck2("yyyyMMdd","20011231", "");
+        this.parseAndCheck2("yyyyMMdd", "20011231", "");
     }
 
     @Test
@@ -97,7 +97,7 @@ public final class LocalDateDateTimeFormatterParserTest extends LocalDateTimeFor
 
     @Test
     public void testYearSeparatorMonthSeparatorDayLetters() {
-        this.parseAndCheck2("yyyy-MM-dd","2001-12-31", "ZZ");
+        this.parseAndCheck2("yyyy-MM-dd", "2001-12-31", "ZZ");
     }
 
     @Test

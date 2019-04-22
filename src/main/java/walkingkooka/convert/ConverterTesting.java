@@ -50,24 +50,24 @@ public interface ConverterTesting<C extends Converter> extends ToStringTesting<C
     }
 
     default Object convertAndCheck(final Object value,
-                                     final Class<?> target,
-                                     final ConverterContext context,
-                                     final Object expected) {
+                                   final Class<?> target,
+                                   final ConverterContext context,
+                                   final Object expected) {
         return this.convertAndCheck(this.createConverter(), value, target, context, expected);
     }
 
     default Object convertAndCheck(final Converter converter,
-                                     final Object value,
-                                     final Class<?> target,
-                                     final Object expected) {
+                                   final Object value,
+                                   final Class<?> target,
+                                   final Object expected) {
         return this.convertAndCheck(converter, value, target, this.createContext(), expected);
     }
 
     default Object convertAndCheck(final Converter converter,
-                                     final Object value,
-                                     final Class<?> target,
-                                     final ConverterContext context,
-                                     final Object expected) {
+                                   final Object value,
+                                   final Class<?> target,
+                                   final ConverterContext context,
+                                   final Object expected) {
         assertTrue(converter.canConvert(value, target, context),
                 converter + " can convert(" + value.getClass().getName() + "," + target.getName() + ") returned false for " + value);
 
@@ -78,7 +78,7 @@ public interface ConverterTesting<C extends Converter> extends ToStringTesting<C
     }
 
     default void checkEquals(final String message, final Object expected, final Object actual) {
-        if(expected instanceof Comparable && expected.getClass().isInstance(actual)) {
+        if (expected instanceof Comparable && expected.getClass().isInstance(actual)) {
             final Comparable expectedComparable = Cast.to(expected);
             checkEquals0(message, Cast.to(expectedComparable), Cast.to(actual));
         } else {
@@ -87,9 +87,9 @@ public interface ConverterTesting<C extends Converter> extends ToStringTesting<C
     }
 
     static <C extends Comparable<C>> void checkEquals0(final String message, final C expected, final C actual) {
-       if(expected.compareTo(actual) != 0) {
-                assertEquals(expected, actual, message);
-            }
+        if (expected.compareTo(actual) != 0) {
+            assertEquals(expected, actual, message);
+        }
     }
 
     default <T> void convertFails(final Object value, final Class<?> type) {
@@ -101,10 +101,10 @@ public interface ConverterTesting<C extends Converter> extends ToStringTesting<C
     }
 
     default <T> void convertFails(final Converter converter,
-                                    final Object value,
-                                    final Class<?> type,
-                                    final ConverterContext context) {
-        try{
+                                  final Object value,
+                                  final Class<?> type,
+                                  final ConverterContext context) {
+        try {
             final Object result = converter.convert(value, type, context);
             fail("Expected " + converter + " with " + CharSequences.quoteIfChars(value) + " to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
         } catch (final ConversionException ignored) {

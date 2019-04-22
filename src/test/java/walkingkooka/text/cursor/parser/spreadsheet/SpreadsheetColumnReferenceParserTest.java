@@ -84,7 +84,7 @@ public final class SpreadsheetColumnReferenceParserTest extends SpreadsheetParse
 
     @Test
     public void testAbsoluteReference2() {
-        this.parseAndCheck2("$"  + AD_TEXT, SpreadsheetReferenceKind.ABSOLUTE, AD_VALUE);
+        this.parseAndCheck2("$" + AD_TEXT, SpreadsheetReferenceKind.ABSOLUTE, AD_VALUE);
     }
 
     @Test

@@ -83,7 +83,7 @@ public final class UrlScheme extends NetName
      * robustness but should only produce lowercase scheme names for
      * consistency.
      *
-     *    scheme      = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )    
+     *    scheme      = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
      * </pre>
      */
     private final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));

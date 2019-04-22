@@ -74,10 +74,10 @@ public final class DoubleQuotedParserTokenTest extends ParserTokenTestCase<Doubl
         }.accept(token);
         assertEquals("132", b.toString());
     }
-    
+
     @Override
     public DoubleQuotedParserToken createToken(final String text) {
-        return DoubleQuotedParserToken.with(text.substring(1, text.length() -1), text);
+        return DoubleQuotedParserToken.with(text.substring(1, text.length() - 1), text);
     }
 
     @Override

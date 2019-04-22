@@ -89,7 +89,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     public void testAddIfNullWithNullLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
         assertThrows(NullPointerException.class, () -> {
-            missing.addIfNull(false,null);
+            missing.addIfNull(false, null);
         });
     }
 
@@ -97,7 +97,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     public void testAddIfNullWithEmptyLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
         assertThrows(IllegalArgumentException.class, () -> {
-            missing.addIfNull(false,"");
+            missing.addIfNull(false, "");
         });
     }
 
@@ -105,7 +105,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
     public void testAddIfNullWithWhitespaceLabelFails() {
         final MissingBuilder missing = MissingBuilder.empty();
         assertThrows(IllegalArgumentException.class, () -> {
-            missing.addIfNull(false," \t");
+            missing.addIfNull(false, " \t");
         });
     }
 
@@ -238,7 +238,7 @@ final public class MissingBuilderTest implements ClassTesting2<MissingBuilder>,
         final MissingBuilder missing = MissingBuilder.empty();
         missing.add("1");
         missing.add("2");
-        
+
         final BuilderException expected = assertThrows(BuilderException.class, () -> {
             missing.failIfMissing(BEFORE);
         });

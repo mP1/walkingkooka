@@ -30,12 +30,12 @@ public final class ExpressionNotEqualsNode extends ExpressionComparisonBinaryNod
 
     public final static String SYMBOL = "!=";
 
-    static ExpressionNotEqualsNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionNotEqualsNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionNotEqualsNode(NO_INDEX, left, right);
     }
 
-    private ExpressionNotEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionNotEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -94,8 +94,8 @@ public final class ExpressionNotEqualsNode extends ExpressionComparisonBinaryNod
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -122,7 +122,7 @@ public final class ExpressionNotEqualsNode extends ExpressionComparisonBinaryNod
     static {
         register(SYMBOL, ExpressionNotEqualsNode::fromJsonNode, ExpressionNotEqualsNode.class);
     }
-    
+
     // Object .........................................................................................................
 
     @Override

@@ -34,12 +34,12 @@ public final class ExpressionOrNode extends ExpressionLogicalBinaryNode {
 
     public final static String SYMBOL = "|";
 
-    static ExpressionOrNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionOrNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionOrNode(NO_INDEX, left, right);
     }
 
-    private ExpressionOrNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionOrNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -82,8 +82,8 @@ public final class ExpressionOrNode extends ExpressionLogicalBinaryNode {
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

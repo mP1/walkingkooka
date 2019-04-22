@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonStringNode, String>{
+public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonStringNode, String> {
 
     @Override
     public void testStringValueOrFail() {
@@ -41,7 +41,7 @@ public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonSt
         assertEquals("123",
                 JsonStringNode.with("123").stringValueOrFail());
     }
-    
+
     @Test
     public void testSameValueDifferentCase() {
         this.checkNotEquals(JsonNode.string("ABC123"));
@@ -102,7 +102,7 @@ public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonSt
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createJsonNode("abc123"),

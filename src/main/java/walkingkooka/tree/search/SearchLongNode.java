@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 /**
  * A {@link SearchNode} that holds a {@link long} value.
  */
-public final class SearchLongNode extends SearchLeafNode<Long>{
+public final class SearchLongNode extends SearchLeafNode<Long> {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchLongNode.class);
 
@@ -110,7 +110,7 @@ public final class SearchLongNode extends SearchLeafNode<Long>{
     // Visitor ..........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
+    public void accept(final SearchNodeVisitor visitor) {
         visitor.visit(this);
     }
 

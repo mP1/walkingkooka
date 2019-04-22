@@ -21,7 +21,7 @@ import walkingkooka.text.cursor.parser.Parser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTerminalParserToken>{
+public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTerminalParserToken> {
 
     @Test
     public void testIncompleteFails() {
@@ -138,7 +138,7 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
     EbnfTerminalParserToken token(final String text) {
         final String quotedText = this.text();
         return EbnfTerminalParserToken.with(
-                quotedText.substring(1, quotedText.length() -1),
+                quotedText.substring(1, quotedText.length() - 1),
                 text);
     }
 }

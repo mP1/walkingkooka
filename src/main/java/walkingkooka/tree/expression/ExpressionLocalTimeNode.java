@@ -36,7 +36,7 @@ public final class ExpressionLocalTimeNode extends ExpressionValueNode<LocalTime
         return new ExpressionLocalTimeNode(NO_INDEX, value);
     }
 
-    private ExpressionLocalTimeNode(final int index, final LocalTime value){
+    private ExpressionLocalTimeNode(final int index, final LocalTime value) {
         super(index, value);
     }
 
@@ -106,7 +106,7 @@ public final class ExpressionLocalTimeNode extends ExpressionValueNode<LocalTime
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

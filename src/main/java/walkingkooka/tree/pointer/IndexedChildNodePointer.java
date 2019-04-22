@@ -29,13 +29,13 @@ import java.util.Objects;
 /**
  * Represents a component that matches a node by its element.
  */
-public final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class IndexedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
      * Creates a {@link IndexedChildNodePointer}
      */
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> IndexedChildNodePointer<N, NAME> with(final int index) {
-        if(index < 0) {
+        if (index < 0) {
             throw new IllegalArgumentException("Invalid index " + index + " values should be greater or equal to 0");
         }
 

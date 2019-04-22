@@ -23,7 +23,7 @@ import walkingkooka.text.CharSequences;
 /**
  * A {@link SearchNode} that holds a {@link String} value.
  */
-public final class SearchTextNode extends SearchLeafNode<String>{
+public final class SearchTextNode extends SearchLeafNode<String> {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchTextNode.class);
 
@@ -112,7 +112,7 @@ public final class SearchTextNode extends SearchLeafNode<String>{
     // Visitor ..........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
+    public void accept(final SearchNodeVisitor visitor) {
         visitor.visit(this);
     }
 

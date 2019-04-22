@@ -186,7 +186,7 @@ public final class CharsetNameTest implements ClassTesting2<CharsetName>,
     public String possibleValidChars(final int position) {
         return 0 == position ?
                 ASCII_LETTERS_DIGITS :
-                ASCII_LETTERS_DIGITS +  "-+.:_";
+                ASCII_LETTERS_DIGITS + "-+.:_";
     }
 
     @Override

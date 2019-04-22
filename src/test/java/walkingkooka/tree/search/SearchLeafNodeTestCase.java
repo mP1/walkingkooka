@@ -116,7 +116,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         final N node = this.createSearchNode();
         final String text = node.text();
 
-        this.replacePartBeginAndEndAndCheck(node, text, 1, text.length() -1);
+        this.replacePartBeginAndEndAndCheck(node, text, 1, text.length() - 1);
     }
 
     @Test
@@ -124,7 +124,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         final N node = this.createSearchNode();
         final String text = node.text();
 
-        this.replacePartBeginAndEndAndCheck(node, text, 2, text.length() -2);
+        this.replacePartBeginAndEndAndCheck(node, text, 2, text.length() - 2);
     }
 
     private void replacePartBeginAndEndAndCheck(final N node, final String text, final int beginOffset, final int endOffset) {
@@ -149,7 +149,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         final N node = this.createSearchNode();
         final String text = node.text();
 
-        this.replacePartEndAndCheck(node, text, text.length() -1);
+        this.replacePartEndAndCheck(node, text, text.length() - 1);
     }
 
     private void replacePartEndAndCheck(final N node, final String text, final int endOffset) {
@@ -189,8 +189,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         assertEquals(this.text(), this.createSearchNode().text());
     }
 
-    @Override
-    final N createSearchNode() {
+    @Override final N createSearchNode() {
         return this.createSearchNode(this.text(), this.value());
     }
 
@@ -208,8 +207,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
 
     abstract V differentValue();
 
-    @Override
-    final SearchNode differentSearchNode() {
+    @Override final SearchNode differentSearchNode() {
         return this.createSearchNode(this.differentText(), this.differentValue());
     }
 

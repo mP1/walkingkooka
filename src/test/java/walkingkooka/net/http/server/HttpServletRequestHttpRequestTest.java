@@ -67,7 +67,7 @@ public final class HttpServletRequestHttpRequestTest implements ClassTesting2<Ht
     private final static String COOKIENAME = "cookie123";
     private final static String COOKIEVALUE = "cookievalue456";
 
-    private final static byte[] BYTES = new byte[]{ 1, 2, 3};
+    private final static byte[] BYTES = new byte[]{1, 2, 3};
 
     @Test
     public void testWithNullHttpServletRequestFails() {

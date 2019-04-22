@@ -45,8 +45,8 @@ final class PojoShortArrayNode extends PojoArrayNode {
         final short[] newChildren = new short[children.size()];
 
         int i = 0;
-        for(PojoNode child : children){
-            newChildren[i] = (short)child.value();
+        for (PojoNode child : children) {
+            newChildren[i] = (short) child.value();
             i++;
         }
 
@@ -57,7 +57,7 @@ final class PojoShortArrayNode extends PojoArrayNode {
     final PojoNode replaceChild(final PojoNode newChild) {
         final short[] newChildren = new short[this.childrenCount()];
 
-        newChildren[newChild.index()]=(short)newChild.value();
+        newChildren[newChild.index()] = (short) newChild.value();
 
         return this.wrap(newChildren);
     }
@@ -67,15 +67,15 @@ final class PojoShortArrayNode extends PojoArrayNode {
         final short[] newChildren = new short[values.size()];
 
         int i = 0;
-        for(Object child : values){
-            newChildren[i] = (short)child;
+        for (Object child : values) {
+            newChildren[i] = (short) child;
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    private PojoNode wrap(final short[] values){
+    private PojoNode wrap(final short[] values) {
         return new PojoShortArrayNode(this.name(),
                 values,
                 this.index(),
@@ -94,7 +94,7 @@ final class PojoShortArrayNode extends PojoArrayNode {
     }
 
     @Override
-    boolean equals0(final PojoNode other){
+    boolean equals0(final PojoNode other) {
         final PojoShortArrayNode otherArray = Cast.to(other);
         return Arrays.equals(this.valueAsShortArray(), otherArray.valueAsShortArray());
     }

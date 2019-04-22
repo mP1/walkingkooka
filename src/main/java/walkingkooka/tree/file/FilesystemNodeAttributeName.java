@@ -32,9 +32,9 @@ public enum FilesystemNodeAttributeName implements Name,
      * An ISO_FORMATTED timestamp of the creation, taken from {@link java.nio.file.attribute.BasicFileAttributes}
      * {@see java.time.format.DateTimeFormatter}
      */
-    CREATED{
+    CREATED {
         @Override
-        String read(final FilesystemNode node){
+        String read(final FilesystemNode node) {
             return node.created();
         }
     },
@@ -42,9 +42,9 @@ public enum FilesystemNodeAttributeName implements Name,
     /**
      * A String holding either the boolean value of true of false using {@link java.nio.file.Files#isHidden}.
      */
-    HIDDEN{
+    HIDDEN {
         @Override
-        String read(final FilesystemNode node){
+        String read(final FilesystemNode node) {
             return node.hidden();
         }
     },
@@ -53,9 +53,9 @@ public enum FilesystemNodeAttributeName implements Name,
      * An ISO_FORMATTED timestamp of the last access, taken from {@link java.nio.file.attribute.BasicFileAttributes}
      * {@see java.time.format.DateTimeFormatter}
      */
-    LAST_ACCESSED{
+    LAST_ACCESSED {
         @Override
-        String read(final FilesystemNode node){
+        String read(final FilesystemNode node) {
             return node.lastAccessed();
         }
     },
@@ -64,9 +64,9 @@ public enum FilesystemNodeAttributeName implements Name,
      * An ISO_FORMATTED timestamp of the last modification, taken from {@link java.nio.file.attribute.BasicFileAttributes}
      * {@see java.time.format.DateTimeFormatter}
      */
-    LAST_MODIFIED{
+    LAST_MODIFIED {
         @Override
-        String read(final FilesystemNode node){
+        String read(final FilesystemNode node) {
             return node.lastModified();
         }
     },
@@ -74,9 +74,9 @@ public enum FilesystemNodeAttributeName implements Name,
     /**
      * The owner, taken from {@link java.nio.file.attribute.PosixFileAttributes}
      */
-    OWNER{
+    OWNER {
         @Override
-        String read(final FilesystemNode node){
+        String read(final FilesystemNode node) {
             return node.owner();
         }
     },
@@ -85,9 +85,9 @@ public enum FilesystemNodeAttributeName implements Name,
      * The size of the file in bytes
      * (File only attribute)
      */
-    SIZE{
+    SIZE {
         @Override
-        String read(final FilesystemNode node){
+        String read(final FilesystemNode node) {
             return node.size();
         }
     },
@@ -96,9 +96,9 @@ public enum FilesystemNodeAttributeName implements Name,
      * The text attribute holds the text for a given file.
      * (File only attribute)
      */
-    TEXT{
+    TEXT {
         @Override
-        String read(final FilesystemNode node){
+        String read(final FilesystemNode node) {
             return node.text();
         }
     },
@@ -106,9 +106,9 @@ public enum FilesystemNodeAttributeName implements Name,
     /**
      * A String value that currently holds either: FILE or DIRECTORY.
      */
-    TYPE{
+    TYPE {
         @Override
-        String read(final FilesystemNode node){
+        String read(final FilesystemNode node) {
             return node.type();
         }
     };

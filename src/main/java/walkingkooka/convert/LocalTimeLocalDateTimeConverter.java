@@ -25,11 +25,11 @@ import java.time.LocalTime;
 /**
  * A {@link Converter} that makes a {@link LocalDateTime} from a {@link LocalTime}.
  */
-final class LocalTimeLocalDateTimeConverter extends LocalDateTimeConverter<LocalTime>{
+final class LocalTimeLocalDateTimeConverter extends LocalDateTimeConverter<LocalTime> {
 
     final static LocalTimeLocalDateTimeConverter INSTANCE = new LocalTimeLocalDateTimeConverter();
 
-    private LocalTimeLocalDateTimeConverter(){
+    private LocalTimeLocalDateTimeConverter() {
         super();
     }
 

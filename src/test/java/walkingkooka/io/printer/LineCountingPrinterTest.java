@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineCountingPrinterTest extends PrinterTestCase<LineCountingPrinter>
-        implements PrinterTesting2<LineCountingPrinter>{
+        implements PrinterTesting2<LineCountingPrinter> {
 
     // constants
 
@@ -177,7 +177,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase<LineCountingP
                     public void print(final CharSequence chars) throws PrinterException {
                         switch (this.printed) {
                             case 0:
-                                checkEquals( "\r", chars.toString(), "wrong chars printed");
+                                checkEquals("\r", chars.toString(), "wrong chars printed");
                                 assertEquals(0,
                                         counter.counter,
                                         "counter incremented earlier than expected");
@@ -261,7 +261,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase<LineCountingP
         final TestIntCounter counter = new TestIntCounter();
         final StringBuilder printed = new StringBuilder();
         this.printAndCheck(this.createPrinter(printed, counter), text, printed, text);
-        assertEquals(lines, counter.counter,"wrong number of lines printed");
+        assertEquals(lines, counter.counter, "wrong number of lines printed");
     }
 
     private void check(final int expected, final TestIntCounter counter) {

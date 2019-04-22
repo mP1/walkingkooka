@@ -32,12 +32,10 @@ public final class LineAndColumn implements HashCodeEqualsDefined {
     /**
      * Builds a {@link LineAndColumn} from the given chars for the provided position.
      */
-    public static LineAndColumn determine(final CharSequence chars, final int pos)
-    {
+    public static LineAndColumn determine(final CharSequence chars, final int pos) {
         Objects.requireNonNull(chars, "chars");
         final int length = chars.length();
-        if(pos < 0 || pos > length)
-        {
+        if (pos < 0 || pos > length) {
             throw new StringIndexOutOfBoundsException("pos " + pos + " must be between 0 and " + length);
         }
 
@@ -96,7 +94,7 @@ public final class LineAndColumn implements HashCodeEqualsDefined {
             }
         }
 
-       return new LineAndColumn(lineNumber, column, line);
+        return new LineAndColumn(lineNumber, column, line);
     }
 
     public static LineAndColumn with(int lineNumber, int columnNumber, final CharSequence line) {
@@ -107,10 +105,8 @@ public final class LineAndColumn implements HashCodeEqualsDefined {
         return new LineAndColumn(lineNumber, columnNumber, line);
     }
 
-    private static void check(final int value, final String label)
-    {
-        if(value < 1)
-        {
+    private static void check(final int value, final String label) {
+        if (value < 1) {
             throw new IllegalArgumentException(label + "=" + value + " must be >= 1");
         }
     }
@@ -123,7 +119,7 @@ public final class LineAndColumn implements HashCodeEqualsDefined {
 
     private final int lineNumber;
 
-    public int lineNumber(){
+    public int lineNumber() {
         return this.lineNumber;
     }
 
@@ -135,30 +131,28 @@ public final class LineAndColumn implements HashCodeEqualsDefined {
 
     private final CharSequence line;
 
-    public CharSequence line(){
+    public CharSequence line() {
         return this.line;
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(this.lineNumber(), this.columnNumber(), this.line());
     }
 
     @Override
-    public boolean equals(final Object other)
-    {
-        return this == other || other instanceof LineAndColumn && equals0((LineAndColumn)other);
+    public boolean equals(final Object other) {
+        return this == other || other instanceof LineAndColumn && equals0((LineAndColumn) other);
     }
 
-    private boolean equals0(final LineAndColumn other)
-    {
+    private boolean equals0(final LineAndColumn other) {
         return this.lineNumber() == other.lineNumber() &&
                 this.columnNumber() == other.columnNumber() &&
                 this.line().equals(other.line());
     }
 
     @Override
-    public String toString(){
-        return "line: " + this.lineNumber() + ", col: "+ this.columnNumber() + ", " + CharSequences.quoteAndEscape(this.line());
+    public String toString() {
+        return "line: " + this.lineNumber() + ", col: " + this.columnNumber() + ", " + CharSequences.quoteAndEscape(this.line());
     }
 }

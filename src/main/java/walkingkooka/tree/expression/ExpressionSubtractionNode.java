@@ -35,12 +35,12 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
 
     public final static String SYMBOL = "-";
 
-    static ExpressionSubtractionNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionSubtractionNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionSubtractionNode(NO_INDEX, left, right);
     }
 
-    private ExpressionSubtractionNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionSubtractionNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -99,8 +99,8 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -132,7 +132,7 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
     long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
         return left - right;
     }
-    
+
     // HasJsonNode....................................................................................................
 
     // @VisibleForTesting

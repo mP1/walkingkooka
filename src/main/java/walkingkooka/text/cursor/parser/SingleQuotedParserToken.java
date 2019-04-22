@@ -28,13 +28,13 @@ public final class SingleQuotedParserToken extends QuotedParserToken {
     static SingleQuotedParserToken with(final String value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(value, "value");
-        if(!text.startsWith("'") || !text.endsWith("'") ){
+        if (!text.startsWith("'") || !text.endsWith("'")) {
             throw new IllegalArgumentException("text must start and end with '\'' but was " + text);
         }
 
         return new SingleQuotedParserToken(value, text);
     }
-    
+
     private SingleQuotedParserToken(final String value, final String text) {
         super(value, text);
     }
@@ -45,7 +45,7 @@ public final class SingleQuotedParserToken extends QuotedParserToken {
     }
 
     @Override
-    public SingleQuotedParserToken setText(final String text){
+    public SingleQuotedParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -60,7 +60,7 @@ public final class SingleQuotedParserToken extends QuotedParserToken {
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

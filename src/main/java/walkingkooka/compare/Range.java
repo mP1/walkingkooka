@@ -245,8 +245,8 @@ public final class Range<C extends Comparable> implements Predicate<C>,
      * 		Inclusive {
      * 			type=big
      * 			value=123
-     * 		}
-     * 	}
+     *        }
+     *    }
      * }
      * </pre>
      */
@@ -324,6 +324,7 @@ public final class Range<C extends Comparable> implements Predicate<C>,
         return this.lower.equals(lower) &&
                 this.upper.equals(upper);
     }
+
     @Override
     public String toString() {
         return this.lower.rangeToString(this);

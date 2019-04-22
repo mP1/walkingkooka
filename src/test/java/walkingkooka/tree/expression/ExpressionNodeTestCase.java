@@ -62,7 +62,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     }
 
     @Test
-    public final void testPublicStaticFactoryMethod()  {
+    public final void testPublicStaticFactoryMethod() {
         PublicStaticFactoryTesting.check(ExpressionNode.class,
                 "Expression",
                 Node.class,
@@ -303,7 +303,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
 
     final void evaluateAndCheckValue(final ExpressionNode node, final ExpressionEvaluationContext context, final Object expected) {
         final Object value = node.toValue(context);
-        if(expected instanceof Comparable && value instanceof Comparable) {
+        if (expected instanceof Comparable && value instanceof Comparable) {
             this.checkEquals("toValue of " + node + " failed", Cast.to(expected), Cast.to(value));
         } else {
             assertEquals(expected, value, () -> "toValue of " + node + " failed");
@@ -312,7 +312,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
 
     private <T extends Comparable<T>> void checkEquals(final String message, final T expected, final T actual) {
         // necessary because BigDecimals of different precisions (extra zeros) will not be equal.
-        if(expected.getClass()!=actual.getClass() || 0!=expected.compareTo(actual)){
+        if (expected.getClass() != actual.getClass() || 0 != expected.compareTo(actual)) {
             assertEquals(expected, actual, message);
         }
     }
@@ -322,7 +322,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     }
 
     static ExpressionEvaluationContext context() {
-        final Function<ConverterContext, ParserContext> parserContext = (c)-> ParserContexts.basic(c);
+        final Function<ConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c);
 
         final Converter stringBigDecimal = Converters.parser(BigDecimal.class,
                 Parsers.bigDecimal(MathContext.DECIMAL32),
@@ -345,7 +345,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
         final Converter stringLocalTime = Converters.parser(LocalTime.class,
                 Parsers.localTime(DateTimeFormatter.ISO_LOCAL_TIME, "hh:mm"),
                 parserContext);
-        final Converter stringLong =  Converters.parser(Long.class,
+        final Converter stringLong = Converters.parser(Long.class,
                 Parsers.longParser(10),
                 parserContext);
 
@@ -467,7 +467,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                         fail("Cannot convert expects only Boolean | LocalDate | LocalDateTime, LocalTime | Number | String " + value.getClass().getName() + "=" + value);
                     }
                     return converters.convert(value, target, ConverterContexts.basic(this));
-                } catch ( final ConversionException fail) {
+                } catch (final ConversionException fail) {
                     throw new ExpressionEvaluationConversionException(fail.getMessage(), fail);
                 }
             }

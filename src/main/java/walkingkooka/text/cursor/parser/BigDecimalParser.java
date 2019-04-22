@@ -96,34 +96,34 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
         int mode = NUMBER_SIGN | NUMBER_ZERO | NUMBER_DIGIT;
         boolean empty = true;
 
-        for(;;){
+        for (; ; ) {
             final char c = cursor.at();
 
-            for(;;){
-                if((NUMBER_SIGN & mode) != 0){
-                    if(plusSign == c){
+            for (; ; ) {
+                if ((NUMBER_SIGN & mode) != 0) {
+                    if (plusSign == c) {
                         cursor.next();
                         mode = NUMBER_ZERO | NUMBER_DIGIT;
                         break;
                     }
-                    if(minusSign == c) {
+                    if (minusSign == c) {
                         cursor.next();
                         numberNegative = true;
                         mode = NUMBER_ZERO | NUMBER_DIGIT;
                         break;
                     }
                 }
-                if((NUMBER_ZERO & mode) != 0){
-                    if('0' == c) {
+                if ((NUMBER_ZERO & mode) != 0) {
+                    if ('0' == c) {
                         cursor.next();
                         mode = DECIMAL | EXPONENT;
                         empty = false;
                         break;
                     }
                 }
-                if((NUMBER_DIGIT & mode) != 0){
+                if ((NUMBER_DIGIT & mode) != 0) {
                     final int digit = digit(c);
-                    if(digit >= 0) {
+                    if (digit >= 0) {
                         cursor.next();
                         number = number(number, digit);
                         mode = NUMBER_DIGIT | DECIMAL | EXPONENT;
@@ -131,52 +131,52 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
                         break;
                     }
                 }
-                if((DECIMAL & mode) != 0){
-                    if(decimalPoint == c) {
+                if ((DECIMAL & mode) != 0) {
+                    if (decimalPoint == c) {
                         cursor.next();
                         mode = DECIMAL_DIGIT | EXPONENT;
                         break;
                     }
                 }
-                if((DECIMAL_DIGIT & mode) != 0){
+                if ((DECIMAL_DIGIT & mode) != 0) {
                     final int digit = digit(c);
-                    if(digit >= 0) {
+                    if (digit >= 0) {
                         cursor.next();
                         number = number(number, digit);
                         fractionFactor--;
                         break;
                     }
                 }
-                if((EXPONENT & mode) != 0){
-                    if(littleE == c || bigE ==c) {
+                if ((EXPONENT & mode) != 0) {
+                    if (littleE == c || bigE == c) {
                         cursor.next();
                         mode = EXPONENT_SIGN | EXPONENT_ZERO | EXPONENT_DIGIT;
                         break;
                     }
                 }
-                if((EXPONENT_ZERO & mode) != 0){
-                    if('0' == c) {
+                if ((EXPONENT_ZERO & mode) != 0) {
+                    if ('0' == c) {
                         cursor.next();
                         mode = FINISH;
                         break;
                     }
                 }
-                if((EXPONENT_SIGN & mode) != 0){
-                    if(plusSign == c){
+                if ((EXPONENT_SIGN & mode) != 0) {
+                    if (plusSign == c) {
                         cursor.next();
                         mode = EXPONENT_DIGIT;
                         break;
                     }
-                    if(minusSign == c) {
+                    if (minusSign == c) {
                         cursor.next();
                         exponentNegative = true;
                         mode = EXPONENT_DIGIT;
                         break;
                     }
                 }
-                if((EXPONENT_DIGIT & mode) != 0){
+                if ((EXPONENT_DIGIT & mode) != 0) {
                     final int digit = digit(c);
-                    if(digit >= 0) {
+                    if (digit >= 0) {
                         cursor.next();
                         exponent = exponent(exponent, digit);
                         break;
@@ -187,16 +187,16 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
                 break;
             }
 
-            if(FINISH == mode || cursor.isEmpty()){
-                if(!empty) {
-                    if(exponentNegative){
-                        exponent = - exponent;
+            if (FINISH == mode || cursor.isEmpty()) {
+                if (!empty) {
+                    if (exponentNegative) {
+                        exponent = -exponent;
                     }
-                    if(numberNegative) {
+                    if (numberNegative) {
                         number = number.negate(this.context);
                     }
                     exponent = exponent + fractionFactor;
-                    if(0 != exponent) {
+                    if (0 != exponent) {
                         number = number.scaleByPowerOfTen(exponent);
                     }
                     token = token(number, save);
@@ -221,7 +221,7 @@ final class BigDecimalParser<C extends ParserContext> extends Parser2<C> {
         return value * RADIX + digit;
     }
 
-    private static BigDecimalParserToken token(final BigDecimal value, final TextCursorSavePoint save){
+    private static BigDecimalParserToken token(final BigDecimal value, final TextCursorSavePoint save) {
         return BigDecimalParserToken.with(value,
                 save.textBetween().toString());
     }

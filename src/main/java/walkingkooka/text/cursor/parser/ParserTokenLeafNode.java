@@ -86,7 +86,7 @@ final class ParserTokenLeafNode extends ParserTokenNode {
     }
 
     @Override
-    ParserTokenNode replaceChild1(final ParserTokenNode child){
+    ParserTokenNode replaceChild1(final ParserTokenNode child) {
         throw new UnsupportedOperationException();
     }
 

@@ -26,7 +26,7 @@ public final class ShortWrapperToStringBuilderTest extends WrapperToStringBuilde
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.HEX_WHOLE_NUMBERS);
 
-        b.value(Short.valueOf((short)1));
+        b.value(Short.valueOf((short) 1));
 
         this.buildAndCheck(b, "0001");
     }

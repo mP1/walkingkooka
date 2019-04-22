@@ -112,9 +112,9 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
         }.accept(exception);
         assertEquals("1351374213742642", b.toString());
         assertEquals(Lists.of(exception, exception, exception,
-                        identifier1, identifier1, identifier1, identifier1, identifier1,
-                        identifier2, identifier2, identifier2, identifier2, identifier2,
-                        exception, exception, exception),
+                identifier1, identifier1, identifier1, identifier1, identifier1,
+                identifier2, identifier2, identifier2, identifier2, identifier2,
+                exception, exception, exception),
                 visited,
                 "visited");
     }
@@ -129,7 +129,7 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
 
         assertEquals(token.text(), searchNode.text(), "text");
     }
-    
+
     @Override
     EbnfExceptionParserToken createToken(final String text, final List<ParserToken> tokens) {
         return EbnfExceptionParserToken.with(tokens, text);
@@ -147,11 +147,10 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
 
     @Override
     public EbnfExceptionParserToken createDifferentToken() {
-        return this.createToken( "different -identifier2", this.identifier("different"), this.identifier2());
+        return this.createToken("different -identifier2", this.identifier("different"), this.identifier2());
     }
 
-    @Override
-    final public String text() {
+    @Override final public String text() {
         return this.identifier1() + "-" + this.identifier2().text();
     }
 

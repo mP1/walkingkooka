@@ -24,7 +24,7 @@ import walkingkooka.Cast;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public final class LocalTimeDateTimeFormatterParserTest extends LocalDateTimeFormatterParserTestCase<LocalTimeDateTimeFormatterParser<FakeParserContext>, LocalTimeParserToken>{
+public final class LocalTimeDateTimeFormatterParserTest extends LocalDateTimeFormatterParserTestCase<LocalTimeDateTimeFormatterParser<FakeParserContext>, LocalTimeParserToken> {
 
 //    The ISO date formatter that formats or parses a date without an
 //     * offset, such as '2011-12-03'
@@ -76,27 +76,27 @@ public final class LocalTimeDateTimeFormatterParserTest extends LocalDateTimeFor
 
     @Test
     public void testHoursSeparatorMinutes() {
-        this.parseAndCheck2("HH:mm","12:59", "");
+        this.parseAndCheck2("HH:mm", "12:59", "");
     }
 
     @Test
     public void testHoursSeparatorMinutesSeparatorSeconds() {
-        this.parseAndCheck2("HH:mm:ss","12:59:58", "");
+        this.parseAndCheck2("HH:mm:ss", "12:59:58", "");
     }
 
     @Test
     public void testHoursSeparatorMinutesSeparatorSecondsDecimalFraction() {
-        this.parseAndCheck2("HH:mm:ss.SSS","12:59:58.123", "");
+        this.parseAndCheck2("HH:mm:ss.SSS", "12:59:58.123", "");
     }
 
     @Test
     public void testHoursSeparatorMinutesSeparatorSecondsLiteralFraction() {
-        this.parseAndCheck2("HH:mm:ss'.'SSS","12:59:58.123", "");
+        this.parseAndCheck2("HH:mm:ss'.'SSS", "12:59:58.123", "");
     }
 
     @Test
     public void testHoursSeparatorMinutesSeparatorSecondsFraction() {
-        this.parseAndCheck2("HHmmssSSS","125958123", "");
+        this.parseAndCheck2("HHmmssSSS", "125958123", "");
     }
 
     @Test

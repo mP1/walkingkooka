@@ -27,9 +27,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class NodeSelectorTestCase2<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-extends NodeSelectorTestCase<S>{
+        extends NodeSelectorTestCase<S> {
 
-    NodeSelectorTestCase2(){
+    NodeSelectorTestCase2() {
         super();
     }
 
@@ -55,12 +55,12 @@ extends NodeSelectorTestCase<S>{
 
             @Override
             public void selected(final TestNode node) {
-                if(i == nodes.length) {
+                if (i == nodes.length) {
                     Assertions.fail("Unexpected matching node: " + node);
                 }
 
-                if(!nodes[i].equals(node.name().value())){
-                    Assertions.fail("Unexpected node " + node + " expected "+ nodes[i]);
+                if (!nodes[i].equals(node.name().value())) {
+                    Assertions.fail("Unexpected node " + node + " expected " + nodes[i]);
                 }
                 expected.remove(0);
                 i++;

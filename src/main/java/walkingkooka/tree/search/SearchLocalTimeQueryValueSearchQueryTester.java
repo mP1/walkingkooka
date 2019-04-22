@@ -32,7 +32,7 @@ abstract class SearchLocalTimeQueryValueSearchQueryTester extends SearchQueryTes
     static SearchLocalTimeQueryValueGreaterThanSearchQueryTester greaterThan(final LocalTime value) {
         return SearchLocalTimeQueryValueGreaterThanSearchQueryTester.with(value);
     }
-    
+
     static SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTester greaterThanEquals(final LocalTime value) {
         return SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTester.with(value);
     }

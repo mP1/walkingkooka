@@ -53,12 +53,12 @@ public final class FixedParserTest extends ParserTestCase<FixedParser<ParserCont
     @Test
     public void testParseEmptyOptionalResult() {
         final Optional<ParserToken> result = Optional.empty();
-         this.parseAndCheck(this.createParser(result),
-                 this.createContext(),
-                 TextCursors.charSequence(""),
-                 result,
-                 "",
-                 "");
+        this.parseAndCheck(this.createParser(result),
+                this.createContext(),
+                TextCursors.charSequence(""),
+                result,
+                "",
+                "");
     }
 
     @Test

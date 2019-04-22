@@ -98,6 +98,6 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
                                      final NodePatchToJsonFormat format) {
         return this.setPath(
                 format.setPathNameType(object, this.from, this.path)
-                .set(FROM_PROPERTY, pathToJsonNode(this.from)));
+                        .set(FROM_PROPERTY, pathToJsonNode(this.from)));
     }
 }

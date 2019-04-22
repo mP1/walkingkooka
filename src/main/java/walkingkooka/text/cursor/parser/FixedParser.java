@@ -29,9 +29,9 @@ final class FixedParser<C extends ParserContext> implements Parser<C> {
 
     static <C extends ParserContext> FixedParser<C> with(final Optional<ParserToken> result) {
         Objects.requireNonNull(result, "result");
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             final String text = result.get().text();
-            if(!text.isEmpty()) {
+            if (!text.isEmpty()) {
                 throw new IllegalArgumentException("Result must have an empty text but was " + result);
             }
         }

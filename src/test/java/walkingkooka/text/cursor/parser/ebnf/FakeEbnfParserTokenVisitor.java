@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 
 abstract class FakeEbnfParserTokenVisitor extends EbnfParserTokenVisitor implements Fake {
 
-    @Override 
+    @Override
     protected Visiting startVisit(final EbnfGrammarParserToken token) {
         return super.startVisit(token);
     }
@@ -139,7 +139,7 @@ abstract class FakeEbnfParserTokenVisitor extends EbnfParserTokenVisitor impleme
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected Visiting startVisit(final ParserToken token) {
         throw new UnsupportedOperationException();
     }

@@ -79,7 +79,7 @@ public final class EbnfRangeParserTest extends EbnfParserTestCase2<EbnfRangePars
                 range(text, terminal1(), between(), comment1(), terminal2()),
                 text);
     }
-    
+
     // trailing....
 
     @Test
@@ -117,7 +117,7 @@ public final class EbnfRangeParserTest extends EbnfParserTestCase2<EbnfRangePars
                 terminal2());
     }
 
-    private EbnfRangeParserToken token(final String text, final ParserToken...tokens) {
+    private EbnfRangeParserToken token(final String text, final ParserToken... tokens) {
         return EbnfRangeParserToken.with(Lists.of(tokens), text);
     }
 }

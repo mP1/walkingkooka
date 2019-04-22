@@ -416,7 +416,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     private void qFactorWeightAndCheck(final MediaType type, final Optional<Float> weight) {
-        assertEquals(weight, type.qFactorWeight(), ()-> type + " q weight");
+        assertEquals(weight, type.qFactorWeight(), () -> type + " q weight");
     }
 
     // parse .........................................................................
@@ -650,7 +650,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     public void testEqualsDifferentWhitespaceSameParametersStillEqual() {
         checkEqualsAndHashCode(MediaType.parse("a/b;   x=1"), MediaType.parse("a/b;x=1"));
     }
-    
+
     // toString........................................................................................................
 
     @Test

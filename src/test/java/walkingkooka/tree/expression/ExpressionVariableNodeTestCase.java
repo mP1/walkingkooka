@@ -29,12 +29,12 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariableNode> extends  ExpressionParentNodeTestCase<N> {
+public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariableNode> extends ExpressionParentNodeTestCase<N> {
 
     @Test
     public final void testWithNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createExpressionNode((List<ExpressionNode>)null);
+            this.createExpressionNode((List<ExpressionNode>) null);
         });
     }
 
@@ -53,7 +53,7 @@ public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariabl
         this.createAndSetChildren(child1(), differentChild(), text("third"));
     }
 
-    private void createAndSetChildren(final ExpressionNode...children){
+    private void createAndSetChildren(final ExpressionNode... children) {
         final N expression = this.createExpressionNode();
 
         final List<ExpressionNode> list = Lists.of(children);
@@ -70,7 +70,7 @@ public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariabl
         final N different = expression.setChildren(differentChildren).cast();
         assertNotSame(expression, different);
 
-        assertEquals(expression.name(), different.name(),"name");
+        assertEquals(expression.name(), different.name(), "name");
 
         this.checkChildren(different, differentChildren);
         this.checkChildren(expression, children);
@@ -98,19 +98,18 @@ public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariabl
         assertNotEquals(this.createExpressionNode(), this.createExpressionNode(differentChild()));
     }
 
-    @Override
-    final N createExpressionNode() {
+    @Override final N createExpressionNode() {
         return this.createExpressionNode(this.children());
     }
 
-    final N createExpressionNode(final ExpressionNode...children) {
+    final N createExpressionNode(final ExpressionNode... children) {
         return this.createExpressionNode(Lists.of(children));
     }
 
     abstract N createExpressionNode(final List<ExpressionNode> children);
 
     @Override
-    List<ExpressionNode> children(){
+    List<ExpressionNode> children() {
         return Lists.of(this.child1(), this.child2(), this.child3());
     }
 

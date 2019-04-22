@@ -52,7 +52,7 @@ public final class CharToStringBuilderTest extends ScalarToStringBuilderTestCase
 
     @Override
     void value(final ToStringBuilder builder, final Character value) {
-        builder.value((char)value);
+        builder.value((char) value);
     }
 
     @Override

@@ -30,7 +30,7 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
 
     private final static int VALUE = 123;
     private final static LocalTime MIDNIGHT = LocalTime.ofSecondOfDay(0);
-    private final static LocalDateTime DATE_TIME_EXCEL_OFFSET =LocalDateTime.of(1900, 5, 2, 0, 0, 0);
+    private final static LocalDateTime DATE_TIME_EXCEL_OFFSET = LocalDateTime.of(1900, 5, 2, 0, 0, 0);
 
     @Test
     public void testNonNumberTypeFails() {
@@ -94,12 +94,12 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
 
     @Test
     public void testByte() {
-        this.convertAndCheck2((byte)123);
+        this.convertAndCheck2((byte) 123);
     }
 
     @Test
     public void testShort() {
-        this.convertAndCheck2((short)123);
+        this.convertAndCheck2((short) 123);
     }
 
     @Test

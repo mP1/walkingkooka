@@ -1064,7 +1064,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         this.parseExpressionAndCheck("//*[position() = 2]", root, branch2, leaf3b);
         this.parseExpressionAndCheck("//*[position() = 3]", root, branch3);
     }
-    
+
     // function: text().......................................................................................
 
     @Test
@@ -1176,7 +1176,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         final NodeSelector<TestNode, StringName, StringName, Object> selector = this.parseExpression(expression);
 
         final Set<TestNode> selected = Sets.ordered();
-        selector.accept(root, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>(){
+        selector.accept(root, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
             @Override
             public void potential(final TestNode node) {
                 this.node = node;
@@ -1257,9 +1257,9 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 return Converters.booleanConverter(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
                         .convert(value, Number.class, ConverterContexts.fake());
             }
-            
+
             private Integer convertToInteger(final Object value) {
-                if(value instanceof Number) {
+                if (value instanceof Number) {
                     return Number.class.cast(value).intValue();
                 }
                 return Integer.parseInt(String.valueOf(value));

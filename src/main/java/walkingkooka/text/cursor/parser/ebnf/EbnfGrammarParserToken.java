@@ -56,7 +56,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         final Optional<ParserToken> firstRule = tokens.stream()
                 .filter(t -> t instanceof EbnfRuleParserToken)
                 .findFirst();
-        if(!firstRule.isPresent()) {
+        if (!firstRule.isPresent()) {
             throw new IllegalArgumentException("Grammar requires at least 1 rule=" + tokens);
         }
     }
@@ -128,7 +128,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
 
     @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -142,7 +142,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
     /**
      * Verifies that all identifiers that appear on the RHS of all rules, must be valid.
      */
-    public void checkIdentifiers(final Set<EbnfIdentifierName> external){
+    public void checkIdentifiers(final Set<EbnfIdentifierName> external) {
         Objects.requireNonNull(external, "external");
 
         final EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor visitor = new EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor();
@@ -155,7 +155,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
                 .stream()
                 .filter(e -> e.size() > 1)
                 .forEach(e -> duplicates.addAll(e));
-        if(!duplicates.isEmpty()){
+        if (!duplicates.isEmpty()) {
             throw new EbnfGrammarParserTokenDuplicateIdentifiersException(duplicates.size() + " rules with the same identifier=" + duplicates, duplicates);
         }
 
@@ -164,7 +164,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         missing.removeAll(identifiers.keySet());
         missing.removeAll(external);
 
-        if(!missing.isEmpty()){
+        if (!missing.isEmpty()) {
             throw new EbnfGrammarParserTokenInvalidReferencesException(missing.size() + " invalid (unknown) references=" + missing, missing);
         }
     }

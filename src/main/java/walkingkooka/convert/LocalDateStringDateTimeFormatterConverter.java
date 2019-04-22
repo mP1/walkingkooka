@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * A {@link Converter} that formats a {@link LocalDate} into a {@link String}
  */
-final class LocalDateStringDateTimeFormatterConverter extends StringDateTimeFormatterConverter<LocalDate>{
+final class LocalDateStringDateTimeFormatterConverter extends StringDateTimeFormatterConverter<LocalDate> {
 
     static LocalDateStringDateTimeFormatterConverter with(final DateTimeFormatter formatter) {
         return new LocalDateStringDateTimeFormatterConverter(formatter);

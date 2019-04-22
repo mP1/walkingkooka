@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<SearchContainsQuery> {
 
     private final static CaseSensitivity SENSITIVITY = CaseSensitivity.INSENSITIVE;
-    
+
     @Override
     public void testNot() {
         throw new UnsupportedOperationException();
@@ -92,7 +92,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
     @Test
     public final void testTextAbsent() {
         this.querySelectAndFail(this.textQueryValue("$")
-                .contains(SENSITIVITY),
+                        .contains(SENSITIVITY),
                 this.textNode(TEXT));
     }
 
@@ -115,7 +115,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
                 this.sequenceNode(before, text, after),
                 this.sequenceNode(before,
                         this.sequenceNode(selected, this.textNode("1"), selected),
-                                after));
+                        after));
     }
 
     @Test
@@ -293,7 +293,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
                 this.textNode(first).selected(), this.textNode(remainder));
     }
 
-    private void querySelectAndCheck3(final String text, final CaseSensitivity sensitivity, final SearchNode node, final SearchNode...expected) {
+    private void querySelectAndCheck3(final String text, final CaseSensitivity sensitivity, final SearchNode node, final SearchNode... expected) {
         this.querySelectAndCheck(SearchQueryValue.text(text).contains(sensitivity),
                 node,
                 this.sequenceNode(expected));

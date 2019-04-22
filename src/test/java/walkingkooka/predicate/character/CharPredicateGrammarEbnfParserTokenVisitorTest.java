@@ -115,10 +115,10 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
     @Test
     public void testPredefined() {
         final CharPredicate predicate = this.createCharPredicate0();
-        this.testTrue(predicate,'@');
-        this.testTrue(predicate,'B');
-        this.testTrue(predicate,'C');
-        this.testFalse(predicate,'D');
+        this.testTrue(predicate, '@');
+        this.testTrue(predicate, 'B');
+        this.testTrue(predicate, 'C');
+        this.testFalse(predicate, 'D');
     }
 
     @Test
@@ -154,10 +154,10 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
 
     private void readGrammarAndCheck() {
         final CharPredicate predicate = this.createCharPredicate0();
-        this.testTrue(predicate,'A');
-        this.testTrue(predicate,'B');
-        this.testTrue(predicate,'C');
-        this.testFalse(predicate,'D');
+        this.testTrue(predicate, 'A');
+        this.testTrue(predicate, 'B');
+        this.testTrue(predicate, 'C');
+        this.testFalse(predicate, 'D');
     }
 
     @Override
@@ -201,7 +201,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest implements Cha
             if (!grammar.isPresent()) {
                 fail("Failed to parse a grammar from " + CharSequences.quote(resourceName) + "\n" + text);
             }
-            if(!cursor.isEmpty()) {
+            if (!cursor.isEmpty()) {
                 final TextCursorSavePoint save = cursor.save();
                 cursor.end();
                 final CharSequence remaining = save.textBetween();

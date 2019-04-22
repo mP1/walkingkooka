@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * Matches all the nodes, or the start node.
  */
-public final class AnyNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class AnyNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
      * Creates a {@link AnyNodePointer}

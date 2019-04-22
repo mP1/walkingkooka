@@ -25,7 +25,7 @@ import java.time.temporal.TemporalAccessor;
 /**
  * A {@link Parser} that uses a {@link DateTimeFormatter} to parse a {@link LocalTime}.
  */
-final class LocalTimeDateTimeFormatterParser<C extends ParserContext> extends LocalDateTimeFormatterParser<C>{
+final class LocalTimeDateTimeFormatterParser<C extends ParserContext> extends LocalDateTimeFormatterParser<C> {
 
     static <C extends ParserContext> LocalTimeDateTimeFormatterParser<C> with(final DateTimeFormatter formatter, final String pattern) {
         return new LocalTimeDateTimeFormatterParser<>(formatter, pattern);
@@ -41,7 +41,7 @@ final class LocalTimeDateTimeFormatterParser<C extends ParserContext> extends Lo
     }
 
     @Override
-    void time(final char c, final String pattern){
+    void time(final char c, final String pattern) {
         // ok!
     }
 

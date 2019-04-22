@@ -38,7 +38,7 @@ final class LocalTimeDoubleConverter extends LocalTimeConverter<Double> {
 
     @Override
     Double convert3(final long seconds, final long nano, final LocalTime localTime) {
-        return Double.valueOf((double)seconds + (double)nano / Converters.NANOS_PER_SECOND);
+        return Double.valueOf((double) seconds + (double) nano / Converters.NANOS_PER_SECOND);
     }
 
     @Override

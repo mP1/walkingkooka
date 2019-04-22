@@ -59,7 +59,7 @@ public final class XmlCommentTest extends XmlTextNodeTestCase<XmlComment> {
 
     @Test
     public void testToString() {
-        this.toStringAndCheck( this.createNode("123"), "<!--123-->");
+        this.toStringAndCheck(this.createNode("123"), "<!--123-->");
     }
 
     @Override

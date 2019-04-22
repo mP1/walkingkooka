@@ -55,7 +55,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
     @Test
     public void testCell2() {
         final String text = "AA678";
-        final SpreadsheetCellReferenceParserToken cell = this.cell(26, "AA", 678-1);
+        final SpreadsheetCellReferenceParserToken cell = this.cell(26, "AA", 678 - 1);
 
         this.cellReferenceParseAndCheck(text, cell, text);
     }
@@ -222,7 +222,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
         final String labelText = "Hello";
         final String groupText = "(  " + labelText + "  )";
 
-        final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(openParenthesis(), whitespace(),  label(labelText), whitespace(), closeParenthesis()), groupText);
+        final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(openParenthesis(), whitespace(), label(labelText), whitespace(), closeParenthesis()), groupText);
 
         this.parseAndCheck(groupText, group, groupText);
     }
@@ -579,7 +579,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
     public void testComplexExpression() {
         //111+222+(-333)-444*555
         final String addText = "111+222";
-        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(bigDecimal(111), plus(),  bigDecimal(222)), addText);
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(bigDecimal(111), plus(), bigDecimal(222)), addText);
 
         final String groupText = "(-333)";
         final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(openParenthesis(), negative(bigDecimal(333)), closeParenthesis()), groupText);
@@ -588,7 +588,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
         final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(add, plus(), group), addText2);
 
         final String multiplyText = "444*555";
-        final SpreadsheetMultiplicationParserToken multiply = SpreadsheetParserToken.multiplication(Lists.of(bigDecimal(444), multiply(),  bigDecimal(555)), multiplyText);
+        final SpreadsheetMultiplicationParserToken multiply = SpreadsheetParserToken.multiplication(Lists.of(bigDecimal(444), multiply(), bigDecimal(555)), multiplyText);
 
         final String subText = addText2 + "-" + multiplyText;
         final SpreadsheetSubtractionParserToken sub = SpreadsheetParserToken.subtraction(Lists.of(add2, minus(), multiply), subText);
@@ -784,13 +784,13 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
         return SpreadsheetParserContexts.basic(this.decimalNumberContext());
     }
 
-    private SpreadsheetParserToken bigDecimal(final int value){
+    private SpreadsheetParserToken bigDecimal(final int value) {
         return SpreadsheetParserToken.bigDecimal(BigDecimal.valueOf(value), String.valueOf(value));
     }
 
     private SpreadsheetCellReferenceParserToken cell(final int column, final String columnText, final int row) {
         final SpreadsheetParserToken columnToken = SpreadsheetParserToken.columnReference(SpreadsheetColumnReference.with(column, SpreadsheetReferenceKind.RELATIVE), columnText);
-        final SpreadsheetParserToken rowToken = SpreadsheetParserToken.rowReference(SpreadsheetRowReference.with(row, SpreadsheetReferenceKind.RELATIVE), String.valueOf(1+row));
+        final SpreadsheetParserToken rowToken = SpreadsheetParserToken.rowReference(SpreadsheetRowReference.with(row, SpreadsheetReferenceKind.RELATIVE), String.valueOf(1 + row));
         return SpreadsheetParserToken.cellReference(Lists.of(columnToken, rowToken), columnToken.text() + rowToken.text());
     }
 
@@ -802,7 +802,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
         return SpreadsheetParserToken.labelName(SpreadsheetLabelName.with(label), label);
     }
 
-    private SpreadsheetParserToken negative(final SpreadsheetParserToken number){
+    private SpreadsheetParserToken negative(final SpreadsheetParserToken number) {
         return SpreadsheetParserToken.negative(Lists.of(minus(), number), "-" + number.text());
     }
 
@@ -829,7 +829,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
     private SpreadsheetParserToken greaterThan() {
         return SpreadsheetParserToken.greaterThanSymbol(">", ">");
     }
-    
+
     private SpreadsheetParserToken greaterThanEquals() {
         return SpreadsheetParserToken.greaterThanEqualsSymbol(">=", ">=");
     }
@@ -841,7 +841,7 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
     private SpreadsheetParserToken lessThanEquals() {
         return SpreadsheetParserToken.lessThanEqualsSymbol("<=", "<=");
     }
-    
+
     private SpreadsheetParserToken minus() {
         return SpreadsheetParserToken.minusSymbol("-", "-");
     }

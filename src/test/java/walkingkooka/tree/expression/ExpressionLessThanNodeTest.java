@@ -76,9 +76,9 @@ public final class ExpressionLessThanNodeTest extends ExpressionComparisonBinary
         }.accept(lt);
         assertEquals("1315215242", b.toString());
         assertEquals(Lists.of(lt, lt,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        lt, lt),
+                text1, text1, text1,
+                text2, text2, text2,
+                lt, lt),
                 visited,
                 "visited");
     }
@@ -488,14 +488,14 @@ public final class ExpressionLessThanNodeTest extends ExpressionComparisonBinary
         // left lt right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(-99)), false);
     }
-    
+
     @Override
     ExpressionLessThanNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionLessThanNode.with(left, right);
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + "<" + RIGHT_TO_STRING;
     }
 

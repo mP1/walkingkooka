@@ -31,7 +31,7 @@ import java.io.File;
 public final class FilesystemNodeName implements Name,
         Comparable<FilesystemNodeName> {
 
-    static CaseSensitivity fileSystemCaseSensitivity(){
+    static CaseSensitivity fileSystemCaseSensitivity() {
         final String name = "lowercase";
         File lowercase = new File(name);
         File uppercase = new File(name.toUpperCase());
@@ -74,8 +74,8 @@ public final class FilesystemNodeName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof FilesystemNodeName &&
-               this.equals0(Cast.to(other));
+                other instanceof FilesystemNodeName &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final FilesystemNodeName other) {

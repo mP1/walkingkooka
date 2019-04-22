@@ -44,11 +44,11 @@ final class ParserTokenParentNodeList extends AbstractList<ParserTokenNode> {
     @Override
     public ParserTokenNode get(final int index) {
         ParserTokenNode node = this.nodes[index];
-        if(null==node) {
+        if (null == node) {
             node = ParserTokenNode.with(this.parent.valueAsList().get(index),
                     this.parent.childrenParent,
                     index);
-            this.nodes[index]=node;
+            this.nodes[index] = node;
         }
         return node;
     }

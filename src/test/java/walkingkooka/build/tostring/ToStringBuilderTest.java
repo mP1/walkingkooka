@@ -39,7 +39,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     private final static Object NULL = null;
 
     private final static String FULL = "1234567890";
-    
+
     // tests
 
     @Test
@@ -304,7 +304,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
         builder.separator("");
 
         builder.valueLength(4);
-        builder.value(new byte[]{'A','B', 'C', 'D', 'E'});
+        builder.value(new byte[]{'A', 'B', 'C', 'D', 'E'});
         assertEquals("4142", builder.build());
     }
 

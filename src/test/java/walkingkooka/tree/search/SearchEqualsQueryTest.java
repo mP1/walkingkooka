@@ -37,7 +37,7 @@ public final class SearchEqualsQueryTest extends SearchValueComparisonLeafQueryT
     public final void testBigDecimalEqual() {
         final SearchBigDecimalNode node = this.bigDecimalNode(VALUE);
         final SearchQuery query = this.bigDecimalQueryValue(VALUE).equalsQuery();
-        
+
         this.querySelectAndCheck(query, node, node.selected());
     }
 
@@ -457,7 +457,7 @@ public final class SearchEqualsQueryTest extends SearchValueComparisonLeafQueryT
 
         this.querySelectAndCheck(query, node, node.selected());
     }
-    
+
     // LocalTime......................................................................................
 
     @Test
@@ -534,7 +534,7 @@ public final class SearchEqualsQueryTest extends SearchValueComparisonLeafQueryT
         final SearchQuery query = this.localTimeQueryValue(TIME).equalsQuery();
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, lt, eq, gt, after, bigDecimalNode, bigIntegerNode, doubleNode, dateNode, dateTimeNode, longNode, textNode),
-                this.sequenceNode(before, lt, eq.selected(), gt, after,bigDecimalNode, bigIntegerNode, doubleNode, dateNode, dateTimeNode, longNode, textNode
+                this.sequenceNode(before, lt, eq.selected(), gt, after, bigDecimalNode, bigIntegerNode, doubleNode, dateNode, dateTimeNode, longNode, textNode
                 ));
     }
 
@@ -696,7 +696,7 @@ public final class SearchEqualsQueryTest extends SearchValueComparisonLeafQueryT
 
         this.querySelectAndCheck(query, node, node.selected());
     }
-    
+
     // Text Insensitive.................................................................................................
 
     @Test

@@ -61,7 +61,7 @@ public final class BigIntegerParserTokenTest extends ParserTokenTestCase<BigInte
         }.accept(token);
         assertEquals("132", b.toString());
     }
-    
+
     @Test
     public void testIgnoresPrefix() {
         BigIntegerParserToken.with(BigInteger.valueOf(123), "+123");

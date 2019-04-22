@@ -26,7 +26,7 @@ public final class PojoObjectNodeChildrenValueListTest extends PojoNodeListTestC
     @Override
     List<Object> createList(final List<Object> components) {
         return PojoNode.wrap(PojoName.property("root"),
-                new TestBean((String)components.get(0), (String)components.get(1)),
+                new TestBean((String) components.get(0), (String) components.get(1)),
                 new ReflectionPojoNodeContext())
                 .childrenValues();
     }
@@ -43,16 +43,19 @@ public final class PojoObjectNodeChildrenValueListTest extends PojoNodeListTestC
 
     static class TestBean {
 
-        TestBean(final String x, final String y){
+        TestBean(final String x, final String y) {
             this.x = x;
             this.y = y;
         }
 
         private final String x;
-        public String getX(){
+
+        public String getX() {
             return this.x;
         }
+
         private final String y;
+
         public String getY() {
             return this.y;
         }

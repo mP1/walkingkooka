@@ -51,7 +51,7 @@ abstract class SearchComparableQueryValueSearchQueryTester<T extends Comparable<
 
     private boolean equals2(final SearchComparableQueryValueSearchQueryTester other) {
         return this.predicate == other.predicate &&
-               this.equals3(other);
+                this.equals3(other);
     }
 
     abstract boolean equals3(final SearchComparableQueryValueSearchQueryTester other);

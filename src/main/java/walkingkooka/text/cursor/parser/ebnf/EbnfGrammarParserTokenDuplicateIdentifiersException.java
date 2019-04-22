@@ -32,7 +32,7 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersException extends E
         super(message);
 
         Objects.requireNonNull(duplicates, "duplicates");
-        if(duplicates.isEmpty()) {
+        if (duplicates.isEmpty()) {
             throw new IllegalArgumentException("Duplicates is empty");
         }
         this.duplicates = duplicates;

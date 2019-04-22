@@ -94,7 +94,7 @@ public final class RelativeNodePointerTest extends NodePointerTestCase2<Relative
 
     @Test
     public final void testEqualsHash() {
-        this.checkNotEquals(RelativeNodePointer.with(1, ! NO_HASH));
+        this.checkNotEquals(RelativeNodePointer.with(1, !NO_HASH));
     }
 
     @Test

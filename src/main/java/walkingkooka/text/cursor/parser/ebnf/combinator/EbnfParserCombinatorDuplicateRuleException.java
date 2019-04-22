@@ -43,6 +43,6 @@ public class EbnfParserCombinatorDuplicateRuleException extends EbnfParserCombin
 
     private final EbnfRuleParserToken duplicate;
 
-    
+
     private final static long serialVersionUID = 1L;
 }

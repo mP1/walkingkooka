@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTestCase<ExpressionFunctionNode>{
+public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTestCase<ExpressionFunctionNode> {
 
     @Test
     public void testWithNullNameFails() {
@@ -108,10 +108,10 @@ public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTest
         }.accept(function);
         assertEquals("1315215215242", b.toString());
         assertEquals(Lists.of(function, function,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        text3, text3, text3,
-                        function, function),
+                text1, text1, text1,
+                text2, text2, text2,
+                text3, text3, text3,
+                function, function),
                 visited,
                 "visited");
     }

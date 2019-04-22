@@ -93,8 +93,8 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof DecimalFormatStringConverterSymbols &&
-               this.equals0(Cast.to(other));
+                other instanceof DecimalFormatStringConverterSymbols &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final DecimalFormatStringConverterSymbols other) {

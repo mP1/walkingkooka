@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * The parser token for a time with the value contained in a {@link LocalTime}.
  */
-public final class LocalTimeParserToken extends ParserToken2<LocalTime> implements LeafParserToken<LocalTime>{
+public final class LocalTimeParserToken extends ParserToken2<LocalTime> implements LeafParserToken<LocalTime> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LocalTimeParserToken.class);
 
@@ -40,7 +40,7 @@ public final class LocalTimeParserToken extends ParserToken2<LocalTime> implemen
     }
 
     @Override
-    public LocalTimeParserToken setText(final String text){
+    public LocalTimeParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -55,7 +55,7 @@ public final class LocalTimeParserToken extends ParserToken2<LocalTime> implemen
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -72,7 +72,7 @@ public final class LocalTimeParserToken extends ParserToken2<LocalTime> implemen
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.localTime(this.text(), this.value());
     }
 }

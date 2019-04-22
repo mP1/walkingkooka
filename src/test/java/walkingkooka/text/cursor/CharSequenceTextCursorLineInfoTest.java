@@ -73,7 +73,7 @@ final public class CharSequenceTextCursorLineInfoTest implements ClassTesting2<C
                                   final int column) {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with(text, pos);
         assertEquals(lineNumber, info.lineNumber(), "lineNumber=" + info);
-        assertEquals(column, info.column(),"column()=" + info);
+        assertEquals(column, info.column(), "column()=" + info);
         assertEquals(line, info.text(), "text()=" + info);
     }
 

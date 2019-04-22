@@ -311,7 +311,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 ReplaceNodePatch.class,
                 TestNodePatch.class);
     }
-    
+
     @Override
     public final JsonArrayNode toJsonNode() {
         return this.toJsonNode0(NodePatchToJsonFormat.HAS_JSON_NODE);

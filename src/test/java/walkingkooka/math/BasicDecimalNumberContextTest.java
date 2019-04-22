@@ -30,7 +30,7 @@ public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicD
     @Test
     public void testWithNullCurrencySymbol() {
         assertThrows(NullPointerException.class, () -> {
-            BasicDecimalNumberContext.with(null, '.', 'E', ',', '-', '%','+');
+            BasicDecimalNumberContext.with(null, '.', 'E', ',', '-', '%', '+');
         });
     }
 
@@ -53,7 +53,7 @@ public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicD
 
     @Override
     public BasicDecimalNumberContext createContext() {
-        return BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%','+');
+        return BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%', '+');
     }
 
     @Override

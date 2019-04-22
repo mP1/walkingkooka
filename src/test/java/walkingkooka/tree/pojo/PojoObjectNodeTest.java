@@ -87,7 +87,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         final TestMutableLeaf value = new TestMutableLeaf(STRING0);
         final PojoObjectNode node = this.createPojoNode(value);
         final PojoNode node2 = node.setChildren(Lists.of(
-            node.createNode(X, STRING1)
+                node.createNode(X, STRING1)
         ));
 
         assertSame(node, node2);
@@ -237,7 +237,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         return children0(firstNode, STRING2);
     }
 
-    private List<PojoNode> children0(final PojoObjectNode firstNode, final String x){
+    private List<PojoNode> children0(final PojoObjectNode firstNode, final String x) {
         return Lists.of(firstNode.createNode(X, x));
     }
 
@@ -249,15 +249,15 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
     static class TestImmutableLeaf {
         final String x;
 
-        TestImmutableLeaf(final String x){
+        TestImmutableLeaf(final String x) {
             this.x = x;
         }
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
 
-        public TestImmutableLeaf setX(final String x){
+        public TestImmutableLeaf setX(final String x) {
             return new TestImmutableLeaf(x);
         }
 
@@ -268,7 +268,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestImmutableLeaf && equals0((TestImmutableLeaf)other);
+            return other instanceof TestImmutableLeaf && equals0((TestImmutableLeaf) other);
         }
 
         private boolean equals0(final TestImmutableLeaf other) {
@@ -276,36 +276,36 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "x=" + this.getX();
         }
     }
 
     static class TestImmutableBranch {
 
-        TestImmutableBranch(final TestImmutableLeaf y, final TestImmutableBranch z){
+        TestImmutableBranch(final TestImmutableLeaf y, final TestImmutableBranch z) {
             this.y = y;
             this.z = z;
         }
 
         final TestImmutableLeaf y;
 
-        public TestImmutableLeaf getY(){
+        public TestImmutableLeaf getY() {
             return this.y;
         }
 
-        public TestImmutableBranch setY(final TestImmutableLeaf y){
-            return Objects.equals(this.y, y) ? this: new TestImmutableBranch(y, this.z);
+        public TestImmutableBranch setY(final TestImmutableLeaf y) {
+            return Objects.equals(this.y, y) ? this : new TestImmutableBranch(y, this.z);
         }
 
         final TestImmutableBranch z;
 
-        public TestImmutableBranch getZ(){
+        public TestImmutableBranch getZ() {
             return this.z;
         }
 
-        public TestImmutableBranch setZ(final TestImmutableBranch z){
-            return Objects.equals(this.z, z) ? this: new TestImmutableBranch(this.y, z);
+        public TestImmutableBranch setZ(final TestImmutableBranch z) {
+            return Objects.equals(this.z, z) ? this : new TestImmutableBranch(this.y, z);
         }
 
         @Override
@@ -315,7 +315,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestImmutableBranch && equals0((TestImmutableBranch)other);
+            return other instanceof TestImmutableBranch && equals0((TestImmutableBranch) other);
         }
 
         private boolean equals0(final TestImmutableBranch other) {
@@ -323,7 +323,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "y=" + this.getY() + "z=" + this.getZ();
         }
     }
@@ -331,15 +331,15 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
     static class TestMutableLeaf {
         String x;
 
-        TestMutableLeaf(final String x){
+        TestMutableLeaf(final String x) {
             this.setX(x);
         }
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
 
-        public void setX(final String x){
+        public void setX(final String x) {
             this.x = x;
         }
 
@@ -350,7 +350,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestMutableLeaf && equals0((TestMutableLeaf)other);
+            return other instanceof TestMutableLeaf && equals0((TestMutableLeaf) other);
         }
 
         private boolean equals0(final TestMutableLeaf other) {
@@ -358,35 +358,35 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "x=" + this.getX();
         }
     }
 
     static class TestMutableBranch {
 
-        TestMutableBranch(final TestMutableLeaf y, final TestMutableLeaf z){
+        TestMutableBranch(final TestMutableLeaf y, final TestMutableLeaf z) {
             this.y = y;
             this.z = z;
         }
 
         TestMutableLeaf y;
 
-        public TestMutableLeaf getY(){
+        public TestMutableLeaf getY() {
             return this.y;
         }
 
-        public void setY(final TestMutableLeaf y){
+        public void setY(final TestMutableLeaf y) {
             this.y = y;
         }
 
         TestMutableLeaf z;
 
-        public TestMutableLeaf getZ(){
+        public TestMutableLeaf getZ() {
             return this.z;
         }
 
-        public void setZ(final TestMutableLeaf z){
+        public void setZ(final TestMutableLeaf z) {
             this.z = z;
         }
 
@@ -397,7 +397,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestMutableBranch && equals0((TestMutableBranch)other);
+            return other instanceof TestMutableBranch && equals0((TestMutableBranch) other);
         }
 
         private boolean equals0(final TestMutableBranch other) {
@@ -405,7 +405,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "y=" + this.getY() + "z=" + this.getZ();
         }
     }

@@ -25,6 +25,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
+
 /**
  * A division expression.
  */
@@ -34,12 +35,12 @@ public final class ExpressionDivisionNode extends ExpressionArithmeticBinaryNode
 
     public final static String SYMBOL = "/";
 
-    static ExpressionDivisionNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionDivisionNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionDivisionNode(NO_INDEX, left, right);
     }
 
-    private ExpressionDivisionNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionDivisionNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -97,8 +98,8 @@ public final class ExpressionDivisionNode extends ExpressionArithmeticBinaryNode
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

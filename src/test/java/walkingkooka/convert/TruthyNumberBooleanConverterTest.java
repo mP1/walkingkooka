@@ -106,11 +106,11 @@ public final class TruthyNumberBooleanConverterTest implements ClassTesting2<Tru
     // helper............................................................................................................
 
     private void convertAndCheckTrue(final Number number) {
-        this.convertAndCheck2(number,true);
+        this.convertAndCheck2(number, true);
     }
 
     private void convertAndCheckFalse(final Number number) {
-        this.convertAndCheck2(number,false);
+        this.convertAndCheck2(number, false);
     }
 
     private void convertAndCheck2(final Number number, final boolean expected) {

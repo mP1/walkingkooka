@@ -40,31 +40,31 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
                 computeWithout(value);
     }
 
-    private Optional<EbnfParserToken> computeWithout(final List<ParserToken> value){
+    private Optional<EbnfParserToken> computeWithout(final List<ParserToken> value) {
         final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
 
-        return Optional.of(value.size()==without.size() ?
+        return Optional.of(value.size() == without.size() ?
                 this :
                 this.replace(without, this.text(), without));
     }
 
     final void checkOnlyOneToken() {
         final int count = this.tokenCount();
-        if(count != 1) {
+        if (count != 1) {
             throw new IllegalArgumentException("Expected 1 token(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
         }
     }
 
     final void checkAtLeastTwoTokens() {
         final int count = this.tokenCount();
-        if(count < 2) {
+        if (count < 2) {
             throw new IllegalArgumentException("Expected at least 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
         }
     }
 
     final void checkOnlyTwoTokens() {
         final int count = this.tokenCount();
-        if(count != 2) {
+        if (count != 2) {
             throw new IllegalArgumentException("Expected 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
         }
     }
@@ -93,7 +93,7 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
     final List<ParserToken> value;
 
     @Override
-    public final Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+    public final Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return this.without;
     }
 
@@ -102,8 +102,7 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
      */
     final Optional<EbnfParserToken> without;
 
-    @Override
-    final EbnfParserToken replaceText(final String text) {
+    @Override final EbnfParserToken replaceText(final String text) {
         return this.replace(this.value, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -138,14 +137,13 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
         return false;
     }
 
-    final void acceptValues(final EbnfParserTokenVisitor visitor){
-        for(ParserToken token: this.value()){
+    final void acceptValues(final EbnfParserTokenVisitor visitor) {
+        for (ParserToken token : this.value()) {
             visitor.accept(token);
         }
     }
 
-    @Override
-    final boolean equals1(final EbnfParserToken other) {
+    @Override final boolean equals1(final EbnfParserToken other) {
         return this.equals2(Cast.to(other));
     }
 

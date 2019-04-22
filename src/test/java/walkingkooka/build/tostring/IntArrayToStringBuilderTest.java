@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public class IntArrayToStringBuilderTest extends VectorToStringBuilderTestCase<int[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value(new int[]{0, 1, 2});

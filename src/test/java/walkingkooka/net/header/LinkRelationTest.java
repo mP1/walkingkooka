@@ -74,7 +74,7 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
 
     @Override
     LinkRelation<Object> createLinkRelation(final Object value) {
-        return Cast.to(LinkRelation.with((String)value));
+        return Cast.to(LinkRelation.with((String) value));
     }
 
     @Override

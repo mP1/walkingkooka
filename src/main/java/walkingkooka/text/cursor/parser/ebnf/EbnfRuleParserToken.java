@@ -39,8 +39,8 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
     }
 
     private EbnfRuleParserToken(final List<ParserToken> tokens,
-                        final String text,
-                        final List<ParserToken> valueWithout) {
+                                final String text,
+                                final List<ParserToken> valueWithout) {
         super(tokens, text, valueWithout);
 
         final EbnfRuleParserTokenConsumer checker = new EbnfRuleParserTokenConsumer();
@@ -50,11 +50,11 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
                 .forEach(checker);
 
         final EbnfIdentifierParserToken identifier = checker.identifier;
-        if(null==identifier){
+        if (null == identifier) {
             throw new IllegalArgumentException("Rule missing Identifier on lhs=" + text);
         }
         final EbnfParserToken token = checker.token;
-        if(null==token){
+        if (null == token) {
             throw new IllegalArgumentException("Rule missing Token on rhs=" + text);
         }
 
@@ -138,7 +138,7 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
 
     @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

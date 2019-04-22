@@ -33,7 +33,7 @@ final class LongParser<C extends ParserContext> extends Parser2<C> {
      * Factory that creates a {@link LongParser}
      */
     static <C extends ParserContext> LongParser<C> with(final int radix) {
-        if(radix <= 0) {
+        if (radix <= 0) {
             throw new IllegalArgumentException("Radix " + radix + " must be > 0");
         }
 
@@ -55,7 +55,7 @@ final class LongParser<C extends ParserContext> extends Parser2<C> {
         final char minusSign = context.minusSign();
         final char plusSign = context.plusSign();
 
-        LongParserToken token ;
+        LongParserToken token;
 
         final int radix = this.radix;
         long number = 0;
@@ -63,8 +63,8 @@ final class LongParser<C extends ParserContext> extends Parser2<C> {
         boolean overflow = false;
         boolean signed = false;
 
-        for(;;){
-            if(cursor.isEmpty()) {
+        for (; ; ) {
+            if (cursor.isEmpty()) {
                 token = empty ?
                         null :
                         this.createToken(number, save);
@@ -72,20 +72,20 @@ final class LongParser<C extends ParserContext> extends Parser2<C> {
             }
 
             char c = cursor.at();
-            if(empty && 10 == this.radix) {
-                if(minusSign == c){
+            if (empty && 10 == this.radix) {
+                if (minusSign == c) {
                     signed = true;
                     cursor.next();
                     continue;
                 }
-                if(plusSign == c){
+                if (plusSign == c) {
                     signed = false;
                     cursor.next();
                     continue;
                 }
             }
             final int digit = Character.digit(c, radix);
-            if(-1 == digit){
+            if (-1 == digit) {
                 token = empty ?
                         null :
                         this.createToken(number, save);
@@ -98,20 +98,20 @@ final class LongParser<C extends ParserContext> extends Parser2<C> {
                 number = signed ?
                         Math.subtractExact(number, digit) :
                         Math.addExact(number, digit);
-            } catch ( final ArithmeticException cause) {
+            } catch (final ArithmeticException cause) {
                 overflow = true;
             }
             cursor.next();
         }
 
-        if(overflow) {
+        if (overflow) {
             throw new ParserException("Number overflow " + CharSequences.quote(save.textBetween()));
         }
 
         return Optional.ofNullable(token);
     }
 
-    private LongParserToken createToken(final Long value, final TextCursorSavePoint save){
+    private LongParserToken createToken(final Long value, final TextCursorSavePoint save) {
         return LongParserToken.with(value,
                 save.textBetween().toString());
     }
@@ -121,6 +121,6 @@ final class LongParser<C extends ParserContext> extends Parser2<C> {
     @Override
     public String toString() {
         final int radix = this.radix;
-        return 10 == radix ? "Long" : "Long(base=" + radix+ ")";
+        return 10 == radix ? "Long" : "Long(base=" + radix + ")";
     }
 }

@@ -59,10 +59,10 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
         Objects.requireNonNull(path, "path");
 
         return path.isEmpty() ?
-               EMPTY :
-               path.equals(SEPARATOR.string()) ?
-               ROOT :
-               parse0(path);
+                EMPTY :
+                path.equals(SEPARATOR.string()) ?
+                        ROOT :
+                        parse0(path);
     }
 
     /**
@@ -70,8 +70,8 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
      */
     private static UrlPath parse0(final String value) {
         return parse1(value,
-               value.charAt(0) == SEPARATOR.character() ? 1 : 0,
-               ROOT);
+                value.charAt(0) == SEPARATOR.character() ? 1 : 0,
+                ROOT);
     }
 
     private static UrlPath parse1(final String value, final int start, final UrlPath parent) {
@@ -81,15 +81,15 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
         final int length = value.length();
         int s = start;
 
-        for(;;) {
+        for (; ; ) {
             final int end = value.indexOf(separator, s);
-            if(-1 == end) {
+            if (-1 == end) {
                 path = path.append(UrlPathName.with(value.substring(s, length)));
                 break;
             }
             path = path.append(UrlPathName.with(value.substring(s, end)));
             s = end + 1;
-            if(start >= length) {
+            if (start >= length) {
                 break;
             }
         }
@@ -135,7 +135,7 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
 
         UrlPath result = this;
 
-        for (;;) {
+        for (; ; ) {
             if (this.isEmpty()) {
                 result = path;
                 break;
@@ -224,8 +224,8 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof UrlPath &&
-               this.equals0((UrlPath) other);
+                other instanceof UrlPath &&
+                        this.equals0((UrlPath) other);
     }
 
     private boolean equals0(final UrlPath other) {

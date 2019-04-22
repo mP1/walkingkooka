@@ -73,7 +73,7 @@ public interface HashCodeEqualsDefinedTesting<T extends HashCodeEqualsDefined> e
 
     default void checkEquals(final Object expected, final Object actual) {
         assertNotNull(expected, "Expected is null");
-        assertNotNull(actual,"Actual is null");
+        assertNotNull(actual, "Actual is null");
 
         if (false == expected.equals(actual)) {
             assertEquals(expected, actual);

@@ -96,10 +96,10 @@ final public class CharSequencesTest implements ClassTesting2<CharSequences>,
     @Test
     public void testBigEndianHexDigitsManyDigits2() {
         this.bigEndianHexDigitsAndCheck("1234567890abcdef",
-                (byte)0x12, (byte)0x34, (byte)0x56, (byte)0x78, (byte) 0x90, (byte) 0xab, (byte) 0xcd, (byte) 0xef);
+                (byte) 0x12, (byte) 0x34, (byte) 0x56, (byte) 0x78, (byte) 0x90, (byte) 0xab, (byte) 0xcd, (byte) 0xef);
     }
 
-    private void bigEndianHexDigitsAndCheck(final String hexDigits, final byte...expected) {
+    private void bigEndianHexDigitsAndCheck(final String hexDigits, final byte... expected) {
         final byte[] bytes = CharSequences.bigEndianHexDigits(hexDigits);
         if (false == Arrays.equals(expected, bytes)) {
             assertEquals("from " + CharSequences.quote(hexDigits),
@@ -336,10 +336,10 @@ final public class CharSequencesTest implements ClassTesting2<CharSequences>,
     private void escapeUnescapeAndCheck(final CharSequence chars, final String expected) {
         assertEquals(expected,
                 CharSequences.escape(chars).toString(),
-                ()-> "escape " + CharSequences.quote(chars));
+                () -> "escape " + CharSequences.quote(chars));
         assertEquals(chars.toString(),
                 CharSequences.unescape(expected),
-                ()->"unescape " + CharSequences.quote(chars));
+                () -> "unescape " + CharSequences.quote(chars));
     }
 
     // indexOf....................................................................
@@ -476,7 +476,7 @@ final public class CharSequencesTest implements ClassTesting2<CharSequences>,
     }
 
     private void isNullOrEmptyAndCheck(final CharSequence chars, final boolean result) {
-        assertEquals(CharSequences.isNullOrEmpty(chars), result, ()-> chars + " isNullOrEmpty");
+        assertEquals(CharSequences.isNullOrEmpty(chars), result, () -> chars + " isNullOrEmpty");
     }
 
     // padLeft................................................
@@ -1070,7 +1070,7 @@ final public class CharSequencesTest implements ClassTesting2<CharSequences>,
 
     private void trimLeftAndCheck(final CharSequence input, final CharSequence expected) {
         final CharSequence actual = CharSequences.trimLeft(input);
-        assertEquals(expected, actual, ()-> "trimming of " + CharSequences.quote(input.toString()));
+        assertEquals(expected, actual, () -> "trimming of " + CharSequences.quote(input.toString()));
     }
 
     // trimRight ............................................................................................
@@ -1104,7 +1104,7 @@ final public class CharSequencesTest implements ClassTesting2<CharSequences>,
 
     private void trimRightAndCheck(final CharSequence input, final CharSequence expected) {
         final CharSequence actual = CharSequences.trimRight(input);
-        assertEquals(expected, actual, ()-> "trimming of " + CharSequences.quote(input.toString()));
+        assertEquals(expected, actual, () -> "trimming of " + CharSequences.quote(input.toString()));
     }
 
     @Override

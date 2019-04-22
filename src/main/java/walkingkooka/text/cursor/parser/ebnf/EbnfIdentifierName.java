@@ -91,7 +91,7 @@ final public class EbnfIdentifierName implements Name,
     public boolean equals(final Object other) {
         return (this == other) ||
                 other instanceof EbnfIdentifierName &&
-                this.equals0((EbnfIdentifierName) other);
+                        this.equals0((EbnfIdentifierName) other);
     }
 
     private boolean equals0(final EbnfIdentifierName other) {

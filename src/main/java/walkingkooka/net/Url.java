@@ -172,8 +172,8 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
         final int slash = url.indexOf('/');
 
         return -1 != colon && colon < slash ?
-               parseAbsolute(url) :
-               parseRelative(url);
+                parseAbsolute(url) :
+                parseRelative(url);
     }
 
     /**
@@ -182,7 +182,7 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
     public static AbsoluteUrl parseAbsolute(final String url) {
         return AbsoluteUrl.parse(url);
     }
-    
+
     /**
      * Parses a {@link String url} into a {@link RelativeUrl}
      */
@@ -278,12 +278,12 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
      * Would be setter that returns a {@link Url} with the given path creating a new instance if necessary.
      */
     abstract public Url setPath(final UrlPath path);
-    
+
     final Url setPath0(final UrlPath path) {
         Objects.requireNonNull(path, "path");
         return this.path.equals(path) ?
-               this :
-               this.replace(path, this.query, this.fragment);
+                this :
+                this.replace(path, this.query, this.fragment);
     }
 
     final UrlPath path;

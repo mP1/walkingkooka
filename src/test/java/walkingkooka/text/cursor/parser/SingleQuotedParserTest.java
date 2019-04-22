@@ -36,7 +36,7 @@ public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuo
     }
 
     @Override
-    char otherQuoteChar(){
+    char otherQuoteChar() {
         return '"';
     }
 

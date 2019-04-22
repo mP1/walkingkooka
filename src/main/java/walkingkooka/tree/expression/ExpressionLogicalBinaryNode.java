@@ -25,7 +25,7 @@ import java.math.BigInteger;
  */
 abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
 
-    ExpressionLogicalBinaryNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    ExpressionLogicalBinaryNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -99,10 +99,9 @@ abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
                 .toValue(context);
     }
 
-    @Override
-    final ExpressionNode apply(final ExpressionNode left,
-                               final ExpressionNode right,
-                               final ExpressionEvaluationContext context) {
+    @Override final ExpressionNode apply(final ExpressionNode left,
+                                         final ExpressionNode right,
+                                         final ExpressionEvaluationContext context) {
         ExpressionNode result;
 
         try {

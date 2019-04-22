@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 public final class DoubleWrapperArrayToStringBuilderTest extends VectorToStringBuilderTestCase<Double[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value(new Double[]{0.0, 1.0, 2.0});

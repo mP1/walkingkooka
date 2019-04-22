@@ -55,7 +55,7 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
             final HttpStatus status = code.status();
             assertSame(status, code.status(), "status not cached");
             assertSame(code, status.value(), "code");
-            assertNotEquals( "", status.message(), "message");
+            assertNotEquals("", status.message(), "message");
         }
     }
 

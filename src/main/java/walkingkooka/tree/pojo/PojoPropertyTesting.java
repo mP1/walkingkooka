@@ -28,19 +28,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public interface PojoPropertyTesting<P extends PojoProperty> extends ToStringTesting<P>,
         TypeNameTesting<P> {
 
-    default void getAndCheck(final Object instance, final Object value){
+    default void getAndCheck(final Object instance, final Object value) {
         this.getAndCheck(this.createPojoProperty(), instance, value);
     }
 
-    default void getAndCheck(final P property, final Object instance, final Object value){
-        assertEquals(value, property.get(instance), ()-> "wrong value returned when calling " + property + " get");
+    default void getAndCheck(final P property, final Object instance, final Object value) {
+        assertEquals(value, property.get(instance), () -> "wrong value returned when calling " + property + " get");
     }
 
-    default Object setAndCheck(final Object instance, final Object value){
+    default Object setAndCheck(final Object instance, final Object value) {
         return this.setAndCheck(this.createPojoProperty(), instance, value);
     }
 
-    default Object setAndCheck(final P property, final Object instance, final Object value){
+    default Object setAndCheck(final P property, final Object instance, final Object value) {
         return property.set(instance, value);
     }
 

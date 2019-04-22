@@ -18,8 +18,8 @@
 
 package walkingkooka.tree.search;
 
-public final class SearchAndQueryContextTest extends SearchQueryContextTestCase<SearchAndQueryContext>{
-    
+public final class SearchAndQueryContextTest extends SearchQueryContextTestCase<SearchAndQueryContext> {
+
     @Override
     public Class<SearchAndQueryContext> type() {
         return SearchAndQueryContext.class;

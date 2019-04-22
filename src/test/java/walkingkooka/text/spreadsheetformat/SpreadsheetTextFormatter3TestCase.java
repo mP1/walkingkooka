@@ -47,8 +47,7 @@ public abstract class SpreadsheetTextFormatter3TestCase<F extends SpreadsheetTex
         });
     }
 
-    @Override
-    final public F createFormatter() {
+    @Override final public F createFormatter() {
         return this.createFormatter(this.pattern());
     }
 
@@ -70,7 +69,7 @@ public abstract class SpreadsheetTextFormatter3TestCase<F extends SpreadsheetTex
     }
 
     private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%','+');
+        return DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+');
     }
 
     abstract Parser<SpreadsheetFormatParserContext> parser();

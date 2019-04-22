@@ -32,7 +32,7 @@ final class FilesystemNodeAttributeMapEntrySetIterator implements Iterator<Entry
         return new FilesystemNodeAttributeMapEntrySetIterator(node);
     }
 
-    private FilesystemNodeAttributeMapEntrySetIterator(final FilesystemNode node){
+    private FilesystemNodeAttributeMapEntrySetIterator(final FilesystemNode node) {
         this.node = node;
         this.names = node.attributeNames().iterator();
     }

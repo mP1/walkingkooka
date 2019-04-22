@@ -25,8 +25,8 @@ abstract class ReflectionPojoProperty implements PojoProperty {
 
     static PojoProperty with(final PojoName name, final Method getter, final Method setter) {
         return null != setter ?
-                    ReflectionWritablePojoProperty.with(name, getter, setter) :
-                    new ReflectionReadOnlyPojoProperty(name, getter);
+                ReflectionWritablePojoProperty.with(name, getter, setter) :
+                new ReflectionReadOnlyPojoProperty(name, getter);
     }
 
     /**
@@ -55,7 +55,7 @@ abstract class ReflectionPojoProperty implements PojoProperty {
     public final Object get(final Object instance) {
         try {
             return this.getter.invoke(instance);
-        } catch ( final Exception cause) {
+        } catch (final Exception cause) {
             throw new ReflectionPojoException("Unable to get property " + this.name().inQuotes() + ", " + cause.getMessage(), cause);
         }
     }

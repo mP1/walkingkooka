@@ -252,7 +252,7 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     protected void visit(final SpreadsheetGreaterThanSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     protected void visit(final SpreadsheetGreaterThanEqualsSymbolParserToken token) {
         throw new UnsupportedOperationException();
@@ -328,17 +328,17 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void visit(final SpreadsheetRowReferenceParserToken token) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void visit(final SpreadsheetTextParserToken token) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void visit(final SpreadsheetWhitespaceParserToken token) {
         throw new UnsupportedOperationException();
     }

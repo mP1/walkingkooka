@@ -418,7 +418,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
 
     // helpers ............................................................................................................
 
-    private void parameterWithValueCheck(final UrlQueryString queryString, final String name, final String...values) {
+    private void parameterWithValueCheck(final UrlQueryString queryString, final String name, final String... values) {
         this.parameterAndCheck(queryString, name, values[0]);
         this.parameterValuesAndCheck(queryString, name, values);
         this.parametersGetAndCheck(queryString, name, values);
@@ -432,11 +432,11 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
 
     // UrlQueryString.parameter(String) -> Optional.
 
-    private void parameterAndCheck(final UrlQueryString queryString, final String key, final String value){
+    private void parameterAndCheck(final UrlQueryString queryString, final String key, final String value) {
         parameterAndCheck0(queryString, key, Optional.of(value));
     }
 
-    private void parameterAndCheck0(final UrlQueryString queryString, final String key, final Optional<String> value){
+    private void parameterAndCheck0(final UrlQueryString queryString, final String key, final Optional<String> value) {
         assertEquals(value,
                 queryString.parameter(this.name(key)),
                 "UrlQueryString.parameter(" + CharSequences.quote(key) + ") in: " + queryString);
@@ -444,11 +444,11 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
 
     // UrlQueryString.parameterValues(String) -> List<String> never null.
 
-    private void parameterValuesAndCheck(final UrlQueryString queryString, final String key, final String...values){
+    private void parameterValuesAndCheck(final UrlQueryString queryString, final String key, final String... values) {
         parameterValuesAndCheck0(queryString, key, Lists.of(values));
     }
 
-    private void parameterValuesAndCheck0(final UrlQueryString queryString, final String key, final List<String> values){
+    private void parameterValuesAndCheck0(final UrlQueryString queryString, final String key, final List<String> values) {
         assertEquals(values,
                 queryString.parameterValues(this.name(key)),
                 "UrlQueryString.parameterValues(" + CharSequences.quote(key) + ") in: " + queryString);
@@ -456,7 +456,7 @@ public final class UrlQueryStringTest implements ClassTesting2<UrlQueryString> {
 
     // UrlQueryString.parameters().get() -> List
 
-    private void parametersGetAndCheck(final UrlQueryString queryString, final String key, final String...values) {
+    private void parametersGetAndCheck(final UrlQueryString queryString, final String key, final String... values) {
         parametersGetAndCheck0(queryString, key, Lists.of(values));
     }
 

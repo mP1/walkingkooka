@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionLocalDateNodeTest extends ExpressionLeafNodeTestCase<ExpressionLocalDateNode, LocalDate>{
+public final class ExpressionLocalDateNodeTest extends ExpressionLeafNodeTestCase<ExpressionLocalDateNode, LocalDate> {
 
     private final static int VALUE = 123;
     private final String DATE_STRING = "2000-01-02";

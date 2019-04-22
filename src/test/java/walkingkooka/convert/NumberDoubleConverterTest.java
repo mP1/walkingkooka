@@ -52,12 +52,12 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
 
     @Test
     public void testByte() {
-        this.convertAndCheck((byte)123, 123.0);
+        this.convertAndCheck((byte) 123, 123.0);
     }
 
     @Test
     public void testShort() {
-        this.convertAndCheck((short)123, 123.0);
+        this.convertAndCheck((short) 123, 123.0);
     }
 
     @Test

@@ -94,7 +94,7 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
     @Override
     void replaceChildrenCheck(final List<SearchNode> children) {
         final int count = children.size();
-        if(1 != count) {
+        if (1 != count) {
             throw new IllegalArgumentException("Expected only 1 child but got " + count + "=" + children);
         }
     }
@@ -177,8 +177,8 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
     // Visitor.........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SearchNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

@@ -63,8 +63,8 @@ final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatte
 
         // predicate test result inverted because $value is on the wrong side of compare
         return this.test(value, context) ?
-               this.formatter.format(value, context) :
-               Optional.empty();
+                this.formatter.format(value, context) :
+                Optional.empty();
     }
 
     private boolean test(final T value, final SpreadsheetTextFormatContext context) {

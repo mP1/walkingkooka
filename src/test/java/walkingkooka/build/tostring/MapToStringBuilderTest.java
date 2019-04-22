@@ -34,7 +34,7 @@ public final class MapToStringBuilderTest extends VectorToStringBuilderTestCase<
         b.label(LABEL);
         b.value(Maps.of("A", "1", "B", "2", "C", "3"));
 
-        this.buildAndCheck(b, LABEL+"$A$1, B$2, C$3");
+        this.buildAndCheck(b, LABEL + "$A$1, B$2, C$3");
     }
 
     @Test
@@ -44,7 +44,7 @@ public final class MapToStringBuilderTest extends VectorToStringBuilderTestCase<
         b.label(LABEL);
         b.value(Maps.of("A", Lists.of(1, 2), "B", Lists.of(3, 4)));
 
-        this.buildAndCheck(b, LABEL+"$A$1, 2, B$3, 4");
+        this.buildAndCheck(b, LABEL + "$A$1, 2, B$3, 4");
     }
 
     @Test

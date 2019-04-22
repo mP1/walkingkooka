@@ -56,7 +56,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
         assertThrows(NullPointerException.class, () -> {
             builder.or(null);
         });
-        assertSame(PREDICATE, builder.predicate,"predicate");
+        assertSame(PREDICATE, builder.predicate, "predicate");
     }
 
     @Test
@@ -266,7 +266,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
         builder.range('E', 'E');
         this.checkPredicate(builder);
     }
-    
+
     @Test
     public void testNullStringFails() {
         final CharPredicateBuilder builder = this.createBuilder();

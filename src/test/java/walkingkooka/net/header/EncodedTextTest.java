@@ -82,9 +82,9 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
                        final CharsetName charset,
                        final Optional<LanguageTagName> language,
                        final String value) {
-        assertEquals(charset, encodedText.charset(),"charset");
-        assertEquals(language, encodedText.language(),"language");
-        assertEquals(value, encodedText.value(),"value");
+        assertEquals(charset, encodedText.charset(), "charset");
+        assertEquals(language, encodedText.language(), "language");
+        assertEquals(value, encodedText.value(), "value");
     }
 
     @Test

@@ -204,12 +204,12 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
     }
 
     default void rootCheck(final Path<?, ?> path) {
-        assertEquals(Optional.empty(), path.parent(), ()-> "path must not be root=" + path);
+        assertEquals(Optional.empty(), path.parent(), () -> "path must not be root=" + path);
         assertEquals(true, path.isRoot(), () -> "path must not be root=" + path);
     }
 
     default void rootNotCheck(final Path<?, ?> path) {
-        assertNotEquals(Optional.empty(), path.parent(), ()-> "path must not be root=" + path);
+        assertNotEquals(Optional.empty(), path.parent(), () -> "path must not be root=" + path);
         assertEquals(false, path.isRoot(), () -> "path must not be root=" + path);
     }
 

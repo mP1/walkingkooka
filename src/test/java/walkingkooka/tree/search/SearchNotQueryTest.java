@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.CaseSensitivity;
 
-public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNotQuery>{
+public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNotQuery> {
 
     @Test
     public final void testBigDecimal() {
@@ -107,7 +107,7 @@ public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNo
     SearchNotQuery createSearchQuery() {
         return SearchNotQuery.with(this.textQueryValue("query").equalsQuery(CaseSensitivity.SENSITIVE));
     }
-    
+
     @Override
     public Class<SearchNotQuery> type() {
         return SearchNotQuery.class;
