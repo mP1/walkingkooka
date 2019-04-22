@@ -47,7 +47,7 @@ public final class SequenceParserBuilderTest implements ClassTesting2<SequencePa
     }
 
     @Test
-    public void testMoreThanTwoParsers(){
+    public void testMoreThanTwoParsers() {
         this.createBuilder()
                 .optional(PARSER1)
                 .required(PARSER2)
@@ -55,7 +55,7 @@ public final class SequenceParserBuilderTest implements ClassTesting2<SequencePa
     }
 
     @Test
-    public void testMoreThanTwoParsers2(){
+    public void testMoreThanTwoParsers2() {
         this.createBuilder()
                 .optional(PARSER1)
                 .required(PARSER2)

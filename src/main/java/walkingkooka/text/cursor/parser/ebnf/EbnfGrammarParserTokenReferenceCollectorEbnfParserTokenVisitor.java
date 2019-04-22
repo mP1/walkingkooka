@@ -40,7 +40,7 @@ final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor exten
     protected Visiting startVisit(final EbnfRuleParserToken rule) {
         final EbnfIdentifierName identifier = rule.identifier().value();
         Set<EbnfRuleParserToken> rules = this.ruleIdentifiers.get(identifier);
-        if(null== rules) {
+        if (null == rules) {
             rules = Sets.ordered();
             this.ruleIdentifiers.put(identifier, rules);
         }

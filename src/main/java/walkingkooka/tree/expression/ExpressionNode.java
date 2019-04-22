@@ -114,21 +114,21 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     /**
      * {@see ExpressionAdditionNode}
      */
-    public static ExpressionAdditionNode addition(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionAdditionNode addition(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionAdditionNode.with(left, right);
     }
 
     /**
      * {@see ExpressionAndNode}
      */
-    public static ExpressionAndNode and(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionAndNode and(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionAndNode.with(left, right);
     }
 
     /**
      * {@see ExpressionBigDecimalNode}
      */
-    public static ExpressionBigDecimalNode bigDecimal(final BigDecimal value){
+    public static ExpressionBigDecimalNode bigDecimal(final BigDecimal value) {
         return ExpressionBigDecimalNode.with(value);
     }
 
@@ -149,7 +149,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     /**
      * {@see ExpressionDivisionNode}
      */
-    public static ExpressionDivisionNode division(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionDivisionNode division(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionDivisionNode.with(left, right);
     }
 
@@ -163,10 +163,10 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     /**
      * {@see ExpressionEqualsNode}
      */
-    public static ExpressionEqualsNode equalsNode(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionEqualsNode equalsNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionEqualsNode.with(left, right);
     }
-    
+
     /**
      * {@see ExpressionFunctionNode}
      */
@@ -177,28 +177,28 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     /**
      * {@see ExpressionGreaterThanNode}
      */
-    public static ExpressionGreaterThanNode greaterThan(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionGreaterThanNode greaterThan(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionGreaterThanNode.with(left, right);
     }
 
     /**
      * {@see ExpressionGreaterThanEqualsNode}
      */
-    public static ExpressionGreaterThanEqualsNode greaterThanEquals(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionGreaterThanEqualsNode greaterThanEquals(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionGreaterThanEqualsNode.with(left, right);
     }
 
     /**
      * {@see ExpressionLessThanNode}
      */
-    public static ExpressionLessThanNode lessThan(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionLessThanNode lessThan(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionLessThanNode.with(left, right);
     }
 
     /**
      * {@see ExpressionLessThanEqualsNode}
      */
-    public static ExpressionLessThanEqualsNode lessThanEquals(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionLessThanEqualsNode lessThanEquals(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionLessThanEqualsNode.with(left, right);
     }
 
@@ -222,74 +222,74 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     public static ExpressionLocalTimeNode localTime(final LocalTime value) {
         return ExpressionLocalTimeNode.with(value);
     }
-    
+
     /**
      * {@see ExpressionLongNode}
      */
     public static ExpressionLongNode longNode(final long value) {
         return ExpressionLongNode.with(value);
     }
-    
+
     /**
      * {@see ExpressionModuloNode}
      */
-    public static ExpressionModuloNode modulo(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionModuloNode modulo(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionModuloNode.with(left, right);
     }
 
     /**
      * {@see ExpressionMultiplicationNode}
      */
-    public static ExpressionMultiplicationNode multiplication(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionMultiplicationNode multiplication(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionMultiplicationNode.with(left, right);
     }
 
     /**
      * {@see ExpressionNegativeNode}
      */
-    public static ExpressionNegativeNode negative(final ExpressionNode expression){
+    public static ExpressionNegativeNode negative(final ExpressionNode expression) {
         return ExpressionNegativeNode.with(expression);
     }
 
     /**
      * {@see ExpressionNotNode}
      */
-    public static ExpressionNotNode not(final ExpressionNode expression){
+    public static ExpressionNotNode not(final ExpressionNode expression) {
         return ExpressionNotNode.with(expression);
     }
 
     /**
      * {@see ExpressionNotEqualsNode}
      */
-    public static ExpressionNotEqualsNode notEquals(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionNotEqualsNode notEquals(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionNotEqualsNode.with(left, right);
     }
-    
+
     /**
      * {@see ExpressionOrNode}
      */
-    public static ExpressionOrNode or(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionOrNode or(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionOrNode.with(left, right);
     }
 
     /**
      * {@see ExpressionPowerNode}
      */
-    public static ExpressionPowerNode power(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionPowerNode power(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionPowerNode.with(left, right);
     }
 
     /**
      * {@see ExpressionReferenceNode}
      */
-    public static ExpressionReferenceNode reference(final ExpressionReference reference){
+    public static ExpressionReferenceNode reference(final ExpressionReference reference) {
         return ExpressionReferenceNode.with(reference);
     }
 
     /**
      * {@see ExpressionSubtractionNode}
      */
-    public static ExpressionSubtractionNode subtraction(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionSubtractionNode subtraction(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionSubtractionNode.with(left, right);
     }
 
@@ -303,7 +303,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     /**
      * {@see ExpressionXorNode}
      */
-    public static ExpressionXorNode xor(final ExpressionNode left, final ExpressionNode right){
+    public static ExpressionXorNode xor(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionXorNode.with(left, right);
     }
 
@@ -420,7 +420,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      * Only {@link ExpressionDoubleNode} returns true
      */
     public abstract boolean isDouble();
-    
+
     /**
      * Only {@link ExpressionDivisionNode} returns true
      */
@@ -440,12 +440,12 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      * Only {@link ExpressionGreaterThanNode} returns true
      */
     public abstract boolean isGreaterThan();
-    
+
     /**
      * Only {@link ExpressionGreaterThanEqualsNode} returns true
      */
     public abstract boolean isGreaterThanEquals();
-    
+
     /**
      * Only {@link ExpressionLessThanNode} returns true
      */
@@ -603,20 +603,20 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     public final boolean equals(final Object other) {
         return this == other ||
                 this.canBeEqual(other) &&
-                this.equals0(Cast.to(other));
+                        this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final ExpressionNode other) {
         return this.equalsAncestors(other) &&
-               this.equalsDescendants0(other);
+                this.equalsDescendants0(other);
     }
 
     private boolean equalsAncestors(final ExpressionNode other) {
         boolean result = this.equalsIgnoringParentAndChildren(other);
 
-        if(result) {
+        if (result) {
             final Optional<ExpressionNode> parent = this.parent();
             final Optional<ExpressionNode> otherParent = other.parent();
             final boolean hasParent = parent.isPresent();

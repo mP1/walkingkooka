@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * The parser token for a zoned date+time with the value contained in a {@link ZonedDateTime}.
  */
-public final class ZonedDateTimeParserToken extends ParserToken2<ZonedDateTime> implements LeafParserToken<ZonedDateTime>{
+public final class ZonedDateTimeParserToken extends ParserToken2<ZonedDateTime> implements LeafParserToken<ZonedDateTime> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(ZonedDateTimeParserToken.class);
 
@@ -38,7 +38,7 @@ public final class ZonedDateTimeParserToken extends ParserToken2<ZonedDateTime> 
     }
 
     @Override
-    public ZonedDateTimeParserToken setText(final String text){
+    public ZonedDateTimeParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -53,7 +53,7 @@ public final class ZonedDateTimeParserToken extends ParserToken2<ZonedDateTime> 
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

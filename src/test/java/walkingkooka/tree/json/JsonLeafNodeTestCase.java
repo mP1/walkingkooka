@@ -35,7 +35,7 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     @Test
     public final void testCreate() {
         final N node = this.createJsonNode();
-        assertEquals( Lists.empty(), node.children(), "children");
+        assertEquals(Lists.empty(), node.children(), "children");
         this.checkWithoutParent(node);
         this.checkValue(node, this.value());
     }
@@ -51,7 +51,7 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
         assertEquals(differentName, different.name(), "name");
         this.checkValue(different, value);
 
-        assertEquals(originalName, node.name(),"original name");
+        assertEquals(originalName, node.name(), "original name");
         this.checkValue(node, value);
     }
 
@@ -160,8 +160,7 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
         this.checkNotEquals(JsonNode.number(99));
     }
 
-    @Override
-    final N createJsonNode() {
+    @Override final N createJsonNode() {
         return this.createJsonNode(this.value());
     }
 

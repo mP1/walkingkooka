@@ -33,28 +33,28 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
     @Test
     public void testWithNullSourceTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(null, FALSE_VALUE,TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+            BooleanConverter.with(null, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
         });
     }
 
     @Test
     public void testWithNullFalseValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(SOURCE_TYPE, null,TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+            BooleanConverter.with(SOURCE_TYPE, null, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
         });
     }
 
     @Test
     public void testWithNullTargetTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE,null, TRUE_ANSWER, FALSE_ANSWER);
+            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, null, TRUE_ANSWER, FALSE_ANSWER);
         });
     }
 
     @Test
     public void testWithNullTrueAnswerFails() {
         assertThrows(NullPointerException.class, () -> {
-            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE,null, FALSE_ANSWER);
+            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, null, FALSE_ANSWER);
         });
     }
 

@@ -40,7 +40,7 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> impleme
     }
 
     @Test
-    public final void testPublicStaticFactoryMethod()  {
+    public final void testPublicStaticFactoryMethod() {
         PublicStaticFactoryTesting.check(EbnfParserToken.class,
                 "Ebnf",
                 ParserToken.class,
@@ -57,7 +57,7 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> impleme
     @Test
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<EbnfParserToken> without = this.createToken().withoutCommentsSymbolsOrWhitespace();
-        if(without.isPresent()){
+        if (without.isPresent()) {
             BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(without.get(), Predicates.never());
         }
     }

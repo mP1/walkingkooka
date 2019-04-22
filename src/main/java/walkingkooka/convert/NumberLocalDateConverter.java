@@ -61,10 +61,10 @@ final class NumberLocalDateConverter extends NumberConverter<LocalDate> {
     @Override
     LocalDate doubleValue(final Double value) {
         final double doubleValue = value;
-        if(value != (long)doubleValue) {
+        if (value != (long) doubleValue) {
             this.failConversion(value);
         }
-        return this.localDate((long)doubleValue);
+        return this.localDate((long) doubleValue);
     }
 
     @Override

@@ -241,9 +241,9 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     }
 
     @SafeVarargs
-    private static Map<Object, Object> map(final Entry<Object, Object>...entries) {
+    private static Map<Object, Object> map(final Entry<Object, Object>... entries) {
         final Map<Object, Object> map = Maps.ordered();
-        for(Entry<Object, Object> entry : entries) {
+        for (Entry<Object, Object> entry : entries) {
             map.put(entry.getKey(), entry.getValue());
         }
         return map;
@@ -255,7 +255,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     }
 
     @Override
-    PojoMapNode createEmptyPojoNode(){
+    PojoMapNode createEmptyPojoNode() {
         return this.createPojoNode(Maps.empty());
     }
 
@@ -277,7 +277,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         return Collections.singletonMap(ENTRY2.getKey(), ENTRY2.getValue());
     }
 
-    private PojoMapNode createPojoNode(final Map<Object, Object> map){
+    private PojoMapNode createPojoNode(final Map<Object, Object> map) {
         return Cast.to(PojoNode.wrap(MAP,
                 map,
                 new ReflectionPojoNodeContext()));
@@ -296,7 +296,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     private List<PojoNode> children0(final PojoMapNode firstNode, final Object... values) {
         final List<PojoNode> children = Lists.array();
         int i = 0;
-        for(Object value : values){
+        for (Object value : values) {
             children.add(firstNode.createNode(PojoName.index(i), value));
             i++;
         }
@@ -337,7 +337,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         private boolean equals0(final TestMutableParent other) {
             return this.map.equals(other.map);
         }
-        
+
         @Override
         public String toString() {
             return this.getClass().getSimpleName() + "=" + this.map.toString();
@@ -383,15 +383,15 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     static class TestImmutableLeaf {
         final String x;
 
-        TestImmutableLeaf(final String x){
+        TestImmutableLeaf(final String x) {
             this.x = x;
         }
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
 
-        public TestImmutableLeaf setX(final String x){
+        public TestImmutableLeaf setX(final String x) {
             return new TestImmutableLeaf(x);
         }
 
@@ -402,7 +402,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestImmutableLeaf && equals0((TestImmutableLeaf)other);
+            return other instanceof TestImmutableLeaf && equals0((TestImmutableLeaf) other);
         }
 
         private boolean equals0(final TestImmutableLeaf other) {
@@ -410,7 +410,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "x=" + this.getX();
         }
     }
@@ -419,15 +419,15 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
     static class TestMutableLeaf {
         String x;
 
-        TestMutableLeaf(final String x){
+        TestMutableLeaf(final String x) {
             this.setX(x);
         }
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
 
-        public void setX(final String x){
+        public void setX(final String x) {
             this.x = x;
         }
 
@@ -438,7 +438,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestMutableLeaf && equals0((TestMutableLeaf)other);
+            return other instanceof TestMutableLeaf && equals0((TestMutableLeaf) other);
         }
 
         private boolean equals0(final TestMutableLeaf other) {
@@ -446,7 +446,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "x=" + this.getX();
         }
     }

@@ -97,15 +97,15 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         this.cycleCheck(reference, cycles);
 
         try {
-           cycles.add(reference);
-           final ExpressionNode result =  this.context.referenceOrFail(reference);
+            cycles.add(reference);
+            final ExpressionNode result = this.context.referenceOrFail(reference);
 
-            if(result.isReference()) {
+            if (result.isReference()) {
                 final ExpressionReferenceNode referenceNode = result.cast();
                 this.cycleCheck(referenceNode.value(), cycles);
             }
 
-           return Optional.of(result);
+            return Optional.of(result);
         } finally {
             cycles.remove(reference);
         }
@@ -115,7 +115,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
      * If the reference is in {@link #cycles} then there must be a cycle of some sort.
      */
     private void cycleCheck(final ExpressionReference reference, final Set<ExpressionReference> cycles) {
-        if(cycles.contains(reference)) {
+        if (cycles.contains(reference)) {
             this.reportCycle(reference);
         }
     }

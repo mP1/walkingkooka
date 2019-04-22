@@ -98,8 +98,8 @@ final public class ChainFactoryChainBuilderTest implements ClassTesting2<ChainFa
         assertSame(builder, builder.add(B));
         assertSame(builder, builder.add(C));
         assertEquals(Sets.of(A,
-                        B,
-                        C),
+                B,
+                C),
                 builder.all,
                 "all");
     }
@@ -112,8 +112,8 @@ final public class ChainFactoryChainBuilderTest implements ClassTesting2<ChainFa
         assertSame(builder, builder.add(C));
         assertSame(builder, builder.add(A));
         assertEquals(Sets.of(A,
-                        B,
-                        C),
+                B,
+                C),
                 builder.all,
                 "all");
     }
@@ -193,8 +193,8 @@ final public class ChainFactoryChainBuilderTest implements ClassTesting2<ChainFa
                         C)));
 
         assertEquals(Sets.of(A,
-                        B,
-                        C),
+                B,
+                C),
                 builder.all,
                 "all");
     }
@@ -211,8 +211,8 @@ final public class ChainFactoryChainBuilderTest implements ClassTesting2<ChainFa
                         C)));
 
         assertEquals(Sets.of(A,
-                        B,
-                        C),
+                B,
+                C),
                 builder.all,
                 "all");
     }
@@ -310,7 +310,7 @@ final public class ChainFactoryChainBuilderTest implements ClassTesting2<ChainFa
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBuilder(),"[]");
+        this.toStringAndCheck(this.createBuilder(), "[]");
     }
 
     @Override

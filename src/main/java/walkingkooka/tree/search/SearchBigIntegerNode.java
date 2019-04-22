@@ -23,7 +23,7 @@ import java.math.BigInteger;
 /**
  * A {@link SearchNode} that holds a {@link BigInteger} value.
  */
-public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger>{
+public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger> {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchBigIntegerNode.class);
 
@@ -112,7 +112,7 @@ public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger>{
     // Visitor ..........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
+    public void accept(final SearchNodeVisitor visitor) {
         visitor.visit(this);
     }
 

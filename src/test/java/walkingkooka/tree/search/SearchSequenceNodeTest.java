@@ -188,14 +188,14 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
                 "sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset);
     }
 
-    private void extractAndCheck2(final int beginOffset, final int endOffset, final SearchNode...expected) {
+    private void extractAndCheck2(final int beginOffset, final int endOffset, final SearchNode... expected) {
         this.extractAndCheck2(this.sequence(this.child1(), this.child2(), this.child3()),
                 beginOffset,
                 endOffset,
                 expected);
     }
 
-    private void extractAndCheck2(final SearchSequenceNode sequence, final int beginOffset, final int endOffset, final SearchNode...expected) {
+    private void extractAndCheck2(final SearchSequenceNode sequence, final int beginOffset, final int endOffset, final SearchNode... expected) {
         assertEquals(this.sequence(expected),
                 sequence.extract(beginOffset, endOffset),
                 "sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset);
@@ -295,21 +295,21 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
                 this.child4());
     }
 
-    private void replaceAndCheck(final int beginOffset, final int endOffset, final SearchNode...children) {
+    private void replaceAndCheck(final int beginOffset, final int endOffset, final SearchNode... children) {
         this.replaceAndCheck(this.sequence(this.child1(), this.child2(), this.child3()),
                 beginOffset,
                 endOffset,
                 children);
     }
 
-    private void replaceAndCheck2(final int beginOffset, final int endOffset, final SearchNode...children) {
+    private void replaceAndCheck2(final int beginOffset, final int endOffset, final SearchNode... children) {
         this.replaceAndCheck(this.sequence(this.child1(), this.child2(), this.child3(), this.child4()),
                 beginOffset,
                 endOffset,
                 children);
     }
 
-    private void replaceAndCheck(final SearchSequenceNode search, final int beginOffset, final int endOffset, final SearchNode...children) {
+    private void replaceAndCheck(final SearchSequenceNode search, final int beginOffset, final int endOffset, final SearchNode... children) {
         final SearchNode replace = this.replaceNode();
 
         assertEquals(this.sequence(children),

@@ -37,7 +37,7 @@ final class NumberDoubleConverter extends NumberConverter<Double> {
     Double bigDecimal(final BigDecimal value) {
         final double doubleValue = value.doubleValue();
         final BigDecimal back = new BigDecimal(doubleValue);
-        if(0 != value.compareTo(back)) {
+        if (0 != value.compareTo(back)) {
             this.failConversion(value);
         }
         return doubleValue;
@@ -56,14 +56,14 @@ final class NumberDoubleConverter extends NumberConverter<Double> {
     @Override
     Double longValue(final Long value) {
         final double doubleValue = value;
-        if(value != (long)doubleValue) {
+        if (value != (long) doubleValue) {
             this.failConversion(value);
         }
         return doubleValue;
     }
 
     @Override
-    Class<Double> targetType(){
+    Class<Double> targetType() {
         return Double.class;
     }
 

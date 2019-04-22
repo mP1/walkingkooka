@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CaseSensitivity;
 
-public final class SearchAttributeValueContainsQueryTest extends SearchAttributeLeafQueryTestCase<SearchAttributeValueContainsQuery>{
+public final class SearchAttributeValueContainsQueryTest extends SearchAttributeLeafQueryTestCase<SearchAttributeValueContainsQuery> {
 
     @Test
     public void testSelect() {

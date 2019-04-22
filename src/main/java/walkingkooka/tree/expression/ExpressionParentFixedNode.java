@@ -33,7 +33,7 @@ abstract class ExpressionParentFixedNode extends ExpressionParentNode {
     final void replaceChildrenCheck(final List<ExpressionNode> children){
         final int expected = this.expectedChildCount();
         final int count = children.size();
-        if(count!=expected){
+        if (count != expected) {
             throw new IllegalArgumentException("Expected " + expected + " children but got " + count + "=" + children);
         }
     }
@@ -52,8 +52,7 @@ abstract class ExpressionParentFixedNode extends ExpressionParentNode {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
+    @Override final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
         return true; // no other properties name already tested.
     }
 }

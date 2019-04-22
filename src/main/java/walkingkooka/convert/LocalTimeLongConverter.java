@@ -38,7 +38,7 @@ final class LocalTimeLongConverter extends LocalTimeConverter<Long> {
 
     @Override
     Long convert3(final long seconds, final long nano, final LocalTime localTime) {
-        if(0!=nano) {
+        if (0 != nano) {
             this.failConversion(localTime);
         }
         return Long.valueOf(seconds);

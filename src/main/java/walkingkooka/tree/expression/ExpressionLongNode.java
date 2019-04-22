@@ -31,7 +31,7 @@ public final class ExpressionLongNode extends ExpressionValueNode<Long> {
         return new ExpressionLongNode(NO_INDEX, value);
     }
 
-    private ExpressionLongNode(final int index, final Long value){
+    private ExpressionLongNode(final int index, final Long value) {
         super(index, value);
     }
 
@@ -101,7 +101,7 @@ public final class ExpressionLongNode extends ExpressionValueNode<Long> {
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

@@ -77,8 +77,8 @@ public final class TestRecordingHttpResponse implements HttpResponse {
      * Verifies that the set status and added entities match the expected.
      */
     public void check(final HttpRequest request,
-               final HttpStatus status,
-               final HttpEntity...entities) {
+                      final HttpStatus status,
+                      final HttpEntity... entities) {
         assertEquals(new TestRecordingHttpResponse(status, Lists.of(entities)),
                 this,
                 () -> request.toString());

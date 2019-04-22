@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public final class LongArrayToStringBuilderTest extends VectorToStringBuilderTestCase<long[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value(new long[]{0, 1, 2});

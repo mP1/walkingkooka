@@ -51,7 +51,7 @@ final public class Maps implements PublicStaticHelper {
     /**
      * {@see MapsEntry}
      */
-    static public <K,V> Entry<K,V> entry(final K key, final V value) {
+    static public <K, V> Entry<K, V> entry(final K key, final V value) {
         return MapsEntry.with(key, value);
     }
 

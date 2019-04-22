@@ -67,7 +67,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     default void toValueAndCheck(final ExpressionNode node, final ExpressionEvaluationContext context, final Object value) {
         assertEquals(value,
                 node.toValue(context),
-                ()-> "ExpressionNode.toValue failed, node=" + node + " context=" + context);
+                () -> "ExpressionNode.toValue failed, node=" + node + " context=" + context);
     }
 
     @Override

@@ -153,13 +153,13 @@ abstract public class HslComponentTestCase<C extends HslComponent> implements Cl
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(0, name.length() - "HslComponent".length()));
 
-        for(Method method : component.getClass().getMethods()) {
-            if(MethodAttributes.STATIC.is(method)) {
+        for (Method method : component.getClass().getMethods()) {
+            if (MethodAttributes.STATIC.is(method)) {
                 continue;
             }
             final String methodName = method.getName();
 
-            if(!methodName.startsWith("is")) {
+            if (!methodName.startsWith("is")) {
                 continue;
             }
             assertEquals(methodName.equals(isMethodName),

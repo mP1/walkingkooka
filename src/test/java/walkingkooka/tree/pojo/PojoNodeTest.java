@@ -70,17 +70,19 @@ public final class PojoNodeTest implements ClassTesting2<PojoNode>,
 
     private class TestBean {
 
-        TestBean(final Object x, final Object... list){
+        TestBean(final Object x, final Object... list) {
             this.x = x;
             this.list = Lists.of(list);
         }
 
         final Object x;
-        public Object getX(){
+
+        public Object getX() {
             return x;
         }
 
         final List<Object> list;
+
         public Object getList() {
             return this.list;
         }

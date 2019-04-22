@@ -71,9 +71,9 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
                 .stream()
                 .filter(t -> t instanceof EbnfParserToken)
                 .map(t -> EbnfParserToken.class.cast(t))
-                .filter( t -> t.isRule())
-                .map( t -> EbnfRuleParserToken.class.cast(t))
-                .forEach( r -> {
+                .filter(t -> t.isRule())
+                .map(t -> EbnfRuleParserToken.class.cast(t))
+                .forEach(r -> {
                     this.identifierToRule.put(r.identifier().value(), r);
                 });
         return super.startVisit(token);
@@ -95,16 +95,16 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
         final Parser<ParserContext> parser = identifierAndParser.getValue();
 
         // Not all parsers may be proxy, because some parsers may be present in the initial map.
-        if(parser instanceof EbnfParserCombinatorProxyParser) {
+        if (parser instanceof EbnfParserCombinatorProxyParser) {
             final EbnfParserCombinatorProxyParser<ParserContext> proxy = Cast.to(parser);
 
             // the proxy will be lost but thats okay as we have the real parser now. Any forward refs will continue to hold the proxy.
             EbnfRuleParserToken rule = this.identifierToRule.get(identifier);
 
             EbnfParserToken token = rule.token();
-            while(token.isIdentifier()) {
+            while (token.isIdentifier()) {
                 final EbnfIdentifierParserToken tokenIdentifier = token.cast();
-                token=this.identifierToRule.get(tokenIdentifier.value()).token();
+                token = this.identifierToRule.get(tokenIdentifier.value()).token();
             }
 
             identifierAndParser.setValue(proxy.parser.setToString(token.toString()));
@@ -181,7 +181,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
 
     private void concatenationParserToken(final Parser<ParserContext> parser,
                                           final SequenceParserBuilder<ParserContext> b) {
-        if(this.isOptional(parser)) {
+        if (this.isOptional(parser)) {
             b.optional(parser);
         } else {
             b.required(parser);
@@ -305,7 +305,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
 
     // GENERAL PURPOSE .................................................................................................
 
-    private void enter(){
+    private void enter() {
         this.previousChildren = this.previousChildren.push(this.children);
         this.children = Lists.array();
     }
@@ -320,7 +320,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
     private List<Parser<ParserContext>> children;
 
     private void add(final Parser<ParserContext> parser, final EbnfParserToken token) {
-        if(null == parser) {
+        if (null == parser) {
             throw new NullPointerException("Null parser returned for " + token);
         }
         this.children.add(parser.cast());

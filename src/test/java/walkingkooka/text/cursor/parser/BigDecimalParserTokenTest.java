@@ -61,7 +61,7 @@ public final class BigDecimalParserTokenTest extends ParserTokenTestCase<BigDeci
         }.accept(token);
         assertEquals("132", b.toString());
     }
-    
+
     @Test
     public void testIgnoresPrefix() {
         BigDecimalParserToken.with(BigDecimal.valueOf(123), "+123");

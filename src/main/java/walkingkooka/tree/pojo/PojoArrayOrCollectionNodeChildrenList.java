@@ -40,12 +40,12 @@ final class PojoArrayOrCollectionNodeChildrenList<P extends PojoArrayOrCollectio
     public final PojoNode get(final int index) {
         // expand list as necessary and lazily...
         final int size = this.parent.childrenCount() + 1;
-        for(int i = index; i < size; i++){
+        for (int i = index; i < size; i++) {
             this.nodes.add(null);
         }
 
         PojoNode node = this.nodes.get(index);
-        if(null==node){
+        if (null == node) {
             node = this.wrap(index);
             this.nodes.set(index, node);
         }
@@ -55,7 +55,7 @@ final class PojoArrayOrCollectionNodeChildrenList<P extends PojoArrayOrCollectio
     @Override
     void clearChildrenNodeCache() {
         final int size = this.parent.childrenCount();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             this.nodes.set(i, null);
         }
     }
@@ -78,7 +78,7 @@ final class PojoArrayOrCollectionNodeChildrenList<P extends PojoArrayOrCollectio
     }
 
     @Override
-    boolean isSameType(final Object other){
+    boolean isSameType(final Object other) {
         return other instanceof PojoArrayOrCollectionNodeChildrenList;
     }
 }

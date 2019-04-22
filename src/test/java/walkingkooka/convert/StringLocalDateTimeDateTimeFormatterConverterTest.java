@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public final class StringLocalDateTimeDateTimeFormatterConverterTest extends DateTimeFormatterConverterTestCase<StringLocalDateTimeDateTimeFormatterConverter, String, LocalDateTime>{
+public final class StringLocalDateTimeDateTimeFormatterConverterTest extends DateTimeFormatterConverterTestCase<StringLocalDateTimeDateTimeFormatterConverter, String, LocalDateTime> {
 
     @Test
     public void testConvert() {

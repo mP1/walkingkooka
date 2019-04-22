@@ -32,7 +32,7 @@ final class FilesystemNodeAttributeMapEntrySet extends AbstractSet<Entry<Filesys
         return new FilesystemNodeAttributeMapEntrySet(node);
     }
 
-    private FilesystemNodeAttributeMapEntrySet(final FilesystemNode node){
+    private FilesystemNodeAttributeMapEntrySet(final FilesystemNode node) {
         this.node = node;
     }
 

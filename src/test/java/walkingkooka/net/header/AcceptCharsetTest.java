@@ -78,7 +78,7 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
         return AcceptCharset.with(value);
     }
 
-    private AcceptCharset createHeaderValue(final CharsetHeaderValue...value) {
+    private AcceptCharset createHeaderValue(final CharsetHeaderValue... value) {
         return this.createHeaderValue(Lists.of(value));
     }
 

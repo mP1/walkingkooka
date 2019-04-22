@@ -77,8 +77,8 @@ public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCas
         }.accept(negative);
         assertEquals("1315242", b.toString());
         assertEquals(Lists.of(negative, negative,
-                        child, child, child,
-                        negative, negative),
+                child, child, child,
+                negative, negative),
                 visited,
                 "visited");
     }
@@ -100,13 +100,13 @@ public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCas
     @Test
     public void testEvaluateToDouble() {
         final Double value = Double.valueOf(123);
-        this.evaluateAndCheckDouble(this.createExpressionNode(ExpressionNode.doubleNode(value)), - value);
+        this.evaluateAndCheckDouble(this.createExpressionNode(ExpressionNode.doubleNode(value)), -value);
     }
 
     @Test
     public void testEvaluateToLong() {
         final Long value = 123L;
-        this.evaluateAndCheckLong(this.createExpressionNode(ExpressionNode.longNode(value)), - value);
+        this.evaluateAndCheckLong(this.createExpressionNode(ExpressionNode.longNode(value)), -value);
     }
 
     @Test
@@ -124,15 +124,15 @@ public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCas
     @Test
     public void testEvaluateToNumberDouble() {
         final Double value = Double.valueOf(123);
-        this.evaluateAndCheckDouble(this.createExpressionNode(ExpressionNode.doubleNode(value)), - value);
+        this.evaluateAndCheckDouble(this.createExpressionNode(ExpressionNode.doubleNode(value)), -value);
     }
 
     @Test
     public void testEvaluateToNumberLong() {
         final Long value = 123L;
-        this.evaluateAndCheckNumberLong(this.createExpressionNode(ExpressionNode.longNode(value)), - value);
+        this.evaluateAndCheckNumberLong(this.createExpressionNode(ExpressionNode.longNode(value)), -value);
     }
-    
+
     @Override
     ExpressionNegativeNode createExpressionNode(final ExpressionNode child) {
         return ExpressionNegativeNode.with(child);

@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 public final class ShortWrapperArrayToStringBuilderTest extends VectorToStringBuilderTestCase<Short[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value(new Short[]{0, 1, 2});

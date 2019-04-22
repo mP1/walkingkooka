@@ -69,18 +69,18 @@ public final class ReflectionMutableWritablePojoPropertyTest implements ClassTes
         return ReflectionMutableWritablePojoProperty.class;
     }
 
-    static class TestBean{
+    static class TestBean {
         String x = STRING;
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
 
-        public void setX(final String x){
+        public void setX(final String x) {
             this.x = x;
         }
 
-        public String toString(){
+        public String toString() {
             return "=" + STRING;
         }
     }

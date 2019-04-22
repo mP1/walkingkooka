@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, Void>{
+public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, Void> {
 
     // fromJsonNodeWithType..............................................................................
 
@@ -85,7 +85,7 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
     }
 
     // toSearchNode..............................................................................
-    
+
     @Test
     public void testToSearchNode() {
         this.toSearchNodeAndCheck(this.createJsonNode(), SearchNode.text("null", "null"));
@@ -118,7 +118,7 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createJsonNode(), "null");

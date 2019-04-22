@@ -301,7 +301,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
     }
 
     private void checkAttributes(final SearchNode node, final Map<SearchNodeAttributeName, String> attributes) {
-        assertEquals(attributes, node.attributes(),"attributes");
+        assertEquals(attributes, node.attributes(), "attributes");
     }
 
     @Override

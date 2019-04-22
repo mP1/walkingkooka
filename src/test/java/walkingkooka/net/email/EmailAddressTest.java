@@ -200,7 +200,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
         });
         expected.printStackTrace();
 
-        if(null!=message) {
+        if (null != message) {
             assertEquals(message, expected.getMessage(), "message");
         }
     }
@@ -287,9 +287,9 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
 
     private void parseSuccessful(final String user, final String server, final EmailAddress emailAddress) {
         final String address = user + '@' + server;
-        assertEquals(address, emailAddress.value(),"address");
-        assertEquals(user, emailAddress.user(),"user");
-        assertEquals(server, emailAddress.host().value(),"host");
+        assertEquals(address, emailAddress.value(), "address");
+        assertEquals(user, emailAddress.user(), "user");
+        assertEquals(server, emailAddress.host().value(), "host");
     }
 
     // --- start of tests generator: DominicsayersComIsemailEmailAddressTestGenerator file: www.dominicsayers.com-isemail-tests.xml ---

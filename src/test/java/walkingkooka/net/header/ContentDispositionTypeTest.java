@@ -59,7 +59,7 @@ final public class ContentDispositionTypeTest implements ClassTesting2<ContentDi
         final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
 
         final ContentDisposition disposition = type.setFilename(filename);
-        assertEquals(type, disposition.type(),"type");
+        assertEquals(type, disposition.type(), "type");
         assertEquals(Maps.of(ContentDispositionParameterName.FILENAME, filename),
                 disposition.parameters(),
                 "parameters");

@@ -97,7 +97,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
         return this.replace0(NO_INDEX, this.defaultName(), this.text, this.value);
     }
 
-    abstract SearchLeafNode replace0(final int index,final SearchNodeName name, final String text, final V value);
+    abstract SearchLeafNode replace0(final int index, final SearchNodeName name, final String text, final V value);
 
     @Override
     SearchNode replaceAll(final SearchNode replace) {
@@ -108,12 +108,12 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     final SearchNode replace0(final int beginOffset, final int endOffset, final SearchNode replace, final String text) {
         final int textLength = text.length();
 
-        return this.replaceAll(0==beginOffset ?
-                sequence(Lists.of(replace, text0(text.substring(endOffset)))):
+        return this.replaceAll(0 == beginOffset ?
+                sequence(Lists.of(replace, text0(text.substring(endOffset)))) :
                 sequence(
-                        endOffset ==textLength?
+                        endOffset == textLength ?
                                 Lists.of(text0(text.substring(0, beginOffset)),
-                                        replace): // nothing after
+                                        replace) : // nothing after
                                 Lists.of(
                                         text0(text.substring(0, beginOffset)),
                                         replace,
@@ -213,7 +213,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
 
     private boolean equalsIgnoringParentAndChildren1(final SearchLeafNode<?> other) {
         return this.text.equals(other.text) &&
-               this.value.equals(other.value);
+                this.value.equals(other.value);
     }
 
     @Override

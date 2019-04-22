@@ -351,7 +351,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a byte array respecting any set {@link ToStringBuilderOption options}
      */
     public ToStringBuilder value(final byte[] array) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
                 if (false == this.maybeLabel()) {
                     final int before = this.buffer.length();
@@ -438,7 +438,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a char array.
      */
     public ToStringBuilder value(final char[] array) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
                 final StringBuilder buffer = this.buffer;
                 if (false == this.maybeLabel()) {
@@ -488,7 +488,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a double array.
      */
     public ToStringBuilder value(final double[] array) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
                 if (false == this.maybeLabel()) {
                     final int before = this.buffer.length();
@@ -545,7 +545,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a float array.
      */
     public ToStringBuilder value(final float[] array) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
                 if (false == this.maybeLabel()) {
                     final int before = this.buffer.length();
@@ -604,7 +604,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a int array.
      */
     public ToStringBuilder value(final int[] array) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
                 final int before = this.buffer.length();
                 if (false == this.maybeLabel()) {
@@ -666,7 +666,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a long array.
      */
     public ToStringBuilder value(final long[] array) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
                 if (false == this.maybeLabel()) {
                     final int before = this.buffer.length();
@@ -735,7 +735,7 @@ final public class ToStringBuilder implements Builder<String> {
     }
 
     private void appendOptional(final Optional<?> value) {
-        if(value.isPresent()) {
+        if (value.isPresent()) {
             this.appendValue(value.get());
         }
     }
@@ -775,8 +775,8 @@ final public class ToStringBuilder implements Builder<String> {
                 break;
                 // let other Number sub classes use the default. else skips boring array checks.
             }
-            if(value instanceof Optional) {
-                this.value((Optional<?>)value);
+            if (value instanceof Optional) {
+                this.value((Optional<?>) value);
                 break;
             }
             if (value instanceof Map) {
@@ -962,7 +962,7 @@ final public class ToStringBuilder implements Builder<String> {
             this.depth = depth;
 
             // assume if the buffer increased then "values were added"...
-            if(bufferLengthBefore != this.buffer.length()) {
+            if (bufferLengthBefore != this.buffer.length()) {
                 this.valuesAdded++;
             }
 
@@ -994,7 +994,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a {@link Object} array.
      */
     public ToStringBuilder value(final Object[] array) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
                 if (false == this.maybeLabel()) {
                     final int before = this.buffer.length();
@@ -1157,7 +1157,7 @@ final public class ToStringBuilder implements Builder<String> {
      * ToStringBuilderOption#SKIP_IF_DEFAULT_VALUE}.
      */
     private void valueIterator(final Iterator<?> iterator) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (this.skipIfNotDefaultValue() || iterator.hasNext()) {
                 if (false == this.maybeLabel()) {
                     final StringBuilder buffer = this.buffer;
@@ -1203,7 +1203,7 @@ final public class ToStringBuilder implements Builder<String> {
      * ToStringBuilderOption#SKIP_IF_DEFAULT_VALUE}.
      */
     private void valueEnumeration(final Enumeration<?> enumeration) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (this.skipIfNotDefaultValue() || enumeration.hasMoreElements()) {
                 if (false == this.maybeLabel()) {
                     final StringBuilder buffer = this.buffer;
@@ -1240,7 +1240,7 @@ final public class ToStringBuilder implements Builder<String> {
      * true.
      */
     private void valueMap(final Map<?, ?> map) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if ((false == map.isEmpty()) || this.skipIfNotDefaultValue()) {
                 if (false == this.maybeLabel()) {
                     final int before = this.buffer.length();
@@ -1301,7 +1301,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a short array with a special test
      */
     public ToStringBuilder value(final short[] array) {
-        if(this.inlineElements()) {
+        if (this.inlineElements()) {
             if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
                 if (false == this.maybeLabel()) {
                     final int before = this.buffer.length();

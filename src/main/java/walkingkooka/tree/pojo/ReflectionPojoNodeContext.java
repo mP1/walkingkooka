@@ -42,7 +42,7 @@ final class ReflectionPojoNodeContext implements PojoNodeContext {
         Objects.requireNonNull(type, "type");
 
         List<PojoProperty> properties = this.typeToProperties.get(type);
-        if(null==properties){
+        if (null == properties) {
             properties = discoverProperties(type);
             this.typeToProperties.put(type, properties);
         }
@@ -55,13 +55,13 @@ final class ReflectionPojoNodeContext implements PojoNodeContext {
     private final Map<Class<?>, List<PojoProperty>> typeToProperties = Maps.concurrent();
 
     private List<PojoProperty> discoverProperties(final Class<?> type) {
-        if(type.isPrimitive()) {
+        if (type.isPrimitive()) {
             throw new IllegalArgumentException("Primitive types not supported, type= " + CharSequences.quote(type.getName()));
         }
 
-        try{
+        try {
             return discoverProperties0(type);
-        } catch ( final Exception cause){
+        } catch (final Exception cause) {
             throw new ReflectionPojoException("Failed to retrieve all properties for " + CharSequences.quote(type.getName()) + ", " + cause.getMessage(), cause);
         }
     }
@@ -69,14 +69,14 @@ final class ReflectionPojoNodeContext implements PojoNodeContext {
     private static List<PojoProperty> discoverProperties0(final Class<?> type) {
         final List<PojoProperty> properties = Lists.array();
 
-        for(Method method : type.getMethods()) {
-            if(isStatic(method)) {
-               continue;
-            }
-            if(!isWithoutParameters(method)){
+        for (Method method : type.getMethods()) {
+            if (isStatic(method)) {
                 continue;
             }
-            if(isObjectMethod(method)){
+            if (!isWithoutParameters(method)) {
+                continue;
+            }
+            if (isObjectMethod(method)) {
                 continue;
             }
             acceptMethod(method, properties);
@@ -103,24 +103,24 @@ final class ReflectionPojoNodeContext implements PojoNodeContext {
 
     private static void acceptMethod(final Method method, final List<PojoProperty> properties) {
         final Class<?> type = method.getReturnType();
-        if(Void.TYPE != type){
-            for(;;){
+        if (Void.TYPE != type) {
+            for (; ; ) {
                 final String methodName = method.getName();
-                if(type == Boolean.TYPE || type == Boolean.class){
-                    if(isPrefixed(methodName, "is")) {
+                if (type == Boolean.TYPE || type == Boolean.class) {
+                    if (isPrefixed(methodName, "is")) {
                         findSetterAndSave(removePrefix(methodName, "is"),
                                 method,
                                 properties);
                         break;
                     }
                 }
-                if(isPrefixed(methodName, "get")) {
+                if (isPrefixed(methodName, "get")) {
                     findSetterAndSave(removePrefix(methodName, "get"),
-                        method,
-                        properties);
+                            method,
+                            properties);
                     break;
                 }
-                if(Character.isLowerCase(methodName.charAt(0))) {
+                if (Character.isLowerCase(methodName.charAt(0))) {
                     findSetterAndSave(methodName,
                             method,
                             properties);
@@ -153,9 +153,9 @@ final class ReflectionPojoNodeContext implements PojoNodeContext {
         final String name = "set" + CharSequences.capitalize(propertyName);
 
         Method setter = null;
-        try{
+        try {
             setter = getter.getDeclaringClass().getMethod(name, getter.getReturnType());
-            if(isStatic(setter)){
+            if (isStatic(setter)) {
                 setter = null;
             }
         } catch (final NoSuchMethodException fail) {

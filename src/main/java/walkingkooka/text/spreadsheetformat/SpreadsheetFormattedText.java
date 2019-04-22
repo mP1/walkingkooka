@@ -48,11 +48,11 @@ public final class SpreadsheetFormattedText implements HasText, HashCodeEqualsDe
 
         return new SpreadsheetFormattedText(color, text);
     }
-    
+
     private static void checkColor(final Optional<Color> color) {
-        Objects.requireNonNull(color, "color");    
+        Objects.requireNonNull(color, "color");
     }
-    
+
     private static void checkText(final String text) {
         Objects.requireNonNull(text, "text");
     }
@@ -83,20 +83,20 @@ public final class SpreadsheetFormattedText implements HasText, HashCodeEqualsDe
     public String text() {
         return this.text;
     }
-    
+
     public SpreadsheetFormattedText setText(final String text) {
         checkText(text);
-        
+
         return this.text.equals(text) ?
-               this :
-               this.replace(this.color, text);
+                this :
+                this.replace(this.color, text);
     }
 
     private final String text;
-    
+
     private SpreadsheetFormattedText replace(final Optional<Color> color, final String text) {
         return new SpreadsheetFormattedText(color, text);
-    } 
+    }
 
     // Object ............................................................................
 

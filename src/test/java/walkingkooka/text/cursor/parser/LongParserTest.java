@@ -198,7 +198,7 @@ public class LongParserTest extends Parser2TestCase<LongParser<ParserContext>, L
 
     private TextCursor parseAndCheck3(final String text, final long value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic(new FakeDecimalNumberContext(){
+                ParserContexts.basic(new FakeDecimalNumberContext() {
                     @Override
                     public char minusSign() {
                         return 'M';
@@ -235,11 +235,11 @@ public class LongParserTest extends Parser2TestCase<LongParser<ParserContext>, L
         return ParserContexts.basic(this.decimalNumberContext());
     }
 
-    private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter) {
         return this.parseAndCheck3(RADIX, in, value, text, textAfter);
     }
 
-    private TextCursor parseAndCheck3(final int radix, final String from, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck3(final int radix, final String from, final long value, final String text, final String textAfter) {
         return this.parseAndCheck(LongParser.with(radix),
                 this.createContext(),
                 TextCursors.charSequence(from),

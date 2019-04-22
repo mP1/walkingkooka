@@ -115,7 +115,7 @@ public final class RepeatedParserTokenTest extends RepeatedOrSequenceParserToken
         assertEquals("1342", b.toString());
         assertEquals(Lists.of(token, token, token, token), visited, "visited tokens");
     }
-    
+
     @Override
     public RepeatedParserToken createToken(final String text) {
         return createToken(text, string(text));

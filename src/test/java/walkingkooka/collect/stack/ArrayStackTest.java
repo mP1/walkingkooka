@@ -237,12 +237,12 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
 
     @Test
     public void testToStringManyItems() {
-        this.toStringAndCheck(ArrayStack.with("1").push("2").push("3"),"[1,2,3]");
+        this.toStringAndCheck(ArrayStack.with("1").push("2").push("3"), "[1,2,3]");
     }
 
     @Test
     public void testToStringManyItemsAfterPop() {
-        this.toStringAndCheck( ArrayStack.with("1").push("2").push("-popped-").pop(),"[1,2]");
+        this.toStringAndCheck(ArrayStack.with("1").push("2").push("-popped-").pop(), "[1,2]");
     }
 
     @Override
@@ -270,7 +270,7 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
         return ArrayStack.with("1");
     }
 
-    private void check(final ArrayStack<String> stack, final int last, final String...array) {
+    private void check(final ArrayStack<String> stack, final int last, final String... array) {
         assertArrayEquals(array, stack.array, "array");
         assertEquals(last, stack.last, "last");
 

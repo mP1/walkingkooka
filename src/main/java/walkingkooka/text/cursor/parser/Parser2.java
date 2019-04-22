@@ -50,7 +50,7 @@ abstract class Parser2<C extends ParserContext> implements Parser<C> {
         final TextCursorSavePoint start = cursor.save();
 
         final Optional<ParserToken> result = this.tryParse0(cursor, context, start);
-        if(!result.isPresent()){
+        if (!result.isPresent()) {
             // unsuccessful restore cursor to original position...
             start.restore();
         }

@@ -59,7 +59,7 @@ public final class StringParserTokenTest extends ParserTokenTestCase<StringParse
         }.accept(token);
         assertEquals("132", b.toString());
     }
-    
+
     @Override
     public StringParserToken createToken(final String text) {
         return StringParserToken.with(text, text);

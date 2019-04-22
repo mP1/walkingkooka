@@ -46,7 +46,7 @@ public final class PojoMapNodeMapListTest extends PojoNodeListTestCase<PojoMapNo
     @Override
     List<Object> createList(final List<Object> components) {
         final Map<Object, Object> map = Maps.ordered();
-        for(Object value : components){
+        for (Object value : components) {
             final Entry<Object, Object> entry = Cast.to(value);
             map.put(entry.getKey(), entry.getValue());
         }

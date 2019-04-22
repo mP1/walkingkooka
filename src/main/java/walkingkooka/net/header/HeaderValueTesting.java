@@ -82,7 +82,7 @@ public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqual
     }
 
     default void toHeaderTextListAndCheck(final String toString,
-                                            final HeaderValue... headerValues) {
+                                          final HeaderValue... headerValues) {
         assertEquals(toString,
                 HeaderValue.toHeaderTextList(Lists.of(headerValues), HeaderValue.SEPARATOR.string().concat(" ")),
                 () -> "toHeaderTextList returned wrong toString " + Arrays.toString(headerValues));

@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * Base class for all queries that wrap another query.
  */
-abstract class SearchUnaryQuery extends SearchParentQuery{
+abstract class SearchUnaryQuery extends SearchParentQuery {
 
     static void check(final SearchQuery query) {
         Objects.requireNonNull(query, "query");

@@ -34,7 +34,7 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
     RepeatedOrSequenceParserToken(final List<ParserToken> value, final String text) {
         super(value, text);
 
-        if(value.isEmpty()) {
+        if (value.isEmpty()) {
             throw new IllegalArgumentException("Tokens must not be empty");
         }
     }
@@ -54,8 +54,8 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
 
     abstract ParserToken2<List<ParserToken>> replaceValue(final List<ParserToken> value);
 
-    final void acceptValues(final ParserTokenVisitor visitor){
-        for(ParserToken token: this.value()){
+    final void acceptValues(final ParserTokenVisitor visitor) {
+        for (ParserToken token : this.value()) {
             visitor.accept(token);
         }
     }
@@ -68,11 +68,11 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
     /**
      * Takes the tokens of something that is a {@link RepeatedOrSequenceParserToken} and flattens them so no tokens that remain are also flattenable.
      */
-    final List<ParserToken> flat0(){
+    final List<ParserToken> flat0() {
         final List<ParserToken> flat = Lists.array();
 
-        for(ParserToken token : this.value()) {
-            if(token instanceof RepeatedOrSequenceParserToken) {
+        for (ParserToken token : this.value()) {
+            if (token instanceof RepeatedOrSequenceParserToken) {
                 final RepeatedOrSequenceParserToken<?> has = Cast.to(token);
                 flat.addAll(has.flat0());
             } else {
@@ -83,8 +83,7 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
         return flat;
     }
 
-    @Override
-    final boolean equals1(final ParserToken2<?> other){
+    @Override final boolean equals1(final ParserToken2<?> other) {
         return true;
     }
 }

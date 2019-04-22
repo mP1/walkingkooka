@@ -28,20 +28,20 @@ import java.util.Objects;
  */
 final class CustomToStringConverter implements Converter, HashCodeEqualsDefined {
 
-    static  Converter wrap(final Converter converter, final String toString) {
+    static Converter wrap(final Converter converter, final String toString) {
         Objects.requireNonNull(converter, "converter");
         Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
 
         Converter result;
 
-        for(;;){
-            if(converter.toString().equals(toString)){
+        for (; ; ) {
+            if (converter.toString().equals(toString)) {
                 result = converter;
                 break;
             }
 
             Converter wrap = converter;
-            if(converter instanceof CustomToStringConverter) {
+            if (converter instanceof CustomToStringConverter) {
                 // unwrap then re-wrap the converter...
                 final CustomToStringConverter custom = Cast.to(wrap);
                 wrap = custom.converter;

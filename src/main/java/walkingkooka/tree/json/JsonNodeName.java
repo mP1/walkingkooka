@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 public final class JsonNodeName implements Name,
         Comparable<JsonNodeName>,
-        HasJsonNode{
+        HasJsonNode {
 
     /**
      * The size of a cache for {@link JsonNodeName} by index
@@ -42,7 +42,7 @@ public final class JsonNodeName implements Name,
      * Creates a {@link JsonNodeName} from the index.
      */
     static JsonNodeName index(final int index) {
-        if(index < 0){
+        if (index < 0) {
             throw new IllegalArgumentException("Index " + index + " must not be negative");
         }
         return index < INDEX_CACHE_SIZE ? INDEX_CACHE[index] : new JsonNodeName(index);
@@ -52,7 +52,7 @@ public final class JsonNodeName implements Name,
 
     private static JsonNodeName[] fillIndexCache() {
         final JsonNodeName[] cache = new JsonNodeName[INDEX_CACHE_SIZE];
-        for(int i = 0; i < INDEX_CACHE_SIZE; i++){
+        for (int i = 0; i < INDEX_CACHE_SIZE; i++) {
             cache[i] = new JsonNodeName(i);
         }
         return cache;
@@ -123,8 +123,8 @@ public final class JsonNodeName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof JsonNodeName &&
-               this.equals0(Cast.to(other));
+                other instanceof JsonNodeName &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final JsonNodeName other) {

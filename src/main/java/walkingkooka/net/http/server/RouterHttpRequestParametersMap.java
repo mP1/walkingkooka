@@ -118,7 +118,7 @@ final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttrib
 
     @Override
     public int size() {
-        if(-1 == this.size) {
+        if (-1 == this.size) {
             this.size = HttpRequestAttributes.size() +
                     this.pathNames().length +
                     this.urlParameters().size() +

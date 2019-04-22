@@ -35,7 +35,7 @@ final class SequenceParser<C extends ParserContext> extends Parser2<C> implement
     /**
      * Factory method only called by {@link SequenceParserBuilder#build()}
      */
-    SequenceParser(final List<SequenceParserComponent<C>> components){
+    SequenceParser(final List<SequenceParserComponent<C>> components) {
         this.components = components;
     }
 
@@ -45,19 +45,19 @@ final class SequenceParser<C extends ParserContext> extends Parser2<C> implement
 
         final List<ParserToken> tokens = Lists.array();
 
-        for(SequenceParserComponent<C> component : this.components) {
+        for (SequenceParserComponent<C> component : this.components) {
             final Optional<ParserToken> token = component.parse(cursor, context);
-            if(token.isPresent()) {
+            if (token.isPresent()) {
                 tokens.add(token.get());
                 continue;
             }
-            if(component.abortIfMissing()) {
+            if (component.abortIfMissing()) {
                 tokens.clear();
                 break;
             }
         }
 
-        if(!tokens.isEmpty()){
+        if (!tokens.isEmpty()) {
             result = SequenceParserToken.with(tokens,
                     start.textBetween().toString())
                     .success();
@@ -79,7 +79,7 @@ final class SequenceParser<C extends ParserContext> extends Parser2<C> implement
         return this == other || other instanceof SequenceParser && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final SequenceParser<?> other){
+    private boolean equals0(final SequenceParser<?> other) {
         return this.components.equals(other.components);
     }
 

@@ -29,7 +29,7 @@ abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements LeafPar
         Objects.requireNonNull(value, "value");
     }
 
-    EbnfLeafParserToken(final T value, final String text){
+    EbnfLeafParserToken(final T value, final String text) {
         super(text);
         this.value = value;
     }
@@ -87,8 +87,7 @@ abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements LeafPar
 
     abstract public void accept(final EbnfParserTokenVisitor visitor);
 
-    @Override
-    final boolean equals1(final EbnfParserToken other) {
+    @Override final boolean equals1(final EbnfParserToken other) {
         return this.equals2(other.cast());
     }
 

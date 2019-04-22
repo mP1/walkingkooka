@@ -34,7 +34,7 @@ public final class HasJsonNodeBooleanMapperTest extends HasJsonNodeMapperTestCas
 
     @Test
     public void testToTrue() {
-        this.toJsonNodeWithTypeAndCheck(true,JsonNode.booleanNode(true));
+        this.toJsonNodeWithTypeAndCheck(true, JsonNode.booleanNode(true));
     }
 
     @Test

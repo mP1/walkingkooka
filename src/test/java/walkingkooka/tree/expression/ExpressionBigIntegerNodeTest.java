@@ -27,7 +27,7 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionBigIntegerNodeTest extends ExpressionLeafNodeTestCase<ExpressionBigIntegerNode, BigInteger>{
+public final class ExpressionBigIntegerNodeTest extends ExpressionLeafNodeTestCase<ExpressionBigIntegerNode, BigInteger> {
 
     @Test
     public void testAccept() {

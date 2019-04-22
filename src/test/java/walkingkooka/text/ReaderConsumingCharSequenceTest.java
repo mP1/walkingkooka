@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderConsumingCharSequence>,
-        CharSequenceTesting<ReaderConsumingCharSequence>{
+        CharSequenceTesting<ReaderConsumingCharSequence> {
 
     private final static int BUFFER_SIZE = 5;
 
@@ -101,11 +101,11 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
     @Test
     public void testConsumeUsingLengthTests() throws Exception {
         final String text = "abcdefghijklmnopqrstuvwxyz";
-        try(final StringReader reader = new StringReader(text)) {
+        try (final StringReader reader = new StringReader(text)) {
             final ReaderConsumingCharSequence chars = ReaderConsumingCharSequence.with(reader, 1);
 
             final StringBuilder read = new StringBuilder();
-            while(read.length() != chars.length()) {
+            while (read.length() != chars.length()) {
                 read.append(chars.charAt(read.length()));
             }
 

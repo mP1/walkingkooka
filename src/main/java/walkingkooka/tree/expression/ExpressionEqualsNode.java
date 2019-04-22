@@ -30,12 +30,12 @@ public final class ExpressionEqualsNode extends ExpressionComparisonBinaryNode {
 
     public final static String SYMBOL = "=";
 
-    static ExpressionEqualsNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionEqualsNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionEqualsNode(NO_INDEX, left, right);
     }
 
-    private ExpressionEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -94,8 +94,8 @@ public final class ExpressionEqualsNode extends ExpressionComparisonBinaryNode {
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

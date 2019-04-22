@@ -35,7 +35,7 @@ final class ColorSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatter3<T
      * Creates a {@link ColorSpreadsheetTextFormatter}
      */
     static <T> ColorSpreadsheetTextFormatter<T> with(final SpreadsheetFormatColorParserToken token,
-                                                  final SpreadsheetTextFormatter<T> formatter) {
+                                                     final SpreadsheetTextFormatter<T> formatter) {
         check(token);
         Objects.requireNonNull(formatter, "formatter");
 

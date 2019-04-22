@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2<RouterHttpRequestParametersMapEntrySet>,
         SetTesting<RouterHttpRequestParametersMapEntrySet,
-                        Entry<HttpRequestAttribute<?>, Object>> {
+                Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.with("CUSTOMHTTPMETHOD");

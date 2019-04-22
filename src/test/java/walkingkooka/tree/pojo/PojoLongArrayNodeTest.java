@@ -126,7 +126,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
     }
 
     @Override
-    PojoLongArrayNode createEmptyPojoNode(){
+    PojoLongArrayNode createEmptyPojoNode() {
         return this.createPojoNode(new long[0]);
     }
 
@@ -150,7 +150,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
         Assertions.assertArrayEquals(expected, actual);
     }
 
-    private PojoLongArrayNode createPojoNode(final long[] values){
+    private PojoLongArrayNode createPojoNode(final long[] values) {
         return Cast.to(PojoNode.wrap(ARRAY,
                 values,
                 new ReflectionPojoNodeContext()));
@@ -169,7 +169,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
     private List<PojoNode> children0(final PojoLongArrayNode firstNode, final Object... values) {
         final List<PojoNode> children = Lists.array();
         int i = 0;
-        for(Object value : values){
+        for (Object value : values) {
             children.add(firstNode.createNode(PojoName.index(i), value));
             i++;
         }
@@ -210,7 +210,7 @@ public final class PojoLongArrayNodeTest extends PojoArrayNodeTestCase<PojoLongA
         private boolean equals0(final TestMutableParent other) {
             return Arrays.equals(this.array, other.array);
         }
-        
+
         @Override
         public String toString() {
             return this.getClass().getSimpleName() + "=" + Arrays.toString(this.array);

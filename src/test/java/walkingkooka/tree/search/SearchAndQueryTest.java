@@ -20,7 +20,7 @@ package walkingkooka.tree.search;
 
 import org.junit.jupiter.api.Test;
 
-public final class SearchAndQueryTest extends SearchBinaryQueryTestCase<SearchAndQuery>{
+public final class SearchAndQueryTest extends SearchBinaryQueryTestCase<SearchAndQuery> {
 
     @Test
     public final void testNeither() {
@@ -96,7 +96,7 @@ public final class SearchAndQueryTest extends SearchBinaryQueryTestCase<SearchAn
     SearchAndQuery createSearchQuery(final SearchQuery left, final SearchQuery right) {
         return SearchAndQuery.with(left, right);
     }
-    
+
     @Override
     public Class<SearchAndQuery> type() {
         return SearchAndQuery.class;

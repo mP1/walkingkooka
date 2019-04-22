@@ -50,7 +50,7 @@ final class HttpRequestAttributeRoutingBuilderParameterValuePredicate implements
     public boolean test(final List<String> values) {
         return null != values &&
                 values.stream()
-                .anyMatch(this.predicate);
+                        .anyMatch(this.predicate);
     }
 
     private final Predicate<String> predicate;

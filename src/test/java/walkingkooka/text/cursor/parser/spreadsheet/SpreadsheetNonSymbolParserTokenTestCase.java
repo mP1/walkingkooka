@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-public abstract class SpreadsheetNonSymbolParserTokenTestCase<T extends SpreadsheetNonSymbolParserToken<V>, V> extends SpreadsheetLeafParserTokenTestCase<T, V>{
+public abstract class SpreadsheetNonSymbolParserTokenTestCase<T extends SpreadsheetNonSymbolParserToken<V>, V> extends SpreadsheetLeafParserTokenTestCase<T, V> {
 
     SpreadsheetNonSymbolParserTokenTestCase() {
         super();

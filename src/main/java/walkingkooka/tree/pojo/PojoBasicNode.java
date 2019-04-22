@@ -35,8 +35,8 @@ final class PojoBasicNode extends PojoNode {
     // String and Class are considered basic and without properties.
     private static boolean isBasicType(final Class<?> type) {
         return type == Class.class ||
-        type == String.class ||
-        Types.isPrimitiveOrWrapper(type);
+                type == String.class ||
+                Types.isPrimitiveOrWrapper(type);
     }
 
     PojoBasicNode(final PojoName name,
@@ -54,7 +54,7 @@ final class PojoBasicNode extends PojoNode {
     }
 
     @Override
-    public PojoNode setChildren(final List<PojoNode> children){
+    public PojoNode setChildren(final List<PojoNode> children) {
         throw new UnsupportedOperationException();
     }
 
@@ -64,7 +64,7 @@ final class PojoBasicNode extends PojoNode {
     }
 
     @Override
-    public PojoNode setChildrenValues(final List<Object> values){
+    public PojoNode setChildrenValues(final List<Object> values) {
         throw new UnsupportedOperationException();
     }
 
@@ -85,6 +85,7 @@ final class PojoBasicNode extends PojoNode {
     PojoNode clearChildrenListCache() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public Optional<PojoNode> firstChild() {
         return NO_CHILD;
@@ -103,7 +104,7 @@ final class PojoBasicNode extends PojoNode {
     }
 
     @Override
-    boolean equals0(final PojoNode other){
+    boolean equals0(final PojoNode other) {
         return this.equals1(other);
     }
 

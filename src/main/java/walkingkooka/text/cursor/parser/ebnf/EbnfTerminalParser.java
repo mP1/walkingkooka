@@ -35,7 +35,7 @@ final class EbnfTerminalParser implements Parser<EbnfParserContext> {
      */
     final static Parser<EbnfParserContext> INSTANCE = new EbnfTerminalParser().cast();
 
-    private EbnfTerminalParser(){
+    private EbnfTerminalParser() {
         super();
     }
 
@@ -43,15 +43,15 @@ final class EbnfTerminalParser implements Parser<EbnfParserContext> {
     public Optional<ParserToken> parse(final TextCursor cursor, final EbnfParserContext context) {
         EbnfTerminalParserToken result = null;
 
-        for(;;){
-            if(cursor.isEmpty()){
+        for (; ; ) {
+            if (cursor.isEmpty()) {
                 break;
             }
             final TextCursorSavePoint start = cursor.save();
             final StringBuilder raw = new StringBuilder();
 
             final char open = cursor.at();
-            if(open != '\'' && open != '"'){
+            if (open != '\'' && open != '"') {
                 break;
             }
 
@@ -60,15 +60,15 @@ final class EbnfTerminalParser implements Parser<EbnfParserContext> {
             char unicodeChar = 0;
             int unicodeIndex = -1;
 
-            for(;;){
-                if(cursor.isEmpty()){
+            for (; ; ) {
+                if (cursor.isEmpty()) {
                     break;
                 }
                 final char c = cursor.at();
                 cursor.next();
 
-                if(backslash) {
-                    switch(c) {
+                if (backslash) {
+                    switch (c) {
                         case '0':
                             raw.append('\0');
                             break;
@@ -100,14 +100,14 @@ final class EbnfTerminalParser implements Parser<EbnfParserContext> {
                     backslash = false;
                     continue;
                 }
-                if(unicodeIndex>=0){
+                if (unicodeIndex >= 0) {
                     final int digit = Character.digit(c, 16);
-                    if(-1 == digit) {
+                    if (-1 == digit) {
                         throw new EbnfTerminalParserException("Invalid unicode sequence '" + c + "'");
                     }
-                    unicodeChar = (char)(unicodeChar * 16 + digit);
+                    unicodeChar = (char) (unicodeChar * 16 + digit);
                     unicodeIndex++;
-                    if(unicodeIndex ==4){
+                    if (unicodeIndex == 4) {
                         unicodeIndex = -1;
                         raw.append(unicodeChar);
                     }
@@ -115,13 +115,13 @@ final class EbnfTerminalParser implements Parser<EbnfParserContext> {
                 }
 
                 // closing quote character...
-                if(open == c) {
+                if (open == c) {
                     result = EbnfTerminalParserToken.with(
                             raw.toString(),
                             start.textBetween().toString());
                     break;
                 }
-                if('\\' == c) {
+                if ('\\' == c) {
                     backslash = true;
                 } else {
                     raw.append(c);

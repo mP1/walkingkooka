@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCase<ExpressionLocalTimeNode, LocalTime>{
+public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCase<ExpressionLocalTimeNode, LocalTime> {
 
     private final static String TIME_STRING = "12:59:00";
     private final static String DIFFERENT_TIME_STRING = "06:00";

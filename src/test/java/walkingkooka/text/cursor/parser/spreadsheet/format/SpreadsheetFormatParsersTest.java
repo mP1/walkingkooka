@@ -3868,7 +3868,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
         final List<ParserToken> list = Lists.of(tokens);
         final String text = ParserToken.text(list);
 
-        assertEquals(text.toUpperCase(), text,"text should be all upper case");
+        assertEquals(text.toUpperCase(), text, "text should be all upper case");
 
         this.parseAndCheck(parser,
                 text,

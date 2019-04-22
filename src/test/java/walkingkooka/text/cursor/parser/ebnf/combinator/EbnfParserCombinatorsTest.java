@@ -396,7 +396,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
             if (!grammar.isPresent()) {
                 fail("Failed to parse a grammar from " + CharSequences.quote(resourceName) + "\n" + text);
             }
-            if(!cursor.isEmpty()) {
+            if (!cursor.isEmpty()) {
                 final TextCursorSavePoint save = cursor.save();
                 cursor.end();
                 final CharSequence remaining = save.textBetween();
@@ -474,7 +474,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
             private char characterFromIdentifierReference(final EbnfIdentifierParserToken identifier) {
                 final EbnfIdentifierName identifierName = identifier.value();
                 final EbnfParserToken target = identifierToToken.get(identifierName);
-                if(null==target) {
+                if (null == target) {
                     this.failInvalidRangeBound("Unknown identifier \"" + identifierName + "\"", identifier);
                 }
                 return this.characterForIdentifierOrTerminal(target);
@@ -483,7 +483,7 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
             private char characterFromTerminal(final EbnfTerminalParserToken terminal) {
                 final String value = terminal.value();
                 final CharSequence unescaped = CharSequences.unescape(value);
-                if(unescaped.length() != 1) {
+                if (unescaped.length() != 1) {
                     failInvalidRangeBound("The range terminal does not contain a single character=" + terminal, terminal);
                 }
                 return unescaped.charAt(0);
@@ -512,8 +512,8 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
         };
     }
 
-    private BigIntegerParserToken number(final String text){
-        return ParserTokens.bigInteger(new BigInteger(text),text);
+    private BigIntegerParserToken number(final String text) {
+        return ParserTokens.bigInteger(new BigInteger(text), text);
     }
 
     private StringParserToken string(final String text) {

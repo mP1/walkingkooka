@@ -77,8 +77,8 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
         }.accept(not);
         assertEquals("1315242", b.toString());
         assertEquals(Lists.of(not, not,
-                        child, child, child,
-                        not, not),
+                child, child, child,
+                not, not),
                 visited,
                 "visited");
     }
@@ -88,7 +88,7 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
     @Test
     public void testEvaluateToBigDecimal() {
         final long value = 123;
-        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigDecimal(value)),BigInteger.valueOf(value).not());
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigDecimal(value)), BigInteger.valueOf(value).not());
     }
 
     @Test

@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * A {@link SearchQueryValue} that holds a {@link LocalTime}
  */
-public final class SearchLocalTimeQueryValue extends SearchQueryValue{
+public final class SearchLocalTimeQueryValue extends SearchQueryValue {
 
     static SearchLocalTimeQueryValue with(final LocalTime value) {
         check(value);

@@ -94,7 +94,7 @@ public class RepeatedParserTest extends Parser2TestCase<RepeatedParser<ParserCon
     }
 
     private static SingleQuotedParserToken quoted(final String text) {
-        return ParserTokens.singleQuoted(text.substring(1, text.length() -1), text);
+        return ParserTokens.singleQuoted(text.substring(1, text.length() - 1), text);
     }
 
     @Test

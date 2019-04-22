@@ -90,7 +90,7 @@ public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<Json
     final void fromJsonNodeFails2(final String json) {
         this.fromJsonNodeFails(json.replace("$OP", this.operation()));
     }
-    
+
     final void toJsonNodeAndCheck2(final NodePatch<JsonNode, JsonNodeName> patch,
                                    final String json) {
         this.toJsonNodeAndCheck(patch, json.replace("$OP", this.operation()));

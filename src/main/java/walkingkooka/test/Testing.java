@@ -35,7 +35,7 @@ public interface Testing {
     default String currentTestName() {
         String testName = null;
 
-        for(StackTraceElement stackElement : Thread.currentThread().getStackTrace() ){
+        for (StackTraceElement stackElement : Thread.currentThread().getStackTrace()) {
             final String className = stackElement.getClassName();
             final String methodName = stackElement.getMethodName();
             try {
@@ -43,9 +43,9 @@ public interface Testing {
                 final Optional<Method> possibleMethod = Arrays.stream(klass.getMethods())
                         .filter(m -> m.getName().equals(methodName) && m.getParameterTypes().length == 0 && m.getReturnType() == Void.TYPE)
                         .findFirst();
-                if(possibleMethod.isPresent()) {
+                if (possibleMethod.isPresent()) {
                     final Method method = possibleMethod.get();
-                    if(method.isAnnotationPresent(Test.class)){
+                    if (method.isAnnotationPresent(Test.class)) {
                         testName = method.getName();
                         break;
                     }
@@ -55,7 +55,7 @@ public interface Testing {
             }
         }
 
-        if(null == testName) {
+        if (null == testName) {
             throw new Error("Unable to determine test name");
         }
 

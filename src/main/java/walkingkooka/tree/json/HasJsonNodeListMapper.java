@@ -46,8 +46,7 @@ final class HasJsonNodeListMapper extends HasJsonNodeCollectionMapper<List<?>> {
 
     private final static HasJsonNodeListMapper INSTANCE = instance();
 
-    @Override
-    final List<?> fromJsonNode0(final JsonNode node) {
+    @Override final List<?> fromJsonNode0(final JsonNode node) {
         return node.fromJsonNodeWithTypeList();
     }
 

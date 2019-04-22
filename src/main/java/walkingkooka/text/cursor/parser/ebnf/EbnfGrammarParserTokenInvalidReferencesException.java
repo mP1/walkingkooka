@@ -31,7 +31,7 @@ public class EbnfGrammarParserTokenInvalidReferencesException extends EbnfParser
     EbnfGrammarParserTokenInvalidReferencesException(final String message, final Set<EbnfIdentifierName> references) {
         super(message);
         Objects.requireNonNull(references, "references");
-        if(references.isEmpty()) {
+        if (references.isEmpty()) {
             throw new IllegalArgumentException("References must not be empty");
         }
         this.references = references;

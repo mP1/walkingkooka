@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public final class ShortArrayToStringBuilderTest extends VectorToStringBuilderTestCase<short[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value(new short[]{0, 1, 2});

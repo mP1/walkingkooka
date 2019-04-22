@@ -33,8 +33,8 @@ public final class VisitorPrettyPrinter<T> {
      * Factory that creates a new {@link VisitorPrettyPrinter}
      */
     public static <T> VisitorPrettyPrinter<T> with(final IndentingPrinter printer,
-                                            final Indentation indentation,
-                                            final Function<T, String> typeName) {
+                                                   final Indentation indentation,
+                                                   final Function<T, String> typeName) {
         Objects.requireNonNull(printer, "printer");
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(typeName, "typeName");
@@ -57,7 +57,7 @@ public final class VisitorPrettyPrinter<T> {
                 0;
 
         final int end = typeName.endsWith(suffix) ?
-                typeName.length() - suffix.length():
+                typeName.length() - suffix.length() :
                 typeName.length();
 
         return typeName.substring(start, end);

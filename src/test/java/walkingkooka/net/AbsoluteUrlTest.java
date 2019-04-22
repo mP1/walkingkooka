@@ -235,8 +235,8 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
         final RelativeUrl relative = url.relativeUrl();
         assertEquals(RelativeUrl.with(path, query, fragment).value(), relative.value(), "url");
         assertSame(path, relative.path(), "path");
-        assertSame(query, relative.query(),"query");
-        assertSame(fragment, relative.fragment(),"fragment");
+        assertSame(query, relative.query(), "query");
+        assertSame(fragment, relative.fragment(), "fragment");
     }
 
     // parseAbsolute..........................................................................................

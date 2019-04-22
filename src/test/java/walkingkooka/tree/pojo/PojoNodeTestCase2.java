@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNodeTestCase<N, V>{
+public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNodeTestCase<N, V> {
 
     @Test
     public final void testChildren() {
@@ -128,11 +128,11 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
         this.childrenValuesCheck(node, childrenValues);
     }
 
-    final void childrenValuesCheck(final PojoNode node, final Object...values){
+    final void childrenValuesCheck(final PojoNode node, final Object... values) {
         this.childrenValuesCheck(node, Lists.of(values));
     }
 
-    final void childrenValuesCheck(final PojoNode node, final List<?> values){
+    final void childrenValuesCheck(final PojoNode node, final List<?> values) {
         assertEquals(values,
                 node.childrenValues(),
                 "children values not equal to childrenValues()");

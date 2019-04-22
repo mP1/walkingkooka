@@ -31,7 +31,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     private final static StringParserToken STRING1 = ParserTokens.string("a1", "a1");
     private final static StringParserToken STRING2 = ParserTokens.string("b2", "b2");
-    private final static ParserToken NOISY3 =  new FakeParserToken() {
+    private final static ParserToken NOISY3 = new FakeParserToken() {
         @Override
         public boolean isNoise() {
             return true;
@@ -145,7 +145,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
         assertEquals(Lists.of(STRING1, STRING2, NOISY3), different.value(), "value");
         assertSame(different, different.removeWhitespace());
     }
-    
+
     // accept...........................................................................................................
 
     @Test

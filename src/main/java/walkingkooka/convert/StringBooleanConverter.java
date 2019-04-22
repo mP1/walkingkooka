@@ -37,7 +37,7 @@ final class StringBooleanConverter extends FixedTargetTypeConverter<Boolean> {
 
     @Override
     Boolean convert1(final Object value, final Class<Boolean> type, final ConverterContext context) {
-        if(false==value instanceof String){
+        if (false == value instanceof String) {
             failConversion(value);
         }
         return Boolean.valueOf((String) value);

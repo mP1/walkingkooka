@@ -65,7 +65,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
 
     @Test
     public void testIteratorWithRemove() {
-        this.removeWithoutNextFails( EmptyArrayStack.instance().iterator());
+        this.removeWithoutNextFails(EmptyArrayStack.instance().iterator());
     }
 
     @Test

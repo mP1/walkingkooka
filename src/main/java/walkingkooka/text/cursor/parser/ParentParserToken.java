@@ -35,7 +35,7 @@ public interface ParentParserToken<P extends ParentParserToken> extends ParserTo
     /**
      * Returns a {@link List} without any {@link ParserToken tokens} that return true for {@link #isNoise()}.
      */
-    static List<ParserToken> filterWithoutNoise(final List<ParserToken> value){
+    static List<ParserToken> filterWithoutNoise(final List<ParserToken> value) {
         return value.stream()
                 .filter(t -> !t.isNoise())
                 .collect(Collectors.toList());
@@ -59,7 +59,7 @@ public interface ParentParserToken<P extends ParentParserToken> extends ParserTo
     default SearchNode toSearchNode() {
         final List<SearchNode> children = Lists.array();
 
-        for(ParserToken child : this.value()) {
+        for (ParserToken child : this.value()) {
             children.add(child.toSearchNode());
         }
 

@@ -39,10 +39,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>,
         NodeSelectorContextTesting<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
-        TestNode,
-        StringName,
-        StringName,
-        Object> {
+                TestNode,
+                StringName,
+                StringName,
+                Object> {
 
     @Test
     public void NullPointerException() {
@@ -112,11 +112,13 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     }
 
     private Consumer<TestNode> potential() {
-        return (n)->{};
+        return (n) -> {
+        };
     }
 
     private Consumer<TestNode> selected() {
-        return (n)->{};
+        return (n) -> {
+        };
     }
 
     private Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {

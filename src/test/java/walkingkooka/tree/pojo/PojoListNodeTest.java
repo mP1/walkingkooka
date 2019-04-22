@@ -192,7 +192,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
     }
 
     @Override
-    PojoListNode createEmptyPojoNode(){
+    PojoListNode createEmptyPojoNode() {
         return this.createPojoNode(Lists.empty());
     }
 
@@ -211,7 +211,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         return Lists.of(ELEMENT2);
     }
 
-    private PojoListNode createPojoNode(final List<Object> list){
+    private PojoListNode createPojoNode(final List<Object> list) {
         return Cast.to(PojoNode.wrap(LIST,
                 list,
                 new ReflectionPojoNodeContext()));
@@ -230,7 +230,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
     private List<PojoNode> children0(final PojoListNode firstNode, final Object... values) {
         final List<PojoNode> children = Lists.array();
         int i = 0;
-        for(Object value : values){
+        for (Object value : values) {
             children.add(firstNode.createNode(PojoName.index(i), value));
             i++;
         }
@@ -271,7 +271,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         private boolean equals0(final TestMutableParent other) {
             return this.list.equals(other.list);
         }
-        
+
         @Override
         public String toString() {
             return this.getClass().getSimpleName() + "=" + this.list.toString();
@@ -317,15 +317,15 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
     static class TestMutableLeaf {
         String x;
 
-        TestMutableLeaf(final String x){
+        TestMutableLeaf(final String x) {
             this.setX(x);
         }
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
 
-        public void setX(final String x){
+        public void setX(final String x) {
             this.x = x;
         }
 
@@ -336,7 +336,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestMutableLeaf && equals0((TestMutableLeaf)other);
+            return other instanceof TestMutableLeaf && equals0((TestMutableLeaf) other);
         }
 
         private boolean equals0(final TestMutableLeaf other) {
@@ -344,7 +344,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "x=" + this.getX();
         }
     }

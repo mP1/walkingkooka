@@ -32,18 +32,18 @@ import java.util.Optional;
 
 final class NodeTextCursorTestNode extends FakeNode<NodeTextCursorTestNode, StringName, Name, Object> implements HasText {
 
-    NodeTextCursorTestNode(final String name, final String text, final NodeTextCursorTestNode...children) {
+    NodeTextCursorTestNode(final String name, final String text, final NodeTextCursorTestNode... children) {
         this.name = Names.string(name);
         this.children = Lists.of(children);
 
         int i = 0;
-        for(NodeTextCursorTestNode child : children) {
+        for (NodeTextCursorTestNode child : children) {
             child.parent = Optional.of(this);
             child.index = i;
             i++;
         }
 
-        this.children.forEach( n -> n.parent = Optional.of(this));
+        this.children.forEach(n -> n.parent = Optional.of(this));
 
         this.text = text;
     }

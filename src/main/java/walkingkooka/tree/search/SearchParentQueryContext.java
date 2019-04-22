@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 /**
  * Base class for either Context used by sub classes of {@link SearchParentQuery}.
  */
-abstract class SearchParentQueryContext extends SearchQueryContext{
+abstract class SearchParentQueryContext extends SearchQueryContext {
 
     /**
      * Package private to limit sub classing.

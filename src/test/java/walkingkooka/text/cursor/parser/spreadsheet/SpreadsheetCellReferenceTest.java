@@ -60,7 +60,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
         this.checkColumn(cell, column);
         this.checkRow(cell, row);
     }
-    
+
     // setColumn..................................................................................................
 
     @Test
@@ -156,7 +156,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     @Test
     public void testAddColumnRowColumnNonZeroAndRowNonZero() {
         final SpreadsheetCellReference cell = this.createReference();
-        final int column= 10;
+        final int column = 10;
         final int row = 100;
 
         final SpreadsheetCellReference different = cell.add(column, row);
@@ -167,7 +167,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     @Test
     public void testAddColumnRowColumnNonZero() {
         final SpreadsheetCellReference cell = this.createReference();
-        final int column= 10;
+        final int column = 10;
 
         final SpreadsheetCellReference different = cell.add(column, 0);
         this.checkColumn(different, this.column().setValue(COLUMN + column));
@@ -183,7 +183,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
         this.checkColumn(different, this.column());
         this.checkRow(different, this.row().setValue(ROW + row));
     }
-    
+
     // lower...........................................................................
 
     @Test
@@ -211,7 +211,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     @Test
     public void testLowerOtherSameColumnLessRow() {
         final SpreadsheetCellReference reference = this.createReference();
-        final SpreadsheetCellReference lower = this.createReference(COLUMN, ROW -99);
+        final SpreadsheetCellReference lower = this.createReference(COLUMN, ROW - 99);
 
         this.lowerAndCheck(reference, lower, lower);
     }
@@ -226,12 +226,12 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
 
     @Test
     public void testLowerOtherLessColumnGreaterRow() {
-        this.lowerAndCheck(this.createReference(COLUMN -99, ROW + 99), COLUMN - 99, ROW);
+        this.lowerAndCheck(this.createReference(COLUMN - 99, ROW + 99), COLUMN - 99, ROW);
     }
 
     @Test
     public void testLowerOtherGreaterColumnLessRow() {
-        this.lowerAndCheck(this.createReference(COLUMN +99, ROW - 99), COLUMN, ROW - 99);
+        this.lowerAndCheck(this.createReference(COLUMN + 99, ROW - 99), COLUMN, ROW - 99);
     }
 
     private void lowerAndCheck(final SpreadsheetCellReference other,
@@ -241,18 +241,18 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     }
 
     private void lowerAndCheck(final SpreadsheetCellReference reference,
-                                final SpreadsheetCellReference other,
-                                final SpreadsheetCellReference lower) {
+                               final SpreadsheetCellReference other,
+                               final SpreadsheetCellReference lower) {
         assertEquals(lower,
                 reference.lower(other),
-                reference + " lower " + other +" expected " + lower);
+                reference + " lower " + other + " expected " + lower);
     }
 
     // upper..........................................................................................
 
     @Test
     public void testUpperSame() {
-        final  SpreadsheetCellReference reference = this.createReference();
+        final SpreadsheetCellReference reference = this.createReference();
         assertSame(reference, reference.lower(reference));
     }
 
@@ -275,7 +275,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     @Test
     public void testUpperOtherSameColumnLessRow() {
         final SpreadsheetCellReference reference = this.createReference();
-        final SpreadsheetCellReference lower = this.createReference(COLUMN, ROW -99);
+        final SpreadsheetCellReference lower = this.createReference(COLUMN, ROW - 99);
 
         this.upperAndCheck(reference, lower, reference);
     }
@@ -290,12 +290,12 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
 
     @Test
     public void testUpperOtherLessColumnGreaterRow() {
-        this.upperAndCheck(this.createReference(COLUMN -99, ROW + 99), COLUMN, ROW + 99);
+        this.upperAndCheck(this.createReference(COLUMN - 99, ROW + 99), COLUMN, ROW + 99);
     }
 
     @Test
     public void testUpperOtherGreaterColumnLessRow() {
-        this.upperAndCheck(this.createReference(COLUMN +99, ROW - 99), COLUMN + 99, ROW);
+        this.upperAndCheck(this.createReference(COLUMN + 99, ROW - 99), COLUMN + 99, ROW);
     }
 
     private void upperAndCheck(final SpreadsheetCellReference other,
@@ -307,7 +307,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     private void upperAndCheck(final SpreadsheetCellReference reference,
                                final SpreadsheetCellReference other,
                                final SpreadsheetCellReference upper) {
-        assertEquals(upper, reference.upper(other), () -> reference + " upper " + other +" expected " + upper);
+        assertEquals(upper, reference.upper(other), () -> reference + " upper " + other + " expected " + upper);
     }
 
     @Test
@@ -445,7 +445,7 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     private SpreadsheetCellReference createReference(final int column, final int row) {
         return this.column(column).setRow(this.row(row));
     }
-    
+
     private SpreadsheetColumnReference column() {
         return this.column(COLUMN);
     }
@@ -463,11 +463,11 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     }
 
     private void checkColumn(final SpreadsheetCellReference cell, final SpreadsheetColumnReference column) {
-        assertEquals(column, cell.column(),"column");
+        assertEquals(column, cell.column(), "column");
     }
 
     private void checkRow(final SpreadsheetCellReference cell, final SpreadsheetRowReference row) {
-        assertEquals(row, cell.row(),"row");
+        assertEquals(row, cell.row(), "row");
     }
 
     @Override

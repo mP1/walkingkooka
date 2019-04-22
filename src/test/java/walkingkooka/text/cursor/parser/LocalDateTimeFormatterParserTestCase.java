@@ -24,9 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class LocalDateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<FakeParserContext>,
         T extends ParserToken>
-        extends DateTimeFormatterParserTestCase<P, T>{
+        extends DateTimeFormatterParserTestCase<P, T> {
 
-    LocalDateTimeFormatterParserTestCase(){
+    LocalDateTimeFormatterParserTestCase() {
         super();
     }
 

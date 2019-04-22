@@ -33,8 +33,8 @@ final class ReportingParser<C extends ParserContext> implements Parser<C> {
      * Static factory
      */
     static <C extends ParserContext> ReportingParser<C> with(final ParserReporterCondition condition,
-                                                                                    final ParserReporter<C> reporter,
-                                                                                    final Parser<C> parser) {
+                                                             final ParserReporter<C> reporter,
+                                                             final Parser<C> parser) {
         Objects.requireNonNull(condition, "condition");
         Objects.requireNonNull(reporter, "reporter");
         Objects.requireNonNull(parser, "parser");
@@ -65,8 +65,8 @@ final class ReportingParser<C extends ParserContext> implements Parser<C> {
     final Optional<ParserToken> reportIfNotEmpty(final TextCursor cursor, final C context) {
         final Optional<ParserToken> result = this.parser.parse(cursor, context);
         return cursor.isEmpty() ?
-               result :
-               this.report(cursor, context);
+                result :
+                this.report(cursor, context);
     }
 
     private final ParserReporterCondition condition;

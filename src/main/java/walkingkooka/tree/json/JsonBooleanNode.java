@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Represents an immutable json boolean.
  */
-public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean>{
+public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean> {
 
     static JsonBooleanNode with(final boolean value) {
         return value ?
@@ -115,7 +115,7 @@ public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean>{
     // Visitor .................................................................................................
 
     @Override
-    public void accept(final JsonNodeVisitor visitor){
+    public void accept(final JsonNodeVisitor visitor) {
         visitor.visit(this);
     }
 

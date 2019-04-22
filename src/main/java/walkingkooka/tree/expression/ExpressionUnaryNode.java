@@ -33,7 +33,7 @@ import java.util.Optional;
  */
 abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements Value<ExpressionNode> {
 
-    ExpressionUnaryNode(final int index, final ExpressionNode expression){
+    ExpressionUnaryNode(final int index, final ExpressionNode expression) {
         super(index, Lists.of(expression));
     }
 
@@ -43,12 +43,11 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
     }
 
     @Override
-    int expectedChildCount(){
+    int expectedChildCount() {
         return 1;
     }
 
-    @Override
-    final ExpressionUnaryNode wrap0(final int index, final List<ExpressionNode> children) {
+    @Override final ExpressionUnaryNode wrap0(final int index, final List<ExpressionNode> children) {
         return wrap1(index, children.get(0));
     }
 
@@ -100,7 +99,7 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
     public final boolean isLessThanEquals() {
         return false;
     }
-    
+
     @Override
     public final boolean isModulo() {
         return false;
@@ -161,10 +160,10 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
 
     // Visitor........................................................................................................
 
-    final void acceptValues(final ExpressionNodeVisitor visitor){
+    final void acceptValues(final ExpressionNodeVisitor visitor) {
         visitor.accept(this.value());
     }
-    
+
     // Evaluation...................................................................................................
 
     @Override

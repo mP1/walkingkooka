@@ -86,7 +86,7 @@ final class BigDecimalSpreadsheetTextFormatterComponentContext implements Contex
     void appendGroupingSeparator() {
         this.text.append(this.context.groupingSeparator());
     }
-    
+
     void appendMinusSign() {
         this.text.append(this.context.minusSign());
     }

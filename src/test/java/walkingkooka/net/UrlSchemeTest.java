@@ -88,13 +88,13 @@ public final class UrlSchemeTest implements ClassTesting2<UrlScheme>,
         final UrlScheme scheme = UrlScheme.HTTPS;
         final HostAddress address = HostAddress.with("example.com");
         final AbsoluteUrl url = scheme.andHost(address);
-        assertSame(scheme, url.scheme(),"scheme");
-        assertEquals(UrlCredentials.NO_CREDENTIALS, url.credentials(),"credentials");
-        assertSame(address, url.host(),"host");
-        assertEquals(IpPort.WITHOUT_PORT, url.port(),"port");
-        assertEquals(UrlPath.EMPTY, url.path(),"path");
-        assertEquals(UrlQueryString.EMPTY, url.query(),"queryString");
-        assertEquals(UrlFragment.EMPTY, url.fragment(),"fragment");
+        assertSame(scheme, url.scheme(), "scheme");
+        assertEquals(UrlCredentials.NO_CREDENTIALS, url.credentials(), "credentials");
+        assertSame(address, url.host(), "host");
+        assertEquals(IpPort.WITHOUT_PORT, url.port(), "port");
+        assertEquals(UrlPath.EMPTY, url.path(), "path");
+        assertEquals(UrlQueryString.EMPTY, url.query(), "queryString");
+        assertEquals(UrlFragment.EMPTY, url.fragment(), "fragment");
     }
 
     @Override

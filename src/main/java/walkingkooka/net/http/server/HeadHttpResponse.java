@@ -47,7 +47,7 @@ final class HeadHttpResponse extends WrapperHttpRequestHttpResponse {
 
     @Override
     public void addEntity(final HttpEntity entity) {
-        if(this.first) {
+        if (this.first) {
             this.first = false;
             this.response.addEntity(entity.setBody(HttpEntity.NO_BODY));
         }

@@ -23,7 +23,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 final public class CaseSensitivityCharPredicateTest
-                implements CharPredicateTesting<CaseSensitivityCharPredicate>,
+        implements CharPredicateTesting<CaseSensitivityCharPredicate>,
         HashCodeEqualsDefinedTesting<CaseSensitivityCharPredicate>,
         SerializationTesting<CaseSensitivityCharPredicate> {
 

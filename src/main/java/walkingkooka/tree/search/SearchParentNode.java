@@ -41,7 +41,7 @@ abstract class SearchParentNode extends SearchNode {
         this.children = copy;
 
         int i = 0;
-        for(SearchNode child : children) {
+        for (SearchNode child : children) {
             copy.add(child.setParent(p, i));
             i++;
         }
@@ -56,7 +56,7 @@ abstract class SearchParentNode extends SearchNode {
 
     @Override
     void appendText(final StringBuilder b) {
-        for(SearchNode child : this.children()) {
+        for (SearchNode child : this.children()) {
             child.appendText(b);
         }
     }
@@ -97,8 +97,7 @@ abstract class SearchParentNode extends SearchNode {
         return copy;
     }
 
-    @Override
-    final SearchNode setChild(final SearchNode newChild, final int index) {
+    @Override final SearchNode setChild(final SearchNode newChild, final int index) {
         final SearchNode previous = this.children().get(index);
         return previous.equalsIgnoringParentAndChildren(newChild) && previous.equalsDescendants(newChild) ?
                 this :
@@ -124,8 +123,7 @@ abstract class SearchParentNode extends SearchNode {
 
     abstract void replaceChildrenCheck(final List<SearchNode> children);
 
-    @Override
-    final SearchNode replace(final int index, final SearchNodeName name) {
+    @Override final SearchNode replace(final int index, final SearchNodeName name) {
         return this.replace0(index, name, this.children());
     }
 
@@ -171,14 +169,13 @@ abstract class SearchParentNode extends SearchNode {
         return false;
     }
 
-    final void acceptValues(final SearchNodeVisitor visitor){
-        for(SearchNode node: this.children()){
+    final void acceptValues(final SearchNodeVisitor visitor) {
+        for (SearchNode node : this.children()) {
             visitor.accept(node);
         }
     }
 
-    @Override
-    final boolean equalsDescendants0(final SearchNode other) {
+    @Override final boolean equalsDescendants0(final SearchNode other) {
         return this.equalsDescendants1(other.children());
     }
 
@@ -203,17 +200,15 @@ abstract class SearchParentNode extends SearchNode {
      * If a non default name is present, just add the name followed by the formatted value
      * which typically includes something like surrounding braces, brackets etc.
      */
-    @Override
-    final String toStringNameSuffix() {
+    @Override final String toStringNameSuffix() {
         return "";
     }
 
-    @Override
-    final void toString1(final StringBuilder b) {
+    @Override final void toString1(final StringBuilder b) {
         b.append(this.toStringPrefix());
 
         String separator = "";
-        for(SearchNode child : this.children()) {
+        for (SearchNode child : this.children()) {
             b.append(separator);
             child.toString0(b);
             separator = ", ";

@@ -388,7 +388,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testExtractRangeSame() {
         final HttpEntity entity = this.create();
-        assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.lessThanEquals(0L + BODY.length -1))));
+        assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.lessThanEquals(0L + BODY.length - 1))));
     }
 
     @Test
@@ -439,7 +439,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         final HttpEntity entity = this.create();
         assertEquals(HttpEntity.with(HEADERS, expected),
                 entity.extractRange(range),
-                ()-> entity + " extractRange " + range + " failed");
+                () -> entity + " extractRange " + range + " failed");
     }
 
     @Test

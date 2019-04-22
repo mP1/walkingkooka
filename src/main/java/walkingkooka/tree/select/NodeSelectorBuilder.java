@@ -100,7 +100,7 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
      * {@see AndNodeSelector}
      */
     @SafeVarargs
-    public final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> and(final NodeSelector<N, NAME, ANAME, AVALUE> ...selectors) {
+    public final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> and(final NodeSelector<N, NAME, ANAME, AVALUE>... selectors) {
         return this.append(AndNodeSelector.with(Lists.of(selectors)));
     }
 
@@ -132,8 +132,8 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
         return this.nodePredicate(NodeAttributeValuePredicate.startsWith(name, value));
     }
 
-     /**
-      * {@see ExpressionNodeSelector}
+    /**
+     * {@see ExpressionNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> nodePredicate(final Predicate<N> predicate) {
         return this.append(NodeSelector.nodePredicate(predicate));
@@ -213,7 +213,7 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
      * {@see OrNodeSelector}
      */
     @SafeVarargs
-    public final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> or(final NodeSelector<N, NAME, ANAME, AVALUE>...selectors) {
+    public final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> or(final NodeSelector<N, NAME, ANAME, AVALUE>... selectors) {
         return this.append(OrNodeSelector.with(Lists.of(selectors)));
     }
 

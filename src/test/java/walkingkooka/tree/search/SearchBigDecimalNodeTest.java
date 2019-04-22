@@ -67,7 +67,7 @@ public final class SearchBigDecimalNodeTest extends SearchLeafNodeTestCase<Searc
 
     @Test
     public void testToStringWithName() {
-        this.toStringAndCheck(this.createSearchNode("123", BigDecimal.valueOf(123)). setName(SearchNodeName.with("Name123")),
+        this.toStringAndCheck(this.createSearchNode("123", BigDecimal.valueOf(123)).setName(SearchNodeName.with("Name123")),
                 "Name123=123");
     }
 

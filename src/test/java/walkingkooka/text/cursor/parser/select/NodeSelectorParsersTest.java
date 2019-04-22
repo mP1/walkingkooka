@@ -879,7 +879,7 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteDescendantOrSelfWildcard() {
         this.parseAndCheck2(absolute(), descendantOrSelf(), wildcard());
     }
-    
+
     @Test
     public void testAbsoluteFirstChildWildcard() {
         this.parseAndCheck2(absolute(), firstChild(), wildcard());
@@ -1101,11 +1101,11 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                 predicate(bracketOpen(),
                         and(
                                 and(functionWithoutArguments(),
-                                    whitespace(),
-                                    andSymbol(),
-                                    whitespace(),
-                                    number(),
-                                    whitespace()),
+                                        whitespace(),
+                                        andSymbol(),
+                                        whitespace(),
+                                        number(),
+                                        whitespace()),
                                 andSymbol(),
                                 whitespace(),
                                 quotedText()),
@@ -1203,12 +1203,12 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                 predicate(bracketOpen(),
                         or(
                                 or(
-                                    functionWithoutArguments(),
-                                    orSymbol(),
-                                    whitespace(),
-                                    number()),
-                            orSymbol(),
-                            quotedText()),
+                                        functionWithoutArguments(),
+                                        orSymbol(),
+                                        whitespace(),
+                                        number()),
+                                orSymbol(),
+                                quotedText()),
                         bracketClose()));
     }
 

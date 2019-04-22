@@ -40,7 +40,7 @@ public interface LeafParserToken<T> extends ParserToken, Value<T> {
     default SearchNode toSearchNode() {
         SearchNode node;
 
-        for(;;) {
+        for (; ; ) {
             final String text = this.text();
             final Object value = this.value();
             if (value instanceof BigDecimal) {

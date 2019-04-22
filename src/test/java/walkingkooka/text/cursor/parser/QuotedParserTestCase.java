@@ -70,7 +70,7 @@ public abstract class QuotedParserTestCase<P extends QuotedParser<ParserContext>
     @Test
     public final void testTerminated2() {
         final String text = this.quote("abc");
-        this.parseAndCheck(text + "xyz", this.createToken("abc", text), text,"xyz");
+        this.parseAndCheck(text + "xyz", this.createToken("abc", text), text, "xyz");
     }
 
     @Test
@@ -128,7 +128,7 @@ public abstract class QuotedParserTestCase<P extends QuotedParser<ParserContext>
     }
 
     private void quoteParseAndCheck(final String in, final String content, final String text, final String textAfter) {
-        final String quotedText =  this.quote(text);
+        final String quotedText = this.quote(text);
         this.parseAndCheck(this.quote(in), this.createToken(content, quotedText), quotedText, textAfter);
     }
 

@@ -47,28 +47,28 @@ final class UnicodeEscapeCharacterParser<C extends ParserContext> extends Parser
         Optional<ParserToken> result = null;
 
         int value = 0;
-        for(int i = 0; i < 6; i++) {
-            if(i < 0 || cursor.isEmpty()){
+        for (int i = 0; i < 6; i++) {
+            if (i < 0 || cursor.isEmpty()) {
                 result = Optional.empty();
                 break;
             }
             final char c = cursor.at();
             cursor.next();
 
-            switch(i) {
+            switch (i) {
                 case 0:
-                    if('\\' != c){
+                    if ('\\' != c) {
                         i = -1;
                     }
                     break;
                 case 1:
-                    if('u' != c){
+                    if ('u' != c) {
                         i = -1;
                     }
                     break;
                 default:
                     final int digitValue = Character.digit(c, 16);
-                    if(-1 == digitValue) {
+                    if (-1 == digitValue) {
                         i = -1;
                         break;
                     }
@@ -77,7 +77,7 @@ final class UnicodeEscapeCharacterParser<C extends ParserContext> extends Parser
             }
         }
 
-        if(null==result) {
+        if (null == result) {
             result = ParserTokens.character((char) value, save.textBetween().toString())
                     .success();
         }

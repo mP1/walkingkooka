@@ -70,7 +70,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
 
         final Map<JsonNodeName, JsonNode> nameToValues = Maps.ordered();
         int i = 0;
-        for(JsonNode child : children) {
+        for (JsonNode child : children) {
             nameToValues.put(child.name(), child.setParent(parent, child.name, i));
             i++;
         }
@@ -145,8 +145,8 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
                                     final JsonNodeName name,
                                     final JsonNode value) {
         return JsonParentNodeChildPredicate.INSTANCE.test(previous, value) ?
-               this :
-               this.setChild0(previous.index(), name, value);
+                this :
+                this.setChild0(previous.index(), name, value);
     }
 
     private JsonObjectNode setChild0(final int index,
@@ -183,12 +183,12 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         final Map<JsonNodeName, JsonNode> newChildren = Maps.ordered();
         final JsonNodeName newChildName = newChild.name;
 
-        for(Entry<JsonNodeName, JsonNode> nameAndValue : this.children.nameToValues.entrySet()) {
+        for (Entry<JsonNodeName, JsonNode> nameAndValue : this.children.nameToValues.entrySet()) {
             final JsonNodeName name = nameAndValue.getKey();
             newChildren.put(name,
                     newChildName.equals(name) ?
-                    newChild :
-                    nameAndValue.getValue());
+                            newChild :
+                            nameAndValue.getValue());
         }
 
         return this.replaceChildren(JsonObjectNodeList.with(newChildren)).cast();
@@ -205,16 +205,15 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         Objects.requireNonNull(children, "children");
 
         final Map<JsonNodeName, JsonNode> copy = Maps.ordered();
-        for(JsonNode child : children) {
+        for (JsonNode child : children) {
             copy.put(child.name(), child);
         }
 
         return this.setChildren0(JsonObjectNodeList.with(copy)).cast();
     }
 
-    @Override
-    final JsonNode setChild0(final JsonNode newChild, final int index) {
-        return JsonParentNodeChildPredicate.INSTANCE.test( this.children.get(index), newChild) ?
+    @Override final JsonNode setChild0(final JsonNode newChild, final int index) {
+        return JsonParentNodeChildPredicate.INSTANCE.test(this.children.get(index), newChild) ?
                 this :
                 this.replaceChild0(newChild, index).children.nameToValues.get(newChild.name);
     }
@@ -226,7 +225,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         Objects.requireNonNull(name);
 
         final Map<JsonNodeName, JsonNode> copy = Maps.ordered();
-        for(JsonNode child : children) {
+        for (JsonNode child : children) {
             copy.put(child.name(), child);
         }
         copy.remove(name);
@@ -242,8 +241,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return this.get(name).isPresent();
     }
 
-    @Override
-    final JsonObjectNode create(final JsonNodeName name, final int index, final JsonObjectNodeList children) {
+    @Override final JsonObjectNode create(final JsonNodeName name, final int index, final JsonObjectNodeList children) {
         return new JsonObjectNode(name, index, children);
     }
 
@@ -256,18 +254,15 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
 
     // HasJsonNode...............................................................................................
 
-    @Override
-    <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
+    @Override <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
         return this.reportInvalidNodeArray();
     }
 
-    @Override
-    <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
+    @Override <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
         return this.reportInvalidNodeArray();
     }
 
-    @Override
-    <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
+    @Override <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
         return this.reportInvalidNodeArray();
     }
 
@@ -363,8 +358,8 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
     // Visitor .................................................................................................
 
     @Override
-    public void accept(final JsonNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final JsonNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -400,7 +395,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
                 printer.print(KEY_VALUE_SEPARATOR);
                 child.printJson(printer);
 
-                if(i > 0) {
+                if (i > 0) {
                     printer.print(AFTER);
                 }
                 i--;

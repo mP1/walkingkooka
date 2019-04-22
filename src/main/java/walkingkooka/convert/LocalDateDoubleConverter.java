@@ -45,8 +45,8 @@ final class LocalDateDoubleConverter extends LocalDateConverter<Double> {
 
     @Override
     Double convert3(final long value) {
-        final double doubleValue = (double)value;
-        if(value!=doubleValue){
+        final double doubleValue = (double) value;
+        if (value != doubleValue) {
             this.failConversion(value);
         }
         return Double.valueOf(value);

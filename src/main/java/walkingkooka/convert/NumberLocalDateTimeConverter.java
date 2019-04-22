@@ -34,7 +34,7 @@ final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> 
      * Creates a new instance with the given date offset.
      * A value of zero is 1/1/1970.
      */
-    static NumberLocalDateTimeConverter with(final long offset){
+    static NumberLocalDateTimeConverter with(final long offset) {
         return new NumberLocalDateTimeConverter(offset);
     }
 
@@ -54,7 +54,7 @@ final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> 
     @Override
     LocalDateTime bigDecimal(final BigDecimal value) {
         final double doubleValue = value.doubleValue();
-        if(0 != BigDecimal.valueOf(doubleValue).compareTo(value)) {
+        if (0 != BigDecimal.valueOf(doubleValue).compareTo(value)) {
             this.failConversion(value);
         }
 
@@ -77,12 +77,12 @@ final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> 
     }
 
     private LocalDateTime localDateTime(final double value) {
-        if(!Double.isFinite(value)) {
+        if (!Double.isFinite(value)) {
             this.failConversion(value);
         }
         final double days = Math.floor(value);
 
-        return localDateTime((int)days, value - days, value);
+        return localDateTime((int) days, value - days, value);
     }
 
     private LocalDateTime localDateTime(final long longValue, final Number value) {
@@ -91,8 +91,8 @@ final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> 
 
     private LocalDateTime localDateTime(final long day, final double fraction, final Object value) {
         final double doubleNano = fraction * Converters.NANOS_PER_DAY;
-        final long nano = (long)doubleNano;
-        if(nano != doubleNano){
+        final long nano = (long) doubleNano;
+        if (nano != doubleNano) {
             this.failConversion(value);
         }
 

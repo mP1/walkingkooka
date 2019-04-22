@@ -58,31 +58,31 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         boolean relative = true;
         boolean hash = false;
 
-        for(String component : components) {
-            if(relative){
-                if(component.isEmpty()) {
+        for (String component : components) {
+            if (relative) {
+                if (component.isEmpty()) {
                     relative = false; // found a slash...
                     continue;
                 }
-                if(component.endsWith("#")) {
+                if (component.endsWith("#")) {
                     component = component.substring(0, component.length() - 1);
                     hash = true;
                 }
             }
-            if(component.isEmpty()) {
+            if (component.isEmpty()) {
                 throw new IllegalArgumentException("Empty component found within pointer=" + CharSequences.quote(pointer));
             }
 
-            try{
+            try {
                 final int number = Integer.parseInt(component);
                 result = result.appendToLast(relative ?
-                       RelativeNodePointer.with(number, hash):
-                       indexed(number, nodeType));
+                        RelativeNodePointer.with(number, hash) :
+                        indexed(number, nodeType));
             } catch (final NumberFormatException mustBeName) {
-                if(relative) {
+                if (relative) {
                     throw new IllegalArgumentException("Relative pointer expected number but got=" + CharSequences.quote(pointer));
                 }
-                if(APPEND.equals(component)) {
+                if (APPEND.equals(component)) {
                     result = result.append();
                 } else {
                     final NAME name = nameFactory.apply(component.replace("~1", "/")
@@ -187,8 +187,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
 
     final NodePointer<N, NAME> appendToLast0(final NodePointer<N, NAME> pointer) {
         return null == this.next ?
-               pointer :
-               this.next.appendToLast(pointer);
+                pointer :
+                this.next.appendToLast(pointer);
     }
 
     /**
@@ -250,7 +250,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
             final NodePointer<N, NAME> nextPointer = pointer.next;
             final N next = pointer.nextNodeOrNull(current);
             if (null == next) {
-                result = null == nextPointer?
+                result = null == nextPointer ?
                         pointer.add0(current, value)
                         : null;
                 break;
@@ -264,7 +264,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
             current = next;
         }
 
-        if(null == result) {
+        if (null == result) {
             throw new NodePatchException("Unable to find " + pointer + " starting at " + node);
         }
         return result;
@@ -373,10 +373,10 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         final StringBuilder b = new StringBuilder();
 
         NodePointer<N, NAME> pointer = this;
-        for(;;) {
+        for (; ; ) {
             pointer.toString0(b);
 
-            if(null==pointer.next) {
+            if (null == pointer.next) {
                 pointer.lastToString(b);
                 break;
             }

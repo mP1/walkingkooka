@@ -36,8 +36,7 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
-     *
-     /**
+     * /**
      * {@see AlwaysPredicate}.
      */
     public static <T> Predicate<T> always() {
@@ -109,10 +108,10 @@ final public class Predicates implements PublicStaticHelper {
      * will be thrown.
      */
     public static <T> void failIfNullOrFalse(final T value, final Predicate<T> predicate, final String formatMessage) {
-        if(null==value) {
+        if (null == value) {
             Objects.requireNonNull(value, String.format(formatMessage, value));
         }
-        if(!predicate.test(value)){
+        if (!predicate.test(value)) {
             throw new IllegalArgumentException(String.format(formatMessage, value) + " must be " + predicate);
         }
     }

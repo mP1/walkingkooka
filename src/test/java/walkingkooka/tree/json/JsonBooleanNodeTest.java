@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class JsonBooleanNodeTest extends JsonLeafNonNullNodeTestCase<JsonBooleanNode, Boolean>{
+public final class JsonBooleanNodeTest extends JsonLeafNonNullNodeTestCase<JsonBooleanNode, Boolean> {
 
     @Test
     public void testWithTrue() {

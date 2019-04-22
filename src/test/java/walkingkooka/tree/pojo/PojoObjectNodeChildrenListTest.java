@@ -39,8 +39,8 @@ public final class PojoObjectNodeChildrenListTest extends PojoNodeListTestCase<P
 
     @Override
     List<PojoNode> createList(final List<PojoNode> components) {
-        return list0((String)components.get(0).value(),
-                (String)components.get(1).value());
+        return list0((String) components.get(0).value(),
+                (String) components.get(1).value());
     }
 
     private List<PojoNode> list0(final String component0, final String component1) {
@@ -52,16 +52,17 @@ public final class PojoObjectNodeChildrenListTest extends PojoNodeListTestCase<P
 
     static class TestBean {
 
-        TestBean(final String x, final String y){
+        TestBean(final String x, final String y) {
             this.x = x;
             this.y = y;
         }
 
         private final String x;
 
-        public String getX(){
+        public String getX() {
             return this.x;
         }
+
         private final String y;
 
         public String getY() {
@@ -75,7 +76,7 @@ public final class PojoObjectNodeChildrenListTest extends PojoNodeListTestCase<P
 
         @Override
         public boolean equals(final Object other) {
-            return other instanceof TestBean && equals0((TestBean)other);
+            return other instanceof TestBean && equals0((TestBean) other);
         }
 
         private boolean equals0(final TestBean other) {

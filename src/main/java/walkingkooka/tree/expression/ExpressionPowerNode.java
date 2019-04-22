@@ -35,12 +35,12 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
 
     public final static String SYMBOL = "^^";
 
-    static ExpressionPowerNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionPowerNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionPowerNode(NO_INDEX, left, right);
     }
 
-    private ExpressionPowerNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionPowerNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -99,8 +99,8 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -133,8 +133,8 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
     @Override
     long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
         final double doubleValue = this.applyDouble0(left, right, context);
-        final long longValue = (long)doubleValue;
-        if(doubleValue != longValue){
+        final long longValue = (long) doubleValue;
+        if (doubleValue != longValue) {
             throw new ExpressionEvaluationException("Precision loss " + left + "^^" + right);
         }
 

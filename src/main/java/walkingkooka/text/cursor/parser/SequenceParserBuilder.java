@@ -31,7 +31,7 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
         return new SequenceParserBuilder<>();
     }
 
-    private SequenceParserBuilder(){
+    private SequenceParserBuilder() {
         super();
     }
 
@@ -45,7 +45,7 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
 
     @Override
     public Parser<C> build() throws BuilderException {
-        if(this.components.size() < 2){
+        if (this.components.size() < 2) {
             throw new BuilderException("Sequence requires at least 2 parsers=" + this.components);
         }
         return new SequenceParser<C>(this.components);

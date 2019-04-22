@@ -39,7 +39,7 @@ public final class LocalTimeBigIntegerConverterTest extends LocalTimeConverterTe
         final BigInteger bigInteger = Cast.to(this.convertAndCheck(localTime, BigInteger.valueOf(VALUE)));
         this.convertAndCheck(Converters.numberLocalTime(), bigInteger, LocalTime.class, localTime);
     }
-    
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createConverter(), "LocalTime->BigInteger");

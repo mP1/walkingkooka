@@ -20,9 +20,10 @@ import walkingkooka.Cast;
 
 /**
  * A {@link Parser} that matches single quoted strings with support for backslash and unicode escape sequences.
+ *
  * @param <C>
  */
-final class SingleQuotedParser<C extends ParserContext> extends QuotedParser<C>{
+final class SingleQuotedParser<C extends ParserContext> extends QuotedParser<C> {
 
     static <C extends ParserContext> SingleQuotedParser<C> instance() {
         return Cast.to(INSTANCE);

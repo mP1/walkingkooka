@@ -31,7 +31,7 @@ public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextN
         final SearchTextNode node = this.createSearchNode();
         final SearchNode replace = this.text("XYZ");
 
-        assertEquals(this.sequence(this.text("ab"), this.text("XYZ"),this.text("ef")), node.replace(2, 4, replace));
+        assertEquals(this.sequence(this.text("ab"), this.text("XYZ"), this.text("ef")), node.replace(2, 4, replace));
     }
 
     @Test
@@ -39,7 +39,7 @@ public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextN
         final SearchTextNode node = this.createSearchNode();
         final SearchNode replace = this.text("XYZ");
 
-        assertEquals(this.sequence(this.text("abc"), this.text("XYZ"),this.text("def")), node.replace(3, 3, replace));
+        assertEquals(this.sequence(this.text("abc"), this.text("XYZ"), this.text("def")), node.replace(3, 3, replace));
     }
 
     @Test

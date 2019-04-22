@@ -144,5 +144,5 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
         return this.createPatch(path, this.value1());
     }
 
-    abstract P createPatch(final NodePointer<JsonNode,  JsonNodeName> path, final JsonNode value);
+    abstract P createPatch(final NodePointer<JsonNode, JsonNodeName> path, final JsonNode value);
 }

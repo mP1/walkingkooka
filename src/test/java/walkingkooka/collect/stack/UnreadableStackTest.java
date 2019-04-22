@@ -85,7 +85,7 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
         assertSame(unreadable, unreadable2);
         assertSame(pushed, stack.peek());
     }
-    
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createStack(), STACK.toString());

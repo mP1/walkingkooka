@@ -49,8 +49,8 @@ public final class SearchQueryTest implements ClassTesting2<SearchQuery>,
         this.replaceSelectedAndCheck(
                 "testReplaceSelected",
                 this.queryAndReplace("ABC",
-                CaseSensitivity.SENSITIVE,
-                "XYZ"));
+                        CaseSensitivity.SENSITIVE,
+                        "XYZ"));
     }
 
     @Test
@@ -75,7 +75,7 @@ public final class SearchQueryTest implements ClassTesting2<SearchQuery>,
         this.replaceSelectedAndCheck("testReplaceDifferentSelectedText",
                 (sequenceNode -> {
                     SearchNode result = sequenceNode;
-                    for(String searchFor: Lists.of("Lorem", "elit", "eiusmod", "nisi", "laborum")) {
+                    for (String searchFor : Lists.of("Lorem", "elit", "eiusmod", "nisi", "laborum")) {
                         final SearchQuery query = SearchQueryValue.text(searchFor)
                                 .equalsQuery(CaseSensitivity.INSENSITIVE);
                         result = query.select(result);
@@ -120,7 +120,7 @@ public final class SearchQueryTest implements ClassTesting2<SearchQuery>,
 
         // convert into SearchTextNodes
         final SearchSequenceNode nodes = SearchNode.sequence(RepeatedParserToken.class.cast(tokens.get()).flat().value().stream()
-                .map( t -> SearchNode.text(t.text(), t.text()))
+                .map(t -> SearchNode.text(t.text(), t.text()))
                 .collect(Collectors.toList()));
 
         final SearchNode replaced = queryAndReplace.apply(nodes);
@@ -135,7 +135,7 @@ public final class SearchQueryTest implements ClassTesting2<SearchQuery>,
 
     private String resourceAsText(final String filename) throws IOException {
         final Class<?> classs = this.getClass();
-        return this.resourceAsText(classs, classs.getSimpleName() + "/" +filename);
+        return this.resourceAsText(classs, classs.getSimpleName() + "/" + filename);
     }
 
     @Override

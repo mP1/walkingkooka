@@ -54,7 +54,7 @@ final class NumberBigIntegerConverter extends NumberConverter<BigInteger> {
     }
 
     @Override
-    Class<BigInteger> targetType(){
+    Class<BigInteger> targetType() {
         return BigInteger.class;
     }
 

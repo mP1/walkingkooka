@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A {@link Converter} which handles converting {@link Number} to other number types or nothing at all if the target is number.
  */
-final class NumberNumberConverter implements Converter{
+final class NumberNumberConverter implements Converter {
 
     static NumberNumberConverter with(final Converter bigDecimal,
                                       final Converter bigInteger,
@@ -50,25 +50,25 @@ final class NumberNumberConverter implements Converter{
     public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return value instanceof Number && (
                 type == BigDecimal.class ||
-                type == BigInteger.class ||
-                type == Double.class ||
-                type == Long.class ||
-                type == Number.class);
+                        type == BigInteger.class ||
+                        type == Double.class ||
+                        type == Long.class ||
+                        type == Number.class);
     }
 
     @Override
     public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
         return type == Number.class && value instanceof Number ?
-               type.cast(value) :
-               type == BigDecimal.class ?
-               this.bigDecimal.convert(value, type, context) :
-               type == BigInteger.class ?
-               this.bigInteger.convert(value, type, context) :
-               type == Double.class ?
-               this.doubleConverter.convert(value, type, context) :
-               type == Long.class ?
-               this.longConverter.convert(value, type, context) :
-               this.failConversion(value, type);
+                type.cast(value) :
+                type == BigDecimal.class ?
+                        this.bigDecimal.convert(value, type, context) :
+                        type == BigInteger.class ?
+                                this.bigInteger.convert(value, type, context) :
+                                type == Double.class ?
+                                        this.doubleConverter.convert(value, type, context) :
+                                        type == Long.class ?
+                                                this.longConverter.convert(value, type, context) :
+                                                this.failConversion(value, type);
     }
 
     private final Converter bigDecimal;

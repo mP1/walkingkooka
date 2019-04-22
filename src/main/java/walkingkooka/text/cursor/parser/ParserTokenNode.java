@@ -102,7 +102,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     @Override
     public final int index() {
-        if(UNKNOWN_INDEX == this.index) {
+        if (UNKNOWN_INDEX == this.index) {
             final Optional<ParserTokenNode> parent = this.parent();
             this.index = parent.isPresent() ?
                     parent.get().valueAsList().indexOf(this) :
@@ -138,7 +138,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     @Override
     public final Map<ParserTokenNodeAttributeName, String> attributes() {
-        if(null==this.attributes) {
+        if (null == this.attributes) {
             this.attributes = Maps.of(ParserTokenNodeAttributeName.TEXT, this.token.text());
         }
         return this.attributes;
@@ -158,7 +158,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     private ParserTokenNode replaceAttributes(final Map<ParserTokenNodeAttributeName, String> attributes) {
         final String text = attributes.get(ParserTokenNodeAttributeName.TEXT);
-        if(null==text) {
+        if (null == text) {
             throw new IllegalArgumentException("Missing required attribute " + CharSequences.quote(ParserTokenNodeAttributeName.TEXT.value()));
         }
         return this.replaceText(text);

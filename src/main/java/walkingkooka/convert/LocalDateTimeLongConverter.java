@@ -42,7 +42,7 @@ final class LocalDateTimeLongConverter extends LocalDateTimeConverter2<Long> {
 
     @Override
     Long convert3(final long days, final double time, final LocalDateTime localDateTime) {
-        if(time != 0) {
+        if (time != 0) {
             this.failConversion(localDateTime);
         }
         return Long.valueOf(days);

@@ -75,7 +75,7 @@ public final class ParserTokenParentNodeListTest implements ClassTesting2<Parser
         return Cast.to(sequence("a1b2", STRING1, STRING2).children());
     }
 
-    private ParserTokenParentNode sequence(final String text, final ParserToken...tokens) {
+    private ParserTokenParentNode sequence(final String text, final ParserToken... tokens) {
         return Cast.to(ParserTokens.sequence(Lists.of(tokens), text).asNode());
     }
 

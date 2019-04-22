@@ -63,7 +63,7 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
         return Maps.readOnly(copy);
     }
 
-    private CharPredicateGrammarEbnfParserTokenVisitor(final Map<EbnfIdentifierName, CharPredicate> identifierToCharPredicate){
+    private CharPredicateGrammarEbnfParserTokenVisitor(final Map<EbnfIdentifierName, CharPredicate> identifierToCharPredicate) {
         this.identifierToCharPredicate = identifierToCharPredicate;
     }
 
@@ -76,8 +76,8 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
                 .stream()
                 .filter(t -> t instanceof EbnfParserToken)
                 .map(t -> EbnfParserToken.class.cast(t))
-                .filter( t -> t.isRule())
-                .map( t -> EbnfRuleParserToken.class.cast(t))
+                .filter(t -> t.isRule())
+                .map(t -> EbnfRuleParserToken.class.cast(t))
                 .forEach(this::ruleIdentifier);
         return super.startVisit(token);
     }
@@ -115,7 +115,7 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
     @Override
     protected void endVisit(final EbnfAlternativeParserToken token) {
         final CharPredicateBuilder b = CharPredicates.builder();
-        for(CharPredicate p : this.children){
+        for (CharPredicate p : this.children) {
             b.or(p);
         }
         this.exit();
@@ -193,7 +193,7 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
     private char characterFromTerminal(final EbnfTerminalParserToken terminal) {
         final String value = terminal.value();
         final CharSequence unescaped = CharSequences.unescape(value);
-        if(unescaped.length() != 1) {
+        if (unescaped.length() != 1) {
             failInvalidRangeBound("The range terminal does not contain a single character=" + terminal);
         }
         return unescaped.charAt(0);
@@ -232,7 +232,7 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
 
     final Map<EbnfIdentifierName, CharPredicate> identifierToCharPredicate;
 
-    private void enter(){
+    private void enter() {
         this.previousChildren = this.previousChildren.push(this.children);
         this.children = Lists.array();
     }
@@ -247,7 +247,7 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
     private List<CharPredicate> children;
 
     private void add(final CharPredicate predicate, final EbnfParserToken token) {
-        if(null == predicate) {
+        if (null == predicate) {
             throw new NullPointerException("Null predicate returned for " + token);
         }
         this.children.add(predicate);

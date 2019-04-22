@@ -56,8 +56,8 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
         CharSequences.failIfNullOrEmpty(name, "name");
 
         final int length = name.length();
-        if(length > MAXIMUM_LENGTH) {
-            throw new IllegalArgumentException("url path component is length " + length + " > " +MAXIMUM_LENGTH);
+        if (length > MAXIMUM_LENGTH) {
+            throw new IllegalArgumentException("url path component is length " + length + " > " + MAXIMUM_LENGTH);
         }
 
         return new UrlPathName(name);

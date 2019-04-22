@@ -74,7 +74,7 @@ final class ForwardingConverter<S, T> extends FixedTargetTypeConverter<T> {
         final String toString = this.converter.toString();
         final int arrow = toString.indexOf("->");
         return -1 == arrow ?
-               toString :
-               toString.substring(0, arrow + 2) + this.sourceType.getSimpleName();
+                toString :
+                toString.substring(0, arrow + 2) + this.sourceType.getSimpleName();
     }
 }

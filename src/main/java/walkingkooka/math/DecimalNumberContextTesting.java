@@ -50,11 +50,11 @@ public interface DecimalNumberContextTesting<C extends DecimalNumberContext> ext
     default void checkMinusSign(final DecimalNumberContext context, final char minusSign) {
         assertEquals(minusSign, context.minusSign(), "minusSign");
     }
-    
+
     default void checkPercentageSymbol(final DecimalNumberContext context, final char percentageSymbol) {
         assertEquals(percentageSymbol, context.percentageSymbol(), "percentageSymbol");
     }
-    
+
     default void checkPlusSign(final DecimalNumberContext context, final char plusSign) {
         assertEquals(plusSign, context.plusSign(), "plusSign");
     }

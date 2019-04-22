@@ -31,7 +31,7 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
 
     @Override
     Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
-        return this.quoteChar() == cursor.at()?
+        return this.quoteChar() == cursor.at() ?
                 this.tryParse1(cursor, start) :
                 this.fail();
     }
@@ -49,7 +49,7 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
         char unicodeCharValue = 0;
         final StringBuilder raw = new StringBuilder();
 
-        for(; !cursor.isEmpty(); cursor.next()) {
+        for (; !cursor.isEmpty(); cursor.next()) {
             final char c = cursor.at();
             if (backslashed) {
                 backslashed = false;
@@ -98,7 +98,7 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
                 continue;
             }
             // closing quote found...
-            if(quote == c){
+            if (quote == c) {
                 cursor.next();
                 result = this.token(raw.toString(),
                         start.textBetween().toString())
@@ -107,12 +107,12 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
             }
 
             backslashed = '\\' == c;
-            if(!backslashed){
+            if (!backslashed) {
                 raw.append(c);
             }
         }
 
-        if(null==result){
+        if (null == result) {
             throw new ParserException(missingTerminatingQuote(quote));
         }
 
@@ -125,17 +125,17 @@ abstract class QuotedParser<C extends ParserContext> extends Parser2<C> {
     abstract QuotedParserToken token(final String content, final String rawText);
 
     // VisibleForTesting
-    static String missingTerminatingQuote(final char quote){
+    static String missingTerminatingQuote(final char quote) {
         return "Missing terminating '" + quote + "'";
     }
 
     // VisibleForTesting
-    static String invalidBackslashEscapeChar(final char c){
+    static String invalidBackslashEscapeChar(final char c) {
         return "Unexpected escape character '" + c + "'";
     }
 
     // VisibleForTesting
-    static String invalidUnicodeEscapeChar(final char c){
+    static String invalidUnicodeEscapeChar(final char c) {
         return "Expected hex character in unicode escape but got '" + c + "'";
     }
 

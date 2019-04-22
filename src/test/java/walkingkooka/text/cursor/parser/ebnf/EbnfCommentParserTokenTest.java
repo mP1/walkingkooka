@@ -65,7 +65,7 @@ public final class EbnfCommentParserTokenTest extends EbnfLeafParserTokenTestCas
         }.accept(token);
         assertEquals("13542", b.toString());
     }
-    
+
     @Override
     public String text() {
         return "(* comment *)";

@@ -51,8 +51,8 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
     final static int ZONEID = WHITESPACE + 1;
     final static int ZONENAME = ZONEID + 1;
     final static int LOCALISED_ZONE_OFFSET = ZONENAME + 1;
-    final static int ZONE_OFFSET = LOCALISED_ZONE_OFFSET+ 1;
-    final static int Z_OR_ZONE_OFFSET = ZONE_OFFSET+ 1;
+    final static int ZONE_OFFSET = LOCALISED_ZONE_OFFSET + 1;
+    final static int Z_OR_ZONE_OFFSET = ZONE_OFFSET + 1;
 
     final static char QUOTE = '\'';
 
@@ -300,7 +300,7 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
     private boolean isMatch(final char c, final int pattern) {
         boolean match;
 
-        switch(pattern){
+        switch (pattern) {
             case TEXT:
                 match = isText(c);
                 break;
@@ -337,23 +337,23 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
         return match;
     }
 
-    private static boolean isText(final char c){
+    private static boolean isText(final char c) {
         return Character.isLetter(c);
     }
 
-    private static boolean isDigit(final char c){
+    private static boolean isDigit(final char c) {
         return Character.isDigit(c);
     }
 
-    private boolean isFraction(final char c){
+    private boolean isFraction(final char c) {
         return isDigit(c) || this.formatter.getDecimalStyle().getDecimalSeparator() == c;
     }
 
-    private static boolean isWhitespace(final char c){
+    private static boolean isWhitespace(final char c) {
         return Character.isWhitespace(c);
     }
 
-    private boolean isZoneId(final char c){
+    private boolean isZoneId(final char c) {
         return isZoneId(c, this.positive(), this.negative());
     }
 
@@ -362,28 +362,28 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
         return isText(c) || '/' == c || ':' == c || '_' == c || isZoneOffset(c, positive, negative);
     }
 
-    private boolean isZoneName(final char c){
+    private boolean isZoneName(final char c) {
         return isZoneName(c, this.positive(), this.negative());
     }
 
     // @VisibleForTesting
-    static boolean isZoneName(final char c, final char positive, final char negative){
+    static boolean isZoneName(final char c, final char positive, final char negative) {
         return isZoneId(c, positive, negative) || isWhitespace(c);
     }
 
-    private boolean isLocalisedZoneOffset(final char c){
+    private boolean isLocalisedZoneOffset(final char c) {
         return isText(c) || isDigit(c) || c == ':' || this.positive() == c || this.negative() == c;
     }
 
-    private boolean isZOrZoneOffset(final char c){
-        return 'Z' ==c || this.isZoneOffset(c);
+    private boolean isZOrZoneOffset(final char c) {
+        return 'Z' == c || this.isZoneOffset(c);
     }
 
-    private boolean isZoneOffset(final char c){
+    private boolean isZoneOffset(final char c) {
         return isZoneOffset(c, this.positive(), this.negative());
     }
 
-    private static boolean isZoneOffset(final char c, final char positive, final char negative ){
+    private static boolean isZoneOffset(final char c, final char positive, final char negative) {
         return isDigit(c) || c == ':' || positive == c || negative == c;
     }
 
@@ -401,10 +401,10 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
      * Tests if the cursor has advanced over a string of characters which consumes the entire pattern. If so
      * {@link DateTimeFormatter#parse(CharSequence)} will be called.
      */
-    private Optional<ParserToken> createParseTokenOrFail(final int pos, final int textLength, final TextCursor cursor, final TextCursorSavePoint save){
+    private Optional<ParserToken> createParseTokenOrFail(final int pos, final int textLength, final TextCursor cursor, final TextCursorSavePoint save) {
         // need to see if remaining nodes could have been consumed... eg SSS could follow previous ss.
         boolean create = true;
-        if(pos < this.patterns.length) {
+        if (pos < this.patterns.length) {
             int pattern = this.patterns[pos];
             int i = pos + 1;
 
@@ -450,9 +450,9 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
         }
 
         // finished matching last char create token...
-        return pos > 1 || create?
-           this.createParserToken(textLength, cursor, save):
-           Optional.empty();
+        return pos > 1 || create ?
+                this.createParserToken(textLength, cursor, save) :
+                Optional.empty();
     }
 
     private Optional<ParserToken> createParserToken(final int textLength, final TextCursor cursor, final TextCursorSavePoint save) {
@@ -488,7 +488,7 @@ abstract class DateTimeFormatterParser<C extends ParserContext> extends Parser2<
 
     private boolean equals0(final DateTimeFormatterParser<?> other) {
         return this.formatter.equals(other.formatter) &&
-               this.pattern.equals(other.pattern);
+                this.pattern.equals(other.pattern);
     }
 
     @Override

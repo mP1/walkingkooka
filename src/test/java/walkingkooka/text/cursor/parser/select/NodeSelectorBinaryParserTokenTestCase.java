@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelectorBinaryParserToken<T>> extends NodeSelectorParentParserTokenTestCase<T> {
 
-    NodeSelectorBinaryParserTokenTestCase(){
+    NodeSelectorBinaryParserTokenTestCase() {
         super();
     }
 

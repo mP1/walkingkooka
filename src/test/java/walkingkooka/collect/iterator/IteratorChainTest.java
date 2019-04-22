@@ -104,7 +104,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         final IteratorChain<String> iterator = this.createIterator(first.iterator(), second.iterator());
         assertSame("1", iterator.next(), "next from 1st iterator");
         assertSame("2", iterator.next(), "next from 1st iterator");
-        assertSame( "3", iterator.next(), "next from last iterator");
+        assertSame("3", iterator.next(), "next from last iterator");
         assertSame("4", iterator.next(), "next from last iterator");
     }
 
@@ -246,7 +246,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         assertSame("3", iterator.next(), "next from last iterator");
 
         assertTrue(iterator.hasNext(), "hasNext from last iterator");
-        assertSame( "4", iterator.next(), "next from last iterator");
+        assertSame("4", iterator.next(), "next from last iterator");
         iterator.remove();
         assertEquals(Lists.of("3"), second, "element not removed from second iterator");
 

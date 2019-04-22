@@ -28,14 +28,14 @@ abstract class FixedTargetTypeConverter<T> extends ConverterTemplate {
     /**
      * Package private to limit sub classing.
      */
-    FixedTargetTypeConverter(){
+    FixedTargetTypeConverter() {
         super();
     }
 
     final <TT> TT convert0(final Object value, final Class<TT> type, final ConverterContext context) {
-        return Cast.to(this.targetType()==value.getClass() ?
-               value :
-               this.convert1(value, Cast.to(type), context));
+        return Cast.to(this.targetType() == value.getClass() ?
+                value :
+                this.convert1(value, Cast.to(type), context));
     }
 
     abstract T convert1(final Object value, final Class<T> type, final ConverterContext context);
@@ -55,15 +55,15 @@ abstract class FixedTargetTypeConverter<T> extends ConverterTemplate {
      */
     static String toStringOffset(final long offset) {
         return 0 == offset ?
-               "" :
-               toStringOffset0(offset);
+                "" :
+                toStringOffset0(offset);
     }
 
     private static String toStringOffset0(final long offset) {
         final StringBuilder b = new StringBuilder();
         b.append('(');
 
-        if(offset > 0) {
+        if (offset > 0) {
             b.append('+');
         }
         b.append(offset);

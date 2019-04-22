@@ -28,7 +28,7 @@ import java.util.Set;
  */
 abstract class JsonLeafNonNullNode<V> extends JsonLeafNode<V> {
 
-    JsonLeafNonNullNode(final JsonNodeName name, final int index, final V value){
+    JsonLeafNonNullNode(final JsonNodeName name, final int index, final V value) {
         super(name, index, value);
     }
 
@@ -111,13 +111,11 @@ abstract class JsonLeafNonNullNode<V> extends JsonLeafNode<V> {
         return Objects.hash(this.name, this.value);
     }
 
-    @Override
-    final boolean equalsDescendants(final JsonNode other) {
+    @Override final boolean equalsDescendants(final JsonNode other) {
         return true;
     }
 
-    @Override
-    final boolean equalsValue(final JsonNode other) {
+    @Override final boolean equalsValue(final JsonNode other) {
         return Objects.equals(this.value, JsonLeafNonNullNode.class.cast(other).value);
     }
 }

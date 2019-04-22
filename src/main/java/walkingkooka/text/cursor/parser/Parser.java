@@ -47,7 +47,7 @@ public interface Parser<C extends ParserContext> {
      * Creates a new {@link SequenceParserBuilder} and adds this parser as a required().
      * The builder may then be used to continue building...
      */
-    default SequenceParserBuilder<C> builder(){
+    default SequenceParserBuilder<C> builder() {
         return Cast.to(Parsers.sequenceParserBuilder().required(this.cast()));
     }
 
@@ -63,7 +63,7 @@ public interface Parser<C extends ParserContext> {
     /**
      * Makes this a repeating token.
      */
-    default Parser<C> repeating(){
+    default Parser<C> repeating() {
         return Parsers.repeated(this.cast());
     }
 

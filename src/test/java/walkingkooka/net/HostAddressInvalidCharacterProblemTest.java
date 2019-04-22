@@ -29,7 +29,7 @@ public final class HostAddressInvalidCharacterProblemTest
                 "example.com",
                 "Invalid character 'l' at 5 in \"example.com\"");
     }
-    
+
     @Override
     public Class<HostAddressInvalidCharacterProblem> type() {
         return HostAddressInvalidCharacterProblem.class;

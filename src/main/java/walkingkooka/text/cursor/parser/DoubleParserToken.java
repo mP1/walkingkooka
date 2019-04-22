@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link Double}.
  */
-public final class DoubleParserToken extends ParserToken2<Double> implements LeafParserToken<Double>{
+public final class DoubleParserToken extends ParserToken2<Double> implements LeafParserToken<Double> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DoubleParserToken.class);
 
@@ -39,7 +39,7 @@ public final class DoubleParserToken extends ParserToken2<Double> implements Lea
     }
 
     @Override
-    public DoubleParserToken setText(final String text){
+    public DoubleParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -54,7 +54,7 @@ public final class DoubleParserToken extends ParserToken2<Double> implements Lea
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -71,7 +71,7 @@ public final class DoubleParserToken extends ParserToken2<Double> implements Lea
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.doubleNode(this.text(), this.value());
     }
 }

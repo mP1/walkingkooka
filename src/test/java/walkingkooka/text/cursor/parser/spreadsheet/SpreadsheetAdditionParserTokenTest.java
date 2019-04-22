@@ -97,10 +97,10 @@ public final class SpreadsheetAdditionParserTokenTest extends SpreadsheetBinaryP
         }.accept(binary);
         assertEquals("713715287162871528428", b.toString());
         assertEquals(Lists.of(binary, binary, binary,
-                        left, left, left, left, left,
-                        symbol, symbol, symbol, symbol, symbol,
-                        right, right, right, right, right,
-                        binary, binary, binary),
+                left, left, left, left, left,
+                symbol, symbol, symbol, symbol, symbol,
+                right, right, right, right, right,
+                binary, binary, binary),
                 visited,
                 "visited");
     }
@@ -116,7 +116,7 @@ public final class SpreadsheetAdditionParserTokenTest extends SpreadsheetBinaryP
     }
 
     @Override
-    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right){
+    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionNode.addition(left, right);
     }
 

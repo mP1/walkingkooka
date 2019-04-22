@@ -179,7 +179,7 @@ public final class SpreadsheetRowReferenceTest extends SpreadsheetColumnOrRowRef
 
     @Test
     public void testToStringAbsolute() {
-        this.checkToString(0, SpreadsheetReferenceKind.ABSOLUTE,"$1");
+        this.checkToString(0, SpreadsheetReferenceKind.ABSOLUTE, "$1");
     }
 
     @Override

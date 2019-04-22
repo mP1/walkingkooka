@@ -33,7 +33,7 @@ final class UrlParameterKeyValuePair {
         String encoded;
         try {
             encoded = name.value() + Url.QUERY_NAME_VALUE_SEPARATOR.character() + URLEncoder.encode(value, "UTF-8");
-        } catch ( final UnsupportedEncodingException cause) {
+        } catch (final UnsupportedEncodingException cause) {
             encoded = NeverError.unsupportedEncodingException(cause);
         }
         return new UrlParameterKeyValuePair(encoded, name, value, Url.QUERY_PARAMETER_SEPARATOR.character(), false);
@@ -51,7 +51,7 @@ final class UrlParameterKeyValuePair {
         final int equalsSign = encodedWithoutSeparator.indexOf(Url.QUERY_NAME_VALUE_SEPARATOR.character());
         String name = encodedWithoutSeparator;
         String value = "";
-        if(-1 != equalsSign) {
+        if (-1 != equalsSign) {
             name = name.substring(0, equalsSign);
             try {
                 value = URLDecoder.decode(encodedWithoutSeparator.substring(equalsSign + 1), "UTF-8");

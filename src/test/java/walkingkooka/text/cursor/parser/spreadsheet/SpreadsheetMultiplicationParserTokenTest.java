@@ -36,7 +36,7 @@ public final class SpreadsheetMultiplicationParserTokenTest extends SpreadsheetB
     }
 
     @Override
-    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right){
+    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionNode.multiplication(left, right);
     }
 

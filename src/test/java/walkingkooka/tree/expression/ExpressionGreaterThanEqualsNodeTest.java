@@ -76,9 +76,9 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         }.accept(gte);
         assertEquals("1315215242", b.toString());
         assertEquals(Lists.of(gte, gte,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        gte, gte),
+                text1, text1, text1,
+                text2, text2, text2,
+                gte, gte),
                 visited);
     }
 
@@ -101,7 +101,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), bigDecimal(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanBigDecimalBigInteger() {
         // left gte right == truthy number
@@ -119,7 +119,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), bigInteger(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanBigDecimalDouble() {
         // left gte right == truthy number
@@ -137,7 +137,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), doubleValue(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanBigDecimalLong() {
         // left gte right == truthy number
@@ -173,7 +173,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), text(-99)), true);
     }
-    
+
     // BigInteger................................................................................................
 
     @Test
@@ -193,7 +193,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), bigDecimal(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanBigIntegerBigInteger() {
         // left gte right == truthy number
@@ -211,7 +211,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), bigInteger(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanBigIntegerDouble() {
         // left gte right == truthy number
@@ -229,7 +229,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), doubleValue(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanBigIntegerLong() {
         // left gte right == truthy number
@@ -285,7 +285,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), bigDecimal(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanDoubleBigInteger() {
         // left gte right == truthy number
@@ -303,7 +303,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), bigInteger(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanDoubleDouble() {
         // left gte right == truthy number
@@ -321,7 +321,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), doubleValue(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanDoubleLong() {
         // left gte right == truthy number
@@ -357,7 +357,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), text(-99)), true);
     }
-    
+
     // Long................................................................................................
 
     @Test
@@ -395,7 +395,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), bigInteger(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanLongDouble() {
         // left gte right == truthy number
@@ -413,7 +413,7 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), doubleValue(-99)), true);
     }
-    
+
     @Test
     public void testEvaluateToBooleanLongLong() {
         // left gte right == truthy number
@@ -541,14 +541,14 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(-99)), true);
     }
-    
+
     @Override
     ExpressionGreaterThanEqualsNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionGreaterThanEqualsNode.with(left, right);
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + ">=" + RIGHT_TO_STRING;
     }
 

@@ -201,7 +201,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
     }
 
     final void checkPublicId(final HasXmlPublicId has, final Optional<XmlPublicId> publicId) {
-        assertEquals(publicId, has.publicId(),"publicId");
+        assertEquals(publicId, has.publicId(), "publicId");
     }
 
     final void checkPublicId(final HasXmlPublicId has, final String publicId) {
@@ -209,7 +209,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
     }
 
     final void checkSystemId(final HasXmlSystemId has, final Optional<XmlSystemId> systemId) {
-        assertEquals(systemId, has.systemId(),"systemId");
+        assertEquals(systemId, has.systemId(), "systemId");
     }
 
     final void checkSystemId(final HasXmlSystemId has, final String systemId) {
@@ -220,7 +220,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
         final Map<String, String> entities2 = Maps.ordered();
         node.entities().entrySet()
                 .forEach(e -> entities2.put(e.getKey().value(), e.getValue().toString()));
-        assertEquals(entities, entities2,"entities");
+        assertEquals(entities, entities2, "entities");
 
         final Set<String> actualRawEntitiesNames = Sets.ordered();
         final org.w3c.dom.DocumentType documentType = node.documentTypeNode();
@@ -233,14 +233,14 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
             }
         }
 
-        assertEquals(entities.keySet(), actualRawEntitiesNames,"entities on w3c.dom.Root");
+        assertEquals(entities.keySet(), actualRawEntitiesNames, "entities on w3c.dom.Root");
     }
 
     final void checkNotations(final XmlDocumentType node, final Map<String, String> notations) {
         final Map<String, String> notations2 = Maps.ordered();
         node.notations().entrySet()
                 .forEach(e -> notations2.put(e.getKey().value(), e.getValue().toString()));
-        assertEquals(notations, notations2,"notations");
+        assertEquals(notations, notations2, "notations");
 
         final Set<String> actualRawNotationsNames = Sets.ordered();
         final org.w3c.dom.DocumentType documentType = node.documentTypeNode();
@@ -253,7 +253,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
             }
         }
 
-        assertEquals(notations.keySet(), actualRawNotationsNames,"notations on w3c.dom.Root");
+        assertEquals(notations.keySet(), actualRawNotationsNames, "notations on w3c.dom.Root");
     }
 
     final Reader resource() throws IOException {

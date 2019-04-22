@@ -75,7 +75,7 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
      * The {@link PathSeparator} for node selector paths.
      */
     public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
-    
+
     /**
      * Package private to limit sub classing.
      */
@@ -87,7 +87,7 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
 
     @Override
     public final FilesystemNodeName name() {
-        if(null==this.name){
+        if (null == this.name) {
             // only want the filename and not a path including parent directories etc.
             this.name = FilesystemNodeName.with(this.path.getFileName().toString());
         }
@@ -106,7 +106,7 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
      */
     @Override
     public final Optional<FilesystemNode> parent() {
-        if(null==this.parent) {
+        if (null == this.parent) {
             final Path path = this.path;
             final Path root = this.context.rootPath();
             this.parent = root.equals(path) ?
@@ -162,11 +162,11 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     }
 
     final String created() {
-        if(null == this.created && this.mustLoad(FilesystemNodeCacheAtom.CREATED)) {
+        if (null == this.created && this.mustLoad(FilesystemNodeCacheAtom.CREATED)) {
             this.created = null;
         }
 
-        if(null==this.created) {
+        if (null == this.created) {
             this.basicFileAttributes();
             this.created = this.timeToString(this.basicFileAttributes.creationTime());
         }
@@ -176,11 +176,11 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     private String created;
 
     final String hidden() {
-        if(null == this.hidden && this.mustLoad(FilesystemNodeCacheAtom.HIDDEN)) {
+        if (null == this.hidden && this.mustLoad(FilesystemNodeCacheAtom.HIDDEN)) {
             this.hidden = null;
         }
 
-        if(null==this.hidden) {
+        if (null == this.hidden) {
             try {
                 this.hidden = String.valueOf(Files.isHidden(this.path));
                 return this.hidden;
@@ -194,11 +194,11 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     private String hidden;
 
     final String lastAccessed() {
-        if(null == this.lastAccessed && this.mustLoad(FilesystemNodeCacheAtom.LAST_ACCESSED)) {
+        if (null == this.lastAccessed && this.mustLoad(FilesystemNodeCacheAtom.LAST_ACCESSED)) {
             this.lastAccessed = null;
         }
 
-        if(null==this.lastAccessed) {
+        if (null == this.lastAccessed) {
             this.basicFileAttributes();
             this.lastAccessed = this.timeToString(this.basicFileAttributes.lastAccessTime());
         }
@@ -208,11 +208,11 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     private String lastAccessed;
 
     final String lastModified() {
-        if(null == this.lastModified && this.mustLoad(FilesystemNodeCacheAtom.LAST_MODIFIED)) {
+        if (null == this.lastModified && this.mustLoad(FilesystemNodeCacheAtom.LAST_MODIFIED)) {
             this.lastModified = null;
         }
 
-        if(null==this.lastModified) {
+        if (null == this.lastModified) {
             this.basicFileAttributes();
             this.lastModified = this.timeToString(this.basicFileAttributes.lastAccessTime());
         }
@@ -222,11 +222,11 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     private String lastModified;
 
     final String owner() {
-        if(null == this.owner && this.mustLoad(FilesystemNodeCacheAtom.OWNER)) {
+        if (null == this.owner && this.mustLoad(FilesystemNodeCacheAtom.OWNER)) {
             this.owner = null;
         }
 
-        if(null==this.owner) {
+        if (null == this.owner) {
             try {
                 this.owner = this.fileAttributesView(FileOwnerAttributeView.class).getOwner().getName();
             } catch (final IOException cause) {
@@ -305,8 +305,8 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof FilesystemNode &&
-               this.equals0(Cast.to(other));
+                other instanceof FilesystemNode &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final FilesystemNode other) {

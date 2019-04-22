@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A {@link SearchQueryValue} that holds a {@link String}
  */
-public final class SearchTextQueryValue extends SearchQueryValue{
+public final class SearchTextQueryValue extends SearchQueryValue {
 
     static SearchTextQueryValue with(final String value) {
         check(value);

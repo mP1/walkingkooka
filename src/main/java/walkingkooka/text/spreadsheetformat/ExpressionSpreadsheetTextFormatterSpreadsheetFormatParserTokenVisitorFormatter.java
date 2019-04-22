@@ -68,17 +68,17 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
         }
 
         SpreadsheetFormatConditionParserToken<?> condition = this.condition;
-        if(null==condition) {
-            switch(numberFormatters) {
+        if (null == condition) {
+            switch (numberFormatters) {
                 case 1:
                     break;
                 case 2:
-                    if(0 == nth) {
+                    if (0 == nth) {
                         condition = positiveAndZero();
                     }
                     break;
                 case 3:
-                    switch(nth) {
+                    switch (nth) {
                         case 0:
                             condition = positive();
                             break;
@@ -93,7 +93,7 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
             }
         }
 
-        if(null!=condition) {
+        if (null != condition) {
             formatter = SpreadsheetTextFormatters.conditional(condition, formatter);
         }
 

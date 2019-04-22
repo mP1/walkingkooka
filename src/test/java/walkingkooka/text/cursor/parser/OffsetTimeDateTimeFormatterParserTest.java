@@ -24,7 +24,7 @@ import walkingkooka.Cast;
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
 
-public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeFormatterParserTestCase<OffsetTimeDateTimeFormatterParser<FakeParserContext>, OffsetTimeParserToken>{
+public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeFormatterParserTestCase<OffsetTimeDateTimeFormatterParser<FakeParserContext>, OffsetTimeParserToken> {
 
 //    The ISO date formatter that formats or parses a date without an
 //     * offset, such as '12:58:59.123-10:00'
@@ -43,7 +43,7 @@ public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeF
 
     @Test
     public void testHourSeparatorInvalidFails() {
-        this.parseFailAndCheck2("HH:mmx","12A59");
+        this.parseFailAndCheck2("HH:mmx", "12A59");
     }
 
     @Test
@@ -80,27 +80,27 @@ public final class OffsetTimeDateTimeFormatterParserTest extends OffsetDateTimeF
 
     @Test
     public void testHourSeparatorMinuteSeparatorInvalid() {
-        this.parseThrows2("HH:mm:ssO","12:59A");
+        this.parseThrows2("HH:mm:ssO", "12:59A");
     }
 
     @Test
     public void testHoursSeparatorMinutesSeparatorSecondsInvalidFails() {
-        this.parseThrows2("HH:mm:ssO","12:59:AA");
+        this.parseThrows2("HH:mm:ssO", "12:59:AA");
     }
 
     @Test
     public void testHourSeparatorMinuteIncompleteFail() {
-        this.parseThrows2("HH:mm:ssO","12:59");
+        this.parseThrows2("HH:mm:ssO", "12:59");
     }
 
     @Test
     public void testHourSeparatorMinuteSeparatorIncomplete() {
-        this.parseThrows2("HH:mm:ssx","12:59:");
+        this.parseThrows2("HH:mm:ssx", "12:59:");
     }
 
     @Test
     public void testHoursSeparatorMinutesIncompleteFails() {
-        this.parseThrows2("HH:mm:ssx","12:59");
+        this.parseThrows2("HH:mm:ssx", "12:59");
     }
 
     @Test

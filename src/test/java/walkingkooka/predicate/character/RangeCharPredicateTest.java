@@ -72,7 +72,7 @@ public class RangeCharPredicateTest implements CharPredicateTesting<RangeCharPre
         return Cast.to(this.createCharPredicate('m', 'p'));
     }
 
-    private CharPredicate createCharPredicate(final char start, final char end){
+    private CharPredicate createCharPredicate(final char start, final char end) {
         return RangeCharPredicate.with(start, end);
     }
 

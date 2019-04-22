@@ -29,14 +29,14 @@ import java.util.Optional;
 /**
  * Represents the opening relative pointer..
  */
-public final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class RelativeNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
      * Creates a {@link RelativeNodePointer}
      */
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> RelativeNodePointer<N, NAME> with(final int ancestorCount,
                                                                                                 final boolean hash) {
-        if(ancestorCount < 0) {
+        if (ancestorCount < 0) {
             throw new IllegalArgumentException("Invalid ancestorCount " + ancestorCount + " values should be greater or equal to 0");
         }
 

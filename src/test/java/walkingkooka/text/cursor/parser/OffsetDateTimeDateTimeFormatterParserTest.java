@@ -24,7 +24,7 @@ import walkingkooka.Cast;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
-public final class OffsetDateTimeDateTimeFormatterParserTest extends OffsetDateTimeFormatterParserTestCase<OffsetDateTimeDateTimeFormatterParser<FakeParserContext>, OffsetDateTimeParserToken>{
+public final class OffsetDateTimeDateTimeFormatterParserTest extends OffsetDateTimeFormatterParserTestCase<OffsetDateTimeDateTimeFormatterParser<FakeParserContext>, OffsetDateTimeParserToken> {
 
     // YearMonthDayHoursMinutes...............................................................................
 
@@ -62,7 +62,7 @@ public final class OffsetDateTimeDateTimeFormatterParserTest extends OffsetDateT
 
     @Test
     public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorInvalidFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mmx","2001-12-31 12A59");
+        this.parseThrows2("yyyy-MM-dd HH:mmx", "2001-12-31 12A59");
     }
 
     @Test
@@ -99,27 +99,27 @@ public final class OffsetDateTimeDateTimeFormatterParserTest extends OffsetDateT
 
     @Test
     public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteSeparatorInvalid() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssO","2001-12-31 12:59A");
+        this.parseThrows2("yyyy-MM-dd HH:mm:ssO", "2001-12-31 12:59A");
     }
 
     @Test
     public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesSeparatorSecondsInvalidFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssO","2001-12-31 12:59:AA");
+        this.parseThrows2("yyyy-MM-dd HH:mm:ssO", "2001-12-31 12:59:AA");
     }
 
     @Test
     public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteIncompleteFail() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssO","2001-12-31 12:59");
+        this.parseThrows2("yyyy-MM-dd HH:mm:ssO", "2001-12-31 12:59");
     }
 
     @Test
     public void testYearSeparatorMonthSeparatorDayWhitespaceHourSeparatorMinuteSeparatorIncomplete() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssx","2001-12-31 12:59:");
+        this.parseThrows2("yyyy-MM-dd HH:mm:ssx", "2001-12-31 12:59:");
     }
 
     @Test
     public void testYearSeparatorMonthSeparatorDayWhitespaceHoursSeparatorMinutesIncompleteFails() {
-        this.parseThrows2("yyyy-MM-dd HH:mm:ssx","2001-12-31 12:59");
+        this.parseThrows2("yyyy-MM-dd HH:mm:ssx", "2001-12-31 12:59");
     }
 
     @Test

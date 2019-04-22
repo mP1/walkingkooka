@@ -217,7 +217,7 @@ public final class ReflectionPojoNodeContextTest implements ClassTesting2<Reflec
                 (c) -> this.createContext().createList(c),
                 expected);
     }
-    
+
     // createSet .........................................................................................
 
     @Test
@@ -320,7 +320,7 @@ public final class ReflectionPojoNodeContextTest implements ClassTesting2<Reflec
         String x = STRING;
 
         public void setX(final String x) {
-            this.x =x;
+            this.x = x;
         }
     }
 

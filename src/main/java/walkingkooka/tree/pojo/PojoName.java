@@ -32,7 +32,7 @@ public final class PojoName implements Name,
     private final static int INDEX_CACHE_SIZE = 128;
 
     static PojoName index(final int index) {
-        if(index < 0){
+        if (index < 0) {
             throw new IllegalArgumentException("Index " + index + " must not be negative");
         }
         return index < INDEX_CACHE_SIZE ? INDEX_CACHE[index] : new PojoName(index);
@@ -42,7 +42,7 @@ public final class PojoName implements Name,
 
     private static PojoName[] fillIndexCache() {
         final PojoName[] cache = new PojoName[INDEX_CACHE_SIZE];
-        for(int i = 0; i < INDEX_CACHE_SIZE; i++){
+        for (int i = 0; i < INDEX_CACHE_SIZE; i++) {
             cache[i] = new PojoName(i);
         }
         return cache;
@@ -64,17 +64,17 @@ public final class PojoName implements Name,
             .andNot(CharPredicates.asciiControl()) // necessary because nul is also valid java identifier
             .build();
 
-    private PojoName(final int index){
+    private PojoName(final int index) {
         this(String.valueOf(index), index);
     }
 
-    private PojoName(final String name, final int index){
+    private PojoName(final String name, final int index) {
         this.name = name;
         this.index = index;
     }
 
     void check(final PojoProperty property) {
-        if(!property.name().equals(this)){
+        if (!property.name().equals(this)) {
             throw new IllegalArgumentException("Invalid child name mismatch expected " + CharSequences.quote(property.name().value()) + " got " + CharSequences.quote(this.name));
         }
     }
@@ -113,11 +113,11 @@ public final class PojoName implements Name,
         return this == other || other instanceof PojoName && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final PojoName other){
+    private boolean equals0(final PojoName other) {
         return this.name.equals(other.name);
     }
 
-    public String toString(){
+    public String toString() {
         return this.name;
     }
 }

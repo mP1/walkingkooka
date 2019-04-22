@@ -58,7 +58,7 @@ public final class SearchMetaNode extends SearchParentNode {
                            final List<SearchNode> children,
                            final Map<SearchNodeAttributeName, String> attributes) {
         super(index, name, children);
-        if(attributes.isEmpty()) {
+        if (attributes.isEmpty()) {
             throw new IllegalArgumentException("Attributes must not be empty");
         }
         this.attributes = attributes;
@@ -99,7 +99,7 @@ public final class SearchMetaNode extends SearchParentNode {
     @Override
     void replaceChildrenCheck(final List<SearchNode> children) {
         final int count = children.size();
-        if(1 != count) {
+        if (1 != count) {
             throw new IllegalArgumentException("Expected only 1 child but got " + count + "=" + children);
         }
     }
@@ -132,10 +132,10 @@ public final class SearchMetaNode extends SearchParentNode {
     @Override
     final SearchMetaNode setAttributes0(final Map<SearchNodeAttributeName, String> attributes) {
         return this.attributes.equals(attributes) ?
-               this :
-               new SearchMetaNode(this.index, this.name, this.children, attributes)
-                       .replaceChild(this.parent(), this.index)
-                       .cast();
+                this :
+                new SearchMetaNode(this.index, this.name, this.children, attributes)
+                        .replaceChild(this.parent(), this.index)
+                        .cast();
     }
 
     @Override
@@ -204,8 +204,8 @@ public final class SearchMetaNode extends SearchParentNode {
     // Visitor.........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SearchNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

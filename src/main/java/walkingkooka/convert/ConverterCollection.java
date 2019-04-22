@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link Converter} which tries all collectors to satisfy a request.
  */
-final class ConverterCollection implements Converter{
+final class ConverterCollection implements Converter {
 
     /**
      * Factory that creates a {@link ConverterCollection} if more than one converter is given.
@@ -65,7 +65,7 @@ final class ConverterCollection implements Converter{
     @Override
     public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
         final Optional<Converter> converter = this.converterForType(value, type, context);
-        if(!converter.isPresent()){
+        if (!converter.isPresent()) {
             this.failConversion(value, type);
         }
         return converter.get().convert(value, type, context);
@@ -75,8 +75,8 @@ final class ConverterCollection implements Converter{
                                                  final Class<?> type,
                                                  final ConverterContext context) {
         return this.converters.stream()
-            .filter(c -> c.canConvert(value, type, context))
-            .findFirst();
+                .filter(c -> c.canConvert(value, type, context))
+                .findFirst();
     }
 
     private final List<Converter> converters;
@@ -84,7 +84,7 @@ final class ConverterCollection implements Converter{
     @Override
     public String toString() {
         return this.converters.stream()
-            .map(c -> c.toString())
-            .collect(Collectors.joining(" | "));
+                .map(c -> c.toString())
+                .collect(Collectors.joining(" | "));
     }
 }

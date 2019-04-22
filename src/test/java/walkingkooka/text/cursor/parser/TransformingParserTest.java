@@ -76,7 +76,7 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<Pa
 
     @Test
     public void testDefaultMethodTransform() {
-       this.parseAndCheck4(PARSER.transform(TRANSFORMER), "123abc", 123, "123", "abc");
+        this.parseAndCheck4(PARSER.transform(TRANSFORMER), "123abc", 123, "123", "abc");
     }
 
     @Test
@@ -88,11 +88,11 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<Pa
         return TransformingParser.with(PARSER, TRANSFORMER);
     }
 
-    private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter) {
         return this.parseAndCheck3(in, value, text, textAfter);
     }
 
-    private TextCursor parseAndCheck3(final String from, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck3(final String from, final long value, final String text, final String textAfter) {
         return this.parseAndCheck4(this.createParser(),
                 from,
                 value,
@@ -100,7 +100,7 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<Pa
                 textAfter);
     }
 
-    private TextCursor parseAndCheck4(final Parser<ParserContext> parser, final String from, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck4(final Parser<ParserContext> parser, final String from, final long value, final String text, final String textAfter) {
         return this.parseAndCheck(parser,
                 this.createContext(),
                 TextCursors.charSequence(from),

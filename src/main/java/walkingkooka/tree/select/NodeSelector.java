@@ -59,7 +59,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * All index or positions in xpath are ONE based not ZERO.
      */
     public final static int INDEX_BIAS = 1;
-    
+
     // static factories ......................................................................................
 
     /**
@@ -323,11 +323,11 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     TerminalNodeSelector<N, NAME, ANAME, AVALUE> terminal() {
         return TerminalNodeSelector.get();
     }
-    
+
     /**
      * Package private to limit sub classing.
      */
-    NodeSelector(){
+    NodeSelector() {
     }
 
     // NodeSelector

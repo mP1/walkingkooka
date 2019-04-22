@@ -38,8 +38,8 @@ final class ToStringCharPredicate implements CharPredicate, HashCodeEqualsDefine
         Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
 
         return predicate.toString().equals(toString) ?
-               predicate :
-               new ToStringCharPredicate(unwrapIfNecessary(predicate), toString);
+                predicate :
+                new ToStringCharPredicate(unwrapIfNecessary(predicate), toString);
     }
 
     /**
@@ -47,8 +47,8 @@ final class ToStringCharPredicate implements CharPredicate, HashCodeEqualsDefine
      */
     private static CharPredicate unwrapIfNecessary(final CharPredicate predicate) {
         return predicate instanceof ToStringCharPredicate ?
-               unwrap(Cast.to(predicate)) :
-               predicate;
+                unwrap(Cast.to(predicate)) :
+                predicate;
     }
 
     private static CharPredicate unwrap(final ToStringCharPredicate predicate) {

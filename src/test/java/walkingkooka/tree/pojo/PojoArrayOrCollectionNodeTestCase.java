@@ -54,7 +54,7 @@ public abstract class PojoArrayOrCollectionNodeTestCase<N extends PojoArrayOrCol
         this.childrenValuesCheck(node2);
         this.checkWithoutParent(node);
 
-        this.childrenAndCheckNames(node, children.stream().map( n -> n.name()).collect(Collectors.toList()));
+        this.childrenAndCheckNames(node, children.stream().map(n -> n.name()).collect(Collectors.toList()));
         this.childrenValuesCheck(node, values.toArray());
     }
 
@@ -71,7 +71,7 @@ public abstract class PojoArrayOrCollectionNodeTestCase<N extends PojoArrayOrCol
         this.childrenValuesCheck(node2);
         this.checkWithoutParent(node);
 
-        this.childrenAndCheckNames(node, children.stream().map( n -> n.name()).collect(Collectors.toList()));
+        this.childrenAndCheckNames(node, children.stream().map(n -> n.name()).collect(Collectors.toList()));
         this.childrenValuesCheck(node, values.toArray());
     }
 

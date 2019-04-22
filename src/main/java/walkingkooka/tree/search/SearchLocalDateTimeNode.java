@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * A {@link SearchNode} that holds a {@link LocalDateTime} value.
  */
-public final class SearchLocalDateTimeNode extends SearchLeafNode<LocalDateTime>{
+public final class SearchLocalDateTimeNode extends SearchLeafNode<LocalDateTime> {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchLocalDateTimeNode.class);
 
@@ -113,7 +113,7 @@ public final class SearchLocalDateTimeNode extends SearchLeafNode<LocalDateTime>
     // Visitor ..........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
+    public void accept(final SearchNodeVisitor visitor) {
         visitor.visit(this);
     }
 

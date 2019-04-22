@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public final class StringLocalDateDateTimeFormatterConverterTest extends DateTimeFormatterConverterTestCase<StringLocalDateDateTimeFormatterConverter, String, LocalDate>{
+public final class StringLocalDateDateTimeFormatterConverterTest extends DateTimeFormatterConverterTestCase<StringLocalDateDateTimeFormatterConverter, String, LocalDate> {
 
     @Test
     public void testConvert() {

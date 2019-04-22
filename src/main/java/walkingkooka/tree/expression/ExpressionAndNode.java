@@ -31,12 +31,12 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
 
     public final static String SYMBOL = "&";
 
-    static ExpressionAndNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionAndNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionAndNode(NO_INDEX, left, right);
     }
 
-    private ExpressionAndNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionAndNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -80,8 +80,8 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -118,7 +118,7 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
     static {
         register(SYMBOL, ExpressionAndNode::fromJsonNode, ExpressionAndNode.class);
     }
-    
+
     // Object ....................................................................................................
 
     @Override

@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * Mixin that contains a variety of helpers that test class methods.
  */
-final class ClassMethodTesting<T>  {
+final class ClassMethodTesting<T> {
 
     /**
      * If a method is not overridden it should be package private or private.
@@ -137,7 +137,7 @@ final class ClassMethodTesting<T>  {
     }
 
     private static void processClassAndImplementedInterfaces(final Class<?> type,
-                                              final Set<Class<?>> alreadyVisited, final Set<Method> methods) {
+                                                             final Set<Class<?>> alreadyVisited, final Set<Method> methods) {
         if ((null != type) && (type != Object.class) && alreadyVisited.add(type)) {
             addMethods(type, methods);
             processClassAndImplementedInterfaces(type.getSuperclass(),
@@ -157,7 +157,7 @@ final class ClassMethodTesting<T>  {
     }
 
     private static void processImplementedInterfaces(final Class<?> type,
-                                      final Set<Class<?>> alreadyVisited, final Set<Method> methods) {
+                                                     final Set<Class<?>> alreadyVisited, final Set<Method> methods) {
         for (final Class<?> interfaceClass : type.getInterfaces()) {
             if (alreadyVisited.add(interfaceClass)) {
                 addMethods(interfaceClass, methods);

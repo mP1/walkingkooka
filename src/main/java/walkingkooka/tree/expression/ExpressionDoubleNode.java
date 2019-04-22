@@ -32,7 +32,7 @@ public final class ExpressionDoubleNode extends ExpressionValueNode<Double> {
         return new ExpressionDoubleNode(NO_INDEX, value);
     }
 
-    private ExpressionDoubleNode(final int index, final Double value){
+    private ExpressionDoubleNode(final int index, final Double value) {
         super(index, value);
     }
 
@@ -102,7 +102,7 @@ public final class ExpressionDoubleNode extends ExpressionValueNode<Double> {
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

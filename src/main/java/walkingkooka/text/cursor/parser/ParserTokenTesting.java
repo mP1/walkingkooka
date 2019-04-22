@@ -44,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A mixin interface with tests and helpers to assist testing of {@link ParserToken} implementations.
+ *
  * @param <T>
  */
 public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesting<T>,

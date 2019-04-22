@@ -81,7 +81,7 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl>
         this.checkQueryString(url, UrlQueryString.with("query456"));
         this.checkFragment(url, UrlFragment.with("fragment789"));
     }
-    
+
     // toString........................................................................
 
     @Test

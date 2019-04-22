@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 abstract class SearchAttributeLeafQuery extends SearchLeafQuery<SearchTextQueryValue> {
 
-    SearchAttributeLeafQuery(final SearchTextQueryValue value, final SearchNodeAttributeName name, final CaseSensitivity caseSensitivity){
+    SearchAttributeLeafQuery(final SearchTextQueryValue value, final SearchNodeAttributeName name, final CaseSensitivity caseSensitivity) {
         super(value);
         this.attributeName = name;
         this.caseSensitivity = caseSensitivity;
@@ -103,6 +103,6 @@ abstract class SearchAttributeLeafQuery extends SearchLeafQuery<SearchTextQueryV
 
     private boolean equals1(final SearchAttributeLeafQuery other) {
         return this.attributeName.equals(other.attributeName) &&
-               this.caseSensitivity.equals(other.caseSensitivity);
+                this.caseSensitivity.equals(other.caseSensitivity);
     }
 }

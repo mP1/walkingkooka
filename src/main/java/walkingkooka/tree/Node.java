@@ -107,9 +107,9 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     default N root() {
         N root = Cast.to(this);
 
-        for(;;) {
+        for (; ; ) {
             final Optional<N> parent = root.parent();
-            if(!parent.isPresent()){
+            if (!parent.isPresent()) {
                 break;
             }
             root = parent.get();
@@ -206,10 +206,10 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Removes an existing child using its index.
      */
-    default N removeChild(final int index){
+    default N removeChild(final int index) {
         N parentWithout;
 
-        if(this instanceof HasChildrenValues) {
+        if (this instanceof HasChildrenValues) {
             final HasChildrenValues<Object, N> parentOfChildrenValues = Cast.to(this);
 
             final List<Object> without = Lists.array();
@@ -289,7 +289,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         final List<N> children = this.children();
         return children.isEmpty() ?
                 Optional.empty() :
-                Optional.of(children.get(children.size() -1));
+                Optional.of(children.get(children.size() - 1));
     }
 
     /**
@@ -310,6 +310,6 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      * Returns a {@link NodePointer} that uniquely identifies this {@link Node} starting at the root.
      */
     default NodePointer<N, NAME> pointer() {
-       return Nodes.pointer(Cast.to(this));
+        return Nodes.pointer(Cast.to(this));
     }
 }

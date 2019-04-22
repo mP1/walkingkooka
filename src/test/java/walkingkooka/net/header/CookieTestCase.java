@@ -131,7 +131,7 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
     }
 
     final void checkValue(final Cookie cookie, final String value) {
-        assertEquals(value, cookie.value(),"value");
+        assertEquals(value, cookie.value(), "value");
     }
 
     @Override

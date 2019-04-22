@@ -44,7 +44,7 @@ public final class SearchNodeAttributeName implements Name,
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "name", INITIAL, PART);
 
         final int index = CharSequences.indexOf(name, "..");
-        if(-1 != index) {
+        if (-1 != index) {
             throw new InvalidCharacterException(name, index);
         }
 
@@ -73,8 +73,8 @@ public final class SearchNodeAttributeName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof SearchNodeAttributeName &&
-               this.equals0(Cast.to(other));
+                other instanceof SearchNodeAttributeName &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final SearchNodeAttributeName other) {

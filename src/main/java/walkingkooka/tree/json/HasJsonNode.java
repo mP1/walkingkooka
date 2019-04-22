@@ -53,7 +53,7 @@ public interface HasJsonNode {
      */
     static <T extends HasJsonNode> void register(final String typeName,
                                                  final Function<JsonNode, T> from,
-                                                 final Class<?>...types) {
+                                                 final Class<?>... types) {
         HasJsonNodeMapper.register(typeName, from, types);
     }
 
@@ -132,7 +132,7 @@ public interface HasJsonNode {
     static JsonNode toJsonNodeWithTypeMap(final Map<?, ?> map) {
         return HasJsonNodeMapMapper.toJsonNodeWithTypeMap0(map);
     }
-    
+
     // toJsonNodeWithType .................................................................................................
 
     /**

@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
     @Test
-    default void testHasJsonNodeFactoryRegistered() throws Exception{
+    default void testHasJsonNodeFactoryRegistered() throws Exception {
         final Class<H> type = this.type();
         final String typeName = this.type().getName();
 

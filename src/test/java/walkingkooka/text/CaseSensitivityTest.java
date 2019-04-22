@@ -691,9 +691,9 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
     }
 
     private void indexOfAndCheck0(final CaseSensitivity sensitivity,
-                                 final CharSequence chars,
-                                 final CharSequence searchFor,
-                                 final int expected) {
+                                  final CharSequence chars,
+                                  final CharSequence searchFor,
+                                  final int expected) {
         final int result = sensitivity.indexOf(chars, searchFor);
         if (expected != result) {
             assertEquals(expected,
@@ -703,10 +703,10 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
     }
 
     private void indexOfOffsetAndCheck(final CaseSensitivity sensitivity,
-                                  final CharSequence chars,
-                                  final CharSequence searchFor,
-                                  final int offset,
-                                  final int expected) {
+                                       final CharSequence chars,
+                                       final CharSequence searchFor,
+                                       final int offset,
+                                       final int expected) {
         final int result = sensitivity.indexOf(chars, searchFor, offset);
         if (expected != result) {
             assertEquals(expected,
@@ -962,7 +962,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         this.lastIndexOfOffsetAndCheck(sensitivity,
                 new StringBuilder(chars).append(searchFor),
                 searchFor,
-                chars.length() -1,
+                chars.length() - 1,
                 expected);
     }
 
@@ -1002,7 +1002,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         if (expected != result) {
             assertEquals(expected,
                     result,
-                    ()-> sensitivity + " lastIndexOf( " +
+                    () -> sensitivity + " lastIndexOf( " +
                             CaseSensitivityTest.quote(chars) + ", " +
                             CaseSensitivityTest.quote(searchFor) + ", " +
                             offset + ")");
@@ -1087,7 +1087,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         CaseSensitivity.FILE_SYSTEM = null;
 
         final String osName = SystemProperty.OS_NAME.propertyValue();
-        if(osName.contains("OS X")) {
+        if (osName.contains("OS X")) {
             assertEquals(CaseSensitivity.SENSITIVE, CaseSensitivity.fileSystem());
         }
     }

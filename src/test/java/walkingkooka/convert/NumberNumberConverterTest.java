@@ -135,7 +135,7 @@ public final class NumberNumberConverterTest implements ClassTesting2<NumberNumb
     public void testLongLong() {
         this.convertAndCheck(this.longValue(), Long.class, this.longValue());
     }
-    
+
     // helper............................................................................................................
 
     @Override

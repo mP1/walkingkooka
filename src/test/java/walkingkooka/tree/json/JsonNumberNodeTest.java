@@ -29,7 +29,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNumberNode, Double>{
+public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNumberNode, Double> {
 
     @Override
     public void testNumberValueOrFail() {
@@ -151,7 +151,7 @@ public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNu
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createJsonNode(1.0), "1");

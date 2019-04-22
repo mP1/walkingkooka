@@ -37,7 +37,7 @@ import java.util.Objects;
 abstract public class Color implements HashCodeEqualsDefined,
         HasJsonNode,
         Serializable,
-        UsesToStringBuilder{
+        UsesToStringBuilder {
 
     /**
      * A constant holding black
@@ -224,8 +224,8 @@ abstract public class Color implements HashCodeEqualsDefined,
      */
     Color setRed(final RedColorComponent red) {
         return this.red.equals(red) ?
-               this :
-               this.replace(red, this.green, this.blue);
+                this :
+                this.replace(red, this.green, this.blue);
     }
 
     /**
@@ -233,8 +233,8 @@ abstract public class Color implements HashCodeEqualsDefined,
      */
     Color setGreen(final GreenColorComponent green) {
         return this.green.equals(green) ?
-               this :
-               this.replace(this.red, green, this.blue);
+                this :
+                this.replace(this.red, green, this.blue);
     }
 
     /**
@@ -242,8 +242,8 @@ abstract public class Color implements HashCodeEqualsDefined,
      */
     Color setBlue(final BlueColorComponent blue) {
         return this.blue.equals(blue) ?
-               this :
-               this.replace(this.red, this.green, blue);
+                this :
+                this.replace(this.red, this.green, blue);
     }
 
     /**
@@ -251,8 +251,8 @@ abstract public class Color implements HashCodeEqualsDefined,
      */
     Color setAlpha(final AlphaColorComponent alpha) {
         return this.alpha().equals(alpha) ?
-               this :
-               AlphaColor.with(this.red, this.green, this.blue, alpha);
+                this :
+                AlphaColor.with(this.red, this.green, this.blue, alpha);
     }
 
     /**
@@ -478,8 +478,7 @@ abstract public class Color implements HashCodeEqualsDefined,
     /**
      * Lazily calculates the hash code and stores it for future retrieval.
      */
-    @Override
-    final public int hashCode() {
+    @Override final public int hashCode() {
         return this.value();
     }
 
@@ -487,11 +486,10 @@ abstract public class Color implements HashCodeEqualsDefined,
      * Performs some simple checks for nullness, identity and type using {@link #canBeEqual(Object)} before invoking
      * {@link #equals0(Color)} if types are compatible but different instances.
      */
-    @Override
-    final public boolean equals(final Object other) {
+    @Override final public boolean equals(final Object other) {
         return this == other ||
-               this.canBeEqual(other) &&
-               this.equals0(Cast.to(other));
+                this.canBeEqual(other) &&
+                        this.equals0(Cast.to(other));
     }
 
     /**
@@ -507,13 +505,11 @@ abstract public class Color implements HashCodeEqualsDefined,
         return this.value() == other.value();
     }
 
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         return ToStringBuilder.buildFrom(this);
     }
 
-    @Override
-    final public void buildToString(final ToStringBuilder builder) {
+    @Override final public void buildToString(final ToStringBuilder builder) {
         builder.disable(ToStringBuilderOption.ESCAPE);
         builder.disable(ToStringBuilderOption.QUOTE);
         builder.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);

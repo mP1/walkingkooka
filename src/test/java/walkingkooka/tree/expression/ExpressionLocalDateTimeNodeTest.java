@@ -31,7 +31,7 @@ import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionLocalDateTimeNodeTest extends ExpressionLeafNodeTestCase<ExpressionLocalDateTimeNode, LocalDateTime>{
+public final class ExpressionLocalDateTimeNodeTest extends ExpressionLeafNodeTestCase<ExpressionLocalDateTimeNode, LocalDateTime> {
 
     private final static String DATETIMESTRING = "2000-01-31T12:59:00";
     private final static String DIFFERENT_DATETIME_STRING = "1999-12-31T12:58";

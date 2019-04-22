@@ -39,7 +39,7 @@ final class LocalTimeBigIntegerConverter extends LocalTimeConverter<BigInteger> 
 
     @Override
     BigInteger convert3(final long seconds, final long nano, final LocalTime localTime) {
-        if(0!=nano) {
+        if (0 != nano) {
             this.failConversion(localTime);
         }
         return BigInteger.valueOf(seconds);

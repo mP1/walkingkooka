@@ -72,7 +72,7 @@ final class JsonObjectNodeList extends AbstractList<JsonNode> {
      * Lazily loaded list view of json object properties.
      */
     private List<JsonNode> list() {
-        if(null==this.list) {
+        if (null == this.list) {
             this.list = this.nameToValues.values().stream().collect(Collectors.toList());
         }
         return this.list;

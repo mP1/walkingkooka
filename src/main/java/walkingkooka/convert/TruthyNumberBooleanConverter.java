@@ -25,7 +25,7 @@ import java.math.BigInteger;
  * A {@link Converter} for various {@link Number} sub classes that returns false for zeros, and true for all other values,
  * following the truthy convention.
  */
-final class TruthyNumberBooleanConverter extends NumberConverter<Boolean>{
+final class TruthyNumberBooleanConverter extends NumberConverter<Boolean> {
 
     /**
      * Singleton
@@ -74,7 +74,7 @@ final class TruthyNumberBooleanConverter extends NumberConverter<Boolean>{
     }
 
     @Override
-    Class<Boolean> targetType(){
+    Class<Boolean> targetType() {
         return Boolean.class;
     }
 }

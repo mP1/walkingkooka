@@ -27,7 +27,7 @@ import java.util.List;
  */
 abstract class ExpressionVariableNode extends ExpressionParentNode implements Value<List<ExpressionNode>> {
 
-    ExpressionVariableNode(final int index, final List<ExpressionNode> expressions){
+    ExpressionVariableNode(final int index, final List<ExpressionNode> expressions) {
         super(index, expressions);
     }
 
@@ -38,8 +38,8 @@ abstract class ExpressionVariableNode extends ExpressionParentNode implements Va
 
     // Visitor........................................................................................................
 
-    final void acceptValues(final ExpressionNodeVisitor visitor){
-        for(ExpressionNode node: this.children()){
+    final void acceptValues(final ExpressionNodeVisitor visitor) {
+        for (ExpressionNode node : this.children()) {
             visitor.accept(node);
         }
     }

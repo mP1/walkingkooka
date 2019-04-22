@@ -36,7 +36,7 @@ public interface Converter {
     <T> T convert(final Object value, final Class<T> type, final ConverterContext context);
 
     default void failIfUnsupportedType(final Object value, final Class<?> target, final ConverterContext context) {
-        if(!this.canConvert(value, target, context)){
+        if (!this.canConvert(value, target, context)) {
             this.failConversion(value, target);
         }
     }
@@ -46,7 +46,7 @@ public interface Converter {
     }
 
     default <TT> TT failConversion(final Object value, final Class<TT> target, final Throwable cause) {
-        throw new ConversionException("Failed to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName() + ", message: "+ cause.getMessage(), cause);
+        throw new ConversionException("Failed to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName() + ", message: " + cause.getMessage(), cause);
     }
 
     default Converter setToString(final String toString) {

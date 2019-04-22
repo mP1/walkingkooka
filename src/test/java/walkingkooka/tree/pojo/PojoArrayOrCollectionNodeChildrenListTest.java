@@ -36,8 +36,8 @@ public final class PojoArrayOrCollectionNodeChildrenListTest extends PojoNodeLis
 
     @Override
     List<PojoNode> createList(final List<PojoNode> components) {
-        return list0((String)components.get(0).value(),
-                (String)components.get(1).value());
+        return list0((String) components.get(0).value(),
+                (String) components.get(1).value());
     }
 
     private List<PojoNode> list0(final String component0, final String component1) {

@@ -41,8 +41,8 @@ public final class DateTimeFormatterParserTest implements ClassTesting2<DateTime
     }
 
     private void checkAllZoneIds(final Predicate<Character> predicate) {
-        for(String zoneId : ZoneId.getAvailableZoneIds()){
-            for(char c : zoneId.toCharArray()){
+        for (String zoneId : ZoneId.getAvailableZoneIds()) {
+            for (char c : zoneId.toCharArray()) {
                 assertTrue(predicate.test(c),
                         () -> "Chars " + CharSequences.quoteAndEscape(c) + " of zoneId " + CharSequences.quote(zoneId) + " failed");
             }

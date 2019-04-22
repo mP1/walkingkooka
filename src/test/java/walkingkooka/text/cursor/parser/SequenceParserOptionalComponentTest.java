@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.Cast;
 
 public final class SequenceParserOptionalComponentTest extends SequenceParserComponentTestCase<SequenceParserOptionalComponent<FakeParserContext>> {
-    
+
     @Override
     public Class<SequenceParserOptionalComponent<FakeParserContext>> type() {
         return Cast.to(SequenceParserOptionalComponent.class);

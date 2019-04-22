@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * Represents an immutable json string.
  */
-public final class JsonStringNode extends JsonLeafNonNullNode<String>{
+public final class JsonStringNode extends JsonLeafNonNullNode<String> {
 
     static JsonStringNode with(final String value) {
         Objects.requireNonNull(value, "value");
@@ -107,7 +107,7 @@ public final class JsonStringNode extends JsonLeafNonNullNode<String>{
     // Visitor .................................................................................................
 
     @Override
-    public void accept(final JsonNodeVisitor visitor){
+    public void accept(final JsonNodeVisitor visitor) {
         visitor.visit(this);
     }
 

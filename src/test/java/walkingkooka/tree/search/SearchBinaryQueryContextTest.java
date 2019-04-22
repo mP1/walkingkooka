@@ -22,7 +22,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
 public final class SearchBinaryQueryContextTest implements ClassTesting2<SearchBinaryQueryContext> {
-    
+
     @Override
     public Class<SearchBinaryQueryContext> type() {
         return SearchBinaryQueryContext.class;

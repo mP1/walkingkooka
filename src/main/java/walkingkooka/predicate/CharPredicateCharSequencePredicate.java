@@ -45,9 +45,9 @@ final class CharPredicateCharSequencePredicate implements Predicate<CharSequence
 
         boolean test = false;
 
-        for(int i = 0; i < charSequence.length(); i++) {
+        for (int i = 0; i < charSequence.length(); i++) {
             test = this.predicate.test(charSequence.charAt(i));
-            if(!test){
+            if (!test) {
                 break;
             }
         }
@@ -64,7 +64,7 @@ final class CharPredicateCharSequencePredicate implements Predicate<CharSequence
     }
 
     public boolean equals(final Object other) {
-        return this == other || other instanceof CharPredicateCharSequencePredicate && equals0((CharPredicateCharSequencePredicate)other);
+        return this == other || other instanceof CharPredicateCharSequencePredicate && equals0((CharPredicateCharSequencePredicate) other);
     }
 
     private boolean equals0(final CharPredicateCharSequencePredicate other) {

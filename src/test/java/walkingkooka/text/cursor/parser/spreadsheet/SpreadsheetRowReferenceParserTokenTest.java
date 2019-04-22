@@ -34,7 +34,7 @@ public final class SpreadsheetRowReferenceParserTokenTest extends SpreadsheetNon
 
     @Test
     public void testToStringRelative() {
-        this.toStringAndCheck(this.createToken(),"1");
+        this.toStringAndCheck(this.createToken(), "1");
     }
 
     @Test

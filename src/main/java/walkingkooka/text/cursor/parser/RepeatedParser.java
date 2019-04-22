@@ -30,15 +30,15 @@ import java.util.Optional;
  */
 final class RepeatedParser<C extends ParserContext> extends Parser2<C> {
 
-    static <C extends ParserContext> RepeatedParser<C> with(final Parser<C> parser){
+    static <C extends ParserContext> RepeatedParser<C> with(final Parser<C> parser) {
         Objects.requireNonNull(parser, "parser");
 
         return parser instanceof RepeatedParser ?
-                Cast.to(parser):
+                Cast.to(parser) :
                 new RepeatedParser<C>(parser);
     }
 
-    private RepeatedParser(final Parser<C> parser){
+    private RepeatedParser(final Parser<C> parser) {
         this.parser = parser;
     }
 
@@ -46,9 +46,9 @@ final class RepeatedParser<C extends ParserContext> extends Parser2<C> {
     Optional<ParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
         final List<ParserToken> tokens = Lists.array();
 
-        for(;;) {
+        for (; ; ) {
             final Optional<ParserToken> maybe = this.parser.parse(cursor, context);
-            if(!maybe.isPresent()){
+            if (!maybe.isPresent()) {
                 break;
             }
             tokens.add(maybe.get());
@@ -58,7 +58,7 @@ final class RepeatedParser<C extends ParserContext> extends Parser2<C> {
                 this.fail() :
                 RepeatedParserToken.with(tokens,
                         start.textBetween().toString())
-                .success();
+                        .success();
     }
 
     private final Parser<C> parser;

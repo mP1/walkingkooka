@@ -51,14 +51,14 @@ final class StringParser<C extends ParserContext> extends Parser2<C> implements 
         StringParserToken result = null;
         int matched = 0;
 
-        for(;;) {
-            if(cursor.isEmpty() || false == caseSensitivity.isEqual(string.charAt(matched), cursor.at())) {
+        for (; ; ) {
+            if (cursor.isEmpty() || false == caseSensitivity.isEqual(string.charAt(matched), cursor.at())) {
                 break;
             }
             matched++;
             cursor.next();
 
-            if(string.length() == matched) {
+            if (string.length() == matched) {
                 final String text = start.textBetween().toString();
                 result = StringParserToken.with(text, text);
                 break;
@@ -81,12 +81,12 @@ final class StringParser<C extends ParserContext> extends Parser2<C> implements 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof StringParser && this.equals0(Cast.to(other));
+                other instanceof StringParser && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final StringParser<?> other) {
         return this.string.equals(other.string) &&
-               this.caseSensitivity.equals(other.caseSensitivity);
+                this.caseSensitivity.equals(other.caseSensitivity);
     }
 
     @Override
@@ -94,7 +94,7 @@ final class StringParser<C extends ParserContext> extends Parser2<C> implements 
         final StringBuilder b = new StringBuilder();
 
         b.append(CharSequences.quoteAndEscape(this.string));
-        if(CaseSensitivity.INSENSITIVE == this.caseSensitivity) {
+        if (CaseSensitivity.INSENSITIVE == this.caseSensitivity) {
             b.append(" (CaseInsensitive)");
         }
 

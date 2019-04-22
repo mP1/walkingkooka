@@ -89,9 +89,9 @@ public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveN
     @Test
     public void testFromJsonNodeFromPropertyFails() {
         this.fromJsonNodeFails("[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"from\": \"/123\"\n" +
-                        "}]");
+                "  \"op\": \"remove\",\n" +
+                "  \"from\": \"/123\"\n" +
+                "}]");
     }
 
     @Test

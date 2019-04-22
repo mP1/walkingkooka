@@ -25,9 +25,9 @@ public final class CharacterWrapperToStringBuilderTest extends WrapperToStringBu
     public void testValueWithQuotes() {
         final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.QUOTE);
-        b.value((Object)'a');
+        b.value((Object) 'a');
         b.label(LABEL);
-        b.value((Object)'z');
+        b.value((Object) 'z');
 
         this.buildAndCheck(b, "'a' " + LABEL + "='z'");
     }
@@ -38,9 +38,9 @@ public final class CharacterWrapperToStringBuilderTest extends WrapperToStringBu
         b.enable(ToStringBuilderOption.QUOTE);
         b.enable(ToStringBuilderOption.ESCAPE);
 
-        b.value((Object)'\n');
+        b.value((Object) '\n');
         b.label(LABEL);
-        b.value((Object)'z');
+        b.value((Object) 'z');
 
         this.buildAndCheck(b, "'\\n' " + LABEL + "='z'");
     }

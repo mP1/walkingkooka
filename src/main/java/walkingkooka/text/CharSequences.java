@@ -108,17 +108,17 @@ final public class CharSequences implements PublicStaticHelper {
         final int caseSourceLength = caseSource.length();
 
         final int count = Math.min(charsLength, caseSourceLength);
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             char c = chars.charAt(i);
-            if(Character.isLetter(c)) {
+            if (Character.isLetter(c)) {
                 final char d = caseSource.charAt(i);
-                if(Character.isLetter(d)) {
+                if (Character.isLetter(d)) {
                     final char lowerD = Character.toLowerCase(d);
-                    if(d == lowerD) {
+                    if (d == lowerD) {
                         c = Character.toLowerCase(c);
                     }
                     final char upperD = Character.toUpperCase(d);
-                    if(d == upperD) {
+                    if (d == upperD) {
                         c = Character.toUpperCase(c);
                     }
                 }
@@ -127,7 +127,7 @@ final public class CharSequences implements PublicStaticHelper {
             b.append(c);
         }
 
-        if(caseSourceLength < charsLength) {
+        if (caseSourceLength < charsLength) {
             b.append(chars, caseSourceLength, charsLength);
         }
 
@@ -393,10 +393,10 @@ final public class CharSequences implements PublicStaticHelper {
             throw new IllegalArgumentException("Length " + length + " < " + charsLength);
         }
 
-            final int requiredPadding = length - chars.length();
-            return requiredPadding == 0 ?
-                    chars :
-                    concat(repeating(pad, requiredPadding), chars);
+        final int requiredPadding = length - chars.length();
+        return requiredPadding == 0 ?
+                chars :
+                concat(repeating(pad, requiredPadding), chars);
     }
 
     /**

@@ -25,7 +25,7 @@ import java.time.format.DateTimeParseException;
 /**
  * A {@link Converter} that parses a {@link String} into a {@link LocalTime}.
  */
-final class StringLocalTimeDateTimeFormatterConverter extends DateTimeFormatterConverter<String, LocalTime>{
+final class StringLocalTimeDateTimeFormatterConverter extends DateTimeFormatterConverter<String, LocalTime> {
 
     static StringLocalTimeDateTimeFormatterConverter with(final DateTimeFormatter formatter) {
         return new StringLocalTimeDateTimeFormatterConverter(formatter);

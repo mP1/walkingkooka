@@ -28,7 +28,7 @@ public final class DoubleQuotedParserToken extends QuotedParserToken {
     static DoubleQuotedParserToken with(final String value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(value, "value");
-        if(!text.startsWith("\"") || !text.endsWith("\"") ){
+        if (!text.startsWith("\"") || !text.endsWith("\"")) {
             throw new IllegalArgumentException("text must start and end with '\"' but was " + text);
         }
 
@@ -45,7 +45,7 @@ public final class DoubleQuotedParserToken extends QuotedParserToken {
     }
 
     @Override
-    public DoubleQuotedParserToken setText(final String text){
+    public DoubleQuotedParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -60,7 +60,7 @@ public final class DoubleQuotedParserToken extends QuotedParserToken {
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

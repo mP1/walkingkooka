@@ -54,7 +54,7 @@ final class NumberBigDecimalConverter extends NumberConverter<BigDecimal> {
     }
 
     @Override
-    Class<BigDecimal> targetType(){
+    Class<BigDecimal> targetType() {
         return BigDecimal.class;
     }
 

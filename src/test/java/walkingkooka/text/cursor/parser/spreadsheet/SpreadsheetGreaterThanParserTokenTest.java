@@ -97,14 +97,14 @@ public final class SpreadsheetGreaterThanParserTokenTest extends SpreadsheetBina
         }.accept(binary);
         assertEquals("713715287162871528428", b.toString());
         assertEquals(Lists.of(binary, binary, binary,
-                        left, left, left, left, left,
-                        symbol, symbol, symbol, symbol, symbol,
-                        right, right, right, right, right,
-                        binary, binary, binary),
+                left, left, left, left, left,
+                symbol, symbol, symbol, symbol, symbol,
+                right, right, right, right, right,
+                binary, binary, binary),
                 visited,
                 "visited");
     }
-    
+
     @Override
     SpreadsheetGreaterThanParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.greaterThan(tokens, text);
@@ -116,7 +116,7 @@ public final class SpreadsheetGreaterThanParserTokenTest extends SpreadsheetBina
     }
 
     @Override
-    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right){
+    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionNode.greaterThan(left, right);
     }
 

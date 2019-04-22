@@ -76,15 +76,15 @@ public final class CharacterCharPredicateParserTest extends Parser2TestCase<Char
         return CharacterCharPredicateParser.with(DIGITS);
     }
 
-    private TextCursor parseAndCheck2(final String in, final char value, final String text){
+    private TextCursor parseAndCheck2(final String in, final char value, final String text) {
         return this.parseAndCheck2(in, value, text, "");
     }
 
-    private TextCursor parseAndCheck2(final String in, final char value, final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final String in, final char value, final String text, final String textAfter) {
         return this.parseAndCheck(in, CharacterParserToken.with(value, text), text, textAfter);
     }
 
-    private TextCursor parseAndCheck2(final TextCursor cursor, final char value, final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final TextCursor cursor, final char value, final String text, final String textAfter) {
         return this.parseAndCheck(cursor, CharacterParserToken.with(value, text), text, textAfter);
     }
 

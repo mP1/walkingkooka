@@ -28,14 +28,14 @@ public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String>
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("EbnfWhitespace");
 
-    static EbnfWhitespaceParserToken with(final String value, final String text){
+    static EbnfWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
         CharSequences.failIfNullOrEmpty(text, "text");
 
         return new EbnfWhitespaceParserToken(value, text);
     }
 
-    private EbnfWhitespaceParserToken(final String value, final String text){
+    private EbnfWhitespaceParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -50,7 +50,7 @@ public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String>
     }
 
     @Override
-    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return Optional.empty();
     }
 
@@ -80,7 +80,7 @@ public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String>
     }
 
     @Override
-    public void accept(final EbnfParserTokenVisitor visitor){
+    public void accept(final EbnfParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

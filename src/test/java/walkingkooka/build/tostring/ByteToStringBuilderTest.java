@@ -39,7 +39,7 @@ public final class ByteToStringBuilderTest extends ScalarToStringBuilderTestCase
 
     @Override
     void value(final ToStringBuilder builder, final Byte value) {
-        builder.value((byte)value);
+        builder.value((byte) value);
     }
 
     @Override

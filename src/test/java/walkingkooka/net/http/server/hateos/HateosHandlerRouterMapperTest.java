@@ -69,7 +69,7 @@ public final class HateosHandlerRouterMapperTest extends HateosHandlerRouterTest
         final HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> post = this.handler();
         final HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> put = this.handler();
         final HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> delete = this.handler();
-        
+
         mappers.get = get;
         mappers.post = post;
         mappers.put = put;
@@ -98,7 +98,7 @@ public final class HateosHandlerRouterMapperTest extends HateosHandlerRouterTest
 
         this.toStringAndCheck(mappers, "GET=G1 POST=P2 PUT=P3 DELETE=D4");
     }
-    
+
     private HateosHandler<BigInteger, TestHateosResource, TestHateosResource3> handler(final String toString) {
         return new FakeHateosHandler<BigInteger, TestHateosResource, TestHateosResource3>() {
             public String toString() {

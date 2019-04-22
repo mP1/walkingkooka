@@ -55,7 +55,7 @@ public class FakeSearchNodeVisitor extends SearchNodeVisitor implements Fake {
     protected void endVisit(final SearchMetaNode node) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     protected Visiting startVisit(final SearchSelectNode node) {
         throw new UnsupportedOperationException();

@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
  * A token representation for the various types of tokens for {@link DateTimeFormatter} patterns.
  * Rather than represent each type of token as a separate enum value or class, a single class(this) is used
  * with an integer being the tag.
- *
+ * <p>
  * Values under {@link Character#MAX_VALUE} are tokens for that required character literal, values over are
  * required classes of characters.
  */
@@ -38,7 +38,7 @@ final class DateTimeFormatterParserPatternBuilderToken {
     }
 
     DateTimeFormatterParserPatternBuilderToken finish() {
-        switch(this.pattern) {
+        switch (this.pattern) {
             case DateTimeFormatterParser.TEXT_DIGITS:
                 this.finishTextDigits();
                 break;
@@ -54,7 +54,7 @@ final class DateTimeFormatterParserPatternBuilderToken {
 
     // Number/Text: If the count of pattern letters is 3 or greater, use the Text rules above. Otherwise use the Number rules above.
     private void finishTextDigits() {
-        this.pattern = this.count>=3?
+        this.pattern = this.count >= 3 ?
                 DateTimeFormatterParser.TEXT :
                 DateTimeFormatterParser.DIGITS;
     }
@@ -75,39 +75,39 @@ final class DateTimeFormatterParserPatternBuilderToken {
     public String toString() {
         String toString;
 
-        switch(this.pattern){
+        switch (this.pattern) {
             case DateTimeFormatterParser.TEXT:
-                toString="TEXT";
+                toString = "TEXT";
                 break;
             case DateTimeFormatterParser.DIGITS:
-                toString="DIGITS";
+                toString = "DIGITS";
                 break;
             case DateTimeFormatterParser.FRACTION:
-                toString="FRACTION";
+                toString = "FRACTION";
                 break;
             case DateTimeFormatterParser.TEXT_DIGITS:
-                toString="TEXT_DIGITS";
+                toString = "TEXT_DIGITS";
                 break;
             case DateTimeFormatterParser.WHITESPACE:
-                toString="WHITESPACE";
+                toString = "WHITESPACE";
                 break;
             case DateTimeFormatterParser.ZONEID:
-                toString="ZONEID";
+                toString = "ZONEID";
                 break;
             case DateTimeFormatterParser.ZONENAME:
-                toString="ZONENAME";
+                toString = "ZONENAME";
                 break;
             case DateTimeFormatterParser.LOCALISED_ZONE_OFFSET:
-                toString="LOCALISED_ZONE_OFFSET";
+                toString = "LOCALISED_ZONE_OFFSET";
                 break;
             case DateTimeFormatterParser.ZONE_OFFSET:
-                toString="ZONE_OFFSET";
+                toString = "ZONE_OFFSET";
                 break;
             case DateTimeFormatterParser.Z_OR_ZONE_OFFSET:
-                toString="Z_OR_ZONE_OFFSET";
+                toString = "Z_OR_ZONE_OFFSET";
                 break;
             default:
-                toString = CharSequences.quoteIfChars((char)this.pattern).toString();
+                toString = CharSequences.quoteIfChars((char) this.pattern).toString();
                 break;
         }
 

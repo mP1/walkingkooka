@@ -68,7 +68,7 @@ public class StringParserTest extends Parser2TestCase<StringParser<ParserContext
 
     @Test
     public void testIncompleteInsensitive2() {
-        this.parseFailAndCheck(this.createParserInsensitive(),"ab");
+        this.parseFailAndCheck(this.createParserInsensitive(), "ab");
     }
 
     @Test

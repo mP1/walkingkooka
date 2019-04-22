@@ -62,7 +62,7 @@ public final class StringInitialAndPartCharPredicateParserTest extends Parser2Te
     @Test
     public void testWithInvalidMaxLengthFails2() {
         assertThrows(IllegalArgumentException.class, () -> {
-            StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH -1);
+            StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH - 1);
         });
     }
 
@@ -98,7 +98,7 @@ public final class StringInitialAndPartCharPredicateParserTest extends Parser2Te
 
     @Test
     public void testHonourMaxLength2() {
-        this.parseAndCheck(this.createParser(1, 2),"a12345678", this.string("a1"), "a1", "2345678");
+        this.parseAndCheck(this.createParser(1, 2), "a12345678", this.string("a1"), "a1", "2345678");
     }
 
     private void parseAndCheck2(final String text, final String expected) {

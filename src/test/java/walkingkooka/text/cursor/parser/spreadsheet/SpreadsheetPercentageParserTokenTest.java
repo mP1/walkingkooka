@@ -97,9 +97,9 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
         }.accept(unary);
         assertEquals("7137152871628428", b.toString());
         assertEquals(Lists.of(unary, unary, unary,
-                        parameter, parameter, parameter, parameter, parameter,
-                        symbol, symbol, symbol, symbol, symbol,
-                        unary, unary, unary),
+                parameter, parameter, parameter, parameter, parameter,
+                symbol, symbol, symbol, symbol, symbol,
+                unary, unary, unary),
                 visited,
                 "visited");
     }

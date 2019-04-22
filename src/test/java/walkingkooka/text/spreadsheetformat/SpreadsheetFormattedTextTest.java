@@ -124,8 +124,8 @@ public final class SpreadsheetFormattedTextTest implements ClassTesting2<Spreads
     }
 
     private void check(final SpreadsheetFormattedText formatted, final Optional<Color> color, final String text) {
-        assertEquals(color, formatted.color(),"color");
-        assertEquals(text, formatted.text(),"text");
+        assertEquals(color, formatted.color(), "color");
+        assertEquals(text, formatted.text(), "text");
     }
 
     // HashCodeEqualsDefined ..................................................................................................

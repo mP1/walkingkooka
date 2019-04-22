@@ -63,7 +63,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     public static NodeSelectorAncestorOrSelfParserToken ancestorOrSelf(final String value, final String text) {
         return NodeSelectorAncestorOrSelfParserToken.with(value, text);
     }
-    
+
     /**
      * {@see NodeSelectorAndParserToken}
      */
@@ -126,7 +126,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     public static NodeSelectorDescendantOrSelfParserToken descendantOrSelf(final String value, final String text) {
         return NodeSelectorDescendantOrSelfParserToken.with(value, text);
     }
-    
+
     /**
      * {@see NodeSelectorEqualsParserToken}
      */
@@ -654,7 +654,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      * Only {@link NodeSelectorWildcardParserToken} return true
      */
     public abstract boolean isWildcard();
-    
+
     // Visitor ......................................................................................................
 
     /**

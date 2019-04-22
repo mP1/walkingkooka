@@ -43,8 +43,8 @@ abstract class PojoNodeList<P extends PojoNode, E> extends AbstractList<E> {
     @Override
     public final boolean equals(final Object other) {
         return this.isSameType(other) ?
-               equals0(Cast.to(other)) :
-               super.equals(other);
+                equals0(Cast.to(other)) :
+                super.equals(other);
     }
 
     abstract boolean isSameType(final Object other);

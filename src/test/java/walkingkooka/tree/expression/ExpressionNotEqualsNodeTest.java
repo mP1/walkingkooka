@@ -390,14 +390,14 @@ public final class ExpressionNotEqualsNodeTest extends ExpressionComparisonBinar
         // left ne right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(12)), false);
     }
-    
+
     @Override
     ExpressionNotEqualsNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionNotEqualsNode.with(left, right);
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + "!=" + RIGHT_TO_STRING;
     }
 

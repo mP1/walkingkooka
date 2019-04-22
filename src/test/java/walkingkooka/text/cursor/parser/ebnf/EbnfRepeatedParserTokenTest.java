@@ -86,12 +86,12 @@ public class EbnfRepeatedParserTokenTest extends EbnfGroupOptionalRepeatParentPa
         }.accept(repeated);
         assertEquals("13513742642", b.toString());
         assertEquals(Lists.<Object>of(repeated, repeated, repeated,
-                        identifier1, identifier1, identifier1, identifier1, identifier1,
-                        repeated, repeated, repeated),
+                identifier1, identifier1, identifier1, identifier1, identifier1,
+                repeated, repeated, repeated),
                 visited,
                 "visited");
     }
-    
+
     @Override
     EbnfRepeatedParserToken createToken(final String text, final List<ParserToken> tokens) {
         return EbnfRepeatedParserToken.with(tokens, text);

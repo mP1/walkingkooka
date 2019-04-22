@@ -111,8 +111,8 @@ public final class UrlQueryString
 
         Optional<String> value = Optional.empty();
 
-        for(UrlParameterKeyValuePair pair : this.pairs){
-            if(pair.name.equals(name)){
+        for (UrlParameterKeyValuePair pair : this.pairs) {
+            if (pair.name.equals(name)) {
                 value = Optional.ofNullable(pair.value);
                 break;
             }
@@ -134,7 +134,7 @@ public final class UrlQueryString
      * Lazily parses the query string which initializes the map and list of pairs.
      */
     private void parseQueryStringIfNecessary() {
-        if(null==this.parameters){
+        if (null == this.parameters) {
             this.parseQueryString();
         }
     }
@@ -142,7 +142,7 @@ public final class UrlQueryString
     /**
      * Parses the query string and creates a map of decoded query parameters and key/value pairs.
      */
-    private void parseQueryString(){
+    private void parseQueryString() {
         final List<UrlParameterKeyValuePair> pairs = Lists.array();
         final Map<UrlParameterName, UrlParameterValueList> parameters = Maps.ordered();
 
@@ -159,14 +159,14 @@ public final class UrlQueryString
 
             // end of name/value pair
             if (paramSeparator == c || paramSeparator2 == c) {
-                final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithSeparator(queryString.substring(start, i) ,c);
+                final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithSeparator(queryString.substring(start, i), c);
                 add(pair, parameters);
                 pairs.add(pair);
                 start = i + 1;
             }
         }
 
-        if(start < length) {
+        if (start < length) {
             final UrlParameterKeyValuePair pair = UrlParameterKeyValuePair.encodedWithoutSeparator(queryString.substring(start, length));
             add(pair, parameters);
             pairs.add(pair);
@@ -182,7 +182,7 @@ public final class UrlQueryString
     private static void add(final UrlParameterKeyValuePair pair, final Map<UrlParameterName, UrlParameterValueList> parameters) {
         final UrlParameterName name = pair.name;
         UrlParameterValueList values = parameters.get(name);
-        if(null==values){
+        if (null == values) {
             values = UrlParameterValueList.empty();
             parameters.put(name, values);
         }
@@ -197,8 +197,8 @@ public final class UrlQueryString
         Objects.requireNonNull(value, "value");
 
         return this.queryString.isEmpty() ?
-               this.addParameter0(name, value) :
-               this.addParameter1(name, value);
+                this.addParameter0(name, value) :
+                this.addParameter1(name, value);
     }
 
     private UrlQueryString addParameter0(final UrlParameterName name, final String value) {
@@ -206,8 +206,8 @@ public final class UrlQueryString
         values.addParameterValue(value);
 
         return new UrlQueryString(encode(name, value),
-            Lists.of(UrlParameterKeyValuePair.nameAndValue(name, value)),
-            Maps.of(name, values));
+                Lists.of(UrlParameterKeyValuePair.nameAndValue(name, value)),
+                Maps.of(name, values));
     }
 
     private UrlQueryString addParameter1(final UrlParameterName name, final String value) {
@@ -230,15 +230,15 @@ public final class UrlQueryString
         final char last = queryString.charAt(length - 1);
 
         // queryString already ends in separator just append new key/value.
-        if(paramSeparator == last || paramSeparator2 == last){
+        if (paramSeparator == last || paramSeparator2 == last) {
             queryString = queryString + encode(name, value);
         } else {
             char lastParamSeparator = paramSeparator;
 
             // find the last separator and copy that
-            for(int i = 1; i < length; i++) {
+            for (int i = 1; i < length; i++) {
                 final char c = queryString.charAt(length - i - 1);
-                if(paramSeparator == c || paramSeparator2 == c){
+                if (paramSeparator == c || paramSeparator2 == c) {
                     lastParamSeparator = c;
                     break;
                 }
@@ -250,7 +250,7 @@ public final class UrlQueryString
     }
 
     private static String encode(final UrlParameterName name, final String value) {
-        return  encode(name.value()) + Url.QUERY_NAME_VALUE_SEPARATOR.character() + encode(value);
+        return encode(name.value()) + Url.QUERY_NAME_VALUE_SEPARATOR.character() + encode(value);
     }
 
     private static String encode(final String value) {
@@ -289,17 +289,17 @@ public final class UrlQueryString
 
         char separator = 0;
 
-        for(final Iterator<UrlParameterKeyValuePair> i = pairs.iterator(); i.hasNext();){
+        for (final Iterator<UrlParameterKeyValuePair> i = pairs.iterator(); i.hasNext(); ) {
             final UrlParameterKeyValuePair pair = i.next();
-            if(pair.name.equals(name) && (null == value || value.equals(pair.value))) {
+            if (pair.name.equals(name) && (null == value || value.equals(pair.value))) {
                 i.remove();
                 removed = true;
             } else {
-                if(0 != separator){
+                if (0 != separator) {
                     queryString.append(separator);
                 }
                 queryString.append(pair.encoded);
-                if(pair.separatorIncluded) {
+                if (pair.separatorIncluded) {
                     separator = pair.separator;
                 }
             }
@@ -315,19 +315,19 @@ public final class UrlQueryString
                                             final String queryString,
                                             final List<UrlParameterKeyValuePair> pairs) {
         final Map<UrlParameterName, UrlParameterValueList> parameters = this.parametersCopy();
-        if(null==value) {
+        if (null == value) {
             parameters.remove(name);
         } else {
             final UrlParameterValueList values = parameters.get(name);
             values.removeParameterValues(value);
-            if(values.isEmpty()){
+            if (values.isEmpty()) {
                 parameters.remove(name);
             }
         }
 
         return queryString.isEmpty() ?
-               EMPTY :
-               new UrlQueryString(queryString, pairs, parameters);
+                EMPTY :
+                new UrlQueryString(queryString, pairs, parameters);
     }
 
     /**
@@ -357,8 +357,8 @@ public final class UrlQueryString
     @Override
     public boolean equals(final Object other) {
         return (this == other) ||
-               (other instanceof UrlQueryString &&
-               this.equals0((UrlQueryString) other));
+                (other instanceof UrlQueryString &&
+                        this.equals0((UrlQueryString) other));
     }
 
     private boolean equals0(final UrlQueryString other) {
@@ -375,7 +375,7 @@ public final class UrlQueryString
 
     final void toString0(final StringBuilder b) {
         final String queryString = this.queryString;
-        if(!queryString.isEmpty()){
+        if (!queryString.isEmpty()) {
             b.append(Url.QUERY_START.character());
             b.append(queryString);
         }

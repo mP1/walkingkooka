@@ -23,7 +23,7 @@ import walkingkooka.text.Whitespace;
  * A {@link Builder} is typically used to aggregate all the required properties required to build an
  * immutable value object.
  */
-public interface Builder<T>  {
+public interface Builder<T> {
     static void checkLabel(final String label) {
         Whitespace.failIfNullOrEmptyOrWhitespace(label, "label");
     }

@@ -65,12 +65,12 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> implement
 
     @Test
     public final void testWithZero() {
-        this.createComponentAndCheck((byte)0, 0x0, 0.0f);
+        this.createComponentAndCheck((byte) 0, 0x0, 0.0f);
     }
 
     @Test
     public final void testWith0xFF() {
-        this.createComponentAndCheck((byte)0xFF, 0xFF, 1.0f);
+        this.createComponentAndCheck((byte) 0xFF, 0xFF, 1.0f);
     }
 
     private void createComponentAndCheck(final byte value, final int unsigned, final float floatValue) {
@@ -128,8 +128,8 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> implement
     }
 
     private void addAndCheck(final ColorComponent component,
-                               final int add,
-                               final int value) {
+                             final int add,
+                             final int value) {
         final ColorComponent added = Cast.to(component.add(add));
         assertNotSame(component, added);
         assertEquals(component.getClass(), added.getClass(), "result of add was not the same component type");
@@ -158,7 +158,7 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> implement
     private void invertAndCheck(final ColorComponent component, final int value) {
         final ColorComponent inverted = component.invert();
         assertNotSame(component, inverted, "invert should not return this");
-        assertEquals((byte)value, inverted.value(), "value");
+        assertEquals((byte) value, inverted.value(), "value");
     }
 
     @Test
@@ -183,7 +183,7 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> implement
 
     @Test
     public final void testFF() throws Exception {
-        this.cloneUsingSerialization(this.createColorComponent((byte)0x255));
+        this.cloneUsingSerialization(this.createColorComponent((byte) 0x255));
     }
 
     final C createColorComponent() {

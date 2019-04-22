@@ -36,7 +36,7 @@ public final class ExpressionLocalDateNode extends ExpressionValueNode<LocalDate
         return new ExpressionLocalDateNode(NO_INDEX, value);
     }
 
-    private ExpressionLocalDateNode(final int index, final LocalDate value){
+    private ExpressionLocalDateNode(final int index, final LocalDate value) {
         super(index, value);
     }
 
@@ -106,7 +106,7 @@ public final class ExpressionLocalDateNode extends ExpressionValueNode<LocalDate
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

@@ -68,7 +68,7 @@ public final class CharSequenceToStringBuilderTest1 extends ScalarToStringBuilde
 
     @Override
     void value(final ToStringBuilder builder, final String value) {
-        builder.value((CharSequence)value);
+        builder.value((CharSequence) value);
     }
 
     @Override

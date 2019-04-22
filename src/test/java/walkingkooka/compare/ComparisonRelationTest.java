@@ -60,17 +60,17 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
 
     @Test
     public void testEqNegative2() {
-        this.testFalse2(ComparisonRelation.EQ,-1);
+        this.testFalse2(ComparisonRelation.EQ, -1);
     }
 
     @Test
     public void testEqZero() {
-        this.testTrue2(ComparisonRelation.EQ,0);
+        this.testTrue2(ComparisonRelation.EQ, 0);
     }
 
     @Test
     public void testEqPositive() {
-        this.testFalse2(ComparisonRelation.EQ,+1);
+        this.testFalse2(ComparisonRelation.EQ, +1);
     }
 
     @Test
@@ -268,7 +268,7 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
 
     @Test
     public void testInvert() {
-        for(ComparisonRelation relation: ComparisonRelation.values()) {
+        for (ComparisonRelation relation : ComparisonRelation.values()) {
             predicateAndInvertedPredicateTest(relation, 0, -1);
             predicateAndInvertedPredicateTest(relation, 0, 0);
             predicateAndInvertedPredicateTest(relation, 0, +1);
@@ -280,12 +280,12 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
         final ComparisonRelation inverted = relation.invert();
         final boolean invertedResult = inverted.predicate(value).test(value2);
 
-        assertNotEquals(result, invertedResult, ()-> result + " inverted " + inverted + " " + value + " " + value2);
+        assertNotEquals(result, invertedResult, () -> result + " inverted " + inverted + " " + value + " " + value2);
     }
 
     @Test
     public void testInvertRoundTrip() {
-        for(ComparisonRelation relation: ComparisonRelation.values()) {
+        for (ComparisonRelation relation : ComparisonRelation.values()) {
             final ComparisonRelation inverted = relation.invert();
             assertNotSame(inverted, relation);
             assertSame(relation, inverted.invert());
@@ -294,7 +294,7 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
 
     @Test
     public void testSwap() {
-        for(ComparisonRelation relation: ComparisonRelation.values()) {
+        for (ComparisonRelation relation : ComparisonRelation.values()) {
             predicateAndSwappedPredicateTest(relation, 0, -1);
             predicateAndSwappedPredicateTest(relation, 0, 0);
             predicateAndSwappedPredicateTest(relation, 0, +1);
@@ -305,16 +305,16 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
         final boolean result = relation.predicate(value).test(value2);
         final boolean swappedResult = relation.swap().predicate(value2).test(value);
 
-        assertEquals(result, swappedResult, ()-> value + " " + relation + " " + value2);
+        assertEquals(result, swappedResult, () -> value + " " + relation + " " + value2);
     }
 
     @Test
     public void testSwapRoundTrip() {
-        for(ComparisonRelation relation: ComparisonRelation.values()) {
+        for (ComparisonRelation relation : ComparisonRelation.values()) {
             assertSame(relation, relation.swap().swap());
         }
     }
-    
+
     @Test
     public void testFindWithSymbolNullFails() {
         assertThrows(NullPointerException.class, () -> {

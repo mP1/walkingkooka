@@ -55,8 +55,8 @@ final class PojoSetNodeSetList extends AbstractList<Object> {
         Object element = null;
 
         int attempt = 0;
-        for(;;){
-            if(attempt == 2) {
+        for (; ; ) {
+            if (attempt == 2) {
                 throw new IllegalStateException("Unable to get element at " + index + " because Set was continuously updated");
             }
 
@@ -64,19 +64,19 @@ final class PojoSetNodeSetList extends AbstractList<Object> {
 
             // try and continue using old iterator...
             Iterator<Object> iterator = this.setIterator;
-            if(null==iterator) {
+            if (null == iterator) {
                 this.setIterator = iterator = this.set.iterator();
             }
-            try{
-                while(this.list.size() <= index){
-                    if(!iterator.hasNext()){
+            try {
+                while (this.list.size() <= index) {
+                    if (!iterator.hasNext()) {
                         this.indexOutOfBoundsFail(index, this.size());
                     }
                     element = iterator.next();
                     this.list.add(element);
                 }
                 break; // while loop exhausted and element gotten!
-            } catch (final ConcurrentModificationException ignore){
+            } catch (final ConcurrentModificationException ignore) {
                 // try again! to fill
                 this.setIterator = null;
                 this.list.clear();
@@ -85,8 +85,8 @@ final class PojoSetNodeSetList extends AbstractList<Object> {
         return element;
     }
 
-    private void indexOutOfBoundsFail(final int index, final int size){
-        throw new IndexOutOfBoundsException("Index " + index + " must be between 0 and " +size);
+    private void indexOutOfBoundsFail(final int index, final int size) {
+        throw new IndexOutOfBoundsException("Index " + index + " must be between 0 and " + size);
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained within a {@link BigDecimal}
  */
-public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implements LeafParserToken<BigDecimal>{
+public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implements LeafParserToken<BigDecimal> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigDecimalParserToken.class);
 
@@ -40,7 +40,7 @@ public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implem
     }
 
     @Override
-    public BigDecimalParserToken setText(final String text){
+    public BigDecimalParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -55,10 +55,10 @@ public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implem
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof BigDecimalParserToken;
@@ -72,7 +72,7 @@ public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implem
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.bigDecimal(this.text(), this.value());
     }
 }

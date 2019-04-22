@@ -100,8 +100,8 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     public void testToJavaxServletHttpCookie() {
         final javax.servlet.http.Cookie cookie = ClientCookie.with(NAME, VALUE)
                 .toJavaxServletCookie();
-        assertEquals(NAME.value(), cookie.getName(),"name");
-        assertEquals(VALUE, cookie.getValue(),"value");
+        assertEquals(NAME.value(), cookie.getName(), "name");
+        assertEquals(VALUE, cookie.getValue(), "value");
     }
 
     // parseClientHeader................................................................

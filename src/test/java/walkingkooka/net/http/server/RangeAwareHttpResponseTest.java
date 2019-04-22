@@ -48,12 +48,12 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     private final static Supplier<Byte> BOUNDARY_CHARACTERS = new Supplier<Byte>() {
         @Override
         public Byte get() {
-            return (byte)"0123456789".charAt(this.i++% 10);
+            return (byte) "0123456789".charAt(this.i++ % 10);
         }
 
         int i = 0;
     };
-    
+
     private final static ETag ETAG_ABSENT = null;
     private final static IfRange<?> IF_RANGE_ABSENT = null;
     private final static LocalDateTime LASTMODIFIED_ABSENT = null;
@@ -209,10 +209,10 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
                                              final byte[] expectedBody) {
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        if(null!=responseETag) {
+        if (null != responseETag) {
             headers.put(HttpHeaderName.E_TAG, responseETag);
         }
-        if(null!=responseLastModified) {
+        if (null != responseLastModified) {
             headers.put(HttpHeaderName.LAST_MODIFIED, responseLastModified);
         }
         headers.put(HttpHeaderName.SERVER, "Server123");

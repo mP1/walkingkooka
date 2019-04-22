@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryTest
         implements ClassTesting2<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry>,
         EntryTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry,
-                        HttpHeaderName<?>,
-                                Object>,
+                HttpHeaderName<?>,
+                Object>,
         HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry> {
 
     private final static String HEADER_NAME = "content-length";
@@ -113,7 +113,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
                 new FakeHttpServletRequest() {
                     @Override
                     public String getHeader(final String header) {
-                        assertEquals(headerName, header,"header");
+                        assertEquals(headerName, header, "header");
                         return value;
                     }
                 });

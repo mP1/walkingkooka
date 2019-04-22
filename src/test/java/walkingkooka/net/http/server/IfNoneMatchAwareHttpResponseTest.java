@@ -194,7 +194,7 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     private Map<HttpHeaderName<?>, Object> headers(final ETag etag) {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         headers.put(HttpHeaderName.SERVER, SERVER);
-        if(null!=etag) {
+        if (null != etag) {
             headers.put(HttpHeaderName.E_TAG, etag);
         }
         return headers;
@@ -235,8 +235,8 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     }
 
     private IfNoneMatchAwareHttpResponse createResponse(final HttpMethod method,
-                                                         final List<ETag> ifNoneMatch,
-                                                         final HttpResponse response) {
+                                                        final List<ETag> ifNoneMatch,
+                                                        final HttpResponse response) {
         return Cast.to(this.createResponse(
                 createRequest(method, ifNoneMatch),
                 response));
@@ -249,8 +249,8 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     }
 
     private HttpResponse createResponseWithoutCast(final HttpMethod method,
-                                                          final List<ETag> ifNoneMatch,
-                                                          final HttpResponse response) {
+                                                   final List<ETag> ifNoneMatch,
+                                                   final HttpResponse response) {
         return IfNoneMatchAwareHttpResponse.with(
                 createRequest(method, ifNoneMatch),
                 response,

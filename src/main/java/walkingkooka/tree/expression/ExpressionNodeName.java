@@ -96,8 +96,8 @@ public final class ExpressionNodeName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof ExpressionNodeName &&
-               this.equals0(Cast.to(other));
+                other instanceof ExpressionNodeName &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ExpressionNodeName other) {

@@ -40,8 +40,8 @@ public final class PojoArrayNodeChildrenValueListTest extends PojoNodeListTestCa
     @Override
     List<Object> createList(final List<Object> components) {
         return PojoNode.wrap(PojoName.property("root"),
-                new boolean[]{(Boolean)components.get(0), (Boolean)components.get(1), (Boolean)components.get(2)},
+                new boolean[]{(Boolean) components.get(0), (Boolean) components.get(1), (Boolean) components.get(2)},
                 new ReflectionPojoNodeContext())
-        .childrenValues();
+                .childrenValues();
     }
 }

@@ -54,6 +54,6 @@ public abstract class SearchAttributeLeafQueryTestCase<Q extends SearchAttribute
     }
 
     final SearchNodeAttributeName attributeName() {
-        return  SearchNodeAttributeName.with("attribute-1");
+        return SearchNodeAttributeName.with("attribute-1");
     }
 }

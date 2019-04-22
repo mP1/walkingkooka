@@ -108,9 +108,9 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     private void addEntityRequestWithAcceptEncodingAndCheck(final String acceptCharset,
-                                                          final byte[] body,
-                                                          final Map<HttpHeaderName<?>, Object> expectedHeaders,
-                                                          final byte[] expectedBody) {
+                                                            final byte[] body,
+                                                            final Map<HttpHeaderName<?>, Object> expectedHeaders,
+                                                            final byte[] expectedBody) {
         this.addEntityRequestWithAcceptEncodingAndCheck(acceptCharset,
                 body,
                 null,
@@ -119,16 +119,16 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     private void addEntityRequestWithAcceptEncodingAndCheck(final String acceptCharset,
-                                                          final byte[] body,
-                                                          final String contentEncoding,
-                                                          final Map<HttpHeaderName<?>, Object> expectedHeaders,
-                                                          final byte[] expectedBody) {
+                                                            final byte[] body,
+                                                            final String contentEncoding,
+                                                            final Map<HttpHeaderName<?>, Object> expectedHeaders,
+                                                            final byte[] expectedBody) {
         final Latch set = Latch.create();
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         final HttpResponse response = this.createResponse(
                 acceptCharset,
                 new FakeHttpResponse() {
-                    
+
                     @Test
                     public void addEntity(final HttpEntity e) {
                         assertEquals(HttpEntity.with(expectedHeaders, expectedBody),

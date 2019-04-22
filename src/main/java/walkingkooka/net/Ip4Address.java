@@ -52,7 +52,7 @@ public final class Ip4Address extends IpAddress implements Comparable<Ip4Address
         Objects.requireNonNull(components, "components");
 
         final byte[] copy = components.clone();
-        if(copy.length != OCTET_COUNT){
+        if (copy.length != OCTET_COUNT) {
             throw new IllegalArgumentException("Expected " + OCTET_COUNT + " components but got " + copy.length + "=" + Arrays.toString(components));
         }
 
@@ -70,7 +70,7 @@ public final class Ip4Address extends IpAddress implements Comparable<Ip4Address
      * Returns an {@link Ip4Address} subnet with the given significant bits.
      */
     public Ip4Address subnet(final int significantBits) throws IllegalArgumentException {
-        if(significantBits < 0 || significantBits > BIT_COUNT){
+        if (significantBits < 0 || significantBits > BIT_COUNT) {
             throw new IllegalArgumentException("Invalid significiant bits " + significantBits + " must be between 0 and " + BIT_COUNT);
         }
 

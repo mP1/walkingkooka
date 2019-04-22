@@ -31,9 +31,9 @@ abstract class PojoNode2 extends PojoNode {
      * Package private ctor to limit subclassing.
      */
     PojoNode2(final PojoName name,
-             final Object value,
-             final int index,
-             final PojoNodeContext context) {
+              final Object value,
+              final int index,
+              final PojoNodeContext context) {
         super(name, value, index, context);
     }
 
@@ -44,7 +44,7 @@ abstract class PojoNode2 extends PojoNode {
      */
     @Override
     public final List<PojoNode> children() {
-        if(null==this.children){
+        if (null == this.children) {
             this.children = this.createChildrenList();
         }
         return this.children;
@@ -86,7 +86,7 @@ abstract class PojoNode2 extends PojoNode {
     @Override
     PojoNode clearChildrenListCache() {
         final PojoNodeChildrenList<?> children = this.children;
-        if(null!=children){
+        if (null != children) {
             children.clearChildrenNodeCache();
         }
         return this;

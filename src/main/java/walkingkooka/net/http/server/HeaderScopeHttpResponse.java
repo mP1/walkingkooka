@@ -37,7 +37,7 @@ final class HeaderScopeHttpResponse extends WrapperHttpResponse {
         check(response);
         return new HeaderScopeHttpResponse(response);
     }
-    
+
     private HeaderScopeHttpResponse(final HttpResponse response) {
         super(response);
     }

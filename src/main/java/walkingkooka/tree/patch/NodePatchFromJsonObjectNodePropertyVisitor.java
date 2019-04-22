@@ -48,10 +48,10 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
     }
 
     final void acceptJsonPatch(final JsonObjectNode node) {
-        for(JsonNode property : node.children()) {
+        for (JsonNode property : node.children()) {
             final JsonNodeName propertyName = property.name();
 
-            switch(propertyName.value()) {
+            switch (propertyName.value()) {
                 case NodePatch.OP:
                     break;
                 case NodePatch.FROM:
@@ -70,10 +70,10 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
     }
 
     final void acceptNodePatch(final JsonObjectNode node) {
-        for(JsonNode property : node.children()) {
+        for (JsonNode property : node.children()) {
             final JsonNodeName propertyName = property.name();
 
-            switch(propertyName.value()) {
+            switch (propertyName.value()) {
                 case NodePatch.OP:
                     break;
                 case NodePatch.PATH_NAME_TYPE:
@@ -154,7 +154,7 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
      * Helper that fails if the value is null using the property name in the message detail.
      */
     final <T> T propertyOrFail(final T value, final JsonNodeName property) {
-        if(null==value) {
+        if (null == value) {
             throw new IllegalArgumentException("Required property " + property + " missing " + this.patch);
         }
         return value;
@@ -182,7 +182,7 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
     // helpers....................................................................................................
 
     static JsonStringNode stringOrFail(final JsonNode node, final JsonNodeName property) {
-        if(!node.isString()) {
+        if (!node.isString()) {
             throw new IllegalArgumentException(property + " is not a String with type=" + node);
         }
         return node.cast();

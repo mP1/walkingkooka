@@ -76,11 +76,11 @@ final class FileFilesystemNode extends FilesystemNode {
 
     @Override
     String size() {
-        if(null != this.size && this.mustLoad(FilesystemNodeCacheAtom.SIZE)){
+        if (null != this.size && this.mustLoad(FilesystemNodeCacheAtom.SIZE)) {
             this.size = null;
         }
 
-        if(null==this.size){
+        if (null == this.size) {
             this.size = String.valueOf(this.path.toFile().length());
         }
         return this.size;
@@ -90,14 +90,14 @@ final class FileFilesystemNode extends FilesystemNode {
 
     @Override
     public String text() {
-        if(null != this.text && this.mustLoad(FilesystemNodeCacheAtom.TEXT)){
+        if (null != this.text && this.mustLoad(FilesystemNodeCacheAtom.TEXT)) {
             this.text = null;
         }
 
-        if(null==this.text){
+        if (null == this.text) {
             try {
                 this.text = this.context.text(this.path);
-            } catch ( final Exception cause) {
+            } catch (final Exception cause) {
                 throw exception("Failed to get text for " + pathToString(), cause);
             }
         }

@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * The parser token for a date with the value contained in a {@link LocalDate}.
  */
-public final class LocalDateParserToken extends ParserToken2<LocalDate> implements LeafParserToken<LocalDate>{
+public final class LocalDateParserToken extends ParserToken2<LocalDate> implements LeafParserToken<LocalDate> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LocalDateParserToken.class);
 
@@ -40,7 +40,7 @@ public final class LocalDateParserToken extends ParserToken2<LocalDate> implemen
     }
 
     @Override
-    public LocalDateParserToken setText(final String text){
+    public LocalDateParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -55,7 +55,7 @@ public final class LocalDateParserToken extends ParserToken2<LocalDate> implemen
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -72,7 +72,7 @@ public final class LocalDateParserToken extends ParserToken2<LocalDate> implemen
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.localDate(this.text(), this.value());
     }
 }

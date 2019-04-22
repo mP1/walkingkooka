@@ -52,7 +52,7 @@ public final class Ip6Address extends IpAddress implements Comparable<Ip6Address
         Objects.requireNonNull(components, "components");
 
         final byte[] copy = components.clone();
-        if(copy.length != OCTET_COUNT){
+        if (copy.length != OCTET_COUNT) {
             throw new IllegalArgumentException("Expected " + OCTET_COUNT + " components but got " + copy.length + "=" + Arrays.toString(components));
         }
 

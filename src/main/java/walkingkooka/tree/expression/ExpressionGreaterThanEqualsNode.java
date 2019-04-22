@@ -30,12 +30,12 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionComparisonB
 
     public final static String SYMBOL = ">=";
 
-    static ExpressionGreaterThanEqualsNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionGreaterThanEqualsNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionGreaterThanEqualsNode(NO_INDEX, left, right);
     }
 
-    private ExpressionGreaterThanEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionGreaterThanEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -94,8 +94,8 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionComparisonB
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

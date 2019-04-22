@@ -84,7 +84,7 @@ public final class HateosHandlerRouterBuilder<N extends Node<N, ?, ?, ?>>
         final HateosHandlerRouterKey key = HateosHandlerRouterKey.with(name, relation);
         final HateosHandlerRouterMapper<I, R, S> value = mapper.copy();
 
-        if(this.mappers.containsKey(key)) {
+        if (this.mappers.containsKey(key)) {
             throw new IllegalArgumentException("Mapping " + key + " already used");
         } else {
             this.mappers.put(key, value);

@@ -31,7 +31,7 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
     @Test
     default void testClassVisibility() {
         final Class<?> type = this.type();
-        final MemberVisibility visibility = Fake.class.isAssignableFrom(type)  ?
+        final MemberVisibility visibility = Fake.class.isAssignableFrom(type) ?
                 MemberVisibility.PUBLIC :
                 this.typeVisibility();
 

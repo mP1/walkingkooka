@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 public class CharacterWrapperArrayToStringBuilderTest extends VectorToStringBuilderTestCase<Character[]> {
 
     @Test
-    public void testValueIncludesDefault(){
+    public void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
         b.value(array("\0ab"));
@@ -32,7 +32,7 @@ public class CharacterWrapperArrayToStringBuilderTest extends VectorToStringBuil
     }
 
     @Test
-    public void testValueEscaped(){
+    public void testValueEscaped() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.ESCAPE);
 
@@ -43,7 +43,7 @@ public class CharacterWrapperArrayToStringBuilderTest extends VectorToStringBuil
     }
 
     @Test
-    public void testValueInline(){
+    public void testValueInline() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.INLINE_ELEMENTS);
 
@@ -54,7 +54,7 @@ public class CharacterWrapperArrayToStringBuilderTest extends VectorToStringBuil
     }
 
     @Test
-    public void testValueQuoted(){
+    public void testValueQuoted() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
 
@@ -65,7 +65,7 @@ public class CharacterWrapperArrayToStringBuilderTest extends VectorToStringBuil
     }
 
     @Test
-    public void testValueQuotedAndEscaped(){
+    public void testValueQuotedAndEscaped() {
         final ToStringBuilder b = this.builder();
         b.enable(ToStringBuilderOption.QUOTE);
         b.enable(ToStringBuilderOption.ESCAPE);
@@ -90,10 +90,10 @@ public class CharacterWrapperArrayToStringBuilderTest extends VectorToStringBuil
         return this.array(content.toCharArray());
     }
 
-    private Character[] array(final char...elements){
+    private Character[] array(final char... elements) {
         final Character[] array = new Character[elements.length];
         int i = 0;
-        for(char c : elements){
+        for (char c : elements) {
             array[i++] = c;
         }
         return array;

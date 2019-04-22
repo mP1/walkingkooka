@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
  */
 abstract class LocalDateTimeConverter<T> extends FixedSourceTypeTargetTypeConverter<T, LocalDateTime> {
 
-    LocalDateTimeConverter(){
+    LocalDateTimeConverter() {
         super();
     }
 

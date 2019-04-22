@@ -38,7 +38,7 @@ public final class OffsetDateTimeParserToken extends ParserToken2<OffsetDateTime
     }
 
     @Override
-    public OffsetDateTimeParserToken setText(final String text){
+    public OffsetDateTimeParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -53,7 +53,7 @@ public final class OffsetDateTimeParserToken extends ParserToken2<OffsetDateTime
     }
 
     @Override
-    public void accept(final ParserTokenVisitor visitor){
+    public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

@@ -75,10 +75,10 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
     public void testMissingOptionalFirst() {
         final String text = TEXT2 + TEXT1;
         this.parseAndCheck(SequenceParserBuilder.empty()
-                .optional(PARSER3)
-                .required(PARSER2)
-                .required(PARSER1)
-                .build(),
+                        .optional(PARSER3)
+                        .required(PARSER2)
+                        .required(PARSER1)
+                        .build(),
                 this.createContext(),
                 text,
                 ParserTokens.sequence(Lists.of(TOKEN2, TOKEN1), text),

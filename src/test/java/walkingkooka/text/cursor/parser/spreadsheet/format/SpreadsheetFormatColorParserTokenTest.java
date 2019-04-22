@@ -132,11 +132,11 @@ public final class SpreadsheetFormatColorParserTokenTest extends SpreadsheetForm
         }.accept(token);
         assertEquals("9139152A9162A9172A9182A42A", b.toString());
         assertEquals(Lists.of(token, token, token,
-                        open, open, open, open, open,
-                        name, name, name, name, name,
-                        whitespace, whitespace, whitespace, whitespace, whitespace,
-                        close, close, close, close, close,
-                        token, token, token),
+                open, open, open, open, open,
+                name, name, name, name, name,
+                whitespace, whitespace, whitespace, whitespace, whitespace,
+                close, close, close, close, close,
+                token, token, token),
                 visited,
                 "visited");
     }

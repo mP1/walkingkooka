@@ -30,12 +30,12 @@ public final class ExpressionLessThanEqualsNode extends ExpressionComparisonBina
 
     public final static String SYMBOL = "<=";
 
-    static ExpressionLessThanEqualsNode with(final ExpressionNode left, final ExpressionNode right){
+    static ExpressionLessThanEqualsNode with(final ExpressionNode left, final ExpressionNode right) {
         check(left, right);
         return new ExpressionLessThanEqualsNode(NO_INDEX, left, right);
     }
 
-    private ExpressionLessThanEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right){
+    private ExpressionLessThanEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -94,8 +94,8 @@ public final class ExpressionLessThanEqualsNode extends ExpressionComparisonBina
     // Visitor .........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -122,7 +122,7 @@ public final class ExpressionLessThanEqualsNode extends ExpressionComparisonBina
     static {
         register(SYMBOL, ExpressionLessThanEqualsNode::fromJsonNode, ExpressionLessThanEqualsNode.class);
     }
-    
+
     // Object .........................................................................................................
 
     @Override

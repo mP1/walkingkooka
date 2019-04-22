@@ -110,7 +110,7 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
         final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.iterateAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent,child1, grandChild1, child2, grandChild2);
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2);
     }
 
     @Test

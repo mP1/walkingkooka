@@ -106,19 +106,19 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
         int mode = NAN_N | INFINITY_I | NUMBER_SIGN | NUMBER_ZERO | NUMBER_DIGIT;
         boolean empty = true;
 
-        for(;;){
+        for (; ; ) {
             final char c = cursor.at();
 
-            for(;;){
-                if((NAN_N & mode) != 0){
-                    if('N' == c){
+            for (; ; ) {
+                if ((NAN_N & mode) != 0) {
+                    if ('N' == c) {
                         cursor.next();
                         mode = NAN_NA;
                         break;
                     }
                 }
-                if((NAN_NA & mode) != 0){
-                    if('a' == c){
+                if ((NAN_NA & mode) != 0) {
+                    if ('a' == c) {
                         cursor.next();
                         mode = NAN_NAN;
                         break;
@@ -127,8 +127,8 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     mode = FAIL;
                     break;
                 }
-                if((NAN_NAN & mode) != 0){
-                    if('N' == c){
+                if ((NAN_NAN & mode) != 0) {
+                    if ('N' == c) {
                         cursor.next();
                         token = token(Double.NaN, save);
                         mode = NAN_FINISH;
@@ -138,30 +138,30 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     mode = FAIL;
                     break;
                 }
-                if((NUMBER_SIGN & mode) != 0){
-                    if(plusSign == c){
+                if ((NUMBER_SIGN & mode) != 0) {
+                    if (plusSign == c) {
                         cursor.next();
                         mode = INFINITY_I | NUMBER_ZERO | NUMBER_DIGIT;
                         break;
                     }
-                    if(minusSign == c) {
+                    if (minusSign == c) {
                         cursor.next();
                         numberNegative = true;
                         mode = INFINITY_I | NUMBER_ZERO | NUMBER_DIGIT;
                         break;
                     }
                 }
-                if((NUMBER_ZERO & mode) != 0){
-                    if('0' == c) {
+                if ((NUMBER_ZERO & mode) != 0) {
+                    if ('0' == c) {
                         cursor.next();
                         mode = DECIMAL | EXPONENT;
                         empty = false;
                         break;
                     }
                 }
-                if((NUMBER_DIGIT & mode) != 0){
+                if ((NUMBER_DIGIT & mode) != 0) {
                     final int digit = digit(c);
-                    if(digit >= 0) {
+                    if (digit >= 0) {
                         cursor.next();
                         number = number(number, digit);
                         mode = NUMBER_DIGIT | DECIMAL | EXPONENT;
@@ -169,66 +169,66 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                         break;
                     }
                 }
-                if((DECIMAL & mode) != 0){
-                    if(decimalPoint == c) {
+                if ((DECIMAL & mode) != 0) {
+                    if (decimalPoint == c) {
                         cursor.next();
                         mode = DECIMAL_DIGIT | EXPONENT;
                         break;
                     }
                 }
-                if((DECIMAL_DIGIT & mode) != 0){
+                if ((DECIMAL_DIGIT & mode) != 0) {
                     final int digit = digit(c);
-                    if(digit >= 0) {
+                    if (digit >= 0) {
                         cursor.next();
                         number = number(number, digit);
                         fractionFactor = fractionFactor * RADIX;
                         break;
                     }
                 }
-                if((EXPONENT & mode) != 0){
-                    if(littleE == c || bigE ==c) {
+                if ((EXPONENT & mode) != 0) {
+                    if (littleE == c || bigE == c) {
                         cursor.next();
                         mode = EXPONENT_SIGN | EXPONENT_ZERO | EXPONENT_DIGIT;
                         break;
                     }
                 }
-                if((EXPONENT_ZERO & mode) != 0){
-                    if('0' == c) {
+                if ((EXPONENT_ZERO & mode) != 0) {
+                    if ('0' == c) {
                         cursor.next();
                         mode = FINISH;
                         break;
                     }
                 }
-                if((EXPONENT_SIGN & mode) != 0){
-                    if(plusSign == c){
+                if ((EXPONENT_SIGN & mode) != 0) {
+                    if (plusSign == c) {
                         cursor.next();
                         mode = EXPONENT_DIGIT;
                         break;
                     }
-                    if(minusSign == c) {
+                    if (minusSign == c) {
                         cursor.next();
                         exponentNegative = true;
                         mode = EXPONENT_DIGIT;
                         break;
                     }
                 }
-                if((EXPONENT_DIGIT & mode) != 0){
+                if ((EXPONENT_DIGIT & mode) != 0) {
                     final int digit = digit(c);
-                    if(digit >= 0) {
+                    if (digit >= 0) {
                         cursor.next();
                         exponent = exponent(exponent, digit);
                         break;
                     }
                 }
-                if((INFINITY_I & mode) != 0){
-                    if('I' == c){
+                if ((INFINITY_I & mode) != 0) {
+                    if ('I' == c) {
                         cursor.next();
                         mode = INFINITY_IN;
                         break;
                     }
                 }
-                if((INFINITY_IN & mode) != 0){
-                    if('n' == c){
+                if ((INFINITY_IN & mode) != 0) {
+                    if ('n' == c) {
                         cursor.next();
                         mode = INFINITY_INF;
                         break;
@@ -236,8 +236,8 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     mode = FAIL;
                     break;
                 }
-                if((INFINITY_INF & mode) != 0){
-                    if('f' == c){
+                if ((INFINITY_INF & mode) != 0) {
+                    if ('f' == c) {
                         cursor.next();
                         mode = INFINITY_INFI;
                         break;
@@ -245,8 +245,8 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     mode = FAIL;
                     break;
                 }
-                if((INFINITY_INFI & mode) != 0){
-                    if('i' == c){
+                if ((INFINITY_INFI & mode) != 0) {
+                    if ('i' == c) {
                         cursor.next();
                         mode = INFINITY_INFIN;
                         break;
@@ -254,8 +254,8 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     mode = FAIL;
                     break;
                 }
-                if((INFINITY_INFIN & mode) != 0){
-                    if('n' == c){
+                if ((INFINITY_INFIN & mode) != 0) {
+                    if ('n' == c) {
                         cursor.next();
                         mode = INFINITY_INFINI;
                         break;
@@ -263,8 +263,8 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     mode = FAIL;
                     break;
                 }
-                if((INFINITY_INFINI & mode) != 0){
-                    if('i' == c){
+                if ((INFINITY_INFINI & mode) != 0) {
+                    if ('i' == c) {
                         cursor.next();
                         mode = INFINITY_INFINIT;
                         break;
@@ -272,8 +272,8 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     mode = FAIL;
                     break;
                 }
-                if((INFINITY_INFINIT & mode) != 0){
-                    if('t' == c){
+                if ((INFINITY_INFINIT & mode) != 0) {
+                    if ('t' == c) {
                         cursor.next();
                         mode = INFINITY_INFINITY;
                         break;
@@ -281,8 +281,8 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                     mode = FAIL;
                     break;
                 }
-                if((INFINITY_INFINITY & mode) != 0){
-                    if('y' == c){
+                if ((INFINITY_INFINITY & mode) != 0) {
+                    if ('y' == c) {
                         cursor.next();
                         token = token(numberNegative ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY, save);
                         mode = INFINITY_FINISH;
@@ -296,20 +296,20 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
                 break;
             }
 
-            if(FAIL == mode || NAN_FINISH == mode || INFINITY_FINISH == mode){
+            if (FAIL == mode || NAN_FINISH == mode || INFINITY_FINISH == mode) {
                 break;
             }
 
-            if(FINISH == mode || cursor.isEmpty()){
-                if(!empty) {
-                    if(exponentNegative){
-                        exponent = - exponent;
+            if (FINISH == mode || cursor.isEmpty()) {
+                if (!empty) {
+                    if (exponentNegative) {
+                        exponent = -exponent;
                     }
-                    if(numberNegative) {
-                        number = - number;
+                    if (numberNegative) {
+                        number = -number;
                     }
                     number = number / fractionFactor;
-                    if(0!= exponent) {
+                    if (0 != exponent) {
                         number = number * Math.pow(RADIX, exponent);
                     }
                     token = token(number, save);
@@ -333,7 +333,7 @@ final class DoubleParser<C extends ParserContext> extends Parser2<C> {
         return value * RADIX + digit;
     }
 
-    private static Optional<ParserToken> token(final double value, final TextCursorSavePoint save){
+    private static Optional<ParserToken> token(final double value, final TextCursorSavePoint save) {
         return DoubleParserToken.with(value,
                 save.textBetween().toString())
                 .success();

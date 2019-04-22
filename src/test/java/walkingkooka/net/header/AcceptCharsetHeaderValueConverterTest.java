@@ -51,7 +51,7 @@ public final class AcceptCharsetHeaderValueConverterTest extends
                 CharsetHeaderValue.with(CharsetName.with(charset)));
     }
 
-    private void parseAndToTextAndCheck2(final String text, final CharsetHeaderValue...values) {
+    private void parseAndToTextAndCheck2(final String text, final CharsetHeaderValue... values) {
         this.parseAndToTextAndCheck(text, AcceptCharset.with(Lists.of(values)));
     }
 

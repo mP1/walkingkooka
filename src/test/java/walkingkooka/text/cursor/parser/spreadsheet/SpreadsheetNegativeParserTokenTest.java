@@ -108,7 +108,7 @@ public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryPa
     public final void testToExpressionNode() {
         this.toExpressionNodeAndCheck(ExpressionNode.negative(ExpressionNode.bigInteger(new BigInteger(NUMBER1, 10))));
     }
-    
+
     @Override
     SpreadsheetNegativeParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.negative(tokens, text);

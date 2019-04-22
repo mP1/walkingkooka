@@ -89,7 +89,7 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
         final JsonNodeParserToken value = string("value");
         final JsonNodeObjectParserToken object = object(objectBegin(), whitespace(), key, objectAssignment(), value, objectEnd()).cast();
         final JsonNodeObjectParserToken without = object.withoutSymbols().get().cast();
-        assertEquals(Lists.of(key, value), without.value(),"value");
+        assertEquals(Lists.of(key, value), without.value(), "value");
     }
 
     @Test

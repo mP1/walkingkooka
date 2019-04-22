@@ -62,7 +62,7 @@ public interface CollectionTesting<C extends Collection<E>, E> extends ToStringT
     }
 
     default void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
-        assertEquals(empty, collection.isEmpty(), ()-> "isEmpty of " + collection);
+        assertEquals(empty, collection.isEmpty(), () -> "isEmpty of " + collection);
     }
 
     default void sizeAndCheck(final Collection<?> collection, final int size) {

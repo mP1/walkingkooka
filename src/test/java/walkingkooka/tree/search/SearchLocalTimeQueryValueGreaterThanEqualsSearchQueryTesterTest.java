@@ -20,7 +20,7 @@ package walkingkooka.tree.search;
 
 import java.time.LocalTime;
 
-public final class SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTesterTest extends SearchLocalTimeQueryValueSearchQueryTesterTestCase<SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTester>{
+public final class SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTesterTest extends SearchLocalTimeQueryValueSearchQueryTesterTestCase<SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTester> {
 
     @Override
     SearchLocalTimeQueryValueGreaterThanEqualsSearchQueryTester createSearchQueryTester(final LocalTime value) {

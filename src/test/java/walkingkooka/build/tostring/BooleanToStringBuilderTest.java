@@ -26,7 +26,7 @@ public final class BooleanToStringBuilderTest extends ScalarToStringBuilderTestC
 
     @Override
     void value(final ToStringBuilder builder, final Boolean value) {
-        builder.value((boolean)value);
+        builder.value((boolean) value);
     }
 
     @Override

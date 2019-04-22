@@ -138,7 +138,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
         return Cast.to(NotPredicate.class);
     }
 
-    @Override 
+    @Override
     public NotPredicate<String> createObject() {
         return this.createPredicate();
     }

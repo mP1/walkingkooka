@@ -52,7 +52,7 @@ public final class DoubleParserTokenTest extends ParserTokenTestCase<DoubleParse
         }.accept(token);
         assertEquals("132", b.toString());
     }
-    
+
     @Test
     public void testIgnoresPrefix() {
         DoubleParserToken.with(123, "+123");

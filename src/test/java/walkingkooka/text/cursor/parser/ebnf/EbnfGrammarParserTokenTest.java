@@ -158,11 +158,11 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
         }.accept(range);
         assertEquals("13613542138421394213842742", b.toString());
         assertEquals(Lists.of(range, range, range,
-                        identifier, identifier, identifier, identifier, identifier,
-                        assignment, assignment, assignment, assignment, assignment,
-                        terminal, terminal, terminal, terminal, terminal,
-                        terminator, terminator, terminator, terminator, terminator,
-                        range, range, range),
+                identifier, identifier, identifier, identifier, identifier,
+                assignment, assignment, assignment, assignment, assignment,
+                terminal, terminal, terminal, terminal, terminal,
+                terminator, terminator, terminator, terminator, terminator,
+                range, range, range),
                 visited,
                 "visited");
     }

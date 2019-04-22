@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 /**
  * Base class for either Context used by {@link SearchNotQuery}.
  */
-abstract class SearchUnaryQueryContext extends SearchParentQueryContext{
+abstract class SearchUnaryQueryContext extends SearchParentQueryContext {
 
     /**
      * Package private to limit sub classing.

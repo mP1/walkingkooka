@@ -80,7 +80,7 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
                                                               final Function<BigDecimal, Fraction> fractioner) {
         return ExpressionSpreadsheetTextFormatter.with(token, mathContext, fractioner);
     }
-    
+
     /**
      * {@see FakeSpreadsheetTextFormatter}
      */

@@ -71,6 +71,7 @@ public final class UnicodeEscapeCharacterParserTest extends Parser2TestCase<Unic
     public void testBacklashUThreeDigitFails() {
         this.parseFailAndCheck("\\u123");
     }
+
     @Test
     public void testBacklashUThreeDigitFails2() {
         this.parseFailAndCheck("\\u123-");
@@ -100,11 +101,11 @@ public final class UnicodeEscapeCharacterParserTest extends Parser2TestCase<Unic
         return UnicodeEscapeCharacterParser.get();
     }
 
-    private TextCursor parseAndCheck2(final String in, final char value, final String text){
+    private TextCursor parseAndCheck2(final String in, final char value, final String text) {
         return this.parseAndCheck2(in, value, text, "");
     }
 
-    private TextCursor parseAndCheck2(final String in, final char value, final String text, final String textAfter){
+    private TextCursor parseAndCheck2(final String in, final char value, final String text, final String textAfter) {
         return this.parseAndCheck(in, CharacterParserToken.with(value, text), text, textAfter);
     }
 

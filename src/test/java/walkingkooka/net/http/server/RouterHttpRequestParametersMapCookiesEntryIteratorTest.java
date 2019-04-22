@@ -90,7 +90,7 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest implem
 
     @Test
     public void testToString() {
-        this.toStringAndCheck( this.createIterator(COOKIE1), "a=1;");
+        this.toStringAndCheck(this.createIterator(COOKIE1), "a=1;");
     }
 
     @Test

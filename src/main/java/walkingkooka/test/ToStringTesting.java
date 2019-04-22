@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 /**
  * Mixing that may be used to test toString implementations.
  */
-public interface ToStringTesting<T> extends Testing{
+public interface ToStringTesting<T> extends Testing {
 
     @Test
     default void testCheckToStringOverridden() {

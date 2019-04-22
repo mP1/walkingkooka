@@ -116,14 +116,14 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfParserToken terminal1 = this.terminal1();
         final EbnfParserToken terminal2 = this.terminal2();
         final EbnfRangeParserToken token = this.createToken(
-                TERMINAL_TEXT1 + BETWEEN + COMMENT1 +TERMINAL_TEXT2,
+                TERMINAL_TEXT1 + BETWEEN + COMMENT1 + TERMINAL_TEXT2,
                 terminal1, between(), comment1(), terminal2);
 
         this.check(token, terminal1, terminal2);
     }
 
     private void check(final EbnfRangeParserToken token,
-                       final EbnfParserToken begin,final EbnfParserToken end) {
+                       final EbnfParserToken begin, final EbnfParserToken end) {
         assertSame(begin, token.begin(), "begin");
         assertSame(end, token.end());
     }
@@ -200,10 +200,10 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         }.accept(range);
         assertEquals("135138421374213842642", b.toString());
         assertEquals(Lists.<Object>of(range, range, range,
-                        terminal1, terminal1, terminal1, terminal1, terminal1,
-                        between, between, between, between, between,
-                        terminal2, terminal2, terminal2, terminal2, terminal2,
-                        range, range, range),
+                terminal1, terminal1, terminal1, terminal1, terminal1,
+                between, between, between, between, between,
+                terminal2, terminal2, terminal2, terminal2, terminal2,
+                range, range, range),
                 visited,
                 "visited");
     }
@@ -225,8 +225,7 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         return "\"terminal-1\"..\"terminal-2\"";
     }
 
-    @Override
-    final List<ParserToken> tokens() {
+    @Override final List<ParserToken> tokens() {
         return Lists.of(terminal1(), between(), terminal2());
     }
 

@@ -33,7 +33,7 @@ import java.time.LocalTime;
  */
 abstract class ExpressionValueNode<V> extends ExpressionLeafNode<V> {
 
-    ExpressionValueNode(final int index, final V value){
+    ExpressionValueNode(final int index, final V value) {
         super(index, value);
     }
 
@@ -71,7 +71,7 @@ abstract class ExpressionValueNode<V> extends ExpressionLeafNode<V> {
     public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
         return context.convert(this.value(), LocalTime.class);
     }
-    
+
     @Override
     public final long toLong(final ExpressionEvaluationContext context) {
         return context.convert(this.value(), Long.class);

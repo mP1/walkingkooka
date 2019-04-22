@@ -39,7 +39,7 @@ abstract class HeaderParser {
     HeaderParser(final String text) {
         //CharSequences.failIfNullOrEmpty(text, "Text");
         Objects.requireNonNull(text, "Text");
-        if(text.isEmpty()) {
+        if (text.isEmpty()) {
             throw new HeaderValueException("Text is empty");
         }
 
@@ -129,8 +129,8 @@ abstract class HeaderParser {
     /**
      * Uses the predicate to match characters, and then passes that text providing its not empty to the factory.
      */
-    private  <T> Optional<T> tokenOptional(final CharPredicate predicate,
-                                           final Function<String, T> factory) {
+    private <T> Optional<T> tokenOptional(final CharPredicate predicate,
+                                          final Function<String, T> factory) {
         final int start = this.position;
         final String tokenText = this.token(predicate);
 

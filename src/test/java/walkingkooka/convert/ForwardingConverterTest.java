@@ -76,7 +76,7 @@ public final class ForwardingConverterTest extends FixedTypeConverterTestCase<Fo
     }
 
     @Test
-    public void testToString(){
+    public void testToString() {
         this.toStringAndCheck(this.createConverter(), "LocalDate->Number");
     }
 

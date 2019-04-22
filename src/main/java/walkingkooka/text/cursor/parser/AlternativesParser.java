@@ -34,7 +34,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
     /**
      * Factory that creates a {@link Parser} possibly simplifying things.
      */
-    static <C extends ParserContext> Parser<C> with(final List<Parser<C>> parsers){
+    static <C extends ParserContext> Parser<C> with(final List<Parser<C>> parsers) {
         Objects.requireNonNull(parsers, "parsers");
 
         final List<Parser<C>> copy = Lists.array();
@@ -42,16 +42,16 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
         // visit all parsers,. flattening any that are themselves AlternativesParser
         parsers.forEach(p -> tryFlatten(p, copy));
 
-        final List<Parser<C>> withoutCustomToString =unwrapAllCustomToStringParsers(copy);
+        final List<Parser<C>> withoutCustomToString = unwrapAllCustomToStringParsers(copy);
         final boolean allCustomToStringParsers = withoutCustomToString.size() == copy.size();
 
         final Parser<C> created = with0(allCustomToStringParsers ?
-                        withoutCustomToString :
-                        copy);
+                withoutCustomToString :
+                copy);
 
         return allCustomToStringParsers ?
-               created.setToString(toString0(copy)) :
-               created;
+                created.setToString(toString0(copy)) :
+                created;
     }
 
     /**
@@ -60,7 +60,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
      */
     private static <C extends ParserContext> void tryFlatten(final Parser<C> parser,
                                                              final List<Parser<C>> copy) {
-        if(parser instanceof AlternativesParser) {
+        if (parser instanceof AlternativesParser) {
             final AlternativesParser<C> alt = parser.cast();
             copy.addAll(alt.parsers);
         } else {
@@ -82,10 +82,10 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
     /**
      * The actual factory method that accepts the copy of parsers that have been processed and possibly simplified.
      */
-    private static <C extends ParserContext> Parser<C> with0(final List<Parser<C>> parsers){
+    private static <C extends ParserContext> Parser<C> with0(final List<Parser<C>> parsers) {
         Parser<C> parser;
 
-        switch(parsers.size()){
+        switch (parsers.size()) {
             case 0:
                 throw new IllegalArgumentException("At least one parser must be provided");
             case 1:
@@ -102,7 +102,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
     /**
      * Private ctor
      */
-    private AlternativesParser(final List<Parser<C>> parsers){
+    private AlternativesParser(final List<Parser<C>> parsers) {
         super();
         this.parsers = parsers;
     }
@@ -115,9 +115,9 @@ final class AlternativesParser<C extends ParserContext> implements Parser<C>, Ha
     public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         Optional<ParserToken> token = Optional.empty();
 
-        for(Parser<C> parser : this.parsers) {
+        for (Parser<C> parser : this.parsers) {
             Optional<ParserToken> possible = parser.parse(cursor, context);
-            if(possible.isPresent()){
+            if (possible.isPresent()) {
                 token = possible;
                 break;
             }

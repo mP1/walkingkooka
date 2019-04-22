@@ -46,28 +46,28 @@ final class SurroundStringParser<C extends ParserContext> extends Parser2<C> {
         int matched = 0;
         final String open = this.open;
 
-        for(;;) {
-            if(cursor.isEmpty() || open.charAt(matched) != cursor.at()) {
+        for (; ; ) {
+            if (cursor.isEmpty() || open.charAt(matched) != cursor.at()) {
                 break;
             }
             matched++;
             cursor.next();
 
-            if(open.length() == matched) {
+            if (open.length() == matched) {
                 final String close = this.close;
                 matched = 0;
 
                 // try matching close...
-                for(;;) {
-                    if(cursor.isEmpty()) {
+                for (; ; ) {
+                    if (cursor.isEmpty()) {
                         break;
                     }
                     final char at = cursor.at();
-                    if(close.charAt(matched) == at){
+                    if (close.charAt(matched) == at) {
                         matched++;
                         cursor.next();
 
-                        if(close.length() == matched) {
+                        if (close.length() == matched) {
                             // close found, match!!!
                             final String text = start.textBetween().toString();
                             result = StringParserToken.with(text, text);
@@ -76,10 +76,10 @@ final class SurroundStringParser<C extends ParserContext> extends Parser2<C> {
                         continue;
                     }
                     matched = 0;
-                    if(close.charAt(0) == at) {
+                    if (close.charAt(0) == at) {
                         matched++;
 
-                        if(close.length() == matched) {
+                        if (close.length() == matched) {
                             // close found, match!!!
                             final String text = start.textBetween().toString();
                             result = StringParserToken.with(text, text);

@@ -25,7 +25,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionBooleanNodeTest extends ExpressionLeafNodeTestCase<ExpressionBooleanNode, Boolean>{
+public final class ExpressionBooleanNodeTest extends ExpressionLeafNodeTestCase<ExpressionBooleanNode, Boolean> {
 
     @Test
     public void testAccept() {

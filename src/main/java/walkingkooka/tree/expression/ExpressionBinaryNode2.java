@@ -26,7 +26,7 @@ import java.math.BigInteger;
  */
 abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
 
-    ExpressionBinaryNode2(final int index, final ExpressionNode left, final ExpressionNode right){
+    ExpressionBinaryNode2(final int index, final ExpressionNode left, final ExpressionNode right) {
         super(index, left, right);
     }
 
@@ -34,6 +34,7 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
     public final boolean isAnd() {
         return false;
     }
+
     @Override
     public final boolean isOr() {
         return false;
@@ -44,17 +45,16 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
         return false;
     }
 
-    @Override
-    final ExpressionNode apply(final ExpressionNode left,
-                               final ExpressionNode right,
-                               final ExpressionEvaluationContext context) {
+    @Override final ExpressionNode apply(final ExpressionNode left,
+                                         final ExpressionNode right,
+                                         final ExpressionEvaluationContext context) {
         ExpressionNode result;
 
         try {
             for (; ; ) {
                 final Object leftValue = left.toValue(context);
                 final Object rightValue = right.toValue(context);
-                
+
                 if (leftValue instanceof String) {
 
                     result = this.applyText(
@@ -78,8 +78,8 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                 final boolean leftBigInteger = leftValue instanceof BigInteger;
                 final boolean rightBigInteger = rightValue instanceof BigInteger;
                 if (leftBigInteger && rightBigInteger ||
-                    leftBigInteger && rightByteShortIntegerLong ||
-                    leftByteShortIntegerLong && rightBigInteger) {
+                        leftBigInteger && rightByteShortIntegerLong ||
+                        leftByteShortIntegerLong && rightBigInteger) {
                     result = this.applyBigInteger(
                             context.convert(leftValue, BigInteger.class),
                             context.convert(rightValue, BigInteger.class),
@@ -96,9 +96,9 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                 }
                 // default is to promote both to BigDecimal.
                 result = this.applyBigDecimal(
-                            context.convert(leftValue, BigDecimal.class),
-                            context.convert(rightValue, BigDecimal.class),
-                            context);
+                        context.convert(leftValue, BigDecimal.class),
+                        context.convert(rightValue, BigDecimal.class),
+                        context);
                 break;
             }
         } catch (final ArithmeticException cause) {

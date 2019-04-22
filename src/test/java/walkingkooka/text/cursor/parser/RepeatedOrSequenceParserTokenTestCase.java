@@ -37,7 +37,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
     private final static StringParserToken STRING4 = ParserTokens.string("d4", "d4");
     private final static StringParserToken STRING5 = ParserTokens.string("e5", "e5");
     private final static StringParserToken STRING6 = ParserTokens.string("f6", "f6");
-    
+
     @Test
     public final void testWithNullTokensFails() {
         assertThrows(NullPointerException.class, () -> {
@@ -55,14 +55,14 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
     // setValue...........................................................................................................
 
     @Test
-    public final void testSetValueNullFails(){
+    public final void testSetValueNullFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createToken().setValue(null);
         });
     }
 
     @Test
-    public final void testSetValueSame(){
+    public final void testSetValueSame() {
         final T token = this.createToken();
         assertSame(token, token.setValue(token.value()));
     }
@@ -89,7 +89,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         final T flat = parent.flat().cast();
         assertNotSame(parent, flat);
         assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5), flat.value(), "values after flattening");
-        this.checkText(flat,"a1b2d4e5");
+        this.checkText(flat, "a1b2d4e5");
     }
 
     @Test
@@ -100,16 +100,16 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         final T flat = parent.flat().cast();
         assertNotSame(parent, flat);
         assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value(), "values after flattening");
-        this.checkText(flat,"a1b2d4e5f6");
+        this.checkText(flat, "a1b2d4e5f6");
     }
 
-    final T createToken(final ParserToken...tokens) {
+    final T createToken(final ParserToken... tokens) {
         return this.createToken(Lists.of(tokens), Arrays.stream(tokens)
-        .map(t-> t.text())
-        .collect(Collectors.joining()));
+                .map(t -> t.text())
+                .collect(Collectors.joining()));
     }
 
-    final T createToken(final String text, final ParserToken...tokens) {
+    final T createToken(final String text, final ParserToken... tokens) {
         return this.createToken(Lists.of(tokens), text);
     }
 

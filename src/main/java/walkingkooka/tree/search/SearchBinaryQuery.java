@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 
 import java.util.Objects;
 
-abstract class SearchBinaryQuery extends SearchParentQuery{
+abstract class SearchBinaryQuery extends SearchParentQuery {
 
     static void check(final SearchQuery left, final SearchQuery right) {
         Objects.requireNonNull(left, "left");
@@ -100,7 +100,7 @@ abstract class SearchBinaryQuery extends SearchParentQuery{
 
     private boolean equals1(final SearchBinaryQuery other) {
         return this.left.equals(other.left) &&
-               this.right.equals(other.right);
+                this.right.equals(other.right);
     }
 
     @Override

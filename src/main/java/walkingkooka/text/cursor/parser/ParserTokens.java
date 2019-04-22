@@ -58,7 +58,7 @@ public final class ParserTokens implements PublicStaticHelper {
     public static DoubleParserToken doubleParserToken(final double value, final String text) {
         return DoubleParserToken.with(value, text);
     }
-    
+
     /**
      * {@see DoubleQuotedParserToken}
      */
@@ -93,7 +93,7 @@ public final class ParserTokens implements PublicStaticHelper {
     public static LocalTimeParserToken localTime(final LocalTime value, final String text) {
         return LocalTimeParserToken.with(value, text);
     }
-    
+
     /**
      * {@see LongParserToken}
      */
@@ -140,7 +140,7 @@ public final class ParserTokens implements PublicStaticHelper {
      * {@see SingleQuotedParserToken}
      */
     public static SingleQuotedParserToken singleQuoted(final String value, final String text) {
-       return SingleQuotedParserToken.with(value, text);
+        return SingleQuotedParserToken.with(value, text);
     }
 
     /**
@@ -156,7 +156,7 @@ public final class ParserTokens implements PublicStaticHelper {
     public static ZonedDateTimeParserToken zonedDateTime(final ZonedDateTime value, final String text) {
         return ZonedDateTimeParserToken.with(value, text);
     }
-    
+
     /**
      * Stop creation
      */

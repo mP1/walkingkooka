@@ -55,8 +55,8 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
      * Visits all the individual tokens in the given token which was compiled from the given pattern.
      */
     static List<SpreadsheetTextFormatter<Object>> analyze(final SpreadsheetFormatExpressionParserToken token,
-                                                     final MathContext mathContext,
-                                                     final Function<BigDecimal, Fraction> fractioner) {
+                                                          final MathContext mathContext,
+                                                          final Function<BigDecimal, Fraction> fractioner) {
         final ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor visitor = new ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor(mathContext, fractioner);
         return visitor.acceptAndMakeFormatter(token);
     }
@@ -181,7 +181,7 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
     private void setSpreadsheetTextFormatter(final SpreadsheetTextFormatter<?> formatter, final SpreadsheetFormatParserToken token) {
         this.formatter.setFormatter(formatter);
 
-        if(!token.isText()) {
+        if (!token.isText()) {
             this.numberFormatters++;
         }
     }

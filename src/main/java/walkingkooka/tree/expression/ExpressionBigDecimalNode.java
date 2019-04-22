@@ -36,7 +36,7 @@ public final class ExpressionBigDecimalNode extends ExpressionValueNode<BigDecim
         return new ExpressionBigDecimalNode(NO_INDEX, value);
     }
 
-    private ExpressionBigDecimalNode(final int index, final BigDecimal value){
+    private ExpressionBigDecimalNode(final int index, final BigDecimal value) {
         super(index, value);
     }
 
@@ -106,7 +106,7 @@ public final class ExpressionBigDecimalNode extends ExpressionValueNode<BigDecim
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

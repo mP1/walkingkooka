@@ -41,7 +41,7 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
     public final void setStatus(final HttpStatus status) {
         Objects.requireNonNull(status, "status");
 
-        if(this.committed) {
+        if (this.committed) {
             this.response.setStatus(status);
         } else {
             this.status = status;
@@ -52,7 +52,7 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
     public final void addEntity(final HttpEntity entity) {
         Objects.requireNonNull(entity, "entity");
 
-        if(this.committed) {
+        if (this.committed) {
             this.response.addEntity(entity);
         } else {
             this.committed = true;
@@ -62,7 +62,7 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
 
     private HttpStatus statusOrFail() {
         final HttpStatus status = this.status;
-        if(null==status) {
+        if (null == status) {
             throw new IllegalStateException("Status missing");
         }
         return status;
@@ -87,9 +87,9 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
     final HttpEntity removeContentHeaders(final HttpEntity entity) {
         return entity.setHeaders(
                 entity.headers()
-                .entrySet()
-                .stream()
-                .filter(hav -> !hav.getKey().isContent())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+                        .entrySet()
+                        .stream()
+                        .filter(hav -> !hav.getKey().isContent())
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
     }
 }

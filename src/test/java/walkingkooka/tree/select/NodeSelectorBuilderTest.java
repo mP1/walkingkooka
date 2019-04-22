@@ -98,12 +98,12 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
             NodeSelectorBuilder.relative(TestNode.class, null);
         });
     }
-    
+
     @Test
     public void testNamedNotSelected() {
         final TestNode root = TestNode.with(ROOT);
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .named(Names.string("not-found"));
 
         this.acceptAndCheck(b, root);
@@ -113,7 +113,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     public void testNamedSelected() {
         final TestNode root = TestNode.with(ROOT);
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .named(Names.string(ROOT));
 
         this.acceptAndCheck(b, root, root);
@@ -223,7 +223,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         final TestNode parent = TestNode.with(PARENT, child);
         final TestNode root = TestNode.with(ROOT, parent);
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string("child"));
 
@@ -235,8 +235,8 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.of(ATTRIBUTE, VALUE));
         final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.of(ATTRIBUTE, "different"));
         final TestNode parent = TestNode.with(PARENT, child1, child2);
-        
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(CHILD1))
                 .attributeValueEquals(ATTRIBUTE, VALUE);
@@ -251,7 +251,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         final TestNode parent = TestNode.with(PARENT, child1, child2);
         final TestNode root = TestNode.with(ROOT, parent);
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(CHILD1))
                 .attributeValueEquals(ATTRIBUTE, VALUE);
@@ -267,7 +267,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         final TestNode parent = TestNode.with(PARENT, child1, child2, child3);
         final TestNode root = TestNode.with(ROOT, parent);
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .attributeValueEquals(ATTRIBUTE, VALUE);
 
@@ -282,7 +282,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         final TestNode parent2 = TestNode.with("parent2").setAttributes(Maps.of(ATTRIBUTE, "789"));
         final TestNode root = TestNode.with(ROOT, parent1, parent2);
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .or(this.relative().attributeValueEquals(ATTRIBUTE, "123").build(),
                         this.relative().attributeValueEquals(ATTRIBUTE, "789").build());
@@ -299,7 +299,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         final TestNode parent3 = TestNode.with("parent3").setAttributes(Maps.of(ATTRIBUTE, "12345"));
         final TestNode root = TestNode.with(ROOT, parent1, parent2, parent3);
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .and(this.relative().attributeValueContains(ATTRIBUTE, "1").build(),
                         this.relative().attributeValueContains(ATTRIBUTE, "2").build());
@@ -309,7 +309,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testDeepPathNameAndSelf() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .self();
@@ -319,7 +319,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testDeepPathNameAndParent() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .parent();
@@ -329,7 +329,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testDeepPathNameAndAncestor() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .ancestor();
@@ -340,7 +340,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     @Test
     public void testDeepPathNameAndChildren() {
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .children();
@@ -351,7 +351,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     @Test
     public void testDeepPathNameAndChild() {
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .child(2);
@@ -362,7 +362,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     @Test
     public void testDeepPathNameAndPrecedingSibling() {
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .precedingSibling();
@@ -373,7 +373,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     @Test
     public void testDeepPathNameAndFollowingSibling() {
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .followingSibling();
@@ -384,7 +384,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     @Test
     public void testDeepPathNameAndDescendants() {
 
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .descendant();
@@ -392,7 +392,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         this.acceptTreeAndCheck(b, CHILD1, GRAND_CHILD, CHILD2, CHILD3);
     }
 
-    private void acceptTreeAndCheck(final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b, final String...nodes) {
+    private void acceptTreeAndCheck(final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b, final String... nodes) {
         final TestNode parentSiblingBefore = TestNode.with(PARENT_SIBLING_BEFORE);
         final TestNode child1 = TestNode.with(CHILD1, TestNode.with(GRAND_CHILD));
         final TestNode parent = TestNode.with(PARENT, child1, TestNode.with(CHILD2), TestNode.with(CHILD3));
@@ -408,20 +408,20 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         this.acceptAndCheck0(builder,
                 start,
                 Arrays.stream(nodes)
-                        .map( n  -> n.name().value())
-                        .toArray(size  -> new String[ size]));
+                        .map(n -> n.name().value())
+                        .toArray(size -> new String[size]));
     }
 
     private void acceptAndCheck0(final NodeSelectorBuilder<TestNode, StringName, StringName, Object> builder,
-                                          final TestNode start,
-                                          final String... nodes) {
+                                 final TestNode start,
+                                 final String... nodes) {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = builder.build();
 
         final List<String> selectedNames =
                 this.selectorAcceptAndCollect(start, selector)
-                .stream()
-                .map(n -> n.name().value())
-                .collect(Collectors.toList());
+                        .stream()
+                        .map(n -> n.name().value())
+                        .collect(Collectors.toList());
         assertEquals(Lists.of(nodes),
                 selectedNames
                 , "Selector.accept=" + selector + "\n" + start);
@@ -439,27 +439,27 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testToStringAbsoluteNodeAndAttributeSelector() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute();
         b.named(Names.string(PARENT))
                 .attributeValueContains(Names.string("attribute-name"), "attribute-value");
 
-        this.buildAndCheck2(b,"/parent[contains(@\"attribute-name\",\"attribute-value\")]");
+        this.buildAndCheck2(b, "/parent[contains(@\"attribute-name\",\"attribute-value\")]");
     }
 
     @Test
     public void testToStringAbsoluteManySelectors() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute();
         b.absolute()
                 .precedingSibling()
                 .self()
                 .followingSibling();
 
-        this.buildAndCheck2(b,"/preceding-sibling::*/./following-sibling::*");
+        this.buildAndCheck2(b, "/preceding-sibling::*/./following-sibling::*");
     }
 
     @Test
     public void testToStringAbsoluteManySelectors2() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute();
         b.absolute()
                 .preceding()
                 .self()
@@ -470,7 +470,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testToStringAbsoluteManySelectors3() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute();
         b.preceding()
                 .self()
                 .following();
@@ -480,7 +480,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testToStringRelativeManySelectors3() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.relative();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.relative();
         b.preceding()
                 .self()
                 .following();

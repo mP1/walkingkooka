@@ -21,7 +21,7 @@ package walkingkooka.net.http.server;
 /**
  * Base class for any response, that requires a request and wraps a response.
  */
-abstract class WrapperHttpRequestHttpResponse extends WrapperHttpResponse{
+abstract class WrapperHttpRequestHttpResponse extends WrapperHttpResponse {
 
     static void check(final HttpRequest request,
                       final HttpResponse response) {

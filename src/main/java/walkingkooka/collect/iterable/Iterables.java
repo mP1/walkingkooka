@@ -37,16 +37,16 @@ final public class Iterables implements PublicStaticHelper {
      * Tests if the elements belonging to the two {@link Iterables} are all equal in the order given.
      */
     public static <T> boolean equals(final Iterable<T> iterable, final Iterable<T> other, final BiPredicate<? super T, ? super T> equivalency) {
-        Objects.requireNonNull(iterable,  "iterable");
-        Objects.requireNonNull(other,  "other");
-        Objects.requireNonNull(equivalency,  "equivalency");
+        Objects.requireNonNull(iterable, "iterable");
+        Objects.requireNonNull(other, "other");
+        Objects.requireNonNull(equivalency, "equivalency");
 
         boolean equals = true;
 
         final Iterator<T> iterator = iterable.iterator();
         final Iterator<T> otherIterator = other.iterator();
-        while(equals && iterator.hasNext() && otherIterator.hasNext()) {
-             equals = equals && equivalency.test(iterator.next(), otherIterator.next());
+        while (equals && iterator.hasNext() && otherIterator.hasNext()) {
+            equals = equals && equivalency.test(iterator.next(), otherIterator.next());
         }
 
         return equals && !iterator.hasNext() && !otherIterator.hasNext();

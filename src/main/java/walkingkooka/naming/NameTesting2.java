@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */
-public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined> extends NameTesting<N, C>{
+public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined> extends NameTesting<N, C> {
 
     /**
      * All upper case ascii letters
@@ -73,14 +73,14 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
      * All ascii characters
      */
     String ASCII = IntStream.rangeClosed(0, 127)
-            .mapToObj(c -> String.valueOf((char)c))
+            .mapToObj(c -> String.valueOf((char) c))
             .collect(Collectors.joining(""));
 
     /**
      * All control characters between 0 and 31 including tab, CR and NL.
      */
     String CONTROL = IntStream.rangeClosed(0, 31)
-            .mapToObj(i -> String.valueOf((char)i))
+            .mapToObj(i -> String.valueOf((char) i))
             .collect(Collectors.joining(""));
 
 
@@ -88,7 +88,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
      * All ascii characters from space (32) to 127.
      */
     String ASCII_NON_CONTROL = IntStream.rangeClosed(32, 127)
-            .mapToObj(i -> String.valueOf((char)i))
+            .mapToObj(i -> String.valueOf((char) i))
             .collect(Collectors.joining(""));
 
     /**
@@ -126,7 +126,7 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
      * All characters above 127 and 255.
      */
     String BYTE_NON_ASCII = IntStream.rangeClosed(128, 255)
-            .mapToObj(i -> String.valueOf((char)i))
+            .mapToObj(i -> String.valueOf((char) i))
             .collect(Collectors.joining(""));
 
     /**
@@ -137,9 +137,9 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
         final StringBuilder b = new StringBuilder();
         b.append(text);
 
-        for(char c : subtract.toCharArray()) {
+        for (char c : subtract.toCharArray()) {
             final int i = b.indexOf(String.valueOf(c));
-            if(-1 != i) {
+            if (-1 != i) {
                 b.deleteCharAt(i);
             }
         }
@@ -158,15 +158,15 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
             final char[] chars = new char[i];
 
             // fill with valid characters except for last with invalid.
-            final int last = i -1;
-            for(int j = 0; j < last; j++){
+            final int last = i - 1;
+            for (int j = 0; j < last; j++) {
                 final String s = this.possibleValidChars(j);
                 chars[j] = this.possibleValidChars(j)
                         .charAt(0);
             }
 
             final String invalid = this.possibleInvalidChars(last);
-            for(char c : invalid.toCharArray()) {
+            for (char c : invalid.toCharArray()) {
                 chars[last] = c;
                 final String text = new String(chars);
 
@@ -196,11 +196,11 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
         for (int i = min; i <= max; i++) {
             final char[] chars = new char[i];
 
-            for(int j = 0; j < longest; j++) {
+            for (int j = 0; j < longest; j++) {
 
-                for(int k = 0; k < i; k++){
+                for (int k = 0; k < i; k++) {
                     final String possible = this.possibleValidChars(k);
-                    chars[k] = possible.charAt(j % (possible.length() -1));
+                    chars[k] = possible.charAt(j % (possible.length() - 1));
                 }
                 this.createName(new String(chars));
             }

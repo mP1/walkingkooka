@@ -63,7 +63,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     @Test
     public void testRegisterNullClassesFails() {
         assertThrows(NullPointerException.class, () -> {
-            HasJsonNodeMapper.register("!", JsonNode::fromJsonNode, (Class[])null);
+            HasJsonNodeMapper.register("!", JsonNode::fromJsonNode, (Class[]) null);
         });
     }
 
@@ -117,7 +117,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
     @Test
     public void testMapperOrFailStringUnknownTypeFails() {
         assertThrows(UnsupportedTypeJsonNodeException.class, () -> {
-           HasJsonNodeMapper.mapperOrFail("???");
+            HasJsonNodeMapper.mapperOrFail("???");
         });
     }
 
@@ -170,7 +170,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testToJsonNodeWithTypeDouble() {
-        this.toJsonNodeWithTypeAndCheck(123.5,JsonNode.number(123.5));
+        this.toJsonNodeWithTypeAndCheck(123.5, JsonNode.number(123.5));
     }
 
     private void toJsonNodeWithTypeAndCheck(final Number value) {
@@ -245,8 +245,9 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
                 HasJsonNodeMapper.toJsonNodeWithTypeObject(value),
                 "value " + CharSequences.quoteIfChars(value) + " toJsonNodeWithType failed");
     }
+
     private JsonNode typeNameAndValue(final long value) {
-        return this.typeNameAndValue("long", JsonNode.string( Long.toString(value)));
+        return this.typeNameAndValue("long", JsonNode.string(Long.toString(value)));
     }
 
     private JsonNode typeNameAndValue(final Class<?> type, final JsonNode value) {

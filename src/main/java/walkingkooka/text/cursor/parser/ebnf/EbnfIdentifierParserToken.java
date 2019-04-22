@@ -27,14 +27,14 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIde
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfIdentifierParserToken.class);
 
-    static EbnfIdentifierParserToken with(final EbnfIdentifierName value, final String text){
+    static EbnfIdentifierParserToken with(final EbnfIdentifierName value, final String text) {
         checkValue(value);
         checkText(text);
 
         return new EbnfIdentifierParserToken(value, text);
     }
 
-    private EbnfIdentifierParserToken(final EbnfIdentifierName value, final String text){
+    private EbnfIdentifierParserToken(final EbnfIdentifierName value, final String text) {
         super(value, text);
     }
 
@@ -49,7 +49,7 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIde
     }
 
     @Override
-    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return Optional.of(this);
     }
 
@@ -79,7 +79,7 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIde
     }
 
     @Override
-    public void accept(final EbnfParserTokenVisitor visitor){
+    public void accept(final EbnfParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

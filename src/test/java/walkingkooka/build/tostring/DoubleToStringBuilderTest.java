@@ -38,7 +38,7 @@ public final class DoubleToStringBuilderTest extends ScalarToStringBuilderTestCa
 
     @Override
     void value(final ToStringBuilder builder, final Double value) {
-        builder.value((double)value);
+        builder.value((double) value);
     }
 
     @Override

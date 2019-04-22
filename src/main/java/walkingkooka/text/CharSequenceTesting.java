@@ -216,7 +216,7 @@ public interface CharSequenceTesting<C extends CharSequence & HashCodeEqualsDefi
     }
 
     default void checkSubSequence(final CharSequence chars, final int start, final int end,
-                                    final String expected) {
+                                  final String expected) {
         final CharSequence sub = chars.subSequence(start, end);
         this.checkLength(sub, end - start);
         this.checkCharAt(sub, expected);

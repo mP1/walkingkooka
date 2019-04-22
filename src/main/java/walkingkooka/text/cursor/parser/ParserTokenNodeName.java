@@ -57,7 +57,7 @@ public final class ParserTokenNodeName implements Name, Comparable<ParserTokenNo
      * Creates a new {@link ParserTokenNodeName} with an index.
      */
     public static ParserTokenNodeName with(final int index) {
-        if(index < 0) {
+        if (index < 0) {
             throw new IllegalArgumentException("Index " + index + " must not be negative");
         }
         return new ParserTokenNodeName(index);

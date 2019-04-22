@@ -73,7 +73,7 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
         }
         response.addEntity(HttpEntity.with(headers, body));
         assertEquals(Lists.of(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length)), body)),
-               added,
+                added,
                 "added entity");
     }
 

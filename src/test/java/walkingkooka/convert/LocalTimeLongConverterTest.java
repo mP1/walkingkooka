@@ -26,7 +26,7 @@ import java.time.LocalTime;
 public final class LocalTimeLongConverterTest extends LocalTimeConverterTestCase<LocalTimeLongConverter, Long> {
 
     private final static int VALUE = 123;
-    
+
     @Test
     public void testLocalTime() {
         this.convertAndCheck(LocalTime.ofSecondOfDay(VALUE), Long.valueOf(VALUE));

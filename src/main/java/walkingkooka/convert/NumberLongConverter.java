@@ -46,7 +46,7 @@ final class NumberLongConverter extends NumberConverter<Long> {
     @Override
     Long doubleValue(final Double value) {
         final long longValue = value.longValue();
-        if(longValue != value) {
+        if (longValue != value) {
             this.failConversion(value);
         }
         return longValue;
@@ -58,7 +58,7 @@ final class NumberLongConverter extends NumberConverter<Long> {
     }
 
     @Override
-    Class<Long> targetType(){
+    Class<Long> targetType() {
         return Long.class;
     }
 

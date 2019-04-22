@@ -123,7 +123,7 @@ final public class XmlAttributeName implements Name,
     @Override
     public int compareTo(final XmlAttributeName other) {
         int value = CASE_SENSITIVITY.comparator().compare(this.name, other.name);
-        if(0 == value) {
+        if (0 == value) {
             value = CASE_SENSITIVITY.comparator().compare(
                     this.prefixValue(this.prefix),
                     this.prefixValue(other.prefix));

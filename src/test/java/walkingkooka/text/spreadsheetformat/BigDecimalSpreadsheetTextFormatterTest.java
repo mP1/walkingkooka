@@ -1252,12 +1252,12 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
             public char groupingSeparator() {
                 return 'G';
             }
-            
+
             @Override
             public char minusSign() {
                 return 'M';
             }
-            
+
             @Override
             public char percentageSymbol() {
                 return 'R';

@@ -70,8 +70,8 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
     public ExpressionFunctionNode setName(final ExpressionNodeName name) {
         Objects.requireNonNull(name, "name");
         return this.name().equals(name) ?
-               this :
-               new ExpressionFunctionNode(this.index, name, this.value());
+                this :
+                new ExpressionFunctionNode(this.index, name, this.value());
     }
 
     @Override
@@ -186,8 +186,8 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
     // Visitor.........................................................................................................
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final ExpressionNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -229,7 +229,7 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
     public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, LocalTime.class);
     }
-    
+
     @Override
     public final long toLong(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, Long.class);
@@ -289,8 +289,7 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
 
     // Object.........................................................................................................
 
-    @Override
-    final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
+    @Override final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
         return this.name.equals(other.name());
     }
 
@@ -301,10 +300,10 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
 
         final List<ExpressionNode> expressions = this.value();
         int last = expressions.size() - 1;
-        for(ExpressionNode parameter : expressions) {
+        for (ExpressionNode parameter : expressions) {
             parameter.toString0(b);
             last--;
-            if(last >= 0) {
+            if (last >= 0) {
                 b.append(',');
             }
         }

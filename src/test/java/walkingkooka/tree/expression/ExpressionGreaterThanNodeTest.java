@@ -495,7 +495,7 @@ public final class ExpressionGreaterThanNodeTest extends ExpressionComparisonBin
     }
 
     @Override
-    String expectedToString(){
+    String expectedToString() {
         return LEFT_TO_STRING + ">" + RIGHT_TO_STRING;
     }
 

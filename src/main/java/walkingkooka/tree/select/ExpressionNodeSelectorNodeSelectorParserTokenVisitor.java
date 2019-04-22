@@ -109,7 +109,7 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
     @Override
     protected void endVisit(final NodeSelectorFunctionParserToken token) {
         final ExpressionNodeName functionName = ExpressionNodeName.with(token.functionName().value());
-        if(!this.functions.test(functionName)) {
+        if (!this.functions.test(functionName)) {
             throw new NodeSelectorException("Unknown function " + functionName + " in " + token);
         }
 

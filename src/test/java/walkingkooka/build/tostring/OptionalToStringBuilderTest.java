@@ -58,7 +58,7 @@ public final class OptionalToStringBuilderTest extends ScalarToStringBuilderTest
 
     @Override
     void value(final ToStringBuilder builder, final Optional<Integer> value) {
-        builder.value((Optional<Integer>)value);
+        builder.value((Optional<Integer>) value);
     }
 
     @Override

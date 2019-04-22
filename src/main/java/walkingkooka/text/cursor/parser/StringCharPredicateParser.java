@@ -30,10 +30,10 @@ final class StringCharPredicateParser<C extends ParserContext> extends Parser2<C
 
     static <C extends ParserContext> StringCharPredicateParser<C> with(final CharPredicate predicate, final int minLength, final int maxLength) {
         Objects.requireNonNull(predicate, "predicate");
-        if(minLength <= 0) {
+        if (minLength <= 0) {
             throw new IllegalArgumentException("Min length " + minLength + " must be greater than 0");
         }
-        if(maxLength < minLength) {
+        if (maxLength < minLength) {
             throw new IllegalArgumentException("Maxlength " + maxLength + " must be greater/equal than maxLength: " + minLength);
         }
 
@@ -59,15 +59,15 @@ final class StringCharPredicateParser<C extends ParserContext> extends Parser2<C
         cursor.next();
 
         int i = 1;
-        while(!cursor.isEmpty() && i < this.maxLength && this.predicate.test(cursor.at())) {
+        while (!cursor.isEmpty() && i < this.maxLength && this.predicate.test(cursor.at())) {
             cursor.next();
 
             i++;
         }
 
         return i >= this.minLength ?
-            stringParserToken(start) :
-            this.fail();
+                stringParserToken(start) :
+                this.fail();
     }
 
     private final int minLength;

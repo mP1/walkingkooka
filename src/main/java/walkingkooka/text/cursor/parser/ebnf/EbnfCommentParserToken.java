@@ -27,14 +27,14 @@ public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfCommentParserToken.class);
 
-    static EbnfCommentParserToken with(final String value, final String text){
+    static EbnfCommentParserToken with(final String value, final String text) {
         checkValue(value);
         checkText(text);
 
         return new EbnfCommentParserToken(value, text);
     }
 
-    private EbnfCommentParserToken(final String value, final String text){
+    private EbnfCommentParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -49,7 +49,7 @@ public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
     }
 
     @Override
-    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return Optional.empty();
     }
 
@@ -79,7 +79,7 @@ public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
     }
 
     @Override
-    public void accept(final EbnfParserTokenVisitor visitor){
+    public void accept(final EbnfParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

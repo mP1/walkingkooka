@@ -31,11 +31,11 @@ import java.util.Optional;
  */
 final class EbnfParserCombinatorProxyParser<C extends ParserContext> implements Parser<C> {
 
-    static <C extends ParserContext> EbnfParserCombinatorProxyParser<C> with(final EbnfIdentifierParserToken identifier){
+    static <C extends ParserContext> EbnfParserCombinatorProxyParser<C> with(final EbnfIdentifierParserToken identifier) {
         return new EbnfParserCombinatorProxyParser<C>(identifier);
     }
 
-    private EbnfParserCombinatorProxyParser(final EbnfIdentifierParserToken identifier){
+    private EbnfParserCombinatorProxyParser(final EbnfIdentifierParserToken identifier) {
         this.identifier = identifier;
     }
 

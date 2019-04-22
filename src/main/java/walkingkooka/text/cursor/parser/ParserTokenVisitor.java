@@ -31,7 +31,7 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
     public final void accept(final ParserToken token) {
         Objects.requireNonNull(token, "token");
 
-        if(Visiting.CONTINUE == this.startVisit(token)) {
+        if (Visiting.CONTINUE == this.startVisit(token)) {
             token.accept(this);
         }
         this.endVisit(token);
@@ -68,7 +68,7 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
     protected void visit(final LocalDateParserToken token) {
         // nop
     }
-    
+
     protected void visit(final LocalDateTimeParserToken token) {
         // nop
     }
@@ -88,7 +88,7 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
     protected void visit(final OffsetTimeParserToken token) {
         // nop
     }
-    
+
     protected Visiting startVisit(final RepeatedParserToken token) {
         return Visiting.CONTINUE;
     }
@@ -120,11 +120,11 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
     protected void visit(final ZonedDateTimeParserToken token) {
         // nop
     }
-    
+
     /**
      * Useful to dispatch and visit all the child nodes of a parent.
      */
     protected final void acceptTokens(final List<? extends ParserToken> tokens) {
-        tokens.forEach( t -> this.accept(t));
+        tokens.forEach(t -> this.accept(t));
     }
 }

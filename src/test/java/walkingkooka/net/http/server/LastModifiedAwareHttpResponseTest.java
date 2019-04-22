@@ -263,9 +263,9 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
 
 
     private HttpResponse createResponseWithoutCast(final HttpMethod method,
-                                                          final List<ETag> ifNoneMatch,
-                                                          final LocalDateTime lastModified,
-                                                          final HttpResponse response) {
+                                                   final List<ETag> ifNoneMatch,
+                                                   final LocalDateTime lastModified,
+                                                   final HttpResponse response) {
         return LastModifiedAwareHttpResponse.with(
                 createRequest(method, ifNoneMatch, lastModified),
                 response);

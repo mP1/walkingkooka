@@ -41,7 +41,7 @@ public final class HostAddress implements Value<String>,
      */
     public static HostAddress with(final String address) {
         Whitespace.failIfNullOrEmptyOrWhitespace(address, "address");
-        
+
         return HostAddress.with(address, 0, false, false);
     }
 
@@ -50,7 +50,7 @@ public final class HostAddress implements Value<String>,
      */
     public static HostAddress withEmail(final String address, final int offset) {
         Whitespace.failIfNullOrEmptyOrWhitespace(address, "address");
-        
+
         return HostAddress.with(address, offset, true, true);
     }
 
@@ -559,7 +559,7 @@ public final class HostAddress implements Value<String>,
         final StringBuilder builder = new StringBuilder();
         for (final byte value : values) {
             final int unsigned = 0xff & value;
-            if(unsigned < 0x10) {
+            if (unsigned < 0x10) {
                 builder.append('0');
             }
 
@@ -675,8 +675,8 @@ public final class HostAddress implements Value<String>,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof HostAddress &&
-               this.equals0((HostAddress) other);
+                other instanceof HostAddress &&
+                        this.equals0((HostAddress) other);
     }
 
     private boolean equals0(final HostAddress other) {

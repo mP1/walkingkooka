@@ -40,24 +40,22 @@ final class PojoIntArrayNode extends PojoArrayNode {
 
     // children ..................................................................................
 
-    @Override
-    final PojoNode replaceChildren(final List<PojoNode> children){
+    @Override final PojoNode replaceChildren(final List<PojoNode> children) {
         final int[] newChildren = new int[children.size()];
 
         int i = 0;
-        for(PojoNode child : children){
-            newChildren[i] = (int)child.value();
+        for (PojoNode child : children) {
+            newChildren[i] = (int) child.value();
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    @Override
-    final PojoNode replaceChild(final PojoNode newChild) {
+    @Override final PojoNode replaceChild(final PojoNode newChild) {
         final int[] newChildren = new int[this.childrenCount()];
 
-        newChildren[newChild.index()]=(int)newChild.value();
+        newChildren[newChild.index()] = (int) newChild.value();
 
         return this.wrap(newChildren);
     }
@@ -67,15 +65,15 @@ final class PojoIntArrayNode extends PojoArrayNode {
         final int[] newChildren = new int[values.size()];
 
         int i = 0;
-        for(Object child : values){
-            newChildren[i] = (int)child;
+        for (Object child : values) {
+            newChildren[i] = (int) child;
             i++;
         }
 
         return this.wrap(newChildren);
     }
 
-    private PojoNode wrap(final int[] values){
+    private PojoNode wrap(final int[] values) {
         return new PojoIntArrayNode(this.name(),
                 values,
                 this.index(),
@@ -88,19 +86,17 @@ final class PojoIntArrayNode extends PojoArrayNode {
         return this.valueAsIntArray()[index];
     }
 
-    @Override
-    final int childrenCount() {
+    @Override final int childrenCount() {
         return this.valueAsIntArray().length;
     }
 
     @Override
-    boolean equals0(final PojoNode other){
+    boolean equals0(final PojoNode other) {
         final PojoIntArrayNode otherArray = Cast.to(other);
         return Arrays.equals(this.valueAsIntArray(), otherArray.valueAsIntArray());
     }
 
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         return Arrays.toString(this.valueAsIntArray());
     }
 }

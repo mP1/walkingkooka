@@ -33,7 +33,7 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
     public final void accept(final ExpressionNode node) {
         Objects.requireNonNull(node, "node");
 
-        if(Visiting.CONTINUE == this.startVisit(node)) {
+        if (Visiting.CONTINUE == this.startVisit(node)) {
             node.accept(this);
         }
         this.endVisit(node);
@@ -134,7 +134,7 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
     protected void endVisit(final ExpressionGreaterThanNode node) {
         // nop
     }
-    
+
     protected Visiting startVisit(final ExpressionGreaterThanEqualsNode node) {
         return Visiting.CONTINUE;
     }
@@ -158,7 +158,7 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
     protected void endVisit(final ExpressionLessThanEqualsNode node) {
         // nop
     }
-    
+
     protected Visiting startVisit(final ExpressionModuloNode node) {
         return Visiting.CONTINUE;
     }

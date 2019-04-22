@@ -40,7 +40,7 @@ public final class RelativeUrl extends Url {
     private static RelativeUrl parseRelative0(final String url) {
         Objects.requireNonNull(url, "url");
 
-        if(url.contains("://")) {
+        if (url.contains("://")) {
             throw new IllegalArgumentException("Relative url contains protocol=" + CharSequences.quote(url));
         }
 
@@ -94,8 +94,7 @@ public final class RelativeUrl extends Url {
         return this.setFragment0(fragment).cast();
     }
 
-    @Override
-    final RelativeUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
+    @Override final RelativeUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
         return new RelativeUrl(path, query, fragment);
     }
 
@@ -117,9 +116,10 @@ public final class RelativeUrl extends Url {
     public AbsoluteUrl set(final UrlScheme scheme,
                            final Optional<UrlCredentials> credentials,
                            final HostAddress host,
-                           final Optional<IpPort> port){
+                           final Optional<IpPort> port) {
         return AbsoluteUrl.with(scheme, credentials, host, port, this.path, this.query, this.fragment);
     }
+
     /**
      * Returns this
      */
@@ -141,13 +141,13 @@ public final class RelativeUrl extends Url {
     public boolean equals(final Object other) {
         return this == other ||
                 other instanceof RelativeUrl &&
-                this.equals0((RelativeUrl) other);
+                        this.equals0((RelativeUrl) other);
     }
 
     private boolean equals0(final RelativeUrl other) {
         return this.path.equals(other.path) && //
-               this.query.equals(other.query) && //
-               this.fragment.equals(other.fragment);
+                this.query.equals(other.query) && //
+                this.fragment.equals(other.fragment);
     }
 
     @Override

@@ -123,7 +123,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     private static final EbnfIdentifierName DESCENDANTORSELF_IDENTIFIER = EbnfIdentifierName.with("DESCENDANT_OR_SELF");
     private static final Parser<ParserContext> DESCENDANTORSELF_PARSER = descendantOrSelf("descendant-or-self::");
-    
+
     private static final EbnfIdentifierName DESCENDANTORSELF_SLASH_SLASH_IDENTIFIER = EbnfIdentifierName.with("DESCENDANTORSELF_SLASH_SLASH");
     private static final Parser<ParserContext> DESCENDANTORSELF_SLASH_SLASH_PARSER = descendantOrSelf("//");
 

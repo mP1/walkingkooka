@@ -53,8 +53,8 @@ final class FilesystemNodeAttributeMap extends AbstractMap<FilesystemNodeAttribu
     @Override
     public String get(final Object key) {
         return key instanceof FilesystemNodeAttributeName ?
-               this.get0(Cast.to(key)) :
-               null;
+                this.get0(Cast.to(key)) :
+                null;
     }
 
     private String get0(final FilesystemNodeAttributeName key) {

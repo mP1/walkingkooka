@@ -25,10 +25,10 @@ import java.util.List;
 public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuilderTestCase<T> {
 
     @Test
-    public final void testValueIncludesDefault(){
+    public final void testValueIncludesDefault() {
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
-        b.value(this.toValue(Lists.<Object>of(false, (byte)0, (short)0, 0, 0L, 0.0f, 0.0, "")));
+        b.value(this.toValue(Lists.<Object>of(false, (byte) 0, (short) 0, 0, 0L, 0.0f, 0.0, "")));
 
         this.buildAndCheck(b, "LABEL=false, 0, 0, 0, 0, 0.0, 0.0, ");
     }
@@ -108,40 +108,33 @@ public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuild
         };
     }
 
-    @Override
-    final T defaultValue() {
+    @Override final T defaultValue() {
         return this.toValue(Lists.empty());
     }
 
-    @Override
-    final T value1() {
+    @Override final T value1() {
         return this.toValue(Lists.of(1));
     }
 
-    @Override
-    final T value2() {
+    @Override final T value2() {
         return this.toValue(Lists.of(1, 22, "abc"));
     }
 
     abstract T toValue(final List<?> list);
 
-    @Override
-    final void append(final ToStringBuilder builder, final T value) {
+    @Override final void append(final ToStringBuilder builder, final T value) {
         builder.append(value);
     }
 
-    @Override
-    final void value(final ToStringBuilder builder, final T value) {
+    @Override final void value(final ToStringBuilder builder, final T value) {
         builder.value(value);
     }
 
-    @Override
-    final String value1ToString() {
+    @Override final String value1ToString() {
         return "1";
     }
 
-    @Override
-    final String value2ToString(final String separator) {
+    @Override final String value2ToString(final String separator) {
         return "1" + separator + "22" + separator + "abc";
     }
 }

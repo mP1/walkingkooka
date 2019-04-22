@@ -62,12 +62,12 @@ public final class NumberBigIntegerConverterTest extends NumberConverterTestCase
 
     @Test
     public void testByte() {
-        this.convertAndCheck((byte)123, BigInteger.valueOf(123));
+        this.convertAndCheck((byte) 123, BigInteger.valueOf(123));
     }
 
     @Test
     public void testShort() {
-        this.convertAndCheck((short)123, BigInteger.valueOf(123));
+        this.convertAndCheck((short) 123, BigInteger.valueOf(123));
     }
 
     @Test

@@ -32,7 +32,7 @@ abstract public class ColorComponent implements HashCodeEqualsDefined, Serializa
     static <C extends ColorComponent> C[] createConstants(final C[] constants,
                                                           final IntFunction<C> factory) {
         IntStream.rangeClosed(0, 255)
-                .forEach( i -> constants[i] = factory.apply(i));
+                .forEach(i -> constants[i] = factory.apply(i));
         return constants;
     }
 
@@ -86,11 +86,11 @@ abstract public class ColorComponent implements HashCodeEqualsDefined, Serializa
 
     static byte addUnsignedSaturated(final int value, final int value2) {
         final int sum = value + value2;
-        return (byte)(sum > MAX_VALUE ?
-               MAX_VALUE :
-               sum < 0 ?
-               0 :
-               sum);
+        return (byte) (sum > MAX_VALUE ?
+                MAX_VALUE :
+                sum < 0 ?
+                        0 :
+                        sum);
     }
 
     /**
@@ -98,11 +98,11 @@ abstract public class ColorComponent implements HashCodeEqualsDefined, Serializa
      */
     ColorComponent(final int value) {
         super();
-        this.value = (byte)value;
+        this.value = (byte) value;
 
         final int integer = mask(value);
         this.unsignedIntValue = integer;
-        this.floatValue = Math.max(0, (integer -1) * (1.0f / 255.0f));
+        this.floatValue = Math.max(0, (integer - 1) * (1.0f / 255.0f));
     }
 
     /**
@@ -200,21 +200,18 @@ abstract public class ColorComponent implements HashCodeEqualsDefined, Serializa
 
     // HashCodeEqualsDefined
 
-    @Override
-    final public int hashCode() {
+    @Override final public int hashCode() {
         return this.value;
     }
 
-    @Override
-    final public boolean equals(final Object other) {
+    @Override final public boolean equals(final Object other) {
         return this == other;
     }
 
     /**
      * Returns the value in hex form.
      */
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         return this.toHexString();
     }
 

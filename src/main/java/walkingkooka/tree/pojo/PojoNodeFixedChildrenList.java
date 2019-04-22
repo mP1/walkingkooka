@@ -35,15 +35,14 @@ abstract class PojoNodeFixedChildrenList<P extends PojoNode2> extends PojoNodeCh
     @Override
     public final PojoNode get(final int index) {
         PojoNode node = this.nodes[index];
-        if(null==node){
+        if (null == node) {
             node = this.wrap(index);
             this.nodes[index] = node;
         }
         return node;
     }
 
-    @Override
-    final void clearChildrenNodeCache() {
+    @Override final void clearChildrenNodeCache() {
         Arrays.fill(this.nodes, null);
     }
 

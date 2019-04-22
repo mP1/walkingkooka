@@ -173,11 +173,11 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
         }.accept(rule);
         assertEquals("13613542138421394213842742", b.toString());
         assertEquals(Lists.<Object>of(rule, rule, rule,
-                        identifier, identifier, identifier, identifier, identifier,
-                        assignment, assignment, assignment, assignment, assignment,
-                        terminal, terminal, terminal, terminal, terminal,
-                        terminator, terminator, terminator, terminator, terminator,
-                        rule, rule, rule),
+                identifier, identifier, identifier, identifier, identifier,
+                assignment, assignment, assignment, assignment, assignment,
+                terminal, terminal, terminal, terminal, terminal,
+                terminator, terminator, terminator, terminator, terminator,
+                rule, rule, rule),
                 visited,
                 "visited");
     }

@@ -54,19 +54,18 @@ final class OrNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends 
 
     // LogicalNodeSelector
 
-    @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        for(NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
+    @Override final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        for (NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
             selector.accept1(node, context);
         }
     }
 
     @Override
-    String operatorToString(){
+    String operatorToString() {
         return "|";
     }
 
-    boolean canBeEqual(final Object other){
+    boolean canBeEqual(final Object other) {
         return other instanceof OrNodeSelector;
     }
 }

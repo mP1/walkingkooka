@@ -296,7 +296,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     private void andAllAndCheck(final Range<Integer> range) {
         final Range<Integer> all = all();
-        assertSame(range, range.and(all), ()-> range + " and with " + all);
+        assertSame(range, range.and(all), () -> range + " and with " + all);
         assertSame(range, all.and(range), () -> range + " and with " + all);
     }
 
@@ -311,7 +311,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     public void testAndSingletonAndSingleton() {
         final Range<Integer> singleton = singleton();
         final Range<Integer> singleton2 = singleton();
-        assertSame(singleton, singleton.and(singleton2), ()-> singleton + " and with " + singleton2);
+        assertSame(singleton, singleton.and(singleton2), () -> singleton + " and with " + singleton2);
         assertSame(singleton2, singleton2.and(singleton), () -> singleton2 + " and with " + singleton);
     }
 
@@ -337,8 +337,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
 
     private void andSingletonAndCheck(final Range<Integer> range) {
         final Range<Integer> singleton = singleton();
-        assertSame(singleton, range.and(singleton), ()-> range + " and with " + singleton);
-        assertSame(singleton, singleton.and(range), ()-> singleton + " and with " + range);
+        assertSame(singleton, range.and(singleton), () -> range + " and with " + singleton);
+        assertSame(singleton, singleton.and(range), () -> singleton + " and with " + range);
     }
 
     // and invalid.......................................................
@@ -613,8 +613,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
                              final RangeBound<Integer> lower,
                              final RangeBound<Integer> upper) {
         final Range<Integer> intersected = range.and(other);
-        assertEquals(lower, intersected.lower, ()-> range + " and " + other + " lower");
-        assertEquals(upper, intersected.upper, ()-> range + " and " + other + " upper");
+        assertEquals(lower, intersected.lower, () -> range + " and " + other + " lower");
+        assertEquals(upper, intersected.upper, () -> range + " and " + other + " upper");
     }
 
     // more tests ...................................................................................................
@@ -657,7 +657,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     // isOverlapping.............................................................................................
 
     @Test
-    public void testIsOverlappingpingNullFails(){
+    public void testIsOverlappingpingNullFails() {
         assertThrows(NullPointerException.class, () -> {
             Range.all().isOverlapping(null);
         });
@@ -808,7 +808,7 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         }
         assertEquals(expected,
                 and,
-                ()-> first + " and " + other + " doesnt match " + first + " isOverlapping " + other);
+                () -> first + " and " + other + " doesnt match " + first + " isOverlapping " + other);
     }
 
     // misc ...................................................................................................
@@ -1048,8 +1048,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     }
 
     private void check(final Range<Integer> range, final RangeBound<Integer> lower, final RangeBound<Integer> upper) {
-        assertEquals(lower, range.lowerBound(), ()-> "lower " + range);
-        assertEquals(upper, range.upperBound(), ()-> "upper " + range);
+        assertEquals(lower, range.lowerBound(), () -> "lower " + range);
+        assertEquals(upper, range.upperBound(), () -> "upper " + range);
     }
 
     // ClassTesting.........................................................................................

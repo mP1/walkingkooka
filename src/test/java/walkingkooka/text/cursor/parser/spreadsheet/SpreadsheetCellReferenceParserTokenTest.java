@@ -77,7 +77,7 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
         final SpreadsheetCellReferenceParserToken cell = this.createToken(text, row, column);
 
         final SpreadsheetColumnReferenceParserToken differentColumn = this.column(1 + COLUMN_VALUE);
-        final SpreadsheetRowReferenceParserToken differentRow = this.row(1+ROW_VALUE, "C");
+        final SpreadsheetRowReferenceParserToken differentRow = this.row(1 + ROW_VALUE, "C");
         final SpreadsheetCellReferenceParserToken differentCell = cell.setValue(Lists.of(differentRow, differentColumn));
 
         assertNotSame(cell, differentCell);

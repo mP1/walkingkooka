@@ -24,7 +24,7 @@ import walkingkooka.test.SerializationTesting;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
-                implements CharPredicateTesting<P>,
+        implements CharPredicateTesting<P>,
         HashCodeEqualsDefinedTesting<P>,
         SerializationTesting<P> {
 

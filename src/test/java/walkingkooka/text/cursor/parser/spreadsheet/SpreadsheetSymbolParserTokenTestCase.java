@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
 
-public abstract class SpreadsheetSymbolParserTokenTestCase<T extends SpreadsheetSymbolParserToken> extends SpreadsheetLeafParserTokenTestCase<T, String>{
+public abstract class SpreadsheetSymbolParserTokenTestCase<T extends SpreadsheetSymbolParserToken> extends SpreadsheetLeafParserTokenTestCase<T, String> {
 
     SpreadsheetSymbolParserTokenTestCase() {
         super();

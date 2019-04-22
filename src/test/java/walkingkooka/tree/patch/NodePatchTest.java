@@ -145,6 +145,7 @@ public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode, J
                 "{\"a1\": \"MOVED\", \"b2\": {\"c3\": \"value3\"}}",
                 "{\"b2\": {\"c3\": \"MOVED\"}}");
     }
+
     /**
      * <a href="http://jsonpatch.com/"></a>
      * <pre>
@@ -179,18 +180,18 @@ public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode, J
     @Test
     public void testToStringAddAdd() {
         this.toStringAndCheck(NodePatch.empty(JsonNode.class)
-                .add(this.pointer("/a1"), this.value1())
-                .add(this.pointer("/b2"), this.value2()),
-        "add path=\"/a1\" value=\"value1\", add path=\"/b2\" value=\"value2\"");
+                        .add(this.pointer("/a1"), this.value1())
+                        .add(this.pointer("/b2"), this.value2()),
+                "add path=\"/a1\" value=\"value1\", add path=\"/b2\" value=\"value2\"");
     }
 
     @Test
     public void testToStringAddReplaceRemove() {
         this.toStringAndCheck(NodePatch.empty(JsonNode.class)
-                .add(this.pointer("/a1"), this.value1())
-                .replace(this.pointer("/b2"), this.value2())
-                .remove(this.pointer("/c3")),
-        "add path=\"/a1\" value=\"value1\", replace path=\"/b2\" value=\"value2\", remove path=\"/c3\"");
+                        .add(this.pointer("/a1"), this.value1())
+                        .replace(this.pointer("/b2"), this.value2())
+                        .remove(this.pointer("/c3")),
+                "add path=\"/a1\" value=\"value1\", replace path=\"/b2\" value=\"value2\", remove path=\"/c3\"");
     }
 
     @Test

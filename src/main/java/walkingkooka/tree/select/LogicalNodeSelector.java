@@ -41,7 +41,7 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
             AVALUE> Collection<NodeSelector<N, NAME, ANAME, AVALUE>> gatherUniques(
             final List<NodeSelector<N, NAME, ANAME, AVALUE>> selectors) {
         final Set<NodeSelector<N, NAME, ANAME, AVALUE>> uniques = Sets.ordered();
-        for(NodeSelector<N, NAME, ANAME, AVALUE> selector : selectors) {
+        for (NodeSelector<N, NAME, ANAME, AVALUE> selector : selectors) {
             Objects.requireNonNull(selector, "selectors must not contain null");
             uniques.add(selector);
         }
@@ -56,7 +56,7 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector){
+    NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         throw new UnsupportedOperationException();
     }
 
@@ -68,7 +68,7 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     @Override
     void toString0(final NodeSelectorToStringBuilder b) {
         String between = "";
-        for(NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
+        for (NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
             b.append(between);
             selector.toString0(b);
             between = this.operatorToString();
@@ -89,12 +89,11 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final LogicalNodeSelector<?, ?, ?, ?>other){
+    private boolean equals0(final LogicalNodeSelector<?, ?, ?, ?> other) {
         return this.selectors.equals(other.selectors);
     }
 
-    @Override
-    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
+    @Override final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
         return this;
     }
 }

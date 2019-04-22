@@ -48,7 +48,7 @@ final class NumberLocalTimeConverter extends NumberConverter<LocalTime> {
     @Override
     LocalTime bigDecimal(final BigDecimal value) {
         final double doubleValue = value.doubleValue();
-        if(0 != BigDecimal.valueOf(doubleValue).compareTo(value)) {
+        if (0 != BigDecimal.valueOf(doubleValue).compareTo(value)) {
             this.failConversion(value);
         }
 
@@ -73,7 +73,7 @@ final class NumberLocalTimeConverter extends NumberConverter<LocalTime> {
     private LocalTime localTime(final double value) {
         final double doubleNanos = value * Converters.NANOS_PER_SECOND;
         final long nanos = (long) doubleNanos;
-        if(nanos != doubleNanos) {
+        if (nanos != doubleNanos) {
             this.failConversion(value);
         }
 

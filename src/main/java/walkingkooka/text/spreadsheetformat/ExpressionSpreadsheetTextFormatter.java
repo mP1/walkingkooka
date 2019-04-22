@@ -56,7 +56,7 @@ final class ExpressionSpreadsheetTextFormatter extends SpreadsheetTextFormatter3
     private ExpressionSpreadsheetTextFormatter(final SpreadsheetFormatExpressionParserToken token,
                                                final List<SpreadsheetTextFormatter<Object>> formatters) {
         super(token);
-        if(formatters.size() > 4) {
+        if (formatters.size() > 4) {
             throw new IllegalArgumentException("Expected at most 4 formatters but got " + formatters.size() + "=" + formatters);
         }
         this.formatters = formatters;
@@ -81,7 +81,7 @@ final class ExpressionSpreadsheetTextFormatter extends SpreadsheetTextFormatter3
      */
     private long skip(final Object value) {
         return value instanceof String ?
-               3 :
+                3 :
                 0;
     }
 

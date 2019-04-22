@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-final class SearchNotQuery extends SearchUnaryQuery{
+final class SearchNotQuery extends SearchUnaryQuery {
 
     static SearchNotQuery with(final SearchQuery query) {
         check(query);
@@ -43,7 +43,7 @@ final class SearchNotQuery extends SearchUnaryQuery{
     boolean canBeEqual(final Object other) {
         return other instanceof SearchNotQuery;
     }
-    
+
     @Override
     public String toString() {
         return "!" + this.query;

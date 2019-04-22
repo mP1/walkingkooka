@@ -172,14 +172,14 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         stack2.push("2");
         assertEquals(stack1, stack2);
     }
-    
+
     @Test
     public void testToString() {
         final JdkStackStack<String> stack = JdkStackStack.create();
         stack.push("1");
         stack.push("2");
         stack.push("3");
-        this.toStringAndCheck( stack.toString(), Lists.of("1", "2", "3").toString());
+        this.toStringAndCheck(stack.toString(), Lists.of("1", "2", "3").toString());
     }
 
     @Override

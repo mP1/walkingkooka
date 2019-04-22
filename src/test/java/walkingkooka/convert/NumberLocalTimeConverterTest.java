@@ -45,7 +45,7 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
 
     @Test
     public void testBigDecimalWithFraction() {
-        this.convertAndCheck(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND/2));
+        this.convertAndCheck(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND / 2));
     }
 
     @Test
@@ -55,17 +55,17 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
 
     @Test
     public void testFloat() {
-        this.convertAndCheck2((float)VALUE);
+        this.convertAndCheck2((float) VALUE);
     }
 
     @Test
     public void testDouble() {
-        this.convertAndCheck2((double)VALUE);
+        this.convertAndCheck2((double) VALUE);
     }
 
     @Test
     public void testDoubleWithFraction() {
-        this.convertAndCheck(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND/2));
+        this.convertAndCheck(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND / 2));
     }
 
     @Override
@@ -75,22 +75,22 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
 
     @Test
     public void testByte() {
-        this.convertAndCheck2((byte)VALUE);
+        this.convertAndCheck2((byte) VALUE);
     }
 
     @Test
     public void testShort() {
-        this.convertAndCheck2((short)VALUE);
+        this.convertAndCheck2((short) VALUE);
     }
 
     @Test
     public void testInteger() {
-        this.convertAndCheck2((int)VALUE);
+        this.convertAndCheck2((int) VALUE);
     }
 
     @Test
     public void testLong() {
-        this.convertAndCheck2((long)VALUE);
+        this.convertAndCheck2((long) VALUE);
     }
 
     private void convertAndCheck2(final Object value) {

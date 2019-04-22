@@ -52,7 +52,7 @@ public final class LongParserTokenTest extends ParserTokenTestCase<LongParserTok
         }.accept(token);
         assertEquals("132", b.toString());
     }
-    
+
     @Test
     public void testIgnoresPrefix() {
         LongParserToken.with(123, "+123");

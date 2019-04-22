@@ -26,7 +26,6 @@ import java.util.Comparator;
  */
 enum SearchQueryValueSearchQueryTesterComparisonPredicate {
     EQUALS {
-
         @Override
         SearchQueryValueSearchQueryTesterComparisonPredicate not() {
             return NOT_EQUALS;
@@ -38,7 +37,6 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
     },
     GREATER_THAN {
-
         @Override
         SearchQueryValueSearchQueryTesterComparisonPredicate not() {
             return LESS_THAN_EQUALS;
@@ -50,7 +48,6 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
     },
     GREATER_THAN_EQUALS {
-
         @Override
         SearchQueryValueSearchQueryTesterComparisonPredicate not() {
             return LESS_THAN;
@@ -62,7 +59,6 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
     },
     LESS_THAN {
-
         @Override
         SearchQueryValueSearchQueryTesterComparisonPredicate not() {
             return GREATER_THAN_EQUALS;
@@ -74,7 +70,6 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
     },
     LESS_THAN_EQUALS {
-
         @Override
         SearchQueryValueSearchQueryTesterComparisonPredicate not() {
             return GREATER_THAN;
@@ -86,7 +81,6 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
     },
     NOT_EQUALS {
-
         @Override
         SearchQueryValueSearchQueryTesterComparisonPredicate not() {
             return EQUALS;

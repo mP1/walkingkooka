@@ -106,9 +106,9 @@ public final class SpreadsheetFormatGeneralParserTokenTest extends SpreadsheetFo
         }.accept(token);
         assertEquals("7137152871628428", b.toString());
         assertEquals(Lists.of(token, token, token,
-                        general, general, general, general, general,
-                        whitespace, whitespace, whitespace, whitespace, whitespace,
-                        token, token, token),
+                general, general, general, general, general,
+                whitespace, whitespace, whitespace, whitespace, whitespace,
+                token, token, token),
                 visited,
                 "visited");
     }

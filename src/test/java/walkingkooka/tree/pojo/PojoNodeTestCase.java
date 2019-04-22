@@ -123,7 +123,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> implements ClassTe
 
     abstract void checkValue(V expected, V actual);
 
-    final void childrenAndCheckNames(final PojoNode node, final PojoName...properties) {
+    final void childrenAndCheckNames(final PojoNode node, final PojoName... properties) {
         this.childrenAndCheckNames(node, Lists.of(properties));
     }
 

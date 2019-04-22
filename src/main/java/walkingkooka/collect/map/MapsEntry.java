@@ -31,7 +31,7 @@ import java.util.Objects;
  */
 final class MapsEntry<K, V> implements Map.Entry<K, V>, HashCodeEqualsDefined {
 
-    static <K,V> MapsEntry<K,V> with(final K key, final V value) {
+    static <K, V> MapsEntry<K, V> with(final K key, final V value) {
         Objects.requireNonNull(key, "key");
         return new MapsEntry<>(key, value);
     }

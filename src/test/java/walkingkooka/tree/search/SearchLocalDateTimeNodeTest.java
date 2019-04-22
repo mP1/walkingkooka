@@ -78,7 +78,7 @@ public final class SearchLocalDateTimeNodeTest extends SearchLeafNodeTestCase<Se
         this.toStringAndCheck(
                 this.createSearchNode(DIFFERENT_DATETIME_STRING)
                         .setName(SearchNodeName.with("Name123")),
-                "Name123=" +DIFFERENT_DATETIME_STRING);
+                "Name123=" + DIFFERENT_DATETIME_STRING);
     }
 
     private SearchLocalDateTimeNode createSearchNode(final String value) {

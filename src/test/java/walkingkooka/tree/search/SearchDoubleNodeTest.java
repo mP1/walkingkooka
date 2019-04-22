@@ -69,7 +69,7 @@ public final class SearchDoubleNodeTest extends SearchLeafNodeTestCase<SearchDou
 
     @Test
     public void testToStringWithName() {
-        this.toStringAndCheck(this.createSearchNode("123.5", 123.5). setName(SearchNodeName.with("Name123")),
+        this.toStringAndCheck(this.createSearchNode("123.5", 123.5).setName(SearchNodeName.with("Name123")),
                 "Name123=123.5");
     }
 

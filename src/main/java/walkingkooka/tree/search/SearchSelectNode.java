@@ -40,8 +40,8 @@ public final class SearchSelectNode extends SearchParentNode2 {
     static SearchSelectNode with(final SearchNode child) {
         Objects.requireNonNull(child, "child");
         return child.isSelect() ?
-               child.cast() :
-               new SearchSelectNode(NO_INDEX, NAME, Lists.of(child));
+                child.cast() :
+                new SearchSelectNode(NO_INDEX, NAME, Lists.of(child));
     }
 
     /**
@@ -94,7 +94,7 @@ public final class SearchSelectNode extends SearchParentNode2 {
     @Override
     void replaceChildrenCheck(final List<SearchNode> children) {
         final int count = children.size();
-        if(1 != count) {
+        if (1 != count) {
             throw new IllegalArgumentException("Expected only 1 child but got " + count + "=" + children);
         }
     }
@@ -126,8 +126,7 @@ public final class SearchSelectNode extends SearchParentNode2 {
                 .selected();
     }
 
-    @Override
-    final SearchNode extract0(final int beginOffset, final int endOffset, final String text) {
+    @Override final SearchNode extract0(final int beginOffset, final int endOffset, final String text) {
         return this.text1(beginOffset, endOffset, text).selected();
     }
 
@@ -167,15 +166,15 @@ public final class SearchSelectNode extends SearchParentNode2 {
     SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer) {
         SearchNode answer = replacer.apply(this);
         return this == answer ?
-               this :
-               answer.replaceChild(this.parent(), this.index());
+                this :
+                answer.replaceChild(this.parent(), this.index());
     }
 
     // Visitor.........................................................................................................
 
     @Override
-    public void accept(final SearchNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SearchNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

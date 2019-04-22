@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends EbnfParserToken> extends EbnfParserTestCase2<T>{
+public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends EbnfParserToken> extends EbnfParserTestCase2<T> {
 
     @Test
     public final void testOnlyToken() {
@@ -165,7 +165,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
                 identifier2());
     }
 
-    final T token(final String text, final ParserToken...tokens) {
+    final T token(final String text, final ParserToken... tokens) {
         return this.token(text, Lists.of(tokens));
     }
 

@@ -43,7 +43,7 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfCommentParserToken}
      */
-    public static EbnfCommentParserToken comment(final String value, final String text){
+    public static EbnfCommentParserToken comment(final String value, final String text) {
         return EbnfCommentParserToken.with(value, text);
     }
 
@@ -78,7 +78,7 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfIdentifierParserToken}
      */
-    public static EbnfIdentifierParserToken identifier(final EbnfIdentifierName value, final String text){
+    public static EbnfIdentifierParserToken identifier(final EbnfIdentifierName value, final String text) {
         return EbnfIdentifierParserToken.with(value, text);
     }
 
@@ -95,7 +95,7 @@ public abstract class EbnfParserToken implements ParserToken {
     public static EbnfRangeParserToken range(final List<ParserToken> tokens, final String text) {
         return EbnfRangeParserToken.with(tokens, text);
     }
-    
+
     /**
      * {@see EbnfRepeatedParserToken}
      */
@@ -107,7 +107,7 @@ public abstract class EbnfParserToken implements ParserToken {
      * {@see EbnfRuleParserToken}
      */
     public static EbnfRuleParserToken rule(final List<ParserToken> tokens, final String text) {
-       return EbnfRuleParserToken.with(tokens, text);
+        return EbnfRuleParserToken.with(tokens, text);
     }
 
     /**
@@ -120,14 +120,14 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfTerminalParserToken}
      */
-    public static EbnfTerminalParserToken terminal(final String value, final String text){
+    public static EbnfTerminalParserToken terminal(final String value, final String text) {
         return EbnfTerminalParserToken.with(value, text);
     }
 
     /**
      * {@see EbnfWhitespaceParserToken}
      */
-    public static EbnfWhitespaceParserToken whitespace(final String value, final String text){
+    public static EbnfWhitespaceParserToken whitespace(final String value, final String text) {
         return EbnfWhitespaceParserToken.with(value, text);
     }
 
@@ -137,7 +137,7 @@ public abstract class EbnfParserToken implements ParserToken {
         final List<ParserToken> copy = Lists.array();
         copy.addAll(tokens);
 
-        if(copy.isEmpty()) {
+        if (copy.isEmpty()) {
             throw new IllegalArgumentException("Tokens is empty");
         }
         return copy;
@@ -255,7 +255,7 @@ public abstract class EbnfParserToken implements ParserToken {
         final EbnfParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);
         final EbnfParserToken token = this;
 
-        if(Visiting.CONTINUE == ebnfParserTokenVisitor.startVisit(token)){
+        if (Visiting.CONTINUE == ebnfParserTokenVisitor.startVisit(token)) {
             this.accept(EbnfParserTokenVisitor.class.cast(visitor));
         }
         ebnfParserTokenVisitor.endVisit(token);
@@ -273,15 +273,15 @@ public abstract class EbnfParserToken implements ParserToken {
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-               this.canBeEqual(other) &&
-               this.equals0(Cast.to(other));
+                this.canBeEqual(other) &&
+                        this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final EbnfParserToken other) {
         return this.text().equals(other.text()) &&
-               this.equals1(other);
+                this.equals1(other);
     }
 
     abstract boolean equals1(EbnfParserToken other);

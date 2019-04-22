@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 /**
  * A proxy {@link CharPredicate} that is necessary for forward references in the grammar.
  */
-final class CharPredicateGrammarEbnfParserTokenVisitorProxy implements CharPredicate{
+final class CharPredicateGrammarEbnfParserTokenVisitorProxy implements CharPredicate {
 
     CharPredicateGrammarEbnfParserTokenVisitorProxy(final EbnfIdentifierName name) {
         this.name = name;

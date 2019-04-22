@@ -31,7 +31,7 @@ public final class ExpressionBooleanNode extends ExpressionValueNode<Boolean> {
         return new ExpressionBooleanNode(NO_INDEX, value);
     }
 
-    private ExpressionBooleanNode(final int index, final Boolean value){
+    private ExpressionBooleanNode(final int index, final Boolean value) {
         super(index, value);
     }
 
@@ -101,7 +101,7 @@ public final class ExpressionBooleanNode extends ExpressionValueNode<Boolean> {
     }
 
     @Override
-    public void accept(final ExpressionNodeVisitor visitor){
+    public void accept(final ExpressionNodeVisitor visitor) {
         visitor.visit(this);
     }
 

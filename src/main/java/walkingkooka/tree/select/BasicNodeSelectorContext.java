@@ -96,7 +96,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
         final Optional<ExpressionFunction<?>> function = this.functions.apply(name);
-        if(!function.isPresent()) {
+        if (!function.isPresent()) {
             throw new ExpressionException("Unknown function " + name);
         }
 

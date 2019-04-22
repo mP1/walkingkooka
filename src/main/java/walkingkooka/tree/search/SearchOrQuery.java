@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-final class SearchOrQuery extends SearchBinaryQuery{
+final class SearchOrQuery extends SearchBinaryQuery {
 
     static SearchOrQuery with(final SearchQuery left, final SearchQuery right) {
         check(left, right);

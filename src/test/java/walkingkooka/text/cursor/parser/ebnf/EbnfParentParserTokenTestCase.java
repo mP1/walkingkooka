@@ -124,7 +124,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         return this.createToken(text, this.tokens());
     }
 
-    final T createToken(final String text, final ParserToken...tokens) {
+    final T createToken(final String text, final ParserToken... tokens) {
         return this.createToken(text, Lists.of(tokens));
     }
 

@@ -114,7 +114,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         stack.push("3");
 
         final Iterator<String> iterator = stack.iterator();
-        assertEquals( "1", iterator.next());
+        assertEquals("1", iterator.next());
         iterator.remove();
         assertEquals("2", iterator.next());
         iterator.remove();

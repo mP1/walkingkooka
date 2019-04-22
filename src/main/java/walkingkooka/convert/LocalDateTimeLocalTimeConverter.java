@@ -34,7 +34,7 @@ final class LocalDateTimeLocalTimeConverter extends FixedSourceTypeTargetTypeCon
     /**
      * Private ctor use singleton
      */
-    private LocalDateTimeLocalTimeConverter(){
+    private LocalDateTimeLocalTimeConverter() {
         super();
     }
 

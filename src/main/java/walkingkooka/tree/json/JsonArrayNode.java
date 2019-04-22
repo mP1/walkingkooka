@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * Represents an immutable json array
  */
-public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
+public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonArrayNode.class);
 
@@ -55,13 +55,12 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
     /**
      * Makes a copy of the list and sets the parent upon the children.
      */
-    @Override
-    final List<JsonNode> adoptChildren(final List<JsonNode> children) {
+    @Override final List<JsonNode> adoptChildren(final List<JsonNode> children) {
         final Optional<JsonNode> parent = Optional.of(this);
 
         final List<JsonNode> copy = Lists.array();
         int i = 0;
-        for(JsonNode child : children) {
+        for (JsonNode child : children) {
             copy.add(child.setParent(parent,
                     JsonNodeName.index(i),
                     i));
@@ -201,8 +200,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
     /**
      * Creates a new list of children and replaces the child at the given slot, returning the new child.
      */
-    @Override
-    final JsonNode setChild0(final JsonNode newChild, final int index) {
+    @Override final JsonNode setChild0(final JsonNode newChild, final int index) {
         final List<JsonNode> newChildren = this.copyChildren();
         newChildren.set(index, newChild);
 
@@ -225,14 +223,12 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
 
     // HasJsonNode...............................................................................................
 
-    @Override 
-    <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
+    @Override <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
         return fromJsonNodeCollection(elementType,
                 Collectors.toList());
     }
 
-    @Override 
-    <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
+    @Override <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
         return fromJsonNodeCollection(elementType,
                 Collectors.toCollection(Sets::ordered));
     }
@@ -246,8 +242,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
                 .collect(collector);
     }
 
-    @Override 
-    <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
+    @Override <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
         final HasJsonNodeMapper<K> keyMapper = HasJsonNodeMapper.mapperOrFail(keyType);
         final HasJsonNodeMapper<V> valueMapper = HasJsonNodeMapper.mapperOrFail(valueType);
 
@@ -362,8 +357,8 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
     // Visitor .................................................................................................
 
     @Override
-    public void accept(final JsonNodeVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final JsonNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
@@ -387,7 +382,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
         printer.print(BEGIN.string());
 
         String separator = "";
-        for(JsonNode child : this.children) {
+        for (JsonNode child : this.children) {
             printer.print(separator);
             separator = ", ";
 

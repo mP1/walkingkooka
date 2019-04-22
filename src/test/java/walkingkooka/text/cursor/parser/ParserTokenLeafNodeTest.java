@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<ParserTokenLeafNode>{
+public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<ParserTokenLeafNode> {
 
     private final static String TEXT = "abc123";
 

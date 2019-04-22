@@ -28,7 +28,7 @@ import java.util.Objects;
 /**
  * Represents a component that matches a node by its name from a parent.
  */
-public final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME>{
+public final class NamedChildNodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
      * Creates a new {@link NamedChildNodePointer}.

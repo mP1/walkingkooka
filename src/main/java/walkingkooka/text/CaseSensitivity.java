@@ -185,12 +185,12 @@ public enum CaseSensitivity {
         final int searchForLength = searchFor.length();
 
         if (searchForLength > 0 &&
-            searchForLength + offset <= length) {
+                searchForLength + offset <= length) {
 
             final int last = length - searchForLength + 1;
 
             for (int i = offset; i < last; i++) {
-                if(this.isPresent(chars, searchFor, i)) {
+                if (this.isPresent(chars, searchFor, i)) {
                     index = i;
                     break;
                 }
@@ -206,7 +206,7 @@ public enum CaseSensitivity {
     final public int lastIndexOf(final CharSequence chars, final CharSequence searchFor) {
         return this.lastIndexOf(chars,
                 searchFor,
-                chars.length() -1);
+                chars.length() - 1);
     }
 
     /**
@@ -223,7 +223,7 @@ public enum CaseSensitivity {
         if (searchForLength > 0 && searchForLength <= length) {
 
             for (int i = Math.min(offset, length - searchForLength); i >= 0; i--) {
-                if(this.isPresent(chars, searchFor, i)) {
+                if (this.isPresent(chars, searchFor, i)) {
                     index = i;
                     break;
                 }
@@ -240,7 +240,7 @@ public enum CaseSensitivity {
         final int length = searchFor.length();
 
         boolean equals = true;
-        for(int i = 0; equals && i < length; i++) {
+        for (int i = 0; equals && i < length; i++) {
             equals = this.isEqual(chars.charAt(i + offset), searchFor.charAt(i));
         }
 
@@ -369,9 +369,9 @@ public enum CaseSensitivity {
      * Returns a {@link CaseSensitivity} that matches the case sensitivity of file names.
      */
     public static CaseSensitivity fileSystem() {
-        if(null==FILE_SYSTEM) {
+        if (null == FILE_SYSTEM) {
             CaseSensitivity sensitivity = fromSystemProperty();
-            if(null==sensitivity){
+            if (null == sensitivity) {
                 sensitivity = fromFileEqualityTests();
             }
             FILE_SYSTEM = sensitivity;
