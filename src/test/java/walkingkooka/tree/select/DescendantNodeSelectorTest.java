@@ -84,7 +84,7 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Override
-    protected DescendantNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    DescendantNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return DescendantNodeSelector.get();
     }
 

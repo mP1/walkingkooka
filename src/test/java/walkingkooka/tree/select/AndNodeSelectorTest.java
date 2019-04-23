@@ -64,8 +64,7 @@ public final class AndNodeSelectorTest extends
     }
 
     @Override
-    final NodeSelector<TestNode, StringName, StringName, Object> createSelector0(
-            final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors) {
+    NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors) {
         return AndNodeSelector.with(selectors);
     }
 

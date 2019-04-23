@@ -86,7 +86,7 @@ final public class CustomToStringNodeSelectorTest
     }
 
     @Override
-    protected CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return createSelector(this.wrapped());
     }
 

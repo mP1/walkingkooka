@@ -79,7 +79,7 @@ final public class AncestorNodeSelectorTest extends
     }
 
     @Override
-    protected AncestorNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    AncestorNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return AncestorNodeSelector.get();
     }
 

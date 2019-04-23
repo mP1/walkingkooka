@@ -31,7 +31,7 @@ final public class TerminalNodeSelectorTest
     }
 
     @Override
-    protected TerminalNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    TerminalNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return TerminalNodeSelector.get();
     }
 

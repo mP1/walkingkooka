@@ -86,7 +86,7 @@ final public class IndexedChildNodeSelectorTest extends
     }
 
     @Override
-    protected IndexedChildNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    IndexedChildNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return IndexedChildNodeSelector.with(INDEX);
     }
 

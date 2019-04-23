@@ -71,7 +71,7 @@ final public class FirstChildNodeSelectorTest extends
     }
 
     @Override
-    protected FirstChildNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    FirstChildNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return FirstChildNodeSelector.get();
     }
 

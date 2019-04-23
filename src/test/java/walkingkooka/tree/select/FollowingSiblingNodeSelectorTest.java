@@ -25,18 +25,21 @@ import walkingkooka.tree.TestNode;
 final public class FollowingSiblingNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<FollowingSiblingNodeSelector<TestNode, StringName, StringName, Object>> {
 
-    @Test final public void testRoot() {
+    @Test
+    public void testRoot() {
         this.acceptAndCheck(TestNode.with("root"));
     }
 
-    @Test final public void testChildIgnoresParent() {
+    @Test
+    public void testChildIgnoresParent() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
         this.acceptAndCheck(parent.child(0));
     }
 
-    @Test final public void testFirstChildWithFollowingSibling() {
+    @Test
+    public void testFirstChildWithFollowingSibling() {
         final TestNode self = TestNode.with("self");
         final TestNode following = TestNode.with("following");
         final TestNode parent = TestNode.with("parent", self, following);
@@ -44,7 +47,8 @@ final public class FollowingSiblingNodeSelectorTest extends
         this.acceptAndCheck(parent.child(0), following);
     }
 
-    @Test final public void testFirstChildWithFollowingSiblings2() {
+    @Test
+    public void testFirstChildWithFollowingSiblings2() {
         final TestNode self = TestNode.with("self");
         final TestNode following1 = TestNode.with("following1");
         final TestNode following2 = TestNode.with("following2");
@@ -53,14 +57,16 @@ final public class FollowingSiblingNodeSelectorTest extends
         this.acceptAndCheck(parent.child(0), following1, following2);
     }
 
-    @Test final public void testLastChild() {
+    @Test
+    public void testLastChild() {
         final TestNode self = TestNode.with("self");
         final TestNode parent = TestNode.with("parent", TestNode.with("before"), self);
 
         this.acceptAndCheck(parent.child(1));
     }
 
-    @Test final public void testIgnoresPreceeding() {
+    @Test
+    public void testIgnoresPreceeding() {
         final TestNode preceeding = TestNode.with("preceeding");
         final TestNode self = TestNode.with("self");
         final TestNode following = TestNode.with("following");
@@ -70,7 +76,8 @@ final public class FollowingSiblingNodeSelectorTest extends
         this.acceptAndCheck(parent.child(1), following);
     }
 
-    @Test final public void testIgnoresPreceeding2() {
+    @Test
+    public void testIgnoresPreceeding2() {
         final TestNode preceeding1 = TestNode.with("preceeding1");
         final TestNode preceeding2 = TestNode.with("preceeding2");
         final TestNode self = TestNode.with("self");
@@ -82,7 +89,8 @@ final public class FollowingSiblingNodeSelectorTest extends
         this.acceptAndCheck(parent.child(2), following1, following2);
     }
 
-    @Test final public void testIgnoresChildren() {
+    @Test
+    public void testIgnoresChildren() {
         this.acceptAndCheck(TestNode.with("parent", TestNode.with("child")));
     }
 
@@ -105,7 +113,7 @@ final public class FollowingSiblingNodeSelectorTest extends
     }
 
     @Override
-    protected FollowingSiblingNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    FollowingSiblingNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return FollowingSiblingNodeSelector.get();
     }
 

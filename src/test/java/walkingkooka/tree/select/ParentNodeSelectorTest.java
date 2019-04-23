@@ -72,7 +72,7 @@ final public class ParentNodeSelectorTest
     }
 
     @Override
-    protected ParentNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    ParentNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return ParentNodeSelector.get();
     }
 

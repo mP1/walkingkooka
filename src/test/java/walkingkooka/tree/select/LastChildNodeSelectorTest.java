@@ -71,7 +71,7 @@ final public class LastChildNodeSelectorTest extends
     }
 
     @Override
-    protected LastChildNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    LastChildNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return LastChildNodeSelector.get();
     }
 

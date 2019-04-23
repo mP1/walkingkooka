@@ -103,7 +103,7 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Override
-    protected AbsoluteNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    AbsoluteNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return this.createSelector(SEPARATOR);
     }
 

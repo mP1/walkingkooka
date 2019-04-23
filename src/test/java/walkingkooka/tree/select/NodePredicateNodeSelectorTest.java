@@ -70,7 +70,7 @@ final public class NodePredicateNodeSelectorTest extends
     }
 
     @Override
-    protected NodePredicateNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    NodePredicateNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return NodePredicateNodeSelector.with(PREDICATE);
     }
 

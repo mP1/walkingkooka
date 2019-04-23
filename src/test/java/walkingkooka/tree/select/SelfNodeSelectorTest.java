@@ -87,7 +87,7 @@ final public class SelfNodeSelectorTest
     }
 
     @Override
-    protected SelfNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    SelfNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return SelfNodeSelector.get();
     }
 
