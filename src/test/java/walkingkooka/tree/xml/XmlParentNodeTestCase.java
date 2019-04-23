@@ -49,16 +49,16 @@ public abstract class XmlParentNodeTestCase<N extends XmlParentNode> extends Xml
 
     final void checkChildren(final String label, final int count, final XmlNode parent) {
         if (null != parent.node) {
-            assertEquals(count, parent.node.getChildNodes().getLength(), label + " child node count=" + parent);
+            assertEquals(count, parent.node.getChildNodes().getLength(), () -> label + " child node count=" + parent);
         }
-        assertEquals(count, parent.children().size(), label + " child XmlNode count=" + parent);
+        assertEquals(count, parent.children().size(), () -> label + " child XmlNode count=" + parent);
 
         final org.w3c.dom.Node parentNode = parent.node;
 
         final List<XmlNode> children = parent.children();
         for (int i = 0; i < count; i++) {
             final XmlNode child = children.get(i);
-            assertSame(parent, child.parent().get(), "child of " + label + " has wrong parent");
+            assertSame(parent, child.parentOrFail(), () -> "child of " + label + " has wrong parent");
             if (null != parentNode) {
                 assertSame(parentNode, child.node.getParentNode(), "parent node of child is wrong");
             }

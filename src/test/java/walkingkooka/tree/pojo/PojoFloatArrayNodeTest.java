@@ -69,7 +69,7 @@ public final class PojoFloatArrayNodeTest extends PojoArrayNodeTestCase<PojoFloa
         this.childrenValuesCheck(childNode2, ELEMENT0, ELEMENT1, ELEMENT2);
         this.checkWithParent(childNode2);
 
-        assertSame(parentNode, childNode2.parent().get());
+        assertSame(parentNode, childNode2.parentOrFail());
 
         this.childrenAndCheckNames(childNode, INDEX0, INDEX1);
         this.childrenValuesCheck(childNode, ELEMENT0, ELEMENT1);
@@ -94,7 +94,7 @@ public final class PojoFloatArrayNodeTest extends PojoArrayNodeTestCase<PojoFloa
         this.childrenValuesCheck(childNode2, ELEMENT0, ELEMENT1, ELEMENT2);
         this.checkWithParent(childNode2);
 
-        assertNotSame(parentNode, childNode2.parent().get());
+        assertNotSame(parentNode, childNode2.parentOrFail());
 
         this.childrenAndCheckNames(childNode, INDEX0, INDEX1);
         this.childrenValuesCheck(childNode, ELEMENT0, ELEMENT1);
@@ -119,7 +119,7 @@ public final class PojoFloatArrayNodeTest extends PojoArrayNodeTestCase<PojoFloa
         this.childrenValuesCheck(childNode2, ELEMENT0, ELEMENT1, ELEMENT2);
         this.checkWithParent(childNode2);
 
-        assertNotSame(parentNode, childNode2.parent().get());
+        assertNotSame(parentNode, childNode2.parentOrFail());
 
         this.childrenAndCheckNames(childNode, INDEX0, INDEX1);
         this.childrenValuesCheck(childNode, ELEMENT0, ELEMENT1);

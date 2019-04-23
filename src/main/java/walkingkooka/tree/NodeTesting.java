@@ -172,7 +172,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     @Test
     default void testPropertiesNeverReturnNull() throws Exception {
         BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(),
-                (m) -> m.getName().equals("removeParent"));
+                (m) -> m.getName().equals("parentOrFail") || m.getName().equals("removeParent"));
     }
 
     N createNode();
@@ -232,16 +232,18 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         assertSame(node, node.setAttributes(node.attributes()));
     }
 
-    default void parentCheck(final N node, final N parent) {
-        assertSame(parent, node.parent(), () -> "parent of " + node);
-    }
-
     default void parentWithoutAndCheck(final N node) {
         assertEquals(Optional.empty(), node.parentWithout(), () -> "node parentWithout " + node);
+
+        assertThrows(NodeException.class, () -> {
+            node.parentOrFail();
+        });
     }
 
     default void parentWithoutAndCheck(final N node, final N parentWithout) {
         assertEquals(Optional.of(parentWithout), node.parentWithout(), () -> "node parentWithout " + node);
+
+        assertNotEquals(null, node.parentOrFail(), () -> "parent of node: " + node);
     }
 
     default void replaceAndCheck(final N node, final N replaceWith) {
@@ -296,7 +298,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         int i = 0;
         for (N child : parent.children()) {
             final int j = i;
-            assertSame(parent, child.parent().get(), () -> "parent of child[" + i + "]=" + child);
+            assertSame(parent, child.parentOrFail(), () -> "parent of child[" + i + "]=" + child);
         }
     }
 

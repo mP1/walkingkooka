@@ -301,7 +301,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 .cast();
         this.childCountCheck(updatedChild, 1);
 
-        final JsonArrayNode updatedRoot = updatedChild.parent().get().cast();
+        final JsonArrayNode updatedRoot = updatedChild.parentOrFail().cast();
         this.childCountCheck(updatedRoot, 2);
         assertEquals(JsonNode.array()
                         .appendChild(child1)
@@ -1124,6 +1124,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 FROM_WITH_TYPE,
                 NUMBER_VALUE_OR_FAIL,
                 OBJECT_OR_FAIL,
+                PARENT_OR_FAIL,
                 STRING_VALUE_OR_FAIL,
                 VALUE);
     }

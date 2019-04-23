@@ -515,7 +515,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
 
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
-        return (m) -> m.equals("isRoot");
+        return (m) -> m.equals("isRoot") || m.equals("parentOrFail");
     }
 
     // ClassTestCase.........................................................................................

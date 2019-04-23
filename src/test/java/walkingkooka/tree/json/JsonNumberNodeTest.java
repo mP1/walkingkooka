@@ -201,6 +201,7 @@ public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNu
                 FROM_WITH_TYPE_MAP,
                 FROM_WITH_TYPE,
                 OBJECT_OR_FAIL,
+                PARENT_OR_FAIL,
                 STRING_VALUE_OR_FAIL);
     }
 

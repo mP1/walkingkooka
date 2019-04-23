@@ -81,6 +81,14 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     Optional<N> parent();
 
     /**
+     * Helper that gets and complain if a parent is absent.
+     */
+    default N parentOrFail() {
+        return this.parent()
+                .orElseThrow(() -> new NodeException("Parent missing from " + this));
+    }
+
+    /**
      * Removes the parent from this {@link Node}.
      */
     N removeParent();
