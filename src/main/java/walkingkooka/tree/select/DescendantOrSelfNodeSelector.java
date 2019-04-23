@@ -60,7 +60,6 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     @Override
     final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.select(node, context);
-        this.selectChildren(node, context);
     }
 
     @Override
