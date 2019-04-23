@@ -32,10 +32,12 @@ abstract class NonLogicalNodeSelector2<N extends Node<N, NAME, ANAME, AVALUE>, N
         super(next);
     }
 
+    @Override
     final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         return next.hashCode();
     }
 
+    @Override
     final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
         return true; // no extra properties...
     }

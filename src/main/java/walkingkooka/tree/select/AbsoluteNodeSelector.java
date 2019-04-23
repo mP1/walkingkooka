@@ -48,6 +48,7 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     // NodeSelector
 
+    @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a descending to a absolute, as it already is a absolute search start...
         return selector instanceof AbsoluteNodeSelector ?
@@ -57,15 +58,18 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
                         new AbsoluteNodeSelector<N, NAME, ANAME, AVALUE>(this.separator, selector);
     }
 
-    @Override final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.select(node.root(), context);
     }
 
-    @Override final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    @Override
+    final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         return Objects.hash(this.separator, next);
     }
 
-    @Override final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+    @Override
+    final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
         return this.separator.equals(AbsoluteNodeSelector.class.cast(other).separator);
     }
 

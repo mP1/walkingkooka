@@ -34,7 +34,8 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
         this.next = next;
     }
 
-    @Override final NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    @Override
+    final NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return this.append1(this.next.append0(selector));
     }
 
@@ -52,11 +53,13 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     /**
      * The default simply records the {@link Node} to the {@link NodeSelectorContext}.
      */
+    @Override
     void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.next.accept0(node, context);
     }
 
-    @Override final void toString0(final NodeSelectorToStringBuilder b) {
+    @Override
+    final void toString0(final NodeSelectorToStringBuilder b) {
         this.toString1(b);
         this.toStringNext(b);
     }
@@ -73,12 +76,14 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     // Object
 
+    @Override
     public final int hashCode() {
         return this.hashCode0(this.next);
     }
 
     abstract int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next);
 
+    @Override
     public final boolean equals(final Object other) {
         return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
     }
@@ -91,7 +96,8 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     abstract boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other);
 
-    @Override final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
+    @Override
+    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
         return this;
     }
 }

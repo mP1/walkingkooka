@@ -35,7 +35,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * A {@link NodeSelectorContext} that routes potential and selected {@link Node} to individual {@link Consumer}
+ * A {@link NodeSelectorContext} that routes potential and selected {@link Node} to a individual {@link Consumer}
  */
 final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
@@ -72,9 +72,13 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     @Override
     public void potential(final N node) {
         this.potential.accept(node);
-        this.node = node;
+        this.current = node;
     }
 
+    /**
+     * The {@link Consumer} receives all {@link Node} that are visited, this provides an opportunity to throw
+     * an {@link RuntimeException} to abort a long running select.
+     */
     private final Consumer<N> potential;
 
     @Override
@@ -101,14 +105,17 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         }
 
         final List<Object> nodeAndParameters = Lists.array();
-        nodeAndParameters.add(this.node);
+        nodeAndParameters.add(this.current);
         nodeAndParameters.addAll(parameters);
         return function.get().apply(Lists.readOnly(nodeAndParameters), this);
     }
 
     private final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions;
 
-    private N node;
+    /**
+     * The current {@link Node} which is also becomes the first argument for all function invocations.
+     */
+    private N current;
 
     @Override
     public String toString() {

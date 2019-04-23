@@ -52,6 +52,7 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     // NodeSelector
 
+    @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new IndexedChildNodeSelector<>(this.index, selector);
     }
@@ -67,11 +68,13 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     private final int index;
 
-    @Override final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    @Override
+    final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         return Objects.hash(this.index, next);
     }
 
-    @Override final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+    @Override
+    final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
         return this.index == IndexedChildNodeSelector.class.cast(other).index;
     }
 

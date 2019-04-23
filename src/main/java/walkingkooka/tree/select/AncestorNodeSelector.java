@@ -54,7 +54,8 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
                 new AncestorNodeSelector<N, NAME, ANAME, AVALUE>(selector);
     }
 
-    @Override final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.selectParent(node, context);
     }
 

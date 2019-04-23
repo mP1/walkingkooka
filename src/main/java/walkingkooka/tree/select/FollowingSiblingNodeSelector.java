@@ -47,6 +47,7 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
     // NodeSelector
 
+    @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a followingSibling to another...
         return selector instanceof FollowingSiblingNodeSelector ?
@@ -54,7 +55,8 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
                 new FollowingSiblingNodeSelector<>(selector);
     }
 
-    @Override final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.selectFollowingSiblings(node, context);
     }
 
