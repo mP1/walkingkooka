@@ -87,13 +87,13 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         final PojoNode childChildNode2 = childChildNode.setChildren(Lists.of(parentNode.createNode(X, STRING2)));
         assertNotSame(childChildNode, childChildNode2);
 
-        final PojoNode childNode2 = childChildNode2.parent().get();
+        final PojoNode childNode2 = childChildNode2.parentOrFail();
         final List<Object> children2 = Lists.of(
                 new TestImmutableLeaf(STRING2),
                 new TestImmutableLeaf(STRING1));
         this.childrenValuesCheck(childNode2, children2);
 
-        final PojoNode parentNode2 = childNode2.parent().get();
+        final PojoNode parentNode2 = childNode2.parentOrFail();
         assertNotSame(parentNode, parentNode2);
         this.childrenValuesCheck(parentNode2, Lists.of(children2));
         assertEquals(new TestImmutableParent(children2), parentNode2.value(), "parentNode2.value");
@@ -113,13 +113,13 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         final PojoNode childChildNode2 = childChildNode.setChildren(Lists.of(parentNode.createNode(X, STRING2)));
         assertSame(childChildNode, childChildNode2);
 
-        final PojoNode childNode2 = childChildNode2.parent().get();
+        final PojoNode childNode2 = childChildNode2.parentOrFail();
         final List<Object> children2 = Lists.of(
                 new TestMutableLeaf(STRING2),
                 new TestMutableLeaf(STRING1));
         this.childrenValuesCheck(childNode2, children2);
 
-        final PojoNode parentNode2 = childNode2.parent().get();
+        final PojoNode parentNode2 = childNode2.parentOrFail();
         assertSame(parentNode, parentNode2);
         this.childrenValuesCheck(parentNode2, Lists.of(children2));
         assertEquals(new TestMutableParent(children2), parentNode2.value(), "parentNode2.value");
@@ -139,11 +139,11 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         final PojoNode childChildNode2 = childChildNode.setChildrenValues(Lists.of(STRING1));
         assertNotSame(childChildNode, childChildNode2);
 
-        final PojoNode childNode2 = childChildNode2.parent().get();
+        final PojoNode childNode2 = childChildNode2.parentOrFail();
         final TestImmutableLeaf child2 = new TestImmutableLeaf(STRING1);
         this.childrenValuesCheck(childNode2, child2);
 
-        final PojoNode parentNode2 = childNode2.parent().get();
+        final PojoNode parentNode2 = childNode2.parentOrFail();
         assertNotSame(parentNode, parentNode2);
         this.childrenValuesCheck(parentNode2, Lists.of(Lists.of(child2)));
         assertEquals(new TestImmutableParent(Lists.of(child2)), parentNode2.value(), "parentNode2.value");
@@ -161,11 +161,11 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         final PojoNode childChildNode2 = childChildNode.setChildrenValues(Lists.of(STRING1));
         assertSame(childChildNode, childChildNode2);
 
-        final PojoNode childNode2 = childChildNode2.parent().get();
+        final PojoNode childNode2 = childChildNode2.parentOrFail();
         final TestMutableLeaf child2 = new TestMutableLeaf(STRING1);
         this.childrenValuesCheck(childNode2, child2);
 
-        final PojoNode parentNode2 = childNode2.parent().get();
+        final PojoNode parentNode2 = childNode2.parentOrFail();
         assertSame(parentNode, parentNode2);
         this.childrenValuesCheck(parentNode2, Lists.of(Lists.of(child2)));
         assertEquals(new TestMutableParent(Lists.of(child2)), parentNode2.value(), "parentNode2.value");

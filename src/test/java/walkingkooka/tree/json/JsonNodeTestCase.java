@@ -167,6 +167,7 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     final static String FROM_WITH_TYPE = "fromJsonNodeWithType";
     final static String NUMBER_VALUE_OR_FAIL = "numberValueOrFail";
     final static String OBJECT_OR_FAIL = "objectOrFail";
+    final static String PARENT_OR_FAIL = "parentOrFail";
     final static String STRING_VALUE_OR_FAIL = "stringValueOrFail";
     final static String VALUE = "value";
 

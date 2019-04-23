@@ -109,7 +109,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
         this.childrenValuesCheck(childNode2, STRING2);
 
-        final PojoNode parentNode2 = childNode2.parent().get();
+        final PojoNode parentNode2 = childNode2.parentOrFail();
         this.childrenValuesCheck(parentNode2, new TestMutableLeaf(STRING2), new TestMutableLeaf(STRING1));
         this.childrenCheck(parentNode2);
     }
@@ -131,7 +131,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         this.childrenValuesCheck(childNode2, STRING2);
 
         // check
-        final PojoNode parentNode2 = childNode2.parent().get();
+        final PojoNode parentNode2 = childNode2.parentOrFail();
         this.childrenValuesCheck(parentNode2, new TestImmutableLeaf(STRING2), null);
 
         assertEquals(new TestImmutableBranch(new TestImmutableLeaf(STRING2), null),
@@ -160,10 +160,10 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
         assertNotSame(childNode, childNode2, childNode2.toString());
 
         // check
-        final PojoNode parentNode2 = childNode2.parent().get();
+        final PojoNode parentNode2 = childNode2.parentOrFail();
         this.childrenValuesCheck(parentNode2, new TestImmutableLeaf(STRING2), null);
 
-        final PojoNode grandParentNode2 = parentNode2.parent().get();
+        final PojoNode grandParentNode2 = parentNode2.parentOrFail();
 
         final TestImmutableLeaf child2 = new TestImmutableLeaf(STRING2);
         final TestImmutableBranch parent2 = new TestImmutableBranch(child2, null);

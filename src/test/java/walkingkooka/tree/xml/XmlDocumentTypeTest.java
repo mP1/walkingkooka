@@ -28,6 +28,7 @@ import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
 import javax.xml.parsers.DocumentBuilder;
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -128,8 +129,14 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
 
     @Test
     public void testPropertiesNeverReturnNull() throws Exception {
-        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(),
-                (m) -> m.getName().equals("document") || m.getName().equals("internalSubset"));
+        BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(), this::propertiesNeverReturnNull);
+    }
+
+    private boolean propertiesNeverReturnNull(final Method method) {
+        final String name = method.getName();
+        return name.equals("document") ||
+                name.equals("internalSubset") ||
+                name.equals("parentOrFail");
     }
 
     // toSearchNode.....................................................................................................

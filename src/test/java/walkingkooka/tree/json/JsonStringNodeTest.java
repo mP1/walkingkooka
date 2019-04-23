@@ -154,7 +154,8 @@ public final class JsonStringNodeTest extends JsonLeafNonNullNodeTestCase<JsonSt
                 FROM_WITH_TYPE_MAP,
                 FROM_WITH_TYPE,
                 NUMBER_VALUE_OR_FAIL,
-                OBJECT_OR_FAIL);
+                OBJECT_OR_FAIL,
+                PARENT_OR_FAIL);
     }
 
     // HasJsonNodeTesting..................................................................

@@ -932,6 +932,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 FROM_WITH_TYPE_MAP,
                 FROM_WITH_TYPE,
                 NUMBER_VALUE_OR_FAIL,
+                PARENT_OR_FAIL,
                 STRING_VALUE_OR_FAIL,
                 VALUE);
     }

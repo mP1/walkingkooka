@@ -89,7 +89,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
         final ParserTokenNode child2 = child.setChildren(children(STRING5, STRING6));
         assertNotSame(child, child2, "a different node should have been returned after setting new children");
 
-        final ParserTokenNode parent = child2.parent().get();
+        final ParserTokenNode parent = child2.parentOrFail();
         this.childrenCheck2(parent,
                 STRING1,
                 ParserTokens.sequence(Lists.of(STRING5, STRING6), "b2c3"),

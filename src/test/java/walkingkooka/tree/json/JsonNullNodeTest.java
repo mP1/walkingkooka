@@ -169,6 +169,7 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
                 FROM_WITH_TYPE,
                 NUMBER_VALUE_OR_FAIL,
                 OBJECT_OR_FAIL,
+                PARENT_OR_FAIL,
                 STRING_VALUE_OR_FAIL,
                 VALUE);
     }
