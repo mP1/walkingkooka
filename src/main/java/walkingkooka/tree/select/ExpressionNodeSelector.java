@@ -63,16 +63,20 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        N result = node;
+
         try {
             final Object value = this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context));
             if (value instanceof Boolean) {
-                this.booleanResult(node, Boolean.TRUE.equals(value), context);
+                result = this.booleanResult(node, Boolean.TRUE.equals(value), context);
             } else {
-                this.attemptIndex(node, value, context);
+                result = this.attemptIndex(node, value, context);
             }
         } catch (final ConversionException | NodeSelectorException fail) {
         }
+
+        return result;
     }
 
     /**
@@ -84,27 +88,31 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * Select the node only if the boolean value is true.
      */
-    private void booleanResult(final N node,
-                               final boolean value,
-                               final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        if (value) {
-            context.selected(node);
-        }
+    private N booleanResult(final N node,
+                            final boolean value,
+                            final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return value ?
+                node.replace(context.selected(node)) :
+                node;
     }
 
     /**
      * Converts the value to an index and attempts to visit the child at that position.
      */
-    private void attemptIndex(final N node,
-                              final Object value,
-                              final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private N attemptIndex(final N node,
+                           final Object value,
+                           final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        N result = node;
+
         final int index = context.convert(value, Integer.class) - INDEX_BIAS;
         final List<N> children = node.children();
         if (index >= 0 && index < children.size()) {
             final N child = children.get(index);
             context.potential(child);
-            this.select(child, context);
+            result = this.select(child, context).parentOrFail();
         }
+
+        return result;
     }
 
     // Object

@@ -58,15 +58,15 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.select(node, context);
+    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return this.select(node, context);
     }
 
     @Override
-    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        super.select(node, context);
+    N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        final N node2 = super.select(node, context);
 
-        this.selectChildren(node, context);
+        return this.selectChildren(node2, context);
     }
 
     @Override

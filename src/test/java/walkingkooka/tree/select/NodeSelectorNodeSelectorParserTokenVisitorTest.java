@@ -849,10 +849,17 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         final TestNode leaf2 = node("leaf2");
         final TestNode branch2 = node("branch2", leaf2);
 
-        final TestNode root = node("root", branch1, branch2);
+        final TestNode leaf3 = node("leaf3");
+        final TestNode branch3 = node("branch3", leaf3);
 
-        this.parseExpressionAndCheck("following::*", root, branch1, leaf1, branch2, leaf2);
-        this.parseExpressionAndCheck("following::*", root.child(0), leaf1, branch2, leaf2);
+        final TestNode leaf4 = node("leaf4");
+        final TestNode branch4 = node("branch4", leaf4);
+        
+        final TestNode root = node("root", branch1, branch2, branch3, branch4);
+
+        this.parseExpressionAndCheck("following::*", root);
+        this.parseExpressionAndCheck("following::*", root.child(0), branch2, leaf2, branch3, leaf3, branch4, leaf4);
+        this.parseExpressionAndCheck("following::*", root.child(1), branch3, leaf3, branch4, leaf4);
     }
 
     // following-sibling...........................................................................................
@@ -955,10 +962,17 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         final TestNode leaf2 = node("leaf2");
         final TestNode branch2 = node("branch2", leaf2);
 
-        final TestNode root = node("root", branch1, branch2);
+        final TestNode leaf3 = node("leaf3");
+        final TestNode branch3 = node("branch3", leaf3);
 
-        this.parseExpressionAndCheck("preceding::*", root.child(0), leaf1);
-        this.parseExpressionAndCheck("preceding::*", root.child(1), leaf2, branch1, leaf1);
+        final TestNode leaf4 = node("leaf4");
+        final TestNode branch4 = node("branch4", leaf4);
+
+        final TestNode root = node("root", branch1, branch2, branch3, branch4);
+
+        this.parseExpressionAndCheck("preceding::*", root.child(0));
+        this.parseExpressionAndCheck("preceding::*", root.child(1), branch1, leaf1);
+        this.parseExpressionAndCheck("preceding::*", root.child(2), branch2, leaf2, branch1, leaf1);
     }
 
     // preceding-sibling...........................................................................................
@@ -1185,8 +1199,9 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             private TestNode node;
 
             @Override
-            public void selected(final TestNode node) {
+            public TestNode selected(final TestNode node) {
                 selected.add(node);
+                return node;
             }
 
             @Override

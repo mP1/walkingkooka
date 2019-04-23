@@ -74,6 +74,23 @@ final public class AncestorNodeSelectorTest extends
     }
 
     @Test
+    public void testMap() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent.child(0).child(0),
+                TestNode.with("grand*1",
+                        TestNode.with("parent1*0",
+                                TestNode.with("child1"), TestNode.with("child2")),
+                        TestNode.with("parent2", TestNode.with("child3"))).child(0)
+                        .child(0));
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "ancestor::*");
     }

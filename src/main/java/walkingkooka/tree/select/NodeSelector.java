@@ -345,30 +345,32 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * The {@link Consumer} is invoked for each and every {@link Node} prior to any test and continued traversal. It may be
      * used to abort the visiting process by throwing an {@link RuntimeException}
      */
-    final public void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final public N accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
-        this.accept0(node, context);
+        return this.accept0(node, context);
     }
 
     /**
      * Sub classes must call this method which calls the observer and then immediately calls {@link #accept1(Node, NodeSelectorContext)}
      */
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         context.potential(node);
-        this.accept1(node, context);
+        return this.accept1(node, context);
     }
 
     /**
      * Sub classes must implement this to contain the core logic in testing if a node is actually selected.
      */
-    abstract void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
+    abstract N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     /**
-     * Pushes all siblings {@link Node nodes} until itself is reached.
+     * Selects all preceding siblings of the given {@link Node}.
      */
-    final void selectPrecedingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N selectPrecedingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        N result = node;
+
         final Optional<N> parent = node.parent();
 
         if (parent.isPresent()) {
@@ -376,18 +378,22 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
             for (; ; ) {
                 final Optional<N> next = current.previousSibling();
                 if (!next.isPresent()) {
+                    result = current.parentOrFail().children().get(node.index());
                     break;
                 }
-                current = next.get();
-                this.select(current, context);
+                current = this.select(next.get(), context);
             }
         }
+
+        return result;
     }
 
     /**
-     * Pushes all siblings {@link Node nodes} after itself.
+     * Selects all following siblings of the given {@link Node}.
      */
-    final void selectFollowingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N selectFollowingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        N result = node;
+
         final Optional<N> parent = node.parent();
         if (parent.isPresent()) {
 
@@ -395,37 +401,49 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
             for (; ; ) {
                 final Optional<N> next = current.nextSibling();
                 if (!next.isPresent()) {
+                    result = current.parentOrFail().children().get(node.index());
                     break;
                 }
-                current = next.get();
-                this.select(current, context);
+                current = this.select(next.get(), context);
             }
         }
+        return result;
     }
 
     /**
-     * Pushes all direct children of the {@link Node node}.`
+     * Selects all direct children of the given {@link Node node}.`
      */
-    final void selectChildren(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        for (final N child : node.children()) {
-            this.select(child, context);
+    final N selectChildren(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        N result = node;
+
+        Optional<N> next = node.firstChild();
+        if(next.isPresent()) {
+            for(;;) {
+                result = this.select(next.get(), context);
+                next = result.nextSibling();
+                if(!next.isPresent()) {
+                    result = result.parentOrFail();
+                    break;
+                }
+            }
         }
+
+        return result;
     }
 
     /**
      * Matches the parent only if one is present.
      */
-    final void selectParent(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        final Optional<N> parent = node.parent();
-        if (parent.isPresent()) {
-            this.select(parent.get(), context);
-        }
+    final N selectParent(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return node.parent()
+                .map(parent -> this.select(parent, context).children().get(node.index()))
+                .orElse(node);
     }
 
     /**
      * Handles a selected {@link Node}
      */
-    abstract void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
+    abstract N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     /**
      * Force sub classes to implement.

@@ -48,7 +48,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void NullPointerException() {
         assertThrows(NullPointerException.class, () -> {
             BasicNodeSelectorContext.with(null,
-                    this.selected(),
+                    this.mapper(),
                     this.functions(),
                     this.converter(),
                     this.decimalNumberContext());
@@ -70,7 +70,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullFunctionsFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicNodeSelectorContext.with(this.potential(),
-                    this.selected(),
+                    this.mapper(),
                     null,
                     this.converter(),
                     this.decimalNumberContext());
@@ -81,7 +81,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullConverterFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicNodeSelectorContext.with(this.potential(),
-                    this.selected(),
+                    this.mapper(),
                     this.functions(),
                     null,
                     this.decimalNumberContext());
@@ -92,7 +92,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullDecimalNumberContextFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicNodeSelectorContext.with(this.potential(),
-                    this.selected(),
+                    this.mapper(),
                     this.functions(),
                     this.converter(),
                     null);
@@ -105,7 +105,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     @Override public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
         return BasicNodeSelectorContext.with(this.potential(),
-                this.selected(),
+                this.mapper(),
                 this.functions(),
                 this.converter(),
                 this.decimalNumberContext());
@@ -116,9 +116,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         };
     }
 
-    private Consumer<TestNode> selected() {
-        return (n) -> {
-        };
+    private Function<TestNode, TestNode> mapper() {
+        return Function.identity();
     }
 
     private Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {

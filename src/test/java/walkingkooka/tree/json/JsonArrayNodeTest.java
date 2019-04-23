@@ -533,6 +533,25 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 expected);
     }
 
+    @Test
+    public void testSelectorMap() {
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(JsonNode.booleanNode(true))
+                .appendChild(JsonNode.number(2))
+                .appendChild(JsonNode.string("third"))
+                .appendChild(JsonNode.string("fourth"));
+
+        final JsonNode replaced = JsonNode.number(999);
+
+        this.selectorAcceptMapAndCheck(array,
+                JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
+                        .descendant()
+                        .named(array.get(1).name())
+                        .build(),
+                (n) -> replaced,
+                array.set(1, replaced));
+    }
+
     // HasJsonNode.......................................................................................
 
     @Test

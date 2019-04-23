@@ -67,6 +67,22 @@ public final class OrNodeSelectorTest extends
                 child, root);
     }
 
+    @Test
+    public void testMap() {
+        final TestNode grandParent = TestNode.with("grandParent",
+                TestNode.with("parent1", TestNode.with("child1")),
+                TestNode.with("parent2", TestNode.with("child2")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(this.createSelector0(ChildrenNodeSelector.get(), AncestorNodeSelector.get()),
+                grandParent.child(0), // parent1
+                TestNode.with("grandParent*1",
+                        TestNode.with("parent1", TestNode.with("child1*0")),
+                        TestNode.with("parent2", TestNode.with("child2")))
+                        .child(0));
+    }
+
     @Override
     final NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors) {
         return OrNodeSelector.with(selectors);

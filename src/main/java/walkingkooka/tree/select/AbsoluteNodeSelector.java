@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
 
@@ -59,8 +60,10 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.select(node.root(), context);
+    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        final NodePointer<N, NAME> pointer = node.pointer();
+        final N node2 = this.select(node.root(), context);
+        return pointer.traverse(node2).orElse(node2); // try and return the Node at the equivalent location as $node otherwise return node2 itself.
     }
 
     @Override

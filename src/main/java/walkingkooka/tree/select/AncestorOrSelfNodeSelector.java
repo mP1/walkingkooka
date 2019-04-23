@@ -57,15 +57,15 @@ final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.select(node, context);
+    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return this.select(node, context);
     }
 
     @Override
-    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        super.select(node, context);
+    N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        final N node2 = super.select(node, context);
 
-        this.selectParent(node, context);
+        return this.selectParent(node2, context);
     }
 
     @Override

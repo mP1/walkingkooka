@@ -67,6 +67,26 @@ final public class ParentNodeSelectorTest
     }
 
     @Test
+    public void testMap() {
+        final TestNode parent = TestNode.with("parent", TestNode.with("child"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(parent.child(0),
+                TestNode.with("parent*0", TestNode.with("child"))
+                        .child(0));
+    }
+
+    @Test
+    public void testMapWithoutParent() {
+        final TestNode parent = TestNode.with("parent", TestNode.with("child"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(parent);
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "..");
     }

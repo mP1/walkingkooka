@@ -60,13 +60,13 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     @Override
-    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.selector.accept1(node, context);
+    N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return this.selector.accept1(node, context);
     }
 
     @Override
-    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.selector.select(node, context);
+    N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return this.selector.select(node, context);
     }
 
     // Object

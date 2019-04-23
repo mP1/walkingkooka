@@ -34,7 +34,8 @@ final public class NodePredicateNodeSelectorTest extends
 
     // constants
 
-    private final static Predicate<TestNode> PREDICATE = (n) -> n.name().value().equals("self");
+    private final static String MAGIC_VALUE = "self";
+    private final static Predicate<TestNode> PREDICATE = (n) -> n.name().value().equals(MAGIC_VALUE);
 
     @Test
     public void testWithNullPredicateFails() {
@@ -52,11 +53,22 @@ final public class NodePredicateNodeSelectorTest extends
     @Test
     public void testIgnoresNonSelfNodes() {
         final TestNode siblingBefore = TestNode.with("siblingBefore");
-        final TestNode self = TestNode.with("self", TestNode.with("child"));
+        final TestNode self = TestNode.with(MAGIC_VALUE, TestNode.with("child"));
         final TestNode siblingAfter = TestNode.with("siblingAfter");
         final TestNode parent = TestNode.with("parent", siblingBefore, self, siblingAfter);
 
         this.acceptAndCheck(parent.child(1), self);
+    }
+
+    @Test
+    public void testMap() {
+        final TestNode parent = TestNode.with("parent", TestNode.with(MAGIC_VALUE), TestNode.with("child"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(parent.child(0),
+                TestNode.with("parent", TestNode.with(MAGIC_VALUE + "*0"), TestNode.with("child"))
+                        .child(0));
     }
 
     @Test

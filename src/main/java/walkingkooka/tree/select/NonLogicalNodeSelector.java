@@ -42,20 +42,24 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
     /**
-     * Used to match a node wrapped in an optional. Empty optionals have no effect.
+     * Used to select a node wrapped in an optional. Empty optionals have no effect.
      */
-    final void select(final Optional<N> node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        if (node.isPresent()) {
-            this.select(node.get(), context);
-        }
+    final N selectChild(final Optional<N> node,
+                        final N parent,
+                        final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+//        if (node.isPresent()) {
+//            this.select(node.get(), context);
+//        }
+        return node.map(child -> this.select(child, context).parentOrFail())
+                .orElse(parent);
     }
 
     /**
      * The default simply records the {@link Node} to the {@link NodeSelectorContext}.
      */
     @Override
-    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.next.accept0(node, context);
+    N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return this.next.accept0(node, context);
     }
 
     @Override

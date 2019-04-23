@@ -18,12 +18,13 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.Set;
 
 /**
  * The context used by {@link AndNodeSelector} which batches selected nodes so they can be ANDED with another batch.
@@ -36,15 +37,13 @@ final class AndNodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AV
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> AndNodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context,
-                                                                                    final Consumer<N> selected) {
-        return new AndNodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE>(context, selected);
+            AVALUE> AndNodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new AndNodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE>(context);
     }
 
-    private AndNodeSelectorNodeSelectorContext(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context,
-                                               final Consumer<N> selected) {
+    private AndNodeSelectorNodeSelectorContext(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        super();
         this.context = context;
-        this.selected = selected;
     }
 
     /**
@@ -56,11 +55,12 @@ final class AndNodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AV
     }
 
     @Override
-    public void selected(final N node) {
-        this.selected.accept(node);
+    public N selected(final N node) {
+        this.selected.add(node);
+        return node;
     }
 
-    private final Consumer<N> selected;
+    Set<N> selected = Sets.ordered();
 
     @Override
     public <T> T convert(final Object value, final Class<T> target) {

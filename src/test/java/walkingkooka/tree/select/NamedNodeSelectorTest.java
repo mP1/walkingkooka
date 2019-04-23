@@ -77,6 +77,22 @@ final public class NamedNodeSelectorTest extends
     }
 
     @Test
+    public void testMap() {
+        final TestNode parent = TestNode.with("parent", TestNode.with(NAME.value()), TestNode.with("child"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(parent.child(0),
+                TestNode.with("parent", TestNode.with(NAME.value() + "*0"), TestNode.with("child"))
+                        .child(0));
+    }
+
+    @Test
+    public void testMapUnmatched() {
+        this.acceptMapAndCheck(TestNode.with("different"));
+    }
+
+    @Test
     public void testEqualsDifferentName() {
         this.checkNotEquals(this.createSelector(Names.string("different-name-2"),
                 SEPARATOR,
@@ -85,7 +101,7 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testEqualsDifferentPathSeparator() {
-        this.checkNotEquals(this.createSelector(this.name(),
+        this.checkNotEquals(this.createSelector(NAME,
                 PathSeparator.requiredAtStart('.'),
                 this.wrapped()));
     }
@@ -128,9 +144,5 @@ final public class NamedNodeSelectorTest extends
                                                                                        final PathSeparator pathSeparator,
                                                                                        final NodeSelector<TestNode, StringName, StringName, Object> selector) {
         return Cast.to(NamedNodeSelector.<TestNode, StringName, StringName, Object>with(name, pathSeparator).append(selector));
-    }
-
-    private StringName name() {
-        return Names.string("name1");
     }
 }

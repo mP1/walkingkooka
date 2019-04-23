@@ -45,6 +45,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -103,8 +104,8 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
 
     @SafeVarargs
     final void acceptAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                               final TestNode start,
-                               final TestNode... nodes) {
+                              final TestNode start,
+                              final TestNode... nodes) {
         this.acceptAndCheck0(selector,
                 start,
                 Arrays.stream(nodes)
@@ -121,9 +122,9 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
                                           final String... nodes) {
         final Set<TestNode> potential = Sets.ordered();
         final Set<TestNode> selected = Sets.ordered();
-        selector.accept(start, context(
+        assertSame(start, selector.accept(start, this.context(
                 (n) -> potential.add(n),
-                (n) -> selected.add(n)));
+                (n) -> selected.add(n))));
         final List<String> selectedNames = selected.stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
@@ -132,10 +133,63 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
         assertTrue(potential.contains(start), () -> "potentials must include initial node=" + potential);
     }
 
+    final void acceptMapAndCheck(final TestNode start) {
+        this.acceptMapAndCheck(start, start);
+    }
+
+    final void acceptMapAndCheck(final TestNode start,
+                                 final TestNode result) {
+        this.acceptMapAndCheck(this.createSelector(), start, result);
+    }
+
+    final void acceptMapAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                 final TestNode start) {
+        this.acceptMapAndCheck(selector, start, start);
+    }
+
+    final void acceptMapAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                 final TestNode start,
+                                 final TestNode result) {
+        TestNode.clear();
+
+        final String startToString = start.toString();
+
+        assertEquals(result,
+                selector.accept(start, this.context0((n) -> {
+                        },
+                        new Function<TestNode, TestNode>() {
+                            @Override
+                            public TestNode apply(final TestNode testNode) {
+                                return TestNode.with(testNode.name().value() + "*" + this.i++)
+                                        .setChildren(testNode.children());
+                            }
+
+                            private int i;
+
+                            @Override
+                            public String toString() {
+                                return "mapper: next: " + i;
+                            }
+                        })));
+
+        assertEquals(startToString,
+                start.toString(),
+                "toString has changed for starting node, indicating it probably was mutated");
+    }
+
     final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final Consumer<TestNode> potential,
                                                                                 final Consumer<TestNode> selected) {
+        return this.context0(potential,
+                (n) -> {
+                    selected.accept(n);
+                    return n;
+                });
+    }
+
+    final NodeSelectorContext<TestNode, StringName, StringName, Object> context0(final Consumer<TestNode> potential,
+                                                                                 final Function<TestNode, TestNode> mapper) {
         return NodeSelectorContexts.basic(potential,
-                selected,
+                mapper,
                 this.functions(),
                 this.converter(),
                 DecimalNumberContexts.fake());
@@ -154,6 +208,9 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
 
             @Override
             public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
+                if(value instanceof Long && Integer.class == type) {
+                    return type.cast(Long.class.cast(value).intValue());
+                }
                 if (type.isInstance(value)) {
                     return type.cast(value);
                 }

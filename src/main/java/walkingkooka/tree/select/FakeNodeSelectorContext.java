@@ -36,7 +36,7 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    public void selected(final N node) {
+    public N selected(final N node) {
         throw new UnsupportedOperationException();
     }
 

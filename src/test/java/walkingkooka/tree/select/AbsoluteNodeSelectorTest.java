@@ -81,6 +81,39 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
+    public void testMap() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent.child(1),
+                TestNode.with("grand*0",
+                        TestNode.with("parent1",
+                                TestNode.with("child1"), TestNode.with("child2")),
+                        TestNode.with("parent2", TestNode.with("child3")))
+                        .child(1));
+    }
+
+    @Test
+    public void testMap2() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent,
+                TestNode.with("grand*0",
+                        TestNode.with("parent1",
+                                TestNode.with("child1"), TestNode.with("child2")),
+                        TestNode.with("parent2", TestNode.with("child3"))));
+    }
+
+    @Test
     public void testEqualsDifferentPathSeparator() {
         this.checkNotEquals(this.createSelector(PathSeparator.requiredAtStart('.'),
                 this.wrapped()));

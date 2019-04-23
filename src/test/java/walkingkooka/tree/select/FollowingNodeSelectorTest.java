@@ -40,10 +40,7 @@ final public class FollowingNodeSelectorTest extends
 
     @Test
     public void testChild() {
-        final TestNode child = TestNode.with("child");
-        final TestNode parent = TestNode.with("parent", child);
-
-        this.acceptAndCheck(parent, child);
+        this.acceptAndCheck(TestNode.with("parent", TestNode.with("child")));
     }
 
     @Test
@@ -94,7 +91,7 @@ final public class FollowingNodeSelectorTest extends
 
         final TestNode grandParent = TestNode.with("grandParent", parent, parentFollowingSibling);
 
-        this.acceptAndCheck(grandParent.child(0), child, parentFollowingSibling, parentFollowingSiblingChild);
+        this.acceptAndCheck(grandParent.child(0), parentFollowingSibling, parentFollowingSiblingChild);
     }
 
     @Test
@@ -119,6 +116,49 @@ final public class FollowingNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2);
 
         this.acceptAndCheck(parent.child(2), following1, following2);
+    }
+
+    @Test
+    public void testMap() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")),
+                TestNode.with("parent3", TestNode.with("child4")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent.child(1),
+                TestNode.with("grand",
+                        TestNode.with("parent1",
+                                TestNode.with("child1"), TestNode.with("child2")),
+                        TestNode.with("parent2", TestNode.with("child3")),
+                        TestNode.with("parent3*0", TestNode.with("child4*1")))
+                        .child(1));
+    }
+
+    @Test
+    public void testMapSeveralFollowingSiblings() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")),
+                TestNode.with("parent3", TestNode.with("child4")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent.child(0),
+                TestNode.with("grand",
+                        TestNode.with("parent1",
+                                TestNode.with("child1"), TestNode.with("child2")),
+                        TestNode.with("parent2*0", TestNode.with("child3*1")),
+                        TestNode.with("parent3*2", TestNode.with("child4*3")))
+                        .child(0));
+    }
+
+    @Test
+    public void testMapWithoutFollowing() {
+        this.acceptMapAndCheck(TestNode.with("node123"));
     }
 
     @Test

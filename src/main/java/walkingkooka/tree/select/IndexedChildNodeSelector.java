@@ -58,12 +58,13 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     }
 
     @Override
-    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         final List<N> children = node.children();
         final int index = this.index - INDEX_BIAS;
-        if (index < children.size()) {
-            this.select(children.get(index), context);
-        }
+
+        return index < children.size() ?
+                this.select(children.get(index), context).parentOrFail() :
+                node;
     }
 
     private final int index;

@@ -44,26 +44,26 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
             NAME extends Name,
             ANAME extends Name,
             AVALUE> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final Consumer<N> potential,
-                                                                          final Consumer<N> selected,
+                                                                          final Function<N, N> mapper,
                                                                           final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                           final Converter converter,
                                                                           final DecimalNumberContext decimalNumberContext) {
         Objects.requireNonNull(potential, "potential");
-        Objects.requireNonNull(selected, "selected");
+        Objects.requireNonNull(mapper, "mapper");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(decimalNumberContext, "decimalNumberContext");
 
-        return new BasicNodeSelectorContext<>(potential, selected, functions, converter, decimalNumberContext);
+        return new BasicNodeSelectorContext<>(potential, mapper, functions, converter, decimalNumberContext);
     }
 
     private BasicNodeSelectorContext(final Consumer<N> potential,
-                                     final Consumer<N> selected,
+                                     final Function<N, N> mapper,
                                      final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                      final Converter converter,
                                      final DecimalNumberContext decimalNumberContext) {
         this.potential = potential;
-        this.selected = selected;
+        this.mapper = mapper;
         this.functions = functions;
         this.converter = converter;
         this.decimalNumberContext = decimalNumberContext;
@@ -82,11 +82,11 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final Consumer<N> potential;
 
     @Override
-    public void selected(final N node) {
-        this.selected.accept(node);
+    public N selected(final N node) {
+        return this.mapper.apply(node);
     }
 
-    private final Consumer<N> selected;
+    private final Function<N, N> mapper;
 
     @Override
     public <T> T convert(final Object value, final Class<T> target) {
@@ -119,6 +119,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public String toString() {
-        return this.potential + " " + this.selected + " " + this.functions + " " + this.converter + " " + this.decimalNumberContext;
+        return this.potential + " " + this.mapper + " " + this.functions + " " + this.converter + " " + this.decimalNumberContext;
     }
 }

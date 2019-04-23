@@ -63,6 +63,42 @@ public final class AndNodeSelectorTest extends
                 child);
     }
 
+    @Test
+    public void testMap() {
+        final TestNode parent = TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        // children selects $child1 & $child2, index(1) only selects $child1 giving $child1.
+        this.acceptMapAndCheck(this.createSelector0(ChildrenNodeSelector.get(), NodeSelector.indexedChild(1)),
+                parent, // parent1
+                TestNode.with("parent", TestNode.with("child1*0"), TestNode.with("child2")));
+    }
+
+    @Test
+    public void testMap2() {
+        final TestNode parent = TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        // children selects $child1 & $child2, index(2) only selects $child2 giving $child2.
+        this.acceptMapAndCheck(this.createSelector0(ChildrenNodeSelector.get(), NodeSelector.indexedChild(2)),
+                parent, // parent1
+                TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2*0")));
+    }
+
+    @Test
+    public void testMap3() {
+        final TestNode parent = TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        // children and descendant both select all children.
+        this.acceptMapAndCheck(this.createSelector0(ChildrenNodeSelector.get(), NodeSelector.descendant()),
+                parent, // parent1
+                TestNode.with("parent", TestNode.with("child1*0"), TestNode.with("child2*1")));
+    }
+
     @Override
     NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors) {
         return AndNodeSelector.with(selectors);
