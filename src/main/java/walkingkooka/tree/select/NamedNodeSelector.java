@@ -59,7 +59,8 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
         return new NamedNodeSelector<>(this.name, this.separator, selector);
     }
 
-    @Override final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         if (this.name.equals(node.name())) {
             this.select(node, context);
         }

@@ -73,6 +73,9 @@ final class BasicNodeSelectorContextFunction implements Function<ExpressionNodeN
         return Optional.ofNullable(this.nameToFunction.get(name));
     }
 
+    /**
+     * Provides a lookup by {@link ExpressionNodeName function name} to the actual function.
+     */
     private final Map<ExpressionNodeName, ExpressionFunction<?>> nameToFunction;
 
     @Override

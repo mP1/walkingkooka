@@ -80,6 +80,7 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
         return "&";
     }
 
+    @Override
     boolean canBeEqual(final Object other) {
         return other instanceof AndNodeSelector;
     }

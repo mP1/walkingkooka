@@ -62,7 +62,8 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         return new ExpressionNodeSelector<N, NAME, ANAME, AVALUE>(this.expressionNode, selector);
     }
 
-    @Override final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         try {
             final Object value = this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context));
             if (value instanceof Boolean) {

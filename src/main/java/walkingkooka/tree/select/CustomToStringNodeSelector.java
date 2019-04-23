@@ -71,6 +71,7 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     // Object
 
+    @Override
     public int hashCode() {
         return this.selector.hashCode();
     }
