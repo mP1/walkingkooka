@@ -21,8 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
-import java.util.Optional;
-
 /**
  * A {@link NodeSelector} that selects all the preceding nodes of a given {@link Node}. It does this by asking all ancestors to process their following
  * siblings and their ancestors.
@@ -62,11 +60,6 @@ final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.selectChildren(node, context);
         this.selectFollowingSiblings(node, context);
-
-        final Optional<N> parent = node.parent();
-        if (parent.isPresent()) {
-            this.selectFollowingSiblings(parent.get(), context);
-        }
     }
 
     @Override
