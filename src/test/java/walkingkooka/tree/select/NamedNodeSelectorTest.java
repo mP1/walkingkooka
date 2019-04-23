@@ -103,7 +103,7 @@ final public class NamedNodeSelectorTest extends
     }
 
     @Override
-    protected NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return createSelector(NAME);
     }
 

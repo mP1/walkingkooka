@@ -68,8 +68,7 @@ public final class OrNodeSelectorTest extends
     }
 
     @Override
-    final NodeSelector<TestNode, StringName, StringName, Object> createSelector0(
-            final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors) {
+    final NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors) {
         return OrNodeSelector.with(selectors);
     }
 

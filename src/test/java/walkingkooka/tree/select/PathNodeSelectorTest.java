@@ -96,7 +96,7 @@ final public class PathNodeSelectorTest extends
     }
 
     @Override
-    protected PathNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    PathNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return Cast.to(PathNodeSelector.with(child3()));
     }
 

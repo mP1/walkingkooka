@@ -79,7 +79,7 @@ final public class ChildrenNodeSelectorTest
     }
 
     @Override
-    protected ChildrenNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    ChildrenNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return ChildrenNodeSelector.get();
     }
 

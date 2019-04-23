@@ -59,7 +59,7 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Override
-    protected ExpressionNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    ExpressionNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return ExpressionNodeSelector.with(expression());
     }
 

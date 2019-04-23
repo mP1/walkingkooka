@@ -101,7 +101,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Override
-    protected DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
+    DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return DescendantOrSelfNodeSelector.with(SEPARATOR);
     }
 
