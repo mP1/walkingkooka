@@ -134,7 +134,8 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
 
         return this.children.equals(children) ?
                 this :
-                new TestNode(this.name, NO_PARENT, this.copyChildren(children), this.attributes);
+                new TestNode(this.name, NO_PARENT, copyChildren(children), this.attributes)
+                        .replace(this.parent, this.index);
     }
 
     public TestNode child(final int i) {
@@ -150,11 +151,16 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
     private TestNode copy() {
         return new TestNode(this.name,
                 NO_PARENT,
-                this.copyChildren(this.children),
+                copyChildren(this.children),
                 this.copyAttributes());
     }
 
     private final List<TestNode> children;
+
+    private TestNode replace(final Optional<TestNode> previousParent, final int index) {
+        return previousParent.map(p -> p.setChild(index, this).child(index))
+                .orElse(this);
+    }
 
     @Override
     public Map<StringName, Object> attributes() {
@@ -169,7 +175,8 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         copy.putAll(attributes);
         return this.attributes.equals(copy) ?
                 this :
-                new TestNode(this.name, NO_PARENT, this.copyChildren(this.children), Maps.readOnly(copy));
+                new TestNode(this.name, NO_PARENT, copyChildren(this.children), Maps.readOnly(copy))
+                        .replace(this.parent, this.index);
     }
 
     private Map<StringName, Object> copyAttributes() {
