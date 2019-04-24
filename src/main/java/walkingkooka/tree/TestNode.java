@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A basic {@link Node} with some simplifications. Note that all node names must be unique and that children have their
@@ -63,7 +64,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
 
         return new TestNode(Names.string(name),
                 NO_PARENT,
-                Lists.of(children),
+                copyChildren(Lists.of(children)),
                 Maps.empty());
     }
 
@@ -134,11 +135,24 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
 
         return this.children.equals(children) ?
                 this :
-                new TestNode(this.name, NO_PARENT, children, this.attributes);
+                new TestNode(this.name, NO_PARENT, this.copyChildren(children), this.attributes);
     }
 
     public TestNode child(final int i) {
         return this.children().get(i);
+    }
+
+    private static List<TestNode> copyChildren(final List<TestNode> children) {
+        return children.stream()
+                .map(c -> c.copy())
+                .collect(Collectors.toList());
+    }
+
+    private TestNode copy() {
+        return new TestNode(this.name,
+                NO_PARENT,
+                this.copyChildren(this.children),
+                this.copyAttributes());
     }
 
     private final List<TestNode> children;
@@ -156,7 +170,13 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         copy.putAll(attributes);
         return this.attributes.equals(copy) ?
                 this :
-                new TestNode(this.name, NO_PARENT, this.children, copy);
+                new TestNode(this.name, NO_PARENT, this.copyChildren(this.children), Maps.readOnly(copy));
+    }
+
+    private Map<StringName, Object> copyAttributes() {
+        final Map<StringName, Object> copy = Maps.ordered();
+        copy.putAll(this.attributes);
+        return copy;
     }
 
     private final Map<StringName, Object> attributes;
