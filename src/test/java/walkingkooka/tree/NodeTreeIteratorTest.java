@@ -51,27 +51,41 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
 
     @Test
     public void testOnlyChildrenNoSiblings() {
-        final TestNode child1 = TestNode.with("child1");
-        final TestNode child2 = TestNode.with("child2");
-        final TestNode child3 = TestNode.with("child3");
-
-        final TestNode parent = TestNode.with("parent", child1, child2, child3);
-        this.iterateAndCheck(parent.treeIterator(), parent, child1, child2, child3);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, child1, child2, child3);
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1"),
+                TestNode.with("child2"),
+                TestNode.with("child3"));
+        this.iterateAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(1),
+                parent.child(2));
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(1),
+                parent.child(2));
     }
 
     @Test
     public void testOnlyChildrenNoSiblingsIgnoresParent() {
-        final TestNode child1 = TestNode.with("child1");
-        final TestNode child2 = TestNode.with("child2");
-        final TestNode child3 = TestNode.with("child3");
+        final TestNode root = TestNode.with("root", TestNode.with("parent",
+                TestNode.with("child1"),
+                TestNode.with("child2"),
+                TestNode.with("child3")));
 
-        final TestNode parent = TestNode.with("parent", child1, child2, child3);
+        final TestNode parent = root.child(0);
 
-        TestNode.with("root", parent);
-
-        this.iterateAndCheck(parent.treeIterator(), parent, child1, child2, child3);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, child1, child2, child3);
+        this.iterateAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(1),
+                parent.child(2));
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(1),
+                parent.child(2));
     }
 
     @Test
@@ -85,66 +99,69 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
         final TestNode afterSibling = TestNode.with("afterSibling");
         TestNode.with("root", beforeSibling, parent, afterSibling);
 
-        this.iterateAndCheck(parent.treeIterator(), parent, child1, child2, child3);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, child1, child2, child3);
+        this.iterateAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(1),
+                parent.child(2));
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(1),
+                parent.child(2));
     }
 
     @Test
     public void testWithGrandChildren() {
-        final TestNode grandChild = TestNode.with("grandChild");
-        final TestNode child = TestNode.with("child", grandChild);
-        final TestNode parent = TestNode.with("parent", child);
+        final TestNode parent = TestNode.with("parent", TestNode.with("child", TestNode.with("grandChild")));
 
-        this.iterateAndCheck(parent.treeIterator(), parent, child, grandChild);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, child, grandChild);
+        this.iterateAndCheck(parent.treeIterator(), parent, parent.child(0), parent.child(0).child(0));
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, parent.child(0), parent.child(0).child(0));
     }
 
     @Test
     public void testWithGrandChildren2() {
-        final TestNode grandChild1 = TestNode.with("grandChild1");
-        final TestNode child1 = TestNode.with("child1", grandChild1);
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1", TestNode.with("grandChild1")),
+                TestNode.with("child2", TestNode.with("grandChild2")));
 
-        final TestNode grandChild2 = TestNode.with("grandChild2");
-        final TestNode child2 = TestNode.with("child2", grandChild2);
-
-        final TestNode parent = TestNode.with("parent", child1, child2);
-
-        this.iterateAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2);
+        this.iterateAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(0).child(0),
+                parent.child(1),
+                parent.child(1).child(0));
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(0).child(0),
+                parent.child(1),
+                parent.child(1).child(0));
     }
 
     @Test
     public void testWithGrandChildren3() {
-        final TestNode grandChild1 = TestNode.with("grandChild1");
-        final TestNode child1 = TestNode.with("child1", grandChild1);
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1", TestNode.with("grandChild1A"), TestNode.with("grandChild1B")),
+                TestNode.with("child2", TestNode.with("grandChild2")),
+                TestNode.with("child3"));
 
-        final TestNode grandChild2 = TestNode.with("grandChild2");
-        final TestNode grandChild3 = TestNode.with("grandChild3");
-        final TestNode child2 = TestNode.with("child2", grandChild2, grandChild3);
-
-        final TestNode child3 = TestNode.with("child3");
-
-        final TestNode parent = TestNode.with("parent", child1, child2, child3);
-
-        this.iterateAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2, grandChild3, child3);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2, grandChild3, child3);
-    }
-
-    @Test
-    public void testWithGrandChildren4() {
-        final TestNode grandChild1 = TestNode.with("grandChild1");
-        final TestNode child1 = TestNode.with("child1", grandChild1);
-
-        final TestNode grandChild2 = TestNode.with("grandChild2");
-        final TestNode grandChild3 = TestNode.with("grandChild3");
-        final TestNode child2 = TestNode.with("child2", grandChild2, grandChild3);
-
-        final TestNode child3 = TestNode.with("child3");
-
-        TestNode.with("parent", child1, child2, child3);
-
-        this.iterateAndCheck(child1.treeIterator(), child1, grandChild1);
-        this.iterateUsingHasNextAndCheck(child1.treeIterator(), child1, grandChild1);
+        this.iterateAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(0).child(0),
+                parent.child(0).child(1),
+                parent.child(1),
+                parent.child(1).child(0),
+                parent.child(2));
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+                parent,
+                parent.child(0),
+                parent.child(0).child(0),
+                parent.child(0).child(1),
+                parent.child(1),
+                parent.child(1).child(0),
+                parent.child(2));
     }
 
     @Test

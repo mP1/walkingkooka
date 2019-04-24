@@ -21,6 +21,7 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -33,6 +34,7 @@ import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,6 +47,36 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
+    }
+
+    @Test
+    public void testWith() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+
+        this.childrenParentCheck(TestNode.with("parent", child1, child2));
+        this.parentWithoutAndCheck2(child1, child2);
+    }
+
+    @Test
+    public void testWithChildrenCopied() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+
+        final TestNode parent = TestNode.with("parent", child1, child2);
+        final String parentToString = parent.toString();
+        this.childrenParentCheck(parent);
+
+        TestNode.clear();
+
+        final TestNode parent2 = TestNode.with("parent2", child1, child2);
+        final String parent2ToString = parent2.toString();
+        this.childrenParentCheck(parent2);
+
+        assertEquals(parentToString, parent.toString(), "parent.toString");
+        assertEquals(parentToString, parent2ToString.replace("parent2", "parent"), "parent2.toString");
+
+        this.parentWithoutAndCheck2(child1, child2);
     }
 
     @Test
@@ -66,11 +98,11 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     public void testParentWithoutChild() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
-        TestNode.with("root", child1, child2);
+        final TestNode parent = TestNode.with("parent", child1, child2);
 
         TestNode.clear();
 
-        this.parentWithoutAndCheck(child1, TestNode.with("root", TestNode.with("child2")));
+        this.parentWithoutAndCheck(parent.child(0), TestNode.with("parent", child2));
     }
 
     @Override
@@ -92,9 +124,9 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         final TestNode parent2 = TestNode.with("parent2");
         final TestNode root = TestNode.with("root", parent1, parent2);
 
-        assertEquals(root, child1.root());
-        assertEquals(root, child2.root());
-        assertEquals(root, parent2.root());
+        assertEquals(root, root.child(0).child(0).root());
+        assertEquals(root, root.child(0).child(1).root());
+        assertEquals(root, root.child(0).root());
         assertEquals(root, root);
     }
 
@@ -155,6 +187,41 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         assertEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")),
                 root.setChild(Names.string("unknown"), child3));
+    }
+
+    @Test
+    public void testSetChildren() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+
+        final TestNode parent = TestNode.with("parent", child1, child2);
+        final String parentToString = parent.toString();
+
+        final TestNode parent2 = parent.setChildren(Lists.of(child2, child1))
+                .setChildren(Lists.of(child1, child2));
+        final String parent2ToString = parent2.toString();
+
+        assertEquals(parentToString, parent2ToString);
+
+        this.parentWithoutAndCheck2(child1, child2);
+    }
+
+    @Test
+    public void testSetChildren2() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+
+        final TestNode parent = TestNode.with("parent", child1, child2);
+        final String parentToString = parent.toString();
+
+        final TestNode child3 = TestNode.with("child3");
+        final TestNode parent2 = parent.setChildren(Lists.of(child1, child3));
+        final String parent2ToString = parent2.toString();
+
+        assertEquals(parentToString, parent2ToString
+                .replace("child3", "child2"));
+
+        this.parentWithoutAndCheck2(child1, child2, child3);
     }
 
     @Test
@@ -285,7 +352,13 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
     private int i = 0;
 
-    @Override public String typeNamePrefix() {
+    private void parentWithoutAndCheck2(final TestNode... nodes) {
+        Arrays.stream(nodes)
+                .forEach(this::parentWithoutAndCheck);
+    }
+
+    @Override
+    public String typeNamePrefix() {
         return "Test";
     }
 
@@ -294,7 +367,8 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         return TestNode.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }
