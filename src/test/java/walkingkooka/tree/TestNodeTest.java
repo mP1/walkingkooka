@@ -38,7 +38,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestNodeTest implements ClassTesting2<TestNode>,
         NodeTesting2<TestNode, StringName, StringName, Object>,
@@ -105,15 +104,22 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         this.parentWithoutAndCheck(parent.child(0), TestNode.with("parent", child2));
     }
 
-    @Override
-    public final void testRemoveParent() {
+    @Test
+    public void testRemoveParent() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent = TestNode.with("parent", child1, child2);
+
+        this.removeParentAndCheck(parent);
     }
 
     @Test
-    public final void testRemoveParentFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNode().removeParent();
-        });
+    public void testRemoveParent2() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent = TestNode.with("parent", child1, child2);
+
+        this.removeParentAndCheck(parent.child(1));
     }
 
     @Test
