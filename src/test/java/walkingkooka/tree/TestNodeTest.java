@@ -22,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -35,6 +36,7 @@ import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -228,6 +230,58 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
                 .replace("child3", "child2"));
 
         this.parentWithoutAndCheck2(child1, child2, child3);
+    }
+
+    @Test
+    public void testSetChildrenWithParent() {
+        final TestNode grandParent = TestNode.with("grandParent",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")
+                ),
+                TestNode.with("parent2",
+                        TestNode.with("child3"), TestNode.with("child4")
+                ));
+
+        final TestNode child5 = TestNode.with("child5");
+
+        TestNode.clear();
+
+        assertEquals(TestNode.with("grandParent",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")
+                ),
+                TestNode.with("parent2",
+                        TestNode.with("child3"), child5)),
+                grandParent.child(1)
+                        .setChild(1, child5)
+                        .root());
+
+        this.checkWithoutParent(child5);
+    }
+
+    @Test
+    public void testSetAttributesWithParent() {
+        final TestNode grandParent = TestNode.with("grandParent",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")
+                ),
+                TestNode.with("parent2",
+                        TestNode.with("child3"), TestNode.with("child4")
+                ));
+
+        TestNode.clear();
+
+        final Map<StringName, Object> attributes = Maps.of(Names.string("attribute123"), "value456");
+
+        assertEquals(TestNode.with("grandParent",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")
+                ),
+                TestNode.with("parent2",
+                        TestNode.with("child3"), TestNode.with("child4").setAttributes(attributes))),
+                grandParent.child(1).child(1)
+                        .setAttributes(attributes)
+                        .root());
     }
 
     @Test
