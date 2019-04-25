@@ -42,7 +42,9 @@ final class OrNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends 
         Objects.requireNonNull(selectors, "selectors");
 
         final Collection<NodeSelector<N, NAME, ANAME, AVALUE>> unique = gatherUniques(selectors);
-        return unique.size() == 1 ? unique.iterator().next() : new OrNodeSelector<N, NAME, ANAME, AVALUE>(unique);
+        return unique.size() == 1 ?
+                unique.iterator().next() :
+                new OrNodeSelector<>(unique);
     }
 
     /**

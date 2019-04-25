@@ -45,7 +45,7 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
         Objects.requireNonNull(selectors, "selectors");
 
         final Collection<NodeSelector<N, NAME, ANAME, AVALUE>> unique = gatherUniques(selectors);
-        return unique.size() == 1 ? unique.iterator().next() : new AndNodeSelector<N, NAME, ANAME, AVALUE>(unique);
+        return unique.size() == 1 ? unique.iterator().next() : new AndNodeSelector<>(unique);
     }
 
     /**
