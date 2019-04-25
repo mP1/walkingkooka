@@ -20,28 +20,24 @@ package walkingkooka.tree;
 
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
-import walkingkooka.naming.Name;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
- * An {@link Iterator} returned by {@link Node#treeIterator()} that walks all the descendants starting a the beginning {@link Node}.
+ * An {@link Iterator} returned by {@link Traversable#traversableIterator()} that walks all the descendants starting a the beginning {@link Traversable}.
  */
-final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> implements Iterator<N> {
+final class TraversableIterator<T extends Traversable<T>> implements Iterator<T> {
 
     /**
-     * Package private ctor only called by default method {@link Node#treeIterator()}
+     * Package private ctor only called by default method {@link Traversable#traversableIterator()}
      */
-    NodeTreeIterator(final N node) {
-        final Stack<N> unprocessed = Stacks.arrayList();
+    TraversableIterator(final T traversable) {
+        final Stack<T> unprocessed = Stacks.arrayList();
         this.unprocessed = unprocessed;
 
-        unprocessed.push(node);
+        unprocessed.push(traversable);
     }
 
     @Override
@@ -56,8 +52,8 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    public N next() {
-        N give = this.next;
+    public T next() {
+        T give = this.next;
         this.next = null;
         if (null == give) {
             this.next = this.nextOrNull();
@@ -71,38 +67,38 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * Cache of the next node or null.
+     * Cache of the next traversable or null.
      */
-    private N next;
+    private T next;
 
-    private N nextOrNull() {
-        N node = null;
+    private T nextOrNull() {
+        T traversable = null;
 
-        final Stack<N> stack = this.unprocessed;
+        final Stack<T> stack = this.unprocessed;
         if (false == stack.isEmpty()) {
-            node = stack.peek();
+            traversable = stack.peek();
             stack.pop();
 
-            this.pushNextSibling(node);
-            this.pushFirstChild(node);
+            this.pushNextSibling(traversable);
+            this.pushFirstChild(traversable);
         }
 
-        return node;
+        return traversable;
     }
 
     /**
-     * A {@link Stack} of {@link Node nodes} that remain unprocessed and are immediate candidates for match testing.
+     * A {@link Stack} of {@link Traversable} that remain unprocessed and are immediate candidates for match testing.
      */
-    private final Stack<N> unprocessed;
+    private final Stack<T> unprocessed;
 
     /**
-     * Starting at the given {@link Node} pushes the next sibling.
+     * Starting at the given {@link Traversable} pushes the next sibling.
      */
-    private void pushNextSibling(final N node) {
+    private void pushNextSibling(final T traversable) {
         if (this.skipNextSibling) {
             this.skipNextSibling = false;
         } else {
-            final Optional<N> nextSibling = node.nextSibling();
+            final Optional<T> nextSibling = traversable.nextSibling();
             if (nextSibling.isPresent()) {
                 this.unprocessed.push(nextSibling.get());
             }
@@ -112,10 +108,10 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
     private boolean skipNextSibling = true;
 
     /**
-     * Pushes the first child of the {@link Node} if it is a parent.
+     * Pushes the first child of the {@link Traversable} if it is a parent.
      */
-    private void pushFirstChild(final N node) {
-        final Optional<N> firstChild = node.firstChild();
+    private void pushFirstChild(final T traversable) {
+        final Optional<T> firstChild = traversable.firstChild();
         if (firstChild.isPresent()) {
             this.unprocessed.push(firstChild.get());
         }

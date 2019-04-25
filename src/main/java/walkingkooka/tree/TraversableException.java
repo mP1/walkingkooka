@@ -13,23 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree;
 
-public class NodeException extends TraversableException {
+public class TraversableException extends TreeException {
 
     private static final long serialVersionUID = 1L;
 
-    protected NodeException() {
+    protected TraversableException() {
         super();
     }
 
-    public NodeException(final String message) {
+    public TraversableException(final String message) {
         super(message);
     }
 
-    public NodeException(final String message, final Throwable cause) {
+    public TraversableException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

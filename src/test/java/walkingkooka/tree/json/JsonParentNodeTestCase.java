@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting2;
+import walkingkooka.tree.Traversable;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
@@ -114,7 +115,7 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
     // NodeTesting..............................................................................
 
     @Override
-    public final void childrenCheck(final Node<?, ?, ?, ?> node) {
+    public final void childrenCheck(final Traversable<?> node) {
         for (; ; ) {
             if (node instanceof JsonArrayNode) {
                 this.childrenArrayCheck(Cast.to(node));

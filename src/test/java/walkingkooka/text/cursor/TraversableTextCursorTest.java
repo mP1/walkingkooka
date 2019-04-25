@@ -20,19 +20,17 @@ package walkingkooka.text.cursor;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.naming.Name;
-import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeTextCursorTest implements ClassTesting2<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>>,
-        TextCursorTesting2<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>> {
+public final class TraversableTextCursorTest implements ClassTesting2<TraversableTextCursor<NodeTextCursorTestNode>>,
+        TextCursorTesting2<TraversableTextCursor<NodeTextCursorTestNode>> {
 
     // in all tests below text with numbers should be skipped because nodes with children text is ignored.
 
     @Test
     public void testParentAndChild() {
-        final TextCursor cursor = NodeTextCursor.with(
+        final TextCursor cursor = TraversableTextCursor.with(
                 new NodeTextCursorTestNode("parent", "123",
                         new NodeTextCursorTestNode("child", "ABC")));
         this.checkNotEmpty(cursor);
@@ -49,7 +47,7 @@ public final class NodeTextCursorTest implements ClassTesting2<NodeTextCursor<No
 
     @Test
     public void testParentAndChild2() {
-        final TextCursor cursor = NodeTextCursor.with(
+        final TextCursor cursor = TraversableTextCursor.with(
                 new NodeTextCursorTestNode("parent", "123",
                         new NodeTextCursorTestNode("child", "A"),
                         new NodeTextCursorTestNode("child", "B")));
@@ -65,7 +63,7 @@ public final class NodeTextCursorTest implements ClassTesting2<NodeTextCursor<No
 
     @Test
     public void testParentAndChildAndGrandchildren() {
-        final TextCursor cursor = NodeTextCursor.with(
+        final TextCursor cursor = TraversableTextCursor.with(
                 new NodeTextCursorTestNode("parent", "123",
                         new NodeTextCursorTestNode("child1", "A"),
                         new NodeTextCursorTestNode("child2", "456",
@@ -88,7 +86,7 @@ public final class NodeTextCursorTest implements ClassTesting2<NodeTextCursor<No
 
     @Test
     public void testGraphSaveAndRestores() {
-        final TextCursor cursor = NodeTextCursor.with(
+        final TextCursor cursor = TraversableTextCursor.with(
                 new NodeTextCursorTestNode("parent", "123",
                         new NodeTextCursorTestNode("child1", "A"),
                         new NodeTextCursorTestNode("child2", "456",
@@ -137,13 +135,13 @@ public final class NodeTextCursorTest implements ClassTesting2<NodeTextCursor<No
     // TextCursorTesting2.......................................................................................
 
     @Override
-    public NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object> createTextCursor(final String text) {
-        return NodeTextCursor.with(new NodeTextCursorTestNode("root-without-children", text));
+    public TraversableTextCursor<NodeTextCursorTestNode> createTextCursor(final String text) {
+        return TraversableTextCursor.with(new NodeTextCursorTestNode("root-without-children", text));
     }
 
     @Override
-    public Class<NodeTextCursor<NodeTextCursorTestNode, StringName, Name, Object>> type() {
-        return Cast.to(NodeTextCursor.class);
+    public Class<TraversableTextCursor<NodeTextCursorTestNode>> type() {
+        return Cast.to(TraversableTextCursor.class);
     }
 
     // ClassTestCase.......................................................................................

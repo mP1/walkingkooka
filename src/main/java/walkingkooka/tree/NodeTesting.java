@@ -20,17 +20,11 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.BeanPropertiesTesting;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.visit.VisitableTesting;
-import walkingkooka.type.FieldAttributes;
-import walkingkooka.type.MemberVisibility;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -49,20 +43,10 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         ANAME extends Name,
         AVALUE>
         extends
-        VisitableTesting<N>,
-        HashCodeEqualsDefinedTesting<N>,
         NodeSelectorTesting<N, NAME, ANAME, AVALUE>,
-        ToStringTesting<N>,
+        TraversableTesting<N>,
+        VisitableTesting<N>,
         TypeNameTesting<N> {
-
-    @Test
-    default void testPathSeparatorConstant() throws Exception {
-        final Field field = this.type().getField("PATH_SEPARATOR");
-
-        assertEquals(MemberVisibility.PUBLIC, MemberVisibility.get(field), () -> "PATH_SEPARATOR constant must be public=" + field);
-        assertEquals(true, FieldAttributes.STATIC.is(field), () -> "PATH_SEPARATOR constant must be static=" + field);
-        assertEquals(PathSeparator.class, field.getType(), () -> "PATH_SEPARATOR constant type=" + field);
-    }
 
     @Test
     default void testNameCached() {
@@ -71,20 +55,9 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    default void testParentCached() {
-        final N node = this.createNode();
-        this.checkCached(node, "parent", node.parent(), node.parent());
-    }
-
-    @Test
     default void testRemoveParent() {
         final N node = this.createNode();
         this.removeParentAndCheck(node);
-    }
-
-    @Test
-    default void testParentWithoutRoot() {
-        this.parentWithoutAndCheck(this.createNode().root());
     }
 
     @Test
@@ -102,11 +75,6 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
         assertEquals(Optional.empty(), node.parent(), "node must have no parent");
         assertSame(node, node.root());
-    }
-
-    @Test
-    default void testChildrenIndices() {
-        this.childrenCheck(this.createNode());
     }
 
     @Test
@@ -146,30 +114,6 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    default void testFirstChild() {
-        final N node = this.createNode();
-        final List<N> children = node.children();
-        final Optional<N> first = node.firstChild();
-        if (children.isEmpty()) {
-            assertEquals(Optional.empty(), first, "childless node must not have a first child.");
-        } else {
-            assertEquals(Optional.of(children.get(0)), first, "node with children must have a first child.");
-        }
-    }
-
-    @Test
-    default void testLastChild() {
-        final N node = this.createNode();
-        final List<N> children = node.children();
-        final Optional<N> last = node.lastChild();
-        if (children.isEmpty()) {
-            assertEquals(Optional.empty(), last, "childless node must not have a last child.");
-        } else {
-            assertEquals(Optional.of(children.get(children.size() - 1)), last, "node with children must have a last child.");
-        }
-    }
-
-    @Test
     default void testPropertiesNeverReturnNull() throws Exception {
         BeanPropertiesTesting.allPropertiesNeverReturnNullCheck(this.createNode(),
                 (m) -> m.getName().equals("parentOrFail") || m.getName().equals("removeParent"));
@@ -178,29 +122,8 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     N createNode();
 
     @Override
-    default N createObject() {
+    default N createTraversable() {
         return this.createNode();
-    }
-
-    default <T> void checkCached(final N node,
-                                 final String property,
-                                 final T value,
-                                 final T value2) {
-        assertSame(value, value2, () -> node + " did not cache " + property);
-    }
-
-    default void childrenCheck(final Node<?, ?, ?, ?> node) {
-        final Optional<Node> nodeAsParent = Optional.of(node);
-
-        int i = 0;
-        for (Node<?, ?, ?, ?> child : node.children()) {
-            assertEquals(i, child.index(), () -> "Incorrect index of " + child);
-            final int j = i;
-            assertEquals(nodeAsParent, child.parent(), () -> "Incorrect parent of child " + j + "=" + child);
-
-            this.childrenCheck(child);
-            i++;
-        }
     }
 
     default void removeParentAndCheck(final N node) {
@@ -219,11 +142,6 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         assertEquals(Optional.empty(), node.parent(), "parent");
         assertEquals(true, node.isRoot(), "root");
         assertEquals(Optional.empty(), node.parentWithout(), () -> "parent without " + node);
-    }
-
-    default void checkWithParent(final N node) {
-        assertNotEquals(Optional.empty(), node.parent(), "parent");
-        assertEquals(false, node.isRoot(), "root");
     }
 
     @Test
@@ -292,23 +210,6 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         this.childCountCheck(newParent, children);
 
         return newParent;
-    }
-
-    default void childrenParentCheck(final N parent) {
-        int i = 0;
-        for (N child : parent.children()) {
-            final int j = i;
-            assertSame(parent, child.parentOrFail(), () -> "parent of child[" + i + "]=" + child);
-        }
-    }
-
-    default void childCountCheck(final N parent, final N... children) {
-        this.childCountCheck(parent, children.length);
-    }
-
-    default void childCountCheck(final N parent, final int count) {
-        assertEquals(parent.children().size(), count, "children of parent");
-        this.childrenParentCheck(parent);
     }
 
     // TypeNameTesting............................................................................................

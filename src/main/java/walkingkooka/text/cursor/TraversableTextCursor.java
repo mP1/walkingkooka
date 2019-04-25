@@ -18,41 +18,34 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.naming.Name;
 import walkingkooka.text.HasText;
-import walkingkooka.tree.Node;
+import walkingkooka.tree.Traversable;
 
 import java.util.Iterator;
 import java.util.Objects;
 
 /**
- * A {@link TextCursor} that consumes the text belonging to a {@link Node} and all its descendants.
- * This will be useful to walk over a tree of nodes, where some or all or perhaps none contain text.
- * Note that any parent node, that is a node with one or more children will have its text if any ignored. It is assumed
- * that the text of a parent node, may be reconstructed from the text from child nodes.
+ * A {@link TextCursor} that consumes the text belonging to a {@link Traversable} and all its descendants.
+ * This will be useful to walk over a tree of Traversable, where some or all or perhaps none contain text.
+ * Note that any parent traversable, that is a traversable with one or more children will have its text if any ignored.
+ * It is assumed that the text of a parent traversable, may be reconstructed from the text from child traversables.
  */
-final class NodeTextCursor<N extends Node<N, NAME, ANAME, AVALUE> & HasText,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> implements TextCursor {
+final class TraversableTextCursor<T extends Traversable<T> & HasText> implements TextCursor {
 
     /**
-     * Factory that creates a {@link TextCursor} using the provided {@link Node}
+     * Factory that creates a {@link TextCursor} using the provided {@link Traversable}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE> & HasText,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeTextCursor<N, NAME, ANAME, AVALUE> with(final N node) {
-        Objects.requireNonNull(node, "node");
+    static <T extends Traversable<T> & HasText> TraversableTextCursor<T> with(final T traversable) {
+        Objects.requireNonNull(traversable, "traversable");
 
-        return new NodeTextCursor<>(node);
+        return new TraversableTextCursor<>(traversable);
     }
 
     /**
      * Private ctor use factory
      */
-    private NodeTextCursor(final N node) {
-        this.nodes = node.treeIterator();
+    private TraversableTextCursor(final T traversable) {
+        this.iterator = traversable.traversableIterator();
         this.cursor = TextCursors.charSequence(this.text);
     }
 
@@ -77,16 +70,16 @@ final class NodeTextCursor<N extends Node<N, NAME, ANAME, AVALUE> & HasText,
 
     private void fillIfCursorEmpty() {
         if (this.cursor.isEmpty()) {
-            // grab next node, and fill StringBuilder $text.
+            // grab next traversable, and fill StringBuilder $text.
             for (; ; ) {
-                if (!this.nodes.hasNext()) {
+                if (!this.iterator.hasNext()) {
                     break;
                 }
-                final N node = this.nodes.next();
+                final T traversable = this.iterator.next();
 
-                // only consume text from nodes without any children...
-                if (node.children().isEmpty()) {
-                    this.text.append(node.text());
+                // only consume text from traversables without any children...
+                if (traversable.children().isEmpty()) {
+                    this.text.append(traversable.text());
                     break;
                 }
             }
@@ -104,9 +97,9 @@ final class NodeTextCursor<N extends Node<N, NAME, ANAME, AVALUE> & HasText,
     }
 
     /**
-     * Provides the next {@link Node} to add more text to {@link #text}
+     * Provides the next {@link Traversable} to add more text to {@link #text}
      */
-    private final Iterator<N> nodes;
+    private final Iterator<T> iterator;
 
     /**
      * Filled with text whenever the wrapped cursor becomes empty.

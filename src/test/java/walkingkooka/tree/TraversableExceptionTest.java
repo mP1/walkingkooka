@@ -13,23 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree;
 
-public class NodeException extends TraversableException {
+import walkingkooka.test.StandardThrowableTesting;
 
-    private static final long serialVersionUID = 1L;
+public final class TraversableExceptionTest implements StandardThrowableTesting<TraversableException> {
 
-    protected NodeException() {
-        super();
-    }
-
-    public NodeException(final String message) {
-        super(message);
-    }
-
-    public NodeException(final String message, final Throwable cause) {
-        super(message, cause);
+    @Override
+    public Class<TraversableException> type() {
+        return TraversableException.class;
     }
 }
