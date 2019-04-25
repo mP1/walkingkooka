@@ -40,10 +40,7 @@ final public class PrecedingNodeSelectorTest extends
 
     @Test
     public void testChild() {
-        final TestNode child = TestNode.with("child");
-        final TestNode parent = TestNode.with("parent", child);
-
-        this.acceptAndCheck(parent, child);
+        this.acceptAndCheck(TestNode.with("parent", TestNode.with("child")));
     }
 
     @Test
@@ -133,6 +130,49 @@ final public class PrecedingNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2);
 
         this.acceptAndCheck(parent.child(2), preceding2, preceding1);
+    }
+
+    @Test
+    public void testMap() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")),
+                TestNode.with("parent3", TestNode.with("child4")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent.child(1),
+                TestNode.with("grand",
+                        TestNode.with("parent1*0",
+                                TestNode.with("child1*1"), TestNode.with("child2*2")),
+                        TestNode.with("parent2", TestNode.with("child3")),
+                        TestNode.with("parent3", TestNode.with("child4")))
+                        .child(1));
+    }
+
+    @Test
+    public void testMapSeveralPreceding() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")),
+                TestNode.with("parent3", TestNode.with("child4")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent.child(2),
+                TestNode.with("grand",
+                        TestNode.with("parent1*1",
+                                TestNode.with("child1"), TestNode.with("child2")),
+                        TestNode.with("parent2*0", TestNode.with("child3")),
+                        TestNode.with("parent3", TestNode.with("child4")))
+                        .child(2));
+    }
+
+    @Test
+    public void testMapWithoutPreceding() {
+        this.acceptMapAndCheck(TestNode.with("node123"));
     }
 
     @Test

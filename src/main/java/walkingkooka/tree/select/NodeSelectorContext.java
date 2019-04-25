@@ -36,5 +36,5 @@ public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     /**
      * Invoked with each and every selected {@link Node node}.
      */
-    void selected(final N node);
+    N selected(final N node);
 }

@@ -738,6 +738,24 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testSelectorMap() {
+        final JsonObjectNode object = JsonNode.object()
+                .set(key1(), JsonNode.booleanNode(true))
+                .set(key2(), JsonNode.number(2))
+                .set(key3(), JsonNode.string("third"));
+        final JsonNodeName key2 = this.key2();
+        final JsonNode replaced = JsonNode.string("*");
+
+        this.selectorAcceptMapAndCheck(object,
+                JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
+                        .descendant()
+                        .named(key2)
+                        .build(),
+                (n) -> replaced,
+                object.set(key2, replaced));
+    }
+
+    @Test
     public void testPrintJsonWithoutIndentationAndNoneLineEnding() {
         final JsonObjectNode object = JsonNode.object()
                 .set(key1(), JsonNode.booleanNode(true))

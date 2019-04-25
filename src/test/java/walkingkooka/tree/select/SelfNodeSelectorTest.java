@@ -76,6 +76,16 @@ final public class SelfNodeSelectorTest
                 child);
     }
 
+    @Test
+    public void testMap() {
+        final TestNode parent = TestNode.with("parent", TestNode.with("child"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(parent,
+                TestNode.with("parent*0", TestNode.with("child")));
+    }
+
     private NodeSelector<TestNode, StringName, StringName, Object> selfAndNamed() {
         return Cast.to(SelfNodeSelector.get()
                 .append(NamedNodeSelector.with(Names.string("child"), PathSeparator.requiredAtStart('/'))));

@@ -67,10 +67,48 @@ final public class ChildrenNodeSelectorTest
     public void testIgnoresSiblings() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
-        final TestNode siblingOfParent = TestNode.with("siblingOfParent", child);
+        final TestNode siblingOfParent = TestNode.with("siblingOfParent", TestNode.with("siblingOfParent-child"));
         final TestNode grandParent = TestNode.with("grandParent", parent, siblingOfParent);
 
         this.acceptAndCheck(parent, child);
+    }
+
+    @Test
+    public void testMapWithoutChildren() {
+        this.acceptMapAndCheck(TestNode.with("without-children"));
+    }
+
+    @Test
+    public void testMap() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent.child(0),
+                TestNode.with("grand",
+                        TestNode.with("parent1",
+                                TestNode.with("child1*0"), TestNode.with("child2*1")),
+                        TestNode.with("parent2", TestNode.with("child3")))
+                        .child(0));
+    }
+
+    @Test
+    public void testMap2() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent,
+                TestNode.with("grand",
+                        TestNode.with("parent1*0",
+                                TestNode.with("child1"), TestNode.with("child2")),
+                        TestNode.with("parent2*1", TestNode.with("child3"))));
     }
 
     @Test

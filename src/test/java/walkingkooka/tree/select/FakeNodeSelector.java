@@ -29,12 +29,12 @@ class FakeNodeSelector extends NodeSelector<TestNode, StringName, StringName, Ob
     }
 
     @Override
-    void accept1(final TestNode node, final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
+    TestNode accept1(final TestNode node, final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    void select(TestNode node, NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
+    TestNode select(TestNode node, NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
         throw new UnsupportedOperationException();
     }
 

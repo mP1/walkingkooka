@@ -55,10 +55,14 @@ final class OrNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends 
     // LogicalNodeSelector
 
     @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        N last = node;
+
         for (NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
-            selector.accept1(node, context);
+            last = selector.accept1(last, context);
         }
+
+        return last;
     }
 
     @Override

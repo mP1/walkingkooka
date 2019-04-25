@@ -85,8 +85,9 @@ final class LinkRelationConstantGenerator {
      * </record>
      * </pre>
      */
-    private static void record(final XmlNode node) {
+    private static XmlNode record(final XmlNode node) {
         record0(XmlElement.class.cast(node));
+        return node;
     }
 
     private static void record0(final XmlElement element) {

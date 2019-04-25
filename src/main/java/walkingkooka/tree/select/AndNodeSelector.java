@@ -24,6 +24,7 @@ import walkingkooka.tree.Node;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -55,24 +56,54 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
     }
 
     @Override
-    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        final AndNodeSelectorNodeSelectorContext andContext = AndNodeSelectorNodeSelectorContext.with(context);
         Set<N> all = null;
 
+        // gather the final selected nodes, these will have been matched by all selectors.
+        boolean first = true;
         for (NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
-            final Set<N> current = Sets.ordered();
-            selector.accept0(node, AndNodeSelectorNodeSelectorContext.with(context, (s) -> current.add(s)));
+            selector.accept0(node, andContext);
 
-            if (null == all) {
-                all = current;
-            } else {
-                all.retainAll(current);
-            }
-            if (all.isEmpty()) {
+            if (andContext.selected.isEmpty()) {
+                all = null;
                 break;
+            }
+            if (first) {
+                first = false;
+                all = andContext.selected;
+                andContext.selected = Sets.ordered();
+            } else {
+                all.retainAll(andContext.selected);
+                andContext.selected.clear();
             }
         }
 
-        all.forEach(n -> context.selected(n));
+        N result = node;
+        if (null != all && !all.isEmpty()) {
+
+            first = true;
+            for (N selected : all) {
+                if (!first) {
+                    final Optional<N> translated = selected.pointer()
+                            .traverse(result.root());
+                    if (!translated.isPresent()) {
+                        continue;
+                    }
+                    selected = translated.get();
+                }
+                first = false;
+                result = selected.replace(context.selected(selected));
+            }
+
+            // navigate back to the equivalent node after processing all matches...
+            final N result0 = result;
+            result = node.pointer()
+                    .traverse(result.root())
+                    .orElseThrow(() -> new NodeSelectorException("Node lost " + result0));
+        }
+
+        return result;
     }
 
     @Override

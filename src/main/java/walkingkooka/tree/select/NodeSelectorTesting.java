@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,7 +67,7 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final List<N> selected = this.selectorAcceptAndCollect(node, selector);
         assertEquals(Sets.of(expected),
                 new LinkedHashSet<>(selected),
-                "incorrect nodes selected, selector:\n" + selector);
+                () -> "incorrect nodes selected, selector:\n" + selector);
     }
 
     default void selectorAcceptAndCheckCount(final N node,
@@ -75,7 +76,7 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final List<N> selected = this.selectorAcceptAndCollect(node, selector);
         assertEquals(count,
                 selected.size(),
-                "incorrect number of matched node for selector\n" + selected);
+                () -> "incorrect number of matched node for selector\n" + selected);
     }
 
     default List<N> selectorAcceptAndCollect(final N node,
@@ -100,9 +101,33 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
             }
 
             @Override
-            public void selected(final N node) {
+            public N selected(final N node) {
                 selected.accept(node);
+                return node;
             }
         };
+    }
+
+    default void selectorAcceptMapAndCheck(final N node,
+                                           final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                           final Function<N, N> mapper,
+                                           final N expected) {
+        assertEquals(expected,
+                selector.accept(node, new FakeNodeSelectorContext<N, NAME, ANAME, AVALUE>() {
+                    @Override
+                    public void potential(final N node) {
+                    }
+
+                    @Override
+                    public N selected(final N node) {
+                        return mapper.apply(node);
+                    }
+
+                    @Override
+                    public String toString() {
+                        return mapper.toString();
+                    }
+                }),
+                () -> "selector " + selector + " map failed");
     }
 }

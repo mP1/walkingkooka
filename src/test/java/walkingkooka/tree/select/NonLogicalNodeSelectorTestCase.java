@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
         extends NodeSelectorTestCase<S> {
@@ -53,8 +54,9 @@ public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<Test
                                             final TestNode start,
                                             final String[] nodes) {
         final Set<TestNode> selected = Sets.ordered();
-        selector.accept(start, context((n) -> {
-        }, (n) -> selected.add(n)));
+        assertSame(start,
+                selector.accept(start, context((n) -> {
+                }, (n) -> selected.add(n))));
         final List<String> selectedNames = selected
                 .stream()
                 .map(n -> n.name().value())

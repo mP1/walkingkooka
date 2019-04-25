@@ -54,6 +54,56 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
+    public void testMapFalse() {
+        final TestNode node = TestNode.with("node");
+
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(false)),
+                node);
+    }
+
+    @Test
+    public void testMapTrue() {
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(true)),
+                TestNode.with("node"),
+                TestNode.with("node*0"));
+    }
+
+    @Test
+    public void testMapTrue2() {
+        final TestNode parent = TestNode.with("parent", TestNode.with("child"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(true)),
+                parent.child(0),
+                TestNode.with("parent", TestNode.with("child*0")).child(0));
+    }
+
+    @Test
+    public void testMapNumberNegative() {
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(-2)),
+                TestNode.with("node"));
+    }
+
+    @Test
+    public void testMapNumberOutOfRange() {
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(999)),
+                TestNode.with("node"));
+    }
+
+    @Test
+    public void testMapNumberValidIndex() {
+        final TestNode parent = TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        final int index = 1;
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + index)),
+                parent,
+                TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2*0")));
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "*[" + expression() + "]");
     }

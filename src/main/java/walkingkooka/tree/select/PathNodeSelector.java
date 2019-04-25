@@ -57,28 +57,37 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        N current = node;
+
         boolean abort = false;
 
-        N current = node;
         for (Integer index : this.path) {
-            final int zeroIndex = index - 1;
+            final int zeroIndex = index - INDEX_BIAS;
             final List<N> children = current.children();
             if (zeroIndex >= children.size()) {
                 abort = true;
+                current = node; // reset result to node.
                 break;
             }
             current = children.get(zeroIndex);
         }
 
-        if (!abort) {
-            this.select(current, context);
+        if(!abort) {
+            current = current.replace(this.select(current, context));
+
+            final int parentPop = this.path.size();
+            for(int i = 0; i < parentPop; i++) {
+                current = current.parentOrFail();
+            }
         }
+
+        return current;
     }
 
     @Override
-    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        context.selected(node);
+    N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return context.selected(node);
     }
 
     @Override

@@ -56,17 +56,17 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    final NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         throw new NeverError(this.getClass().getName() + ".select(Node, NodeSelectorContext)");
     }
 
     @Override
-    void toString0(final NodeSelectorToStringBuilder b) {
+    final void toString0(final NodeSelectorToStringBuilder b) {
         String between = "";
         for (NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
             b.append(between);
@@ -79,10 +79,12 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     // Object
 
+    @Override
     public final int hashCode() {
         return this.selectors.hashCode();
     }
 
+    @Override
     public final boolean equals(final Object other) {
         return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
     }

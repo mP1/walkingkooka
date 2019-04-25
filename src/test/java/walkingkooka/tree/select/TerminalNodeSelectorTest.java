@@ -26,6 +26,18 @@ final public class TerminalNodeSelectorTest
         extends NodeSelectorTestCase2<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
+    public void testMap() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(parent,
+                TestNode.with("parent*0",
+                        TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")));
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "");
     }

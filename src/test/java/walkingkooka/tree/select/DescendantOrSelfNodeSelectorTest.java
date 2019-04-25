@@ -96,6 +96,39 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Test
+    public void testMap() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent.child(0),
+                TestNode.with("grand",
+                        TestNode.with("parent1*0",
+                                TestNode.with("child1*1"), TestNode.with("child2*2")),
+                        TestNode.with("parent2", TestNode.with("child3")))
+                        .child(0));
+    }
+
+    @Test
+    public void testMap2() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grandParent,
+                TestNode.with("grand*0",
+                        TestNode.with("parent1*1",
+                                TestNode.with("child1*2"), TestNode.with("child2*3")),
+                        TestNode.with("parent2*4", TestNode.with("child3*5"))));
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "//");
     }

@@ -53,11 +53,9 @@ final class FirstChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         return new FirstChildNodeSelector<>(selector);
     }
 
-    // NodeSelector
-
     @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.select(node.firstChild(), context);
+    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return this.selectChild(node.firstChild(), node, context);
     }
 
     // Object

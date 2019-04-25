@@ -79,6 +79,49 @@ final public class PathNodeSelectorTest extends
     }
 
     @Test
+    public void testMapSelf() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(PathNodeSelector.with(parent),
+                parent,
+                TestNode.with("parent*0",
+                        TestNode.with("child1"), TestNode.with("child2")));
+    }
+
+    @Test
+    public void testMapChild() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1"), TestNode.with("child2"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(PathNodeSelector.with(parent.child(0)),
+                parent,
+                TestNode.with("parent",
+                        TestNode.with("child1*0"), TestNode.with("child2")));
+    }
+
+    @Test
+    public void testMapGrandChild() {
+        final TestNode grandParent = TestNode.with("grand",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(PathNodeSelector.with(grandParent.child(0).child(1)),
+                grandParent,
+                TestNode.with("grand",
+                        TestNode.with("parent1",
+                                TestNode.with("child1"), TestNode.with("child2*0")),
+                        TestNode.with("parent2", TestNode.with("child3"))));
+    }
+
+    @Test
     public void testEqualsDifferentNode() {
         this.checkNotEquals(this.createSelector(
                 TestNode.with("different-parent", TestNode.with("different-child-1"), TestNode.with("different-child-2")).child(1),

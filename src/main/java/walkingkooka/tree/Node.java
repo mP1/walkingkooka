@@ -132,9 +132,12 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     default N replace(final N node) {
         Objects.requireNonNull(node, "node");
 
-        return this.parent()
-                .map(p -> p.replaceChild(Cast.to(this), node).children().get(this.index()))
-                .orElse(node.removeParent());
+        // early abort if $node is the same as this, this prevents failures in readonly Node.setChildren that throw UOE.
+        return this.equals(node) ?
+                node :
+                this.parent()
+                        .map(p -> p.replaceChild(Cast.to(this), node).children().get(this.index()))
+                        .orElse(node.parent().map(n -> n.removeParent()).orElse(node));
     }
 
     /**

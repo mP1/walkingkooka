@@ -41,11 +41,11 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
             NAME extends Name,
             ANAME extends Name,
             AVALUE> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final Consumer<N> potential,
-                                                                      final Consumer<N> selected,
+                                                                      final Function<N, N> mapper,
                                                                       final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                       final Converter converter,
                                                                       final DecimalNumberContext decimalNumberContext) {
-        return BasicNodeSelectorContext.with(potential, selected, functions, converter, decimalNumberContext);
+        return BasicNodeSelectorContext.with(potential, mapper, functions, converter, decimalNumberContext);
     }
 
     /**

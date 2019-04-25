@@ -75,6 +75,37 @@ final public class IndexedChildNodeSelectorTest extends
     }
 
     @Test
+    public void testMap() {
+        this.acceptMapAndCheck(TestNode.with("parent"));
+    }
+
+    @Test
+    public void testMap2() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
+
+        this.acceptMapAndCheck(parent,
+                parent.setChild(1, TestNode.with("child2*0")));
+    }
+
+    @Test
+    public void testMap3() {
+        final TestNode grand = TestNode.with("grand-parent",
+                TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")),
+                TestNode.with("parent2", TestNode.with("child4")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(grand.child(0),
+                TestNode.with("grand-parent",
+                        TestNode.with("parent1",
+                                TestNode.with("child1"), TestNode.with("child2*0"), TestNode.with("child3")),
+                        TestNode.with("parent2", TestNode.with("child4")))
+                        .child(0));
+    }
+
+    @Test
     public void testEqualsDifferentIndex() {
         this.createSelector(INDEX + 1, this.wrapped());
     }

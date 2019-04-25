@@ -33,7 +33,7 @@ public final class AndNodeSelectorNodeSelectorContextTest implements ClassTestin
 
     @Override
     public AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
-        return AndNodeSelectorNodeSelectorContext.with(null, null);
+        return AndNodeSelectorNodeSelectorContext.with(null);
     }
 
     @Override

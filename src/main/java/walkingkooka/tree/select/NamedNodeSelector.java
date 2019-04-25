@@ -55,15 +55,16 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
 
     // NodeSelector
 
+    @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new NamedNodeSelector<>(this.name, this.separator, selector);
     }
 
     @Override
-    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        if (this.name.equals(node.name())) {
-            this.select(node, context);
-        }
+    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return this.name.equals(node.name()) ?
+                this.select(node, context) :
+                node;
     }
 
     private final NAME name;

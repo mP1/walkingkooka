@@ -54,7 +54,7 @@ public abstract class NodeSelectorTestCase2<S extends NodeSelector<TestNode, Str
             int i = 0;
 
             @Override
-            public void selected(final TestNode node) {
+            public TestNode selected(final TestNode node) {
                 if (i == nodes.length) {
                     Assertions.fail("Unexpected matching node: " + node);
                 }
@@ -64,6 +64,8 @@ public abstract class NodeSelectorTestCase2<S extends NodeSelector<TestNode, Str
                 }
                 expected.remove(0);
                 i++;
+
+                return node;
             }
         });
 
