@@ -47,9 +47,6 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     final N selectChild(final Optional<N> node,
                         final N parent,
                         final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-//        if (node.isPresent()) {
-//            this.select(node.get(), context);
-//        }
         return node.map(child -> this.select(child, context).parentOrFail())
                 .orElse(parent);
     }
