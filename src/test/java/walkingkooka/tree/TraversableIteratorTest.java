@@ -22,7 +22,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTesting;
-import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
@@ -32,10 +31,10 @@ import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterator<TestNode, StringName, StringName, Object>>,
+public final class TraversableIteratorTest implements ClassTesting2<TraversableIterator<TestNode>>,
         IteratorTesting,
-        ToStringTesting<NodeTreeIterator<TestNode, StringName, StringName, Object>>,
-        TypeNameTesting<NodeTreeIterator<TestNode, StringName, StringName, Object>> {
+        ToStringTesting<TraversableIterator<TestNode>>,
+        TypeNameTesting<TraversableIterator<TestNode>> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -45,8 +44,8 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
     @Test
     public void testNodeTreeIterator() {
         final TestNode node = TestNode.with("root");
-        this.iterateAndCheck(node.treeIterator(), node);
-        this.iterateUsingHasNextAndCheck(node.treeIterator(), node);
+        this.iterateAndCheck(node.traversableIterator(), node);
+        this.iterateUsingHasNextAndCheck(node.traversableIterator(), node);
     }
 
     @Test
@@ -55,12 +54,12 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
                 TestNode.with("child1"),
                 TestNode.with("child2"),
                 TestNode.with("child3"));
-        this.iterateAndCheck(parent.treeIterator(),
+        this.iterateAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(1),
                 parent.child(2));
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+        this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(1),
@@ -76,12 +75,12 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
 
         final TestNode parent = root.child(0);
 
-        this.iterateAndCheck(parent.treeIterator(),
+        this.iterateAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(1),
                 parent.child(2));
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+        this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(1),
@@ -99,12 +98,12 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
         final TestNode afterSibling = TestNode.with("afterSibling");
         TestNode.with("root", beforeSibling, parent, afterSibling);
 
-        this.iterateAndCheck(parent.treeIterator(),
+        this.iterateAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(1),
                 parent.child(2));
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+        this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(1),
@@ -115,8 +114,8 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
     public void testWithGrandChildren() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child", TestNode.with("grandChild")));
 
-        this.iterateAndCheck(parent.treeIterator(), parent, parent.child(0), parent.child(0).child(0));
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, parent.child(0), parent.child(0).child(0));
+        this.iterateAndCheck(parent.traversableIterator(), parent, parent.child(0), parent.child(0).child(0));
+        this.iterateUsingHasNextAndCheck(parent.traversableIterator(), parent, parent.child(0), parent.child(0).child(0));
     }
 
     @Test
@@ -125,13 +124,13 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
                 TestNode.with("child1", TestNode.with("grandChild1")),
                 TestNode.with("child2", TestNode.with("grandChild2")));
 
-        this.iterateAndCheck(parent.treeIterator(),
+        this.iterateAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(0).child(0),
                 parent.child(1),
                 parent.child(1).child(0));
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+        this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(0).child(0),
@@ -146,7 +145,7 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
                 TestNode.with("child2", TestNode.with("grandChild2")),
                 TestNode.with("child3"));
 
-        this.iterateAndCheck(parent.treeIterator(),
+        this.iterateAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(0).child(0),
@@ -154,7 +153,7 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
                 parent.child(1),
                 parent.child(1).child(0),
                 parent.child(2));
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(),
+        this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
                 parent,
                 parent.child(0),
                 parent.child(0).child(0),
@@ -186,13 +185,13 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
         this.toStringAndCheck(iterator, "\"root\"");
     }
 
-    private NodeTreeIterator<TestNode, StringName, StringName, Object> createIterator() {
-        return new NodeTreeIterator<>(TestNode.with("root"));
+    private TraversableIterator<TestNode> createIterator() {
+        return new TraversableIterator<>(TestNode.with("root"));
     }
 
     @Override
-    public Class<NodeTreeIterator<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(NodeTreeIterator.class);
+    public Class<TraversableIterator<TestNode>> type() {
+        return Cast.to(TraversableIterator.class);
     }
 
     @Override
@@ -202,7 +201,7 @@ public final class NodeTreeIteratorTest implements ClassTesting2<NodeTreeIterato
 
     @Override
     public String typeNamePrefix() {
-        return Node.class.getSimpleName();
+        return Traversable.class.getSimpleName();
     }
 
     @Override

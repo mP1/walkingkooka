@@ -26,7 +26,6 @@ import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visitable;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,7 +38,10 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-        extends HasName<NAME>, Visitable, HashCodeEqualsDefined {
+        extends HashCodeEqualsDefined,
+        HasName<NAME>,
+        Traversable<N>,
+        Visitable {
 
     /**
      * Returns the name of this node.
@@ -54,38 +56,26 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * Standard index response to indicate a unsuccessful scan of an item in a list.
+     * If not the root returns the index of this traversable, or -1 for root.
      */
-    int NO_INDEX = -1;
-
-    /**
-     * If not the root returns the index of this node, or -1 for root.
-     */
+    @Override
     default int index() {
-        int index = NO_INDEX;
-
-        final Optional<N> parent = this.parent();
-        if (parent.isPresent()) {
-            index = parent.get().children().indexOf(this);
-            if (NO_INDEX == index) {
-                throw new NodeException("Child not present in children of parent=" + this);
-            }
+        try {
+            return Traversable.super.index();
+        } catch (final TraversableException cause) {
+            throw new NodeException(cause.getMessage(), cause);
         }
-
-        return index;
     }
-
-    /**
-     * Returns the parent {@link Node}.
-     */
-    Optional<N> parent();
 
     /**
      * Helper that gets and complain if a parent is absent.
      */
     default N parentOrFail() {
-        return this.parent()
-                .orElseThrow(() -> new NodeException("Parent missing from " + this));
+        try {
+            return Traversable.super.parentOrFail();
+        } catch (final TraversableException cause) {
+            throw new NodeException(cause.getMessage(), cause);
+        }
     }
 
     /**
@@ -102,31 +92,6 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * Returns true if this node is the root.
-     */
-    default boolean isRoot() {
-        return !this.parent().isPresent();
-    }
-
-    /**
-     * Returns the root node which may or may not be this node.
-     * The default walks up the ancestor path until reaching the root.
-     */
-    default N root() {
-        N root = Cast.to(this);
-
-        for (; ; ) {
-            final Optional<N> parent = root.parent();
-            if (!parent.isPresent()) {
-                break;
-            }
-            root = parent.get();
-        }
-
-        return root;
-    }
-
-    /**
      * Replaces this {@link Node} returning the result.
      */
     default N replace(final N node) {
@@ -139,11 +104,6 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
                         .map(p -> p.replaceChild(Cast.to(this), node).children().get(this.index()))
                         .orElse(node.parent().map(n -> n.removeParent()).orElse(node));
     }
-
-    /**
-     * Returns the children of this node.
-     */
-    List<N> children();
 
     /**
      * Sets new children.
@@ -248,73 +208,10 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     N setAttributes(final Map<ANAME, AVALUE> attributes);
 
     /**
-     * Returns the previous sibling if one exists.
-     */
-    default Optional<N> previousSibling() {
-        Optional<N> result = Optional.empty();
-
-        final Optional<N> parent = this.parent();
-        if (parent.isPresent()) {
-            final List<N> children = parent.get().children();
-            final int index = this.index();
-            if (index > 0) {
-                result = Optional.of(children.get(index - 1));
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Returns the next sibling if one exists.
-     */
-    default Optional<N> nextSibling() {
-        Optional<N> result = Optional.empty();
-
-        final Optional<N> parent = this.parent();
-        if (parent.isPresent()) {
-            final List<N> children = parent.get().children();
-            final int index = this.index();
-            if (index + 1 < children.size()) {
-                result = Optional.of(children.get(index + 1));
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Returns the first child for the current node.
-     */
-    default Optional<N> firstChild() {
-        final List<N> children = this.children();
-        return children.isEmpty() ?
-                Optional.empty() :
-                Optional.of(children.get(0));
-    }
-
-    /**
-     * Returns the last child for the current node.
-     */
-    default Optional<N> lastChild() {
-        final List<N> children = this.children();
-        return children.isEmpty() ?
-                Optional.empty() :
-                Optional.of(children.get(children.size() - 1));
-    }
-
-    /**
      * Returns a select that may be used to locate this {@link Node} starting at the root.
      */
     default NodeSelector<N, NAME, ANAME, AVALUE> selector() {
         return NodeSelector.path(Cast.to(this));
-    }
-
-    /**
-     * An {@link Iterator} that walks starting at this {@link Node} depth first.
-     */
-    default Iterator<N> treeIterator() {
-        return new NodeTreeIterator<N, NAME, ANAME, AVALUE>(Cast.to(this));
     }
 
     /**
