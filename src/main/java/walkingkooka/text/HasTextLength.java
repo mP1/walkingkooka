@@ -26,5 +26,5 @@ public interface HasTextLength {
     /**
      * The text length which should always be a positive number, with zero indicating empty text.
      */
-    int textOffset();
+    int textLength();
 }
