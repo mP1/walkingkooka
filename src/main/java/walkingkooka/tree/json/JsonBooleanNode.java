@@ -72,6 +72,13 @@ public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean> {
         return this.removeParent0().cast();
     }
 
+    // HasText......................................................................................................
+
+    @Override
+    public String text() {
+        return this.value.toString();
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override

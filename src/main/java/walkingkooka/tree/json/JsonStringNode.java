@@ -71,6 +71,13 @@ public final class JsonStringNode extends JsonLeafNonNullNode<String> {
         return NAME;
     }
 
+    // HasText......................................................................................................
+
+    @Override
+    public String text() {
+        return this.value;
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override

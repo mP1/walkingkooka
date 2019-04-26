@@ -69,6 +69,13 @@ public final class JsonNumberNode extends JsonLeafNonNullNode<Double> {
         return NAME;
     }
 
+    // HasText......................................................................................................
+
+    @Override
+    public String text() {
+        return this.value.toString();
+    }
+
     // HasSearchNode...............................................................................................
 
     @Override
