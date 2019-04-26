@@ -25,6 +25,7 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.TraversableHasTextOffset;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -40,7 +41,9 @@ import java.util.function.Function;
 /**
  * A {@link Node} supporting numerous value types, that can be searched over.
  */
-public abstract class SearchNode implements Node<SearchNode, SearchNodeName, SearchNodeAttributeName, String>, HasText {
+public abstract class SearchNode implements Node<SearchNode, SearchNodeName, SearchNodeAttributeName, String>,
+        HasText,
+        TraversableHasTextOffset<SearchNode>  {
 
     /**
      * The {@link PathSeparator} for node selector paths.

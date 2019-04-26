@@ -24,6 +24,7 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.TraversableHasTextOffset;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,6 +48,7 @@ import java.util.Set;
  */
 public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String>,
         HasText,
+        TraversableHasTextOffset<FilesystemNode>,
         Value<Path> {
 
     /**
