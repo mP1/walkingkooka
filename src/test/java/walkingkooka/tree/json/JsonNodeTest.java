@@ -22,9 +22,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.type.MemberVisibility;
 
 public final class JsonNodeTest implements ClassTesting2<JsonNode>,
+        HasTextOffsetTesting,
         ParseStringTesting<JsonNode> {
 
     @Test
@@ -84,6 +86,40 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
                 JsonNode.object()
                         .set(JsonNodeName.with("prop2"), JsonNode.string("value2"))
                         .set(JsonNodeName.with("prop1"), JsonNode.string("value1")));
+    }
+
+    // HasTextOffset.................................................................................................
+
+    @Test
+    public void testHasTextOffsetEmptyJsonObject() {
+        this.textOffsetAndCheck(JsonObjectNode.object(), 0);
+    }
+
+    @Test
+    public void testHasTextOffsetJsonObject() {
+        this.textOffsetAndCheck(JsonObjectNode.object()
+                        .set(JsonNodeName.with("key1"), JsonNode.string("a1"))
+                        .set(JsonNodeName.with("key2"), JsonNode.string("b2"))
+                        .set(JsonNodeName.with("key3"), JsonNode.string("c3"))
+                        .set(JsonNodeName.with("key4"), JsonNode.string("d4"))
+                        .children()
+                        .get(2),
+                "a1b2");
+    }
+
+    @Test
+    public void testHasTextOffsetJsonArray() {
+        this.textOffsetAndCheck(JsonObjectNode.array()
+                        .appendChild(JsonNode.string("a1"))
+                        .appendChild(JsonObjectNode.array()
+                                .appendChild(JsonNode.string("b2"))
+                                .appendChild(JsonNode.string("c3"))
+                                .appendChild(JsonNode.string("d4")))
+                        .appendChild(JsonNode.string("e5"))
+                        .get(1)
+                        .children()
+                        .get(2),
+                "a1b2c3");
     }
 
     // ClassTesting.............................................................................................

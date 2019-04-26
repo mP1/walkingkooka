@@ -38,6 +38,7 @@ import walkingkooka.text.cursor.parser.json.JsonNodeParserContexts;
 import walkingkooka.text.cursor.parser.json.JsonNodeParserToken;
 import walkingkooka.text.cursor.parser.json.JsonNodeParsers;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.search.HasSearchNode;
 
 import java.util.List;
@@ -54,7 +55,8 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         HasSearchNode,
         HasText,
         HasJsonNode,
-        HashCodeEqualsDefined {
+        HashCodeEqualsDefined,
+        TraversableHasTextOffset<JsonNode> {
 
     /**
      * Simply returns the given {@link JsonNode}.
