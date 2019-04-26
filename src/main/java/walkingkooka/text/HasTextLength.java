@@ -19,19 +19,12 @@
 package walkingkooka.text;
 
 /**
- * An object that has some text.
+ * Returns the text length of this object.
  */
-public interface HasText extends HasTextLength {
+public interface HasTextLength {
 
     /**
-     * Text getter
+     * The text length which should always be a positive number, with zero indicating empty text.
      */
-    String text();
-
-    /**
-     * Returns the text length.
-     */
-    default int textLength() {
-        return this.text().length();
-    }
+    int textOffset();
 }
