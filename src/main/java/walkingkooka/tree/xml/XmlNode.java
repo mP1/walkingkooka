@@ -33,6 +33,7 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Whitespace;
+import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
@@ -60,6 +61,7 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
         HasSearchNode,
         HasXmlNode,
         HasText,
+        TraversableHasTextOffset<XmlNode>,
         UsesToStringBuilder {
 
     final static String XMLNS_URI = "http://www.w3.org/2000/xmlns/";
