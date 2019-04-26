@@ -97,13 +97,6 @@ abstract class JsonLeafNonNullNode<V> extends JsonLeafNode<V> {
         return false;
     }
 
-    // HasText......................................................................................................
-
-    @Override
-    public String text() {
-        return String.valueOf(this.value());
-    }
-
     // Object......................................................................................................
 
     @Override
