@@ -26,9 +26,7 @@ import walkingkooka.tree.search.SearchSequenceNode;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public final class TraversableHasTextOffsetTest {
+public final class TraversableHasTextOffsetTest implements HasTextOffsetTesting {
 
     @Test
     public void testRootLeaf() {
@@ -97,15 +95,5 @@ public final class TraversableHasTextOffsetTest {
 
     private static SearchSequenceNode sequence(final SearchNode... nodes) {
         return SearchNode.sequence(Lists.of(nodes));
-    }
-
-    private void textOffsetAndCheck(final TraversableHasTextOffset<?> has,
-                                    final String before) {
-        this.textOffsetAndCheck(has, before.length());
-    }
-
-    private void textOffsetAndCheck(final TraversableHasTextOffset<?> has,
-                                    final int offset) {
-        assertEquals(offset, has.textOffset(), () -> has.toString() + "\n" + has.root());
     }
 }
