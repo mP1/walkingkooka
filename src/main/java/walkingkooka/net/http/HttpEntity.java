@@ -25,6 +25,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
@@ -35,6 +36,8 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.LineEnding;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Map;
@@ -259,6 +262,104 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
     private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers, final byte[] body) {
         return new HttpEntity(headers, body);
     }
+
+    // Multipart..................................................................................................
+
+    /**
+     * Writes a multi-part entity.
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data"></a>
+     * <pre>
+     * HTTP/1.1 206 Partial Content
+     * Accept-Ranges: bytes
+     * Content-Type: multipart/byteranges; boundary=3d6b6a416f9b5
+     * Content-Length: 385
+     *
+     * --3d6b6a416f9b5
+     * Content-Type: text/html
+     * Content-Range: bytes 100-200/1270
+     *
+     * eta http-equiv="Content-type" content="text/html; charset=utf-8" />
+     *     <meta name="vieport" content
+     * --3d6b6a416f9b5
+     * Content-Type: text/html
+     * Content-Range: bytes 300-400/1270
+     *
+     * -color: #f0f0f2;
+     *         margin: 0;
+     *         padding: 0;
+     *         font-family: "Open Sans", "Helvetica
+     * --3d6b6a416f9b5--
+     * </pre>
+     */
+    public byte[] headersAndBodyBytes() throws IOException {
+        final Map<HttpHeaderName<?>, Object> headers = this.headers;
+
+        if (!headers.containsKey(HttpHeaderName.CONTENT_TYPE)) {
+            throw new IllegalStateException("Headers missing " + HttpHeaderName.CONTENT_TYPE + " in " + headers);
+        }
+        this.contentLengthOrContentRangeOrFail(headers);
+
+        final byte[] body = this.body;
+
+        try (final ByteArrayOutputStream bytes = new ByteArrayOutputStream(headers.size() * 80 + body.length)) {
+            for (Entry<HttpHeaderName<?>, Object> headerAndValues : headers.entrySet()) {
+                final HttpHeaderName<?> header = headerAndValues.getKey();
+
+                // header: value CRNL
+                bytes.write(header.value().getBytes()); // should be ascii only chars
+                bytes.write(HEADER_VALUE_SEPARATOR);
+                bytes.write(header.headerText(Cast.to(headerAndValues.getValue())).getBytes());
+                bytes.write(EOL);
+            }
+
+            // blank line ends headers...
+            bytes.write(EOL);
+
+            // body
+            bytes.write(body);
+
+            bytes.flush();
+
+            return bytes.toByteArray();
+        }
+    }
+
+    /**
+     * Requires either the content-length or content-range headers be set and returns the length in bytes or -1,
+     * where -1 indicates a content-range: wildcard.
+     */
+    private void contentLengthOrContentRangeOrFail(final Map<HttpHeaderName<?>, Object> headers) {
+        final Optional<Long> maybeContentLength = HttpHeaderName.CONTENT_LENGTH.parameterValue(headers);
+
+        if (maybeContentLength.isPresent()) {
+            final Long contentLength = maybeContentLength.get();
+            this.checkBodyLength(HttpHeaderName.CONTENT_LENGTH, contentLength, contentLength);
+        } else {
+            final Optional<ContentRange> maybeContentRange = HttpHeaderName.CONTENT_RANGE.parameterValue(headers);
+            if (maybeContentRange.isPresent()) {
+                maybeContentRange.ifPresent(this::checkContentRange);
+            } else {
+                throw new IllegalStateException("Headers missing " + HttpHeaderName.CONTENT_LENGTH + " or " + HttpHeaderName.CONTENT_RANGE + " in " + headers);
+            }
+        }
+    }
+
+    private void checkContentRange(final ContentRange contentRange) {
+        contentRange.length()
+                .ifPresent(l -> this.checkBodyLength(HttpHeaderName.CONTENT_RANGE, contentRange, l));
+    }
+
+    private void checkBodyLength(final HttpHeaderName<?> header,
+                                 final Object headerValue,
+                                 final long length) {
+        final long actualLength = this.body.length;
+        if (length != actualLength) {
+            throw new IllegalStateException(header + ": " + header.headerText(Cast.to(headerValue)) + " & actual body length " + actualLength + " mismatch.");
+        }
+    }
+
+    private final static byte[] HEADER_VALUE_SEPARATOR = new byte[]{':', ' '};
+    private final static byte[] EOL = new byte[]{'\r', '\n'};
 
     // Object....................................................................................................
 
