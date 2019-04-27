@@ -19,9 +19,14 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpStatus;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTesting<R>, TypeNameTesting<R> {
@@ -41,6 +46,21 @@ public interface HttpResponseTesting<R extends HttpResponse> extends ToStringTes
     }
 
     R createResponse();
+
+    default void checkResponse(final RecordingHttpResponse response,
+                               final HttpRequest request,
+                               final HttpStatus status,
+                               final HttpEntity... entities) {
+        final HttpResponse expected = HttpResponses.recording();
+        expected.setStatus(status);
+
+        Arrays.stream(entities)
+                .forEach(expected::addEntity);
+
+        assertEquals(expected,
+                response,
+                () -> request.toString());
+    }
 
     // TypeNameTesting .........................................................................................
 

@@ -80,9 +80,9 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         final HttpStatus status = HttpStatusCode.OK.status();
         final Map<HttpHeaderName<?>, Object> headers = this.headers();
 
-        final TestRecordingHttpResponse wrapped = TestRecordingHttpResponse.with();
+        final RecordingHttpResponse recording = RecordingHttpResponse.with();
         final HttpRequest request = this.createRequest(HttpMethod.HEAD);
-        final HttpResponse response = HeadHttpResponse.with(request, wrapped);
+        final HttpResponse response = HeadHttpResponse.with(request, recording);
 
         response.setStatus(status);
 
@@ -93,7 +93,10 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         Arrays.fill(body, (byte) 'A');
         response.addEntity(HttpEntity.with(headers, body));
 
-        wrapped.check(request, status, HttpEntity.with(headers, HttpEntity.NO_BODY));
+        this.checkResponse(recording,
+                request,
+                status,
+                HttpEntity.with(headers, HttpEntity.NO_BODY));
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {

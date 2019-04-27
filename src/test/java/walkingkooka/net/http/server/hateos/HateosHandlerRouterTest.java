@@ -43,13 +43,14 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.TestRecordingHttpResponse;
+import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.routing.RouterTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -913,7 +914,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                                final String body,
                                final HttpStatus status,
                                final HttpEntity... entities) {
-        final TestRecordingHttpResponse response = HttpResponses.testRecording();
+        final RecordingHttpResponse recording = HttpResponses.recording();
 
         final HttpRequest request = this.request(method,
                 url,
@@ -923,10 +924,10 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 .route(request.routingParameters());
         if (handle.isPresent()) {
             handle.get()
-                    .accept(request, response);
+                    .accept(request, recording);
         }
 
-        response.check(request, status, entities);
+        this.checkResponse(recording, request, status, entities);
     }
 
     private byte[] bytes(final String body, final MediaType contentType) {
@@ -1008,6 +1009,24 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 return this.method() + " " + this.url() + " " + parameters();
             }
         };
+    }
+
+    private void checkResponse(final RecordingHttpResponse response,
+                               final HttpRequest request,
+                               final HttpStatus status,
+                               final HttpEntity... entities) {
+        final HttpResponse expected = HttpResponses.recording();
+
+        if(null!=status) {
+            expected.setStatus(status);
+        }
+
+        Arrays.stream(entities)
+                .forEach(expected::addEntity);
+
+        assertEquals(expected,
+                response,
+                () -> request.toString());
     }
 
     @Override

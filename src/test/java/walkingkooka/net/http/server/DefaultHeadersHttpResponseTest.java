@@ -61,9 +61,9 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
 
         final byte[] body = new byte[contentLength];
 
-        final TestRecordingHttpResponse wrapped = TestRecordingHttpResponse.with();
+        final RecordingHttpResponse recording = RecordingHttpResponse.with();
         final HttpRequest request = HttpRequests.fake();
-        DefaultHeadersHttpResponse response = this.createResponse(request, wrapped);
+        DefaultHeadersHttpResponse response = this.createResponse(request, recording);
         response.setStatus(status);
         response.addEntity(HttpEntity.with(responseHeaders, body));
 
@@ -74,7 +74,8 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         finalHeaders.putAll(this.headers());
         finalHeaders.putAll(responseHeaders);
 
-        wrapped.check(request,
+        this.checkResponse(recording,
+                request,
                 status,
                 HttpEntity.with(finalHeaders, body),
                 second);
