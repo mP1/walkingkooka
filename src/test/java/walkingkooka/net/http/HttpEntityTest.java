@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -216,6 +217,90 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         final byte[] body = new byte[456];
         final HttpEntity different = entity.setBody(body);
         this.check(different, HEADERS, body);
+    }
+
+    // headersAndBodyBytes ....................................................................................................
+
+    @Test
+    public void testHeadersAndBodyBytesMissingContentTypeContentLengthOrContentRangeFails() {
+        this.headersAndBodyBytesFail(HttpEntity.with(HttpEntity.NO_HEADERS, HttpEntity.NO_BODY),
+                "Headers missing Content-Type in {}");
+    }
+
+    @Test
+    public void testHeadersAndBodyBytesMissingContentTypeFails() {
+        this.headersAndBodyBytesFail(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, 0L), HttpEntity.NO_BODY),
+                "Headers missing Content-Type in {Content-Length=0}");
+    }
+
+    @Test
+    public void testHeadersAndBodyBytesMissingContentLengthOrContentRangeFails() {
+        this.headersAndBodyBytesFail(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN), HttpEntity.NO_BODY),
+                "Headers missing Content-Length or Content-Range in {Content-Type=text/plain}");
+    }
+
+    @Test
+    public void testHeadersAndBodyBytesContentLengthBodyLengthMismatchFails() {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        headers.put(HttpHeaderName.CONTENT_LENGTH, 99L);
+
+        this.headersAndBodyBytesFail(HttpEntity.with(headers, new byte[1]), "Content-Length: 99 & actual body length 1 mismatch.");
+    }
+
+    @Test
+    public void testHeadersAndBodyBytesContentRangeBodyLengthMismatchFails() {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        headers.put(HttpHeaderName.CONTENT_RANGE, ContentRange.parse("bytes 0-99/888"));
+
+        this.headersAndBodyBytesFail(HttpEntity.with(headers, new byte[1]), "Content-Range: bytes 0-99/888 & actual body length 1 mismatch.");
+    }
+
+    private void headersAndBodyBytesFail(final HttpEntity entity, final String message) {
+        final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> {
+            entity.headersAndBodyBytes();
+        });
+        assertEquals(message,
+                thrown.getMessage(),
+                () -> entity.toString());
+    }
+
+    @Test
+    public void testHeadersAndBodyBytesContentLength() throws Exception {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        headers.put(HttpHeaderName.CONTENT_LENGTH, 10L);
+
+        this.headersAndBodyBytesAndCheck(headers, "BODY123456", "Content-Type: text/plain\r\nContent-Length: 10\r\n\r\nBODY123456");
+    }
+
+    @Test
+    public void testHeadersAndBodyBytesContentRange() throws Exception {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        headers.put(HttpHeaderName.CONTENT_RANGE, ContentRange.parse("bytes 0-9/888"));
+
+        this.headersAndBodyBytesAndCheck(headers, "BODY123456", "Content-Type: text/plain\r\nContent-Range: bytes 0-9/888\r\n\r\nBODY123456");
+    }
+
+    @Test
+    public void testHeadersAndBodyBytesContentRangeWildcard() throws Exception {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        headers.put(HttpHeaderName.CONTENT_RANGE, ContentRange.parse("bytes */888"));
+
+        this.headersAndBodyBytesAndCheck(headers, "BODY123456", "Content-Type: text/plain\r\nContent-Range: bytes */888\r\n\r\nBODY123456");
+    }
+
+    private void headersAndBodyBytesAndCheck(final Map<HttpHeaderName<?>, Object> headers,
+                                             final String body,
+                                             final String bytes) throws Exception {
+        headersAndBodyBytesAndCheck(HttpEntity.with(headers, body.getBytes("UTF-8")), bytes);
+    }
+
+    private void headersAndBodyBytesAndCheck(final HttpEntity entity, final String bytes) throws Exception {
+        assertEquals(bytes, new String(entity.headersAndBodyBytes(), "UTF-8"));
     }
 
     // toString ....................................................................................................
