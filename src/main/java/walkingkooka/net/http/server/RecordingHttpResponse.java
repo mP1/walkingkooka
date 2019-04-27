@@ -26,33 +26,25 @@ import walkingkooka.net.http.HttpStatus;
 
 import java.util.List;
 import java.util.Objects;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Optional;
 
 /**
- * A response that records all parameters set up on it for later verification by calling {@link #check(HttpRequest, HttpStatus, HttpEntity...)}.
+ * A {@link HttpResponse} that records set status and added entities.
  */
-public final class TestRecordingHttpResponse implements HttpResponse {
+public final class RecordingHttpResponse implements HttpResponse {
 
     /**
      * Creates an empty recording http response.
      */
-    static TestRecordingHttpResponse with() {
-        return new TestRecordingHttpResponse();
+    static RecordingHttpResponse with() {
+        return new RecordingHttpResponse();
     }
 
     /**
      * Private ctor use factory.
      */
-    private TestRecordingHttpResponse() {
+    private RecordingHttpResponse() {
         super();
-    }
-
-    TestRecordingHttpResponse(final HttpStatus status,
-                              final List<HttpEntity> entities) {
-        super();
-        this.status = status;
-        this.entities.addAll(entities);
     }
 
     @Override
@@ -61,7 +53,11 @@ public final class TestRecordingHttpResponse implements HttpResponse {
         this.status = status;
     }
 
-    HttpStatus status;
+    public Optional<HttpStatus> status() {
+        return Optional.ofNullable(this.status);
+    }
+
+    private HttpStatus status;
 
     @Override
     public void addEntity(final HttpEntity entity) {
@@ -69,20 +65,11 @@ public final class TestRecordingHttpResponse implements HttpResponse {
         this.entities.add(entity);
     }
 
-    private final List<HttpEntity> entities = Lists.array();
-
-    String bodyText;
-
-    /**
-     * Verifies that the set status and added entities match the expected.
-     */
-    public void check(final HttpRequest request,
-                      final HttpStatus status,
-                      final HttpEntity... entities) {
-        assertEquals(new TestRecordingHttpResponse(status, Lists.of(entities)),
-                this,
-                () -> request.toString());
+    public List<HttpEntity> entities() {
+        return Lists.readOnly(this.entities);
     }
+
+    private final List<HttpEntity> entities = Lists.array();
 
     @Override
     public int hashCode() {
@@ -90,10 +77,12 @@ public final class TestRecordingHttpResponse implements HttpResponse {
     }
 
     public boolean equals(final Object other) {
-        return this == other || other instanceof TestRecordingHttpResponse && this.equals0(Cast.to(other));
+        return this == other ||
+                other instanceof RecordingHttpResponse &&
+                        this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final TestRecordingHttpResponse other) {
+    private boolean equals0(final RecordingHttpResponse other) {
         return Objects.equals(this.status, other.status) &&
                 Objects.equals(this.entities, other.entities);
     }

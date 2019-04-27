@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
@@ -27,24 +28,39 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRecordingHttpResponse>,
-        HttpResponseTesting<TestRecordingHttpResponse> {
+public final class RecordingHttpResponseTest implements ClassTesting2<RecordingHttpResponse>,
+        HttpResponseTesting<RecordingHttpResponse> {
 
     @Test
-    public void testCheck() {
-        final TestRecordingHttpResponse response = this.createResponse();
+    public void testBuild() {
+        final RecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
         response.setStatus(status);
         response.addEntity(entity);
-        response.check(HttpRequests.fake(), status, entity);
+
+        assertEquals(Optional.ofNullable(status), response.status(), "status");
+        assertEquals(Lists.of(entity), response.entities(), "entities");
+    }
+
+    @Test
+    public void testCheck() {
+        final RecordingHttpResponse response = this.createResponse();
+        final HttpStatus status = this.status();
+        final HttpEntity entity = this.entity();
+        response.setStatus(status);
+        response.addEntity(entity);
+        this.checkResponse(response, HttpRequests.fake(), status, entity);
     }
 
     @Test
     public void testCheckMultipleEntities() {
-        final TestRecordingHttpResponse response = this.createResponse();
+        final RecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
         final HttpEntity entity2 = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "part 2"), new byte[123]);
@@ -52,19 +68,19 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
         response.addEntity(entity);
         response.addEntity(entity2);
 
-        response.check(HttpRequests.fake(), status, entity, entity2);
+        this.checkResponse(response, HttpRequests.fake(), status, entity, entity2);
     }
 
     @Test
     public void testCheckIncorrectStatusFails() {
-        final TestRecordingHttpResponse response = this.createResponse();
+        final RecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
         response.setStatus(status);
         response.addEntity(entity);
 
         assertThrows(AssertionError.class, () -> {
-            response.check(HttpRequests.fake(),
+            this.checkResponse(response, HttpRequests.fake(),
                     HttpStatusCode.OK.status(),
                     entity);
         });
@@ -72,14 +88,14 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
 
     @Test
     public void testCheckDifferentEntityFails() {
-        final TestRecordingHttpResponse response = this.createResponse();
+        final RecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
         final HttpEntity entity = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 123"), new byte[123]);
         response.setStatus(status);
         response.addEntity(entity);
 
         assertThrows(AssertionError.class, () -> {
-            response.check(HttpRequests.fake(),
+            this.checkResponse(response, HttpRequests.fake(),
                     status,
                     HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server 456"), new byte[456]));
         });
@@ -87,7 +103,7 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
 
     @Test
     public void testToString() {
-        final TestRecordingHttpResponse response = this.createResponse();
+        final RecordingHttpResponse response = this.createResponse();
         response.setStatus(this.status());
         response.addEntity(this.entity());
 
@@ -98,8 +114,9 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
                         "00000000 41 42 43                                        ABC             \n");
     }
 
-    @Override public TestRecordingHttpResponse createResponse() {
-        return TestRecordingHttpResponse.with();
+    @Override
+    public RecordingHttpResponse createResponse() {
+        return RecordingHttpResponse.with();
     }
 
     private HttpStatus status() {
@@ -111,11 +128,12 @@ public final class TestRecordingHttpResponseTest implements ClassTesting2<TestRe
     }
 
     @Override
-    public Class<TestRecordingHttpResponse> type() {
-        return TestRecordingHttpResponse.class;
+    public Class<RecordingHttpResponse> type() {
+        return RecordingHttpResponse.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

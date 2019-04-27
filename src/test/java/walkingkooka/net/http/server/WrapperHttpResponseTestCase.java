@@ -121,13 +121,13 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                                           final HttpEntity entity,
                                           final HttpStatus expectedStatus,
                                           final HttpEntity... expectedEntities) {
-        final TestRecordingHttpResponse wrapped = TestRecordingHttpResponse.with();
+        final RecordingHttpResponse wrapped = RecordingHttpResponse.with();
 
         final R response = this.createResponse(request, wrapped);
         response.setStatus(status);
         response.addEntity(entity);
 
-        wrapped.check(request, expectedStatus, expectedEntities);
+        this.checkResponse(wrapped, request, expectedStatus, expectedEntities);
     }
 
     @Override

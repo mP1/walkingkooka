@@ -20,15 +20,22 @@ package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.TestRecordingHttpResponse;
+import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Arrays;
 import java.util.function.BiConsumer;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest extends HateosHandlerRouterTestCase<HateosHandlerRouterHttpRequestHttpResponseBiConsumer<JsonNode, HateosContentTypeJsonNode>> {
 
@@ -45,10 +52,27 @@ public final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerTest exte
                 return this.method().toString();
             }
         };
-        final TestRecordingHttpResponse response = HttpResponses.testRecording();
+        final RecordingHttpResponse response = HttpResponses.recording();
         HateosHandlerRouterHttpRequestHttpResponseBiConsumer.with(null)
                 .accept(request, response);
-        response.check(request, HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("XYZ"));
+        this.checkResponse(response,
+                request,
+                HttpStatusCode.METHOD_NOT_ALLOWED.setMessage("XYZ"));
+    }
+
+    private void checkResponse(final RecordingHttpResponse response,
+                               final HttpRequest request,
+                               final HttpStatus status,
+                               final HttpEntity... entities) {
+        final HttpResponse expected = HttpResponses.recording();
+        expected.setStatus(status);
+
+        Arrays.stream(entities)
+                .forEach(expected::addEntity);
+
+        assertEquals(expected,
+                response,
+                () -> request.toString());
     }
 
     @Override
