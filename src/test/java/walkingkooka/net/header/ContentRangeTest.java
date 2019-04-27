@@ -250,6 +250,42 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
         this.isWildcardAndCheck(false);
     }
 
+    // length ..................................................................................................
+
+    @Test
+    public void testLengthBytesNone() {
+        this.lengthAndCheck("none 0-99/*", 100L);
+    }
+
+    @Test
+    public void testLengthBytesWildcardSize() {
+        this.lengthAndCheckNone("bytes */888");
+    }
+
+    @Test
+    public void testLengthBytesLowerThruUpper() {
+        this.lengthAndCheck("bytes 0-99/888", 100L);
+    }
+
+    @Test
+    public void testLengthBytesNoneThruWildcard() {
+        this.lengthAndCheck("bytes 2-11/888", 10);
+    }
+
+    private void lengthAndCheckNone(final String contentRange) {
+        this.lengthAndCheck(contentRange, Optional.empty());
+    }
+
+    private void lengthAndCheck(final String contentRange, final long length) {
+        this.lengthAndCheck(contentRange, Optional.of(length));
+    }
+
+    private void lengthAndCheck(final String contentRange, final Optional<Long> length) {
+        assertEquals(length,
+                ContentRange.parse(contentRange).length(),
+                () -> "length of " + CharSequences.quoteAndEscape(contentRange));
+    }
+
     // HashCodeEqualsDefined ..................................................................................................
 
     @Test

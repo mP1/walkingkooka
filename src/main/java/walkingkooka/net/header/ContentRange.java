@@ -413,6 +413,21 @@ public final class ContentRange implements HeaderValue {
         }
     }
 
+    // length ..................................................................................................
+
+    /**
+     * The length or {@link Optional#empty()} when none are present. This assumes unit=bytes.
+     */
+    public Optional<Long> length() {
+        return this.range.flatMap(ContentRange::lengthRange);
+    }
+
+    private static Optional<Long> lengthRange(final Range<Long> range) {
+        return range.upperBound()
+                .value()
+                .map(u -> 1L + u - range.lowerBound().value().orElse(0L));
+    }
+
     // size ..................................................................................................
 
     /**
