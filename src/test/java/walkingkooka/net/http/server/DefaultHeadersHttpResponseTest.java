@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
@@ -59,7 +60,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         responseHeaders.put(HttpHeaderName.LAST_MODIFIED, LocalDateTime.of(2000, 12, 31, 6, 28, 29));
         responseHeaders.put(HttpHeaderName.SERVER, "Replaces original value Server 123");
 
-        final byte[] body = new byte[contentLength];
+        final Binary body = Binary.with(new byte[contentLength]);
 
         final RecordingHttpResponse recording = RecordingHttpResponse.with();
         final HttpRequest request = HttpRequests.fake();
@@ -67,7 +68,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
         response.setStatus(status);
         response.addEntity(HttpEntity.with(responseHeaders, body));
 
-        final HttpEntity second = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server2"), new byte[2]);
+        final HttpEntity second = HttpEntity.with(Maps.of(HttpHeaderName.SERVER, "Server2"), Binary.with(new byte[2]));
         response.addEntity(second);
 
         final Map<HttpHeaderName<?>, Object> finalHeaders = Maps.ordered();

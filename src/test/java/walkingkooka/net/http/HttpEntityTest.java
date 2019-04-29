@@ -19,6 +19,7 @@
 package walkingkooka.net.http;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
@@ -34,10 +35,10 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -51,8 +52,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HEADER, HEADER_VALUE);
     private final static Map<HttpHeaderName<?>, Object> INVALID_HEADERS = Maps.of(HttpHeaderName.SERVER, 999L);
-    private final static byte[] BODY = "abcdefghijklmnopqrstuvwxyz".getBytes(Charset.forName("utf8"));
-
+    
     private final static HttpHeaderName<?> DIFFERENT_HEADER = HttpHeaderName.SERVER;
 
     // with ....................................................................................................
@@ -60,14 +60,14 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testWithNullHeadersFails() {
         assertThrows(NullPointerException.class, () -> {
-            HttpEntity.with(null, BODY);
+            HttpEntity.with(null, this.body());
         });
     }
 
     @Test
     public void testWithInvalidHeaderFails() {
         assertThrows(HeaderValueException.class, () -> {
-            HttpEntity.with(INVALID_HEADERS, BODY);
+            HttpEntity.with(INVALID_HEADERS, this.body());
         });
     }
 
@@ -80,7 +80,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testWith() {
-        this.check(HttpEntity.with(HEADERS, BODY));
+        this.check(HttpEntity.with(HEADERS, this.body()));
     }
 
     // setHeaders ....................................................................................................
@@ -88,29 +88,29 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testSetHeadersNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.create().setHeaders(null);
+            this.createHttpEntity().setHeaders(null);
         });
     }
 
     @Test
     public void testSetHeaderInvalidFails() {
         assertThrows(HeaderValueException.class, () -> {
-            this.create().setHeaders(INVALID_HEADERS);
+            this.createHttpEntity().setHeaders(INVALID_HEADERS);
         });
     }
 
     @Test
     public void testSetHeadersSame() {
-        final HttpEntity entity = this.create();
+        final HttpEntity entity = this.createHttpEntity();
         assertSame(entity, entity.setHeaders(HEADERS));
     }
 
     @Test
     public void testSetHeadersDifferent() {
-        final HttpEntity entity = this.create();
+        final HttpEntity entity = this.createHttpEntity();
         final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 456L);
         final HttpEntity different = entity.setHeaders(headers);
-        this.check(different, headers, BODY);
+        this.check(different, headers, this.body());
     }
 
     // addHeader ....................................................................................................
@@ -118,44 +118,44 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testAddHeaderNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.create().addHeader(null, "*value*");
+            this.createHttpEntity().addHeader(null, "*value*");
         });
     }
 
     @Test
     public void testAddHeaderNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.create().addHeader(HttpHeaderName.SERVER, null);
+            this.createHttpEntity().addHeader(HttpHeaderName.SERVER, null);
         });
     }
 
     @Test
     public void testAddHeaderInvalidValueFails() {
         assertThrows(HeaderValueException.class, () -> {
-            this.create().addHeader(Cast.to(HttpHeaderName.CONTENT_LENGTH), "*invalid*");
+            this.createHttpEntity().addHeader(Cast.to(HttpHeaderName.CONTENT_LENGTH), "*invalid*");
         });
     }
 
     @Test
     public void testAddHeaderExisting() {
-        final HttpEntity entity = this.create();
+        final HttpEntity entity = this.createHttpEntity();
         assertSame(entity, entity.addHeader(HEADER, HEADER_VALUE));
     }
 
     @Test
     public void testAddHeaderReplaceValue() {
-        final HttpEntity entity = this.create();
+        final HttpEntity entity = this.createHttpEntity();
 
         final Long headerValue = 456L;
 
         this.check(entity.addHeader(HEADER, headerValue),
                 Maps.of(HEADER, headerValue),
-                BODY);
+                this.body());
     }
 
     @Test
     public void testAddHeader() {
-        final HttpEntity entity = this.create();
+        final HttpEntity entity = this.createHttpEntity();
 
         final HttpHeaderName<String> header = HttpHeaderName.SERVER;
         final String headerValue = "*Server*";
@@ -166,7 +166,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         headers.putAll(HEADERS);
         headers.put(header, headerValue);
 
-        this.check(different, headers, BODY);
+        this.check(different, headers, this.body());
     }
 
     // removeHeader ....................................................................................................
@@ -174,13 +174,13 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testRemoveHeaderNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.create().removeHeader(null);
+            this.createHttpEntity().removeHeader(null);
         });
     }
 
     @Test
     public void testRemoveHeaderSame() {
-        final HttpEntity entity = this.create();
+        final HttpEntity entity = this.createHttpEntity();
         assertSame(entity, entity.removeHeader(DIFFERENT_HEADER));
     }
 
@@ -190,10 +190,10 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         headers.putAll(HEADERS);
         headers.put(DIFFERENT_HEADER, "Server123");
 
-        final HttpEntity entity = HttpEntity.with(headers, BODY);
+        final HttpEntity entity = HttpEntity.with(headers, this.body());
         this.check(entity.removeHeader(DIFFERENT_HEADER),
                 HEADERS,
-                BODY);
+                this.body());
     }
 
     // setBody ....................................................................................................
@@ -201,20 +201,20 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testSetBodyNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.create().setBody(null);
+            this.createHttpEntity().setBody(null);
         });
     }
 
     @Test
     public void testSetBodySame() {
-        final HttpEntity entity = this.create();
-        assertSame(entity, entity.setBody(BODY));
+        final HttpEntity entity = this.createHttpEntity();
+        assertSame(entity, entity.setBody(this.body()));
     }
 
     @Test
     public void testSetBodyDifferent() {
-        final HttpEntity entity = this.create();
-        final byte[] body = new byte[456];
+        final HttpEntity entity = this.createHttpEntity();
+        final Binary body = Binary.with(new byte[456]);
         final HttpEntity different = entity.setBody(body);
         this.check(different, HEADERS, body);
     }
@@ -245,7 +245,8 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
         headers.put(HttpHeaderName.CONTENT_LENGTH, 99L);
 
-        this.headersAndBodyBytesFail(HttpEntity.with(headers, new byte[1]), "Content-Length: 99 & actual body length 1 mismatch.");
+        this.headersAndBodyBytesFail(this.createHttpEntity(headers, new byte[1]),
+                "Content-Length: 99 & actual body length 1 mismatch.");
     }
 
     @Test
@@ -254,7 +255,8 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
         headers.put(HttpHeaderName.CONTENT_RANGE, ContentRange.parse("bytes 0-99/888"));
 
-        this.headersAndBodyBytesFail(HttpEntity.with(headers, new byte[1]), "Content-Range: bytes 0-99/888 & actual body length 1 mismatch.");
+        this.headersAndBodyBytesFail(this.createHttpEntity(headers, new byte[1]),
+                "Content-Range: bytes 0-99/888 & actual body length 1 mismatch.");
     }
 
     private void headersAndBodyBytesFail(final HttpEntity entity, final String message) {
@@ -296,7 +298,8 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     private void headersAndBodyBytesAndCheck(final Map<HttpHeaderName<?>, Object> headers,
                                              final String body,
                                              final String bytes) throws Exception {
-        headersAndBodyBytesAndCheck(HttpEntity.with(headers, body.getBytes("UTF-8")), bytes);
+        headersAndBodyBytesAndCheck(HttpEntity.with(headers, Binary.with(body.getBytes("UTF-8"))),
+                bytes);
     }
 
     private void headersAndBodyBytesAndCheck(final HttpEntity entity, final String bytes) throws Exception {
@@ -311,7 +314,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
                 HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN.setCharset(CharsetName.UTF_8),
                 HttpHeaderName.SERVER, "Server 123");
 
-        this.toStringAndCheck(HttpEntity.with(headers, new byte[]{'A', 'B', '\n', 'C'}),
+        this.toStringAndCheck(this.createHttpEntity(headers, new byte[]{'A', 'B', '\n', 'C'}),
                 "Content-Length: 257\r\nContent-Type: text/plain; charset=UTF-8\r\nServer: Server 123\r\n\r\nAB\nC");
     }
 
@@ -320,7 +323,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L);
 
         final String letters = "a";
-        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+        this.toStringAndCheck(this.createHttpEntity(headers, letters),
                 "Content-Length: 257\r\n\r\n" +
                         "00000000 61                                              a               " + LineEnding.SYSTEM);
     }
@@ -330,7 +333,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L);
 
         final String letters = "\0";
-        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+        this.toStringAndCheck(this.createHttpEntity(headers, letters),
                 "Content-Length: 257\r\n\r\n" +
                         "00000000 00                                              .               " + LineEnding.SYSTEM);
     }
@@ -340,7 +343,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L);
 
         final String letters = "abcdefghijklmnopq";
-        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+        this.toStringAndCheck(this.createHttpEntity(headers, letters),
                 "Content-Length: 257\r\n\r\n" +
                         "00000000 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 abcdefghijklmnop" + LineEnding.SYSTEM +
                         "00000010 71                                              q               " + LineEnding.SYSTEM);
@@ -351,7 +354,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         final Map<HttpHeaderName<?>, Object> headers = Maps.of(HttpHeaderName.CONTENT_LENGTH, 257L);
 
         final String letters = "\n\0cdefghijklmnopq";
-        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+        this.toStringAndCheck(this.createHttpEntity(headers, letters),
                 "Content-Length: 257\r\n\r\n" +
                         "00000000 0a 00 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 ..cdefghijklmnop" + LineEnding.SYSTEM +
                         "00000010 71                                              q               " + LineEnding.SYSTEM);
@@ -364,7 +367,7 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
                 HttpHeaderName.SERVER, "Server 123");
 
         final String letters = "\n\0cdefghijklmnopq";
-        this.toStringAndCheck(HttpEntity.with(headers, letters.getBytes("utf-8")),
+        this.toStringAndCheck(this.createHttpEntity(headers, letters),
                 "Content-Length: 257\r\n" +
                         "Content-Type: application/octet-stream\r\n" +
                         "Server: Server 123\r\n\r\n" +
@@ -436,55 +439,8 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     // extractRange................................................................................................
 
     @Test
-    public void testExtractRangeRangeNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.create().extractRange(null);
-        });
-    }
-
-    @Test
-    public void testExtractRangeRangeNegativeLowerBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.create().extractRange(Range.greaterThanEquals(-1L));
-        });
-    }
-
-    @Test
-    public void testExtractRangeRangeExclusiveLowerBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.create().extractRange(Range.greaterThan(0L));
-        });
-    }
-
-    @Test
-    public void testExtractRangeRangeExclusiveUpperBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(1L)));
-        });
-    }
-
-    @Test
-    public void testExtractRangeUpperBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(0L + BODY.length)));
-        });
-    }
-
-    @Test
-    public void testExtractRangeSame() {
-        final HttpEntity entity = this.create();
-        assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.lessThanEquals(0L + BODY.length - 1))));
-    }
-
-    @Test
-    public void testExtractRangeSameUpperWildcard() {
-        final HttpEntity entity = this.create();
-        assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.all())));
-    }
-
-    @Test
     public void testExtractRangeSameWildcard() {
-        final HttpEntity entity = this.create();
+        final HttpEntity entity = this.createHttpEntity();
         assertSame(entity, entity.extractRange(Range.all()));
     }
 
@@ -512,16 +468,18 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     @Test
     public void testExtractRange4() {
         this.extractRangeAndCheck(Range.greaterThanEquals(22L),
-                new byte[]{'w', 'x', 'y', 'z'});
+                Binary.with(new byte[]{'w', 'x', 'y', 'z'}));
     }
 
-    private void extractRangeAndCheck(final long lower, final long upper, final byte[] expected) {
+    private void extractRangeAndCheck(final long lower,
+                                      final long upper,
+                                      final byte[] expected) {
         this.extractRangeAndCheck(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)),
-                expected);
+                Binary.with(expected));
     }
 
-    private void extractRangeAndCheck(final Range<Long> range, final byte[] expected) {
-        final HttpEntity entity = this.create();
+    private void extractRangeAndCheck(final Range<Long> range, final Binary expected) {
+        final HttpEntity entity = this.createHttpEntity();
         assertEquals(HttpEntity.with(HEADERS, expected),
                 entity.extractRange(range),
                 () -> entity + " extractRange " + range + " failed");
@@ -529,27 +487,49 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
 
     @Test
     public void testEqualsDifferentHeaders() {
-        this.checkNotEquals(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, 456L), BODY));
+        this.checkNotEquals(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, 456L), this.body()));
     }
 
     @Test
     public void testEqualsDifferentBody() {
-        this.checkNotEquals(HttpEntity.with(HEADERS, new byte[456]));
+        this.checkNotEquals(HttpEntity.with(HEADERS, Binary.with(new byte[456])));
     }
 
     // helpers................................................................................................
 
-    private HttpEntity create() {
-        return HttpEntity.with(HEADERS, BODY);
+    private HttpEntity createHttpEntity() {
+        return HttpEntity.with(HEADERS, this.body());
+    }
+
+    private HttpEntity createHttpEntity(final Map<HttpHeaderName<?>, Object> headers,
+                                        final String body) throws UnsupportedEncodingException {
+        return this.createHttpEntity(headers, body.getBytes("UTF-8"));
+    }
+
+    private HttpEntity createHttpEntity(final Map<HttpHeaderName<?>, Object> headers,
+                                        final byte[] body) {
+        return HttpEntity.with(headers, Binary.with(body));
+    }
+
+    private Binary body() {
+        return Binary.with("abcdefghijklmnopqrstuvwxyz".getBytes(Charset.forName("utf8")));
     }
 
     private void check(final HttpEntity entity) {
-        check(entity, HEADERS, BODY);
+        check(entity, HEADERS, this.body());
     }
 
-    private void check(final HttpEntity entity, final Map<HttpHeaderName<?>, Object> headers, final byte[] body) {
+    private void check(final HttpEntity entity,
+                       final Map<HttpHeaderName<?>, Object> headers,
+                       final byte[] body) {
+        this.check(entity, headers, Binary.with(body));
+    }
+
+    private void check(final HttpEntity entity,
+                       final Map<HttpHeaderName<?>, Object> headers,
+                       final Binary body) {
         assertEquals(headers, entity.headers(), "headers");
-        assertArrayEquals(body, entity.body(), "body");
+        assertEquals(body, entity.body(), "body");
     }
 
     @Override
@@ -557,12 +537,13 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         return HttpEntity.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 
     @Override
     public HttpEntity createObject() {
-        return HttpEntity.with(HEADERS, BODY);
+        return HttpEntity.with(HEADERS, this.body());
     }
 }

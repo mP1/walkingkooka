@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
@@ -69,7 +70,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         for (HttpStatusCode status : HttpStatusCode.values()) {
             this.setStatusAddEntityAndCheck(this.createRequest(HttpMethod.HEAD),
                     status.status(),
-                    HttpEntity.with(headers, new byte[CONTENT_LENGTH]),
+                    HttpEntity.with(headers, Binary.with(new byte[CONTENT_LENGTH])),
                     status.status(),
                     HttpEntity.with(headers, HttpEntity.NO_BODY));
         }
@@ -86,12 +87,13 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
 
         response.setStatus(status);
 
-        final byte[] body = new byte[CONTENT_LENGTH];
+        final Binary body = Binary.with(new byte[CONTENT_LENGTH]);
         final HttpEntity first = HttpEntity.with(headers, body);
         response.addEntity(first);
 
-        Arrays.fill(body, (byte) 'A');
-        response.addEntity(HttpEntity.with(headers, body));
+        final byte[] bytes2 = new byte[CONTENT_LENGTH];
+        Arrays.fill(bytes2, (byte) 'A');
+        response.addEntity(HttpEntity.with(headers, Binary.with(bytes2)));
 
         this.checkResponse(recording,
                 request,

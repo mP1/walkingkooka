@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -886,7 +887,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
             headers.put(HttpHeaderName.CONTENT_TYPE, HateosContentType.json().contentType().setCharset(charsetName));
             headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(bytes(body, contentType).length));
 
-            entities = new HttpEntity[]{HttpEntity.with(headers, bytes)};
+            entities = new HttpEntity[]{HttpEntity.with(headers, Binary.with(bytes))};
         }
         return entities;
     }

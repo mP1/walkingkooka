@@ -18,16 +18,15 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Binary;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.TokenHeaderValue;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.zip.GZIPOutputStream;
 
 /**
  * Wraps a {@link HttpResponse} and if possible encoding any bytes with gzip compression.
@@ -100,13 +99,9 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
      * Returns the GZIP compressed form of the given byte array.
      */
     // @VisibleForTesting
-    static byte[] gzip(final byte[] body) {
-        try (final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            try (final GZIPOutputStream gzip = new GZIPOutputStream(outputStream)) {
-                gzip.write(body);
-                gzip.flush();
-            }
-            return outputStream.toByteArray();
+    static Binary gzip(final Binary body) {
+        try {
+            return body.gzip();
         } catch (final IOException cause) {
             throw new HttpServerException("Failed to gzip compress bytes, " + cause, cause);
         }
