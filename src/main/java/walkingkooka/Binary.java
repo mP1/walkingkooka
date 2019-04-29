@@ -21,8 +21,11 @@ package walkingkooka;
 import walkingkooka.compare.Range;
 import walkingkooka.test.HashCodeEqualsDefined;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * A {@link Value} that holds a byte array.
@@ -79,6 +82,19 @@ public final class Binary implements HashCodeEqualsDefined, Value<byte[]> {
         return 0 == lower && size == upper ?
                 this :
                 new Binary(Arrays.copyOfRange(this.value, lower, upper));
+    }
+
+    /**
+     * Returns a {@link Binary} with its contents gzipped.
+     */
+    public Binary gzip() throws IOException {
+        try (final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            try (final GZIPOutputStream gzip = new GZIPOutputStream(outputStream)) {
+                gzip.write(this.value);
+                gzip.flush();
+            }
+            return new Binary(outputStream.toByteArray());
+        }
     }
 
     @Override
