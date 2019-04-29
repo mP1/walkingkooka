@@ -18,6 +18,7 @@
 
 package walkingkooka;
 
+import walkingkooka.compare.Range;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Arrays;
@@ -49,13 +50,35 @@ public final class Binary implements HashCodeEqualsDefined, Value<byte[]> {
         return value.clone();
     }
 
-    private final byte[] value;
+    // BinaryRangeVisitor
+    final byte[] value;
 
     /**
      * The size or number of bytes in this {@link Binary}
      */
     public int size() {
         return this.value.length;
+    }
+
+    /**
+     * Extracts a {@link Binary} that matches the given {@link Range}.
+     */
+    public Binary extract(final Range<Long> range) {
+        return BinaryRangeVisitor.extract(this, range);
+    }
+
+    /**
+     * Extracts and returns a {@link Binary} that matches the given bounds, returning this if possible.
+     */
+    // BinaryRangeVisitor
+    Binary extract0(final int lower, final int upper, final Range<Long> range) {
+        final int size = this.size();
+        if (lower < 0 || upper > size) {
+            throw new IllegalArgumentException("Range out of bounds " + range + " for binary with size: " + size);
+        }
+        return 0 == lower && size == upper ?
+                this :
+                new Binary(Arrays.copyOfRange(this.value, lower, upper));
     }
 
     @Override
