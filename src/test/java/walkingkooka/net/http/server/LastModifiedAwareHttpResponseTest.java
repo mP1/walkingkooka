@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -245,9 +246,9 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
         this.setStatusAddEntityAndCheck(
                 createRequest(),
                 status.status(),
-                HttpEntity.with(headers, body),
+                HttpEntity.with(headers, Binary.with(body)),
                 expectedStatus.status(),
-                HttpEntity.with(expectedHeaders, expectedBody));
+                HttpEntity.with(expectedHeaders, Binary.with(expectedBody)));
     }
 
     @Override

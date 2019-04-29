@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
@@ -71,8 +72,9 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
         if (null != contentLength) {
             headers.put(HttpHeaderName.CONTENT_LENGTH, contentLength);
         }
-        response.addEntity(HttpEntity.with(headers, body));
-        assertEquals(Lists.of(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length)), body)),
+        final Binary bodyBinary = Binary.with(body);
+        response.addEntity(HttpEntity.with(headers, bodyBinary));
+        assertEquals(Lists.of(HttpEntity.with(Maps.of(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length)), bodyBinary)),
                 added,
                 "added entity");
     }

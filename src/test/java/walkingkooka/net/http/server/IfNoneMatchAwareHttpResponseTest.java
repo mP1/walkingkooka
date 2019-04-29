@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.ETag;
@@ -222,9 +223,9 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
         this.setStatusAddEntityAndCheck(
                 this.createRequest(),
                 status.status(),
-                HttpEntity.with(headers, body),
+                HttpEntity.with(headers, Binary.with(body)),
                 expectedStatus.status(),
-                HttpEntity.with(expectedHeaders, expectedBody));
+                HttpEntity.with(expectedHeaders, Binary.with(expectedBody)));
     }
 
     @Override

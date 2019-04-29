@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Binary;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HttpHeaderName;
@@ -90,7 +91,7 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
         HttpEntity addEntity = entity;
 
         if (status.value().category() == HttpStatusCodeCategory.SUCCESSFUL) {
-            final byte[] body = entity.body();
+            final Binary body = entity.body();
             ETag etag = contentETag(body, entity.headers());
 
             // if-modified-since should be evaluated first and if successful the status would not be 2xx.
@@ -111,11 +112,11 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
     /**
      * Lazily computes an e-tag if a header value is not already set.
      */
-    private ETag contentETag(final byte[] body, final Map<HttpHeaderName<?>, Object> headers) {
+    private ETag contentETag(final Binary body, final Map<HttpHeaderName<?>, Object> headers) {
         final Optional<ETag> contentETag = HttpHeaderName.E_TAG.headerValue(headers);
         return contentETag.isPresent() ?
                 contentETag.get() :
-                this.computer.apply(body);
+                this.computer.apply(body.value());
     }
 
     /**

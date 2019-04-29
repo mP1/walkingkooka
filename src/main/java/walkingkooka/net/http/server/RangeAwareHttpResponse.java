@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Binary;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
@@ -100,8 +101,7 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
                     ifRange.isETag() && this.isETagSatisified(ifRange, entity) ||
                     ifRange.isLastModified() && this.isLastModifiedSatisified(ifRange, entity)) {
 
-                final byte[] body = entity.body();
-                if (this.canSatisfyRange(body.length)) {
+                if (this.canSatisfyRange(entity.body().size())) {
                     this.addMultipartEntities(entity);
                 } else {
                     this.response.setStatus(HttpStatusCode.REQUESTED_RANGE_NOT_SATISFIABLE.status());
@@ -175,10 +175,10 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
      * --3d6b6a416f9b5--
      */
     private void addMultipartEntities(final HttpEntity entity) {
-        final byte[] body = entity.body();
-        final Optional<Long> contentLength = Optional.of(Long.valueOf(body.length));
+        final Binary body = entity.body();
+        final Optional<Long> contentLength = Optional.of(Long.valueOf(body.size()));
 
-        final MediaTypeBoundary boundary = MediaTypeBoundary.generate(body, this.boundaryCharacters);
+        final MediaTypeBoundary boundary = MediaTypeBoundary.generate(body.value(), this.boundaryCharacters);
 
         this.response.setStatus(HttpStatusCode.PARTIAL_CONTENT.status());
         this.response.addEntity(
@@ -193,7 +193,7 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
         for (Range<Long> range : this.range.value()) {
             final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
             headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
-            headers.put(HttpHeaderName.CONTENT_RANGE, contentRange.setRange(Optional.of(this.replaceUpperBoundsIfWildcard(range, body.length))));
+            headers.put(HttpHeaderName.CONTENT_RANGE, contentRange.setRange(Optional.of(this.replaceUpperBoundsIfWildcard(range, body.size()))));
 
             this.response.addEntity(entity.extractRange(range).setHeaders(headers));
         }

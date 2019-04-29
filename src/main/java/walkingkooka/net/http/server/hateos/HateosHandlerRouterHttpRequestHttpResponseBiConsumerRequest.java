@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
+import walkingkooka.Binary;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPathName;
@@ -400,7 +401,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extend
         headers.put(HttpHeaderName.CONTENT_TYPE, contentType.setCharset(CharsetName.with(charset.get().name())));
         headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(contentBytes.length));
 
-        this.response.addEntity(HttpEntity.with(headers, contentBytes));
+        this.response.addEntity(HttpEntity.with(headers, Binary.with(contentBytes)));
     }
 
     private void setStatus(final HttpStatusCode statusCode, final String message) {

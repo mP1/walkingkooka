@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
@@ -220,9 +221,9 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         this.setStatusAddEntityAndCheck(
                 this.createRequest(requestRanges, requestIfRange),
                 HttpStatusCode.OK.status(),
-                HttpEntity.with(headers, body),
+                HttpEntity.with(headers, Binary.with(body)),
                 expectedStatus.status(),
-                HttpEntity.with(headers, expectedBody));
+                HttpEntity.with(headers, Binary.with(expectedBody)));
     }
 
     // range ............................................................................................
@@ -316,7 +317,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
         this.setStatusAddEntityAndCheck(
                 this.createRequest(RangeHeaderValue.parse(requestRanges), requestIfRange),
                 HttpStatusCode.OK.status(),
-                HttpEntity.with(headers, BODY),
+                HttpEntity.with(headers, Binary.with(BODY)),
                 HttpStatusCode.PARTIAL_CONTENT.status(),
                 expectedEntities);
     }
@@ -373,7 +374,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     private <T> HttpEntity httpEntity(final HttpHeaderName<T> header,
                                       final T value,
                                       final byte[] bytes) {
-        return HttpEntity.with(Maps.of(header, value), bytes);
+        return HttpEntity.with(Maps.of(header, value), Binary.with(bytes));
     }
 
     private <T> HttpEntity httpEntity(final Map<HttpHeaderName<?>, Object> headers,
@@ -383,7 +384,7 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
 
     private <T> HttpEntity httpEntity(final Map<HttpHeaderName<?>, Object> headers,
                                       final byte[] bytes) {
-        return HttpEntity.with(headers, bytes);
+        return HttpEntity.with(headers, Binary.with(bytes));
     }
 
     private HttpRequest createRequest(final RangeHeaderValue ranges, final IfRange<?> ifRange) {

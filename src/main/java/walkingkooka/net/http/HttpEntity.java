@@ -18,12 +18,12 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
-import walkingkooka.compare.RangeBound;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.HttpHeaderName;
@@ -39,7 +39,6 @@ import walkingkooka.text.LineEnding;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -50,6 +49,11 @@ import java.util.stream.Collectors;
  * A http entity containing headers and body.
  */
 public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
+
+    /**
+     * {@link Binary} with no body or bytes.
+     */
+    public final static Binary NO_BODY = Binary.EMPTY;
 
     /**
      * The line ending used in http requests/responses.
@@ -83,13 +87,8 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
         headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
         headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length));
 
-        return new HttpEntity(headers, body);
+        return new HttpEntity(headers, Binary.with(body));
     }
-
-    /**
-     * A constant with no body.
-     */
-    public final static byte[] NO_BODY = new byte[0];
 
     /**
      * A constant with no headers.
@@ -99,14 +98,14 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
     /**
      * Creates a new {@link HttpEntity}
      */
-    public static HttpEntity with(final Map<HttpHeaderName<?>, Object> headers, final byte[] body) {
+    public static HttpEntity with(final Map<HttpHeaderName<?>, Object> headers, final Binary body) {
         return new HttpEntity(checkHeaders(headers), checkBody(body));
     }
 
     /**
      * Private ctor
      */
-    private HttpEntity(final Map<HttpHeaderName<?>, Object> headers, final byte[] body) {
+    private HttpEntity(final Map<HttpHeaderName<?>, Object> headers, final Binary body) {
         super();
         this.headers = headers;
         this.body = body;
@@ -187,26 +186,25 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
     // body ...................................................................................
 
-    public byte[] body() {
+    public Binary body() {
         return this.body;
     }
 
     /**
      * Would be setter that returns a {@link HttpEntity} with the given body creating a new instance if necessary.
      */
-    public HttpEntity setBody(final byte[] body) {
-        final byte[] copy = checkBody(body);
+    public HttpEntity setBody(final Binary body) {
+        checkBody(body);
 
-        return Arrays.equals(this.body, copy) ?
+        return body.equals(this.body) ?
                 this :
                 this.replace(this.headers, body);
     }
 
-    private final byte[] body;
+    private final Binary body;
 
-    private static byte[] checkBody(final byte[] body) {
-        Objects.requireNonNull(body, "body");
-        return body.clone();
+    private static Binary checkBody(final Binary body) {
+        return Objects.requireNonNull(body, "body");
     }
 
     // extractRange ...................................................................................
@@ -215,42 +213,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
      * Extracts the desired range returning an entity with the selected bytes creating a new instance if necessary.
      */
     public HttpEntity extractRange(final Range<Long> range) {
-        Objects.requireNonNull(range, "range");
-
-        final RangeBound<Long> lowerBound = range.lowerBound();
-        checkNotExclusive(lowerBound, range);
-        final int from = lowerBound.isAll() ? 0 : lowerBound.value().get().intValue();
-        if (from < 0) {
-            throw new IllegalArgumentException("Range " + range + " lower bounds <= 0");
-        }
-
-        final RangeBound<Long> upperBound = range.upperBound();
-        checkNotExclusive(upperBound, range);
-
-        final int bodyLength = this.body.length;
-        final int to = upperBound.isAll() ?
-                bodyLength :
-                1 + upperBound.value().get().intValue(); //adjust $to to point to one + actual desired last byte.
-
-        if (to > bodyLength) {
-            throw new IllegalArgumentException("Part of range " + range + " is outside body 0.." + (bodyLength - 1));
-        }
-
-        return 0 == from && to == bodyLength ?
-                this :
-                this.extractRange0(from, to - from);
-    }
-
-    private static void checkNotExclusive(final RangeBound<Long> bound, final Range<Long> range) {
-        if (bound.isExclusive()) {
-            throw new IllegalArgumentException("Range " + range + " includes exclusive bound " + bound);
-        }
-    }
-
-    private HttpEntity extractRange0(final int lowerBounds, final int size) {
-        final byte[] rangeBytes = new byte[size];
-        System.arraycopy(this.body, lowerBounds, rangeBytes, 0, size);
-        return new HttpEntity(this.headers, rangeBytes);
+        return this.setBody(this.body.extract(range));
     }
 
     // replace....................................................................................................
@@ -259,7 +222,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
         return this.replace(headers, this.body);
     }
 
-    private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers, final byte[] body) {
+    private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers, final Binary body) {
         return new HttpEntity(headers, body);
     }
 
@@ -299,7 +262,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
         }
         this.contentLengthOrContentRangeOrFail(headers);
 
-        final byte[] body = this.body;
+        final byte[] body = this.body.value();
 
         try (final ByteArrayOutputStream bytes = new ByteArrayOutputStream(headers.size() * 80 + body.length)) {
             for (Entry<HttpHeaderName<?>, Object> headerAndValues : headers.entrySet()) {
@@ -352,7 +315,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
     private void checkBodyLength(final HttpHeaderName<?> header,
                                  final Object headerValue,
                                  final long length) {
-        final long actualLength = this.body.length;
+        final long actualLength = this.body.size();
         if (length != actualLength) {
             throw new IllegalStateException(header + ": " + header.headerText(Cast.to(headerValue)) + " & actual body length " + actualLength + " mismatch.");
         }
@@ -365,7 +328,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.headers, Arrays.hashCode(this.body));
+        return Objects.hash(this.headers, this.body);
     }
 
     @Override
@@ -377,7 +340,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
     private boolean equals0(final HttpEntity other) {
         return this.headers.equals(other.headers) &&
-                Arrays.equals(this.body, other.body);
+                this.body.equals(other.body);
     }
 
     /**
@@ -401,7 +364,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
         // body
         b.valueSeparator("");
 
-        byte[] body = this.body;
+        byte[] body = this.body.value();
         final Optional<MediaType> mediaType = HttpHeaderName.CONTENT_TYPE.headerValue(this.headers);
         if (mediaType.isPresent()) {
             final Optional<CharsetName> charsetName = MediaTypeParameterName.CHARSET.parameterValue(mediaType.get());

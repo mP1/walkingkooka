@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
@@ -39,7 +40,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     @Test
     public void testAddEntityRequestMissingAcceptEncodingFails() {
         assertThrows(HeaderValueException.class, () -> {
-            this.createResponse().addEntity(HttpEntity.with(HttpEntity.NO_HEADERS, new byte[0]));
+            this.createResponse().addEntity(HttpEntity.with(HttpEntity.NO_HEADERS, HttpEntity.NO_BODY));
         });
     }
 
@@ -104,7 +105,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     private byte[] gzip(final byte[] body) {
-        return AutoGzipEncodingHttpResponse.gzip(body);
+        return AutoGzipEncodingHttpResponse.gzip(Binary.with(body)).value();
     }
 
     private void addEntityRequestWithAcceptEncodingAndCheck(final String acceptCharset,
@@ -131,7 +132,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
 
                     @Test
                     public void addEntity(final HttpEntity e) {
-                        assertEquals(HttpEntity.with(expectedHeaders, expectedBody),
+                        assertEquals(HttpEntity.with(expectedHeaders, Binary.with(expectedBody)),
                                 e,
                                 "entity");
                         set.set("addEntity");
@@ -140,7 +141,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
         if (null != contentEncoding) {
             headers.put(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse(contentEncoding));
         }
-        response.addEntity(HttpEntity.with(headers, body));
+        response.addEntity(HttpEntity.with(headers, Binary.with(body)));
         assertTrue(set.value(), "wrapped response addEntity(body) not called");
     }
 

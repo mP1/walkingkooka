@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Binary;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpEntity;
@@ -66,9 +67,9 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
 
         HttpEntity add = entity;
         final Map<HttpHeaderName<?>, Object> headers = entity.headers();
-        final byte[] body = entity.body();
+        final Binary body = entity.body();
 
-        final long contentLength = body.length;
+        final long contentLength = body.size();
         final Optional<Long> maybeResponseContentLength = HttpHeaderName.CONTENT_LENGTH.headerValue(headers);
         if (maybeResponseContentLength.isPresent()) {
             final long responseContentLength = maybeResponseContentLength.get();
