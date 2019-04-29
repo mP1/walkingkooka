@@ -137,7 +137,13 @@ abstract public class RangeBound<C extends Comparable> implements HashCodeEquals
 
     abstract RangeBound<C> max0(final RangeBoundInclusive<C> other);
 
-    // Range.toJsonNode......................................................................
+    // RangeVisitor.............................................................................................
+
+    abstract void traverseLowerBound(final RangeVisitor<C> visitor);
+
+    abstract void traverseUpperBound(final RangeVisitor<C> visitor);
+
+    // Range.toJsonNode................................................................................
 
     static RangeBound<?> fromJsonNode(final JsonObjectNode node) {
         RangeBound<?> bound = null;

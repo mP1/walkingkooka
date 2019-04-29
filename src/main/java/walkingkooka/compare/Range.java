@@ -26,6 +26,7 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.visit.Visitable;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -38,7 +39,8 @@ import java.util.function.Predicate;
  */
 public final class Range<C extends Comparable> implements Predicate<C>,
         HashCodeEqualsDefined,
-        HasJsonNode {
+        HasJsonNode,
+        Visitable {
 
     /**
      * Assumes a character is a separator and uses the factory to create each component of the {@link Range}.
@@ -228,6 +230,17 @@ public final class Range<C extends Comparable> implements Predicate<C>,
 
         return this.lower.max(other.lower)
                 .lessThanOrEqual(this.upper.min(other.upper));
+    }
+
+    // Visitor...............................................................................
+
+    /**
+     * Begins the visiting process.
+     */
+    public void accept(final RangeVisitor<C> visitor ) {
+        Objects.requireNonNull(visitor, "visitor");
+
+        visitor.traverse(this);
     }
 
     // HasJsonNode...............................................................................
