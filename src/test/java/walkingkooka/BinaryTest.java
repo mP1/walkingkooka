@@ -25,6 +25,7 @@ import walkingkooka.test.ToStringTesting;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
@@ -60,6 +61,11 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
         value[0] = (byte) 0xff;
 
         assertArrayEquals(this.value(), binary.value());
+    }
+
+    @Test
+    public void testWithZeroByteArray() {
+        assertSame(Binary.EMPTY, Binary.with(new byte[0]));
     }
 
     @Test
