@@ -23,12 +23,15 @@ import walkingkooka.compare.Range;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
         ToStringTesting<Binary> {
@@ -249,6 +252,17 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
         assertEquals(expected,
                 binary.extract(range),
                 () -> binary + " extract " + range);
+    }
+
+    // gzip.........................................................................................................
+
+    @Test
+    public void testGzip() throws IOException {
+        final int length = 4000;
+        final Binary binary = Binary.with(new byte[length]);
+        final Binary gzipped = binary.gzip();
+        assertNotSame(binary, gzipped);
+        assertTrue(gzipped.size() < length, () -> "gzipped " + gzipped.size() + " < " + length);
     }
 
     // equals.........................................................................................................
