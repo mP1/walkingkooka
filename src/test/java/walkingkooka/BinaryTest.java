@@ -19,6 +19,7 @@
 package walkingkooka;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.compare.Range;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 
@@ -70,6 +71,188 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
         assertSame(Binary.EMPTY, Binary.with(new byte[0]));
     }
 
+    // extract.........................................................................................................
+
+    @Test
+    public void testExtractNullRangeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createObject().extract(null);
+        });
+    }
+
+    @Test
+    public void testExtractInvalidLowerBoundFails() {
+        this.extractFails(Range.greaterThan(-2L));
+    }
+
+    @Test
+    public void testExtractInvalidLowerBoundFails2() {
+        this.extractFails(Range.greaterThan(5L));
+    }
+
+    @Test
+    public void testExtractInvalidUpperBoundFails() {
+        this.extractFails(Range.lessThan(7L));
+    }
+
+    @Test
+    public void testExtractInvalidUpperBoundFails2() {
+        this.extractFails(Range.lessThan(8L));
+    }
+
+    private void extractFails(final Range<Long> range) {
+        this.extractFails(this.createObject(), range);
+    }
+
+    private void extractFails(final Binary binary,
+                              final Range<Long> range) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            binary.extract(range);
+        });
+    }
+
+    @Test
+    public void testExtractAll() {
+        this.extractAndCheck(this.createObject(), Range.all());
+    }
+
+    @Test
+    public void testExtractSingleton() {
+        this.extractAndCheck(this.createObject(),
+                Range.singleton(1L),
+                Binary.with(new byte[]{11}));
+    }
+
+    @Test
+    public void testExtractSame() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThanEquals(0L).and(Range.lessThanEquals(4L)));
+    }
+
+    @Test
+    public void testExtractSame2() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThanEquals(0L).and(Range.lessThan(5L)));
+    }
+
+    @Test
+    public void testExtractSame3() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThan(-1L).and(Range.lessThan(5L)));
+    }
+
+    @Test
+    public void testExtractPartial() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThanEquals(1L).and(Range.lessThanEquals(3L)),
+                Binary.with(new byte[]{11, 22, 33}));
+    }
+
+    @Test
+    public void testExtractPartial2() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThan(1L).and(Range.lessThan(3L)),
+                Binary.with(new byte[]{22}));
+    }
+
+    @Test
+    public void testExtractPartial3() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThan(1L).and(Range.lessThan(4L)),
+                Binary.with(new byte[]{22, 33}));
+    }
+
+    @Test
+    public void testExtractLowerBoundExclusive() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThan(0L),
+                Binary.with(new byte[]{11, 22, 33, 44}));
+    }
+
+    @Test
+    public void testExtractLowerBoundExclusive1() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThan(2L),
+                Binary.with(new byte[]{33, 44}));
+    }
+
+    @Test
+    public void testExtractLowerBoundExclusive2() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThan(-1L));
+    }
+
+    @Test
+    public void testExtractLowerBoundInclusive() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThanEquals(2L),
+                Binary.with(new byte[]{22, 33, 44}));
+    }
+
+    @Test
+    public void testExtractLowerBoundInclusive2() {
+        this.extractAndCheck(this.createObject(),
+                Range.greaterThanEquals(0L));
+    }
+
+    @Test
+    public void testExtractUpperBoundInclusive() {
+        this.extractAndCheck(this.createObject(),
+                Range.lessThanEquals(1L),
+                Binary.with(new byte[]{0, 11}));
+    }
+
+    @Test
+    public void testExtractUpperBoundInclusive2() {
+        this.extractAndCheck(this.createObject(),
+                Range.lessThanEquals(3L),
+                Binary.with(new byte[]{0, 11, 22, 33}));
+    }
+
+    @Test
+    public void testExtractUpperBoundInclusive3() {
+        this.extractAndCheck(this.createObject(),
+                Range.lessThanEquals(this.size() - 1));
+    }
+
+    @Test
+    public void testExtractUpperBoundExclusive() {
+        this.extractAndCheck(this.createObject(),
+                Range.lessThan(2L),
+                Binary.with(new byte[]{0, 11}));
+    }
+
+    @Test
+    public void testExtractUpperBoundExclusive2() {
+        this.extractAndCheck(this.createObject(),
+                Range.lessThan(4L),
+                Binary.with(new byte[]{0, 11, 22, 33}));
+    }
+
+    @Test
+    public void testExtractUpperBoundExclusive3() {
+        this.extractAndCheck(this.createObject(),
+                Range.lessThan(this.size()));
+    }
+
+
+    private void extractAndCheck(final Binary binary,
+                                 final Range<Long> range) {
+        assertSame(binary,
+                binary.extract(range),
+                () -> binary + " extract " + range);
+    }
+
+    private void extractAndCheck(final Binary binary,
+                                 final Range<Long> range,
+                                 final Binary expected) {
+        assertEquals(expected,
+                binary.extract(range),
+                () -> binary + " extract " + range);
+    }
+
+    // equals.........................................................................................................
+
     @Test
     public void testDifferent() {
         this.checkNotEquals(Binary.with(new byte[]{4, 5, 6}));
@@ -86,7 +269,11 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
     }
 
     private byte[] value() {
-        return new byte[]{1, 22, 33};
+        return new byte[]{00, 11, 22, 33, 44};
+    }
+
+    private long size() {
+        return this.value().length;
     }
 
     private void checkSize(final Binary binary, final int size) {
