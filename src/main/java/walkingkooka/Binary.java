@@ -51,6 +51,13 @@ public final class Binary implements HashCodeEqualsDefined, Value<byte[]> {
 
     private final byte[] value;
 
+    /**
+     * The size or number of bytes in this {@link Binary}
+     */
+    public int size() {
+        return this.value.length;
+    }
+
     @Override
     public int hashCode() {
         return Arrays.hashCode(this.value);

@@ -25,6 +25,7 @@ import walkingkooka.test.ToStringTesting;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -43,6 +44,7 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
         final byte[] value = this.value();
         final Binary binary = Binary.with(value);
         assertArrayEquals(value, binary.value());
+        this.checkSize(binary, value.length);
     }
 
     @Test
@@ -85,6 +87,10 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
 
     private byte[] value() {
         return new byte[]{1, 22, 33};
+    }
+
+    private void checkSize(final Binary binary, final int size) {
+        assertEquals(size, binary.size(), "size");
     }
 
     @Override
