@@ -133,6 +133,18 @@ final class RangeBoundInclusive<C extends Comparable> extends RangeBoundExclusiv
                 other;
     }
 
+    // RangeVisitor.............................................................................................
+
+    @Override
+    void traverseLowerBound(final RangeVisitor<C> visitor) {
+        visitor.lowerBoundInclusive(this.value);
+    }
+
+    @Override
+    void traverseUpperBound(final RangeVisitor<C> visitor) {
+        visitor.upperBoundInclusive(this.value);
+    }
+
     // Range.toString.......................................................
 
     @Override

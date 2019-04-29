@@ -27,6 +27,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.visit.VisitableTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +38,8 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
         HasJsonNodeTesting<Range<Integer>>,
         ParseStringTesting<Range<Integer>>,
         PredicateTesting<Range<Integer>, Integer>,
-        HashCodeEqualsDefinedTesting<Range<Integer>> {
+        HashCodeEqualsDefinedTesting<Range<Integer>>,
+        VisitableTesting<Range<Integer>> {
 
     private final static Integer BELOW_LOWER_VALUE = 1000;
     private final static Integer LOWER_VALUE = 2000;

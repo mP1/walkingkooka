@@ -145,6 +145,18 @@ final class RangeBoundAll<C extends Comparable> extends RangeBound<C> {
         return other;
     }
 
+    // RangeVisitor.............................................................................................
+
+    @Override
+    void traverseLowerBound(final RangeVisitor<C> visitor) {
+        visitor.lowerBoundAll();
+    }
+
+    @Override
+    void traverseUpperBound(final RangeVisitor<C> visitor) {
+        visitor.upperBoundAll();
+    }
+
     // Range.toJsonNode......................................................................
 
     static RangeBound<?> fromJsonNode0(final JsonObjectNode node) {
