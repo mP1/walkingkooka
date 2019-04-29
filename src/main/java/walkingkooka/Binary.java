@@ -28,10 +28,15 @@ import java.util.Objects;
  */
 public final class Binary implements HashCodeEqualsDefined, Value<byte[]> {
 
+    /**
+     * A {@link Binary} with zero bytes.
+     */
+    public final static Binary EMPTY = new Binary(new byte[0]);
+
     public static Binary with(final byte[] value) {
         Objects.requireNonNull(value, "value");
 
-        return new Binary(value.clone());
+        return value.length == 0 ? EMPTY : new Binary(value.clone());
     }
 
     private Binary(final byte[] value) {
