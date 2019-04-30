@@ -139,6 +139,15 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * [@see FunctionConverter}
+     */
+    public static <S, D> Converter function(final Class<S> sourceType,
+                                            final Class<D> targetType,
+                                            final Function<S, D> converter) {
+        return FunctionConverter.with(sourceType, targetType, converter);
+    }
+
+    /**
      * {@see LocalDateBigDecimalConverter}
      */
     public static Converter localDateBigDecimal(final long offset) {
@@ -352,13 +361,6 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter string() {
         return StringConverter.INSTANCE;
-    }
-
-    /**
-     * [@see StringBooleanConverter}
-     */
-    public static Converter stringBoolean() {
-        return StringBooleanConverter.INSTANCE;
     }
 
     /**

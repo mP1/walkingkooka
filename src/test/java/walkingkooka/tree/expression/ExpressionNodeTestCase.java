@@ -394,7 +394,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
                 // string ->
                 stringBigDecimal,
                 stringBigInteger,
-                Converters.stringBoolean(),
+                Converters.function(String.class, Boolean.class, Boolean::valueOf),
                 stringDouble,
                 stringLocalDate,
                 stringLocalDateTime,
