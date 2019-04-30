@@ -324,7 +324,14 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * [@see NumberLongConverter}
+     * {@see NumberIntegerConverter}
+     */
+    public static Converter numberInteger() {
+        return NumberIntegerConverter.INSTANCE;
+    }
+
+    /**
+     * {@see NumberLongConverter}
      */
     public static Converter numberLong() {
         return NumberLongConverter.INSTANCE;
