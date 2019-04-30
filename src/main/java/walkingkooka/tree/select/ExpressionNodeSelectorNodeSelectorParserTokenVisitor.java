@@ -21,6 +21,7 @@ package walkingkooka.tree.select;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAndParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAttributeNameParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorEqualsParserToken;
@@ -110,7 +111,7 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
     protected void endVisit(final NodeSelectorFunctionParserToken token) {
         final ExpressionNodeName functionName = ExpressionNodeName.with(token.functionName().value());
         if (!this.functions.test(functionName)) {
-            throw new NodeSelectorException("Unknown function " + functionName + " in " + token);
+            throw new NodeSelectorException("Unknown function " + CharSequences.quoteAndEscape(functionName.value()) + " in " + CharSequences.quoteAndEscape(token.toString()));
         }
 
         final ExpressionNode function = ExpressionNode.function(
