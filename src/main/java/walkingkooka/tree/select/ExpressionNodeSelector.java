@@ -92,7 +92,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
                             final boolean value,
                             final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return value ?
-                node.replace(context.selected(node)) :
+                this.select(node, context):
                 node;
     }
 

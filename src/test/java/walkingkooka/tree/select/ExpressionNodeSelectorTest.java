@@ -54,6 +54,33 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
+    public void testFunctionBooleanChildrenSelectorAppended() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent = TestNode.with("self", child1, child2);
+
+        this.acceptAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(ExpressionNode.booleanNode(true))
+                        .append(NodeSelector.children()),
+                parent,
+                child1, child2);
+    }
+
+    @Test
+    public void testFunctionNumberChildrenSelectorAppended() {
+        final TestNode grandChild1 = TestNode.with("grandChild1");
+        final TestNode grandChild2 = TestNode.with("grandChild2");
+        final TestNode grandChild3 = TestNode.with("grandChild3");
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1", grandChild1),
+                TestNode.with("child2", grandChild2, grandChild3));
+
+        this.acceptAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 1))
+                        .append(NodeSelector.children()),
+                parent,
+                grandChild2, grandChild3);
+    }
+
+    @Test
     public void testMapFalse() {
         final TestNode node = TestNode.with("node");
 
