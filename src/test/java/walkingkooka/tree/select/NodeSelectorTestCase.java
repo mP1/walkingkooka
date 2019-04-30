@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
@@ -200,26 +200,11 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
     }
 
     final Converter converter() {
-        return new Converter() {
-            @Override
-            public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
-                return false;
-            }
-
-            @Override
-            public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-                if(value instanceof Long && Integer.class == type) {
-                    return type.cast(Long.class.cast(value).intValue());
-                }
-                if (type.isInstance(value)) {
-                    return type.cast(value);
-                }
-                if (value instanceof String && type == Integer.class) {
-                    return type.cast(Integer.parseInt(String.valueOf(value)));
-                }
-                return failConversion(value, type);
-            }
-        };
+        return Converters.collection(Lists.of(
+                Converters.numberInteger(),
+                Converters.function(String.class, Integer.class, Integer::parseInt),
+                Converters.simple()
+        ));
     }
 
     @Override
