@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.io.file.FileExtension;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -53,12 +54,8 @@ public final class FileResponse {
     /**
      * Returns the file extension if one is present.
      */
-    public Optional<String> fileExtension() {
-        final String filename = this.filename;
-        final int dot = filename.lastIndexOf('.');
-        return Optional.ofNullable(-1 == dot || dot == filename.length() - 1 ?
-                null :
-                filename.substring(dot + 1));
+    public Optional<FileExtension> fileExtension() {
+        return FileExtension.extract(this.filename);
     }
 
     public Binary binary() {

@@ -20,10 +20,9 @@ package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.io.file.FileExtension;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -57,7 +56,7 @@ public final class FileResponseTest implements ToStringTesting<FileResponse> {
 
     @Test
     public void testFileExtensionPresent() {
-        this.fileExtensionAndCheck("file.txt", "txt");
+        this.fileExtensionAndCheck("file.txt");
     }
 
     @Test
@@ -71,15 +70,7 @@ public final class FileResponseTest implements ToStringTesting<FileResponse> {
     }
 
     private void fileExtensionAndCheck(final String filename) {
-        this.fileExtensionAndCheck0(filename, Optional.empty());
-    }
-
-    private void fileExtensionAndCheck(final String filename, final String fileExtension) {
-        this.fileExtensionAndCheck0(filename, Optional.of(fileExtension));
-    }
-
-    private void fileExtensionAndCheck0(final String filename, final Optional<String> fileExtension) {
-        assertEquals(fileExtension,
+        assertEquals(FileExtension.extract(filename),
                 this.createFileResponse(filename).fileExtension(),
                 () -> CharSequences.quoteAndEscape(filename) + " file extension");
     }
