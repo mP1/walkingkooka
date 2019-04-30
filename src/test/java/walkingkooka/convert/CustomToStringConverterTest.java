@@ -83,7 +83,7 @@ public final class CustomToStringConverterTest implements ClassTesting2<CustomTo
 
     @Test
     public void testEqualsDifferentWrappedConverter() {
-        this.checkNotEquals(CustomToStringConverter.wrap(Converters.stringBoolean(), CUSTOM_TO_STRING));
+        this.checkNotEquals(CustomToStringConverter.wrap(Converters.function(String.class, Boolean.class, Boolean::valueOf), CUSTOM_TO_STRING));
     }
 
     @Test

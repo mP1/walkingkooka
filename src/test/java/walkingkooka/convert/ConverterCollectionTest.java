@@ -70,7 +70,7 @@ public final class ConverterCollectionTest implements ClassTesting2<ConverterCol
 
     @Override
     public ConverterCollection createConverter() {
-        return Cast.to(ConverterCollection.with(Lists.of(Converters.stringBoolean(), Converters.numberLong())));
+        return Cast.to(ConverterCollection.with(Lists.of(Converters.function(String.class, Boolean.class, Boolean::valueOf), Converters.numberLong())));
     }
 
     @Override
