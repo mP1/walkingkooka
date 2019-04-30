@@ -19,10 +19,32 @@
 package walkingkooka.tree.select;
 
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.predicate.Predicates;
+import walkingkooka.text.cursor.parser.select.NodeSelectorFunctionName;
+import walkingkooka.text.cursor.parser.select.NodeSelectorFunctionParserToken;
+import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> {
+
+    @Test
+    public void testUnknownFunctionFails() {
+        final NodeSelectorFunctionParserToken token = NodeSelectorParserToken.function(Lists.of(NodeSelectorParserToken.functionName(NodeSelectorFunctionName.with("zyx"), "xyz"),
+                NodeSelectorParserToken.number(123, "123")),
+                "xyz");
+
+        final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> {
+            new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(Predicates.never())
+                    .accept(token);
+        });
+        assertEquals("Unknown function \"zyx\" in \"xyz\"", thrown.getMessage());
+    }
 
     @Override
     public ExpressionNodeSelectorNodeSelectorParserTokenVisitor createVisitor() {
