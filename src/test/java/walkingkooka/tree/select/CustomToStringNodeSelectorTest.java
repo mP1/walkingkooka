@@ -27,8 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CustomToStringNodeSelectorTest
-        extends NodeSelectorTestCase2<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
+final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase3<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static String TOSTRING = "CustomToString";
 
