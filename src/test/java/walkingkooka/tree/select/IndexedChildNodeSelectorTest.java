@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class IndexedChildNodeSelectorTest extends
-        NodeSelectorTestCase2<IndexedChildNodeSelector<TestNode, StringName, StringName, Object>> {
+        NodeSelectorTestCase3<IndexedChildNodeSelector<TestNode, StringName, StringName, Object>> {
 
     // constants
 

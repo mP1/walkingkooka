@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class LogicalNodeSelectorTestCase<S extends LogicalNodeSelector<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase<S> {
+        extends NodeSelectorTestCase2<S> {
 
     private final static NodeSelector<TestNode, StringName, StringName, Object> SELECTOR = new FakeNodeSelector();
     private final static NodeSelector<TestNode, StringName, StringName, Object> SELECTOR2 = new FakeNodeSelector();

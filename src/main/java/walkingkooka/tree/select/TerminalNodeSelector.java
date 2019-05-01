@@ -27,7 +27,7 @@ import walkingkooka.tree.Node;
  */
 final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NodeSelector<N, NAME, ANAME, AVALUE> {
+        NonCustomToStringNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link TerminalNodeSelector} getter
@@ -66,10 +66,5 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     @Override
     void toString0(final NodeSelectorToStringBuilder b) {
         // nop
-    }
-
-    @Override
-    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
-        return this;
     }
 }

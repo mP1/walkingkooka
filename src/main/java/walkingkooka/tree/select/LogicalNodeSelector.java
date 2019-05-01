@@ -33,7 +33,7 @@ import java.util.Set;
  */
 abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NodeSelector<N, NAME, ANAME, AVALUE> {
+        NonCustomToStringNodeSelector<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
@@ -93,10 +93,5 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     private boolean equals0(final LogicalNodeSelector<?, ?, ?, ?> other) {
         return this.selectors.equals(other.selectors);
-    }
-
-    @Override
-    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
-        return this;
     }
 }

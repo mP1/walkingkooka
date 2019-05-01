@@ -23,7 +23,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
 final public class TerminalNodeSelectorTest
-        extends NodeSelectorTestCase2<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
+        extends NodeSelectorTestCase3<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testMap() {

@@ -24,10 +24,10 @@ import walkingkooka.tree.Node;
 import java.util.Optional;
 
 /**
- * Base class for all non logical (binary) selectors.
+ * Base class for all non logical selectors.
  */
 abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeSelector<N, NAME, ANAME, AVALUE> {
+        extends NonCustomToStringNodeSelector<N, NAME, ANAME, AVALUE> {
 
     NonLogicalNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super();
@@ -96,9 +96,4 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     }
 
     abstract boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other);
-
-    @Override
-    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
-        return this;
-    }
 }

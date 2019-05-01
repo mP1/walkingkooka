@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase<S> {
+        extends NodeSelectorTestCase2<S> {
 
     NonLogicalNodeSelectorTestCase() {
         super();
