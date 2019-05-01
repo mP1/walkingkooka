@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.build.Builder;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
@@ -443,7 +444,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
         b.named(Names.string(PARENT))
                 .attributeValueContains(Names.string("attribute-name"), "attribute-value");
 
-        this.buildAndCheck2(b, "/parent[contains(@\"attribute-name\",\"attribute-value\")]");
+        this.buildAndCheck3(b, "/parent[contains(@\"attribute-name\",\"attribute-value\")]");
     }
 
     @Test
@@ -454,7 +455,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
                 .self()
                 .followingSibling();
 
-        this.buildAndCheck2(b, "/preceding-sibling::*/./following-sibling::*");
+        this.buildAndCheck3(b, "/preceding-sibling::*/./following-sibling::*");
     }
 
     @Test
@@ -465,7 +466,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
                 .self()
                 .following();
 
-        this.buildAndCheck2(b, "/preceding::*/./following::*");
+        this.buildAndCheck3(b, "/preceding::*/./following::*");
     }
 
     @Test
@@ -475,7 +476,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
                 .self()
                 .following();
 
-        this.buildAndCheck2(b, "/preceding::*/./following::*");
+        this.buildAndCheck3(b, "/preceding::*/./following::*");
     }
 
     @Test
@@ -485,7 +486,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
                 .self()
                 .following();
 
-        this.buildAndCheck2(b, "preceding::*/./following::*");
+        this.buildAndCheck3(b, "preceding::*/./following::*");
     }
 
     @Override
@@ -503,6 +504,11 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     private PathSeparator separator() {
         return PathSeparator.requiredAtStart('/');
+    }
+
+    final void buildAndCheck3(final Builder<?> builder, final String productToString) {
+        this.buildAndCheck2(builder, productToString);
+        this.toStringAndCheck(builder, productToString);
     }
 
     @Override
