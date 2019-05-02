@@ -48,6 +48,21 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
      */
     public static void clear() {
         names.clear();
+        UNIQUE_NAMES_CHECK = true;
+    }
+
+    /**
+     * Turns back assertions OFF so {@link TestNode} can be duplicates.
+     */
+    public static void disableUniqueNameChecks() {
+        UNIQUE_NAMES_CHECK = false;
+    }
+
+    /**
+     * Turns back assertions ON so that all {@link TestNode} names must be unique.
+     */
+    public static void enableUniqueNameChecks() {
+        UNIQUE_NAMES_CHECK = true;
     }
 
     /**
@@ -58,7 +73,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
     public final static Optional<TestNode> NO_PARENT = Optional.empty();
 
     public static TestNode with(final String name, final TestNode... children) {
-        if (!names.add(name)) {
+        if (UNIQUE_NAMES_CHECK && !names.add(name)) {
             Assertions.fail("Name " + CharSequences.quote(name) + " must be unique per test");
         }
 
@@ -72,6 +87,11 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
      * Used to keep track of all node names, preventing duplicates.
      */
     private static final Set<String> names = Sets.sorted();
+
+    /**
+     * When true all new {@link TestNode#with(String, TestNode...)} names must be unique otherwise an assertion will fail.
+     */
+    private static boolean UNIQUE_NAMES_CHECK = true;
 
     private TestNode(final StringName name,
                      final Optional<TestNode> parent,
