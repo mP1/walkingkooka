@@ -81,6 +81,69 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     }
 
     @Test
+    public void testWithDuplicateNameFails() {
+        final String duplicateName = "duplicate123";
+        TestNode.with(duplicateName);
+
+        boolean failed = false;
+        try {
+            TestNode.with(duplicateName);
+        } catch (final AssertionError expected) {
+            failed = true;
+        }
+        assertEquals(failed, true, "Factory should have failed with duplicate name");
+    }
+
+    @Test
+    public void testDisableUniqueNameChecks() {
+        final String duplicateName = "duplicate123";
+        final TestNode first = TestNode.with(duplicateName);
+
+        TestNode.disableUniqueNameChecks();
+
+        assertEquals(first, TestNode.with(duplicateName));
+    }
+
+    @Test
+    public void testClear() {
+        final String duplicateName = "duplicate123";
+        TestNode.with(duplicateName);
+
+        TestNode.disableUniqueNameChecks();
+        TestNode.with(duplicateName);
+
+        TestNode.clear();
+        TestNode.with(duplicateName);
+
+        boolean failed = false;
+        try {
+            TestNode.with(duplicateName);
+        } catch (final AssertionError expected) {
+            failed = true;
+        }
+        assertEquals(failed, true, "Factory should have failed with duplicate name");
+    }
+
+    @Test
+    public void testEnableUniqueNameChecks() {
+        final String duplicateName = "duplicate123";
+        TestNode.with(duplicateName);
+
+        TestNode.disableUniqueNameChecks();
+        TestNode.with(duplicateName);
+
+        TestNode.enableUniqueNameChecks();
+
+        boolean failed = false;
+        try {
+            TestNode.with(duplicateName);
+        } catch (final AssertionError expected) {
+            failed = true;
+        }
+        assertEquals(failed, true, "Factory should have failed with duplicate name");
+    }
+
+    @Test
     public void testParentWithoutRoot() {
         this.parentWithoutAndCheck(TestNode.with("root"));
     }
