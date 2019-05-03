@@ -23,7 +23,6 @@ import walkingkooka.naming.HasName;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.pointer.NodePointer;
-import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visitable;
 
 import java.util.List;
@@ -206,13 +205,6 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      * Sets or replaces the attributes.
      */
     N setAttributes(final Map<ANAME, AVALUE> attributes);
-
-    /**
-     * Returns a select that may be used to locate this {@link Node} starting at the root.
-     */
-    default NodeSelector<N, NAME, ANAME, AVALUE> selector() {
-        return NodeSelector.path(Cast.to(this));
-    }
 
     /**
      * Returns a {@link NodePointer} that uniquely identifies this {@link Node} starting at the root.
