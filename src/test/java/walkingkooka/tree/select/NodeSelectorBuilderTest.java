@@ -337,17 +337,6 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     }
 
     @Test
-    public void testDeepPathNameAndChild() {
-
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
-                .descendant()
-                .named(Names.string(PARENT))
-                .child(2);
-
-        this.acceptTreeAndCheck(b, CHILD2);
-    }
-
-    @Test
     public void testDeepPathNameAndPrecedingSibling() {
 
         final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()

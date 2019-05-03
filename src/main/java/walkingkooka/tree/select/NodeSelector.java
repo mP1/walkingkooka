@@ -219,17 +219,6 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * {@see IndexedChildNodeSelector}
-     */
-    static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
-    IndexedChildNodeSelector<N, NAME, ANAME, AVALUE> indexedChild(final int index) {
-        return IndexedChildNodeSelector.with(index);
-    }
-
-    /**
      * {@see LastChildNodeSelector}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
