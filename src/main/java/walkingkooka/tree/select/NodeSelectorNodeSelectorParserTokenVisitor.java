@@ -66,37 +66,31 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
         Objects.requireNonNull(token, "token");
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(functions, "functions");
-        Objects.requireNonNull(node, "name");
+        Objects.requireNonNull(node, "node");
 
-        return new NodeSelectorNodeSelectorParserTokenVisitor<>(NodeSelectorBuilder.relative(node),
-                nameFactory,
+        return new NodeSelectorNodeSelectorParserTokenVisitor<>(nameFactory,
                 functions,
-                node).acceptAndBuild(token);
+                node).acceptAndComplete(token);
     }
 
     /**
      * Private ctor use static factory
      */
     // @VisibleForTesting
-    NodeSelectorNodeSelectorParserTokenVisitor(final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> builder,
-                                               final Function<NodeSelectorNodeName, NAME> nameFactory,
+    NodeSelectorNodeSelectorParserTokenVisitor(final Function<NodeSelectorNodeName, NAME> nameFactory,
                                                final Predicate<ExpressionNodeName> functions,
                                                final Class<N> node) {
         super();
 
-        this.builder = builder;
         this.nameFactory = nameFactory;
         this.functions = functions;
-        this.node = node;
-
         this.reset();
     }
 
-    private NodeSelector<N, NAME, ANAME, AVALUE> acceptAndBuild(final NodeSelectorParserToken token) {
+    private NodeSelector<N, NAME, ANAME, AVALUE> acceptAndComplete(final NodeSelectorParserToken token) {
         this.accept(token);
-        this.maybeComplete(NodeSelector.children());
-        return this.builder.build()
-                .setToString(token.text());
+        this.maybeComplete(ChildrenNodeSelector.get());
+        return this.selector.setToString(token.text());
     }
 
     @Override
@@ -106,7 +100,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
 
     @Override
     protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
-        this.predicates.add(ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(token, this.functions));
+        this.selector = this.selector.expression(ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(token, this.functions));
         return Visiting.SKIP;
     }
 
@@ -121,84 +115,84 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
 
     @Override
     protected void visit(final NodeSelectorAbsoluteParserToken token) {
-        this.builder = NodeSelectorBuilder.absolute(this.node);
+        this.selector = NodeSelector.absolute();
         this.reset();
     }
 
     @Override
     protected void visit(final NodeSelectorAncestorParserToken token) {
-        this.axis(NodeSelector.ancestor());
+        this.axis(AncestorNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorAncestorOrSelfParserToken token) {
-        this.axis(NodeSelector.ancestorOrSelf());
+        this.axis(AncestorOrSelfNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorChildParserToken token) {
-        this.axis(NodeSelector.children());
+        this.axis(ChildrenNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorDescendantParserToken token) {
-        this.axis(NodeSelector.descendant());
+        this.axis(DescendantNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
-        this.axis(NodeSelector.descendantOrSelf());
+        this.axis(DescendantOrSelfNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorFirstChildParserToken token) {
-        this.axis(NodeSelector.firstChild());
+        this.axis(FirstChildNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorFollowingParserToken token) {
-        this.axis(NodeSelector.following());
+        this.axis(FollowingNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorFollowingSiblingParserToken token) {
-        this.axis(NodeSelector.followingSibling());
+        this.axis(FollowingSiblingNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorLastChildParserToken token) {
-        this.axis(NodeSelector.lastChild());
+        this.axis(LastChildNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorNodeNameParserToken token) {
-        this.maybeComplete(NodeSelector.children());
+        this.maybeComplete(ChildrenNodeSelector.get());
         this.name = token;
     }
 
     @Override
     protected void visit(final NodeSelectorParentOfParserToken token) {
-        this.axis(NodeSelector.parent());
+        this.axis(ParentNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorPrecedingParserToken token) {
-        this.axis(NodeSelector.preceding());
+        this.axis(PrecedingNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorPrecedingSiblingParserToken token) {
-        this.axis(NodeSelector.precedingSibling());
+        this.axis(PrecedingSiblingNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorSelfParserToken token) {
-        this.axis(NodeSelector.self());
+        this.axis(SelfNodeSelector.get());
     }
 
     @Override
     protected void visit(final NodeSelectorWildcardParserToken token) {
-        this.maybeComplete(NodeSelector.children());
+        this.maybeComplete(ChildrenNodeSelector.get());
         this.wildcard = true;
     }
 
@@ -229,16 +223,18 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     }
 
     private void complete(final NodeSelectorNodeNameParserToken name, final NodeSelector<N, NAME, ANAME, AVALUE> axis) {
-        final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> builder = this.builder;
+        NodeSelector<N, NAME, ANAME, AVALUE> selector = this.selector;
         if (null != name) {
-            builder.named(this.nameFactory.apply(name.value()));
+            selector = selector.named(this.nameFactory.apply(name.value()));
         }
-        this.predicates.stream()
-                .forEach(p -> builder.expression(p));
+        for(ExpressionNode expression : this.predicates) {
+            selector = selector.expression(expression);
+        }
 
         if (null != axis) {
-            builder.append(axis);
+            selector = selector.append(axis);
         }
+        this.selector = selector;
         this.reset();
     }
 
@@ -258,11 +254,6 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     private final Function<NodeSelectorNodeName, NAME> nameFactory;
 
     /**
-     * The node types.
-     */
-    private final Class<N> node;
-
-    /**
      * Zero or more predicates for this step. Note that predicate is the xpath name for this concept.
      */
     private List<ExpressionNode> predicates;
@@ -270,10 +261,10 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     /**
      * Builds the selector.
      */
-    private NodeSelectorBuilder<N, NAME, ANAME, AVALUE> builder;
+    private NodeSelector<N, NAME, ANAME, AVALUE> selector = NodeSelector.relative();
 
     @Override
     public String toString() {
-        return this.builder.toString();
+        return this.selector.toString();
     }
 }

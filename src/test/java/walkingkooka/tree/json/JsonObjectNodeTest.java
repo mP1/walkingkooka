@@ -30,7 +30,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -731,10 +730,9 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonNodeName key2 = this.key2();
 
         this.selectorAcceptAndCheck(object,
-                NodeSelectorBuilder.absolute(JsonNode.class)
+                JsonNode.absoluteNodeSelector()
                         .descendant()
-                        .named(key2)
-                        .build(),
+                        .named(key2),
                 object.get(key2).get());
     }
 
@@ -748,10 +746,9 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonNode replaced = JsonNode.string("*");
 
         this.selectorAcceptMapAndCheck(object,
-                NodeSelectorBuilder.absolute(JsonNode.class)
+                JsonNode.absoluteNodeSelector()
                         .descendant()
-                        .named(key2)
-                        .build(),
+                        .named(key2),
                 (n) -> replaced,
                 object.set(key2, replaced));
     }

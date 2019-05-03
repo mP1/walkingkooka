@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -315,5 +316,21 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     @Override
     public String toString() {
         return this.path.toString();
+    }
+
+    // NodeSelector .......................................................................................................
+
+    /**
+     * {@see NodeSelector#absolute}
+     */
+    public static NodeSelector<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> absoluteNodeSelector() {
+        return NodeSelector.absolute();
+    }
+
+    /**
+     * {@see NodeSelector#relative}
+     */
+    public static NodeSelector<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> relativeNodeSelector() {
+        return NodeSelector.relative();
     }
 }

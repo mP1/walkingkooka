@@ -37,6 +37,7 @@ import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
+import walkingkooka.tree.select.NodeSelector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;
@@ -689,4 +690,20 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
 
     final static String SYSTEM = "SYSTEM";
     final static String PUBLIC = "PUBLIC";
+
+    // NodeSelector .......................................................................................................
+
+    /**
+     * {@see NodeSelector#absolute}
+     */
+    public static NodeSelector<XmlNode, XmlName, XmlAttributeName, String> absoluteNodeSelector() {
+        return NodeSelector.absolute();
+    }
+
+    /**
+     * {@see NodeSelector#relative}
+     */
+    public static NodeSelector<XmlNode, XmlName, XmlAttributeName, String> relativeNodeSelector() {
+        return NodeSelector.relative();
+    }
 }

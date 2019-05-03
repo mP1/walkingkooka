@@ -24,7 +24,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.tree.search.SearchNode;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -527,10 +526,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         final JsonNode expected = array.get(1);
 
         this.selectorAcceptAndCheck(array,
-                NodeSelectorBuilder.absolute(JsonNode.class)
+                JsonNode.absoluteNodeSelector()
                         .descendant()
-                        .named(expected.name())
-                        .build(),
+                        .named(expected.name()),
                 expected);
     }
 
@@ -545,10 +543,9 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         final JsonNode replaced = JsonNode.number(999);
 
         this.selectorAcceptMapAndCheck(array,
-                NodeSelectorBuilder.absolute(JsonNode.class)
+                JsonNode.absoluteNodeSelector()
                         .descendant()
-                        .named(array.get(1).name())
-                        .build(),
+                        .named(array.get(1).name()),
                 (n) -> replaced,
                 array.set(1, replaced));
     }

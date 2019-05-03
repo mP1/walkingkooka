@@ -40,7 +40,7 @@ public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<Test
 
     @Test
     public final void testEqualsDifferentSelector() {
-        this.checkNotEquals(this.createSelector(NodeSelector.parent()));
+        this.checkNotEquals(this.createSelector().parent());
     }
 
     final void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,

@@ -62,7 +62,7 @@ public abstract class LogicalNodeSelectorTestCase<S extends LogicalNodeSelector<
     public final void testEqualsDifferentSelectors() {
         this.checkNotEquals(this.createSelector(
                 NodeSelector.terminal(),
-                NodeSelector.expression(ExpressionNode.text("different!"))));
+                ExpressionNodeSelector.with(ExpressionNode.text("different!"))));
     }
 
     @Override final S createSelector() {

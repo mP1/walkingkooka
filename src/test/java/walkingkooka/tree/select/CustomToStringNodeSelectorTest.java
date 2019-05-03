@@ -74,14 +74,14 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase3<
         final TestNode parent = TestNode.with("parent",
                 TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
 
-        this.acceptMapAndCheck(NodeSelector.<TestNode, StringName, StringName, Object>firstChild().setToString(TOSTRING),
+        this.acceptMapAndCheck(TestNode.relativeNodeSelector().firstChild().setToString(TOSTRING),
                 parent,
                 parent.setChild(0, TestNode.with("child1*0")));
     }
 
     @Test
     public void testEqualsDifferentWrappedNodeSelector() {
-        this.checkNotEquals(CustomToStringNodeSelector.with(NodeSelector.<TestNode, StringName, StringName, Object>self(), TOSTRING));
+        this.checkNotEquals(CustomToStringNodeSelector.with(SelfNodeSelector.<TestNode, StringName, StringName, Object>get(), TOSTRING));
     }
 
     @Test

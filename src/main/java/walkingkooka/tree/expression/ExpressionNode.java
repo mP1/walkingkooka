@@ -26,6 +26,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -651,4 +652,20 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     abstract void toString0(final StringBuilder b);
+
+    // NodeSelector .......................................................................................................
+
+    /**
+     * {@see NodeSelector#absolute}
+     */
+    public static NodeSelector<ExpressionNode, ExpressionNodeName, Name, Object> absoluteNodeSelector() {
+        return NodeSelector.absolute();
+    }
+
+    /**
+     * {@see NodeSelector#relative}
+     */
+    public static NodeSelector<ExpressionNode, ExpressionNodeName, Name, Object> relativeNodeSelector() {
+        return NodeSelector.relative();
+    }
 }

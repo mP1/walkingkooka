@@ -59,8 +59,7 @@ final public class ExpressionNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("self", child1, child2);
 
-        this.acceptAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(ExpressionNode.booleanNode(true))
-                        .append(NodeSelector.children()),
+        this.acceptAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(ExpressionNode.booleanNode(true)).children(),
                 parent,
                 child1, child2);
     }
@@ -75,7 +74,7 @@ final public class ExpressionNodeSelectorTest extends
                 TestNode.with("child2", grandChild2, grandChild3));
 
         this.acceptAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 1))
-                        .append(NodeSelector.children()),
+                        .children(),
                 parent,
                 grandChild2, grandChild3);
     }

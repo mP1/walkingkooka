@@ -20,9 +20,9 @@ package walkingkooka.tree.pojo;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
 import java.util.Map;
@@ -332,5 +332,21 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
      */
     final String toString0() {
         return String.valueOf(this.value);
+    }
+
+    // NodeSelector .......................................................................................................
+
+    /**
+     * {@see NodeSelector#absolute}
+     */
+    public static NodeSelector<PojoNode, PojoName, PojoNodeAttributeName, Object> absoluteNodeSelector() {
+        return NodeSelector.absolute();
+    }
+
+    /**
+     * {@see NodeSelector#relative}
+     */
+    public static NodeSelector<PojoNode, PojoName, PojoNodeAttributeName, Object> relativeNodeSelector() {
+        return NodeSelector.relative();
     }
 }

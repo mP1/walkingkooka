@@ -70,7 +70,7 @@ public final class AndNodeSelectorTest extends
         TestNode.clear();
 
         // children selects $child1 & $child2, index(1) only selects $child1 giving $child1.
-        this.acceptMapAndCheck(this.createSelector0(ChildrenNodeSelector.get(), NodeSelector.firstChild()),
+        this.acceptMapAndCheck(this.createSelector0(ChildrenNodeSelector.get(), FirstChildNodeSelector.get()),
                 parent, // parent1
                 TestNode.with("parent", TestNode.with("child1*0"), TestNode.with("child2")));
     }
@@ -82,7 +82,7 @@ public final class AndNodeSelectorTest extends
         TestNode.clear();
 
         // children and descendant both select all children.
-        this.acceptMapAndCheck(this.createSelector0(ChildrenNodeSelector.get(), NodeSelector.descendant()),
+        this.acceptMapAndCheck(this.createSelector0(ChildrenNodeSelector.get(), DescendantNodeSelector.get()),
                 parent, // parent1
                 TestNode.with("parent", TestNode.with("child1*0"), TestNode.with("child2*1")));
     }

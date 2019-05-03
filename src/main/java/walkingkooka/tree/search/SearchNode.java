@@ -25,6 +25,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -514,4 +515,20 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     abstract String toStringNameSuffix();
 
     abstract void toString1(final StringBuilder b);
+
+    // NodeSelector .......................................................................................................
+
+    /**
+     * {@see NodeSelector#absolute}
+     */
+    public static NodeSelector<SearchNode, SearchNodeName, SearchNodeAttributeName, String> absoluteNodeSelector() {
+        return NodeSelector.absolute();
+    }
+
+    /**
+     * {@see NodeSelector#relative}
+     */
+    public static NodeSelector<SearchNode, SearchNodeName, SearchNodeAttributeName, String> relativeNodeSelector() {
+        return NodeSelector.relative();
+    }
 }
