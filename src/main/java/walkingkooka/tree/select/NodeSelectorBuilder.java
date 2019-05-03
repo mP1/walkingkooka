@@ -126,13 +126,6 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     /**
-     * {@see IndexedChildNodeSelector}
-     */
-    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> child(final int index) {
-        return this.append(IndexedChildNodeSelector.with(index));
-    }
-
-    /**
      * {@see ChildrenNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> children() {
