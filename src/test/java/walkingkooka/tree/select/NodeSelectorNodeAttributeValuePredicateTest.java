@@ -20,10 +20,10 @@ package walkingkooka.tree.select;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeAttributeValuePredicateTest implements ClassTesting2<NodeAttributeValuePredicate> {
+public final class NodeSelectorNodeAttributeValuePredicateTest implements ClassTesting2<NodeSelectorNodeAttributeValuePredicate> {
     @Override
-    public Class<NodeAttributeValuePredicate> type() {
-        return NodeAttributeValuePredicate.class;
+    public Class<NodeSelectorNodeAttributeValuePredicate> type() {
+        return NodeSelectorNodeAttributeValuePredicate.class;
     }
 
     @Override

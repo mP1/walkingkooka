@@ -22,36 +22,36 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 
 /**
- * A {@link java.util.function.Predicate} that returns true if an attribute value ends with the given test value.
+ * A {@link java.util.function.Predicate} that matches nodes that contain an attribute with a value.
  */
-final class NodeAttributeValueEndsWithPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
+final class NodeSelectorNodeAttributeValueEqualsPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+        extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    NodeAttributeValueEndsWithPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
-        return new NodeAttributeValueEndsWithPredicate<>(name, value);
+    NodeSelectorNodeAttributeValueEqualsPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
+        return new NodeSelectorNodeAttributeValueEqualsPredicate<>(name, value);
     }
 
-    private NodeAttributeValueEndsWithPredicate(ANAME name, AVALUE value) {
+    private NodeSelectorNodeAttributeValueEqualsPredicate(ANAME name, AVALUE value) {
         super(name, value);
     }
 
     @Override
-    boolean test0(final AVALUE value, final AVALUE currentValue) {
-        return currentValue.toString().endsWith(value.toString());
+    boolean test0(final AVALUE value, final AVALUE current) {
+        return current.equals(value);
     }
 
     @Override
     boolean isSameType(final Object other) {
-        return other instanceof NodeAttributeValueEndsWithPredicate;
+        return other instanceof NodeSelectorNodeAttributeValueEqualsPredicate;
     }
 
     @Override
     String toString0(final ANAME name, final AVALUE value) {
-        //[ends-with(@href, '/')]
-        return "ends-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
+        //[@for="xyz"]
+        return "@" + name + "=" + CharSequences.quoteIfChars(value);
     }
 }

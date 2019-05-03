@@ -24,8 +24,8 @@ import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
-public class NodeAttributeValueStartsWithPredicateTest
-        extends NodeAttributeValuePredicateTestCase<NodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> {
+public class NodeSelectorNodeAttributeValueStartsWithPredicateTest
+        extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testStartsWith() {
@@ -43,12 +43,12 @@ public class NodeAttributeValueStartsWithPredicateTest
     }
 
     @Override
-    NodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
-        return NodeAttributeValueStartsWithPredicate.with(name, value);
+    NodeSelectorNodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
+        return NodeSelectorNodeAttributeValueStartsWithPredicate.with(name, value);
     }
 
     @Override
-    public Class<NodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(NodeAttributeValueStartsWithPredicate.class);
+    public Class<NodeSelectorNodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorNodeAttributeValueStartsWithPredicate.class);
     }
 }

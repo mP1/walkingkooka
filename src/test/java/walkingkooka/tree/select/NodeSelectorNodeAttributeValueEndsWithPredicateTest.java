@@ -26,8 +26,8 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NodeAttributeValueEndsWithPredicateTest
-        extends NodeAttributeValuePredicateTestCase<NodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> {
+public class NodeSelectorNodeAttributeValueEndsWithPredicateTest
+        extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void tesEndsWith() {
@@ -45,12 +45,12 @@ public class NodeAttributeValueEndsWithPredicateTest
     }
 
     @Override
-    NodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
-        return NodeAttributeValueEndsWithPredicate.with(name, value);
+    NodeSelectorNodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
+        return NodeSelectorNodeAttributeValueEndsWithPredicate.with(name, value);
     }
 
     @Override
-    public Class<NodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(NodeAttributeValueEndsWithPredicate.class);
+    public Class<NodeSelectorNodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorNodeAttributeValueEndsWithPredicate.class);
     }
 }

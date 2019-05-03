@@ -18,10 +18,16 @@
 
 package walkingkooka.tree.select;
 
-public final class NonCustomToStringNodeSelectorTest extends NodeSelectorTestCase<NonCustomToStringNodeSelector> {
+import walkingkooka.Cast;
+import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
+
+public final class NonCustomToStringNodeSelectorTest extends NodeSelectorTestCase2<NonCustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
+
+    // TypeNameTesting .........................................................................................
 
     @Override
-    public Class<NonCustomToStringNodeSelector> type() {
-        return NonCustomToStringNodeSelector.class;
+    public Class<NonCustomToStringNodeSelector<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NonCustomToStringNodeSelector.class);
     }
 }

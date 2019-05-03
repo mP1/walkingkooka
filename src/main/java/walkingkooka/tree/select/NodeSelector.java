@@ -123,28 +123,28 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Appends an attribute value contains test.
      */
     public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueContains(final ANAME name, final AVALUE value) {
-        return this.predicate(NodeAttributeValueContainsPredicate.<N, NAME, ANAME, AVALUE>contains(name, value));
+        return this.predicate(NodeSelectorNodeAttributeValueContainsPredicate.<N, NAME, ANAME, AVALUE>contains(name, value));
     }
 
     /**
      * Appends an attribute value ends with test.
      */
     public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueEndsWith(final ANAME name, final AVALUE value) {
-        return this.predicate(NodeAttributeValueEndsWithPredicate.<N, NAME, ANAME, AVALUE>endsWith(name, value));
+        return this.predicate(NodeSelectorNodeAttributeValueEndsWithPredicate.<N, NAME, ANAME, AVALUE>endsWith(name, value));
     }
 
     /**
      * Appends an attribute value equals test.
      */
     public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueEquals(final ANAME name, final AVALUE value) {
-        return this.predicate(NodeAttributeValueEqualsPredicate.<N, NAME, ANAME, AVALUE>equalsPredicate(name, value));
+        return this.predicate(NodeSelectorNodeAttributeValueEqualsPredicate.<N, NAME, ANAME, AVALUE>equalsPredicate(name, value));
     }
 
     /**
      * Appends an attribute value starts with test.
      */
     public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueStartsWith(final ANAME name, final AVALUE value) {
-        return this.predicate(NodeAttributeValueStartsWithPredicate.<N, NAME, ANAME, AVALUE>startsWith(name, value));
+        return this.predicate(NodeSelectorNodeAttributeValueStartsWithPredicate.<N, NAME, ANAME, AVALUE>startsWith(name, value));
     }
 
     /**
