@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAbsoluteParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAncestorOrSelfParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAncestorParserToken;
@@ -69,12 +68,11 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(node, "name");
 
-        return new NodeSelectorNodeSelectorParserTokenVisitor<>(NodeSelectorBuilder.relative(node, SEPARATOR),
+        return new NodeSelectorNodeSelectorParserTokenVisitor<>(NodeSelectorBuilder.relative(node),
                 nameFactory,
-                functions).acceptAndBuild(token);
+                functions,
+                node).acceptAndBuild(token);
     }
-
-    private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
     /**
      * Private ctor use static factory
@@ -82,12 +80,15 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     // @VisibleForTesting
     NodeSelectorNodeSelectorParserTokenVisitor(final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> builder,
                                                final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                               final Predicate<ExpressionNodeName> functions) {
+                                               final Predicate<ExpressionNodeName> functions,
+                                               final Class<N> node) {
         super();
 
         this.builder = builder;
         this.nameFactory = nameFactory;
         this.functions = functions;
+        this.node = node;
+
         this.reset();
     }
 
@@ -120,7 +121,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
 
     @Override
     protected void visit(final NodeSelectorAbsoluteParserToken token) {
-        this.builder.absolute();
+        this.builder = NodeSelectorBuilder.absolute(this.node);
         this.reset();
     }
 
@@ -146,7 +147,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
 
     @Override
     protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
-        this.axis(NodeSelector.descendantOrSelf(SEPARATOR));
+        this.axis(NodeSelector.descendantOrSelf());
     }
 
     @Override
@@ -257,6 +258,11 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     private final Function<NodeSelectorNodeName, NAME> nameFactory;
 
     /**
+     * The node types.
+     */
+    private final Class<N> node;
+
+    /**
      * Zero or more predicates for this step. Note that predicate is the xpath name for this concept.
      */
     private List<ExpressionNode> predicates;
@@ -264,7 +270,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     /**
      * Builds the selector.
      */
-    private final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> builder;
+    private NodeSelectorBuilder<N, NAME, ANAME, AVALUE> builder;
 
     @Override
     public String toString() {

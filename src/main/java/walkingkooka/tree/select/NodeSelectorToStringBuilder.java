@@ -21,7 +21,7 @@ package walkingkooka.tree.select;
 import walkingkooka.NeverError;
 import walkingkooka.build.Builder;
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.naming.PathSeparator;
+import walkingkooka.text.CharacterConstant;
 
 /**
  * Accepts the string representation of an axis, node and predicate node selector and builds up a {@link NodeSelector#toString()}.
@@ -36,17 +36,15 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         super();
     }
 
-    void absolute(final PathSeparator separator) {
-        this.separator = separator;
+    void absolute() {
         this.commit();
-        this.b.append(separator.character());
+        this.b.append(NodeSelector.SEPARATOR.character());
     }
 
-    void descendantOrSelf(final PathSeparator separator) {
-        this.separator = separator;
+    void descendantOrSelf() {
         this.commit();
 
-        final char c = separator.character();
+        final char c = NodeSelector.SEPARATOR.character();
         this.b.append(c);
         this.b.append(c);
     }
@@ -61,10 +59,6 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         this.commit();
         this.appendSeparator();
         this.b.append("..");
-    }
-
-    void separator(final PathSeparator separator) {
-        this.separator = separator;
     }
 
     void append(final String toString) {
@@ -154,7 +148,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
     private void appendSeparator() {
         final StringBuilder b = this.b;
 
-        final PathSeparator separator = this.separator;
+        final CharacterConstant separator = NodeSelector.SEPARATOR;
         final int length = b.length();
         if (length > 0) {
             final char c = separator.character();
@@ -174,7 +168,6 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
     private String axis;
     private String node;
     private String predicate;
-    private PathSeparator separator = PathSeparator.requiredAtStart('/');
 
     private final StringBuilder b = new StringBuilder();
 

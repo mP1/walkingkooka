@@ -24,6 +24,7 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.select.NodeSelectorBuilder;
 import walkingkooka.tree.select.NodeSelectorContexts;
 import walkingkooka.tree.xml.XmlAttributeName;
 import walkingkooka.tree.xml.XmlDocument;
@@ -48,7 +49,7 @@ final class LinkRelationConstantGenerator {
     public static void main(final String[] args) throws Exception {
         final XmlDocument document = XmlDocument.fromXml(DocumentBuilderFactory.newInstance().newDocumentBuilder(),
                 file());
-        XmlNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(XmlNode.class)
+        NodeSelectorBuilder.absolute(XmlNode.class)
                 .descendant()
                 .named(XmlName.element("record"))
                 .build()

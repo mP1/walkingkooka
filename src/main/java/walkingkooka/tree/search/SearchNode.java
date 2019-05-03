@@ -21,7 +21,6 @@ package walkingkooka.tree.search;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
@@ -44,11 +43,6 @@ import java.util.function.Function;
 public abstract class SearchNode implements Node<SearchNode, SearchNodeName, SearchNodeAttributeName, String>,
         HasText,
         TraversableHasTextOffset<SearchNode>  {
-
-    /**
-     * The {@link PathSeparator} for node selector paths.
-     */
-    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
     /**
      * An empty list with no children.

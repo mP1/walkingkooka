@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
@@ -185,36 +184,6 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     }
 
     @Test
-    public void testNode3DifferentPathRequiredAtStart() {
-        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.separator(PathSeparator.requiredAtStart('\\'));
-        b.node("abc1");
-        b.node("def2");
-        b.node("ghi3");
-        this.buildAndCheck(b, "abc1\\def2\\ghi3");
-    }
-
-    @Test
-    public void testNode3DifferentPathRequiredAtStartAbsolute() {
-        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.absolute(PathSeparator.requiredAtStart('\\'));
-        b.node("abc1");
-        b.node("def2");
-        b.node("ghi3");
-        this.buildAndCheck(b, "\\abc1\\def2\\ghi3");
-    }
-
-    @Test
-    public void testNode3DifferentPath() {
-        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.separator(PathSeparator.notRequiredAtStart('\\'));
-        b.node("abc1");
-        b.node("def2");
-        b.node("ghi3");
-        this.buildAndCheck(b, "abc1\\def2\\ghi3");
-    }
-
-    @Test
     public void testNodeNodeAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.node("abc1");
@@ -272,14 +241,14 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testAbsolute() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.absolute(PathSeparator.requiredAtStart('/'));
+        b.absolute();
         this.buildAndCheck(b, "/");
     }
 
     @Test
     public void testAbsoluteNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.absolute(PathSeparator.requiredAtStart('/'));
+        b.absolute();
         b.node("abc1");
         this.buildAndCheck(b, "/abc1");
     }
@@ -287,7 +256,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testAbsoluteNode2() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.absolute(PathSeparator.requiredAtStart('/'));
+        b.absolute();
         b.node("abc1");
         b.node("def2");
         this.buildAndCheck(b, "/abc1/def2");
@@ -296,7 +265,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testAbsoluteNodePredicateNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.absolute(PathSeparator.requiredAtStart('/'));
+        b.absolute();
         b.node("abc1");
         b.predicate("i>1");
         b.node("def2");
@@ -306,14 +275,14 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testDescendantOrSelf() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf();
         this.buildAndCheck(b, "//");
     }
 
     @Test
     public void testDescendantOrSelfNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf();
         b.node("abc1");
         this.buildAndCheck(b, "//abc1");
     }
@@ -321,7 +290,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testDescendantOrSelfNode2() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf();
         b.node("abc1");
         b.node("def2");
         this.buildAndCheck(b, "//abc1/def2");
@@ -330,7 +299,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testDescendantOrSelfNodePredicateNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf();
         b.node("abc1");
         b.predicate("i>1");
         b.node("def2");
@@ -340,7 +309,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testNodePredicateAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf();
         b.node("abc1");
         b.predicate("i>1");
         b.axis("child1");
@@ -350,7 +319,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testNodePredicateAxisNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf();
         b.node("abc1");
         b.predicate("i>1");
         b.axis("child1");

@@ -18,11 +18,9 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
-
-import java.util.Objects;
 
 
 /**
@@ -35,17 +33,18 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Type safe {@link DescendantOrSelfNodeSelector} getter
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
-        Objects.requireNonNull(separator, "separator");
-        return new DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE>(separator, NodeSelector.terminal());
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE> get() {
+        return Cast.to(INSTANCE);
     }
+
+    @SuppressWarnings("unchecked")
+    private final static DescendantOrSelfNodeSelector INSTANCE = new DescendantOrSelfNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor
      */
-    private DescendantOrSelfNodeSelector(final PathSeparator separator, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    private DescendantOrSelfNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         super(selector);
-        this.separator = separator;
     }
 
     // NodeSelector
@@ -54,7 +53,7 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         // no point appending a descending to another...
         return selector instanceof DescendantOrSelfNodeSelector ?
                 this :
-                new DescendantOrSelfNodeSelector<>(this.separator, selector);
+                new DescendantOrSelfNodeSelector<>(selector);
     }
 
     @Override
@@ -71,11 +70,8 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.descendantOrSelf(this.separator);
+        b.descendantOrSelf();
     }
-
-    // ignore in hashcode / equals...
-    private final PathSeparator separator;
 
     @Override
     boolean canBeEqual(final Object other) {

@@ -21,6 +21,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.NodeSelectorBuilder;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -37,7 +38,7 @@ public final class PojoNodeTest implements ClassTesting2<PojoNode>,
     public void testSelectorNodeByClassName() {
         final TestBean bean = new TestBean("1", "2", 99, "3");
 
-        final NodeSelector<PojoNode, PojoName, PojoNodeAttributeName, Object> selector = PojoNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(PojoNode.class)
+        final NodeSelector<PojoNode, PojoName, PojoNodeAttributeName, Object> selector = NodeSelectorBuilder.absolute(PojoNode.class)
                 .descendant()
                 .attributeValueEquals(PojoNodeAttributeName.CLASS, String.class.getName())
                 .build();

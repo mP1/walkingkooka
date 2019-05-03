@@ -21,7 +21,6 @@ import walkingkooka.build.Builder;
 import walkingkooka.build.BuilderException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
 
@@ -39,10 +38,9 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute(final Class<N> node,
-                                                                         final PathSeparator separator) {
-        check(node, separator);
-        return new NodeSelectorBuilder<N, NAME, ANAME, AVALUE>(separator).absolute();
+            AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute(final Class<N> node) {
+        check(node);
+        return new NodeSelectorBuilder<N, NAME, ANAME, AVALUE>().append(AbsoluteNodeSelector.get());
     }
 
     /**
@@ -51,35 +49,23 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> relative(final Class<N> node,
-                                                                         final PathSeparator separator) {
-        check(node, separator);
-        return new NodeSelectorBuilder<>(separator);
+            AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> relative(final Class<N> node) {
+        check(node);
+        return new NodeSelectorBuilder<>();
     }
 
     /**
      * Checks the parameters are not null.
      */
-    private static void check(final Class<?> node, final PathSeparator separator) {
+    private static void check(final Class<?> node) {
         Objects.requireNonNull(node, "node");
-        Objects.requireNonNull(separator, "separator");
     }
 
     /**
      * Private ctor use factory.
      */
-    private NodeSelectorBuilder(final PathSeparator separator) {
+    private NodeSelectorBuilder() {
         super();
-        this.separator = separator;
-    }
-
-    private final PathSeparator separator;
-
-    /**
-     * {@see AncestorNodeSelector}
-     */
-    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute() {
-        return this.append(AbsoluteNodeSelector.with(this.separator));
     }
 
     /**
@@ -164,7 +150,7 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
      * {@see DescendantOrSelfNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> descendantOrSelf() {
-        return this.append(DescendantOrSelfNodeSelector.with(this.separator));
+        return this.append(DescendantOrSelfNodeSelector.get());
     }
 
     /**
@@ -206,7 +192,7 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
      * {@see NamedNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> named(final NAME name) {
-        return this.append(NamedNodeSelector.with(name, this.separator));
+        return this.append(NamedNodeSelector.with(name));
     }
 
     /**

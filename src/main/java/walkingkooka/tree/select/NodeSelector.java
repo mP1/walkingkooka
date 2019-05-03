@@ -18,8 +18,8 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorNodeName;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
@@ -40,6 +40,11 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE> implements HashCodeEqualsDefined {
+
+    /**
+     * Path separator
+     */
+    final static CharacterConstant SEPARATOR = CharacterConstant.with('/');
 
     /**
      * Creates a {@link NodeSelector} from a {@link NodeSelectorParserToken}.
@@ -68,8 +73,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> AbsoluteNodeSelector<N, NAME, ANAME, AVALUE> absolute(final PathSeparator separator) {
-        return AbsoluteNodeSelector.with(separator);
+            AVALUE> AbsoluteNodeSelector<N, NAME, ANAME, AVALUE> absolute() {
+        return AbsoluteNodeSelector.get();
     }
 
     /**
@@ -166,8 +171,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE> descendantOrSelf(final PathSeparator separator) {
-        return DescendantOrSelfNodeSelector.with(separator);
+    DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE> descendantOrSelf() {
+        return DescendantOrSelfNodeSelector.get();
     }
 
     /**
@@ -242,8 +247,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    NamedNodeSelector<N, NAME, ANAME, AVALUE> name(final NAME name, final PathSeparator separator) {
-        return NamedNodeSelector.with(name, separator);
+    NamedNodeSelector<N, NAME, ANAME, AVALUE> name(final NAME name) {
+        return NamedNodeSelector.with(name);
     }
 
     /**

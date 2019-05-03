@@ -20,16 +20,12 @@ package walkingkooka.tree;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.FieldAttributes;
-import walkingkooka.type.MemberVisibility;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,15 +41,6 @@ public interface TraversableTesting<T extends Traversable<T> & HashCodeEqualsDef
         HashCodeEqualsDefinedTesting<T>,
         ToStringTesting<T>,
         TypeNameTesting<T> {
-
-    @Test
-    default void testPathSeparatorConstant() throws Exception {
-        final Field field = this.type().getField("PATH_SEPARATOR");
-
-        assertEquals(MemberVisibility.PUBLIC, MemberVisibility.get(field), () -> "PATH_SEPARATOR constant must be public=" + field);
-        assertEquals(true, FieldAttributes.STATIC.is(field), () -> "PATH_SEPARATOR constant must be static=" + field);
-        assertEquals(PathSeparator.class, field.getType(), () -> "PATH_SEPARATOR constant type=" + field);
-    }
 
     @Test
     default void testParentCached() {

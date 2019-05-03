@@ -35,8 +35,8 @@ public final class OrNodeSelectorTest extends
         final TestNode sibling = TestNode.with("sibling");
         final TestNode root = TestNode.with("root", parent, sibling);
 
-        this.acceptAndCheck(this.createSelector0(NamedNodeSelector.with(Names.string("unknown1"), SEPARATOR),
-                NamedNodeSelector.with(Names.string("unknown1"), SEPARATOR)),
+        this.acceptAndCheck(this.createSelector0(NamedNodeSelector.with(Names.string("unknown1")),
+                NamedNodeSelector.with(Names.string("unknown1"))),
                 root.child(0));
     }
 

@@ -25,7 +25,6 @@ import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Indentation;
@@ -107,11 +106,6 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     public static JsonStringNode string(final String value) {
         return JsonStringNode.with(value);
     }
-
-    /**
-     * The {@link PathSeparator} for node selector paths.
-     */
-    public static final PathSeparator PATH_SEPARATOR = PathSeparator.notRequiredAtStart('/');
 
     private final static Optional<JsonNode> NO_PARENT = Optional.empty();
 

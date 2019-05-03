@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
@@ -36,11 +35,6 @@ import java.util.Optional;
 public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String>,
         HasChildrenValues<ParserToken, ParserTokenNode>,
         Value<ParserToken> {
-
-    /**
-     * The {@link PathSeparator} for node selector paths.
-     */
-    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
     /**
      * Wraps the provided node.

@@ -22,11 +22,9 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.tree.TestNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -118,18 +116,6 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
     @Test
     public void testNotRequiredDotSingleton() {
         this.check(PathSeparator.notRequiredAtStart('.'), '.', false);
-    }
-
-    @Test
-    public void testAbsoluteNodeSelectorBuilder() {
-        assertNotNull(PathSeparator.requiredAtStart(SEPARATOR)
-                .absoluteNodeSelectorBuilder(TestNode.class));
-    }
-
-    @Test
-    public void testRelativeNodeSelectorBuilder() {
-        assertNotNull(PathSeparator.requiredAtStart(SEPARATOR)
-                .relativeNodeSelectorBuilder(TestNode.class));
     }
 
     // HashCodeEqualsDefined ..................................................................................................

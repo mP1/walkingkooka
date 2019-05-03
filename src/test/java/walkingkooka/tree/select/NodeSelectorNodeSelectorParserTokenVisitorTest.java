@@ -1316,7 +1316,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
     @Override
     public NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object> createVisitor() {
-        return new NodeSelectorNodeSelectorParserTokenVisitor<>(null, null, null);
+        return new NodeSelectorNodeSelectorParserTokenVisitor<>(null, null, null, null);
     }
 
     @Override

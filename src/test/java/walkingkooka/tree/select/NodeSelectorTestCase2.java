@@ -24,7 +24,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -51,8 +50,6 @@ abstract public class NodeSelectorTestCase2<S extends NodeSelector<TestNode, Str
         implements ClassTesting2<S>,
         HashCodeEqualsDefinedTesting<S>,
         ToStringTesting<S> {
-
-    final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
     @BeforeEach
     public void beforeEachTest() {
