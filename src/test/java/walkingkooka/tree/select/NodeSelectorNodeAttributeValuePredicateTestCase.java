@@ -22,17 +22,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.PredicateTesting;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
-        implements ClassTesting2<N>,
-        PredicateTesting<N, TestNode> {
+public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends NodeSelectorNodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
+        extends NodeSelectorTestCase<N>
+        implements PredicateTesting<N, TestNode> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -43,7 +42,7 @@ public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttribut
     final static StringName ATTRIBUTE_NAME2 = Names.string("attribute-2");
     final static String VALUE = "123";
 
-    NodeAttributeValuePredicateTestCase() {
+    NodeSelectorNodeAttributeValuePredicateTestCase() {
         super();
     }
 
@@ -75,10 +74,15 @@ public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttribut
 
     abstract N createPredicate(final StringName name, final Object value);
 
+    // TypeNameTesting .........................................................................................
+
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final String typeNamePrefix() {
+        return NodeSelector.class.getSimpleName();
     }
 
-
+    @Override
+    public final String typeNameSuffix() {
+        return Predicate.class.getSimpleName();
+    }
 }

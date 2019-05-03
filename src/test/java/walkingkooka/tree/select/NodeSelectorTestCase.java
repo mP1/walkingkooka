@@ -34,16 +34,4 @@ abstract public class NodeSelectorTestCase<S> implements ClassTesting2<S>, TypeN
     public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
-
-    // TypeNameTesting .........................................................................................
-
-    @Override
-    public final String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    public final String typeNameSuffix() {
-        return NodeSelector.class.getSimpleName();
-    }
 }

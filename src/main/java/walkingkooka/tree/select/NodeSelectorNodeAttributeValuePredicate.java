@@ -26,57 +26,57 @@ import java.util.Objects;
 /**
  * A base attribute that tests an existing attribute value with an expected value.
  */
-abstract class NodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+abstract class NodeSelectorNodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         implements java.util.function.Predicate<N> {
 
     /**
-     * {@see NodeAttributeValueContainsPredicate}
+     * {@see NodeSelectorNodeAttributeValueContainsPredicate}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    NodeAttributeValueContainsPredicate<N, NAME, ANAME, AVALUE> contains(final ANAME name, final AVALUE value) {
-        return NodeAttributeValueContainsPredicate.with(name, value);
+    NodeSelectorNodeAttributeValueContainsPredicate<N, NAME, ANAME, AVALUE> contains(final ANAME name, final AVALUE value) {
+        return NodeSelectorNodeAttributeValueContainsPredicate.with(name, value);
     }
 
     /**
-     * {@see NodeAttributeValueEndsWithPredicate}
+     * {@see NodeSelectorNodeAttributeValueEndsWithPredicate}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    NodeAttributeValueEndsWithPredicate<N, NAME, ANAME, AVALUE> endsWith(final ANAME name, final AVALUE value) {
-        return NodeAttributeValueEndsWithPredicate.with(name, value);
+    NodeSelectorNodeAttributeValueEndsWithPredicate<N, NAME, ANAME, AVALUE> endsWith(final ANAME name, final AVALUE value) {
+        return NodeSelectorNodeAttributeValueEndsWithPredicate.with(name, value);
     }
 
     /**
-     * {@see NodeAttributeValueEqualsPredicate}
+     * {@see NodeSelectorNodeAttributeValueEqualsPredicate}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    NodeAttributeValueEqualsPredicate<N, NAME, ANAME, AVALUE> equalsPredicate(final ANAME name, final AVALUE value) {
-        return NodeAttributeValueEqualsPredicate.with(name, value);
+    NodeSelectorNodeAttributeValueEqualsPredicate<N, NAME, ANAME, AVALUE> equalsPredicate(final ANAME name, final AVALUE value) {
+        return NodeSelectorNodeAttributeValueEqualsPredicate.with(name, value);
     }
 
     /**
-     * {@see NodeAttributeValueStartsWithPredicate}
+     * {@see NodeSelectorNodeAttributeValueStartsWithPredicate}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    NodeAttributeValueStartsWithPredicate<N, NAME, ANAME, AVALUE> startsWith(final ANAME name, final AVALUE value) {
-        return NodeAttributeValueStartsWithPredicate.with(name, value);
+    NodeSelectorNodeAttributeValueStartsWithPredicate<N, NAME, ANAME, AVALUE> startsWith(final ANAME name, final AVALUE value) {
+        return NodeSelectorNodeAttributeValueStartsWithPredicate.with(name, value);
     }
 
     /**
      * Package private to limit sub classing.
      */
-    NodeAttributeValuePredicate(final ANAME name, final AVALUE value) {
+    NodeSelectorNodeAttributeValuePredicate(final ANAME name, final AVALUE value) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(value, "value");
 
@@ -107,7 +107,7 @@ abstract class NodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVALUE
 
     abstract boolean isSameType(final Object other);
 
-    final boolean equals0(final NodeAttributeValuePredicate<?, ?, ?, ?> predicate) {
+    final boolean equals0(final NodeSelectorNodeAttributeValuePredicate<?, ?, ?, ?> predicate) {
         return this.name.equals(predicate.name) && this.value.equals(predicate.value);
     }
 

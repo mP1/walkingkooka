@@ -22,36 +22,36 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 
 /**
- * A {@link java.util.function.Predicate} that returns true if an attribute value starts with the given test value.
+ * A {@link java.util.function.Predicate} that returns true if an attribute value ends with the given test value.
  */
-final class NodeAttributeValueStartsWithPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
+final class NodeSelectorNodeAttributeValueEndsWithPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+        extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    NodeAttributeValueStartsWithPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
-        return new NodeAttributeValueStartsWithPredicate<>(name, value);
+    NodeSelectorNodeAttributeValueEndsWithPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
+        return new NodeSelectorNodeAttributeValueEndsWithPredicate<>(name, value);
     }
 
-    private NodeAttributeValueStartsWithPredicate(ANAME name, AVALUE value) {
+    private NodeSelectorNodeAttributeValueEndsWithPredicate(ANAME name, AVALUE value) {
         super(name, value);
     }
 
     @Override
-    boolean test0(final AVALUE value, final AVALUE current) {
-        return current.toString().startsWith(value.toString());
+    boolean test0(final AVALUE value, final AVALUE currentValue) {
+        return currentValue.toString().endsWith(value.toString());
     }
 
     @Override
     boolean isSameType(final Object other) {
-        return other instanceof NodeAttributeValueStartsWithPredicate;
+        return other instanceof NodeSelectorNodeAttributeValueEndsWithPredicate;
     }
 
     @Override
     String toString0(final ANAME name, final AVALUE value) {
-        //[starts-with(@href, '/')]
-        return "starts-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
+        //[ends-with(@href, '/')]
+        return "ends-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }

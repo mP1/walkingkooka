@@ -26,7 +26,7 @@ import walkingkooka.tree.TestNode;
 
 
 final public class FirstChildNodeSelectorTest extends
-        NodeSelectorTestCase3<FirstChildNodeSelector<TestNode, StringName, StringName, Object>> {
+        NodeSelectorTestCase4<FirstChildNodeSelector<TestNode, StringName, StringName, Object>> {
 
     // constants
 

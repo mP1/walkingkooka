@@ -22,36 +22,36 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 
 /**
- * A {@link java.util.function.Predicate} that matches nodes that contain an attribute with a value.
+ * A {@link java.util.function.Predicate} that returns true if an attribute value starts with the given test value.
  */
-final class NodeAttributeValueEqualsPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
+final class NodeSelectorNodeAttributeValueStartsWithPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+        extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    NodeAttributeValueEqualsPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
-        return new NodeAttributeValueEqualsPredicate<>(name, value);
+    NodeSelectorNodeAttributeValueStartsWithPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
+        return new NodeSelectorNodeAttributeValueStartsWithPredicate<>(name, value);
     }
 
-    private NodeAttributeValueEqualsPredicate(ANAME name, AVALUE value) {
+    private NodeSelectorNodeAttributeValueStartsWithPredicate(ANAME name, AVALUE value) {
         super(name, value);
     }
 
     @Override
     boolean test0(final AVALUE value, final AVALUE current) {
-        return current.equals(value);
+        return current.toString().startsWith(value.toString());
     }
 
     @Override
     boolean isSameType(final Object other) {
-        return other instanceof NodeAttributeValueEqualsPredicate;
+        return other instanceof NodeSelectorNodeAttributeValueStartsWithPredicate;
     }
 
     @Override
     String toString0(final ANAME name, final AVALUE value) {
-        //[@for="xyz"]
-        return "@" + name + "=" + CharSequences.quoteIfChars(value);
+        //[starts-with(@href, '/')]
+        return "starts-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }
