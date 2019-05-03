@@ -22,6 +22,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
 import java.util.Map;
@@ -192,5 +193,21 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
     @Override
     public final String toString() {
         return this.token.toString();
+    }
+
+    // NodeSelector .......................................................................................................
+
+    /**
+     * {@see NodeSelector#absolute}
+     */
+    public static NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> absoluteNodeSelector() {
+        return NodeSelector.absolute();
+    }
+
+    /**
+     * {@see NodeSelector#relative}
+     */
+    public static NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> relativeNodeSelector() {
+        return NodeSelector.relative();
     }
 }

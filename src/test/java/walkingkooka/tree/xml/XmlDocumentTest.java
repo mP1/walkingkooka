@@ -29,7 +29,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ResourceTesting;
 import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.tree.select.NodeSelector;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.TransformerFactory;
@@ -803,10 +802,9 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument>
     @Test
     public void testSelectorUsage() throws Exception {
         final XmlDocument document = this.fromXml();
-        final NodeSelector<XmlNode, XmlName, XmlAttributeName, String> selector = NodeSelectorBuilder.absolute(XmlNode.class)
+        final NodeSelector<XmlNode, XmlName, XmlAttributeName, String> selector = XmlNode.absoluteNodeSelector()
                 .descendant()
-                .named(XmlName.element("img"))
-                .build();
+                .named(XmlName.element("img"));
         this.selectorAcceptAndCheckCount(document, selector, 20);
     }
 
@@ -814,11 +812,10 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument>
     public void testSelectorUsage2() throws Exception {
         final XmlDocument document = this.fromXml();
 
-        final NodeSelector<XmlNode, XmlName, XmlAttributeName, String> selector = NodeSelectorBuilder.absolute(XmlNode.class)
+        final NodeSelector<XmlNode, XmlName, XmlAttributeName, String> selector = XmlNode.absoluteNodeSelector()
                 .descendant()
                 .named(XmlName.element("a"))
-                .attributeValueContains(XmlNode.attribute("href", XmlNode.NO_PREFIX), "19")
-                .build();
+                .attributeValueContains(XmlNode.attribute("href", XmlNode.NO_PREFIX), "19");
         this.selectorAcceptAndCheckCount(document, selector, 3);
     }
 

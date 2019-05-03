@@ -39,6 +39,7 @@ import walkingkooka.text.cursor.parser.json.JsonNodeParsers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.search.HasSearchNode;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
 import java.util.Map;
@@ -519,4 +520,18 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     }
 
     abstract void printJson0(final IndentingPrinter printer);
+
+    /**
+     * {@see NodeSelector#absolute}
+     */
+    public static NodeSelector<JsonNode, JsonNodeName, Name, Object> absoluteNodeSelector() {
+        return NodeSelector.absolute();
+    }
+
+    /**
+     * {@see NodeSelector#relative}
+     */
+    public static NodeSelector<JsonNode, JsonNodeName, Name, Object> relativeNodeSelector() {
+        return NodeSelector.relative();
+    }
 }

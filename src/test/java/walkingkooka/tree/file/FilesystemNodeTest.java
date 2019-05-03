@@ -26,7 +26,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.NodeTesting;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 import walkingkooka.type.MemberVisibility;
 
 import java.io.FileInputStream;
@@ -279,10 +278,9 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
     public void testSelectorUsage() {
         final FilesystemNode node = this.createNode();
         this.selectorAcceptAndCheckCount(node,
-                NodeSelectorBuilder.absolute(FilesystemNode.class)
+                FilesystemNode.absoluteNodeSelector()
                         .descendant()
-                        .named(FilesystemNodeName.with(SUB_FILE))
-                        .build(),
+                        .named(FilesystemNodeName.with(SUB_FILE)),
                 1);
     }
 

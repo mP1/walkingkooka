@@ -28,6 +28,7 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.util.Iterator;
 import java.util.List;
@@ -277,5 +278,21 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         b.surroundValues("[", "]").value(this.children());
         b.surroundValues("{", "}").value(this.attributes());
         return b.build();
+    }
+
+    // NodeSelector .......................................................................................................
+
+    /**
+     * {@see NodeSelector#absolute}
+     */
+    public static NodeSelector<TestNode, StringName, StringName, Object> absoluteNodeSelector() {
+        return NodeSelector.absolute();
+    }
+
+    /**
+     * {@see NodeSelector#relative}
+     */
+    public static NodeSelector<TestNode, StringName, StringName, Object> relativeNodeSelector() {
+        return NodeSelector.relative();
     }
 }
