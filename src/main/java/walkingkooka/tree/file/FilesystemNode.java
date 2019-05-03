@@ -20,7 +20,6 @@ package walkingkooka.tree.file;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
@@ -72,11 +71,6 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
         Objects.requireNonNull(path, "path");
         Objects.requireNonNull(context, "context");
     }
-
-    /**
-     * The {@link PathSeparator} for node selector paths.
-     */
-    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
     /**
      * Package private to limit sub classing.

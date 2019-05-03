@@ -26,20 +26,12 @@ import walkingkooka.tree.TestNode;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class AbsoluteNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
     private final static Predicate<TestNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");
-
-    @Test
-    public void testWithNullPathSeparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            AbsoluteNodeSelector.with(null);
-        });
-    }
 
     @Test
     public void testAppendDescendant() {
@@ -114,12 +106,6 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
-    public void testEqualsDifferentPathSeparator() {
-        this.checkNotEquals(this.createSelector(PathSeparator.requiredAtStart('.'),
-                this.wrapped()));
-    }
-
-    @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "/");
     }
@@ -129,19 +115,9 @@ final public class AbsoluteNodeSelectorTest extends
         this.toStringAndCheck(this.createSelector2(), "/*[" + PREDICATE + "]");
     }
 
-    @Test
-    public void testToStringPathSeparatorNotRequiredAtStart() {
-        final PathSeparator separator = PathSeparator.notRequiredAtStart('/');
-        this.toStringAndCheck(this.createSelector(separator), "/");
-    }
-
     @Override
     AbsoluteNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
-        return this.createSelector(SEPARATOR);
-    }
-
-    private AbsoluteNodeSelector<TestNode, StringName, StringName, Object> createSelector(final PathSeparator separator) {
-        return AbsoluteNodeSelector.with(separator);
+        return AbsoluteNodeSelector.get();
     }
 
     private NodeSelector<TestNode, StringName, StringName, Object> createSelector2() {
@@ -151,10 +127,5 @@ final public class AbsoluteNodeSelectorTest extends
     @Override
     public Class<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AbsoluteNodeSelector.class);
-    }
-
-    private AbsoluteNodeSelector<TestNode, StringName, StringName, Object> createSelector(final PathSeparator pathSeparator,
-                                                                                          final NodeSelector<TestNode, StringName, StringName, Object> selector) {
-        return Cast.to(AbsoluteNodeSelector.<TestNode, StringName, StringName, Object>with(pathSeparator).append(selector));
     }
 }

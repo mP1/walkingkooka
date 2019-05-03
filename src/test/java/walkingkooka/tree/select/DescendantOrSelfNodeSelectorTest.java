@@ -23,17 +23,8 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 final public class DescendantOrSelfNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> {
-
-    @Test
-    public void testWithNullPathSeparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            DescendantOrSelfNodeSelector.with(null);
-        });
-    }
 
     @Test
     public void testChildless() {
@@ -135,7 +126,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
 
     @Override
     DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
-        return DescendantOrSelfNodeSelector.with(SEPARATOR);
+        return DescendantOrSelfNodeSelector.get();
     }
 
     @Override

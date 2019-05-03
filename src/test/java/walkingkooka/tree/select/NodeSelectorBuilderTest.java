@@ -75,28 +75,15 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     @Test
     public void testAbsoluteNullClassFails() {
         assertThrows(NullPointerException.class, () -> {
-            NodeSelectorBuilder.absolute(null, this.separator());
+            NodeSelectorBuilder.absolute(null);
         });
     }
 
-    @Test
-    public void testAbsoluteNullSeparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodeSelectorBuilder.absolute(TestNode.class, null);
-        });
-    }
 
     @Test
     public void testRelativeNullClassFails() {
         assertThrows(NullPointerException.class, () -> {
-            NodeSelectorBuilder.relative(null, this.separator());
-        });
-    }
-
-    @Test
-    public void testRelativeNullSeparatorFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodeSelectorBuilder.relative(TestNode.class, null);
+            NodeSelectorBuilder.relative(null);
         });
     }
 
@@ -439,8 +426,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testToStringAbsoluteManySelectors() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute();
-        b.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .precedingSibling()
                 .self()
                 .followingSibling();
@@ -450,8 +436,7 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
 
     @Test
     public void testToStringAbsoluteManySelectors2() {
-        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute();
-        b.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .preceding()
                 .self()
                 .following();
@@ -485,11 +470,11 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
     }
 
     private NodeSelectorBuilder<TestNode, StringName, StringName, Object> absolute() {
-        return this.separator().absoluteNodeSelectorBuilder(TestNode.class);
+        return NodeSelectorBuilder.absolute(TestNode.class);
     }
 
     private NodeSelectorBuilder<TestNode, StringName, StringName, Object> relative() {
-        return this.separator().relativeNodeSelectorBuilder(TestNode.class);
+        return NodeSelectorBuilder.relative(TestNode.class);
     }
 
     private PathSeparator separator() {

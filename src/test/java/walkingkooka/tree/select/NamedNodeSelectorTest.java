@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Names;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
@@ -30,12 +29,11 @@ final public class NamedNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static StringName NAME = Names.string("never");
-    private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
     @Test
-    public void testWithNullPathSeparatorFails() {
+    public void testWithNullNameFails() {
         assertThrows(NullPointerException.class, () -> {
-            NamedNodeSelector.with(NAME, null);
+            NamedNodeSelector.with(null);
         });
     }
 
@@ -94,28 +92,12 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testEqualsDifferentName() {
-        this.checkNotEquals(this.createSelector(Names.string("different-name-2"),
-                SEPARATOR,
-                this.wrapped()));
-    }
-
-    @Test
-    public void testEqualsDifferentPathSeparator() {
-        this.checkNotEquals(this.createSelector(NAME,
-                PathSeparator.requiredAtStart('.'),
-                this.wrapped()));
+        this.checkNotEquals(this.createSelector(Names.string("different-name-2"), this.wrapped()));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createSelector(),
-                NAME.value());
-    }
-
-    @Test
-    public void testToStringPathSeparatorNotRequiredAtStart() {
-        this.toStringAndCheck(this.createSelector(PathSeparator.notRequiredAtStart('/')),
-                NAME.value());
+        this.toStringAndCheck(this.createSelector(), NAME.value());
     }
 
     @Override
@@ -124,11 +106,7 @@ final public class NamedNodeSelectorTest extends
     }
 
     private NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector(final StringName name) {
-        return NamedNodeSelector.with(name, SEPARATOR);
-    }
-
-    private NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector(final PathSeparator separator) {
-        return NamedNodeSelector.with(NAME, separator);
+        return NamedNodeSelector.with(name);
     }
 
     final void acceptAndCheck(final StringName match, final TestNode start, final TestNode... nodes) {
@@ -141,8 +119,7 @@ final public class NamedNodeSelectorTest extends
     }
 
     private NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector(final StringName name,
-                                                                                       final PathSeparator pathSeparator,
                                                                                        final NodeSelector<TestNode, StringName, StringName, Object> selector) {
-        return Cast.to(NamedNodeSelector.<TestNode, StringName, StringName, Object>with(name, pathSeparator).append(selector));
+        return Cast.to(NamedNodeSelector.<TestNode, StringName, StringName, Object>with(name).append(selector));
     }
 }

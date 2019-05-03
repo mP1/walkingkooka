@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
@@ -37,27 +36,25 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NamedNodeSelector<N, NAME, ANAME, AVALUE> with(final NAME name, final PathSeparator separator) {
+            AVALUE> NamedNodeSelector<N, NAME, ANAME, AVALUE> with(final NAME name) {
         Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(separator, "separator");
 
-        return new NamedNodeSelector<N, NAME, ANAME, AVALUE>(name, separator, NodeSelector.terminal());
+        return new NamedNodeSelector<N, NAME, ANAME, AVALUE>(name, NodeSelector.terminal());
     }
 
     /**
      * Private constructor
      */
-    private NamedNodeSelector(final NAME name, final PathSeparator separator, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    private NamedNodeSelector(final NAME name, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         super(selector);
         this.name = name;
-        this.separator = separator;
     }
 
     // NodeSelector
 
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new NamedNodeSelector<>(this.name, this.separator, selector);
+        return new NamedNodeSelector<>(this.name, selector);
     }
 
     @Override
@@ -71,11 +68,8 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.separator(this.separator);
         b.node(this.name.value());
     }
-
-    private final PathSeparator separator;
 
     @Override
     int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
@@ -93,7 +87,6 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     }
 
     private boolean equals2(final NamedNodeSelector<N, NAME, ANAME, AVALUE> other) {
-        return this.name.equals(other.name) &&
-                this.separator.equals(other.separator);
+        return this.name.equals(other.name);
     }
 }

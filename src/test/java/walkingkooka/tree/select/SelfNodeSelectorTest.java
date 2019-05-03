@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Names;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
@@ -88,7 +87,7 @@ final public class SelfNodeSelectorTest
 
     private NodeSelector<TestNode, StringName, StringName, Object> selfAndNamed() {
         return Cast.to(SelfNodeSelector.get()
-                .append(NamedNodeSelector.with(Names.string("child"), PathSeparator.requiredAtStart('/'))));
+                .append(NamedNodeSelector.with(Names.string("child"))));
     }
 
     @Test

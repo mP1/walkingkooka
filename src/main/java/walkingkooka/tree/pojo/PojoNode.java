@@ -44,11 +44,6 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
         Value<Object>,
         Comparable<PojoNode> {
 
-    /**
-     * The {@link PathSeparator} for node selector paths.
-     */
-    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
-
     private final static Optional<PojoNode> NO_PARENT = Optional.empty();
 
     /**

@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.HasJsonNode;
@@ -50,11 +49,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
                                                     final Class<N> type) {
         HasJsonNode.register("expression" + suffix, factory, type);
     }
-
-    /**
-     * The {@link PathSeparator} for node selector paths.
-     */
-    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
     /**
      * An empty list that holds no children.

@@ -16,8 +16,8 @@
  */
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -32,19 +32,20 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
-     * Type safe {@link AbsoluteNodeSelector} factory
+     * Type safe {@link AbsoluteNodeSelector} getter
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AbsoluteNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
-        Objects.requireNonNull(separator, "separator");
-        return new AbsoluteNodeSelector<N, NAME, ANAME, AVALUE>(separator, NodeSelector.terminal());
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AbsoluteNodeSelector<N, NAME, ANAME, AVALUE> get() {
+        return Cast.to(INSTANCE);
     }
+
+    @SuppressWarnings("unchecked")
+    private final static AbsoluteNodeSelector INSTANCE = new AbsoluteNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor
      */
-    private AbsoluteNodeSelector(final PathSeparator separator, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    private AbsoluteNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         super(selector);
-        this.separator = separator;
     }
 
     // NodeSelector
@@ -56,7 +57,7 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
                 this :
                 selector instanceof DescendantNodeSelector ?
                         selector :
-                        new AbsoluteNodeSelector<N, NAME, ANAME, AVALUE>(this.separator, selector);
+                        new AbsoluteNodeSelector<N, NAME, ANAME, AVALUE>(selector);
     }
 
     @Override
@@ -68,21 +69,18 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     @Override
     final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
-        return Objects.hash(this.separator, next);
+        return Objects.hash(next);
     }
 
     @Override
     final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
-        return this.separator.equals(AbsoluteNodeSelector.class.cast(other).separator);
+        return true;
     }
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.absolute(this.separator);
+        b.absolute();
     }
-
-    // ignore in hashcode / equals...
-    private final PathSeparator separator;
 
     @Override
     boolean canBeEqual(final Object other) {

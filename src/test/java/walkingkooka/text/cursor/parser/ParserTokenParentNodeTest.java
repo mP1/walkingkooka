@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -158,7 +159,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
 
     @Test
     public void testSelectorByName() {
-        final NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> selector = ParserTokenNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(ParserTokenNode.class)
+        final NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> selector = NodeSelectorBuilder.absolute(ParserTokenNode.class)
                 .descendant()
                 .named(StringParserToken.NAME)
                 .build();
