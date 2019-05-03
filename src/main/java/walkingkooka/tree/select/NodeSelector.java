@@ -291,18 +291,6 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * This method is only ever called by {@link Node#selector()}
-     */
-    // Node.path
-    public static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
-    NodeSelector<N, NAME, ANAME, AVALUE> path(final N node) {
-        return PathNodeSelector.with(node);
-    }
-
-    /**
      * {@see SelfNodeSelector}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,

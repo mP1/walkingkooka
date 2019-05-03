@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
@@ -31,33 +30,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE> {
-
-    @Test
-    default void testSelectorSelf() {
-        final N node = this.createNode();
-        this.selectorAcceptAndCheckCount(node, node.selector(), 1);
-    }
-
-    @Test
-    default void testSelectorPotentialFails() {
-        final N node = this.createNode();
-        final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
-        assertThrows(UnsupportedOperationException.class, () -> {
-            selector.accept(node,
-                    this.nodeSelectorContext(
-                            (n) -> {
-                                throw new UnsupportedOperationException();
-                            },
-                            (n) -> {
-                            }));
-        });
-    }
 
     N createNode();
 

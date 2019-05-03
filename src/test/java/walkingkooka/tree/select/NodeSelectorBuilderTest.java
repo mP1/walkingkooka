@@ -428,16 +428,6 @@ public final class NodeSelectorBuilderTest implements ClassTesting2<NodeSelector
                 , "Selector.accept=" + selector + "\n" + start);
     }
 
-    @Override
-    public void testSelectorSelf() {
-        // ignore
-    }
-
-    @Override
-    public void testSelectorPotentialFails() {
-        // ignore
-    }
-
     @Test
     public void testToStringAbsoluteNodeAndAttributeSelector() {
         final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute();
