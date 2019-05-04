@@ -749,7 +749,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // ancestor.......................................................................................
 
     @Test
-    public void testAncestor() {
+    public void testAncestorAxisWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -764,7 +764,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // ancestor-or-self.......................................................................................
 
     @Test
-    public void testAncestorOrSelf() {
+    public void testAncestorOrSelfAxisWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -779,7 +779,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // child.......................................................................................
 
     @Test
-    public void testChild() {
+    public void testChildAxisWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -795,7 +795,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // descendant.......................................................................................
 
     @Test
-    public void testDescendant() {
+    public void testDescendantAxisWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -810,7 +810,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // descendant-or-self.......................................................................................
 
     @Test
-    public void testDescendantOrSelf() {
+    public void testDescendantOrSelfAxisWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -826,7 +826,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // first-child.......................................................................................
 
     @Test
-    public void testFirstChild() {
+    public void testFirstChildWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -842,7 +842,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // following...........................................................................................
 
     @Test
-    public void testFollowing() {
+    public void testFollowingWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -865,7 +865,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // following-sibling...........................................................................................
 
     @Test
-    public void testFollowingSibling() {
+    public void testFollowingSiblingWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -895,7 +895,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     @Test
-    public void testRelativeWildcardIndex() {
+    public void testWildcardRelativeWildcardIndex() {
         final TestNode branch1 = node("branch1");
         final TestNode branch2 = node("branch2");
         final TestNode branch3 = node("branch3");
@@ -911,7 +911,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // last-child.......................................................................................
 
     @Test
-    public void testLastChild() {
+    public void testLastChildWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -940,7 +940,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     @Test
-    public void testParentAxis() {
+    public void testParentAxisWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -955,7 +955,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // preceding...........................................................................................
 
     @Test
-    public void testPreceding() {
+    public void testPrecedingWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -978,7 +978,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // preceding-sibling...........................................................................................
 
     @Test
-    public void testPrecedingSibling() {
+    public void testPrecedingSiblingWildcard() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -1004,7 +1004,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         final TestNode root = node("root", branch1, branch2);
 
         this.parseExpressionAndCheck("self::*", root, root);
-        this.parseExpressionAndCheck("self::*", root.child(0), branch1);
+        this.parseExpressionAndCheck("self::*", root.child(0), root.child(0));
     }
 
     @Test
@@ -1024,17 +1024,33 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // function: boolean().......................................................................................
 
     @Test
-    public void testBoolean() {
-        final TestNode branch = node("branch");
-        final TestNode root = node("root", branch);
+    public void testExpressionBooleanTrue() {
+        final TestNode child = node("child");
+        final TestNode parent = node("parent", child);
 
-        this.parseExpressionAndCheck("//*[boolean(starts-with(name(), \"b\"))]", root, branch);
+        this.parseExpressionAndCheck("/*[boolean(true())]", parent, parent);
+    }
+
+    @Test
+    public void testExpressionBooleanFalse() {
+        final TestNode child = node("child");
+        final TestNode parent = node("parent", child);
+
+        this.parseExpressionAndCheck("/*[boolean(false())]", parent);
+    }
+
+    @Test
+    public void testExpressionBooleanStartsWithName() {
+        final TestNode child = node("child");
+        final TestNode parent = node("parent", child);
+
+        this.parseExpressionAndCheck("/*[boolean(starts-with(name(), \"p\"))]", parent, parent);
     }
 
     // function: name.......................................................................................
 
     @Test
-    public void testCurrentTestName() {
+    public void testDescendantsOrSelfExpressionCurrentNodeName() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -1051,7 +1067,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // function: number().......................................................................................
 
     @Test
-    public void testNumber() {
+    public void testDescendantsOrSelfExpressionNumberPredicate() {
         final TestNode leaf = node("leaf", 789);
         final TestNode branch = node("branch", "123", leaf);
         final TestNode root = node("root", "456", branch);
@@ -1062,7 +1078,26 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // function: position().......................................................................................
 
     @Test
-    public void testPosition() {
+    public void testExpressionPosition() {
+        final TestNode leaf1 = node("leaf1");
+        final TestNode branch1 = node("branch1", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("branch2", leaf2);
+
+        final TestNode leaf3a = node("leaf3a");
+        final TestNode leaf3b = node("leaf3b");
+        final TestNode branch3 = node("branch3", leaf3a, leaf3b);
+
+        final TestNode root = node("root", branch1, branch2, branch3);
+
+        this.parseExpressionAndCheck("*[position() = 2]", root.child(0));
+        this.parseExpressionAndCheck("*[position() = 2]", root.child(1), branch2);
+        this.parseExpressionAndCheck("*[position() = 3]", root.child(2), branch3);
+    }
+
+    @Test
+    public void testDescendantsOrSelfExpressionPosition() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -1082,27 +1117,69 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // function: text().......................................................................................
 
     @Test
-    public void testText() {
-        final TestNode branch = node("branch", 123);
-        final TestNode root = node("root", 456, branch);
+    public void testExpressionStartsWithText() {
+        final TestNode child = node("child", 456);
+        final TestNode parent = node("parent", 123, child);
 
-        this.parseExpressionAndCheck("//*[starts-with(text(@id), \"1\")]", root, branch);
+        this.parseExpressionAndCheck("/*[starts-with(text(@id), \"1\")]", parent, parent);
+    }
+
+    @Test
+    public void testDescendantsOrSelfExpressionStartsWithText() {
+        final TestNode child = node("child", 456);
+        final TestNode parent = node("parent", 123, child);
+
+        this.parseExpressionAndCheck("//*[starts-with(text(@id), \"4\")]", parent, child);
     }
 
     // function: true().......................................................................................
 
     @Test
-    public void testTrue() {
-        final TestNode branch = node("branch");
-        final TestNode root = node("root", branch);
+    public void testExpressionStartsWithNameEqualsTrue() {
+        final TestNode child = node("child");
+        final TestNode parent = node("parent", child);
 
-        this.parseExpressionAndCheck("//*[starts-with(name(), \"b\")=true()]", root, branch);
+        this.parseExpressionAndCheck("*[starts-with(name(), \"p\")=true()]", parent, parent);
+    }
+
+    @Test
+    public void testExpressionStartsWithNameEqualsTrue2() {
+        final TestNode child = node("child");
+        final TestNode parent = node("parent", child);
+
+        this.parseExpressionAndCheck("*[starts-with(name(), \"X\")=true()]", parent);
+    }
+
+    @Test
+    public void testDescendantsOrSelfExpressionStartsWithNameEqualsTrue() {
+        final TestNode child = node("child");
+        final TestNode parent = node("parent", child);
+
+        this.parseExpressionAndCheck("//*[starts-with(name(), \"c\")=true()]", parent, child);
     }
 
     // function: false().......................................................................................
 
     @Test
-    public void testFalse() {
+    public void testExpressionStartsWithNameEqualsFalse() {
+        final TestNode leaf = node("leaf");
+        final TestNode branch = node("branch", leaf);
+        final TestNode root = node("root", branch);
+
+        this.parseExpressionAndCheck("*[starts-with(name(), \"r\")=false()]", root);
+    }
+
+    @Test
+    public void testExpressionStartsWithNameEqualsFalse2() {
+        final TestNode leaf = node("leaf");
+        final TestNode branch = node("branch", leaf);
+        final TestNode root = node("root", branch);
+
+        this.parseExpressionAndCheck("*[starts-with(name(), \"XYZ\")=false()]", root, root);
+    }
+
+    @Test
+    public void testDescendantsOrSelfExpressionStartsWithNameEqualsFalse() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
