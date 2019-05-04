@@ -43,6 +43,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorParserContexts;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParsers;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
@@ -67,45 +68,57 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     @Test
-    public void testAbsoluteNodeName() {
+    public void testAbsoluteNodeNameEvaluate() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionAndCheck("/root", root, root);
+        this.parseExpressionEvaluateAndCheck("/branch",
+                root,
+                branch);
     }
 
     @Test
-    public void testAbsoluteWildcard() {
+    public void testAbsoluteWildcardEvaluate() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionAndCheck("/*", root, root);
-        this.parseExpressionAndCheck("/*", root.child(0), root);
+        this.parseExpressionEvaluateAndCheck("/*",
+                root,
+                branch);
+        this.parseExpressionEvaluateAndCheck("/*",
+                root.child(0), // branch
+                branch);
     }
 
     @Test
-    public void testAbsoluteChildAxisWildcard() {
+    public void testAbsoluteChildAxisWildcardEvaluate() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionAndCheck("/child::*", root, branch);
+        this.parseExpressionEvaluateAndCheck("/child::*",
+                root,
+                branch);
     }
 
     @Test
-    public void testAbsoluteDescendantOrSelfWildcard() {
+    public void testAbsoluteDescendantOrSelfWildcardEvaluate() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionAndCheck("//*", root, root, branch, leaf);
-        this.parseExpressionAndCheck("//*", root.child(0).child(0), leaf);
+        this.parseExpressionEvaluateAndCheck("//*",
+                root,
+                root, branch, leaf);
+        this.parseExpressionEvaluateAndCheck("//*",
+                root.child(0).child(0),
+                leaf);
     }
 
     @Test
-    public void testDescendantOrSelfNodeName() {
+    public void testDescendantOrSelfNodeNameEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -117,12 +130,15 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("//leaf1", root, leaf1);
-        this.parseExpressionAndCheck("//leaf1", root.child(1));
+        this.parseExpressionEvaluateAndCheck("//leaf1",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//leaf1",
+                root.child(1));
     }
 
     @Test
-    public void testDescendantOrSelfWildcard() {
+    public void testDescendantOrSelfWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -134,12 +150,16 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("//*", root, root, branch1, leaf1, branch2, leaf2, branch3, leaf3);
-        this.parseExpressionAndCheck("//*", root.child(1), branch2, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*",
+                root,
+                root, branch1, leaf1, branch2, leaf2, branch3, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*",
+                root.child(1),
+                branch2, leaf2);
     }
 
     @Test
-    public void testDescendantOfSelfNodeNameWildcard() {
+    public void testDescendantOfSelfNodeNameWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -151,12 +171,16 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("//root/*", root, branch1, branch2, branch3);
-        this.parseExpressionAndCheck("//branch1/*", root.child(0), leaf1);
+        this.parseExpressionEvaluateAndCheck("//root/*",
+                root,
+                branch1, branch2, branch3);
+        this.parseExpressionEvaluateAndCheck("//branch1/*",
+                root.child(0),
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameDescendantOrSelfWildcard() {
+    public void testAbsoluteNodeNameDescendantOrSelfWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -169,12 +193,16 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("/branch2//*", root.child(1));
-        this.parseExpressionAndCheck("/root/branch3//*", root.child(2), branch3, branchOfBranch3, leaf3);
+        this.parseExpressionEvaluateAndCheck("/branch2//*",
+                root.child(1),
+                branch2, leaf2);
+        this.parseExpressionEvaluateAndCheck("/branch3//*",
+                root.child(2),
+                branch3, branchOfBranch3, leaf3);
     }
 
     @Test
-    public void testRelativeNodeNameDescendantOrSelfWildcard() {
+    public void testRelativeNodeNameDescendantOrSelfWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -187,12 +215,16 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("branch2//*", root);
-        this.parseExpressionAndCheck("branch3//*", root.child(2), branch3, branchOfBranch3, leaf3);
+        this.parseExpressionEvaluateAndCheck("branch2//*",
+                root,
+                branch2, leaf2);
+        this.parseExpressionEvaluateAndCheck("branch3//*",
+                root,
+                branch3, branchOfBranch3, leaf3);
     }
 
     @Test
-    public void testAbsoluteNodeNameNodeName() {
+    public void testAbsoluteNodeNameNodeNameEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -204,12 +236,15 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("/root/branch2/*", root.child(1), leaf2);
-        this.parseExpressionAndCheck("//root/wrong/*", root);
+        this.parseExpressionEvaluateAndCheck("/branch2/*",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("/branch2/wrong/*",
+                root);
     }
 
     @Test
-    public void testRelativeNodeNameNodeName() {
+    public void testRelativeNodeNameNodeNameEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -221,13 +256,18 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("branch2/leaf2", root);
-        this.parseExpressionAndCheck("root/branch3", root.child(2));
-        this.parseExpressionAndCheck("root/branch2", root, branch2);
+        this.parseExpressionEvaluateAndCheck("branch2/leaf2",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("branch2",
+                root,
+                branch2);
+        this.parseExpressionEvaluateAndCheck("branch2",
+                root.child(0));
     }
 
     @Test
-    public void testAbsoluteNodeNameWildcard() {
+    public void testAbsoluteNodeNameWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -239,12 +279,16 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("/root/branch2/*", root.child(1), leaf2);
-        this.parseExpressionAndCheck("/root/branch3/*", root.child(2), leaf3);
+        this.parseExpressionEvaluateAndCheck("/branch2/*",
+                root.child(1),
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("/branch3/*",
+                root.child(2),
+                leaf3);
     }
 
     @Test
-    public void testRelativeNodeNameWildcard() {
+    public void testRelativeNodeNameWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -256,146 +300,197 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("branch2/leaf2", root);
-        this.parseExpressionAndCheck("branch3/wrong", root.child(2));
-        this.parseExpressionAndCheck("branch3/leaf3", root.child(2), leaf3);
+        this.parseExpressionEvaluateAndCheck("branch2/leaf2",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("branch3/wrong",
+                root.child(2));
+        this.parseExpressionEvaluateAndCheck("branch3/leaf3",
+                root,
+                leaf3);
     }
 
     // predicate EQ ...................................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueEqualsString() {
+    public void testAbsoluteNodeNameAttributeValueEqualsStringEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2", "attribute-value-2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id=\"attribute-value-1\"]", root, leaf1);
-        this.parseExpressionAndCheck("//*[@id=\"attribute-value-2\"]", root, leaf2);
-        this.parseExpressionAndCheck("//*[@unknown=\"*\"]", root);
+        this.parseExpressionEvaluateAndCheck("//*[@id=\"attribute-value-1\"]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id=\"attribute-value-2\"]",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@unknown=\"*\"]",
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueEqualsStringMissing() {
+    public void testAbsoluteNodeNameAttributeValueEqualsStringMissingEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id=\"attribute-value-1\"]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id=\"attribute-value-1\"]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueEqualsNumber() {
+    public void testAbsoluteNodeNameAttributeValueEqualsNumberEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", 2);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id=1]", root, leaf1);
-        this.parseExpressionAndCheck("//*[@id=2]", root, leaf2);
-        this.parseExpressionAndCheck("//*[@id=999]", root);
+        this.parseExpressionEvaluateAndCheck("//*[@id=1]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id=2]",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id=999]",
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueEqualsNumberConversion() {
+    public void testAbsoluteNodeNameAttributeValueEqualsNumberConversionEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", "2");
         final TestNode leaf3 = node("leaf3", "NAN");
 
         final TestNode root = node("root", leaf1, leaf2, leaf3);
 
-        this.parseExpressionAndCheck("//*[@id=1]", root, leaf1);
-        this.parseExpressionAndCheck("//*[@id=2]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id=1]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id=2]",
+                root,
+                leaf2);
     }
 
     // predicate GT ...............................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueGreaterThanString() {
+    public void testAbsoluteNodeNameAttributeValueGreaterThanStringEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2", "attribute-value-2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id>\"a\"]", root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id>\"attribute-value-1\"]", root, leaf2);
-        this.parseExpressionAndCheck("//*[@unknown>\"z\"]", root);
+        this.parseExpressionEvaluateAndCheck("//*[@id>\"a\"]",
+                root,
+                leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id>\"attribute-value-1\"]",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@unknown>\"z\"]",
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueGreaterThanStringMissing() {
+    public void testAbsoluteNodeNameAttributeValueGreaterThanStringMissingEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id>\"a\"]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id>\"a\"]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueGreaterThanNumber() {
+    public void testAbsoluteNodeNameAttributeValueGreaterThanNumberEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", 2);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id>0]", root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id>1]", root, leaf2);
-        this.parseExpressionAndCheck("//*[@id>999]", root);
+        this.parseExpressionEvaluateAndCheck("//*[@id>0]",
+                root,
+                leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id>1]",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id>999]",
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueGreaterThanNumberConversion() {
+    public void testAbsoluteNodeNameAttributeValueGreaterThanNumberConversionEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", "2");
         final TestNode leaf3 = node("leaf3", "NAN");
 
         final TestNode root = node("root", leaf1, leaf2, leaf3);
 
-        this.parseExpressionAndCheck("//*[@id>0]", root, leaf1, leaf2, leaf3);
-        this.parseExpressionAndCheck("//*[@id>1]", root, leaf2, leaf3);
-        this.parseExpressionAndCheck("//*[@id>999]", root, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*[@id>0]",
+                root,
+                leaf1, leaf2, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*[@id>1]",
+                root,
+                leaf2, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*[@id>999]",
+                root,
+                leaf3);
     }
 
     // predicate GTE ...............................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueGreaterThanEqualsString() {
+    public void testAbsoluteNodeNameAttributeValueGreaterThanEqualsStringEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2", "attribute-value-2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id>=\"attribute-value-1\"]", root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id>=\"attribute-value-2\"]", root, leaf2);
-        this.parseExpressionAndCheck("//*[@unknown>=\"z\"]", root);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=\"attribute-value-1\"]",
+                root,
+                leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=\"attribute-value-2\"]",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@unknown>=\"z\"]",
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueGreaterThanEqualsStringMissing() {
+    public void testAbsoluteNodeNameAttributeValueGreaterThanEqualsStringMissingEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id>=\"a\"]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=\"a\"]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueGreaterThanEqualsNumber() {
+    public void testAbsoluteNodeNameAttributeValueGreaterThanEqualsNumberEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", 2);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id>=0]", root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id>=2]", root, leaf2);
-        this.parseExpressionAndCheck("//*[@id>=999]", root);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=0]",
+                root,
+                leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=2]",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=999]",
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueGreaterThanEqualsNumberConversion() {
+    public void testAbsoluteNodeNameAttributeValueGreaterThanEqualsNumberConversionEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", "2");
         final TestNode leaf3 = node("leaf3", "NAN");
@@ -403,353 +498,494 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         final TestNode root = node("root", leaf1, leaf2, leaf3);
 
         //assertTrue("0".compareTo("NAN") >= 0);
-        this.parseExpressionAndCheck("//*[@id>=0]", root, leaf1, leaf2, leaf3);
-        this.parseExpressionAndCheck("//*[@id>=2]", root, leaf2, leaf3);
-        this.parseExpressionAndCheck("//*[@id>=999]", root, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=0]",
+                root,
+                leaf1, leaf2, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=2]",
+                root,
+                leaf2, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*[@id>=999]",
+                root,
+                leaf3);
     }
 
     // predicate LT ...............................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueLessThanString() {
+    public void testAbsoluteNodeNameAttributeValueLessThanStringEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2", "attribute-value-2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id<\"attribute-value-2\"]", root, root, leaf1);
-        this.parseExpressionAndCheck("//*[@id<\"attribute-value-1\"]", root, root);
-        this.parseExpressionAndCheck("//*[@unknown<\".\"]", root, root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<\"attribute-value-2\"]",
+                root,
+                root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id<\"attribute-value-1\"]",
+                root,
+                root);
+        this.parseExpressionEvaluateAndCheck("//*[@unknown<\".\"]",
+                root,
+                root, leaf1, leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueLessThanStringMissing() {
+    public void testAbsoluteNodeNameAttributeValueLessThanStringMissingEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id<\"z\"]", root, root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<\"z\"]",
+                root,
+                root, leaf1, leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueLessThanNumber() {
+    public void testAbsoluteNodeNameAttributeValueLessThanNumberEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", 2);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id<3]", root, root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id<2]", root, root, leaf1);
-        this.parseExpressionAndCheck("//*[@id<-1]", root, root);
+        this.parseExpressionEvaluateAndCheck("//*[@id<3]",
+                root,
+                root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<2]",
+                root,
+                root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id<-1]",
+                root,
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueLessThanNumberConversion() {
+    public void testAbsoluteNodeNameAttributeValueLessThanNumberConversionEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", "2");
         final TestNode leaf3 = node("leaf3", "NAN");
 
         final TestNode root = node("root", leaf1, leaf2, leaf3);
 
-        this.parseExpressionAndCheck("//*[@id<7]", root, root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id<2]", root, root, leaf1);
-        this.parseExpressionAndCheck("//*[@id<1]", root, root);
-        this.parseExpressionAndCheck("//*[@id<-999]", root, root);
+        this.parseExpressionEvaluateAndCheck("//*[@id<7]",
+                root,
+                root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<2]",
+                root,
+                root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id<1]",
+                root,
+                root);
+        this.parseExpressionEvaluateAndCheck("//*[@id<-999]",
+                root,
+                root);
     }
 
     // predicate LTE ...............................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueLessThanEqualsString() {
+    public void testAbsoluteNodeNameAttributeValueLessThanEqualsStringEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2", "attribute-value-2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id<=\"attribute-value-2\"]", root, root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id<=\"attribute-value-1\"]", root, root, leaf1);
-        this.parseExpressionAndCheck("//*[@unknown<=\".\"]", root, root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=\"attribute-value-2\"]",
+                root,
+                root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=\"attribute-value-1\"]",
+                root,
+                root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@unknown<=\".\"]",
+                root,
+                root, leaf1, leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueLessThanEqualsStringMissing() {
+    public void testAbsoluteNodeNameAttributeValueLessThanEqualsStringMissingEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id<=\"z\"]", root, root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=\"z\"]",
+                root,
+                root, leaf1, leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueLessThanEqualsNumber() {
+    public void testAbsoluteNodeNameAttributeValueLessThanEqualsNumberEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", 2);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id<=2]", root, root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id<=1]", root, root, leaf1);
-        this.parseExpressionAndCheck("//*[@id<=-1]", root, root);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=2]",
+                root,
+                root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=1]",
+                root,
+                root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=-1]",
+                root,
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueLessThanEqualsNumberConversion() {
+    public void testAbsoluteNodeNameAttributeValueLessThanEqualsNumberConversionEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", "2");
         final TestNode leaf3 = node("leaf3", "NAN");
 
         final TestNode root = node("root", leaf1, leaf2, leaf3);
 
-        this.parseExpressionAndCheck("//*[@id<=77]", root, root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id<=3]", root, root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id<=1]", root, root, leaf1);
-        this.parseExpressionAndCheck("//*[@id<=-999]", root, root);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=77]",
+                root,
+                root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=3]",
+                root,
+                root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=1]",
+                root,
+                root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id<=-999]",
+                root,
+                root);
     }
 
     // predicate NE ...............................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueNotEqualsString() {
+    public void testAbsoluteNodeNameAttributeValueNotEqualsStringEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2", "attribute-value-2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id!=\"attribute-value-1\"]", root, root, leaf2);
-        this.parseExpressionAndCheck("//*[@id!=\"attribute-value-2\"]", root, root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id!=\"attribute-value-1\"]",
+                root,
+                root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id!=\"attribute-value-2\"]",
+                root,
+                root, leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueNotEqualsStringMissing() {
+    public void testAbsoluteNodeNameAttributeValueNotEqualsStringMissingEvaluate() {
         final TestNode leaf1 = node("leaf1", "attribute-value-1");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id!=\"attribute-value-1\"]", root, root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id!=\"attribute-value-1\"]",
+                root,
+                root, leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueNotEqualsNumber() {
+    public void testAbsoluteNodeNameAttributeValueNotEqualsNumberEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", 2);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id!=1]", root, root, leaf2);
-        this.parseExpressionAndCheck("//*[@id!=2]", root, root, leaf1);
-        this.parseExpressionAndCheck("//*[@id!=999]", root, root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id!=1]",
+                root,
+                root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id!=2]",
+                root,
+                root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id!=999]",
+                root,
+                root, leaf1, leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueNotEqualsNumberConversion() {
+    public void testAbsoluteNodeNameAttributeValueNotEqualsNumberConversionEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", "2");
         final TestNode leaf3 = node("leaf3", "NAN");
 
         final TestNode root = node("root", leaf1, leaf2, leaf3);
 
-        this.parseExpressionAndCheck("//*[@id!=1]", root, root, leaf2, leaf3);
-        this.parseExpressionAndCheck("//*[@id!=2]", root, root, leaf1, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*[@id!=1]",
+                root,
+                root, leaf2, leaf3);
+        this.parseExpressionEvaluateAndCheck("//*[@id!=2]",
+                root, root, leaf1, leaf3);
     }
 
     // concat ....................................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueConcat() {
+    public void testAbsoluteNodeNameAttributeValueConcatEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "x1");
 
         final TestNode root = node("root", "zzz", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id=concat(\"a\", \"b\", \"c\")]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id=concat(\"a\", \"b\", \"c\")]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueConcatMissingAttribute() {
+    public void testAbsoluteNodeNameAttributeValueConcatMissingAttributeEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id=concat(@missing, \"abc\")]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id=concat(@missing, \"abc\")]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueConcatInteger() {
+    public void testAbsoluteNodeNameAttributeValueConcatIntegerEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "1x2");
 
         final TestNode root = node("root", "zzzzz", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id=concat(1, \"x\", 2)]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id=concat(1, \"x\", 2)]",
+                root,
+                leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueConcatInteger2() {
+    public void testAbsoluteNodeNameAttributeValueConcatInteger2Evaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", 123);
 
         final TestNode root = node("root", 999, leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id=concat(\"123\")]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[@id=concat(\"123\")]",
+                root,
+                leaf2);
     }
 
     // ends with ....................................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueEndsWith() {
+    public void testAbsoluteNodeNameAttributeValueEndsWithEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "x1");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[ends-with(@id, \"c\")]", root, leaf1);
-        this.parseExpressionAndCheck("//*[ends-with(@id, \"1\")]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"c\")]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"1\")]",
+                root,
+                leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueEndsWithMissingAttribute() {
+    public void testAbsoluteNodeNameAttributeValueEndsWithMissingAttributeEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[ends-with(@id, \"c\")]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"c\")]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueEndsWithIntegerValue() {
+    public void testAbsoluteNodeNameAttributeValueEndsWithIntegerValueEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "x1");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[ends-with(@id, 1)]", root, leaf2);
-        this.parseExpressionAndCheck("//*[ends-with(@id, 9)]", root);
+        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, 1)]",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, 9)]",
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueEndsWithIntegerValue2() {
+    public void testAbsoluteNodeNameAttributeValueEndsWithIntegerValueEvaluate2() {
         final TestNode leaf1 = node("leaf1", 123);
         final TestNode leaf2 = node("leaf2", 456);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[ends-with(@id, \"3\")]", root, leaf1);
-        this.parseExpressionAndCheck("//*[ends-with(@id, \"56\")]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"3\")]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"56\")]",
+                root,
+                leaf2);
     }
 
     // starts with ....................................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStartsWith() {
+    public void testAbsoluteNodeNameAttributeValueStartsWithEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "1x");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[starts-with(@id, \"a\")]", root, leaf1);
-        this.parseExpressionAndCheck("//*[starts-with(@id, \"1\")]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(@id, \"a\")]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(@id, \"1\")]",
+                root,
+                leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStartsWithMissingAttribute() {
+    public void testAbsoluteNodeNameAttributeValueStartsWithMissingAttributeEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[starts-with(@id, \"a\")]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(@id, \"a\")]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStartsWithIntegerValue() {
+    public void testAbsoluteNodeNameAttributeValueStartsWithIntegerValueEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "1a");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[starts-with(@id, 1)]", root, leaf2);
-        this.parseExpressionAndCheck("//*[starts-with(@id, 9)]", root);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(@id, 1)]",
+                root,
+                leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(@id, 9)]",
+                root);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStartsWithIntegerValue2() {
+    public void testAbsoluteNodeNameAttributeValueStartsWithIntegerValueEvaluate2() {
         final TestNode leaf1 = node("leaf1", 345);
         final TestNode leaf2 = node("leaf2", 567);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[starts-with(@id, \"3\")]", root, leaf1);
-        this.parseExpressionAndCheck("//*[starts-with(@id, \"56\")]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(@id, \"3\")]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(@id, \"56\")]",
+                root,
+                leaf2);
     }
 
     // string-length ....................................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStringLength() {
+    public void testAbsoluteNodeNameAttributeValueStringLengthEvaluate() {
         final TestNode leaf1 = node("leaf1", "a");
         final TestNode leaf2 = node("leaf2", "zz");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[string-length(@id)=1]", root, leaf1);
-        this.parseExpressionAndCheck("//*[string-length(@id)=2]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=1]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=2]",
+                root,
+                leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStringLengthMissingAttribute() {
+    public void testAbsoluteNodeNameAttributeValueStringLengthMissingAttributeEvaluate() {
         final TestNode leaf1 = node("leaf1", "a");
         final TestNode leaf2 = node("leaf2");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[string-length(@id)=0]", root, root, leaf2);
-        this.parseExpressionAndCheck("//*[string-length(@id)=1]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=0]",
+                root,
+                root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=1]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStringLengthIntegerValue() {
+    public void testAbsoluteNodeNameAttributeValueStringLengthIntegerValueEvaluate() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", 23);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[string-length(@id)=1]", root, leaf1);
-        this.parseExpressionAndCheck("//*[string-length(@id)=2]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=1]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=2]",
+                root,
+                leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStringLengthIntegerValue2() {
+    public void testAbsoluteNodeNameAttributeValueStringLengthIntegerValueEvaluate2() {
         final TestNode leaf1 = node("leaf1", 1);
         final TestNode leaf2 = node("leaf2", 23);
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[string-length(@id)=1]", root, leaf1);
-        this.parseExpressionAndCheck("//*[string-length(@id)=2]", root, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=1]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=2]",
+                root,
+                leaf2);
     }
 
     // multiple predicates ........................................................................................................
 
     @Test
-    public void testAbsoluteNodeNameAttributeValueStringTwice() {
+    public void testAbsoluteNodeNameAttributeValueStringTwiceEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "x");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[string-length(@id)=3][@id=\"abc\"]", root, leaf1);
-        this.parseExpressionAndCheck("//*[@id=\"abc\"][string-length(@id)=3]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=3][@id=\"abc\"]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[@id=\"abc\"][string-length(@id)=3]",
+                root,
+                leaf1);
+    }
+
+    // wildcard ........................................................................................................
+
+    @Test
+    public void testWildcard() {
+        this.parseExpressionAndCheck("*",
+                TestNode.relativeNodeSelector().children());
     }
 
     // ancestor.......................................................................................
 
     @Test
     public void testAncestorAxisWildcard() {
+        this.parseExpressionAndCheck("ancestor::*",
+                TestNode.relativeNodeSelector().ancestor());
+    }
+
+    @Test
+    public void testAncestorAxisNamed() {
+        this.parseExpressionAndCheck("ancestor::ABC",
+                TestNode.relativeNodeSelector()
+                        .ancestor()
+                        .named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testAncestorAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -758,13 +994,45 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("ancestor::*", root.child(0), root);
+        this.parseExpressionEvaluateAndCheck("ancestor::*",
+                root.child(0),
+                root);
+    }
+
+    @Test
+    public void testAncestorAxisWildcardEvaluate2() {
+        final TestNode leaf1 = node("leaf1");
+        final TestNode branch1 = node("branch1", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("branch2", leaf2);
+
+        final TestNode root = node("root", branch1, branch2);
+
+        this.parseExpressionEvaluateAndCheck("ancestor::*",
+                root.child(0).child(0), // leaf1
+                branch1, root);
     }
 
     // ancestor-or-self.......................................................................................
 
     @Test
     public void testAncestorOrSelfAxisWildcard() {
+        this.parseExpressionAndCheck("ancestor-or-self::*",
+                TestNode.relativeNodeSelector()
+                        .ancestorOrSelf());
+    }
+
+    @Test
+    public void testAncestorOrSelfAxisNamed() {
+        this.parseExpressionAndCheck("ancestor-or-self::ABC",
+                TestNode.relativeNodeSelector()
+                        .ancestorOrSelf()
+                        .named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testAncestorOrSelfAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -773,13 +1041,47 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("ancestor-or-self::*", root.child(0), root, branch1);
+        this.parseExpressionEvaluateAndCheck("ancestor-or-self::*",
+                root.child(0).child(0), // leaf1
+                leaf1, branch1, root);
+    }
+
+    public void testAncestorOrSelfAxisWildcardEvaluate2() {
+        final TestNode leaf1 = node("leaf1");
+        final TestNode branch1 = node("branch1", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("branch2", leaf2);
+
+        final TestNode root = node("root", branch1, branch2);
+
+        this.parseExpressionEvaluateAndCheck("ancestor-or-self::*",
+                root.child(0), // branch1
+                branch1, root);
     }
 
     // child.......................................................................................
 
     @Test
     public void testChildAxisWildcard() {
+        this.parseExpressionAndCheck("child::*",
+                TestNode.relativeNodeSelector().children());
+    }
+
+    @Test
+    public void testChildAxisNamed() {
+        this.parseExpressionAndCheck("child::ABC",
+                TestNode.relativeNodeSelector().children().named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testChildAxisNamedWildcard() {
+        this.parseExpressionAndCheck("child::ABC/*",
+                TestNode.relativeNodeSelector().children().named(Names.string("ABC")).children());
+    }
+
+    @Test
+    public void testAbsoluteNamedChildAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -788,14 +1090,53 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("/child::*", root, branch1, branch2);
-        this.parseExpressionAndCheck("/root/branch1/child::*", root.child(0), leaf1);
+        this.parseExpressionEvaluateAndCheck("/child::*",
+                root,
+                branch1, branch2);
+        this.parseExpressionEvaluateAndCheck("/branch1/child::*",
+                root.child(0),  // branch1
+                leaf1);
     }
 
     // descendant.......................................................................................
 
     @Test
+    public void testDescendantOrSelfWildcard() {
+        this.parseExpressionAndCheck("//*",
+                TestNode.relativeNodeSelector().descendantOrSelf());
+    }
+
+    @Test
+    public void testDescendantOrSelfNamed() {
+        this.parseExpressionAndCheck("//ABC123",
+                TestNode.relativeNodeSelector().descendantOrSelf()
+                        .named(nameAbc123()));
+    }
+
+    @Test
+    public void testDescendantOrSelfNamed1Named2() {
+        this.parseExpressionAndCheck("//ABC123/DEF456",
+                TestNode.relativeNodeSelector()
+                        .descendantOrSelf()
+                        .named(nameAbc123())
+                        .children()
+                        .named(nameDef456()));
+    }
+
+    @Test
     public void testDescendantAxisWildcard() {
+        this.parseExpressionAndCheck("descendant::*",
+                TestNode.relativeNodeSelector().descendant());
+    }
+
+    @Test
+    public void testDescendantAxisNamed() {
+        this.parseExpressionAndCheck("descendant::ABC",
+                TestNode.relativeNodeSelector().descendant().named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testDescendantAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -804,13 +1145,27 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("descendant::*", root.child(0), leaf1);
+        this.parseExpressionEvaluateAndCheck("descendant::*",
+                root.child(0),
+                leaf1);
     }
 
     // descendant-or-self.......................................................................................
 
     @Test
     public void testDescendantOrSelfAxisWildcard() {
+        this.parseExpressionAndCheck("descendant-or-self::*",
+                TestNode.relativeNodeSelector().descendantOrSelf());
+    }
+
+    @Test
+    public void testDescendantOrSelfAxisNamed() {
+        this.parseExpressionAndCheck("descendant-or-self::ABC",
+                TestNode.relativeNodeSelector().descendantOrSelf().named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testDescendantOrSelfAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -819,14 +1174,27 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("descendant-or-self::*", root.child(0), branch1, leaf1);
+        this.parseExpressionEvaluateAndCheck("descendant-or-self::*",
+                root.child(0),
+                branch1, leaf1);
     }
-
 
     // first-child.......................................................................................
 
     @Test
-    public void testFirstChildWildcard() {
+    public void testFirstChildAxisWildcard() {
+        this.parseExpressionAndCheck("first-child::*",
+                TestNode.relativeNodeSelector().firstChild());
+    }
+
+    @Test
+    public void testFirstChildAxisNamed() {
+        this.parseExpressionAndCheck("first-child::ABC",
+                TestNode.relativeNodeSelector().firstChild().named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testFirstChildAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -835,14 +1203,30 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("//first-child::*", root, branch1, leaf1, leaf2);
-        this.parseExpressionAndCheck("first-child::*", root.child(0), leaf1);
+        this.parseExpressionEvaluateAndCheck("//first-child::*",
+                root,
+                branch1, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("first-child::*",
+                root.child(0),
+                leaf1);
     }
 
     // following...........................................................................................
 
     @Test
-    public void testFollowingWildcard() {
+    public void testFollowingAxisWildcard() {
+        this.parseExpressionAndCheck("following::*",
+                TestNode.relativeNodeSelector().following());
+    }
+
+    @Test
+    public void testFollowingAxisNamed() {
+        this.parseExpressionAndCheck("following::ABC",
+                TestNode.relativeNodeSelector().following().named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testFollowingWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -854,18 +1238,35 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode leaf4 = node("leaf4");
         final TestNode branch4 = node("branch4", leaf4);
-        
+
         final TestNode root = node("root", branch1, branch2, branch3, branch4);
 
-        this.parseExpressionAndCheck("following::*", root);
-        this.parseExpressionAndCheck("following::*", root.child(0), branch2, leaf2, branch3, leaf3, branch4, leaf4);
-        this.parseExpressionAndCheck("following::*", root.child(1), branch3, leaf3, branch4, leaf4);
+        this.parseExpressionEvaluateAndCheck("following::*",
+                root);
+        this.parseExpressionEvaluateAndCheck("following::*",
+                root.child(0),
+                branch2, leaf2, branch3, leaf3, branch4, leaf4);
+        this.parseExpressionEvaluateAndCheck("following::*",
+                root.child(1),
+                branch3, leaf3, branch4, leaf4);
     }
 
     // following-sibling...........................................................................................
 
     @Test
-    public void testFollowingSiblingWildcard() {
+    public void testFollowingSiblingAxisWildcard() {
+        this.parseExpressionAndCheck("following-sibling::*",
+                TestNode.relativeNodeSelector().followingSibling());
+    }
+
+    @Test
+    public void testFollowingSiblingAxisNamed() {
+        this.parseExpressionAndCheck("following-sibling::ABC",
+                TestNode.relativeNodeSelector().followingSibling().named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testFollowingSiblingAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -874,14 +1275,17 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("following-sibling::*", root.child(0), branch2);
-        this.parseExpressionAndCheck("following-sibling::*", root.child(1));
+        this.parseExpressionEvaluateAndCheck("following-sibling::*",
+                root.child(0),
+                branch2);
+        this.parseExpressionEvaluateAndCheck("following-sibling::*",
+                root.child(1));
     }
 
     // indexed...........................................................................................
 
     @Test
-    public void testAbsoluteWildcardIndex() {
+    public void testAbsoluteWildcardIndexEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -890,28 +1294,25 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("/*[1]", root, branch1);
-        this.parseExpressionAndCheck("/*[2]", root, branch2);
-    }
-
-    @Test
-    public void testWildcardRelativeWildcardIndex() {
-        final TestNode branch1 = node("branch1");
-        final TestNode branch2 = node("branch2");
-        final TestNode branch3 = node("branch3");
-
-        final TestNode root = node("root", branch1, branch2, branch3);
-
-        this.parseExpressionAndCheck("*[0]", root);
-        this.parseExpressionAndCheck("*[1]", root, branch1);
-        this.parseExpressionAndCheck("*[3]", root, branch3);
-        this.parseExpressionAndCheck("*[4]", root);
+        this.parseExpressionEvaluateAndCheck("/*[1]", root, leaf1, leaf2);
     }
 
     // last-child.......................................................................................
 
     @Test
-    public void testLastChildWildcard() {
+    public void testLastChildAxisWildcard() {
+        this.parseExpressionAndCheck("last-child::*",
+                TestNode.relativeNodeSelector().lastChild());
+    }
+
+    @Test
+    public void testLastChildAxisNamed() {
+        this.parseExpressionAndCheck("last-child::ABC",
+                TestNode.relativeNodeSelector().lastChild().named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testLastChildWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -920,14 +1321,70 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("//last-child::*", root, leaf1, branch2, leaf2);
-        this.parseExpressionAndCheck("last-child::*", root.child(0), leaf1);
+        this.parseExpressionEvaluateAndCheck("//last-child::*",
+                root,
+                leaf1, branch2, leaf2);
+        this.parseExpressionEvaluateAndCheck("last-child::*",
+                root.child(0),
+                leaf1);
+    }
+
+    // named...........................................................................................
+
+    @Test
+    public void testNamed() {
+        this.parseExpressionAndCheck("ABC123",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .named(nameAbc123()));
+    }
+
+    @Test
+    public void testNamedSlashNamed() {
+        this.parseExpressionAndCheck("ABC123/DEF456",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .named(nameAbc123())
+                        .children()
+                        .named(nameDef456()));
+    }
+
+    @Test
+    public void testNamedSlashWildcard() {
+        this.parseExpressionAndCheck("ABC123/*",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .named(nameAbc123())
+                        .children());
+    }
+
+    @Test
+    public void testDescendantOrSelfNamedEvaluate() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode leaf1 = node("ABC123");
+        final TestNode branch1 = node("branch1", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("ABC123", leaf2);
+
+        final TestNode root = node("root", branch1, branch2);
+
+        this.parseExpressionEvaluateAndCheck("descendant-or-self::ABC123",
+                root,
+                leaf1, branch2);
     }
 
     // parent.......................................................................................
 
     @Test
     public void testParentDotDot() {
+        this.parseExpressionAndCheck("..",
+                TestNode.relativeNodeSelector().parent());
+    }
+
+    @Test
+    public void testParentDotDotEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -936,11 +1393,36 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("..", root.child(0), root);
+        this.parseExpressionEvaluateAndCheck("..",
+                root.child(0),
+                root);
     }
 
     @Test
     public void testParentAxisWildcard() {
+        this.parseExpressionAndCheck("parent::*",
+                TestNode.relativeNodeSelector().parent());
+    }
+
+    @Test
+    public void testParentAxisNamed() {
+        this.parseExpressionAndCheck("parent::ABC123",
+                TestNode.relativeNodeSelector()
+                        .parent()
+                        .named(nameAbc123()));
+    }
+
+    @Test
+    public void testParentAxisNamedNamed() {
+        this.parseExpressionAndCheck("parent::ABC123/DEF456",
+                TestNode.relativeNodeSelector().parent()
+                        .named(nameAbc123())
+                        .children()
+                        .named(nameDef456()));
+    }
+
+    @Test
+    public void testParentAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -949,13 +1431,30 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("parent::*", root.child(0), root);
+        this.parseExpressionEvaluateAndCheck("parent::*",
+                root.child(0),
+                root);
     }
 
     // preceding...........................................................................................
 
     @Test
-    public void testPrecedingWildcard() {
+    public void testPrecedingAxisWildcard() {
+        this.parseExpressionAndCheck("preceding::*",
+                TestNode.relativeNodeSelector()
+                        .preceding());
+    }
+
+    @Test
+    public void testPrecedingAxisNamed() {
+        this.parseExpressionAndCheck("preceding::ABC123",
+                TestNode.relativeNodeSelector()
+                        .preceding()
+                        .named(nameAbc123()));
+    }
+
+    @Test
+    public void testPrecedingAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -970,15 +1469,35 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3, branch4);
 
-        this.parseExpressionAndCheck("preceding::*", root.child(0));
-        this.parseExpressionAndCheck("preceding::*", root.child(1), branch1, leaf1);
-        this.parseExpressionAndCheck("preceding::*", root.child(2), branch2, leaf2, branch1, leaf1);
+        this.parseExpressionEvaluateAndCheck("preceding::*",
+                root.child(0));
+        this.parseExpressionEvaluateAndCheck("preceding::*",
+                root.child(1),
+                branch1, leaf1);
+        this.parseExpressionEvaluateAndCheck("preceding::*",
+                root.child(2),
+                branch2, leaf2, branch1, leaf1);
     }
 
     // preceding-sibling...........................................................................................
 
     @Test
-    public void testPrecedingSiblingWildcard() {
+    public void testPrecedingSiblingAxisWildcard() {
+        this.parseExpressionAndCheck("preceding-sibling::*",
+                TestNode.relativeNodeSelector()
+                        .precedingSibling());
+    }
+
+    @Test
+    public void testPrecedingSiblingAxisNamed() {
+        this.parseExpressionAndCheck("preceding-sibling::ABC123",
+                TestNode.relativeNodeSelector()
+                        .precedingSibling()
+                        .named(nameAbc123()));
+    }
+
+    @Test
+    public void testPrecedingSiblingAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -987,28 +1506,32 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("preceding-sibling::*", root.child(1), branch1);
-        this.parseExpressionAndCheck("preceding-sibling::*", root.child(0));
+        this.parseExpressionEvaluateAndCheck("preceding-sibling::*",
+                root.child(1),
+                branch1);
+        this.parseExpressionEvaluateAndCheck("preceding-sibling::*",
+                root.child(0));
     }
 
     // self.......................................................................................
 
     @Test
-    public void testSelfAxis() {
-        final TestNode leaf1 = node("leaf1");
-        final TestNode branch1 = node("branch1", leaf1);
-
-        final TestNode leaf2 = node("leaf2");
-        final TestNode branch2 = node("branch2", leaf2);
-
-        final TestNode root = node("root", branch1, branch2);
-
-        this.parseExpressionAndCheck("self::*", root, root);
-        this.parseExpressionAndCheck("self::*", root.child(0), root.child(0));
+    public void testSelfAxisWildcard() {
+        this.parseExpressionAndCheck("self::*",
+                TestNode.relativeNodeSelector()
+                        .self());
     }
 
     @Test
-    public void testSelfDot() {
+    public void testSelfAxisNamed() {
+        this.parseExpressionAndCheck("self::ABC",
+                TestNode.relativeNodeSelector()
+                        .self()
+                        .named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testSelfAxisWildcardEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -1017,40 +1540,139 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck(".", root, root);
-        this.parseExpressionAndCheck(".", root.child(0), branch1);
+        this.parseExpressionEvaluateAndCheck("self::*",
+                root,
+                root);
+        this.parseExpressionEvaluateAndCheck("self::*",
+                root.child(0),
+                root.child(0));
+    }
+
+    @Test
+    public void testSelfDotSlashWildcard() {
+        this.parseExpressionAndCheck("./*",
+                TestNode.relativeNodeSelector()
+                        .self()
+                        .children());
+    }
+
+    @Test
+    public void testSelfDotSlashNamed() {
+        this.parseExpressionAndCheck("./ABC",
+                TestNode.relativeNodeSelector().self()
+                        .children()
+                        .named(Names.string("ABC")));
+    }
+
+    @Test
+    public void testSelfDotSlashNamed1Named2() {
+        this.parseExpressionAndCheck("./ABC1/DEF2",
+                TestNode.relativeNodeSelector().self()
+                        .children()
+                        .named(Names.string("ABC1"))
+                        .children()
+                        .named(Names.string("DEF2")));
+    }
+
+    @Test
+    public void testSelfDotEvaluate() {
+        final TestNode leaf1 = node("leaf1");
+        final TestNode branch1 = node("branch1", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("branch2", leaf2);
+
+        final TestNode root = node("root", branch1, branch2);
+
+        this.parseExpressionEvaluateAndCheck(".",
+                root,
+                root);
+        this.parseExpressionEvaluateAndCheck(".",
+                root.child(0),
+                branch1);
     }
 
     // function: boolean().......................................................................................
 
     @Test
-    public void testExpressionBooleanTrue() {
-        final TestNode child = node("child");
-        final TestNode parent = node("parent", child);
-
-        this.parseExpressionAndCheck("/*[boolean(true())]", parent, parent);
+    public void testWildcardExpressionBooleanTrue() {
+        this.parseExpressionAndCheck("*[boolean(true())]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(function("boolean", function("true"))));
     }
 
     @Test
-    public void testExpressionBooleanFalse() {
-        final TestNode child = node("child");
-        final TestNode parent = node("parent", child);
+    public void testNamedExpressionBooleanTrue() {
+        this.parseExpressionAndCheck("ABC123[boolean(true())]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .named(nameAbc123())
+                        .expression(function("boolean", function("true"))));
+    }
 
-        this.parseExpressionAndCheck("/*[boolean(false())]", parent);
+
+    @Test
+    public void testWildcardExpressionNumber() {
+        this.parseExpressionAndCheck("*[123]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(ExpressionNode.longNode(123)));
     }
 
     @Test
-    public void testExpressionBooleanStartsWithName() {
+    public void testNamedExpressionNumber() {
+        this.parseExpressionAndCheck("ABC123[123]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .named(nameAbc123())
+                        .expression(ExpressionNode.longNode(123)));
+    }
+
+    @Test
+    public void testDescendantWildcardExpressionBooleanTrueEvaluate() {
         final TestNode child = node("child");
         final TestNode parent = node("parent", child);
 
-        this.parseExpressionAndCheck("/*[boolean(starts-with(name(), \"p\"))]", parent, parent);
+        this.parseExpressionEvaluateAndCheck("/*[boolean(true())]",
+                parent,
+                child);
+    }
+
+    @Test
+    public void testDescendantWildcardExpressionBooleanFalseEvaluate() {
+        final TestNode child = node("child");
+        final TestNode parent = node("parent", child);
+
+        this.parseExpressionEvaluateAndCheck("/*[boolean(false())]", parent);
+    }
+
+    @Test
+    public void testDescendantWildcardExpressionBooleanStartsWithNameEvaluate() {
+        final TestNode child = node("child");
+        final TestNode parent = node("parent", child);
+
+        this.parseExpressionEvaluateAndCheck("/*[boolean(starts-with(name(), \"chi\"))]",
+                parent,
+                child);
     }
 
     // function: name.......................................................................................
 
     @Test
-    public void testDescendantsOrSelfExpressionCurrentNodeName() {
+    public void testWildcardExpressionCurrentNodeName() {
+        this.parseExpressionAndCheck("*[name()=\"123\"]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(
+                                ExpressionNode.equalsNode(
+                                        function("name"),
+                                        ExpressionNode.text("123")
+                                )));
+    }
+
+    @Test
+    public void testDescendantsOrSelfExpressionCurrentNodeNameEvaludate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -1059,9 +1681,15 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("//*[name()=\"leaf1\"]", root, leaf1);
-        this.parseExpressionAndCheck("//*[name()=\"branch2\"]", root, branch2);
-        this.parseExpressionAndCheck("//*[starts-with(name(), \"leaf\")]", root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[name()=\"leaf1\"]",
+                root,
+                leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[name()=\"branch2\"]",
+                root,
+                branch2);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(), \"leaf\")]",
+                root,
+                leaf1, leaf2);
     }
 
     // function: number().......................................................................................
@@ -1072,32 +1700,41 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         final TestNode branch = node("branch", "123", leaf);
         final TestNode root = node("root", "456", branch);
 
-        this.parseExpressionAndCheck("//*[number(@id) > 300]", root, leaf);
+        this.parseExpressionEvaluateAndCheck("//*[number(@id) > 300]",
+                root,
+                leaf);
     }
 
     // function: position().......................................................................................
 
     @Test
-    public void testExpressionPosition() {
-        final TestNode leaf1 = node("leaf1");
-        final TestNode branch1 = node("branch1", leaf1);
+    public void testWildcardExpressionPosition() {
+        this.parseExpressionAndCheck("*[position() = 2]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(
+                                ExpressionNode.equalsNode(
+                                        function("position"),
+                                        ExpressionNode.longNode(2)
+                                )));
+    }
 
-        final TestNode leaf2 = node("leaf2");
-        final TestNode branch2 = node("branch2", leaf2);
 
-        final TestNode leaf3a = node("leaf3a");
-        final TestNode leaf3b = node("leaf3b");
-        final TestNode branch3 = node("branch3", leaf3a, leaf3b);
-
-        final TestNode root = node("root", branch1, branch2, branch3);
-
-        this.parseExpressionAndCheck("*[position() = 2]", root.child(0));
-        this.parseExpressionAndCheck("*[position() = 2]", root.child(1), branch2);
-        this.parseExpressionAndCheck("*[position() = 3]", root.child(2), branch3);
+    @Test
+    public void testNamedExpressionPosition() {
+        this.parseExpressionAndCheck("ABC123[position() = 2]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .named(nameAbc123())
+                        .expression(
+                                ExpressionNode.equalsNode(
+                                        function("position"),
+                                        ExpressionNode.longNode(2)
+                                )));
     }
 
     @Test
-    public void testDescendantsOrSelfExpressionPosition() {
+    public void testWildcardExpressionPositionEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -1110,138 +1747,193 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2, branch3);
 
-        this.parseExpressionAndCheck("//*[position() = 2]", root, branch2, leaf3b);
-        this.parseExpressionAndCheck("//*[position() = 3]", root, branch3);
+        this.parseExpressionEvaluateAndCheck("*[position() = 2]",
+                root,
+                branch2);
+        this.parseExpressionEvaluateAndCheck("*[position() = 2]",
+                root.child(0));
+    }
+
+    @Test
+    public void testDescendantsOrSelfExpressionPositionEvaluate() {
+        final TestNode leaf1 = node("leaf1");
+        final TestNode branch1 = node("branch1", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("branch2", leaf2);
+
+        final TestNode leaf3a = node("leaf3a");
+        final TestNode leaf3b = node("leaf3b");
+        final TestNode branch3 = node("branch3", leaf3a, leaf3b);
+
+        final TestNode root = node("root", branch1, branch2, branch3);
+
+        this.parseExpressionEvaluateAndCheck("//*[position() = 2]",
+                root,
+                branch2, leaf3b);
+        this.parseExpressionEvaluateAndCheck("//*[position() = 3]",
+                root,
+                branch3);
     }
 
     // function: text().......................................................................................
 
     @Test
-    public void testExpressionStartsWithText() {
+    public void testExpressionStartsWithTextEvaluate() {
         final TestNode child = node("child", 456);
         final TestNode parent = node("parent", 123, child);
 
-        this.parseExpressionAndCheck("/*[starts-with(text(@id), \"1\")]", parent, parent);
+        this.parseExpressionEvaluateAndCheck("*[starts-with(text(@id), \"4\")]",
+                parent,
+                child);
     }
 
     @Test
-    public void testDescendantsOrSelfExpressionStartsWithText() {
+    public void testDescendantsOrSelfExpressionStartsWithTextEvaluate() {
         final TestNode child = node("child", 456);
         final TestNode parent = node("parent", 123, child);
 
-        this.parseExpressionAndCheck("//*[starts-with(text(@id), \"4\")]", parent, child);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(text(@id), \"4\")]",
+                parent,
+                child);
     }
 
     // function: true().......................................................................................
 
     @Test
-    public void testExpressionStartsWithNameEqualsTrue() {
+    public void testExpressionStartsWithNameEqualsTrueEvaluate() {
         final TestNode child = node("child");
         final TestNode parent = node("parent", child);
 
-        this.parseExpressionAndCheck("*[starts-with(name(), \"p\")=true()]", parent, parent);
+        this.parseExpressionEvaluateAndCheck("*[starts-with(name(), \"chi\")=true()]",
+                parent,
+                child);
     }
 
     @Test
-    public void testExpressionStartsWithNameEqualsTrue2() {
+    public void testExpressionStartsWithNameEqualsTrueEvaluate2() {
         final TestNode child = node("child");
         final TestNode parent = node("parent", child);
 
-        this.parseExpressionAndCheck("*[starts-with(name(), \"X\")=true()]", parent);
+        this.parseExpressionEvaluateAndCheck("*[starts-with(name(), \"X\")=true()]",
+                parent);
     }
 
     @Test
-    public void testDescendantsOrSelfExpressionStartsWithNameEqualsTrue() {
+    public void testDescendantsOrSelfExpressionStartsWithNameEqualsTrueEvaluate() {
         final TestNode child = node("child");
         final TestNode parent = node("parent", child);
 
-        this.parseExpressionAndCheck("//*[starts-with(name(), \"c\")=true()]", parent, child);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(), \"c\")=true()]",
+                parent,
+                child);
     }
 
     // function: false().......................................................................................
 
     @Test
-    public void testExpressionStartsWithNameEqualsFalse() {
+    public void testExpressionStartsWithNameEqualsFalseEvaluate() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionAndCheck("*[starts-with(name(), \"r\")=false()]", root);
+        this.parseExpressionEvaluateAndCheck("*[starts-with(name(), \"QQQ\")=false()]",
+                root,
+                branch);
     }
 
     @Test
-    public void testExpressionStartsWithNameEqualsFalse2() {
+    public void testExpressionStartsWithNameEqualsFalseEvaluate2() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionAndCheck("*[starts-with(name(), \"XYZ\")=false()]", root, root);
+        this.parseExpressionEvaluateAndCheck("*[starts-with(name(), \"XYZ\")=false()]",
+                root,
+                branch);
     }
 
     @Test
-    public void testDescendantsOrSelfExpressionStartsWithNameEqualsFalse() {
+    public void testDescendantsOrSelfExpressionStartsWithNameEqualsFalseEvaluate() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionAndCheck("//*[starts-with(name(), \"r\")=false()]", root, branch, leaf);
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(), \"r\")=false()]",
+                root,
+                branch, leaf);
     }
 
     // and ........................................................................................................
 
     @Test
-    public void testAbsoluteNodeNameTrueAndTrue() {
+    public void testAbsoluteNodeNameTrueAndTrueEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "xyz");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[true() AND true()]", root, root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[true() AND true()]",
+                root,
+                root, leaf1, leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameFunctionAndFunction() {
+    public void testAbsoluteNodeNameFunctionAndFunctionEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "xyz");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[string-length(@id)=3 AND @id=\"abc\"]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=3 AND @id=\"abc\"]",
+                root,
+                leaf1);
     }
 
     // or ........................................................................................................
 
     @Test
-    public void testAbsoluteNodeNameTrueOrTrue() {
+    public void testAbsoluteNodeNameTrueOrTrueEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "xyz");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[false() OR true()]", root, root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[false() OR true()]",
+                root,
+                root, leaf1, leaf2);
     }
 
     @Test
-    public void testAbsoluteNodeNameFunctionOrFunction() {
+    public void testAbsoluteNodeNameFunctionOrFunctionEvaluate() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "xyz");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[string-length(@id)=4 OR @id=\"abc\"]", root, leaf1);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=4 OR @id=\"abc\"]",
+                root,
+                leaf1);
     }
 
     @Test
-    public void testAbsoluteNodeNameFunctionOrFunction2() {
+    public void testAbsoluteNodeNameFunctionOrFunctionEvaluate2() {
         final TestNode leaf1 = node("leaf1", "abc");
         final TestNode leaf2 = node("leaf2", "xyz");
 
         final TestNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[string-length(@id)=3 OR @id=\"abc\"]", root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=3 OR @id=\"abc\"]",
+                root,
+                leaf1, leaf2);
     }
 
     // helpers ..................................................................................................
+
+    @Override
+    public NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object> createVisitor() {
+        return new NodeSelectorNodeSelectorParserTokenVisitor<>(null, null, null);
+    }
 
     private TestNode node(final String name, final TestNode... nodes) {
         return TestNode.with(name, nodes);
@@ -1255,15 +1947,26 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         return TestNode.with(name, nodes).setAttributes(Maps.of(Names.string("id"), idAttributeValue));
     }
 
-    private void parseExpressionAndCheck(final String expression, final TestNode root) {
-        this.parseExpressionAndCheck(expression, root, Sets.empty());
+    private void parseExpressionAndCheck(final String expression,
+                                         final NodeSelector<TestNode, StringName, StringName, Object> selector) {
+        assertEquals(selector,
+                this.parseExpression(expression).unwrapIfCustomToStringNodeSelector(),
+                () -> "Parse expression " + CharSequences.quoteAndEscape(expression));
     }
 
-    private void parseExpressionAndCheck(final String expression, final TestNode root, final TestNode... expected) {
-        this.parseExpressionAndCheck(expression, root, names(Lists.of(expected)));
+    private void parseExpressionEvaluateAndCheck(final String expression, final TestNode root) {
+        this.parseExpressionEvaluateAndCheck(expression, root, Sets.empty());
     }
 
-    private void parseExpressionAndCheck(final String expression, final TestNode root, final Set<String> expected) {
+    private void parseExpressionEvaluateAndCheck(final String expression,
+                                                 final TestNode root,
+                                                 final TestNode... expected) {
+        this.parseExpressionEvaluateAndCheck(expression, root, names(Lists.of(expected)));
+    }
+
+    private void parseExpressionEvaluateAndCheck(final String expression,
+                                                 final TestNode root,
+                                                 final Set<String> expected) {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = this.parseExpression(expression);
 
         final Set<TestNode> selected = Sets.ordered();
@@ -1368,7 +2071,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             private final ConverterContext converterContext = ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
         });
 
-        assertEquals(expected, names(selected), () -> expression + "\n" + root);
+        assertEquals(expected, names(selected), () -> expression + "\n" + selector.unwrapIfCustomToStringNodeSelector() + "\n" + root);
     }
 
     private Set<String> names(final Collection<TestNode> nodes) {
@@ -1391,9 +2094,17 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 .cast();
     }
 
-    @Override
-    public NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object> createVisitor() {
-        return new NodeSelectorNodeSelectorParserTokenVisitor<>(null, null, null);
+    private static StringName nameAbc123() {
+        return Names.string("ABC123");
+    }
+
+
+    private static StringName nameDef456() {
+        return Names.string("DEF456");
+    }
+
+    private ExpressionNode function(final String name, final ExpressionNode... arguments) {
+        return ExpressionNode.function(ExpressionNodeName.with(name), Lists.of(arguments));
     }
 
     @Override
