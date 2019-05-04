@@ -26,12 +26,12 @@ final public class ParentNodeSelectorTest
         extends NonLogicalNodeSelectorTestCase<ParentNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testRoot() {
+    public void testParentRoot() {
         this.acceptAndCheck(TestNode.with("root"));
     }
 
     @Test
-    public void testParentIsRoot() {
+    public void testParentChildOfRoot() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
@@ -39,7 +39,7 @@ final public class ParentNodeSelectorTest
     }
 
     @Test
-    public void testIgnoresDescendants() {
+    public void testParentIgnoresDescendants() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child", grandChild); //
         final TestNode parent = TestNode.with("parent", child);
@@ -48,7 +48,7 @@ final public class ParentNodeSelectorTest
     }
 
     @Test
-    public void testIgnoresSiblings() {
+    public void testParentIgnoresSiblings() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child1 = TestNode.with("child1", grandChild); //
         final TestNode child2 = TestNode.with("child2"); //
@@ -58,7 +58,7 @@ final public class ParentNodeSelectorTest
     }
 
     @Test
-    public void testIgnoresGrandParent() {
+    public void testParentIgnoresGrandParent() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child", grandChild); //
         final TestNode parent = TestNode.with("parent", child);
@@ -67,7 +67,7 @@ final public class ParentNodeSelectorTest
     }
 
     @Test
-    public void testMap() {
+    public void testParentMap() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child"));
 
         TestNode.clear();
@@ -78,7 +78,7 @@ final public class ParentNodeSelectorTest
     }
 
     @Test
-    public void testMapWithoutParent() {
+    public void testParentMapWithoutParent() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child"));
 
         TestNode.clear();
