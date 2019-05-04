@@ -68,7 +68,7 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("ancestor");
+        b.axisName("ancestor");
     }
 
     @Override

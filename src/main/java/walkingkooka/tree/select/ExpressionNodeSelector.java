@@ -138,6 +138,6 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.predicate(this.expressionNode.toString());
+        b.expression(this.expressionNode);
     }
 }

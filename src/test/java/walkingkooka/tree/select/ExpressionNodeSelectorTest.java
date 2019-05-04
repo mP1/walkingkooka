@@ -185,6 +185,14 @@ final public class ExpressionNodeSelectorTest extends
                 "child::ABC[true]");
     }
 
+    @Test
+    public void testToStringExpressionChildren() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .expression(ExpressionNode.booleanNode(true))
+                        .firstChild(),
+                "*[true]/first-child::*");
+    }
+
     @Override
     ExpressionNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return ExpressionNodeSelector.with(expression());

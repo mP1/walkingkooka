@@ -69,7 +69,7 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("descendant");
+        b.axisName("descendant");
     }
 
     @Override

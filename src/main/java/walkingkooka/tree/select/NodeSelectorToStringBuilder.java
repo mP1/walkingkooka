@@ -18,10 +18,11 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.NeverError;
 import walkingkooka.build.Builder;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.text.CharacterConstant;
+import walkingkooka.naming.Name;
+import walkingkooka.tree.expression.ExpressionNode;
+
+import java.util.function.Predicate;
 
 /**
  * Accepts the string representation of an axis, node and predicate node selector and builds up a {@link NodeSelector#toString()}.
@@ -32,151 +33,65 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         return new NodeSelectorToStringBuilder();
     }
 
+    private final static char SEPARATOR = NodeSelector.SEPARATOR.character();
+
     private NodeSelectorToStringBuilder() {
         super();
     }
 
     void absolute() {
-        this.commit();
-        this.b.append(NodeSelector.SEPARATOR.character());
+        this.mode = this.mode.absolute(this.b);
     }
 
     void descendantOrSelf() {
-        this.commit();
-
-        final char c = NodeSelector.SEPARATOR.character();
-        this.b.append(c);
-        this.b.append(c);
+        this.mode = this.mode.descendantOrSelf(this.b);
     }
 
     void self() {
-        this.commit();
-        this.appendSeparator();
-        this.b.append('.');
+        this.axisSymbol(".");
     }
 
     void parent() {
-        this.commit();
-        this.appendSeparator();
-        this.b.append("..");
+        this.axisSymbol("..");
     }
 
-    void append(final String toString) {
-        this.commit();
-        this.b.append(toString);
+
+    void axisName(final String axis) {
+        this.mode = this.mode.axisName(axis, this.b);
     }
 
-    void axis(final String toString) {
-        // cant combine two axis.
-        if (null != this.axis || null != this.node) {
-            this.commit();
-        }
-        // output this step with the given axis, and start afresh with any next axis/node/predicate additions.
-        this.axis = toString;
+    private void axisSymbol(final String axis) {
+        this.mode = this.mode.axisSymbol(axis, this.b);
     }
 
-    void node(final String toString) {
-        if (null != this.node) {
-            this.commit();
-        }
-
-        this.node = toString;
+    void name(final Name name) {
+        this.mode = this.mode.name(name, this.b);
     }
 
-    void predicate(final String toString) {
-        if (null != this.predicate) {
-            this.commit();
-        }
-        this.predicate = toString;
+    void predicate(final Predicate<?> predicate) {
+        this.mode = this.mode.predicate(predicate, this.b);
     }
 
-    private void commit() {
-        final String axis = this.axis;
-        final String node = this.node;
-        final String predicate = this.predicate;
-
-        final int action = (null != axis ? 1 : 0) +
-                (null != node ? 2 : 0) +
-                (null != predicate ? 4 : 0);
-
-        if (action > 0) {
-            this.appendSeparator();
-        }
-
-        final StringBuilder b = this.b;
-        switch (action) {
-            case 0:
-                break;
-            case 1: // axis
-                b.append(axis).append("::*");
-                this.axis = null;
-                break;
-            case 2: // node
-                b.append(node);
-                this.node = null;
-                break;
-            case 3: // axis node
-                b.append(axis).append("::").append(node);
-                this.axis = null;
-                this.node = null;
-                break;
-            case 4: // predicate
-                b.append("*[").append(predicate).append(']');
-                this.predicate = null;
-                break;
-            case 5: // axis :: wildcard predicate
-                b.append(axis).append("::*[").append(predicate).append(']');
-                this.axis = null;
-                this.predicate = null;
-                break;
-            case 6: // node predicate
-                b.append(node).append("[").append(predicate).append(']');
-                this.node = null;
-                this.predicate = null;
-                break;
-            case 7: // axis node predicate
-                b.append(axis).append("::").append(node).append("[").append(predicate).append(']');
-                this.axis = null;
-                this.node = null;
-                this.predicate = null;
-                break;
-            default:
-                NeverError.unhandledCase(action, 0, 1, 2, 3, 4, 5, 6, 7);
-        }
+    void expression(final ExpressionNode expression) {
+        this.mode = this.mode.expression(expression, this.b);
     }
 
-    private void appendSeparator() {
-        final StringBuilder b = this.b;
-
-        final CharacterConstant separator = NodeSelector.SEPARATOR;
-        final int length = b.length();
-        if (length > 0) {
-            final char c = separator.character();
-            if (c != b.charAt(length - 1)) {
-                b.append(c);
-            }
-
-        }
+    void append(final String append) {
+        this.b.append(append);
     }
 
     @Override
     public String build() {
-        this.commit();
-        return b.toString();
+        this.mode.finish(b);
+        return this.b.toString();
     }
-
-    private String axis;
-    private String node;
-    private String predicate;
 
     private final StringBuilder b = new StringBuilder();
 
+    private NodeSelectorToStringBuilderMode mode = NodeSelectorToStringBuilderMode.AXIS_NAME_OR_DESCENDANT_OR_SELF;
+
     @Override
     public String toString() {
-        return ToStringBuilder.empty()
-                .value(this.axis)
-                .value(this.node)
-                .value(this.predicate)
-                .build();
+        return b.toString() + " (" + this.mode + ')';
     }
 }

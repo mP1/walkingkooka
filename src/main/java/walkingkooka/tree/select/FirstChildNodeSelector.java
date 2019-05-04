@@ -62,7 +62,7 @@ final class FirstChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("first-child");
+        b.axisName("first-child");
     }
 
     @Override

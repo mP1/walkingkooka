@@ -92,6 +92,6 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.predicate(this.predicate.toString());
+        b.predicate(this.predicate);
     }
 }

@@ -70,7 +70,7 @@ final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("ancestor-or-self");
+        b.axisName("ancestor-or-self");
     }
 
     @Override

@@ -68,7 +68,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.node(this.name.value());
+        b.name(this.name);
     }
 
     @Override
