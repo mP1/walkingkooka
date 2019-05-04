@@ -51,9 +51,10 @@ final public class SelfNodeSelectorTest
                 parent.child(0));
     }
 
-    private NodeSelector<TestNode, StringName, StringName, Object> selfAndDescendant() {
-        return Cast.to(SelfNodeSelector.get()
-                .append(DescendantNodeSelector.get()));
+    private static NodeSelector<TestNode, StringName, StringName, Object> selfAndDescendant() {
+        return TestNode.relativeNodeSelector()
+                .self()
+                .descendant();
     }
 
     @Test
@@ -76,7 +77,7 @@ final public class SelfNodeSelectorTest
     }
 
     @Test
-    public void testMap() {
+    public void testSelfMap() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child"));
 
         TestNode.clear();
@@ -85,9 +86,10 @@ final public class SelfNodeSelectorTest
                 TestNode.with("parent*0", TestNode.with("child")));
     }
 
-    private NodeSelector<TestNode, StringName, StringName, Object> selfAndNamed() {
-        return Cast.to(SelfNodeSelector.get()
-                .append(NamedNodeSelector.with(Names.string("child"))));
+    private static NodeSelector<TestNode, StringName, StringName, Object> selfAndNamed() {
+        return TestNode.relativeNodeSelector()
+                .self()
+                .named(Names.string("child"));
     }
 
     @Test
