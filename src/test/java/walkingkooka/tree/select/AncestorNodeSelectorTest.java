@@ -26,12 +26,20 @@ final public class AncestorNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<AncestorNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testRoot() {
+    public void testAncestorRoot() {
         this.acceptAndCheck(TestNode.with("root"));
     }
 
     @Test
-    public void testAllAncestorsFromGrandChild() {
+    public void testAncestorIgnoresDescendants() {
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+
+        this.acceptAndCheck(parent);
+    }
+
+    @Test
+    public void testAncestorFromGrandChild() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
@@ -40,7 +48,7 @@ final public class AncestorNodeSelectorTest extends
     }
 
     @Test
-    public void testAllAncestorsFromParent() {
+    public void testAncestorFromParentIgnoresChildren() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
@@ -48,15 +56,7 @@ final public class AncestorNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresDescendants() {
-        final TestNode child = TestNode.with("child");
-        final TestNode parent = TestNode.with("parent", child);
-
-        this.acceptAndCheck(parent);
-    }
-
-    @Test
-    public void testIgnoresSiblings() {
+    public void testAncestorIgnoresSiblings() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);
@@ -65,16 +65,7 @@ final public class AncestorNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresSiblingsCustomToString() {
-        final TestNode child1 = TestNode.with("child1");
-        final TestNode child2 = TestNode.with("child2");
-        final TestNode parent = TestNode.with("parent", child1, child2);
-
-        this.acceptAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
-    }
-
-    @Test
-    public void testMap() {
+    public void testAncestorMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -88,6 +79,15 @@ final public class AncestorNodeSelectorTest extends
                                 TestNode.with("child1"), TestNode.with("child2")),
                         TestNode.with("parent2", TestNode.with("child3"))).child(0)
                         .child(0));
+    }
+
+    @Test
+    public void testCustomToString() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent = TestNode.with("parent", child1, child2);
+
+        this.acceptAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
     }
 
     @Test
