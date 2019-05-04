@@ -40,13 +40,13 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
-    public void testRoot() {
+    public void testAbsoluteRoot() {
         final TestNode root = TestNode.with("root");
         this.acceptAndCheck(root, root);
     }
 
     @Test
-    public void testIgnoresDescedants() {
+    public void testAbsoluteIgnoresDescendants() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child!", grandChild);
         final TestNode parent = TestNode.with("parent!", child);
@@ -55,7 +55,7 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
-    public void testStartUnimportant() {
+    public void testAbsoluteStartUnimportant() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child!", grandChild);
         final TestNode parent = TestNode.with("parent!", child);
@@ -64,7 +64,7 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
-    public void testStartUnimportantCustomToString() {
+    public void testAbsoluteStartUnimportantCustomToString() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child!", grandChild);
         final TestNode parent = TestNode.with("parent!", child);
@@ -73,7 +73,7 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
-    public void testMap() {
+    public void testAbsoluteMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -90,7 +90,7 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
-    public void testMap2() {
+    public void testAbsoluteMap2() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
