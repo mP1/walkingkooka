@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
@@ -45,13 +46,13 @@ final public class NodePredicateNodeSelectorTest extends
     }
 
     @Test
-    public void testMatch() {
+    public void testPredicate() {
         final TestNode self = TestNode.with("self");
         this.acceptAndCheck(self, self);
     }
 
     @Test
-    public void testIgnoresNonSelfNodes() {
+    public void testPredicateIgnoresNonSelfNodes() {
         final TestNode siblingBefore = TestNode.with("siblingBefore");
         final TestNode self = TestNode.with(MAGIC_VALUE, TestNode.with("child"));
         final TestNode siblingAfter = TestNode.with("siblingAfter");
@@ -61,7 +62,50 @@ final public class NodePredicateNodeSelectorTest extends
     }
 
     @Test
-    public void testMap() {
+    public void testDescendantOrSelfPredicate() {
+        final TestNode grand1 = nodeWithAttributes("grand1", "a1", "v1");
+        final TestNode grand2 = TestNode.with("grand2");
+        final TestNode child1 = TestNode.with("child1", grand1, grand2).setAttributes(this.attributes("a1", "v1"));
+
+        final TestNode grand3 = nodeWithAttributes("grand3", "different", "v1");
+        final TestNode grand4 = nodeWithAttributes("grand4", "a1", "v1");
+        final TestNode grand5 = TestNode.with("grand5");
+        final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
+
+        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().attributeValueEquals(Names.string("a1"), "v1"),
+                TestNode.with("parent", child1, child2),
+                child1, grand1, grand4);
+    }
+
+    @Test
+    public void testPredicateChildren() {
+        final TestNode grand1 = nodeWithAttributes("grand1", "a1", "v1");
+        final TestNode grand2 = TestNode.with("grand2");
+        final TestNode child1 = TestNode.with("child1", grand1, grand2).setAttributes(this.attributes("a1", "v1"));
+
+        this.acceptAndCheck(TestNode.relativeNodeSelector().attributeValueEquals(Names.string("a1"), "v1").children(),
+                child1,
+                grand1, grand2);
+    }
+
+    @Test
+    public void testDescendantOrSelfPredicateChildren() {
+        final TestNode grand1 = nodeWithAttributes("grand1", "a1", "v1");
+        final TestNode grand2 = TestNode.with("grand2");
+        final TestNode child1 = TestNode.with("child1", grand1, grand2).setAttributes(this.attributes("a1", "v1"));
+
+        final TestNode grand3 = nodeWithAttributes("grand3", "different", "v1");
+        final TestNode grand4 = nodeWithAttributes("grand4", "a1", "v1");
+        final TestNode grand5 = TestNode.with("grand5");
+        final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
+
+        this.acceptAndCheck(TestNode.relativeNodeSelector().descendantOrSelf().attributeValueEquals(Names.string("a1"), "v1").children(),
+                TestNode.with("parent", child1, child2),
+                grand1, grand2);
+    }
+
+    @Test
+    public void testPredicateMap() {
         final TestNode parent = TestNode.with("parent", TestNode.with(MAGIC_VALUE), TestNode.with("child"));
 
         TestNode.clear();
