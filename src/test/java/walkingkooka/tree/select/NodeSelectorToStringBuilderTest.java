@@ -40,7 +40,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.axis("child1");
         b.node("abc2");
-        this.buildAndCheck(b, "child1::*/abc2");
+        this.buildAndCheck(b, "child1::abc2");
     }
 
     @Test
@@ -48,7 +48,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.node("abc1");
         b.axis("child2");
-        this.buildAndCheck(b, "child2::abc1");
+        this.buildAndCheck(b, "abc1/child2::*");
     }
 
     @Test
@@ -56,7 +56,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.axis("child1");
         b.predicate("i>abc2");
-        this.buildAndCheck(b, "child1::*/*[i>abc2]");
+        this.buildAndCheck(b, "child1::*[i>abc2]");
     }
 
     @Test
@@ -73,16 +73,16 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.axis("child1");
         b.node("abc2");
         b.predicate("i>abc2");
-        this.buildAndCheck(b, "child1::*/abc2[i>abc2]");
+        this.buildAndCheck(b, "child1::abc2[i>abc2]");
     }
 
     @Test
     public void testAxisPredicateNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.axis("child1");
-        b.predicate("i>abc2");
+        b.predicate("i>def3");
         b.node("abc2");
-        this.buildAndCheck(b, "child1::*/abc2[i>abc2]");
+        this.buildAndCheck(b, "child1::abc2[i>def3]");
     }
 
     @Test
@@ -188,8 +188,8 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.node("abc1");
         b.node("def2");
-        b.axis("child2");
-        this.buildAndCheck(b, "abc1/child2::def2");
+        b.axis("child3");
+        this.buildAndCheck(b, "abc1/def2/child3::*");
     }
 
     @Test
@@ -197,29 +197,29 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.node("abc1");
         b.node("def2");
-        b.axis("child2");
-        b.axis("ghi3");
-        this.buildAndCheck(b, "abc1/child2::def2/ghi3::*");
+        b.axis("child3");
+        b.axis("ghi4");
+        this.buildAndCheck(b, "abc1/def2/child3::*/ghi4::*");
     }
 
     @Test
     public void testNodeAxisNodeAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.node("abc1");
-        b.axis("child1");
-        b.node("abc2");
         b.axis("child2");
-        this.buildAndCheck(b, "child1::abc1/child2::abc2");
+        b.node("ghi3");
+        b.axis("self4");
+        this.buildAndCheck(b, "abc1/child2::ghi3/self4::*");
     }
 
     @Test
-    public void tesAxistNodeNodeAxis2() {
+    public void testAxisNodeNodeAxis2() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.axis("child1");
         b.node("def2");
         b.axis("child2");
         b.node("ghi3");
-        this.buildAndCheck(b, "child1::*/child2::def2/ghi3");
+        this.buildAndCheck(b, "child1::def2/child2::ghi3");
     }
 
     @Test
@@ -313,7 +313,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.node("abc1");
         b.predicate("i>1");
         b.axis("child1");
-        this.buildAndCheck(b, "//child1::abc1[i>1]");
+        this.buildAndCheck(b, "//abc1[i>1]/child1::*");
     }
 
     @Test
@@ -324,7 +324,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.predicate("i>1");
         b.axis("child1");
         b.node("def2");
-        this.buildAndCheck(b, "//child1::abc1[i>1]/def2");
+        this.buildAndCheck(b, "//abc1[i>1]/child1::def2");
     }
 
     @Test
@@ -339,7 +339,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.node("abc2");
         b.predicate("i>2");
 
-        assertEquals("\"abc2\" \"i>2\"", b.toString());
+        assertEquals("\"child1\" \"abc2\" \"i>2\"", b.toString());
     }
 
     @Override

@@ -68,18 +68,18 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
 
     void axis(final String toString) {
         // cant combine two axis.
-        if (null != this.axis) {
+        if (null != this.axis || null != this.node) {
             this.commit();
         }
         // output this step with the given axis, and start afresh with any next axis/node/predicate additions.
         this.axis = toString;
-        this.commit();
     }
 
     void node(final String toString) {
         if (null != this.node) {
             this.commit();
         }
+
         this.node = toString;
     }
 

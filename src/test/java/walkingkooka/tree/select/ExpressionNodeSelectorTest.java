@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
@@ -165,6 +166,23 @@ final public class ExpressionNodeSelectorTest extends
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "*[" + expression() + "]");
+    }
+
+    @Test
+    public void testToStringChildrenExpression() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(ExpressionNode.booleanNode(true)),
+                "child::*[true]");
+    }
+
+    @Test
+    public void testToStringChildrenNamedExpression() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .named(Names.string("ABC"))
+                        .expression(ExpressionNode.booleanNode(true)),
+                "child::ABC[true]");
     }
 
     @Override
