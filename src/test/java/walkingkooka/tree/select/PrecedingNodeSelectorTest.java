@@ -212,7 +212,7 @@ final public class PrecedingNodeSelectorTest extends
     }
 
     @Test
-    public void testPrecedingToString() {
+    public void testToString() {
         this.toStringAndCheck(this.createSelector(), "preceding::*");
     }
 

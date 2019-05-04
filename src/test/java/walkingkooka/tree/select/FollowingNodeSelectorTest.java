@@ -198,7 +198,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testFollowingToString() {
+    public void testToString() {
         this.toStringAndCheck(this.createSelector(), "following::*");
     }
 

@@ -187,7 +187,7 @@ final public class FollowingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testFollowingSiblingToString() {
+    public void testToString() {
         this.toStringAndCheck(this.createSelector(), "following-sibling::*");
     }
 
