@@ -20,10 +20,14 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
+import walkingkooka.naming.Names;
+import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.function.Predicate;
 
 public final class NodeSelectorToStringBuilderTest implements ClassTesting2<NodeSelectorToStringBuilder>,
         BuilderTesting<NodeSelectorToStringBuilder, String> {
@@ -31,98 +35,135 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     @Test
     public void testAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.axis("child1");
-        this.buildAndCheck(b, "child1::*");
+        b.axisName("axis1");
+        this.buildAndCheck(b, "axis1::*");
     }
 
     @Test
-    public void testAxisNode() {
+    public void testAxisName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.axis("child1");
-        b.node("abc2");
-        this.buildAndCheck(b, "child1::abc2");
+        b.axisName("axis1");
+        b.name(def2());
+        this.buildAndCheck(b, "axis1::def2");
     }
 
     @Test
-    public void testNodeAxis() {
+    public void testNameAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
-        b.axis("child2");
-        this.buildAndCheck(b, "abc1/child2::*");
+        b.name(abc1());
+        b.axisName("axis2");
+        this.buildAndCheck(b, "abc1/axis2::*");
     }
 
     @Test
     public void testAxisPredicate() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.axis("child1");
-        b.predicate("i>abc2");
-        this.buildAndCheck(b, "child1::*[i>abc2]");
+        b.axisName("axis1");
+        b.predicate(predicate2());
+        this.buildAndCheck(b, "axis1::*[j>2]");
     }
 
     @Test
     public void testPredicateAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.predicate("i>1");
-        b.axis("child1");
-        this.buildAndCheck(b, "child1::*[i>1]");
+        b.predicate(predicate1());
+        b.axisName("axis2");
+        this.buildAndCheck(b, "*[i>1]/axis2::*");
     }
 
     @Test
-    public void testAxisNodePredicate() {
+    public void testAxisNamePredicate() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.axis("child1");
-        b.node("abc2");
-        b.predicate("i>abc2");
-        this.buildAndCheck(b, "child1::abc2[i>abc2]");
+        b.axisName("axis1");
+        b.name(def2());
+        b.predicate(predicate3());
+        this.buildAndCheck(b, "axis1::def2[k>3]");
     }
 
     @Test
-    public void testAxisPredicateNode() {
+    public void testAxisNamePredicatePredicate() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.axis("child1");
-        b.predicate("i>def3");
-        b.node("abc2");
-        this.buildAndCheck(b, "child1::abc2[i>def3]");
+        b.axisName("axis1");
+        b.name(def2());
+        b.predicate(predicate3());
+        b.predicate(predicate4());
+        this.buildAndCheck(b, "axis1::def2[k>3][l>4]");
+    }
+    
+    @Test
+    public void testAxisPredicateName() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.axisName("axis1");
+        b.predicate(predicate2());
+        b.name(ghi3());
+        this.buildAndCheck(b, "axis1::*[j>2]/ghi3");
     }
 
     @Test
-    public void testNode() {
+    public void testName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
+        b.name(abc1());
         this.buildAndCheck(b, "abc1");
     }
 
     @Test
-    public void testNodePredicate() {
+    public void testNamePredicate() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
-        b.predicate("i>1");
-        this.buildAndCheck(b, "abc1[i>1]");
+        b.name(abc1());
+        b.predicate(predicate2());
+        this.buildAndCheck(b, "abc1[j>2]");
     }
 
     @Test
-    public void testPredicateNode() {
+    public void testNamePredicatePredicate() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.predicate("i>1");
-        b.node("abc1");
-        this.buildAndCheck(b, "abc1[i>1]");
+        b.name(abc1());
+        b.predicate(predicate2());
+        b.predicate(predicate3());
+        this.buildAndCheck(b, "abc1[j>2][k>3]");
     }
 
     @Test
-    public void testPredicateNodePredicateNode() {
+    public void testNamePredicatePredicateName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.predicate("i>1");
-        b.node("abc1");
-        b.predicate("i>2");
-        b.node("def2");
-        this.buildAndCheck(b, "abc1[i>1]/def2[i>2]");
+        b.name(abc1());
+        b.predicate(predicate2());
+        b.predicate(predicate3());
+        b.name(jkl4());
+        this.buildAndCheck(b, "abc1[j>2][k>3]/jkl4");
+    }
+
+    @Test
+    public void testPredicateName() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.predicate(predicate1());
+        b.name(def2());
+        this.buildAndCheck(b, "*[i>1]/def2");
+    }
+
+    @Test
+    public void testPredicateNamePredicateName() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.predicate(predicate1());
+        b.name(def2());
+        b.predicate(predicate3());
+        b.name(jkl4());
+        this.buildAndCheck(b, "*[i>1]/def2[k>3]/jkl4");
     }
 
     @Test
     public void testPredicate() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.predicate("i>1");
+        b.predicate(predicate1());
         this.buildAndCheck(b, "*[i>1]");
+    }
+
+    @Test
+    public void testPredicateExpression() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.predicate(predicate1());
+        b.expression(ExpressionNode.longNode(22));
+        this.buildAndCheck(b, "*[i>1][22]");
     }
 
     @Test
@@ -133,6 +174,22 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     }
 
     @Test
+    public void testSelfSelf() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.self();
+        b.self();
+        this.buildAndCheck(b, "./.");
+    }
+
+    @Test
+    public void testSelfParent() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.self();
+        b.parent();
+        this.buildAndCheck(b, "./..");
+    }
+
+    @Test
     public void testParent() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.parent();
@@ -140,102 +197,120 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     }
 
     @Test
-    public void testNodeNode() {
+    public void testNameName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
-        b.node("def2");
+        b.name(abc1());
+        b.name(def2());
         this.buildAndCheck(b, "abc1/def2");
     }
 
     @Test
-    public void testNodePredicateNode() {
+    public void testNamePredicateName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
-        b.predicate("i>1");
-        b.node("def2");
-        this.buildAndCheck(b, "abc1[i>1]/def2");
+        b.name(abc1());
+        b.predicate(predicate2());
+        b.name(ghi3());
+        this.buildAndCheck(b, "abc1[j>2]/ghi3");
     }
 
     @Test
-    public void testNodeSelfNode() {
+    public void testNamePredicateExpressionName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
+        b.name(abc1());
+        b.predicate(predicate2());
+        b.expression(ExpressionNode.longNode(33));
+        b.name(jkl4());
+        this.buildAndCheck(b, "abc1[j>2][33]/jkl4");
+    }
+
+    @Test
+    public void testNameSelfName() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.name(abc1());
         b.self();
-        b.node("def3");
-        this.buildAndCheck(b, "abc1/./def3");
+        b.name(ghi3());
+        this.buildAndCheck(b, "abc1/./ghi3");
     }
 
     @Test
-    public void testNodeParentOfNode() {
+    public void testNameParentOf() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
+        b.name(abc1());
         b.parent();
-        b.node("def3");
-        this.buildAndCheck(b, "abc1/../def3");
+        this.buildAndCheck(b, "abc1/..");
     }
 
     @Test
-    public void testNode3() {
+    public void testNameParentOfName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
-        b.node("def2");
-        b.node("ghi3");
+        b.name(abc1());
+        b.parent();
+        b.name(ghi3());
+        this.buildAndCheck(b, "abc1/../ghi3");
+    }
+
+    @Test
+    public void testName3() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.name(abc1());
+        b.name(def2());
+        b.name(ghi3());
         this.buildAndCheck(b, "abc1/def2/ghi3");
     }
 
     @Test
-    public void testNodeNodeAxis() {
+    public void testNameNameAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
-        b.node("def2");
-        b.axis("child3");
-        this.buildAndCheck(b, "abc1/def2/child3::*");
+        b.name(abc1());
+        b.name(def2());
+        b.axisName("axis3");
+        this.buildAndCheck(b, "abc1/def2/axis3::*");
     }
 
     @Test
-    public void testNodeNodeAxisNode() {
+    public void testNameNameAxisName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
-        b.node("def2");
-        b.axis("child3");
-        b.axis("ghi4");
-        this.buildAndCheck(b, "abc1/def2/child3::*/ghi4::*");
+        b.name(abc1());
+        b.name(def2());
+        b.axisName("axis3");
+        b.axisName("axis4");
+        this.buildAndCheck(b, "abc1/def2/axis3::*/axis4::*");
     }
 
     @Test
-    public void testNodeAxisNodeAxis() {
+    public void testNameAxisNameAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("abc1");
-        b.axis("child2");
-        b.node("ghi3");
-        b.axis("self4");
-        this.buildAndCheck(b, "abc1/child2::ghi3/self4::*");
+        b.name(abc1());
+        b.axisName("axis2");
+        b.name(ghi3());
+        b.axisName("self4");
+        this.buildAndCheck(b, "abc1/axis2::ghi3/self4::*");
     }
 
     @Test
-    public void testAxisNodeNodeAxis2() {
+    public void testAxisNameNameAxis2() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.axis("child1");
-        b.node("def2");
-        b.axis("child2");
-        b.node("ghi3");
-        this.buildAndCheck(b, "child1::def2/child2::ghi3");
+        b.axisName("axis1");
+        b.name(def2());
+        b.axisName("axis2");
+        b.name(ghi3());
+        this.buildAndCheck(b, "axis1::def2/axis2::ghi3");
     }
 
     @Test
-    public void testNodeSelf() {
+    public void testNameSelf() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("child1");
+        b.name(abc1());
         b.self();
-        this.buildAndCheck(b, "child1/.");
+        this.buildAndCheck(b, "abc1/.");
     }
 
     @Test
-    public void testNodeParent() {
+    public void testNameParent() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.node("child1");
+        b.name(abc1());
         b.parent();
-        this.buildAndCheck(b, "child1/..");
+        this.buildAndCheck(b, "abc1/..");
     }
 
     @Test
@@ -246,30 +321,30 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     }
 
     @Test
-    public void testAbsoluteNode() {
+    public void testAbsoluteName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.absolute();
-        b.node("abc1");
+        b.name(abc1());
         this.buildAndCheck(b, "/abc1");
     }
 
     @Test
-    public void testAbsoluteNode2() {
+    public void testAbsoluteName2() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.absolute();
-        b.node("abc1");
-        b.node("def2");
+        b.name(abc1());
+        b.name(def2());
         this.buildAndCheck(b, "/abc1/def2");
     }
 
     @Test
-    public void testAbsoluteNodePredicateNode() {
+    public void testAbsoluteNamePredicateName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.absolute();
-        b.node("abc1");
-        b.predicate("i>1");
-        b.node("def2");
-        this.buildAndCheck(b, "/abc1[i>1]/def2");
+        b.name(abc1());
+        b.predicate(predicate2());
+        b.name(ghi3());
+        this.buildAndCheck(b, "/abc1[j>2]/ghi3");
     }
 
     @Test
@@ -280,66 +355,105 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     }
 
     @Test
-    public void testDescendantOrSelfNode() {
+    public void testDescendantOrSelfName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.descendantOrSelf();
-        b.node("abc1");
+        b.name(abc1());
         this.buildAndCheck(b, "//abc1");
     }
 
     @Test
-    public void testDescendantOrSelfNode2() {
+    public void testDescendantOrSelfName2() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.descendantOrSelf();
-        b.node("abc1");
-        b.node("def2");
+        b.name(abc1());
+        b.name(def2());
         this.buildAndCheck(b, "//abc1/def2");
     }
 
     @Test
-    public void testDescendantOrSelfNodePredicateNode() {
+    public void testDescendantOrSelfNamePredicateName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.descendantOrSelf();
-        b.node("abc1");
-        b.predicate("i>1");
-        b.node("def2");
-        this.buildAndCheck(b, "//abc1[i>1]/def2");
+        b.name(abc1());
+        b.predicate(predicate2());
+        b.name(ghi3());
+        this.buildAndCheck(b, "//abc1[j>2]/ghi3");
     }
 
     @Test
-    public void testNodePredicateAxis() {
+    public void testNamePredicateAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.descendantOrSelf();
-        b.node("abc1");
-        b.predicate("i>1");
-        b.axis("child1");
-        this.buildAndCheck(b, "//abc1[i>1]/child1::*");
+        b.name(abc1());
+        b.predicate(predicate2());
+        b.axisName("axis3");
+        this.buildAndCheck(b, "//abc1[j>2]/axis3::*");
     }
 
     @Test
-    public void testNodePredicateAxisNode() {
+    public void testNameExpressionAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.descendantOrSelf();
-        b.node("abc1");
-        b.predicate("i>1");
-        b.axis("child1");
-        b.node("def2");
-        this.buildAndCheck(b, "//abc1[i>1]/child1::def2");
+        b.name(abc1());
+        b.expression(ExpressionNode.longNode(2));
+        b.axisName("axis3");
+        this.buildAndCheck(b, "//abc1[2]/axis3::*");
+    }
+
+    @Test
+    public void testNamePredicateAxisName() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.descendantOrSelf();
+        b.name(abc1());
+        b.predicate(predicate2());
+        b.axisName("axis3");
+        b.name(jkl4());
+        this.buildAndCheck(b, "//abc1[j>2]/axis3::jkl4");
+    }
+
+    private StringName abc1() {
+        return Names.string("abc1");
+    }
+
+    private StringName def2() {
+        return Names.string("def2");
+    }
+
+    private StringName ghi3() {
+        return Names.string("ghi3");
+    }
+
+    private StringName jkl4() {
+        return Names.string("jkl4");
+    }
+
+    private Predicate<?> predicate1() {
+        return predicate(1);
+    }
+
+    private Predicate<?> predicate2() {
+        return predicate(2);
+    }
+
+    private Predicate<?> predicate3() {
+        return predicate(3);
+    }
+
+    private Predicate<?> predicate4() {
+        return predicate(4);
+    }
+
+    private Predicate<?> predicate(final int value) {
+        final char c = (char)('i' + value -1);
+        return Predicates.customToString(Predicates.fake(), c + ">" + value);
     }
 
     @Test
     public void testToString() {
-        assertEquals("", this.createBuilder().toString());
-    }
-
-    @Test
-    public void testToString2() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
-        b.axis("child1");
-        b.node("abc2");
-        b.predicate("i>2");
-
-        assertEquals("\"child1\" \"abc2\" \"i>2\"", b.toString());
+        b.append("1234");
+        this.toStringAndCheck(b, "1234 (AXIS_NAME_OR_DESCENDANT_OR_SELF)");
     }
 
     @Override
@@ -357,7 +471,8 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         return NodeSelectorToStringBuilder.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

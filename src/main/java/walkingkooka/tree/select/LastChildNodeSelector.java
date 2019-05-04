@@ -65,7 +65,7 @@ final class LastChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("last-child");
+        b.axisName("last-child");
     }
 
     @Override

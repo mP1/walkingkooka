@@ -62,7 +62,7 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("following-sibling");
+        b.axisName("following-sibling");
     }
 
     @Override

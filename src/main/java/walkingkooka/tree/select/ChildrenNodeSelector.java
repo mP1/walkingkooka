@@ -62,7 +62,7 @@ final class ChildrenNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("child");
+        b.axisName("child");
     }
 
     @Override

@@ -69,7 +69,7 @@ final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("preceding");
+        b.axisName("preceding");
     }
 
     @Override
