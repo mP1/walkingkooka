@@ -27,13 +27,13 @@ final public class DescendantOrSelfNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testChildless() {
+    public void testDescendantOrSelfChildless() {
         final TestNode only = TestNode.with("only");
         this.acceptAndCheck(only, only);
     }
 
     @Test
-    public void testIgnoresParent() {
+    public void testDescendantOrSelfIgnoresParent() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
@@ -41,7 +41,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testParentWithChildren() {
+    public void testDescendantOrSelfParentWithChildren() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);
@@ -50,7 +50,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testParentWithGrandChildren() {
+    public void testDescendantOrSelfParentWithGrandChildren() {
         final TestNode grandChild1 = TestNode.with("grandChild1");
         final TestNode grandChild2 = TestNode.with("grandChild2");
 
@@ -63,7 +63,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testChildrenWithChildren2() {
+    public void testDescendantOrSelfChildrenWithChildren2() {
         final TestNode grandChild1 = TestNode.with("grandChild1");
         final TestNode grandChild2 = TestNode.with("grandChild2");
 
@@ -76,7 +76,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresSiblings() {
+    public void testDescendantOrSelfIgnoresSiblings() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
         final TestNode siblingOfParent = TestNode.with("siblingOfParent");
@@ -87,7 +87,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testMap() {
+    public void testDescendantOrSelfMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -104,7 +104,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testMap2() {
+    public void testDescendantOrSelfMap2() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
