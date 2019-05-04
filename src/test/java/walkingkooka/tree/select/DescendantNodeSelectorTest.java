@@ -26,12 +26,12 @@ final public class DescendantNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<DescendantNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testChildless() {
+    public void testDescendantChildless() {
         this.acceptAndCheck(TestNode.with("only"));
     }
 
     @Test
-    public void testIgnoresParent() {
+    public void testDescendantIgnoresParent() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
@@ -39,7 +39,7 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
-    public void testParentWithChildren() {
+    public void testDescendantParentWithChildren() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
 
@@ -47,7 +47,7 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
-    public void testParentWithGrandChildren() {
+    public void testDescendantParentWithGrandChildren() {
         final TestNode grandChild1 = TestNode.with("grandChild1");
         final TestNode grandChild2 = TestNode.with("grandChild2");
 
@@ -58,7 +58,7 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
-    public void testChildrenWithChildren2() {
+    public void testDescendantChildrenWithChildren2() {
         final TestNode grandChild1 = TestNode.with("grandChild1");
         final TestNode grandChild2 = TestNode.with("grandChild2");
 
@@ -69,7 +69,7 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresSiblings() {
+    public void testDescendantIgnoresSiblings() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
         final TestNode siblingOfParent = TestNode.with("siblingOfParent", TestNode.with("siblingOfParent-child"));
@@ -79,12 +79,30 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
-    public void testMapWithoutDescendants() {
+    public void testDescendantChildrenNamed() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode grand1 = TestNode.with("grand1");
+        final TestNode grand2 = TestNode.with("grand2");
+        final TestNode child1 = TestNode.with("match", grand1, grand2);
+
+        final TestNode grand3 = TestNode.with("grand3");
+        final TestNode grand4 = TestNode.with("grand4");
+        final TestNode grand5 = TestNode.with("match");
+        final TestNode child2 = TestNode.with("match", grand3, grand4, grand5);
+
+        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendant().named(child1.name()),
+                TestNode.with("parent", child1, child2),
+                child1, child2, grand5);
+    }
+
+    @Test
+    public void testDescendantMapWithoutDescendants() {
         this.acceptMapAndCheck(TestNode.with("without"));
     }
 
     @Test
-    public void testMap() {
+    public void testDescendantMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -101,7 +119,7 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
-    public void testMap2() {
+    public void testDescendantMap2() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
