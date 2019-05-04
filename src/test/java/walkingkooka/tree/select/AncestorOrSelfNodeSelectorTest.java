@@ -27,13 +27,21 @@ final public class AncestorOrSelfNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<AncestorOrSelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testRoot() {
+    public void testAncestorOrSelfRoot() {
         final TestNode root = TestNode.with("root");
         this.acceptAndCheck(root, root);
     }
 
     @Test
-    public void testAllAncestorsFromGrandChild() {
+    public void testAncestorOrSelfFromParent() {
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+
+        this.acceptAndCheck(parent, parent);
+    }
+
+    @Test
+    public void testAncestorOrSelfFromGrandChild() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
@@ -42,7 +50,7 @@ final public class AncestorOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testAllAncestorsFromParent() {
+    public void testAncestorOrSelfIgnoresDescendants() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
@@ -50,15 +58,7 @@ final public class AncestorOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresDescendants() {
-        final TestNode child = TestNode.with("child");
-        final TestNode parent = TestNode.with("parent", child);
-
-        this.acceptAndCheck(parent, parent);
-    }
-
-    @Test
-    public void testIgnoresSiblings() {
+    public void testAncestorOrSelfIgnoresSiblings() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);
@@ -67,7 +67,7 @@ final public class AncestorOrSelfNodeSelectorTest extends
     }
 
     @Test
-    public void testMap() {
+    public void testAncestorOrSelfMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
