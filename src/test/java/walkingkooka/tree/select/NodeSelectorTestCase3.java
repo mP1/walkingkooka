@@ -192,7 +192,6 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
         assertEquals(Optional.of(caller.getSimpleName()),
                 Arrays.stream(Thread.currentThread().getStackTrace())
                         .map(this::simpleClassName)
-                        .peek(c -> System.out.println(c))
                         .filter(c -> c.endsWith(NodeSelector.class.getSimpleName()))
                         .findFirst(),
                 () -> "Expected callingNodeSelector to be " + caller.getName());
