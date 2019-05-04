@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
@@ -26,12 +27,12 @@ final public class PrecedingSiblingNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<PrecedingSiblingNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testRoot() {
+    public void testPrecedingSiblingRoot() {
         this.acceptAndCheck(TestNode.with("root"));
     }
 
     @Test
-    public void testOnlyChild() {
+    public void testPrecedingSiblingOnlyChild() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
@@ -39,7 +40,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testFirstChild() {
+    public void testPrecedingSiblingFirstChild() {
         final TestNode self = TestNode.with("self");
         final TestNode following = TestNode.with("following");
         final TestNode parent = TestNode.with("parent", self, following);
@@ -48,7 +49,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testLastChild() {
+    public void testPrecedingSiblingLastChild() {
         final TestNode preceding = TestNode.with("preceding");
         final TestNode self = TestNode.with("self");
         final TestNode parent = TestNode.with("parent", preceding, self);
@@ -57,7 +58,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresGrandChildren() {
+    public void testPrecedingSiblingIgnoresGrandChildren() {
         final TestNode preceding = TestNode.with("preceding", TestNode.with("grandchild-of-preceding"));
         final TestNode self = TestNode.with("self");
         final TestNode parent = TestNode.with("parent", preceding, self);
@@ -66,7 +67,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testMiddleChildIgnoresFollowing() {
+    public void testPrecedingSiblingMiddleChildIgnoresFollowing() {
         final TestNode preceding = TestNode.with("preceding");
         final TestNode self = TestNode.with("self");
         final TestNode following = TestNode.with("following");
@@ -77,7 +78,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testMiddleChild2() {
+    public void testPrecedingSiblingMiddleChild2() {
         final TestNode preceding1 = TestNode.with("preceding1");
         final TestNode preceding2 = TestNode.with("preceding2");
         final TestNode self = TestNode.with("self");
@@ -90,12 +91,47 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresChildren() {
+    public void testPrecedingSiblingIgnoresChildren() {
         this.acceptAndCheck(TestNode.with("parent", TestNode.with("child")));
     }
 
     @Test
-    public void testMap() {
+    public void testPrecedingSiblingNamed() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode preceding3 = TestNode.with("preceding", TestNode.with("ignored"));
+        final TestNode preceding2 = TestNode.with("skip");
+        final TestNode preceding1 = TestNode.with("preceding");
+        final TestNode self = TestNode.with("self");
+        final TestNode following1 = TestNode.with("following1");
+        final TestNode following2 = TestNode.with("following1");
+
+        final TestNode parent = TestNode.with("parent", preceding3, preceding2, preceding1, self, following1, following2);
+
+        this.acceptAndCheck(TestNode.relativeNodeSelector().precedingSibling().named(preceding1.name()),
+                parent.child(3),
+                preceding1, preceding3);
+    }
+
+    @Test
+    public void testPrecedingSiblingWithAttributeEqualsValue() {
+        final TestNode preceding4 = TestNode.with("preceding4", TestNode.with("ignored")).setAttributes(this.attributes("a1", "v1"));
+        final TestNode preceding3 = nodeWithAttributes("preceding3", "a1", "v1");
+        final TestNode preceding2 = nodeWithAttributes("preceding2", "a1", "different");
+        final TestNode preceding1 = nodeWithAttributes("preceding1", "a1", "v1");
+        final TestNode self = TestNode.with("self");
+        final TestNode following1 = TestNode.with("following1");
+        final TestNode following2 = TestNode.with("following2");
+
+        final TestNode parent = TestNode.with("parent", preceding4, preceding3, preceding2, preceding1, self, following1, following2);
+
+        this.acceptAndCheck(TestNode.relativeNodeSelector().precedingSibling().attributeValueEquals(Names.string("a1"), "v1"),
+                parent.child(4),
+                preceding1, preceding3, preceding4);
+    }
+
+    @Test
+    public void testPrecedingSiblingMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -114,7 +150,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testMapSeveralPrecedingSiblings() {
+    public void testPrecedingSiblingMapSeveralPrecedingSiblings() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -133,7 +169,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
-    public void testMapWithoutPrecedingSiblings() {
+    public void testPrecedingSiblingMapWithoutPrecedingSiblings() {
         this.acceptMapAndCheck(TestNode.with("node123"));
     }
 
