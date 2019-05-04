@@ -69,9 +69,9 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         try {
             final Object value = this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context));
             if (value instanceof Boolean) {
-                result = this.booleanResult(node, Boolean.TRUE.equals(value), context);
+                result = this.attemptSelectSelfBooleanValue(node, Boolean.TRUE.equals(value), context);
             } else {
-                result = this.attemptIndex(node, value, context);
+                result = this.attemptSelectChildWithNumber(node, value, context);
             }
         } catch (final ConversionException | NodeSelectorException fail) {
         }
@@ -88,20 +88,20 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * Select the node only if the boolean value is true.
      */
-    private N booleanResult(final N node,
-                            final boolean value,
-                            final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private N attemptSelectSelfBooleanValue(final N node,
+                                            final boolean value,
+                                            final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return value ?
                 this.select(node, context):
                 node;
     }
 
     /**
-     * Converts the value to an index and attempts to visit the child at that position.
+     * Converts the value to an index and attempts to select the child at that position.
      */
-    private N attemptIndex(final N node,
-                           final Object value,
-                           final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private N attemptSelectChildWithNumber(final N node,
+                                           final Object value,
+                                           final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         final int index = context.convert(value, Integer.class) - INDEX_BIAS;
