@@ -27,12 +27,12 @@ final public class ChildrenNodeSelectorTest
         extends NonLogicalNodeSelectorTestCase<ChildrenNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testChildless() {
+    public void testChildrenChildless() {
         this.acceptAndCheck(TestNode.with("childless"));
     }
 
     @Test
-    public void testChildWithParent() {
+    public void testChildrenChildWithParent() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent").setChildren(Lists.of(child));
 
@@ -40,14 +40,14 @@ final public class ChildrenNodeSelectorTest
     }
 
     @Test
-    public void testParentWithChild() {
+    public void testChildrenParentWithChild() {
         final TestNode child = TestNode.with("child");
 
         this.acceptAndCheck(TestNode.with("parent of one", child), child);
     }
 
     @Test
-    public void testManyChildren() {
+    public void testChildrenManyChildren() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
 
@@ -55,7 +55,7 @@ final public class ChildrenNodeSelectorTest
     }
 
     @Test
-    public void testIgnoresGrandChild() {
+    public void testChildrenIgnoresGrandChild() {
         final TestNode grandChild = TestNode.with("grandchild");
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
@@ -64,22 +64,54 @@ final public class ChildrenNodeSelectorTest
     }
 
     @Test
-    public void testIgnoresSiblings() {
+    public void testChildrenIgnoresSiblings() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
-        final TestNode siblingOfParent = TestNode.with("siblingOfParent", TestNode.with("siblingOfParent-child"));
-        final TestNode grandParent = TestNode.with("grandParent", parent, siblingOfParent);
 
         this.acceptAndCheck(parent, child);
     }
 
     @Test
-    public void testMapWithoutChildren() {
+    public void testDescendantOrSelfChildren() {
+        final TestNode grand1 = TestNode.with("grand1");
+        final TestNode grand2 = TestNode.with("grand2");
+        final TestNode child1 = TestNode.with("child1", grand1, grand2);
+
+        final TestNode grand3 = TestNode.with("grand3");
+        final TestNode grand4 = TestNode.with("grand4");
+        final TestNode grand5 = TestNode.with("grand5");
+        final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
+
+        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().firstChild(),
+                TestNode.with("parent", child1, child2),
+                child1, grand1, grand2, child2, grand3, grand4, grand5);
+    }
+
+    @Test
+    public void testDescendantOrSelfNamedChildren() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode grand1 = TestNode.with("grand1");
+        final TestNode grand2 = TestNode.with("grand2");
+        final TestNode child1 = TestNode.with("child", grand1, grand2);
+
+        final TestNode grand3 = TestNode.with("grand3");
+        final TestNode grand4 = TestNode.with("grand4");
+        final TestNode grand5 = TestNode.with("grand5");
+        final TestNode child3 = TestNode.with("child", grand3, grand4, grand5);
+
+        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().named(child1.name()).children(),
+                TestNode.with("parent", child1, TestNode.with("skip", TestNode.with("skip2")), child3),
+                grand1, grand2, grand3, grand4, grand5);
+    }
+
+    @Test
+    public void testChildrenMapWithoutChildren() {
         this.acceptMapAndCheck(TestNode.with("without-children"));
     }
 
     @Test
-    public void testMap() {
+    public void testChildrenMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -96,7 +128,7 @@ final public class ChildrenNodeSelectorTest
     }
 
     @Test
-    public void testMap2() {
+    public void testChildrenMap2() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
