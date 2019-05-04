@@ -38,13 +38,13 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
-    public void testSelfSelected() {
+    public void testExpressionSelfSelected() {
         final TestNode self = TestNode.with("self");
         this.acceptAndCheck(self, self);
     }
 
     @Test
-    public void testIgnoresNonSelfNodes() {
+    public void testExpressionIgnoresNonSelfNodes() {
         final TestNode siblingBefore = TestNode.with("siblingBefore");
         final TestNode self = TestNode.with("self", TestNode.with("child"));
         final TestNode siblingAfter = TestNode.with("siblingAfter");
@@ -54,7 +54,7 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
-    public void testFunctionBooleanChildrenSelectorAppended() {
+    public void testExpressionFunctionBooleanChildrenSelectorAppended() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("self", child1, child2);
@@ -65,7 +65,7 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
-    public void testFunctionNumberChildrenSelectorAppended() {
+    public void testExpressionFunctionNumberChildrenSelectorAppended() {
         final TestNode grandChild1 = TestNode.with("grandChild1");
         final TestNode grandChild2 = TestNode.with("grandChild2");
         final TestNode grandChild3 = TestNode.with("grandChild3");
@@ -80,7 +80,7 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
-    public void testMapFalse() {
+    public void testExpressionFalseMap() {
         final TestNode node = TestNode.with("node");
 
         this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(false)),
@@ -88,14 +88,14 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
-    public void testMapTrue() {
+    public void testExpressionTrueMap() {
         this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(true)),
                 TestNode.with("node"),
                 TestNode.with("node*0"));
     }
 
     @Test
-    public void testMapTrue2() {
+    public void testExpressionTrue2Map() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child"));
 
         TestNode.clear();
@@ -106,19 +106,19 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
-    public void testMapNumberNegative() {
+    public void testExpressionNumberNegativeMap() {
         this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(-2)),
                 TestNode.with("node"));
     }
 
     @Test
-    public void testMapNumberOutOfRange() {
+    public void testExpressionNumberOutOfRangeMap() {
         this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(999)),
                 TestNode.with("node"));
     }
 
     @Test
-    public void testMapNumberValidIndex() {
+    public void testExpressionNumberValidIndexMap() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2"));
 
         TestNode.clear();
@@ -127,6 +127,23 @@ final public class ExpressionNodeSelectorTest extends
         this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + index)),
                 parent,
                 TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2*0")));
+    }
+
+    @Test
+    public void testChildrenExpressionTrueMap() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1", TestNode.with("grandChildren1")),
+                TestNode.with("child2", TestNode.with("grandChildren2")),
+                TestNode.with("child3"));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(TestNode.relativeNodeSelector().children().expression(ExpressionNode.booleanNode(true)),
+                parent,
+                TestNode.with("parent",
+                        TestNode.with("child1*0", TestNode.with("grandChildren1")),
+                        TestNode.with("child2*1", TestNode.with("grandChildren2")),
+                        TestNode.with("child3*2")));
     }
 
     @Test
