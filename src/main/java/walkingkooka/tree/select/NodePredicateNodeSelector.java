@@ -63,7 +63,7 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     @Override
     final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.predicate.test(node) ?
-                node.replace(context.selected(node)) :
+                this.select(node, context) :
                 node;
     }
 
