@@ -75,4 +75,9 @@ public abstract class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     final NodeSelector<TestNode, StringName, StringName, Object> wrapped() {
         return NodeSelector.terminal();
     }
+
+    @Override
+    final Class<? extends NodeSelector> callingNodeSelector() {
+        return TerminalNodeSelector.class;
+    }
 }

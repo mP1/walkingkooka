@@ -89,6 +89,11 @@ public final class OrNodeSelectorTest extends
     }
 
     @Override
+    Class<? extends NodeSelector> callingNodeSelector() {
+        return TerminalNodeSelector.class;
+    }
+
+    @Override
     public Class<OrNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(OrNodeSelector.class);
     }

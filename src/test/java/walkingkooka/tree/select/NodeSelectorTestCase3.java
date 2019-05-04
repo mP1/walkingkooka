@@ -177,9 +177,38 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                                                                                 final Consumer<TestNode> selected) {
         return this.context0(potential,
                 (n) -> {
+                    this.checkSelectCaller();
                     selected.accept(n);
                     return n;
                 });
+    }
+
+    /**
+     * Scan the call stack, expecting the callingNodeSelector ignoring contexts to be {@link TerminalNodeSelector}.
+     */
+    private void checkSelectCaller() {
+        final Class<?> caller = this.callingNodeSelector();
+
+        assertEquals(Optional.of(caller.getSimpleName()),
+                Arrays.stream(Thread.currentThread().getStackTrace())
+                        .map(this::simpleClassName)
+                        .peek(c -> System.out.println(c))
+                        .filter(c -> c.endsWith(NodeSelector.class.getSimpleName()))
+                        .findFirst(),
+                () -> "Expected callingNodeSelector to be " + caller.getName());
+    }
+
+    /**
+     * Should return {@link TerminalNodeSelector} except for {@link AndNodeSelector} tests.
+     */
+    abstract Class<? extends NodeSelector> callingNodeSelector();
+
+    private String simpleClassName(final StackTraceElement element) {
+        final String className = element.getClassName();
+        final int dot = className.lastIndexOf('.');
+        return -1 == dot ?
+                className :
+                className.substring(dot + 1);
     }
 
     final NodeSelectorContext<TestNode, StringName, StringName, Object> context0(final Consumer<TestNode> potential,
