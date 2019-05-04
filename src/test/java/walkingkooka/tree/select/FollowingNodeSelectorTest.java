@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
@@ -26,12 +27,17 @@ final public class FollowingNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<FollowingNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testRoot() {
+    public void testFollowingRoot() {
         this.acceptAndCheck(TestNode.with("root"));
     }
 
     @Test
-    public void testOnlyChildIgnoresParent() {
+    public void testFollowingChild() {
+        this.acceptAndCheck(TestNode.with("parent", TestNode.with("child")));
+    }
+
+    @Test
+    public void testFollowingOnlyChildIgnoresParent() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
@@ -39,12 +45,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testChild() {
-        this.acceptAndCheck(TestNode.with("parent", TestNode.with("child")));
-    }
-
-    @Test
-    public void testFirstChild() {
+    public void testFollowingFirstChild() {
         final TestNode self = TestNode.with("self");
         final TestNode following = TestNode.with("following");
         final TestNode parent = TestNode.with("parent", self, following);
@@ -53,7 +54,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testFirstChild2() {
+    public void testFollowingFirstChild2() {
         final TestNode self = TestNode.with("self");
         final TestNode following1 = TestNode.with("following1");
         final TestNode following2 = TestNode.with("following2");
@@ -63,7 +64,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testLastChild() {
+    public void testFollowingLastChild() {
         final TestNode self = TestNode.with("self");
         final TestNode parent = TestNode.with("parent", TestNode.with("before"), self);
 
@@ -71,7 +72,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testParentFollowingSibling() {
+    public void testFollowingParentFollowingSibling() {
         final TestNode parent = TestNode.with("parent");
 
         final TestNode parentFollowingSibling = TestNode.with("parentFollowingSibling");
@@ -82,7 +83,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testChildrenAndParentFollowingSibling() {
+    public void testFollowingChildrenAndParentFollowingSibling() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
@@ -95,7 +96,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresPreceding() {
+    public void testFollowingIgnoresPreceding() {
         final TestNode preceding = TestNode.with("preceding");
         final TestNode self = TestNode.with("self");
         final TestNode following = TestNode.with("following");
@@ -106,7 +107,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresPreceding2() {
+    public void testFollowingIgnoresPreceding2() {
         final TestNode preceding1 = TestNode.with("preceding1");
         final TestNode preceding2 = TestNode.with("preceding2");
         final TestNode self = TestNode.with("self");
@@ -119,7 +120,42 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testMap() {
+    public void testFollowingNamed() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode preceding1 = TestNode.with("preceding1");
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode self = TestNode.with("self");
+        final TestNode following1 = TestNode.with("following");
+        final TestNode following2 = TestNode.with("skip");
+        final TestNode following3 = TestNode.with("following");
+
+        final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2, following3);
+
+        this.acceptAndCheck(TestNode.relativeNodeSelector().following().named(following1.name()),
+                parent.child(2),
+                following1);
+    }
+
+    @Test
+    public void testFollowingWithAttributeEqualsValue() {
+        final TestNode preceding1 = TestNode.with("preceding1");
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode self = TestNode.with("self");
+        final TestNode following1 = nodeWithAttributes("following1", "a1", "v1");
+        final TestNode following2 = nodeWithAttributes("following2", "a1", "v1");
+        final TestNode following3 = nodeWithAttributes("following3", "a1", "different");
+        final TestNode following4 = nodeWithAttributes("following4", "a1", "v1");
+
+        final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2, following3, following4);
+
+        this.acceptAndCheck(TestNode.relativeNodeSelector().following().attributeValueEquals(Names.string("a1"), "v1"),
+                parent.child(2),
+                following1, following2, following4);
+    }
+
+    @Test
+    public void testFollowingMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -138,7 +174,7 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testMapSeveralFollowingSiblings() {
+    public void testFollowingMapSeveralFollowingSiblings() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -157,12 +193,12 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
-    public void testMapWithoutFollowing() {
+    public void testFollowingMapWithoutFollowing() {
         this.acceptMapAndCheck(TestNode.with("node123"));
     }
 
     @Test
-    public void testToString() {
+    public void testFollowingToString() {
         this.toStringAndCheck(this.createSelector(), "following::*");
     }
 

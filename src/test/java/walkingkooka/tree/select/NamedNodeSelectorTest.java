@@ -19,12 +19,9 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
-
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -227,10 +224,6 @@ final public class NamedNodeSelectorTest extends
 
     private NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector(final StringName name) {
         return NamedNodeSelector.with(name);
-    }
-
-    private Map<StringName, Object> attributes(final String name, final Object value) {
-        return Maps.of(Names.string(name), value);
     }
 
     final void acceptAndCheck2(final String childName,

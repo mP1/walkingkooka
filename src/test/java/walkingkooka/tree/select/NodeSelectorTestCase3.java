@@ -20,10 +20,12 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
@@ -33,6 +35,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -186,6 +189,14 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                 this.functions(),
                 this.converter(),
                 DecimalNumberContexts.fake());
+    }
+
+    final TestNode nodeWithAttributes(final String name, final String attribute, final String value) {
+        return TestNode.with(name).setAttributes(this.attributes(attribute, value));
+    }
+
+    final Map<StringName, Object> attributes(final String name, final Object value) {
+        return Maps.of(Names.string(name), value);
     }
 
     final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {
