@@ -31,25 +31,25 @@ final public class FirstChildNodeSelectorTest extends
     // constants
 
     @Test
-    public void testChildless() {
+    public void testFirstChildChildless() {
         this.acceptAndCheck(TestNode.with("childless"));
     }
 
     @Test
-    public void testOnlyChild() {
+    public void testFirstChildOnlyChild() {
         final TestNode child = TestNode.with("child");
         this.acceptAndCheck(TestNode.with("parent", child), child);
     }
 
     @Test
-    public void testTwoChildren() {
+    public void testFirstChildTwoChildren() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
         this.acceptAndCheck(TestNode.with("parent", child1, child2), child1);
     }
 
     @Test
-    public void testManyChildren() {
+    public void testFirstChildManyChildren() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
         final TestNode child3 = TestNode.with("child3");
@@ -58,7 +58,7 @@ final public class FirstChildNodeSelectorTest extends
     }
 
     @Test
-    public void testIgnoresDescendants() {
+    public void testFirstChildIgnoresDescendants() {
         final TestNode child1 = TestNode.with("child1", TestNode.with("descendant1"));
         final TestNode child2 = TestNode.with("child2", TestNode.with("descendant2"));
 
@@ -66,12 +66,28 @@ final public class FirstChildNodeSelectorTest extends
     }
 
     @Test
-    public void testMap() {
+    public void testDescendantOrSelfFirstChild() {
+        final TestNode grand1 = TestNode.with("grand1");
+        final TestNode grand2 = TestNode.with("grand2");
+        final TestNode child1 = TestNode.with("child1", grand1, grand2);
+
+        final TestNode grand3 = TestNode.with("grand3");
+        final TestNode grand4 = TestNode.with("grand4");
+        final TestNode grand5 = TestNode.with("grand5");
+        final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
+
+        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().firstChild(),
+                TestNode.with("parent", child1, child2),
+                child1, grand1, grand3);
+    }
+
+    @Test
+    public void testFirstChildMap() {
         this.acceptMapAndCheck(TestNode.with("parent"));
     }
 
     @Test
-    public void testMap2() {
+    public void testFirstChildMap2() {
         final TestNode parent = TestNode.with("parent",
                 TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
 
@@ -80,7 +96,7 @@ final public class FirstChildNodeSelectorTest extends
     }
 
     @Test
-    public void testMap3() {
+    public void testFirstChildMap3() {
         final TestNode grand = TestNode.with("grand-parent",
                 TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")),
