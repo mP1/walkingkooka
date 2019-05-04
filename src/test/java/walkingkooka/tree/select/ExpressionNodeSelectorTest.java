@@ -106,6 +106,22 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
+    public void testExpressionTrueIgnoresChildrenMap() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child",
+                        TestNode.with("grand-child1"), TestNode.with("grand-child2")));
+
+        TestNode.clear();
+
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(true)),
+                parent.child(0),
+                TestNode.with("parent",
+                        TestNode.with("child*0",
+                                TestNode.with("grand-child1"), TestNode.with("grand-child2")))
+                        .child(0));
+    }
+
+    @Test
     public void testExpressionNumberNegativeMap() {
         this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(-2)),
                 TestNode.with("node"));
