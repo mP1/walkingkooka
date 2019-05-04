@@ -82,9 +82,9 @@ final public class ChildrenNodeSelectorTest
         final TestNode grand5 = TestNode.with("grand5");
         final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().firstChild(),
+        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().children(),
                 TestNode.with("parent", child1, child2),
-                child1, grand1, grand2, child2, grand3, grand4, grand5);
+                child1, child2, grand1, grand2, grand3, grand4, grand5);
     }
 
     @Test
