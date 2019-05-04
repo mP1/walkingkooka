@@ -77,4 +77,9 @@ public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<Test
             Object> selector) {
         return Cast.to(this.createSelector().append(selector));
     }
+
+    @Override
+    final Class<? extends NodeSelector> callingNodeSelector() {
+        return TerminalNodeSelector.class;
+    }
 }

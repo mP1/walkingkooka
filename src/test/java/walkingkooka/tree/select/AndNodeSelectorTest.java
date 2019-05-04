@@ -93,6 +93,11 @@ public final class AndNodeSelectorTest extends
     }
 
     @Override
+    Class<? extends NodeSelector> callingNodeSelector() {
+        return AndNodeSelector.class;
+    }
+
+    @Override
     public Class<AndNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AndNodeSelector.class);
     }
