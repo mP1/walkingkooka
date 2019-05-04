@@ -217,6 +217,50 @@ final public class NamedNodeSelectorTest extends
         this.toStringAndCheck(this.createSelector(), NAME.value());
     }
 
+    @Test
+    public void testToStringNamedAndPredicate() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .named(Names.string("ABC"))
+                        .attributeValueStartsWith(Names.string("DEF"), "V1"),
+                "ABC[starts-with(@\"DEF\",\"V1\")]");
+    }
+
+    @Test
+    public void testToStringChildrenNamed() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .named(Names.string("ABC")),
+                "child::ABC");
+    }
+
+    @Test
+    public void testToStringChildrenNamedAndPredicate() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .named(Names.string("ABC"))
+                        .attributeValueStartsWith(Names.string("DEF"), "V1"),
+                "child::ABC[starts-with(@\"DEF\",\"V1\")]");
+    }
+
+    @Test
+    public void testToStringNamedChildrenNamed() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .named(Names.string("ABC"))
+                        .children()
+                        .named(Names.string("DEF")),
+                "ABC/child::DEF");
+    }
+
+    @Test
+    public void testToStringChildrenNamedChildrenNamed() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .named(Names.string("ABC"))
+                        .children()
+                        .named(Names.string("DEF")),
+                "child::ABC/child::DEF");
+    }
+
     @Override
     NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return createSelector(NAME);
