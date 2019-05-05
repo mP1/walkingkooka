@@ -39,6 +39,16 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
+    public void testAppendExpressionTrue() {
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
+                .children()
+                .expression(ExpressionNode.booleanNode(true));
+        this.checkEquals(selector, TestNode.relativeNodeSelector()
+                .children()
+                .setToString("child::*[true]"));
+    }
+
+    @Test
     public void testExpressionSelfSelected() {
         final TestNode self = TestNode.with("self");
         this.acceptAndCheck(self, self);
@@ -169,11 +179,19 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
-    public void testToStringChildrenExpression() {
+    public void testToStringChildrenExpressionTrue() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .expression(ExpressionNode.booleanNode(true)),
                 "child::*[true]");
+    }
+
+    @Test
+    public void testToStringChildrenExpressionFalse() {
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(ExpressionNode.booleanNode(false)),
+                "child::*[false]");
     }
 
     @Test
@@ -188,9 +206,9 @@ final public class ExpressionNodeSelectorTest extends
     @Test
     public void testToStringExpressionChildren() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .expression(ExpressionNode.booleanNode(true))
+                        .expression(ExpressionNode.longNode(123))
                         .firstChild(),
-                "*[true]/first-child::*");
+                "*[123]/first-child::*");
     }
 
     @Override
