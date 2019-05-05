@@ -71,38 +71,85 @@ public interface VisitorTesting<V extends Visitor<T>, T>
                 () -> "visitor " + this.type().getName() + " should have only 1 default accept method=" + defaultAcceptMethods);
     }
 
-    // all visit methods are protected..
+    // startVisit ......................................................................................................
 
     @Test
-    default void testVisitMethodsProtected() {
-        VisitorTesting2.visitMethodsProtectedCheck("visit", this.type());
+    default void testStartVisitMethodsInstance() {
+        VisitorTesting2.instanceCheck("startVisit", this.type());
     }
 
     @Test
     default void testStartVisitMethodsProtected() {
-        VisitorTesting2.visitMethodsProtectedCheck("startVisit", this.type());
+        VisitorTesting2.protectedMethodCheck("startVisit", this.type());
+    }
+
+    @Test
+    default void testStartVisitMethodsSingleParameter() {
+        VisitorTesting2.singleParameterCheck("startVisit", this.type());
+    }
+
+    @Test
+    default void testStartVisitMethodParameterTypesPublic() {
+        VisitorTesting2.methodParameterTypesPublicCheck("startVisit", this.type());
+    }
+
+    @Test
+    default void testStartVisitReturnTypeVisiting() {
+        VisitorTesting2.methodReturnTypeVoidCheck("startVisit", this.type(), Visiting.class);
+    }
+
+    // endVisit ......................................................................................................
+
+    @Test
+    default void testEndVisitMethodsInstance() {
+        VisitorTesting2.instanceCheck("endVisit", this.type());
     }
 
     @Test
     default void testEndVisitMethodsProtected() {
-        VisitorTesting2.visitMethodsProtectedCheck("endVisit", this.type());
-    }
-
-    // all visit methods have a single parameter which is a public type.
-
-    @Test
-    default void testVisitMethodsParameters() {
-        VisitorTesting2.visitMethodsSingleParameterCheck("visit", this.type());
+        VisitorTesting2.protectedMethodCheck("endVisit", this.type());
     }
 
     @Test
-    default void testStartVisitMethodsParameters() {
-        VisitorTesting2.visitMethodsSingleParameterCheck("startVisit", this.type());
+    default void testEndVisitMethodsSingleParameter() {
+        VisitorTesting2.singleParameterCheck("endVisit", this.type());
     }
 
     @Test
-    default void testEndVisitMethodsParameters() {
-        VisitorTesting2.visitMethodsSingleParameterCheck("endVisit", this.type());
+    default void testEndVisitMethodParameterTypesPublic() {
+        VisitorTesting2.methodParameterTypesPublicCheck("endVisit", this.type());
+    }
+
+    @Test
+    default void testEndVisitReturnTypeVoid() {
+        VisitorTesting2.methodReturnTypeVoidCheck("endVisit", this.type(), Void.TYPE);
+    }
+
+    // visit ......................................................................................................
+
+    @Test
+    default void testVisitMethodsInstance() {
+        VisitorTesting2.instanceCheck("visit", this.type());
+    }
+
+    @Test
+    default void testVisitMethodsProtected() {
+        VisitorTesting2.protectedMethodCheck("visit", this.type());
+    }
+
+    @Test
+    default void testVisitMethodsSingleParameter() {
+        VisitorTesting2.singleParameterCheck("visit", this.type());
+    }
+
+    @Test
+    default void testVisitMethodParameterTypesPublic() {
+        VisitorTesting2.methodParameterTypesPublicCheck("visit", this.type());
+    }
+
+    @Test
+    default void testVisitReturnTypeVoid() {
+        VisitorTesting2.methodReturnTypeVoidCheck("visit", this.type(), Void.TYPE);
     }
 
     V createVisitor();
