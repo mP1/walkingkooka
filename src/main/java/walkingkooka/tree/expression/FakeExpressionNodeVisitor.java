@@ -244,14 +244,4 @@ public class FakeExpressionNodeVisitor extends ExpressionNodeVisitor implements 
     protected void endVisit(final ExpressionSubtractionNode node) {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    protected Visiting startVisit(final ExpressionVariableNode node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void endVisit(final ExpressionVariableNode node) {
-        throw new UnsupportedOperationException();
-    }
 }

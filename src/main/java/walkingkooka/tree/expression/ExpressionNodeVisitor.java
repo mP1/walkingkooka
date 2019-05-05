@@ -223,14 +223,6 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
         // nop
     }
 
-    protected Visiting startVisit(final ExpressionVariableNode node) {
-        return Visiting.CONTINUE;
-    }
-
-    protected void endVisit(final ExpressionVariableNode node) {
-        // nop
-    }
-
     protected Visiting startVisit(final ExpressionXorNode node) {
         return Visiting.CONTINUE;
     }
