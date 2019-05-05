@@ -24,7 +24,6 @@ import walkingkooka.test.ClassTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
-import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -76,71 +75,34 @@ public interface VisitorTesting<V extends Visitor<T>, T>
 
     @Test
     default void testVisitMethodsProtected() {
-        this.visitMethodsProtectedCheck("visit");
+        VisitorTesting2.visitMethodsProtectedCheck("visit", this.type());
     }
 
     @Test
     default void testStartVisitMethodsProtected() {
-        this.visitMethodsProtectedCheck("startVisit");
+        VisitorTesting2.visitMethodsProtectedCheck("startVisit", this.type());
     }
 
     @Test
     default void testEndVisitMethodsProtected() {
-        this.visitMethodsProtectedCheck("endVisit");
-    }
-
-    default void visitMethodsProtectedCheck(final String name) {
-        final List<Method> wrong = this.allMethods()
-                .stream()
-                .filter(m -> !MethodAttributes.STATIC.is(m)) // only interested in instance methods.
-                .filter(m -> m.getName().startsWith(name))
-                .filter(m -> !MemberVisibility.PROTECTED.is(m))
-                .collect(Collectors.toList());
-
-        // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals(Lists.empty(), wrong, () -> "all " + name + " methods in " + this.type().getName() + " should be protected=" + wrong);
+        VisitorTesting2.visitMethodsProtectedCheck("endVisit", this.type());
     }
 
     // all visit methods have a single parameter.
 
     @Test
     default void testVisitMethodsSingleParameter() {
-        this.visitMethodsSingleParameterCheck("visit");
+        VisitorTesting2.visitMethodsSingleParameterCheck("visit", this.type());
     }
 
     @Test
     default void testStartVisitMethodsSingleParameter() {
-        this.visitMethodsSingleParameterCheck("startVisit");
+        VisitorTesting2.visitMethodsSingleParameterCheck("startVisit", this.type());
     }
 
     @Test
     default void testEndVisitMethodsSingleParameter() {
-        this.visitMethodsSingleParameterCheck("endVisit");
-    }
-
-    default void visitMethodsSingleParameterCheck(final String name) {
-        final List<Method> wrong = this.allMethods()
-                .stream()
-                .filter(m -> !MethodAttributes.STATIC.is(m)) // only interested in instance methods.
-                .filter(m -> m.getName().startsWith(name))
-                .filter(m -> MemberVisibility.PROTECTED.is(m))
-                .filter(m -> m.getParameterTypes().length != 1)
-                .collect(Collectors.toList());
-
-        // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals(Lists.empty(), wrong, () -> "all " + name + " methods in " + this.type().getName() + " should have 1 parameter=" + wrong);
-    }
-
-    default List<Method> allMethods() {
-        final List<Method> all = Lists.array();
-        Class<?> type = this.type();
-        do {
-            all.addAll(Lists.of(type.getMethods()));
-
-            type = type.getSuperclass();
-        } while (type != Object.class);
-
-        return all;
+        VisitorTesting2.visitMethodsSingleParameterCheck("endVisit", this.type());
     }
 
     V createVisitor();
