@@ -18,6 +18,7 @@
 
 package walkingkooka.text.cursor.parser.select;
 
+import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.text.cursor.parser.Parser;
@@ -177,29 +178,6 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
         for (ParserToken token : sequenceParserToken.value()) {
             final NodeSelectorParserToken selectorParserToken = token.cast();
 
-            if (selectorParserToken.isBracketOpenSymbol()) {
-                all.add(token);
-                continue;
-            }
-
-            if (selectorParserToken.isBracketCloseSymbol()) {
-                switch (mode) {
-                    case PREDICATE:
-                        all.addAll(tokens);
-                        break;
-                    case AND:
-                        all.add(and(tokens));
-                        break;
-                    case OR:
-                        all.add(or(tokens));
-                        break;
-                    default:
-                        break;
-                }
-                all.add(token);
-                continue;
-            }
-
             final boolean andSymbol = selectorParserToken.isAndSymbol();
             final boolean orSymbol = selectorParserToken.isOrSymbol();
 
@@ -228,9 +206,25 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
                     }
                     break;
                 default:
+                    NeverError.unhandledCase(mode, PREDICATE, AND, OR);
                     break;
             }
             tokens.add(token);
+        }
+
+        switch (mode) {
+            case PREDICATE:
+                all.addAll(tokens);
+                break;
+            case AND:
+                all.add(and(tokens));
+                break;
+            case OR:
+                all.add(or(tokens));
+                break;
+            default:
+                NeverError.unhandledCase(mode, PREDICATE, AND, OR);
+                break;
         }
 
         return NodeSelectorParserToken.predicate(all, sequenceParserToken.text());
