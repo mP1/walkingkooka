@@ -52,7 +52,6 @@ final class BasicNodeSelectorContextFunction implements Function<ExpressionNodeN
         this.register(ExpressionFunctions.endsWith());
         this.register(ExpressionFunctions.falseFunction());
         this.register(ExpressionFunctions.nodeName());
-        this.register(ExpressionFunctions.nodePosition());
         this.register(ExpressionFunctions.normalizeSpace());
         this.register(ExpressionFunctions.number());
         this.register(ExpressionFunctions.startsWith());

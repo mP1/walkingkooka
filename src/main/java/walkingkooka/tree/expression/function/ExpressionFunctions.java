@@ -75,13 +75,6 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see ExpressionNodePositionFunction}
-     */
-    public static ExpressionFunction<Number> nodePosition() {
-        return ExpressionNodePositionFunction.INSTANCE;
-    }
-
-    /**
      * {@see ExpressionNotFunction}
      */
     public static ExpressionFunction<Boolean> not(final ExpressionFunction<?> function) {
