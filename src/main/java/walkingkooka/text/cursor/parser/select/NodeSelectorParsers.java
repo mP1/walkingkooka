@@ -53,6 +53,15 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
     static final EbnfIdentifierName EXPRESSION_IDENTIFIER = EbnfIdentifierName.with("EXPRESSION");
 
     /**
+     * Returns a {@link Parser} that given text returns a {@link NodeSelectorParserToken}.
+     */
+    public static Parser<NodeSelectorParserContext> predicate() {
+        return parserFromGrammar(PREDICATE_IDENTIFIER);
+    }
+
+    static final EbnfIdentifierName PREDICATE_IDENTIFIER = EbnfIdentifierName.with("PREDICATE");
+
+    /**
      * Parsers the grammar and returns the selected parser.
      */
     private static Parser<NodeSelectorParserContext> parserFromGrammar(final EbnfIdentifierName parserName) {

@@ -21,10 +21,12 @@ package walkingkooka.text.cursor.parser.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Arrays;
 import java.util.List;
@@ -223,14 +225,18 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteNodeNameBracketOpenIndexBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), number(), bracketClose()));
+                bracketOpen(),
+                predicate(number()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceIndexWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(), number(), whitespace(), bracketClose()));
+                bracketOpen(),
+                predicate(whitespace(), number(), whitespace()),
+                bracketClose());
     }
 
     // absolute nodeName predicate function.....................................................................
@@ -240,74 +246,82 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteNodeNameBracketOpenFunctionNameParenOpenParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(function(functionName(), parenthesisOpen(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionNameParenOpenWhitespaceParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), whitespace(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), whitespace(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceFunctionNameParenOpenWhitespaceParenCloseWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(), function(
+                bracketOpen(),
+                predicate(whitespace(), function(
                         functionName(), parenthesisOpen(), whitespace(), parenthesisClose()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionNameParenOpenNumberParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), number(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), number(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionNameParenOpenNumberNumberParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), number(), comma(), number2(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), number(), comma(), number2(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionNameParenOpenNumberNumberNumberParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), number(), comma(), number2(), comma(), number(3), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), number(), comma(), number2(), comma(), number(3), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionNameParenOpenQuotedTextParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionNameParenOpen_functionNameParenOpenQuotedTextParenClose_ParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         function(functionName(), parenthesisOpen(),
                                 function(functionName("f2"), parenthesisOpen(), quotedText(), parenthesisClose()),
-                                parenthesisClose()),
-                        bracketClose()));
+                                parenthesisClose())),
+                bracketClose());
     }
 
     // absolute nodeName predicate condition.....................................................................
@@ -316,450 +330,504 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteNodeNameBracketOpenNumberEqualsNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        equalsParserToken(number(), equalsSymbol(), number2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        equalsParserToken(number(), equalsSymbol(), number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenQuotedTextEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        equalsParserToken(quotedText(), equalsSymbol(), quotedText2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        equalsParserToken(quotedText(), equalsSymbol(), quotedText2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionEqualsFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         equalsParserToken(
                                 function(functionName(), parenthesisOpen(), parenthesisClose()),
                                 equalsSymbol(),
-                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose())),
-                        bracketClose()));
+                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose()))),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameEqualsAttributeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        equalsParserToken(atSign(), attributeName(), equalsSymbol(), atSign(), attributeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        equalsParserToken(atSign(), attributeName(), equalsSymbol(), atSign(), attributeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        equalsParserToken(atSign(), attributeName(), equalsSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        equalsParserToken(atSign(), attributeName(), equalsSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameEqualsNodeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        equalsParserToken(nodeName(), equalsSymbol(), nodeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        equalsParserToken(nodeName(), equalsSymbol(), nodeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        equalsParserToken(nodeName(), equalsSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        equalsParserToken(nodeName(), equalsSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceEqualsWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         equalsParserToken(number(), whitespace(), equalsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNumberGreaterThanNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThan(number(), greaterThanSymbol(), number2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThan(number(), greaterThanSymbol(), number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenQuotedTextGreaterThanQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThan(quotedText(), greaterThanSymbol(), quotedText2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThan(quotedText(), greaterThanSymbol(), quotedText2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionGreaterThanFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         greaterThan(
                                 function(functionName(), parenthesisOpen(), parenthesisClose()),
                                 greaterThanSymbol(),
-                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose())),
-                        bracketClose()));
+                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose()))),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameGreaterThanAttributeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThan(atSign(), attributeName(), greaterThanSymbol(), atSign(), attributeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThan(atSign(), attributeName(), greaterThanSymbol(), atSign(), attributeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameGreaterThanQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThan(atSign(), attributeName(), greaterThanSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThan(atSign(), attributeName(), greaterThanSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameGreaterThanNodeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThan(nodeName(), greaterThanSymbol(), nodeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThan(nodeName(), greaterThanSymbol(), nodeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameGreaterThanQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThan(nodeName(), greaterThanSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThan(nodeName(), greaterThanSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceGreaterThanWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         greaterThan(number(), whitespace(), greaterThanSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNumberGreaterThanEqualsNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThanEquals(number(), greaterThanEqualsSymbol(), number2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThanEquals(number(), greaterThanEqualsSymbol(), number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenQuotedTextGreaterThanEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThanEquals(quotedText(), greaterThanEqualsSymbol(), quotedText2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThanEquals(quotedText(), greaterThanEqualsSymbol(), quotedText2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionGreaterThanEqualsFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         greaterThanEquals(
                                 function(functionName(), parenthesisOpen(), parenthesisClose()),
                                 greaterThanEqualsSymbol(),
-                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose())),
-                        bracketClose()));
+                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose()))),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameGreaterThanEqualsAttributeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThanEquals(atSign(), attributeName(), greaterThanEqualsSymbol(), atSign(), attributeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThanEquals(atSign(), attributeName(), greaterThanEqualsSymbol(), atSign(), attributeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameGreaterThanEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThanEquals(atSign(), attributeName(), greaterThanEqualsSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThanEquals(atSign(), attributeName(), greaterThanEqualsSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameGreaterThanEqualsNodeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThanEquals(nodeName(), greaterThanEqualsSymbol(), nodeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThanEquals(nodeName(), greaterThanEqualsSymbol(), nodeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameGreaterThanEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        greaterThanEquals(nodeName(), greaterThanEqualsSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        greaterThanEquals(nodeName(), greaterThanEqualsSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceGreaterThanEqualsWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         greaterThanEquals(number(), whitespace(), greaterThanEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNumberLessThanNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThan(number(), lessThanSymbol(), number2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThan(number(), lessThanSymbol(), number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenQuotedTextLessThanQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThan(quotedText(), lessThanSymbol(), quotedText2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThan(quotedText(), lessThanSymbol(), quotedText2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionLessThanFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         lessThan(
                                 function(functionName(), parenthesisOpen(), parenthesisClose()),
                                 lessThanSymbol(),
-                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose())),
-                        bracketClose()));
+                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose()))),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameLessThanAttributeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThan(atSign(), attributeName(), lessThanSymbol(), atSign(), attributeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThan(atSign(), attributeName(), lessThanSymbol(), atSign(), attributeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameLessThanQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThan(atSign(), attributeName(), lessThanSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThan(atSign(), attributeName(), lessThanSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameLessThanNodeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThan(nodeName(), lessThanSymbol(), nodeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThan(nodeName(), lessThanSymbol(), nodeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameLessThanQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThan(nodeName(), lessThanSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThan(nodeName(), lessThanSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceLessThanWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         lessThan(number(), whitespace(), lessThanSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNumberLessThanEqualsNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThanEquals(number(), lessThanEqualsSymbol(), number2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThanEquals(number(), lessThanEqualsSymbol(), number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenQuotedTextLessThanEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThanEquals(quotedText(), lessThanEqualsSymbol(), quotedText2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThanEquals(quotedText(), lessThanEqualsSymbol(), quotedText2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionLessThanEqualsFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         lessThanEquals(
                                 function(functionName(), parenthesisOpen(), parenthesisClose()),
                                 lessThanEqualsSymbol(),
-                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose())),
-                        bracketClose()));
+                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose()))),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameLessThanEqualsAttributeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThanEquals(atSign(), attributeName(), lessThanEqualsSymbol(), atSign(), attributeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThanEquals(atSign(), attributeName(), lessThanEqualsSymbol(), atSign(), attributeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameLessThanEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThanEquals(atSign(), attributeName(), lessThanEqualsSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThanEquals(atSign(), attributeName(), lessThanEqualsSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameLessThanEqualsNodeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThanEquals(nodeName(), lessThanEqualsSymbol(), nodeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThanEquals(nodeName(), lessThanEqualsSymbol(), nodeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameLessThanEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        lessThanEquals(nodeName(), lessThanEqualsSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        lessThanEquals(nodeName(), lessThanEqualsSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceLessThanEqualsWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         lessThanEquals(number(), whitespace(), lessThanEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNumberNotEqualsNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        notEquals(number(), notEqualsSymbol(), number2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        notEquals(number(), notEqualsSymbol(), number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenQuotedTextNotEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        notEquals(quotedText(), notEqualsSymbol(), quotedText2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        notEquals(quotedText(), notEqualsSymbol(), quotedText2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameNotEqualsAttributeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        notEquals(atSign(), attributeName(), notEqualsSymbol(), atSign(), attributeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        notEquals(atSign(), attributeName(), notEqualsSymbol(), atSign(), attributeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenAttributeNameNotEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        notEquals(atSign(), attributeName(), notEqualsSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        notEquals(atSign(), attributeName(), notEqualsSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameNotEqualsNodeNameBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        notEquals(nodeName(), notEqualsSymbol(), nodeName2()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        notEquals(nodeName(), notEqualsSymbol(), nodeName2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenNodeNameNotEqualsQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
-                        notEquals(nodeName(), notEqualsSymbol(), quotedText()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        notEquals(nodeName(), notEqualsSymbol(), quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenFunctionNotEqualsFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         notEquals(
                                 function(functionName(), parenthesisOpen(), parenthesisClose()),
                                 notEqualsSymbol(),
-                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose())),
-                        bracketClose()));
+                                function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose()))),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceNotEqualsWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         notEquals(number(), whitespace(), notEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     // absolute node name, predicate, predicate .......................................................................
@@ -768,72 +836,96 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceEqualsWhitespaceNumberWhitespaceBracketCloseBracketOpenWhitespaceNumberWhitespaceEqualsWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         equalsParserToken(number(), whitespace(), equalsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()),
-                predicate(bracketOpen(), whitespace(),
+                        whitespace()),
+                bracketClose(),
+                bracketOpen(),
+                predicate(whitespace(),
                         equalsParserToken(number(), whitespace(), equalsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceGreaterThanWhitespaceNumberWhitespaceBracketCloseBracketOpenWhitespaceNumberWhitespaceGreaterThanWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         greaterThan(number(), whitespace(), greaterThanSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()),
-                predicate(bracketOpen(), whitespace(),
+                        whitespace()),
+                bracketClose(),
+                bracketOpen(),
+                predicate(whitespace(),
                         greaterThan(number(), whitespace(), greaterThanSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceGreaterThanEqualsWhitespaceNumberWhitespaceBracketCloseBracketOpenWhitespaceNumberWhitespaceGreaterThanEqualsWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         greaterThanEquals(number(), whitespace(), greaterThanEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()),
-                predicate(bracketOpen(), whitespace(),
+                        whitespace()),
+                bracketClose(),
+                bracketOpen(),
+                predicate(whitespace(),
                         greaterThanEquals(number(), whitespace(), greaterThanEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceLessThanWhitespaceNumberWhitespaceBracketCloseBracketOpenWhitespaceNumberWhitespaceLessThanWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         lessThan(number(), whitespace(), lessThanSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()),
-                predicate(bracketOpen(), whitespace(),
+                        whitespace()),
+                bracketClose(),
+                bracketOpen(),
+                predicate(whitespace(),
                         lessThan(number(), whitespace(), lessThanSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceLessThanEqualsWhitespaceNumberWhitespaceBracketCloseBracketOpenWhitespaceNumberWhitespaceLessThanEqualsWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         lessThanEquals(number(), whitespace(), lessThanEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()),
-                predicate(bracketOpen(), whitespace(),
+                        whitespace()),
+                bracketClose(),
+                bracketOpen(),
+                predicate(whitespace(),
                         lessThanEquals(number(), whitespace(), lessThanEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceNotEqualsWhitespaceNumberWhitespaceBracketCloseBracketOpenWhitespaceNumberWhitespaceNotEqualsWhitespaceNumberWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 nodeName(),
-                predicate(bracketOpen(), whitespace(),
+                bracketOpen(),
+                predicate(whitespace(),
                         notEquals(number(), whitespace(), notEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()),
-                predicate(bracketOpen(), whitespace(),
+                        whitespace()),
+                bracketClose(),
+                bracketOpen(),
+                predicate(whitespace(),
                         notEquals(number(), whitespace(), notEqualsSymbol(), whitespace(), number2()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     // absolute wildcard................................................................................................
@@ -926,28 +1018,41 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testIndexMissingNumberFails() {
         this.parseThrows2(absolute(),
                 wildcard(),
-                predicate(bracketOpen()));
+                bracketOpen());
+    }
+
+    @Test
+    public void testIndexMissingNumberFails2() {
+        this.parseThrows2(absolute(),
+                wildcard(),
+                bracketOpen(),
+                bracketClose());
     }
 
     @Test
     public void testIndexMissingBracketCloseFails() {
         this.parseThrows2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(), number()));
+                bracketOpen(),
+                predicate(number()));
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenIndexBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(), number(), bracketClose()));
+                bracketOpen(),
+                predicate(number()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenWhitespaceIndexWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(), whitespace(), number(), whitespace(), bracketClose()));
+                bracketOpen(),
+                predicate(whitespace(), number(), whitespace()),
+                bracketClose());
     }
 
     // absolute wildcard predicate function.....................................................................
@@ -957,74 +1062,84 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteWildcardBracketOpenFunctionNameParenOpenParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionNameParenOpenWhitespaceParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), whitespace(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), whitespace(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenWhitespaceFunctionNameParenOpenWhitespaceParenCloseWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(), whitespace(), function(
+                bracketOpen(),
+                predicate(whitespace(), function(
                         functionName(), parenthesisOpen(), whitespace(), parenthesisClose()),
-                        whitespace(), bracketClose()));
+                        whitespace()),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionNameParenOpenNumberParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), number(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), number(), parenthesisClose())
+                        ),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionNameParenOpenNumberNumberParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), number(), comma(), number2(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), number(), comma(), number2(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionNameParenOpenNumberNumberNumberParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), number(), comma(), number2(), comma(), number(3), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), number(), comma(), number2(), comma(), number(3), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionNameParenOpenQuotedTextParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose()),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(
+                        function(functionName(), parenthesisOpen(), quotedText(), parenthesisClose())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionNameParenOpen_functionNameParenOpenQuotedTextParenClose_ParenCloseBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         function(functionName(), parenthesisOpen(),
                                 function(functionName("f2"), parenthesisOpen(), quotedText(), parenthesisClose()),
-                                parenthesisClose()),
-                        bracketClose()));
+                                parenthesisClose())),
+                bracketClose());
     }
 
     // and ....................................................................................................
@@ -1033,7 +1148,8 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAndMissingRightFails() {
         this.parseThrows2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         number(),
                         andSymbol()));
     }
@@ -1042,17 +1158,19 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAndMissingRightFails2() {
         this.parseThrows2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         number(),
-                        andSymbol(),
-                        bracketClose()));
+                        andSymbol()),
+                bracketClose());
     }
 
     @Test
     public void testAndMissingBracketCloseFails() {
         this.parseThrows2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         number(),
                         andSymbol()));
     }
@@ -1061,44 +1179,48 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteWildcardBracketOpenNumberAndNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         and(
                                 number(),
                                 andSymbol(),
-                                number2()),
-                        bracketClose()));
+                                number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenQuotedTextAndQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         and(
                                 number(),
                                 andSymbol(),
-                                number2()),
-                        bracketClose()));
+                                number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionAndWhitespaceFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         and(
                                 functionWithoutArguments(),
                                 andSymbol(),
                                 whitespace(),
-                                functionWithArguments()),
-                        bracketClose()));
+                                functionWithArguments())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionAndWhitespaceNumberWhitespaceAndWhitespaceQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         and(
                                 and(functionWithoutArguments(),
                                         whitespace(),
@@ -1108,15 +1230,16 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                         whitespace()),
                                 andSymbol(),
                                 whitespace(),
-                                quotedText()),
-                        bracketClose()));
+                                quotedText())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenWhitespaceFunctionWhitespaceAndWhitespaceFunctionWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         and(
                                 whitespace(),
                                 functionWithoutArguments(),
@@ -1124,8 +1247,8 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                 andSymbol(),
                                 whitespace(),
                                 functionWithArguments(),
-                                whitespace()),
-                        bracketClose()));
+                                whitespace())),
+                bracketClose());
     }
 
     // or ....................................................................................................
@@ -1134,8 +1257,8 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testOrMissingRightFails() {
         this.parseThrows2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        number(),
+                bracketOpen(),
+                predicate(number(),
                         orSymbol()));
     }
 
@@ -1143,18 +1266,19 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testOrMissingRightFails2() {
         this.parseThrows2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        number(),
-                        orSymbol(),
-                        bracketClose()));
+                bracketOpen(),
+                predicate(number(),
+                        orSymbol()
+                ),
+                bracketClose());
     }
 
     @Test
     public void testOrMissingBracketCloseFails() {
         this.parseThrows2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
-                        number(),
+                bracketOpen(),
+                predicate(number(),
                         orSymbol(),
                         number()));
     }
@@ -1163,44 +1287,49 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteWildcardBracketOpenNumberOrNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
                                 number(),
                                 orSymbol(),
-                                number2()),
-                        bracketClose()));
+                                number2())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenQuotedTextOrQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
                                 number(),
                                 orSymbol(),
-                                number2()),
-                        bracketClose()));
+                                number2())
+                ),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionOrWhitespaceFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
                                 functionWithoutArguments(),
                                 orSymbol(),
                                 whitespace(),
-                                functionWithArguments()),
-                        bracketClose()));
+                                functionWithArguments())),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionOrNumberOrQuotedTextBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
                                 or(
                                         functionWithoutArguments(),
@@ -1208,15 +1337,17 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                         whitespace(),
                                         number()),
                                 orSymbol(),
-                                quotedText()),
-                        bracketClose()));
+                                quotedText())
+                ),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenWhitespaceFunctionWhitespaceOrWhitespaceFunctionWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
                                 whitespace(),
                                 functionWithoutArguments(),
@@ -1224,8 +1355,8 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                 orSymbol(),
                                 whitespace(),
                                 functionWithArguments(),
-                                whitespace()),
-                        bracketClose()));
+                                whitespace())),
+                bracketClose());
     }
 
     // and or...............................................................................................
@@ -1234,15 +1365,15 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteWildcardBracketOpenFunctionAndFunctionOrFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
-                                and(
-                                        functionWithoutArguments(),
+                                and(functionWithoutArguments(),
                                         andSymbol(),
                                         functionWithArguments()),
                                 orSymbol(),
-                                functionWithoutArguments()),
-                        bracketClose()));
+                                functionWithoutArguments())),
+                bracketClose());
     }
 
     // and or and...............................................................................................
@@ -1251,7 +1382,8 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteWildcardBracketOpenNumberAndNumberOrNumberAndNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         and(
                                 or(
                                         and(
@@ -1261,15 +1393,16 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                         orSymbol(),
                                         number(3)),
                                 andSymbol(),
-                                number(4)),
-                        bracketClose()));
+                                number(4))),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionAndFunctionOrFunctionAndFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         and(
                                 or(
                                         and(
@@ -1279,8 +1412,9 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                         orSymbol(),
                                         functionWithoutArguments()),
                                 andSymbol(),
-                                functionWithoutArguments()),
-                        bracketClose()));
+                                functionWithoutArguments())
+                ),
+                bracketClose());
     }
 
     // and or and or...............................................................................................
@@ -1289,7 +1423,8 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     public void testAbsoluteWildcardBracketOpenNumberAndNumberOrNumberAndNumberOrNumberBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
                                 and(
                                         or(
@@ -1302,15 +1437,16 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                         andSymbol(),
                                         number(4)),
                                 orSymbol(),
-                                number(5)),
-                        bracketClose()));
+                                number(5))),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionAndFunctionOrFunctionAndFunctionOrFunctionBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
                                 and(
                                         or(
@@ -1323,15 +1459,17 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                         andSymbol(),
                                         functionWithoutArguments()),
                                 orSymbol(),
-                                functionWithoutArguments()),
-                        bracketClose()));
+                                functionWithoutArguments())
+                ),
+                bracketClose());
     }
 
     @Test
     public void testAbsoluteWildcardBracketOpenFunctionWhitespaceAndFunctionWhitespaceOrFunctionWhitespaceAndFunctionWhitespaceOrFunctionWhitespaceBracketClose() {
         this.parseAndCheck2(absolute(),
                 wildcard(),
-                predicate(bracketOpen(),
+                bracketOpen(),
+                predicate(
                         or(
                                 and(
                                         or(
@@ -1349,8 +1487,8 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                                         whitespace()),
                                 orSymbol(),
                                 functionWithoutArguments(),
-                                whitespace()),
-                        bracketClose()));
+                                whitespace())),
+                bracketClose());
     }
 
     // relative axis node .....................................................................................
@@ -1525,7 +1663,7 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
         assertEquals(text, text, "text should be all upper case");
 
         final Parser<NodeSelectorParserContext> parser = this.createParser();
-        this.parseAndCheck(parser,
+        this.parseAndCheck3(parser,
                 text,
                 NodeSelectorParserToken.expression(list, text),
                 text);
@@ -1535,15 +1673,74 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                 .collect(Collectors.toList());
         final String textUpper = ParserToken.text(lower);
 
-        this.parseAndCheck(parser,
+        this.parseAndCheck3(parser,
                 textUpper,
                 NodeSelectorParserToken.expression(lower, textUpper),
                 textUpper);
     }
 
+    private TextCursor parseAndCheck3(final Parser<NodeSelectorParserContext> parser,
+                                      final String cursorText,
+                                      final ParserToken token,
+                                      final String text) {
+        final TextCursor after = this.parseAndCheck(parser,
+                cursorText,
+                token,
+                text,
+                "");
+
+        // if the expression has a NodeSelectorPredicateParserToken convert it to text and try parse back
+        final TestNodeSelectorParserTokenVisitor visitor = new TestNodeSelectorParserTokenVisitor();
+        visitor.accept(token);
+        final NodeSelectorPredicateParserToken predicate = visitor.predicate;
+
+        if (null != predicate) {
+            final String predicateText = predicate.text();
+            this.parseAndCheck(NodeSelectorParsers.predicate(),
+                    predicateText,
+                    predicate,
+                    predicateText,
+                    "");
+        }
+        return after;
+    }
+
+    static class TestNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
+        @Override
+        protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
+            this.predicate = token;
+            return Visiting.SKIP;
+        }
+
+        NodeSelectorPredicateParserToken predicate;
+    }
+
     private void parseThrows2(final NodeSelectorParserToken... tokens) {
         this.parseThrows(this.createParser().orFailIfCursorNotEmpty(ParserReporters.basic()),
                 ParserToken.text(Lists.of(tokens)));
+    }
+
+    private void parsePredicateAndCheck(final NodeSelectorParserToken... tokens) {
+        final List<ParserToken> list = Lists.of(tokens);
+        final String text = ParserToken.text(list);
+
+        assertEquals(text, text, "text should be all upper case");
+
+        final Parser<NodeSelectorParserContext> parser = NodeSelectorParsers.predicate();
+        this.parseAndCheck(parser,
+                text,
+                NodeSelectorParserToken.predicate(list, text),
+                text);
+
+        final List<ParserToken> lower = Arrays.stream(tokens)
+                .map(t -> NodeSelectorParsersTestNodeSelectorParserTokenVisitor.toUpper(t))
+                .collect(Collectors.toList());
+        final String textUpper = ParserToken.text(lower);
+
+        this.parseAndCheck(parser,
+                textUpper,
+                NodeSelectorParserToken.predicate(lower, textUpper),
+                textUpper);
     }
 
     // token factories...............................................................................

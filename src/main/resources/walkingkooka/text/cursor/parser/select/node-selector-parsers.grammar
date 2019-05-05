@@ -9,7 +9,7 @@ SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE = SLASH, PARENTDOTDOT_SELFD
 
 PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE       = PARENT_DOT_DOT | SELF_DOT | AXIS_NODE_PREDICATE;
 
-AXIS_NODE_PREDICATE                                  = [ AXIS ], NODE, [{ PREDICATE }];
+AXIS_NODE_PREDICATE                                  = [ AXIS ], NODE, [{ BRACKET_OPEN, PREDICATE, BRACKET_CLOSE }];
 
 
 
@@ -24,11 +24,9 @@ NODE                         = NODE_NAME | WILDCARD;
 
 
 (* predicate .......................................................................................................*)
-PREDICATE                    = BRACKET_OPEN,
-                               PREDICATE2,
+PREDICATE                    = PREDICATE2,
                                [ { AND_OR, PREDICATE2 } ],
-                               [ WHITESPACE ],
-                               BRACKET_CLOSE;
+                               [ WHITESPACE ];
 
 PREDICATE2                   = [ WHITESPACE ],
                                ( CONDITION | NUMBER | QUOTED_TEXT | FUNCTION );
