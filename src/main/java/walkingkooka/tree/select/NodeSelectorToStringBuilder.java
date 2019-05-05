@@ -20,6 +20,8 @@ package walkingkooka.tree.select;
 
 import walkingkooka.build.Builder;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.function.Predicate;
@@ -32,8 +34,6 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
     static NodeSelectorToStringBuilder empty() {
         return new NodeSelectorToStringBuilder();
     }
-
-    private final static char SEPARATOR = NodeSelector.SEPARATOR.character();
 
     private NodeSelectorToStringBuilder() {
         super();
@@ -55,7 +55,6 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         this.axisSymbol("..");
     }
 
-
     void axisName(final String axis) {
         this.mode = this.mode.axisName(axis, this.b);
     }
@@ -74,6 +73,17 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
 
     void expression(final ExpressionNode expression) {
         this.mode = this.mode.expression(expression, this.b);
+    }
+
+    void customToString(final String custom) {
+        final CharacterConstant separator = NodeSelector.SEPARATOR;
+        final StringBuilder b = this.b;
+
+        if (b.length() > 0 && !CharSequences.endsWith(b, separator.string())) {
+            b.append(separator.character());
+        }
+        b.append(custom);
+        this.mode = NodeSelectorToStringBuilderMode.CUSTOM;
     }
 
     void append(final String append) {

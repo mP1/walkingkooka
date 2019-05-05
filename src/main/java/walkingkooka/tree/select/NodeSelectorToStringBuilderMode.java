@@ -56,6 +56,25 @@ enum NodeSelectorToStringBuilderMode {
             return false;
         }
     },
+    /**
+     * Special mode to handle {@link CustomToStringNodeSelector}.
+     */
+    CUSTOM {
+        @Override
+        boolean requireSeparator() {
+            return true;
+        }
+
+        @Override
+        boolean requireWildcard() {
+            return false;
+        }
+
+        @Override
+        boolean requireFinishingWildcard() {
+            return false;
+        }
+    },
     WILDCARD_OR_NAME_OR_PREDICATE {
         @Override
         boolean requireSeparator() {

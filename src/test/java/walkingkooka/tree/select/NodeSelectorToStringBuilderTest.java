@@ -412,6 +412,76 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         this.buildAndCheck(b, "//abc1[j>2]/axis3::jkl4");
     }
 
+    @Test
+    public void testCustomToString() {
+        final String custom = "custom123";
+
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.customToString(custom);
+        this.buildAndCheck(b, custom);
+    }
+
+    @Test
+    public void testNameCustomToString() {
+        final String custom = "custom123";
+
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.name(abc1());
+        b.customToString(custom);
+        this.buildAndCheck(b, "abc1/" + custom);
+    }
+
+    @Test
+    public void testCustomToStringAxis() {
+        final String custom = "custom123";
+
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.customToString(custom);
+        b.axisName("axis2");
+        this.buildAndCheck(b, custom + "/axis2::*");
+    }
+
+    @Test
+    public void testCustomToStringSelf() {
+        final String custom = "custom123";
+
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.customToString(custom);
+        b.self();
+        this.buildAndCheck(b, custom + "/.");
+    }
+
+    @Test
+    public void testCustomToStringName() {
+        final String custom = "custom123";
+
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.customToString(custom);
+        b.name(def2());
+        this.buildAndCheck(b, custom + "/def2");
+    }
+
+    @Test
+    public void testCustomToStringNamePredicate() {
+        final String custom = "custom123";
+
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.customToString(custom);
+        b.name(def2());
+        b.predicate(predicate3());
+        this.buildAndCheck(b, custom + "/def2[k>3]");
+    }
+
+    @Test
+    public void testCustomToStringPredicate() {
+        final String custom = "custom123";
+
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.customToString(custom);
+        b.predicate(predicate2());
+        this.buildAndCheck(b, custom + "[j>2]");
+    }
+
     private StringName abc1() {
         return Names.string("abc1");
     }
