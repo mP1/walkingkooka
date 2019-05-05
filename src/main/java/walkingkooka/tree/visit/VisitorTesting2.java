@@ -23,51 +23,64 @@ import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final class VisitorTesting2 {
 
-    static void visitMethodsProtectedCheck(final String name, final Class<?> type) {
-        final List<Method> wrong = allMethods(type)
-                .stream()
-                .filter(m -> !MethodAttributes.STATIC.is(m)) // only interested in instance methods.
-                .filter(m -> m.getName().startsWith(name))
-                .filter(m -> !MemberVisibility.PROTECTED.is(m))
-                .collect(Collectors.toList());
-
-        // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals(Lists.empty(), wrong, () -> "all " + name + " methods in " + type.getName() + " should be protected=" + wrong);
+    static void instanceCheck(final String methodName, final Class<? extends Visitor<?>> type) {
+        allMethodsAndCheck(methodName,
+                type,
+                (m) -> !MethodAttributes.STATIC.is(m));
     }
 
-    static void visitMethodsSingleParameterCheck(final String name,
-                                                 final Class<?> type) {
-        final List<Method> wrong = allMethods(type)
-                .stream()
-                .filter(m -> !MethodAttributes.STATIC.is(m)) // only interested in instance methods.
-                .filter(m -> m.getName().startsWith(name))
-                .filter(m -> MemberVisibility.PROTECTED.is(m))
-                .filter(m -> m.getParameterTypes().length != 1)
-                .filter(m -> !MemberVisibility.PUBLIC.is(m.getParameterTypes()[0])) // only parameter must be public type
-                .collect(Collectors.toList());
-
-        // because of generics two accept methods will be present accept(Object) and accept(N)
-        assertEquals(Lists.empty(), wrong, () -> "all " + name + " methods in " + type.getName() + " should have 1 parameter=" + wrong);
+    static void protectedMethodCheck(final String methodName, final Class<? extends Visitor<?>> type) {
+        allMethodsAndCheck(methodName,
+                type,
+                (m) -> MemberVisibility.PROTECTED.is(m));
     }
 
-    static List<Method> allMethods(final Class<?> type) {
-        final List<Method> all = Lists.array();
+    static void singleParameterCheck(final String methodName, final Class<? extends Visitor<?>> type) {
+        allMethodsAndCheck(methodName,
+                type,
+                (m) -> m.getParameterTypes().length == 1);
+    }
 
-        Class<?> current = type;
-        do {
-            all.addAll(Lists.of(type.getMethods()));
+    static void methodParameterTypesPublicCheck(final String methodName, final Class<? extends Visitor<?>> type) {
+        allMethodsAndCheck(methodName,
+                type,
+                VisitorTesting2::allParametersTypesPublic);
+    }
 
-            current = current.getSuperclass();
-        } while (current != Object.class);
+    private static boolean allParametersTypesPublic(final Method method) {
+        return Arrays.stream(method.getParameterTypes())
+                .filter(t -> MemberVisibility.PUBLIC.is(t))
+                .count() == method.getParameterTypes().length;
+    }
 
-        return all;
+    static void methodReturnTypeVoidCheck(final String methodName,
+                                          final Class<? extends Visitor<?>> type,
+                                          final Class<?> returnType) {
+        allMethodsAndCheck(methodName,
+                type,
+                (m) -> returnType == m.getReturnType());
+    }
+
+    private static void allMethodsAndCheck(final String methodName,
+                                           final Class<? extends Visitor<?>> type,
+                                           final Predicate<Method> predicate) {
+        final List<Method> failed = Arrays.stream(type.getDeclaredMethods())
+                .filter(m -> m.getName().equals(methodName))
+                .filter(predicate.negate())
+                .collect(Collectors.toList());
+
+        assertEquals(Lists.empty(),
+                failed,
+                () -> "Several methods in " + type.getName() + " failed");
     }
 
     private VisitorTesting2() {
