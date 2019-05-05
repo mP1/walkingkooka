@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a greater than equals symbol token.
  */
-public final class SpreadsheetGreaterThanEqualsSymbolParserToken extends SpreadsheetSymbolParserToken {
+public final class SpreadsheetGreaterThanEqualsSymbolParserToken extends SpreadsheetComparisonSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetGreaterThanEqualsSymbolParserToken.class);
 
@@ -55,27 +55,7 @@ public final class SpreadsheetGreaterThanEqualsSymbolParserToken extends Spreads
     }
 
     @Override
-    public boolean isBetweenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isFunctionParameterSeparatorSymbol() {
         return false;
     }
 
@@ -100,48 +80,8 @@ public final class SpreadsheetGreaterThanEqualsSymbolParserToken extends Spreads
     }
 
     @Override
-    public boolean isMinusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplySymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isNotEqualsSymbol() {
         return false;
-    }
-
-    @Override
-    public boolean isOpenParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPercentSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPowerSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPlusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
-    final int operatorPriority() {
-        return GREATER_THAN_LESS_THAN_PRIORITY;
     }
 
     @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {

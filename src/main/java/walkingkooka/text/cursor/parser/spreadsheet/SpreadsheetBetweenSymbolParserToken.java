@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a between symbol token.
  */
-public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetSymbolParserToken {
+public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetBinaryOperandSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBetweenSymbolParserToken.class);
 
@@ -60,22 +60,12 @@ public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetSymbol
     }
 
     @Override
-    public boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isDivideSymbol() {
         return false;
     }
 
     @Override
     public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isFunctionParameterSeparatorSymbol() {
         return false;
     }
 
@@ -115,27 +105,12 @@ public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetSymbol
     }
 
     @Override
-    public boolean isOpenParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPercentSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isPowerSymbol() {
         return false;
     }
 
     @Override
     public boolean isPlusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
         return false;
     }
 

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a plus symbol token.
  */
-public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolParserToken {
+public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetArithmeticSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPlusSymbolParserToken.class);
 
@@ -55,47 +55,7 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
     }
 
     @Override
-    public boolean isBetweenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isFunctionParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
         return false;
     }
 
@@ -110,18 +70,8 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
     }
 
     @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOpenParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPercentSymbol() {
-        return false;
+    public boolean isPlusSymbol() {
+        return true;
     }
 
     @Override
@@ -130,25 +80,17 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
     }
 
     @Override
-    public boolean isPlusSymbol() {
-        return true;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
-    @Override final int operatorPriority() {
+    @Override
+    final int operatorPriority() {
         return ADDITION_SUBTRACTION_PRIORITY;
     }
 
-    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.addition(tokens, text);
     }
 

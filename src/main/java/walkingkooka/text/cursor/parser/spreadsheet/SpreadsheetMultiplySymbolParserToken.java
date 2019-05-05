@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a multiply symbol token.
  */
-public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbolParserToken {
+public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetArithmeticSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetMultiplySymbolParserToken.class);
 
@@ -55,47 +55,7 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
     }
 
     @Override
-    public boolean isBetweenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isFunctionParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
         return false;
     }
 
@@ -110,17 +70,7 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
     }
 
     @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOpenParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPercentSymbol() {
+    public boolean isPlusSymbol() {
         return false;
     }
 
@@ -130,21 +80,12 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
     }
 
     @Override
-    public boolean isPlusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     final int operatorPriority() {
         return MULTIPLY_DIVISION_PRIORITY;
     }
 
-    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.multiplication(tokens, text);
     }
 

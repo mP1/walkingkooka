@@ -18,16 +18,12 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-import walkingkooka.tree.search.SearchNode;
-
-import java.util.List;
 
 /**
  * Holds the combination of whitespace or comments.
  */
-public final class SpreadsheetWhitespaceParserToken extends SpreadsheetSymbolParserToken {
+public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetWhitespaceParserToken.class);
 
@@ -62,76 +58,12 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetSymbolPar
     }
 
     @Override
-    final int operatorPriority() {
-        return LOWEST_PRIORITY;
-    }
-
-    /**
-     * By chance all other {@link SpreadsheetSymbolParserToken} participate as the operand of a binary operand or similar,
-     * except for whitespace.
-     */
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean isBetweenSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isCloseParenthesisSymbol() {
         return false;
     }
 
     @Override
-    public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isFunctionParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMinusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplySymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
         return false;
     }
 
@@ -142,16 +74,6 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetSymbolPar
 
     @Override
     public boolean isPercentSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPowerSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPlusSymbol() {
         return false;
     }
 
@@ -168,12 +90,5 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetSymbolPar
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetWhitespaceParserToken;
-    }
-
-    // HasSearchNode ...............................................................................................
-
-    @Override
-    public SearchNode toSearchNode() {
-        return SearchNode.text(this.text(), this.value());
     }
 }
