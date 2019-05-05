@@ -88,20 +88,20 @@ public interface VisitorTesting<V extends Visitor<T>, T>
         VisitorTesting2.visitMethodsProtectedCheck("endVisit", this.type());
     }
 
-    // all visit methods have a single parameter.
+    // all visit methods have a single parameter which is a public type.
 
     @Test
-    default void testVisitMethodsSingleParameter() {
+    default void testVisitMethodsParameters() {
         VisitorTesting2.visitMethodsSingleParameterCheck("visit", this.type());
     }
 
     @Test
-    default void testStartVisitMethodsSingleParameter() {
+    default void testStartVisitMethodsParameters() {
         VisitorTesting2.visitMethodsSingleParameterCheck("startVisit", this.type());
     }
 
     @Test
-    default void testEndVisitMethodsSingleParameter() {
+    default void testEndVisitMethodsParameters() {
         VisitorTesting2.visitMethodsSingleParameterCheck("endVisit", this.type());
     }
 

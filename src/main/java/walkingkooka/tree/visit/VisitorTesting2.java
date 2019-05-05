@@ -50,6 +50,7 @@ final class VisitorTesting2 {
                 .filter(m -> m.getName().startsWith(name))
                 .filter(m -> MemberVisibility.PROTECTED.is(m))
                 .filter(m -> m.getParameterTypes().length != 1)
+                .filter(m -> !MemberVisibility.PUBLIC.is(m.getParameterTypes()[0])) // only parameter must be public type
                 .collect(Collectors.toList());
 
         // because of generics two accept methods will be present accept(Object) and accept(N)
