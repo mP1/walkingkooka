@@ -22,9 +22,12 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.TypeNameTesting;
+import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.visit.VisitableTesting;
+import walkingkooka.type.MethodAttributes;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +50,30 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         TraversableTesting<N>,
         VisitableTesting<N>,
         TypeNameTesting<N> {
+
+    @Test
+    default void testPublicStaticMethodAbsoluteNodeSelector() throws Exception {
+        final Method method = Arrays.stream(this.type().getMethods())
+                .filter(MethodAttributes.STATIC::is)
+                .filter(m -> m.getReturnType() == NodeSelector.class)
+                .filter(m -> m.getName().equals("absoluteNodeSelector"))
+                .filter(m -> m.getParameterTypes().length == 0)
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector absoluteNodeSelector()"));
+        assertNotEquals(null, method.invoke(null));
+    }
+
+    @Test
+    default void testPublicStaticMethodRelativeNodeSelector() throws Exception {
+        final Method method = Arrays.stream(this.type().getMethods())
+                .filter(MethodAttributes.STATIC::is)
+                .filter(m -> m.getReturnType() == NodeSelector.class)
+                .filter(m -> m.getName().equals("relativeNodeSelector"))
+                .filter(m -> m.getParameterTypes().length == 0)
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector relativeNodeSelector()"));
+        assertNotEquals(null, method.invoke(null));
+    }
 
     @Test
     default void testNameCached() {
