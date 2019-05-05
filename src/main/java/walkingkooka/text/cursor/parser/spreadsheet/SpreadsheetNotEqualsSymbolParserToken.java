@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a equals symbol token.
  */
-public final class SpreadsheetNotEqualsSymbolParserToken extends SpreadsheetSymbolParserToken {
+public final class SpreadsheetNotEqualsSymbolParserToken extends SpreadsheetComparisonSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetNotEqualsSymbolParserToken.class);
 
@@ -55,27 +55,7 @@ public final class SpreadsheetNotEqualsSymbolParserToken extends SpreadsheetSymb
     }
 
     @Override
-    public boolean isBetweenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isFunctionParameterSeparatorSymbol() {
         return false;
     }
 
@@ -100,51 +80,12 @@ public final class SpreadsheetNotEqualsSymbolParserToken extends SpreadsheetSymb
     }
 
     @Override
-    public boolean isMinusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplySymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isNotEqualsSymbol() {
         return true;
     }
 
     @Override
-    public boolean isOpenParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPercentSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPowerSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPlusSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
-    final int operatorPriority() {
-        return GREATER_THAN_LESS_THAN_PRIORITY;
-    }
-
-    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.notEquals(tokens, text);
     }
 

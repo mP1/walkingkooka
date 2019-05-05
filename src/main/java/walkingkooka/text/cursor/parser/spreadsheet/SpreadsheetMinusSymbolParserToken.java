@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a minus symbol token.
  */
-public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetSymbolParserToken {
+public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetArithmeticSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetMinusSymbolParserToken.class);
 
@@ -55,47 +55,7 @@ public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetSymbolPa
     }
 
     @Override
-    public boolean isBetweenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isDivideSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isFunctionParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
         return false;
     }
 
@@ -110,32 +70,12 @@ public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetSymbolPa
     }
 
     @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOpenParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPercentSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isPowerSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isPlusSymbol() {
         return false;
     }
 
     @Override
-    public boolean isWhitespace() {
+    public boolean isPowerSymbol() {
         return false;
     }
 

@@ -113,7 +113,7 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode() {
+    public final SearchNode toSearchNode() {
         return SearchNode.text(this.text(), this.value());
     }
 }
