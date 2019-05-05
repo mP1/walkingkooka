@@ -70,6 +70,30 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
     }
 
     @Test
+    public void testAppend() {
+        final String toString = "abc123!";
+
+        final CustomToStringNodeSelector<TestNode, StringName, StringName, Object> custom = Cast.to(TestNode.relativeNodeSelector()
+                .parent()
+                .setToString(toString)
+                .append(SelfNodeSelector.get()));
+        this.toStringAndCheck(custom.selector, "../.");
+    }
+
+    @Test
+    public void testAppendCustomToStringNodeSelector() {
+        final String toString = "abc123!";
+        final NodeSelector<TestNode, StringName, StringName, Object> custom = TestNode.relativeNodeSelector()
+                .self()
+                .setToString(toString);
+
+        final ParentNodeSelector<TestNode, StringName, StringName, Object> parent = Cast.to(TestNode.relativeNodeSelector()
+                .parent()
+                .append(custom));
+        assertEquals(parent.next, custom);
+    }
+
+    @Test
     public void testMap() {
         final TestNode parent = TestNode.with("parent",
                 TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
@@ -87,6 +111,26 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
     @Test
     public void testEqualsDifferentCustomToString() {
         this.checkNotEquals(CustomToStringNodeSelector.with(this.wrapped(), "different"));
+    }
+
+    @Test
+    public void testAppendKeepsCustomToString() {
+        final String toString = "abc123!";
+
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                        .parent()
+                        .setToString(toString)
+                        .append(SelfNodeSelector.get()),
+                toString);
+    }
+
+    @Test
+    public void testAppendCustomToStringNodeSelectorToString() {
+        final String toString = "abc123!";
+
+        this.toStringAndCheck(TestNode.relativeNodeSelector()
+                .parent()
+                .append(TestNode.relativeNodeSelector().self().setToString(toString)), "../" + toString);
     }
 
     @Test

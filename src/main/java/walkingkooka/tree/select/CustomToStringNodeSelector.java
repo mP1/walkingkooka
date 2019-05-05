@@ -87,7 +87,7 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     @Override
     void toString0(final NodeSelectorToStringBuilder b) {
-        b.append(this.toString);
+        b.customToString(this.toString);
     }
 
     private final String toString;
