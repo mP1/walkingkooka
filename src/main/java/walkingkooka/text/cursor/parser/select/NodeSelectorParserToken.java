@@ -51,6 +51,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     }
 
     /**
+     * {@see NodeSelectorAdditionParserToken}
+     */
+    public static NodeSelectorAdditionParserToken addition(final List<ParserToken> value, final String text) {
+        return NodeSelectorAdditionParserToken.with(value, text);
+    }
+
+    /**
      * {@see NodeSelectorAncestorParserToken}
      */
     public static NodeSelectorAncestorParserToken ancestor(final String value, final String text) {
@@ -83,6 +90,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     public static NodeSelectorAtSignSymbolParserToken atSignSymbol(final String value, final String text) {
         return NodeSelectorAtSignSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorAttributeParserToken}
+     */
+    public static NodeSelectorAttributeParserToken attribute(final List<ParserToken> value, final String text) {
+        return NodeSelectorAttributeParserToken.with(value, text);
     }
 
     /**
@@ -125,6 +139,20 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     public static NodeSelectorDescendantOrSelfParserToken descendantOrSelf(final String value, final String text) {
         return NodeSelectorDescendantOrSelfParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorDivideSymbolParserToken}
+     */
+    public static NodeSelectorDivideSymbolParserToken divideSymbol(final String value, final String text) {
+        return NodeSelectorDivideSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorDivisionParserToken}
+     */
+    public static NodeSelectorDivisionParserToken division(final List<ParserToken> value, final String text) {
+        return NodeSelectorDivisionParserToken.with(value, text);
     }
 
     /**
@@ -212,6 +240,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     }
 
     /**
+     * {@see NodeSelectorGroupParserToken}
+     */
+    public static NodeSelectorGroupParserToken group(final List<ParserToken> value, final String text) {
+        return NodeSelectorGroupParserToken.with(value, text);
+    }
+
+    /**
      * {@see NodeSelectorLastChildParserToken}
      */
     public static NodeSelectorLastChildParserToken lastChild(final String value, final String text) {
@@ -244,6 +279,48 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     public static NodeSelectorLessThanEqualsSymbolParserToken lessThanEqualsSymbol(final String value, final String text) {
         return NodeSelectorLessThanEqualsSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorMinusSymbolParserToken}
+     */
+    public static NodeSelectorMinusSymbolParserToken minusSymbol(final String value, final String text) {
+        return NodeSelectorMinusSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorModuloParserToken}
+     */
+    public static NodeSelectorModuloParserToken modulo(final List<ParserToken> value, final String text) {
+        return NodeSelectorModuloParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorModuloSymbolParserToken}
+     */
+    public static NodeSelectorModuloSymbolParserToken moduloSymbol(final String value, final String text) {
+        return NodeSelectorModuloSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorMultiplicationParserToken}
+     */
+    public static NodeSelectorMultiplicationParserToken multiplication(final List<ParserToken> value, final String text) {
+        return NodeSelectorMultiplicationParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorMultiplySymbolParserToken}
+     */
+    public static NodeSelectorMultiplySymbolParserToken multiplySymbol(final String value, final String text) {
+        return NodeSelectorMultiplySymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorNegativeParserToken}
+     */
+    public static NodeSelectorNegativeParserToken negative(final List<ParserToken> value, final String text) {
+        return NodeSelectorNegativeParserToken.with(value, text);
     }
 
     /**
@@ -317,6 +394,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     }
 
     /**
+     * {@see NodeSelectorPlusSymbolParserToken}
+     */
+    public static NodeSelectorPlusSymbolParserToken plusSymbol(final String value, final String text) {
+        return NodeSelectorPlusSymbolParserToken.with(value, text);
+    }
+
+    /**
      * {@see NodeSelectorPrecedingParserToken}
      */
     public static NodeSelectorPrecedingParserToken preceding(final String value, final String text) {
@@ -356,6 +440,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     public static NodeSelectorSlashSeparatorSymbolParserToken slashSeparatorSymbol(final String value, final String text) {
         return NodeSelectorSlashSeparatorSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorSubtractionParserToken}
+     */
+    public static NodeSelectorSubtractionParserToken subtraction(final List<ParserToken> value, final String text) {
+        return NodeSelectorSubtractionParserToken.with(value, text);
     }
 
     /**
@@ -426,6 +517,11 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     public abstract boolean isAbsolute();
 
     /**
+     * Only {@link NodeSelectorAdditionParserToken} return true
+     */
+    public abstract boolean isAddition();
+
+    /**
      * Only {@link NodeSelectorAncestorParserToken} return true
      */
     public abstract boolean isAncestor();
@@ -449,6 +545,11 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      * Only {@link NodeSelectorAtSignSymbolParserToken} return true
      */
     public abstract boolean isAtSignSymbol();
+
+    /**
+     * Only {@link NodeSelectorAttributeParserToken} return true
+     */
+    public abstract boolean isAttribute();
 
     /**
      * Only {@link NodeSelectorAttributeNameParserToken} return true
@@ -479,6 +580,16 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      * Only {@link NodeSelectorDescendantOrSelfParserToken} return true
      */
     public abstract boolean isDescendantOrSelf();
+
+    /**
+     * Only {@link NodeSelectorDivideSymbolParserToken} return true
+     */
+    public abstract boolean isDivideSymbol();
+
+    /**
+     * Only {@link NodeSelectorDivisionParserToken} return true
+     */
+    public abstract boolean isDivision();
 
     /**
      * Only {@link NodeSelectorEqualsParserToken} return true
@@ -541,6 +652,11 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     public abstract boolean isGreaterThanEqualsSymbol();
 
     /**
+     * Only {@link NodeSelectorGroupParserToken} return true
+     */
+    public abstract boolean isGroup();
+
+    /**
      * Only {@link NodeSelectorLastChildParserToken} return true
      */
     public abstract boolean isLastChild();
@@ -564,6 +680,36 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      * Only {@link NodeSelectorLessThanEqualsSymbolParserToken} return true
      */
     public abstract boolean isLessThanEqualsSymbol();
+
+    /**
+     * Only {@link NodeSelectorMinusSymbolParserToken} return true
+     */
+    public abstract boolean isMinusSymbol();
+
+    /**
+     * Only {@link NodeSelectorModuloParserToken} return true
+     */
+    public abstract boolean isModulo();
+
+    /**
+     * Only {@link NodeSelectorModuloSymbolParserToken} return true
+     */
+    public abstract boolean isModuloSymbol();
+
+    /**
+     * Only {@link NodeSelectorMultiplicationParserToken} return true
+     */
+    public abstract boolean isMultiplication();
+
+    /**
+     * Only {@link NodeSelectorMultiplySymbolParserToken} return true
+     */
+    public abstract boolean isMultiplySymbol();
+
+    /**
+     * Only {@link NodeSelectorNegativeParserToken} return true
+     */
+    public abstract boolean isNegative();
 
     /**
      * Only {@link NodeSelectorNodeNameParserToken} return true
@@ -616,6 +762,11 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     public abstract boolean isParentOf();
 
     /**
+     * Only {@link NodeSelectorPlusSymbolParserToken} return true
+     */
+    public abstract boolean isPlusSymbol();
+
+    /**
      * Only {@link NodeSelectorPrecedingParserToken} return true
      */
     public abstract boolean isPreceding();
@@ -646,6 +797,11 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     public abstract boolean isSlashSeparatorSymbol();
 
     /**
+     * Only {@link NodeSelectorSubtractionParserToken} return true
+     */
+    public abstract boolean isSubtraction();
+
+    /**
      * Only {@link NodeSelectorSymbolParserToken} return true
      */
     public abstract boolean isSymbol();
@@ -654,6 +810,23 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      * Only {@link NodeSelectorWildcardParserToken} return true
      */
     public abstract boolean isWildcard();
+
+    /**
+     * The priority of this token, tokens with a value of zero are left in their original position.
+     */
+    abstract int operatorPriority();
+
+    final static int LOWEST_PRIORITY = 0;
+    final static int COMPARISON_PRIORITY = LOWEST_PRIORITY + 1;
+    final static int ADDITION_SUBTRACTION_PRIORITY = COMPARISON_PRIORITY + 1;
+    final static int MULTIPLY_DIVISION_PRIORITY = ADDITION_SUBTRACTION_PRIORITY + 1;
+    final static int MOD_PRIORITY = MULTIPLY_DIVISION_PRIORITY + 1;
+    final static int HIGHEST_PRIORITY = MOD_PRIORITY;
+
+    /**
+     * Factory that creates the {@link NodeSelectorBinaryParserToken} sub class using the provided tokens and text.
+     */
+    abstract NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text);
 
     // Visitor ......................................................................................................
 

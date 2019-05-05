@@ -24,13 +24,18 @@ import java.util.List;
 /**
  * Base class for any condition token, which includes the left side, condition symbol and right side argument.
  */
-abstract public class NodeSelectorConditionParserToken<T extends NodeSelectorConditionParserToken> extends NodeSelectorBinaryParserToken<T> {
+abstract public class NodeSelectorComparisonParserToken<T extends NodeSelectorComparisonParserToken> extends NodeSelectorBinaryParserToken<T> {
 
     /**
      * Package private to limit sub classing.
      */
-    NodeSelectorConditionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    NodeSelectorComparisonParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
+    }
+
+    @Override
+    public final boolean isAddition() {
+        return false;
     }
 
     @Override
@@ -39,7 +44,27 @@ abstract public class NodeSelectorConditionParserToken<T extends NodeSelectorCon
     }
 
     @Override
+    public final boolean isDivision() {
+        return false;
+    }
+
+    @Override
+    public final boolean isModulo() {
+        return false;
+    }
+
+    @Override
+    public final boolean isMultiplication() {
+        return false;
+    }
+
+    @Override
     public final boolean isOr() {
+        return false;
+    }
+
+    @Override
+    public final boolean isSubtraction() {
         return false;
     }
 }

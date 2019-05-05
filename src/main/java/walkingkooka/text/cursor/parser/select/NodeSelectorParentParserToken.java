@@ -150,6 +150,11 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
     }
 
     @Override
+    public final boolean isDivideSymbol() {
+        return false;
+    }
+
+    @Override
     public final boolean isEqualsSymbol() {
         return false;
     }
@@ -200,6 +205,21 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
     }
 
     @Override
+    public final boolean isMinusSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isModuloSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isMultiplySymbol() {
+        return false;
+    }
+
+    @Override
     public final boolean isNodeName() {
         return false;
     }
@@ -236,6 +256,11 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
 
     @Override
     public final boolean isParentOf() {
+        return false;
+    }
+
+    @Override
+    public final boolean isPlusSymbol() {
         return false;
     }
 
@@ -277,6 +302,18 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
     @Override
     public final boolean isWildcard() {
         return false;
+    }
+
+    // operator priority..................................................................................................
+
+    @Override
+    final int operatorPriority() {
+        return LOWEST_PRIORITY;
+    }
+
+    @Override
+    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+        throw new UnsupportedOperationException();
     }
 
     // Visitor................................................................................................

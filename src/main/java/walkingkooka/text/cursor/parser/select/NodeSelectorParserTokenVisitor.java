@@ -24,6 +24,16 @@ import walkingkooka.tree.visit.Visiting;
 
 public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor {
 
+    // NodeSelectorAdditionParserToken....................................................................................
+
+    protected Visiting startVisit(final NodeSelectorAdditionParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NodeSelectorAdditionParserToken token) {
+        // nop
+    }
+    
     // NodeSelectorAndParserToken....................................................................................
 
     protected Visiting startVisit(final NodeSelectorAndParserToken token) {
@@ -31,6 +41,26 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
     }
 
     protected void endVisit(final NodeSelectorAndParserToken token) {
+        // nop
+    }
+
+    // NodeSelectorAttributeParserToken....................................................................................
+
+    protected Visiting startVisit(final NodeSelectorAttributeParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NodeSelectorAttributeParserToken token) {
+        // nop
+    }
+
+    // NodeSelectorDivisionParserToken....................................................................................
+
+    protected Visiting startVisit(final NodeSelectorDivisionParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NodeSelectorDivisionParserToken token) {
         // nop
     }
 
@@ -64,7 +94,7 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
         // nop
     }
 
-// NodeSelectorGreaterThanParserToken....................................................................................
+    // NodeSelectorGreaterThanParserToken....................................................................................
 
     protected Visiting startVisit(final NodeSelectorGreaterThanParserToken token) {
         return Visiting.CONTINUE;
@@ -81,6 +111,16 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
     }
 
     protected void endVisit(final NodeSelectorGreaterThanEqualsParserToken token) {
+        // nop
+    }
+
+    // NodeSelectorGroupParserToken....................................................................................
+
+    protected Visiting startVisit(final NodeSelectorGroupParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NodeSelectorGroupParserToken token) {
         // nop
     }
 
@@ -104,6 +144,36 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
         // nop
     }
 
+    // NodeSelectorModuloParserToken....................................................................................
+
+    protected Visiting startVisit(final NodeSelectorModuloParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NodeSelectorModuloParserToken token) {
+        // nop
+    }
+
+    // NodeSelectorMultiplicationParserToken....................................................................................
+
+    protected Visiting startVisit(final NodeSelectorMultiplicationParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
+        // nop
+    }
+
+    // NodeSelectorNegativeParserToken....................................................................................
+
+    protected Visiting startVisit(final NodeSelectorNegativeParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NodeSelectorNegativeParserToken token) {
+        // nop
+    }
+    
     // NodeSelectorNotEqualsParserToken....................................................................................
 
     protected Visiting startVisit(final NodeSelectorNotEqualsParserToken token) {
@@ -113,6 +183,7 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
     protected void endVisit(final NodeSelectorNotEqualsParserToken token) {
         // nop
     }
+
     // NodeSelectorOrParserToken....................................................................................
 
     protected Visiting startVisit(final NodeSelectorOrParserToken token) {
@@ -133,6 +204,16 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
         // nop
     }
 
+    // NodeSelectorSubtractionParserToken....................................................................................
+
+    protected Visiting startVisit(final NodeSelectorSubtractionParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NodeSelectorSubtractionParserToken token) {
+        // nop
+    }
+    
     // NodeSelectorLeafParserToken ..........................................................................
 
     protected void visit(final NodeSelectorAbsoluteParserToken token) {
@@ -179,6 +260,10 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
         // nop
     }
 
+    protected void visit(final NodeSelectorDivideSymbolParserToken token) {
+        // nop
+    }
+
     protected void visit(final NodeSelectorEqualsSymbolParserToken token) {
         // nop
     }
@@ -219,6 +304,18 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
         // nop
     }
 
+    protected void visit(final NodeSelectorMinusSymbolParserToken token) {
+        // nop
+    }
+
+    protected void visit(final NodeSelectorModuloSymbolParserToken token) {
+        // nop
+    }
+
+    protected void visit(final NodeSelectorMultiplySymbolParserToken token) {
+        // nop
+    }
+
     protected void visit(final NodeSelectorNodeNameParserToken token) {
         // nop
     }
@@ -248,6 +345,10 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
     }
 
     protected void visit(final NodeSelectorParentOfParserToken token) {
+        // nop
+    }
+
+    protected void visit(final NodeSelectorPlusSymbolParserToken token) {
         // nop
     }
 

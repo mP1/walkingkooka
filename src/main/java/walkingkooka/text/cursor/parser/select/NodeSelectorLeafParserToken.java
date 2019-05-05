@@ -44,7 +44,22 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken im
     // is..............................................................................................
 
     @Override
+    public final boolean isAddition() {
+        return false;
+    }
+
+    @Override
     public final boolean isAnd() {
+        return false;
+    }
+
+    @Override
+    public final boolean isAttribute() {
+        return false;
+    }
+
+    @Override
+    public final boolean isDivision() {
         return false;
     }
 
@@ -74,12 +89,32 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken im
     }
 
     @Override
+    public final boolean isGroup() {
+        return false;
+    }
+
+    @Override
     public final boolean isLessThan() {
         return false;
     }
 
     @Override
     public final boolean isLessThanEquals() {
+        return false;
+    }
+
+    @Override
+    public final boolean isModulo() {
+        return false;
+    }
+
+    @Override
+    public final boolean isMultiplication() {
+        return false;
+    }
+
+    @Override
+    public final boolean isNegative() {
         return false;
     }
 
@@ -95,6 +130,11 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken im
 
     @Override
     public final boolean isPredicate() {
+        return false;
+    }
+
+    @Override
+    public final boolean isSubtraction() {
         return false;
     }
 

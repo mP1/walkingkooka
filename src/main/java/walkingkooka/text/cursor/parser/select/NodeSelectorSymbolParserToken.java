@@ -29,11 +29,6 @@ abstract class NodeSelectorSymbolParserToken extends NodeSelectorLeafParserToken
     }
 
     @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
     public final Optional<NodeSelectorParserToken> withoutSymbols() {
         return Optional.empty();
     }

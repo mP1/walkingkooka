@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Parser token that represents an equals condition including parameters.
  */
-public final class NodeSelectorEqualsParserToken extends NodeSelectorConditionParserToken<NodeSelectorEqualsParserToken> {
+public final class NodeSelectorEqualsParserToken extends NodeSelectorComparisonParserToken<NodeSelectorEqualsParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorEqualsParserToken.class);
 

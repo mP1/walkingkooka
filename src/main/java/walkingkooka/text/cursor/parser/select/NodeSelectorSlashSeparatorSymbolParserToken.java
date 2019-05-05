@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a slash which often separates components.
  */
-public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorSlashSeparatorSymbolParserToken.class);
 
@@ -47,6 +47,11 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
         return new NodeSelectorSlashSeparatorSymbolParserToken(this.value, text);
     }
 
+    @Override
+    void checkText(final String text) {
+        checkTextNullOrEmpty(text);
+    }
+
     // name................................................................................................
 
     @Override
@@ -55,11 +60,6 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
     }
 
     // is..........................................................................................................
-
-    @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
 
     @Override
     public boolean isAtSignSymbol() {
@@ -73,41 +73,6 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
 
     @Override
     public boolean isBracketCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOrSymbol() {
         return false;
     }
 

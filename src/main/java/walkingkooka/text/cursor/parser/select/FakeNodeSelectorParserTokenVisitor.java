@@ -28,12 +28,42 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     }
 
     @Override
+    protected Visiting startVisit(final NodeSelectorAdditionParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorAdditionParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
     protected Visiting startVisit(final NodeSelectorAndParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected void endVisit(final NodeSelectorAndParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorAttributeParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorAttributeParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorDivisionParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorDivisionParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -88,6 +118,16 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     }
 
     @Override
+    protected Visiting startVisit(final NodeSelectorGroupParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorGroupParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected Visiting startVisit(final NodeSelectorLessThanParserToken token) {
         throw new UnsupportedOperationException();
     }
@@ -107,6 +147,26 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    protected Visiting startVisit(final NodeSelectorModuloParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorModuloParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
+    protected Visiting startVisit(final NodeSelectorMultiplicationParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+    
     @Override
     protected Visiting startVisit(final NodeSelectorNotEqualsParserToken token) {
         throw new UnsupportedOperationException();
@@ -137,6 +197,16 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    protected Visiting startVisit(final NodeSelectorSubtractionParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorSubtractionParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+    
     @Override
     protected void visit(final NodeSelectorAbsoluteParserToken token) {
         throw new UnsupportedOperationException();
@@ -193,6 +263,11 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     }
 
     @Override
+    protected void visit(final NodeSelectorDivideSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final NodeSelectorEqualsSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
@@ -243,6 +318,16 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     }
 
     @Override
+    protected void visit(final NodeSelectorMinusSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final NodeSelectorModuloSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final NodeSelectorNodeNameParserToken token) {
         throw new UnsupportedOperationException();
     }
@@ -279,6 +364,11 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
 
     @Override
     protected void visit(final NodeSelectorParentOfParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final NodeSelectorPlusSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
 

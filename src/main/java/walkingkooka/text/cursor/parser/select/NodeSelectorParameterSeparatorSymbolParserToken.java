@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents the separator between elements or key/value pairs belonging to arrays and objects.
  */
-public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorParameterSeparatorSymbolParserToken.class);
 
@@ -47,6 +47,11 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
         return new NodeSelectorParameterSeparatorSymbolParserToken(this.value, text);
     }
 
+    @Override
+    void checkText(final String text) {
+        checkTextNullOrWhitespace(text);
+    }
+
     // name................................................................................................
 
     @Override
@@ -55,11 +60,6 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
     }
 
     // is..........................................................................................................
-
-    @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
 
     @Override
     public boolean isAtSignSymbol() {
@@ -73,41 +73,6 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
 
     @Override
     public boolean isBracketCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOrSymbol() {
         return false;
     }
 
