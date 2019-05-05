@@ -20,11 +20,13 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
@@ -410,6 +412,34 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.axisName("axis3");
         b.name(jkl4());
         this.buildAndCheck(b, "//abc1[j>2]/axis3::jkl4");
+    }
+
+    @Test
+    public void testNameExpressionBooleanTrue() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.name(abc1());
+        b.expression(ExpressionNode.booleanNode(true));
+        this.buildAndCheck(b, "abc1[true()]");
+    }
+
+    @Test
+    public void testNameExpressionFunction() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.name(abc1());
+        b.expression(ExpressionNode.function(
+                ExpressionNodeName.with("def2"),
+                Lists.of(ExpressionNode.longNode(3))
+        ));
+        this.buildAndCheck(b, "abc1[def2(3)]");
+    }
+
+    @Test
+    public void testNameExpressionBooleanTrueName() {
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
+        b.name(abc1());
+        b.expression(ExpressionNode.booleanNode(true));
+        b.name(ghi3());
+        this.buildAndCheck(b, "abc1[true()]/ghi3");
     }
 
     @Test
