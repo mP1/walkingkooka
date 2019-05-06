@@ -26,6 +26,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -347,7 +348,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     /**
      * {@see NodeSelectorNumberParserToken}
      */
-    public static NodeSelectorNumberParserToken number(final long value, final String text) {
+    public static NodeSelectorNumberParserToken number(final BigDecimal value, final String text) {
         return NodeSelectorNumberParserToken.with(value, text);
     }
 

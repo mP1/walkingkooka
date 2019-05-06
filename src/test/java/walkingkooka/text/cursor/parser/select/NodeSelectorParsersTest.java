@@ -28,6 +28,7 @@ import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -250,6 +251,17 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
                         number()),
                 bracketClose());
     }
+
+    @Test
+    public void testAbsoluteNodeNameBracketOpenDecimalNumberBracketClose() {
+        this.parseAndCheck2(absolute(),
+                nodeName(),
+                bracketOpen(),
+                predicate(
+                        NodeSelectorParserToken.number(BigDecimal.valueOf(12.5), "12.5")),
+                bracketClose());
+    }
+
 
     @Test
     public void testAbsoluteNodeNameBracketOpenWhitespaceNumberWhitespaceBracketClose() {
@@ -2099,7 +2111,7 @@ public final class NodeSelectorParsersTest implements ParserTesting<Parser<NodeS
     }
 
     final NodeSelectorParserToken number(final int value) {
-        return NodeSelectorParserToken.number(value, String.valueOf(value));
+        return NodeSelectorParserToken.number(BigDecimal.valueOf(value), String.valueOf(value));
     }
 
     final NodeSelectorOrParserToken or(final NodeSelectorParserToken... tokens) {

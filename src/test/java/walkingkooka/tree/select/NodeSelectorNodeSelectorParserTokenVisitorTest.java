@@ -1617,7 +1617,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         this.parseExpressionAndCheck("*[123]",
                 TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.longNode(123)));
+                        .expression(ExpressionNode.bigDecimal(BigDecimal.valueOf(123))));
     }
 
     @Test
@@ -1626,7 +1626,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 TestNode.relativeNodeSelector()
                         .children()
                         .named(nameAbc123())
-                        .expression(ExpressionNode.longNode(123)));
+                        .expression(ExpressionNode.bigDecimal(BigDecimal.valueOf(123))));
     }
 
     @Test

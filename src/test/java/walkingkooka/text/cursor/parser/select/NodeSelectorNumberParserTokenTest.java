@@ -22,10 +22,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymbolParserTokenTestCase<NodeSelectorNumberParserToken, Long> {
+public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymbolParserTokenTestCase<NodeSelectorNumberParserToken, BigDecimal> {
 
     @Test
     public void testAccept() {
@@ -74,18 +76,18 @@ public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymb
     }
 
     @Override
-    Long value() {
-        return 123L;
+    BigDecimal value() {
+        return BigDecimal.valueOf(12.5);
     }
 
     @Override
-    NodeSelectorNumberParserToken createToken(final Long value, final String text) {
+    NodeSelectorNumberParserToken createToken(final BigDecimal value, final String text) {
         return NodeSelectorNumberParserToken.with(value, text);
     }
 
     @Override
     public NodeSelectorNumberParserToken createDifferentToken() {
-        return NodeSelectorNumberParserToken.with(-999, "-999");
+        return NodeSelectorNumberParserToken.with(BigDecimal.valueOf(-999), "-999");
     }
 
     @Override

@@ -115,7 +115,7 @@ public final class NodeSelectorGroupParserTokenTest extends NodeSelectorParentPa
 
     @Override
     public String text() {
-        return "(1)";
+        return "(1.0)";
     }
 
     @Override

@@ -108,7 +108,7 @@ public final class NodeSelectorNegativeParserTokenTest extends NodeSelectorParen
 
     @Override
     public String text() {
-        return "-1";
+        return "-1.0";
     }
 
     @Override

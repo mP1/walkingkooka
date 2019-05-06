@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.cursor.parser.BigIntegerParserToken;
+import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.CharacterParserToken;
 import walkingkooka.text.cursor.parser.DoubleQuotedParserToken;
 import walkingkooka.text.cursor.parser.Parser;
@@ -36,6 +36,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.MathContext;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -232,12 +233,12 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             NodeSelectorBracketCloseSymbolParserToken.class);
 
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
-    private static final Parser<ParserContext> NUMBER_PARSER = Parsers.bigInteger(10)
+    private static final Parser<ParserContext> NUMBER_PARSER = Parsers.bigDecimal(MathContext.UNLIMITED)
             .transform(NodeSelectorParsers::number)
             .setToString(NUMBER_IDENTIFIER.toString());
 
     private static ParserToken number(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.number(BigIntegerParserToken.class.cast(token).value().longValueExact(), token.text());
+        return NodeSelectorParserToken.number(BigDecimalParserToken.class.cast(token).value(), token.text());
     }
 
     private static final EbnfIdentifierName OR_IDENTIFIER = EbnfIdentifierName.with("OR");
