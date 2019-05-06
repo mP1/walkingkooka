@@ -66,7 +66,7 @@ public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String>
 
     @Override
     public boolean isSymbol() {
-        return false;
+        return true;
     }
 
     @Override

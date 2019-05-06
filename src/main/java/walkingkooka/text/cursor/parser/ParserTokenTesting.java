@@ -92,6 +92,26 @@ public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesti
         }
     }
 
+    @Test
+    default void testIsSymbol() {
+        final String type = this.type().getSimpleName();
+        final boolean symbol = type.contains(SYMBOL);
+
+        final T token = this.createToken();
+
+        if (type.contains(WHITESPACE)) {
+            assertEquals(true,
+                    token.isSymbol(),
+                    () -> "Token " + token + " is whitespace=true so isSymbol must also be true");
+        } else {
+            assertEquals(symbol,
+                    token.isSymbol(),
+                    () -> "Token " + token + " name includes " + SYMBOL + " so isSymbol should be true");
+        }
+    }
+
+    String SYMBOL = "Symbol";
+
     /**
      * If a type class name includes Whitespace its {@link ParserToken#isWhitespace()} should also return true.
      */
@@ -107,6 +127,7 @@ public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesti
 
         if (whitespace) {
             assertEquals(whitespace, token.isNoise(), () -> token + " isWhitespace==true, isNoise must also be true");
+            assertEquals(whitespace, token.isSymbol(), () -> token + " isWhitespace==true, isSymbol must also be true");
         }
     }
 

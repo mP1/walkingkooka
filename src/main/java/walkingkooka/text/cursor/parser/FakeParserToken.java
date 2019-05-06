@@ -38,6 +38,11 @@ public class FakeParserToken implements ParserToken, Fake {
     }
 
     @Override
+    public boolean isSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void accept(final ParserTokenVisitor visitor) {
         throw new UnsupportedOperationException();
     }

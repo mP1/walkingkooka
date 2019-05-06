@@ -64,11 +64,16 @@ public interface ParserToken extends HasText, HasSearchNode {
     ParserTokenNodeName name();
 
     /**
-     * Only returns true for noise tokens including missing and whitespace.
+     * Only returns true for noise tokens like whitespace.
      */
     default boolean isNoise() {
         return false;
     }
+
+    /**
+     * Only symbols should return true. A whitespace is also a symbol.
+     */
+    boolean isSymbol();
 
     /**
      * Only returns true for whitespace tokens but not other types of token..
