@@ -62,6 +62,7 @@ public interface IsMethodTesting<T> extends Testing {
                 Arrays.stream(object.getClass().getMethods())
                         .filter(m -> !MethodAttributes.STATIC.is(m)) // filter static methods
                         .filter(m -> m.getName().startsWith("is")) // only process
+                        .filter(m -> !m.getName().equals("isSymbol")) // special case ignore isSymbol
                         .filter(m -> !m.getName().equals(isMethodName)) // skip isMethod for object.class
                         .filter(m -> !filter.test(m.getName())) // skip special case
                         .filter(m -> {

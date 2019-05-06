@@ -71,6 +71,14 @@ abstract class ParserToken2<V> implements ParserToken, Value<V> {
         return Optional.of(this);
     }
 
+    /**
+     * Sub classes have a value, so cant be symbols.
+     */
+    @Override
+    public final boolean isSymbol() {
+        return false;
+    }
+
     // Object
 
     @Override

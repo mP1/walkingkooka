@@ -58,7 +58,7 @@ abstract class JsonNodeSymbolParserToken extends JsonNodeLeafParserToken<String>
 
     @Override
     public final boolean isSymbol() {
-        return false;
+        return true;
     }
 
     @Override

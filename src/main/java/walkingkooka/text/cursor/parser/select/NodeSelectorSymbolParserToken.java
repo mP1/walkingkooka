@@ -137,7 +137,7 @@ abstract class NodeSelectorSymbolParserToken extends NodeSelectorLeafParserToken
 
     @Override
     public final boolean isSymbol() {
-        return false;
+        return true;
     }
 
     @Override
