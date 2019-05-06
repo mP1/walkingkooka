@@ -19,20 +19,22 @@ package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
+import java.math.BigDecimal;
+
 /**
  * Holds a single decimal number.
  */
-public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolParserToken<Long> {
+public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolParserToken<BigDecimal> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorNumberParserToken.class);
 
-    static NodeSelectorNumberParserToken with(final long value, final String text) {
+    static NodeSelectorNumberParserToken with(final BigDecimal value, final String text) {
         checkTextNullOrWhitespace(text);
 
         return new NodeSelectorNumberParserToken(value, text);
     }
 
-    private NodeSelectorNumberParserToken(final long value, final String text) {
+    private NodeSelectorNumberParserToken(final BigDecimal value, final String text) {
         super(value, text);
     }
 

@@ -289,7 +289,7 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
 
     @Override
     protected void visit(final NodeSelectorNumberParserToken token) {
-        this.add(ExpressionNode.longNode(token.value()), token);
+        this.add(ExpressionNode.bigDecimal(token.value()), token);
     }
 
     @Override

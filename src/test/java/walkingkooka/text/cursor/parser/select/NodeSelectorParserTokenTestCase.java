@@ -28,6 +28,7 @@ import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.type.MemberVisibility;
 
+import java.math.BigDecimal;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -269,8 +270,8 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return number(23);
     }
 
-    final NodeSelectorParserToken number(final int value) {
-        return NodeSelectorParserToken.number(value, String.valueOf(value));
+    final NodeSelectorParserToken number(final double value) {
+        return NodeSelectorParserToken.number(BigDecimal.valueOf(value), String.valueOf(value));
     }
 
     final NodeSelectorOrParserToken or(final NodeSelectorParserToken... tokens) {

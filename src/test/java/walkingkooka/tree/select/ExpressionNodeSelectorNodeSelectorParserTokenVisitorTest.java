@@ -28,6 +28,8 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.type.MemberVisibility;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -36,7 +38,7 @@ public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest impl
     @Test
     public void testUnknownFunctionFails() {
         final NodeSelectorFunctionParserToken token = NodeSelectorParserToken.function(Lists.of(NodeSelectorParserToken.functionName(NodeSelectorFunctionName.with("zyx"), "xyz"),
-                NodeSelectorParserToken.number(123, "123")),
+                NodeSelectorParserToken.number(BigDecimal.valueOf(123), "123")),
                 "xyz");
 
         final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> {
