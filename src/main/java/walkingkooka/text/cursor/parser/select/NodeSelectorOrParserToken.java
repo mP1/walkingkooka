@@ -70,7 +70,17 @@ public final class NodeSelectorOrParserToken extends NodeSelectorBinaryParserTok
     // is................................................................................................
 
     @Override
+    public boolean isAddition() {
+        return false;
+    }
+
+    @Override
     public boolean isAnd() {
+        return false;
+    }
+
+    @Override
+    public boolean isDivision() {
         return false;
     }
 
@@ -100,6 +110,16 @@ public final class NodeSelectorOrParserToken extends NodeSelectorBinaryParserTok
     }
 
     @Override
+    public boolean isModulo() {
+        return false;
+    }
+
+    @Override
+    public boolean isMultiplication() {
+        return false;
+    }
+
+    @Override
     public boolean isNotEquals() {
         return false;
     }
@@ -107,6 +127,11 @@ public final class NodeSelectorOrParserToken extends NodeSelectorBinaryParserTok
     @Override
     public boolean isOr() {
         return true;
+    }
+
+    @Override
+    public boolean isSubtraction() {
+        return false;
     }
 
     // Visitor........................................................................................................

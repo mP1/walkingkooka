@@ -21,74 +21,45 @@ AXIS                         = ANCESTOR | ANCESTOR_OR_SELF | CHILD | DESCENDANT 
 (* node .............................................................................................................*)
 NODE                         = NODE_NAME | WILDCARD;
 
-
+(* attribute ........................................................................................................*)
+ATTRIBUTE                    = ATSIGN, ATTRIBUTE_NAME;
 
 (* predicate .......................................................................................................*)
-PREDICATE                    = PREDICATE2,
-                               [ { AND_OR, PREDICATE2 } ],
-                               [ WHITESPACE ];
-
-PREDICATE2                   = [ WHITESPACE ],
-                               ( CONDITION | NUMBER | QUOTED_TEXT | FUNCTION );
-
-AND_OR                       = [ WHITESPACE ],
-                               ( AND | OR );
+PREDICATE                    = [ WHITESPACE ], VALUE, [ WHITESPACE ],
+                               [ { AND_OR, [ WHITESPACE ], VALUE, [ WHITESPACE ]} ];
 
 
-(* condition [@attribute="string-value"] .........................................................................*)
-CONDITION                    = CONDITION_EQUALS | CONDITION_GREATER_THAN_EQUALS | CONDITION_GREATER_THAN |
-                               CONDITION_LESS_THAN_EQUALS | CONDITION_LESS_THAN | CONDITION_NOT_EQUALS;
+AND_OR                       = ( AND | OR );
 
-CONDITION_EQUALS             = CONDITION_VALUE,
-                               [ WHITESPACE ],
-                               EQUALS,
-                               CONDITION_VALUE_REQUIRED;
-                                    
-CONDITION_GREATER_THAN        = CONDITION_VALUE,
-                               [ WHITESPACE ],
-                               GREATER_THAN,
-                               CONDITION_VALUE_REQUIRED;
 
-CONDITION_GREATER_THAN_EQUALS = CONDITION_VALUE,
-                               [ WHITESPACE ],
-                               GREATER_THAN_EQUALS,
-                               CONDITION_VALUE_REQUIRED;
-                                    
-CONDITION_LESS_THAN          = CONDITION_VALUE,
-                               [ WHITESPACE ],
-                               LESS_THAN,
-                               [ WHITESPACE ],
-                               CONDITION_VALUE_REQUIRED;
+(* arithmetic/comparisons .......................................................................................................*)
 
-CONDITION_LESS_THAN_EQUALS   = CONDITION_VALUE,
-                               [ WHITESPACE ],
-                               LESS_THAN_EQUALS,
-                               CONDITION_VALUE_REQUIRED;
-                                    
-CONDITION_NOT_EQUALS         = CONDITION_VALUE,
-                               [ WHITESPACE ],
-                               NOT_EQUALS,
-                               CONDITION_VALUE_REQUIRED;
+BINARY_EXPRESSION              = BINARY_SUB_EXPRESSION, {[ WHITESPACE ], BINARY_OPERATOR, [ WHITESPACE ], BINARY_SUB_EXPRESSION_REQUIRED};
+BINARY_OPERATOR                = PLUS | MINUS | MODULO | MULTIPLY | DIVIDE | EQUALS | NOT_EQUALS | GREATER_THAN_EQUALS | GREATER_THAN | LESS_THAN_EQUALS | LESS_THAN;
+BINARY_SUB_EXPRESSION          = NEGATIVE | GROUP | QUOTED_TEXT | ATTRIBUTE | FUNCTION | NUMBER;
+BINARY_SUB_EXPRESSION_REQUIRED = BINARY_SUB_EXPRESSION;
 
-CONDITION_VALUE              = [ WHITESPACE ],
-                               ( FUNCTION | NAME | NUMBER | QUOTED_TEXT );
 
-CONDITION_VALUE_REQUIRED     = CONDITION_VALUE;
+GROUP 			               = PARENS_OPEN, [ WHITESPACE ], VALUE_REQUIRED, [ WHITESPACE ], PARENS_CLOSE;
+
+
+(* NEGATIVE ........................................................................................................ *)
+NEGATIVE_REQUIRED   = [ WHITESPACE ],
+                      ( GROUP | BINARY_EXPRESSION | QUOTED_TEXT | ATTRIBUTE | FUNCTION | NUMBER );
+NEGATIVE		    = MINUS, [ WHITESPACE ], NEGATIVE_REQUIRED;
+
 
 (* [starts-with(@attribute, "string-value") ..........................................................................*)
-FUNCTION                     = FUNCTION_NAME, PARENS_OPEN, [ WHITESPACE ], [ FUNCTION_PARAMETERS ], [ WHITESPACE ], PARENS_CLOSE;
+FUNCTION                  = FUNCTION_NAME, PARENS_OPEN, [ WHITESPACE ], [ FUNCTION_PARAMETERS ], [ WHITESPACE ], PARENS_CLOSE;
 
-FUNCTION_PARAMETERS          = [ VALUE, [{ FUNCTION_PARAMETER_OTHERS }]];
+FUNCTION_PARAMETERS       = [ VALUE, [{ FUNCTION_PARAMETER_OTHERS }]];
 
-FUNCTION_PARAMETER_OTHERS    = [ WHITESPACE ],
-                               PARAMETER_SEPARATOR,
-                               VALUE_REQUIRED;
+FUNCTION_PARAMETER_OTHERS = [ WHITESPACE ],
+                            PARAMETER_SEPARATOR,
+                            [ WHITESPACE ],
+                            VALUE_REQUIRED;
 
-NAME                         = ( ATSIGN, ATTRIBUTE_NAME ) |
-                               NODE_NAME;
 
-VALUE                        = [ WHITESPACE ],
-                               ( FUNCTION | NAME | CONDITION | NUMBER | QUOTED_TEXT );
-
-VALUE_REQUIRED               = VALUE;
-
+(* values .............................................................................................................*)
+VALUE          = NEGATIVE | BINARY_EXPRESSION | GROUP | QUOTED_TEXT | ATTRIBUTE | FUNCTION | NUMBER;
+VALUE_REQUIRED = VALUE;

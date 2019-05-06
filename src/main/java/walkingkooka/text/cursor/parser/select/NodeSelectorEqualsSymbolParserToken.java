@@ -17,12 +17,15 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+
+import java.util.List;
 
 /**
  * Represents an equals sign parser token.
  */
-public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorComparisonSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorEqualsSymbolParserToken.class);
 
@@ -57,26 +60,6 @@ public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorSymbo
     // is..........................................................................................................
 
     @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isAtSignSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketCloseSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isEqualsSymbol() {
         return true;
     }
@@ -106,34 +89,11 @@ public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorSymbo
         return false;
     }
 
-    @Override
-    public boolean isOrSymbol() {
-        return false;
-    }
+    // operator priority................................................................................................
 
     @Override
-    public boolean isParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isParenthesisOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isParenthesisCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isSlashSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
+    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+        return NodeSelectorParserToken.equalsParserToken(tokens, text);
     }
 
     // Visitor................................................................................................

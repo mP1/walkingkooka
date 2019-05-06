@@ -17,12 +17,15 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+
+import java.util.List;
 
 /**
  * Represents a less than equals sign in a comparison parser token.
  */
-public final class NodeSelectorLessThanEqualsSymbolParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorLessThanEqualsSymbolParserToken extends NodeSelectorComparisonSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorLessThanEqualsSymbolParserToken.class);
 
@@ -57,26 +60,6 @@ public final class NodeSelectorLessThanEqualsSymbolParserToken extends NodeSelec
     // is..........................................................................................................
 
     @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isAtSignSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketCloseSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isEqualsSymbol() {
         return false;
     }
@@ -106,34 +89,11 @@ public final class NodeSelectorLessThanEqualsSymbolParserToken extends NodeSelec
         return false;
     }
 
-    @Override
-    public boolean isOrSymbol() {
-        return false;
-    }
+    // operator priority................................................................................................
 
     @Override
-    public boolean isParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isParenthesisOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isParenthesisCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isSlashSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
+    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+        return NodeSelectorParserToken.lessThanEquals(tokens, text);
     }
 
     // Visitor................................................................................................

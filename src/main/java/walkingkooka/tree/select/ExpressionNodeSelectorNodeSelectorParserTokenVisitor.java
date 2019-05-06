@@ -22,15 +22,21 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.select.NodeSelectorAdditionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAndParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAttributeNameParserToken;
+import walkingkooka.text.cursor.parser.select.NodeSelectorDivisionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorEqualsParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorFunctionNameParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorFunctionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorGreaterThanEqualsParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorGreaterThanParserToken;
+import walkingkooka.text.cursor.parser.select.NodeSelectorGroupParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorLessThanEqualsParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorLessThanParserToken;
+import walkingkooka.text.cursor.parser.select.NodeSelectorModuloParserToken;
+import walkingkooka.text.cursor.parser.select.NodeSelectorMultiplicationParserToken;
+import walkingkooka.text.cursor.parser.select.NodeSelectorNegativeParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorNotEqualsParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorNumberParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorOrParserToken;
@@ -38,6 +44,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitor;
 import walkingkooka.text.cursor.parser.select.NodeSelectorPredicateParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorQuotedTextParserToken;
+import walkingkooka.text.cursor.parser.select.NodeSelectorSubtractionParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -80,6 +87,17 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
     }
 
     @Override
+    protected Visiting startVisit(final NodeSelectorAdditionParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorAdditionParserToken token) {
+        this.exitBinary(ExpressionNode::addition, token);
+    }
+
+    @Override
     protected Visiting startVisit(final NodeSelectorAndParserToken token) {
         this.enter();
         return super.startVisit(token);
@@ -88,6 +106,17 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
     @Override
     protected void endVisit(final NodeSelectorAndParserToken token) {
         this.exitBinary(ExpressionNode::and, token);
+    }
+    
+    @Override
+    protected Visiting startVisit(final NodeSelectorDivisionParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorDivisionParserToken token) {
+        this.exitBinary(ExpressionNode::division, token);
     }
 
     @Override
@@ -146,6 +175,17 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
     }
 
     @Override
+    protected Visiting startVisit(final NodeSelectorGroupParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorGroupParserToken token) {
+        this.exitBinary(ExpressionNode::addition, token);
+    }
+
+    @Override
     protected Visiting startVisit(final NodeSelectorLessThanParserToken token) {
         this.enter();
         return super.startVisit(token);
@@ -168,6 +208,41 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
     }
 
     @Override
+    protected Visiting startVisit(final NodeSelectorModuloParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorModuloParserToken token) {
+        this.exitBinary(ExpressionNode::modulo, token);
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorMultiplicationParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
+        this.exitBinary(ExpressionNode::multiplication, token);
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorNegativeParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorNegativeParserToken token) {
+        final ExpressionNode parameter = this.children.get(0);
+        this.exit();
+        this.add(ExpressionNode.negative(parameter), token);
+    }
+
+    @Override
     protected Visiting startVisit(final NodeSelectorNotEqualsParserToken token) {
         this.enter();
         return super.startVisit(token);
@@ -187,6 +262,17 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSel
     @Override
     protected void endVisit(final NodeSelectorOrParserToken token) {
         this.exitBinary(ExpressionNode::or, token);
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorSubtractionParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorSubtractionParserToken token) {
+        this.exitBinary(ExpressionNode::subtraction, token);
     }
 
     // Leaf................................................................................................

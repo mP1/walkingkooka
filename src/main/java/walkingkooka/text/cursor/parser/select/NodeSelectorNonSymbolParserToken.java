@@ -17,6 +17,9 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -54,6 +57,11 @@ abstract class NodeSelectorNonSymbolParserToken<T> extends NodeSelectorLeafParse
     }
 
     @Override
+    public final boolean isDivideSymbol() {
+        return false;
+    }
+
+    @Override
     public final boolean isEqualsSymbol() {
         return false;
     }
@@ -79,6 +87,21 @@ abstract class NodeSelectorNonSymbolParserToken<T> extends NodeSelectorLeafParse
     }
 
     @Override
+    public final boolean isMinusSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isModuloSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isMultiplySymbol() {
+        return false;
+    }
+
+    @Override
     public final boolean isNotEqualsSymbol() {
         return false;
     }
@@ -90,6 +113,11 @@ abstract class NodeSelectorNonSymbolParserToken<T> extends NodeSelectorLeafParse
 
     @Override
     public final boolean isParenthesisCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isPlusSymbol() {
         return false;
     }
 
@@ -116,5 +144,17 @@ abstract class NodeSelectorNonSymbolParserToken<T> extends NodeSelectorLeafParse
     @Override
     public final boolean isWhitespace() {
         return false;
+    }
+
+    // operator priority..................................................................................................
+
+    @Override
+    final int operatorPriority() {
+        return LOWEST_PRIORITY;
+    }
+
+    @Override
+    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+        throw new UnsupportedOperationException();
     }
 }

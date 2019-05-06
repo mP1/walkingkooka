@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Parser token that represents an greater than equals condition including parameters.
  */
-public final class NodeSelectorGreaterThanEqualsParserToken extends NodeSelectorConditionParserToken<NodeSelectorGreaterThanEqualsParserToken> {
+public final class NodeSelectorGreaterThanEqualsParserToken extends NodeSelectorComparisonParserToken<NodeSelectorGreaterThanEqualsParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorGreaterThanEqualsParserToken.class);
 

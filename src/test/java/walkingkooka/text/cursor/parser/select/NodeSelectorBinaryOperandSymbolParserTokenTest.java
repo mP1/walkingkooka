@@ -22,14 +22,15 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NodeSelectorConditionParserTokenTest implements ClassTesting2<NodeSelectorConditionParserToken<?>> {
+public final class NodeSelectorBinaryOperandSymbolParserTokenTest implements ClassTesting2<NodeSelectorBinaryOperandSymbolParserToken> {
 
     @Override
-    public Class<NodeSelectorConditionParserToken<?>> type() {
-        return Cast.to(NodeSelectorConditionParserToken.class);
+    public Class<NodeSelectorBinaryOperandSymbolParserToken> type() {
+        return Cast.to(NodeSelectorBinaryOperandSymbolParserToken.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

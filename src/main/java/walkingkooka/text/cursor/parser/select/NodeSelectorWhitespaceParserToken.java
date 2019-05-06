@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Holds the combination any whitespace that may appear within a selector.
  */
-public final class NodeSelectorWhitespaceParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorWhitespaceParserToken.class);
 
@@ -62,11 +62,6 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorSymbolP
     // is................................................................................................
 
     @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isAtSignSymbol() {
         return false;
     }
@@ -78,41 +73,6 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorSymbolP
 
     @Override
     public boolean isBracketCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOrSymbol() {
         return false;
     }
 

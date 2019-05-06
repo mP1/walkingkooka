@@ -273,6 +273,12 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
      * Registers parsers for all conditions and their symbols.
      */
     private static void condition(final Map<EbnfIdentifierName, Parser<ParserContext>> predefined) {
+        predefined.put(PLUS_IDENTIFIER, PLUS_PARSER);
+        predefined.put(MINUS_IDENTIFIER, MINUS_PARSER);
+        predefined.put(MULTIPLY_IDENTIFIER, MULTIPLY_PARSER);
+        predefined.put(DIVIDE_IDENTIFIER, DIVIDE_PARSER);
+        predefined.put(MODULO_IDENTIFIER, MODULO_PARSER);
+
         predefined.put(EQUALS_IDENTIFIER, EQUALS_PARSER);
         predefined.put(GREATER_THAN_IDENTIFIER, GREATER_THAN_PARSER);
         predefined.put(GREATER_THAN_EQUALS_IDENTIFIER, GREATER_THAN_EQUALS_PARSER);
@@ -281,6 +287,31 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
         predefined.put(NOT_EQUALS_IDENTIFIER, NOT_EQUALS_PARSER);
     }
 
+    private static final EbnfIdentifierName PLUS_IDENTIFIER = EbnfIdentifierName.with("PLUS");
+    private static final Parser<ParserContext> PLUS_PARSER = literal('+',
+            NodeSelectorParserToken::plusSymbol,
+            NodeSelectorPlusSymbolParserToken.class);
+
+    private static final EbnfIdentifierName MINUS_IDENTIFIER = EbnfIdentifierName.with("MINUS");
+    private static final Parser<ParserContext> MINUS_PARSER = literal('-',
+            NodeSelectorParserToken::minusSymbol,
+            NodeSelectorMinusSymbolParserToken.class);
+
+    private static final EbnfIdentifierName MULTIPLY_IDENTIFIER = EbnfIdentifierName.with("MULTIPLY");
+    private static final Parser<ParserContext> MULTIPLY_PARSER = literal('*',
+            NodeSelectorParserToken::multiplySymbol,
+            NodeSelectorMultiplySymbolParserToken.class);
+
+    private static final EbnfIdentifierName DIVIDE_IDENTIFIER = EbnfIdentifierName.with("DIVIDE");
+    private static final Parser<ParserContext> DIVIDE_PARSER = literal("div",
+            NodeSelectorParserToken::divideSymbol,
+            NodeSelectorDivideSymbolParserToken.class);
+
+    private static final EbnfIdentifierName MODULO_IDENTIFIER = EbnfIdentifierName.with("MODULO");
+    private static final Parser<ParserContext> MODULO_PARSER = literal("mod",
+            NodeSelectorParserToken::moduloSymbol,
+            NodeSelectorModuloSymbolParserToken.class);
+    
     private static final EbnfIdentifierName EQUALS_IDENTIFIER = EbnfIdentifierName.with("EQUALS");
     private static final Parser<ParserContext> EQUALS_PARSER = literal('=',
             NodeSelectorParserToken::equalsSymbol,
@@ -333,7 +364,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
     private final static Parser<ParserContext> ATSIGN_SYMBOL_PARSER = literal('@',
             NodeSelectorParserToken::atSignSymbol,
             NodeSelectorAtSignSymbolParserToken.class);
-
+    
     static final EbnfIdentifierName ATTRIBUTE_NAME_IDENTIFIER = EbnfIdentifierName.with("ATTRIBUTE_NAME");
     private final static Parser<ParserContext> ATTRIBUTE_NAME_PARSER = name(NodeSelectorAttributeName.INITIAL,
             NodeSelectorAttributeName.PART,

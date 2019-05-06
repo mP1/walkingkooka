@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Parser token that represents an less than condition including parameters.
  */
-public final class NodeSelectorLessThanParserToken extends NodeSelectorConditionParserToken<NodeSelectorLessThanParserToken> {
+public final class NodeSelectorLessThanParserToken extends NodeSelectorComparisonParserToken<NodeSelectorLessThanParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorLessThanParserToken.class);
 

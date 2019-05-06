@@ -17,12 +17,15 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+
+import java.util.List;
 
 /**
  * Represents a greater than equals sign in a comparison parser token.
  */
-public final class NodeSelectorGreaterThanSymbolParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorGreaterThanSymbolParserToken extends NodeSelectorComparisonSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorGreaterThanSymbolParserToken.class);
 
@@ -57,26 +60,6 @@ public final class NodeSelectorGreaterThanSymbolParserToken extends NodeSelector
     // is..........................................................................................................
 
     @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isAtSignSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketCloseSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isEqualsSymbol() {
         return false;
     }
@@ -106,34 +89,11 @@ public final class NodeSelectorGreaterThanSymbolParserToken extends NodeSelector
         return false;
     }
 
-    @Override
-    public boolean isOrSymbol() {
-        return false;
-    }
+    // operator priority................................................................................................
 
     @Override
-    public boolean isParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isParenthesisOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isParenthesisCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isSlashSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
+    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+        return NodeSelectorParserToken.greaterThan(tokens, text);
     }
 
     // Visitor................................................................................................

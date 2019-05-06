@@ -17,12 +17,15 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+
+import java.util.List;
 
 /**
  * Represents and symbol token.
  */
-public final class NodeSelectorAndSymbolParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorAndSymbolParserToken extends NodeSelectorBinaryOperandSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAndSymbolParserToken.class);
 
@@ -62,17 +65,7 @@ public final class NodeSelectorAndSymbolParserToken extends NodeSelectorSymbolPa
     }
 
     @Override
-    public boolean isAtSignSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketOpenSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isBracketCloseSymbol() {
+    public boolean isDivideSymbol() {
         return false;
     }
 
@@ -102,6 +95,21 @@ public final class NodeSelectorAndSymbolParserToken extends NodeSelectorSymbolPa
     }
 
     @Override
+    public boolean isMinusSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isModuloSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isMultiplySymbol() {
+        return false;
+    }
+
+    @Override
     public boolean isNotEqualsSymbol() {
         return false;
     }
@@ -112,28 +120,20 @@ public final class NodeSelectorAndSymbolParserToken extends NodeSelectorSymbolPa
     }
 
     @Override
-    public boolean isParameterSeparatorSymbol() {
+    public boolean isPlusSymbol() {
         return false;
     }
 
+    // operator priority..................................................................................................
+
     @Override
-    public boolean isParenthesisOpenSymbol() {
-        return false;
+    int operatorPriority() {
+        return LOWEST_PRIORITY;
     }
 
     @Override
-    public boolean isParenthesisCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isSlashSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
+    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+        return NodeSelectorParserToken.and(tokens, text);
     }
 
     // Visitor................................................................................................

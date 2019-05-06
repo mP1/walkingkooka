@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a predicate / open bracket symbol token.
  */
-public final class NodeSelectorBracketOpenSymbolParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorBracketOpenSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorBracketOpenSymbolParserToken.class);
 
@@ -47,6 +47,11 @@ public final class NodeSelectorBracketOpenSymbolParserToken extends NodeSelector
         return new NodeSelectorBracketOpenSymbolParserToken(this.value, text);
     }
 
+    @Override
+    void checkText(final String text) {
+        checkTextNullOrEmpty(text);
+    }
+
     // name................................................................................................
 
     @Override
@@ -55,11 +60,6 @@ public final class NodeSelectorBracketOpenSymbolParserToken extends NodeSelector
     }
 
     // is..........................................................................................................
-
-    @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
 
     @Override
     public boolean isAtSignSymbol() {
@@ -73,41 +73,6 @@ public final class NodeSelectorBracketOpenSymbolParserToken extends NodeSelector
 
     @Override
     public boolean isBracketCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOrSymbol() {
         return false;
     }
 

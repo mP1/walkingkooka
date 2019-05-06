@@ -67,6 +67,17 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
     }
 
     @Override
+    protected Visiting startVisit(final NodeSelectorAdditionParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorAdditionParserToken token) {
+        this.printer.exit(token);
+    }
+
+    @Override
     protected Visiting startVisit(final NodeSelectorAndParserToken token) {
         this.printer.enter(token);
         return super.startVisit(token);
@@ -74,6 +85,28 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
 
     @Override
     protected void endVisit(final NodeSelectorAndParserToken token) {
+        this.printer.exit(token);
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorAttributeParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorAttributeParserToken token) {
+        this.printer.exit(token);
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorDivisionParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorDivisionParserToken token) {
         this.printer.exit(token);
     }
 
@@ -128,6 +161,17 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
     }
 
     @Override
+    protected Visiting startVisit(final NodeSelectorGroupParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorGroupParserToken token) {
+        this.printer.exit(token);
+    }
+
+    @Override
     protected void endVisit(final NodeSelectorGreaterThanEqualsParserToken token) {
         this.printer.exit(token);
     }
@@ -151,6 +195,28 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
 
     @Override
     protected void endVisit(final NodeSelectorLessThanEqualsParserToken token) {
+        this.printer.exit(token);
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorModuloParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorModuloParserToken token) {
+        this.printer.exit(token);
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorMultiplicationParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
         this.printer.exit(token);
     }
 
@@ -184,6 +250,17 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
 
     @Override
     protected void endVisit(final NodeSelectorPredicateParserToken token) {
+        this.printer.exit(token);
+    }
+
+    @Override
+    protected Visiting startVisit(final NodeSelectorSubtractionParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorSubtractionParserToken token) {
         this.printer.exit(token);
     }
 

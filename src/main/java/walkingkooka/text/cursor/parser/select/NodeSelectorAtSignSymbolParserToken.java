@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents at sign symbol token that prefixes an attribute name.
  */
-public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorSymbolParserToken {
+public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAtSignSymbolParserToken.class);
 
@@ -47,6 +47,11 @@ public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorSymbo
         return new NodeSelectorAtSignSymbolParserToken(this.value, text);
     }
 
+    @Override
+    void checkText(final String text) {
+        checkTextNullOrWhitespace(text);
+    }
+
     // name................................................................................................
 
     @Override
@@ -55,11 +60,6 @@ public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorSymbo
     }
 
     // is..........................................................................................................
-
-    @Override
-    public boolean isAndSymbol() {
-        return false;
-    }
 
     @Override
     public boolean isAtSignSymbol() {
@@ -73,41 +73,6 @@ public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorSymbo
 
     @Override
     public boolean isBracketCloseSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOrSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEqualsSymbol() {
         return false;
     }
 
