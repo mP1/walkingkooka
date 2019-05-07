@@ -27,7 +27,7 @@ import java.util.List;
  * A {@link NodeSelector} that pushes any given {@link Node} to the {@link List}.
  */
 final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
+        extends AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link ChildrenNodeSelector} getter

@@ -28,7 +28,7 @@ import walkingkooka.tree.Node;
  */
 final class LastChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
+        AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link LastChildNodeSelector} getter
