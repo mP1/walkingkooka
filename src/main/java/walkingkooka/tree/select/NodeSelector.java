@@ -173,7 +173,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     public final NodeSelector<N, NAME, ANAME, AVALUE> expression(final ExpressionNode expression) {
         return TRUE.equals(expression) ?
-                this.setToString(this.toString() + "[true]") :
+                this.setToString(this.toString() + "[true()]") :
                 this.append(ExpressionNodeSelector.with(expression));
     }
 

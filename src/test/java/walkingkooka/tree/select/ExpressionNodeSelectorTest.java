@@ -45,7 +45,7 @@ final public class ExpressionNodeSelectorTest extends
                 .expression(ExpressionNode.booleanNode(true));
         this.checkEquals(selector, TestNode.relativeNodeSelector()
                 .children()
-                .setToString("child::*[true]"));
+                .setToString("child::*[true()]"));
     }
 
     @Test
@@ -183,7 +183,7 @@ final public class ExpressionNodeSelectorTest extends
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .expression(ExpressionNode.booleanNode(true)),
-                "child::*[true]");
+                "child::*[true()]");
     }
 
     @Test
@@ -191,7 +191,7 @@ final public class ExpressionNodeSelectorTest extends
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .expression(ExpressionNode.booleanNode(false)),
-                "child::*[false]");
+                "child::*[false()]");
     }
 
     @Test
@@ -200,7 +200,7 @@ final public class ExpressionNodeSelectorTest extends
                         .children()
                         .named(Names.string("ABC"))
                         .expression(ExpressionNode.booleanNode(true)),
-                "child::ABC[true]");
+                "child::ABC[true()]");
     }
 
     @Test

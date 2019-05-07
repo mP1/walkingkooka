@@ -164,7 +164,7 @@ enum NodeSelectorToStringBuilderMode {
     }
 
     final NodeSelectorToStringBuilderMode expression(final ExpressionNode expression, final StringBuilder b) {
-        return this.predicateOrExpression(expression.toString(), b);
+        return this.predicateOrExpression(NodeSelectorToStringBuilderExpressionNodeVisitor.toString(expression), b);
     }
 
     private NodeSelectorToStringBuilderMode predicateOrExpression(final String string, final StringBuilder b) {
