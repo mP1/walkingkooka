@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree.select;
@@ -21,9 +22,10 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-public final class NonLogicalNodeSelectorTest extends NodeSelectorTestCase2<NonLogicalNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class LogicalNodeSelectorTest extends NodeSelectorTestCase2<LogicalNodeSelector<TestNode, StringName, StringName, Object>> {
+
     @Override
-    public Class<NonLogicalNodeSelector<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(NonLogicalNodeSelector.class);
+    public Class<LogicalNodeSelector<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(LogicalNodeSelector.class);
     }
 }
