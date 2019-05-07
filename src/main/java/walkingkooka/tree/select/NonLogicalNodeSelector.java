@@ -46,7 +46,7 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
      */
     final N selectChild(final Optional<N> node,
                         final N parent,
-                        final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+                        final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return node.map(child -> this.select(child, context).parentOrFail())
                 .orElse(parent);
     }
@@ -55,7 +55,7 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
      * The default simply records the {@link Node} to the {@link NodeSelectorContext}.
      */
     @Override
-    N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.next.accept0(node, context);
     }
 

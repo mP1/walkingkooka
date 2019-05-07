@@ -1282,10 +1282,10 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 root.child(1));
     }
 
-    // indexed...........................................................................................
+    // number...........................................................................................
 
     @Test
-    public void testAbsoluteWildcardIndexEvaluate() {
+    public void testAbsoluteWildcardNumberEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -1294,7 +1294,43 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionEvaluateAndCheck("/*[1]", root, leaf1, leaf2);
+        this.parseExpressionEvaluateAndCheck("/*[2]",
+                root,
+                branch2);
+    }
+
+    @Test
+    public void testAbsoluteNamedNumberEvaluate() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode leaf1 = node("leaf1");
+        final TestNode branch1 = node("branch", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("branch", leaf2);
+
+        final TestNode root = node("root", TestNode.with("skip"), branch1, branch2);
+
+        this.parseExpressionEvaluateAndCheck("/branch[1]",
+                root,
+                branch1);
+    }
+
+    @Test
+    public void testAbsoluteNamedNumberEvaluate2() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode leaf1 = node("leaf1");
+        final TestNode branch1 = node("branch", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("branch", leaf2);
+
+        final TestNode root = node("root", TestNode.with("skip"), branch1, branch2);
+
+        this.parseExpressionEvaluateAndCheck("/branch[2]",
+                root,
+                branch2);
     }
 
     // last-child.......................................................................................

@@ -44,7 +44,7 @@ public abstract class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         final List<String> expected = Lists.array();
         expected.addAll(Lists.of(nodes));
 
-        selector.accept0(start, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
+        selector.accept(start, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
 
             @Override
             public void potential(final TestNode node) {

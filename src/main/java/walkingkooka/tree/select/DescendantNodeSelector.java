@@ -56,12 +56,12 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectChildren(node, context);
     }
 
     @Override
-    N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         final N node2 = super.select(node, context);
 
         return this.selectChildren(node2, context);

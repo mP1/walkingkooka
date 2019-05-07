@@ -54,12 +54,22 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return context.all();
+    }
+
+    @Override
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return context.all();
+    }
+
+    @Override
+    final N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return node.replace(context.selected(node));
     }
 
     @Override
-    N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         throw new NeverError(this.getClass() + ".select(Node, NodeSelectorContext)");
     }
 

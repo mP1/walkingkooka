@@ -54,7 +54,7 @@ final class ChildrenNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     // NodeSelector
 
     @Override
-    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectChildren(node, context);
     }
 

@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
+        NamedOrNodePredicateNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link NamedNodeSelector} factory
@@ -58,7 +58,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     }
 
     @Override
-    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.name.equals(node.name()) ?
                 this.select(node, context) :
                 node;

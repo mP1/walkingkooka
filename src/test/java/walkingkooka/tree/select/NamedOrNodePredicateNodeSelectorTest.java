@@ -18,27 +18,13 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Cast;
-import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.tree.TestNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class AndNodeSelectorNodeSelectorContextTest implements ClassTesting2<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>>,
-        NodeSelectorContextTesting<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>,
-                TestNode,
-                StringName,
-                StringName,
-                Object> {
-
+public final class NamedOrNodePredicateNodeSelectorTest implements ClassTesting2<NamedOrNodePredicateNodeSelector> {
     @Override
-    public AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
-        return AndNodeSelectorNodeSelectorContext.with(null);
-    }
-
-    @Override
-    public Class<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(AndNodeSelectorNodeSelectorContext.class);
+    public Class<NamedOrNodePredicateNodeSelector> type() {
+        return NamedOrNodePredicateNodeSelector.class;
     }
 
     @Override

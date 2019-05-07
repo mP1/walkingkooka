@@ -23,12 +23,10 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
  * A {@link NodeSelector} that selects {@link Node nodes} depending on the result of executing the {@link ExpressionNode}.
- * A boolean result may or may not select the current node, a number is used as an index to select the child.
  */
 final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
@@ -63,15 +61,23 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return context.expressionCreateIfNecessary();
+    }
+
+    @Override
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        //return context.expressionCreateIfNecessary();
+        return context.expression();
+    }
+
+    @Override
+    final N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         try {
-            final Object value = this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context));
-            if (value instanceof Boolean) {
-                result = this.attemptSelectSelfBooleanValue(node, Boolean.TRUE.equals(value), context);
-            } else {
-                result = this.attemptSelectChildWithNumber(node, value, context);
+            if (context.nodePositionTest(this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context)))) {
+                result = this.select(node, context);
             }
         } catch (final ConversionException | NodeSelectorException fail) {
         }
@@ -80,40 +86,10 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     /**
-     * The expression holds the xpath predicate. If a boolean is returned the current node is selected, for numbers,
-     * the child with that position is selected. Other value types always select the current node.
+     * The expression holds the xpath predicate. If the value is boolean true or a number equal to the current node position
+     * the {@link Node} is selected.
      */
     private final ExpressionNode expressionNode;
-
-    /**
-     * Select the node only if the boolean value is true.
-     */
-    private N attemptSelectSelfBooleanValue(final N node,
-                                            final boolean value,
-                                            final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return value ?
-                this.select(node, context):
-                node;
-    }
-
-    /**
-     * Converts the value to an index and attempts to select the child at that position.
-     */
-    private N attemptSelectChildWithNumber(final N node,
-                                           final Object value,
-                                           final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        N result = node;
-
-        final int index = context.convert(value, Integer.class) - INDEX_BIAS;
-        final List<N> children = node.children();
-        if (index >= 0 && index < children.size()) {
-            final N child = children.get(index);
-            context.potential(child);
-            result = this.select(child, context).parentOrFail();
-        }
-
-        return result;
-    }
 
     // Object
 
