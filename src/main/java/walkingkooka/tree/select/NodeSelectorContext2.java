@@ -29,21 +29,20 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     /**
      * {@see AllNodeSelectorContext2}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorContext2<N, NAME, ANAME, AVALUE> all(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodeSelectorContext2<N, NAME, ANAME, AVALUE> all(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return AllNodeSelectorContext2.with(context);
     }
-
-    /**
-     * {@see AndNodeSelectorNodeSelectorContext2}
-     */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AndNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> and(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return AndNodeSelectorNodeSelectorContext2.with(context);
-    }
-
+    
     /**
      * {@see ExpressionNodeSelectorNodeSelectorContext2}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> ExpressionNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> ExpressionNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return ExpressionNodeSelectorNodeSelectorContext2.with(context);
     }
 

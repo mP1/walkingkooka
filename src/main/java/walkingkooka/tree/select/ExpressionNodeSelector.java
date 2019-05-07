@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
+        NonTerminalNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link ExpressionNodeSelector} factory
@@ -104,7 +104,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+    boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return this.equals2(Cast.to(other));
     }
 

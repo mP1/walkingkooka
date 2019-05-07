@@ -38,7 +38,7 @@ abstract class AxisNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ext
     }
 
     @Override
-    final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+    final boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return true; // no extra properties...
     }
 }

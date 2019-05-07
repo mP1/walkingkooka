@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class ExpressionNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> {
+        NonTerminalNodeSelectorTestCase<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testWithNullPredicateFails() {

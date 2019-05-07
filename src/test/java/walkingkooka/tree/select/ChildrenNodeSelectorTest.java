@@ -24,7 +24,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
 final public class ChildrenNodeSelectorTest
-        extends NonLogicalNodeSelectorTestCase<ChildrenNodeSelector<TestNode, StringName, StringName, Object>> {
+        extends NonTerminalNodeSelectorTestCase<ChildrenNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testChildrenChildless() {

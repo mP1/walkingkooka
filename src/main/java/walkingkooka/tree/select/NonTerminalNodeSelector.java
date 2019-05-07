@@ -26,10 +26,10 @@ import java.util.Optional;
 /**
  * Base class for all non logical selectors.
  */
-abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NonCustomToStringNodeSelector<N, NAME, ANAME, AVALUE> {
 
-    NonLogicalNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    NonTerminalNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super();
         this.next = next;
     }
@@ -92,9 +92,9 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+    private boolean equals0(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return this.equals1(other) && this.next.equals(other.next);
     }
 
-    abstract boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other);
+    abstract boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other);
 }

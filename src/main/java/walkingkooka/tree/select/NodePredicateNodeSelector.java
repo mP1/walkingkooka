@@ -82,7 +82,7 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     }
 
     @Override
-    boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+    boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return this.equals2(Cast.to(other));
     }
 
