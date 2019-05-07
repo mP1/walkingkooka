@@ -56,8 +56,8 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
     }
 
     @Override
-    N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        final AndNodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> andContext = AndNodeSelectorNodeSelectorContext.with(context);
+    N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        final AndNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> andContext = NodeSelectorContext2.and(context);
         Set<N> all = null;
 
         // gather the final selected nodes, these will have been matched by all selectors.

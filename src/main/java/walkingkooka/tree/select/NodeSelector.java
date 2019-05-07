@@ -268,28 +268,38 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
-        return this.accept0(node, context);
+        return this.accept0(node, NodeSelectorContext2.all(context));
     }
 
     /**
-     * Sub classes must call this method which calls the observer and then immediately calls {@link #accept1(Node, NodeSelectorContext)}
+     * Sub classes must call this method which calls the observer and then immediately calls {@link #accept1(Node, NodeSelectorContext2)}
      */
-    final N accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N accept0(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         context.potential(node);
-        return this.accept1(node, context);
+
+        return this.accept1(node, this.beginPrepareContext(context));
     }
+
+    static int C = 0;
+
+    /**
+     * Sub classes except for {@link ExpressionNodeSelector} call next#finishPrepareContext
+     */
+    abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
+
+    abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
 
     /**
      * Sub classes must implement this to contain the core logic in testing if a node is actually selected.
      */
-    abstract N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
+    abstract N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
 
     // select...........................................................................................................
 
     /**
      * Selects all preceding siblings of the given {@link Node}.
      */
-    final N selectPrecedingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N selectPrecedingSiblings(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         final Optional<N> parent = node.parent();
@@ -312,7 +322,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Selects all following siblings of the given {@link Node}.
      */
-    final N selectFollowingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N selectFollowingSiblings(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         final Optional<N> parent = node.parent();
@@ -334,7 +344,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Selects all direct children of the given {@link Node node}.`
      */
-    final N selectChildren(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N selectChildren(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         Optional<N> next = node.firstChild();
@@ -355,7 +365,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Matches the parent only if one is present.
      */
-    final N selectParent(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N selectParent(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return node.parent()
                 .map(parent -> this.select(parent, context).children().get(node.index()))
                 .orElse(node);
@@ -364,7 +374,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Handles a selected {@link Node}
      */
-    abstract N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
+    abstract N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
 
     /**
      * Force sub classes to implement.

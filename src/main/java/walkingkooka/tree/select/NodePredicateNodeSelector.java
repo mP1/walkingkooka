@@ -30,7 +30,7 @@ import java.util.function.Predicate;
  */
 final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
+        NamedOrNodePredicateNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link NodePredicateNodeSelector} getter
@@ -61,7 +61,7 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     }
 
     @Override
-    final N accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.predicate.test(node) ?
                 this.select(node, context) :
                 node;

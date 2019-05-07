@@ -61,7 +61,17 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    final N select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return context;
+    }
+
+    @Override
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return context;
+    }
+
+    @Override
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         throw new NeverError(this.getClass().getName() + ".select(Node, NodeSelectorContext)");
     }
 

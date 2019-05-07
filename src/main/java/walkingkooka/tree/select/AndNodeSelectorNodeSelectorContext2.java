@@ -29,21 +29,20 @@ import java.util.Set;
 /**
  * The context used by {@link AndNodeSelector} which batches selected nodes so they can be ANDED with another batch.
  */
-final class AndNodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
+final class AndNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
+        AVALUE> extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> AndNodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return new AndNodeSelectorNodeSelectorContext<>(context);
+            AVALUE> AndNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new AndNodeSelectorNodeSelectorContext2<>(context);
     }
 
-    private AndNodeSelectorNodeSelectorContext(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        super();
-        this.context = context;
+    private AndNodeSelectorNodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        super(context);
     }
 
     /**
@@ -72,7 +71,25 @@ final class AndNodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AV
         return this.context.function(name, parameters);
     }
 
-    private final NodeSelectorContext<N, NAME, ANAME, AVALUE> context;
+    @Override
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> all() {
+        return this;
+    }
+
+    @Override
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    NodeSelectorContext2<N, NAME, ANAME, AVALUE> expression() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    boolean nodePositionTest(final Object value) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public String toString() {
