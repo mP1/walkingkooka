@@ -25,10 +25,10 @@ import walkingkooka.tree.Node;
 /**
  * Base class for all non logical (binary) selectors without any additional properties.
  */
-abstract class NonLogicalNodeSelector2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+abstract class AxisNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
 
-    NonLogicalNodeSelector2(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    AxisNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super(next);
     }
 

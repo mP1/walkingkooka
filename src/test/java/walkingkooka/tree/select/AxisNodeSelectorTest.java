@@ -21,10 +21,10 @@ package walkingkooka.tree.select;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class NonLogicalNodeSelector2Test implements ClassTesting2<NonLogicalNodeSelector2> {
+public final class AxisNodeSelectorTest implements ClassTesting2<AxisNodeSelector> {
     @Override
-    public Class<NonLogicalNodeSelector2> type() {
-        return NonLogicalNodeSelector2.class;
+    public Class<AxisNodeSelector> type() {
+        return AxisNodeSelector.class;
     }
 
     @Override

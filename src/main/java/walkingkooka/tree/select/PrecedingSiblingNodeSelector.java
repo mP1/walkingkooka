@@ -25,7 +25,7 @@ import walkingkooka.tree.Node;
  * A {@link NodeSelector} that selects all the preceding siblings of a given {@link Node}.
  */
 final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
+        extends AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link PrecedingSiblingNodeSelector} getter
