@@ -18,17 +18,13 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.Cast;
+import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
-public final class AxisNodeSelectorTest implements ClassTesting2<AxisNodeSelector> {
+public final class AxisNodeSelectorTest extends NodeSelectorTestCase2<AxisNodeSelector<TestNode, StringName, StringName, Object>> {
     @Override
-    public Class<AxisNodeSelector> type() {
-        return AxisNodeSelector.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public Class<AxisNodeSelector<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(AxisNodeSelector.class);
     }
 }
