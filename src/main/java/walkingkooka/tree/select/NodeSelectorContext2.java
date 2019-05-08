@@ -75,6 +75,11 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     abstract boolean nodePositionTest(final Object value);
 
     /**
+     * Returns the current node's position.
+     */
+    abstract int nodePosition();
+
+    /**
      * The active {@link NodeSelectorContext}.
      */
     final NodeSelectorContext<N, NAME, ANAME, AVALUE> context;

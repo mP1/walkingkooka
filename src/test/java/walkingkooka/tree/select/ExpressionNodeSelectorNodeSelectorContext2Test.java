@@ -95,6 +95,14 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
                 () -> "value: " + CharSequences.quoteIfChars(value));
     }
 
+    @Test
+    public void testNodePosition() {
+        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
+        assertEquals(INDEX,
+                context.nodePosition(),
+                () -> "nodePosition in " + context);
+    }
+
     @Override
     public ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> createContext() {
         final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = ExpressionNodeSelectorNodeSelectorContext2.with(new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {

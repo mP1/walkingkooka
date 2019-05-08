@@ -943,6 +943,54 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 leaf2);
     }
 
+    // function: position().......................................................................................
+
+    @Test
+    public void testWildcardExpressionPosition() {
+        this.parseExpressionAndCheck("*[position() = 2]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(
+                                ExpressionNode.equalsNode(
+                                        function("position"),
+                                        ExpressionNode.bigDecimal(BigDecimal.valueOf(2))
+                                )));
+    }
+
+    @Test
+    public void testChildrenNamedExpressionPosition() {
+        this.parseExpressionAndCheck("ABC123[position() = 2]",
+                TestNode.relativeNodeSelector()
+                        .children()
+                        .named(nameAbc123())
+                        .expression(
+                                ExpressionNode.equalsNode(
+                                        function("position"),
+                                        ExpressionNode.bigDecimal(BigDecimal.valueOf(2))
+                                )));
+    }
+
+    @Test
+    public void testWildcardExpressionPositionEvaluate() {
+        final TestNode leaf1 = node("leaf1");
+        final TestNode branch1 = node("branch1", leaf1);
+
+        final TestNode leaf2 = node("leaf2");
+        final TestNode branch2 = node("branch2", leaf2);
+
+        final TestNode leaf3a = node("leaf3a");
+        final TestNode leaf3b = node("leaf3b");
+        final TestNode branch3 = node("branch3", leaf3a, leaf3b);
+
+        final TestNode root = node("root", branch1, branch2, branch3);
+
+        this.parseExpressionEvaluateAndCheck("*[position() = 2]",
+                root,
+                branch2);
+        this.parseExpressionEvaluateAndCheck("*[position() = 2]",
+                root.child(0));
+    }
+
     // multiple predicates ........................................................................................................
 
     @Test

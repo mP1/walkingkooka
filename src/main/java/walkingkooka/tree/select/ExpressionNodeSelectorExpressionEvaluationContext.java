@@ -50,7 +50,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
             ANAME extends Name,
             AVALUE>
     ExpressionNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                                   final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+                                                                                   final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return new ExpressionNodeSelectorExpressionEvaluationContext<>(node, context);
     }
 
@@ -58,7 +58,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
      * Private ctor use factory.
      */
     private ExpressionNodeSelectorExpressionEvaluationContext(final N node,
-                                                              final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+                                                              final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         super();
         this.node = node;
         this.context = context;
@@ -66,12 +66,20 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
 
     @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+        return POSITION.equals(name) ?
+                this.context.nodePosition() :
+                    this.dispatchFunction(name, parameters);
+    }
+
+    private final static ExpressionNodeName POSITION = ExpressionNodeName.with("position");
+
+    private Object dispatchFunction(final ExpressionNodeName name, final List<Object> parameters) {
         final List<Object> thisAndParameters = Lists.array();
         thisAndParameters.add(this.node);
         thisAndParameters.addAll(parameters);
         return this.context.function(name, Lists.readOnly(parameters));
     }
-
+    
     /**
      * The reference should be an attribute name, cast and find the owner attribute.
      */
@@ -114,7 +122,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
         return this.context.convert(value, target);
     }
 
-    private final NodeSelectorContext<N, NAME, ANAME, AVALUE> context;
+    private final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context;
 
     @Override
     public String currencySymbol() {
