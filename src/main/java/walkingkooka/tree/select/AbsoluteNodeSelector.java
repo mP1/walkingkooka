@@ -73,7 +73,7 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+    final boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return true;
     }
 

@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AbsoluteNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
+        NonTerminalNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
     private final static Predicate<TestNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");

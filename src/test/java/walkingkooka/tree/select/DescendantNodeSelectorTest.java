@@ -23,7 +23,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
 final public class DescendantNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<DescendantNodeSelector<TestNode, StringName, StringName, Object>> {
+        NonTerminalNodeSelectorTestCase<DescendantNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testDescendantChildless() {

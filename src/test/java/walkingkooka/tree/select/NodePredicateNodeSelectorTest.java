@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class NodePredicateNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<NodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
+        NonTerminalNodeSelectorTestCase<NodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
 
     // constants
 

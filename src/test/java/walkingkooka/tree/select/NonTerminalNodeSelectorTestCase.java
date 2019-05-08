@@ -31,10 +31,10 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
+public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
         extends NodeSelectorTestCase3<S> {
 
-    NonLogicalNodeSelectorTestCase() {
+    NonTerminalNodeSelectorTestCase() {
         super();
     }
 

@@ -26,7 +26,7 @@ import walkingkooka.tree.TestNode;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NamedNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
+        NonTerminalNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static StringName NAME = Names.string("never");
 
