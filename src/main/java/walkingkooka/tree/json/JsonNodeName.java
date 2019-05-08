@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNodeName;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * The name of any property of object key.
@@ -88,6 +89,17 @@ public final class JsonNodeName implements Name,
     }
 
     private final String name;
+
+    // JsonNodeNameFromJsonNodeWithTypeFactoryFunction.....................................................................
+
+    /**
+     * When the returned factory is invoked, this property name is used to retrieve a type name
+     * from the given {@link JsonObjectNode object} and then used to convert the factory parameter to an {@link Object}.
+     */
+    public <T> Function<JsonNode, T> fromJsonNodeWithTypeFactory(final JsonObjectNode source,
+                                                                 final Class<T> superType) {
+        return JsonNodeNameFromJsonNodeWithTypeFactoryFunction.with(this, source, superType);
+    }
 
     // HasSearchNode.................................................................................................
 
