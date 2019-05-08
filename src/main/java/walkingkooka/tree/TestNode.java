@@ -28,6 +28,8 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.util.Iterator;
@@ -36,6 +38,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -294,5 +297,16 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
      */
     public static NodeSelector<TestNode, StringName, StringName, Object> relativeNodeSelector() {
         return NodeSelector.relative();
+    }
+
+    /**
+     * Creates a {@link NodeSelector} for {@link TestNode} from a {@link NodeSelectorExpressionParserToken}.
+     */
+    public static NodeSelector<TestNode, StringName, StringName, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                           final Predicate<ExpressionNodeName> functions) {
+        return NodeSelector.parserToken(token,
+                n -> Names.string(n.value()),
+                functions,
+                TestNode.class);
     }
 }

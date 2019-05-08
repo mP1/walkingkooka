@@ -20,8 +20,10 @@ package walkingkooka.tree.pojo;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * A {@link Node} wrapper around regular java POJOs, supporting read-only and write operations including
@@ -348,5 +351,16 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
      */
     public static NodeSelector<PojoNode, PojoName, PojoNodeAttributeName, Object> relativeNodeSelector() {
         return NodeSelector.relative();
+    }
+
+    /**
+     * Creates a {@link NodeSelector} for {@link PojoNode} from a {@link NodeSelectorExpressionParserToken}.
+     */
+    public static NodeSelector<PojoNode, PojoName, PojoNodeAttributeName, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                                    final Predicate<ExpressionNodeName> functions) {
+        return NodeSelector.parserToken(token,
+                n -> PojoName.property(n.value()),
+                functions,
+                PojoNode.class);
     }
 }
