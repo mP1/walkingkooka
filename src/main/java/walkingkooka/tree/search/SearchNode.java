@@ -23,8 +23,10 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.math.BigDecimal;
@@ -37,6 +39,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * A {@link Node} supporting numerous value types, that can be searched over.
@@ -530,5 +533,16 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
      */
     public static NodeSelector<SearchNode, SearchNodeName, SearchNodeAttributeName, String> relativeNodeSelector() {
         return NodeSelector.relative();
+    }
+
+    /**
+     * Creates a {@link NodeSelector} for {@link SearchNode} from a {@link NodeSelectorExpressionParserToken}.
+     */
+    public static NodeSelector<SearchNode, SearchNodeName, SearchNodeAttributeName, String> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                                              final Predicate<ExpressionNodeName> functions) {
+        return NodeSelector.parserToken(token,
+                n -> SearchNodeName.with(n.value()),
+                functions,
+                SearchNode.class);
     }
 }

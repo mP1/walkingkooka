@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.TypeNameTesting;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.visit.VisitableTesting;
@@ -31,6 +32,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -73,6 +75,17 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector relativeNodeSelector()"));
         assertNotEquals(null, method.invoke(null));
+    }
+
+    @Test
+    default void testPublicStaticMethodNodeSelectorExpressionParserToken() throws Exception {
+        final Method method = Arrays.stream(this.type().getMethods())
+                .filter(MethodAttributes.STATIC::is)
+                .filter(m -> m.getReturnType() == NodeSelector.class)
+                .filter(m -> m.getName().equals("nodeSelectorExpressionParserToken"))
+                .filter(m -> Arrays.equals(m.getParameterTypes(), new Object[]{NodeSelectorExpressionParserToken.class, Predicate.class}))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector nodeSelectorExpressionParserToken(NodeSelectorExpressionParserToken, Predicate)"));
     }
 
     @Test

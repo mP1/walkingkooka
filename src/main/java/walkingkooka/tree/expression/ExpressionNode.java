@@ -23,7 +23,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.file.FilesystemNode;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.select.NodeSelector;
@@ -38,6 +40,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionNodeName, Name, Object>,
         HasJsonNode {
@@ -667,5 +670,16 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      */
     public static NodeSelector<ExpressionNode, ExpressionNodeName, Name, Object> relativeNodeSelector() {
         return NodeSelector.relative();
+    }
+
+    /**
+     * Creates a {@link NodeSelector} for {@link FilesystemNode} from a {@link NodeSelectorExpressionParserToken}.
+     */
+    public static NodeSelector<ExpressionNode, ExpressionNodeName, Name, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                                   final Predicate<ExpressionNodeName> functions) {
+        return NodeSelector.parserToken(token,
+                n -> ExpressionNodeName.with(n.value()),
+                functions,
+                ExpressionNode.class);
     }
 }

@@ -33,7 +33,9 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Whitespace;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.TraversableHasTextOffset;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
@@ -51,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Base class for all dom {@link walkingkooka.tree.Node nodes}.
@@ -705,5 +708,16 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
      */
     public static NodeSelector<XmlNode, XmlName, XmlAttributeName, String> relativeNodeSelector() {
         return NodeSelector.relative();
+    }
+
+    /**
+     * Creates a {@link NodeSelector} for {@link XmlNode} from a {@link NodeSelectorExpressionParserToken}.
+     */
+    public static NodeSelector<XmlNode, XmlName, XmlAttributeName, String> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                             final Predicate<ExpressionNodeName> functions) {
+        return NodeSelector.parserToken(token,
+                n -> XmlName.element(n.value()),
+                functions,
+                XmlNode.class);
     }
 }

@@ -36,8 +36,10 @@ import walkingkooka.text.cursor.parser.json.JsonNodeParserContext;
 import walkingkooka.text.cursor.parser.json.JsonNodeParserContexts;
 import walkingkooka.text.cursor.parser.json.JsonNodeParserToken;
 import walkingkooka.text.cursor.parser.json.JsonNodeParsers;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.select.NodeSelector;
 
@@ -46,6 +48,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * Base class for all json nodes, all of which are immutable. Note that performing a seemingly mutable operation
@@ -537,5 +540,16 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      */
     public static NodeSelector<JsonNode, JsonNodeName, Name, Object> relativeNodeSelector() {
         return NodeSelector.relative();
+    }
+
+    /**
+     * Creates a {@link NodeSelector} for {@link JsonNode} from a {@link NodeSelectorExpressionParserToken}.
+     */
+    public static NodeSelector<JsonNode, JsonNodeName, Name, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                       final Predicate<ExpressionNodeName> functions) {
+        return NodeSelector.parserToken(token,
+                n -> JsonNodeName.with(n.value()),
+                functions,
+                JsonNode.class);
     }
 }

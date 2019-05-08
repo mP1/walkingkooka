@@ -22,8 +22,10 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.io.IOException;
@@ -42,6 +44,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * A {@link FilesystemNode} represents a file or directory under a path.
@@ -332,5 +335,16 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
      */
     public static NodeSelector<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> relativeNodeSelector() {
         return NodeSelector.relative();
+    }
+
+    /**
+     * Creates a {@link NodeSelector} for {@link FilesystemNode} from a {@link NodeSelectorExpressionParserToken}.
+     */
+    public static NodeSelector<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                                                          final Predicate<ExpressionNodeName> functions) {
+        return NodeSelector.parserToken(token,
+                n -> FilesystemNodeName.with(n.value()),
+                functions,
+                FilesystemNode.class);
     }
 }

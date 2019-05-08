@@ -20,14 +20,18 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * A {@link Node} readonly wrapper around a {@link ParserToken}. This allows selectors to match and replace nodes typically
@@ -209,5 +213,16 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
      */
     public static NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> relativeNodeSelector() {
         return NodeSelector.relative();
+    }
+
+    /**
+     * Creates a {@link NodeSelector} for {@link TestNode} from a {@link NodeSelectorExpressionParserToken}.
+     */
+    public static NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                                                             final Predicate<ExpressionNodeName> functions) {
+        return NodeSelector.parserToken(token,
+                n -> ParserTokenNodeName.with(n.value()),
+                functions,
+                ParserTokenNode.class);
     }
 }
