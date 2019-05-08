@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.patch;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.visit.VisitorTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,6 +30,20 @@ public abstract class NodePatchFromJsonObjectNodePropertyVisitorTestCase<V exten
     NodePatchFromJsonObjectNodePropertyVisitorTestCase() {
         super();
     }
+
+    @Test
+    public final void testToString() {
+        final JsonObjectNode patch = JsonNode.object()
+                .set(NodePatch.FROM_PROPERTY, JsonNode.string("from123"));
+        this.toStringAndCheck(this.createVisitor(patch), patch.toString());
+    }
+
+    @Override
+    public V createVisitor() {
+        return this.createVisitor(null);
+    }
+
+    abstract V createVisitor(final JsonObjectNode patch);
 
     @Override
     public final MemberVisibility typeVisibility() {
