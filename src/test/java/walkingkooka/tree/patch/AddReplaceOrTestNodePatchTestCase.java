@@ -89,6 +89,18 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
     }
 
     @Test
+    public final void testFromJsonNode3() {
+        this.fromJsonNodeAndCheck2("[{\n" +
+                        "  \"op\": \"$OP\",\n" +
+                        "  \"path-name-type\": \"json-property-name\",\n" +
+                        "  \"path\": \"/b2\",\n" +
+                        "  \"value\": \"value2\",\n" +
+                        "  \"value-type\": \"json-string\"\n" +
+                        "}]",
+                this.createPatch(this.path2(), this.value2()));
+    }
+
+    @Test
     public final void testFromJsonNodeMissingPathNameType() {
         this.fromJsonNodeAndCheck2("[{\n" +
                         "  \"op\": \"$OP\",\n" +

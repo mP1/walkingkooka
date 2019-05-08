@@ -19,55 +19,49 @@
 package walkingkooka.tree.patch;
 
 import walkingkooka.Cast;
-import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
+
+import java.util.function.Function;
 
 final class AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
 
-    static AddNodePatch<?, ?> add(final JsonNode patch,
+    static AddNodePatch<?, ?> add(final JsonObjectNode patch,
                                   final NodePatchFromJsonFormat format) {
         final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format);
         visitor.accept(patch);
         return AddNodePatch.with(visitor.path(), Cast.to(visitor.value()));
     }
 
-    static ReplaceNodePatch<?, ?> replace(final JsonNode patch,
+    static ReplaceNodePatch<?, ?> replace(final JsonObjectNode patch,
                                           final NodePatchFromJsonFormat format) {
         final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format);
         visitor.accept(patch);
         return ReplaceNodePatch.with(visitor.path(), Cast.to(format.valueOrFail(visitor)));
     }
 
-    static TestNodePatch<?, ?> test(final JsonNode patch,
+    static TestNodePatch<?, ?> test(final JsonObjectNode patch,
                                     final NodePatchFromJsonFormat format) {
         final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format);
         visitor.accept(patch);
         return TestNodePatch.with(visitor.path(), Cast.to(format.valueOrFail(visitor)));
     }
 
-    AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(final JsonNode patch,
+    AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
                                                                final NodePatchFromJsonFormat format) {
         super(patch, format);
     }
 
     @Override
-    void visitFrom(final JsonStringNode from) {
+    void visitFrom(final String from) {
         this.unknownPropertyPresent(NodePatch.FROM_PROPERTY);
     }
 
     // VALUE TYPE .............................................................................................
 
     void visitValueType(final JsonNode valueType) {
-        this.valueType = typeOrFail(valueType, NodePatch.VALUE_TYPE_PROPERTY);
-    }
-
-    private Class<?> valueType;
-
-    Class<Name> valueTypeOrFail() {
-        return Cast.to(propertyOrFail(this.valueType, NodePatch.VALUE_TYPE_PROPERTY));
     }
 
     // VALUE ........................................................................................................
@@ -84,4 +78,16 @@ final class AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor extends N
      * Once all properties are visited this will be converted into a {@link NodePointer}
      */
     JsonNode value;
+
+    /**
+     * Returns a factory that uses the {@link NodePatch#VALUE_TYPE_PROPERTY} when creating values from json.
+     */
+    final Function<JsonNode, Node<?, ?, ?, ?>> valueFactory() {
+        if(null == this.valueFactory) {
+            this.valueFactory = Cast.to(NodePatch.VALUE_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(this.patch, Node.class));
+        }
+        return this.valueFactory;
+    }
+
+    private Function<JsonNode, Node<?, ?, ?, ?>> valueFactory;
 }

@@ -20,12 +20,12 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 
 final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
 
-    static CopyNodePatch<?, ?> copy(final JsonNode patch,
+    static CopyNodePatch<?, ?> copy(final JsonObjectNode patch,
                                     final NodePatchFromJsonFormat format) {
         final CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch,
                 format);
@@ -33,7 +33,7 @@ final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePat
         return CopyNodePatch.with(Cast.to(visitor.from()), visitor.path());
     }
 
-    static MoveNodePatch<?, ?> move(final JsonNode patch,
+    static MoveNodePatch<?, ?> move(final JsonObjectNode patch,
                                     final NodePatchFromJsonFormat format) {
         final CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch,
                 format);
@@ -42,14 +42,14 @@ final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePat
     }
 
     // VisibleForTesting
-    CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(final JsonNode patch,
+    CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
                                                          final NodePatchFromJsonFormat format) {
         super(patch, format);
     }
 
     // FROM ........................................................................................
 
-    void visitFrom(final JsonStringNode from) {
+    void visitFrom(final String from) {
         this.from = from;
     }
 
@@ -60,7 +60,7 @@ final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePat
     /**
      * Once all properties are visited this will be converted into a {@link NodePointer}
      */
-    JsonStringNode from;
+    String from;
 
     @Override
     void visitValueType(final JsonNode valueType) {

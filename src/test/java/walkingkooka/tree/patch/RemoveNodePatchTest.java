@@ -140,6 +140,16 @@ public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveN
     }
 
     @Test
+    public void testToJsonNodePathNameTypeRequired2() {
+        this.toJsonNodeAndCheck(this.createPatch(NodePointer.named(JsonNodeName.with("abc"), JsonNode.class)),
+                "[{\n" +
+                        "  \"op\": \"remove\",\n" +
+                        "  \"path\": \"/abc\",\n" +
+                        "  \"path-name-type\": \"json-property-name\"\n" +
+                        "}]");
+    }
+
+    @Test
     public void testToJsonNodeRoundtrip() {
         this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createPatch()
                 .remove(this.path2()));
