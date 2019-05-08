@@ -19,10 +19,15 @@
 package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTesting;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -94,6 +99,35 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     @Test
     public void testToJsonNodeRoundtripIndex2() {
         this.toJsonNodeRoundTripTwiceAndCheck(JsonNodeName.index(JsonNodeName.INDEX_CACHE_SIZE + 1));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeFactory() {
+        final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
+        final Function<JsonNode, EmailAddress> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
+                        .set(typeNameProperty, HasJsonNode.typeName(EmailAddress.class).get()),
+                EmailAddress.class);
+
+        final EmailAddress email = EmailAddress.parse("user1@example.com");
+        assertEquals(email, factory.apply(email.toJsonNode()));
+    }
+
+    @Test
+    public void testFromJsonNodeWithTypeFactoryFromArray() {
+        final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
+        final Function<JsonNode, EmailAddress> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
+                        .set(typeNameProperty, HasJsonNode.typeName(EmailAddress.class).get()),
+                EmailAddress.class);
+
+        final EmailAddress email1 = EmailAddress.parse("user1@example.com");
+        final EmailAddress email2 = EmailAddress.parse("user23@example.com");
+        final EmailAddress email3 = EmailAddress.parse("user345@example.com");
+
+        assertEquals(Lists.of(email1, email2, email3),
+                Lists.of(email1, email2, email3).stream()
+                        .map(e -> e.toJsonNode())
+                        .map(factory::apply)
+                        .collect(Collectors.toList()));
     }
 
     @Override
