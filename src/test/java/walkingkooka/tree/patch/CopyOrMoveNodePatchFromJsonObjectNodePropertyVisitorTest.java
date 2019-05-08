@@ -18,10 +18,12 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.tree.json.JsonObjectNode;
+
 public final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitorTest extends NodePatchFromJsonObjectNodePropertyVisitorTestCase<CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor> {
     @Override
-    public CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor createVisitor() {
-        return new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(null, null);
+    CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor createVisitor(final JsonObjectNode patch) {
+        return new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch, null);
     }
 
     @Override

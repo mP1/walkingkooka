@@ -51,10 +51,12 @@ final class NodePatchToJsonFormatNodePointerVisitor<N extends Node<N, NAME, ?, ?
         return Visiting.SKIP;
     }
 
-    private Optional<JsonStringNode> pathNameType = Optional.empty();
+    // VisibleForTesting
+    Optional<JsonStringNode> pathNameType = Optional.empty();
 
     @Override
     public String toString() {
-        return String.valueOf(this.pathNameType);
+        return this.pathNameType.map(p -> p.toString())
+                .orElse("");
     }
 }

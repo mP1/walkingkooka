@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitorTesting;
 import walkingkooka.type.MemberVisibility;
@@ -53,6 +54,20 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
         assertEquals(Optional.ofNullable(typeName).map(JsonNode::string),
                 NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonNodeName::with, JsonNode.class)),
                 () -> "path: " + CharSequences.quoteAndEscape(path));
+    }
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(new NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>(), "");
+    }
+
+    @Test
+    public void testToString2() {
+        final JsonStringNode type = JsonNode.string(this.getClass().getName());
+
+        final NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> visitor = new NodePatchToJsonFormatNodePointerVisitor<>();
+        visitor.pathNameType = Optional.of(type);
+        this.toStringAndCheck(visitor, type.toString());
     }
 
     @Override
