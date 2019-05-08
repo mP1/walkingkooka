@@ -18,24 +18,24 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.visit.Visitor;
 
+import java.util.function.Function;
+
 /**
  * A visitor used by all {@link NodePatch} sub classes to build a {@link NodePatch} from a {@link JsonNode}.
  */
 abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNode> {
 
-    NodePatchFromJsonObjectNodePropertyVisitor(final JsonNode patch,
+    NodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
                                                final NodePatchFromJsonFormat format) {
         super();
         this.patch = patch;
@@ -55,10 +55,10 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
                 case NodePatch.OP:
                     break;
                 case NodePatch.FROM:
-                    this.visitFrom(stringOrFail(property, propertyName));
+                    this.visitFrom(property.stringValueOrFail());
                     break;
                 case NodePatch.PATH:
-                    this.visitPath(stringOrFail(property, propertyName));
+                    this.visitPath(property.stringValueOrFail());
                     break;
                 case NodePatch.VALUE:
                     this.visitValue(property);
@@ -80,10 +80,10 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
                     this.visitPathNameType(property);
                     break;
                 case NodePatch.FROM:
-                    this.visitFrom(stringOrFail(property, propertyName));
+                    this.visitFrom(property.stringValueOrFail());
                     break;
                 case NodePatch.PATH:
-                    this.visitPath(stringOrFail(property, propertyName));
+                    this.visitPath(property.stringValueOrFail());
                     break;
                 case NodePatch.VALUE_TYPE:
                     this.visitValueType(property);
@@ -100,22 +100,28 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
     // PATH NAME TYPE .............................................................................................
 
     final void visitPathNameType(final JsonNode pathNameType) {
-        this.pathNameType = typeOrFail(pathNameType, NodePatch.PATH_NAME_TYPE_PROPERTY);
+        pathNameType.stringValueOrFail();
     }
 
-    private Class<?> pathNameType;
-
-    final Class<Name> pathNameTypeOrFail() {
-        return Cast.to(propertyOrFail(this.pathNameType, NodePatch.PATH_NAME_TYPE_PROPERTY));
+    /**
+     * Getter that returns a factory that assumes {@link NodePatch#PATH_NAME_TYPE_PROPERTY} holds the type name.
+     */
+    final Function<JsonNode, Name> pathNameFactory() {
+        if(null == this.pathNameFactory) {
+            this.pathNameFactory =  NodePatch.PATH_NAME_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(this.patch, Name.class);
+        }
+        return this.pathNameFactory;
     }
+
+    private Function<JsonNode, Name> pathNameFactory;
 
     // FROM ........................................................................................................
 
-    abstract void visitFrom(final JsonStringNode from);
+    abstract void visitFrom(final String from);
 
     // PATH ........................................................................................................
 
-    final void visitPath(final JsonStringNode path) {
+    final void visitPath(final String path) {
         this.path = path;
     }
 
@@ -126,15 +132,15 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
     /**
      * Once all properties are visited this will be converted into a {@link NodePointer}
      */
-    JsonStringNode path;
+    String path;
 
     /**
      * Creates a {@link NodePointer} from the {@link JsonStringNode} using the property name in any error messages.
      */
-    final NodePointer<?, ?> pathOrFail(final JsonStringNode node,
+    final NodePointer<?, ?> pathOrFail(final String path,
                                        final JsonNodeName property) {
         try {
-            return NodePointer.parse(node.value(),
+            return NodePointer.parse(path,
                     this.format.nameFactory(this),
                     Node.class);
         } catch (final RuntimeException cause) {
@@ -170,29 +176,12 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
     /**
      * The json object representing the patch.
      */
-    final JsonNode patch;
+    final JsonObjectNode patch;
 
     final NodePatchFromJsonFormat format;
 
     @Override
     public final String toString() {
         return this.patch.toString();
-    }
-
-    // helpers....................................................................................................
-
-    static JsonStringNode stringOrFail(final JsonNode node, final JsonNodeName property) {
-        if (!node.isString()) {
-            throw new IllegalArgumentException(property + " is not a String with type=" + node);
-        }
-        return node.cast();
-    }
-
-    /**
-     * Returns the {@link Class} assuming the node is a string or fails throwing a {@link JsonNodeException}
-     */
-    static Class<?> typeOrFail(final JsonNode node, final JsonNodeName property) {
-        return HasJsonNode.registeredType(stringOrFail(node, property))
-                .orElseThrow(() -> new IllegalArgumentException("Type doesnt support from Json: " + node));
     }
 }

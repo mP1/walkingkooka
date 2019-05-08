@@ -46,13 +46,12 @@ final class HasJsonNodeNodePatchFromJsonFormat extends NodePatchFromJsonFormat {
 
     @Override
     Function<String, Name> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor) {
-        return (value) -> JsonNode.string(value).fromJsonNode(visitor.pathNameTypeOrFail());
+        return (string) -> visitor.pathNameFactory().apply(JsonNode.string(string));
     }
 
     @Override
     Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor) {
-        return Cast.to(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY)
-                .fromJsonNode(visitor.valueTypeOrFail()));
+        return Cast.to(visitor.valueFactory().apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY)));
     }
 
     @Override

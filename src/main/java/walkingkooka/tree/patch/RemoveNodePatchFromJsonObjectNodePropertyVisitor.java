@@ -19,11 +19,11 @@
 package walkingkooka.tree.patch;
 
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonObjectNode;
 
 final class RemoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
 
-    static RemoveNodePatch<?, ?> remove(final JsonNode patch,
+    static RemoveNodePatch<?, ?> remove(final JsonObjectNode patch,
                                         final NodePatchFromJsonFormat format) {
         final RemoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new RemoveNodePatchFromJsonObjectNodePropertyVisitor(patch, format);
         visitor.accept(patch);
@@ -31,13 +31,13 @@ final class RemoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFr
     }
 
     // VisibleForTesting
-    RemoveNodePatchFromJsonObjectNodePropertyVisitor(final JsonNode node,
+    RemoveNodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode node,
                                                      final NodePatchFromJsonFormat format) {
         super(node, format);
     }
 
     @Override
-    void visitFrom(final JsonStringNode from) {
+    void visitFrom(final String from) {
         this.unknownPropertyPresent(NodePatch.FROM_PROPERTY);
     }
 
