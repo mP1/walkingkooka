@@ -77,9 +77,4 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
             Object> selector) {
         return Cast.to(this.createSelector().append(selector));
     }
-
-    @Override
-    final Class<? extends NodeSelector> callingNodeSelector() {
-        return TerminalNodeSelector.class;
-    }
 }

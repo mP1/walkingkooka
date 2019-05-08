@@ -187,7 +187,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
      * Scan the call stack, expecting the callingNodeSelector ignoring contexts to be {@link TerminalNodeSelector}.
      */
     private void checkSelectCaller() {
-        final Class<?> caller = this.callingNodeSelector();
+        final Class<?> caller = TerminalNodeSelector.class;
 
         assertEquals(Optional.of(caller.getSimpleName()),
                 Arrays.stream(Thread.currentThread().getStackTrace())
@@ -196,11 +196,6 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                         .findFirst(),
                 () -> "Expected callingNodeSelector to be " + caller.getName());
     }
-
-    /**
-     * Should return {@link TerminalNodeSelector} except for {@link AndNodeSelector} tests.
-     */
-    abstract Class<? extends NodeSelector> callingNodeSelector();
 
     private String simpleClassName(final StackTraceElement element) {
         final String className = element.getClassName();
