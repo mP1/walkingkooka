@@ -440,6 +440,10 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
                 this.setParent(NO_PARENT, this.defaultName(), NO_INDEX);
     }
 
+    /**
+     * Returns the default name for this type. This is used to assign a default name for a {@link Node} when it has no
+     * parent.
+     */
     abstract JsonNodeName defaultName();
 
     // Object .......................................................................................................

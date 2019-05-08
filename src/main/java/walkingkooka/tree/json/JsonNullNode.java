@@ -67,18 +67,22 @@ public final class JsonNullNode extends JsonLeafNode<Void> {
 
     // HasJsonNode...............................................................................................
 
+    @Override
     <T> T fromJsonNode0(final Class<T> type) {
         return null;
     }
 
+    @Override
     <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
         return null;
     }
 
+    @Override
     <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
         return null;
     }
 
+    @Override
     <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
         return null;
     }

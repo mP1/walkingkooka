@@ -116,6 +116,8 @@ public final class JsonNumberNode extends JsonLeafNonNullNode<Double> {
         visitor.visit(this);
     }
 
+    // JsonNode .................................................................................................
+
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof JsonNumberNode;
