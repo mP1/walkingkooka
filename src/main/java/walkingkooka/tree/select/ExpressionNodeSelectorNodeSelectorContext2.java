@@ -97,6 +97,11 @@ final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, A
         return result;
     }
 
+    @Override
+    int nodePosition() {
+        return this.position;
+    }
+
     // VisibleForTesting
     int position = NodeSelector.INDEX_BIAS;
 

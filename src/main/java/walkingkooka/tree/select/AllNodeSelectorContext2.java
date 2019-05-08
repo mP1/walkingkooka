@@ -79,6 +79,11 @@ final class AllNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
+    int nodePosition() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String toString() {
         return this.context.toString();
     }
