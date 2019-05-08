@@ -56,7 +56,8 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
                 .cast();
     }
 
-    @Override final JsonNode create(final JsonNodeName name, final int index) {
+    @Override
+    final JsonNode create(final JsonNodeName name, final int index) {
         return this.create(name, index, this.value);
     }
 

@@ -72,13 +72,15 @@ public final class JsonNodeName implements Name,
         return new JsonNodeName(name.substring("Json".length(), name.length() - Name.class.getSimpleName().length()));
     }
 
-    JsonNodeName(final int index) {
+    private JsonNodeName(final int index) {
         this(String.valueOf(index));
     }
 
-    JsonNodeName(final String name) {
+    private JsonNodeName(final String name) {
         this.name = name;
     }
+
+    // Value.........................................................................................................
 
     @Override
     public String value() {
@@ -87,6 +89,8 @@ public final class JsonNodeName implements Name,
 
     private final String name;
 
+    // HasSearchNode.................................................................................................
+
     /**
      * Creates the {@link SearchNodeName} for this node name. Only used by {@link JsonObjectNode#toSearchNode()}.
      */
@@ -94,7 +98,7 @@ public final class JsonNodeName implements Name,
         return SearchNodeName.with(this.name);
     }
 
-    // HasJsonNode...............................................................................
+    // HasJsonNode..................................................................................................
 
     /**
      * Accepts a json string holding a {@link JsonNodeName}
@@ -114,9 +118,10 @@ public final class JsonNodeName implements Name,
         return JsonNode.string(this.name);
     }
 
-    // Object..................................................................................................
+    // Object........................................................................................................
 
-    public final int hashCode() {
+    @Override
+    public int hashCode() {
         return this.name.hashCode();
     }
 

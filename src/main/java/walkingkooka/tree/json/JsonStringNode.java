@@ -111,7 +111,7 @@ public final class JsonStringNode extends JsonLeafNonNullNode<String> {
         return Optional.of(this);
     }
 
-    // Visitor .................................................................................................
+    // JsonNodeVisitor .................................................................................................
 
     @Override
     public void accept(final JsonNodeVisitor visitor) {

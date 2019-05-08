@@ -254,15 +254,18 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
 
     // HasJsonNode...............................................................................................
 
-    @Override <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
+    @Override
+    <T> List<T> fromJsonNodeList0(final Class<T> elementType) {
         return this.reportInvalidNodeArray();
     }
 
-    @Override <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
+    @Override
+    <T> Set<T> fromJsonNodeSet0(final Class<T> elementType) {
         return this.reportInvalidNodeArray();
     }
 
-    @Override <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
+    @Override
+    <K, V> Map<K, V> fromJsonNodeMap0(final Class<K> keyType, final Class<V> valueType) {
         return this.reportInvalidNodeArray();
     }
 
@@ -355,7 +358,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return Optional.of(this);
     }
 
-    // Visitor .................................................................................................
+    // JsonNodeVisitor .................................................................................................
 
     @Override
     public void accept(final JsonNodeVisitor visitor) {
@@ -364,6 +367,8 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         }
         visitor.endVisit(this);
     }
+
+    // JsonNode......................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
