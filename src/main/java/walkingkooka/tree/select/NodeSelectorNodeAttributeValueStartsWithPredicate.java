@@ -52,6 +52,6 @@ final class NodeSelectorNodeAttributeValueStartsWithPredicate<N extends Node<N, 
     @Override
     String toString0(final ANAME name, final AVALUE value) {
         //[starts-with(@href, '/')]
-        return "starts-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
+        return "starts-with(@" + name.value() + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }

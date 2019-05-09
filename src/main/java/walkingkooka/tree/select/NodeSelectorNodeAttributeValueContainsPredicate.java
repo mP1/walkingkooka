@@ -52,6 +52,6 @@ final class NodeSelectorNodeAttributeValueContainsPredicate<N extends Node<N, NA
     @Override
     String toString0(final ANAME name, final AVALUE value) {
         // //a[contains(@href, '://')]
-        return "contains(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
+        return "contains(@" + name.value() + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }

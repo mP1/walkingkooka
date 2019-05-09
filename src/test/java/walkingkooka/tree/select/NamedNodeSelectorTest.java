@@ -290,7 +290,7 @@ final public class NamedNodeSelectorTest extends
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .named(Names.string("ABC"))
                         .attributeValueStartsWith(Names.string("DEF"), "V1"),
-                "ABC[starts-with(@\"DEF\",\"V1\")]");
+                "ABC[starts-with(@DEF,\"V1\")]");
     }
 
     @Test
@@ -307,7 +307,7 @@ final public class NamedNodeSelectorTest extends
                         .children()
                         .named(Names.string("ABC"))
                         .attributeValueStartsWith(Names.string("DEF"), "V1"),
-                "child::ABC[starts-with(@\"DEF\",\"V1\")]");
+                "child::ABC[starts-with(@DEF,\"V1\")]");
     }
 
     @Test

@@ -39,7 +39,7 @@ public class NodeSelectorNodeAttributeValueContainsPredicateTest
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createPredicate(), "contains(@\"attribute-1\",\"123\")");
+        this.toStringAndCheck(this.createPredicate(), "contains(@attribute-1,\"123\")");
     }
 
     @Override
