@@ -41,7 +41,7 @@ import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeSelectorToStringBuilderExpressionNodeVisitorTest implements ExpressionNodeVisitorTesting<NodeSelectorToStringBuilderExpressionNodeVisitor> {
+public final class ExpressionNodeSelectorToStringExpressionNodeVisitorTest implements ExpressionNodeVisitorTesting<ExpressionNodeSelectorToStringExpressionNodeVisitor> {
 
     @Test
     public void testNumber() {
@@ -249,7 +249,7 @@ public final class NodeSelectorToStringBuilderExpressionNodeVisitorTest implemen
                 Predicates.always());
 
         assertEquals(expression,
-                NodeSelectorToStringBuilderExpressionNodeVisitor.toString(expressionNode),
+                ExpressionNodeSelectorToStringExpressionNodeVisitor.toString(expressionNode),
                 () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + parsed + "\n" + expressionNode);
     }
 
@@ -265,13 +265,13 @@ public final class NodeSelectorToStringBuilderExpressionNodeVisitorTest implemen
     private void toStringAndCheck(final ExpressionNode node,
                                   final String expression) {
         assertEquals(expression,
-                NodeSelectorToStringBuilderExpressionNodeVisitor.toString(node),
+                ExpressionNodeSelectorToStringExpressionNodeVisitor.toString(node),
                 () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + node);
     }
 
     @Override
-    public NodeSelectorToStringBuilderExpressionNodeVisitor createVisitor() {
-        return new NodeSelectorToStringBuilderExpressionNodeVisitor();
+    public ExpressionNodeSelectorToStringExpressionNodeVisitor createVisitor() {
+        return new ExpressionNodeSelectorToStringExpressionNodeVisitor();
     }
 
     @Override
@@ -281,11 +281,11 @@ public final class NodeSelectorToStringBuilderExpressionNodeVisitorTest implemen
 
     @Override
     public String typeNamePrefix() {
-        return NodeSelectorToStringBuilder.class.getSimpleName();
+        return ExpressionNodeSelector.class.getSimpleName() + "ToString";
     }
 
     @Override
-    public Class<NodeSelectorToStringBuilderExpressionNodeVisitor> type() {
-        return NodeSelectorToStringBuilderExpressionNodeVisitor.class;
+    public Class<ExpressionNodeSelectorToStringExpressionNodeVisitor> type() {
+        return ExpressionNodeSelectorToStringExpressionNodeVisitor.class;
     }
 }

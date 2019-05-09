@@ -157,14 +157,14 @@ enum NodeSelectorToStringBuilderMode {
         return PREDICATE;
     }
 
-    // PREDICATE / EXPRESSION...................................................................................................
+    // PREDICATE / COMPONENTS...................................................................................................
 
     final NodeSelectorToStringBuilderMode predicate(final Predicate<?> predicate, final StringBuilder b) {
         return this.predicateOrExpression(predicate.toString(), b);
     }
 
     final NodeSelectorToStringBuilderMode expression(final ExpressionNode expression, final StringBuilder b) {
-        return this.predicateOrExpression(NodeSelectorToStringBuilderExpressionNodeVisitor.toString(expression), b);
+        return this.predicateOrExpression(ExpressionNodeSelectorToStringExpressionNodeVisitor.toString(expression), b);
     }
 
     private NodeSelectorToStringBuilderMode predicateOrExpression(final String string, final StringBuilder b) {

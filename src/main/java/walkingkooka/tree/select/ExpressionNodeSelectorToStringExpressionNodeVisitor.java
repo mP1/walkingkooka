@@ -61,16 +61,16 @@ import java.util.List;
  * It assumes that all {@link walkingkooka.tree.expression.ExpressionReference} are attributes,
  * some values such as {@link java.time.LocalDate} become function calls with a string literal.
  */
-final class NodeSelectorToStringBuilderExpressionNodeVisitor extends ExpressionNodeVisitor {
+final class ExpressionNodeSelectorToStringExpressionNodeVisitor extends ExpressionNodeVisitor {
 
     static String toString(final ExpressionNode node) {
-        final NodeSelectorToStringBuilderExpressionNodeVisitor visitor = new NodeSelectorToStringBuilderExpressionNodeVisitor();
+        final ExpressionNodeSelectorToStringExpressionNodeVisitor visitor = new ExpressionNodeSelectorToStringExpressionNodeVisitor();
         visitor.accept(node);
         return visitor.toString();
     }
 
     // Testing
-    NodeSelectorToStringBuilderExpressionNodeVisitor() {
+    ExpressionNodeSelectorToStringExpressionNodeVisitor() {
         super();
     }
 

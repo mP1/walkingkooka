@@ -23,6 +23,8 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
 import java.util.Set;
@@ -32,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase3<S> {
+        extends NodeSelectorTestCase3<S>
+        implements HasJsonNodeTesting<S> {
 
     NonTerminalNodeSelectorTestCase() {
         super();
@@ -76,5 +79,17 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
             StringName,
             Object> selector) {
         return Cast.to(this.createSelector().append(selector));
+    }
+
+    // HasJsonTesting..............................................................................................
+
+    @Override
+    public S fromJsonNode(final JsonNode from) {
+        return Cast.to(NodeSelector.fromJsonNode(from));
+    }
+
+    @Override
+    public final S createHasJsonNode() {
+        return this.createSelector();
     }
 }

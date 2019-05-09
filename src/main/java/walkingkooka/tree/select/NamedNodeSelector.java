@@ -63,7 +63,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
                 node;
     }
 
-    private final NAME name;
+    final NAME name;
 
     // NodeSelectorVisitor..............................................................................................
 

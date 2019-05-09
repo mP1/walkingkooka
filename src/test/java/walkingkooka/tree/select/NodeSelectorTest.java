@@ -17,11 +17,99 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.naming.Names;
+import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
+import java.math.BigDecimal;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<?, ?, ?, ?>> {
+
+    @Test
+    public void testAbsoluteChildrenNamedChildrenNamedJsonRoundtrip() {
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+                .children()
+                .named(Names.string("ABC123"))
+                .children()
+                .named(Names.string("DEF456"));
+        final JsonNode json = selector.toJsonNode();
+        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+    }
+
+    @Test
+    public void testAbsoluteNamedChildrenExpressionJsonRoundtrip() {
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+                .children()
+                .named(Names.string("ABC123"))
+                .expression(ExpressionNode.addition(ExpressionNode.bigDecimal(BigDecimal.valueOf(1)), ExpressionNode.text("bcd234")));
+        final JsonNode json = selector.toJsonNode();
+        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+    }
+
+    @Test
+    public void testAbsoluteAncestorAncestorOrSelfChildrenDescendantDescendantOrSelfJsonRoundtrip() {
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+                .ancestor()
+                .ancestorOrSelf()
+                .children()
+                .descendant()
+                .descendantOrSelf();
+        final JsonNode json = selector.toJsonNode();
+        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+    }
+
+    @Test
+    public void testFirstChildFollowingFollowingSiblingLastChildJsonRoundtrip() {
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+                .firstChild()
+                .following()
+                .followingSibling()
+                .lastChild();
+        final JsonNode json = selector.toJsonNode();
+        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+    }
+
+    @Test
+    public void testParentPrecedingPrecedingSiblingSelfJsonRoundtrip() {
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.absoluteNodeSelector()
+                .firstChild()
+                .preceding()
+                .precedingSibling()
+                .self();
+        final JsonNode json = selector.toJsonNode();
+        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+    }
+
+    @Test
+    public void testChildrenCustomToStringChildrenCustomToStringJsonRoundtrip() {
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
+                .children()
+                .setToString("Custom1a")
+                .children()
+                .setToString("Custom2b");
+        final JsonNode json = selector.toJsonNode();
+        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+    }
+
+    @Test
+    public void testCustomToStringChildrenCustomToStringChildrenJsonRoundtrip() {
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
+                .setToString("Custom1a")
+                .children()
+                .setToString("Custom2b")
+                .children();
+        final JsonNode json = selector.toJsonNode();
+        assertEquals(selector, NodeSelector.fromJsonNode(json), () -> json.toString());
+    }
+
     @Override
     public Class<NodeSelector<?, ?, ?, ?>> type() {
         return Cast.to(NodeSelector.class);
