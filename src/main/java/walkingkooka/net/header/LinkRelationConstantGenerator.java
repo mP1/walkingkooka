@@ -51,7 +51,7 @@ final class LinkRelationConstantGenerator {
         XmlNode.absoluteNodeSelector()
                 .descendant()
                 .named(XmlName.element("record"))
-                .accept(document,
+                .apply(document,
                         NodeSelectorContexts.basic(LinkRelationConstantGenerator::potential,
                                 LinkRelationConstantGenerator::record,
                                 LinkRelationConstantGenerator::functions,

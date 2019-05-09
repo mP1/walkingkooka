@@ -39,13 +39,13 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testRootDifferentName() {
-        this.acceptAndCheck(TestNode.with("root"));
+        this.applyAndCheck(TestNode.with("root"));
     }
 
     @Test
     public void testNamedRoot() {
         final TestNode node = TestNode.with("root");
-        this.acceptAndCheck2(node.name(), node, node);
+        this.applyAndCheck2(node.name(), node, node);
     }
 
     @Test
@@ -53,7 +53,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck2(parent.name(), child);
+        this.applyAndCheck2(parent.name(), child);
     }
 
     @Test
@@ -62,7 +62,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck2(child.name(), parent);
+        this.applyAndCheck2(child.name(), parent);
     }
 
     @Test
@@ -71,7 +71,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck2(grandChild.name(), parent);
+        this.applyAndCheck2(grandChild.name(), parent);
     }
 
     @Test
@@ -80,7 +80,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck2(child.name(), child, child);
+        this.applyAndCheck2(child.name(), child, child);
     }
 
     @Test
@@ -89,7 +89,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);
 
-        this.acceptAndCheck2(child2.name(), parent.child(0));
+        this.applyAndCheck2(child2.name(), parent.child(0));
     }
 
     @Test
@@ -101,7 +101,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode following = TestNode.with("following");
         final TestNode parent = TestNode.with("parent", prev, self, following);
 
-        this.acceptAndCheck2(prev.name(), parent.child(1));
+        this.applyAndCheck2(prev.name(), parent.child(1));
     }
 
     @Test
@@ -111,7 +111,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode following = TestNode.with("following");
         final TestNode parent = TestNode.with("parent", prev, self, following);
 
-        this.acceptAndCheck2(following.name(), parent.child(1));
+        this.applyAndCheck2(following.name(), parent.child(1));
     }
 
     @Test
@@ -119,7 +119,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck2(parent.name(), child);
+        this.applyAndCheck2(parent.name(), child);
     }
 
     @Test
@@ -129,7 +129,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child1 = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child1, TestNode.with("skip"));
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().children().named(child1.name()),
+        this.applyAndCheck(TestNode.absoluteNodeSelector().children().named(child1.name()),
                 parent,
                 child1);
     }
@@ -141,7 +141,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", TestNode.with("skip"), child2);
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().children().named(child2.name()),
+        this.applyAndCheck(TestNode.absoluteNodeSelector().children().named(child2.name()),
                 parent,
                 child2);
     }
@@ -154,7 +154,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child1, TestNode.with("skip"), child2);
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().children().named(child2.name()),
+        this.applyAndCheck(TestNode.absoluteNodeSelector().children().named(child2.name()),
                 parent,
                 child1, child2);
     }
@@ -270,22 +270,22 @@ final public class NamedNodeSelectorTest extends
         return NamedNodeSelector.with(name);
     }
 
-    final void acceptAndCheck2(final String childName,
+    final void applyAndCheck2(final String childName,
                                final TestNode start,
                                final TestNode... nodes) {
-        this.acceptAndCheck2(Names.string(childName), start, nodes);
+        this.applyAndCheck2(Names.string(childName), start, nodes);
     }
 
-    final void acceptAndCheck2(final TestNode name,
+    final void applyAndCheck2(final TestNode name,
                                final TestNode start,
                                final TestNode... nodes) {
-        this.acceptAndCheck2(name.name(), start, nodes);
+        this.applyAndCheck2(name.name(), start, nodes);
     }
 
-    final void acceptAndCheck2(final StringName childName,
+    final void applyAndCheck2(final StringName childName,
                                final TestNode start,
                                final TestNode... nodes) {
-        this.acceptAndCheck(this.createSelector(childName), start, nodes);
+        this.applyAndCheck(this.createSelector(childName), start, nodes);
     }
 
     @Override

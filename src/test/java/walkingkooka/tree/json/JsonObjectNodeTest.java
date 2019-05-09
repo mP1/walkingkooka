@@ -729,7 +729,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .set(key3(), JsonNode.string("third"));
         final JsonNodeName key2 = this.key2();
 
-        this.selectorAcceptAndCheck(object,
+        this.selectorApplyAndCheck(object,
                 JsonNode.absoluteNodeSelector()
                         .descendant()
                         .named(key2),
@@ -745,7 +745,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonNodeName key2 = this.key2();
         final JsonNode replaced = JsonNode.string("*");
 
-        this.selectorAcceptMapAndCheck(object,
+        this.selectorApplyMapAndCheck(object,
                 JsonNode.absoluteNodeSelector()
                         .descendant()
                         .named(key2),

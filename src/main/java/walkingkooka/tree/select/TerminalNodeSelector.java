@@ -64,7 +64,7 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    final N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return node.replace(context.selected(node));
     }
 

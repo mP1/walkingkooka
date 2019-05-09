@@ -44,7 +44,7 @@ public final class PojoNodeTest implements ClassTesting2<PojoNode>,
         final PojoNode node = PojoNode.wrap(PojoName.property("TestBean"),
                 bean,
                 new ReflectionPojoNodeContext());
-        final List<PojoNode> selected = this.selectorAcceptAndCollect(node, selector);
+        final List<PojoNode> selected = this.selectorApplyAndCollect(node, selector);
         assertEquals(Sets.of("1", "2", "3"),
                 selected.stream()
                         .map(n -> n.value())

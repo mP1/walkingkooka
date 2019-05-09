@@ -167,7 +167,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
                 ParserTokens.sequence(Lists.of(STRING2, STRING3, ParserTokens.bigInteger(BigInteger.ZERO, "**")), "b2c3**"),
                 STRING4);
 
-        final List<ParserTokenNode> selected = this.selectorAcceptAndCollect(root, selector);
+        final List<ParserTokenNode> selected = this.selectorApplyAndCollect(root, selector);
 
         assertEquals(Lists.of("a1", "b2", "c3", "d4"),
                 selected.stream()

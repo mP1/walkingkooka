@@ -51,7 +51,7 @@ final public class ExpressionNodeSelectorTest extends
     @Test
     public void testExpressionSelfSelected() {
         final TestNode self = TestNode.with("self");
-        this.acceptAndCheck(self, self);
+        this.applyAndCheck(self, self);
     }
 
     @Test
@@ -61,7 +61,7 @@ final public class ExpressionNodeSelectorTest extends
         final TestNode siblingAfter = TestNode.with("siblingAfter");
         final TestNode parent = TestNode.with("parent", siblingBefore, self, siblingAfter);
 
-        this.acceptAndCheck(parent.child(1), self);
+        this.applyAndCheck(parent.child(1), self);
     }
 
     @Test
@@ -70,7 +70,7 @@ final public class ExpressionNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("self", child1, child2);
 
-        this.acceptAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(ExpressionNode.booleanNode(true)).children(),
+        this.applyAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(ExpressionNode.booleanNode(true)).children(),
                 parent,
                 child1, child2);
     }
@@ -107,7 +107,7 @@ final public class ExpressionNodeSelectorTest extends
                 TestNode.with("child2", TestNode.with("grandChild2")),
                 TestNode.with("child3", TestNode.with("grandChild3")));
 
-        this.acceptAndCheck(TestNode.relativeNodeSelector()
+        this.applyAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .expression(expression),
                 parent,
@@ -123,7 +123,7 @@ final public class ExpressionNodeSelectorTest extends
                 nodeWithAttributes("child2", "B2", "V2"),
                 nodeWithAttributes("child3", "B2", "V3"));
 
-        this.acceptAndCheck(TestNode.relativeNodeSelector()
+        this.applyAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .expression(ExpressionNode.longNode(2))
                         .attributeValueStartsWith(Names.string("B2"), "V"),

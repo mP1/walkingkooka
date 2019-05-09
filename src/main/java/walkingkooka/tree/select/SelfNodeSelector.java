@@ -57,7 +57,7 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.select(node, context);
     }
 

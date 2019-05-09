@@ -27,7 +27,7 @@ final public class AncestorNodeSelectorTest extends
 
     @Test
     public void testAncestorRoot() {
-        this.acceptAndCheck(TestNode.with("root"));
+        this.applyAndCheck(TestNode.with("root"));
     }
 
     @Test
@@ -35,7 +35,7 @@ final public class AncestorNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent);
+        this.applyAndCheck(parent);
     }
 
     @Test
@@ -44,7 +44,7 @@ final public class AncestorNodeSelectorTest extends
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent.child(0).child(0), child, parent);
+        this.applyAndCheck(parent.child(0).child(0), child, parent);
     }
 
     @Test
@@ -52,7 +52,7 @@ final public class AncestorNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent);
+        this.applyAndCheck(parent);
     }
 
     @Test
@@ -61,7 +61,7 @@ final public class AncestorNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);
 
-        this.acceptAndCheck(parent.child(0), parent);
+        this.applyAndCheck(parent.child(0), parent);
     }
 
     @Test
@@ -87,7 +87,7 @@ final public class AncestorNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);
 
-        this.acceptAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
+        this.applyAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
     }
 
     @Test

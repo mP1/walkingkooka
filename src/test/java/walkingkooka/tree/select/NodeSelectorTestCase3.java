@@ -86,45 +86,45 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
 
     abstract S createSelector();
 
-    final void acceptAndCheck(final TestNode start) {
-        this.acceptAndCheck0(this.createSelector(), start, new String[0]);
+    final void applyAndCheck(final TestNode start) {
+        this.applyAndCheck0(this.createSelector(), start, new String[0]);
     }
 
-    final void acceptAndCheck(final TestNode start, final String... nodes) {
-        this.acceptAndCheck0(this.createSelector(), start, nodes);
+    final void applyAndCheck(final TestNode start, final String... nodes) {
+        this.applyAndCheck0(this.createSelector(), start, nodes);
     }
 
-    final void acceptAndCheck(final TestNode start, final TestNode... nodes) {
-        this.acceptAndCheck(this.createSelector(), start, nodes);
+    final void applyAndCheck(final TestNode start, final TestNode... nodes) {
+        this.applyAndCheck(this.createSelector(), start, nodes);
     }
 
     @SafeVarargs
-    final void acceptAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+    final void applyAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                               final TestNode start,
                               final TestNode... nodes) {
-        this.acceptAndCheck0(selector,
+        this.applyAndCheck0(selector,
                 start,
                 Arrays.stream(nodes)
                         .map(n -> n.name().value())
                         .toArray(size -> new String[size]));
     }
 
-    abstract void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+    abstract void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                   final TestNode start,
                                   final String... nodes);
 
-    final void acceptAndCheckUsingContext(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+    final void applyAndCheckUsingContext(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                           final TestNode start,
                                           final String... nodes) {
         final Set<TestNode> potential = Sets.ordered();
         final Set<TestNode> selected = Sets.ordered();
-        assertSame(start, selector.accept(start, this.context(
+        assertSame(start, selector.apply(start, this.context(
                 (n) -> potential.add(n),
                 (n) -> selected.add(n))));
         final List<String> selectedNames = selected.stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
-        assertEquals(Lists.of(nodes), selectedNames, () -> "Selector.accept\n" + start);
+        assertEquals(Lists.of(nodes), selectedNames, () -> "Selector.apply\n" + start);
         assertNotEquals(Sets.empty(), potential, "potentials must not be empty");
         assertTrue(potential.contains(start), () -> "potentials must include initial node=" + potential);
     }
@@ -151,7 +151,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
         final String startToString = start.toString();
 
         assertEquals(result,
-                selector.accept(start, this.context0((n) -> {
+                selector.apply(start, this.context0((n) -> {
                         },
                         new Function<TestNode, TestNode>() {
                             @Override

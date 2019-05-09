@@ -805,7 +805,7 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument>
         final NodeSelector<XmlNode, XmlName, XmlAttributeName, String> selector = XmlNode.absoluteNodeSelector()
                 .descendant()
                 .named(XmlName.element("img"));
-        this.selectorAcceptAndCheckCount(document, selector, 20);
+        this.selectorApplyAndCheckCount(document, selector, 20);
     }
 
     @Test
@@ -816,7 +816,7 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument>
                 .descendant()
                 .named(XmlName.element("a"))
                 .attributeValueContains(XmlNode.attribute("href", XmlNode.NO_PREFIX), "19");
-        this.selectorAcceptAndCheckCount(document, selector, 3);
+        this.selectorApplyAndCheckCount(document, selector, 3);
     }
 
     // toString ..................................................................................................

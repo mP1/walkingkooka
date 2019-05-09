@@ -28,7 +28,7 @@ final public class ChildrenNodeSelectorTest
 
     @Test
     public void testChildrenChildless() {
-        this.acceptAndCheck(TestNode.with("childless"));
+        this.applyAndCheck(TestNode.with("childless"));
     }
 
     @Test
@@ -36,14 +36,14 @@ final public class ChildrenNodeSelectorTest
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent").setChildren(Lists.of(child));
 
-        this.acceptAndCheck(parent.child(0));
+        this.applyAndCheck(parent.child(0));
     }
 
     @Test
     public void testChildrenParentWithChild() {
         final TestNode child = TestNode.with("child");
 
-        this.acceptAndCheck(TestNode.with("parent of one", child), child);
+        this.applyAndCheck(TestNode.with("parent of one", child), child);
     }
 
     @Test
@@ -51,7 +51,7 @@ final public class ChildrenNodeSelectorTest
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
 
-        this.acceptAndCheck(TestNode.with("parent of many children", child1, child2), child1, child2);
+        this.applyAndCheck(TestNode.with("parent of many children", child1, child2), child1, child2);
     }
 
     @Test
@@ -60,7 +60,7 @@ final public class ChildrenNodeSelectorTest
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent, child);
+        this.applyAndCheck(parent, child);
     }
 
     @Test
@@ -68,7 +68,7 @@ final public class ChildrenNodeSelectorTest
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent, child);
+        this.applyAndCheck(parent, child);
     }
 
     @Test
@@ -82,7 +82,7 @@ final public class ChildrenNodeSelectorTest
         final TestNode grand5 = TestNode.with("grand5");
         final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().children(),
+        this.applyAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().children(),
                 TestNode.with("parent", child1, child2),
                 child1, child2, grand1, grand2, grand3, grand4, grand5);
     }
@@ -100,7 +100,7 @@ final public class ChildrenNodeSelectorTest
         final TestNode grand5 = TestNode.with("grand5");
         final TestNode child3 = TestNode.with("child", grand3, grand4, grand5);
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().named(child1.name()).children(),
+        this.applyAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().named(child1.name()).children(),
                 TestNode.with("parent", child1, TestNode.with("skip", TestNode.with("skip2")), child3),
                 grand1, grand2, grand3, grand4, grand5);
     }

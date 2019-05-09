@@ -33,18 +33,18 @@ public abstract class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         super();
     }
 
-    final void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+    final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                final TestNode start,
                                final String... nodes) {
-        this.acceptAndCheckRequiringOrder(selector, start, nodes);
-        this.acceptAndCheckUsingContext(selector, start, nodes);
+        this.applyAndCheckRequiringOrder(selector, start, nodes);
+        this.applyAndCheckUsingContext(selector, start, nodes);
     }
 
-    final void acceptAndCheckRequiringOrder(NodeSelector<TestNode, StringName, StringName, Object> selector, TestNode start, String[] nodes) {
+    final void applyAndCheckRequiringOrder(NodeSelector<TestNode, StringName, StringName, Object> selector, TestNode start, String[] nodes) {
         final List<String> expected = Lists.array();
         expected.addAll(Lists.of(nodes));
 
-        selector.accept(start, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
+        selector.apply(start, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
 
             @Override
             public void potential(final TestNode node) {

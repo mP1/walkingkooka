@@ -48,7 +48,7 @@ final public class NodePredicateNodeSelectorTest extends
     @Test
     public void testPredicate() {
         final TestNode self = TestNode.with("self");
-        this.acceptAndCheck(self, self);
+        this.applyAndCheck(self, self);
     }
 
     @Test
@@ -58,7 +58,7 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode siblingAfter = TestNode.with("siblingAfter");
         final TestNode parent = TestNode.with("parent", siblingBefore, self, siblingAfter);
 
-        this.acceptAndCheck(parent.child(1), self);
+        this.applyAndCheck(parent.child(1), self);
     }
 
     @Test
@@ -72,7 +72,7 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode grand5 = TestNode.with("grand5");
         final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().attributeValueEquals(Names.string("a1"), "v1"),
+        this.applyAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().attributeValueEquals(Names.string("a1"), "v1"),
                 TestNode.with("parent", child1, child2),
                 child1, grand1, grand4);
     }
@@ -83,7 +83,7 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode grand2 = TestNode.with("grand2");
         final TestNode child1 = TestNode.with("child1", grand1, grand2).setAttributes(this.attributes("a1", "v1"));
 
-        this.acceptAndCheck(TestNode.relativeNodeSelector().attributeValueEquals(Names.string("a1"), "v1").children(),
+        this.applyAndCheck(TestNode.relativeNodeSelector().attributeValueEquals(Names.string("a1"), "v1").children(),
                 child1,
                 grand1, grand2);
     }
@@ -99,7 +99,7 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode grand5 = TestNode.with("grand5");
         final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
 
-        this.acceptAndCheck(TestNode.relativeNodeSelector().descendantOrSelf().attributeValueEquals(Names.string("a1"), "v1").children(),
+        this.applyAndCheck(TestNode.relativeNodeSelector().descendantOrSelf().attributeValueEquals(Names.string("a1"), "v1").children(),
                 TestNode.with("parent", child1, child2),
                 grand1, grand2);
     }

@@ -277,7 +277,7 @@ public final class FilesystemNodeTest implements ClassTesting2<FilesystemNode>,
     @Test
     public void testSelectorUsage() {
         final FilesystemNode node = this.createNode();
-        this.selectorAcceptAndCheckCount(node,
+        this.selectorApplyAndCheckCount(node,
                 FilesystemNode.absoluteNodeSelector()
                         .descendant()
                         .named(FilesystemNodeName.with(SUB_FILE)),

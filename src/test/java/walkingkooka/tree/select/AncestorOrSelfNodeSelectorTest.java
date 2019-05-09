@@ -29,7 +29,7 @@ final public class AncestorOrSelfNodeSelectorTest extends
     @Test
     public void testAncestorOrSelfRoot() {
         final TestNode root = TestNode.with("root");
-        this.acceptAndCheck(root, root);
+        this.applyAndCheck(root, root);
     }
 
     @Test
@@ -37,7 +37,7 @@ final public class AncestorOrSelfNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent, parent);
+        this.applyAndCheck(parent, parent);
     }
 
     @Test
@@ -46,7 +46,7 @@ final public class AncestorOrSelfNodeSelectorTest extends
         final TestNode child = TestNode.with("child", grandChild);
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent.child(0).child(0), grandChild, child, parent);
+        this.applyAndCheck(parent.child(0).child(0), grandChild, child, parent);
     }
 
     @Test
@@ -54,7 +54,7 @@ final public class AncestorOrSelfNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent, parent);
+        this.applyAndCheck(parent, parent);
     }
 
     @Test
@@ -63,7 +63,7 @@ final public class AncestorOrSelfNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);
 
-        this.acceptAndCheck(parent.child(0), child1, parent);
+        this.applyAndCheck(parent.child(0), child1, parent);
     }
 
     @Test

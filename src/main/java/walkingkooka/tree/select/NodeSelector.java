@@ -257,30 +257,28 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
-    // accept...........................................................................................................
+    // apply...........................................................................................................
 
     /**
      * Accepts a starting {@link Node} anywhere in a tree returning all matching nodes.
      * The {@link Consumer} is invoked for each and every {@link Node} prior to any test and continued traversal. It may be
      * used to abort the visiting process by throwing an {@link RuntimeException}
      */
-    final public N accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final public N apply(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
-        return this.accept0(node, NodeSelectorContext2.all(context));
+        return this.apply0(node, NodeSelectorContext2.all(context));
     }
 
     /**
-     * Sub classes must call this method which calls the observer and then immediately calls {@link #accept1(Node, NodeSelectorContext2)}
+     * Sub classes must call this method which calls the observer and then immediately calls {@link #apply1(Node, NodeSelectorContext2)}
      */
-    final N accept0(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N apply0(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         context.potential(node);
 
-        return this.accept1(node, this.beginPrepareContext(context));
+        return this.apply1(node, this.beginPrepareContext(context));
     }
-
-    static int C = 0;
 
     /**
      * Sub classes except for {@link ExpressionNodeSelector} call next#finishPrepareContext
@@ -292,7 +290,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Sub classes must implement this to contain the core logic in testing if a node is actually selected.
      */
-    abstract N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
+    abstract N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
 
     // select...........................................................................................................
 

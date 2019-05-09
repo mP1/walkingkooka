@@ -42,7 +42,7 @@ final public class AbsoluteNodeSelectorTest extends
     @Test
     public void testAbsoluteRoot() {
         final TestNode root = TestNode.with("root");
-        this.acceptAndCheck(root, root);
+        this.applyAndCheck(root, root);
     }
 
     @Test
@@ -51,7 +51,7 @@ final public class AbsoluteNodeSelectorTest extends
         final TestNode child = TestNode.with("child!", grandChild);
         final TestNode parent = TestNode.with("parent!", child);
 
-        this.acceptAndCheck(parent, parent);
+        this.applyAndCheck(parent, parent);
     }
 
     @Test
@@ -60,7 +60,7 @@ final public class AbsoluteNodeSelectorTest extends
         final TestNode child = TestNode.with("child!", grandChild);
         final TestNode parent = TestNode.with("parent!", child);
 
-        this.acceptAndCheck(parent.child(0), parent);
+        this.applyAndCheck(parent.child(0), parent);
     }
 
     @Test
@@ -69,7 +69,7 @@ final public class AbsoluteNodeSelectorTest extends
         final TestNode child = TestNode.with("child!", grandChild);
         final TestNode parent = TestNode.with("parent!", child);
 
-        this.acceptAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
+        this.applyAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
     }
 
     @Test
