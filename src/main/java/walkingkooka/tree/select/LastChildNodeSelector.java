@@ -57,7 +57,7 @@ final class LastChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     // NodeSelector
 
     @Override
-    final N accept1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectChild(node.lastChild(), node, context);
     }
 

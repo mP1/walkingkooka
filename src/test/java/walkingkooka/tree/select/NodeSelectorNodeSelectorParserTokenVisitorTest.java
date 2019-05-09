@@ -1983,7 +1983,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         final NodeSelector<TestNode, StringName, StringName, Object> selector = this.parseExpression(expression);
 
         final Set<TestNode> selected = Sets.ordered();
-        selector.accept(root, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
+        selector.apply(root, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
             @Override
             public void potential(final TestNode node) {
                 this.node = node;

@@ -29,7 +29,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
     @Test
     public void testDescendantOrSelfChildless() {
         final TestNode only = TestNode.with("only");
-        this.acceptAndCheck(only, only);
+        this.applyAndCheck(only, only);
     }
 
     @Test
@@ -37,7 +37,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent.child(0), child);
+        this.applyAndCheck(parent.child(0), child);
     }
 
     @Test
@@ -46,7 +46,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);
 
-        this.acceptAndCheck(parent, parent, child1, child2);
+        this.applyAndCheck(parent, parent, child1, child2);
     }
 
     @Test
@@ -59,7 +59,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", child1, child2);
 
-        this.acceptAndCheck(parent, parent, child1, grandChild1, child2, grandChild2);
+        this.applyAndCheck(parent, parent, child1, grandChild1, child2, grandChild2);
     }
 
     @Test
@@ -72,7 +72,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", child1, child2);
 
-        this.acceptAndCheck(parent, parent, child1, grandChild1, grandChild2, child2);
+        this.applyAndCheck(parent, parent, child1, grandChild1, grandChild2, child2);
     }
 
     @Test
@@ -82,8 +82,8 @@ final public class DescendantOrSelfNodeSelectorTest extends
         final TestNode siblingOfParent = TestNode.with("siblingOfParent");
         final TestNode root = TestNode.with("root", parent, siblingOfParent);
 
-        this.acceptAndCheck(root, root, parent, child, siblingOfParent);
-        this.acceptAndCheck(parent.child(0), child);
+        this.applyAndCheck(root, root, parent, child, siblingOfParent);
+        this.applyAndCheck(parent.child(0), child);
     }
 
     @Test

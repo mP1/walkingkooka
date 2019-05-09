@@ -27,7 +27,7 @@ final public class ParentNodeSelectorTest
 
     @Test
     public void testParentRoot() {
-        this.acceptAndCheck(TestNode.with("root"));
+        this.applyAndCheck(TestNode.with("root"));
     }
 
     @Test
@@ -35,7 +35,7 @@ final public class ParentNodeSelectorTest
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent.child(0), parent);
+        this.applyAndCheck(parent.child(0), parent);
     }
 
     @Test
@@ -44,7 +44,7 @@ final public class ParentNodeSelectorTest
         final TestNode child = TestNode.with("child", grandChild); //
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent.child(0), parent);
+        this.applyAndCheck(parent.child(0), parent);
     }
 
     @Test
@@ -54,7 +54,7 @@ final public class ParentNodeSelectorTest
         final TestNode child2 = TestNode.with("child2"); //
         final TestNode parent = TestNode.with("parent", child1, child2);
 
-        this.acceptAndCheck(parent.child(1), parent);
+        this.applyAndCheck(parent.child(1), parent);
     }
 
     @Test
@@ -63,7 +63,7 @@ final public class ParentNodeSelectorTest
         final TestNode child = TestNode.with("child", grandChild); //
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(child.child(0), child);
+        this.applyAndCheck(child.child(0), child);
     }
 
     @Test

@@ -27,7 +27,7 @@ final public class DescendantNodeSelectorTest extends
 
     @Test
     public void testDescendantChildless() {
-        this.acceptAndCheck(TestNode.with("only"));
+        this.applyAndCheck(TestNode.with("only"));
     }
 
     @Test
@@ -35,7 +35,7 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(child);
+        this.applyAndCheck(child);
     }
 
     @Test
@@ -43,7 +43,7 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
 
-        this.acceptAndCheck(TestNode.with("parent", child1, child2), child1, child2);
+        this.applyAndCheck(TestNode.with("parent", child1, child2), child1, child2);
     }
 
     @Test
@@ -54,7 +54,7 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child1 = TestNode.with("child1", grandChild1);
         final TestNode child2 = TestNode.with("child2", grandChild2);
 
-        this.acceptAndCheck(TestNode.with("parent", child1, child2), child1, grandChild1, child2, grandChild2);
+        this.applyAndCheck(TestNode.with("parent", child1, child2), child1, grandChild1, child2, grandChild2);
     }
 
     @Test
@@ -65,7 +65,7 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child1 = TestNode.with("child1", grandChild1, grandChild2);
         final TestNode child2 = TestNode.with("child2");
 
-        this.acceptAndCheck(TestNode.with("parent", child1, child2), child1, grandChild1, grandChild2, child2);
+        this.applyAndCheck(TestNode.with("parent", child1, child2), child1, grandChild1, grandChild2, child2);
     }
 
     @Test
@@ -75,7 +75,7 @@ final public class DescendantNodeSelectorTest extends
         final TestNode siblingOfParent = TestNode.with("siblingOfParent", TestNode.with("siblingOfParent-child"));
         final TestNode grandParent = TestNode.with("grandParent", parent, siblingOfParent);
 
-        this.acceptAndCheck(parent, child);
+        this.applyAndCheck(parent, child);
     }
 
     @Test
@@ -91,7 +91,7 @@ final public class DescendantNodeSelectorTest extends
         final TestNode grand5 = TestNode.with("match");
         final TestNode child2 = TestNode.with("match", grand3, grand4, grand5);
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendant().named(child1.name()),
+        this.applyAndCheck(TestNode.absoluteNodeSelector().descendant().named(child1.name()),
                 TestNode.with("parent", child1, child2),
                 child1, child2, grand5);
     }

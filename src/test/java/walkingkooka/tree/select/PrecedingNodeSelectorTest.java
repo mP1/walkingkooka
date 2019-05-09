@@ -28,7 +28,7 @@ final public class PrecedingNodeSelectorTest extends
 
     @Test
     public void testPrecedingRoot() {
-        this.acceptAndCheck(TestNode.with("root"));
+        this.applyAndCheck(TestNode.with("root"));
     }
 
     @Test
@@ -36,12 +36,12 @@ final public class PrecedingNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent.child(0));
+        this.applyAndCheck(parent.child(0));
     }
 
     @Test
     public void testPrecedingChild() {
-        this.acceptAndCheck(TestNode.with("parent", TestNode.with("child")));
+        this.applyAndCheck(TestNode.with("parent", TestNode.with("child")));
     }
 
     @Test
@@ -51,7 +51,7 @@ final public class PrecedingNodeSelectorTest extends
         final TestNode self = TestNode.with("self");
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self);
 
-        this.acceptAndCheck(parent.child(2), preceding2, preceding1);
+        this.applyAndCheck(parent.child(2), preceding2, preceding1);
     }
 
     @Test
@@ -60,7 +60,7 @@ final public class PrecedingNodeSelectorTest extends
         final TestNode following = TestNode.with("following");
         final TestNode parent = TestNode.with("parent", self, following);
 
-        this.acceptAndCheck(parent.child(0));
+        this.applyAndCheck(parent.child(0));
     }
 
     @Test
@@ -72,7 +72,7 @@ final public class PrecedingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following);
 
-        this.acceptAndCheck(parent.child(2), preceding2, preceding1);
+        this.applyAndCheck(parent.child(2), preceding2, preceding1);
     }
 
     @Test
@@ -83,7 +83,7 @@ final public class PrecedingNodeSelectorTest extends
 
         final TestNode grandParent = TestNode.with("grandParent", parentProcedingSibling, parent);
 
-        this.acceptAndCheck(grandParent.child(1), parentProcedingSibling);
+        this.applyAndCheck(grandParent.child(1), parentProcedingSibling);
     }
 
     @Test
@@ -95,7 +95,7 @@ final public class PrecedingNodeSelectorTest extends
 
         final TestNode grandParent = TestNode.with("grandParent", parentProcedingSibling, parent);
 
-        this.acceptAndCheck(grandParent.child(1), parentProcedingSibling, parentProcedingSiblingChild);
+        this.applyAndCheck(grandParent.child(1), parentProcedingSibling, parentProcedingSiblingChild);
     }
 
     @Test
@@ -106,7 +106,7 @@ final public class PrecedingNodeSelectorTest extends
 
         final TestNode grandParent = TestNode.with("grandParent", parent, parentFollowingSibling);
 
-        this.acceptAndCheck(grandParent.child(0));
+        this.applyAndCheck(grandParent.child(0));
     }
 
     @Test
@@ -117,7 +117,7 @@ final public class PrecedingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceding, self, following);
 
-        this.acceptAndCheck(parent.child(1), preceding);
+        this.applyAndCheck(parent.child(1), preceding);
     }
 
     @Test
@@ -130,7 +130,7 @@ final public class PrecedingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2);
 
-        this.acceptAndCheck(parent.child(2), preceding2, preceding1);
+        this.applyAndCheck(parent.child(2), preceding2, preceding1);
     }
 
     @Test
@@ -146,7 +146,7 @@ final public class PrecedingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceding3, preceding2, preceding1, self, following1, following2);
 
-        this.acceptAndCheck(TestNode.relativeNodeSelector().preceding().named(preceding1.name()),
+        this.applyAndCheck(TestNode.relativeNodeSelector().preceding().named(preceding1.name()),
                 parent.child(3),
                 preceding1, preceding3);
     }
@@ -163,7 +163,7 @@ final public class PrecedingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceding4, preceding3, preceding2, preceding1, self, following1, following2);
 
-        this.acceptAndCheck(TestNode.relativeNodeSelector().preceding().attributeValueEquals(Names.string("a1"), "v1"),
+        this.applyAndCheck(TestNode.relativeNodeSelector().preceding().attributeValueEquals(Names.string("a1"), "v1"),
                 parent.child(4),
                 preceding1, preceding3, preceding4);
     }

@@ -29,7 +29,7 @@ final public class SelfNodeSelectorTest
     @Test
     public void testSelf() {
         final TestNode node = TestNode.with("self");
-        this.acceptAndCheck(node, node);
+        this.applyAndCheck(node, node);
     }
 
     @Test
@@ -37,7 +37,7 @@ final public class SelfNodeSelectorTest
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(selfAndDescendant(),
+        this.applyAndCheck(selfAndDescendant(),
                 parent,
                 child);
     }
@@ -47,7 +47,7 @@ final public class SelfNodeSelectorTest
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(selfAndDescendant(),
+        this.applyAndCheck(selfAndDescendant(),
                 parent.child(0));
     }
 
@@ -62,7 +62,7 @@ final public class SelfNodeSelectorTest
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(selfAndNamed(),
+        this.applyAndCheck(selfAndNamed(),
                 parent);
     }
 
@@ -71,7 +71,7 @@ final public class SelfNodeSelectorTest
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(selfAndNamed(),
+        this.applyAndCheck(selfAndNamed(),
                 parent.child(0),
                 child);
     }

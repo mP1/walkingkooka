@@ -38,28 +38,28 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
 
     N createNode();
 
-    default void selectorAcceptAndCheck(final N node,
-                                        final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                        final N... expected) {
-        final List<N> selected = this.selectorAcceptAndCollect(node, selector);
+    default void selectorApplyAndCheck(final N node,
+                                       final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                       final N... expected) {
+        final List<N> selected = this.selectorApplyAndCollect(node, selector);
         assertEquals(Sets.of(expected),
                 new LinkedHashSet<>(selected),
                 () -> "incorrect nodes selected, selector:\n" + selector);
     }
 
-    default void selectorAcceptAndCheckCount(final N node,
-                                             final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                             final int count) {
-        final List<N> selected = this.selectorAcceptAndCollect(node, selector);
+    default void selectorApplyAndCheckCount(final N node,
+                                            final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                            final int count) {
+        final List<N> selected = this.selectorApplyAndCollect(node, selector);
         assertEquals(count,
                 selected.size(),
                 () -> "incorrect number of matched node for selector\n" + selected);
     }
 
-    default List<N> selectorAcceptAndCollect(final N node,
-                                             final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    default List<N> selectorApplyAndCollect(final N node,
+                                            final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         final Set<N> selected = Sets.ordered();
-        selector.accept(node,
+        selector.apply(node,
                 this.nodeSelectorContext(
                         (n) -> {
                         }, // ignore potentials
@@ -85,12 +85,12 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         };
     }
 
-    default void selectorAcceptMapAndCheck(final N node,
-                                           final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                           final Function<N, N> mapper,
-                                           final N expected) {
+    default void selectorApplyMapAndCheck(final N node,
+                                          final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                          final Function<N, N> mapper,
+                                          final N expected) {
         assertEquals(expected,
-                selector.accept(node, new FakeNodeSelectorContext<N, NAME, ANAME, AVALUE>() {
+                selector.apply(node, new FakeNodeSelectorContext<N, NAME, ANAME, AVALUE>() {
                     @Override
                     public void potential(final N node) {
                     }

@@ -56,7 +56,7 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
      */
     @Override
     N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        return this.next.accept0(node, context);
+        return this.next.apply0(node, context);
     }
 
     @Override

@@ -525,7 +525,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         final JsonNode expected = array.get(1);
 
-        this.selectorAcceptAndCheck(array,
+        this.selectorApplyAndCheck(array,
                 JsonNode.absoluteNodeSelector()
                         .descendant()
                         .named(expected.name()),
@@ -542,7 +542,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
         final JsonNode replaced = JsonNode.number(999);
 
-        this.selectorAcceptMapAndCheck(array,
+        this.selectorApplyMapAndCheck(array,
                 JsonNode.absoluteNodeSelector()
                         .descendant()
                         .named(array.get(1).name()),

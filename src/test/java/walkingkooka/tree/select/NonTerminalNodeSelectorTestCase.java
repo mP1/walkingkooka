@@ -43,19 +43,19 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
         this.checkNotEquals(this.createSelector().parent());
     }
 
-    final void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+    final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                final TestNode start,
                                final String... nodes) {
-        this.acceptAndCheckRequiringOrder(selector, start, nodes);
-        this.acceptAndCheckUsingContext(selector, start, nodes);
+        this.applyAndCheckRequiringOrder(selector, start, nodes);
+        this.applyAndCheckUsingContext(selector, start, nodes);
     }
 
-    final void acceptAndCheckRequiringOrder(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+    final void applyAndCheckRequiringOrder(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                             final TestNode start,
                                             final String[] nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.accept(start, context((n) -> {
+                selector.apply(start, context((n) -> {
                 }, (n) -> selected.add(n))));
         final List<String> selectedNames = selected
                 .stream()

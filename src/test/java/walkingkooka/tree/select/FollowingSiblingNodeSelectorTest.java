@@ -28,7 +28,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
     @Test
     public void testFollowingSiblingRoot() {
-        this.acceptAndCheck(TestNode.with("root"));
+        this.applyAndCheck(TestNode.with("root"));
     }
 
     @Test
@@ -36,7 +36,7 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
 
-        this.acceptAndCheck(parent.child(0));
+        this.applyAndCheck(parent.child(0));
     }
 
     @Test
@@ -45,7 +45,7 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode following = TestNode.with("following");
         final TestNode parent = TestNode.with("parent", self, following);
 
-        this.acceptAndCheck(parent.child(0), following);
+        this.applyAndCheck(parent.child(0), following);
     }
 
     @Test
@@ -55,7 +55,7 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode following2 = TestNode.with("following2");
         final TestNode parent = TestNode.with("parent", self, following1, following2);
 
-        this.acceptAndCheck(parent.child(0), following1, following2);
+        this.applyAndCheck(parent.child(0), following1, following2);
     }
 
     @Test
@@ -63,7 +63,7 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode self = TestNode.with("self");
         final TestNode parent = TestNode.with("parent", TestNode.with("before"), self);
 
-        this.acceptAndCheck(parent.child(1));
+        this.applyAndCheck(parent.child(1));
     }
 
     @Test
@@ -74,7 +74,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceeding, self, following);
 
-        this.acceptAndCheck(parent.child(1), following);
+        this.applyAndCheck(parent.child(1), following);
     }
 
     @Test
@@ -87,12 +87,12 @@ final public class FollowingSiblingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceeding1, preceeding2, self, following1, following2);
 
-        this.acceptAndCheck(parent.child(2), following1, following2);
+        this.applyAndCheck(parent.child(2), following1, following2);
     }
 
     @Test
     public void testFollowingSiblingIgnoresChildren() {
-        this.acceptAndCheck(TestNode.with("parent", TestNode.with("child")));
+        this.applyAndCheck(TestNode.with("parent", TestNode.with("child")));
     }
 
     @Test
@@ -105,7 +105,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceeding, self, following);
 
-        this.acceptAndCheck(parent.child(1), following);
+        this.applyAndCheck(parent.child(1), following);
     }
 
     @Test
@@ -121,7 +121,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2, following3);
 
-        this.acceptAndCheck(TestNode.relativeNodeSelector().followingSibling().named(following1.name()),
+        this.applyAndCheck(TestNode.relativeNodeSelector().followingSibling().named(following1.name()),
                 parent.child(2),
                 following1, following3);
     }
@@ -138,7 +138,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2, following3, following4);
 
-        this.acceptAndCheck(TestNode.relativeNodeSelector().followingSibling().attributeValueEquals(Names.string("a1"), "v1"),
+        this.applyAndCheck(TestNode.relativeNodeSelector().followingSibling().attributeValueEquals(Names.string("a1"), "v1"),
                 parent.child(2),
                 following1, following2, following4);
     }

@@ -32,20 +32,20 @@ final public class FirstChildNodeSelectorTest extends
 
     @Test
     public void testFirstChildChildless() {
-        this.acceptAndCheck(TestNode.with("childless"));
+        this.applyAndCheck(TestNode.with("childless"));
     }
 
     @Test
     public void testFirstChildOnlyChild() {
         final TestNode child = TestNode.with("child");
-        this.acceptAndCheck(TestNode.with("parent", child), child);
+        this.applyAndCheck(TestNode.with("parent", child), child);
     }
 
     @Test
     public void testFirstChildTwoChildren() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
-        this.acceptAndCheck(TestNode.with("parent", child1, child2), child1);
+        this.applyAndCheck(TestNode.with("parent", child1, child2), child1);
     }
 
     @Test
@@ -54,7 +54,7 @@ final public class FirstChildNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode child3 = TestNode.with("child3");
 
-        this.acceptAndCheck(TestNode.with("parent", child1, child2, child3), child1);
+        this.applyAndCheck(TestNode.with("parent", child1, child2, child3), child1);
     }
 
     @Test
@@ -62,7 +62,7 @@ final public class FirstChildNodeSelectorTest extends
         final TestNode child1 = TestNode.with("child1", TestNode.with("descendant1"));
         final TestNode child2 = TestNode.with("child2", TestNode.with("descendant2"));
 
-        this.acceptAndCheck(TestNode.with("parent", child1, child2), child1);
+        this.applyAndCheck(TestNode.with("parent", child1, child2), child1);
     }
 
     @Test
@@ -76,7 +76,7 @@ final public class FirstChildNodeSelectorTest extends
         final TestNode grand5 = TestNode.with("grand5");
         final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
 
-        this.acceptAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().firstChild(),
+        this.applyAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().firstChild(),
                 TestNode.with("parent", child1, child2),
                 child1, grand1, grand3);
     }

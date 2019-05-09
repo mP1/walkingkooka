@@ -39,7 +39,7 @@ class FakeNodeSelector extends NodeSelector<TestNode, StringName, StringName, Ob
     }
 
     @Override
-    TestNode accept1(final TestNode node, final NodeSelectorContext2<TestNode, StringName, StringName, Object> context) {
+    TestNode apply1(final TestNode node, final NodeSelectorContext2<TestNode, StringName, StringName, Object> context) {
         throw new UnsupportedOperationException();
     }
 
