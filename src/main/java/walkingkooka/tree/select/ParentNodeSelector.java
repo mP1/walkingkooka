@@ -45,8 +45,6 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
         super(selector);
     }
 
-    // NodeSelector
-
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new ParentNodeSelector<>(selector);
@@ -58,12 +56,19 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
     }
 
     @Override
-    void toString1(final NodeSelectorToStringBuilder b) {
-        b.parent();
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return this.selectNext(node, context);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof ParentNodeSelector;
+    }
+
+    @Override
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.parent();
     }
 }

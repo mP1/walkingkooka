@@ -54,29 +54,14 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     /**
      * The default simply records the {@link Node} to the {@link NodeSelectorContext}.
      */
-    @Override
-    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N selectNext(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.next.apply0(node, context);
-    }
-
-    @Override
-    final void toString0(final NodeSelectorToStringBuilder b) {
-        this.toString1(b);
-        this.toStringNext(b);
-    }
-
-    abstract void toString1(final NodeSelectorToStringBuilder b);
-
-    final void toStringNext(final NodeSelectorToStringBuilder b) {
-        if (null != this.next) {
-            this.next.toString0(b);
-        }
     }
 
     // Testing...
     final NodeSelector<N, NAME, ANAME, AVALUE> next;
 
-    // Object
+    // Object...........................................................................................................
 
     @Override
     public final int hashCode() {
@@ -97,4 +82,18 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     abstract boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other);
+
+    @Override
+    final void toString0(final NodeSelectorToStringBuilder b) {
+        this.toString1(b);
+        this.toStringNext(b);
+    }
+
+    abstract void toString1(final NodeSelectorToStringBuilder b);
+
+    final void toStringNext(final NodeSelectorToStringBuilder b) {
+        if (null != this.next) {
+            this.next.toString0(b);
+        }
+    }
 }

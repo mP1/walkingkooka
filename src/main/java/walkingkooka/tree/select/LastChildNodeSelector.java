@@ -47,29 +47,30 @@ final class LastChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         super(selector);
     }
 
-    // NodeSelector
-
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new LastChildNodeSelector<>(selector);
     }
-
-    // NodeSelector
 
     @Override
     N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectChild(node.lastChild(), node, context);
     }
 
-    // Object
-
     @Override
-    void toString1(final NodeSelectorToStringBuilder b) {
-        b.axisName("last-child");
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return this.selectNext(node, context);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof LastChildNodeSelector;
+    }
+
+    @Override
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.axisName("last-child");
     }
 }

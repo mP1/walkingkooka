@@ -45,8 +45,6 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         super(selector);
     }
 
-    // NodeSelector
-
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a followingSibling to another...
@@ -61,12 +59,19 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    void toString1(final NodeSelectorToStringBuilder b) {
-        b.axisName("following-sibling");
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return this.selectNext(node, context);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof FollowingSiblingNodeSelector;
+    }
+
+    @Override
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.axisName("following-sibling");
     }
 }

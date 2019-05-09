@@ -45,28 +45,30 @@ final class ChildrenNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         super(selector);
     }
 
-    // NodeSelector
-
+    @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new ChildrenNodeSelector<N, NAME, ANAME, AVALUE>(selector);
     }
 
-    // NodeSelector
+    @Override
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return this.selectNext(node, context);
+    }
 
     @Override
     N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectChildren(node, context);
     }
 
-    // Object
-
-    @Override
-    void toString1(final NodeSelectorToStringBuilder b) {
-        b.axisName("child");
-    }
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof ChildrenNodeSelector;
+    }
+
+    @Override
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.axisName("child");
     }
 }

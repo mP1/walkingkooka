@@ -46,8 +46,6 @@ final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
         super(selector);
     }
 
-    // NodeSelector
-
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a ancestor to another...
@@ -63,18 +61,20 @@ final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     @Override
     N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        final N node2 = super.select(node, context);
+        final N node2 = this.selectNext(node, context);
 
         return this.selectParent(node2, context);
+    }
+
+    // Object...........................................................................................................
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof AncestorOrSelfNodeSelector;
     }
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
         b.axisName("ancestor-or-self");
-    }
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AncestorOrSelfNodeSelector;
     }
 }

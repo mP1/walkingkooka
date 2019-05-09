@@ -46,8 +46,6 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         super();
     }
 
-    // NodeSelector
-
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return selector;
@@ -72,6 +70,8 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         throw new NeverError(this.getClass() + ".select(Node, NodeSelectorContext)");
     }
+
+    // Object...........................................................................................................
 
     @Override
     void toString0(final NodeSelectorToStringBuilder b) {

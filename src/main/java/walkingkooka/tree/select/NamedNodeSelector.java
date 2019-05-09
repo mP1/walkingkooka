@@ -50,8 +50,6 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
         this.name = name;
     }
 
-    // NodeSelector
-
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new NamedNodeSelector<>(this.name, selector);
@@ -66,10 +64,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
 
     private final NAME name;
 
-    @Override
-    void toString1(final NodeSelectorToStringBuilder b) {
-        b.name(this.name);
-    }
+    // Object...........................................................................................................
 
     @Override
     int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
@@ -88,5 +83,10 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
 
     private boolean equals2(final NamedNodeSelector<N, NAME, ANAME, AVALUE> other) {
         return this.name.equals(other.name);
+    }
+
+    @Override
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.name(this.name);
     }
 }
