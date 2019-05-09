@@ -71,6 +71,13 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         throw new NeverError(this.getClass() + ".select(Node, NodeSelectorContext)");
     }
 
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    void accept0(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.visitTerminal(this);
+    }
+
     // Object...........................................................................................................
 
     @Override

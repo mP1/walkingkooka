@@ -21,6 +21,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Objects;
 
@@ -83,6 +84,18 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     @Override
     N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selector.select(node, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    void accept0(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        final String toString = this.toString;
+
+        if (Visiting.CONTINUE == visitor.startVisitCustom(this, toString)) {
+            this.selector.traverse(visitor);
+        }
+        visitor.endVisitCustom(this, toString);
     }
 
     // Object...........................................................................................................

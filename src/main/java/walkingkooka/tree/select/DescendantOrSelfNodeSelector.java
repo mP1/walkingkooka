@@ -21,6 +21,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 
 /**
@@ -65,6 +66,18 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node2 = this.selectNext(node, context);
 
         return this.selectChildren(node2, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitDescendantOrSelf(this);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitDescendantOrSelf(this);
     }
 
     // Object...........................................................................................................

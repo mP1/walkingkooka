@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Optional;
 
@@ -60,6 +61,20 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     // Testing...
     final NodeSelector<N, NAME, ANAME, AVALUE> next;
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    final void accept0(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        if (Visiting.CONTINUE == this.traverseStart(visitor)) {
+            this.next.traverse(visitor);
+        }
+        this.traverseEnd(visitor);
+    }
+
+    abstract Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor);
+
+    abstract void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor);
 
     // Object...........................................................................................................
 

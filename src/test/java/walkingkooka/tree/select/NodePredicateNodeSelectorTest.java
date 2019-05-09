@@ -20,13 +20,18 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.visit.Visiting;
 
+import java.util.List;
 import java.util.function.Predicate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -114,6 +119,68 @@ final public class NodePredicateNodeSelectorTest extends
                 TestNode.with("parent", TestNode.with(MAGIC_VALUE + "*0"), TestNode.with("child"))
                         .child(0));
     }
+
+    // NodeSelectorVisitor............................................................................................
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final List<NodeSelector> visited = Lists.array();
+
+        final NodePredicateNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
+        final NodeSelector<TestNode, StringName, StringName, Object> next = selector.next;
+
+        new FakeNodeSelectorVisitor<TestNode, StringName, StringName, Object>() {
+            @Override
+            protected Visiting startVisit(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                b.append("1");
+                visited.add(s);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                b.append("2");
+                visited.add(s);
+            }
+
+            @Override
+            protected Visiting startVisitPredicate(final NodeSelector<TestNode, StringName, StringName, Object> s,
+                                                   final Predicate<TestNode> predicate) {
+                assertSame(selector, s, "selector");
+                assertSame(PREDICATE, predicate, "predicate");
+                b.append("3");
+                visited.add(s);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisitPredicate(final NodeSelector<TestNode, StringName, StringName, Object> s,
+                                             final Predicate<TestNode> predicate) {
+                assertSame(selector, s, "selector");
+                assertSame(PREDICATE, predicate, "predicate");
+                b.append("4");
+                visited.add(s);
+            }
+
+            @Override
+            protected void visitTerminal(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                assertSame(next, s);
+                b.append("5");
+                visited.add(s);
+            }
+        }.accept(selector);
+
+        assertEquals("1315242", b.toString());
+
+        assertEquals(Lists.of(selector, selector,
+                next, next, next,
+                selector, selector),
+                visited,
+                "visited");
+    }
+
+    // Object.......................................................................................................
 
     @Test
     public void testEqualsDifferentPredicate() {

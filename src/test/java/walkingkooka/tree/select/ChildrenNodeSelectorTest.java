@@ -22,6 +22,12 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.visit.Visiting;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class ChildrenNodeSelectorTest
         extends NonTerminalNodeSelectorTestCase<ChildrenNodeSelector<TestNode, StringName, StringName, Object>> {
@@ -142,6 +148,64 @@ final public class ChildrenNodeSelectorTest
                                 TestNode.with("child1"), TestNode.with("child2")),
                         TestNode.with("parent2*1", TestNode.with("child3"))));
     }
+
+    // NodeSelectorVisitor............................................................................................
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final List<NodeSelector> visited = Lists.array();
+
+        final ChildrenNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
+        final NodeSelector<TestNode, StringName, StringName, Object> next = selector.next;
+
+        new FakeNodeSelectorVisitor<TestNode, StringName, StringName, Object>() {
+            @Override
+            protected Visiting startVisit(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                b.append("1");
+                visited.add(s);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                b.append("2");
+                visited.add(s);
+            }
+
+            @Override
+            protected Visiting startVisitChildren(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                assertSame(selector, s, "selector");
+                b.append("3");
+                visited.add(s);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisitChildren(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                assertSame(selector, s, "selector");
+                b.append("4");
+                visited.add(s);
+            }
+
+            @Override
+            protected void visitTerminal(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                assertSame(next, s);
+                b.append("5");
+                visited.add(s);
+            }
+        }.accept(selector);
+
+        assertEquals("1315242", b.toString());
+
+        assertEquals(Lists.of(selector, selector,
+                next, next, next,
+                selector, selector),
+                visited,
+                "visited");
+    }
+
+    // toString....................................................................................................
 
     @Test
     public void testToString() {

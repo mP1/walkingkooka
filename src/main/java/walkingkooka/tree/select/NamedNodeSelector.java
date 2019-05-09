@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Objects;
 
@@ -63,6 +64,18 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     }
 
     private final NAME name;
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitNamed(this, this.name);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitNamed(this, this.name);
+    }
 
     // Object...........................................................................................................
 

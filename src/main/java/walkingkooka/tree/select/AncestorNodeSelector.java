@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 /**
  * A {@link NodeSelector} that selects all the ancestors of a given {@link Node} until the root of the graph is reached.
@@ -63,6 +64,20 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
         return this.selectParent(node2, context);
     }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitAncestor(this);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitAncestor(this);
+    }
+
+    // Object......................................................................................................
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {

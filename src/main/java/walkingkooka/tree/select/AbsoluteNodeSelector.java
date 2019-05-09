@@ -20,6 +20,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.pointer.NodePointer;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Objects;
 
@@ -68,6 +69,18 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     @Override
     final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitAbsolute(this);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitAbsolute(this);
     }
 
     // Object...........................................................................................................

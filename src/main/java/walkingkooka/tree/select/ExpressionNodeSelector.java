@@ -22,6 +22,7 @@ import walkingkooka.convert.ConversionException;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Objects;
 
@@ -87,11 +88,24 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
      * The expression holds the xpath predicate. If the value is boolean true or a number equal to the current node position
      * the {@link Node} is selected.
      */
-    private final ExpressionNode expressionNode;
+    // VisibleForTesting
+    final ExpressionNode expressionNode;
 
     @Override
     final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitExpression(this, this.expressionNode);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitExpression(this, this.expressionNode);
     }
 
     // Object...........................................................................................................
