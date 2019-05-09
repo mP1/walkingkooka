@@ -22,14 +22,17 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
+final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>>
+        implements HasJsonNodeTesting<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
 
-    private final static String TOSTRING = "CustomToString";
+    private final static String TOSTRING = "!CustomToString123";
 
     @Test
     public void testWithSelectorNullFails() {
@@ -133,6 +136,15 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
                 .append(TestNode.relativeNodeSelector().self().setToString(toString)), "../" + toString);
     }
 
+    // HasJsonNode.....................................................................................................
+
+    @Test
+    public void testToJson() {
+        this.toJsonNodeAndCheck(this.createSelector(), "{\"components\": [\"custom:CustomToString123\"]}");
+    }
+
+    // Object..........................................................................................................
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), TOSTRING);
@@ -151,6 +163,20 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
                                                                                                 final String toString) {
         return Cast.to(CustomToStringNodeSelector.with(wrap, toString));
     }
+
+    // JsonNodeTesting....................................................................................................
+
+    @Override
+    public CustomToStringNodeSelector<TestNode, StringName, StringName, Object> fromJsonNode(final JsonNode from) {
+        return Cast.to(CustomToStringNodeSelector.fromJsonNode(from));
+    }
+
+    @Override
+    public CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createHasJsonNode() {
+        return this.createSelector();
+    }
+
+    // ClassTesting....................................................................................................
 
     @Override
     public Class<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> type() {

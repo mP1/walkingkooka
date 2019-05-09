@@ -53,7 +53,9 @@ final public class NodePredicateNodeSelectorTest extends
     @Test
     public void testPredicate() {
         final TestNode self = TestNode.with("self");
-        this.applyAndCheck(self, self);
+        this.applyAndCheck(this.createSelector2(),
+                self,
+                self);
     }
 
     @Test
@@ -63,7 +65,9 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode siblingAfter = TestNode.with("siblingAfter");
         final TestNode parent = TestNode.with("parent", siblingBefore, self, siblingAfter);
 
-        this.applyAndCheck(parent.child(1), self);
+        this.applyAndCheck(this.createSelector2(),
+                parent.child(1),
+                self);
     }
 
     @Test
@@ -115,9 +119,14 @@ final public class NodePredicateNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(parent.child(0),
+        this.acceptMapAndCheck(this.createSelector2(),
+                parent.child(0),
                 TestNode.with("parent", TestNode.with(MAGIC_VALUE + "*0"), TestNode.with("child"))
                         .child(0));
+    }
+
+    private NodePredicateNodeSelector<TestNode, StringName, StringName, Object> createSelector2() {
+        return NodePredicateNodeSelector.with(PREDICATE);
     }
 
     // NodeSelectorVisitor............................................................................................
@@ -127,7 +136,8 @@ final public class NodePredicateNodeSelectorTest extends
         final StringBuilder b = new StringBuilder();
         final List<NodeSelector> visited = Lists.array();
 
-        final NodePredicateNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
+        final Predicate<TestNode> predicate = this.predicate();
+        final NodePredicateNodeSelector<TestNode, StringName, StringName, Object> selector = NodePredicateNodeSelector.with(predicate);
         final NodeSelector<TestNode, StringName, StringName, Object> next = selector.next;
 
         new FakeNodeSelectorVisitor<TestNode, StringName, StringName, Object>() {
@@ -146,9 +156,9 @@ final public class NodePredicateNodeSelectorTest extends
 
             @Override
             protected Visiting startVisitPredicate(final NodeSelector<TestNode, StringName, StringName, Object> s,
-                                                   final Predicate<TestNode> predicate) {
+                                                   final Predicate<TestNode> p) {
                 assertSame(selector, s, "selector");
-                assertSame(PREDICATE, predicate, "predicate");
+                assertSame(predicate, p, "predicate");
                 b.append("3");
                 visited.add(s);
                 return Visiting.CONTINUE;
@@ -156,9 +166,9 @@ final public class NodePredicateNodeSelectorTest extends
 
             @Override
             protected void endVisitPredicate(final NodeSelector<TestNode, StringName, StringName, Object> s,
-                                             final Predicate<TestNode> predicate) {
+                                             final Predicate<TestNode> p) {
                 assertSame(selector, s, "selector");
-                assertSame(PREDICATE, predicate, "predicate");
+                assertSame(predicate, p, "predicate");
                 b.append("4");
                 visited.add(s);
             }
@@ -180,6 +190,28 @@ final public class NodePredicateNodeSelectorTest extends
                 "visited");
     }
 
+    // HasJsonNode.......................................................................................................
+
+    @Test
+    public void testToJsonNode() {
+        this.toJsonNodeAndCheck(TestNode.relativeNodeSelector().attributeValueStartsWith(Names.string("ABC123"), "startsWith456"),
+                "{\n" +
+                        "  \"components\": [\"predicate:starts-with(@ABC123,\\\"startsWith456\\\")\"]\n" +
+                        "}");
+    }
+
+    @Override
+    public void testToJsonNodeRoundtripList() {
+    }
+
+    @Override
+    public void testToJsonNodeRoundtripSet() {
+    }
+
+    @Override
+    public void testToJsonNodeRoundtripMap() {
+    }
+
     // Object.......................................................................................................
 
     @Test
@@ -189,12 +221,24 @@ final public class NodePredicateNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createSelector(), "*[" + PREDICATE.toString() + "]");
+        this.toStringAndCheck(this.createSelector(), "*[" + this.predicate().toString() + "]");
     }
 
     @Override
     NodePredicateNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
-        return NodePredicateNodeSelector.with(PREDICATE);
+        return NodePredicateNodeSelector.with(this.predicate());
+    }
+
+    private Predicate<TestNode> predicate() {
+        return NodeSelectorNodeAttributeValuePredicate.startsWith(this.attributeName(), this.attributeValue());
+    }
+
+    private StringName attributeName() {
+        return Names.string("attribute123");
+    }
+
+    private String attributeValue() {
+        return "value456";
     }
 
     @Override

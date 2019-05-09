@@ -23,9 +23,12 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -33,8 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NamedNodeSelectorTest extends
         NonTerminalNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
-
-    private final static StringName NAME = Names.string("never");
 
     @Test
     public void testWithNullNameFails() {
@@ -222,6 +223,7 @@ final public class NamedNodeSelectorTest extends
 
         final NamedNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
         final NodeSelector<TestNode, StringName, StringName, Object> next = selector.next;
+        final StringName name = selector.name;
 
         new FakeNodeSelectorVisitor<TestNode, StringName, StringName, Object>() {
             @Override
@@ -239,9 +241,9 @@ final public class NamedNodeSelectorTest extends
 
             @Override
             protected Visiting startVisitNamed(final NodeSelector<TestNode, StringName, StringName, Object> s,
-                                               final StringName name) {
+                                               final StringName n) {
                 assertSame(selector, s, "selector");
-                assertSame(NAME, name, "name");
+                assertSame(name, n, "name");
                 b.append("3");
                 visited.add(s);
                 return Visiting.CONTINUE;
@@ -249,9 +251,9 @@ final public class NamedNodeSelectorTest extends
 
             @Override
             protected void endVisitNamed(final NodeSelector<TestNode, StringName, StringName, Object> s,
-                                         final StringName name) {
+                                         final StringName n) {
                 assertSame(selector, s, "selector");
-                assertSame(NAME, name);
+                assertSame(name, n);
                 b.append("4");
                 visited.add(s);
             }
@@ -273,6 +275,34 @@ final public class NamedNodeSelectorTest extends
                 "visited");
     }
 
+    // HasJsonNode...................................................................................................
+
+    @Test
+    public void testToJsonNode() {
+        Names.string("123");
+
+        assertEquals(Optional.of(JsonNode.string("string-name")), HasJsonNode.typeName(StringName.class));
+
+        this.toJsonNodeAndCheck(this.createSelector(),
+                "{\n" +
+                        "  \"name-type\": \"string-name\",\n" +
+                        "  \"components\": [\"named:ABC123\"]\n" +
+                        "}");
+    }
+
+    @Test
+    public void testFromJsonNode() {
+        Names.string("123");
+
+        assertEquals(Optional.of(JsonNode.string("string-name")), HasJsonNode.typeName(StringName.class));
+
+        this.fromJsonNodeAndCheck("{\n" +
+                        "  \"name-type\": \"string-name\",\n" +
+                        "  \"components\": [\"named:ABC123\"]\n" +
+                        "}",
+                this.createSelector());
+    }
+
     // Object.......................................................................................................
 
     @Test
@@ -282,7 +312,7 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createSelector(), NAME.value());
+        this.toStringAndCheck(this.createSelector(), this.name().value());
     }
 
     @Test
@@ -331,7 +361,11 @@ final public class NamedNodeSelectorTest extends
 
     @Override
     NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
-        return createSelector(NAME);
+        return createSelector(this.name());
+    }
+
+    private StringName name() {
+        return Names.string("ABC123");
     }
 
     private NamedNodeSelector<TestNode, StringName, StringName, Object> createSelector(final StringName name) {
