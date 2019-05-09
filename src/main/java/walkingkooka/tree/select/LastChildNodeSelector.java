@@ -22,6 +22,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 /**
  * A {@link NodeSelector} that selects the last child of any given {@link Node}.
@@ -60,6 +61,18 @@ final class LastChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     @Override
     final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitLastChild(this);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitLastChild(this);
     }
 
     // Object...........................................................................................................

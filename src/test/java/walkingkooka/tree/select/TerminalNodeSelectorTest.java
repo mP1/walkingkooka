@@ -19,8 +19,15 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.visit.Visiting;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class TerminalNodeSelectorTest
         extends NodeSelectorTestCase4<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
@@ -37,6 +44,46 @@ final public class TerminalNodeSelectorTest
                         TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")));
     }
 
+    // NodeSelectorVisitor............................................................................................
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final List<NodeSelector> visited = Lists.array();
+
+        final TerminalNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
+
+        new FakeNodeSelectorVisitor<TestNode, StringName, StringName, Object>() {
+            @Override
+            protected Visiting startVisit(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                b.append("1");
+                visited.add(s);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                b.append("2");
+                visited.add(s);
+            }
+
+            @Override
+            protected void visitTerminal(final NodeSelector<TestNode, StringName, StringName, Object> s) {
+                assertSame(s, s);
+                b.append("3");
+                visited.add(s);
+            }
+        }.accept(selector);
+
+        assertEquals("132", b.toString());
+
+        assertEquals(Lists.of(selector, selector, selector),
+                visited,
+                "visited");
+    }
+
+    // Object....................................................................................................
+    
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "");

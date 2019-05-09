@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 /**
  * A {@link NodeSelector} that selects all the preceding nodes of a given {@link Node}. It does this by asking all ancestors to process their following
@@ -63,6 +64,18 @@ final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         final N node2 = this.selectNext(node, context);
         return this.selectChildren(node2, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitFollowing(this);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitFollowing(this);
     }
 
     // Object...........................................................................................................

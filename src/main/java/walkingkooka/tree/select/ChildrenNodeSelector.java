@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 /**
  * A {@link NodeSelector} that selects all the direct children of a given {@link Node}.
@@ -58,6 +59,18 @@ final class ChildrenNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     @Override
     N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectChildren(node, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitChildren(this);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitChildren(this);
     }
 
     // Object...........................................................................................................

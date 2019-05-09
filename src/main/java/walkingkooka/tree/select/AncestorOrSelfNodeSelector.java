@@ -21,6 +21,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 /**
  * A {@link NodeSelector} that selects all the ancestors or self of a given {@link Node} until the root of the graph is reached.
@@ -64,6 +65,18 @@ final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
         final N node2 = this.selectNext(node, context);
 
         return this.selectParent(node2, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitAncestorOrSelf(this);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitAncestorOrSelf(this);
     }
 
     // Object...........................................................................................................

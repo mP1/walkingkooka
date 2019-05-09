@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 /**
  * A {@link NodeSelector} that selects all the following siblings of a given {@link Node}.
@@ -61,6 +62,18 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     @Override
     final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
+    }
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitFollowingSibling(this);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitFollowingSibling(this);
     }
 
     // Object...........................................................................................................

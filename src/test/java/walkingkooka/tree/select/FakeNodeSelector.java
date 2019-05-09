@@ -49,6 +49,11 @@ class FakeNodeSelector extends NodeSelector<TestNode, StringName, StringName, Ob
     }
 
     @Override
+    void accept0(final NodeSelectorVisitor<TestNode, StringName, StringName, Object> visitor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     void toString0(final NodeSelectorToStringBuilder b) {
         b.append(this.getClass().getSimpleName());
     }

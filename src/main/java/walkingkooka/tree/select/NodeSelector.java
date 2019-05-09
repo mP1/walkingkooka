@@ -26,6 +26,8 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.visit.Visitable;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -39,7 +41,8 @@ import java.util.function.Predicate;
 public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> implements HashCodeEqualsDefined {
+        AVALUE> implements HashCodeEqualsDefined,
+        Visitable {
 
     /**
      * Path separator
@@ -373,6 +376,26 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Handles a selected {@link Node}
      */
     abstract N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
+
+    // NodeSelectorVisitor..............................................................................................
+
+    /**
+     * Begins visiting with this {@link NodeSelector} using the given {@link NodeSelectorVisitor}
+     */
+    public final void accept(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        Objects.requireNonNull(visitor, "visitor");
+
+        visitor.traverse(this);
+    }
+
+    final void traverse(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.accept0(visitor);
+        }
+        visitor.endVisit(this);
+    }
+
+    abstract void accept0(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor);
 
     // Object...........................................................................................................
 

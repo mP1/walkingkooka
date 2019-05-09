@@ -21,6 +21,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -66,6 +67,18 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     }
 
     private final Predicate<N> predicate;
+
+    // NodeSelectorVisitor..............................................................................................
+
+    @Override
+    Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        return visitor.startVisitPredicate(this, this.predicate);
+    }
+
+    @Override
+    void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+        visitor.endVisitPredicate(this, this.predicate);
+    }
 
     // Object...........................................................................................................
 
