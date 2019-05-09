@@ -31,7 +31,7 @@ final class AllNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
         extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AllNodeSelectorContext2<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return new AllNodeSelectorContext2(context);
+        return new AllNodeSelectorContext2<>(context);
     }
 
     private AllNodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
