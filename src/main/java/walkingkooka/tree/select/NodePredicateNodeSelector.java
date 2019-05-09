@@ -53,8 +53,6 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
         this.predicate = predicate;
     }
 
-    // NodeSelector
-
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new NodePredicateNodeSelector<>(this.predicate, selector);
@@ -69,7 +67,7 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     private final Predicate<N> predicate;
 
-    // Object
+    // Object...........................................................................................................
 
     @Override
     int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {

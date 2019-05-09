@@ -54,8 +54,6 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         this.expressionNode = expressionNode;
     }
 
-    // NodeSelector
-
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new ExpressionNodeSelector<N, NAME, ANAME, AVALUE>(this.expressionNode, selector);
     }
@@ -91,7 +89,12 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
      */
     private final ExpressionNode expressionNode;
 
-    // Object
+    @Override
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return this.selectNext(node, context);
+    }
+
+    // Object...........................................................................................................
 
     @Override
     int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {

@@ -46,8 +46,7 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         super(selector);
     }
 
-    // NodeSelector
-
+    @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a descending to another...
         return selector instanceof DescendantNodeSelector ?
@@ -62,18 +61,20 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        final N node2 = super.select(node, context);
+        final N node2 = this.selectNext(node, context);
 
         return this.selectChildren(node2, context);
+    }
+
+    // Object...........................................................................................................
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof DescendantNodeSelector;
     }
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
         b.axisName("descendant");
-    }
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof DescendantNodeSelector;
     }
 }

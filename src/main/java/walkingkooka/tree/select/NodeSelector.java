@@ -374,6 +374,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     abstract N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
 
+    // Object...........................................................................................................
+
     /**
      * Force sub classes to implement.
      */

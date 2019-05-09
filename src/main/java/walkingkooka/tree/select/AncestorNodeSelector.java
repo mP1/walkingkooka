@@ -45,8 +45,6 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         super(selector);
     }
 
-    // NodeSelector
-
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a ancestor to another...
         return selector instanceof AncestorNodeSelector ?
@@ -61,7 +59,7 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     @Override
     N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        final N node2 = super.select(node, context);
+        final N node2 = this.selectNext(node, context);
 
         return this.selectParent(node2, context);
     }

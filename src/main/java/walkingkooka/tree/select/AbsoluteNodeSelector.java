@@ -48,8 +48,6 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         super(selector);
     }
 
-    // NodeSelector
-
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a descending to a absolute, as it already is a absolute search start...
@@ -66,6 +64,13 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         final N node2 = this.select(node.root(), context);
         return pointer.traverse(node2).orElse(node2); // try and return the Node at the equivalent location as $node otherwise return node2 itself.
     }
+
+    @Override
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return this.selectNext(node, context);
+    }
+
+    // Object...........................................................................................................
 
     @Override
     final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {

@@ -47,4 +47,9 @@ abstract class NamedOrNodePredicateNodeSelector<N extends Node<N, NAME, ANAME, A
     final NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.next.finishPrepareContext(context);
     }
+
+    @Override
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return this.selectNext(node, context);
+    }
 }

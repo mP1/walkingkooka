@@ -47,8 +47,6 @@ final class FirstChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         super(selector);
     }
 
-    // NodeSelector
-
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return new FirstChildNodeSelector<>(selector);
     }
@@ -58,15 +56,20 @@ final class FirstChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         return this.selectChild(node.firstChild(), node, context);
     }
 
-    // Object
-
     @Override
-    void toString1(final NodeSelectorToStringBuilder b) {
-        b.axisName("first-child");
+    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return this.selectNext(node, context);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof FirstChildNodeSelector;
+    }
+
+    @Override
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.axisName("first-child");
     }
 }
