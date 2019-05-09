@@ -52,6 +52,6 @@ final class NodeSelectorNodeAttributeValueEqualsPredicate<N extends Node<N, NAME
     @Override
     String toString0(final ANAME name, final AVALUE value) {
         //[@for="xyz"]
-        return "@" + name + "=" + CharSequences.quoteIfChars(value);
+        return "@" + name.value() + "=" + CharSequences.quoteIfChars(value);
     }
 }

@@ -39,7 +39,7 @@ public class NodeSelectorNodeAttributeValueStartsWithPredicateTest
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createPredicate(), "starts-with(@\"attribute-1\",\"123\")");
+        this.toStringAndCheck(this.createPredicate(), "starts-with(@attribute-1,\"123\")");
     }
 
     @Override

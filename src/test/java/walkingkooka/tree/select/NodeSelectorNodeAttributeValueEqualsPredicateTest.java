@@ -39,7 +39,7 @@ public class NodeSelectorNodeAttributeValueEqualsPredicateTest
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createPredicate(), "@\"attribute-1\"=\"123\"");
+        this.toStringAndCheck(this.createPredicate(), "@attribute-1=\"123\"");
     }
 
     @Override

@@ -52,6 +52,6 @@ final class NodeSelectorNodeAttributeValueEndsWithPredicate<N extends Node<N, NA
     @Override
     String toString0(final ANAME name, final AVALUE value) {
         //[ends-with(@href, '/')]
-        return "ends-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
+        return "ends-with(@" + name.value() + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }
