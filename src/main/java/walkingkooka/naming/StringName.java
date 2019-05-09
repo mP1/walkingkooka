@@ -23,8 +23,11 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.text.Whitespace;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A simple {@link Name} that accepts a {@link String} composed of any character.
@@ -32,7 +35,8 @@ import java.io.Serializable;
 final public class StringName implements Name,
         Comparable<StringName>,
         ShouldBeQuoted,
-        Serializable {
+        Serializable,
+        HasJsonNode {
 
     private final static long serialVersionUID = 1L;
 
@@ -105,4 +109,23 @@ final public class StringName implements Name,
     }
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+
+    // HasJsonNode...................................................................................................
+
+    static {
+        HasJsonNode.register("string-name",
+                StringName::fromJsonNode,
+                StringName.class);
+    }
+
+    public static StringName fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        return with(node.stringValueOrFail());
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        return JsonNode.string(this.value());
+    }
 }
