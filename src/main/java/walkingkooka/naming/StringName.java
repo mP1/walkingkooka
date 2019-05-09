@@ -120,7 +120,7 @@ final public class StringName implements Name,
 
     public static StringName fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
-        
+
         return with(node.stringValueOrFail());
     }
 

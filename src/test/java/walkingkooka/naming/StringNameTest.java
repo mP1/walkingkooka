@@ -21,13 +21,19 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringNameTest implements ClassTesting2<StringName>,
-        NameTesting<StringName, StringName>, SerializationTesting<StringName> {
+        NameTesting<StringName, StringName>,
+        HasJsonNodeTesting<StringName>,
+        SerializationTesting<StringName> {
 
+    private final static String TEXT = "bcd123";
+    
     @Test
     public void testContainsSeparatorFails() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -38,6 +44,16 @@ final public class StringNameTest implements ClassTesting2<StringName>,
     @Test
     public void testSerializeRootIsSingleton() throws Exception {
         this.serializeSingletonAndCheck(StringName.ROOT);
+    }
+
+    @Test
+    public void testToJsonNode() {
+        this.toJsonNodeAndCheck(StringName.with(TEXT), JsonNode.string(TEXT));
+    }
+
+    @Test
+    public void testFromJsonNode() {
+        this.fromJsonNodeAndCheck(JsonNode.string(TEXT), StringName.with(TEXT));
     }
 
     @Override
@@ -52,7 +68,7 @@ final public class StringNameTest implements ClassTesting2<StringName>,
 
     @Override
     public String nameText() {
-        return "bbb";
+        return TEXT;
     }
 
     @Override
@@ -65,6 +81,8 @@ final public class StringNameTest implements ClassTesting2<StringName>,
         return "aa";
     }
 
+    // ClassTesting...................................................................................................
+
     @Override
     public Class<StringName> type() {
         return StringName.class;
@@ -75,6 +93,8 @@ final public class StringNameTest implements ClassTesting2<StringName>,
         return MemberVisibility.PUBLIC;
     }
 
+    // SerializableTesting.............................................................................................
+
     @Override
     public StringName serializableInstance() {
         return StringName.with("string");
@@ -84,4 +104,17 @@ final public class StringNameTest implements ClassTesting2<StringName>,
     public boolean serializableInstanceIsSingleton() {
         return false;
     }
+
+    // HasJsonesting...................................................................................................
+
+    @Override
+    public StringName fromJsonNode(final JsonNode from) {
+        return StringName.fromJsonNode(from);
+    }
+
+    @Override
+    public StringName createHasJsonNode() {
+        return this.createName(this.nameText());
+    }
+
 }
