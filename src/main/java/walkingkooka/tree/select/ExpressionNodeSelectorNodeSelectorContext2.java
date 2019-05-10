@@ -41,29 +41,6 @@ final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, A
     }
 
     @Override
-    public boolean test(final N node) {
-        return this.context.test(node);
-    }
-
-    /**
-     * Updates the position and selects the given {@link Node}.
-     */
-    @Override
-    public N selected(final N node) {
-        return this.context.selected(node);
-    }
-
-    @Override
-    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
-        return this.context.function(name, parameters);
-    }
-
-    @Override
-    public <T> T convert(final Object value, final Class<T> target) {
-        return this.context.convert(value, target);
-    }
-
-    @Override
     NodeSelectorContext2<N, NAME, ANAME, AVALUE> all() {
         return NodeSelectorContext2.all(this.context);
     }
