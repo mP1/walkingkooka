@@ -33,6 +33,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
+import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -46,70 +47,133 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 Object> {
 
     @Test
-    public void NullPointerException() {
+    public void testWithNullFinisher() {
         assertThrows(NullPointerException.class, () -> {
             BasicNodeSelectorContext.with(null,
+                    this.predicate(),
                     this.mapper(),
                     this.functions(),
                     this.converter(),
-                    this.decimalNumberContext());
+                    this.decimalNumberContext(),
+                    this.nodeType());
+        });
+    }
+
+    @Test
+    public void testWithNullFilter() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicNodeSelectorContext.with(this.finisher(),
+                    null,
+                    this.mapper(),
+                    this.functions(),
+                    this.converter(),
+                    this.decimalNumberContext(),
+                    this.nodeType());
         });
     }
 
     @Test
     public void testWithNullSelectedFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.predicate(),
+            BasicNodeSelectorContext.with(this.finisher(),
+                    this.predicate(),
                     null,
                     this.functions(),
                     this.converter(),
-                    this.decimalNumberContext());
+                    this.decimalNumberContext(),
+                    this.nodeType());
         });
     }
 
     @Test
     public void testWithNullFunctionsFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.predicate(),
+            BasicNodeSelectorContext.with(this.finisher(),
+                    this.predicate(),
                     this.mapper(),
                     null,
                     this.converter(),
-                    this.decimalNumberContext());
+                    this.decimalNumberContext(),
+                    this.nodeType());
         });
     }
 
     @Test
     public void testWithNullConverterFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.predicate(),
+            BasicNodeSelectorContext.with(this.finisher(),
+                    this.predicate(),
                     this.mapper(),
                     this.functions(),
                     null,
-                    this.decimalNumberContext());
+                    this.decimalNumberContext(),
+                    this.nodeType());
         });
     }
 
     @Test
     public void testWithNullDecimalNumberContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.predicate(),
+            BasicNodeSelectorContext.with(this.finisher(),
+                    this.predicate(),
                     this.mapper(),
                     this.functions(),
                     this.converter(),
+                    null,
+                    this.nodeType());
+        });
+    }
+
+    @Test
+    public void testWithNullNodeTypeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicNodeSelectorContext.with(this.finisher(),
+                    this.predicate(),
+                    this.mapper(),
+                    this.functions(),
+                    this.converter(),
+                    this.decimalNumberContext(),
                     null);
         });
     }
 
-    @Override public String typeNameSuffix() {
+    @Test
+    public void testToString() {
+        final BooleanSupplier finisher = this.finisher();
+        final Predicate<TestNode> filter = this.predicate();
+        final Function<TestNode, TestNode> mapper = this.mapper();
+        final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions = this.functions();
+        final Converter converter = this.converter();
+        final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
+
+        this.toStringAndCheck(BasicNodeSelectorContext.with(finisher,
+                filter,
+                mapper,
+                functions,
+                converter,
+                decimalNumberContext,
+                this.nodeType()),
+                finisher + " " + filter + " " + mapper + " " + functions + " " + converter + " " + decimalNumberContext);
+    }
+
+    @Override
+    public String typeNameSuffix() {
         return NodeSelectorContext.class.getSimpleName();
     }
 
-    @Override public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
-        return BasicNodeSelectorContext.with(this.predicate(),
+    @Override
+    public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
+        return BasicNodeSelectorContext.with(this.finisher(),
+                this.predicate(),
                 this.mapper(),
                 this.functions(),
                 this.converter(),
-                this.decimalNumberContext());
+                this.decimalNumberContext(),
+                this.nodeType());
+    }
+
+    private BooleanSupplier finisher() {
+        return () -> false;
     }
 
     private Predicate<TestNode> predicate() {
@@ -130,6 +194,10 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     private DecimalNumberContext decimalNumberContext() {
         return DecimalNumberContexts.fake();
+    }
+
+    private Class<TestNode> nodeType() {
+        return TestNode.class;
     }
 
     @Override

@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
@@ -26,5 +27,12 @@ public abstract class NamedOrNodePredicateNodeSelectorTestCase<S extends NamedOr
 
     NamedOrNodePredicateNodeSelectorTestCase() {
         super();
+    }
+
+    @Test
+    public final void testFinishedTrueChildren() {
+        this.applyFinisherAndCheck(this.createSelector().children(),
+                TestNode.with("self"),
+                () -> true);
     }
 }

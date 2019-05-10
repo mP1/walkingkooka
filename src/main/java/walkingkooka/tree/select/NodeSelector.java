@@ -275,7 +275,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
-        return context.test(node) ?
+        return !context.isFinished() && context.test(node) ?
                 this.apply0(node, NodeSelectorContext2.all(context)) :
                 node;
     }
@@ -311,14 +311,21 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         final Optional<N> parent = node.parent();
 
         if (parent.isPresent()) {
+            final int index = node.index();
             N current = node;
+
             for (; ; ) {
                 final Optional<N> next = current.previousSibling();
                 if (!next.isPresent()) {
-                    result = current.parentOrFail().children().get(node.index());
+                    result = current.parentOrFail().children().get(index);
                     break;
                 }
                 current = this.testThenSelect(next.get(), context);
+
+                if (context.isFinished()) {
+                    result = current.parentOrFail().children().get(index);
+                    break;
+                }
             }
         }
 
@@ -333,15 +340,21 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
         final Optional<N> parent = node.parent();
         if (parent.isPresent()) {
-
+            final int index = node.index();
             N current = node;
+
             for (; ; ) {
                 final Optional<N> next = current.nextSibling();
                 if (!next.isPresent()) {
-                    result = current.parentOrFail().children().get(node.index());
+                    result = current.parentOrFail().children().get(index);
                     break;
                 }
                 current = this.testThenSelect(next.get(), context);
+
+                if (context.isFinished()) {
+                    result = current.parentOrFail().children().get(index);
+                    break;
+                }
             }
         }
         return result;
@@ -354,12 +367,17 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         N result = node;
 
         Optional<N> next = node.firstChild();
-        if(next.isPresent()) {
-            for(;;) {
+        if (next.isPresent()) {
+            for (; ; ) {
                 final N nextNode = next.get();
+                if (context.isFinished()) {
+                    result = nextNode.parentOrFail();
+                    break;
+                }
+
                 result = this.testThenSelect(nextNode, context);
                 next = result.nextSibling();
-                if(!next.isPresent()) {
+                if (!next.isPresent()) {
                     result = result.parentOrFail();
                     break;
                 }
@@ -373,9 +391,11 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Matches the parent only if one is present.
      */
     final N selectParent(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        return node.parent()
-                .map(parent -> this.testThenSelect(parent, context).children().get(node.index()))
-                .orElse(node);
+        return context.isFinished() ?
+                node :
+                node.parent()
+                        .map(parent -> this.testThenSelect(parent, context).children().get(node.index()))
+                        .orElse(node);
     }
 
     /**

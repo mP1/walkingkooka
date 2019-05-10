@@ -60,6 +60,11 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     // delegate NodeSelectorContext methods to this.context.
 
     @Override
+    public final boolean isFinished() {
+        return this.context.isFinished();
+    }
+
+    @Override
     public final boolean test(final N node) {
         return this.context.test(node);
     }

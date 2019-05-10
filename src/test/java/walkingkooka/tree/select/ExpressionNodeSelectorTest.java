@@ -46,6 +46,13 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Test
+    public void testFinishedTrueChildren() {
+        this.applyFinisherAndCheck(this.createSelector().children(),
+                TestNode.with("self"),
+                () -> true);
+    }
+
+    @Test
     public void testAppendExpressionTrue() {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
                 .children()

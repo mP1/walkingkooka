@@ -1986,6 +1986,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         selector.apply(root,
                 new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
                     @Override
+                    public boolean isFinished() {
+                        return false;
+                    }
+
+                    @Override
                     public boolean test(final TestNode node) {
                         this.node = node;
                         return true;

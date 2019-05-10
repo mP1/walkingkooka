@@ -87,6 +87,37 @@ final public class ParentNodeSelectorTest extends
     }
 
     @Test
+    public final void testParentFinishedTrue() {
+        this.applyFinisherAndCheck(this.createSelector(),
+                TestNode.with("parent", TestNode.with("child")).child(0),
+                () -> true);
+    }
+
+    @Test
+    public final void testParentFinishedCountdown() {
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+        final TestNode grandParent = TestNode.with("grandParent", parent);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                grandParent.child(0).child(0), // child
+                1,
+                parent);
+    }
+
+    @Test
+    public final void testParentFinishedCountdown2() {
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+        final TestNode grandParent = TestNode.with("grandParent", parent);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                grandParent.child(0).child(0), // child
+                2,
+                parent);
+    }
+
+    @Test
     public void testParentMap() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child"));
 
