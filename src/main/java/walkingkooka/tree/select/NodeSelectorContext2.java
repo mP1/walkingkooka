@@ -20,6 +20,9 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNodeName;
+
+import java.util.List;
 
 /**
  * Base class for several {@link NodeSelectorContext} wrappers. Static factory methods are also available for all sub classes.
@@ -52,6 +55,28 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     NodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super();
         this.context = context;
+    }
+
+    // delegate NodeSelectorContext methods to this.context.
+
+    @Override
+    public final boolean test(final N node) {
+        return this.context.test(node);
+    }
+
+    @Override
+    public final N selected(final N node) {
+        return this.context.selected(node);
+    }
+
+    @Override
+    public final Object function(final ExpressionNodeName name, final List<Object> parameters) {
+        return this.context.function(name, parameters);
+    }
+
+    @Override
+    public final <T> T convert(final Object value, final Class<T> target) {
+        return this.context.convert(value, target);
     }
 
     /**
