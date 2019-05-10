@@ -34,8 +34,8 @@ public abstract class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     }
 
     final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                               final TestNode start,
-                               final String... nodes) {
+                              final TestNode start,
+                              final String... nodes) {
         this.applyAndCheckRequiringOrder(selector, start, nodes);
         this.applyAndCheckUsingContext(selector, start, nodes);
     }

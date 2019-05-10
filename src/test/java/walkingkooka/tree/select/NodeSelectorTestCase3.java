@@ -100,8 +100,8 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
 
     @SafeVarargs
     final void applyAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                              final TestNode start,
-                              final TestNode... nodes) {
+                             final TestNode start,
+                             final TestNode... nodes) {
         this.applyAndCheck0(selector,
                 start,
                 Arrays.stream(nodes)
@@ -110,12 +110,12 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
     }
 
     abstract void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                                  final TestNode start,
-                                  final String... nodes);
+                                 final TestNode start,
+                                 final String... nodes);
 
     final void applyAndCheckUsingContext(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                                          final TestNode start,
-                                          final String... nodes) {
+                                         final TestNode start,
+                                         final String... nodes) {
         final Set<TestNode> potential = Sets.ordered();
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start, selector.apply(start, this.context(
