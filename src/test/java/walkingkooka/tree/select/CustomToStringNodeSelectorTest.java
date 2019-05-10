@@ -140,7 +140,7 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
 
     @Test
     public void testToJson() {
-        this.toJsonNodeAndCheck(this.createSelector(), "{\"components\": [\"custom:CustomToString123\"]}");
+        this.toJsonNodeAndCheck(this.createSelector(), "{\"components\": [\"custom:!CustomToString123\"]}");
     }
 
     // Object..........................................................................................................
