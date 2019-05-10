@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -31,6 +32,22 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class TerminalNodeSelectorTest
         extends NodeSelectorTestCase4<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
+
+    @Test
+    public void testFilterFalse() {
+        this.applyFilterAndCheck(this.createSelector(),
+                TestNode.with("self"),
+                Predicates.never());
+    }
+
+    @Test
+    public void testFilterTrue() {
+        final TestNode self = TestNode.with("self");
+        this.applyFilterAndCheck(this.createSelector(),
+                self,
+                Predicates.always(),
+                self);
+    }
 
     @Test
     public void testMap() {
