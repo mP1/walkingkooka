@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class FollowingNodeSelectorTest extends
-        NonTerminalNodeSelectorTestCase<FollowingNodeSelector<TestNode, StringName, StringName, Object>> {
+        AxisNodeSelectorTestCase<FollowingNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testFollowingRoot() {

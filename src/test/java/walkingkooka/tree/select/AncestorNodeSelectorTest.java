@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AncestorNodeSelectorTest extends
-        NonTerminalNodeSelectorTestCase<AncestorNodeSelector<TestNode, StringName, StringName, Object>> {
+        AxisNodeSelectorTestCase<AncestorNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testAncestorRoot() {

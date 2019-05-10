@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class ChildrenNodeSelectorTest
-        extends NonTerminalNodeSelectorTestCase<ChildrenNodeSelector<TestNode, StringName, StringName, Object>> {
+        extends AxisNodeSelectorTestCase<ChildrenNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testChildrenChildless() {

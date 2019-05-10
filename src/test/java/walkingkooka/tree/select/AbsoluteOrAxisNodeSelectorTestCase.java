@@ -18,14 +18,13 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-public final class NamedOrNodePredicateNodeSelectorTest extends NodeSelectorTestCase2<NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
+public abstract class AbsoluteOrAxisNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
+        extends NonTerminalNodeSelectorTestCase<S> {
 
-    @Override
-    public Class<NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(NamedOrNodePredicateNodeSelector.class);
+    AbsoluteOrAxisNodeSelectorTestCase() {
+        super();
     }
 }
