@@ -1983,106 +1983,108 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         final NodeSelector<TestNode, StringName, StringName, Object> selector = this.parseExpression(expression);
 
         final Set<TestNode> selected = Sets.ordered();
-        selector.apply(root, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
-            @Override
-            public void potential(final TestNode node) {
-                this.node = node;
-            }
-
-            private TestNode node;
-
-            @Override
-            public TestNode selected(final TestNode node) {
-                selected.add(node);
-                return node;
-            }
-
-            @Override
-            public Object function(final ExpressionNodeName name, final List<Object> parameters) {
-                assertNotNull(this.node, "node missing");
-
-                final List<Object> thisAndParameters = Lists.array();
-                thisAndParameters.add(this.node);
-                thisAndParameters.addAll(parameters);
-
-
-                return NodeSelectorContexts.basicFunctions().apply(name)
-                        .get()
-                        .apply(thisAndParameters, this.expressionFunctionContext());
-            }
-
-            private ExpressionFunctionContext expressionFunctionContext() {
-                return new FakeExpressionFunctionContext() {
+        selector.apply(root,
+                new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
                     @Override
-                    public <T> T convert(Object value, Class<T> target) {
-                        return convert0(value, target);
+                    public boolean test(final TestNode node) {
+                        this.node = node;
+                        return true;
                     }
-                };
-            }
 
-            private <T> T convert0(final Object value, final Class<T> target) {
-                return this.convert(value, target);
-            }
+                    private TestNode node;
 
-            @Override
-            public <T> T convert(final Object value, final Class<T> target) {
-                Objects.requireNonNull(value, "value");
-                Objects.requireNonNull(target, "target");
+                    @Override
+                    public TestNode selected(final TestNode node) {
+                        selected.add(node);
+                        return node;
+                    }
 
-                return Cast.to(target.isInstance(value) ?
-                        target.cast(value) :
-                        target == BigDecimal.class ?
-                                this.convertToBigDecimal(value) :
-                                target == Boolean.class ?
-                                        this.convertToBoolean(value) :
-                                        target == Integer.class ?
-                                                this.convertToInteger(value) :
-                                                target == Number.class ?
-                                                        this.convertToNumber(value) :
-                                                        target == String.class ?
-                                                                this.convertToString(value) :
-                                                                this.failConversion(value, target));
-            }
+                    @Override
+                    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+                        assertNotNull(this.node, "node missing");
 
-            /**
-             * Currently {@link walkingkooka.tree.expression.ExpressionNode} will convert a pair of {@link Boolean} into
-             * {@link BigDecimal} prior to performing the operation such as equals.
-             */
-            private BigDecimal convertToBigDecimal(final Object value) {
-                final Converter converter = value instanceof Boolean ?
-                        Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
-                        value instanceof String ?
-                                Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.DECIMAL32), (c) -> ParserContexts.basic(c)) :
-                                Converters.numberBigDecimal();
-                return converter.convert(value, BigDecimal.class, this.converterContext);
-            }
+                        final List<Object> thisAndParameters = Lists.array();
+                        thisAndParameters.add(this.node);
+                        thisAndParameters.addAll(parameters);
 
-            private Boolean convertToBoolean(final Object value) {
-                return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext);
-            }
 
-            private Number convertToNumber(final Object value) {
-                return Converters.booleanConverter(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
-                        .convert(value, Number.class, ConverterContexts.fake());
-            }
+                        return NodeSelectorContexts.basicFunctions().apply(name)
+                                .get()
+                                .apply(thisAndParameters, this.expressionFunctionContext());
+                    }
 
-            private Integer convertToInteger(final Object value) {
-                if (value instanceof Number) {
-                    return Number.class.cast(value).intValue();
-                }
-                return Integer.parseInt(String.valueOf(value));
-            }
+                    private ExpressionFunctionContext expressionFunctionContext() {
+                        return new FakeExpressionFunctionContext() {
+                            @Override
+                            public <T> T convert(Object value, Class<T> target) {
+                                return convert0(value, target);
+                            }
+                        };
+                    }
 
-            private String convertToString(final Object value) {
-                return Converters.string().convert(value, String.class, this.converterContext);
-            }
+                    private <T> T convert0(final Object value, final Class<T> target) {
+                        return this.convert(value, target);
+                    }
 
-            private <T> T failConversion(final Object value, final Class<T> target) {
-                throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
-            }
+                    @Override
+                    public <T> T convert(final Object value, final Class<T> target) {
+                        Objects.requireNonNull(value, "value");
+                        Objects.requireNonNull(target, "target");
 
-            private final ConverterContext converterContext = ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
-        });
+                        return Cast.to(target.isInstance(value) ?
+                                target.cast(value) :
+                                target == BigDecimal.class ?
+                                        this.convertToBigDecimal(value) :
+                                        target == Boolean.class ?
+                                                this.convertToBoolean(value) :
+                                                target == Integer.class ?
+                                                        this.convertToInteger(value) :
+                                                        target == Number.class ?
+                                                                this.convertToNumber(value) :
+                                                                target == String.class ?
+                                                                        this.convertToString(value) :
+                                                                        this.failConversion(value, target));
+                    }
+
+                    /**
+                     * Currently {@link walkingkooka.tree.expression.ExpressionNode} will convert a pair of {@link Boolean} into
+                     * {@link BigDecimal} prior to performing the operation such as equals.
+                     */
+                    private BigDecimal convertToBigDecimal(final Object value) {
+                        final Converter converter = value instanceof Boolean ?
+                                Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
+                                value instanceof String ?
+                                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.DECIMAL32), (c) -> ParserContexts.basic(c)) :
+                                        Converters.numberBigDecimal();
+                        return converter.convert(value, BigDecimal.class, this.converterContext);
+                    }
+
+                    private Boolean convertToBoolean(final Object value) {
+                        return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext);
+                    }
+
+                    private Number convertToNumber(final Object value) {
+                        return Converters.booleanConverter(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
+                                .convert(value, Number.class, ConverterContexts.fake());
+                    }
+
+                    private Integer convertToInteger(final Object value) {
+                        if (value instanceof Number) {
+                            return Number.class.cast(value).intValue();
+                        }
+                        return Integer.parseInt(String.valueOf(value));
+                    }
+
+                    private String convertToString(final Object value) {
+                        return Converters.string().convert(value, String.class, this.converterContext);
+                    }
+
+                    private <T> T failConversion(final Object value, final Class<T> target) {
+                        throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
+                    }
+
+                    private final ConverterContext converterContext = ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
+                });
 
         assertEquals(expected, names(selected), () -> expression + "\n" + selector.unwrapIfCustomToStringNodeSelector() + "\n" + root);
     }

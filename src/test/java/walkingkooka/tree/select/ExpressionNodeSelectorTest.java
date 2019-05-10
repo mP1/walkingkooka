@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
@@ -136,6 +137,37 @@ final public class ExpressionNodeSelectorTest extends
                         .attributeValueStartsWith(Names.string("B2"), "V"),
                 parent,
                 parent.child(1));
+    }
+
+    @Test
+    public void testChildrenExpressionFilter() {
+        final TestNode parent = TestNode.with("parent",
+                nodeWithAttributes("child1", "A1", "V1"),
+                nodeWithAttributes("child2", "B2", "V2"),
+                nodeWithAttributes("child3", "B2", "V3"));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(ExpressionNode.longNode(2))
+                        .attributeValueStartsWith(Names.string("B2"), "V"),
+                parent,
+                Predicates.never());
+    }
+
+    @Test
+    public void testChildrenExpressionFilter2() {
+        final TestNode parent = TestNode.with("parent",
+                nodeWithAttributes("child1", "A1", "V1"),
+                nodeWithAttributes("child2", "B2", "V2"),
+                nodeWithAttributes("child3", "B2", "V3"));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .expression(ExpressionNode.longNode(2))
+                        .attributeValueStartsWith(Names.string("B2"), "V"),
+                parent,
+                (n) -> !n.name().value().equals("child3"), // select parent, child1, child2, skip child3
+                parent.child(1)); // $child2
     }
 
     @Test

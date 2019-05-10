@@ -74,6 +74,19 @@ final public class ParentNodeSelectorTest
     }
 
     @Test
+    public void testParentFilter() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1"),
+                TestNode.with("child2"));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .parent(),
+                parent.child(0),
+                (n) -> !n.name().value().equals("parent"));
+    }
+
+    @Test
     public void testParentMap() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child"));
 

@@ -77,6 +77,19 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
+    public void testAbsoluteFilter() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1"),
+                TestNode.with("child2"));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .parent(),
+                parent.child(0),
+                (n) -> false);
+    }
+
+    @Test
     public void testAbsoluteMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",

@@ -41,8 +41,8 @@ final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, A
     }
 
     @Override
-    public void potential(final N node) {
-        this.context.potential(node);
+    public boolean test(final N node) {
+        return this.context.test(node);
     }
 
     /**

@@ -162,6 +162,23 @@ final public class FollowingNodeSelectorTest extends
     }
 
     @Test
+    public void testFollowingSiblingFilter() {
+        final TestNode preceding1 = TestNode.with("preceding1");
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode self = TestNode.with("self", TestNode.with("ignored1"));
+        final TestNode following1 = TestNode.with("following1", TestNode.with("ignored2"));
+        final TestNode following2 = TestNode.with("following2");
+
+        final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2);
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .following(),
+                parent.child(2), // self!
+                (n) -> n.children().size() > 0,
+                following1);
+    }
+
+    @Test
     public void testFollowingMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",

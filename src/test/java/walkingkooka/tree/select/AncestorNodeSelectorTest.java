@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -69,6 +70,31 @@ final public class AncestorNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.applyAndCheck(parent.child(0), parent);
+    }
+
+    @Test
+    public void testAncestorFilters() {
+        final TestNode grandParent = TestNode.with("grandParent",
+                TestNode.with("parent",
+                        TestNode.with("child")));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .ancestor(),
+                grandParent.child(0).child(0), // child
+                Predicates.never());
+    }
+
+    @Test
+    public void testAncestorFilters2() {
+        final TestNode grandParent = TestNode.with("grandParent",
+                TestNode.with("parent",
+                        TestNode.with("child")));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .ancestor(),
+                grandParent.child(0).child(0), // child
+                (n) -> !n.name().value().startsWith("grandParent"),
+                "parent");
     }
 
     @Test

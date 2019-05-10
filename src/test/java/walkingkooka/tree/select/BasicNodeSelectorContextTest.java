@@ -25,6 +25,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
@@ -32,8 +33,8 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -58,7 +59,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     @Test
     public void testWithNullSelectedFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.potential(),
+            BasicNodeSelectorContext.with(this.predicate(),
                     null,
                     this.functions(),
                     this.converter(),
@@ -69,7 +70,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     @Test
     public void testWithNullFunctionsFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.potential(),
+            BasicNodeSelectorContext.with(this.predicate(),
                     this.mapper(),
                     null,
                     this.converter(),
@@ -80,7 +81,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     @Test
     public void testWithNullConverterFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.potential(),
+            BasicNodeSelectorContext.with(this.predicate(),
                     this.mapper(),
                     this.functions(),
                     null,
@@ -91,7 +92,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     @Test
     public void testWithNullDecimalNumberContextFails() {
         assertThrows(NullPointerException.class, () -> {
-            BasicNodeSelectorContext.with(this.potential(),
+            BasicNodeSelectorContext.with(this.predicate(),
                     this.mapper(),
                     this.functions(),
                     this.converter(),
@@ -104,16 +105,15 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     }
 
     @Override public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
-        return BasicNodeSelectorContext.with(this.potential(),
+        return BasicNodeSelectorContext.with(this.predicate(),
                 this.mapper(),
                 this.functions(),
                 this.converter(),
                 this.decimalNumberContext());
     }
 
-    private Consumer<TestNode> potential() {
-        return (n) -> {
-        };
+    private Predicate<TestNode> predicate() {
+        return Predicates.always();
     }
 
     private Function<TestNode, TestNode> mapper() {

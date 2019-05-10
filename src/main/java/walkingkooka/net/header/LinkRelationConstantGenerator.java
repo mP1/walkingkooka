@@ -22,6 +22,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.NodeSelectorContexts;
@@ -52,7 +53,7 @@ final class LinkRelationConstantGenerator {
                 .descendant()
                 .named(XmlName.element("record"))
                 .apply(document,
-                        NodeSelectorContexts.basic(LinkRelationConstantGenerator::potential,
+                        NodeSelectorContexts.basic(Predicates.always(),
                                 LinkRelationConstantGenerator::record,
                                 LinkRelationConstantGenerator::functions,
                                 Converters.fake(),
@@ -61,10 +62,6 @@ final class LinkRelationConstantGenerator {
 
     private static BufferedReader file() {
         return new BufferedReader(new InputStreamReader(LinkRelationConstantGenerator.class.getResourceAsStream("link-relations.xml")));
-    }
-
-    private static void potential(final XmlNode node) {
-        // nop
     }
 
     /**
