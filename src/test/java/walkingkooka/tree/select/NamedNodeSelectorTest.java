@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NamedNodeSelectorTest extends
-        NonTerminalNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
+        NamedOrNodePredicateNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testWithNullNameFails() {

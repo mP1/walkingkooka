@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
@@ -32,9 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AbsoluteNodeSelectorTest extends
-        NonTerminalNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
+        AbsoluteOrAxisNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
 
-    private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
     private final static Predicate<TestNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");
 
     @Test

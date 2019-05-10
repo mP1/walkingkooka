@@ -30,8 +30,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-final public class SelfNodeSelectorTest
-        extends NonTerminalNodeSelectorTestCase<SelfNodeSelector<TestNode, StringName, StringName, Object>> {
+final public class SelfNodeSelectorTest extends
+        AxisNodeSelectorTestCase<SelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testSelf() {

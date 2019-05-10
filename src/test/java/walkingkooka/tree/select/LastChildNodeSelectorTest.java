@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 
 final public class LastChildNodeSelectorTest extends
-        NonTerminalNodeSelectorTestCase<LastChildNodeSelector<TestNode, StringName, StringName, Object>> {
+        AxisNodeSelectorTestCase<LastChildNodeSelector<TestNode, StringName, StringName, Object>> {
 
     // constants
 
