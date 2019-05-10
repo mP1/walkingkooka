@@ -19,6 +19,7 @@
 package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
@@ -28,7 +29,7 @@ import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodeSelectorExpressionExpressionNodeVisitorTest implements ExpressionNodeVisitorTesting<NodeSelectorExpressionExpressionNodeVisitor> {
+public final class NodeSelectorExpressionExpressionNodeVisitorTest implements ExpressionNodeVisitorTesting<NodeSelectorExpressionExpressionNodeVisitor<TestNode, StringName, StringName, Object>>{
 
     @Test
     public void testAcceptExpressionIgnored() {
@@ -70,8 +71,8 @@ public final class NodeSelectorExpressionExpressionNodeVisitorTest implements Ex
     }
 
     @Override
-    public NodeSelectorExpressionExpressionNodeVisitor createVisitor() {
-        return new NodeSelectorExpressionExpressionNodeVisitor(this.selector());
+    public NodeSelectorExpressionExpressionNodeVisitor<TestNode, StringName, StringName, Object> createVisitor() {
+        return new NodeSelectorExpressionExpressionNodeVisitor<>(this.selector());
     }
 
     private NodeSelector<TestNode, StringName, StringName, Object> selector() {
@@ -90,7 +91,7 @@ public final class NodeSelectorExpressionExpressionNodeVisitorTest implements Ex
     }
 
     @Override
-    public Class<NodeSelectorExpressionExpressionNodeVisitor> type() {
-        return NodeSelectorExpressionExpressionNodeVisitor.class;
+    public Class<NodeSelectorExpressionExpressionNodeVisitor<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorExpressionExpressionNodeVisitor.class);
     }
 }
