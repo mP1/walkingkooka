@@ -78,6 +78,19 @@ final public class ChildrenNodeSelectorTest
     }
 
     @Test
+    public void testChildrenFilter() {
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode child3 = TestNode.with("child3");
+        final TestNode parent = TestNode.with("parent", child1, child2, child3);
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector().children(),
+                parent,
+                (n) -> !n.name().equals(child2.name()),
+                child1, child3);
+    }
+
+    @Test
     public void testDescendantOrSelfChildren() {
         final TestNode grand1 = TestNode.with("grand1");
         final TestNode grand2 = TestNode.with("grand2");

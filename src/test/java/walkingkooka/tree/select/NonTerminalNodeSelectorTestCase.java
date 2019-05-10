@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -58,8 +59,9 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
                                            final String[] nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.apply(start, context((n) -> {
-                }, (n) -> selected.add(n))));
+                selector.apply(start,
+                        context(Predicates.always(),
+                                (n) -> selected.add(n))));
         final List<String> selectedNames = selected
                 .stream()
                 .map(n -> n.name().value())

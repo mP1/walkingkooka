@@ -84,6 +84,19 @@ final public class SelfNodeSelectorTest
     }
 
     @Test
+    public void testSelfFilter() {
+        final TestNode parent = TestNode.with("parent",
+                TestNode.with("child1"),
+                TestNode.with("child2"));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .parent(),
+                parent,
+                (n) -> false);
+    }
+
+    @Test
     public void testSelfMap() {
         final TestNode parent = TestNode.with("parent", TestNode.with("child"));
 

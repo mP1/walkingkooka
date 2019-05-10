@@ -109,6 +109,48 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
+    public void testDescendantFilters() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode grand1 = TestNode.with("grand1");
+        final TestNode grand3 = TestNode.with("grand3");
+        final TestNode child1 = TestNode.with("child1", grand1, TestNode.with("skip"), grand3);
+
+        final TestNode grand4 = TestNode.with("grand4");
+        final TestNode child2 = TestNode.with("child2", TestNode.with("skip"), grand4);
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .descendant(),
+                TestNode.with("parent", child1, child2),
+                (n) -> !n.name().value().equals("skip"),
+                child1, grand1, grand3, child2, grand4);
+    }
+
+    @Test
+    public void testDescendantFilters2() {
+        final TestNode child = TestNode.with("skip", TestNode.with("grand"));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .descendant(),
+                TestNode.with("parent", child),
+                (n) -> !n.name().value().equals("skip"));
+    }
+
+    @Test
+    public void testDescendantFilters3() {
+        final TestNode grand1 = TestNode.with("grand1");
+        final TestNode child1 = TestNode.with("child1", grand1);
+        final TestNode child2 = TestNode.with("skip", TestNode.with("grand2"));
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .descendant(),
+                TestNode.with("parent", child1, child2),
+                (n) -> !n.name().value().equals("skip"),
+                child1, grand1);
+    }
+
+
+    @Test
     public void testDescendantMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",

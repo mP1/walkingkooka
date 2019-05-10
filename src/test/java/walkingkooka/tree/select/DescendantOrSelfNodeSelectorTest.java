@@ -94,6 +94,38 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Test
+    public void testDescendantOrSelfFilters() {
+        TestNode.disableUniqueNameChecks();
+
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent = TestNode.with("parent", child1, child2);
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .descendantOrSelf(),
+                parent,
+                (n) -> !n.name().value().equals("parent"));
+    }
+
+    @Test
+    public void testDescendantOrSelfFilters2() {
+        final TestNode grand1 = TestNode.with("grand1");
+        final TestNode grand3 = TestNode.with("grand3");
+        final TestNode child1 = TestNode.with("child1", grand1, TestNode.with("skip1"), grand3);
+
+        final TestNode grand4 = TestNode.with("grand4");
+        final TestNode child2 = TestNode.with("child2", TestNode.with("skip2"), grand4);
+
+        final TestNode parent = TestNode.with("parent", child1, child2);
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .descendantOrSelf(),
+                parent,
+                (n) -> !n.name().value().startsWith("skip"),
+                parent, child1, grand1, grand3, child2, grand4);
+    }
+
+    @Test
     public void testDescendantOrSelfMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",

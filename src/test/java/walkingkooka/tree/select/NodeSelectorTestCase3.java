@@ -27,6 +27,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.TestNode;
@@ -34,12 +35,14 @@ import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -100,13 +103,11 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
 
     @SafeVarargs
     final void applyAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                             final TestNode start,
-                             final TestNode... nodes) {
+                                          final TestNode start,
+                                          final TestNode... nodes) {
         this.applyAndCheck0(selector,
                 start,
-                Arrays.stream(nodes)
-                        .map(n -> n.name().value())
-                        .toArray(size -> new String[size]));
+                nodeNames(nodes).toArray(new String[0]));
     }
 
     abstract void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
@@ -118,15 +119,64 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                                          final String... nodes) {
         final Set<TestNode> potential = Sets.ordered();
         final Set<TestNode> selected = Sets.ordered();
-        assertSame(start, selector.apply(start, this.context(
-                (n) -> potential.add(n),
-                (n) -> selected.add(n))));
-        final List<String> selectedNames = selected.stream()
-                .map(n -> n.name().value())
-                .collect(Collectors.toList());
-        assertEquals(Lists.of(nodes), selectedNames, () -> "Selector.apply\n" + start);
+        assertSame(start,
+                selector.apply(start,
+                        this.context(
+                                (n) -> {
+                                    potential.add(n);
+                                    return true;
+                                },
+                                (n) -> selected.add(n))));
+        assertEquals(Lists.of(nodes), nodeNames(selected), () -> "Selector.apply\n" + start);
         assertNotEquals(Sets.empty(), potential, "potentials must not be empty");
         assertTrue(potential.contains(start), () -> "potentials must include initial node=" + potential);
+    }
+
+    final void applyFilterAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                   final TestNode start,
+                                   final Predicate<TestNode> filter) {
+        this.applyFilterAndCheck(selector,
+                start,
+                filter,
+                new String[0]);
+    }
+
+    final void applyFilterAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                   final TestNode start,
+                                   final Predicate<TestNode> filter,
+                                   final TestNode... nodes) {
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(filter,
+                                (n) -> selected.add(n))));
+        assertEquals(nodeNames(nodes),
+                nodeNames(selected),
+                () -> "Selector.apply\n" + start);
+    }
+
+    final void applyFilterAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                   final TestNode start,
+                                   final Predicate<TestNode> filter,
+                                   final String... nodes) {
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(filter,
+                                (n) -> selected.add(n))));
+        assertEquals(Lists.of(nodes),
+                nodeNames(selected),
+                () -> "Selector.apply\n" + start);
+    }
+
+    private List<String> nodeNames(final TestNode... nodes) {
+        return nodeNames(Lists.of(nodes));
+    }
+
+    private List<String> nodeNames(final Collection<TestNode> nodes) {
+        return nodes.stream()
+                .map(n -> n.name().value())
+                .collect(Collectors.toList());
     }
 
     final void acceptMapAndCheck(final TestNode start) {
@@ -151,8 +201,8 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
         final String startToString = start.toString();
 
         assertEquals(result,
-                selector.apply(start, this.context0((n) -> {
-                        },
+                selector.apply(start,
+                        this.context0(Predicates.always(),
                         new Function<TestNode, TestNode>() {
                             @Override
                             public TestNode apply(final TestNode testNode) {
@@ -173,9 +223,9 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                 "toString has changed for starting node, indicating it probably was mutated");
     }
 
-    final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final Consumer<TestNode> potential,
+    final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final Predicate<TestNode> filter,
                                                                                 final Consumer<TestNode> selected) {
-        return this.context0(potential,
+        return this.context0(filter,
                 (n) -> {
                     this.checkSelectCaller();
                     selected.accept(n);
@@ -205,9 +255,9 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                 className.substring(dot + 1);
     }
 
-    final NodeSelectorContext<TestNode, StringName, StringName, Object> context0(final Consumer<TestNode> potential,
+    final NodeSelectorContext<TestNode, StringName, StringName, Object> context0(final Predicate<TestNode> filter,
                                                                                  final Function<TestNode, TestNode> mapper) {
-        return NodeSelectorContexts.basic(potential,
+        return NodeSelectorContexts.basic(filter,
                 mapper,
                 this.functions(),
                 this.converter(),

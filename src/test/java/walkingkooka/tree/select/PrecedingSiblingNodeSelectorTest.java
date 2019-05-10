@@ -138,6 +138,23 @@ final public class PrecedingSiblingNodeSelectorTest extends
     }
 
     @Test
+    public void testPrecedingSiblingFilter() {
+        final TestNode preceding1 = TestNode.with("preceding1", TestNode.with("ignored2"));
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode self = TestNode.with("self", TestNode.with("ignored1"));
+        final TestNode following1 = TestNode.with("following1");
+        final TestNode following2 = TestNode.with("following2");
+
+        final TestNode parent = TestNode.with("parent", preceding2, preceding1, self, following1, following2);
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .preceding(),
+                parent.child(2), // self!
+                (n) -> n.children().size() > 0,
+                preceding1);
+    }
+
+    @Test
     public void testPrecedingSiblingMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",

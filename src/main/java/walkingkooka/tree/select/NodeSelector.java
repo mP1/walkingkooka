@@ -275,15 +275,16 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
-        return this.apply0(node, NodeSelectorContext2.all(context));
+        return context.test(node) ?
+                this.apply0(node, NodeSelectorContext2.all(context)) :
+                node;
     }
 
     /**
      * Sub classes must call this method which calls the observer and then immediately calls {@link #apply1(Node, NodeSelectorContext2)}
+     * This method assumes that {@link NodeSelectorContext#test(Node)} was previously called for the given {@link Node}.
      */
     final N apply0(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        context.potential(node);
-
         return this.apply1(node, this.beginPrepareContext(context));
     }
 
@@ -317,7 +318,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
                     result = current.parentOrFail().children().get(node.index());
                     break;
                 }
-                current = this.select(next.get(), context);
+                current = this.testThenSelect(next.get(), context);
             }
         }
 
@@ -340,7 +341,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
                     result = current.parentOrFail().children().get(node.index());
                     break;
                 }
-                current = this.select(next.get(), context);
+                current = this.testThenSelect(next.get(), context);
             }
         }
         return result;
@@ -355,7 +356,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         Optional<N> next = node.firstChild();
         if(next.isPresent()) {
             for(;;) {
-                result = this.select(next.get(), context);
+                final N nextNode = next.get();
+                result = this.testThenSelect(nextNode, context);
                 next = result.nextSibling();
                 if(!next.isPresent()) {
                     result = result.parentOrFail();
@@ -372,8 +374,17 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     final N selectParent(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return node.parent()
-                .map(parent -> this.select(parent, context).children().get(node.index()))
+                .map(parent -> this.testThenSelect(parent, context).children().get(node.index()))
                 .orElse(node);
+    }
+
+    /**
+     * Perform a conditional predicate test of the provided {@link Node} and if that passes calls {@link #select(Node, NodeSelectorContext2)}.
+     */
+    final N testThenSelect(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return context.test(node) ?
+                this.select(node, context) :
+                node;
     }
 
     /**

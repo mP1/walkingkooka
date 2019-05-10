@@ -39,8 +39,8 @@ final class AllNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
-    public void potential(final N node) {
-        this.context.potential(node);
+    public boolean test(final N node) {
+        return this.context.test(node);
     }
 
     @Override

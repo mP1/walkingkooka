@@ -114,6 +114,19 @@ final public class NodePredicateNodeSelectorTest extends
     }
 
     @Test
+    public void testChildrenPredicateFilter() {
+        final TestNode child1 = nodeWithAttributes("child1", "a1", "v1");
+        final TestNode child2 = nodeWithAttributes("child2", "a1", "v1");
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .attributeValueEquals(Names.string("a1"), "v1"),
+                TestNode.with("parent", child1, child2),
+                (n) -> !n.name().value().equals("child2"), // ignores child2
+                child1);
+    }
+
+    @Test
     public void testPredicateMap() {
         final TestNode parent = TestNode.with("parent", TestNode.with(MAGIC_VALUE), TestNode.with("child"));
 

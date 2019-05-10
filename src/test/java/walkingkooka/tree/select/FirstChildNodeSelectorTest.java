@@ -89,6 +89,24 @@ final public class FirstChildNodeSelectorTest extends
     }
 
     @Test
+    public void testChildrenFirstChildFilter() {
+        final TestNode grand1 = TestNode.with("grand1");
+        final TestNode grand2 = TestNode.with("grand2");
+        final TestNode child1 = TestNode.with("child1", grand1, grand2);
+
+        final TestNode grand3 = TestNode.with("grand3");
+        final TestNode grand4 = TestNode.with("grand4");
+        final TestNode child2 = TestNode.with("child2", grand3, grand4);
+
+        this.applyFilterAndCheck(TestNode.relativeNodeSelector()
+                        .children()
+                        .firstChild(),
+                TestNode.with("parent", child1, child2),
+                (n) -> !n.name().value().equals("grand3"),
+                grand1);
+    }
+
+    @Test
     public void testFirstChildMap() {
         this.acceptMapAndCheck(TestNode.with("parent"));
     }

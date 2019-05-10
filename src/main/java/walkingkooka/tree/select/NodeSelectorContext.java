@@ -28,10 +28,9 @@ import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends ExpressionFunctionContext {
 
     /**
-     * Invoked with each and every visited but not selected {@link Node} during matching.
-     * This exists primarily to keep track or count of match operations to prevent denial of service.
+     * Test method that filters {@link Node} prior to selection. If the test returns false the {@link Node} is not selected and is ignored.
      */
-    void potential(final N node);
+    boolean test(final N node);
 
     /**
      * Invoked with each and every selected {@link Node node}.

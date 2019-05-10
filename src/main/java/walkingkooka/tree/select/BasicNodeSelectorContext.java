@@ -33,9 +33,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
- * A {@link NodeSelectorContext} that routes potential and selected {@link Node} to a individual {@link Consumer}
+ * A {@link NodeSelectorContext} that routes test and selected {@link Node} to a individual {@link Consumer}
  */
 final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
@@ -43,26 +44,26 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final Consumer<N> potential,
+            AVALUE> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final Predicate<N> filter,
                                                                           final Function<N, N> mapper,
                                                                           final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                           final Converter converter,
                                                                           final DecimalNumberContext decimalNumberContext) {
-        Objects.requireNonNull(potential, "potential");
+        Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(decimalNumberContext, "decimalNumberContext");
 
-        return new BasicNodeSelectorContext<>(potential, mapper, functions, converter, decimalNumberContext);
+        return new BasicNodeSelectorContext<>(filter, mapper, functions, converter, decimalNumberContext);
     }
 
-    private BasicNodeSelectorContext(final Consumer<N> potential,
+    private BasicNodeSelectorContext(final Predicate<N> filter,
                                      final Function<N, N> mapper,
                                      final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                      final Converter converter,
                                      final DecimalNumberContext decimalNumberContext) {
-        this.potential = potential;
+        this.filter = filter;
         this.mapper = mapper;
         this.functions = functions;
         this.converter = converter;
@@ -70,16 +71,16 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     }
 
     @Override
-    public void potential(final N node) {
-        this.potential.accept(node);
+    public boolean test(final N node) {
         this.current = node;
+        return this.filter.test(node);
     }
 
     /**
      * The {@link Consumer} receives all {@link Node} that are visited, this provides an opportunity to throw
      * an {@link RuntimeException} to abort a long running select.
      */
-    private final Consumer<N> potential;
+    private final Predicate<N> filter;
 
     @Override
     public N selected(final N node) {
@@ -119,6 +120,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public String toString() {
-        return this.potential + " " + this.mapper + " " + this.functions + " " + this.converter + " " + this.decimalNumberContext;
+        return this.filter + " " + this.mapper + " " + this.functions + " " + this.converter + " " + this.decimalNumberContext;
     }
 }
