@@ -75,7 +75,7 @@ public final class FunctionConverterTest extends FixedTypeConverterTestCase<Func
     }
 
     @Override
-    public FunctionConverter createConverter() {
+    public FunctionConverter<String, Boolean> createConverter() {
         return FunctionConverter.with(String.class, Boolean.class, Boolean::valueOf);
     }
 

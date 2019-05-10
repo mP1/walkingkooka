@@ -137,6 +137,7 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
     /**
      * Creates a {@link NodePointer} from the {@link JsonStringNode} using the property name in any error messages.
      */
+    @SuppressWarnings("unchecked")
     final NodePointer<?, ?> pathOrFail(final String path,
                                        final JsonNodeName property) {
         try {
