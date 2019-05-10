@@ -28,6 +28,11 @@ import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends ExpressionFunctionContext {
 
     /**
+     * One time flag that when true aborts future attempts to test and select additional {@link Node nodes}.
+     */
+    boolean isFinished();
+
+    /**
      * Test method that filters {@link Node} prior to selection. If the test returns false the {@link Node} is not selected and is ignored.
      */
     boolean test(final N node);

@@ -72,6 +72,12 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default NodeSelectorContext<N, NAME, ANAME, AVALUE> nodeSelectorContext(final Consumer<N> potential,
                                                                             final Consumer<N> selected) {
         return new FakeNodeSelectorContext<N, NAME, ANAME, AVALUE>() {
+
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
+
             @Override
             public boolean test(final N node) {
                 potential.accept(node);
@@ -92,6 +98,12 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                                           final N expected) {
         assertEquals(expected,
                 selector.apply(node, new FakeNodeSelectorContext<N, NAME, ANAME, AVALUE>() {
+
+                    @Override
+                    public boolean isFinished() {
+                        return false;
+                    }
+
                     @Override
                     public boolean test(final N node) {
                         return true;

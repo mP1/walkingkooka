@@ -31,6 +31,11 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
         AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE>, Fake {
 
     @Override
+    public boolean isFinished() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean test(final N node) {
         throw new UnsupportedOperationException();
     }

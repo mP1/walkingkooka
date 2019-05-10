@@ -31,6 +31,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -44,31 +45,52 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final Predicate<N> filter,
+            AVALUE> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
+                                                                          final Predicate<N> filter,
                                                                           final Function<N, N> mapper,
                                                                           final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                           final Converter converter,
-                                                                          final DecimalNumberContext decimalNumberContext) {
+                                                                          final DecimalNumberContext decimalNumberContext,
+                                                                          final Class<N> nodeType) {
+        Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(decimalNumberContext, "decimalNumberContext");
+        Objects.requireNonNull(nodeType, "nodeType");
 
-        return new BasicNodeSelectorContext<>(filter, mapper, functions, converter, decimalNumberContext);
+        return new BasicNodeSelectorContext<>(finisher,
+                filter,
+                mapper,
+                functions,
+                converter,
+                decimalNumberContext);
     }
 
-    private BasicNodeSelectorContext(final Predicate<N> filter,
+    private BasicNodeSelectorContext(final BooleanSupplier finisher,
+                                     final Predicate<N> filter,
                                      final Function<N, N> mapper,
                                      final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                      final Converter converter,
                                      final DecimalNumberContext decimalNumberContext) {
+        this.finisher = finisher;
         this.filter = filter;
         this.mapper = mapper;
         this.functions = functions;
         this.converter = converter;
         this.decimalNumberContext = decimalNumberContext;
     }
+
+    @Override
+    public boolean isFinished() {
+        return this.finisher.getAsBoolean();
+    }
+
+    /**
+     * Allows outsider termination of node selection.
+     */
+    private final BooleanSupplier finisher;
 
     @Override
     public boolean test(final N node) {
@@ -120,6 +142,11 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public String toString() {
-        return this.filter + " " + this.mapper + " " + this.functions + " " + this.converter + " " + this.decimalNumberContext;
+        return this.finisher + " " +
+                this.filter + " " +
+                this.mapper + " " +
+                this.functions + " " +
+                this.converter + " " +
+                this.decimalNumberContext;
     }
 }

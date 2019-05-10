@@ -34,6 +34,13 @@ final public class TerminalNodeSelectorTest
         extends NodeSelectorTestCase4<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
+    public void testFinishedTrue() {
+        this.applyFinisherAndCheck(this.createSelector(),
+                TestNode.with("self"),
+                () -> true);
+    }
+
+    @Test
     public void testFilterFalse() {
         this.applyFilterAndCheck(this.createSelector(),
                 TestNode.with("self"),

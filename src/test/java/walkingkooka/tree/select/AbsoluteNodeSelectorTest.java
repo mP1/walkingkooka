@@ -42,6 +42,13 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
+    public final void testAbsoluteFinishedTrueChildren() {
+        this.applyFinisherAndCheck(this.createSelector().children(),
+                TestNode.with("self"),
+                () -> true);
+    }
+
+    @Test
     public void testAbsoluteRoot() {
         final TestNode root = TestNode.with("root");
         this.applyAndCheck(root, root);

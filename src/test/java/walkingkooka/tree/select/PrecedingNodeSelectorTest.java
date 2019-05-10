@@ -193,6 +193,59 @@ final public class PrecedingNodeSelectorTest extends
     }
 
     @Test
+    public void testPrecedingFinished() {
+        final TestNode preceding1 = TestNode.with("preceding1");
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode preceding3 = TestNode.with("preceding3");
+        final TestNode self = TestNode.with("self");
+        final TestNode following1 = TestNode.with("following1");
+        final TestNode following2 = TestNode.with("following2");
+        final TestNode following3 = TestNode.with("following3");
+
+        final TestNode parent = TestNode.with("parent", preceding3, preceding2, preceding1, self, following1, following2, following3);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                parent.child(2), // self
+                0);
+    }
+
+    @Test
+    public void testPrecedingFinishedCountdown() {
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode preceding1 = TestNode.with("preceding1", preceding2);
+        final TestNode preceding3 = TestNode.with("preceding3");
+        final TestNode self = TestNode.with("self");
+        final TestNode following1 = TestNode.with("following1");
+        final TestNode following2 = TestNode.with("following2");
+        final TestNode following3 = TestNode.with("following3");
+
+        final TestNode parent = TestNode.with("parent", preceding3, preceding1, self, following1, following2, following3);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                parent.child(2), // self
+                1,
+                preceding1);
+    }
+
+    @Test
+    public void testPrecedingFinishedCountdown2() {
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode preceding1 = TestNode.with("preceding1", preceding2);
+        final TestNode preceding3 = TestNode.with("preceding3");
+        final TestNode self = TestNode.with("self");
+        final TestNode following1 = TestNode.with("following1");
+        final TestNode following2 = TestNode.with("following2");
+        final TestNode following3 = TestNode.with("following3");
+
+        final TestNode parent = TestNode.with("parent", preceding3, preceding1, self, following1, following2, following3);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                parent.child(2), // self
+                2,
+                preceding1, preceding2);
+    }
+
+    @Test
     public void testPrecedingMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",

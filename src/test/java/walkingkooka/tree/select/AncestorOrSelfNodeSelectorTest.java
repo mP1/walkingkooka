@@ -100,6 +100,37 @@ final public class AncestorOrSelfNodeSelectorTest extends
     }
 
     @Test
+    public final void testAncestorOrSelfFinishedTrue() {
+        this.applyFinisherAndCheck(this.createSelector(),
+                TestNode.with("parent", TestNode.with("child")).child(0),
+                () -> true);
+    }
+
+    @Test
+    public final void testAncestorOrSelfFinishedCountdown() {
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+        final TestNode grandParent = TestNode.with("grandParent", parent);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                grandParent.child(0).child(0),
+                1,
+                child);
+    }
+
+    @Test
+    public final void testAncestorOrSelfFinishedCountdown2() {
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+        final TestNode grandParent = TestNode.with("grandParent", parent);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                grandParent.child(0).child(0),
+                2,
+                child, parent);
+    }
+
+    @Test
     public void testAncestorOrSelfMap() {
         final TestNode grandParent = TestNode.with("grand",
                 TestNode.with("parent1",

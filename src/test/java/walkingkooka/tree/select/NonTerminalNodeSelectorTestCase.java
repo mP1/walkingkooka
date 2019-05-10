@@ -43,6 +43,13 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
     }
 
     @Test
+    public final void testFinishedTrue() {
+        this.applyFinisherAndCheck(this.createSelector(),
+                TestNode.with("self"),
+                () -> true);
+    }
+
+    @Test
     public final void testEqualsDifferentSelector() {
         this.checkNotEquals(this.createSelector().parent());
     }

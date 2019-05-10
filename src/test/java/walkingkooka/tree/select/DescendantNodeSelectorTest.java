@@ -149,6 +149,38 @@ final public class DescendantNodeSelectorTest extends
                 child1, grand1);
     }
 
+    @Test
+    public final void testDescendantFinishedTrue() {
+        this.applyFinisherAndCheck(this.createSelector(),
+                TestNode.with("parent", TestNode.with("child")),
+                () -> true);
+    }
+
+    @Test
+    public final void testDescendantFinishedCountdown() {
+        final TestNode grandChild = TestNode.with("grandChild");
+        final TestNode child1 = TestNode.with("child1", grandChild);
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent = TestNode.with("parent", child1, child2);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                parent,
+                1,
+                child1);
+    }
+
+    @Test
+    public final void testDescendantFinishedCountdown2() {
+        final TestNode grandChild = TestNode.with("grandChild");
+        final TestNode child1 = TestNode.with("child1", grandChild);
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent = TestNode.with("parent", child1, child2);
+
+        this.applyFinisherAndCheck(this.createSelector(),
+                parent,
+                2,
+                child1, grandChild);
+    }
 
     @Test
     public void testDescendantMap() {
