@@ -105,6 +105,7 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
         return this.selector.hashCode();
     }
 
+    @Override
     public final boolean equals(final Object other) {
         return this == other || other instanceof CustomToStringNodeSelector && this.equals0(Cast.to(other));
     }

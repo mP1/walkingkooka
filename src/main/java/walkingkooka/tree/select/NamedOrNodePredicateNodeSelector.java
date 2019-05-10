@@ -39,7 +39,6 @@ abstract class NamedOrNodePredicateNodeSelector<N extends Node<N, NAME, ANAME, A
      */
     @Override
     final NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        //return this.finishPrepareContext(context);
         return this.next.beginPrepareContext(context);
     }
 

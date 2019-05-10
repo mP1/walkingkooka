@@ -47,15 +47,15 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
     }
 
     final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                               final TestNode start,
-                               final String... nodes) {
+                              final TestNode start,
+                              final String... nodes) {
         this.applyAndCheckRequiringOrder(selector, start, nodes);
         this.applyAndCheckUsingContext(selector, start, nodes);
     }
 
     final void applyAndCheckRequiringOrder(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                                            final TestNode start,
-                                            final String[] nodes) {
+                                           final TestNode start,
+                                           final String[] nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
                 selector.apply(start, context((n) -> {
@@ -67,17 +67,11 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
         assertEquals(Lists.of(nodes), selectedNames, "names of selected nodes");
     }
 
-    final NodeSelector<TestNode,
-            StringName,
-            StringName,
-            Object> wrapped() {
+    final NodeSelector<TestNode, StringName, StringName, Object> wrapped() {
         return NodeSelector.terminal();
     }
 
-    final S createSelector(final NodeSelector<TestNode,
-            StringName,
-            StringName,
-            Object> selector) {
+    final S createSelector(final NodeSelector<TestNode, StringName, StringName, Object> selector) {
         return Cast.to(this.createSelector().append(selector));
     }
 
