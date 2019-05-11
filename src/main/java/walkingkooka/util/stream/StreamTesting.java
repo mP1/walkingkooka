@@ -39,6 +39,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public interface StreamTesting<S extends Stream<T>, T> extends Testing {
@@ -158,6 +159,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     // collect..........................................................................................................
 
     @Test
+    default void testCollectNullCollectorFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createStream().collect(null);
+        });
+    }
+
+    @Test
     default void testCollect() {
         this.collectAndCheck(this.createStream(), this.values());
     }
@@ -170,6 +178,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     // filter............................................................................................................
+
+    @Test
+    default void testFilterNullPredicateFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createStream().filter(null);
+        });
+    }
 
     @Test
     default void testFilterKeepFirst() {
@@ -316,11 +331,25 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     // forEach..........................................................................................................
 
     @Test
+    default void testForEachNullConsumerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createStream().forEach(null);
+        });
+    }
+
+    @Test
     default void testForEach() {
         this.forEachAndCheck(this.createStream(), this.values());
     }
 
     // forEachOrdered..........................................................................................................
+
+    @Test
+    default void testForEachOrderedNullConsumerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createStream().forEachOrdered(null);
+        });
+    }
 
     @Test
     default void testForEachOrdered() {
@@ -330,11 +359,25 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     // peek..........................................................................................................
 
     @Test
+    default void testPeekNullConsumerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createStream().peek(null);
+        });
+    }
+
+    @Test
     default void testPeek() {
         this.peekAndCheck(this.createStream(), this.values());
     }
 
     // limit..........................................................................................................
+
+    @Test
+    default void testLimitInvalidMaxSizeFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createStream().limit(-1);
+        });
+    }
 
     @Test
     default void testLimitZero() {
@@ -416,6 +459,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     // skip.limit..........................................................................................................
+
+    @Test
+    default void testSkipInvalidMaxSizeFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createStream().skip(-1);
+        });
+    }
 
     @Test
     default void testSkipZeroLimitRemainder() {
