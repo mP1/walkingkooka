@@ -187,6 +187,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     default void testFilterKeepFirst() {
         final List<T> values = this.values();
         final T keep = values.get(0);
@@ -209,6 +210,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     default void testFilterKeepMid() {
         final List<T> values = this.values();
         final T keep = values.get(values.size() / 2);
@@ -231,6 +233,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     default void testFilterKeepLast() {
         final List<T> values = this.values();
         final T keep = values.get(values.size() - 1);
@@ -380,12 +383,14 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     default void testLimitZero() {
         this.limitAndCheck(this.createStream()
                 .limit(0));
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     default void testLimitOne() {
         final List<T> values = this.values();
 
@@ -451,6 +456,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     default void testSkipAll() {
         final List<T> values = this.values();
 
@@ -500,6 +506,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     default void testSkipAllLimitZero() {
         final List<T> values = this.values();
 
@@ -509,6 +516,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     default void testSkipAllLimitOne() {
         final List<T> values = this.values();
 
@@ -527,7 +535,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     /**
      * Creates a new {@link Stream} without any operations. The stream should have several items, 5 is a good number.
      */
-    abstract S createStream();
+    S createStream();
 
     /**
      * The values in the stream in order.
@@ -562,6 +570,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // collect........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void collectAndCheck(final Supplier<Stream<T>> stream, final T... values) {
         this.collectAndCheck(stream.get(), Lists.of(values));
         this.toArrayIntFunctionAndCheck(stream.get(),
@@ -599,6 +608,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // collect........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default <U> void collectAndCheck(final Stream<T> stream, final U... values) {
         this.collectAndCheck(stream, Lists.of(values));
     }
@@ -631,6 +641,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // filter........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void filterAndCheck(final Supplier<Stream<T>> stream, final T... values) {
         this.filterAndCheck(stream, Lists.of(values));
     }
@@ -714,6 +725,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // forEach........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void forEachAndCheck(final Stream<T> stream, final T... values) {
         this.forEachAndCheck(stream, Lists.of(values));
     }
@@ -733,6 +745,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // forEachOrdered........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void forEachOrderedAndCheck(final Stream<T> stream, final T... values) {
         this.forEachOrderedAndCheck(stream, Lists.of(values));
     }
@@ -749,6 +762,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // limit........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void limitAndCheck(final Supplier<Stream<T>> stream, final T... values) {
         this.limitAndCheck(stream, Lists.of(values));
     }
@@ -767,6 +781,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         }
     }
 
+    @SuppressWarnings("unchecked")
     default void limitAndCheck(final Stream<T> stream, final T... values) {
         this.limitAndCheck(stream, Lists.of(values));
     }
@@ -779,6 +794,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // peek........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void peekAndCheck(final Stream<T> stream, final T... values) {
         this.peekAndCheck(stream, Lists.of(values));
     }
@@ -795,6 +811,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // skip........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void skipAndCheck(final Supplier<Stream<T>> stream, final T... values) {
         this.skipAndCheck(stream, Lists.of(values));
     }
@@ -813,6 +830,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         }
     }
 
+    @SuppressWarnings("unchecked")
     default void skipAndCheck(final Stream<T> stream, final T... values) {
         this.skipAndCheck(stream, Lists.of(values));
     }
@@ -825,6 +843,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // toArray........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void toArrayAndCheck(final Stream<T> stream, final T... values) {
         this.toArrayAndCheck(stream, Lists.of(values));
     }
@@ -837,6 +856,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     // toArray(IntFunction)........................................................................................................
 
+    @SuppressWarnings("unchecked")
     default void toArrayIntFunctionAndCheck(final Stream<T> stream,
                                             final IntFunction<T[]> generator,
                                             final T... values) {
