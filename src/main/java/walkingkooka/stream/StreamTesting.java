@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.util.stream;
+package walkingkooka.stream;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
