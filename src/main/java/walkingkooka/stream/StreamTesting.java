@@ -71,7 +71,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testAllMatchNoneSome() {
         final List<T> values = this.values();
-        this.allMatchAndCheck(values.stream(),
+        this.allMatchAndCheck(this.createStream(),
                 (v) -> values.indexOf(v) < values.size() / 2,
                 false);
     }
@@ -95,7 +95,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testAnyMatchFirst() {
         final List<T> values = this.values();
-        this.anyMatchAndCheck(values.stream(),
+        this.anyMatchAndCheck(this.createStream(),
                 (v) -> values.indexOf(v) == 0,
                 true);
     }
@@ -103,7 +103,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testAnyMatchMid() {
         final List<T> values = this.values();
-        this.anyMatchAndCheck(values.stream(),
+        this.anyMatchAndCheck(this.createStream(),
                 (v) -> values.indexOf(v) == values.size() / 2,
                 true);
     }
@@ -111,7 +111,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testAnyMatchLast() {
         final List<T> values = this.values();
-        this.anyMatchAndCheck(values.stream(),
+        this.anyMatchAndCheck(this.createStream(),
                 (v) -> values.indexOf(v) == values.size() - 1,
                 true);
     }
@@ -135,7 +135,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testNoneMatchFirst() {
         final List<T> values = this.values();
-        this.noneMatchAndCheck(values.stream(),
+        this.noneMatchAndCheck(this.createStream(),
                 (v) -> values.indexOf(v) == 0,
                 false);
     }
@@ -143,7 +143,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testNoneMatchMid() {
         final List<T> values = this.values();
-        this.noneMatchAndCheck(values.stream(),
+        this.noneMatchAndCheck(this.createStream(),
                 (v) -> values.indexOf(v) == values.size() / 2,
                 false);
     }
@@ -151,7 +151,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     @Test
     default void testNoneMatchLast() {
         final List<T> values = this.values();
-        this.noneMatchAndCheck(values.stream(),
+        this.noneMatchAndCheck(this.createStream(),
                 (v) -> values.indexOf(v) == values.size() - 1,
                 false);
     }
