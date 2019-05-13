@@ -94,6 +94,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public boolean test(final N node) {
+        // $current must be set here, so ExpressionNodeSelector can execute functions that require the current node.
         this.current = node;
         return this.filter.test(node);
     }
