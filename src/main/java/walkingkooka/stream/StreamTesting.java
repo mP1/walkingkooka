@@ -422,7 +422,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     default void testLimit2() {
         final List<T> values = this.values();
 
-        this.limitAndCheck(() -> this.createStream(),
+        this.limitAndCheck(this::createStream,
                 values);
     }
 
@@ -527,7 +527,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
 
     @Test
     default void testSkip() {
-        this.skipAndCheck(() -> this.createStream(), this.values());
+        this.skipAndCheck(this::createStream, this.values());
     }
 
     // factory..........................................................................................................
