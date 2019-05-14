@@ -17,62 +17,451 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.Converter;
+import walkingkooka.convert.Converters;
+import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class NodeSelectorTestCase4<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase3<S> {
+abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase3<S>
+        implements HashCodeEqualsDefinedTesting<S>,
+        HasJsonNodeTesting<S>,
+        ToStringTesting<S> {
 
     NodeSelectorTestCase4() {
         super();
     }
 
-    final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                              final TestNode start,
-                              final String... nodes) {
-        this.applyAndCheckRequiringOrder(selector, start, nodes);
-        this.applyAndCheckUsingContext(selector, start, nodes);
+    @BeforeEach
+    public void beforeEachTest() {
+        TestNode.clear();
     }
 
-    final void applyAndCheckRequiringOrder(NodeSelector<TestNode, StringName, StringName, Object> selector, TestNode start, String[] nodes) {
-        final List<String> expected = Lists.array();
-        expected.addAll(Lists.of(nodes));
-
-        selector.apply(start, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
-
-            @Override
-            public boolean test(final TestNode node) {
-                return true;
-            }
-
-            int i = 0;
-
-            @Override
-            public TestNode selected(final TestNode node) {
-                if (i == nodes.length) {
-                    Assertions.fail("Unexpected matching node: " + node);
-                }
-
-                if (!nodes[i].equals(node.name().value())) {
-                    Assertions.fail("Unexpected node " + node + " expected " + nodes[i]);
-                }
-                expected.remove(0);
-                i++;
-
-                return node;
-            }
+    @Test
+    public void testAppendNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createSelector().append(null);
         });
-
-        assertEquals(Lists.empty(), expected, "Finished processing contains unselected nodes");
     }
+
+    @Test
+    public final void testSetToStringNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createSelector().setToString(null);
+        });
+    }
+
+    @Test
+    public final void testSetToString() {
+        final S selector = this.createSelector();
+
+        final String toString = "custom " + selector;
+        final NodeSelector<TestNode, StringName, StringName, Object> custom = selector.setToString(toString);
+        assertEquals(toString, custom.toString(), "toString");
+    }
+
+    abstract S createSelector();
 
     final NodeSelector<TestNode, StringName, StringName, Object> wrapped() {
         return NodeSelector.terminal();
+    }
+
+    final void applyAndCheck(final TestNode start) {
+        this.applyAndCheck0(this.createSelector(), start, new String[0]);
+    }
+
+    final void applyAndCheck(final TestNode start, final String... nodes) {
+        this.applyAndCheck0(this.createSelector(), start, nodes);
+    }
+
+    final void applyAndCheck(final TestNode start, final TestNode... nodes) {
+        this.applyAndCheck(this.createSelector(), start, nodes);
+    }
+
+    @SafeVarargs
+    final void applyAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                             final TestNode start,
+                             final TestNode... nodes) {
+        this.applyAndCheck0(selector,
+                start,
+                nodeNames(nodes).toArray(new String[0]));
+    }
+
+    abstract void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                 final TestNode start,
+                                 final String... nodes);
+
+    final void applyAndCheckUsingContext(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                         final TestNode start,
+                                         final String... nodes) {
+        final Set<TestNode> potential = Sets.ordered();
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(
+                                (n) -> {
+                                    potential.add(n);
+                                    return true;
+                                },
+                                (n) -> selected.add(n))));
+        assertEquals(Lists.of(nodes), nodeNames(selected), () -> "Selector.apply\n" + start);
+        assertNotEquals(Sets.empty(), potential, "potentials must not be empty");
+        assertTrue(potential.contains(start), () -> "potentials must include initial node=" + potential);
+    }
+
+    // applyFinisherAndCheck............................................................................................
+
+    final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                     final TestNode start,
+                                     final int selectCount) {
+        this.applyFinisherAndCheck(selector,
+                start,
+                selectCount,
+                new String[0]);
+    }
+
+    final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                     final TestNode start,
+                                     final int selectCount,
+                                     final TestNode... nodes) {
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(this.finisher(selectCount, selected),
+                                Predicates.always(),
+                                (n) -> selected.add(n))),
+                () -> "incorrect start node returned, selector: " + selector);
+        assertEquals(nodeNames(nodes),
+                nodeNames(selected),
+                () -> "Selector.apply\n" + start);
+    }
+
+    final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                     final TestNode start,
+                                     final int selectCount,
+                                     final String... nodes) {
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(this.finisher(selectCount, selected),
+                                Predicates.always(),
+                                (n) -> selected.add(n))),
+                () -> "incorrect start node returned, selector: " + selector);
+        assertEquals(Lists.of(nodes),
+                nodeNames(selected),
+                () -> "Selector.apply\n" + start);
+    }
+
+    private BooleanSupplier finisher(final int selectCount, final Set<TestNode> selected) {
+        return new BooleanSupplier() {
+            @Override
+            public boolean getAsBoolean() {
+                return selected.size() >= selectCount;
+            }
+
+            @Override
+            public String toString() {
+                return selectCount + " >= " + selected.size() + " " + selected + (this.getAsBoolean() ? " FINISHED" : "");
+            }
+        };
+    }
+
+    final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                     final TestNode start,
+                                     final BooleanSupplier finisher) {
+        this.applyFinisherAndCheck(selector,
+                start,
+                finisher,
+                new String[0]);
+    }
+
+    final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                     final TestNode start,
+                                     final BooleanSupplier finisher,
+                                     final TestNode... nodes) {
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(finisher,
+                                Predicates.always(),
+                                (n) -> selected.add(n))),
+                () -> "incorrect start node returned, selector: " + selector);
+        assertEquals(nodeNames(nodes),
+                nodeNames(selected),
+                () -> "Selector.apply\n" + start);
+    }
+
+    final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                     final TestNode start,
+                                     final BooleanSupplier finisher,
+                                     final String... nodes) {
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(finisher,
+                                Predicates.always(),
+                                (n) -> selected.add(n))),
+                () -> "incorrect start node returned, selector: " + selector);
+        assertEquals(Lists.of(nodes),
+                nodeNames(selected),
+                () -> "Selector.apply\n" + start);
+    }
+
+    // applyFilterAndCheck............................................................................................
+
+    final void applyFilterAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                   final TestNode start,
+                                   final Predicate<TestNode> filter) {
+        this.applyFilterAndCheck(selector,
+                start,
+                filter,
+                new String[0]);
+    }
+
+    final void applyFilterAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                   final TestNode start,
+                                   final Predicate<TestNode> filter,
+                                   final TestNode... nodes) {
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(filter,
+                                (n) -> selected.add(n))));
+        assertEquals(nodeNames(nodes),
+                nodeNames(selected),
+                () -> "Selector.apply\n" + start);
+    }
+
+    final void applyFilterAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                   final TestNode start,
+                                   final Predicate<TestNode> filter,
+                                   final String... nodes) {
+        final Set<TestNode> selected = Sets.ordered();
+        assertSame(start,
+                selector.apply(start,
+                        this.context(filter,
+                                (n) -> selected.add(n))));
+        assertEquals(Lists.of(nodes),
+                nodeNames(selected),
+                () -> "Selector.apply\n" + start);
+    }
+
+    private List<String> nodeNames(final TestNode... nodes) {
+        return nodeNames(Lists.of(nodes));
+    }
+
+    private List<String> nodeNames(final Collection<TestNode> nodes) {
+        return nodes.stream()
+                .map(n -> n.name().value())
+                .collect(Collectors.toList());
+    }
+
+    final void acceptMapAndCheck(final TestNode start) {
+        this.acceptMapAndCheck(start, start);
+    }
+
+    final void acceptMapAndCheck(final TestNode start,
+                                 final TestNode result) {
+        this.acceptMapAndCheck(this.createSelector(), start, result);
+    }
+
+    final void acceptMapAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                 final TestNode start) {
+        this.acceptMapAndCheck(selector, start, start);
+    }
+
+    final void acceptMapAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                 final TestNode start,
+                                 final TestNode result) {
+        TestNode.clear();
+
+        final String startToString = start.toString();
+
+        assertEquals(result,
+                selector.apply(start,
+                        this.context0(() -> false,
+                                Predicates.always(),
+                                new Function<TestNode, TestNode>() {
+                                    @Override
+                                    public TestNode apply(final TestNode testNode) {
+                                        return TestNode.with(testNode.name().value() + "*" + this.i++)
+                                                .setChildren(testNode.children());
+                                    }
+
+                                    private int i;
+
+                                    @Override
+                                    public String toString() {
+                                        return "mapper: next: " + i;
+                                    }
+                                })));
+
+        assertEquals(startToString,
+                start.toString(),
+                "toString has changed for starting node, indicating it probably was mutated");
+    }
+
+    final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final Predicate<TestNode> filter,
+                                                                                final Consumer<TestNode> selected) {
+        return this.context(() -> false,
+                filter,
+                selected);
+    }
+
+    final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final BooleanSupplier finisher,
+                                                                                final Predicate<TestNode> filter,
+                                                                                final Consumer<TestNode> selected) {
+        return this.context0(finisher,
+                filter,
+                (n) -> {
+                    this.checkSelectCaller();
+                    selected.accept(n);
+                    return n;
+                });
+    }
+
+    /**
+     * Scan the call stack, expecting the callingNodeSelector ignoring contexts to be {@link TerminalNodeSelector}.
+     */
+    private void checkSelectCaller() {
+        final Class<?> caller = TerminalNodeSelector.class;
+
+        assertEquals(Optional.of(caller.getSimpleName()),
+                Arrays.stream(Thread.currentThread().getStackTrace())
+                        .map(this::simpleClassName)
+                        .filter(c -> c.endsWith(NodeSelector.class.getSimpleName()))
+                        .findFirst(),
+                () -> "Expected callingNodeSelector to be " + caller.getName());
+    }
+
+    private String simpleClassName(final StackTraceElement element) {
+        final String className = element.getClassName();
+        final int dot = className.lastIndexOf('.');
+        return -1 == dot ?
+                className :
+                className.substring(dot + 1);
+    }
+
+    final NodeSelectorContext<TestNode, StringName, StringName, Object> context0(final BooleanSupplier finisher,
+                                                                                 final Predicate<TestNode> filter,
+                                                                                 final Function<TestNode, TestNode> mapper) {
+        final NodeSelectorContext<TestNode, StringName, StringName, Object> context = NodeSelectorContexts.basic(finisher,
+                filter,
+                mapper,
+                this.functions(),
+                this.converter(),
+                DecimalNumberContexts.fake(),
+                TestNode.class);
+        return new NodeSelectorContext<TestNode, StringName, StringName, Object>() {
+            @Override
+            public boolean isFinished() {
+                return context.isFinished();
+            }
+
+            private void finisherGuardCheck() {
+                assertEquals(false, this.isFinished(), () -> "finisher should be false: " + this);
+            }
+
+            @Override
+            public boolean test(final TestNode node) {
+                this.finisherGuardCheck();
+                return context.test(node);
+            }
+
+            @Override
+            public TestNode selected(final TestNode node) {
+                this.finisherGuardCheck();
+                return context.selected(node);
+            }
+
+            @Override
+            public Object function(final ExpressionNodeName name,
+                                   final List<Object> parameters) {
+                this.finisherGuardCheck();
+                return context.function(name, parameters);
+            }
+
+            @Override
+            public <T> T convert(final Object value, final Class<T> target) {
+                this.finisherGuardCheck();
+                return context.convert(value, target);
+            }
+
+            @Override
+            public String toString() {
+                return context.toString();
+            }
+        };
+    }
+
+    final TestNode nodeWithAttributes(final String name, final String attribute, final String value) {
+        return TestNode.with(name).setAttributes(this.attributes(attribute, value));
+    }
+
+    final Map<StringName, Object> attributes(final String name, final Object value) {
+        return Maps.of(Names.string(name), value);
+    }
+
+    final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {
+        return NodeSelectorContexts.basicFunctions();
+    }
+
+    final Converter converter() {
+        return Converters.collection(Lists.of(
+                Converters.numberInteger(),
+                Converters.function(String.class, Integer.class, Integer::parseInt),
+                Converters.simple()
+        ));
+    }
+
+    // HashCodeEqualsDefinedTesting.....................................................................................
+
+    @Override
+    public final S createObject() {
+        return this.createSelector();
+    }
+
+    // HasJsonTesting...................................................................................................
+
+    @Override
+    public S fromJsonNode(final JsonNode from) {
+        return Cast.to(NodeSelector.fromJsonNode(from));
+    }
+
+    @Override
+    public final S createHasJsonNode() {
+        return this.createSelector();
     }
 }

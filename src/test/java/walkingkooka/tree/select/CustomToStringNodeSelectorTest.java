@@ -23,7 +23,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.json.HasJsonNodeTesting;
-import walkingkooka.tree.json.JsonNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -152,7 +151,7 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
 
     @Override
     CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
-        return createSelector(this.wrapped());
+        return this.createSelector(this.wrapped());
     }
 
     private CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createSelector(final NodeSelector<TestNode, StringName, StringName, Object> wrap) {
@@ -164,16 +163,11 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
         return Cast.to(CustomToStringNodeSelector.with(wrap, toString));
     }
 
-    // JsonNodeTesting....................................................................................................
-
     @Override
-    public CustomToStringNodeSelector<TestNode, StringName, StringName, Object> fromJsonNode(final JsonNode from) {
-        return Cast.to(CustomToStringNodeSelector.fromJsonNode(from));
-    }
-
-    @Override
-    public CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createHasJsonNode() {
-        return this.createSelector();
+    final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                              final TestNode start,
+                              final String... nodes) {
+        this.applyAndCheckUsingContext(selector, start, nodes);
     }
 
     // ClassTesting....................................................................................................

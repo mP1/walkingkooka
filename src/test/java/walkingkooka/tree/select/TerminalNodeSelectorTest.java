@@ -119,6 +119,13 @@ final public class TerminalNodeSelectorTest
     }
 
     @Override
+    final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                              final TestNode start,
+                              final String... nodes) {
+        this.applyAndCheckUsingContext(selector, start, nodes);
+    }
+
+    @Override
     public Class<TerminalNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(TerminalNodeSelector.class);
     }
