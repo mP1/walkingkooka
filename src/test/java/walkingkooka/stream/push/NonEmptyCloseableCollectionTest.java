@@ -67,33 +67,43 @@ public final class NonEmptyCloseableCollectionTest extends CloseableCollectionTe
     }
 
     @Test
-    public void testCloseTwiceFails() {
-        final TestCloseableRunnable second = TestCloseableRunnable.with("2b");
+    public void testCloseTwiceSecondIgnored() {
+        this.closeCount = 0;
 
         final NonEmptyCloseableCollection collection = this.createCloseableCollection()
-                .add(second);
+                .add(() -> {
+                    this.closeCount++;
+                });
         collection.close();
 
         collection.closeables.stream()
+                .filter(p -> p instanceof TestCloseableRunnable)
                 .forEach(c -> TestCloseableRunnable.class.cast(c).checkClosed());
 
-        boolean failed = false;
-        try {
-            collection.close();
-        } catch (final AssertionError expected) {
-            failed = true;
-        }
-        assertEquals(true, failed, () -> "Expected subsequence close() to fail.");
+        collection.close();
 
         collection.closeables.stream()
+                .filter(p -> p instanceof TestCloseableRunnable)
                 .forEach(c -> TestCloseableRunnable.class.cast(c).checkClosed());
+
+        assertEquals(1, this.closeCount);
     }
+
+    private int closeCount;
 
     // HashCodeEqualsDefined...........................................................................................
 
     @Test
     public void testDifferentExtra() {
         this.checkNotEquals(this.createCloseableCollection().add(this.different));
+    }
+
+    @Test
+    public void testDifferentClosed() {
+        final NonEmptyCloseableCollection other = EmptyCloseableCollection.empty().add(this.different);
+        other.close();
+
+        this.checkNotEquals(other);
     }
 
     @Test

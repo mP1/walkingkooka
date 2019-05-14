@@ -471,6 +471,35 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
     }
 
     @Test
+    public void testStreamCollectCloseableFired() {
+        this.closeableFired = 0;
+
+        final Stream<String> stream = this.createStream()
+                .onClose(() -> {
+                    this.closeableFired++;
+                });
+        this.collectAndCheck(stream, this.values());
+        assertEquals(1, this.closeableFired, "Closeable not fired only once");
+    }
+
+    @Test
+    public void testStreamCollectCloseableFired2() {
+        this.closeableFired = 0;
+
+        final Stream<String> stream = this.createStream()
+                .onClose(() -> {
+                    this.closeableFired++;
+                })
+                .onClose(() -> {
+                    this.closeableFired += 10;
+                });
+        this.collectAndCheck(stream, this.values());
+        assertEquals(11, this.closeableFired, "Both closeables not fired only once");
+    }
+
+    private int closeableFired;
+
+    @Test
     public void testIsParallel() {
         assertEquals(false, this.createStream().isParallel());
     }
@@ -591,8 +620,6 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
                 final String value = i.next();
                 c.accept(value);
             }
-
-            c.close();
         };
     }
 

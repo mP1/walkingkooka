@@ -49,6 +49,16 @@ final class NonEmptyCloseableCollection extends CloseableCollection implements H
 
     @Override
     public void close() {
+        if (false == this.closed) {
+            try {
+                this.closeOnce();
+            } finally {
+                this.closed = true;
+            }
+        }
+    }
+
+    private void closeOnce() {
         RuntimeException thrown = null;
 
         for (Runnable closeable : this.closeables) {
@@ -68,6 +78,8 @@ final class NonEmptyCloseableCollection extends CloseableCollection implements H
         }
     }
 
+    private boolean closed;
+
     // Object...........................................................................................................
 
     @Override
@@ -81,7 +93,8 @@ final class NonEmptyCloseableCollection extends CloseableCollection implements H
     }
 
     private boolean equals0(final NonEmptyCloseableCollection other) {
-        return this.closeables.equals(other.closeables);
+        return this.closeables.equals(other.closeables) &&
+                this.closed == other.closed;
     }
 
     @Override
