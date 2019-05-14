@@ -470,6 +470,29 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
                 PushableStreamStreamIntermediate.peek(ACTION));
     }
 
+    @Test
+    public void testIsParallel() {
+        assertEquals(false, this.createStream().isParallel());
+    }
+
+    @Test
+    public void testParallel() {
+        final Stream<String> stream = this.createStream();
+        assertSame(stream, stream.parallel());
+    }
+
+    @Test
+    public void testSequential() {
+        final Stream<String> stream = this.createStream();
+        assertSame(stream, stream.sequential());
+    }
+
+    @Test
+    public void testUnordered() {
+        final Stream<String> stream = this.createStream();
+        assertSame(stream, stream.unordered());
+    }
+
     // helpers..........................................................................................................
 
     private void checkPushableStreamStream(final Stream<String> pushable,
