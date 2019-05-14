@@ -31,7 +31,7 @@ public final class PeekPushableStreamStreamIntermediateTest extends NonLimitOrSk
 
     @Test
     public void testToString() {
-        this.checkNotEquals(this.createPushableStreamStreamIntermediate(), "peek: " + ACTION);
+        this.toStringAndCheck(this.createPushableStreamStreamIntermediate(), "peek " + ACTION);
     }
 
     @Override

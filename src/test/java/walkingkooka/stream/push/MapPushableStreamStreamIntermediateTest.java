@@ -31,7 +31,7 @@ public final class MapPushableStreamStreamIntermediateTest extends NonLimitOrSki
 
     @Test
     public void testToString() {
-        this.checkNotEquals(this.createPushableStreamStreamIntermediate(), "map: " + MAPPER);
+        this.toStringAndCheck(this.createPushableStreamStreamIntermediate(), "map " + MAPPER);
     }
 
     @Override
