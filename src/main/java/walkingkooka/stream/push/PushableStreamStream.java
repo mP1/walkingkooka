@@ -331,13 +331,13 @@ final class PushableStreamStream<T> implements Stream<T>,
     }
 
     @Override
-    public Optional<T> min(final Comparator<? super T> comparator) {
-        throw new UnsupportedOperationException();
+    public Optional<T> max(final Comparator<? super T> comparator) {
+        return this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.max(comparator, closeables));
     }
 
     @Override
-    public Optional<T> max(final Comparator<? super T> comparator) {
-        throw new UnsupportedOperationException();
+    public Optional<T> min(final Comparator<? super T> comparator) {
+        return this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.min(comparator, closeables));
     }
 
     @Override
