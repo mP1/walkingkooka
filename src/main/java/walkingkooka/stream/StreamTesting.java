@@ -27,6 +27,7 @@ import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Array;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -359,6 +360,13 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         this.forEachOrderedAndCheck(this.createStream(), this.values());
     }
 
+    // iterator..........................................................................................................
+
+    @Test
+    default void testIterate() {
+        this.iteratorAndCheck(this.createStream(), this.values());
+    }
+
     // peek..........................................................................................................
 
     @Test
@@ -583,6 +591,8 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         //this.collectAndCheck2(stream.get(), values);
         this.toArrayAndCheck(stream.get(), values);
 
+        this.iteratorAndCheck(stream, values);
+
         this.countAndCheck(stream.get(), values.size());
 
         this.peekAndCheck(stream.get(), values);
@@ -758,6 +768,42 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         assertEquals(values,
                 collected,
                 () -> "for each from " + stream);
+    }
+
+    // iterator........................................................................................................
+
+    @SuppressWarnings("unchecked")
+    default <U> void iteratorAndCheck(final Supplier<Stream<T>> stream, final U... values) {
+        this.iteratorAndCheck(stream, Lists.of(values));
+    }
+
+    default <U> void iteratorAndCheck(final Supplier<Stream<T>> stream, final List<U> values) {
+        final int to = values.size();
+
+        for (int i = 0; i < to; i++) {
+            this.iteratorAndCheck(stream.get().skip(i), values.subList(i, to));
+        }
+
+        for (int i = 0; i < to; i++) {
+            this.iteratorAndCheck(stream.get().limit(i), values.subList(0, i));
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    default <U> void iteratorAndCheck(final Stream<T> stream, final U... values) {
+        this.iteratorAndCheck(stream, Lists.of(values));
+    }
+
+    default <U> void iteratorAndCheck(final Stream<T> stream, final List<U> values) {
+        final List<T> iteratorValues = Lists.array();
+
+        for (Iterator<T> i = stream.iterator(); i.hasNext(); ) {
+            iteratorValues.add(i.next());
+        }
+
+        assertEquals(values,
+                iteratorValues,
+                () -> "iterator from " + stream);
     }
 
     // limit........................................................................................................

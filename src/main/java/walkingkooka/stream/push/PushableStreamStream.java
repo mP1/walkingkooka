@@ -349,7 +349,7 @@ final class PushableStreamStream<T> implements Stream<T>,
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return this.collect(Collectors.toList()).iterator();
     }
 
     @Override
