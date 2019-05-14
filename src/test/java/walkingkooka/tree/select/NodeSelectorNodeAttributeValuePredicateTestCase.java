@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends NodeSelectorNodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase<N>
+        extends NodeSelectorTestCase2<N>
         implements PredicateTesting<N, TestNode> {
 
     @BeforeEach
@@ -75,11 +75,6 @@ public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends 
     abstract N createPredicate(final StringName name, final Object value);
 
     // TypeNameTesting .........................................................................................
-
-    @Override
-    public final String typeNamePrefix() {
-        return NodeSelector.class.getSimpleName();
-    }
 
     @Override
     public final String typeNameSuffix() {

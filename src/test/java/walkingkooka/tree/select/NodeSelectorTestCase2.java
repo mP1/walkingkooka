@@ -18,12 +18,7 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.naming.StringName;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.tree.TestNode;
-
-abstract public class NodeSelectorTestCase2<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase<S>
-        implements ClassTesting2<S> {
+abstract public class NodeSelectorTestCase2<T> extends NodeSelectorTestCase<T> {
 
     NodeSelectorTestCase2() {
         super();
@@ -31,11 +26,6 @@ abstract public class NodeSelectorTestCase2<S extends NodeSelector<TestNode, Str
 
     @Override
     public final String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    public final String typeNameSuffix() {
         return NodeSelector.class.getSimpleName();
     }
 }
