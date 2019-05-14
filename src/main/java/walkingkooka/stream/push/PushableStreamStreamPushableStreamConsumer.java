@@ -24,6 +24,7 @@ import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 
+import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -104,6 +105,22 @@ abstract class PushableStreamStreamPushableStreamConsumer<T> implements Pushable
     static <T> MapPushableStreamStreamIntermediatePushableStreamConsumer<T> map(final Function<T, ?> mapper,
                                                                                 final PushableStreamConsumer<T> next) {
         return MapPushableStreamStreamIntermediatePushableStreamConsumer.with(mapper, next);
+    }
+
+    /**
+     * {@see MaxPushableStreamStreamTerminalPushableStreamConsumer}
+     */
+    static <T> MaxPushableStreamStreamTerminalPushableStreamConsumer<T> max(final Comparator<? super T> comparator,
+                                                                                                  final CloseableCollection closeables) {
+        return MaxPushableStreamStreamTerminalPushableStreamConsumer.with(comparator, closeables);
+    }
+
+    /**
+     * {@see MinPushableStreamStreamTerminalPushableStreamConsumer}
+     */
+    static <T> MinPushableStreamStreamTerminalPushableStreamConsumer<T> min(final Comparator<? super T> comparator,
+                                                                                                  final CloseableCollection closeables) {
+        return MinPushableStreamStreamTerminalPushableStreamConsumer.with(comparator, closeables);
     }
 
     /**

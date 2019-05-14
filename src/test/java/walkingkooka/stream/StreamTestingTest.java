@@ -20,10 +20,14 @@ package walkingkooka.stream;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.compare.Comparators;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Uses the {@link List#stream()} to test all the helpers in {@link StreamTesting}.
@@ -76,6 +80,62 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
     @Test
     public void testIterator() {
         this.iteratorAndCheck(this.createStream(), this.values());
+    }
+
+    // max............................................................................................................
+
+    @Test
+    public void testMax() {
+        this.maxAndCheck(this.createStream(),
+                Comparators.<Integer>naturalOrdering()
+                        .reversed(),
+                this.values());
+    }
+
+    @Test
+    public void testMax2() {
+        assertEquals(Optional.of(555),
+                stream(1, 22, 33, 44, 555).max(Comparators.naturalOrdering()));
+    }
+
+    @Test
+    public void testMax3() {
+        assertEquals(Optional.of(555),
+                stream(1, 22, 555, 44, 33).max(Comparators.naturalOrdering()));
+    }
+
+    @Test
+    public void testMax4() {
+        assertEquals(Optional.of(1),
+                stream(1, 22, 555, 44, 33).max(Comparators.<Integer>naturalOrdering().reversed()));
+    }
+
+    // min............................................................................................................
+
+    @Test
+    public void testMin() {
+        this.minAndCheck(this.createStream(),
+                Comparators.<Integer>naturalOrdering()
+                        .reversed(),
+                this.values());
+    }
+
+    @Test
+    public void testMin2() {
+        assertEquals(Optional.of(1),
+                stream(1, 22, 33, 44, 555).min(Comparators.naturalOrdering()));
+    }
+
+    @Test
+    public void testMin3() {
+        assertEquals(Optional.of(1),
+                stream(555, 22, 1, 44, 33).min(Comparators.naturalOrdering()));
+    }
+
+    @Test
+    public void testMin4() {
+        assertEquals(Optional.of(555),
+                stream(1, 22, 555, 44, 33).min(Comparators.<Integer>naturalOrdering().reversed()));
     }
 
     // helpers..........................................................................................................

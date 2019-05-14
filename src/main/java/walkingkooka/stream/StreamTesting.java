@@ -27,6 +27,7 @@ import walkingkooka.test.Testing;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Array;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -836,6 +837,44 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         assertEquals(values,
                 stream.collect(Collectors.toList()),
                 () -> "limit then collect from " + stream);
+    }
+
+    // max........................................................................................................
+
+    @SuppressWarnings("unchecked")
+    default void maxAndCheck(final Stream<T> stream,
+                             final Comparator<T> comparator,
+                             final T... values) {
+        this.maxAndCheck(stream, comparator, Lists.of(values));
+    }
+
+    default void maxAndCheck(final Stream<T> stream,
+                             final Comparator<T> comparator,
+                             final List<T> values) {
+        final Optional<T> expected = values.stream()
+                .max(comparator);
+        assertEquals(expected,
+                stream.max(comparator),
+                () -> "max " + comparator + " from " + stream + " with values: " + values);
+    }
+
+    // min........................................................................................................
+
+    @SuppressWarnings("unchecked")
+    default void minAndCheck(final Stream<T> stream,
+                             final Comparator<T> comparator,
+                             final T... values) {
+        this.minAndCheck(stream, comparator, Lists.of(values));
+    }
+
+    default void minAndCheck(final Stream<T> stream,
+                             final Comparator<T> comparator,
+                             final List<T> values) {
+        final Optional<T> expected = values.stream()
+                .min(comparator);
+        assertEquals(expected,
+                stream.min(comparator),
+                () -> "min " + comparator + " from " + stream + " with values: " + values);
     }
 
     // peek........................................................................................................
