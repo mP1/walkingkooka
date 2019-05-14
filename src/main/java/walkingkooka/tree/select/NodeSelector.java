@@ -18,7 +18,10 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.NeverError;
+import walkingkooka.convert.Converter;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.naming.Name;
+import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
@@ -27,6 +30,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
@@ -41,6 +45,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * A select maybe used to select zero or more nodes within a tree given a {@link Node}.
@@ -431,6 +436,26 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     abstract void accept0(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor);
+
+    // Stream...........................................................................................................
+
+    /**
+     * Returns a stream which will execute this selector starting with the given {@link Node} and then push matches to the
+     * {@link Stream} for further stream processing.
+     */
+    public final Stream<N> stream(final N node,
+                                  final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
+                                  final Converter converter,
+                                  final DecimalNumberContext decimalNumberContext,
+                                  final Class<N> nodeType) {
+        return PushableStreamConsumer.stream(
+                NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
+                        this,
+                        functions,
+                        converter,
+                        decimalNumberContext,
+                        nodeType));
+    }
 
     // Object...........................................................................................................
 
