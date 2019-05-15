@@ -20,6 +20,7 @@ package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.StreamTesting;
@@ -29,6 +30,8 @@ import walkingkooka.test.ToStringTesting;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -41,7 +44,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTesting,
         StreamTesting<PushableStreamStream<String>, String>,
-        ToStringTesting<PushableStreamStream<String>> {
+        ToStringTesting<PushableStreamStream<String>>,
+        IteratorTesting {
 
     @Test
     public void testStreamNullPushableStreamConsumerFails() {
@@ -451,6 +455,60 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
                 CloseableCollection.empty(),
                 PushableStreamStreamIntermediate.peek(ACTION),
                 PushableStreamStreamIntermediate.limit(limit));
+    }
+
+    // iterator.......................................................................................................
+
+    @Test
+    public void testStreamIterator() {
+        final String[] values = new String[]{"a1", "b2", "c3"};
+        final PushableStreamStream<String> stream = this.createStream(values);
+        this.iterateAndCheck(stream.iterator(), values);
+    }
+
+    @Test
+    public void testStreamIteratorEmpty() {
+        final String[] values = new String[0];
+        final PushableStreamStream<String> stream = this.createStream(values);
+        this.iterateAndCheck(stream.iterator(), values);
+    }
+
+    // spliterator.......................................................................................................
+
+    @Test
+    public void testStreamSpliterator() {
+        final String[] values = new String[]{"a1", "b2", "c3"};
+        final PushableStreamStream<String> stream = this.createStream(values);
+
+        this.iterateAndCheck(Spliterators.iterator(stream.spliterator()), values);
+    }
+
+    @Test
+    public void testStreamSpliteratorCharacteristics() {
+        final Spliterator<String> spliterator = this.createStream().spliterator();
+        assertEquals(0, spliterator.characteristics(), () -> "characteristics " + spliterator);
+    }
+
+    @Test
+    public void testStreamSpliteratorEstimatedSize() {
+        final Spliterator<String> spliterator = this.createStream().spliterator();
+        assertEquals(Long.MAX_VALUE, spliterator.estimateSize(), () -> "estimateSize " + spliterator);
+    }
+
+    @Test
+    public void testStreamSpliteratorComparatorFails() {
+        final Spliterator<String> spliterator = this.createStream().spliterator();
+
+        assertThrows(IllegalStateException.class, () -> {
+            spliterator.getComparator();
+        });
+    }
+
+    @Test
+    public void testStreamSpliteratorGetExactSizeIfKnown() {
+        final Spliterator<String> spliterator = this.createStream().spliterator();
+
+        assertEquals(-1, spliterator.getExactSizeIfKnown(), () -> "getExactSizeIfKnown " + spliterator);
     }
 
     // closeable.......................................................................................................
