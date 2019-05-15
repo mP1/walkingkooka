@@ -20,6 +20,8 @@ package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public abstract class PushableStreamStreamTerminalPushableStreamConsumerTestCase<P extends PushableStreamStreamTerminalPushableStreamConsumer<String, R>, R> extends
         PushableStreamStreamPushableStreamConsumerTestCase2<P> {
 
@@ -40,6 +42,11 @@ public abstract class PushableStreamStreamTerminalPushableStreamConsumerTestCase
     abstract P createPushableStreamConsumer(final CloseableCollection closeables);
 
     final CloseableCollection closeables = CloseableCollection.empty().add(TestCloseableRunnable.with("first-closeable"));
+
+    final void checkResult(final PushableStreamStreamTerminalPushableStreamConsumer<String, R> consumer,
+                           final R expected) {
+        assertEquals(expected, consumer.result(), () -> consumer.toString());
+    }
 
     @Override
     public final String typeNameSuffix() {

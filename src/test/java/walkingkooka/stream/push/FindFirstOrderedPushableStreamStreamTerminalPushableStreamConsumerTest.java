@@ -20,10 +20,40 @@ package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.stream.StreamException;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumerTest extends PushableStreamStreamTerminalPushableStreamConsumerTestCase<FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<String>, Optional<String>> {
+
+    @Test
+    public void testAcceptNone() {
+        final FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<String> findFirst = this.createPushableStreamConsumer();
+        this.checkResult(findFirst, Optional.empty());
+        this.checkIsFinished(findFirst, false);
+    }
+
+    @Test
+    public void testAcceptOne() {
+        final String found = "found123";
+        final FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<String> findFirst = this.createPushableStreamConsumer();
+        this.accept(findFirst, found);
+        this.checkResult(findFirst, Optional.of(found));
+    }
+
+    @Test
+    public void testAcceptSecondFails() {
+        final String found = "first";
+
+        final FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<String> findFirst = this.createPushableStreamConsumer();
+        this.accept(findFirst, found);
+
+        assertThrows(StreamException.class, () -> {
+            findFirst.accept("2!!");
+        });
+    }
 
     @Test
     public void testToString() {

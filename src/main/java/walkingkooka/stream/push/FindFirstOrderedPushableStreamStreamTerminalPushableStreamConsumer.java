@@ -47,15 +47,16 @@ final class FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<T
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return this.found;
     }
 
     @Override
     public void accept(final T value) {
-        if(null!=this.first) {
+        if(this.found) {
             throw new StreamException("First already found: " + CharSequences.quoteIfChars(this.first) + " new find: " + CharSequences.quoteIfChars(value));
         }
         this.first = value;
+        this.found = true;
     }
 
     /**
@@ -66,6 +67,7 @@ final class FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<T
         return Optional.ofNullable(this.first);
     }
 
+    private boolean found = false;
     private T first;
 
     @Override
