@@ -26,7 +26,7 @@ import java.util.function.Function;
 public final class MapPushableStreamStreamIntermediatePushableStreamConsumerTest extends NonLimitOrSkipPushableStreamStreamIntermediatePushableStreamConsumerTestCase<MapPushableStreamStreamIntermediatePushableStreamConsumer<String>> {
 
     @Test
-    public void testDifferentPredicate() {
+    public void testDifferentMapper() {
         this.checkNotEquals(MapPushableStreamStreamIntermediatePushableStreamConsumer.with((s) -> s + " different", NEXT));
     }
 

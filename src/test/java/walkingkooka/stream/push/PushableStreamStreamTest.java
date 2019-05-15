@@ -348,6 +348,54 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
                 PushableStreamStreamIntermediate.limit(limit));
     }
 
+    // flatMap..........................................................................................................
+
+    @Test
+    public void testStreamFlatMap() {
+        final Function<String, Stream<String>> mapper = (s) -> Stream.of(s);
+
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter();
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+        final Stream<String> stream2 = stream.flatMap(mapper);
+
+        assertNotSame(stream, stream2);
+
+        this.checkPushableStreamStream(stream2,
+                starter,
+                CloseableCollection.empty(),
+                PushableStreamStreamIntermediate.flatMap(Cast.to(mapper)));
+    }
+
+    @Test
+    public void testStreamFlatMapCollect() {
+        final Function<String, Stream<String>> mapper = (s) -> Stream.of(s);
+
+        final Stream<String> stream2 = this.createStream("a1", "b2", "c3")
+                .flatMap(mapper);
+
+        this.collectAndCheck(stream2, "a1", "b2", "c3");
+    }
+
+    @Test
+    public void testStreamFlatMapCollectIncludesNull() {
+        final Function<String, Stream<String>> mapper = (s) -> Stream.of(s);
+
+        final Stream<String> stream2 = this.createStream("a1", null, "c3")
+                .flatMap(mapper);
+
+        this.collectAndCheck(stream2, "a1", null, "c3");
+    }
+
+    @Test
+    public void testStreamFlatMapCollectMultipleValues() {
+        final Function<String, Stream<String>> mapper = (s) -> Arrays.stream(s.split(","));
+
+        final Stream<String> stream2 = this.createStream("a1,a2,a3", "b", "c1,c2")
+                .flatMap(mapper);
+
+        this.collectAndCheck(stream2, "a1", "a2", "a3", "b", "c1", "c2");
+    }
+
     // peek..........................................................................................................
 
     private final static Consumer<String> ACTION = (i) -> {
@@ -597,6 +645,10 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
     @Override
     public PushableStreamStream<String> createStream() {
         return PushableStreamStream.with(this.starter);
+    }
+
+    private PushableStreamStream<String> createStream(final String...values) {
+        return PushableStreamStream.with(this.starter(values));
     }
 
     @Override
