@@ -401,6 +401,12 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             }
 
             @Override
+            public void setNode(final TestNode node) {
+                this.finisherGuardCheck();
+                context.setNode(node);
+            }
+
+            @Override
             public TestNode selected(final TestNode node) {
                 this.finisherGuardCheck();
                 return context.selected(node);

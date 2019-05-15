@@ -94,8 +94,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public boolean test(final N node) {
-        // $current must be set here, so ExpressionNodeSelector can execute functions that require the current node.
-        this.current = node;
         return this.filter.test(node);
     }
 
@@ -104,6 +102,14 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      * an {@link RuntimeException} to abort a long running select.
      */
     private final Predicate<N> filter;
+
+    /**
+     * Saves the current node for that predicates and expressions that may need it.
+     */
+    @Override
+    public void setNode(final N node) {
+        this.current = node;
+    }
 
     @Override
     public N selected(final N node) {

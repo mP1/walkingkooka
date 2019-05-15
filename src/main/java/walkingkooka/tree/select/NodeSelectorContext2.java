@@ -65,6 +65,11 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
+    public void setNode(final N node) {
+        this.context.setNode(node);
+    }
+
+    @Override
     public final boolean test(final N node) {
         return this.context.test(node);
     }
