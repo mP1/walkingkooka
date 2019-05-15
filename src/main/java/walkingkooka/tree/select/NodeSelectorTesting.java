@@ -79,6 +79,11 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
             }
 
             @Override
+            public void setNode(final N node) {
+                // nop
+            }
+
+            @Override
             public boolean test(final N node) {
                 potential.accept(node);
                 return true;
@@ -88,6 +93,11 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
             public N selected(final N node) {
                 selected.accept(node);
                 return node;
+            }
+
+            @Override
+            public String toString() {
+                return "selected: " + selected;
             }
         };
     }

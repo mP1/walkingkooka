@@ -76,6 +76,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         N result = node;
 
         try {
+            context.setNode(node);
             if (context.nodePositionTest(this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context)))) {
                 result = this.select(node, context);
             }

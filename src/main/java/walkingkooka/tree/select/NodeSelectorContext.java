@@ -38,6 +38,12 @@ public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     boolean test(final N node);
 
     /**
+     * Sets the current {@link Node}, in preparation for predicates or functions that read attributes or other values from
+     * on the current {@link Node}.
+     */
+    void setNode(final N node);
+
+    /**
      * Invoked with each and every selected {@link Node node}.
      */
     N selected(final N node);

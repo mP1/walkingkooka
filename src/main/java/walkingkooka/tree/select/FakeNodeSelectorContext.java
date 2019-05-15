@@ -41,6 +41,11 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
+    public void setNode(final N node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public N selected(final N node) {
         throw new UnsupportedOperationException();
     }

@@ -1992,8 +1992,12 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
                     @Override
                     public boolean test(final TestNode node) {
-                        this.node = node;
                         return true;
+                    }
+
+                    @Override
+                    public void setNode(final TestNode node) {
+                        this.node = node;
                     }
 
                     private TestNode node;
