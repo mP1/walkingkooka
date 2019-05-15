@@ -23,7 +23,16 @@ import walkingkooka.predicate.Predicates;
 
 import java.util.function.Predicate;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class FilterPushableStreamStreamIntermediateTest extends NonLimitOrSkipPushableStreamStreamIntermediateTestCase<FilterPushableStreamStreamIntermediate> {
+
+    @Test
+    public void testWithNullCollectorFails() {
+        assertThrows(NullPointerException.class, () -> {
+            FilterPushableStreamStreamIntermediate.with(null);
+        });
+    }
 
     @Test
     public void testDifferentPredicate() {

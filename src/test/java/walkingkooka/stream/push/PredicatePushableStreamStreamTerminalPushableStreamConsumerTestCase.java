@@ -26,12 +26,20 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class PredicatePushableStreamStreamTerminalPushableStreamConsumerTestCase<P extends PredicatePushableStreamStreamTerminalPushableStreamConsumer<String>> extends
         PushableStreamStreamTerminalPushableStreamConsumerTestCase<P, Boolean> {
 
     PredicatePushableStreamStreamTerminalPushableStreamConsumerTestCase() {
         super();
+    }
+
+    @Test
+    public final void testWithNullPredicateFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createPushableStreamStreamPushableStreamConsumer(null, this.closeables);
+        });
     }
 
     @Test

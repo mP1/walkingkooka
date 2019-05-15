@@ -26,7 +26,16 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class CollectorPushableStreamStreamTerminalPushableStreamConsumerTest extends PushableStreamStreamTerminalPushableStreamConsumerTestCase<CollectorPushableStreamStreamTerminalPushableStreamConsumer<String, List<String>, List<String>>, List<String>> {
+
+    @Test
+    public void testWithNullCollectorFails() {
+        assertThrows(NullPointerException.class, () -> {
+            CollectorPushableStreamStreamTerminalPushableStreamConsumer.with(null, CloseableCollection.empty());
+        });
+    }
 
     @Test
     public void testDifferentCollector() {

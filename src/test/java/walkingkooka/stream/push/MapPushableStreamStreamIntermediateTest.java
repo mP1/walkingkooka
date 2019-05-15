@@ -22,7 +22,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class MapPushableStreamStreamIntermediateTest extends NonLimitOrSkipPushableStreamStreamIntermediateTestCase<MapPushableStreamStreamIntermediate> {
+
+    @Test
+    public void testWithNullMapperFails() {
+        assertThrows(NullPointerException.class, () -> {
+            MapPushableStreamStreamIntermediate.with(null);
+        });
+    }
 
     @Test
     public void testDifferentFunction() {
