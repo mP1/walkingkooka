@@ -207,7 +207,7 @@ final class PushableStreamStream<T> implements Stream<T>,
 
     @Override
     public <R> Stream<R> flatMap(final Function<? super T, ? extends Stream<? extends R>> mapper) {
-        throw new UnsupportedOperationException();
+        return this.appendIntermediate(PushableStreamStreamIntermediate.flatMap(Cast.to(mapper))).cast();
     }
 
     @Override

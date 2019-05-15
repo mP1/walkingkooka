@@ -29,6 +29,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
+import java.util.stream.Stream;
 
 /**
  * Base class for all {@link PushableStreamConsumer} including those returned by {@link PushableStreamStreamIntermediate#createWithNext(PushableStreamConsumer)}.
@@ -81,6 +82,14 @@ abstract class PushableStreamStreamPushableStreamConsumer<T> implements Pushable
      */
     static <T> FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<T> findFirst(final CloseableCollection closeables) {
         return FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer.with(closeables);
+    }
+
+    /**
+     * {@see FlatMapPushableStreamStreamIntermediatePushableStreamConsumer}
+     */
+    static <T, R> FlatMapPushableStreamStreamIntermediatePushableStreamConsumer<T, R> flatMap(final Function<? super T, ? extends Stream<? extends R>> mapper,
+                                                                                              final PushableStreamConsumer<T> next) {
+        return FlatMapPushableStreamStreamIntermediatePushableStreamConsumer.with(mapper, next);
     }
 
     /**

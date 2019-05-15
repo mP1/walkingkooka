@@ -38,6 +38,13 @@ abstract class PushableStreamStreamIntermediate implements HashCodeEqualsDefined
     }
 
     /**
+     * {@see FlatMapPushableStreamStreamIntermediate}
+     */
+    static FlatMapPushableStreamStreamIntermediate flatMap(final Function<?, Stream<?>> function) {
+        return FlatMapPushableStreamStreamIntermediate.with(function);
+    }
+
+    /**
      * {@see LimitPushableStreamStreamIntermediate}
      */
     static LimitPushableStreamStreamIntermediate limit(final long limit) {
