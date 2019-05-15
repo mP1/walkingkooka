@@ -59,10 +59,10 @@ public abstract class MaxOrMinPushableStreamStreamTerminalPushableStreamConsumer
     }
 
     private void acceptAndCheck0(final String values, final Optional<String> expected) {
-        final C consumer = this.createPushableStreamStreamPushableStreamConsumer();
+        final C consumer = this.createPushableStreamConsumer();
 
         for (String value : this.commaSeparated(values)) {
-            consumer.accept(value);
+            this.accept(consumer, value);
         }
 
         assertEquals(expected,
@@ -75,7 +75,7 @@ public abstract class MaxOrMinPushableStreamStreamTerminalPushableStreamConsumer
     }
 
     @Override
-    final C createPushableStreamStreamPushableStreamConsumer(final CloseableCollection closeables) {
+    final C createPushableStreamConsumer(final CloseableCollection closeables) {
         return this.createPushableStreamStreamPushableStreamConsumer(this.comparator(), closeables);
     }
 

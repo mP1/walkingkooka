@@ -27,17 +27,16 @@ import java.util.List;
 public abstract class PushableStreamStreamPushableStreamConsumerTestCase2<P extends PushableStreamStreamPushableStreamConsumer<String>>
         extends PushableStreamStreamPushableStreamConsumerTestCase<P>
         implements HashCodeEqualsDefinedTesting<P>,
+        PushableStreamConsumerTesting<P, String>,
         ToStringTesting<P> {
 
     PushableStreamStreamPushableStreamConsumerTestCase2() {
         super();
     }
 
-    abstract P createPushableStreamStreamPushableStreamConsumer();
-
     @Override
     public final P createObject() {
-        return this.createPushableStreamStreamPushableStreamConsumer();
+        return this.createPushableStreamConsumer();
     }
 
     final List<String> commaSeparated(final String source) {

@@ -58,7 +58,7 @@ public final class CollectorPushableStreamStreamTerminalPushableStreamConsumerTe
     }
 
     @Override
-    CollectorPushableStreamStreamTerminalPushableStreamConsumer<String, List<String>, List<String>> createPushableStreamStreamPushableStreamConsumer(final CloseableCollection closeables) {
+    CollectorPushableStreamStreamTerminalPushableStreamConsumer<String, List<String>, List<String>> createPushableStreamConsumer(final CloseableCollection closeables) {
         return CollectorPushableStreamStreamTerminalPushableStreamConsumer.with(this.collector, closeables);
     }
 

@@ -42,18 +42,18 @@ public abstract class LimitOrSkipPushableStreamStreamIntermediatePushableStreamC
 
     @Test
     public final void testToStringExhausted() {
-        final P consumer = this.createPushableStreamStreamPushableStreamConsumer();
+        final P consumer = this.createPushableStreamConsumer();
         consumer.counter = 999;
         this.toStringAndCheck(consumer, NEXT_TOSTRING);
     }
 
     @Override
-    final P createPushableStreamStreamPushableStreamConsumer(final PushableStreamConsumer<String> next) {
-        return this.createPushableStreamStreamPushableStreamConsumer(VALUE, next);
+    final P createPushableStreamConsumer(final PushableStreamConsumer<String> next) {
+        return this.createPushableStreamConsumer(VALUE, next);
     }
 
-    abstract P createPushableStreamStreamPushableStreamConsumer(final long value,
-                                                                final PushableStreamConsumer<String> next);
+    abstract P createPushableStreamConsumer(final long value,
+                                            final PushableStreamConsumer<String> next);
 
     final void acceptAndCheck(final long skipOrLimit,
                               final String commaSeperated,
@@ -72,7 +72,7 @@ public abstract class LimitOrSkipPushableStreamStreamIntermediatePushableStreamC
                               final int consumedCount) {
         final List<String> collected = Lists.array();
 
-        final P consumer = this.createPushableStreamStreamPushableStreamConsumer(skipOrLimit,
+        final P consumer = this.createPushableStreamConsumer(skipOrLimit,
                 new PushableStreamConsumer<String>() {
                     @Override
                     public boolean isFinished() {

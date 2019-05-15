@@ -37,7 +37,7 @@ public final class ForEachOrderedPushableStreamStreamTerminalPushableStreamConsu
     }
 
     @Override
-    ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumer<String> createPushableStreamStreamPushableStreamConsumer(final CloseableCollection closeables) {
+    ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumer<String> createPushableStreamConsumer(final CloseableCollection closeables) {
         return ForEachOrderedPushableStreamStreamTerminalPushableStreamConsumer.with(this.action, closeables);
     }
 

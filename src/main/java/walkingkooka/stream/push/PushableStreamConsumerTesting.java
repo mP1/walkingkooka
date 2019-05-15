@@ -21,6 +21,8 @@ package walkingkooka.stream.push;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public interface PushableStreamConsumerTesting<C extends PushableStreamConsumer<T>, T> extends ClassTesting2<C>,
         ToStringTesting<C> {
 
@@ -28,4 +30,17 @@ public interface PushableStreamConsumerTesting<C extends PushableStreamConsumer<
      * Factory that creates a {@link PushableStreamConsumer}
      */
     C createPushableStreamConsumer();
+
+    default void checkIsFinished(final PushableStreamConsumer<?> consumer,
+                                 final boolean finished) {
+        assertEquals(finished,
+                consumer.isFinished(),
+                () -> consumer.toString());
+    }
+
+    default void accept(final PushableStreamConsumer<T> consumer,
+                        final T value) {
+        this.checkIsFinished(consumer, false);
+        consumer.accept(value);
+    }
 }

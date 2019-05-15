@@ -29,7 +29,7 @@ public final class CountPushableStreamStreamTerminalPushableStreamConsumerTest e
     }
 
     @Override
-    CountPushableStreamStreamTerminalPushableStreamConsumer<String> createPushableStreamStreamPushableStreamConsumer(final CloseableCollection closeables) {
+    CountPushableStreamStreamTerminalPushableStreamConsumer<String> createPushableStreamConsumer(final CloseableCollection closeables) {
         return CountPushableStreamStreamTerminalPushableStreamConsumer.with(closeables);
     }
 

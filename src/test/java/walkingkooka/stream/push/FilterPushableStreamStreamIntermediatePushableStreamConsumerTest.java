@@ -48,7 +48,7 @@ public final class FilterPushableStreamStreamIntermediatePushableStreamConsumerT
     }
 
     @Override
-    FilterPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamStreamPushableStreamConsumer(final PushableStreamConsumer<String> next) {
+    FilterPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamConsumer(final PushableStreamConsumer<String> next) {
         return FilterPushableStreamStreamIntermediatePushableStreamConsumer.with(this.filter, next);
     }
 

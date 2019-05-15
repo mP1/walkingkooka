@@ -29,15 +29,15 @@ public abstract class PushableStreamStreamTerminalPushableStreamConsumerTestCase
 
     @Test
     public final void testDifferentCloseables() {
-        this.createPushableStreamStreamPushableStreamConsumer(CloseableCollection.empty().add(TestCloseableRunnable.with("different")));
+        this.createPushableStreamConsumer(CloseableCollection.empty().add(TestCloseableRunnable.with("different")));
     }
 
     @Override
-    final P createPushableStreamStreamPushableStreamConsumer() {
-        return this.createPushableStreamStreamPushableStreamConsumer(this.closeables);
+    public final P createPushableStreamConsumer() {
+        return this.createPushableStreamConsumer(this.closeables);
     }
 
-    abstract P createPushableStreamStreamPushableStreamConsumer(final CloseableCollection closeables);
+    abstract P createPushableStreamConsumer(final CloseableCollection closeables);
 
     final CloseableCollection closeables = CloseableCollection.empty().add(TestCloseableRunnable.with("first-closeable"));
 

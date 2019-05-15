@@ -47,7 +47,7 @@ public final class MinPushableStreamStreamTerminalPushableStreamConsumerTest ext
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createPushableStreamStreamPushableStreamConsumer(), "min " + this.comparator() + " closeables: " + this.closeables);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "min " + this.comparator() + " closeables: " + this.closeables);
     }
 
     @Override

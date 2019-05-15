@@ -36,7 +36,7 @@ public final class MapPushableStreamStreamIntermediatePushableStreamConsumerTest
     }
 
     @Override
-    MapPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamStreamPushableStreamConsumer(final PushableStreamConsumer<String> next) {
+    MapPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamConsumer(final PushableStreamConsumer<String> next) {
         return MapPushableStreamStreamIntermediatePushableStreamConsumer.with(this.mapper, next);
     }
 
