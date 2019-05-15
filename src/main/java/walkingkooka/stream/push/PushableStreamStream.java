@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
@@ -350,9 +351,12 @@ final class PushableStreamStream<T> implements Stream<T>,
         return this.collect(Collectors.toList()).iterator();
     }
 
+    /**
+     * Returns a {@link Spliterator} that has an unknown size and no characteristics selected.
+     */
     @Override
     public Spliterator<T> spliterator() {
-        throw new UnsupportedOperationException();
+        return Spliterators.spliteratorUnknownSize(this.iterator(), 0);
     }
 
     // GENERAL.........................................................................................................
