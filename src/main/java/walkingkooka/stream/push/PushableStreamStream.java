@@ -185,8 +185,6 @@ final class PushableStreamStream<T> implements Stream<T>,
 
     @Override
     public <R> Stream<R> map(final Function<? super T, ? extends R> mapper) {
-        Objects.requireNonNull(mapper, "mapper");
-
         return this.appendIntermediate(PushableStreamStreamIntermediate.map(mapper)).cast();
     }
 

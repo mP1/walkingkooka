@@ -20,6 +20,7 @@ package walkingkooka.stream.push;
 
 import walkingkooka.text.CharSequences;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -29,6 +30,8 @@ final class NoneMatchPushableStreamStreamTerminalPushableStreamConsumer<T> exten
 
     static <T> NoneMatchPushableStreamStreamTerminalPushableStreamConsumer<T> with(final Predicate<? super T> predicate,
                                                                                    final CloseableCollection closeables) {
+        Objects.requireNonNull(predicate, "predicate");
+
         return new NoneMatchPushableStreamStreamTerminalPushableStreamConsumer<T>(predicate, closeables);
     }
 

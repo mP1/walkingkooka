@@ -20,6 +20,7 @@ package walkingkooka.stream.push;
 
 import walkingkooka.Cast;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -28,6 +29,8 @@ import java.util.function.Predicate;
 final class FilterPushableStreamStreamIntermediate extends NonLimitOrSkipPushableStreamStreamIntermediate {
 
     static FilterPushableStreamStreamIntermediate with(final Predicate<?> predicate) {
+        Objects.requireNonNull(predicate, "predicate");
+
         return new FilterPushableStreamStreamIntermediate(predicate);
     }
 

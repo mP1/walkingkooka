@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.stream.Collector;
 
@@ -32,6 +33,8 @@ final class CollectorPushableStreamStreamTerminalPushableStreamConsumer<T, A, R>
 
     static <T, A, R> CollectorPushableStreamStreamTerminalPushableStreamConsumer<T, A, R> with(final Collector<? super T, A, R> collector,
                                                                                                final CloseableCollection closeables) {
+        Objects.requireNonNull(collector, "collector");
+
         return new CollectorPushableStreamStreamTerminalPushableStreamConsumer<T, A, R>(collector, closeables);
     }
 

@@ -20,6 +20,7 @@ package walkingkooka.stream.push;
 
 import walkingkooka.Cast;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -28,6 +29,8 @@ import java.util.function.Consumer;
 final class PeekPushableStreamStreamIntermediate extends NonLimitOrSkipPushableStreamStreamIntermediate {
 
     static PeekPushableStreamStreamIntermediate with(final Consumer<?> action) {
+        Objects.requireNonNull(action, "action");
+
         return new PeekPushableStreamStreamIntermediate(action);
     }
 

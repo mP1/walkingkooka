@@ -22,7 +22,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Consumer;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class PeekPushableStreamStreamIntermediateTest extends NonLimitOrSkipPushableStreamStreamIntermediateTestCase<PeekPushableStreamStreamIntermediate> {
+
+    @Test
+    public void testWithNullActionFails() {
+        assertThrows(NullPointerException.class, () -> {
+            PeekPushableStreamStreamIntermediate.with(null);
+        });
+    }
 
     @Test
     public void testDifferentFunction() {

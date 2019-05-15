@@ -20,6 +20,7 @@ package walkingkooka.stream.push;
 
 import walkingkooka.Cast;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -28,6 +29,8 @@ import java.util.function.Function;
 final class MapPushableStreamStreamIntermediate extends NonLimitOrSkipPushableStreamStreamIntermediate {
 
     static MapPushableStreamStreamIntermediate with(final Function<?, ?> mapper) {
+        Objects.requireNonNull(mapper, "mapper");
+
         return new MapPushableStreamStreamIntermediate(mapper);
     }
 
