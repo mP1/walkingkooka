@@ -56,14 +56,14 @@ public final class SkipPushableStreamStreamIntermediatePushableStreamConsumerTes
 
     @Test
     public void testToString() {
-        final SkipPushableStreamStreamIntermediatePushableStreamConsumer<String> consumer = this.createPushableStreamStreamPushableStreamConsumer();
+        final SkipPushableStreamStreamIntermediatePushableStreamConsumer<String> consumer = this.createPushableStreamConsumer();
         consumer.counter = 1;
         this.toStringAndCheck(consumer, "skip 1/2 " + NEXT_TOSTRING);
     }
 
     @Override
-    SkipPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamStreamPushableStreamConsumer(final long value,
-                                                                                                                        final PushableStreamConsumer<String> next) {
+    SkipPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamConsumer(final long value,
+                                                                                                    final PushableStreamConsumer<String> next) {
         return SkipPushableStreamStreamIntermediatePushableStreamConsumer.with(value, next);
     }
 

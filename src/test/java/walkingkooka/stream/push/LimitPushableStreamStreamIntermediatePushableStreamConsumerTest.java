@@ -56,14 +56,14 @@ public final class LimitPushableStreamStreamIntermediatePushableStreamConsumerTe
 
     @Test
     public void testToString() {
-        final LimitPushableStreamStreamIntermediatePushableStreamConsumer<String> consumer = this.createPushableStreamStreamPushableStreamConsumer();
+        final LimitPushableStreamStreamIntermediatePushableStreamConsumer<String> consumer = this.createPushableStreamConsumer();
         consumer.counter = 1;
         this.toStringAndCheck(consumer, "limit 1/2 " + NEXT_TOSTRING);
     }
 
     @Override
-    LimitPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamStreamPushableStreamConsumer(final long value,
-                                                                                                                         final PushableStreamConsumer<String> next) {
+    LimitPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamConsumer(final long value,
+                                                                                                     final PushableStreamConsumer<String> next) {
         return LimitPushableStreamStreamIntermediatePushableStreamConsumer.with(value, next);
     }
 

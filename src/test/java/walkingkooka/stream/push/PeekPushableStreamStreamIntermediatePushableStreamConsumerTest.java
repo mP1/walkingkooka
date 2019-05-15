@@ -36,7 +36,7 @@ public final class PeekPushableStreamStreamIntermediatePushableStreamConsumerTes
     }
 
     @Override
-    PeekPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamStreamPushableStreamConsumer(final PushableStreamConsumer<String> next) {
+    PeekPushableStreamStreamIntermediatePushableStreamConsumer<String> createPushableStreamConsumer(final PushableStreamConsumer<String> next) {
         return PeekPushableStreamStreamIntermediatePushableStreamConsumer.with(this.action, next);
     }
 

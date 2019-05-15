@@ -37,7 +37,7 @@ public final class FlatMapPushableStreamStreamIntermediatePushableStreamConsumer
     }
 
     @Override
-    FlatMapPushableStreamStreamIntermediatePushableStreamConsumer<String, Long> createPushableStreamStreamPushableStreamConsumer(final PushableStreamConsumer<String> next) {
+    FlatMapPushableStreamStreamIntermediatePushableStreamConsumer<String, Long> createPushableStreamConsumer(final PushableStreamConsumer<String> next) {
         return FlatMapPushableStreamStreamIntermediatePushableStreamConsumer.with(this.mapper, next);
     }
 

@@ -31,7 +31,7 @@ public final class FindFirstOrderedPushableStreamStreamTerminalPushableStreamCon
     }
 
     @Override
-    FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<String> createPushableStreamStreamPushableStreamConsumer(final CloseableCollection closeables) {
+    FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer<String> createPushableStreamConsumer(final CloseableCollection closeables) {
         return FindFirstOrderedPushableStreamStreamTerminalPushableStreamConsumer.with(closeables);
     }
 

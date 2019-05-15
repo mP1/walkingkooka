@@ -33,8 +33,9 @@ extends PushableStreamStreamPushableStreamConsumerTestCase2<P> {
         this.checkNotEquals(DIFFERENT);
     }
 
-    final P createPushableStreamStreamPushableStreamConsumer() {
-        return this.createPushableStreamStreamPushableStreamConsumer(NEXT);
+    @Override
+    public final P createPushableStreamConsumer() {
+        return this.createPushableStreamConsumer(NEXT);
     }
 
     final static String NEXT_TOSTRING = "Next123";
@@ -105,7 +106,7 @@ extends PushableStreamStreamPushableStreamConsumerTestCase2<P> {
         }
     };
 
-    abstract P createPushableStreamStreamPushableStreamConsumer(final PushableStreamConsumer<String> next);
+    abstract P createPushableStreamConsumer(final PushableStreamConsumer<String> next);
 
     @Override
     public final String typeNameSuffix() {

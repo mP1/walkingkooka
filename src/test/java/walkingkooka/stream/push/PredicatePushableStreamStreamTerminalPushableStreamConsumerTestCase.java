@@ -49,7 +49,7 @@ public abstract class PredicatePushableStreamStreamTerminalPushableStreamConsume
 
     @Test
     public final void testToStringFalse() {
-        final P consumer = this.createPushableStreamStreamPushableStreamConsumer();
+        final P consumer = this.createPushableStreamConsumer();
         consumer.result = false;
 
         this.toStringAndCheck(consumer, this.label() + " " + PREDICATE_TOSTRING + " false closeables: " + this.closeables.toString());
@@ -57,14 +57,14 @@ public abstract class PredicatePushableStreamStreamTerminalPushableStreamConsume
 
     @Test
     public final void testToStringTrue() {
-        final P consumer = this.createPushableStreamStreamPushableStreamConsumer();
+        final P consumer = this.createPushableStreamConsumer();
         consumer.result = true;
 
         this.toStringAndCheck(consumer, this.label() + " " + PREDICATE_TOSTRING + " true closeables: " + this.closeables.toString());
     }
 
     @Override
-    final P createPushableStreamStreamPushableStreamConsumer(final CloseableCollection closeables) {
+    final P createPushableStreamConsumer(final CloseableCollection closeables) {
         return this.createPushableStreamStreamPushableStreamConsumer(PREDICATE, closeables);
     }
 
@@ -88,7 +88,7 @@ public abstract class PredicatePushableStreamStreamTerminalPushableStreamConsume
         int i = 0;
         while(i < values.size() && false == consumer.isFinished()) {
 
-            consumer.accept(values.get(i));
+            this.accept(consumer, values.get(i));
             i++;
         }
 

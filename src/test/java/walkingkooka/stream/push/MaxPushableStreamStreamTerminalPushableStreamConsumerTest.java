@@ -47,7 +47,7 @@ public final class MaxPushableStreamStreamTerminalPushableStreamConsumerTest ext
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createPushableStreamStreamPushableStreamConsumer(), "max " + this.comparator() + " closeables: " + this.closeables);
+        this.toStringAndCheck(this.createPushableStreamConsumer(), "max " + this.comparator() + " closeables: " + this.closeables);
     }
 
     @Override
