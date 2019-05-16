@@ -191,17 +191,45 @@ final class PushableStreamStream<T> implements Stream<T>,
 
     @Override
     public IntStream mapToInt(final ToIntFunction<? super T> mapper) {
-        throw new UnsupportedOperationException();
+        checkMapper(mapper);
+
+        final IntStream.Builder builder = IntStream.builder();
+
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.forEach((t -> {
+            builder.accept(mapper.applyAsInt(t));
+        }), closeables));
+
+        return builder.build();
     }
 
     @Override
     public LongStream mapToLong(final ToLongFunction<? super T> mapper) {
-        throw new UnsupportedOperationException();
+        checkMapper(mapper);
+
+        final LongStream.Builder builder = LongStream.builder();
+
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.forEach((t -> {
+            builder.accept(mapper.applyAsLong(t));
+        }), closeables));
+
+        return builder.build();
     }
 
     @Override
     public DoubleStream mapToDouble(final ToDoubleFunction<? super T> mapper) {
-        throw new UnsupportedOperationException();
+        checkMapper(mapper);
+
+        final DoubleStream.Builder builder = DoubleStream.builder();
+
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.forEach((t -> {
+            builder.accept(mapper.applyAsDouble(t));
+        }), closeables));
+
+        return builder.build();
+    }
+
+    private static void checkMapper(final Object mapper) {
+        Objects.requireNonNull(mapper, "mapper");
     }
 
     // FLATMAP .........................................................................................................
