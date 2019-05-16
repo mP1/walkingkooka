@@ -228,10 +228,6 @@ final class PushableStreamStream<T> implements Stream<T>,
         return builder.build();
     }
 
-    private static void checkMapper(final Object mapper) {
-        Objects.requireNonNull(mapper, "mapper");
-    }
-
     // FLATMAP .........................................................................................................
 
     @Override
@@ -241,17 +237,54 @@ final class PushableStreamStream<T> implements Stream<T>,
 
     @Override
     public IntStream flatMapToInt(final Function<? super T, ? extends IntStream> mapper) {
-        throw new UnsupportedOperationException();
+        checkMapper(mapper);
+
+        final IntStream.Builder builder = IntStream.builder();
+
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.forEach((t -> {
+            final IntStream stream = mapper.apply(t);
+            if (null != stream) {
+                stream.forEach(builder::add);
+            }
+        }), closeables));
+
+        return builder.build();
     }
 
     @Override
     public LongStream flatMapToLong(final Function<? super T, ? extends LongStream> mapper) {
-        throw new UnsupportedOperationException();
+        checkMapper(mapper);
+
+        final LongStream.Builder builder = LongStream.builder();
+
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.forEach((t -> {
+            final LongStream stream = mapper.apply(t);
+            if (null != stream) {
+                stream.forEach(builder::add);
+            }
+        }), closeables));
+
+        return builder.build();
     }
 
     @Override
     public DoubleStream flatMapToDouble(final Function<? super T, ? extends DoubleStream> mapper) {
-        throw new UnsupportedOperationException();
+        checkMapper(mapper);
+
+        final DoubleStream.Builder builder = DoubleStream.builder();
+
+        this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.forEach((t -> {
+            final DoubleStream stream = mapper.apply(t);
+            if (null != stream) {
+                stream.forEach(builder::add);
+            }
+        }), closeables));
+
+        return builder.build();
+    }
+
+    private static void checkMapper(final Object mapper) {
+        Objects.requireNonNull(mapper, "mapper");
     }
 
     // DISTINCT .........................................................................................................
