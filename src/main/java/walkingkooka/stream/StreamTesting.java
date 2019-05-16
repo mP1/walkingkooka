@@ -32,6 +32,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -931,6 +933,68 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         assertEquals(values,
                 collected,
                 () -> "peek from " + stream);
+    }
+
+    // reduce(BinaryOperator)........................................................................................................
+
+    @SuppressWarnings("unchecked")
+    default <T> void reduceAndCheck(final Stream<T> stream,
+                                    final BinaryOperator<T> reducer,
+                                    final T... values) {
+        this.reduceAndCheck(stream,
+                reducer,
+                Lists.of(values));
+    }
+
+    default <T> void reduceAndCheck(final Stream<T> stream,
+                                    final BinaryOperator<T> reducer,
+                                    final List<T> values) {
+        assertEquals(values.stream().reduce(reducer),
+                stream.reduce(reducer),
+                () -> "reduce " + stream);
+    }
+
+    // reduce(T, BinaryOperator)........................................................................................................
+
+    @SuppressWarnings("unchecked")
+    default <T> void reduceAndCheck(final Stream<T> stream,
+                                    final T initial,
+                                    final BinaryOperator<T> reducer,
+                                    final T... values) {
+        this.reduceAndCheck(stream,
+                initial,
+                reducer,
+                Lists.of(values));
+    }
+
+    default <T> void reduceAndCheck(final Stream<T> stream,
+                                    final T initial,
+                                    final BinaryOperator<T> reducer,
+                                    final List<T> values) {
+        assertEquals(values.stream().reduce(initial, reducer),
+                stream.reduce(initial, reducer),
+                () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream);
+    }
+
+    // reduce(T, BinaryFunction, BinaryOperator)........................................................................................................
+
+    @SuppressWarnings("unchecked")
+    default <T> void reduceAndCheck(final Stream<T> stream,
+                                    final T initial,
+                                    final BiFunction<T, T, T> reducer,
+                                    final BinaryOperator<T> combiner,
+                                    final T... values) {
+        this.reduceAndCheck(stream, initial, reducer, combiner, Lists.of(values));
+    }
+
+    default <T> void reduceAndCheck(final Stream<T> stream,
+                                    final T initial,
+                                    final BiFunction<T, T, T> reducer,
+                                    final BinaryOperator<T> combiner,
+                                    final List<T> values) {
+        assertEquals(values.stream().reduce(initial, reducer, combiner),
+                stream.reduce(initial, reducer, combiner),
+                () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream);
     }
 
     // skip........................................................................................................

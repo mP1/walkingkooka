@@ -457,6 +457,40 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
                 PushableStreamStreamIntermediate.limit(limit));
     }
 
+    // reduce.......................................................................................................
+
+    @Test
+    public void testStreamReduce() {
+        this.reduceAndCheck(this.createStream("a1", "b2", "c3"),
+                (a, b) -> a + b,
+                "a1", "b2", "c3");
+    }
+
+    @Test
+    public void testStreamReduce2() {
+        this.reduceAndCheck(this.createStream("a1", "b2", "c3"),
+                (a, b) -> a.toUpperCase() + b,
+                "a1", "b2", "c3");
+    }
+
+    // reduce initial...................................................................................................
+
+    @Test
+    public void testStreamReduceInitial() {
+        this.reduceAndCheck(this.createStream("a1", "b2", "c3"),
+                "@",
+                (a, b) -> a + b,
+                "a1", "b2", "c3");
+    }
+
+    @Test
+    public void testStreamReduceInitial2() {
+        this.reduceAndCheck(this.createStream("a1", "b2", "c3"),
+                "@",
+                (a, b) -> a.toUpperCase() + b,
+                "a1", "b2", "c3");
+    }
+
     // iterator.......................................................................................................
 
     @Test

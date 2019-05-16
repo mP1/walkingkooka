@@ -25,6 +25,7 @@ import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Comparator;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -146,6 +147,23 @@ abstract class PushableStreamStreamPushableStreamConsumer<T> implements Pushable
     static <T> PeekPushableStreamStreamIntermediatePushableStreamConsumer<T> peek(final Consumer<T> consumer,
                                                                                   final PushableStreamConsumer<T> next) {
         return PeekPushableStreamStreamIntermediatePushableStreamConsumer.with(consumer, next);
+    }
+
+    /**
+     * {@see ReduceAccumulatorPushableStreamStreamTerminalPushableStreamConsumer}
+     */
+    static <T> ReduceAccumulatorPushableStreamStreamTerminalPushableStreamConsumer<T> reduce(final BiFunction<T, ? super T, T> reducer,
+                                                                                             final CloseableCollection closeables) {
+        return ReduceAccumulatorPushableStreamStreamTerminalPushableStreamConsumer.with(reducer, closeables);
+    }
+
+    /**
+     * {@see ReduceInitialAccumulatorPushableStreamStreamTerminalPushableStreamConsumer}
+     */
+    static <T> ReduceInitialAccumulatorPushableStreamStreamTerminalPushableStreamConsumer<T> reduceWithInitial(final T initial,
+                                                                                                               final BiFunction<T, ? super T, T> reducer,
+                                                                                                               final CloseableCollection closeables) {
+        return ReduceInitialAccumulatorPushableStreamStreamTerminalPushableStreamConsumer.with(initial, reducer, closeables);
     }
 
     /**
