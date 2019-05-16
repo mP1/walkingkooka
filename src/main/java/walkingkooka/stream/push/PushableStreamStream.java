@@ -421,23 +421,31 @@ final class PushableStreamStream<T> implements Stream<T>,
     private <R> R assembleStartAndReturnResult(final Function<CloseableCollection, PushableStreamStreamTerminalPushableStreamConsumer<T, R>> terminalFactory) {
         try (final PushableStreamStreamTerminalPushableStreamConsumer<T, R> terminal = terminalFactory.apply(this.closeables)) {
 
-            int i = intermediates.size() - 1;
-            PushableStreamConsumer<?> next = terminal;
-            PushableStreamConsumer<?> first = terminal;
-
-            while (i >= 0) {
-                first = intermediates.get(i).createWithNext(next);
-                next = first;
-                i--;
-            }
-
-            this.starter.accept(Cast.to(first));
+            this.starter.accept(this.assemble(terminal));
             return terminal.result();
         } catch (final RuntimeException rethrow) {
             throw rethrow;
         } catch (final Exception should) {
             throw new NeverError(should.getMessage(), should);
         }
+    }
+
+    /**
+     * Accepts the terminal and proceeds to assemble the entire {@link Stream} in reverse.
+     */
+    private PushableStreamStreamPushableStreamConsumer<T> assemble(final PushableStreamStreamTerminalPushableStreamConsumer<T, ?> terminal) {
+        final List<PushableStreamStreamIntermediate> intermediates = this.intermediates;
+        int i = intermediates.size() - 1;
+        PushableStreamConsumer<?> next = terminal;
+        PushableStreamConsumer<?> first = terminal;
+
+        while (i >= 0) {
+            first = intermediates.get(i).createWithNext(next);
+            next = first;
+            i--;
+        }
+
+        return Cast.to(first);
     }
 
     /**
