@@ -26,6 +26,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.StreamTesting;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -35,6 +36,9 @@ import java.util.Spliterators;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -464,6 +468,123 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
         this.collectAndCheck(stream2, "a1", "a2", "a3", "b", "c1", "c2");
     }
 
+    // flatMapToInt.........................................................................................................
+
+    @Test
+    public void testStreamFlatMapToIntNoValues() {
+        this.flatMapToIntAndCheck();
+    }
+
+    @Test
+    public void testStreamFlatMapToIntManyValues() {
+        this.flatMapToIntAndCheck("1", "3", "3", "4");
+    }
+
+    @Test
+    public void testStreamFlatMapToIntNullStream() {
+        this.flatMapToIntAndCheck("1", "", "3", "4");
+    }
+
+    @Test
+    public void testStreamFlatMapToIntManyValues2() {
+        this.flatMapToIntAndCheck("1,2,3", "4");
+    }
+
+    private void flatMapToIntAndCheck(final String... values) {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter(values);
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+
+        assertArrayEquals(Lists.of(values).stream().flatMapToInt(this::intStream).toArray(),
+                stream.flatMapToInt(this::intStream).toArray(),
+                () -> stream + " values: " + Arrays.toString(values));
+    }
+
+    private IntStream intStream(final String value) {
+        return CharSequences.isNullOrEmpty(value) ?
+                null :
+                IntStream.of(Arrays.stream(value.split(","))
+                        .mapToInt(Integer::parseInt)
+                        .toArray());
+    }
+
+    // flatMapToLong.........................................................................................................
+
+    @Test
+    public void testStreamFlatMapToLongNoValues() {
+        this.flatMapToLongAndCheck();
+    }
+
+    @Test
+    public void testStreamFlatMapToLongManyValues() {
+        this.flatMapToLongAndCheck("1", "3", "3", "" + Long.MAX_VALUE);
+    }
+
+    @Test
+    public void testStreamFlatMapToLongNullStream() {
+        this.flatMapToLongAndCheck("1", "", "3", "4");
+    }
+
+    @Test
+    public void testStreamFlatMapToLongManyValues2() {
+        this.flatMapToLongAndCheck("1,2,3", "4");
+    }
+
+    private void flatMapToLongAndCheck(final String... values) {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter(values);
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+
+        assertArrayEquals(Lists.of(values).stream().flatMapToLong(this::longStream).toArray(),
+                stream.flatMapToLong(this::longStream).toArray(),
+                () -> stream + " values: " + Arrays.toString(values));
+    }
+
+    private LongStream longStream(final String value) {
+        return CharSequences.isNullOrEmpty(value) ?
+                null :
+                LongStream.of(Arrays.stream(value.split(","))
+                        .mapToLong(Long::parseLong)
+                        .toArray());
+    }
+
+    // flatMapToDouble.........................................................................................................
+
+    @Test
+    public void testStreamFlatMapToDoubleNoValues() {
+        this.flatMapToDoubleAndCheck();
+    }
+
+    @Test
+    public void testStreamFlatMapToDoubleManyValues() {
+        this.flatMapToDoubleAndCheck("1.25", "2.5", "3", "4");
+    }
+
+    @Test
+    public void testStreamFlatMapToDoubleNullStream() {
+        this.flatMapToDoubleAndCheck("1", "", "3", "" + Double.MAX_VALUE);
+    }
+
+    @Test
+    public void testStreamFlatMapToDoubleManyValues2() {
+        this.flatMapToDoubleAndCheck("1,2,3", "4.5");
+    }
+
+    private void flatMapToDoubleAndCheck(final String... values) {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter(values);
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+
+        assertArrayEquals(Lists.of(values).stream().flatMapToDouble(this::doubleStream).toArray(),
+                stream.flatMapToDouble(this::doubleStream).toArray(),
+                () -> stream + " values: " + Arrays.toString(values));
+    }
+
+    private DoubleStream doubleStream(final String value) {
+        return CharSequences.isNullOrEmpty(value) ?
+                null :
+                DoubleStream.of(Arrays.stream(value.split(","))
+                        .mapToDouble(Double::parseDouble)
+                        .toArray());
+    }
+    
     // peek..........................................................................................................
 
     private final static Consumer<String> ACTION = (i) -> {
