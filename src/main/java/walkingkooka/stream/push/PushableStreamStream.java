@@ -315,18 +315,24 @@ final class PushableStreamStream<T> implements Stream<T>,
     // TERMINATOR: REDUCE ..............................................................................................
 
     @Override
-    public T reduce(final T identity, BinaryOperator<T> accumulator) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public Optional<T> reduce(final BinaryOperator<T> accumulator) {
-        throw new UnsupportedOperationException();
+        return this.assembleStartAndReturnResult((closeables) -> PushableStreamStreamPushableStreamConsumer.reduce(accumulator, closeables));
     }
 
     @Override
-    public <U> U reduce(final U identity, BiFunction<U, ? super T, U> accumulator, BinaryOperator<U> combiner) {
-        throw new UnsupportedOperationException();
+    public T reduce(final T initial,
+                    final BinaryOperator<T> accumulator) {
+        return this.reduce(initial, accumulator, null);
+    }
+
+    @Override
+    public <U> U reduce(final U initial,
+                        final BiFunction<U, ? super T, U> accumulator,
+                        final BinaryOperator<U> combiner) {
+        return this.assembleStartAndReturnResult((closeables) -> Cast.to(PushableStreamStreamPushableStreamConsumer.reduceWithInitial(initial,
+                Cast.to(accumulator),
+                closeables)));
+
     }
 
     @Override

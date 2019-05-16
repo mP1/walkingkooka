@@ -138,6 +138,57 @@ public final class StreamTestingTest implements StreamTesting<Stream<Integer>, I
                 stream(1, 22, 555, 44, 33).min(Comparators.<Integer>naturalOrdering().reversed()));
     }
 
+    // reduce............................................................................................................
+
+    @Test
+    public void testReduceNothing() {
+        this.reduceAndCheck(stream(),
+                StreamTestingTest::reducer);
+    }
+
+    @Test
+    public void testReduceSingleValue() {
+        this.reduceAndCheck(stream(1),
+                StreamTestingTest::reducer,
+                1);
+    }
+
+    @Test
+    public void testReduceManyValues() {
+        this.reduceAndCheck(stream(1, 2, 3, 4),
+                StreamTestingTest::reducer,
+                1, 2, 3, 4);
+    }
+
+    // reduce............................................................................................................
+
+    @Test
+    public void testReduceInitial() {
+        this.reduceAndCheck(stream(),
+                1000,
+                StreamTestingTest::reducer);
+    }
+
+    @Test
+    public void testReduceInitialAndSingleValue() {
+        this.reduceAndCheck(stream(1),
+                1000,
+                StreamTestingTest::reducer,
+                1);
+    }
+
+    @Test
+    public void testReduceInitialManyValues() {
+        this.reduceAndCheck(stream(1, 2, 3, 4),
+                1000,
+                StreamTestingTest::reducer,
+                1, 2, 3, 4);
+    }
+
+    private static Integer reducer(final Integer left, final Integer right) {
+        return left + right;
+    }
+
     // helpers..........................................................................................................
 
     @Override
