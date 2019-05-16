@@ -37,6 +37,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -350,6 +351,69 @@ public final class PushableStreamStreamTest implements HashCodeEqualsDefinedTest
                 CloseableCollection.empty(),
                 PushableStreamStreamIntermediate.map(mapper),
                 PushableStreamStreamIntermediate.limit(limit));
+    }
+
+    // mapToInt.........................................................................................................
+
+    @Test
+    public void testStreamMapToIntNoValues() {
+        this.mapToIntAndCheck();
+    }
+
+    @Test
+    public void testStreamMapToIntManyValues() {
+        this.mapToIntAndCheck("1", "2", "3", "4");
+    }
+
+    private void mapToIntAndCheck(final String... values) {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter(values);
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+
+        assertArrayEquals(Lists.of(values).stream().mapToInt(Integer::parseInt).toArray(),
+                stream.mapToInt(Integer::parseInt).toArray(),
+                () -> stream + " values: " + Arrays.toString(values));
+    }
+
+    // mapToLong.........................................................................................................
+
+    @Test
+    public void testStreamMapToLongNoValues() {
+        this.mapToLongAndCheck();
+    }
+
+    @Test
+    public void testStreamMapToLongManyValues() {
+        this.mapToLongAndCheck("1", "2", "3", "4");
+    }
+
+    private void mapToLongAndCheck(final String... values) {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter(values);
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+
+        assertArrayEquals(Lists.of(values).stream().mapToLong(Long::parseLong).toArray(),
+                stream.mapToLong(Long::parseLong).toArray(),
+                () -> stream + " values: " + Arrays.toString(values));
+    }
+
+    // mapToDouble.........................................................................................................
+
+    @Test
+    public void testStreamMapToDoubleNoValues() {
+        this.mapToDoubleAndCheck();
+    }
+
+    @Test
+    public void testStreamMapToDoubleManyValues() {
+        this.mapToDoubleAndCheck("1", "2", "3", "4");
+    }
+
+    private void mapToDoubleAndCheck(final String... values) {
+        final Consumer<PushableStreamConsumer<String>> starter = this.starter(values);
+        final PushableStreamStream<String> stream = PushableStreamStream.with(starter);
+
+        assertArrayEquals(Lists.of(values).stream().mapToDouble(Double::parseDouble).toArray(),
+                stream.mapToDouble(Double::parseDouble).toArray(),
+                () -> stream + " values: " + Arrays.toString(values));
     }
 
     // flatMap..........................................................................................................
