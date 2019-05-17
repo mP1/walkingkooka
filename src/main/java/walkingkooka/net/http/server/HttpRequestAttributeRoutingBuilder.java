@@ -23,6 +23,7 @@ import walkingkooka.build.Builder;
 import walkingkooka.build.BuilderException;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.CookieName;
@@ -129,17 +130,44 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
     // path ......................................................................................
 
     /**
+     * A {@link Predicate} that matches wildcard files within a path.
+     */
+    public final static Predicate<UrlPathName> WILDCARD = Predicates.is(UrlPathName.with("*"));
+
+    /**
+     * Adds all path components that are NOT matched by the {@link Predicate skip}.
+     */
+    public HttpRequestAttributeRoutingBuilder<T> path(final UrlPath path,
+                                                      final Predicate<UrlPathName> skip) {
+        Objects.requireNonNull(path, "path");
+        Objects.requireNonNull(skip, "skip");
+
+        int i = 0;
+        for (UrlPathName name : path) {
+            if (0 != i) {
+                if (false == skip.test(name)) {
+                    this.pathComponent(i, name);
+                }
+            }
+            i++;
+        }
+
+        return this;
+    }
+
+    /**
      * Adds a requirement for a particular path component by name.
      */
-    public HttpRequestAttributeRoutingBuilder<T> path(final int pathComponent, UrlPathName pathName) {
-        return this.path(pathComponent, Predicates.is(pathName));
+    public HttpRequestAttributeRoutingBuilder<T> pathComponent(final int pathComponent,
+                                                               final UrlPathName pathName) {
+        return this.pathComponent(pathComponent, Predicates.is(pathName));
     }
 
     /**
      * Adds a predicate for a path component.
      */
-    public HttpRequestAttributeRoutingBuilder<T> path(final int pathComponent,
-                                                      final Predicate<UrlPathName> predicate) {
+    public HttpRequestAttributeRoutingBuilder<T> pathComponent(final int pathComponent,
+                                                               final Predicate<UrlPathName> predicate) {
         if (pathComponent < 0) {
             throw new IllegalArgumentException("Invalid path component " + pathComponent + " < 0");
         }
@@ -259,7 +287,8 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
     /**
      * Each added predicate will set this to false.
      */
-    private final Map<HttpRequestAttribute<?>, Predicate<Object>> attributeToPredicate = Maps.ordered();
+    // VisibleForTesting
+    final Map<HttpRequestAttribute<?>, Predicate<Object>> attributeToPredicate = Maps.ordered();
 
     @Override
     public String toString() {

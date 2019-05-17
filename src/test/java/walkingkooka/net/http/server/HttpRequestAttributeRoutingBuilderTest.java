@@ -24,6 +24,7 @@ import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
@@ -104,38 +105,99 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
                 .method(HttpMethod.POST);
     }
 
-    // path ...............................................................................
+    // path UrlPathName, Predicate ...............................................................................
 
     @Test
-    public void testPathNegativePathComponentIndexFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createBuilder().path(-1, Predicates.fake());
-        });
-    }
-
-    @Test
-    public void testPathNullPredicateFails() {
+    public void testPathPredicateNegativePathComponentIndexFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createBuilder().path(0, (Predicate<UrlPathName>) null);
+            this.createBuilder().path(null, Predicates.fake());
         });
     }
 
     @Test
-    public void testPathRepeatedPathComponentDifferentNameFails() {
+    public void testPathPredicateNullPredicateFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().path(UrlPath.EMPTY, null);
+        });
+    }
+
+    @Test
+    public void testPathPredicateEmptyPath() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.path(UrlPath.EMPTY, Predicates.fake()));
+
+        this.checkAttributeToPredicate(builder, Maps.empty());
+    }
+
+    @Test
+    public void testPathPredicatePath() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.path(UrlPath.parse("/1a/2b"), Predicates.never()));
+
+        this.checkAttributeToPredicate(builder,
+                Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
+                        HttpRequestAttributes.pathComponent(2), Predicates.is(UrlPathName.with("2b"))));
+    }
+
+    @Test
+    public void testPathPredicatePathWithoutLeadingSlash() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.path(UrlPath.parse("1a/2b"), Predicates.never()));
+
+        this.checkAttributeToPredicate(builder,
+                Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
+                        HttpRequestAttributes.pathComponent(2), Predicates.is(UrlPathName.with("2b"))));
+    }
+
+    @Test
+    public void testPathPredicatePathWithWildcard() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.path(UrlPath.parse("1a/*/3c"), HttpRequestAttributeRoutingBuilder.WILDCARD));
+
+        this.checkAttributeToPredicate(builder,
+                Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
+                        HttpRequestAttributes.pathComponent(3), Predicates.is(UrlPathName.with("3c"))));
+    }
+
+    private void checkAttributeToPredicate(final HttpRequestAttributeRoutingBuilder<?> builder,
+                                           final Map<?, ?> expected) {
+        assertEquals(expected,
+                builder.attributeToPredicate,
+                "attributeToPredicate");
+    }
+
+    // pathComponent .................................................................................
+
+    @Test
+    public void testPathComponentNegativePathComponentIndexFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createBuilder().pathComponent(-1, Predicates.fake());
+        });
+    }
+
+    @Test
+    public void testPathComponentNullPredicateFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().pathComponent(0, (Predicate<UrlPathName>) null);
+        });
+    }
+
+    @Test
+    public void testPathComponentIndexNameRepeatedPathComponentDifferentNameFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             this.createBuilder()
-                    .path(0, Predicates.fake())
-                    .path(0, Predicates.fake());
+                    .pathComponent(0, Predicates.fake())
+                    .pathComponent(0, Predicates.fake());
 
         });
     }
 
     @Test
-    public void testPathRepeatedPathComponentSamePredicate() {
+    public void testPathComponentRepeatedPathComponentSamePredicate() {
         final Predicate<UrlPathName> predicate = Predicates.fake();
         this.createBuilder()
-                .path(0, predicate)
-                .path(0, predicate);
+                .pathComponent(0, predicate)
+                .pathComponent(0, predicate);
     }
 
     // protocol ...............................................................................
@@ -297,11 +359,38 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
     public void testPath() {
         final HttpRequestAttributeRoutingBuilder<String> builder = this.createBuilder();
 
+        assertSame(builder, builder.path(UrlPath.parse("/path1/path2"), HttpRequestAttributeRoutingBuilder.WILDCARD));
+
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
+
         final UrlPathName path1 = UrlPathName.with("path1");
-        assertSame(builder, builder.path(1, path1));
+        final UrlPathName path2 = UrlPathName.with("path2");
+
+        parameters.put(HttpRequestAttributes.pathComponent(1), path1);
+        this.routeFails(router, parameters);
+
+        parameters.put(HttpRequestAttributes.pathComponent(2), path1);
+        this.routeFails(router, parameters);
+
+        parameters.put(HttpRequestAttributes.pathComponent(2), path2);
+        this.routeAndCheck(router, parameters);
+
+        parameters.put(HttpRequestAttributes.pathComponent(1), path2);
+        parameters.put(HttpRequestAttributes.pathComponent(2), path1);
+        this.routeFails(router, parameters);
+    }
+
+    @Test
+    public void testPathComponent() {
+        final HttpRequestAttributeRoutingBuilder<String> builder = this.createBuilder();
+
+        final UrlPathName path1 = UrlPathName.with("path1");
+        assertSame(builder, builder.pathComponent(1, path1));
 
         final UrlPathName path2 = UrlPathName.with("path2");
-        assertSame(builder, builder.path(2, path2));
+        assertSame(builder, builder.pathComponent(2, path2));
 
         final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
