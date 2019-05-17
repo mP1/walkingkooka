@@ -151,7 +151,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
         return b.toString();
     }
 
-    final static String toString(final NodePointer<?, ?> path) {
+    static String toString(final NodePointer<?, ?> path) {
         return CharSequences.quote(path.toString()).toString();
     }
 

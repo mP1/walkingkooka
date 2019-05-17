@@ -431,25 +431,11 @@ final public class ServerCookie extends Cookie {
         Objects.requireNonNull(now, "now");
 
         final javax.servlet.http.Cookie cookie = this.createJavaxServletCookieWithNameAndValue();
-        final Optional<String> domain = this.domain;
-        if (domain.isPresent()) {
-            cookie.setDomain(domain.get());
-        }
 
-        final Optional<String> path = this.path;
-        if (path.isPresent()) {
-            cookie.setPath(path.get());
-        }
-
-        final Optional<String> comment = this.comment;
-        if (comment.isPresent()) {
-            cookie.setComment(comment.get());
-        }
-
-        final Optional<CookieDeletion> deletion = this.deletion;
-        if (deletion.isPresent()) {
-            cookie.setMaxAge(deletion.get().toMaxAgeSeconds(now));
-        }
+        this.domain.ifPresent((d) -> cookie.setDomain(d));
+        this.path.ifPresent((p) -> cookie.setPath(p));
+        this.comment.ifPresent((c) -> cookie.setComment(c));
+        this.deletion.ifPresent((d) -> cookie.setMaxAge(d.toMaxAgeSeconds(now)));
 
         cookie.setSecure(this.secure.toJavaxServletCookieSecure());
         cookie.setHttpOnly(this.httpOnly.toJavaxServletCookieHttpOnly());
@@ -496,9 +482,9 @@ final public class ServerCookie extends Cookie {
     }
 
     private int hashDomain() {
-        return this.domain.isPresent() ?
-                DOMAIN_CASE_SENSITIVITY.hash(this.domain.get()) :
-                0;
+        return this.domain
+                .map(DOMAIN_CASE_SENSITIVITY::hash)
+                .orElse(0);
     }
 
     private int hashPath() {

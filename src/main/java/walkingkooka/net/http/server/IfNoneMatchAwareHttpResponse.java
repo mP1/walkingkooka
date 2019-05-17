@@ -114,9 +114,8 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
      */
     private ETag contentETag(final Binary body, final Map<HttpHeaderName<?>, Object> headers) {
         final Optional<ETag> contentETag = HttpHeaderName.E_TAG.headerValue(headers);
-        return contentETag.isPresent() ?
-                contentETag.get() :
-                this.computer.apply(body.value());
+        return contentETag.map(e -> e)
+                .orElseGet(() -> this.computer.apply(body.value()));
     }
 
     /**

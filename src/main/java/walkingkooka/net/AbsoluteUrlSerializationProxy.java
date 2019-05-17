@@ -26,16 +26,12 @@ final class AbsoluteUrlSerializationProxy implements SerializationProxy {
 
     AbsoluteUrlSerializationProxy(final AbsoluteUrl url) {
         this.scheme = url.scheme;
-        this.credentials = unwrap(url.credentials);
+        this.credentials = url.credentials.orElse(null);
         this.host = url.host;
-        this.port = unwrap(url.port);
+        this.port = url.port.orElse(null);
         this.path = url.path;
         this.query = url.query;
         this.fragment = url.fragment;
-    }
-
-    private static <T> T unwrap(final Optional<T> value) {
-        return value.isPresent() ? value.get() : null;
     }
 
     final UrlScheme scheme;

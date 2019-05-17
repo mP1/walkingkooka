@@ -219,7 +219,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     }
 
     /**
-     * Factory used to create a {@link Name} from a {@Link NodeSelectorNodeName}.
+     * Factory used to create a {@link Name} from a {@link NodeSelectorNodeName}.
      */
     private final Function<NodeSelectorNodeName, NAME> nameFactory;
 

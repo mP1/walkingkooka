@@ -81,6 +81,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
                 result = this.select(node, context);
             }
         } catch (final ConversionException | NodeSelectorException fail) {
+            // nop
         }
 
         return result;

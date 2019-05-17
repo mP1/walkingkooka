@@ -20,9 +20,6 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNodeName;
-
-import java.util.List;
 
 /**
  * The default {@link NodeSelectorContext2}.

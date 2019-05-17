@@ -74,7 +74,7 @@ public final class XmlElement extends XmlParentNode2 implements HasXmlNameSpaceP
 
     private XmlElement replacePrefix(final Optional<XmlNameSpacePrefix> prefix) {
         final Element element = Cast.to(this.nodeCloneAll());
-        element.setPrefix(valueOrNull0(prefix));
+        element.setPrefix(prefix.map((p)-> p.value()).orElse(null));
         return new XmlElement(element);
     }
 
@@ -221,10 +221,9 @@ public final class XmlElement extends XmlParentNode2 implements HasXmlNameSpaceP
         builder.append('<');
         final XmlName elementName = this.name();
 
-        final Optional<XmlNameSpacePrefix> prefix = this.prefix();
-        if (prefix.isPresent()) {
-            builder.label(prefix.get().value());
-        }
+        this.prefix()
+                .ifPresent((v) -> builder.label(v.value()));
+
         builder.value(elementName);
 
         // attributes

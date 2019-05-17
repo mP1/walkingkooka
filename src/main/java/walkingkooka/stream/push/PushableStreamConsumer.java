@@ -41,7 +41,7 @@ public interface PushableStreamConsumer<T> extends Consumer<T>, AutoCloseable {
 
     /**
      * Closes or terminates this {@link PushableStreamConsumer}.
-     * Unlike {@link AutoCloseable#close()} this version does not throw {@Link Exception}.
+     * Unlike {@link AutoCloseable#close()} this version does not throw {@link Exception}.
      */
     @Override
     void close();

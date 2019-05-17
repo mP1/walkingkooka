@@ -943,8 +943,8 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeWithTypeSetBoolean() {
-        final Boolean boolean1 = true;
-        final Boolean boolean2 = false;
+        final boolean boolean1 = true;
+        final boolean boolean2 = false;
 
         this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
                         .appendChild(JsonNode.booleanNode(boolean1))

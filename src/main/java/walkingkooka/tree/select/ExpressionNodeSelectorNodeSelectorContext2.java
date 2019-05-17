@@ -21,9 +21,6 @@ package walkingkooka.tree.select;
 import walkingkooka.convert.ConversionException;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNodeName;
-
-import java.util.List;
 
 /**
  * A {@link NodeSelectorContext2} that tracks the position of selected {@link Node}. This allows {@link ExpressionNodeSelector} to

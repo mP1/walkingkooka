@@ -528,7 +528,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     public void testMapContainsKey() {
         final JsonNodeName key1 = key1();
         final JsonNode value1 = this.value1();
-        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -540,7 +539,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     public void testMapContainsKeyAbsent() {
         final JsonNodeName key1 = key1();
         final JsonNode value1 = this.value1();
-        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -552,7 +550,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     public void testMapContainsValue() {
         final JsonNodeName key1 = key1();
         final JsonNode value1 = this.value1();
-        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -565,7 +562,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     public void testMapContainsValueAbsent() {
         final JsonNodeName key1 = key1();
         final JsonNode value1 = this.value1();
-        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -578,7 +574,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     public void testMapGet() {
         final JsonNodeName key1 = key1();
         final JsonNode value1 = this.value1();
-        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key1, value1)
@@ -590,7 +585,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     public void testMapGetAbsentKey() {
         final JsonNodeName key = key1();
         final JsonNode value = this.value1();
-        ;
 
         final JsonObjectNode object = JsonNode.object()
                 .set(key, value)

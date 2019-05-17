@@ -45,6 +45,7 @@ public interface ToStringTesting<T> extends Testing {
                     notOverridden = false;
                 }
             } catch (final NoSuchMethodException cause) {
+                // nop
             }
 
             if (notOverridden) {

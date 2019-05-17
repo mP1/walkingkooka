@@ -101,7 +101,7 @@ enum XmlConfigurationProperty {
     }
 
     private XmlDocument replace(final XmlDocument document, final Optional<?> value) {
-        return this.replace(document, value.isPresent() ? value.get() : null);
+        return this.replace(document, value.orElse(null));
     }
 
     private XmlDocument replace(final XmlDocument document, final Object value) {

@@ -394,11 +394,11 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
 
         if (this != mediaType) {
             final String type = this.type();
-            if (false == WILDCARD.equals(type)) {
+            if (false == WILDCARD.string().equals(type)) {
                 compatible = TYPE_CASE_SENSITIVITY.equals(type, mediaType.type);
                 if (compatible) {
                     final String subType = this.subType;
-                    if (false == WILDCARD.equals(subType)) {
+                    if (false == WILDCARD.string().equals(subType)) {
                         compatible = SUBTYPE_CASE_SENSITIVITY.equals(subType, mediaType.subType);
                     }
                 }

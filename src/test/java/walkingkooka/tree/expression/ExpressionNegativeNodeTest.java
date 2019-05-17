@@ -99,13 +99,13 @@ public final class ExpressionNegativeNodeTest extends ExpressionUnaryNodeTestCas
 
     @Test
     public void testEvaluateToDouble() {
-        final Double value = Double.valueOf(123);
+        final double value = 123;
         this.evaluateAndCheckDouble(this.createExpressionNode(ExpressionNode.doubleNode(value)), -value);
     }
 
     @Test
     public void testEvaluateToLong() {
-        final Long value = 123L;
+        final long value = 123L;
         this.evaluateAndCheckLong(this.createExpressionNode(ExpressionNode.longNode(value)), -value);
     }
 

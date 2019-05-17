@@ -29,7 +29,8 @@ import java.util.Optional;
 enum CacheControlDirectiveNameParameter {
 
     REQUIRED {
-        @Override <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
+        @Override
+        <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
             if (value.isPresent()) {
                 name.converter.check(value.get(), name);
             } else {
@@ -39,15 +40,16 @@ enum CacheControlDirectiveNameParameter {
         }
     },
     OPTIONAL {
-        @Override <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
-            if (value.isPresent()) {
-                name.converter.check(value.get(), name);
-            }
+        @Override
+        <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
+            value.ifPresent((v) -> {name.converter.check(v, name);});
+
             return value;
         }
     },
     ABSENT {
-        @Override <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
+        @Override
+        <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
             if (value.isPresent()) {
                 fail("Directive " + name + " does not accept parameter " + CharSequences.quoteIfChars(value));
             }

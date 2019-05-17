@@ -923,10 +923,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
                 bytes(body, contentType));
         final Optional<BiConsumer<HttpRequest, HttpResponse>> handle = builder.build()
                 .route(request.routingParameters());
-        if (handle.isPresent()) {
-            handle.get()
-                    .accept(request, recording);
-        }
+        handle.ifPresent(h -> h.accept(request, recording));
 
         this.checkResponse(recording, request, status, entities);
     }

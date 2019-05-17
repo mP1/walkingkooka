@@ -126,7 +126,7 @@ public final class TokenHeaderValue extends HeaderValueWithParameters2<TokenHead
      * Only returns true if the value is WILDCARD.
      */
     public boolean isWildcard() {
-        return WILDCARD.equals(this.value());
+        return WILDCARD.string().equals(this.value());
     }
 
     // HasHeaderScope ....................................................................................................

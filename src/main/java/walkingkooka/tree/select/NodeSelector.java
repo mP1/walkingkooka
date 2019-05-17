@@ -485,7 +485,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
     // HasJsonNode....................................................................................................
 
-    /**
+    /*
      * Register all concrete sub classes of {@link NodeSelector} and the public {@link NodeSelector} itself.
      */
     static {

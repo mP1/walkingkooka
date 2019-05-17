@@ -735,9 +735,7 @@ final public class ToStringBuilder implements Builder<String> {
     }
 
     private void appendOptional(final Optional<?> value) {
-        if (value.isPresent()) {
-            this.appendValue(value.get());
-        }
+        value.ifPresent((v) -> this.appendValue(v));
     }
 
     /**
