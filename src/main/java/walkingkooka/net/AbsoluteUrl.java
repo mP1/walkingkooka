@@ -42,7 +42,7 @@ public final class AbsoluteUrl extends Url {
         try {
             absoluteUrl = parse(url);
         } catch (final IllegalArgumentException fail) {
-
+            // nop
         }
         return Optional.ofNullable(absoluteUrl);
     }
@@ -294,13 +294,10 @@ public final class AbsoluteUrl extends Url {
     @Override
     void toString0(final StringBuilder b) {
         this.scheme.toString0(b);
-        if (this.credentials.isPresent()) {
-            this.credentials.get().toString0(b);
-        }
+
+        this.credentials.ifPresent((c) -> c.toString0(b));
         this.host.toString0(b);
-        if (this.port.isPresent()) {
-            this.port.get().toString0(b);
-        }
+        this.port.ifPresent((p) -> {p.toString0(b);});
     }
 
     // Serializable

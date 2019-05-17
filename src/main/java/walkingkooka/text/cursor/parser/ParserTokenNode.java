@@ -102,10 +102,8 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
     @Override
     public final int index() {
         if (UNKNOWN_INDEX == this.index) {
-            final Optional<ParserTokenNode> parent = this.parent();
-            this.index = parent.isPresent() ?
-                    parent.get().valueAsList().indexOf(this) :
-                    -1;
+            this.index = this.parent()
+                    .map(v -> v.valueAsList().indexOf(this)).orElse(-1);
         }
         return this.index;
     }

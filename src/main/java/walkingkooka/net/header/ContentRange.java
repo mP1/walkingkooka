@@ -389,9 +389,7 @@ public final class ContentRange implements HeaderValue {
     private static void checkRange(final Optional<Range<Long>> range) {
         Objects.requireNonNull(range, "range");
 
-        if (range.isPresent()) {
-            checkRange0(range.get());
-        }
+        range.ifPresent(ContentRange::checkRange0);
     }
 
     private static void checkRange0(final Range<Long> range) {
@@ -509,9 +507,7 @@ public final class ContentRange implements HeaderValue {
     }
 
     private static String toHeaderTextRange(final Optional<Range<Long>> range) {
-        return range.isPresent() ?
-                toHeaderTextRange0(range.get()) :
-                WILDCARD.string();
+        return range.map(ContentRange::toHeaderTextRange0).orElse(WILDCARD.string());
 
     }
 

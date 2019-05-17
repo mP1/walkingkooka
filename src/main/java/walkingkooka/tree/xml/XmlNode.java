@@ -23,7 +23,6 @@ import org.w3c.dom.DocumentType;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import walkingkooka.Cast;
-import walkingkooka.Value;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
@@ -180,19 +179,11 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
         final DOMImplementation impl = builder.getDOMImplementation();
         final String typeName = type.value();
         final DocumentType documentType = impl.createDocumentType(typeName,
-                valueOrNull0(publicId),
-                valueOrNull0(systemId));
-        return XmlDocument.with(impl.createDocument(valueOrNull(namespaceUri),
+                publicId.map(v -> v.value()).orElse(null),
+                systemId.map(v -> v.value()).orElse(null));
+        return XmlDocument.with(impl.createDocument(namespaceUri.orElse(null),
                 typeName,
                 documentType));
-    }
-
-    static String valueOrNull(final Optional<? extends String> optional) {
-        return optional.isPresent() ? optional.get() : null;
-    }
-
-    static String valueOrNull0(final Optional<? extends Value<String>> optional) {
-        return optional.isPresent() ? optional.get().value() : null;
     }
 
     /**

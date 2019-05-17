@@ -40,7 +40,6 @@ final class EmptyArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Seria
         return Cast.to(EmptyArrayStack.INSTANCE);
     }
 
-    @SuppressWarnings("rawtypes")
     private final static EmptyArrayStack<?> INSTANCE = new EmptyArrayStack<>();
 
     private EmptyArrayStack() {

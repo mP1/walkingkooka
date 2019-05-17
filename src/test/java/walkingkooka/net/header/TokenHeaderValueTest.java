@@ -288,7 +288,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
                        final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
         assertEquals(value, token.value(), "value");
         assertEquals(parameters, token.parameters(), "parameters");
-        assertEquals(value.equals(TokenHeaderValue.WILDCARD), token.isWildcard(), "is wildcard");
+        assertEquals(value.equals(TokenHeaderValue.WILDCARD.string()), token.isWildcard(), "is wildcard");
     }
 
     @Override

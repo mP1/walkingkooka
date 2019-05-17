@@ -420,10 +420,9 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extend
      * Fetches the path component at the path index or returns null.
      */
     private String pathComponentOrNull(final int pathIndex) {
-        final Optional<UrlPathName> path = HttpRequestAttributes.pathComponent(pathIndex).parameterValue(this.parameters);
-        return path.isPresent() ?
-                path.get().value() :
-                null;
+        return HttpRequestAttributes.pathComponent(pathIndex).parameterValue(this.parameters)
+                .map(v -> v.value())
+                .orElse(null);
     }
 
     final Map<HttpRequestAttribute<?>, Object> parameters;

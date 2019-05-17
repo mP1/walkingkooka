@@ -127,7 +127,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
     @Test
     public final void testSetValueDifferent() {
         final R reference = this.createReference();
-        final Integer differentValue = 999;
+        final int differentValue = 999;
         final SpreadsheetColumnOrRowReference<?> different = reference.setValue(differentValue);
         assertNotSame(reference, different);
         this.checkValue(different, differentValue);
@@ -138,7 +138,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
     public final void testSetValueDifferent2() {
         final SpreadsheetReferenceKind kind = SpreadsheetReferenceKind.RELATIVE;
         final R reference = this.createReference(VALUE, kind);
-        final Integer differentValue = 999;
+        final int differentValue = 999;
         final SpreadsheetColumnOrRowReference<?> different = reference.setValue(differentValue);
         assertNotSame(reference, different);
         this.checkValue(different, differentValue);

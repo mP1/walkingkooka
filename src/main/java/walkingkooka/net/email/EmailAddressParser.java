@@ -133,7 +133,7 @@ abstract class EmailAddressParser {
             }
             if (null == hostAddress) {
                 this.missingHost(email);
-                break Exit;
+                break;
             }
             emailAddress = EmailAddress.with0(email, user, hostAddress);
         } while (false);

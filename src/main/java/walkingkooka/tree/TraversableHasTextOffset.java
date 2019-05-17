@@ -29,7 +29,7 @@ public interface TraversableHasTextOffset<T extends HasTextLength & HasTextOffse
         Traversable<T> {
 
     /**
-     * A simple implementation of {@link #textOffset()} which either queries the previous sibling or parent.
+     * A simple implementation of {@link HasTextOffset#textOffset()} which either queries the previous sibling or parent.
      */
     default int textOffset() {
         return this.previousSibling()

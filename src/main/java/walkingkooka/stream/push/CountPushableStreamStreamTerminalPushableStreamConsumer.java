@@ -53,7 +53,6 @@ final class CountPushableStreamStreamTerminalPushableStreamConsumer<T> extends P
 
     /**
      * Returns the final count.
-     * @return
      */
     @Override
     Long result() {

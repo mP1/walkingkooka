@@ -43,7 +43,7 @@ abstract class PushableStreamStreamTerminalPushableStreamConsumer<T, R> extends 
 
     @Override
     public final void close() {
-        this.closeables.close();;
+        this.closeables.close();
     }
 
     final CloseableCollection closeables;

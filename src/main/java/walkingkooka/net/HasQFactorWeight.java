@@ -41,10 +41,7 @@ public interface HasQFactorWeight {
      * Retrieves the q factor weight or defaults to 1.0 if absent.
      */
     default Float qFactorWeightOrDefault() {
-        Optional<Float> value = this.qFactorWeight();
-        return value.isPresent() ?
-                value.get() :
-                DEFAULT_WEIGHT;
+        return this.qFactorWeight().orElse(DEFAULT_WEIGHT);
     }
 
     float DEFAULT_WEIGHT = 1.0f;

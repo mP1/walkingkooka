@@ -43,12 +43,13 @@ abstract class LogicalCharPredicate implements CharPredicate, HashCodeEqualsDefi
 
     // Object
 
-    @Override final public int hashCode() {
+    @Override
+    final public int hashCode() {
         return Objects.hash(this.left, this.right);
     }
 
     @Override
-    @SuppressWarnings("unchecked") final public boolean equals(final Object other) {
+    final public boolean equals(final Object other) {
         return (other == this) || (this.canBeEqualType(other)
                 && this.equals0((LogicalCharPredicate) other));
     }
@@ -62,7 +63,8 @@ abstract class LogicalCharPredicate implements CharPredicate, HashCodeEqualsDefi
         return this.left.equals(other.left) && this.right.equals(other.right);
     }
 
-    @Override final public String toString() {
+    @Override
+    final public String toString() {
         return this.left + " " + this.operator() + " " + this.right;
     }
 

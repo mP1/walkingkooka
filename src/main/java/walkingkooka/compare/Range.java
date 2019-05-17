@@ -263,6 +263,7 @@ public final class Range<C extends Comparable> implements Predicate<C>,
      * }
      * </pre>
      */
+    @SuppressWarnings("unchecked")
     public static <C extends Comparable> Range<C> fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 

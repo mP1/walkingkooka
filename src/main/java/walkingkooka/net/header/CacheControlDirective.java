@@ -214,9 +214,8 @@ public final class CacheControlDirective<T> implements HeaderValue {
     public String toHeaderText() {
         final String name = this.name.toString();
         final Optional<T> parameter = this.parameter;
-        return parameter.isPresent() ?
-                name + "=" + CharSequences.quoteIfChars(parameter.get()) :
-                name;
+        return parameter.map(p -> name + "=" + CharSequences.quoteIfChars(p))
+                .orElse(name);
     }
 
     @Override

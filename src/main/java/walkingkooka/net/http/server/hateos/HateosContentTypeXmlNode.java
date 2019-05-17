@@ -50,7 +50,6 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
     /**
      * Singleton
      */
-    @SuppressWarnings("unchecked")
     final static HateosContentTypeXmlNode INSTANCE = new HateosContentTypeXmlNode();
 
 

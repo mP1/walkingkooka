@@ -702,7 +702,7 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
         assertEquals(values,
                 stream.get()
                         .filter(v -> {
-                            assertEquals(true, values.contains(v), () -> "predicate argument not in values");
+                            assertEquals(true, values.contains(v), "predicate argument not in values");
                             return true;
                         })
                         .collect(Collectors.toList()),
@@ -938,17 +938,17 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     // reduce(BinaryOperator)........................................................................................................
 
     @SuppressWarnings("unchecked")
-    default <T> void reduceAndCheck(final Stream<T> stream,
-                                    final BinaryOperator<T> reducer,
-                                    final T... values) {
+    default <TT> void reduceAndCheck(final Stream<TT> stream,
+                                     final BinaryOperator<TT> reducer,
+                                     final TT... values) {
         this.reduceAndCheck(stream,
                 reducer,
                 Lists.of(values));
     }
 
-    default <T> void reduceAndCheck(final Stream<T> stream,
-                                    final BinaryOperator<T> reducer,
-                                    final List<T> values) {
+    default <TT> void reduceAndCheck(final Stream<TT> stream,
+                                     final BinaryOperator<TT> reducer,
+                                     final List<TT> values) {
         assertEquals(values.stream().reduce(reducer),
                 stream.reduce(reducer),
                 () -> "reduce " + stream);
@@ -957,20 +957,20 @@ public interface StreamTesting<S extends Stream<T>, T> extends Testing {
     // reduce(T, BinaryOperator)........................................................................................................
 
     @SuppressWarnings("unchecked")
-    default <T> void reduceAndCheck(final Stream<T> stream,
-                                    final T initial,
-                                    final BinaryOperator<T> reducer,
-                                    final T... values) {
+    default <TT> void reduceAndCheck(final Stream<TT> stream,
+                                     final TT initial,
+                                     final BinaryOperator<TT> reducer,
+                                     final TT... values) {
         this.reduceAndCheck(stream,
                 initial,
                 reducer,
                 Lists.of(values));
     }
 
-    default <T> void reduceAndCheck(final Stream<T> stream,
-                                    final T initial,
-                                    final BinaryOperator<T> reducer,
-                                    final List<T> values) {
+    default <TT> void reduceAndCheck(final Stream<TT> stream,
+                                     final TT initial,
+                                     final BinaryOperator<TT> reducer,
+                                     final List<TT> values) {
         assertEquals(values.stream().reduce(initial, reducer),
                 stream.reduce(initial, reducer),
                 () -> "reduce " + CharSequences.quoteIfChars(initial) + " " + stream);

@@ -148,9 +148,10 @@ final public class XmlAttributeName implements Name,
     public void buildToString(final ToStringBuilder builder) {
         builder.disable(ToStringBuilderOption.QUOTE);
         builder.labelSeparator(XmlNameSpacePrefix.SEPARATOR.string());
-        if (this.prefix.isPresent()) {
-            builder.label(this.prefix.get().value());
-        }
+
+        this.prefix()
+                .ifPresent((v) -> builder.label(v.value()));
+
         builder.value(this.value());
     }
 }

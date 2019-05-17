@@ -23,7 +23,6 @@ import walkingkooka.collect.stack.Stacks;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * An {@link Iterator} returned by {@link Traversable#traversableIterator()} that walks all the descendants starting a the beginning {@link Traversable}.
@@ -98,10 +97,8 @@ final class TraversableIterator<T extends Traversable<T>> implements Iterator<T>
         if (this.skipNextSibling) {
             this.skipNextSibling = false;
         } else {
-            final Optional<T> nextSibling = traversable.nextSibling();
-            if (nextSibling.isPresent()) {
-                this.unprocessed.push(nextSibling.get());
-            }
+            traversable.nextSibling()
+                    .ifPresent(this.unprocessed::push);
         }
     }
 
@@ -111,10 +108,7 @@ final class TraversableIterator<T extends Traversable<T>> implements Iterator<T>
      * Pushes the first child of the {@link Traversable} if it is a parent.
      */
     private void pushFirstChild(final T traversable) {
-        final Optional<T> firstChild = traversable.firstChild();
-        if (firstChild.isPresent()) {
-            this.unprocessed.push(firstChild.get());
-        }
+        traversable.firstChild().ifPresent(this.unprocessed::push);
     }
 
     @Override

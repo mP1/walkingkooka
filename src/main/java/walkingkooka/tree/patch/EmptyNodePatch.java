@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.patch;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonArrayNode;
@@ -34,25 +35,22 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     /**
      * Creates an empty patch to begin addition of new operations.
      */
-    @SuppressWarnings("unchecked")
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> EmptyNodePatch<N, NAME> get(final Class<N> type) {
         Objects.requireNonNull(type, "type");
-        return INSTANCE;
+        return Cast.to(INSTANCE);
     }
 
     /**
      * Creates an empty patch to begin addition of new operations.
      */
-    @SuppressWarnings("unchecked")
     static EmptyNodePatch<?, ?> getWildcard() {
-        return INSTANCE;
+        return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton instance
      */
-    @SuppressWarnings("unchecked")
-    private final static EmptyNodePatch INSTANCE = new EmptyNodePatch<>();
+    private final static EmptyNodePatch<?, ?> INSTANCE = new EmptyNodePatch<>();
 
     /**
      * Private ctor use singleton getter.

@@ -145,6 +145,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
                     scope.check(header, value);
                     Assertions.fail(header + " check " + CharSequences.quoteIfChars(value) + " should have failed");
                 } catch (final NotAcceptableHeaderException cause) {
+                    // ignore
                 }
             }
         }
@@ -163,6 +164,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
                     scope.check(header);
                     Assertions.fail(header + " checked should have failed");
                 } catch (final NotAcceptableHeaderException cause) {
+                    // nop
                 }
             }
         }
@@ -173,7 +175,8 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
         return HttpHeaderScope.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }
