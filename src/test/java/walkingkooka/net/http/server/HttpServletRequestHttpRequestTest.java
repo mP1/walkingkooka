@@ -137,7 +137,8 @@ public final class HttpServletRequestHttpRequestTest implements ClassTesting2<Ht
                         "parameter2=value2");
     }
 
-    @Override public HttpServletRequestHttpRequest createRequest() {
+    @Override
+    public HttpServletRequestHttpRequest createRequest() {
         return HttpServletRequestHttpRequest.with(new FakeHttpServletRequest() {
 
             @Override
@@ -156,8 +157,8 @@ public final class HttpServletRequestHttpRequestTest implements ClassTesting2<Ht
             }
 
             @Override
-            public StringBuffer getRequestURL() {
-                return new StringBuffer(URL);
+            public String getRequestURI() {
+                return URL;
             }
 
             @Override

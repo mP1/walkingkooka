@@ -70,7 +70,7 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
     @Override
     public RelativeUrl url() {
         if (null == this.url) {
-            this.url = RelativeUrl.parse(this.request.getRequestURL().toString());
+            this.url = RelativeUrl.parse(this.request.getRequestURI());
         }
         return this.url;
     }
