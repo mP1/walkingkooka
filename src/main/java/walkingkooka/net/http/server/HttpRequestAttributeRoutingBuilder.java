@@ -23,8 +23,10 @@ import walkingkooka.build.Builder;
 import walkingkooka.build.BuilderException;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.CookieName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -33,7 +35,9 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.routing.Routing;
+import walkingkooka.text.CharSequences;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -132,7 +136,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
     /**
      * A {@link Predicate} that matches wildcard files within a path.
      */
-    public final static Predicate<UrlPathName> WILDCARD = Predicates.is(UrlPathName.with("*"));
+    public final static Predicate<UrlPathName> PATH_WILDCARD = Predicates.is(UrlPathName.with("*"));
 
     /**
      * Adds all path components that are NOT matched by the {@link Predicate skip}.
@@ -218,6 +222,56 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
         return this;
     }
 
+    // parameters ......................................................................................
+
+    /**
+     * Adds a parameter test for each {@link UrlQueryString#parameters()} with the limitation that parameters only
+     * contain a single value at most. If the {@link Predicate} matches a parameter, then the test requirement is only
+     * that the parameter exists.<br>
+     * This is used as a shorthand for adding any sort of parameter and not limited to query string parameters.
+     */
+    public HttpRequestAttributeRoutingBuilder<T> queryString(final UrlQueryString queryString,
+                                                             final Predicate<String> ignoreValue) {
+        Objects.requireNonNull(queryString, "queryString");
+        Objects.requireNonNull(ignoreValue, "ignoreValue");
+
+        for (Entry<UrlParameterName, List<String>> parameterAndValue : queryString.parameters().entrySet()) {
+            final UrlParameterName parameter = parameterAndValue.getKey();
+            final List<String> values = parameterAndValue.getValue();
+
+            final int valueCount = values.size();
+            String value = null;
+            switch (valueCount) {
+                case 0:
+                    value = null;
+                    break;
+                case 1:
+                    value = values.get(0);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Parameter " + CharSequences.quote(parameter.value()) + " must not contain more than 1 value: " + queryString);
+            }
+
+            this.parameter(HttpRequestParameterName.with(parameter.value()),
+                    ignoreValue.test(value) ?
+                            PARAMETER_ANY_VALUE :
+                            Predicates.is(value));
+        }
+
+        return this;
+    }
+
+    /**
+     * Used to match parameter=* parameters which results in a requirement only that the parameter exists with the
+     * value being irrelevant.
+     */
+    public final static Predicate<String> PARAMETER_WILDCARD = Predicates.is("*");
+
+    /**
+     * Used as the {@link Predicate} that will match any parameter value.
+     */
+    private final static Predicate<String> PARAMETER_ANY_VALUE = Predicates.always();
+
     // parameter ......................................................................................
 
     /**
@@ -228,7 +282,6 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
                                                                    final String parameterValue) {
         return this.parameter(parameter, Predicates.is(parameterValue));
     }
-
 
     /**
      * Adds a requirement for a particular {@link HttpRequestParameterName}.<br>

@@ -26,6 +26,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.CookieName;
@@ -152,18 +153,11 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
     @Test
     public void testPathPredicatePathWithWildcard() {
         final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
-        assertSame(builder, builder.path(UrlPath.parse("1a/*/3c"), HttpRequestAttributeRoutingBuilder.WILDCARD));
+        assertSame(builder, builder.path(UrlPath.parse("1a/*/3c"), HttpRequestAttributeRoutingBuilder.PATH_WILDCARD));
 
         this.checkAttributeToPredicate(builder,
                 Maps.of(HttpRequestAttributes.pathComponent(1), Predicates.is(UrlPathName.with("1a")),
                         HttpRequestAttributes.pathComponent(3), Predicates.is(UrlPathName.with("3c"))));
-    }
-
-    private void checkAttributeToPredicate(final HttpRequestAttributeRoutingBuilder<?> builder,
-                                           final Map<?, ?> expected) {
-        assertEquals(expected,
-                builder.attributeToPredicate,
-                "attributeToPredicate");
     }
 
     // pathComponent .................................................................................
@@ -276,6 +270,76 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
                 .cookie(cookieName, predicate);
     }
 
+    // queryString .................................................................................................
+
+    @Test
+    public void testQueryStringNullQueryStringFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().queryString(null, Predicates.fake());
+        });
+    }
+
+    @Test
+    public void testQueryStringNullPredicateFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().queryString(UrlQueryString.EMPTY, null);
+        });
+    }
+
+    @Test
+    public void testQueryStringParameterWithMultipleValueFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createBuilder().queryString(UrlQueryString.with("a=1&a=2"), Predicates.fake());
+        });
+    }
+
+    @Test
+    public void testQueryString() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.queryString(UrlQueryString.with("a1=b2"), HttpRequestAttributeRoutingBuilder.PARAMETER_WILDCARD));
+
+        this.checkAttributeToPredicate(builder,
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.is("b2"))));
+    }
+
+    @Test
+    public void testQueryStringValueUrlDecoded() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.queryString(UrlQueryString.with("a1=b+2"), HttpRequestAttributeRoutingBuilder.PARAMETER_WILDCARD));
+
+        this.checkAttributeToPredicate(builder,
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.is("b 2"))));
+    }
+
+    @Test
+    public void testQueryStringWildcard() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.queryString(UrlQueryString.with("a1=*"), HttpRequestAttributeRoutingBuilder.PARAMETER_WILDCARD));
+
+        this.checkAttributeToPredicate(builder,
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.always())));
+    }
+
+    @Test
+    public void testQueryStringMultipleParameters() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.queryString(UrlQueryString.with("a1=b2&c3=d4"), HttpRequestAttributeRoutingBuilder.PARAMETER_WILDCARD));
+
+        this.checkAttributeToPredicate(builder,
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.is("b2")),
+                        HttpRequestParameterName.with("c3"), HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.is("d4"))));
+    }
+
+    @Test
+    public void testQueryStringMultipleParametersIncludingWildcard() {
+        final HttpRequestAttributeRoutingBuilder<?> builder = this.createBuilder();
+        assertSame(builder, builder.queryString(UrlQueryString.with("a1=*&c3=d4"), HttpRequestAttributeRoutingBuilder.PARAMETER_WILDCARD));
+
+        this.checkAttributeToPredicate(builder,
+                Maps.of(HttpRequestParameterName.with("a1"), HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.always()),
+                        HttpRequestParameterName.with("c3"), HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.is("d4"))));
+    }
+
     // parameter .................................................................................................
 
     @Test
@@ -359,7 +423,7 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
     public void testPath() {
         final HttpRequestAttributeRoutingBuilder<String> builder = this.createBuilder();
 
-        assertSame(builder, builder.path(UrlPath.parse("/path1/path2"), HttpRequestAttributeRoutingBuilder.WILDCARD));
+        assertSame(builder, builder.path(UrlPath.parse("/path1/path2"), HttpRequestAttributeRoutingBuilder.PATH_WILDCARD));
 
         final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
@@ -510,6 +574,52 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
     }
 
     @Test
+    public void testUrlQueryPredicate() {
+        final HttpRequestAttributeRoutingBuilder<String> builder = this.createBuilder();
+
+        final HttpRequestParameterName parameter1 = HttpRequestParameterName.with("parameter1");
+        final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
+
+        assertSame(builder, builder.queryString(UrlQueryString.with("parameter1=a1&parameter2=b2"), HttpRequestAttributeRoutingBuilder.PARAMETER_WILDCARD));
+
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
+
+        parameters.put(parameter1, Lists.of("a1"));
+        this.routeFails(router, parameters);
+
+        parameters.put(parameter2, Lists.of("wrong"));
+        this.routeFails(router, parameters);
+
+        parameters.put(parameter2, Lists.of("b2", "wrong"));
+        this.routeAndCheck(router, parameters);
+    }
+
+    @Test
+    public void testUrlQueryPredicateWithWildcard() {
+        final HttpRequestAttributeRoutingBuilder<String> builder = this.createBuilder();
+
+        final HttpRequestParameterName parameter1 = HttpRequestParameterName.with("parameter1");
+        final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
+
+        assertSame(builder, builder.queryString(UrlQueryString.with("parameter1=a1&parameter2=*"), HttpRequestAttributeRoutingBuilder.PARAMETER_WILDCARD));
+
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
+
+        parameters.put(parameter1, Lists.of("a1"));
+        this.routeFails(router, parameters);
+
+        parameters.put(parameter2, Lists.of("99"));
+        this.routeAndCheck(router, parameters);
+
+        parameters.put(parameter1, Lists.of("wrong"));
+        this.routeFails(router, parameters);
+    }
+
+    @Test
     public void testParameterPredicate() {
         final HttpRequestAttributeRoutingBuilder<String> builder = this.createBuilder();
 
@@ -554,6 +664,13 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
     }
 
     // helpers.................................................................................................
+
+    private void checkAttributeToPredicate(final HttpRequestAttributeRoutingBuilder<?> builder,
+                                           final Map<?, ?> expected) {
+        assertEquals(expected,
+                builder.attributeToPredicate,
+                "attributeToPredicate");
+    }
 
     @Override
     public HttpRequestAttributeRoutingBuilder<String> createBuilder() {
