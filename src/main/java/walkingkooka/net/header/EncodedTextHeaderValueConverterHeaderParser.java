@@ -71,6 +71,11 @@ final class EncodedTextHeaderValueConverterHeaderParser extends HeaderParser {
     }
 
     @Override
+    void comment() {
+        this.failInvalidCharacter();
+    }
+
+    @Override
     void token() {
         this.encodedText = this.encodedText();
     }

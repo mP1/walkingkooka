@@ -88,6 +88,13 @@ public final class EncodedTextHeaderValueConverterHeaderParserTest extends Heade
         });
     }
 
+    @Test
+    public void testComment() {
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderParser().comment();
+        });
+    }
+
     private EncodedTextHeaderValueConverterHeaderParser createHeaderParser() {
         return new EncodedTextHeaderValueConverterHeaderParser("text", LABEL);
     }

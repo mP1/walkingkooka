@@ -55,6 +55,9 @@ abstract class HeaderParser {
     final static char WILDCARD = '*';
     private final static char SLASH = '/';
 
+    private final static char COMMENT_BEGIN = '(';
+    private final static char COMMENT_END = ')';
+
     final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
     final static CharPredicate RFC2045SPECIAL = CharPredicates.rfc2045TokenSpecial();
 
@@ -100,6 +103,10 @@ abstract class HeaderParser {
                     this.quotedText();
                     break;
 
+                case COMMENT_BEGIN:
+                    this.comment();
+                    break;
+
                 default:
                     this.token();
                     break;
@@ -121,6 +128,8 @@ abstract class HeaderParser {
     abstract void slash();
 
     abstract void quotedText();
+
+    abstract void comment();
 
     abstract void token();
 
@@ -409,6 +418,35 @@ abstract class HeaderParser {
         throw new InvalidEncodedTextHeaderException("Invalid encoded text " + CharSequences.quoteAndEscape(this.text) + " at " + this.position);
     }
 
+    /**
+     * Assumes currently positioned at the start of a comment and consumes the entire comment including the closing right parenthesis.
+     * The returned text does not include the surround parens.
+     * NB. Not sure if comments can contain embedded quoted strings, would appear not especially since backslashes are not allowed.
+     */
+    final String commentText() {
+        final int start = this.position;
+        this.position++;
+
+        do {
+            if (!this.hasMoreCharacters()) {
+                fail(missingClosingParens(this.text));
+            }
+            if (COMMENT_END == this.character()) {
+                break;
+            }
+            this.position++;
+        } while (true);
+
+        // does not include surrounding parens.
+        return this.text.substring(start + 1, this.position++);
+    }
+
+    // http://www.bizcoder.com/everything-you-need-to-know-about-http-header-syntax-but-were-afraid-to-ask#footnote3
+    final static CharPredicate COMMENT_CONTENT = CharPredicates.any("\t!\"#$%&'\t*+,-./:;<=>?@[]^_`{|}-")
+            .or(CharPredicates.range('0', '9'))
+            .or(CharPredicates.range('A', 'Z'))
+            .or(CharPredicates.range('a', 'z'));
+
     // helpers ..................................................................................
 
     /**
@@ -546,6 +584,13 @@ abstract class HeaderParser {
 
     static String missingParameterValue(final int start, final String text) {
         return emptyToken("parameter value", start, text);
+    }
+
+    /**
+     * Reports a missing right parents (the closing comment).
+     */
+    static String missingClosingParens(final String text) {
+        return "Missing closing ')' in " + CharSequences.quoteAndEscape(text);
     }
 
     /**

@@ -400,6 +400,58 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
         this.parseAndCheck("\"1\"/*23", "[quoted-1][slash][wildcard][token-23]");
     }
 
+    @Test
+    public void testCommentMissingRightParensFails() {
+        this.commentFails("(");
+    }
+
+    @Test
+    public void testCommentMissingRightParensFails2() {
+        this.commentFails("( ");
+    }
+
+    @Test
+    public void testCommentMissingRightParensFails3() {
+        this.commentFails("(abc");
+    }
+
+    private void commentFails(final String text) {
+        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
+            final HeaderParser parser = new TestHeaderParser(text);
+            parser.comment();
+        });
+        assertEquals(HeaderParser.missingClosingParens(text), expected.getMessage());
+    }
+
+    @Test
+    public void testParseCommentWithContent() {
+        this.parseAndCheck("(abc123)", "[comment-abc123]");
+    }
+
+    @Test
+    public void testParseCommentEmpty() {
+        this.parseAndCheck("()", "[comment-]");
+    }
+
+    @Test
+    public void testParseCommentComment() {
+        this.parseAndCheck("(abc)(123)", "[comment-abc][comment-123]");
+    }
+
+    @Test
+    public void testParseTokenComment() {
+        this.parseAndCheck("1(abc)", "[token-1][comment-abc]");
+    }
+
+    @Test
+    public void testParseTokenTokenSeparatorComment() {
+        this.parseAndCheck("1;(abc)", "[token-1][token-separator][comment-abc]");
+    }
+
+    @Test
+    public void testParseTokenCommentTokenComment() {
+        this.parseAndCheck("1(abc)2(def)", "[token-1][comment-abc][token-2][comment-def]");
+    }
 
     private void parseAndCheck(final String text, final String events) {
         final StringBuilder recorded = new StringBuilder();
@@ -441,6 +493,14 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
             void quotedText() {
                 final String text = this.quotedText(CharPredicates.letterOrDigit(), true);
                 recorded.append("[quoted-" + text.substring(1, text.length() - 1) + ']');
+            }
+
+            @Override
+            void comment() {
+                final String text = this.commentText();
+                assertEquals(false, text.contains("("), () -> "comment text must not contain '(' =" + CharSequences.quote(text));
+                assertEquals(false, text.contains(")"), () -> "comment text must not contain ')' =" + CharSequences.quote(text));
+                recorded.append("[comment-" + text + "]");
             }
 
             @Override
@@ -510,6 +570,11 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
         @Override
         void quotedText() {
 
+        }
+
+        @Override
+        void comment() {
+            this.commentText();
         }
 
         @Override

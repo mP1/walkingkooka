@@ -70,6 +70,14 @@ abstract class ETagHeaderParser extends HeaderParser {
         this.requireValue = false;
     }
 
+    /**
+     * Comments are not allowed within ETAGS.
+     */
+    @Override
+    final void comment() {
+        this.failInvalidCharacter();
+    }
+
     @Override
     void token() {
         if ('W' != this.character()) {

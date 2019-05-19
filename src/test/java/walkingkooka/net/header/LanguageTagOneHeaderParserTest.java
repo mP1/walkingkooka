@@ -27,6 +27,16 @@ public final class LanguageTagOneHeaderParserTest extends LanguageTagHeaderParse
         this.parseInvalidCharacterFails("en,");
     }
 
+    @Test
+    public void testCommentLanguageTag() {
+        this.parseAndCheck2("(comment-123)en", LanguageTag.with(LanguageTagName.with("en")));
+    }
+
+    @Test
+    public void testLanguageTagComment() {
+        this.parseAndCheck2("en(comment-123)", LanguageTag.with(LanguageTagName.with("en")));
+    }
+
     @Override
     void parseAndCheck2(final String text, final LanguageTag expected) {
         this.parseAndCheck(text, expected);
