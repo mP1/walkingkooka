@@ -52,7 +52,8 @@ final public class LetterCharPredicateTest implements CharPredicateTesting<Lette
         this.toStringAndCheck(LetterCharPredicate.INSTANCE, "letter");
     }
 
-    @Override public LetterCharPredicate createCharPredicate() {
+    @Override
+    public LetterCharPredicate createCharPredicate() {
         return LetterCharPredicate.INSTANCE;
     }
 

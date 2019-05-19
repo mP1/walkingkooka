@@ -25,7 +25,8 @@ public final class RangeHeaderValueUnitHeaderValueConverterTest extends
 
     private final static String TEXT = "bytes";
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return RangeHeaderValueUnit.class.getSimpleName();
     }
 

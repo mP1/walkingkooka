@@ -36,7 +36,8 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T> implements Clas
 
     public abstract I createIterator();
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

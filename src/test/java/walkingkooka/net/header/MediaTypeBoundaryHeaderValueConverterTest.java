@@ -25,7 +25,8 @@ public final class MediaTypeBoundaryHeaderValueConverterTest extends
 
     private final static String TEXT = "abc123";
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return MediaTypeBoundary.class.getSimpleName();
     }
 

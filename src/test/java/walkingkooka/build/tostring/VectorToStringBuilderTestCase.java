@@ -153,11 +153,13 @@ public abstract class VectorToStringBuilderTestCase<T> extends ToStringBuilderTe
         return null;
     }
 
-    @Override final String defaultValueToString() {
+    @Override
+    final String defaultValueToString() {
         return "";
     }
 
-    @Override final String value2ToString() {
+    @Override
+    final String value2ToString() {
         return this.value2ToString(ToStringBuilder.DEFAULT_VALUE_SEPARATOR);
     }
 

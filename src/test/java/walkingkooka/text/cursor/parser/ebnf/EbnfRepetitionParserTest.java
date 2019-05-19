@@ -23,7 +23,8 @@ import java.util.List;
 
 public final class EbnfRepetitionParserTest extends EbnfParserTestCase4<EbnfRepeatedParserToken> {
 
-    @Override public Parser<EbnfParserContext> createParser() {
+    @Override
+    public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.REPETITION;
     }
 

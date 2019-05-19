@@ -41,7 +41,8 @@ final class PojoObjectArrayNode extends PojoArrayNode {
 
     // children ..................................................................................
 
-    @Override final PojoNode replaceChildren(final List<PojoNode> children) {
+    @Override
+    final PojoNode replaceChildren(final List<PojoNode> children) {
         final Object[] newChildren = this.createArray(children.size());
 
         int i = 0;
@@ -53,7 +54,8 @@ final class PojoObjectArrayNode extends PojoArrayNode {
         return this.wrap(newChildren);
     }
 
-    @Override final PojoNode replaceChild(final PojoNode newChild) {
+    @Override
+    final PojoNode replaceChild(final PojoNode newChild) {
         final Object[] newChildren = this.valueAsArray().clone(); // clone is faster than reflective createArray
 
         newChildren[newChild.index()] = newChild.value();
@@ -91,7 +93,8 @@ final class PojoObjectArrayNode extends PojoArrayNode {
         return this.valueAsArray()[index];
     }
 
-    @Override final int childrenCount() {
+    @Override
+    final int childrenCount() {
         return this.valueAsArray().length;
     }
 
@@ -101,7 +104,8 @@ final class PojoObjectArrayNode extends PojoArrayNode {
         return Arrays.equals(this.valueAsArray(), otherArray.valueAsArray());
     }
 
-    @Override final public String toString() {
+    @Override
+    final public String toString() {
         return Arrays.toString(this.valueAsArray());
     }
 }

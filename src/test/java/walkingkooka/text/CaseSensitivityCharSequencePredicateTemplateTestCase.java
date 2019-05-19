@@ -114,7 +114,8 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 
-    @Override final public P createObject() {
+    @Override
+    final public P createObject() {
         return this.createPredicate(STRING, SENSITIVITY);
     }
 

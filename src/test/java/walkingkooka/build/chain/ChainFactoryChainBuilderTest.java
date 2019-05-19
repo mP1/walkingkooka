@@ -318,7 +318,8 @@ final public class ChainFactoryChainBuilderTest implements ClassTesting2<ChainFa
         return createFake(1);
     }
 
-    @Override public ChainFactoryChainBuilder<Fake> createBuilder() {
+    @Override
+    public ChainFactoryChainBuilder<Fake> createBuilder() {
         return ChainFactoryChainBuilder.with(TYPE,
                 FACTORY);
     }
@@ -328,11 +329,13 @@ final public class ChainFactoryChainBuilderTest implements ClassTesting2<ChainFa
         return Cast.to(ChainFactoryChainBuilder.class);
     }
 
-    @Override public Class<Fake> builderProductType() {
+    @Override
+    public Class<Fake> builderProductType() {
         return Fake.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

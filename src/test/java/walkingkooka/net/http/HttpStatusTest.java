@@ -129,7 +129,8 @@ final public class HttpStatusTest implements ClassTesting2<HttpStatus>,
         return HttpStatus.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

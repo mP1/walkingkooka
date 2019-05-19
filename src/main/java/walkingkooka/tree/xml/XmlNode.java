@@ -648,7 +648,8 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
     /**
      * Sets some defaults for {@link ToStringBuilder} like no quoting or escaping.
      */
-    @Override final public void buildToString(final ToStringBuilder builder) {
+    @Override
+    final public void buildToString(final ToStringBuilder builder) {
         builder.disable(ToStringBuilderOption.QUOTE);
         builder.disable(ToStringBuilderOption.ESCAPE);
         builder.separator("");

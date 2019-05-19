@@ -80,13 +80,15 @@ public final class ForwardingConverterTest extends FixedTypeConverterTestCase<Fo
         this.toStringAndCheck(this.createConverter(), "LocalDate->Number");
     }
 
-    @Override public ForwardingConverter<Number, BigDecimal> createConverter() {
+    @Override
+    public ForwardingConverter<Number, BigDecimal> createConverter() {
         return ForwardingConverter.with(Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
                 SOURCE_TYPE,
                 TARGET_TYPE);
     }
 
-    @Override public ConverterContext createContext() {
+    @Override
+    public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

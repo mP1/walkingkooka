@@ -30,7 +30,8 @@ abstract class SpreadsheetFormatSymbolParserToken extends SpreadsheetFormatLeafP
         super(value, text);
     }
 
-    @Override final void checkText(String text) {
+    @Override
+    final void checkText(String text) {
         checkTextNullOrEmpty(text);
     }
 

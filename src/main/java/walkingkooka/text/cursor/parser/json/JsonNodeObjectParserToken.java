@@ -127,7 +127,8 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
         return object.setChildren(objectChildren);
     }
 
-    @Override final void addJsonNode(final List<JsonNode> children) {
+    @Override
+    final void addJsonNode(final List<JsonNode> children) {
         children.add(this.toJsonNodeOrNull());
     }
 

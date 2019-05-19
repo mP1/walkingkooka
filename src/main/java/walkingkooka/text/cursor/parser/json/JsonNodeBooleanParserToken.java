@@ -80,7 +80,8 @@ public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<B
         return false;
     }
 
-    @Override final JsonNode toJsonNodeOrNull() {
+    @Override
+    final JsonNode toJsonNodeOrNull() {
         return JsonNode.booleanNode(this.value);
     }
 

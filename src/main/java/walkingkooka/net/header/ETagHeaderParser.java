@@ -34,15 +34,18 @@ abstract class ETagHeaderParser extends HeaderParser {
         super(text);
     }
 
-    @Override final void whitespace() {
+    @Override
+    final void whitespace() {
         this.whitespace0(); // skip whitespace
     }
 
-    @Override final void keyValueSeparator() {
+    @Override
+    final void keyValueSeparator() {
         this.failInvalidCharacter();
     }
 
-    @Override final void wildcard() {
+    @Override
+    final void wildcard() {
         if (!this.requireValue) {
             this.failInvalidCharacter();
         }

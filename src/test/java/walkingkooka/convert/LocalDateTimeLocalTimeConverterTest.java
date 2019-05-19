@@ -37,7 +37,8 @@ public final class LocalDateTimeLocalTimeConverterTest extends FixedTypeConverte
         this.toStringAndCheck(this.createConverter(), "LocalDateTime->LocalTime");
     }
 
-    @Override public LocalDateTimeLocalTimeConverter createConverter() {
+    @Override
+    public LocalDateTimeLocalTimeConverter createConverter() {
         return LocalDateTimeLocalTimeConverter.INSTANCE;
     }
 
@@ -46,7 +47,8 @@ public final class LocalDateTimeLocalTimeConverterTest extends FixedTypeConverte
         return LocalTime.class;
     }
 
-    @Override public ConverterContext createContext() {
+    @Override
+    public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

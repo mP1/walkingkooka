@@ -245,7 +245,8 @@ public final class HsvTest implements ClassTesting2<Hsv>,
         return Hsv.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

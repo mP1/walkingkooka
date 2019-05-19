@@ -29,7 +29,8 @@ public final class NodeSelectorComparisonParserTokenTest implements ClassTesting
         return Cast.to(NodeSelectorComparisonParserToken.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

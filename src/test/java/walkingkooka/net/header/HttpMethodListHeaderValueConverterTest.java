@@ -29,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class HttpMethodListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<HttpMethodListHeaderValueConverter, List<HttpMethod>> {
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return HttpMethod.class.getSimpleName();
     }
 

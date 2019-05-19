@@ -74,7 +74,8 @@ final public class EmptyCharSequenceTest implements ClassTesting2<EmptyCharSeque
         return EmptyCharSequence.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

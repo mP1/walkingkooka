@@ -110,7 +110,8 @@ final public class LineEndingTest implements ClassTesting2<LineEnding>,
         return LineEnding.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

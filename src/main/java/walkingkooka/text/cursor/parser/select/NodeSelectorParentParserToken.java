@@ -326,7 +326,8 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
 
     // Object................................................................................................
 
-    @Override final boolean equals1(final NodeSelectorParserToken other) {
+    @Override
+    final boolean equals1(final NodeSelectorParserToken other) {
         return this.equals2(Cast.to(other));
     }
 

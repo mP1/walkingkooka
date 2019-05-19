@@ -66,7 +66,8 @@ final public class EnumerationIteratorTest
         this.toStringAndCheck(EnumerationIterator.adapt(enumeration), enumeration.toString());
     }
 
-    @Override public EnumerationIterator<Integer> createIterator() {
+    @Override
+    public EnumerationIterator<Integer> createIterator() {
         return EnumerationIterator.adapt(Enumerations.fake());
     }
 

@@ -107,7 +107,8 @@ final class OpaqueColor extends Color {
     /**
      * Returns an integer with the RGB value.
      */
-    @Override final public int rgb() {
+    @Override
+    final public int rgb() {
         return this.rgb;
     }
 

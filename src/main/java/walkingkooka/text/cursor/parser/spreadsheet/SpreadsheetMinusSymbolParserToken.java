@@ -84,7 +84,8 @@ public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetArithmet
         return ADDITION_SUBTRACTION_PRIORITY;
     }
 
-    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.subtraction(tokens, text);
     }
 

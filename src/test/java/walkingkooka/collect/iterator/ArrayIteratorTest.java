@@ -90,7 +90,8 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
         this.toStringAndCheck(iterator, Lists.of().toString());
     }
 
-    @Override public ArrayIterator<String> createIterator() {
+    @Override
+    public ArrayIterator<String> createIterator() {
         return ArrayIterator.with("A", "B", "C");
     }
 

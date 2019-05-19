@@ -38,7 +38,8 @@ final public class AsciiCharPredicateTest implements CharPredicateTesting<AsciiC
         this.toStringAndCheck(AsciiCharPredicate.INSTANCE, "ASCII");
     }
 
-    @Override public AsciiCharPredicate createCharPredicate() {
+    @Override
+    public AsciiCharPredicate createCharPredicate() {
         return AsciiCharPredicate.INSTANCE;
     }
 

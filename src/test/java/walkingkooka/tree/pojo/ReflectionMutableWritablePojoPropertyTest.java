@@ -54,7 +54,8 @@ public final class ReflectionMutableWritablePojoPropertyTest implements ClassTes
         this.toStringAndCheck(this.createPojoProperty(), "x");
     }
 
-    @Override public ReflectionMutableWritablePojoProperty createPojoProperty() {
+    @Override
+    public ReflectionMutableWritablePojoProperty createPojoProperty() {
         try {
             return new ReflectionMutableWritablePojoProperty(X,
                     TestBean.class.getMethod("getX"),

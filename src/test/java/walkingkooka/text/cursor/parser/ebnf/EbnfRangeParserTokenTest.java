@@ -225,7 +225,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         return "\"terminal-1\"..\"terminal-2\"";
     }
 
-    @Override final List<ParserToken> tokens() {
+    @Override
+    final List<ParserToken> tokens() {
         return Lists.of(terminal1(), between(), terminal2());
     }
 

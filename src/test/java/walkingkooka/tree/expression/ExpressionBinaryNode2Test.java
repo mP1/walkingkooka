@@ -28,7 +28,8 @@ public final class ExpressionBinaryNode2Test implements ClassTesting2<Expression
         return ExpressionBinaryNode2.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

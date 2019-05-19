@@ -56,7 +56,8 @@ final class FailConverter<S, T> extends FixedSourceTypeTargetTypeConverter<S, T>
         return this.failConversion(value);
     }
 
-    @Override String toStringSuffix() {
+    @Override
+    String toStringSuffix() {
         return "";
     }
 }

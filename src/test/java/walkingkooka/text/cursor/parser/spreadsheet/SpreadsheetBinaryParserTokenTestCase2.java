@@ -63,7 +63,8 @@ public abstract class SpreadsheetBinaryParserTokenTestCase2<T extends Spreadshee
 
     abstract ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right);
 
-    @Override final SpreadsheetParserToken leftToken() {
+    @Override
+    final SpreadsheetParserToken leftToken() {
         return SpreadsheetParserToken.bigInteger(leftBigInteger(), "1");
     }
 
@@ -71,7 +72,8 @@ public abstract class SpreadsheetBinaryParserTokenTestCase2<T extends Spreadshee
         return BigInteger.valueOf(1);
     }
 
-    @Override final SpreadsheetParserToken rightToken() {
+    @Override
+    final SpreadsheetParserToken rightToken() {
         return SpreadsheetParserToken.bigInteger(rightBigInteger(), "22");
     }
 

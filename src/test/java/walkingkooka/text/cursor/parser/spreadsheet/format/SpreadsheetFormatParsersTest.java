@@ -3892,11 +3892,13 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
                 ParserToken.text(Lists.of(tokens)));
     }
 
-    @Override public Parser<SpreadsheetFormatParserContext> createParser() {
+    @Override
+    public Parser<SpreadsheetFormatParserContext> createParser() {
         return SpreadsheetFormatParsers.expression();
     }
 
-    @Override public SpreadsheetFormatParserContext createContext() {
+    @Override
+    public SpreadsheetFormatParserContext createContext() {
         return SpreadsheetFormatParserContexts.basic(this.decimalNumberContext());
     }
 

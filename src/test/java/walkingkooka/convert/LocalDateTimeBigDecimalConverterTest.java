@@ -41,7 +41,8 @@ public final class LocalDateTimeBigDecimalConverterTest extends LocalDateTimeCon
                 localDateTime);
     }
 
-    @Override final LocalDateTimeBigDecimalConverter createConverter(final long offset) {
+    @Override
+    final LocalDateTimeBigDecimalConverter createConverter(final long offset) {
         return LocalDateTimeBigDecimalConverter.with(offset);
     }
 
@@ -50,7 +51,8 @@ public final class LocalDateTimeBigDecimalConverterTest extends LocalDateTimeCon
         return BigDecimal.class;
     }
 
-    @Override final BigDecimal value(final long value) {
+    @Override
+    final BigDecimal value(final long value) {
         return BigDecimal.valueOf(value);
     }
 

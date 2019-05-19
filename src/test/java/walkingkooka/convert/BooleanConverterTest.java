@@ -81,11 +81,13 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
                 SOURCE_TYPE.getSimpleName() + "->" + TARGET_TYPE.getSimpleName());
     }
 
-    @Override public BooleanConverter createConverter() {
+    @Override
+    public BooleanConverter createConverter() {
         return BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
     }
 
-    @Override public ConverterContext createContext() {
+    @Override
+    public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

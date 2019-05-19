@@ -57,7 +57,8 @@ abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> 
                 .cast();
     }
 
-    @Override final ExpressionNode wrap(final int index) {
+    @Override
+    final ExpressionNode wrap(final int index) {
         return this.wrap0(index);
     }
 
@@ -81,7 +82,8 @@ abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> 
         throw new UnsupportedOperationException();
     }
 
-    @Override final ExpressionNode setChild(final ExpressionNode newChild) {
+    @Override
+    final ExpressionNode setChild(final ExpressionNode newChild) {
         return NeverError.unexpectedMethodCall(this, "setChild", newChild);
     }
 
@@ -184,11 +186,13 @@ abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> 
         return Objects.hash(this.value);
     }
 
-    @Override final boolean equalsDescendants0(final ExpressionNode other) {
+    @Override
+    final boolean equalsDescendants0(final ExpressionNode other) {
         return true;
     }
 
-    @Override final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
         return other instanceof ExpressionLeafNode &&
                 equalsIgnoringParentAndChildren0(Cast.to(other));
 

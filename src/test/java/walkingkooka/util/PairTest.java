@@ -151,7 +151,8 @@ final public class PairTest implements ClassTesting2<Pair<?, ?>>,
         return Cast.to(Pair.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

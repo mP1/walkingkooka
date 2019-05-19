@@ -26,7 +26,8 @@ public final class PojoCollectionNodeTest implements ClassTesting2<PojoCollectio
         return PojoCollectionNode.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -100,7 +100,8 @@ final class ParserTokenParentNode extends ParserTokenNode {
     /**
      * Uses the new given child and updates only that property and if the instance is different returns a new node.
      */
-    @Override final ParserTokenNode replaceChild1(final ParserTokenNode child) {
+    @Override
+    final ParserTokenNode replaceChild1(final ParserTokenNode child) {
         final List<ParserToken> newChildren = Lists.array();
         newChildren.addAll(this.valueAsList());
         newChildren.set(child.index(), child.value());

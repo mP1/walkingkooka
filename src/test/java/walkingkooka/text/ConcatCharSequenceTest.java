@@ -161,7 +161,8 @@ final public class ConcatCharSequenceTest implements ClassTesting2<ConcatCharSeq
         return ConcatCharSequence.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

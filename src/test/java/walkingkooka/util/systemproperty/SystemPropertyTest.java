@@ -149,7 +149,8 @@ final public class SystemPropertyTest implements ClassTesting2<SystemProperty>,
         return SystemProperty.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

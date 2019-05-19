@@ -49,7 +49,8 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
         });
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return OffsetDateTime.class.getSimpleName();
     }
 

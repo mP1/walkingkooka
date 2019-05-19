@@ -27,7 +27,8 @@ public final class NumberConverterTest implements ClassTesting2<NumberConverter>
         return NumberConverter.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

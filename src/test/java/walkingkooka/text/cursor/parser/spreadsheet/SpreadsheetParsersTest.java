@@ -776,11 +776,13 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
         return "Unrecognized character " + CharSequences.quoteIfChars(c) + " at (" + column + "," + row + ")";
     }
 
-    @Override public Parser<SpreadsheetParserContext> createParser() {
+    @Override
+    public Parser<SpreadsheetParserContext> createParser() {
         return SpreadsheetParsers.expression();
     }
 
-    @Override public SpreadsheetParserContext createContext() {
+    @Override
+    public SpreadsheetParserContext createContext() {
         return SpreadsheetParserContexts.basic(this.decimalNumberContext());
     }
 

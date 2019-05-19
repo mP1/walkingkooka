@@ -160,7 +160,8 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
         this.checkNotEquals(JsonNode.number(99));
     }
 
-    @Override final N createJsonNode() {
+    @Override
+    final N createJsonNode() {
         return this.createJsonNode(this.value());
     }
 

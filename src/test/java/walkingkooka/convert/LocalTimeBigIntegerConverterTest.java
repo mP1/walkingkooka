@@ -45,7 +45,8 @@ public final class LocalTimeBigIntegerConverterTest extends LocalTimeConverterTe
         this.toStringAndCheck(this.createConverter(), "LocalTime->BigInteger");
     }
 
-    @Override public LocalTimeBigIntegerConverter createConverter() {
+    @Override
+    public LocalTimeBigIntegerConverter createConverter() {
         return LocalTimeBigIntegerConverter.INSTANCE;
     }
 

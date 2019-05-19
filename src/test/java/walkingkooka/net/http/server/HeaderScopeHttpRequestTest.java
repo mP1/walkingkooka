@@ -151,7 +151,8 @@ public final class HeaderScopeHttpRequestTest implements ClassTesting2<HeaderSco
         assertSame(TOSTRING, this.createRequest().toString());
     }
 
-    @Override public HeaderScopeHttpRequest createRequest() {
+    @Override
+    public HeaderScopeHttpRequest createRequest() {
         return HeaderScopeHttpRequest.with(new FakeHttpRequest() {
             @Override
             public HttpTransport transport() {

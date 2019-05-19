@@ -84,7 +84,8 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
         return EXCEPTION + IDENTIFIER1;
     }
 
-    @Override public Parser<EbnfParserContext> createParser() {
+    @Override
+    public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.EXCEPTION;
     }
 

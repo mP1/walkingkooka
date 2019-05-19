@@ -102,7 +102,8 @@ public final class UrlPathNameHttpRequestAttributeTest implements ClassTesting2<
         return UrlPathNameHttpRequestAttribute.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

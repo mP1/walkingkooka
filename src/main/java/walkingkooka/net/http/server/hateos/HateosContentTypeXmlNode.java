@@ -70,9 +70,10 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
     /**
      * Reads a resource object from its {@link XmlNode} representation.
      */
-    @Override <R extends HateosResource<?>> R fromNode(final String text,
-                                                       final DocumentBuilder documentBuilder,
-                                                       final Class<R> resourceType) {
+    @Override
+    <R extends HateosResource<?>> R fromNode(final String text,
+                                             final DocumentBuilder documentBuilder,
+                                             final Class<R> resourceType) {
         return fromXmlNode(parseXml(documentBuilder, text), resourceType);
     }
 
@@ -80,9 +81,10 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
     /**
      * Reads a list of resource objects from their {@link Node} representation.
      */
-    @Override <R extends HateosResource<?>> List<R> fromNodeList(final String text,
-                                                                 final DocumentBuilder documentBuilder,
-                                                                 final Class<R> resourceType) {
+    @Override
+    <R extends HateosResource<?>> List<R> fromNodeList(final String text,
+                                                       final DocumentBuilder documentBuilder,
+                                                       final Class<R> resourceType) {
         return parseXml(documentBuilder, text)
                 .children()
                 .stream()
@@ -104,12 +106,13 @@ final class HateosContentTypeXmlNode extends HateosContentType<XmlNode> {
     }
 
 
-    @Override <R extends HateosResource<?>> String toText(final R resource,
-                                                          final DocumentBuilder documentBuilder,
-                                                          final HttpMethod method,
-                                                          final AbsoluteUrl base,
-                                                          final HateosResourceName resourceName,
-                                                          final Collection<LinkRelation<?>> linkRelations) {
+    @Override
+    <R extends HateosResource<?>> String toText(final R resource,
+                                                final DocumentBuilder documentBuilder,
+                                                final HttpMethod method,
+                                                final AbsoluteUrl base,
+                                                final HateosResourceName resourceName,
+                                                final Collection<LinkRelation<?>> linkRelations) {
         return toXmlText(addLinks(resource, method, base, resourceName, linkRelations));
     }
 

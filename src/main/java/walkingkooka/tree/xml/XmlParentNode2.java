@@ -72,11 +72,13 @@ abstract class XmlParentNode2 extends XmlParentNode {
 
     // XmlNode................................................................................................
 
-    @Override final org.w3c.dom.Document documentNode0() {
+    @Override
+    final org.w3c.dom.Document documentNode0() {
         return this.documentNode1();
     }
 
-    @Override final org.w3c.dom.Node nodeCloneAll() {
+    @Override
+    final org.w3c.dom.Node nodeCloneAll() {
         return this.nodeCloneAll0();
     }
 }

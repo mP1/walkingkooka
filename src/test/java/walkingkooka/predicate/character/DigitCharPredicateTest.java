@@ -48,7 +48,8 @@ final public class DigitCharPredicateTest implements CharPredicateTesting<DigitC
         this.toStringAndCheck(DigitCharPredicate.INSTANCE, "digit");
     }
 
-    @Override public DigitCharPredicate createCharPredicate() {
+    @Override
+    public DigitCharPredicate createCharPredicate() {
         return DigitCharPredicate.INSTANCE;
     }
 

@@ -108,33 +108,40 @@ public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuild
         };
     }
 
-    @Override final T defaultValue() {
+    @Override
+    final T defaultValue() {
         return this.toValue(Lists.empty());
     }
 
-    @Override final T value1() {
+    @Override
+    final T value1() {
         return this.toValue(Lists.of(1));
     }
 
-    @Override final T value2() {
+    @Override
+    final T value2() {
         return this.toValue(Lists.of(1, 22, "abc"));
     }
 
     abstract T toValue(final List<?> list);
 
-    @Override final void append(final ToStringBuilder builder, final T value) {
+    @Override
+    final void append(final ToStringBuilder builder, final T value) {
         builder.append(value);
     }
 
-    @Override final void value(final ToStringBuilder builder, final T value) {
+    @Override
+    final void value(final ToStringBuilder builder, final T value) {
         builder.value(value);
     }
 
-    @Override final String value1ToString() {
+    @Override
+    final String value1ToString() {
         return "1";
     }
 
-    @Override final String value2ToString(final String separator) {
+    @Override
+    final String value2ToString(final String separator) {
         return "1" + separator + "22" + separator + "abc";
     }
 }

@@ -93,7 +93,8 @@ final public class CaseSensitivityCharPredicateTest
                 "'A' (CaseInsensitive)");
     }
 
-    @Override public CaseSensitivityCharPredicate createCharPredicate() {
+    @Override
+    public CaseSensitivityCharPredicate createCharPredicate() {
         return this.createCharPredicateCaseSensitive('A');
     }
 

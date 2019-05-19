@@ -521,11 +521,13 @@ public final class XmlDocument extends XmlParentNode {
 
     // XmlNode ....................................................................................................
 
-    @Override final Document documentNode0() {
+    @Override
+    final Document documentNode0() {
         return Cast.to(this.node);
     }
 
-    @Override final Document nodeCloneAll() {
+    @Override
+    final Document nodeCloneAll() {
         return Cast.to(this.node.cloneNode(true));
     }
 
@@ -562,7 +564,8 @@ public final class XmlDocument extends XmlParentNode {
 
     // toSearchNode...............................................................................................
 
-    @Override final SearchNode toSearchNode0() {
+    @Override
+    final SearchNode toSearchNode0() {
         return this.toSearchNode1();
     }
 

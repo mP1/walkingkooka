@@ -98,7 +98,8 @@ final public class ChainTypeTest implements ClassTesting2<ChainType>,
         return ChainType.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

@@ -100,7 +100,8 @@ public final class EbnfRangeParserTest extends EbnfParserTestCase2<EbnfRangePars
                 COMMENT1);
     }
 
-    @Override public Parser<EbnfParserContext> createParser() {
+    @Override
+    public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.RANGE;
     }
 

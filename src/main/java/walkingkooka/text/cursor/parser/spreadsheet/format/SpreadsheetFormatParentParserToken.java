@@ -82,7 +82,8 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
 
     final List<ParserToken> value;
 
-    @Override final SpreadsheetFormatParentParserToken replaceText(final String text) {
+    @Override
+    final SpreadsheetFormatParentParserToken replaceText(final String text) {
         return this.replace(this.value,
                 text,
                 WITHOUT_COMPUTE_REQUIRED);
@@ -288,7 +289,8 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
         }
     }
 
-    @Override final boolean equals1(final SpreadsheetFormatParserToken other) {
+    @Override
+    final boolean equals1(final SpreadsheetFormatParserToken other) {
         return this.equals2(Cast.to(other));
     }
 

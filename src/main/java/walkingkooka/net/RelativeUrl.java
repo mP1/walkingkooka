@@ -94,7 +94,8 @@ public final class RelativeUrl extends Url {
         return this.setFragment0(fragment).cast();
     }
 
-    @Override final RelativeUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
+    @Override
+    final RelativeUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
         return new RelativeUrl(path, query, fragment);
     }
 

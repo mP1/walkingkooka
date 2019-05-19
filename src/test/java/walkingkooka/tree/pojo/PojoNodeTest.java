@@ -63,7 +63,8 @@ public final class PojoNodeTest implements ClassTesting2<PojoNode>,
         return PojoNode.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

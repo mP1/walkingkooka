@@ -125,7 +125,8 @@ public final class CustomToStringParserTest extends ParserTestCase<CustomToStrin
         this.toStringAndCheck(this.createParser(), CUSTOM_TO_STRING);
     }
 
-    @Override public CustomToStringParser<ParserContext> createParser() {
+    @Override
+    public CustomToStringParser<ParserContext> createParser() {
         return CustomToStringParser.wrap(WRAPPED, CUSTOM_TO_STRING).cast();
     }
 

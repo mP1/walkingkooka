@@ -126,7 +126,8 @@ public final class SearchSelectNode extends SearchParentNode2 {
                 .selected();
     }
 
-    @Override final SearchNode extract0(final int beginOffset, final int endOffset, final String text) {
+    @Override
+    final SearchNode extract0(final int beginOffset, final int endOffset, final String text) {
         return this.text1(beginOffset, endOffset, text).selected();
     }
 

@@ -143,7 +143,8 @@ public class AlternativesParserTest extends ParserTestCase<AlternativesParser<Pa
         this.toStringAndCheck(this.createParser(), "(" + PARSER1 + " | " + PARSER2 + ")");
     }
 
-    @Override public AlternativesParser<ParserContext> createParser() {
+    @Override
+    public AlternativesParser<ParserContext> createParser() {
         return this.createParser0(PARSER1, PARSER2);
     }
 

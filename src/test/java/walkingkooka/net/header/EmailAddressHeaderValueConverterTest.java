@@ -24,7 +24,8 @@ import walkingkooka.net.email.EmailAddress;
 public final class EmailAddressHeaderValueConverterTest extends
         HeaderValueConverterTestCase<EmailAddressHeaderValueConverter, EmailAddress> {
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return EmailAddress.class.getSimpleName();
     }
 

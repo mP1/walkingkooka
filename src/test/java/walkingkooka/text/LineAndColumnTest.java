@@ -266,7 +266,8 @@ public class LineAndColumnTest implements ClassTesting2<LineAndColumn>,
         return LineAndColumn.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

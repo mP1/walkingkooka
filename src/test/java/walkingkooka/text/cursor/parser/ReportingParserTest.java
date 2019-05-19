@@ -92,7 +92,8 @@ public final class ReportingParserTest extends ParserTestCase<ReportingParser<Pa
         this.toStringAndCheck(this.createParser(), this.reporter().toString());
     }
 
-    @Override public ReportingParser<ParserContext> createParser() {
+    @Override
+    public ReportingParser<ParserContext> createParser() {
         return this.createParser(ParserReporterCondition.ALWAYS);
     }
 

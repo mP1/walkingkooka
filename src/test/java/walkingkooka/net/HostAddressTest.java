@@ -1035,7 +1035,8 @@ public final class HostAddressTest implements ClassTesting2<HostAddress>,
         this.toStringAndCheck(HostAddress.with(address), address);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

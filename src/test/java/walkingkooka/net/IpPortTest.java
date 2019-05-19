@@ -95,7 +95,8 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
         return IpPort.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

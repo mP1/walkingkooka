@@ -53,7 +53,8 @@ abstract class JsonNodeLeafParserToken<T> extends JsonNodeParserToken implements
 
     abstract public void accept(final JsonNodeParserTokenVisitor visitor);
 
-    @Override final boolean equals1(final JsonNodeParserToken other) {
+    @Override
+    final boolean equals1(final JsonNodeParserToken other) {
         return this.equals2(other.cast());
     }
 

@@ -20,7 +20,8 @@ import walkingkooka.text.cursor.parser.Parser;
 
 public final class EbnfRhsParserTest extends EbnfParserTestCase2<EbnfParserToken> {
 
-    @Override public Parser<EbnfParserContext> createParser() {
+    @Override
+    public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.RHS;
     }
 

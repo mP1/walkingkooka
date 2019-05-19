@@ -59,7 +59,8 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
         this.toStringAndCheck(this.createContext(), this.basic().toString());
     }
 
-    @Override public BasicParserContext createContext() {
+    @Override
+    public BasicParserContext createContext() {
         return BasicParserContext.with(this.basic());
     }
 

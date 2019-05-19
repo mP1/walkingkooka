@@ -70,7 +70,8 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> impleme
 
     abstract Class<N> parserTokenNodeType();
 
-    @Override final public MemberVisibility typeVisibility() {
+    @Override
+    final public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

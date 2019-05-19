@@ -42,7 +42,8 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
                 computeWithout(value);
     }
 
-    @Override final void checkText(final String text) {
+    @Override
+    final void checkText(final String text) {
         checkTextNullOrWhitespace(text);
     }
 
@@ -79,7 +80,8 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
 
     final List<ParserToken> value;
 
-    @Override final SpreadsheetParentParserToken replaceText(final String text) {
+    @Override
+    final SpreadsheetParentParserToken replaceText(final String text) {
         return this.replace(this.value,
                 text,
                 WITHOUT_COMPUTE_REQUIRED);
@@ -240,11 +242,13 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
         return false;
     }
 
-    @Override final int operatorPriority() {
+    @Override
+    final int operatorPriority() {
         return LOWEST_PRIORITY;
     }
 
-    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         throw new UnsupportedOperationException();
     }
 
@@ -254,7 +258,8 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
         }
     }
 
-    @Override final boolean equals1(final SpreadsheetParserToken other) {
+    @Override
+    final boolean equals1(final SpreadsheetParserToken other) {
         return this.equals2(Cast.to(other));
     }
 

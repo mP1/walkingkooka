@@ -65,7 +65,8 @@ public final class CacheControlDirectiveExtensionHeaderValueConverterTest extend
         });
     }
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return "CacheControlDirectiveExtension";
     }
 

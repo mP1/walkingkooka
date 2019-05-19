@@ -40,7 +40,8 @@ abstract class BigDecimalSpreadsheetTextFormatterDigits2 extends BigDecimalSprea
         }
     }
 
-    @Override final void sign(final BigDecimalSpreadsheetTextFormatterComponentContext context) {
+    @Override
+    final void sign(final BigDecimalSpreadsheetTextFormatterComponentContext context) {
         if (this.minusSign.shouldAppendSymbol()) {
             context.appendMinusSign();
             this.minusSign = BigDecimalSpreadsheetTextFormatterMinusSign.NOT_REQUIRED;

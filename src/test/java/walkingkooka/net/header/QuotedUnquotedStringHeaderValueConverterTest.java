@@ -24,7 +24,8 @@ import walkingkooka.predicate.character.CharPredicates;
 public final class QuotedUnquotedStringHeaderValueConverterTest extends
         HeaderValueConverterTestCase<QuotedUnquotedStringHeaderValueConverter, String> {
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return "QuotedUnquotedString";
     }
 

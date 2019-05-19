@@ -91,7 +91,8 @@ public final class RoutingTest implements ClassTesting2<Routing<StringName, Stri
         return Cast.to(Routing.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

@@ -47,7 +47,8 @@ public abstract class SpreadsheetTextFormatter3TestCase<F extends SpreadsheetTex
         });
     }
 
-    @Override final public F createFormatter() {
+    @Override
+    final public F createFormatter() {
         return this.createFormatter(this.pattern());
     }
 

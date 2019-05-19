@@ -60,7 +60,8 @@ final public class CharSequenceIteratorTest
         this.toStringAndCheck(this.createIterator(), "\"ABC\\t\"");
     }
 
-    @Override public CharSequenceIterator createIterator() {
+    @Override
+    public CharSequenceIterator createIterator() {
         return CharSequenceIterator.with(CHARS);
     }
 

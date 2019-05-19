@@ -167,7 +167,8 @@ public final class SpreadsheetFormattedTextTest implements ClassTesting2<Spreads
         return SpreadsheetFormattedText.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

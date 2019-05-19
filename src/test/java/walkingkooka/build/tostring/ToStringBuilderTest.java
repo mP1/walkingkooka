@@ -622,7 +622,8 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"");
     }
 
-    @Override public ToStringBuilder createBuilder() {
+    @Override
+    public ToStringBuilder createBuilder() {
         return ToStringBuilder.empty();
     }
 

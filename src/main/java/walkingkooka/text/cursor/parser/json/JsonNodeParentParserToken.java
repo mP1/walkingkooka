@@ -153,7 +153,8 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
         }
     }
 
-    @Override final boolean equals1(final JsonNodeParserToken other) {
+    @Override
+    final boolean equals1(final JsonNodeParserToken other) {
         return this.equals2(Cast.to(other));
     }
 

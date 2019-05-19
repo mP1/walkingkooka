@@ -67,7 +67,8 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
         this.checkNotEquals(HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, "different-value")));
     }
 
-    @Override public HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry createEntry() {
+    @Override
+    public HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry createEntry() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, VALUE1, VALUE2));
     }
 

@@ -49,7 +49,8 @@ final class SpreadsheetColumnReferenceParser extends SpreadsheetColumnOrRowRefer
         return digit >= 0 && digit < RADIX ? digit + 1 : -1;
     }
 
-    @Override int radix() {
+    @Override
+    int radix() {
         return RADIX;
     }
 

@@ -84,7 +84,8 @@ public class TransformingParserTest extends ParserTestCase<TransformingParser<Pa
         this.toStringAndCheck(this.createParser(), PARSER.toString());
     }
 
-    @Override public TransformingParser<ParserContext> createParser() {
+    @Override
+    public TransformingParser<ParserContext> createParser() {
         return TransformingParser.with(PARSER, TRANSFORMER);
     }
 

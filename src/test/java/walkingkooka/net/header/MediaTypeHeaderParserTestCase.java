@@ -539,7 +539,8 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
         assertEquals(parameters, mediaType.parameters(), "parameters=" + mediaType);
     }
 
-    @Override final String valueLabel() {
+    @Override
+    final String valueLabel() {
         return MediaTypeHeaderParser.MEDIATYPE;
     }
 }

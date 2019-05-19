@@ -82,7 +82,8 @@ abstract class RouterBuilderRouter<K, T> implements Router<K, T> {
         return Optional.empty();
     }
 
-    @Override final public String toString() {
+    @Override
+    final public String toString() {
         final StringBuilder b = new StringBuilder();
         this.toString0(false, b);
         return b.toString();

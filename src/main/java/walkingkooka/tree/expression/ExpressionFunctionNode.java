@@ -289,7 +289,8 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
 
     // Object.........................................................................................................
 
-    @Override final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
         return this.name.equals(other.name());
     }
 

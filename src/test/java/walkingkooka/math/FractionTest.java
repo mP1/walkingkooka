@@ -87,7 +87,8 @@ public final class FractionTest implements ClassTesting2<Fraction>,
         return Fraction.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

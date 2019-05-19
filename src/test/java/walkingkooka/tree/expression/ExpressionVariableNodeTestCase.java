@@ -98,7 +98,8 @@ public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariabl
         assertNotEquals(this.createExpressionNode(), this.createExpressionNode(differentChild()));
     }
 
-    @Override final N createExpressionNode() {
+    @Override
+    final N createExpressionNode() {
         return this.createExpressionNode(this.children());
     }
 

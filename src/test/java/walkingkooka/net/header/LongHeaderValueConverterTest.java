@@ -26,7 +26,8 @@ public final class LongHeaderValueConverterTest extends
     private final static String TEXT = "123";
     private final static Long VALUE = 123L;
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return Long.class.getSimpleName();
     }
 

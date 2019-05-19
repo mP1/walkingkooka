@@ -27,52 +27,52 @@ public class FakeRangeVisitor<C extends Comparable> extends RangeVisitor<C> impl
         super();
     }
 
-    @Override 
+    @Override
     protected void all() {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void singleton(final C value) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected Visiting startBetween(final RangeBound<C> lowerBound, final RangeBound<C> upperBound) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void endBetween(final RangeBound<C> lowerBound, final RangeBound<C> upperBound) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void lowerBoundAll() {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void lowerBoundExclusive(final C value) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void lowerBoundInclusive(final C value) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void upperBoundAll() {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void upperBoundExclusive(final C value) {
         throw new UnsupportedOperationException();
     }
 
-    @Override 
+    @Override
     protected void upperBoundInclusive(final C value) {
         throw new UnsupportedOperationException();
     }

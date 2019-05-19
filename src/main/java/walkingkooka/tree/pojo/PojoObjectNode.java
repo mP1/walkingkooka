@@ -46,7 +46,8 @@ final class PojoObjectNode extends PojoNode2 {
      * Accepts all children, updating the properties of the value, support setters that return a new value.
      * If the final value is different from the original a new {@link PojoObjectNode} is created and wrapped.
      */
-    @Override final PojoNode replaceChildren(final List<PojoNode> children) {
+    @Override
+    final PojoNode replaceChildren(final List<PojoNode> children) {
         final Object before = this.value();
         Object current = before;
 
@@ -149,7 +150,8 @@ final class PojoObjectNode extends PojoNode2 {
         return this.properties().size();
     }
 
-    @Override final public PojoObjectNode removeChild(final int child) {
+    @Override
+    final public PojoObjectNode removeChild(final int child) {
         throw new UnsupportedOperationException();
     }
 
