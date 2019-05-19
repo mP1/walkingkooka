@@ -150,6 +150,11 @@ final class LinkRelationHeaderParser extends HeaderParser {
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
+    @Override
+    void comment() {
+        this.commentText(); // consume and ignore comment text itself.
+    }
+
     /**
      * <pre>
      * relation-types = relation-type

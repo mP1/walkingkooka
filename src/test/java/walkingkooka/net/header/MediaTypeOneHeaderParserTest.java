@@ -39,6 +39,22 @@ public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTes
         this.parseInvalidCharacterFails("type/subtype;p=v,");
     }
 
+    @Test
+    public void testCommentMediaType() {
+        this.parseAndCheck("(comment-123)text/plain-text",
+                "text",
+                "plain-text",
+                MediaType.NO_PARAMETERS);
+    }
+
+    @Test
+    public void testMediaTypeComment() {
+        this.parseAndCheck("text/plain-text(comment-123)",
+                "text",
+                "plain-text",
+                MediaType.NO_PARAMETERS);
+    }
+
     @Override
     final void parseAndCheck(final String text,
                              final String type,

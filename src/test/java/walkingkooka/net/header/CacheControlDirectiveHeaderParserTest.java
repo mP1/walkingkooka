@@ -134,6 +134,11 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
         this.parseInvalidCharacterFails(text, text.indexOf('2') - 1);
     }
 
+    @Test
+    public void testDirectiveCommentKeyValueSeparatorParameterNumericValue() {
+        this.parseAndCheck2("(abc)A=1", "A", 1L);
+    }
+
     // max-age.....................................................
 
     @Test

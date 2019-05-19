@@ -90,6 +90,16 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     }
 
     @Test
+    public void testCommentWildcard() {
+        this.parseAndCheck("(comment)*", CharsetHeaderValue.WILDCARD_VALUE);
+    }
+
+    @Test
+    public void testWildcardComment() {
+        this.parseAndCheck("*(comment)", CharsetHeaderValue.WILDCARD_VALUE);
+    }
+
+    @Test
     public void testWildcardInvalidFails() {
         this.parseInvalidCharacterFails("*1");
     }
@@ -266,6 +276,16 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
         this.parseAndCheck("UTF-8;b= \t \tc",
                 "UTF-8",
                 "b", "c");
+    }
+
+    @Test
+    public void testCharsetComment() {
+        this.parseAndCheck("utf-16(comment123)", "utf-16");
+    }
+
+    @Test
+    public void testCharsetWhitespaceComment() {
+        this.parseAndCheck("utf-16 (comment123)", "utf-16");
     }
 
     @Test

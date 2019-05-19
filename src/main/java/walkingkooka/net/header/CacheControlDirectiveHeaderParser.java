@@ -102,8 +102,11 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
         }
         this.parameterValue = this.directiveName.toValue(this.quotedText(ASCII, ESCAPING_SUPPORTED));
         this.expectsParameterValue = false;
+    }
 
-        //this.addParameter();
+    @Override
+    void comment() {
+        this.commentText(); // consume and ignore comment text itself.
     }
 
     @Override

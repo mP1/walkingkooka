@@ -45,6 +45,11 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
     }
 
     @Test
+    public final void testCommentFails() {
+        this.parseInvalidCharacterFails("(comment-abc123)", 0);
+    }
+
+    @Test
     public final void testInvalidInitialFails2() {
         this.parseInvalidCharacterFails("w");
     }
@@ -132,6 +137,11 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
     @Test
     public final void testWeakValue3() {
         this.parseAndCheck("W/\"0123456789ABCDEF\"", "0123456789ABCDEF", ETagValidator.WEAK);
+    }
+
+    @Test
+    public final void testValueCommentFails() {
+        this.parseInvalidCharacterFails("*(comment-abc123)", 1);
     }
 
     final void parseAndCheck(final String text, final String value) {
