@@ -213,11 +213,13 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
 
     // helpers........................................................................................
 
-    @Override public DecimalFormatStringConverter createConverter() {
+    @Override
+    public DecimalFormatStringConverter createConverter() {
         return DecimalFormatStringConverter.with(PATTERN);
     }
 
-    @Override public ConverterContext createContext() {
+    @Override
+    public ConverterContext createContext() {
         return createContext("C", 'D', 'X', 'G', 'M', 'R', 'P');
     }
 

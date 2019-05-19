@@ -84,7 +84,6 @@ final public class RepeatingCharSequenceTest implements ClassTesting2<RepeatingC
         this.checkNotEquals(RepeatingCharSequence.with(CHAR, 1));
     }
 
-
     @Override
     public RepeatingCharSequence createCharSequence() {
         return (RepeatingCharSequence) RepeatingCharSequence.with(CHAR, LENGTH);
@@ -95,7 +94,8 @@ final public class RepeatingCharSequenceTest implements ClassTesting2<RepeatingC
         return RepeatingCharSequence.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

@@ -40,7 +40,8 @@ final public class AsciiPrintableCharPredicateTest
         this.toStringAndCheck(AsciiPrintableCharPredicate.INSTANCE, "ASCII printable");
     }
 
-    @Override public AsciiPrintableCharPredicate createCharPredicate() {
+    @Override
+    public AsciiPrintableCharPredicate createCharPredicate() {
         return AsciiPrintableCharPredicate.INSTANCE;
     }
 

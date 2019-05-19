@@ -27,7 +27,8 @@ public final class XmlMapTest implements ClassTesting2<XmlMap> {
         return XmlMap.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

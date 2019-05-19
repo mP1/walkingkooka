@@ -86,7 +86,8 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
         this.toStringAndCheck("Content-Length: 123", this.createEntry().toString());
     }
 
-    @Override public HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry createEntry() {
+    @Override
+    public HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry createEntry() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(HEADER_NAME,
                 new FakeHttpServletRequest() {
                     @Override

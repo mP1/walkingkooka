@@ -169,7 +169,8 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
 
     // helpers ...........................................................................................
 
-    @Override public RouterHttpRequestParametersMapEntrySet createSet() {
+    @Override
+    public RouterHttpRequestParametersMapEntrySet createSet() {
         return this.createSet(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS);
     }
 

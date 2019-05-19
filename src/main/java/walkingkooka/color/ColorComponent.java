@@ -200,18 +200,21 @@ abstract public class ColorComponent implements HashCodeEqualsDefined, Serializa
 
     // HashCodeEqualsDefined
 
-    @Override final public int hashCode() {
+    @Override
+    final public int hashCode() {
         return this.value;
     }
 
-    @Override final public boolean equals(final Object other) {
+    @Override
+    final public boolean equals(final Object other) {
         return this == other;
     }
 
     /**
      * Returns the value in hex form.
      */
-    @Override final public String toString() {
+    @Override
+    final public String toString() {
         return this.toHexString();
     }
 

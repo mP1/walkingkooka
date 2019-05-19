@@ -87,7 +87,8 @@ final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatte
      */
     final Predicate<BigDecimal> predicate;
 
-    @Override final String toStringSuffix() {
+    @Override
+    final String toStringSuffix() {
         return " " + this.formatter;
     }
 }

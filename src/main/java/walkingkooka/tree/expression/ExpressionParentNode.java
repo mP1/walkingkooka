@@ -66,7 +66,8 @@ abstract class ExpressionParentNode extends ExpressionNode {
                 this.replaceChildren(copy);
     }
 
-    @Override final ExpressionNode setChild(final ExpressionNode newChild) {
+    @Override
+    final ExpressionNode setChild(final ExpressionNode newChild) {
         final int index = newChild.index();
         final ExpressionNode previous = this.children().get(index);
         return previous.equalsIgnoringParentAndChildren(newChild) && previous.equalsDescendants(newChild) ?
@@ -91,7 +92,8 @@ abstract class ExpressionParentNode extends ExpressionNode {
 
     abstract void replaceChildrenCheck(final List<ExpressionNode> children);
 
-    @Override final ExpressionNode wrap(final int index) {
+    @Override
+    final ExpressionNode wrap(final int index) {
         return this.wrap0(index, this.children());
     }
 

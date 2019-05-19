@@ -45,9 +45,10 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
         return false;
     }
 
-    @Override final ExpressionNode apply(final ExpressionNode left,
-                                         final ExpressionNode right,
-                                         final ExpressionEvaluationContext context) {
+    @Override
+    final ExpressionNode apply(final ExpressionNode left,
+                               final ExpressionNode right,
+                               final ExpressionEvaluationContext context) {
         ExpressionNode result;
 
         try {

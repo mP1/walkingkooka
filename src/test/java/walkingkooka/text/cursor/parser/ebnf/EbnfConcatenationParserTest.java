@@ -23,7 +23,8 @@ import java.util.List;
 
 public final class EbnfConcatenationParserTest extends EbnfAlternativeOrConcatenationParserTestCase<EbnfConcatenationParserToken> {
 
-    @Override public Parser<EbnfParserContext> createParser() {
+    @Override
+    public Parser<EbnfParserContext> createParser() {
         return EbnfGrammarParser.CONCATENATION;
     }
 

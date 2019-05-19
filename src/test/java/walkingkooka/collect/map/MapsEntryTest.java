@@ -67,7 +67,8 @@ public final class MapsEntryTest implements ClassTesting2<MapsEntry<String, Inte
         this.checkNotEquals(MapsEntry.with(KEY, 999));
     }
 
-    @Override public MapsEntry<String, Integer> createEntry() {
+    @Override
+    public MapsEntry<String, Integer> createEntry() {
         return MapsEntry.with(KEY, VALUE);
     }
 

@@ -25,7 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class QWeightHeaderValueConverterTest extends
         HeaderValueConverterTestCase<QWeightHeaderValueConverter, Float> {
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return "QWeight";
     }
 

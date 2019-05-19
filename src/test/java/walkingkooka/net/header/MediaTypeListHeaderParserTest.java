@@ -99,10 +99,11 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
                 MediaType.with("type1", "subtype1").setParameters(this.parameters("q", 0.25f)));
     }
 
-    @Override final void parseAndCheck(final String text,
-                                       final String type,
-                                       final String subtype,
-                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
+    @Override
+    final void parseAndCheck(final String text,
+                             final String type,
+                             final String subtype,
+                             final Map<MediaTypeParameterName<?>, Object> parameters) {
         parseAndCheckOne(text, type, subtype, parameters);
         parseAndCheckRepeated(text, type, subtype, parameters);
         parseAndCheckSeveral(text, type, subtype, parameters);

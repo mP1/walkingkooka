@@ -31,7 +31,8 @@ public final class MediaTypeListHeaderValueConverterTest extends
 
     private final static String TEXT = "type1/subType1; p1=v1, type2/subType2";
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return MediaType.class.getSimpleName();
     }
 

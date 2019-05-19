@@ -212,7 +212,8 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return this.setChildren0(JsonObjectNodeList.with(copy)).cast();
     }
 
-    @Override final JsonNode setChild0(final JsonNode newChild, final int index) {
+    @Override
+    final JsonNode setChild0(final JsonNode newChild, final int index) {
         return JsonParentNodeChildPredicate.INSTANCE.test(this.children.get(index), newChild) ?
                 this :
                 this.replaceChild0(newChild, index).children.nameToValues.get(newChild.name);
@@ -241,7 +242,8 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
         return this.get(name).isPresent();
     }
 
-    @Override final JsonObjectNode create(final JsonNodeName name, final int index, final JsonObjectNodeList children) {
+    @Override
+    final JsonObjectNode create(final JsonNodeName name, final int index, final JsonObjectNodeList children) {
         return new JsonObjectNode(name, index, children);
     }
 

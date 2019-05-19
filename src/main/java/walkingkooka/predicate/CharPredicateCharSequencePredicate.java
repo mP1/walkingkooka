@@ -40,7 +40,8 @@ final class CharPredicateCharSequencePredicate implements Predicate<CharSequence
         this.predicate = predicate;
     }
 
-    @Override public boolean test(final CharSequence charSequence) {
+    @Override
+    public boolean test(final CharSequence charSequence) {
         Objects.requireNonNull(charSequence, "charSequence");
 
         boolean test = false;

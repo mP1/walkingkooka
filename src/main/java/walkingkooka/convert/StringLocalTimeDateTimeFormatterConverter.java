@@ -43,7 +43,8 @@ final class StringLocalTimeDateTimeFormatterConverter extends DateTimeFormatterC
         return String.class;
     }
 
-    @Override Class<LocalTime> targetType() {
+    @Override
+    Class<LocalTime> targetType() {
         return LocalTime.class;
     }
 

@@ -35,7 +35,8 @@ abstract class HeaderName2<V> extends HeaderNameValue implements HeaderName<V> {
     /**
      * Used during hashing and equality checks.
      */
-    @Override final CaseSensitivity caseSensitivity() {
+    @Override
+    final CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
 

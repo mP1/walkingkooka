@@ -31,7 +31,8 @@ public final class HeaderParameterNameConstantsTest implements ClassTesting2<Hea
         return Cast.to(HeaderParameterNameConstants.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

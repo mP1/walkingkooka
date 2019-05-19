@@ -81,7 +81,8 @@ public final class UrlCredentialsTest implements ClassTesting2<UrlCredentials>,
         return UrlCredentials.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

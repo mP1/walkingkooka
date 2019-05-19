@@ -119,7 +119,8 @@ public final class SpreadsheetColumnReferenceParserTest extends SpreadsheetParse
         return SpreadsheetParserToken.columnReference(referenceKind.column(column), text);
     }
 
-    @Override public SpreadsheetColumnReferenceParser createParser() {
+    @Override
+    public SpreadsheetColumnReferenceParser createParser() {
         return SpreadsheetColumnReferenceParser.INSTANCE;
     }
 

@@ -47,7 +47,8 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
         return 1;
     }
 
-    @Override final ExpressionUnaryNode wrap0(final int index, final List<ExpressionNode> children) {
+    @Override
+    final ExpressionUnaryNode wrap0(final int index, final List<ExpressionNode> children) {
         return wrap1(index, children.get(0));
     }
 

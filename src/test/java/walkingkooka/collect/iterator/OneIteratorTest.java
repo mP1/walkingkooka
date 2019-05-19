@@ -80,7 +80,8 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
         this.removeUnsupportedFails(iterator);
     }
 
-    @Override public OneIterator<String> createIterator() {
+    @Override
+    public OneIterator<String> createIterator() {
         return null;
     }
 

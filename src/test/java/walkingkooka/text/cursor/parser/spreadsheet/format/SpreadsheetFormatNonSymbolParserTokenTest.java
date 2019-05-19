@@ -27,7 +27,8 @@ public final class SpreadsheetFormatNonSymbolParserTokenTest implements ClassTes
         return SpreadsheetFormatNonSymbolParserToken.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

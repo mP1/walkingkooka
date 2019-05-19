@@ -218,18 +218,21 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
 
     // SpreadsheetExpressionReferenceComparator........................................................................
 
-    @Override final int compare(final SpreadsheetExpressionReference other) {
+    @Override
+    final int compare(final SpreadsheetExpressionReference other) {
         return other.compare0(this);
     }
 
-    @Override final int compare0(final SpreadsheetCellReference other) {
+    @Override
+    final int compare0(final SpreadsheetCellReference other) {
         final int result = other.column.value - this.column.value;
         return Comparators.EQUAL != result ?
                 result :
                 other.row.value - this.row.value;
     }
 
-    @Override final int compare0(final SpreadsheetLabelName other) {
+    @Override
+    final int compare0(final SpreadsheetLabelName other) {
         return LABEL_COMPARED_WITH_CELL_RESULT;
     }
 }

@@ -41,7 +41,8 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
     /**
      * {@see CharSequence#charAt(int)}.
      */
-    @Override final public char charAt(final int index) {
+    @Override
+    final public char charAt(final int index) {
         final int length = this.length();
         if (index < 0 || index >= length) {
             throw new StringIndexOutOfBoundsException(
@@ -55,7 +56,8 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
      */
     abstract char charAtIndex(int index);
 
-    @Override final public CharSequence subSequence(final int start, final int end) {
+    @Override
+    final public CharSequence subSequence(final int start, final int end) {
         final int length = this.length();
         if (start < 0 || start > end || end > length) {
             throw new StringIndexOutOfBoundsException(
@@ -88,7 +90,8 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
     /**
      * Lazily calculates the hash code and stores it for future retrieval.
      */
-    @Override final public int hashCode() {
+    @Override
+    final public int hashCode() {
         if (0 == this.hashCode) {
             this.hashCode = this.calculateHashCode();
         }
@@ -111,7 +114,8 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
      * before invoking {@link #doEquals(C)} if types are compatible but different
      * instances.
      */
-    @Override final public boolean equals(final Object object) {
+    @Override
+    final public boolean equals(final Object object) {
         return this == object || this.canBeEqual(object) && this.doEquals(Cast.to(object));
     }
 
@@ -129,7 +133,8 @@ abstract class CharSequenceTemplate<C extends CharSequenceTemplate<C>>
     /**
      * Checks a cached field and if null calls {@link #buildToString()}
      */
-    @Override final public String toString() {
+    @Override
+    final public String toString() {
         if (null == this.toString) {
             this.toString = this.buildToString();
         }

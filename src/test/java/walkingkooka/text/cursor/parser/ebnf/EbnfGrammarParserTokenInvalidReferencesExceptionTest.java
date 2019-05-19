@@ -69,7 +69,8 @@ public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest implemen
         return EbnfGrammarParserTokenInvalidReferencesException.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

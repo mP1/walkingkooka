@@ -189,7 +189,8 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         assertEquals(this.text(), this.createSearchNode().text());
     }
 
-    @Override final N createSearchNode() {
+    @Override
+    final N createSearchNode() {
         return this.createSearchNode(this.text(), this.value());
     }
 
@@ -207,7 +208,8 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
 
     abstract V differentValue();
 
-    @Override final SearchNode differentSearchNode() {
+    @Override
+    final SearchNode differentSearchNode() {
         return this.createSearchNode(this.differentText(), this.differentValue());
     }
 

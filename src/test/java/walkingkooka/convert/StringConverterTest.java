@@ -44,11 +44,13 @@ public final class StringConverterTest extends FixedTypeConverterTestCase<String
         this.toStringAndCheck(this.createConverter(), "*->String");
     }
 
-    @Override public StringConverter createConverter() {
+    @Override
+    public StringConverter createConverter() {
         return StringConverter.INSTANCE;
     }
 
-    @Override public ConverterContext createContext() {
+    @Override
+    public ConverterContext createContext() {
         return ConverterContexts.fake();
     }
 

@@ -27,7 +27,8 @@ public final class SpreadsheetTextFormatter3Test implements ClassTesting2<Spread
         return SpreadsheetTextFormatter3.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

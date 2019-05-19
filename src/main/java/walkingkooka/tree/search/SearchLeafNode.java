@@ -50,7 +50,8 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
 
     private final String text;
 
-    @Override final void appendText(final StringBuilder b) {
+    @Override
+    final void appendText(final StringBuilder b) {
         b.append(this.text);
     }
 

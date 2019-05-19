@@ -40,15 +40,18 @@ abstract class XmlLeafNode extends XmlNode {
         return this.wrap0(this.nodeCloneWithoutParentWithoutChildren());
     }
 
-    @Override final org.w3c.dom.Node nodeCloneWithoutParentWithChildren() {
+    @Override
+    final org.w3c.dom.Node nodeCloneWithoutParentWithChildren() {
         return this.nodeCloneWithoutParentWithoutChildren();
     }
 
-    @Override final org.w3c.dom.Node nodeCloneAll() {
+    @Override
+    final org.w3c.dom.Node nodeCloneAll() {
         return this.nodeCloneAll0();
     }
 
-    @Override final org.w3c.dom.Document documentNode0() {
+    @Override
+    final org.w3c.dom.Document documentNode0() {
         return this.documentNode1();
     }
 

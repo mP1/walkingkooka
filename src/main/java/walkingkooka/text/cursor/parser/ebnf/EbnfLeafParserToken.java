@@ -87,7 +87,8 @@ abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements LeafPar
 
     abstract public void accept(final EbnfParserTokenVisitor visitor);
 
-    @Override final boolean equals1(final EbnfParserToken other) {
+    @Override
+    final boolean equals1(final EbnfParserToken other) {
         return this.equals2(other.cast());
     }
 

@@ -80,7 +80,8 @@ public final class NumberBigIntegerConverterTest extends NumberConverterTestCase
         this.convertAndCheck(123L, BigInteger.valueOf(123));
     }
 
-    @Override public NumberBigIntegerConverter createConverter() {
+    @Override
+    public NumberBigIntegerConverter createConverter() {
         return NumberBigIntegerConverter.INSTANCE;
     }
 

@@ -66,7 +66,8 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest implement
         this.sizeAndCheck(this.createSet(), 2);
     }
 
-    @Override public HttpServletRequestHttpRequestHeadersMapEntrySet createSet() {
+    @Override
+    public HttpServletRequestHttpRequestHeadersMapEntrySet createSet() {
         return HttpServletRequestHttpRequestHeadersMapEntrySet.with(this.request());
     }
 

@@ -163,7 +163,8 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
         return ReaderConsumingCharSequence.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 

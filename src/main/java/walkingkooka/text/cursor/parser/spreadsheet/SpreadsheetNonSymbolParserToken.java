@@ -121,11 +121,13 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
         return false;
     }
 
-    @Override final int operatorPriority() {
+    @Override
+    final int operatorPriority() {
         return LOWEST_PRIORITY;
     }
 
-    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         throw new UnsupportedOperationException();
     }
 }

@@ -130,7 +130,8 @@ abstract class SpreadsheetFormatLeafParserToken<T> extends SpreadsheetFormatPars
 
     abstract public void accept(final SpreadsheetFormatParserTokenVisitor visitor);
 
-    @Override final boolean equals1(final SpreadsheetFormatParserToken other) {
+    @Override
+    final boolean equals1(final SpreadsheetFormatParserToken other) {
         return this.equals2(other.cast());
     }
 

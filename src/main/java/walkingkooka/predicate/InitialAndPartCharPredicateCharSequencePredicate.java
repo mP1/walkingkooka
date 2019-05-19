@@ -42,7 +42,8 @@ final class InitialAndPartCharPredicateCharSequencePredicate implements Predicat
         this.remaining = remaining;
     }
 
-    @Override public boolean test(final CharSequence chars) {
+    @Override
+    public boolean test(final CharSequence chars) {
         Objects.requireNonNull(chars, "chars");
 
         boolean result;

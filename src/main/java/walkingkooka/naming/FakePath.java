@@ -37,19 +37,23 @@ final class FakePath implements Path<FakePath, FakeName>, Fake {
         super();
     }
 
-    @Override public Optional<FakePath> parent() {
+    @Override
+    public Optional<FakePath> parent() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public FakePath append(FakeName name) {
+    @Override
+    public FakePath append(FakeName name) {
         throw new UnsupportedOperationException();
     }
 
-    @Override public PathSeparator separator() {
+    @Override
+    public PathSeparator separator() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public FakeName name() {
+    @Override
+    public FakeName name() {
         throw new UnsupportedOperationException();
     }
 

@@ -36,11 +36,13 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
         super(text);
     }
 
-    @Override final void whitespace() {
+    @Override
+    final void whitespace() {
         this.whitespace0();
     }
 
-    @Override final void tokenSeparator() {
+    @Override
+    final void tokenSeparator() {
         if (!this.requireParameterOrMultiValueSeparator) {
             if (this.requireValue) {
                 this.missingValue();
@@ -52,7 +54,8 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
         this.requireParameterName = true;
     }
 
-    @Override final void keyValueSeparator() {
+    @Override
+    final void keyValueSeparator() {
         if (!this.requireKeyValueSeparator) {
             this.failInvalidCharacter();
         }
@@ -60,7 +63,8 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
         this.requireParameterValue = true;
     }
 
-    @Override final void multiValueSeparator() {
+    @Override
+    final void multiValueSeparator() {
         if (!this.allowMultipleValues() || !this.requireParameterOrMultiValueSeparator) {
             this.failInvalidCharacter();
         }
@@ -92,14 +96,16 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
     /**
      * Slashes are a failure.
      */
-    @Override final void slash() {
+    @Override
+    final void slash() {
         this.failInvalidCharacter();
     }
 
     /**
      * Handles parsing a token.
      */
-    @Override final void token() {
+    @Override
+    final void token() {
         if (this.requireValue) {
             this.saveValue(this.value());
         } else {
@@ -129,7 +135,8 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
 
     abstract N parameterName();
 
-    @Override final void quotedText() {
+    @Override
+    final void quotedText() {
         if (this.requireParameterValue) {
             this.addParameterText(this.quotedParameterValue(this.parameterName));
         } else {
@@ -144,7 +151,8 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
     /**
      * Called when the end of text is reached, allow opportunities to complete key/value pairs or fail etc.
      */
-    @Override final void endOfText() {
+    @Override
+    final void endOfText() {
         if (this.requireValue) {
             this.missingValue();
         }

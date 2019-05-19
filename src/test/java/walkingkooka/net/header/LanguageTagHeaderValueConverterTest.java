@@ -24,7 +24,8 @@ import walkingkooka.collect.map.Maps;
 public final class LanguageTagHeaderValueConverterTest extends
         HeaderValueConverterTestCase<LanguageTagHeaderValueConverter, LanguageTag> {
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return LanguageTag.class.getSimpleName();
     }
 

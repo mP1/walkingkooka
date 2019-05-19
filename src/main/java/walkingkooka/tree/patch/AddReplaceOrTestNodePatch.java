@@ -52,7 +52,8 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
         return Objects.hash(this.path, this.value, this.next);
     }
 
-    @Override final boolean equals1(final NonEmptyNodePatch<?, ?> other) {
+    @Override
+    final boolean equals1(final NonEmptyNodePatch<?, ?> other) {
         return this.path.equals(other.path) &&
                 this.equals2(Cast.to(other));
     }
@@ -61,7 +62,8 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
         return this.value.equals(other.value);
     }
 
-    @Override final void toString0(final StringBuilder b) {
+    @Override
+    final void toString0(final StringBuilder b) {
         b.append(this.operation())
                 .append(" path=")
                 .append(toString(this.path))
@@ -87,8 +89,9 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
      * }
      * </pre>
      */
-    @Override final JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                                               final NodePatchToJsonFormat format) {
+    @Override
+    final JsonObjectNode toJsonNode1(final JsonObjectNode object,
+                                     final NodePatchToJsonFormat format) {
         final N value = this.value;
 
         return format.setValueType(this.setPath(format.setPathNameType(object, this.path)),

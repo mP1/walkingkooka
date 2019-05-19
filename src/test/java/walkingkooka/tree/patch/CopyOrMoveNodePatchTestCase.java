@@ -146,7 +146,8 @@ public abstract class CopyOrMoveNodePatchTestCase<P extends CopyOrMoveNodePatch<
 
     abstract String operation();
 
-    @Override final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
+    @Override
+    final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
         return this.createPatch(this.path2(), path);
     }
 

@@ -117,7 +117,8 @@ public final class ColorTest implements ClassTesting2<Color>,
         return Color.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

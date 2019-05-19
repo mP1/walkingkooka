@@ -53,7 +53,8 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
         return this.setValue0(value).cast();
     }
 
-    @Override final RepeatedParserToken replaceValue(final List<ParserToken> value) {
+    @Override
+    final RepeatedParserToken replaceValue(final List<ParserToken> value) {
         return new RepeatedParserToken(value, this.text());
     }
 

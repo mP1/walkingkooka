@@ -28,7 +28,8 @@ public final class HeaderValueWithParameters2Test implements ClassTesting2<Heade
         return Cast.to(HeaderValueWithParameters2.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

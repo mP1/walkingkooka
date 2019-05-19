@@ -36,7 +36,8 @@ public abstract class SpreadsheetFormatSymbolParserTokenTestCase<T extends Sprea
         assertEquals(Optional.empty(), token.withoutSymbols());
     }
 
-    @Override final String value() {
+    @Override
+    final String value() {
         return this.text();
     }
 }

@@ -252,7 +252,8 @@ public final class HslTest implements ClassTesting2<Hsl>,
         return Hsl.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

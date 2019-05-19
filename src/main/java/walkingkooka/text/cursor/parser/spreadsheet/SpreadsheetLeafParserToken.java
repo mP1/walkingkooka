@@ -127,7 +127,8 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
 
     abstract public void accept(final SpreadsheetParserTokenVisitor visitor);
 
-    @Override final boolean equals1(final SpreadsheetParserToken other) {
+    @Override
+    final boolean equals1(final SpreadsheetParserToken other) {
         return this.equals2(other.cast());
     }
 

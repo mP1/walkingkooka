@@ -29,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class AcceptCharsetHeaderValueConverterTest extends
         HeaderValueConverterTestCase<AcceptCharsetHeaderValueConverter,
                 AcceptCharset> {
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return AcceptCharset.class.getSimpleName();
     }
 

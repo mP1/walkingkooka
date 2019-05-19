@@ -31,7 +31,8 @@ public final class LanguageTagListHeaderValueConverterTest extends
 
     private final static String TEXT = "en; q=1.0, en-AU; q=0.5";
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return LanguageTag.class.getSimpleName();
     }
 

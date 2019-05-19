@@ -39,7 +39,8 @@ final class BigDecimalFractionSpreadsheetTextFormatterDenominatorDigits extends 
         super(text);
     }
 
-    @Override final void sign(final BigDecimalFractionSpreadsheetTextFormatterComponentContext context) {
+    @Override
+    final void sign(final BigDecimalFractionSpreadsheetTextFormatterComponentContext context) {
     }
 
     @Override

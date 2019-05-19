@@ -1102,7 +1102,8 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
         return CaseSensitivity.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

@@ -26,7 +26,8 @@ public final class PojoNodeListTest implements ClassTesting2<PojoNodeList<?, ?>>
         return Cast.to(PojoNodeList.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

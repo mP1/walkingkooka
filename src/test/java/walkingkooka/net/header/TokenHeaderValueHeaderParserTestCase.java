@@ -395,7 +395,8 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
         return Maps.of(name1, value1, name2, value2);
     }
 
-    @Override final String valueLabel() {
+    @Override
+    final String valueLabel() {
         return TokenHeaderValueHeaderParser.VALUE;
     }
 }

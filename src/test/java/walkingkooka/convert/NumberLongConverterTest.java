@@ -96,7 +96,8 @@ public final class NumberLongConverterTest extends NumberConverterTestCase<Numbe
         this.convertAndCheck(value, (long) VALUE);
     }
 
-    @Override public NumberLongConverter createConverter() {
+    @Override
+    public NumberLongConverter createConverter() {
         return NumberLongConverter.INSTANCE;
     }
 

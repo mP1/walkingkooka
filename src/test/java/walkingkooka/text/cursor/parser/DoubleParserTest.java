@@ -488,11 +488,13 @@ public final class DoubleParserTest extends Parser2TestCase<DoubleParser<ParserC
                 "");
     }
 
-    @Override public DoubleParser<ParserContext> createParser() {
+    @Override
+    public DoubleParser<ParserContext> createParser() {
         return DoubleParser.instance();
     }
 
-    @Override public ParserContext createContext() {
+    @Override
+    public ParserContext createContext() {
         return ParserContexts.basic(this.decimalNumberContext());
     }
 

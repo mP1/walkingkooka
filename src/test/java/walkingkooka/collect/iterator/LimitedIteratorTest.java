@@ -123,7 +123,8 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         this.toStringAndCheck(LimitedIterator.wrap(ITERATOR, COUNT), "at most 2 " + ITERATOR);
     }
 
-    @Override public LimitedIterator<String> createIterator() {
+    @Override
+    public LimitedIterator<String> createIterator() {
         return LimitedIterator.wrap(Lists.of("1",
                 "2",
                 "should never be returned1",

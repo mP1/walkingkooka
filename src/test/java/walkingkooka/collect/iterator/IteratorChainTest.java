@@ -287,7 +287,8 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         this.toStringAndCheck(iterator, "");
     }
 
-    @Override public IteratorChain<String> createIterator() {
+    @Override
+    public IteratorChain<String> createIterator() {
         return this.createIterator(FIRST, SECOND);
     }
 

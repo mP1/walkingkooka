@@ -118,7 +118,8 @@ public final class StringInitialAndPartCharPredicateParserTest extends Parser2Te
         this.toStringAndCheck(this.createParser(), INITIAL + " " + PART);
     }
 
-    @Override public StringInitialAndPartCharPredicateParser<ParserContext> createParser() {
+    @Override
+    public StringInitialAndPartCharPredicateParser<ParserContext> createParser() {
         return this.createParser(MIN_LENGTH, MAX_LENGTH);
     }
 

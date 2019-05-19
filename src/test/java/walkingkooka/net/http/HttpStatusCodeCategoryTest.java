@@ -30,7 +30,8 @@ public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatu
         return HttpStatusCodeCategory.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

@@ -112,7 +112,8 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
         return rule(RULE2, identifier2(), assignmentToken(), terminal2(), terminatorToken());
     }
 
-    @Override public Parser<EbnfParserContext> createParser() {
+    @Override
+    public Parser<EbnfParserContext> createParser() {
         return Cast.to(EbnfGrammarParser.GRAMMAR);
     }
 }

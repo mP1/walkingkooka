@@ -26,7 +26,8 @@ abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetNonSymbolPars
         super(value, text);
     }
 
-    @Override final void checkText(final String text) {
+    @Override
+    final void checkText(final String text) {
         checkTextNullOrWhitespace(text);
     }
 

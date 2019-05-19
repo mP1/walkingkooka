@@ -66,11 +66,13 @@ abstract class JsonNodeSymbolParserToken extends JsonNodeLeafParserToken<String>
         return true;
     }
 
-    @Override final JsonNode toJsonNodeOrNull() {
+    @Override
+    final JsonNode toJsonNodeOrNull() {
         return null;
     }
 
-    @Override final void addJsonNode(final List<JsonNode> children) {
+    @Override
+    final void addJsonNode(final List<JsonNode> children) {
         // skip whitespace
     }
 }

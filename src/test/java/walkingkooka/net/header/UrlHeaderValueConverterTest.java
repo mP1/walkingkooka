@@ -26,7 +26,8 @@ import walkingkooka.net.Url;
 public final class UrlHeaderValueConverterTest extends
         HeaderValueConverterTestCase<UrlHeaderValueConverter, Url> {
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return Url.class.getSimpleName();
     }
 

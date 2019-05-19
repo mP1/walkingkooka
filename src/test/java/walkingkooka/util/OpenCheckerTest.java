@@ -162,7 +162,8 @@ final public class OpenCheckerTest implements ClassTesting2<OpenChecker<Exceptio
         }
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

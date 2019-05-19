@@ -52,7 +52,8 @@ abstract class ExpressionParentFixedNode extends ExpressionParentNode {
         throw new UnsupportedOperationException();
     }
 
-    @Override final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
         return true; // no other properties name already tested.
     }
 }

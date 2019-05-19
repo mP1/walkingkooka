@@ -150,7 +150,8 @@ final public class NormalizingCharSequenceComparatorTest implements ClassTesting
         this.toStringAndCheck(this.createComparator(), "normalizing " + PREDICATE);
     }
 
-    @Override public NormalizingCharSequenceComparator<String> createComparator() {
+    @Override
+    public NormalizingCharSequenceComparator<String> createComparator() {
         return NormalizingCharSequenceComparator.with(PREDICATE);
     }
 

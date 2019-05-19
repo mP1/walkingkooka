@@ -26,7 +26,8 @@ public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuo
         this.toStringAndCheck(this.createParser(), "single quoted string");
     }
 
-    @Override public SingleQuotedParser<ParserContext> createParser() {
+    @Override
+    public SingleQuotedParser<ParserContext> createParser() {
         return SingleQuotedParser.instance();
     }
 

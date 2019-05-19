@@ -80,7 +80,8 @@ final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocol
         return HttpProtocolVersion.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

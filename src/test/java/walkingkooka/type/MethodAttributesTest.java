@@ -84,7 +84,8 @@ public final class MethodAttributesTest implements ClassTesting2<MethodAttribute
         return MethodAttributes.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

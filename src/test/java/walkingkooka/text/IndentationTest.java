@@ -232,7 +232,8 @@ final public class IndentationTest implements ClassTesting2<Indentation>,
         return Indentation.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

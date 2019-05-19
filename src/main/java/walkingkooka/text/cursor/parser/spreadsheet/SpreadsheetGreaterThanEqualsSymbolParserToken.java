@@ -84,7 +84,8 @@ public final class SpreadsheetGreaterThanEqualsSymbolParserToken extends Spreads
         return false;
     }
 
-    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.greaterThanEquals(tokens, text);
     }
 

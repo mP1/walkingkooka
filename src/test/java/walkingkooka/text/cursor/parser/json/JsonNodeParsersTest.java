@@ -327,13 +327,15 @@ public final class JsonNodeParsersTest implements ParserTesting<Parser<JsonNodeP
         this.parseThrows("[123 !ABC]", '1', 2, 1);
     }
 
-    @Override public Parser<JsonNodeParserContext> createParser() {
+    @Override
+    public Parser<JsonNodeParserContext> createParser() {
         return JsonNodeParsers.value()
                 .orReport(ParserReporters.basic())
                 .cast();
     }
 
-    @Override public JsonNodeParserContext createContext() {
+    @Override
+    public JsonNodeParserContext createContext() {
         return JsonNodeParserContexts.basic();
     }
 

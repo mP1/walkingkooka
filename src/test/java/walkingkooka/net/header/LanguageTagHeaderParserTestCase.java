@@ -87,7 +87,8 @@ public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeade
 
     abstract void parseAndCheck2(final String text, final LanguageTag expected);
 
-    @Override final String valueLabel() {
+    @Override
+    final String valueLabel() {
         return LanguageTagHeaderParser.LANGUAGE;
     }
 }

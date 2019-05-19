@@ -122,7 +122,8 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
                         .toJsonNode());
     }
 
-    @Override protected JsonNodeObjectParserToken createToken(final String text, final List<ParserToken> tokens) {
+    @Override
+    protected JsonNodeObjectParserToken createToken(final String text, final List<ParserToken> tokens) {
         return JsonNodeObjectParserToken.with(tokens, text);
     }
 

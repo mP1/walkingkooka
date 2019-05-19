@@ -190,7 +190,8 @@ public final class VisitorPrettyPrinterTest implements ClassTesting2<VisitorPret
         return Cast.to(VisitorPrettyPrinter.class);
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

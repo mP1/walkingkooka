@@ -30,7 +30,8 @@ public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
         return HttpTransport.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

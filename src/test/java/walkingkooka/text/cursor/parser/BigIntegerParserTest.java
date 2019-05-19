@@ -154,11 +154,13 @@ public class BigIntegerParserTest extends Parser2TestCase<BigIntegerParser<Parse
         this.toStringAndCheck(BigIntegerParser.with(8), "BigInteger(base=8)");
     }
 
-    @Override public BigIntegerParser<ParserContext> createParser() {
+    @Override
+    public BigIntegerParser<ParserContext> createParser() {
         return BigIntegerParser.with(RADIX);
     }
 
-    @Override public ParserContext createContext() {
+    @Override
+    public ParserContext createContext() {
         return ParserContexts.basic(this.decimalNumberContext());
     }
 

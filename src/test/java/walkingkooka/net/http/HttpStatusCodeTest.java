@@ -178,7 +178,8 @@ public final class HttpStatusCodeTest implements ClassTesting2<HttpStatusCode>,
         return HttpStatusCode.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

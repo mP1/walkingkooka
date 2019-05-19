@@ -191,7 +191,8 @@ public final class SequenceParserTest extends Parser2TestCase<SequenceParser<Par
                 "(" + PARSER1 + ", " + PARSER2 + ", [" + PARSER3 + "])");
     }
 
-    @Override public SequenceParser<ParserContext> createParser() {
+    @Override
+    public SequenceParser<ParserContext> createParser() {
         return Cast.to(SequenceParserBuilder.empty()
                 .required(PARSER1)
                 .required(PARSER2)

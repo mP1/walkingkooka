@@ -31,7 +31,8 @@ public final class BasicJsonNodeParserContextTest implements ClassTesting2<Basic
                 "decimalPoint='.' exponentSymbol='E' minusSign='-' percentageSymbol='%' plusSign='+'");
     }
 
-    @Override public BasicJsonNodeParserContext createContext() {
+    @Override
+    public BasicJsonNodeParserContext createContext() {
         return BasicJsonNodeParserContext.instance();
     }
 

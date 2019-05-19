@@ -129,7 +129,8 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
         return JsonNode.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

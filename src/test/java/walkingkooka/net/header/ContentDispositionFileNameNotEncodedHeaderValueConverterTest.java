@@ -22,7 +22,8 @@ import org.junit.jupiter.api.Test;
 
 public final class ContentDispositionFileNameNotEncodedHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ContentDispositionFileNameNotEncodedHeaderValueConverter, ContentDispositionFileName> {
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return ContentDispositionFileName.class.getSimpleName();
     }
 

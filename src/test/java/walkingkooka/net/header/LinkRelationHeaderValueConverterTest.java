@@ -26,7 +26,8 @@ import java.util.List;
 public final class LinkRelationHeaderValueConverterTest extends
         HeaderValueConverterTestCase<LinkRelationHeaderValueConverter, List<LinkRelation<?>>> {
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return LinkRelation.class.getSimpleName();
     }
 

@@ -95,7 +95,8 @@ final class ColorSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatter3<T
      */
     private final Object sourceValue;
 
-    @Override final String toStringSuffix() {
+    @Override
+    final String toStringSuffix() {
         return " " + this.formatter;
     }
 }

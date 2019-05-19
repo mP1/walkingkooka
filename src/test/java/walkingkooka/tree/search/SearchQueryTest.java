@@ -143,7 +143,8 @@ public final class SearchQueryTest implements ClassTesting2<SearchQuery>,
         return SearchQuery.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

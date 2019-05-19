@@ -58,11 +58,13 @@ public final class BooleanWrapperArrayToStringBuilderTest extends WrapperVectorT
         builder.value(value);
     }
 
-    @Override String value1ToString() {
+    @Override
+    String value1ToString() {
         return String.valueOf(true);
     }
 
-    @Override String value2ToString(final String separator) {
+    @Override
+    String value2ToString(final String separator) {
         return true + separator + false + separator + false + separator + true;
     }
 }

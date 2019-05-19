@@ -42,7 +42,8 @@ final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void
         this.toStringAndCheck(EmptyIterator.instance(), "<empty>");
     }
 
-    @Override public EmptyIterator<Void> createIterator() {
+    @Override
+    public EmptyIterator<Void> createIterator() {
         return EmptyIterator.instance();
     }
 

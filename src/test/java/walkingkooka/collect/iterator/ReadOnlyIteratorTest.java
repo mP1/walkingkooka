@@ -89,7 +89,8 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
         return ReadOnlyIterator.wrap(new ArrayList<Object>(Lists.of(strings)).iterator());
     }
 
-    @Override public ReadOnlyIterator<Object> createIterator() {
+    @Override
+    public ReadOnlyIterator<Object> createIterator() {
         return ReadOnlyIterator.wrap(Iterators.fake());
     }
 

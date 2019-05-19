@@ -83,7 +83,8 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
         return flat;
     }
 
-    @Override final boolean equals1(final ParserToken2<?> other) {
+    @Override
+    final boolean equals1(final ParserToken2<?> other) {
         return true;
     }
 }

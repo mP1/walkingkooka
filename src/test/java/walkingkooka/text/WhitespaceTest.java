@@ -136,7 +136,8 @@ final public class WhitespaceTest implements ClassTesting2<Whitespace>,
         return Whitespace.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

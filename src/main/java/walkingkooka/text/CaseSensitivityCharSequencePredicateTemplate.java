@@ -63,7 +63,8 @@ abstract class CaseSensitivityCharSequencePredicateTemplate<C extends CharSequen
         return sensitivity.equals(this.chars, other.chars) && sensitivity == other.sensitivity;
     }
 
-    @Override final public String toString() {
+    @Override
+    final public String toString() {
         return this.sensitivity.toString(this.toStringPrefix(), this.chars);
     }
 

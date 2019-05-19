@@ -28,7 +28,8 @@ public final class XmlTextNodeTest implements ClassTesting2<XmlTextNode> {
         return XmlTextNode.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

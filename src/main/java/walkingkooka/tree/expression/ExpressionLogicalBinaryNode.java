@@ -99,9 +99,10 @@ abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
                 .toValue(context);
     }
 
-    @Override final ExpressionNode apply(final ExpressionNode left,
-                                         final ExpressionNode right,
-                                         final ExpressionEvaluationContext context) {
+    @Override
+    final ExpressionNode apply(final ExpressionNode left,
+                               final ExpressionNode right,
+                               final ExpressionEvaluationContext context) {
         ExpressionNode result;
 
         try {

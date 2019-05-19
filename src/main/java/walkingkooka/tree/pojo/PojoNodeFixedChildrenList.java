@@ -42,7 +42,8 @@ abstract class PojoNodeFixedChildrenList<P extends PojoNode2> extends PojoNodeCh
         return node;
     }
 
-    @Override final void clearChildrenNodeCache() {
+    @Override
+    final void clearChildrenNodeCache() {
         Arrays.fill(this.nodes, null);
     }
 

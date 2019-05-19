@@ -192,7 +192,8 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> implement
 
     abstract C createColorComponent(byte value);
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 

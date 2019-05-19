@@ -33,7 +33,8 @@ public abstract class DateTimeFormatterConverterTestCase<C extends FixedSourceTy
         });
     }
 
-    @Override public C createConverter() {
+    @Override
+    public C createConverter() {
         return this.createConverter(this.formatter());
     }
 

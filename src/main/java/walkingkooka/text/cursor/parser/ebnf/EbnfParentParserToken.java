@@ -102,7 +102,8 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
      */
     final Optional<EbnfParserToken> without;
 
-    @Override final EbnfParserToken replaceText(final String text) {
+    @Override
+    final EbnfParserToken replaceText(final String text) {
         return this.replace(this.value, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -143,7 +144,8 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
         }
     }
 
-    @Override final boolean equals1(final EbnfParserToken other) {
+    @Override
+    final boolean equals1(final EbnfParserToken other) {
         return this.equals2(Cast.to(other));
     }
 

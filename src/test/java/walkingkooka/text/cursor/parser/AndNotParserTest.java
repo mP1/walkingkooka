@@ -94,7 +94,8 @@ public final class AndNotParserTest extends ParserTestCase<AndNotParser<ParserCo
                 after);
     }
 
-    @Override public AndNotParser<ParserContext> createParser() {
+    @Override
+    public AndNotParser<ParserContext> createParser() {
         return this.createParser(this.left(), this.right());
     }
 

@@ -121,7 +121,8 @@ public final class XmlDocumentType extends XmlLeafNode implements HasXmlPublicId
 
     // XmlNode......................................................................................................
 
-    @Override XmlNode wrap0(final Node node) {
+    @Override
+    XmlNode wrap0(final Node node) {
         throw new UnsupportedOperationException();
     }
 

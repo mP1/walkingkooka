@@ -39,7 +39,8 @@ final class BigDecimalFractionSpreadsheetTextFormatterNumeratorDigits extends Bi
         super(text);
     }
 
-    @Override final void sign(final BigDecimalFractionSpreadsheetTextFormatterComponentContext context) {
+    @Override
+    final void sign(final BigDecimalFractionSpreadsheetTextFormatterComponentContext context) {
         context.appendMinusSign();
     }
 

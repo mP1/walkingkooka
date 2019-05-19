@@ -27,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class TokenHeaderValueHeaderValueConverterTest extends
         HeaderValueConverterTestCase<TokenHeaderValueHeaderValueConverter, TokenHeaderValue> {
 
-    @Override public String typeNamePrefix() {
+    @Override
+    public String typeNamePrefix() {
         return TokenHeaderValue.class.getSimpleName();
     }
 

@@ -95,7 +95,8 @@ public final class SpreadsheetLabelNameParserTest extends SpreadsheetParserTestC
                 textAfter);
     }
 
-    @Override public SpreadsheetLabelNameParser createParser() {
+    @Override
+    public SpreadsheetLabelNameParser createParser() {
         return SpreadsheetLabelNameParser.INSTANCE;
     }
 

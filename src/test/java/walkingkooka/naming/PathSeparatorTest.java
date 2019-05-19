@@ -152,7 +152,8 @@ final public class PathSeparatorTest implements ClassTesting2<PathSeparator>,
         return PathSeparator.class;
     }
 
-    @Override public MemberVisibility typeVisibility() {
+    @Override
+    public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 
