@@ -325,13 +325,23 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     // HttpRequestAttribute.................................................................................
 
     @Test
-    public void testParameterValueRequest() {
+    public void testParameterValueContentLength() {
         this.parameterValueAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
     }
 
     @Test
-    public void testParameterValueRequest2() {
+    public void testParameterValueUserAgent() {
         this.parameterValueAndCheck(HttpHeaderName.USER_AGENT, "Browser 123");
+    }
+
+    @Test
+    public void testParameterValueUserAgentMozilla() {
+        this.parameterValueAndCheck(HttpHeaderName.USER_AGENT, "Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405");
+    }
+
+    @Test
+    public void testParameterValueUserAgentGooglebot() {
+        this.parameterValueAndCheck(HttpHeaderName.USER_AGENT, "Googlebot/2.1 (+http://www.google.com/bot.html)");
     }
 
     @Test
