@@ -25,7 +25,7 @@ import walkingkooka.net.AbsoluteUrl;
  * A {@link HeaderValueConverter} that parses a header value into a {@link AbsoluteUrl}.
  * This is useful for headers such as {@link HttpHeaderName#REFERER}.
  */
-final class AbsoluteUrlHeaderValueConverter extends HeaderValueConverter2<AbsoluteUrl> {
+final class AbsoluteUrlHeaderValueConverter extends NonStringHeaderValueConverter<AbsoluteUrl> {
 
     /**
      * Singleton

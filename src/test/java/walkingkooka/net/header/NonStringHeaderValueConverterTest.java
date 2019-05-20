@@ -22,10 +22,10 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class HeaderValueConverter2Test implements ClassTesting2<HeaderValueConverter2<Void>> {
+public final class NonStringHeaderValueConverterTest implements ClassTesting2<NonStringHeaderValueConverter<Void>> {
     @Override
-    public Class<HeaderValueConverter2<Void>> type() {
-        return Cast.to(HeaderValueConverter2.class);
+    public Class<NonStringHeaderValueConverter<Void>> type() {
+        return Cast.to(NonStringHeaderValueConverter.class);
     }
 
     @Override

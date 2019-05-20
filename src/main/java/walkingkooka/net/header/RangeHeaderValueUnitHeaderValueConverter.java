@@ -29,7 +29,7 @@ import walkingkooka.naming.Name;
  * Accept-Ranges: none
  * </pre>
  */
-final class RangeHeaderValueUnitHeaderValueConverter extends HeaderValueConverter2<RangeHeaderValueUnit> {
+final class RangeHeaderValueUnitHeaderValueConverter extends NonStringHeaderValueConverter<RangeHeaderValueUnit> {
 
     /**
      * Singleton

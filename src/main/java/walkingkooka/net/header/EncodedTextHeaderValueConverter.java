@@ -24,7 +24,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter} that parses a content header value into a {@link EncodedText}.
  */
-final class EncodedTextHeaderValueConverter extends HeaderValueConverter2<EncodedText> {
+final class EncodedTextHeaderValueConverter extends NonStringHeaderValueConverter<EncodedText> {
 
     /**
      * Singleton

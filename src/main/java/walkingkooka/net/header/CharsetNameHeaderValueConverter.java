@@ -24,7 +24,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter} that parses a content header value into a {@link CharsetName}.
  */
-final class CharsetNameHeaderValueConverter extends HeaderValueConverter2<CharsetName> {
+final class CharsetNameHeaderValueConverter extends NonStringHeaderValueConverter<CharsetName> {
 
     /**
      * Singleton

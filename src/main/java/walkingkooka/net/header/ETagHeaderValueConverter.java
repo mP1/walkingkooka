@@ -25,7 +25,7 @@ import walkingkooka.naming.Name;
  * A {@link HeaderValueConverter} that parses a header value into a {@link ETag}.
  * This is useful for headers such as {@link HttpHeaderName#E_TAG}.
  */
-final class ETagHeaderValueConverter extends HeaderValueConverter2<ETag> {
+final class ETagHeaderValueConverter extends NonStringHeaderValueConverter<ETag> {
 
     /**
      * Singleton

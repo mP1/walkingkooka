@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A {@link HeaderValueConverter} that expects a list of {@link CacheControlDirective directives}.
  */
-final class CacheControlDirectiveListHeaderValueConverter extends HeaderValueConverter2<List<CacheControlDirective<?>>> {
+final class CacheControlDirectiveListHeaderValueConverter extends NonStringHeaderValueConverter<List<CacheControlDirective<?>>> {
 
     /**
      * Singleton
