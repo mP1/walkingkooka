@@ -26,7 +26,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagListHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<ETagListHeaderValueConverter, List<ETag>> {
+        NonStringHeaderValueConverterTestCase<ETagListHeaderValueConverter, List<ETag>> {
 
     @Override
     public String typeNamePrefix() {

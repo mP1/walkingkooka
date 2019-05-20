@@ -26,7 +26,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHeaderNameListHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<HttpHeaderNameListHeaderValueConverter, List<HttpHeaderName<?>>> {
+        NonStringHeaderValueConverterTestCase<HttpHeaderNameListHeaderValueConverter, List<HttpHeaderName<?>>> {
 
     @Override
     public String typeNamePrefix() {

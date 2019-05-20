@@ -21,7 +21,8 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class ContentDispositionFileNameEncodedHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<ContentDispositionFileNameEncodedHeaderValueConverter, ContentDispositionFileName> {
+        NonStringHeaderValueConverterTestCase<ContentDispositionFileNameEncodedHeaderValueConverter, ContentDispositionFileName> {
+
     @Override
     public String typeNamePrefix() {
         return ContentDispositionFileName.class.getSimpleName();

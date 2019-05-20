@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class MediaTypeBoundaryHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<MediaTypeBoundaryHeaderValueConverter, MediaTypeBoundary> {
+        NonStringHeaderValueConverterTestCase<MediaTypeBoundaryHeaderValueConverter, MediaTypeBoundary> {
 
     private final static String TEXT = "abc123";
 

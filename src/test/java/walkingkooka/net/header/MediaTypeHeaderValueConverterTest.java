@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
 public final class MediaTypeHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<MediaTypeHeaderValueConverter, MediaType> {
+        NonStringHeaderValueConverterTestCase<MediaTypeHeaderValueConverter, MediaType> {
 
     @Override
     public String typeNamePrefix() {

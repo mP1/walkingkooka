@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class RangeHeaderValueUnitHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<RangeHeaderValueUnitHeaderValueConverter, RangeHeaderValueUnit> {
+        NonStringHeaderValueConverterTestCase<RangeHeaderValueUnitHeaderValueConverter, RangeHeaderValueUnit> {
 
     private final static String TEXT = "bytes";
 

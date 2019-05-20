@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LanguageTagListHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<LanguageTagListHeaderValueConverter, List<LanguageTag>> {
+        NonStringHeaderValueConverterTestCase<LanguageTagListHeaderValueConverter, List<LanguageTag>> {
 
     private final static String TEXT = "en; q=1.0, en-AU; q=0.5";
 

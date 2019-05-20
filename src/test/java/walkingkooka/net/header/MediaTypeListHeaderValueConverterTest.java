@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MediaTypeListHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<MediaTypeListHeaderValueConverter, List<MediaType>> {
+        NonStringHeaderValueConverterTestCase<MediaTypeListHeaderValueConverter, List<MediaType>> {
 
     private final static String TEXT = "type1/subType1; p1=v1, type2/subType2";
 
