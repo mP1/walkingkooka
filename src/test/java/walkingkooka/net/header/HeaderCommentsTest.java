@@ -26,7 +26,7 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HeaderParserCommentsTest implements ClassTesting2<HeaderParserComments> {
+public final class HeaderCommentsTest implements ClassTesting2<HeaderComments> {
 
     @Test
     public void testMissingClosingParensFails() {
@@ -213,7 +213,7 @@ public final class HeaderParserCommentsTest implements ClassTesting2<HeaderParse
                 () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position );
 
         assertEquals(end0,
-                HeaderParserComments.consume(text, position),
+                HeaderComments.consume(text, position),
                 () -> "consume " + CharSequences.quoteAndEscape(text) + " starting at " + position);
     }
 
@@ -221,15 +221,15 @@ public final class HeaderParserCommentsTest implements ClassTesting2<HeaderParse
                               final int position,
                               final String expected) {
         final Throwable thrown = assertThrows(Exception.class, () -> {
-            HeaderParserComments.consume(text, position);
+            HeaderComments.consume(text, position);
         });
 
         assertEquals(expected, thrown.getMessage(), "message");
     }
 
     @Override
-    public Class<HeaderParserComments> type() {
-        return HeaderParserComments.class;
+    public Class<HeaderComments> type() {
+        return HeaderComments.class;
     }
 
     @Override
