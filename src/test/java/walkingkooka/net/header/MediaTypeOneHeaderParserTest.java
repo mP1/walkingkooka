@@ -55,6 +55,30 @@ public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTes
                 MediaType.NO_PARAMETERS);
     }
 
+    @Test
+    public void testMediaTypeCommentIncludesSingleQuotes() {
+        this.parseAndCheck("text/plain-text(comment-'123')",
+                "text",
+                "plain-text",
+                MediaType.NO_PARAMETERS);
+    }
+
+    @Test
+    public void testMediaTypeCommentIncludesDoubleQuotes() {
+        this.parseAndCheck("text/plain-text(comment-\"123\")",
+                "text",
+                "plain-text",
+                MediaType.NO_PARAMETERS);
+    }
+
+    @Test
+    public void testMediaTypeCommentIncludesSingleQuotesAndDoubleQuotes() {
+        this.parseAndCheck("text/plain-text(comment-'123' \"456\")",
+                "text",
+                "plain-text",
+                MediaType.NO_PARAMETERS);
+    }
+
     @Override
     final void parseAndCheck(final String text,
                              final String type,

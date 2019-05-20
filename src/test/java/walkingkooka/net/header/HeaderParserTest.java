@@ -434,6 +434,21 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     }
 
     @Test
+    public void testParseCommentSingleQuote() {
+        this.parseAndCheck("('abc')", "[comment-'abc']");
+    }
+
+    @Test
+    public void testParseCommentDoubleQuote() {
+        this.parseAndCheck("(\"abc\")", "[comment-\"abc\"]");
+    }
+
+    @Test
+    public void testParseCommentSingleQuoteDoubleQuote() {
+        this.parseAndCheck("('abc'\"def\")", "[comment-'abc'\"def\"]");
+    }
+
+    @Test
     public void testParseCommentComment() {
         this.parseAndCheck("(abc)(123)", "[comment-abc][comment-123]");
     }
@@ -497,10 +512,10 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
             @Override
             void comment() {
-                final String text = this.commentText();
-                assertEquals(false, text.contains("("), () -> "comment text must not contain '(' =" + CharSequences.quote(text));
-                assertEquals(false, text.contains(")"), () -> "comment text must not contain ')' =" + CharSequences.quote(text));
-                recorded.append("[comment-" + text + "]");
+                final int start = this.position + 1;
+                this.commentText();
+
+                recorded.append("[comment-" + this.text.substring(start, this.position -1) + "]");
             }
 
             @Override
