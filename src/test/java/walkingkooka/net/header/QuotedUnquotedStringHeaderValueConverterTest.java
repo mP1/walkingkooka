@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.character.CharPredicates;
 
 public final class QuotedUnquotedStringHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<QuotedUnquotedStringHeaderValueConverter, String> {
+        HeaderValueConverterTestCase2<QuotedUnquotedStringHeaderValueConverter, String> {
 
     @Override
     public String typeNamePrefix() {

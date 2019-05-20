@@ -25,7 +25,7 @@ import walkingkooka.collect.map.Maps;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TokenHeaderValueHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<TokenHeaderValueHeaderValueConverter, TokenHeaderValue> {
+        HeaderValueConverterTestCase2<TokenHeaderValueHeaderValueConverter, TokenHeaderValue> {
 
     @Override
     public String typeNamePrefix() {

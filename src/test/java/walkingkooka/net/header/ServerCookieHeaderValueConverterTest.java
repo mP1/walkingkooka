@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class ServerCookieHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<ServerCookieHeaderValueConverter, ServerCookie> {
+        HeaderValueConverterTestCase2<ServerCookieHeaderValueConverter, ServerCookie> {
 
     @Override
     public String typeNamePrefix() {

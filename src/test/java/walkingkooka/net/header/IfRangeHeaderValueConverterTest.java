@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class IfRangeHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<IfRangeHeaderValueConverter, IfRange<?>> {
+        HeaderValueConverterTestCase2<IfRangeHeaderValueConverter, IfRange<?>> {
 
     @Override
     public String typeNamePrefix() {

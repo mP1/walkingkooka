@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.RelativeUrl;
 
 public final class RelativeUrlHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<RelativeUrlHeaderValueConverter, RelativeUrl> {
+        HeaderValueConverterTestCase2<RelativeUrlHeaderValueConverter, RelativeUrl> {
 
     @Override
     public String typeNamePrefix() {

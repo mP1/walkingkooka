@@ -19,17 +19,16 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
 
-public final class NonStringHeaderValueConverterTest implements ClassTesting2<NonStringHeaderValueConverter<Void>> {
+public final class NonStringHeaderValueConverterTest extends HeaderValueConverterTestCase<NonStringHeaderValueConverter<Void>> {
+
     @Override
-    public Class<NonStringHeaderValueConverter<Void>> type() {
-        return Cast.to(NonStringHeaderValueConverter.class);
+    public String typeNamePrefix() {
+        return "NonString";
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public Class<NonStringHeaderValueConverter<Void>> type() {
+        return Cast.to(NonStringHeaderValueConverter.class);
     }
 }

@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class LongHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<LongHeaderValueConverter, Long> {
+        HeaderValueConverterTestCase2<LongHeaderValueConverter, Long> {
 
     private final static String TEXT = "123";
     private final static Long VALUE = 123L;
