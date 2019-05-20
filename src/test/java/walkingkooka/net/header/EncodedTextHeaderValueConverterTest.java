@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class EncodedTextHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<EncodedTextHeaderValueConverter, EncodedText> {
+        HeaderValueConverterTestCase2<EncodedTextHeaderValueConverter, EncodedText> {
 
     @Override
     public String typeNamePrefix() {

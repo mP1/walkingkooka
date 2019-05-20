@@ -24,7 +24,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 
 public final class UrlHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<UrlHeaderValueConverter, Url> {
+        HeaderValueConverterTestCase2<UrlHeaderValueConverter, Url> {
 
     @Override
     public String typeNamePrefix() {

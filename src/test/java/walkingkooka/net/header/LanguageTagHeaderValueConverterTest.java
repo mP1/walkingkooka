@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
 public final class LanguageTagHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<LanguageTagHeaderValueConverter, LanguageTag> {
+        HeaderValueConverterTestCase2<LanguageTagHeaderValueConverter, LanguageTag> {
 
     @Override
     public String typeNamePrefix() {

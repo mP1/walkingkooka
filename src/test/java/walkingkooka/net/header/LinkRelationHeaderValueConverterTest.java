@@ -24,7 +24,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 
 public final class LinkRelationHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<LinkRelationHeaderValueConverter, List<LinkRelation<?>>> {
+        HeaderValueConverterTestCase2<LinkRelationHeaderValueConverter, List<LinkRelation<?>>> {
 
     @Override
     public String typeNamePrefix() {

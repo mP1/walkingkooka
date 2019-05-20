@@ -27,8 +27,8 @@ import java.nio.charset.Charset;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class AcceptCharsetHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<AcceptCharsetHeaderValueConverter,
-                AcceptCharset> {
+        HeaderValueConverterTestCase2<AcceptCharsetHeaderValueConverter,
+                        AcceptCharset> {
     @Override
     public String typeNamePrefix() {
         return AcceptCharset.class.getSimpleName();

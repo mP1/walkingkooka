@@ -24,7 +24,7 @@ import walkingkooka.naming.Name;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CacheControlDirectiveExtensionHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<CacheControlDirectiveExtensionHeaderValueConverter, Object> {
+        HeaderValueConverterTestCase2<CacheControlDirectiveExtensionHeaderValueConverter, Object> {
 
     @Test
     public void testCheckLong() {

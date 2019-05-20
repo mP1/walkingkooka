@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.email.EmailAddress;
 
 public final class ContentDispositionHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<ContentDispositionHeaderValueConverter, ContentDisposition> {
+        HeaderValueConverterTestCase2<ContentDispositionHeaderValueConverter, ContentDisposition> {
     @Override
     public String typeNamePrefix() {
         return ContentDisposition.class.getSimpleName();

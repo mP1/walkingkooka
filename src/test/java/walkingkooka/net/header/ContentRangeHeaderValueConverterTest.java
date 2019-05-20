@@ -24,7 +24,7 @@ import walkingkooka.compare.Range;
 import java.util.Optional;
 
 public final class ContentRangeHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<ContentRangeHeaderValueConverter, ContentRange> {
+        HeaderValueConverterTestCase2<ContentRangeHeaderValueConverter, ContentRange> {
 
     private final static String TEXT = "bytes 123-456/789";
 

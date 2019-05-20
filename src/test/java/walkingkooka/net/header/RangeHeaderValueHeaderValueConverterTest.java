@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
 
 public final class RangeHeaderValueHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<RangeHeaderValueHeaderValueConverter, RangeHeaderValue> {
+        HeaderValueConverterTestCase2<RangeHeaderValueHeaderValueConverter, RangeHeaderValue> {
 
     private final static String TEXT = "bytes=123-456, 789-";
 

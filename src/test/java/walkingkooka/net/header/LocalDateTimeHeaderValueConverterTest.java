@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 public final class LocalDateTimeHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<LocalDateTimeHeaderValueConverter, LocalDateTime> {
+        HeaderValueConverterTestCase2<LocalDateTimeHeaderValueConverter, LocalDateTime> {
 
     @Override
     public String typeNamePrefix() {

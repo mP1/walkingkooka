@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
 
 public final class AbsoluteUrlHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<AbsoluteUrlHeaderValueConverter, AbsoluteUrl> {
+        HeaderValueConverterTestCase2<AbsoluteUrlHeaderValueConverter, AbsoluteUrl> {
 
     private final static String URL = "http://example.com";
 
