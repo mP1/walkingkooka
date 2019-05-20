@@ -70,30 +70,30 @@ import walkingkooka.NeverError;
  *    backslash octets occurring within that comment.
  * </pre>
  */
-enum HeaderParserComments {
+enum HeaderComments {
     COMMENT_TEXT {
         @Override
-        HeaderParserComments singleQuote() {
+        HeaderComments singleQuote() {
             return SINGLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments doubleQuote() {
+        HeaderComments doubleQuote() {
             return DOUBLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments backslash(final String text, final int position) {
+        HeaderComments backslash(final String text, final int position) {
             throw new InvalidCharacterException(text, position);
         }
 
         @Override
-        HeaderParserComments parensClose() {
+        HeaderComments parensClose() {
             return FINISHED;
         }
 
         @Override
-        HeaderParserComments character(final char c) {
+        HeaderComments character(final char c) {
             return COMMENT_TEXT;
         }
 
@@ -104,27 +104,27 @@ enum HeaderParserComments {
     },
     SINGLE_QUOTES {
         @Override
-        HeaderParserComments singleQuote() {
+        HeaderComments singleQuote() {
             return COMMENT_TEXT;
         }
 
         @Override
-        HeaderParserComments doubleQuote() {
+        HeaderComments doubleQuote() {
             return SINGLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments backslash(final String text, final int position) {
+        HeaderComments backslash(final String text, final int position) {
             return SINGLE_QUOTES_BACKSLASH_ESCAPING;
         }
 
         @Override
-        HeaderParserComments parensClose() {
+        HeaderComments parensClose() {
             return this;
         }
 
         @Override
-        HeaderParserComments character(final char c) {
+        HeaderComments character(final char c) {
             return SINGLE_QUOTES;
         }
 
@@ -135,27 +135,27 @@ enum HeaderParserComments {
     },
     SINGLE_QUOTES_BACKSLASH_ESCAPING {
         @Override
-        HeaderParserComments singleQuote() {
+        HeaderComments singleQuote() {
             return SINGLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments doubleQuote() {
+        HeaderComments doubleQuote() {
             return SINGLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments backslash(final String text, final int position) {
+        HeaderComments backslash(final String text, final int position) {
             return SINGLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments parensClose() {
+        HeaderComments parensClose() {
             return SINGLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments character(final char c) {
+        HeaderComments character(final char c) {
             return SINGLE_QUOTES;
         }
 
@@ -166,27 +166,27 @@ enum HeaderParserComments {
     },
     DOUBLE_QUOTES {
         @Override
-        HeaderParserComments singleQuote() {
+        HeaderComments singleQuote() {
             return DOUBLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments doubleQuote() {
+        HeaderComments doubleQuote() {
             return COMMENT_TEXT;
         }
 
         @Override
-        HeaderParserComments backslash(final String text, final int position) {
+        HeaderComments backslash(final String text, final int position) {
             return DOUBLE_QUOTES_BACKSLASH_ESCAPING;
         }
 
         @Override
-        HeaderParserComments parensClose() {
+        HeaderComments parensClose() {
             return FINISHED;
         }
 
         @Override
-        HeaderParserComments character(final char c) {
+        HeaderComments character(final char c) {
             return DOUBLE_QUOTES;
         }
 
@@ -197,27 +197,27 @@ enum HeaderParserComments {
     },
     DOUBLE_QUOTES_BACKSLASH_ESCAPING {
         @Override
-        HeaderParserComments singleQuote() {
+        HeaderComments singleQuote() {
             return DOUBLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments doubleQuote() {
+        HeaderComments doubleQuote() {
             return DOUBLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments backslash(final String text, final int position) {
+        HeaderComments backslash(final String text, final int position) {
             return DOUBLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments parensClose() {
+        HeaderComments parensClose() {
             return DOUBLE_QUOTES;
         }
 
         @Override
-        HeaderParserComments character(final char c) {
+        HeaderComments character(final char c) {
             return DOUBLE_QUOTES;
         }
 
@@ -232,35 +232,45 @@ enum HeaderParserComments {
      */
     FINISHED {
         @Override
-        HeaderParserComments singleQuote() {
-            return NeverError.unhandledCase(this, HeaderParserComments.values());
+        HeaderComments singleQuote() {
+            return NeverError.unhandledCase(this, HeaderComments.values());
         }
 
         @Override
-        HeaderParserComments doubleQuote() {
-            return NeverError.unhandledCase(this, HeaderParserComments.values());
+        HeaderComments doubleQuote() {
+            return NeverError.unhandledCase(this, HeaderComments.values());
         }
 
         @Override
-        HeaderParserComments backslash(final String text, final int position) {
-            return NeverError.unhandledCase(this, HeaderParserComments.values());
+        HeaderComments backslash(final String text, final int position) {
+            return NeverError.unhandledCase(this, HeaderComments.values());
         }
 
         @Override
-        HeaderParserComments parensClose() {
-            return NeverError.unhandledCase(this, HeaderParserComments.values());
+        HeaderComments parensClose() {
+            return NeverError.unhandledCase(this, HeaderComments.values());
         }
 
         @Override
-        HeaderParserComments character(final char c) {
-            return NeverError.unhandledCase(this, HeaderParserComments.values());
+        HeaderComments character(final char c) {
+            return NeverError.unhandledCase(this, HeaderComments.values());
         }
 
         @Override
         String endOfText(final String text) {
-            return NeverError.unhandledCase(this, HeaderParserComments.values());
+            return NeverError.unhandledCase(this, HeaderComments.values());
         }
     };
+
+    /**
+     * Starts a header comment
+     */
+    final static char BEGIN = '(';
+
+    /**
+     * Ends a header comment, assuming its outside a quoted text.
+     */
+    final static char END = ')';
 
     /**
      * Assumes a starting position just after the opening parens and consumes the comment entirely returning
@@ -269,7 +279,7 @@ enum HeaderParserComments {
     static int consume(final String text, final int position) {
         int p = position + 1;
 
-        HeaderParserComments mode = HeaderParserComments.COMMENT_TEXT;
+        HeaderComments mode = HeaderComments.COMMENT_TEXT;
 
         final int end = text.length();
         do {
@@ -290,9 +300,9 @@ enum HeaderParserComments {
     /**
      * Accepts a single character and returns the new mode or fails if invalid.
      */
-    final HeaderParserComments accept(final String text, final int position) {
+    final HeaderComments accept(final String text, final int position) {
 
-        HeaderParserComments mode = this;
+        HeaderComments mode = this;
 
         final char c = text.charAt(position);
 
@@ -359,27 +369,27 @@ enum HeaderParserComments {
     /**
      * Callback when a single quote is encountered.
      */
-    abstract HeaderParserComments singleQuote();
+    abstract HeaderComments singleQuote();
 
     /**
      * Callback when a double quote is encountered.
      */
-    abstract HeaderParserComments doubleQuote();
+    abstract HeaderComments doubleQuote();
 
     /**
      * Callback when a backslash is encountered.
      */
-    abstract HeaderParserComments backslash(final String text, final int position);
+    abstract HeaderComments backslash(final String text, final int position);
 
     /**
      * Callback when a closing parenthesis is encountered.
      */
-    abstract HeaderParserComments parensClose();
+    abstract HeaderComments parensClose();
 
     /**
      * Callback when a visible character is encountered.
      */
-    abstract HeaderParserComments character(final char c);
+    abstract HeaderComments character(final char c);
 
     /**
      * Returns true if the state machine is finished.

@@ -55,9 +55,6 @@ abstract class HeaderParser {
     final static char WILDCARD = '*';
     private final static char SLASH = '/';
 
-    final static char COMMENT_BEGIN = '(';
-    final static char COMMENT_END = ')';
-
     final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
     final static CharPredicate RFC2045SPECIAL = CharPredicates.rfc2045TokenSpecial();
 
@@ -103,7 +100,7 @@ abstract class HeaderParser {
                     this.quotedText();
                     break;
 
-                case COMMENT_BEGIN:
+                case HeaderComments.BEGIN:
                     this.comment();
                     break;
 
@@ -468,7 +465,7 @@ abstract class HeaderParser {
      * </pre>
      */
     final void commentText() {
-        this.position = HeaderParserComments.COMMENT_TEXT.consume(this.text, this.position);
+        this.position = HeaderComments.COMMENT_TEXT.consume(this.text, this.position);
     }
 
     // helpers ..................................................................................
