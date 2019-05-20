@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A {@link HeaderValueConverter} that expects comma separated {@link TokenHeaderValue tokens}.
  */
-final class TokenHeaderValueListHeaderValueConverter extends HeaderValueConverter2<List<TokenHeaderValue>> {
+final class TokenHeaderValueListHeaderValueConverter extends NonStringHeaderValueConverter<List<TokenHeaderValue>> {
 
     /**
      * Singleton

@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter} that expects a header value with a single {@link TokenHeaderValue token}.
  */
-final class TokenHeaderValueHeaderValueConverter extends HeaderValueConverter2<TokenHeaderValue> {
+final class TokenHeaderValueHeaderValueConverter extends NonStringHeaderValueConverter<TokenHeaderValue> {
 
     /**
      * Singleton

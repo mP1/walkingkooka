@@ -24,7 +24,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileNameEncoded}.
  */
-final class ContentDispositionFileNameEncodedHeaderValueConverter extends HeaderValueConverter2<ContentDispositionFileName> {
+final class ContentDispositionFileNameEncodedHeaderValueConverter extends NonStringHeaderValueConverter<ContentDispositionFileName> {
 
     /**
      * Singleton

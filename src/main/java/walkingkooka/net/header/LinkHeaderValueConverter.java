@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A {@link HeaderValueConverter} that converts a {@link String} into a list of {@link Link}.
  */
-final class LinkHeaderValueConverter extends HeaderValueConverter2<List<Link>> {
+final class LinkHeaderValueConverter extends NonStringHeaderValueConverter<List<Link>> {
 
     /**
      * Singleton

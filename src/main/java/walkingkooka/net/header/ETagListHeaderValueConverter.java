@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A {@link HeaderValueConverter} that expects comma separated {@link ETag tags}.
  */
-final class ETagListHeaderValueConverter extends HeaderValueConverter2<List<ETag>> {
+final class ETagListHeaderValueConverter extends NonStringHeaderValueConverter<List<ETag>> {
 
     /**
      * Singleton

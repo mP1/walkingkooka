@@ -32,7 +32,7 @@ import walkingkooka.naming.Name;
  * Range: bytes=200-1000, 2000-6576, 19000-
  * </pre>
  */
-final class RangeHeaderValueHeaderValueConverter extends HeaderValueConverter2<RangeHeaderValue> {
+final class RangeHeaderValueHeaderValueConverter extends NonStringHeaderValueConverter<RangeHeaderValue> {
 
     /**
      * Singleton

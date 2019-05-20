@@ -24,7 +24,7 @@ import walkingkooka.net.http.HttpMethod;
 /**
  * A {@link HeaderValueConverter} that handles a single {@link HttpMethod method}.
  */
-final class HttpMethodHeaderValueConverter extends HeaderValueConverter2<HttpMethod> {
+final class HttpMethodHeaderValueConverter extends NonStringHeaderValueConverter<HttpMethod> {
 
     /**
      * Singleton

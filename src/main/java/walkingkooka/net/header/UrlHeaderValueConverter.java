@@ -25,7 +25,7 @@ import walkingkooka.net.Url;
  * A {@link HeaderValueConverter} that parses a header value into a {@link Url}.
  * This is useful for headers such as {@link HttpHeaderName#LOCATION}.
  */
-final class UrlHeaderValueConverter extends HeaderValueConverter2<Url> {
+final class UrlHeaderValueConverter extends NonStringHeaderValueConverter<Url> {
 
     /**
      * Singleton

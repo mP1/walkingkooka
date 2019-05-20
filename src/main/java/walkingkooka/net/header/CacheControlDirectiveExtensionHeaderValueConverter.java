@@ -26,7 +26,7 @@ import walkingkooka.text.CharSequences;
  * A converter that accepts both {@link Long} and {@link String} values. This converter is only intended
  * for extension (non standard) directives which could hold either numbers or quoted text.
  */
-final class CacheControlDirectiveExtensionHeaderValueConverter extends HeaderValueConverter2<Object> {
+final class CacheControlDirectiveExtensionHeaderValueConverter extends NonStringHeaderValueConverter<Object> {
 
     /**
      * Singleton

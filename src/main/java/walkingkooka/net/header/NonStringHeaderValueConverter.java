@@ -21,11 +21,11 @@ package walkingkooka.net.header;
 /**
  * Base converter that provides support for converting header text to values and back where T is not {@link String}.
  */
-abstract class HeaderValueConverter2<T> extends HeaderValueConverter<T> {
+abstract class NonStringHeaderValueConverter<T> extends HeaderValueConverter<T> {
     /**
      * Package private to limit sub classing.
      */
-    HeaderValueConverter2() {
+    NonStringHeaderValueConverter() {
         super();
     }
 
