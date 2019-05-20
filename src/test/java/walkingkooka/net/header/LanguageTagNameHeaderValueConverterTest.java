@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class LanguageTagNameHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<LanguageTagNameHeaderValueConverter, LanguageTagName> {
+        NonStringHeaderValueConverterTestCase<LanguageTagNameHeaderValueConverter, LanguageTagName> {
 
     @Override
     public String typeNamePrefix() {

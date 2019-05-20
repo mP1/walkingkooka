@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.email.EmailAddress;
 
 public final class EmailAddressHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<EmailAddressHeaderValueConverter, EmailAddress> {
+        NonStringHeaderValueConverterTestCase<EmailAddressHeaderValueConverter, EmailAddress> {
 
     @Override
     public String typeNamePrefix() {

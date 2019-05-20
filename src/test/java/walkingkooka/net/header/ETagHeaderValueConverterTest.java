@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 
 public final class ETagHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<ETagHeaderValueConverter, ETag> {
+        NonStringHeaderValueConverterTestCase<ETagHeaderValueConverter, ETag> {
 
     @Override
     public String typeNamePrefix() {

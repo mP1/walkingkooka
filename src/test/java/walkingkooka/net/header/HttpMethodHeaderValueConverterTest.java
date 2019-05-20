@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.HttpMethod;
 
 public final class HttpMethodHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<HttpMethodHeaderValueConverter, HttpMethod> {
+        NonStringHeaderValueConverterTestCase<HttpMethodHeaderValueConverter, HttpMethod> {
 
     @Override
     public String typeNamePrefix() {

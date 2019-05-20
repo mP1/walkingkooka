@@ -26,7 +26,7 @@ import java.time.ZoneOffset;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class OffsetDateTimeHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<OffsetDateTimeHeaderValueConverter, OffsetDateTime> {
+        NonStringHeaderValueConverterTestCase<OffsetDateTimeHeaderValueConverter, OffsetDateTime> {
 
     @Test
     public void testyParseEmptyFails() {

@@ -23,8 +23,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 
-public final class UrlHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<UrlHeaderValueConverter, Url> {
+public final class UrlHeaderValueConverterTest extends NonStringHeaderValueConverterTestCase<UrlHeaderValueConverter, Url> {
 
     @Override
     public String typeNamePrefix() {

@@ -26,7 +26,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ClientCookieListHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<ClientCookieListHeaderValueConverter, List<ClientCookie>> {
+        NonStringHeaderValueConverterTestCase<ClientCookieListHeaderValueConverter, List<ClientCookie>> {
 
     @Override
     public String typeNamePrefix() {

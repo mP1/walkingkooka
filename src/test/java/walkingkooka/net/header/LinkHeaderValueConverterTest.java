@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class LinkHeaderValueConverterTest extends
-        HeaderValueConverterTestCase2<LinkHeaderValueConverter, List<Link>> {
+        NonStringHeaderValueConverterTestCase<LinkHeaderValueConverter, List<Link>> {
 
     @Override
     public String typeNamePrefix() {
