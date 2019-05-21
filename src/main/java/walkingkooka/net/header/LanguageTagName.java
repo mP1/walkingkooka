@@ -69,7 +69,7 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
                 .setParameters(parameters);
     }
 
-    abstract boolean isMatch(final LanguageTag languageTag);
+    abstract boolean test(final LanguageTag languageTag);
 
     // Locale ........................................................................................................
 

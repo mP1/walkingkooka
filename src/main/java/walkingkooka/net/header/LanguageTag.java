@@ -85,7 +85,7 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
     @Override
     public boolean test(final LanguageTag languageTag) {
         Objects.requireNonNull(languageTag, "languageTag");
-        return this.value.isMatch(languageTag);
+        return this.value.test(languageTag);
     }
 
     // value............................................................................................................
