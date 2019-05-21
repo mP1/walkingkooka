@@ -280,20 +280,6 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
-     * {@see TokenHeaderValueHeaderValueConverter}
-     */
-    static HeaderValueConverter<TokenHeaderValue> token() {
-        return TokenHeaderValueHeaderValueConverter.INSTANCE;
-    }
-
-    /**
-     * {@see TokenHeaderValueListHeaderValueConverter}
-     */
-    static HeaderValueConverter<List<TokenHeaderValue>> tokenList() {
-        return TokenHeaderValueListHeaderValueConverter.INSTANCE;
-    }
-
-    /**
      * {@see UnquotedStringHeaderValueConverter}
      */
     static HeaderValueConverter<String> unquoted(final CharPredicate predicate) {

@@ -20,7 +20,6 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.TokenHeaderValue;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
@@ -67,9 +66,8 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
 
         HttpEntity add = entity;
 
-        //byte[] possiblyCompressed = body;
         if (this.isAcceptEncodingGzipSupported()) {
-            final Optional<TokenHeaderValue> contentEncoding = HttpHeaderName.CONTENT_ENCODING
+            final Optional<String> contentEncoding = HttpHeaderName.CONTENT_ENCODING
                     .headerValue(add.headers());
             if (contentEncoding.isPresent()) {
                 if (this.isGzipSupported(contentEncoding.get())) {
@@ -79,20 +77,16 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
                 add = add.addHeader(HttpHeaderName.CONTENT_ENCODING, GZIP);
                 add = add.setBody(gzip(add.body()));
             }
-
         }
         this.response.addEntity(add);
     }
 
     private boolean isAcceptEncodingGzipSupported() {
-        return HttpHeaderName.ACCEPT_ENCODING
-                .headerValueOrFail(this.request.headers())
-                .stream()
-                .anyMatch(this::isGzipSupported);
+        return this.isGzipSupported(HttpHeaderName.ACCEPT_ENCODING.headerValueOrFail(this.request.headers()));
     }
 
-    private boolean isGzipSupported(final TokenHeaderValue token) {
-        return token.isWildcard() || GZIP.equals(token.setParameters(TokenHeaderValue.NO_PARAMETERS));
+    private boolean isGzipSupported(final String contentEncoding) {
+        return contentEncoding.equals("*") || GZIP.equalsIgnoreCase(contentEncoding);
     }
 
     /**
@@ -107,5 +101,5 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
         }
     }
 
-    private final static TokenHeaderValue GZIP = TokenHeaderValue.with("gzip");
+    private final static String GZIP = "gzip";
 }

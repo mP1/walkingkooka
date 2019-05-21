@@ -65,8 +65,8 @@ public final class QWeightHeaderValueConverterTest extends
     }
 
     @Override
-    TokenHeaderValueParameterName name() {
-        return TokenHeaderValueParameterName.Q;
+    MediaTypeParameterName name() {
+        return MediaTypeParameterName.Q_FACTOR;
     }
 
     @Override

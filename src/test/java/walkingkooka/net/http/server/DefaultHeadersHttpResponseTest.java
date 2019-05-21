@@ -23,7 +23,6 @@ import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.TokenHeaderValue;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -93,7 +92,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {
-        return Maps.of(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse("EN"),
+        return Maps.of(HttpHeaderName.CONTENT_ENCODING, "EN",
                 HttpHeaderName.SERVER, "Server 123");
     }
 
