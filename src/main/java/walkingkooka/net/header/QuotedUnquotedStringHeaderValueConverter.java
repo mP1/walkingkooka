@@ -18,7 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 
@@ -30,7 +29,7 @@ import walkingkooka.predicate.character.CharPredicate;
  * <a href="https://mimesniff.spec.whatwg.org/#parsing-a-mime-type">mime type</a>
  * <a href="https://fetch.spec.whatwg.org/#collect-an-http-quoted-string">Quoted string</a>
  */
-final class QuotedUnquotedStringHeaderValueConverter extends HeaderValueConverter<String> {
+final class QuotedUnquotedStringHeaderValueConverter extends StringHeaderValueConverter {
 
     static QuotedUnquotedStringHeaderValueConverter with(final CharPredicate quotedPredicate,
                                                          final boolean supportBackslashEscaping,
@@ -75,11 +74,6 @@ final class QuotedUnquotedStringHeaderValueConverter extends HeaderValueConverte
             text = this.quoted.toText(value, name);
         }
         return text;
-    }
-
-    @Override
-    final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
-        return Cast.to(headerName);
     }
 
     private final HeaderValueConverter<String> quoted;

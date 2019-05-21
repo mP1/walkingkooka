@@ -18,35 +18,16 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
+public abstract class QuotedOrUnquotedStringHeaderValueConverterTestCase<C extends QuotedOrUnquotedStringHeaderValueConverter> extends StringHeaderValueConverterTestCase<C> {
 
-public abstract class StringHeaderValueConverterTestCase<C extends StringHeaderValueConverter> extends HeaderValueConverterTestCase2<C, String> {
-
-    StringHeaderValueConverterTestCase() {
+    QuotedOrUnquotedStringHeaderValueConverterTestCase() {
         super();
     }
 
     final static String TEXT = "abc123";
 
     @Override
-    final HttpHeaderName<String> name() {
-        return HttpHeaderName.SERVER;
+    final String converterToString() {
+        return this.charPredicate().toString();
     }
-
-    @Override
-    final String value() {
-        return TEXT;
-    }
-
-    @Override
-    final String valueType() {
-        return this.valueType(String.class);
-    }
-
-    final CharPredicate charPredicate() {
-        return CharPredicates.letter();
-    }
-
-
 }

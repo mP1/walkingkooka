@@ -19,34 +19,24 @@
 package walkingkooka.net.header;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 
-public abstract class StringHeaderValueConverterTestCase<C extends StringHeaderValueConverter> extends HeaderValueConverterTestCase2<C, String> {
+/**
+ * A {@link HeaderValueConverter} that handles string values using a {@link CharPredicate}.
+ */
+abstract class QuotedOrUnquotedStringHeaderValueConverter extends StringHeaderValueConverter {
 
-    StringHeaderValueConverterTestCase() {
+    /**
+     * Package private to limit sub classing.
+     */
+    QuotedOrUnquotedStringHeaderValueConverter(final CharPredicate predicate) {
         super();
+        this.predicate = predicate;
     }
 
-    final static String TEXT = "abc123";
+    final CharPredicate predicate;
 
     @Override
-    final HttpHeaderName<String> name() {
-        return HttpHeaderName.SERVER;
+    public String toString() {
+        return this.predicate.toString();
     }
-
-    @Override
-    final String value() {
-        return TEXT;
-    }
-
-    @Override
-    final String valueType() {
-        return this.valueType(String.class);
-    }
-
-    final CharPredicate charPredicate() {
-        return CharPredicates.letter();
-    }
-
-
 }

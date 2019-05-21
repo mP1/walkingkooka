@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UnquotedStringHeaderValueConverterTest extends StringHeaderValueConverterTestCase<UnquotedStringHeaderValueConverter> {
+public final class UnquotedStringHeaderValueConverterTest extends QuotedOrUnquotedStringHeaderValueConverterTestCase<UnquotedStringHeaderValueConverter> {
 
     @Test
     public void testParseOpeningDoubleQuoteFails() {
