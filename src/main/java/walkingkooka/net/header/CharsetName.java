@@ -62,6 +62,11 @@ public abstract class CharsetName extends HeaderNameValue
     public final static CharsetName WILDCARD_CHARSET = CharsetNameWildcard.INSTANCE;
 
     /**
+     * {@link CaseSensitivity} for charset names.
+     */
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+
+    /**
      * Holds all constants.
      */
     private final static Map<String, CharsetName> CONSTANTS = registerConstants();
@@ -70,7 +75,7 @@ public abstract class CharsetName extends HeaderNameValue
      * Creates constants from each of the available charsets.
      */
     private static Map<String, CharsetName> registerConstants() {
-        final Map<String, CharsetName> constants = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+        final Map<String, CharsetName> constants = Maps.sorted(CASE_SENSITIVITY.comparator());
 
         for (Charset charset : Charset.availableCharsets().values()) {
             final String name = charset.name();
@@ -261,7 +266,7 @@ public abstract class CharsetName extends HeaderNameValue
 
     @Override
     CaseSensitivity caseSensitivity() {
-        return CaseSensitivity.INSENSITIVE;
+        return CASE_SENSITIVITY;
     }
 
     @Override

@@ -42,6 +42,11 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
     public final static LanguageTagName WILDCARD = LanguageTagNameWildcard.INSTANCE;
 
     /**
+     * {@link CaseSensitivity} for language tag names.
+     */
+    final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+
+    /**
      * Factory that creates a new {@link LanguageTagName}
      */
     public static LanguageTagName with(final String value) {
@@ -103,7 +108,7 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
 
     @Override
     CaseSensitivity caseSensitivity() {
-        return CaseSensitivity.INSENSITIVE;
+        return CASE_SENSITIVITY;
     }
 
     // Comparable..........................................................................................................

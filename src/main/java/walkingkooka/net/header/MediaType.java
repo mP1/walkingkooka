@@ -69,10 +69,12 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
 
     // MediaType constants.................................................................................................
 
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+
     /**
      * Holds all constants.
      */
-    private final static Map<String, MediaType> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+    private final static Map<String, MediaType> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
 
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType text types}.
@@ -464,6 +466,4 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
     boolean equals1(final String value, final String otherValue) {
         return CASE_SENSITIVITY.equals(this.value, otherValue);
     }
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 }

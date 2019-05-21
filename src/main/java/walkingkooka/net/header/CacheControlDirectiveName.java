@@ -69,7 +69,7 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
     /**
      * Holds all constants.
      */
-    private final static Map<String, CacheControlDirectiveName<?>> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+    private final static Map<String, CacheControlDirectiveName<?>> CONSTANTS = Maps.sorted(CacheControlDirectiveName.CASE_SENSITIVITY.comparator());
 
     /**
      * max-age
