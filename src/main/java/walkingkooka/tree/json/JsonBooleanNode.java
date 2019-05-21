@@ -21,8 +21,6 @@ package walkingkooka.tree.json;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.tree.search.SearchNode;
 
-import java.util.Optional;
-
 /**
  * Represents an immutable json boolean.
  */
@@ -109,14 +107,6 @@ public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean> {
     @Override
     JsonNodeName defaultName() {
         return NAME;
-    }
-
-    // functional .................................................................................................
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Optional<JsonBooleanNode> optional() {
-        return Optional.of(this);
     }
 
     // Visitor .................................................................................................

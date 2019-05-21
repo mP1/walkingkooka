@@ -37,7 +37,6 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -84,37 +83,6 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
         assertThrows(UnsupportedOperationException.class, () -> {
             this.createJsonNode().setAttributes(Maps.empty());
         });
-    }
-
-    // Functional.................................................................................................
-
-    @Test
-    public final void testOptional() {
-        final N node = this.createJsonNode();
-
-        if (node.isNull()) {
-            final Optional<JsonNode> optionalJsonNode = node.optional();
-            assertEquals(
-                    Optional.empty(),
-                    optionalJsonNode,
-                    "JsonNullNode should have returned Optional.empty");
-            final Optional<N> optionalJsonNode2 = node.optional();
-            assertEquals(
-                    Optional.empty(),
-                    optionalJsonNode2,
-                    "JsonNullNode should have returned Optional.empty");
-        } else {
-            final Optional<JsonNode> optionalJsonNode = node.optional();
-            assertEquals(
-                    Optional.of(node),
-                    optionalJsonNode,
-                    "JsonNullNode should have returned Optional.of(JsonNode)");
-            final Optional<N> optionalJsonNode2 = node.optional();
-            assertEquals(
-                    Optional.of(node),
-                    optionalJsonNode2,
-                    "JsonNullNode should have returned Optional.of(JsonNode)");
-        }
     }
 
     // ToXXXValueOrFail.................................................................................................
