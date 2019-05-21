@@ -92,7 +92,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     abstract boolean isWildcard();
 
-    // isMatch ...........................................................................................
+    // test................ ...........................................................................................
 
     @Test
     public final void testTestWildcard() {

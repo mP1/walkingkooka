@@ -42,7 +42,7 @@ public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
         this.check(etag);
     }
 
-    // isMatch ...........................................................................................
+    // test...........................................................................................................
 
     private final static String DIFFERENT_VALUE = "FEDCBA9876543210";
 
