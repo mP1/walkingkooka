@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -29,11 +30,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class LanguageTagTest extends HeaderValueWithParametersTestCase<LanguageTag,
         LanguageTagParameterName<?>>
-        implements ParseStringTesting<LanguageTag> {
+        implements ParseStringTesting<LanguageTag>,
+        PredicateTesting<LanguageTag, LanguageTag> {
 
     @Test
     public void testWithNullFails() {
@@ -186,58 +187,39 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     // isMatch ...................................................................................
 
     @Test
-    public void testIsMatch() {
-        assertTrue(LanguageTag.WILDCARD.isMatch(this.en075WithParameters()));
+    public void testTest() {
+        this.testTrue(LanguageTag.WILDCARD, this.en075WithParameters());
     }
 
     @Test
-    public void testIsMatchNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createHeaderValueWithParameters().isMatch(null);
-        });
-    }
-
-    @Test
-    public void testIsMatchWildcardWildcardFails() {
+    public void testTestWildcardWildcardFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            LanguageTag.WILDCARD.isMatch(LanguageTag.WILDCARD);
+            LanguageTag.WILDCARD.test(LanguageTag.WILDCARD);
         });
     }
 
     @Test
-    public void testIsMatchWildcardNonWildcardFails() {
-        this.isMatchAndCheck(LanguageTag.WILDCARD,
-                this.en075WithParameters(),
-                true);
+    public void testTestWildcardNonWildcardFails() {
+        this.testTrue(LanguageTag.WILDCARD,
+                this.en075WithParameters());
     }
 
     @Test
-    public void testIsMatchWildcardNonWildcardFails2() {
-        this.isMatchAndCheck(LanguageTag.WILDCARD,
-                this.fr(),
-                true);
+    public void testTestWildcardNonWildcardFails2() {
+        this.testTrue(LanguageTag.WILDCARD,
+                this.fr());
     }
 
     @Test
-    public void testIsMatchNonWildcardNonWildcard() {
-        this.isMatchAndCheck(this.en075WithParameters(),
-                this.en(),
-                true);
+    public void testTestNonWildcardNonWildcard() {
+        this.testTrue(this.en075WithParameters(),
+                this.en());
     }
 
     @Test
-    public void testIsMatchNonWildcardNonWildcard2() {
-        this.isMatchAndCheck(this.en075WithParameters(),
-                this.fr(),
-                false);
-    }
-
-    final void isMatchAndCheck(final LanguageTag tag,
-                               final LanguageTag other,
-                               final boolean expected) {
-        assertEquals(expected,
-                tag.isMatch(other),
-                () -> tag + " isMatch " + other);
+    public void testTestNonWildcardNonWildcard2() {
+        this.testFalse(this.en075WithParameters(),
+                this.fr());
     }
 
     private LanguageTag en075WithParameters() {
@@ -281,5 +263,24 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // PredicateTesting................................................................................................
+
+    @Override
+    public LanguageTag createPredicate() {
+        return en();
+    }
+
+    // TypeNameTesting................................................................................................
+
+    @Override
+    public String typeNamePrefix() {
+        return "LanguageTag";
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return ""; // No "Predicate" suffix.
     }
 }
