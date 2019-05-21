@@ -190,7 +190,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link MediaType} header values.
      */
-    private static HttpHeaderName<MediaType> registerOneMediaTypeConstant(final String header,
+    private static HttpHeaderName<MediaType> registerMediaTypeConstant(final String header,
                                                                           final HttpHeaderNameScope scope) {
         return registerConstant(header, scope, HeaderValueConverter.mediaType());
     }
@@ -495,7 +495,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Type: multipart/form-data; boundary=something
      * </pre>
      */
-    public final static HttpHeaderName<MediaType> CONTENT_TYPE = registerOneMediaTypeConstant("Content-Type",
+    public final static HttpHeaderName<MediaType> CONTENT_TYPE = registerMediaTypeConstant("Content-Type",
             HttpHeaderNameScope.REQUEST_RESPONSE_MULTIPART);
 
     /**
