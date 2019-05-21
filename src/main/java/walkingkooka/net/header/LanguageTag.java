@@ -29,9 +29,8 @@ import java.util.Optional;
 /**
  * Holds a LanguageTag which is the value of a accept-language and similar headers.
  */
-public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
-        LanguageTagParameterName<?>,
-        LanguageTagName> implements HasQFactorWeight {
+public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, LanguageTagParameterName<?>, LanguageTagName>
+        implements HasQFactorWeight {
 
     /**
      * No parameters constant.
@@ -69,9 +68,9 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
     }
 
     /**
-     * Package private to limit sub classing.
+     * Private ctor use factory methods.
      */
-    LanguageTag(final LanguageTagName value, final Map<LanguageTagParameterName<?>, Object> parameters) {
+    private LanguageTag(final LanguageTagName value, final Map<LanguageTagParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
@@ -79,7 +78,7 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
      * Only returns true if languageTag is matched by the given languageTag. If this is a wildcard it matches any other languageTag.
      * If the argument is a wildcard a false is always returned even if this is a wildcard.
      */
-    public final boolean isMatch(final LanguageTag languageTag) {
+    public boolean isMatch(final LanguageTag languageTag) {
         Objects.requireNonNull(languageTag, "languageTag");
         return this.value.isMatch(languageTag);
     }
@@ -89,7 +88,7 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
     /**
      * Would be setter that returns a {@link LanguageTag} with the given value creating a new instance as necessary.
      */
-    public final LanguageTag setValue(final LanguageTagName value) {
+    public LanguageTag setValue(final LanguageTagName value) {
         checkValue(value);
 
         return this.value.equals(value) ?
@@ -143,7 +142,7 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
     /**
      * Retrieves the q-weight for this value.
      */
-    public final Optional<Float> qFactorWeight() {
+    public Optional<Float> qFactorWeight() {
         return this.qFactorWeight(LanguageTagParameterName.Q_FACTOR);
     }
 
