@@ -24,6 +24,10 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements ClassTesting2<P>,
         ParseStringTesting<V>,
         ToStringTesting<P>,
@@ -81,6 +85,15 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V> implements
     public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
         return HeaderValueException.class;
     }
+
+    static <TT> List<TT> listReadOnlyCheck(final List<TT> list) {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            list.remove(0);
+        });
+        return list;
+    }
+
+    // TypeTesting ....................................................................................................
 
     @Override
     public final MemberVisibility typeVisibility() {
