@@ -18,32 +18,27 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicate;
 
 /**
- * A {@link HeaderValueConverter} that handles string values without any escaping or quotes.
+ * A {@link HeaderValueConverter} that handles returns {@link String} header values as they are which may or may not include comments etc.
  */
-final class UnquotedStringHeaderValueConverter extends QuotedOrUnquotedStringHeaderValueConverter {
+final class UnalteredStringHeaderValueConverter extends StringHeaderValueConverter {
 
     /**
-     * Factory that creates a new {@link UnquotedStringHeaderValueConverter}.
+     * Singleton
      */
-    static UnquotedStringHeaderValueConverter with(final CharPredicate predicate) {
-        return new UnquotedStringHeaderValueConverter(predicate);
-    }
+    final static UnalteredStringHeaderValueConverter INSTANCE = new UnalteredStringHeaderValueConverter();
 
     /**
-     * Private ctor use factory.
+     * Package private to limit sub classing.
      */
-    private UnquotedStringHeaderValueConverter(final CharPredicate predicate) {
-        super(predicate);
+    UnalteredStringHeaderValueConverter() {
+        super();
     }
 
     @Override
     String parse0(final String text, final Name name) {
-        this.checkText(text);
         return text;
     }
 
@@ -54,19 +49,11 @@ final class UnquotedStringHeaderValueConverter extends QuotedOrUnquotedStringHea
 
     @Override
     String toText0(final String value, final Name name) {
-        this.checkText(value);
         return value;
     }
 
-    private void checkText(final String text) {
-        final CharPredicate predicate = this.predicate;
-
-        int i = 0;
-        for (char c : text.toCharArray()) {
-            if (!predicate.test(c)) {
-                throw new InvalidCharacterException(text, i);
-            }
-            i++;
-        }
+    @Override
+    public String toString() {
+        return "String";
     }
 }

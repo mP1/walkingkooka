@@ -273,6 +273,13 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
+     * {@see UnalteredStringHeaderValueConverter}
+     */
+    static HeaderValueConverter<String> string() {
+        return UnalteredStringHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see TokenHeaderValueHeaderValueConverter}
      */
     static HeaderValueConverter<TokenHeaderValue> token() {

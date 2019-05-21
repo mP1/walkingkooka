@@ -26,7 +26,7 @@ import walkingkooka.text.Ascii;
 /**
  * A {@link HeaderValueConverter} that handles string values in quotes with possible backslash escaping.
  */
-final class QuotedStringHeaderValueConverter extends StringHeaderValueConverter {
+final class QuotedStringHeaderValueConverter extends QuotedOrUnquotedStringHeaderValueConverter {
 
     /**
      * Factory that creates a new {@link QuotedStringHeaderValueConverter}.

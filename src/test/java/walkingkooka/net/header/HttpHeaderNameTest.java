@@ -197,6 +197,13 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         });
     }
 
+
+    @Test
+    public void testHeaderValueCustomHeaderIncludesDoubleQuotesSingleQuotesComments() {
+        this.headerValueAndCheck(HttpHeaderName.with("custom-x").stringValues(),
+                "abc \"def\" 'ghi' (comment-123)");
+    }
+
     @Test
     public void testHeaderValueScopeAccept() {
         this.headerValueAndCheck(HttpHeaderName.ACCEPT,

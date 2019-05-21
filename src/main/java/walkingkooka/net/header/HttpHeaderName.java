@@ -249,7 +249,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<String> registerStringConstant(final String header,
                                                                  final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, QUOTED_UNQUOTED_STRING);
+        return registerConstant(header, scope, HeaderValueConverter.string());
     }
 
     /**
@@ -794,7 +794,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<String>(name, HttpHeaderNameScope.UNKNOWN, QUOTED_UNQUOTED_STRING, NOT_CONTENT);
+                new HttpHeaderName<>(name, HttpHeaderNameScope.UNKNOWN, HeaderValueConverter.string(), NOT_CONTENT);
     }
 
     /**

@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.predicate.character.CharPredicate;
 
 /**
  * A {@link HeaderValueConverter} that handles string values.
@@ -29,20 +28,12 @@ abstract class StringHeaderValueConverter extends HeaderValueConverter<String> {
     /**
      * Package private to limit sub classing.
      */
-    StringHeaderValueConverter(final CharPredicate predicate) {
+    StringHeaderValueConverter() {
         super();
-        this.predicate = predicate;
     }
-
-    final CharPredicate predicate;
 
     @Override
     final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
         return Cast.to(headerName);
-    }
-
-    @Override
-    public final String toString() {
-        return this.predicate.toString();
     }
 }

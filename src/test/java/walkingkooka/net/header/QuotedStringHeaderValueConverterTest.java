@@ -132,6 +132,11 @@ public final class QuotedStringHeaderValueConverterTest extends StringHeaderValu
     }
 
     @Override
+    final String converterToString() {
+        return this.charPredicate().toString();
+    }
+
+    @Override
     public Class<QuotedStringHeaderValueConverter> type() {
         return QuotedStringHeaderValueConverter.class;
     }
