@@ -25,12 +25,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Holds a LanguageTag which is the value of a accept-language and similar headers.
  */
 public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, LanguageTagParameterName<?>, LanguageTagName>
-        implements HasQFactorWeight {
+        implements Predicate<LanguageTag>,
+        HasQFactorWeight {
 
     /**
      * No parameters constant.
@@ -74,16 +76,19 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
         super(value, parameters);
     }
 
+    // Predicate.......................................................................................................
+
     /**
      * Only returns true if languageTag is matched by the given languageTag. If this is a wildcard it matches any other languageTag.
      * If the argument is a wildcard a false is always returned even if this is a wildcard.
      */
-    public boolean isMatch(final LanguageTag languageTag) {
+    @Override
+    public boolean test(final LanguageTag languageTag) {
         Objects.requireNonNull(languageTag, "languageTag");
         return this.value.isMatch(languageTag);
     }
 
-    // value.....................................................................................................
+    // value............................................................................................................
 
     /**
      * Would be setter that returns a {@link LanguageTag} with the given value creating a new instance as necessary.
