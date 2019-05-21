@@ -184,7 +184,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
                 this.fr());
     }
 
-    // isMatch ...................................................................................
+    // test ...........................................................................................................
 
     @Test
     public void testTest() {
