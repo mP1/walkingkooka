@@ -78,7 +78,6 @@ public interface HeaderValueTesting<V extends HeaderValue> extends HashCodeEqual
 
     default void toHeaderTextAndCheck(final HeaderValue headerValue, final String expected) {
         assertEquals(expected, headerValue.toHeaderText(), () -> "headerText of " + headerValue);
-        this.isWildcardAndCheck0(headerValue, String.valueOf(HeaderValue.WILDCARD).equals(expected));
     }
 
     default void toHeaderTextListAndCheck(final String toString,

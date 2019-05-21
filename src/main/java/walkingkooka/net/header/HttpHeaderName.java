@@ -64,6 +64,14 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
     /**
+     * Creates and adds a new {@link AcceptEncoding} to the cache being built that handles list of {@link AcceptEncoding} header values.
+     */
+    private static HttpHeaderName<List<AcceptEncoding>> registerAcceptEncodingListConstant(final String header,
+                                                                                           final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueConverter.acceptEncodingList());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link List<CharsetHeaderValue>} header values.
      */
     private static HttpHeaderName<AcceptCharset> registerAcceptCharsetConstant(final String header,
@@ -89,6 +97,14 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     private static HttpHeaderName<List<ClientCookie>> registerClientCookieListConstant(final String header,
                                                                                        final HttpHeaderNameScope scope) {
         return registerConstant(header, scope, HeaderValueConverter.clientCookieList());
+    }
+
+    /**
+     * Creates and adds a new {@link ContentEncoding} to the cache being built that handles list of {@link ContentEncoding} header values.
+     */
+    private static HttpHeaderName<List<ContentEncoding>> registerContentEncodingListConstant(final String header,
+                                                                                             final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueConverter.contentEncodingList());
     }
 
     /**
@@ -312,7 +328,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<String> ACCEPT_ENCODING = registerStringConstant("Accept-Encoding",
+    public final static HttpHeaderName<List<AcceptEncoding>> ACCEPT_ENCODING = registerAcceptEncodingListConstant("Accept-Encoding",
             HttpHeaderNameScope.REQUEST);
 
     /**
@@ -426,7 +442,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Encoding: deflate, gzip
      * </pre>
      */
-    public final static HttpHeaderName<String> CONTENT_ENCODING = registerStringConstant("Content-Encoding",
+    public final static HttpHeaderName<List<ContentEncoding>> CONTENT_ENCODING = registerContentEncodingListConstant("Content-Encoding",
             HttpHeaderNameScope.RESPONSE);
 
     /**

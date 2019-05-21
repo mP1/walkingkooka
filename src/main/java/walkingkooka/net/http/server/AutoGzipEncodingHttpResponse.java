@@ -19,11 +19,16 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.AcceptEncoding;
+import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
+import walkingkooka.util.Optionals;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -66,27 +71,24 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
 
         HttpEntity add = entity;
 
-        if (this.isAcceptEncodingGzipSupported()) {
-            final Optional<String> contentEncoding = HttpHeaderName.CONTENT_ENCODING
-                    .headerValue(add.headers());
-            if (contentEncoding.isPresent()) {
-                if (this.isGzipSupported(contentEncoding.get())) {
-                    add = add.setBody(gzip(add.body()));
-                }
-            } else {
+        final Optional<List<AcceptEncoding>> acceptEncodings = HttpHeaderName.ACCEPT_ENCODING.headerValue(this.request.headers());
+
+        if(Optionals.stream(acceptEncodings)
+                .flatMap(l -> l.stream())
+                .filter(a -> a.test(ContentEncoding.GZIP))
+                .limit(1)
+                .count() == 1) {
+            // found an accept-encoding that matches GZIP...now double check if already GZIPPED
+
+            final Optional<List<ContentEncoding>> contentEncodings = HttpHeaderName.CONTENT_ENCODING.headerValue(add.headers());
+            if(!contentEncodings.isPresent()) {
+                // content-encoding absent so gzip
                 add = add.addHeader(HttpHeaderName.CONTENT_ENCODING, GZIP);
                 add = add.setBody(gzip(add.body()));
             }
         }
+
         this.response.addEntity(add);
-    }
-
-    private boolean isAcceptEncodingGzipSupported() {
-        return this.isGzipSupported(HttpHeaderName.ACCEPT_ENCODING.headerValueOrFail(this.request.headers()));
-    }
-
-    private boolean isGzipSupported(final String contentEncoding) {
-        return contentEncoding.equals("*") || GZIP.equalsIgnoreCase(contentEncoding);
     }
 
     /**
@@ -101,5 +103,5 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
         }
     }
 
-    private final static String GZIP = "gzip";
+    private final static List<ContentEncoding> GZIP = Lists.of(ContentEncoding.GZIP);
 }

@@ -53,12 +53,26 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
+     * {@see AcceptEncodingListHeaderValueConverter}
+     */
+    static HeaderValueConverter<List<AcceptEncoding>> acceptEncodingList() {
+        return AcceptEncodingListHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see CacheControlDirectiveListHeaderValueConverter}
      */
     static HeaderValueConverter<List<CacheControlDirective<?>>> cacheControlDirectiveList() {
         return CacheControlDirectiveListHeaderValueConverter.INSTANCE;
     }
 
+    /**
+     * {@see ContentEncodingListHeaderValueConverter}
+     */
+    static HeaderValueConverter<List<ContentEncoding>> contentEncodingList() {
+        return ContentEncodingListHeaderValueConverter.INSTANCE;
+    }
+    
     /**
      * {@see CharsetNameHeaderValueConverter}
      */

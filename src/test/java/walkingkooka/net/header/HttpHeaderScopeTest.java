@@ -105,6 +105,13 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
     }
 
     @Test
+    public void testContentEncodingGzipValue() {
+        this.checkScope(HttpHeaderName.CONTENT_ENCODING,
+                Lists.of(ContentEncoding.GZIP),
+                HttpHeaderScope.RESPONSE);
+    }
+
+    @Test
     public void testCacheControlMaxAge123Value() {
         this.checkScopeCacheControlScope(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
                 HttpHeaderScope.REQUEST,
