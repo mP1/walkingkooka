@@ -54,14 +54,14 @@ abstract class LanguageTagHeaderParser extends HeaderParserWithParameters<Langua
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
-    private final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
+    final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
     final String unquotedParameterValue(final LanguageTagParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 
-    private final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
+    final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
     @Override
     final void missingValue() {
