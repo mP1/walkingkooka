@@ -27,7 +27,7 @@ final class ETagListHeaderParser extends ETagHeaderParser {
     static List<ETag> parseList(final String text) {
         final ETagListHeaderParser parser = new ETagListHeaderParser(text);
         parser.parse();
-        return parser.etags;
+        return Lists.readOnly(parser.etags);
     }
 
     private ETagListHeaderParser(final String text) {

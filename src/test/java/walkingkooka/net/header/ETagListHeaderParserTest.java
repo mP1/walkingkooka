@@ -109,7 +109,7 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
 
     final void parseAndCheck2(final String text, final ETag... tags) {
         assertEquals(Lists.of(tags),
-                ETagListHeaderParser.parseList(text),
+                listReadOnlyCheck(ETagListHeaderParser.parseList(text)),
                 "Incorrect result parsing " + CharSequences.quote(text));
     }
 

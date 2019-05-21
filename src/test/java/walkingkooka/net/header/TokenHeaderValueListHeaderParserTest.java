@@ -213,7 +213,7 @@ public final class TokenHeaderValueListHeaderParserTest extends TokenHeaderValue
 
     @Override
     public List<TokenHeaderValue> parse(final String text) {
-        return TokenHeaderValueListHeaderParser.parseTokenHeaderValueList(text);
+        return listReadOnlyCheck(TokenHeaderValueListHeaderParser.parseTokenHeaderValueList(text));
     }
 
     @Override
