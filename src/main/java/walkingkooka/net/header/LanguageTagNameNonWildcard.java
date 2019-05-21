@@ -39,7 +39,7 @@ final class LanguageTagNameNonWildcard extends LanguageTagName {
      * Creates constants for all the available {@link Locale locales}
      */
     private static Map<String, LanguageTagNameNonWildcard> registerConstants() {
-        final Map<String, LanguageTagNameNonWildcard> constants = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+        final Map<String, LanguageTagNameNonWildcard> constants = Maps.sorted(CASE_SENSITIVITY.comparator());
 
         for (Locale locale : Locale.getAvailableLocales()) {
             final String languageTag = locale.toLanguageTag();

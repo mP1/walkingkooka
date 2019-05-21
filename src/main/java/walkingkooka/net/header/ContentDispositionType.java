@@ -67,9 +67,14 @@ import java.util.Objects;
 final public class ContentDispositionType extends HeaderNameValue implements Comparable<ContentDispositionType> {
 
     /**
+     * {@link CaseSensitivity} for disposition type.
+     */
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+
+    /**
      * A read only cache of already prepared {@link ContentDispositionType names}. These constants are incomplete.
      */
-    private final static Map<String, ContentDispositionType> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+    private final static Map<String, ContentDispositionType> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
 
     /**
      * Creates and adds a new {@link ContentDispositionType} to the cache being built.
@@ -147,7 +152,7 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
 
     @Override
     CaseSensitivity caseSensitivity() {
-        return CaseSensitivity.SENSITIVE;
+        return CASE_SENSITIVITY;
     }
 
     // Object..................................................................................................

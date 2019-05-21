@@ -37,8 +37,10 @@ abstract class HeaderName2<V> extends HeaderNameValue implements HeaderName<V> {
      */
     @Override
     final CaseSensitivity caseSensitivity() {
-        return CaseSensitivity.INSENSITIVE;
+        return CASE_SENSITIVITY;
     }
+
+    final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public final String toString() {
