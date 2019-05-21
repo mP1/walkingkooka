@@ -253,22 +253,6 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
     /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values of type {@link TokenHeaderValue}.
-     */
-    private static HttpHeaderName<TokenHeaderValue> registerTokenConstant(final String header,
-                                                                          final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.token());
-    }
-
-    /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values that include a list of {@link TokenHeaderValue}.
-     */
-    private static HttpHeaderName<List<TokenHeaderValue>> registerTokenListConstant(final String header,
-                                                                                    final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.tokenList());
-    }
-
-    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link Url} header values.
      */
     private static HttpHeaderName<Url> registerUrlConstant(final String header, final HttpHeaderNameScope scope) {
@@ -328,7 +312,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<TokenHeaderValue>> ACCEPT_ENCODING = registerTokenListConstant("Accept-Encoding",
+    public final static HttpHeaderName<String> ACCEPT_ENCODING = registerStringConstant("Accept-Encoding",
             HttpHeaderNameScope.REQUEST);
 
     /**
@@ -442,7 +426,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Content-Encoding: deflate, gzip
      * </pre>
      */
-    public final static HttpHeaderName<TokenHeaderValue> CONTENT_ENCODING = registerTokenConstant("Content-Encoding",
+    public final static HttpHeaderName<String> CONTENT_ENCODING = registerStringConstant("Content-Encoding",
             HttpHeaderNameScope.RESPONSE);
 
     /**
@@ -732,8 +716,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * TE: trailers, deflate;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<TokenHeaderValue>> TE = registerTokenListConstant("TE",
-            HttpHeaderNameScope.REQUEST);
+    public final static HttpHeaderName<String> TE = registerStringConstant("TE", HttpHeaderNameScope.REQUEST);
 
     /**
      * A {@link HttpHeaderName} holding <code>Trailer</code>
@@ -757,8 +740,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Transfer-Encoding: gzip, chunked
      * </pre>
      */
-    public final static HttpHeaderName<List<TokenHeaderValue>> TRANSFER_ENCODING = registerTokenListConstant("Transfer-Encoding",
-            HttpHeaderNameScope.RESPONSE);
+    public final static HttpHeaderName<String> TRANSFER_ENCODING = registerStringConstant("Transfer-Encoding", HttpHeaderNameScope.RESPONSE);
 
     /**
      * A {@link HttpHeaderName} holding <code>User-Agent</code>
