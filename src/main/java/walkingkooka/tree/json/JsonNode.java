@@ -352,13 +352,6 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
     abstract void accept(final JsonNodeVisitor visitor);
 
-    // functional methods ..........................................................................................
-
-    /**
-     * Returns an {@link Optional} holding this {@link JsonNode} if not a {@link JsonNullNode}.
-     */
-    public abstract <N extends JsonNode> Optional<N> optional();
-
     // HasJsonNode .......................................................................................................
 
     /**

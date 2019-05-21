@@ -23,7 +23,6 @@ import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -176,14 +175,6 @@ public final class JsonNullNode extends JsonLeafNode<Void> {
     @Override
     final boolean equalsValue(final JsonNode other) {
         return true;
-    }
-
-    // functional .................................................................................................
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Optional<JsonNullNode> optional() {
-        return Optional.empty();
     }
 
     // Visitor .................................................................................................
