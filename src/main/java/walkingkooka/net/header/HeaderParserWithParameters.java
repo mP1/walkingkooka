@@ -103,7 +103,7 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
 
     @Override
     final void comment() {
-        this.commentText(); // consume and ignore comment text itself.
+        this.failInvalidCharacter();
     }
 
     /**

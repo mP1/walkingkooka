@@ -18,10 +18,17 @@
 
 package walkingkooka.net.header;
 
+import org.junit.jupiter.api.Test;
+
 public abstract class HeaderParserWithParametersTestCase<P extends HeaderParser, V>
         extends HeaderParserTestCase<P, V> {
 
     HeaderParserWithParametersTestCase() {
         super();
+    }
+
+    @Test
+    public final void testCommentFails() {
+        this.parseInvalidCharacterFails("(comment-123)", 0);
     }
 }
