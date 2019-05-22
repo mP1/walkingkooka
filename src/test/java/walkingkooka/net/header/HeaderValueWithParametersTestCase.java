@@ -18,6 +18,11 @@
 
 package walkingkooka.net.header;
 
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class HeaderValueWithParametersTestCase<V extends HeaderValueWithParameters<N>,
         N extends HeaderParameterName<?>> extends HeaderValueTestCase<V>
         implements HeaderValueWithParametersTesting<V, N> {
@@ -25,4 +30,20 @@ public abstract class HeaderValueWithParametersTestCase<V extends HeaderValueWit
     HeaderValueWithParametersTestCase() {
         super();
     }
+
+    final void checkParameters(final HeaderValueWithParameters<N> headerValue,
+                               final Map<N, ?> parameters) {
+        assertEquals(parameters,
+                headerValue.parameters(),
+                () -> "parameters " + headerValue);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            headerValue.parameters().put(this.parameterName(), null);
+        });
+    }
+
+    /**
+     * This parameter name should be unique and not used within other tests.
+     * It is used to put a new parameter upon the parameter {@link Map} to verify it is readonly.
+     */
+    abstract N parameterName();
 }

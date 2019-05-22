@@ -122,7 +122,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
                      final Url value,
                      final Map<LinkParameterName<?>, Object> parameters) {
         assertEquals(value, language.value(), "value");
-        assertEquals(parameters, language.parameters(), "parameters");
+        this.checkParameters(language, parameters);
     }
 
 
@@ -307,6 +307,11 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     private AbsoluteUrl value() {
         return AbsoluteUrl.parse("http://example.com");
+    }
+
+    @Override
+    LinkParameterName<?> parameterName() {
+        return LinkParameterName.with("xyz");
     }
 
     @Override
