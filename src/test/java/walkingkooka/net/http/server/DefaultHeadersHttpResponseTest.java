@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
@@ -92,7 +93,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {
-        return Maps.of(HttpHeaderName.CONTENT_ENCODING, "EN",
+        return Maps.of(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse("EN"),
                 HttpHeaderName.SERVER, "Server 123");
     }
 
