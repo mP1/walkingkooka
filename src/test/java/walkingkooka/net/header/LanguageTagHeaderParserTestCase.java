@@ -23,7 +23,7 @@ import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
-public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeaderParser, V> extends HeaderParserTestCase<P, V> {
+public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeaderParser, V> extends HeaderParserWithParametersTestCase<P, V> {
 
     LanguageTagHeaderParserTestCase() {
         super();
