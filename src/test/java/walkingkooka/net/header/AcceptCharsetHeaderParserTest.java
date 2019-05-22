@@ -30,12 +30,12 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     // parse ...................................................................................................
 
     @Test
-    public final void testParameterSeparatorFails() {
+    public void testParameterSeparatorFails() {
         this.parseMissingValueFails(";", 0);
     }
 
     @Test
-    public final void testKeyValueSeparatorFails() {
+    public void testKeyValueSeparatorFails() {
         this.parseInvalidCharacterFails("=");
     }
 
@@ -87,16 +87,6 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
     @Test
     public void testWildcard() {
         this.parseAndCheck("*", CharsetHeaderValue.WILDCARD_VALUE);
-    }
-
-    @Test
-    public void testCommentWildcard() {
-        this.parseAndCheck("(comment)*", CharsetHeaderValue.WILDCARD_VALUE);
-    }
-
-    @Test
-    public void testWildcardComment() {
-        this.parseAndCheck("*(comment)", CharsetHeaderValue.WILDCARD_VALUE);
     }
 
     @Test
@@ -276,16 +266,6 @@ public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParamet
         this.parseAndCheck("UTF-8;b= \t \tc",
                 "UTF-8",
                 "b", "c");
-    }
-
-    @Test
-    public void testCharsetComment() {
-        this.parseAndCheck("utf-16(comment123)", "utf-16");
-    }
-
-    @Test
-    public void testCharsetWhitespaceComment() {
-        this.parseAndCheck("utf-16 (comment123)", "utf-16");
     }
 
     @Test

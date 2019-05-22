@@ -516,14 +516,6 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
                 123L);
     }
 
-    @Test
-    public void testSizeComment() {
-        this.parseAndCheck("attachment; size=123(comment-123)",
-                "attachment",
-                "size",
-                123L);
-    }
-
     // helpers...................................................................................................
 
     @Override
