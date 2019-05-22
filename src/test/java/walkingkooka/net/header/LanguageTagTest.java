@@ -134,7 +134,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
                      final LanguageTagName value,
                      final Map<LanguageTagParameterName<?>, Object> parameters) {
         assertEquals(value, language.value(), "value");
-        assertEquals(parameters, language.parameters(), "parameters");
+        this.checkParameters(language, parameters);
     }
 
     // ParseStringTesting ........................................................................................
@@ -238,6 +238,11 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     @Override
     public LanguageTag createHeaderValueWithParameters() {
         return LanguageTag.WILDCARD;
+    }
+
+    @Override
+    LanguageTagParameterName<?> parameterName() {
+        return LanguageTagParameterName.with("xyz");
     }
 
     @Override

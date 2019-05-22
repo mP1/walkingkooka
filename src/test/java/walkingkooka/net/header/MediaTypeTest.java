@@ -287,7 +287,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                        final Map<MediaTypeParameterName<?>, Object> parameters) {
         assertEquals(type, mediaType.type(), "type=" + mediaType);
         assertEquals(subtype, mediaType.subType(), "subType=" + mediaType);
-        assertEquals(parameters, mediaType.parameters(), "parameters=" + mediaType);
+        this.checkParameters(mediaType, parameters);
     }
 
     @Test
@@ -729,6 +729,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     private MediaType mediaType() {
         return MediaType.withParameters(TYPE, SUBTYPE, parameters());
+    }
+
+    @Override
+    MediaTypeParameterName<?> parameterName() {
+        return MediaTypeParameterName.with("xyz");
     }
 
     private Map<MediaTypeParameterName<?>, Object> parameters() {

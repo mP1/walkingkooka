@@ -379,7 +379,9 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
         parameters.putAll(this.parameters);
         parameters.put(MediaTypeParameterName.CHARSET, charset);
 
-        return this.replace(this.type, this.subType, parameters);
+        return this.replace(this.type,
+                this.subType,
+                Maps.readOnly(parameters));
     }
 
     // misc .......................................................................

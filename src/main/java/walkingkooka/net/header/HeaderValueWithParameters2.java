@@ -83,7 +83,7 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
     /**
      * While checking the parameters (name and value) makes a defensive copy.
      */
-    private static <P extends HeaderParameterName<?>> Map<P, Object> checkParameters(final Map<P, Object> parameters) {
+    static <P extends HeaderParameterName<?>> Map<P, Object> checkParameters(final Map<P, Object> parameters) {
         Objects.requireNonNull(parameters, "parameters");
 
         final Map<P, Object> copy = Maps.sorted();
@@ -92,7 +92,7 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
             copy.put(name,
                     name.checkValue(nameAndValue.getValue()));
         }
-        return copy;
+        return Maps.readOnly(copy);
     }
 
     // replace................................................................................................................

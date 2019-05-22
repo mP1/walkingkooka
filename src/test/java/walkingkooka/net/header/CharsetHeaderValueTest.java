@@ -46,8 +46,8 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testWith() {
-        final CharsetHeaderValue token = this.charsetHeaderValue();
-        this.check(token);
+        final CharsetHeaderValue charset = this.charsetHeaderValue();
+        this.check(charset);
     }
 
     // setValue ...........................................................................................
@@ -61,16 +61,16 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testSetValueSame() {
-        final CharsetHeaderValue token = this.charsetHeaderValue();
-        assertSame(token, token.setValue(VALUE));
+        final CharsetHeaderValue charset = this.charsetHeaderValue();
+        assertSame(charset, charset.setValue(VALUE));
     }
 
     @Test
     public void testSetValueDifferent() {
-        final CharsetHeaderValue token = this.charsetHeaderValue();
+        final CharsetHeaderValue charset = this.charsetHeaderValue();
         final CharsetName value = CharsetName.with("different");
-        this.check(token.setValue(value), value, this.parameters());
-        this.check(token);
+        this.check(charset.setValue(value), value, this.parameters());
+        this.check(charset);
     }
 
     // setParameters ...........................................................................................
@@ -84,25 +84,25 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testSetParametersDifferent() {
-        final CharsetHeaderValue token = this.charsetHeaderValue();
+        final CharsetHeaderValue charset = this.charsetHeaderValue();
         final Map<CharsetHeaderValueParameterName<?>, Object> parameters = this.parameters("different", "2");
-        this.check(token.setParameters(parameters), VALUE, parameters);
-        this.check(token);
+        this.check(charset.setParameters(parameters), VALUE, parameters);
+        this.check(charset);
     }
 
     @Test
     public void testWildcardSetParametersDifferent() {
-        final CharsetHeaderValue token = CharsetHeaderValue.WILDCARD_VALUE;
+        final CharsetHeaderValue charset = CharsetHeaderValue.WILDCARD_VALUE;
         final Map<CharsetHeaderValueParameterName<?>, Object> parameters = this.parameters("different", "2");
-        this.check(token.setParameters(parameters), CharsetName.WILDCARD_CHARSET, parameters);
-        this.check(token, CharsetName.WILDCARD_CHARSET, CharsetHeaderValue.NO_PARAMETERS);
+        this.check(charset.setParameters(parameters), CharsetName.WILDCARD_CHARSET, parameters);
+        this.check(charset, CharsetName.WILDCARD_CHARSET, CharsetHeaderValue.NO_PARAMETERS);
     }
 
     @Test
     public void testWildcardSetParametersDifferent2() {
-        final CharsetHeaderValue token = CharsetHeaderValue.WILDCARD_VALUE;
+        final CharsetHeaderValue charset = CharsetHeaderValue.WILDCARD_VALUE;
         final Map<CharsetHeaderValueParameterName<?>, Object> parameters = this.parameters("different", "2");
-        assertSame(token, token.setParameters(parameters).setParameters(CharsetHeaderValue.NO_PARAMETERS));
+        assertSame(charset, charset.setParameters(parameters).setParameters(CharsetHeaderValue.NO_PARAMETERS));
     }
 
     // toHeaderText ...........................................................................................
@@ -209,6 +209,11 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
         return CharsetHeaderValue.with(VALUE).setParameters(this.parameters());
     }
 
+    @Override
+    CharsetHeaderValueParameterName<?> parameterName() {
+        return CharsetHeaderValueParameterName.with("xyz");
+    }
+
     private Map<CharsetHeaderValueParameterName<?>, Object> parameters() {
         return this.parameters("p1", PARAMETER_VALUE);
     }
@@ -248,7 +253,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
                        final CharsetName value,
                        final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
         assertEquals(value, charsetHeaderValue.value(), "value");
-        assertEquals(parameters, charsetHeaderValue.parameters(), "parameters");
+        this.checkParameters(charsetHeaderValue, parameters);
     }
 
     @Override

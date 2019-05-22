@@ -47,8 +47,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testWith() {
-        final ContentDisposition token = this.createHeaderValueWithParameters();
-        this.check(token);
+        this.check(this.createHeaderValueWithParameters());
     }
 
     // setType ...........................................................................................
@@ -171,6 +170,11 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
                 .setParameters(this.parameters());
     }
 
+    @Override
+    ContentDispositionParameterName<?> parameterName() {
+        return ContentDispositionParameterName.with("xyz");
+    }
+
     private Map<ContentDispositionParameterName<?>, Object> parameters() {
         return this.parameters("p1", PARAMETER_VALUE);
     }
@@ -205,11 +209,11 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
         this.check(token, TYPE, token.parameters());
     }
 
-    private void check(final ContentDisposition token,
+    private void check(final ContentDisposition contentDisposition,
                        final ContentDispositionType type,
                        final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        assertEquals(type, token.type(), "type");
-        assertEquals(parameters, token.parameters(), "parameters");
+        assertEquals(type, contentDisposition.type(), "type");
+        this.checkParameters(contentDisposition, parameters);
     }
 
     @Override
