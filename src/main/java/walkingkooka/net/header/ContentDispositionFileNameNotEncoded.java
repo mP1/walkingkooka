@@ -18,6 +18,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
 import java.util.Optional;
@@ -31,10 +32,12 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
      * Factory that creates a {@link ContentDispositionFileNameNotEncoded}.
      */
     static ContentDispositionFileNameNotEncoded with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
+        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", FILENAME);
 
         return new ContentDispositionFileNameNotEncoded(name);
     }
+
+    private final static CharPredicate FILENAME = CharPredicates.rfc2045Token().or(CharPredicates.is('/'));
 
     /**
      * Private constructor use factory.
@@ -60,6 +63,16 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
     @Override
     public Optional<LanguageTagName> language() {
         return NO_LANGUAGE;
+    }
+
+    @Override
+    final ContentDispositionFileNameNotEncoded computeWithoutPath() {
+        final String value = this.name;
+        final String without = removePathIfNecessaryOrNull(value);
+        
+        return null == without ?
+                this :
+                new ContentDispositionFileNameNotEncoded(without);
     }
 
     // HeaderValue .................................................................................
