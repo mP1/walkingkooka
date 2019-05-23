@@ -75,9 +75,9 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
     private final static HeaderParameterNameConstants<ContentDispositionParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             ContentDispositionParameterName::new,
             HeaderValueConverter.quotedUnquotedString(
-                    ContentDispositionHeaderParser.QUOTED_PARAMETER_VALUE,
+                    ContentDispositionHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    ContentDispositionHeaderParser.UNQUOTED_PARAMETER_VALUE
+                    ContentDispositionHeaderValueParser.UNQUOTED_PARAMETER_VALUE
             ));
 
     /**

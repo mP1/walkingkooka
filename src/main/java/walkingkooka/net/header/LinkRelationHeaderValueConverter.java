@@ -41,7 +41,7 @@ final class LinkRelationHeaderValueConverter extends NonStringHeaderValueConvert
 
     @Override
     List<LinkRelation<?>> parse0(final String text, final Name name) {
-        return LinkRelationHeaderParser.parseLinkRelationList(text);
+        return LinkRelationHeaderValueParser.parseLinkRelationList(text);
     }
 
     @Override

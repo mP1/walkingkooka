@@ -214,7 +214,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
      * parameters if they are present.
      */
     public static MediaType parse(final String text) {
-        return MediaTypeOneHeaderParser.parseMediaType(text);
+        return MediaTypeOneHeaderValueParser.parseMediaType(text);
     }
 
     /**
@@ -225,7 +225,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
     public static List<MediaType> parseList(final String text) {
         checkText(text);
 
-        return MediaTypeListHeaderParser.parseMediaTypeList(text);
+        return MediaTypeListHeaderValueParser.parseMediaTypeList(text);
     }
 
     private static void checkText(final String text) {

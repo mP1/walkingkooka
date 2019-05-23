@@ -59,14 +59,14 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag, L
      * Parsers a header value holding a single tag.
      */
     public static LanguageTag parse(final String text) {
-        return LanguageTagOneHeaderParser.parseOne(text);
+        return LanguageTagOneHeaderValueParser.parseOne(text);
     }
 
     /**
      * Parsers a header value which may hold one or more tags.
      */
     public static List<LanguageTag> parseList(final String text) {
-        return LanguageTagListHeaderParser.parseList(text);
+        return LanguageTagListHeaderValueParser.parseList(text);
     }
 
     /**

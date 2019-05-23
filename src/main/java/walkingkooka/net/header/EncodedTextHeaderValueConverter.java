@@ -40,7 +40,7 @@ final class EncodedTextHeaderValueConverter extends NonStringHeaderValueConverte
 
     @Override
     EncodedText parse0(final String text, final Name name) {
-        return EncodedTextHeaderValueConverterHeaderParser.parseEncodedText(text, name.value());
+        return EncodedTextHeaderValueConverterHeaderValueParser.parseEncodedText(text, name.value());
     }
 
     @Override

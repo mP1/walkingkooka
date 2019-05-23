@@ -59,7 +59,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
      * Creates a {@link Link} after parsing the text.
      */
     public static List<Link> parse(final String text) {
-        return LinkHeaderParser.parseLink(text);
+        return LinkHeaderValueParser.parseLink(text);
     }
 
     /**

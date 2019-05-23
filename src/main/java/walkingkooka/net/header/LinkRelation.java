@@ -539,7 +539,7 @@ public abstract class LinkRelation<T> extends HeaderValue2<T> implements Compara
      * Parses the header text into a list of {@link LinkRelation}.
      */
     public static List<LinkRelation<?>> parse(final String text) {
-        return LinkRelationHeaderParser.parseLinkRelationList(text);
+        return LinkRelationHeaderValueParser.parseLinkRelationList(text);
     }
 
     /**

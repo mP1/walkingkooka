@@ -39,9 +39,9 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
     private final static HeaderParameterNameConstants<LinkParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             LinkParameterName::new,
             HeaderValueConverter.quotedUnquotedString(
-                    LinkHeaderParser.QUOTED_PARAMETER_VALUE,
+                    LinkHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    LinkHeaderParser.UNQUOTED_PARAMETER_VALUE)
+                    LinkHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**
@@ -106,9 +106,9 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
      * Note. Style sheets may include media-dependent variations within them (e.g., the CSS @media construct). In such cases it may be appropriate to use "media=all".
      * </pre>
      */
-    public final static LinkParameterName<String> MEDIA = CONSTANTS.register("media", HeaderValueConverter.quotedUnquotedString(LinkHeaderParser.QUOTED_PARAMETER_VALUE,
+    public final static LinkParameterName<String> MEDIA = CONSTANTS.register("media", HeaderValueConverter.quotedUnquotedString(LinkHeaderValueParser.QUOTED_PARAMETER_VALUE,
             true, // backslash escaping...
-            LinkHeaderParser.UNQUOTED_PARAMETER_VALUE));
+            LinkHeaderValueParser.UNQUOTED_PARAMETER_VALUE));
 
     /**
      * A non standard parameter to hold the {@link HttpMethod} for this resource

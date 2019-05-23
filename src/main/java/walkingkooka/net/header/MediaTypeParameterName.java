@@ -33,9 +33,9 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
     private final static HeaderParameterNameConstants<MediaTypeParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             MediaTypeParameterName::new,
             HeaderValueConverter.quotedUnquotedString(
-                    MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
+                    MediaTypeHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    MediaTypeHeaderParser.UNQUOTED_PARAMETER_VALUE)
+                    MediaTypeHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**
