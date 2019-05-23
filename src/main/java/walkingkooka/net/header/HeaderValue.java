@@ -31,6 +31,13 @@ import java.util.stream.Collectors;
 public interface HeaderValue extends HashCodeEqualsDefined, HasHeaderScope {
 
     /**
+     * Remove any comments from text. If the text contains an unterminated comment an exception will be thrown.
+     */
+    static String removeComments(final String text) {
+        return CommentRemovingHeaderValueParser.removeComments(text);
+    }
+
+    /**
      * Builds a header value representation of a list of headerValues.
      */
     static <H extends HeaderValue> String toHeaderTextList(final List<H> headerValues,
