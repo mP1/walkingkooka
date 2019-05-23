@@ -47,13 +47,13 @@ abstract class HeaderValueParser {
         this.position = 0;
     }
 
-    private final static char BACKSLASH = '\\';
-    private final static char DOUBLE_QUOTE = '"';
-    private final static char TOKEN_SEPARATOR = ';';
-    private final static char MULTIVALUE_SEPARATOR = ',';
-    private final static char KEYVALUE_SEPARATOR = '=';
+    final static char BACKSLASH = '\\';
+    final static char DOUBLE_QUOTE = '"';
+    final static char TOKEN_SEPARATOR = ';';
+    final static char MULTIVALUE_SEPARATOR = ',';
+    final static char KEYVALUE_SEPARATOR = '=';
     final static char WILDCARD = '*';
-    private final static char SLASH = '/';
+    final static char SLASH = '/';
 
     final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
     final static CharPredicate RFC2045SPECIAL = CharPredicates.rfc2045TokenSpecial();
