@@ -68,6 +68,8 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments> {
         this.consumeAndCheck(" ()", 1);
     }
 
+    // text/content.....................................................................................................
+
     @Test
     public void testContent() {
         this.consumeAndCheck("(abc)");
@@ -88,6 +90,21 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments> {
         this.consumeAndCheck("(abc)X", 1, -1);
     }
 
+    @Test
+    public void testContentTab() {
+        this.consumeAndCheck("(abc\tdef)", 1);
+    }
+
+    @Test
+    public void testContentSpace() {
+        this.consumeAndCheck("(abc def)", 1);
+    }
+
+    @Test
+    public void testContentBackslashFails() {
+        this.consumeFails("(abc\\)", 0, "Invalid character '\\\\' at 4 in \"(abc\\)\"");
+    }
+
     // single quotes.....................................................................................................
 
     @Test
@@ -101,13 +118,38 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments> {
     }
 
     @Test
-    public void testSingleQuotesEscaped() {
+    public void testSingleQuotesBackslashBackslash() {
+        this.consumeAndCheck("(\'a\\\\\')");
+    }
+
+    @Test
+    public void testSingleQuotesBackslashDoubleQuote() {
+        this.consumeAndCheck("(\'a\\\"\')");
+    }
+
+    @Test
+    public void testSingleQuotesBackslashEscape() {
         this.consumeAndCheck("(\'a\\tbc\')");
+    }
+
+    @Test
+    public void testSingleQuotesBackslashParensClose() {
+        this.consumeAndCheck("(\'a\\)\')");
+    }
+
+    @Test
+    public void testSingleQuotesBackslashSingleQuote() {
+        this.consumeAndCheck("(\'a\\\'\')");
     }
 
     @Test
     public void testSingleQuotesDoubleQuote() {
         this.consumeAndCheck("(\'a\"bc\')");
+    }
+
+    @Test
+    public void testSingleQuotesParensClose() {
+        this.consumeAndCheck("(\'abc)')");
     }
 
     @Test
@@ -140,7 +182,7 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments> {
         this.consumeAndCheck("(a\'QRS\'xy)");
     }
 
-    // single quotes.....................................................................................................
+    // double quotes.....................................................................................................
 
     @Test
     public void testDoubleQuotes() {
@@ -150,6 +192,26 @@ public final class HeaderCommentsTest implements ClassTesting2<HeaderComments> {
     @Test
     public void testDoubleQuotes2() {
         this.consumeAndCheck("(\"abc\")", 1);
+    }
+
+    @Test
+    public void testDoubleQuotesBackslashBackslash() {
+        this.consumeAndCheck("(\"a\\\\\")");
+    }
+
+    @Test
+    public void testDoubleQuotesBackslashSingleQuote() {
+        this.consumeAndCheck("(\"a\\'\")");
+    }
+
+    @Test
+    public void testDoubleQuotesBackslashDoubleQuote() {
+        this.consumeAndCheck("(\"a\\\"\")");
+    }
+
+    @Test
+    public void testDoubleQuotesBackslashParenClose() {
+        this.consumeAndCheck("(\"a\\)\")");
     }
 
     @Test
