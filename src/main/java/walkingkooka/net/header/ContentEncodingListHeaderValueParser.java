@@ -91,7 +91,7 @@ final class ContentEncodingListHeaderValueParser extends HeaderValueParser {
 
     @Override
     void comment() {
-        this.failInvalidCharacter();
+        this.failCommentPresent();
     }
 
     @Override

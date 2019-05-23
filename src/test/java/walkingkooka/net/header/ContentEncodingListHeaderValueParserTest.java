@@ -32,7 +32,7 @@ public final class ContentEncodingListHeaderValueParserTest extends HeaderValueP
 
     @Test
     public void testCommentFails() {
-        this.parseInvalidCharacterFails("(abc)", '(');
+        this.parseCommentFails("(abc)", 0);
     }
 
     @Test
@@ -62,7 +62,7 @@ public final class ContentEncodingListHeaderValueParserTest extends HeaderValueP
 
     @Test
     public void testTokenCommentFails() {
-        this.parseInvalidCharacterFails("gzip(abc)", '(');
+        this.parseCommentFails("gzip(abc)", 4);
     }
 
     @Test

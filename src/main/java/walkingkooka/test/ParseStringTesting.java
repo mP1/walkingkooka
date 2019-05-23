@@ -20,6 +20,7 @@ package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.net.header.CommentHeaderValueException;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -69,6 +70,11 @@ public interface ParseStringTesting<T> extends Testing {
 
     default void parseInvalidCharacterFails(final String text, final int pos) {
         this.parseFails(text, this.parseFailedExpected(new InvalidCharacterException(text, pos)));
+    }
+
+    default void parseCommentFails(final String text, final int pos) {
+        this.parseFails(text,
+                this.parseFailedExpected(new CommentHeaderValueException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))));
     }
 
     /**
