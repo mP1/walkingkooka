@@ -22,16 +22,39 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class ContentDispositionFileNameEncodedTest extends ContentDispositionFileNameTestCase<ContentDispositionFileNameEncoded> {
 
     private final static String FILENAME = "filename 123";
 
     @Test
     public void testWith() {
-        this.check(this.createHeaderValue(),
+        final ContentDispositionFileNameEncoded contentDisposition = this.createHeaderValue();
+        this.check(contentDisposition,
                 FILENAME,
                 Optional.of(this.encodedText().charset()),
                 this.encodedText().language());
+        this.checkWithoutPath(contentDisposition, null);
+    }
+
+    @Test
+    public void testWithoutPathUnnecessary() {
+        final String value = "filename123";
+
+        final ContentDispositionFileNameEncoded contentDisposition = ContentDispositionFileNameEncoded.with(encodedText(value));
+        assertSame(contentDisposition, contentDisposition.withoutPath());
+        this.checkWithoutPath(contentDisposition, contentDisposition);
+    }
+
+    @Test
+    public void testWithoutPathRemoved() {
+        final String value = "/path/filename123";
+
+        final ContentDispositionFileNameEncoded contentDisposition = ContentDispositionFileNameEncoded.with(encodedText(value));
+        assertNotSame(contentDisposition, contentDisposition.withoutPath());
+        this.checkWithoutPath(contentDisposition, ContentDispositionFileNameEncoded.with(encodedText("filename123")));
     }
 
     @Test
@@ -66,7 +89,11 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     }
 
     private EncodedText encodedText() {
-        return EncodedText.with(this.charsetName(), this.language(), FILENAME);
+        return this.encodedText(FILENAME);
+    }
+
+    private EncodedText encodedText(final String filename) {
+        return EncodedText.with(this.charsetName(), this.language(), filename);
     }
 
     @Override

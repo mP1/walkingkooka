@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 
+import java.io.File;
 import java.util.Optional;
 
 /**
@@ -56,6 +57,43 @@ abstract public class ContentDispositionFileName implements Name, HeaderValue {
     public abstract Optional<CharsetName> charsetName();
 
     public abstract Optional<LanguageTagName> language();
+
+    /**
+     * Returns a {@link ContentDispositionFileName} where the filename has no path.
+     */
+    public final ContentDispositionFileName withoutPath() {
+        if (null == this.withoutPath) {
+            final ContentDispositionFileName withoutPath = this.computeWithoutPath();
+            this.withoutPath = withoutPath.withoutPath = withoutPath;
+        }
+        return this.withoutPath;
+    }
+
+    // VisibleForTesting
+    ContentDispositionFileName withoutPath;
+
+    /**
+     * Lazily computes a {@link ContentDispositionFileName} with only the filename without any path.
+     */
+    abstract ContentDispositionFileName computeWithoutPath();
+
+    /**
+     * Scans the path for the first slash or filesystem separator character, or null if none was found and the original
+     * filename has no path.
+     */
+    static String removePathIfNecessaryOrNull(final String filename) {
+        String result = null;
+
+        for (int i = filename.length() - 1; i >= 0; --i) {
+            final char c = filename.charAt(i);
+            if ('/' == c || File.separatorChar == c) {
+                result = filename.substring(i + 1);
+                break;
+            }
+        }
+
+        return result;
+    }
 
     // HeaderValue .................................................................................
 

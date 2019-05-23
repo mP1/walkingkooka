@@ -67,6 +67,18 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     }
 
     @Test
+    public void testWithPath() {
+        final CharsetName charset = this.charset();
+        final Optional<LanguageTagName> language = this.language();
+        final String text = "/path/filename.txt";
+
+        this.check(EncodedText.with(charset, language, text),
+                charset,
+                language,
+                text);
+    }
+
+    @Test
     public void testWithNoLanguage() {
         final CharsetName charset = this.charset();
         final Optional<LanguageTagName> language = EncodedText.NO_LANGUAGE;

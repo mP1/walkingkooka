@@ -62,6 +62,17 @@ final class ContentDispositionFileNameEncoded extends ContentDispositionFileName
         return this.encodedText.language();
     }
 
+    @Override
+    final ContentDispositionFileNameEncoded computeWithoutPath() {
+        final EncodedText encodedText = this.encodedText;
+        final String value = encodedText.value();
+        final String without = removePathIfNecessaryOrNull(value);
+
+        return null == without ?
+                this :
+                new ContentDispositionFileNameEncoded(EncodedText.with(encodedText.charset(), encodedText.language(), without));
+    }
+
     // HeaderValue .................................................................................
 
     @Override

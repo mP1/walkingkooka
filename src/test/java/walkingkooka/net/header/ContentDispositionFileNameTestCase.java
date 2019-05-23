@@ -24,12 +24,19 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ContentDispositionFileNameTestCase<F extends ContentDispositionFileName> extends
         HeaderValueTestCase<F> {
 
     ContentDispositionFileNameTestCase() {
         super();
+    }
+
+    @Test
+    public final void testWithoutPathCached() {
+        final ContentDispositionFileName contentDisposition = this.createHeaderValue();
+        assertSame(contentDisposition.withoutPath(), contentDisposition.withoutPath());
     }
 
     final void check(final ContentDispositionFileName filename,
@@ -39,6 +46,11 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
         assertEquals(value, filename.value(), "value");
         assertEquals(charsetName, filename.charsetName(), "charsetName");
         assertEquals(language, filename.language(), "language");
+    }
+
+    final void checkWithoutPath(final ContentDispositionFileName contentDisposition,
+                                final ContentDispositionFileName withoutPath) {
+        assertEquals(withoutPath, contentDisposition.withoutPath, "withoutPath");
     }
 
     @Test
@@ -59,6 +71,11 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
     @Override
     public final boolean isResponse() {
         return true;
+    }
+
+    @Test
+    public final void testWithoutPathCacheEqualsUnimportant() {
+        this.checkEquals(this.createHeaderValue().withoutPath(), this.createHeaderValue());
     }
 
     @Override
