@@ -19,30 +19,29 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptEncodingWildcardTest extends AcceptEncodingTestCase<AcceptEncodingWildcard> {
+public final class EncodingWildcardTest extends EncodingTestCase<EncodingWildcard> {
 
     @Test
     public void testWithNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            AcceptEncoding.with(null);
+            Encoding.with(null);
         });
     }
 
     @Test
     public void testWithEmptyValueFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            AcceptEncoding.with("");
+            Encoding.with("");
         });
     }
 
     @Test
     public void testWithInvalidCharacterFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            AcceptEncoding.with("\u001f");
+            Encoding.with("\u001f");
         });
     }
 
@@ -73,18 +72,18 @@ public final class AcceptEncodingWildcardTest extends AcceptEncodingTestCase<Acc
     @Test
     public void testParseWildcard() {
         this.parseAndCheck("*",
-                Lists.of(AcceptEncoding.WILDCARD_ACCEPT_ENCODING));
+                Encoding.WILDCARD_ENCODING);
     }
 
     @Test
     public void testParseWhitespaceTokenWhitespace() {
         this.parseAndCheck(" * ",
-                Lists.of(AcceptEncoding.WILDCARD_ACCEPT_ENCODING));
+                Encoding.WILDCARD_ENCODING);
     }
 
     @Override
-    public AcceptEncodingWildcard createHeaderValueWithParameters() {
-        return AcceptEncodingWildcard.INSTANCE;
+    public EncodingWildcard createHeaderValueWithParameters() {
+        return EncodingWildcard.INSTANCE;
     }
 
     @Override
@@ -93,7 +92,7 @@ public final class AcceptEncodingWildcardTest extends AcceptEncodingTestCase<Acc
     }
 
     @Override
-    Class<AcceptEncodingWildcard> acceptEncodingType() {
-        return AcceptEncodingWildcard.class;
+    Class<EncodingWildcard> encodingType() {
+        return EncodingWildcard.class;
     }
 }

@@ -23,22 +23,22 @@ import java.util.Map;
 /**
  * An accept-encoding with optional parameters.
  */
-final class AcceptEncodingNonWildcard extends AcceptEncoding {
+final class EncodingNonWildcard extends Encoding {
 
-    static AcceptEncodingNonWildcard with(final String value, final Map<AcceptEncodingParameterName<?>, Object> parameters) {
+    static EncodingNonWildcard with(final String value, final Map<EncodingParameterName<?>, Object> parameters) {
         return parameters.isEmpty() ?
                 maybeConstant(value) :
-                new AcceptEncodingNonWildcard(value, parameters);
+                new EncodingNonWildcard(value, parameters);
     }
 
-    private static AcceptEncodingNonWildcard maybeConstant(final String value) {
-        final AcceptEncodingNonWildcard acceptEncodings = CONSTANTS.get(value);
+    private static EncodingNonWildcard maybeConstant(final String value) {
+        final EncodingNonWildcard acceptEncodings = CONSTANTS.get(value);
         return null != acceptEncodings ?
                 acceptEncodings :
-                new AcceptEncodingNonWildcard(value, NO_PARAMETERS);
+                new EncodingNonWildcard(value, NO_PARAMETERS);
     }
 
-    private AcceptEncodingNonWildcard(final String value, final Map<AcceptEncodingParameterName<?>, Object> parameters) {
+    private EncodingNonWildcard(final String value, final Map<EncodingParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
@@ -48,8 +48,8 @@ final class AcceptEncodingNonWildcard extends AcceptEncoding {
     }
 
     @Override
-    AcceptEncodingNonWildcard replace(final Map<AcceptEncodingParameterName<?>, Object> parameters) {
-        return new AcceptEncodingNonWildcard(this.value, parameters);
+    EncodingNonWildcard replace(final Map<EncodingParameterName<?>, Object> parameters) {
+        return new EncodingNonWildcard(this.value, parameters);
     }
 
     // Predicate........................................................................................................
@@ -63,6 +63,6 @@ final class AcceptEncodingNonWildcard extends AcceptEncoding {
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof AcceptEncodingNonWildcard;
+        return other instanceof EncodingNonWildcard;
     }
 }

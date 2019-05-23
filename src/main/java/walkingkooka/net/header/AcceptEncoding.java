@@ -18,197 +18,101 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.collect.map.Maps;
-import walkingkooka.net.HasQFactorWeight;
-import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CaseSensitivity;
-
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * The accept encoding header.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding"></a>
+ * <pre>
+ * Accept-Encoding: gzip
+ * Accept-Encoding: compress
+ * Accept-Encoding: deflate
+ * Accept-Encoding: br
+ * Accept-Encoding: identity
+ * Accept-Encoding: *
+ *
+ * // Multiple algorithms, weighted with the quality value syntax:
+ * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
+ * </pre>
  */
-public abstract class AcceptEncoding extends HeaderValueWithParameters2<AcceptEncoding,
-        AcceptEncodingParameterName<?>,
-        String>
-        implements Comparable<AcceptEncoding>,
-        HasQFactorWeight,
-        Predicate<ContentEncoding> {
+public final class AcceptEncoding extends HeaderValue2<List<Encoding>>
+        implements Predicate<ContentEncoding> {
 
     /**
-     * A map holding no parameters.
+     * Parses a header value that contains one or more encodings.
      */
-    public final static Map<AcceptEncodingParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
-
-    /**
-     * {@see CaseSensitivity}
-     */
-    final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
-    /**
-     * Holds all constants.
-     */
-    final static Map<String, AcceptEncodingNonWildcard> CONSTANTS = Maps.sorted(CASE_SENSITIVITY.comparator());
-
-    /**
-     * Holds a {@link AcceptEncoding} for br.
-     */
-    public final static AcceptEncoding BR = registerConstant("br");
-
-    /**
-     * Holds a {@link AcceptEncoding} for deflate
-     */
-    public final static AcceptEncoding COMPRESS = registerConstant("compress");
-
-    /**
-     * Holds a {@link AcceptEncoding} for deflate.
-     */
-    public final static AcceptEncoding DEFLATE = registerConstant("deflate");
-
-    /**
-     * Holds a {@link AcceptEncoding} for gzip.
-     */
-    public final static AcceptEncoding GZIP = registerConstant("gzip");
-
-    /**
-     * Holds a {@link AcceptEncoding} for identity.
-     */
-    public final static AcceptEncoding IDENTITY = registerConstant("identity");
-
-    /**
-     * Holds a {@link AcceptEncoding wildcard}
-     */
-    public final static AcceptEncoding WILDCARD_ACCEPT_ENCODING = AcceptEncodingWildcard.with(NO_PARAMETERS);
-
-    /**
-     * Creates and then registers the constant.
-     */
-    static private AcceptEncoding registerConstant(final String text) {
-        final AcceptEncodingNonWildcard contentType = nonWildcard(text, NO_PARAMETERS);
-        CONSTANTS.put(text, contentType);
-        return contentType;
+    public static AcceptEncoding parse(final String text) {
+        return AcceptEncodingHeaderValueParser.parseAcceptEncoding(text);
     }
 
     /**
-     * Parses text into a list of one or more {@link AcceptEncoding}
+     * Factory that creates a new {@link AcceptEncoding}
      */
-    public static List<AcceptEncoding> parse(final String text) {
-        return AcceptEncodingListHeaderValueParser.parseAcceptEncodingList(text);
+    public static AcceptEncoding with(final List<Encoding> values) {
+        Objects.requireNonNull(values, "values");
+
+        return new AcceptEncoding(values.stream()
+                .map(v -> Objects.requireNonNull(v, "values includes null"))
+                .collect(Collectors.toList()));
     }
 
     /**
-     * {@see AcceptEncoding}
+     * Package private ctor use factory. Only called directly by factory or {@link AcceptEncodingHeaderValueParser}
      */
-    static AcceptEncoding with(final String value) {
-        return "*".equals(value) ?
-                wildcard(NO_PARAMETERS) :
-                nonWildcard(checkValue(value), NO_PARAMETERS);
+    AcceptEncoding(final List<Encoding> values) {
+        super(values);
     }
 
-    private static String checkValue(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value,
-                "value",
-                AcceptEncodingListHeaderValueParser.RFC2045TOKEN);
-        return value;
-    }
+    // Predicate........................................................................................................
 
     /**
-     * {@see AcceptEncodingNonWildcard}
+     * Returns true if any of the encodings belong to this accept-encoding matches the given {@link ContentEncoding}.
      */
-    static AcceptEncodingNonWildcard nonWildcard(final String value,
-                                                 final Map<AcceptEncodingParameterName<?>, Object> parameters) {
-        return AcceptEncodingNonWildcard.with(value, checkParameters(parameters));
-    }
-
-    /**
-     * {@see AcceptEncodingWildcard}
-     */
-    static AcceptEncodingWildcard wildcard(final Map<AcceptEncodingParameterName<?>, Object> parameters) {
-        return AcceptEncodingWildcard.with(checkParameters(parameters));
-    }
-
-    /**
-     * Package private to limit sub classing.
-     */
-    AcceptEncoding(final String value,
-                   final Map<AcceptEncodingParameterName<?>, Object> parameters) {
-        super(value, parameters);
-    }
-
-    @Override
-    final String toHeaderTextValue() {
-        return this.value;
-    }
-
-    @Override
-    final String toHeaderTextParameterSeparator() {
-        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
-    }
-
-    // isXXX...........................................................................................................
-
-    /**
-     * Returns true if this accept-encoding is a wildcard.
-     */
-    public abstract boolean isWildcard();
-
-    // HasQFactorWeight................................................................................................
-
-    @Override
-    public Optional<Float> qFactorWeight() {
-        return AcceptEncodingParameterName.Q_FACTOR.parameterValue(this);
-    }
-
-    // HasHeaderScope .................................................................................................
-
-    @Override
-    public final boolean isMultipart() {
-        return false;
-    }
-
-    @Override
-    public final boolean isRequest() {
-        return true;
-    }
-
-    @Override
-    public final boolean isResponse() {
-        return false;
-    }
-
-    // Predicate .....................................................................................................
-
     @Override
     public boolean test(final ContentEncoding contentEncoding) {
         Objects.requireNonNull(contentEncoding, "contentEncoding");
 
-        return this.test0(contentEncoding);
+        return this.value.stream()
+                .filter(e -> e.test(contentEncoding))
+                .limit(1)
+                .count() == 1;
     }
 
-    abstract boolean test0(final ContentEncoding contentEncoding);
-
-    // Object..........................................................................................................
+    // HeaderValue.....................................................................................................
 
     @Override
-    final int hashCode0(final String value) {
-        return CASE_SENSITIVITY.hash(value);
+    public String toHeaderText() {
+        return HeaderValue.toHeaderTextList(value, SEPARATOR);
     }
 
+    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
+
 
     @Override
-    final boolean equals1(final String value, final String otherValue) {
-        return CASE_SENSITIVITY.equals(value, otherValue);
+    public boolean isWildcard() {
+        return false;
     }
 
-    // Comparable......................................................................................................
+    @Override
+    public boolean isMultipart() {
+        return false;
+    }
 
     @Override
-    public final int compareTo(final AcceptEncoding other) {
-        return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
+    public boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    public boolean isResponse() {
+        return false;
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof AcceptEncoding;
     }
 }

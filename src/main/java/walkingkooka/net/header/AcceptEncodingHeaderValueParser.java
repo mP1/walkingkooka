@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicate;
 
 import java.util.List;
@@ -72,15 +73,16 @@ import java.util.List;
  *       work and are not permitted with x-gzip or x-compress.
  * </pre>
  */
-final class AcceptEncodingListHeaderValueParser extends HeaderValueParserWithParameters<AcceptEncoding, AcceptEncodingParameterName<?>> {
+final class AcceptEncodingHeaderValueParser extends HeaderValueParserWithParameters<Encoding, EncodingParameterName<?>> {
 
-    static List<AcceptEncoding> parseAcceptEncodingList(final String text) {
-        final AcceptEncodingListHeaderValueParser parser = new AcceptEncodingListHeaderValueParser(text);
+    static AcceptEncoding parseAcceptEncoding(final String text) {
+        final AcceptEncodingHeaderValueParser parser = new AcceptEncodingHeaderValueParser(text);
         parser.parse();
-        return Lists.readOnly(parser.acceptEncodings);
+        parser.encodings.sort(HasQFactorWeight.qFactorDescendingComparator());
+        return new AcceptEncoding(Lists.readOnly(parser.encodings));
     }
 
-    private AcceptEncodingListHeaderValueParser(final String text) {
+    private AcceptEncodingHeaderValueParser(final String text) {
         super(text);
     }
 
@@ -90,14 +92,14 @@ final class AcceptEncodingListHeaderValueParser extends HeaderValueParserWithPar
     }
 
     @Override
-    AcceptEncoding wildcardValue() {
+    Encoding wildcardValue() {
         this.position++; // consume star
-        return AcceptEncoding.WILDCARD_ACCEPT_ENCODING;
+        return Encoding.WILDCARD_ENCODING;
     }
 
     @Override
-    AcceptEncoding value() {
-        return AcceptEncoding.with(this.token(RFC2045TOKEN));
+    Encoding value() {
+        return Encoding.with(this.token(RFC2045TOKEN));
     }
 
     @Override
@@ -106,30 +108,30 @@ final class AcceptEncodingListHeaderValueParser extends HeaderValueParserWithPar
     }
 
     @Override
-    AcceptEncodingParameterName<?> parameterName() {
-        return this.parameterName(PARAMETER_NAME, AcceptEncodingParameterName::with);
+    EncodingParameterName<?> parameterName() {
+        return this.parameterName(PARAMETER_NAME, EncodingParameterName::with);
     }
 
     private final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
-    String quotedParameterValue(final AcceptEncodingParameterName<?> parameterName) {
+    String quotedParameterValue(final EncodingParameterName<?> parameterName) {
         return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
-    String unquotedParameterValue(final AcceptEncodingParameterName<?> parameterName) {
+    String unquotedParameterValue(final EncodingParameterName<?> parameterName) {
         return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 
     final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
     @Override
-    void valueComplete(final AcceptEncoding acceptEncoding) {
-        this.acceptEncodings.add(acceptEncoding);
+    void valueComplete(final Encoding encoding) {
+        this.encodings.add(encoding);
     }
 
-    private final List<AcceptEncoding> acceptEncodings = Lists.array();
+    private final List<Encoding> encodings = Lists.array();
 }

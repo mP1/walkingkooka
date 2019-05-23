@@ -25,7 +25,6 @@ import walkingkooka.net.header.ContentEncoding;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
-import walkingkooka.util.Optionals;
 
 import java.io.IOException;
 import java.util.List;
@@ -71,14 +70,9 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
 
         HttpEntity add = entity;
 
-        final Optional<List<AcceptEncoding>> acceptEncodings = HttpHeaderName.ACCEPT_ENCODING.headerValue(this.request.headers());
+        final Optional<AcceptEncoding> acceptEncodings = HttpHeaderName.ACCEPT_ENCODING.headerValue(this.request.headers());
 
-        if(Optionals.stream(acceptEncodings)
-                .flatMap(l -> l.stream())
-                .filter(a -> a.test(ContentEncoding.GZIP))
-                .limit(1)
-                .count() == 1) {
-            // found an accept-encoding that matches GZIP...now double check if already GZIPPED
+        if(acceptEncodings.map(ae -> ae.test(ContentEncoding.GZIP)).orElse(Boolean.FALSE)) {
 
             final Optional<List<ContentEncoding>> contentEncodings = HttpHeaderName.CONTENT_ENCODING.headerValue(add.headers());
             if(!contentEncodings.isPresent()) {
