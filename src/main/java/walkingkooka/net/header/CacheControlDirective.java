@@ -59,7 +59,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
      * Parses a header value into its {@link List} of {@link CacheControlDirective} equivalent.
      */
     public static List<CacheControlDirective<?>> parse(final String text) {
-        return CacheControlDirectiveHeaderParser.parseCacheControlDirectiveList(text);
+        return CacheControlDirectiveHeaderValueParser.parseCacheControlDirectiveList(text);
     }
 
     // constants................................................................................................

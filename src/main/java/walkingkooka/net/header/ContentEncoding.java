@@ -107,7 +107,7 @@ public final class ContentEncoding implements Value<String>,
      * Factory that creates a {@link ContentEncoding} after verifying the individual characters.
      */
     public static ContentEncoding with(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "value", ContentEncodingListHeaderParser.RFC2045TOKEN);
+        CharPredicates.failIfNullOrEmptyOrFalse(value, "value", ContentEncodingListHeaderValueParser.RFC2045TOKEN);
 
         final ContentEncoding contentEncoding = CONSTANTS.get(value);
         return null != contentEncoding ?

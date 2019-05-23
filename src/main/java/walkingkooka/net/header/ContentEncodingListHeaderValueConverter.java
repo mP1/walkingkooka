@@ -52,7 +52,7 @@ final class ContentEncodingListHeaderValueConverter extends NonStringHeaderValue
 
     @Override
     List<ContentEncoding> parse0(final String text, final Name name) {
-        return ContentEncodingListHeaderParser.parseContentEncodingList(text);
+        return ContentEncodingListHeaderValueParser.parseContentEncodingList(text);
     }
 
     @Override

@@ -41,7 +41,7 @@ final class LinkHeaderValueConverter extends NonStringHeaderValueConverter<List<
 
     @Override
     List<Link> parse0(final String text, final Name name) {
-        return LinkHeaderParser.parseLink(text);
+        return LinkHeaderValueParser.parseLink(text);
     }
 
     @Override

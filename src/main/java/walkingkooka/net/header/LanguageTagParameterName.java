@@ -26,9 +26,9 @@ final public class LanguageTagParameterName<V> extends HeaderParameterName<V> im
     private final static HeaderParameterNameConstants<LanguageTagParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             LanguageTagParameterName::new,
             HeaderValueConverter.quotedUnquotedString(
-                    LanguageTagHeaderParser.QUOTED_PARAMETER_VALUE,
+                    LanguageTagHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    LanguageTagHeaderParser.UNQUOTED_PARAMETER_VALUE)
+                    LanguageTagHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**

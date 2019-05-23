@@ -48,7 +48,7 @@ public final class ContentDisposition extends HeaderValueWithParameters2<Content
      * </pre>
      */
     public static ContentDisposition parse(final String text) {
-        return ContentDispositionHeaderParser.parseContentDisposition(text);
+        return ContentDispositionHeaderValueParser.parseContentDisposition(text);
     }
 
     /**

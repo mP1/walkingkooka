@@ -26,9 +26,9 @@ final public class AcceptEncodingParameterName<V> extends HeaderParameterName<V>
     private final static HeaderParameterNameConstants<AcceptEncodingParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             AcceptEncodingParameterName::new,
             HeaderValueConverter.quotedUnquotedString(
-                    AcceptEncodingListHeaderParser.QUOTED_PARAMETER_VALUE,
+                    AcceptEncodingListHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    AcceptEncodingListHeaderParser.UNQUOTED_PARAMETER_VALUE)
+                    AcceptEncodingListHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**

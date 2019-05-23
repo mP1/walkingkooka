@@ -52,7 +52,7 @@ final class AcceptEncodingListHeaderValueConverter extends NonStringHeaderValueC
 
     @Override
     List<AcceptEncoding> parse0(final String text, final Name name) {
-        return AcceptEncodingListHeaderParser.parseAcceptEncodingList(text);
+        return AcceptEncodingListHeaderValueParser.parseAcceptEncodingList(text);
     }
 
     @Override

@@ -39,7 +39,7 @@ public final class AcceptCharset extends HeaderValue2<List<CharsetHeaderValue>> 
      * Parses a header value that contains one or more charsets.
      */
     public static AcceptCharset parse(final String text) {
-        return AcceptCharsetHeaderParser.parseAcceptCharset(text);
+        return AcceptCharsetHeaderValueParser.parseAcceptCharset(text);
     }
 
     /**
@@ -54,7 +54,7 @@ public final class AcceptCharset extends HeaderValue2<List<CharsetHeaderValue>> 
     }
 
     /**
-     * Private ctor use factory. Only called directly by factory or {@link AcceptCharsetHeaderParser}
+     * Private ctor use factory. Only called directly by factory or {@link AcceptCharsetHeaderValueParser}
      */
     AcceptCharset(final List<CharsetHeaderValue> values) {
         super(values);

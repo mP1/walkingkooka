@@ -95,7 +95,7 @@ public abstract class AcceptEncoding extends HeaderValueWithParameters2<AcceptEn
      * Parses text into a list of one or more {@link AcceptEncoding}
      */
     public static List<AcceptEncoding> parse(final String text) {
-        return AcceptEncodingListHeaderParser.parseAcceptEncodingList(text);
+        return AcceptEncodingListHeaderValueParser.parseAcceptEncodingList(text);
     }
 
     /**
@@ -110,7 +110,7 @@ public abstract class AcceptEncoding extends HeaderValueWithParameters2<AcceptEn
     private static String checkValue(final String value) {
         CharPredicates.failIfNullOrEmptyOrFalse(value,
                 "value",
-                AcceptEncodingListHeaderParser.RFC2045TOKEN);
+                AcceptEncodingListHeaderValueParser.RFC2045TOKEN);
         return value;
     }
 
