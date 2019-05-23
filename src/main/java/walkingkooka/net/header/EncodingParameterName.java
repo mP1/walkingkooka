@@ -21,41 +21,41 @@ package walkingkooka.net.header;
 /**
  * The name of any parameter that accompanies a accept-encoding header
  */
-final public class AcceptEncodingParameterName<V> extends HeaderParameterName<V> implements Comparable<AcceptEncodingParameterName<?>> {
+final public class EncodingParameterName<V> extends HeaderParameterName<V> implements Comparable<EncodingParameterName<?>> {
 
-    private final static HeaderParameterNameConstants<AcceptEncodingParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
-            AcceptEncodingParameterName::new,
+    private final static HeaderParameterNameConstants<EncodingParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
+            EncodingParameterName::new,
             HeaderValueConverter.quotedUnquotedString(
-                    AcceptEncodingListHeaderValueParser.QUOTED_PARAMETER_VALUE,
+                    AcceptEncodingHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
-                    AcceptEncodingListHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
+                    AcceptEncodingHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
     );
 
     /**
      * The q factor weight parameter.
      */
-    public final static AcceptEncodingParameterName<Float> Q_FACTOR = CONSTANTS.register("q",
+    public final static EncodingParameterName<Float> Q_FACTOR = CONSTANTS.register("q",
             HeaderValueConverter.qWeight());
 
     /**
-     * Factory that creates a {@link AcceptEncodingParameterName}
+     * Factory that creates a {@link EncodingParameterName}
      */
-    public static AcceptEncodingParameterName<?> with(final String name) {
+    public static EncodingParameterName<?> with(final String name) {
         return CONSTANTS.lookup(name);
     }
 
     /**
      * Private ctor use factory.
      */
-    private AcceptEncodingParameterName(final String value,
-                                        final HeaderValueConverter<V> converter) {
+    private EncodingParameterName(final String value,
+                                  final HeaderValueConverter<V> converter) {
         super(value, converter);
     }
 
     // Comparable......................................................................................................
 
     @Override
-    public int compareTo(final AcceptEncodingParameterName<?> other) {
+    public int compareTo(final EncodingParameterName<?> other) {
         return this.compareTo0(other);
     }
 
@@ -63,6 +63,6 @@ final public class AcceptEncodingParameterName<V> extends HeaderParameterName<V>
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof AcceptEncodingParameterName;
+        return other instanceof EncodingParameterName;
     }
 }

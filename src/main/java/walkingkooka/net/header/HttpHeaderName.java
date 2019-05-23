@@ -64,11 +64,11 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
     /**
-     * Creates and adds a new {@link AcceptEncoding} to the cache being built that handles list of {@link AcceptEncoding} header values.
+     * Creates and adds a new {@link AcceptEncoding}.
      */
-    private static HttpHeaderName<List<AcceptEncoding>> registerAcceptEncodingListConstant(final String header,
-                                                                                           final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.acceptEncodingList());
+    private static HttpHeaderName<AcceptEncoding> registerAcceptEncodingConstant(final String header,
+                                                                                 final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueConverter.acceptEncoding());
     }
 
     /**
@@ -328,7 +328,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<AcceptEncoding>> ACCEPT_ENCODING = registerAcceptEncodingListConstant("Accept-Encoding",
+    public final static HttpHeaderName<AcceptEncoding> ACCEPT_ENCODING = registerAcceptEncodingConstant("Accept-Encoding",
             HttpHeaderNameScope.REQUEST);
 
     /**

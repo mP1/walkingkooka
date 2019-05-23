@@ -20,8 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
  * A {@link HeaderValueConverter} that handles parsing a quoted boundary string into its raw form.<br>
  * <pre>
@@ -36,35 +34,33 @@ import java.util.List;
  * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
  * </pre>
  */
-final class AcceptEncodingListHeaderValueConverter extends NonStringHeaderValueConverter<List<AcceptEncoding>> {
+final class AcceptEncodingHeaderValueConverter extends NonStringHeaderValueConverter<AcceptEncoding> {
 
     /**
      * Singleton
      */
-    final static AcceptEncodingListHeaderValueConverter INSTANCE = new AcceptEncodingListHeaderValueConverter();
+    final static AcceptEncodingHeaderValueConverter INSTANCE = new AcceptEncodingHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private AcceptEncodingListHeaderValueConverter() {
+    private AcceptEncodingHeaderValueConverter() {
         super();
     }
 
     @Override
-    List<AcceptEncoding> parse0(final String text, final Name name) {
-        return AcceptEncodingListHeaderValueParser.parseAcceptEncodingList(text);
+    AcceptEncoding parse0(final String text, final Name name) {
+        return AcceptEncodingHeaderValueParser.parseAcceptEncoding(text);
     }
 
     @Override
     void check0(final Object value, final Name name) {
-        if (this.checkListOfType(value, AcceptEncoding.class, name).isEmpty()) {
-            throw new HeaderValueException("Accept-Encoding list empty");
-        }
+        this.checkType(value, AcceptEncoding.class, name);
     }
 
     @Override
-    String toText0(final List<AcceptEncoding> acceptEncoding, final Name name) {
-        return HeaderValue.toHeaderTextList(acceptEncoding, SEPARATOR);
+    String toText0(final AcceptEncoding acceptEncoding, final Name name) {
+        return acceptEncoding.toHeaderText();
     }
 
     @Override

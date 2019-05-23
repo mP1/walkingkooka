@@ -23,57 +23,55 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AcceptEncodingListHeaderValueConverterTest extends NonStringHeaderValueConverterTestCase<AcceptEncodingListHeaderValueConverter, List<AcceptEncoding>> {
+public final class AcceptEncodingHeaderValueConverterTest extends NonStringHeaderValueConverterTestCase<AcceptEncodingHeaderValueConverter, AcceptEncoding> {
 
     @Test
     public void testParseToken() {
         this.parseAndCheck2("gzip",
-                AcceptEncoding.GZIP);
+                Encoding.GZIP);
     }
 
     @Test
     public void testParseTokenToken() {
         this.parseAndCheck2("gzip; q=0.5, *",
-                AcceptEncoding.GZIP.setParameters(Maps.of(AcceptEncodingParameterName.Q_FACTOR, 0.5f)),
-                AcceptEncoding.WILDCARD_ACCEPT_ENCODING);
+                Encoding.WILDCARD_ENCODING,
+                Encoding.GZIP.setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
-    private void parseAndCheck2(final String text, final AcceptEncoding... encodings) {
-        this.parseAndCheck(text, Lists.of(encodings));
+    private void parseAndCheck2(final String text, final Encoding... encodings) {
+        this.parseAndCheck(text, AcceptEncoding.with(Lists.of(encodings)));
     }
 
     @Test
     public void testCheckEmptyListFails() {
         assertThrows(HeaderValueException.class, () -> {
-            AcceptEncodingListHeaderValueConverter.INSTANCE.check(Lists.empty(), HttpHeaderName.ACCEPT_ENCODING);
+            AcceptEncodingHeaderValueConverter.INSTANCE.check(Lists.empty(), HttpHeaderName.ACCEPT_ENCODING);
         });
     }
 
     @Test
     public void testToText() {
-        this.toTextAndCheck(Lists.of(AcceptEncoding.WILDCARD_ACCEPT_ENCODING),
+        this.toTextAndCheck(acceptEncoding(Encoding.WILDCARD_ENCODING),
                 "*");
     }
 
     @Test
     public void testToText2() {
-        this.toTextAndCheck(Lists.of(AcceptEncoding.GZIP),
+        this.toTextAndCheck(acceptEncoding(Encoding.GZIP),
                 "gzip");
     }
 
     @Test
     public void testToText3() {
-        this.toTextAndCheck(Lists.of(AcceptEncoding.WILDCARD_ACCEPT_ENCODING, AcceptEncoding.GZIP),
+        this.toTextAndCheck(acceptEncoding(Encoding.WILDCARD_ENCODING, Encoding.GZIP),
                 "*, gzip");
     }
 
     @Test
     public void testToTextWithParameters() {
-        this.toTextAndCheck(Lists.of(AcceptEncoding.with("abc").setParameters(Maps.of(AcceptEncodingParameterName.Q_FACTOR, 0.5f))),
+        this.toTextAndCheck(acceptEncoding(Encoding.with("abc").setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f))),
                 "abc; q=0.5");
     }
 
@@ -93,18 +91,22 @@ public final class AcceptEncodingListHeaderValueConverterTest extends NonStringH
     }
 
     @Override
-    AcceptEncodingListHeaderValueConverter converter() {
-        return AcceptEncodingListHeaderValueConverter.INSTANCE;
+    AcceptEncodingHeaderValueConverter converter() {
+        return AcceptEncodingHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    List<AcceptEncoding> value() {
-        return Lists.of(AcceptEncoding.GZIP, AcceptEncoding.DEFLATE);
+    AcceptEncoding value() {
+        return acceptEncoding(Encoding.GZIP, Encoding.DEFLATE);
+    }
+
+    private static AcceptEncoding acceptEncoding(final Encoding...encodings) {
+        return AcceptEncoding.with(Lists.of(encodings));
     }
 
     @Override
     String valueType() {
-        return this.listValueType(AcceptEncoding.class);
+        return this.valueType(AcceptEncoding.class);
     }
 
     @Override
@@ -113,7 +115,7 @@ public final class AcceptEncodingListHeaderValueConverterTest extends NonStringH
     }
 
     @Override
-    public Class<AcceptEncodingListHeaderValueConverter> type() {
-        return AcceptEncodingListHeaderValueConverter.class;
+    public Class<AcceptEncodingHeaderValueConverter> type() {
+        return AcceptEncodingHeaderValueConverter.class;
     }
 }

@@ -23,24 +23,24 @@ import java.util.Map;
 /**
  * An accept-encoding wildcard.
  */
-final class AcceptEncodingWildcard extends AcceptEncoding {
+final class EncodingWildcard extends Encoding {
 
     /**
      * Singleton without parameters/
      */
-    final static AcceptEncodingWildcard INSTANCE = new AcceptEncodingWildcard(NO_PARAMETERS);
+    final static EncodingWildcard INSTANCE = new EncodingWildcard(NO_PARAMETERS);
 
-    static AcceptEncodingWildcard with(final Map<AcceptEncodingParameterName<?>, Object> parameters) {
-        return new AcceptEncodingWildcard(parameters);
+    static EncodingWildcard with(final Map<EncodingParameterName<?>, Object> parameters) {
+        return new EncodingWildcard(parameters);
     }
 
-    private AcceptEncodingWildcard(final Map<AcceptEncodingParameterName<?>, Object> parameters) {
+    private EncodingWildcard(final Map<EncodingParameterName<?>, Object> parameters) {
         super("*", parameters);
     }
 
     @Override
-    AcceptEncoding replace(final Map<AcceptEncodingParameterName<?>, Object> parameters) {
-        return new AcceptEncodingWildcard(parameters);
+    Encoding replace(final Map<EncodingParameterName<?>, Object> parameters) {
+        return new EncodingWildcard(parameters);
     }
 
     @Override
@@ -59,6 +59,6 @@ final class AcceptEncodingWildcard extends AcceptEncoding {
 
     @Override
     boolean canBeEquals(final Object other) {
-        return other instanceof AcceptEncodingWildcard;
+        return other instanceof EncodingWildcard;
     }
 }

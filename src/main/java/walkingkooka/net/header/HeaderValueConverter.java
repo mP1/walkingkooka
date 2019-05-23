@@ -53,10 +53,10 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
-     * {@see AcceptEncodingListHeaderValueConverter}
+     * {@see AcceptEncodingHeaderValueConverter}
      */
-    static HeaderValueConverter<List<AcceptEncoding>> acceptEncodingList() {
-        return AcceptEncodingListHeaderValueConverter.INSTANCE;
+    static HeaderValueConverter<AcceptEncoding> acceptEncoding() {
+        return AcceptEncodingHeaderValueConverter.INSTANCE;
     }
 
     /**

@@ -26,18 +26,17 @@ import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-public abstract class AcceptEncodingTestCase<A extends AcceptEncoding> extends HeaderValueWithParametersTestCase<AcceptEncoding, AcceptEncodingParameterName<?>>
-        implements ComparableTesting<AcceptEncoding>,
-        ParseStringTesting<List<AcceptEncoding>>,
-        PredicateTesting<AcceptEncoding, ContentEncoding> {
+public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWithParametersTestCase<Encoding, EncodingParameterName<?>>
+        implements ComparableTesting<Encoding>,
+        ParseStringTesting<Encoding>,
+        PredicateTesting<Encoding, ContentEncoding> {
 
-    AcceptEncodingTestCase() {
+    EncodingTestCase() {
         super();
     }
 
@@ -49,44 +48,44 @@ public abstract class AcceptEncodingTestCase<A extends AcceptEncoding> extends H
     @Test
     public void testWith2() {
         final String text = "unknown";
-        this.checkValue(AcceptEncoding.with(text),
+        this.checkValue(Encoding.with(text),
                 text,
-                AcceptEncoding.NO_PARAMETERS);
+                Encoding.NO_PARAMETERS);
     }
 
     @Test
     public final void testSetParametersDifferent() {
         final A acceptEncoding = this.createHeaderValueWithParameters();
 
-        final Map<AcceptEncodingParameterName<?>, Object> parameters = Maps.of(AcceptEncodingParameterName.Q_FACTOR, 0.5f);
-        final AcceptEncoding different = acceptEncoding.setParameters(parameters);
+        final Map<EncodingParameterName<?>, Object> parameters = Maps.of(EncodingParameterName.Q_FACTOR, 0.5f);
+        final Encoding different = acceptEncoding.setParameters(parameters);
         assertNotSame(parameters, different);
 
         this.checkValue(different, acceptEncoding.value(), parameters);
         this.checkValue(acceptEncoding);
     }
 
-    final void checkValue(final AcceptEncoding acceptEncoding) {
-        this.checkValue(acceptEncoding, this.value(), AcceptEncoding.NO_PARAMETERS);
+    final void checkValue(final Encoding encoding) {
+        this.checkValue(encoding, this.value(), Encoding.NO_PARAMETERS);
     }
 
-    final void checkValue(final AcceptEncoding acceptEncoding,
+    final void checkValue(final Encoding encoding,
                           final String value,
-                          final Map<AcceptEncodingParameterName<?>, Object> parameters) {
-        assertEquals(value, acceptEncoding.value(), "value");
-        assertEquals(parameters, acceptEncoding.parameters(), "parameters");
+                          final Map<EncodingParameterName<?>, Object> parameters) {
+        assertEquals(value, encoding.value(), "value");
+        assertEquals(parameters, encoding.parameters(), "parameters");
     }
 
     @Test
     public final void testHeaderText() {
         final String text = this.value();
-        this.toHeaderTextAndCheck(AcceptEncoding.with(text), text);
+        this.toHeaderTextAndCheck(Encoding.with(text), text);
     }
 
     @Test
     public final void testHeaderTextWithParameters() {
         final String text = this.value();
-        this.toHeaderTextAndCheck(AcceptEncoding.with(text).setParameters(Maps.of(AcceptEncodingParameterName.Q_FACTOR, 0.5f)),
+        this.toHeaderTextAndCheck(Encoding.with(text).setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
                 text + "; q=0.5");
     }
 
@@ -94,17 +93,17 @@ public abstract class AcceptEncodingTestCase<A extends AcceptEncoding> extends H
 
     @Test
     public final void testEqualsNonWildcardDifferentValue() {
-        this.checkNotEquals(AcceptEncoding.with("different"));
+        this.checkNotEquals(Encoding.with("different"));
     }
 
     @Test
     public final void testEqualsDifferentParameters() {
-        this.checkNotEquals(this.createHeaderValueWithParameters().setParameters(Maps.of(AcceptEncodingParameterName.Q_FACTOR, 0.5f)));
+        this.checkNotEquals(this.createHeaderValueWithParameters().setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)));
     }
 
     @Test
     public final void testEqualsParameters() {
-        final Map<AcceptEncodingParameterName<?>, Object> parameters = Maps.of(AcceptEncodingParameterName.Q_FACTOR, 0.5f);
+        final Map<EncodingParameterName<?>, Object> parameters = Maps.of(EncodingParameterName.Q_FACTOR, 0.5f);
         final A acceptEncoding = this.createHeaderValueWithParameters();
 
         this.checkEquals(acceptEncoding.setParameters(parameters), acceptEncoding.setParameters(parameters));
@@ -118,7 +117,7 @@ public abstract class AcceptEncodingTestCase<A extends AcceptEncoding> extends H
     @Test
     public final void testToStringWithParameters() {
         final String value = this.value();
-        this.toStringAndCheck(AcceptEncoding.with(value).setParameters(Maps.of(AcceptEncodingParameterName.Q_FACTOR, 0.5f)),
+        this.toStringAndCheck(Encoding.with(value).setParameters(Maps.of(EncodingParameterName.Q_FACTOR, 0.5f)),
                 value + "; q=0.5");
     }
 
@@ -127,8 +126,8 @@ public abstract class AcceptEncodingTestCase<A extends AcceptEncoding> extends H
     abstract String value();
 
     @Override
-    final AcceptEncodingParameterName<?> parameterName() {
-        return AcceptEncodingParameterName.with("xyz");
+    final EncodingParameterName<?> parameterName() {
+        return EncodingParameterName.with("xyz");
     }
 
     @Override
@@ -154,11 +153,11 @@ public abstract class AcceptEncodingTestCase<A extends AcceptEncoding> extends H
     }
 
     @Override
-    public final Class<AcceptEncoding> type() {
-        return Cast.to(this.acceptEncodingType());
+    public final Class<Encoding> type() {
+        return Cast.to(this.encodingType());
     }
 
-    abstract Class<A> acceptEncodingType();
+    abstract Class<A> encodingType();
 
     // ComparableTesting................................................................................................
 
@@ -172,17 +171,18 @@ public abstract class AcceptEncodingTestCase<A extends AcceptEncoding> extends H
         return this.createHeaderValueWithParameters();
     }
 
-    // ParseStringTesting...............................................................................................
+
+    // ParsingStringTest................................................................................................
 
     @Override
-    public final List<AcceptEncoding> parse(final String text) {
-        return AcceptEncoding.parse(text);
+    public Encoding parse(final String text) {
+        return Encoding.parse(text);
     }
 
     // PredicateTesting...............................................................................................
 
     @Override
-    public final AcceptEncoding createPredicate() {
+    public final Encoding createPredicate() {
         return this.createHeaderValueWithParameters();
     }
 
@@ -190,7 +190,7 @@ public abstract class AcceptEncodingTestCase<A extends AcceptEncoding> extends H
 
     @Override
     public final String typeNamePrefix() {
-        return AcceptEncoding.class.getSimpleName();
+        return Encoding.class.getSimpleName();
     }
 
     @Override
