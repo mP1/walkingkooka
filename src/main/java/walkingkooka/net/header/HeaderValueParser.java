@@ -464,7 +464,7 @@ abstract class HeaderValueParser {
      *    backslash octets occurring within that comment.
      * </pre>
      */
-    final void commentText() {
+    final void skipComment() {
         this.position = HeaderComments.COMMENT_TEXT.consume(this.text, this.position);
     }
 
@@ -523,7 +523,7 @@ abstract class HeaderValueParser {
      * CR, NL, HS | SP
      * </pre>
      */
-    final void whitespace0() {
+    final void skipWhitespace() {
         while (this.hasMoreCharacters()) {
             final char c = this.character();
             if ('\t' == c || ' ' == c) {

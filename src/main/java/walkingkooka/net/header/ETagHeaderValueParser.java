@@ -36,7 +36,7 @@ abstract class ETagHeaderValueParser extends HeaderValueParser {
 
     @Override
     final void whitespace() {
-        this.whitespace0(); // skip whitespace
+        this.skipWhitespace(); // skip whitespace
     }
 
     @Override

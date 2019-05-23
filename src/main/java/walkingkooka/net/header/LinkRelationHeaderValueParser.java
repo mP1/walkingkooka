@@ -152,7 +152,7 @@ final class LinkRelationHeaderValueParser extends HeaderValueParser {
 
     @Override
     void comment() {
-        this.commentText(); // consume and ignore comment text itself.
+        this.skipComment(); // consume and ignore comment text itself.
     }
 
     /**
