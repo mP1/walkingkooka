@@ -591,6 +591,10 @@ abstract class HeaderValueParser {
         return "Missing closing '\"' in " + CharSequences.quoteAndEscape(text);
     }
 
+    final void failCommentPresent() {
+        throw new CommentHeaderValueException("Comment present at " + this.position + " in " + CharSequences.quoteAndEscape(this.text));
+    }
+
     final void failMissingParameterName() {
         fail(missingParameterName(this.position, this.text));
     }

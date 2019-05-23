@@ -18,17 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.jupiter.api.Test;
+import walkingkooka.test.StandardThrowableTesting;
 
-public abstract class HeaderValueParserWithParametersTestCase<P extends HeaderValueParser, V>
-        extends HeaderValueParserTestCase<P, V> {
+final public class CommentHeaderValueExceptionTest implements StandardThrowableTesting<CommentHeaderValueException> {
 
-    HeaderValueParserWithParametersTestCase() {
-        super();
-    }
-
-    @Test
-    public final void testCommentFails() {
-        this.parseCommentFails("(comment-123)", 0);
+    @Override
+    public Class<CommentHeaderValueException> type() {
+        return CommentHeaderValueException.class;
     }
 }

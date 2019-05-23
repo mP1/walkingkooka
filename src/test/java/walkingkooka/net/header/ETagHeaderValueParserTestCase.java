@@ -46,7 +46,7 @@ public abstract class ETagHeaderValueParserTestCase<P extends ETagHeaderValuePar
 
     @Test
     public final void testCommentFails() {
-        this.parseInvalidCharacterFails("(comment-abc123)", 0);
+        this.parseCommentFails("(comment-abc123)", 0);
     }
 
     @Test
@@ -141,7 +141,7 @@ public abstract class ETagHeaderValueParserTestCase<P extends ETagHeaderValuePar
 
     @Test
     public final void testValueCommentFails() {
-        this.parseInvalidCharacterFails("*(comment-abc123)", 1);
+        this.parseCommentFails("*(comment-abc123)", 1);
     }
 
     final void parseAndCheck(final String text, final String value) {

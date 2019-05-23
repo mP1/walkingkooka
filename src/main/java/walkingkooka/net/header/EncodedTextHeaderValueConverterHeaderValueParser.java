@@ -67,7 +67,7 @@ final class EncodedTextHeaderValueConverterHeaderValueParser extends HeaderValue
 
     @Override
     void quotedText() {
-        this.failInvalidCharacter();
+        this.failCommentPresent();
     }
 
     @Override

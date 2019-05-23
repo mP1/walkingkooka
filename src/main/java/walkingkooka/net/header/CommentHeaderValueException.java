@@ -18,17 +18,22 @@
 
 package walkingkooka.net.header;
 
-import org.junit.jupiter.api.Test;
+/**
+ * This exception is used to report an unexpected comment within a header value.
+ */
+public class CommentHeaderValueException extends HeaderValueException {
 
-public abstract class HeaderValueParserWithParametersTestCase<P extends HeaderValueParser, V>
-        extends HeaderValueParserTestCase<P, V> {
+    private final static long serialVersionUID = 1L;
 
-    HeaderValueParserWithParametersTestCase() {
+    protected CommentHeaderValueException() {
         super();
     }
 
-    @Test
-    public final void testCommentFails() {
-        this.parseCommentFails("(comment-123)", 0);
+    public CommentHeaderValueException(final String message) {
+        super(message);
+    }
+
+    public CommentHeaderValueException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

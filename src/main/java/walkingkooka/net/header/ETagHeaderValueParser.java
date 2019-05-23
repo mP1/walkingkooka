@@ -75,7 +75,7 @@ abstract class ETagHeaderValueParser extends HeaderValueParser {
      */
     @Override
     final void comment() {
-        this.failInvalidCharacter();
+        this.failCommentPresent();
     }
 
     @Override
