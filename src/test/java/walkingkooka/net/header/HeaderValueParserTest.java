@@ -94,7 +94,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
 
     private HeaderValueParser whitespace(final String text) {
         final HeaderValueParser parser = new TestHeaderValueParser(text);
-        parser.whitespace0();
+        parser.skipWhitespace();
         return parser;
     }
 
@@ -475,7 +475,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
             @Override
             void whitespace() {
                 recorded.append("[ws]");
-                this.whitespace0();
+                this.skipWhitespace();
             }
 
             @Override
@@ -513,7 +513,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
             @Override
             void comment() {
                 final int start = this.position + 1;
-                this.commentText();
+                this.skipComment();
 
                 recorded.append("[comment-" + this.text.substring(start, this.position -1) + "]");
             }
@@ -589,7 +589,7 @@ public final class HeaderValueParserTest extends HeaderValueParserTestCase<Heade
 
         @Override
         void comment() {
-            this.commentText();
+            this.skipComment();
         }
 
         @Override

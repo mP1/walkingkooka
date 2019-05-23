@@ -38,7 +38,7 @@ abstract class HeaderValueParserWithParameters<V extends HeaderValueWithParamete
 
     @Override
     final void whitespace() {
-        this.whitespace0();
+        this.skipWhitespace();
     }
 
     @Override

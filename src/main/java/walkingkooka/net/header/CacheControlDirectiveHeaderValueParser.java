@@ -50,7 +50,7 @@ final class CacheControlDirectiveHeaderValueParser extends HeaderValueParser {
         if (!this.requireDirectiveName) {
             this.failInvalidCharacter(); // whitespace after directives not allowed.
         }
-        this.whitespace0();
+        this.skipWhitespace();
     }
 
     @Override
@@ -106,7 +106,7 @@ final class CacheControlDirectiveHeaderValueParser extends HeaderValueParser {
 
     @Override
     void comment() {
-        this.commentText(); // consume and ignore comment text itself.
+        this.skipComment(); // consume and ignore comment text itself.
     }
 
     @Override
