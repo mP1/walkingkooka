@@ -19,12 +19,14 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -35,6 +37,7 @@ public abstract class AcceptEncoding extends HeaderValueWithParameters2<AcceptEn
         AcceptEncodingParameterName<?>,
         String>
         implements Comparable<AcceptEncoding>,
+        HasQFactorWeight,
         Predicate<ContentEncoding> {
 
     /**
@@ -153,6 +156,13 @@ public abstract class AcceptEncoding extends HeaderValueWithParameters2<AcceptEn
      * Returns true if this accept-encoding is a wildcard.
      */
     public abstract boolean isWildcard();
+
+    // HasQFactorWeight................................................................................................
+
+    @Override
+    public Optional<Float> qFactorWeight() {
+        return AcceptEncodingParameterName.Q_FACTOR.parameterValue(this);
+    }
 
     // HasHeaderScope .................................................................................................
 
