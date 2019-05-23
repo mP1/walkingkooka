@@ -233,31 +233,35 @@ enum HeaderComments {
     FINISHED {
         @Override
         HeaderComments singleQuote() {
-            return NeverError.unhandledCase(this, HeaderComments.values());
+            return this.fail();
         }
 
         @Override
         HeaderComments doubleQuote() {
-            return NeverError.unhandledCase(this, HeaderComments.values());
+            return this.fail();
         }
 
         @Override
         HeaderComments backslash(final String text, final int position) {
-            return NeverError.unhandledCase(this, HeaderComments.values());
+            return this.fail();
         }
 
         @Override
         HeaderComments parensClose() {
-            return NeverError.unhandledCase(this, HeaderComments.values());
+            return this.fail();
         }
 
         @Override
         HeaderComments character(final char c) {
-            return NeverError.unhandledCase(this, HeaderComments.values());
+            return this.fail();
         }
 
         @Override
         String endOfText(final String text) {
+            return NeverError.unhandledCase(this, HeaderComments.values());
+        }
+
+        private HeaderComments fail() {
             return NeverError.unhandledCase(this, HeaderComments.values());
         }
     };
