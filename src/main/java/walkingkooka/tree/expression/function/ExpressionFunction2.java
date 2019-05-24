@@ -134,7 +134,7 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
     /**
      * Retrieves the parameter at the index or throws a nice exception message.
      */
-    private Object parameter(final List<?> parameters, final int i) {
+    final Object parameter(final List<?> parameters, final int i) {
         final int count = parameters.size() - 1; // without node at 0.
         if (i < 0 || i >= count) {
             throw new NodeSelectorException("Parameter " + i + " missing from " + parameters);

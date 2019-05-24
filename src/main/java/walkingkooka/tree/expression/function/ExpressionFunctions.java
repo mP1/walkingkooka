@@ -47,6 +47,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see ExpressionChooseFunction}
+     */
+    public static ExpressionFunction<Object> choose() {
+        return ExpressionChooseFunction.INSTANCE;
+    }
+
+    /**
      * {@see ExpressionConcatFunction}
      */
     public static ExpressionFunction<String> concat() {
