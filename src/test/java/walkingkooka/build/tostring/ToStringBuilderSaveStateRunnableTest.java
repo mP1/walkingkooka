@@ -36,6 +36,7 @@ public final class ToStringBuilderSaveStateRunnableTest implements ClassTesting2
         final ToStringBuilder builder = ToStringBuilder.empty()
                 .labelSeparator("label1")
                 .separator("sep1")
+                .valueSeparator("val1")
                 .disable(ToStringBuilderOption.QUOTE);
 
         final Runnable state = builder.saveState();
@@ -43,6 +44,7 @@ public final class ToStringBuilderSaveStateRunnableTest implements ClassTesting2
 
         builder.labelSeparator("label2")
                 .separator("sep2")
+                .valueSeparator("val2")
                 .enable(ToStringBuilderOption.QUOTE);
 
         assertNotEquals(toString, builder.toString(), "builder.toString");
@@ -52,6 +54,7 @@ public final class ToStringBuilderSaveStateRunnableTest implements ClassTesting2
 
         builder.labelSeparator("label2")
                 .separator("sep2")
+                .valueSeparator("val2")
                 .enable(ToStringBuilderOption.QUOTE);
 
         state.run();
@@ -64,7 +67,7 @@ public final class ToStringBuilderSaveStateRunnableTest implements ClassTesting2
                 .labelSeparator("label1")
                 .separator("sep1")
                 .disable(ToStringBuilderOption.QUOTE).saveState(),
-                "labelSeparator=\"label1\" options=INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE separator=\"sep1\"");
+                "labelSeparator=\"label1\" options=INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE separator=\"sep1\" valueSeparator=\", \"");
     }
 
     // ClassTesting....................................................................................................
