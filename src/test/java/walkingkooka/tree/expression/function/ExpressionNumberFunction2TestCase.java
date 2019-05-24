@@ -36,7 +36,7 @@ public abstract class ExpressionNumberFunction2TestCase<F extends ExpressionNumb
 
     @Test
     public final void testTwoArgumentsFails() {
-        this.applyAndFail(this, 1, 2);
+        this.applyAndFail( 1, 2);
     }
 
     private void applyAndFail(final Object...parameters) {
@@ -57,6 +57,6 @@ public abstract class ExpressionNumberFunction2TestCase<F extends ExpressionNumb
     }
 
     final void applyAndCheck3(final Number number, final Number expected) {
-        this.applyAndCheck2(Lists.of(this, number), expected);
+        this.applyAndCheck2(Lists.of(number), expected);
     }
 }

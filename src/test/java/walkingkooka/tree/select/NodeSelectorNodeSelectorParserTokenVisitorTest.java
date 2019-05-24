@@ -1732,11 +1732,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     @Test
-    public void testDescendantWildcardExpressionBooleanStartsWithNameEvaluate() {
+    public void testDescendantWildcardExpressionBooleanStartsWithNameNodeEvaluate() {
         final TestNode child = node("child");
         final TestNode parent = node("parent", child);
 
-        this.parseExpressionEvaluateAndCheck("/*[boolean(starts-with(name(), \"chi\"))]",
+        this.parseExpressionEvaluateAndCheck("/*[boolean(starts-with(name(node()), \"chi\"))]",
                 parent,
                 child);
     }
@@ -1765,13 +1765,13 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         final TestNode root = node("root", branch1, branch2);
 
-        this.parseExpressionEvaluateAndCheck("//*[name()=\"leaf1\"]",
+        this.parseExpressionEvaluateAndCheck("//*[name(node())=\"leaf1\"]",
                 root,
                 leaf1);
-        this.parseExpressionEvaluateAndCheck("//*[name()=\"branch2\"]",
+        this.parseExpressionEvaluateAndCheck("//*[name(node())=\"branch2\"]",
                 root,
                 branch2);
-        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(), \"leaf\")]",
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(node()), \"leaf\")]",
                 root,
                 leaf1, leaf2);
     }
@@ -1814,30 +1814,30 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // function: true().......................................................................................
 
     @Test
-    public void testExpressionStartsWithNameEqualsTrueEvaluate() {
+    public void testExpressionStartsWithNameNodeEqualsTrueEvaluate() {
         final TestNode child = node("child");
         final TestNode parent = node("parent", child);
 
-        this.parseExpressionEvaluateAndCheck("*[starts-with(name(), \"chi\")=true()]",
+        this.parseExpressionEvaluateAndCheck("*[starts-with(name(node()), \"chi\")=true()]",
                 parent,
                 child);
     }
 
     @Test
-    public void testExpressionStartsWithNameEqualsTrueEvaluate2() {
+    public void testExpressionStartsWithNameNodeEqualsTrueEvaluate2() {
         final TestNode child = node("child");
         final TestNode parent = node("parent", child);
 
-        this.parseExpressionEvaluateAndCheck("*[starts-with(name(), \"X\")=true()]",
+        this.parseExpressionEvaluateAndCheck("*[starts-with(name(node()), \"X\")=true()]",
                 parent);
     }
 
     @Test
-    public void testDescendantsOrSelfExpressionStartsWithNameEqualsTrueEvaluate() {
+    public void testDescendantsOrSelfExpressionStartsWithNameNodeEqualsTrueEvaluate() {
         final TestNode child = node("child");
         final TestNode parent = node("parent", child);
 
-        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(), \"c\")=true()]",
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(node()), \"c\")=true()]",
                 parent,
                 child);
     }
@@ -1845,34 +1845,34 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     // function: false().......................................................................................
 
     @Test
-    public void testExpressionStartsWithNameEqualsFalseEvaluate() {
+    public void testExpressionStartsWithNameNodeEqualsFalseEvaluate() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionEvaluateAndCheck("*[starts-with(name(), \"QQQ\")=false()]",
+        this.parseExpressionEvaluateAndCheck("*[starts-with(name(node()), \"QQQ\")=false()]",
                 root,
                 branch);
     }
 
     @Test
-    public void testExpressionStartsWithNameEqualsFalseEvaluate2() {
+    public void testExpressionStartsWithNameNodeEqualsFalseEvaluate2() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionEvaluateAndCheck("*[starts-with(name(), \"XYZ\")=false()]",
+        this.parseExpressionEvaluateAndCheck("*[starts-with(name(node()), \"XYZ\")=false()]",
                 root,
                 branch);
     }
 
     @Test
-    public void testDescendantsOrSelfExpressionStartsWithNameEqualsFalseEvaluate() {
+    public void testDescendantsOrSelfExpressionStartsWithNameNodeEqualsFalseEvaluate() {
         final TestNode leaf = node("leaf");
         final TestNode branch = node("branch", leaf);
         final TestNode root = node("root", branch);
 
-        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(), \"r\")=false()]",
+        this.parseExpressionEvaluateAndCheck("//*[starts-with(name(node()), \"r\")=false()]",
                 root,
                 branch, leaf);
     }
@@ -2012,15 +2012,14 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
                         assertNotNull(this.node, "node missing");
 
-                        final List<Object> thisAndParameters = Lists.array();
-                        thisAndParameters.add(this.node);
-                        thisAndParameters.addAll(parameters);
-
-
-                        return NodeSelectorContexts.basicFunctions().apply(name)
-                                .get()
-                                .apply(thisAndParameters, this.expressionFunctionContext());
+                        return NODE.equals(name) ?
+                                this.node :
+                                NodeSelectorContexts.basicFunctions().apply(name)
+                                        .get()
+                                        .apply(Lists.readOnly(parameters), this.expressionFunctionContext());
                     }
+
+                    private final ExpressionNodeName NODE = ExpressionNodeName.with("node");
 
                     private ExpressionFunctionContext expressionFunctionContext() {
                         return new FakeExpressionFunctionContext() {

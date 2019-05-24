@@ -32,44 +32,37 @@ public final class ExpressionChooseFunctionTest extends ExpressionFunctionTestCa
     }
 
     @Test
-    public void testOnlyThisParameterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this);
-        });
-    }
-
-    @Test
     public void testOneParametersFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this, "a1");
+            this.apply2("a1");
         });
     }
 
     @Test
     public void testTwoParametersFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this, "a1", 2);
+            this.apply2("a1", 2);
         });
     }
 
     @Test
     public void testBooleanTrue() {
-        this.applyAndCheck2(parameters(this, true, "*1", "*2"), "*1");
+        this.applyAndCheck2(parameters( true, "*1", "*2"), "*1");
     }
 
     @Test
     public void testTrueConverted() {
-        this.applyAndCheck2(parameters(this, "true", "*1", "*2"), "*1");
+        this.applyAndCheck2(parameters( "true", "*1", "*2"), "*1");
     }
 
     @Test
     public void testBooleanFalse() {
-        this.applyAndCheck2(parameters(this, false, "*1", "*2"), "*2");
+        this.applyAndCheck2(parameters( false, "*1", "*2"), "*2");
     }
 
     @Test
     public void testConvertedFalse() {
-        this.applyAndCheck2(parameters(this, "false", "*1", "*2"), "*2");
+        this.applyAndCheck2(parameters( "false", "*1", "*2"), "*2");
     }
 
     @Test

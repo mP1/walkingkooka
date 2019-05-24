@@ -160,10 +160,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
             throw new ExpressionException("Unknown function " + name);
         }
 
-        final List<Object> nodeAndParameters = Lists.array();
-        nodeAndParameters.add(this.current);
-        nodeAndParameters.addAll(parameters);
-        return function.get().apply(Lists.readOnly(nodeAndParameters), this);
+        return function.get().apply(Lists.readOnly(parameters), this);
     }
 
     private final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions;

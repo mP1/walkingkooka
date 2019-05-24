@@ -24,7 +24,7 @@ import walkingkooka.tree.expression.ExpressionNodeName;
 import java.util.List;
 
 /**
- * A non standard function that returns {@link Node#name()}.
+ * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
  */
 final class ExpressionNodeNameFunction extends ExpressionFunction2<String> {
     /**
@@ -42,7 +42,9 @@ final class ExpressionNodeNameFunction extends ExpressionFunction2<String> {
     @Override
     public String apply(final List<Object> parameters,
                         final ExpressionFunctionContext context) {
-        return this.thisInstance(parameters).name().value();
+        return this.parameter(parameters, 0, Node.class, context)
+                .name()
+                .value();
     }
 
     @Override
