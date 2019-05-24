@@ -97,10 +97,6 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         return Lists.of(values);
     }
 
-    default List<Object> parametersWithThis(final Object... values) {
-        return Lists.of(values);
-    }
-
     // TypeNameTesting...........................................................................................
 
     @Override

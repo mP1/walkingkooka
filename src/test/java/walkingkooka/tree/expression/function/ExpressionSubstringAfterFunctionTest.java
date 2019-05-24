@@ -32,49 +32,42 @@ public final class ExpressionSubstringAfterFunctionTest extends ExpressionFuncti
     }
 
     @Test
-    public void testOnlyThisParameterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this);
-        });
-    }
-
-    @Test
     public void testOneParametersFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this, "a1");
+            this.apply2( "a1");
         });
     }
 
     @Test
     public void testThreeParametersFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this, "a1", 2, 3);
+            this.apply2( "a1", 2, 3);
         });
     }
 
     @Test
     public void testMissing() {
-        this.applyAndCheck2(parameters(this, "abcdef", "z"), "");
+        this.applyAndCheck2(parameters( "abcdef", "z"), "");
     }
 
     @Test
     public void testMissingWrongCase() {
-        this.applyAndCheck2(parameters(this, "abcdef", "A"), "");
+        this.applyAndCheck2(parameters( "abcdef", "A"), "");
     }
 
     @Test
     public void testPresent() {
-        this.applyAndCheck2(parameters(this, "abc", "a"), "bc");
+        this.applyAndCheck2(parameters( "abc", "a"), "bc");
     }
 
     @Test
     public void testPresent2() {
-        this.applyAndCheck2(parameters(this, "abcde", "bc"), "de");
+        this.applyAndCheck2(parameters( "abcde", "bc"), "de");
     }
 
     @Test
     public void testPresentLast() {
-        this.applyAndCheck2(parameters(this, "abcd", "d"), "");
+        this.applyAndCheck2(parameters( "abcd", "d"), "");
     }
 
     @Test

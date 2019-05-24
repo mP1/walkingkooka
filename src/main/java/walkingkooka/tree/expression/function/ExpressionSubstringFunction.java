@@ -67,7 +67,7 @@ final class ExpressionSubstringFunction extends ExpressionFunction2<String> {
     @Override
     public String apply(final List<Object> parameters,
                         final ExpressionFunctionContext context) {
-        final int parameterCount = parameters.size() - 1;
+        final int parameterCount = parameters.size();
         switch (parameterCount) {
             case 2:
                 break;

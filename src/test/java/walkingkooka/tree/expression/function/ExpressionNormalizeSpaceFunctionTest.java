@@ -32,16 +32,9 @@ public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFuncti
     }
 
     @Test
-    public void testOnlyThisParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this);
-        });
-    }
-
-    @Test
     public void testTwoParametersFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this, "a1", "b2");
+            this.apply2( "a1", "b2");
         });
     }
 
@@ -116,7 +109,7 @@ public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFuncti
     }
 
     private void applyAndCheck3(final Object value, final String expected) {
-        this.applyAndCheck2(parameters(this, value), expected);
+        this.applyAndCheck2(parameters(value), expected);
     }
 
     @Test

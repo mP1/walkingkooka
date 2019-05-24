@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.Cast;
-import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelectorException;
 
 import java.util.List;
@@ -38,10 +36,9 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
 
     /**
      * Checks and complains if the parameter count doesnt match the expected count.
-     * Not the expected count should not include the implied {@link Node} which occupies position 0.
      */
     final void checkParameterCount(final List<Object> parameters, final int expectedCount) {
-        final int count = parameters.size() - 1;
+        final int count = parameters.size();
         if (expectedCount != count) {
             throw new IllegalArgumentException("Expected " + expectedCount + " but got " + count + "=" + parameters);
         }
@@ -104,13 +101,6 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
     }
 
     /**
-     * Type safe integer parameter getter.
-     */
-    final Node<?, ?, ?, ?> thisInstance(final List<?> parameters) {
-        return Cast.to(parameters.get(0));
-    }
-
-    /**
      * Type safe number parameter getter.
      */
     final Number number(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
@@ -135,11 +125,11 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
      * Retrieves the parameter at the index or throws a nice exception message.
      */
     final Object parameter(final List<?> parameters, final int i) {
-        final int count = parameters.size() - 1; // without node at 0.
+        final int count = parameters.size();
         if (i < 0 || i >= count) {
             throw new NodeSelectorException("Parameter " + i + " missing from " + parameters);
         }
-        return parameters.get(i + 1);
+        return parameters.get(i);
     }
 
     @Override

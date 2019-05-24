@@ -25,47 +25,40 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ExpressionContainsFunctionTest extends ExpressionFunctionTestCase<ExpressionContainsFunction, Boolean> {
 
     @Test
-    public void testOnlyThisParameterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this);
-        });
-    }
-
-    @Test
     public void testOneParameterFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.apply2(this, "a1");
+            this.apply2( "a1");
         });
     }
 
     @Test
     public void testContains() {
-        this.applyAndCheck2(parameters(this, "xyz", "x"), true);
+        this.applyAndCheck2(parameters( "xyz", "x"), true);
     }
 
     @Test
     public void testContains2() {
-        this.applyAndCheck2(parameters(this, "xyz", "z"), true);
+        this.applyAndCheck2(parameters( "xyz", "z"), true);
     }
 
     @Test
     public void testContains3() {
-        this.applyAndCheck2(parameters(this, 123, 1), true);
+        this.applyAndCheck2(parameters( 123, 1), true);
     }
 
     @Test
     public void testMissing() {
-        this.applyAndCheck2(parameters(this, "xyz", "a"), false);
+        this.applyAndCheck2(parameters( "xyz", "a"), false);
     }
 
     @Test
     public void testMissing2() {
-        this.applyAndCheck2(parameters(this, 123, 4), false);
+        this.applyAndCheck2(parameters( 123, 4), false);
     }
 
     @Test
     public void testMissingCaseSensitive() {
-        this.applyAndCheck2(parameters(this, "xyz", "Z"), false);
+        this.applyAndCheck2(parameters( "xyz", "Z"), false);
     }
 
     @Test

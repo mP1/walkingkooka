@@ -43,13 +43,12 @@ final class ExpressionConcatFunction extends ExpressionFunction2<String> {
     @Override
     public String apply(final List<Object> parameters,
                         final ExpressionFunctionContext context) {
-        final int count = parameters.size() - 1;
+        final int count = parameters.size();
         if (count < 1) {
             throw new IllegalArgumentException("Expected at least 1 parameter but got " + count + "=" + parameters.subList(1, count));
         }
 
         return parameters.stream()
-                .skip(1) // the node or this...
                 .map(p -> this.string(p, context))
                 .collect(Collectors.joining());
     }

@@ -519,7 +519,7 @@ final public class ExpressionNodeSelectorTest extends
 
     private ExpressionNode expression() {
         return ExpressionNode.equalsNode(
-                ExpressionNode.function(ExpressionNodeName.with("name"), ExpressionNode.NO_CHILDREN),
+                ExpressionNode.function(ExpressionNodeName.with("name"), Lists.of(ExpressionNode.function(ExpressionNodeName.with("node"), ExpressionNode.NO_CHILDREN))),
                 ExpressionNode.text("self")
         );
     }
