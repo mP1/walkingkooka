@@ -33,6 +33,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -203,6 +204,7 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
                 NodeSelectorContexts.basicFunctions(),
                 Converters.fake(),
                 DecimalNumberContexts.fake(),
+                MathContext.UNLIMITED,
                 TestNode.class);
     }
 

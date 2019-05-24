@@ -27,6 +27,7 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
+import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -52,10 +53,17 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                                                                                                   final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                                                   final Converter converter,
                                                                                                   final DecimalNumberContext decimalNumberContext,
+                                                                                                  final MathContext mathContext,
                                                                                                   final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
-        return new NodeSelectorStreamConsumerPushableStreamConsumer<>(node, selector, functions, converter, decimalNumberContext, nodeType);
+        return new NodeSelectorStreamConsumerPushableStreamConsumer<>(node,
+                selector,
+                functions,
+                converter,
+                decimalNumberContext,
+                mathContext,
+                nodeType);
     }
 
     /**
@@ -66,6 +74,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                                                              final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                              final Converter converter,
                                                              final DecimalNumberContext decimalNumberContext,
+                                                             final MathContext mathContext,
                                                              final Class<N> nodeType) {
         super();
         this.selector = selector;
@@ -77,6 +86,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                 functions,
                 converter,
                 decimalNumberContext,
+                mathContext,
                 nodeType);
     }
 

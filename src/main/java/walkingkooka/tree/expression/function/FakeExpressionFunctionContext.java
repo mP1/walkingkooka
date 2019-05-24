@@ -21,6 +21,7 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
+import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,6 +43,11 @@ public class FakeExpressionFunctionContext implements ExpressionFunctionContext,
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(target, "target");
 
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MathContext mathContext() {
         throw new UnsupportedOperationException();
     }
 }

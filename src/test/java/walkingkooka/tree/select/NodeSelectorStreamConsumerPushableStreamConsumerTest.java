@@ -32,6 +32,7 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
+import java.math.MathContext;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -54,6 +55,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.functions(),
                     this.converter(),
                     this.decimalNumberContext(),
+                    this.mathContext(),
                     this.nodeType());
         });
     }
@@ -68,6 +70,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     null,
                     this.converter(),
                     this.decimalNumberContext(),
+                    this.mathContext(),
                     this.nodeType());
         });
     }
@@ -80,6 +83,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.functions(),
                     null,
                     this.decimalNumberContext(),
+                    this.mathContext(),
                     this.nodeType());
         });
     }
@@ -92,6 +96,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.functions(),
                     this.converter(),
                     null,
+                    this.mathContext(),
                     this.nodeType());
         });
     }
@@ -104,6 +109,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.functions(),
                     this.converter(),
                     this.decimalNumberContext(),
+                    this.mathContext(),
                     null);
         });
     }
@@ -117,6 +123,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                 this.functions(),
                 this.converter(),
                 this.decimalNumberContext(),
+                this.mathContext(),
                 this.nodeType()),
                 selector.toString());
     }
@@ -137,6 +144,10 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
 
     private DecimalNumberContext decimalNumberContext() {
         return DecimalNumberContexts.fake();
+    }
+
+    private MathContext mathContext() {
+        return MathContext.DECIMAL32;
     }
 
     private Class<TestNode> nodeType() {
