@@ -20,10 +20,13 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.util.BiFunctionTesting;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.function.Function;
 
@@ -78,6 +81,11 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         }
         if (target == Boolean.class) {
             return Cast.to(Boolean.parseBoolean(value.toString()));
+        }
+        if (BigDecimal.class == target) {
+            return target.cast(Converters.numberBigDecimal().convert(value,
+                    BigDecimal.class,
+                    ConverterContexts.fake()));
         }
         if (Number.class.isAssignableFrom(target)) {
             return Cast.to(Integer.parseInt(value.toString()));
