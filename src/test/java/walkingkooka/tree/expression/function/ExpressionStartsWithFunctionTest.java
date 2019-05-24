@@ -19,13 +19,10 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionStartsWithFunctionTest implements ClassTesting2<ExpressionStartsWithFunction>,
-        ExpressionFunctionTesting<ExpressionStartsWithFunction, Boolean> {
+public final class ExpressionStartsWithFunctionTest extends ExpressionFunctionTestCase<ExpressionStartsWithFunction, Boolean> {
 
     @Test
     public void testZeroParametersFails() {
@@ -103,10 +100,5 @@ public final class ExpressionStartsWithFunctionTest implements ClassTesting2<Exp
     @Override
     public Class<ExpressionStartsWithFunction> type() {
         return ExpressionStartsWithFunction.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

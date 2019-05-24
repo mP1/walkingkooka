@@ -19,13 +19,10 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionContainsFunctionTest implements ClassTesting2<ExpressionContainsFunction>,
-        ExpressionFunctionTesting<ExpressionContainsFunction, Boolean> {
+public final class ExpressionContainsFunctionTest extends ExpressionFunctionTestCase<ExpressionContainsFunction, Boolean> {
 
     @Test
     public void testOnlyThisParameterFails() {
@@ -84,10 +81,5 @@ public final class ExpressionContainsFunctionTest implements ClassTesting2<Expre
     @Override
     public Class<ExpressionContainsFunction> type() {
         return ExpressionContainsFunction.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

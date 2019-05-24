@@ -18,27 +18,18 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.jupiter.api.Test;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionTrueFunctionTest extends ExpressionFunctionTestCase<ExpressionTrueFunction, Boolean> {
+public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T>, T> implements ExpressionFunctionTesting<F, T>,
+        ClassTesting2<F> {
 
-    @Test
-    public void testExecuteFunction() {
-        this.applyAndCheck2(parameters(), Boolean.TRUE);
-    }
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), "true");
+    ExpressionFunctionTestCase() {
+        super();
     }
 
     @Override
-    public ExpressionTrueFunction createBiFunction() {
-        return ExpressionTrueFunction.INSTANCE;
-    }
-
-    @Override
-    public Class<ExpressionTrueFunction> type() {
-        return ExpressionTrueFunction.class;
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
