@@ -22,6 +22,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
+import java.math.MathContext;
 import java.util.List;
 
 /**
@@ -87,6 +88,11 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     @Override
     public final <T> T convert(final Object value, final Class<T> target) {
         return this.context.convert(value, target);
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.context.mathContext();
     }
 
     /**

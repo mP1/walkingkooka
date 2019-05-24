@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.math.HasMathContext;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Context that accompanies a {@link ExpressionFunction}.
  */
-public interface ExpressionFunctionContext extends Context {
+public interface ExpressionFunctionContext extends Context, HasMathContext {
 
     /**
      * Constant for functions without any parameters.

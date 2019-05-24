@@ -25,6 +25,7 @@ import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.MathContext;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
@@ -47,6 +48,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
                                                                       final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                       final Converter converter,
                                                                       final DecimalNumberContext decimalNumberContext,
+                                                                      final MathContext mathContext,
                                                                       final Class<N> nodeType) {
         return BasicNodeSelectorContext.with(finisher,
                 filter,
@@ -54,6 +56,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
                 functions,
                 converter,
                 decimalNumberContext,
+                mathContext,
                 nodeType);
     }
 

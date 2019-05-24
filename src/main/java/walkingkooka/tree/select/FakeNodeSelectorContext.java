@@ -23,6 +23,7 @@ import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
+import java.math.MathContext;
 import java.util.List;
 
 public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
@@ -57,6 +58,11 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MathContext mathContext() {
         throw new UnsupportedOperationException();
     }
 }

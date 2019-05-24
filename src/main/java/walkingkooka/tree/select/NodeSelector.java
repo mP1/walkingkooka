@@ -40,6 +40,7 @@ import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.visit.Visitable;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -447,6 +448,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
                                   final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                   final Converter converter,
                                   final DecimalNumberContext decimalNumberContext,
+                                  final MathContext mathContext,
                                   final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
                 NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
@@ -454,6 +456,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
                         functions,
                         converter,
                         decimalNumberContext,
+                        mathContext,
                         nodeType));
     }
 

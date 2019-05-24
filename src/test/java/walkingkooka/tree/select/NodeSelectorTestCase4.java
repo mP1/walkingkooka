@@ -37,6 +37,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 
+import java.math.MathContext;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -383,7 +384,9 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 this.functions(),
                 this.converter(),
                 DecimalNumberContexts.fake(),
+                this.mathContext(),
                 TestNode.class);
+
         return new NodeSelectorContext<TestNode, StringName, StringName, Object>() {
             @Override
             public boolean isFinished() {
@@ -426,6 +429,12 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             }
 
             @Override
+            public MathContext mathContext() {
+                this.finisherGuardCheck();
+                return context.mathContext();
+            }
+
+            @Override
             public String toString() {
                 return context.toString();
             }
@@ -450,6 +459,10 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 Converters.function(String.class, Integer.class, Integer::parseInt),
                 Converters.simple()
         ));
+    }
+
+    private MathContext mathContext() {
+        return MathContext.DECIMAL32;
     }
 
     // HashCodeEqualsDefinedTesting.....................................................................................
