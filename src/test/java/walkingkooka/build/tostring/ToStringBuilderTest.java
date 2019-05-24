@@ -108,7 +108,30 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
         });
     }
 
-    // UsesToStringBuilder
+    // defaults .......................................................................................................
+
+    @Test
+    public void testDefaults() {
+        final String built = ToStringBuilder.empty()
+                .label("label1")
+                .value("value2")
+                .label("label2").value(Lists.of(1, 2, 3))
+                .build();
+
+        final ToStringBuilder builder = ToStringBuilder.empty()
+                .labelSeparator("xxx")
+                .valueSeparator("yyyy")
+                .separator("zzzz");
+        assertSame(builder, builder.defaults());
+
+        builder.label("label1")
+                .value("value2")
+                .label("label2").value(Lists.of(1, 2, 3));
+
+        this.buildAndCheck(builder, built);
+    }
+
+    // UsesToStringBuilder..............................................................................................
 
     @Test
     public void testEmptyUsesToStringBuilderIgnoresLabel() {
