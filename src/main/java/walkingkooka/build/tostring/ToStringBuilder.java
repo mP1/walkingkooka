@@ -1663,6 +1663,34 @@ final public class ToStringBuilder implements Builder<String> {
     }
 
     /**
+     * Returns a {@link Runnable} which will when invoked restore the state captured here.
+     * Currently the following is captured.
+     * <ul>
+     * <li>{@link #labelSeparator(String)}</li>
+     * <li>{@link #options}</li>
+     * <li>{@link #separator(String)}</li>
+     * </ul>
+     * Short term values such as {@link #label(String)} which are cleared after each value are ignored.
+     */
+    public Runnable saveState() {
+        return ToStringBuilderSaveStateRunnable.with(this.labelSeparator, this.options, this.separator, this);
+    }
+
+    /**
+     * Only invoked by {@link ToStringBuilderSaveStateRunnable#run()}
+     */
+    void restoreState(final String labelSeparator,
+                      final EnumSet<ToStringBuilderOption> options,
+                      final String separator) {
+        this.labelSeparator = labelSeparator;
+        this.options.clear();
+        this.options.addAll(options);
+        this.separator = separator;
+    }
+
+    // Object...........................................................................................................
+
+    /**
      * Dump the any set options followed by the {@link StringBuilder buffer}.
      */
     @Override
