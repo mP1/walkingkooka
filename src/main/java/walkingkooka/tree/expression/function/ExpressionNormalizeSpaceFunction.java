@@ -31,7 +31,7 @@ import java.util.List;
  * </pre>
  * Unlike the mention in the mozilla document, if the argument is missing, an exception will be thrown.
  */
-final class ExpressionNormalizeSpaceFunction extends ExpressionTemplateFunction<String> {
+final class ExpressionNormalizeSpaceFunction extends ExpressionFunction2<String> {
     /**
      * Singleton
      */

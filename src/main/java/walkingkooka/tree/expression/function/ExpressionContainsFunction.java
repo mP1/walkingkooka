@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A function that returns true if the second string is contained within the first string.
  */
-final class ExpressionContainsFunction extends ExpressionTemplateFunction<Boolean> {
+final class ExpressionContainsFunction extends ExpressionFunction2<Boolean> {
 
     /**
      * Singleton

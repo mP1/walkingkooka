@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A function that returns the part of string1 up before the first occurrence of string2
  */
-final class ExpressionSubstringBeforeFunction extends ExpressionTemplateFunction<String> {
+final class ExpressionSubstringBeforeFunction extends ExpressionFunction2<String> {
 
     /**
      * Singleton

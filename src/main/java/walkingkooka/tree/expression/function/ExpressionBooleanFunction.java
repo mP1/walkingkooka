@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A function that converts the given value into a {@link Boolean}.
  */
-final class ExpressionBooleanFunction extends ExpressionTemplateFunction<Boolean> {
+final class ExpressionBooleanFunction extends ExpressionFunction2<Boolean> {
     /**
      * Singleton
      */

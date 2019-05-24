@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A function that converts the given value into a {@link Number}.
  */
-final class ExpressionNumberFunction extends ExpressionTemplateFunction<Number> {
+final class ExpressionNumberFunction extends ExpressionFunction2<Number> {
     /**
      * Singleton
      */

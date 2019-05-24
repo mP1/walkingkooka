@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A function that returns true if the first string ends with the second string.
  */
-final class ExpressionEndsWithFunction extends ExpressionTemplateFunction<Boolean> {
+final class ExpressionEndsWithFunction extends ExpressionFunction2<Boolean> {
 
     /**
      * Singleton

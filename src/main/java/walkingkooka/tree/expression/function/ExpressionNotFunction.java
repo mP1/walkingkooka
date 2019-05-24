@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A function that inverts the result of another function.
  */
-final class ExpressionNotFunction extends ExpressionTemplateFunction<Boolean> {
+final class ExpressionNotFunction extends ExpressionFunction2<Boolean> {
 
     /**
      * Factory
