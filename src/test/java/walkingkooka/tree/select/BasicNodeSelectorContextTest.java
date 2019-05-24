@@ -38,6 +38,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>,
@@ -157,6 +158,34 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                     this.mathContext(),
                     null);
         });
+    }
+
+    @Test
+    public void testFunctionNodeMissingFails() {
+        final BasicNodeSelectorContext context = this.createContext();
+
+        TestNode.clear();
+        final TestNode current = TestNode.with("current123");
+
+        assertThrows(NodeSelectorException.class, () -> {
+            context.function(this.node(), NodeSelectorContext.NO_PARAMETERS);
+        });
+    }
+
+    @Test
+    public void testFunctionNode() {
+        final BasicNodeSelectorContext context = this.createContext();
+
+        TestNode.clear();
+        final TestNode current = TestNode.with("current123");
+        context.setNode(current);
+
+        assertEquals(current,
+                context.function(this.node(), NodeSelectorContext.NO_PARAMETERS));
+    }
+
+    private ExpressionNodeName node() {
+        return ExpressionNodeName.with("node");
     }
 
     @Test

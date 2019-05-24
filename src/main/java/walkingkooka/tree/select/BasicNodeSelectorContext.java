@@ -135,6 +135,26 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+        return NODE.equals(name) ?
+                this.node() :
+                this.function0(name, parameters);
+    }
+
+    private final static ExpressionNodeName NODE = ExpressionNodeName.with("node");
+
+    private N node() {
+        final N current = this.current;
+        if (null == current) {
+            throw new NodeSelectorException("Current node not set");
+        }
+        return current;
+    }
+
+    /**
+     * Handles dispatching all functions other than <code>node()</code> which is special cased
+     * because it needs to read {@link #current}.
+     */
+    private Object function0(final ExpressionNodeName name, final List<Object> parameters) {
         final Optional<ExpressionFunction<?>> function = this.functions.apply(name);
         if (!function.isPresent()) {
             throw new ExpressionException("Unknown function " + name);
