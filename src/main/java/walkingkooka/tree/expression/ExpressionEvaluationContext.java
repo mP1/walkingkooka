@@ -21,15 +21,15 @@ package walkingkooka.tree.expression;
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.HasMathContext;
 
-import java.math.MathContext;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Context that travels during any expression evaluation.
  */
-public interface ExpressionEvaluationContext extends Context, DecimalNumberContext {
+public interface ExpressionEvaluationContext extends Context, DecimalNumberContext, HasMathContext {
 
     /**
      * Constant for functions without any parameters.
@@ -53,11 +53,6 @@ public interface ExpressionEvaluationContext extends Context, DecimalNumberConte
     default ExpressionNode referenceOrFail(final ExpressionReference reference) {
         return this.reference(reference).orElseThrow(() -> new ExpressionEvaluationReferenceException("Unable to find " + reference));
     }
-
-    /**
-     * The {@link MathContext} to be used with math operations.
-     */
-    MathContext mathContext();
 
     /**
      * Handles converting the given value to the target.
