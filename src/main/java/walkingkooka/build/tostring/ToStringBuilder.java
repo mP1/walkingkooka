@@ -1673,7 +1673,11 @@ final public class ToStringBuilder implements Builder<String> {
      * Short term values such as {@link #label(String)} which are cleared after each value are ignored.
      */
     public Runnable saveState() {
-        return ToStringBuilderSaveStateRunnable.with(this.labelSeparator, this.options, this.separator, this);
+        return ToStringBuilderSaveStateRunnable.with(this.labelSeparator,
+                this.options,
+                this.separator,
+                this.valueSeparator,
+                this);
     }
 
     /**
@@ -1681,11 +1685,13 @@ final public class ToStringBuilder implements Builder<String> {
      */
     void restoreState(final String labelSeparator,
                       final EnumSet<ToStringBuilderOption> options,
-                      final String separator) {
+                      final String separator,
+                      final String valueSeparator) {
         this.labelSeparator = labelSeparator;
         this.options.clear();
         this.options.addAll(options);
         this.separator = separator;
+        this.valueSeparator = valueSeparator;
     }
 
     // Object...........................................................................................................
