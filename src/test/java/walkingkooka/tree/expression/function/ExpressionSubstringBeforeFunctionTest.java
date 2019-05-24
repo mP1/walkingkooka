@@ -19,13 +19,10 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionSubstringBeforeFunctionTest implements ClassTesting2<ExpressionSubstringBeforeFunction>,
-        ExpressionFunctionTesting<ExpressionSubstringBeforeFunction, String> {
+public final class ExpressionSubstringBeforeFunctionTest extends ExpressionFunctionTestCase<ExpressionSubstringBeforeFunction, String> {
 
     @Test
     public void testZeroParametersFails() {
@@ -99,10 +96,5 @@ public final class ExpressionSubstringBeforeFunctionTest implements ClassTesting
     @Override
     public Class<ExpressionSubstringBeforeFunction> type() {
         return ExpressionSubstringBeforeFunction.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
