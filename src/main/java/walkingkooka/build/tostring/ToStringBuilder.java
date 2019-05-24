@@ -144,13 +144,11 @@ final public class ToStringBuilder implements Builder<String> {
     private ToStringBuilder() {
         super();
 
-        this.separator = ToStringBuilder.SEPARATOR;
-        this.labelSeparator = ToStringBuilder.LABEL_SEPARATOR;
-        this.valueSeparator = ToStringBuilder.DEFAULT_VALUE_SEPARATOR;
-        this.skipSeparatorIfNextValueIsWithoutLabel
-                = ToStringBuilder.DEFAULT_SKIP_SEPARATOR_IF_NEXT_VALUE_IS_WITHOUT_LABEL;
         this.before = ToStringBuilder.DEFAULT_BEFORE_VALUES;
         this.after = ToStringBuilder.DEFAULT_AFTER_VALUES;
+
+        this.skipSeparatorIfNextValueIsWithoutLabel
+                = ToStringBuilder.DEFAULT_SKIP_SEPARATOR_IF_NEXT_VALUE_IS_WITHOUT_LABEL;
 
         this.globalLength = ToStringBuilder.GLOBAL_LENGTH;
         this.maxGlobalLength = Integer.MAX_VALUE;
@@ -158,12 +156,28 @@ final public class ToStringBuilder implements Builder<String> {
         this.maxValueLength = Integer.MAX_VALUE;
         this.callerBufferLengthSnapshot = 0;
 
-        this.options = EnumSet.of(//
-                ToStringBuilderOption.QUOTE,//
-                ToStringBuilderOption.INLINE_ELEMENTS,//
-                ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
+        this.options = EnumSet.noneOf(ToStringBuilderOption.class);
         this.buffer = new StringBuilder();
         this.parent = null; // NONE
+
+        this.defaults();
+    }
+
+    /**
+     * Restores this {@link ToStringBuilder} mutable state to defaults.
+     */
+    public ToStringBuilder defaults() {
+        this.separator = ToStringBuilder.SEPARATOR;
+        this.labelSeparator = ToStringBuilder.LABEL_SEPARATOR;
+        this.valueSeparator = ToStringBuilder.DEFAULT_VALUE_SEPARATOR;
+
+        final Set<ToStringBuilderOption> options = this.options;
+        options.clear();
+        options.add(ToStringBuilderOption.QUOTE);
+        options.add(ToStringBuilderOption.INLINE_ELEMENTS);
+        options.add(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
+
+        return this;
     }
 
     /**
