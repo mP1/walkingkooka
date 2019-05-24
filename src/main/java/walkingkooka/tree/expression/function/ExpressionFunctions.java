@@ -173,6 +173,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see ExpressionTypeNameFunction}
+     */
+    public static ExpressionFunction<String> typeName() {
+        return ExpressionTypeNameFunction.INSTANCE;
+    }
+
+    /**
      * Stops creation
      */
     private ExpressionFunctions() {
