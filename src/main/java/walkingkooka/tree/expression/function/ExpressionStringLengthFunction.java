@@ -27,7 +27,7 @@ import java.util.List;
  * <a href="https://developer.mozilla.org/en-US/docs/Web/XPath/Functions/string-length"></a>
  * Unlike the Mozilla documentation, if the argument is missing an exception is thrown.
  */
-final class ExpressionStringLengthFunction extends ExpressionTemplateFunction<Number> {
+final class ExpressionStringLengthFunction extends ExpressionFunction2<Number> {
     /**
      * Singleton
      */

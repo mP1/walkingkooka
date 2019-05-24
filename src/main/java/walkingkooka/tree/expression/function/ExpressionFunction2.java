@@ -27,12 +27,12 @@ import java.util.List;
 /**
  * Base class for many {@link ExpressionFunction} within this package.
  */
-abstract class ExpressionTemplateFunction<T> implements ExpressionFunction<T> {
+abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
 
     /**
      * Package private to limit sub classing.
      */
-    ExpressionTemplateFunction() {
+    ExpressionFunction2() {
         super();
     }
 

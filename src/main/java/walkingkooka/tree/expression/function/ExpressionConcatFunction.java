@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * A function that concats all the Strings given to it.
  */
-final class ExpressionConcatFunction extends ExpressionTemplateFunction<String> {
+final class ExpressionConcatFunction extends ExpressionFunction2<String> {
 
     /**
      * Singleton

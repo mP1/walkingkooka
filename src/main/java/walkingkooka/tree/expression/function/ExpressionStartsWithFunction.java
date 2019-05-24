@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A function that returns true if the first string starts with the second string.
  */
-final class ExpressionStartsWithFunction extends ExpressionTemplateFunction<Boolean> {
+final class ExpressionStartsWithFunction extends ExpressionFunction2<Boolean> {
 
     /**
      * Singleton

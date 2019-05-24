@@ -22,11 +22,11 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionTemplateFunctionTest implements ClassTesting2<ExpressionTemplateFunction<?>> {
+public final class ExpressionFunction2Test implements ClassTesting2<ExpressionFunction2<?>> {
 
     @Override
-    public Class<ExpressionTemplateFunction<?>> type() {
-        return Cast.to(ExpressionTemplateFunction.class);
+    public Class<ExpressionFunction2<?>> type() {
+        return Cast.to(ExpressionFunction2.class);
     }
 
     @Override

@@ -26,7 +26,7 @@ import java.util.List;
  * A function that returns a substring of another string.<br>
  * <a href="https://developer.mozilla.org/en-US/docs/Web/XPath/Functions/substring"></a>
  */
-final class ExpressionSubstringFunction extends ExpressionTemplateFunction<String> {
+final class ExpressionSubstringFunction extends ExpressionFunction2<String> {
 
     /**
      * Factory that returns a matching {@link ExpressionSubstringFunction}

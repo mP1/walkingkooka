@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A non standard function that returns {@link Node#name()}.
  */
-final class ExpressionNodeNameFunction extends ExpressionTemplateFunction<String> {
+final class ExpressionNodeNameFunction extends ExpressionFunction2<String> {
     /**
      * Singleton
      */

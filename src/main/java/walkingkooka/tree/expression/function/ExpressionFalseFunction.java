@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A function that always returns false
  */
-final class ExpressionFalseFunction extends ExpressionTemplateFunction<Boolean> {
+final class ExpressionFalseFunction extends ExpressionFunction2<Boolean> {
 
     /**
      * Singleton
