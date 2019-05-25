@@ -46,7 +46,7 @@ public final class ExpressionLongNode extends ExpressionValueNode<Long> {
     }
 
     @Override
-    ExpressionLongNode wrap1(final int index, final Long value) {
+    ExpressionLongNode replace1(final int index, final Long value) {
         return new ExpressionLongNode(index, value);
     }
 

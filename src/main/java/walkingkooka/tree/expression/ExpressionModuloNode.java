@@ -60,7 +60,7 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
     }
 
     @Override
-    ExpressionModuloNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right) {
+    ExpressionModuloNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionModuloNode(index, left, right);
     }
     // is .........................................................................................................

@@ -59,11 +59,11 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
     }
 
     @Override
-    final ExpressionBinaryNode wrap0(final int index, final List<ExpressionNode> children) {
-        return wrap1(index, children.get(0), children.get(1));
+    final ExpressionBinaryNode replace0(final int index, final List<ExpressionNode> children) {
+        return replace1(index, children.get(0), children.get(1));
     }
 
-    abstract ExpressionBinaryNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right);
+    abstract ExpressionBinaryNode replace1(final int index, final ExpressionNode left, final ExpressionNode right);
 
     // is...........................................................................................................
 

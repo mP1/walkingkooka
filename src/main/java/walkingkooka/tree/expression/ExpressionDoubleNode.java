@@ -47,7 +47,7 @@ public final class ExpressionDoubleNode extends ExpressionValueNode<Double> {
     }
 
     @Override
-    ExpressionDoubleNode wrap1(final int index, final Double value) {
+    ExpressionDoubleNode replace1(final int index, final Double value) {
         return new ExpressionDoubleNode(index, value);
     }
 

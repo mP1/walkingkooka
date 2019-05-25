@@ -46,7 +46,7 @@ public final class ExpressionBooleanNode extends ExpressionValueNode<Boolean> {
     }
 
     @Override
-    ExpressionBooleanNode wrap1(final int index, final Boolean value) {
+    ExpressionBooleanNode replace1(final int index, final Boolean value) {
         return new ExpressionBooleanNode(index, value);
     }
 

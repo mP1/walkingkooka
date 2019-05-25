@@ -59,7 +59,7 @@ public final class ExpressionOrNode extends ExpressionLogicalBinaryNode {
     }
 
     @Override
-    ExpressionOrNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right) {
+    ExpressionOrNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionOrNode(index, left, right);
     }
     // is .........................................................................................................

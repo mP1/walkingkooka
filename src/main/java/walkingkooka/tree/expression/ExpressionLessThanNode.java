@@ -55,7 +55,7 @@ public final class ExpressionLessThanNode extends ExpressionComparisonBinaryNode
     }
 
     @Override
-    ExpressionLessThanNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right) {
+    ExpressionLessThanNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionLessThanNode(index, left, right);
     }
 

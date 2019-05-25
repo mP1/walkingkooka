@@ -56,7 +56,7 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
     }
 
     @Override
-    ExpressionReferenceNode wrap1(final int index, final ExpressionReference value) {
+    ExpressionReferenceNode replace1(final int index, final ExpressionReference value) {
         return new ExpressionReferenceNode(index, value);
     }
 

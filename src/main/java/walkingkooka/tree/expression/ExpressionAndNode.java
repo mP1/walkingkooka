@@ -56,7 +56,7 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
     }
 
     @Override
-    ExpressionAndNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right) {
+    ExpressionAndNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionAndNode(index, left, right);
     }
 

@@ -55,7 +55,7 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionComparisonB
     }
 
     @Override
-    ExpressionGreaterThanEqualsNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right) {
+    ExpressionGreaterThanEqualsNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionGreaterThanEqualsNode(index, left, right);
     }
 
