@@ -60,7 +60,7 @@ public final class JsonNullNode extends JsonLeafNode<Void> {
     }
 
     @Override
-    JsonNullNode create(final JsonNodeName name, final int index, final Void value) {
+    JsonNullNode replace0(final JsonNodeName name, final int index, final Void value) {
         return new JsonNullNode(name, index, value);
     }
 

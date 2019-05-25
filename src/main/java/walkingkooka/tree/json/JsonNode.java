@@ -151,7 +151,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Returns a new instance with the given name.
      */
     private JsonNode replaceName(final JsonNodeName name) {
-        return this.create(name, this.index);
+        return this.replace(name, this.index);
     }
 
     @Override
@@ -172,7 +172,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     final JsonNode removeParent0() {
         return this.isRoot() ?
                 this :
-                this.create(this.defaultName(), NO_INDEX);
+                this.replace(this.defaultName(), NO_INDEX);
     }
 
     /**
@@ -182,7 +182,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     final JsonNode setParent(final Optional<JsonNode> parent,
                              final JsonNodeName name,
                              final int index) {
-        final JsonNode copy = this.create(name, index);
+        final JsonNode copy = this.replace(name, index);
         copy.parent = parent;
         return copy;
     }
@@ -239,7 +239,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     /**
      * Factory method that creates a new sub class of {@link JsonLeafNode} that is the same type as this.
      */
-    abstract JsonNode create(final JsonNodeName name, final int index);
+    abstract JsonNode replace(final JsonNodeName name, final int index);
 
     // attributes............................................................................................................
 

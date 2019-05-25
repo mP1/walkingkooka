@@ -150,7 +150,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
         final List<JsonNode> children = this.copyChildren();
         children.add(element);
 
-        return this.create(this.name, this.index, children).cast();
+        return this.replace0(this.name, this.index, children).cast();
     }
 
     /**
@@ -160,7 +160,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
         final List<JsonNode> children = this.copyChildren();
         children.remove(index);
 
-        return this.create(this.name, this.index, children);
+        return this.replace0(this.name, this.index, children);
     }
 
     /**
@@ -210,7 +210,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
     }
 
     @Override
-    JsonArrayNode create(final JsonNodeName name, final int index, final List<JsonNode> children) {
+    JsonArrayNode replace0(final JsonNodeName name, final int index, final List<JsonNode> children) {
         return new JsonArrayNode(name, index, children);
     }
 
