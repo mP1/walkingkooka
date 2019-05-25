@@ -51,7 +51,7 @@ public final class JsonStringNode extends JsonLeafNonNullNode<String> {
     }
 
     @Override
-    JsonStringNode create(final JsonNodeName name, final int index, final String value) {
+    JsonStringNode replace0(final JsonNodeName name, final int index, final String value) {
         return new JsonStringNode(name, index, value);
     }
 

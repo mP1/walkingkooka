@@ -243,7 +243,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
     }
 
     @Override
-    final JsonObjectNode create(final JsonNodeName name, final int index, final JsonObjectNodeList children) {
+    final JsonObjectNode replace0(final JsonNodeName name, final int index, final JsonObjectNodeList children) {
         return new JsonObjectNode(name, index, children);
     }
 

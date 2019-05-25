@@ -58,7 +58,7 @@ public final class JsonBooleanNode extends JsonLeafNonNullNode<Boolean> {
         return this.setValue0(value).cast();
     }
 
-    final JsonBooleanNode create(final JsonNodeName name, final int index, final Boolean value) {
+    final JsonBooleanNode replace0(final JsonNodeName name, final int index, final Boolean value) {
         return new JsonBooleanNode(name, index, value);
     }
 

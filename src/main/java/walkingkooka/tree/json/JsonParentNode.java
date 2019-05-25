@@ -68,20 +68,20 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
      * Returns a new {@link JsonParentNode} with the given children and also updates the parent/ancestors.
      */
     final JsonParentNode<C> replaceChildren(final C children) {
-        return this.create(this.name, this.index, children)
+        return this.replace0(this.name, this.index, children)
                 .replaceChild(this.parent(), this.index)
                 .cast();
     }
 
     @Override
-    final JsonNode create(final JsonNodeName name, final int index) {
-        return this.create(name, index, this.children);
+    final JsonNode replace(final JsonNodeName name, final int index) {
+        return this.replace0(name, index, this.children);
     }
 
     /**
      * Factory that creates a {@link JsonParentNode} of the same type as this with the given new properties.
      */
-    abstract JsonParentNode<C> create(final JsonNodeName name, final int index, final C children);
+    abstract JsonParentNode<C> replace0(final JsonNodeName name, final int index, final C children);
 
     // Value....................................................................................................
 

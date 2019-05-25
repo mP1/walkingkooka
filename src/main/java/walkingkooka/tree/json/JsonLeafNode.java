@@ -51,17 +51,17 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
     }
 
     final JsonLeafNode<V> replaceValue(final V value) {
-        return this.create(this.name, this.index, value)
+        return this.replace0(this.name, this.index, value)
                 .replaceChild(this.parent(), this.index)
                 .cast();
     }
 
     @Override
-    final JsonNode create(final JsonNodeName name, final int index) {
-        return this.create(name, index, this.value);
+    final JsonNode replace(final JsonNodeName name, final int index) {
+        return this.replace0(name, index, this.value);
     }
 
-    abstract JsonLeafNode create(final JsonNodeName name, final int index, final V value);
+    abstract JsonLeafNode replace0(final JsonNodeName name, final int index, final V value);
 
     @Override
     public final boolean isArray() {
