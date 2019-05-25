@@ -163,6 +163,9 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
 
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
-        return (m) -> m.equals("isRequest") || m.equals("isResponse");
+        return (m) -> m.equals("isRequest") ||
+                m.equals("isResponse") ||
+                m.equals("isSession") ||
+                m.equals("isPermanent");
     }
 }
