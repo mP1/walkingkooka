@@ -451,6 +451,32 @@ final public class ServerCookie extends Cookie {
         return ClientCookie.from(this);
     }
 
+    /**
+     * Returns true if this a session cookie.
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">Cookies</a>
+     * <pre>
+     * Session cookiesSection
+     * The cookie created above is a session cookie: it is deleted when the client shuts down, because it didn't specify an Expires or Max-Age directive. However, web browsers may use session restoring, which makes most session cookies permanent, as if the browser was never closed.
+     * </pre>
+     */
+    public boolean isSession() {
+        return !this.isPermanent();
+    }
+
+    /**
+     * Returns true if this a permanent cookie, basically the inverse of session.
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">Cookies</a>
+     * <pre>
+     * Permanent cookiesSection
+     * Instead of expiring when the client closes, permanent cookies expire at a specific date (Expires) or after a specific length of time (Max-Age).
+     *
+     * Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;
+     * </pre>
+     */
+    public boolean isPermanent() {
+        return this.deletion().isPresent();
+    }
+
     // HasHeaderScope ....................................................................................................
 
     @Override

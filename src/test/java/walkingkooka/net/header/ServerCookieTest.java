@@ -1164,6 +1164,8 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     private void checkDeletion(final ServerCookie cookie, final Optional<CookieDeletion> expected) {
         assertEquals(expected, cookie.deletion(), () -> cookie + " deletion");
+        assertEquals(expected.isPresent(), cookie.isPermanent(), () -> cookie + " isPermanent()");
+        assertEquals(!expected.isPresent(), cookie.isSession(), () -> cookie + " isSession()");
     }
 
     private void checkSecure(final ServerCookie cookie) {
