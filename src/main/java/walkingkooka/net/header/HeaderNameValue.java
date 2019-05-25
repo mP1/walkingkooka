@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.text.CaseSensitivity;
 
 /**
  * Abstract base class for all {@link Name} in this package.
@@ -64,8 +63,6 @@ abstract class HeaderNameValue implements Name {
     final int compareTo0(final HeaderNameValue other) {
         return this.caseSensitivity().comparator().compare(this.name, other.name);
     }
-
-    abstract CaseSensitivity caseSensitivity();
 
     @Override
     abstract public String toString();

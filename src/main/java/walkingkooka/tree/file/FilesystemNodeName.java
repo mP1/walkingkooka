@@ -94,4 +94,11 @@ public final class FilesystemNodeName implements Name,
     public int compareTo(final FilesystemNodeName other) {
         return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
 }

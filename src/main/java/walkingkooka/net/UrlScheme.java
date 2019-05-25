@@ -155,13 +155,6 @@ public final class UrlScheme extends NetName
         return other instanceof UrlScheme;
     }
 
-    @Override
-    CaseSensitivity caseSensitivity() {
-        return CASE_SENSITIVITY;
-    }
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
     /**
      * Returns the raw {@link String}.
      */
@@ -174,7 +167,16 @@ public final class UrlScheme extends NetName
         b.append(this.nameWithSlashes);
     }
 
-    // Serializable
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+
+    // Serializable....................................................................................................
 
     private final static long serialVersionUID = 1L;
 

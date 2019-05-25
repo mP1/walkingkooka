@@ -94,5 +94,12 @@ final public class SpreadsheetFunctionName implements Name, Comparable<Spreadshe
         return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
 
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

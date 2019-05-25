@@ -265,12 +265,14 @@ public abstract class CharsetName extends HeaderNameValue
     }
 
     @Override
-    CaseSensitivity caseSensitivity() {
-        return CASE_SENSITIVITY;
-    }
-
-    @Override
     public String toString() {
         return this.value();
+    }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
     }
 }

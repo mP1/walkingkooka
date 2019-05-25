@@ -87,11 +87,6 @@ final public class CookieName extends HeaderNameValue
         return other instanceof CookieName;
     }
 
-    @Override
-    CaseSensitivity caseSensitivity() {
-        return CaseSensitivity.SENSITIVE;
-    }
-
     // Object..................................................................................................
 
     /**
@@ -101,4 +96,13 @@ final public class CookieName extends HeaderNameValue
     public String toString() {
         return this.name;
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

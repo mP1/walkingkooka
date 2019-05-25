@@ -17,6 +17,7 @@
 package walkingkooka.tree.pojo;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 
 /**
  * The name of a pojo node attribute.
@@ -33,4 +34,13 @@ public enum PojoNodeAttributeName implements Name {
     public String toString() {
         return this.value();
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public final CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

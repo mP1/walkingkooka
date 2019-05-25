@@ -65,12 +65,17 @@ abstract class NodeSelectorNameValue implements Name {
         return this.caseSensitivity().comparator().compare(this.name, other.name);
     }
 
-    private CaseSensitivity caseSensitivity() {
-        return CaseSensitivity.SENSITIVE;
-    }
-
     @Override
     public final String toString() {
         return this.name;
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

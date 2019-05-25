@@ -93,8 +93,6 @@ final public class HttpRequestParameterName implements Name,
         return 0 == this.compareTo(other);
     }
 
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
-
     /**
      * Dumps the parameter name.
      */
@@ -102,4 +100,13 @@ final public class HttpRequestParameterName implements Name,
     public String toString() {
         return this.name;
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

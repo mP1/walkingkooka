@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Optional;
 

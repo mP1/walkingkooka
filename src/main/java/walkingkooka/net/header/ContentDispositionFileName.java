@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 
 import java.io.File;
 import java.util.Optional;
@@ -141,4 +142,13 @@ abstract public class ContentDispositionFileName implements Name, HeaderValue {
     public final String toString() {
         return this.value();
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public final CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

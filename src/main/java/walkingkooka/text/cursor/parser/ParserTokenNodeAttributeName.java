@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 
 /**
  * Represents an attribute belonging to a {@link ParserTokenNode}
@@ -46,4 +47,13 @@ public enum ParserTokenNodeAttributeName implements Name {
     public String toString() {
         return this.value();
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

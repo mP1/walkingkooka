@@ -128,5 +128,12 @@ public final class ParserTokenNodeName implements Name, Comparable<ParserTokenNo
         return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
     }
 
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }
