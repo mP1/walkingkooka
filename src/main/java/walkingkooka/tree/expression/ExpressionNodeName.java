@@ -90,6 +90,7 @@ public final class ExpressionNodeName implements Name,
 
     // Object..................................................................................................
 
+    @Override
     public final int hashCode() {
         return CASE_SENSITIVITY.hash(this.name);
     }
