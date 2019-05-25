@@ -133,6 +133,7 @@ public final class JsonNodeName implements Name,
 
     // Object..........................................................................................................
 
+    @Override
     public final int hashCode() {
         return CASE_SENSITIVITY.hash(this.name);
     }
