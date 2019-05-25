@@ -136,9 +136,16 @@ public final class XmlName implements Name,
         return value;
     }
 
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
-    // Serializable
+    // Serializable.....................................................................................................
 
     Object readResolve() {
         final XmlName constant = constants.get(this.name);

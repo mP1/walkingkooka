@@ -135,8 +135,6 @@ final public class XmlAttributeName implements Name,
         return prefix.isPresent() ? prefix.get().value : "";
     }
 
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
-
     // UsesToStringBuilder
 
     @Override
@@ -154,4 +152,13 @@ final public class XmlAttributeName implements Name,
 
         builder.value(this.value());
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

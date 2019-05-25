@@ -72,8 +72,6 @@ public final class HateosResourceName implements Name, Comparable<HateosResource
         return this.compareTo(other) == 0;
     }
 
-    private final CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
-
     /**
      * Dumps the resource name.
      */
@@ -86,4 +84,13 @@ public final class HateosResourceName implements Name, Comparable<HateosResource
     public int compareTo(final HateosResourceName other) {
         return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

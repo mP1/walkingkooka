@@ -77,11 +77,6 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
         return other instanceof UrlPathName;
     }
 
-    @Override
-    CaseSensitivity caseSensitivity() {
-        return CaseSensitivity.SENSITIVE;
-    }
-
     // Comparable......................................................................................................
 
     @Override
@@ -96,6 +91,15 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
     public final String toString() {
         return CharSequences.quoteIfNecessary(this.name).toString();
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     // Serializable......................................................................................................
 

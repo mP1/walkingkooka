@@ -185,8 +185,6 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
         return this.name;
     }
 
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
     // SpreadsheetExpressionReferenceComparator........................................................................
 
     @Override
@@ -204,6 +202,12 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
         return other.compareTo(this);
     }
 
-    // SpreadsheetExpressionReferenceComparator........................................................................
+    // HasCaseSensitivity................................................................................................
 
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 }

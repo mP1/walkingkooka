@@ -19,7 +19,6 @@
 package walkingkooka.net;
 
 import walkingkooka.naming.Name;
-import walkingkooka.text.CaseSensitivity;
 
 import java.io.Serializable;
 
@@ -68,8 +67,6 @@ abstract class NetName implements Name, Serializable {
     final int compareTo0(final NetName other) {
         return this.caseSensitivity().comparator().compare(this.name, other.name);
     }
-
-    abstract CaseSensitivity caseSensitivity();
 
     @Override
     abstract public String toString();

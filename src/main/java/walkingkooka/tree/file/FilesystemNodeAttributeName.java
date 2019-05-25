@@ -19,6 +19,7 @@
 package walkingkooka.tree.file;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 
 /**
  * A file or directory name. Note case-sensitivity matches the same rules of the underlying filesystem.
@@ -118,5 +119,12 @@ public enum FilesystemNodeAttributeName implements Name,
     @Override
     public final String value() {
         return this.toString();
+    }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
     }
 }

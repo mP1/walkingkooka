@@ -150,15 +150,17 @@ final public class ContentDispositionType extends HeaderNameValue implements Com
         return other instanceof ContentDispositionType;
     }
 
-    @Override
-    CaseSensitivity caseSensitivity() {
-        return CASE_SENSITIVITY;
-    }
-
     // Object..................................................................................................
 
     @Override
     public String toString() {
         return this.name;
+    }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
     }
 }

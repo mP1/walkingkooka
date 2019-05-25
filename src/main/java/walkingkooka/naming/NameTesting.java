@@ -29,6 +29,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -63,6 +64,11 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
     @Test
     default void testWith() {
         this.createNameAndCheck(this.nameText());
+    }
+
+    @Test
+    default void testCaseSensitivity() {
+        assertSame(this.caseSensitivity(), this.createName(this.nameText()).caseSensitivity());
     }
 
     // Comparable.................................................................................

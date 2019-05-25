@@ -42,11 +42,6 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
     public final static LanguageTagName WILDCARD = LanguageTagNameWildcard.INSTANCE;
 
     /**
-     * {@link CaseSensitivity} for language tag names.
-     */
-    final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
-    /**
      * Factory that creates a new {@link LanguageTagName}
      */
     public static LanguageTagName with(final String value) {
@@ -106,11 +101,6 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
         return other instanceof CookieName;
     }
 
-    @Override
-    CaseSensitivity caseSensitivity() {
-        return CASE_SENSITIVITY;
-    }
-
     // Comparable..........................................................................................................
 
     @Override
@@ -124,6 +114,15 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
     public final String toString() {
         return this.toHeaderText();
     }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
+    }
+
+    final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 }
 
 

@@ -18,6 +18,7 @@
 package walkingkooka.naming;
 
 import walkingkooka.test.Fake;
+import walkingkooka.text.CaseSensitivity;
 
 /**
  * A {@link Name} that always throws {@link UnsupportedOperationException}
@@ -37,6 +38,13 @@ public class FakeName implements Name, Fake {
 
     @Override
     public String value() {
+        throw new UnsupportedOperationException();
+    }
+
+    // HasCaseSensitivity................................................................................................
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
         throw new UnsupportedOperationException();
     }
 }
