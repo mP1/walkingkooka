@@ -55,7 +55,7 @@ public final class ExpressionEqualsNode extends ExpressionComparisonBinaryNode {
     }
 
     @Override
-    ExpressionEqualsNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right) {
+    ExpressionEqualsNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionEqualsNode(index, left, right);
     }
 

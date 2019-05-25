@@ -50,7 +50,7 @@ public final class ExpressionTextNode extends ExpressionValueNode<String> {
     }
 
     @Override
-    ExpressionTextNode wrap1(final int index, final String value) {
+    ExpressionTextNode replace1(final int index, final String value) {
         return new ExpressionTextNode(index, value);
     }
 

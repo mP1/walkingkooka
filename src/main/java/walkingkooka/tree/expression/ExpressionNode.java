@@ -327,7 +327,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      * It is only ever called by a parent node and is used to adopt new children.
      */
     final ExpressionNode setParent(final Optional<ExpressionNode> parent, final int index) {
-        final ExpressionNode copy = this.wrap(index);
+        final ExpressionNode copy = this.replace(index);
         copy.parent = parent;
         return copy;
     }
@@ -340,7 +340,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     final ExpressionNode removeParent0() {
         return this.isRoot() ?
                 this :
-                this.wrap(NO_INDEX);
+                this.replace(NO_INDEX);
     }
 
 //    abstract ExpressionNode
@@ -373,7 +373,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
 
     final int index;
 
-    abstract ExpressionNode wrap(final int index);
+    abstract ExpressionNode replace(final int index);
 
     // attributes.......................................................................................................
 

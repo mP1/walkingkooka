@@ -60,7 +60,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
     }
 
     @Override
-    ExpressionNotNode wrap1(final int index, final ExpressionNode expression) {
+    ExpressionNotNode replace1(final int index, final ExpressionNode expression) {
         return new ExpressionNotNode(index, expression);
     }
 

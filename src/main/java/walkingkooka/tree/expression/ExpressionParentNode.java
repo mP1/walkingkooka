@@ -85,7 +85,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
 
     private ExpressionParentNode replaceChildren(final List<ExpressionNode> children) {
         this.replaceChildrenCheck(children);
-        return this.wrap0(this.index, children)
+        return this.replace0(this.index, children)
                 .replaceChild(this.parent())
                 .cast();
     }
@@ -93,11 +93,11 @@ abstract class ExpressionParentNode extends ExpressionNode {
     abstract void replaceChildrenCheck(final List<ExpressionNode> children);
 
     @Override
-    final ExpressionNode wrap(final int index) {
-        return this.wrap0(index, this.children());
+    final ExpressionNode replace(final int index) {
+        return this.replace0(index, this.children());
     }
 
-    abstract ExpressionParentNode wrap0(final int index, final List<ExpressionNode> children);
+    abstract ExpressionParentNode replace0(final int index, final List<ExpressionNode> children);
 
     // is........................................................................................................
 

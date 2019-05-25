@@ -61,7 +61,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
     }
 
     @Override
-    ExpressionNegativeNode wrap1(final int index, final ExpressionNode expression) {
+    ExpressionNegativeNode replace1(final int index, final ExpressionNode expression) {
         return new ExpressionNegativeNode(index, expression);
     }
 

@@ -51,7 +51,7 @@ public final class ExpressionLocalDateNode extends ExpressionValueNode<LocalDate
     }
 
     @Override
-    ExpressionLocalDateNode wrap1(final int index, final LocalDate value) {
+    ExpressionLocalDateNode replace1(final int index, final LocalDate value) {
         return new ExpressionLocalDateNode(index, value);
     }
 

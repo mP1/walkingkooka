@@ -52,21 +52,21 @@ abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> 
     }
 
     final ExpressionLeafNode<V> replaceValue(final V value) {
-        return this.wrap1(this.index, value)
+        return this.replace1(this.index, value)
                 .replaceChild(this.parent())
                 .cast();
     }
 
     @Override
-    final ExpressionNode wrap(final int index) {
-        return this.wrap0(index);
+    final ExpressionNode replace(final int index) {
+        return this.replace0(index);
     }
 
-    final ExpressionLeafNode wrap0(final int index) {
-        return this.wrap1(index, this.value);
+    final ExpressionLeafNode replace0(final int index) {
+        return this.replace1(index, this.value);
     }
 
-    abstract ExpressionLeafNode wrap1(final int index, final V value);
+    abstract ExpressionLeafNode replace1(final int index, final V value);
 
     @Override
     public final List<ExpressionNode> children() {

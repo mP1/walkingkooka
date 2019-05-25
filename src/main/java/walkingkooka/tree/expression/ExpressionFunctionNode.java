@@ -56,7 +56,7 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
     }
 
     @Override
-    ExpressionParentNode wrap0(final int index, final List<ExpressionNode> children) {
+    ExpressionParentNode replace0(final int index, final List<ExpressionNode> children) {
         return new ExpressionFunctionNode(index, this.name, children);
     }
 

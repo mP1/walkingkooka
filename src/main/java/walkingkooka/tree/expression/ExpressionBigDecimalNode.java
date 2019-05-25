@@ -51,7 +51,7 @@ public final class ExpressionBigDecimalNode extends ExpressionValueNode<BigDecim
     }
 
     @Override
-    ExpressionBigDecimalNode wrap1(final int index, final BigDecimal value) {
+    ExpressionBigDecimalNode replace1(final int index, final BigDecimal value) {
         return new ExpressionBigDecimalNode(index, value);
     }
 

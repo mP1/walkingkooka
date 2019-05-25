@@ -60,7 +60,7 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
     }
 
     @Override
-    ExpressionPowerNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right) {
+    ExpressionPowerNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionPowerNode(index, left, right);
     }
 

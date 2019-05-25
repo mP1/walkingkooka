@@ -50,7 +50,7 @@ public final class ExpressionBigIntegerNode extends ExpressionValueNode<BigInteg
     }
 
     @Override
-    ExpressionBigIntegerNode wrap1(final int index, final BigInteger value) {
+    ExpressionBigIntegerNode replace1(final int index, final BigInteger value) {
         return new ExpressionBigIntegerNode(index, value);
     }
 

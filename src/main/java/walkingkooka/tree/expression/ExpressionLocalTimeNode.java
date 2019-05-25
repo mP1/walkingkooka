@@ -51,7 +51,7 @@ public final class ExpressionLocalTimeNode extends ExpressionValueNode<LocalTime
     }
 
     @Override
-    ExpressionLocalTimeNode wrap1(final int index, final LocalTime value) {
+    ExpressionLocalTimeNode replace1(final int index, final LocalTime value) {
         return new ExpressionLocalTimeNode(index, value);
     }
 

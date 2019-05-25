@@ -60,7 +60,7 @@ public final class ExpressionDivisionNode extends ExpressionArithmeticBinaryNode
     }
 
     @Override
-    ExpressionDivisionNode wrap1(final int index, final ExpressionNode left, final ExpressionNode right) {
+    ExpressionDivisionNode replace1(final int index, final ExpressionNode left, final ExpressionNode right) {
         return new ExpressionDivisionNode(index, left, right);
     }
     // is .........................................................................................................
