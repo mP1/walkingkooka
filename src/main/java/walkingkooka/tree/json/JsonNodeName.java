@@ -20,6 +20,7 @@ package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNodeName;
 
@@ -130,11 +131,10 @@ public final class JsonNodeName implements Name,
         return JsonNode.string(this.name);
     }
 
-    // Object........................................................................................................
+    // Object..........................................................................................................
 
-    @Override
-    public int hashCode() {
-        return this.name.hashCode();
+    public final int hashCode() {
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
@@ -145,7 +145,7 @@ public final class JsonNodeName implements Name,
     }
 
     private boolean equals0(final JsonNodeName other) {
-        return this.name.equals(other.name);
+        return CASE_SENSITIVITY.equals(this.name, other.name);
     }
 
     @Override
@@ -153,10 +153,12 @@ public final class JsonNodeName implements Name,
         return this.name;
     }
 
-    // Comparable ...................................................................................................
+    // Comparable ......................................................................................................
 
     @Override
     public int compareTo(final JsonNodeName other) {
-        return this.name.compareTo(other.name);
+        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }
