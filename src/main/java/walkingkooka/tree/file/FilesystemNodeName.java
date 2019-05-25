@@ -68,7 +68,7 @@ public final class FilesystemNodeName implements Name,
     // Object..................................................................................................
 
     public final int hashCode() {
-        return this.name.hashCode();
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
