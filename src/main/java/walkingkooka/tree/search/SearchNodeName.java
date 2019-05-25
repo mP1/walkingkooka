@@ -23,6 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicateBuilder;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 
 /**
  * The name of a search node.
@@ -62,10 +63,11 @@ public final class SearchNodeName implements Name,
 
     private final String name;
 
-    // Object..................................................................................................
+    // Object..........................................................................................................
 
+    @Override
     public final int hashCode() {
-        return this.name.hashCode();
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
@@ -76,7 +78,7 @@ public final class SearchNodeName implements Name,
     }
 
     private boolean equals0(final SearchNodeName other) {
-        return this.name.equals(other.name);
+        return CASE_SENSITIVITY.equals(this.name, other.name);
     }
 
     @Override
@@ -84,10 +86,12 @@ public final class SearchNodeName implements Name,
         return this.name;
     }
 
-    // Comparable ...................................................................................................
+    // Comparable ......................................................................................................
 
     @Override
     public int compareTo(final SearchNodeName other) {
-        return this.name.compareTo(other.name);
+        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }
