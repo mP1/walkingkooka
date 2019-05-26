@@ -115,6 +115,14 @@ abstract class TextParentNode extends TextNode {
         return false;
     }
 
+    // Visitor ........................................................................................................
+
+    final void acceptValues(final TextNodeVisitor visitor) {
+        for (TextNode node : this.children()) {
+            visitor.accept(node);
+        }
+    }
+
     // Object..........................................................................................................
 
     @Override

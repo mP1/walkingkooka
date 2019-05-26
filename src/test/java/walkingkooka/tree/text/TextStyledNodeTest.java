@@ -19,7 +19,9 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
@@ -159,6 +161,64 @@ public final class TextStyledNodeTest extends TextParentNodeTestCase<TextStyledN
         this.checkNotEquals(TextPropertiesNode.with(Lists.of(child)).children().get(0),
                 this.styled("different-parent", child));
     }
+
+    // Visitor ........................................................................................................
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final List<TextNode> visited = Lists.array();
+
+        final TextStyledNode styled = TextNode.styled(TextStyleName.with("styled123"))
+                .setChildren(Lists.of(TextNode.text("a1"), TextNode.text("b2")));
+        final Text text1 = Cast.to(styled.children().get(0));
+        final Text text2 = Cast.to(styled.children().get(1));
+
+        new FakeTextNodeVisitor() {
+            @Override
+            protected Visiting startVisit(final TextNode n) {
+                b.append("1");
+                visited.add(n);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final TextNode n) {
+                b.append("2");
+                visited.add(n);
+            }
+
+            @Override
+            protected Visiting startVisit(final TextStyledNode t) {
+                assertSame(styled, t);
+                b.append("5");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final TextStyledNode t) {
+                assertSame(styled, t);
+                b.append("6");
+                visited.add(t);
+            }
+
+            @Override
+            protected void visit(final Text t) {
+                b.append("7");
+                visited.add(t);
+            }
+        }.accept(styled);
+        assertEquals("1517217262", b.toString());
+        assertEquals(Lists.of(styled, styled,
+                text1, text1, text1,
+                text2, text2, text2,
+                styled, styled),
+                visited,
+                "visited");
+    }
+
+    // toString........................................................................................................
 
     @Test
     public void testToStringEmpty() {

@@ -223,6 +223,10 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
      */
     abstract boolean equalsIgnoringParentAndChildren(final TextNode other);
 
+    // TextNodeVisitor..................................................................................................
+
+    abstract void accept(final TextNodeVisitor visitor);
+
     // Object ..........................................................................................................
 
     @Override

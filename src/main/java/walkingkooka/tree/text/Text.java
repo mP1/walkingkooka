@@ -72,6 +72,13 @@ public final class Text extends TextLeafNode<String> implements HasText {
         return true;
     }
 
+    // Visitor .................................................................................................
+
+    @Override
+    void accept(final TextNodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
     // Object .........................................................................................................
 
     @Override
