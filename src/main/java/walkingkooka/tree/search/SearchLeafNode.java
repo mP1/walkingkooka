@@ -101,7 +101,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     abstract SearchLeafNode replace0(final int index, final SearchNodeName name, final String text, final V value);
 
     @Override
-    SearchNode replaceAll(final SearchNode replace) {
+    final SearchNode replaceAll(final SearchNode replace) {
         return this.replaceAll0(replace);
     }
 
@@ -171,7 +171,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     }
 
     @Override
-    SearchMetaNode setAttributes0(final Map<SearchNodeAttributeName, String> attributes) {
+    final SearchMetaNode setAttributes0(final Map<SearchNodeAttributeName, String> attributes) {
         return SearchMetaNode.with0(this, attributes);
     }
 
@@ -199,7 +199,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
 
     @Override
     public final int hashCode() {
-        return Objects.hash(this.name, this.value.hashCode());
+        return Objects.hash(this.name, this.value);
     }
 
     @Override
@@ -208,7 +208,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     }
 
     @Override
-    boolean equalsIgnoringParentAndChildren0(final SearchNode other) {
+    final boolean equalsIgnoringParentAndChildren0(final SearchNode other) {
         return other instanceof SearchLeafNode && this.equalsIgnoringParentAndChildren1(Cast.to(other));
     }
 
