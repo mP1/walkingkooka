@@ -133,7 +133,7 @@ public final class TextStyledNode extends TextParentNode {
     }
 
     @Override
-    public boolean isStyleName() {
+    public boolean isStyled() {
         return true;
     }
 

@@ -112,7 +112,7 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
     }
 
     @Override
-    public final boolean isStyleName() {
+    public final boolean isStyled() {
         return false;
     }
 
