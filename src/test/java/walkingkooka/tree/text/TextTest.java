@@ -85,17 +85,14 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
         this.checkNotEquals(Text.with("ABC123"));
     }
 
+    // IsXXXMethod .....................................................................................................
+
     @Test
     public void testIsMethods() {
         final Text text = Text.with("abc");
         assertEquals(true, text.isText(), "isText");
         assertEquals(false, text.isProperties(), "isProperties");
         assertEquals(false, text.isStyled(), "isStyled");
-    }
-
-    @Test
-    public void testToStringEmpty() {
-        this.toStringAndCheck(Text.with(""), "\"\"");
     }
 
     // Visitor ........................................................................................................
@@ -129,6 +126,11 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
     }
 
     // ToString ........................................................................................................
+
+    @Test
+    public void testToStringEmpty() {
+        this.toStringAndCheck(Text.with(""), "\"\"");
+    }
 
     @Test
     public void testToStringNotEmpty() {
