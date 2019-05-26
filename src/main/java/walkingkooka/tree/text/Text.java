@@ -50,6 +50,13 @@ public final class Text extends TextLeafNode<String> implements HasText {
         return this.value();
     }
 
+    /**
+     * Would be setter that returns a {@link Text} with the given text creating a new instance if necessary
+     */
+    public Text setText(final String text) {
+        return this.setValue0(text).cast();
+    }
+
     @Override
     public Text removeParent() {
         return this.removeParent0().cast();
