@@ -29,8 +29,8 @@ public final class TextNodeTest extends TextNodeTestCase<TextNode> implements To
     public void testBuildAndCheckToString() {
         this.toStringAndCheck(TextNode.properties(Lists.of(
                 TextNode.styled(TextStyleName.with("style123"))
-                        .setChildren(Lists.of(TextNode.text("text123"))))),
-                "[style123[\"text123\"]]");
+                        .setChildren(Lists.of(TextNode.text("text123"), TextNode.placeholder(TextPlaceholderName.with("place-1")))))),
+                "[style123[\"text123\", place-1]]");
     }
 
     // ClassTesting.....................................................................................................

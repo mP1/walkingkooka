@@ -57,6 +57,13 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     // public factory methods..........................................................................................
 
     /**
+     * {@see TextPlaceholderNode}
+     */
+    public static TextPlaceholderNode placeholder(final TextPlaceholderName placeholder) {
+        return TextPlaceholderNode.with(placeholder);
+    }
+
+    /**
      * {@see TextPropertiesNode}
      */
     public static TextPropertiesNode properties(final List<TextNode> children) {
@@ -152,6 +159,11 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     abstract TextNode replace(final int index);
 
     // is...............................................................................................................
+
+    /**
+     * Only {@link TextPlaceholderNode} returns true
+     */
+    public abstract boolean isPlaceholder();
 
     /**
      * Only {@link TextPropertiesNode} returns true

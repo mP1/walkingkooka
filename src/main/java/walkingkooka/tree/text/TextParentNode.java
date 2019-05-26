@@ -112,6 +112,11 @@ abstract class TextParentNode extends TextNode {
     // is..............................................................................................................
 
     @Override
+    public final boolean isPlaceholder() {
+        return false;
+    }
+
+    @Override
     public final boolean isText() {
         return false;
     }

@@ -51,6 +51,10 @@ public abstract class TextNodeVisitor extends Visitor<TextNode> {
         // nop
     }
 
+    protected void visit(final TextPlaceholderNode node) {
+        // nop
+    }
+
     protected void visit(final Text node) {
         // nop
     }
