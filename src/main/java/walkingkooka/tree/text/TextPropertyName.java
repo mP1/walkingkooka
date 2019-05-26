@@ -41,11 +41,6 @@ public final class TextPropertyName<T> implements Name,
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
 
-    static TextPropertyName fromClass(final Class<? extends TextNode> klass) {
-        final String name = klass.getSimpleName();
-        return new TextPropertyName(name.substring("Text".length(), name.length() - Name.class.getSimpleName().length()));
-    }
-
     // @VisibleForTesting
     private TextPropertyName(final String name) {
         this.name = name;
