@@ -29,6 +29,9 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ResourceTesting;
+import walkingkooka.text.HasTextLengthTesting;
+import walkingkooka.text.HasTextTesting;
+import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.tree.search.SearchNode;
@@ -50,6 +53,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting2<XmlNode>,
         HasSearchNodeTesting<N>,
+        HasTextTesting,
+        HasTextLengthTesting,
+        HasTextOffsetTesting,
         IsMethodTesting<XmlNode>,
         NodeTesting<XmlNode, XmlName, XmlAttributeName, String>,
         ResourceTesting {
@@ -109,6 +115,12 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
     public final void testToXmlNode() {
         final N node = this.createNode();
         assertSame(node, node.toXmlNode());
+    }
+
+    // HasTextOffset....................................................................................................
+
+    public final void testTextOffset() {
+        this.textOffsetAndCheck(this.createNode(), 0);
     }
 
     // factories, helpers...............................................................................................
@@ -189,7 +201,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
     }
 
     final void checkText(final XmlNode node, final String text) {
-        assertEquals(text, node.text(), "text");
+        this.textAndCheck(node, text);
     }
 
     final void checkDocumentType(final Optional<XmlDocumentType> documentType,
