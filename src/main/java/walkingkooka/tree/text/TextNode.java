@@ -157,7 +157,7 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     /**
      * Only {@link TextStyledNode} returns true
      */
-    public abstract boolean isStyleName();
+    public abstract boolean isStyled();
 
     /**
      * Only {@link Text} returns true

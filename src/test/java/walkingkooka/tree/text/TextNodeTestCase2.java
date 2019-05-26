@@ -19,11 +19,16 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
+import walkingkooka.test.IsMethodTesting;
+import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.function.Predicate;
+
 public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTestCase<TextNode>
-        implements NodeTesting<TextNode, TextNodeName, TextPropertyName<?>, Object> {
+        implements NodeTesting<TextNode, TextNodeName, TextPropertyName<?>, Object>,
+        IsMethodTesting<N> {
 
     TextNodeTestCase2() {
         super();
@@ -55,5 +60,27 @@ public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTest
     @Override
     public final String typeNamePrefix() {
         return "Text";
+    }
+
+    // IsMethodTesting...................................................................................................
+
+    @Override
+    public N createIsMethodObject() {
+        return this.createTextNode();
+    }
+
+    @Override
+    public String isMethodTypeNamePrefix() {
+        return "Text";
+    }
+
+    @Override
+    public String isMethodTypeNameSuffix() {
+        return Node.class.getSimpleName();
+    }
+
+    @Override
+    public Predicate<String> isMethodIgnoreMethodFilter() {
+        return (n) -> n.equals("isText") || n.equals("isRoot");
     }
 }

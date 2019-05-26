@@ -141,7 +141,7 @@ public final class TextPropertiesNode extends TextParentNode {
     }
 
     @Override
-    public boolean isStyleName() {
+    public boolean isStyled() {
         return false;
     }
 
