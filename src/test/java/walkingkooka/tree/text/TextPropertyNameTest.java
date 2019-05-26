@@ -18,12 +18,41 @@
 
 package walkingkooka.tree.text;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.FieldAttributes;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class TextPropertyNameTest extends TextNodeTestCase3<TextPropertyName<?>>
         implements NameTesting2<TextPropertyName<?>, TextPropertyName<?>> {
+
+    @Test
+    public void testConstants() {
+        assertEquals(Lists.empty(),
+                Arrays.stream(TextPropertyName.class.getDeclaredFields())
+                        .filter(FieldAttributes.STATIC::is)
+                        .filter(f -> f.getType() == TextPropertyName.class)
+                        .filter(TextPropertyNameTest::constantNotCached)
+                        .collect(Collectors.toList()),
+                "");
+    }
+
+    private static boolean constantNotCached(final Field field) {
+        try {
+            final TextPropertyName<?> name = Cast.to(field.get(null));
+            return name != TextPropertyName.with(name.value());
+        } catch (final Exception cause) {
+            throw new AssertionError(cause.getMessage(), cause);
+        }
+    }
 
     @Override
     public TextPropertyName createName(final String name) {

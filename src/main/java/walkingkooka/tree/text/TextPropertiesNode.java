@@ -25,6 +25,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
@@ -109,11 +110,19 @@ public final class TextPropertiesNode extends TextParentNode {
     /**
      * Makes a defensive copy of the provided attributes.
      */
-    static Map<TextPropertyName<?>, Object> copyAttributes(final Map<TextPropertyName<?>, Object> attributes) {
+    private static Map<TextPropertyName<?>, Object> copyAttributes(final Map<TextPropertyName<?>, Object> attributes) {
         Objects.requireNonNull(attributes, "attributes");
 
         final Map<TextPropertyName<?>, Object> copy = Maps.ordered();
-        copy.putAll(attributes);
+        for (Entry<TextPropertyName<?>, Object> propertyAndValue : attributes.entrySet()) {
+            final TextPropertyName<?> propertyName = propertyAndValue.getKey();
+            final Object value = propertyAndValue.getValue();
+
+            propertyName.converter.check(value, propertyName);
+
+            copy.put(propertyName, value);
+        }
+
         return copy;
     }
 
