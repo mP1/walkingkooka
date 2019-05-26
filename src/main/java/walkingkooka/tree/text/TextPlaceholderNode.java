@@ -19,24 +19,22 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.text.HasText;
 
 import java.util.Objects;
 
 /**
- * Holds plain text which may be empty.
+ * A placeholder which should be replaced by actual text during rendering, but does not contain any text by itself.
  */
-public final class Text extends TextLeafNode<String> implements HasText {
+public final class TextPlaceholderNode extends TextLeafNode<TextPlaceholderName> {
 
-    public final static TextNodeName NAME = TextNodeName.with("Text");
+    public final static TextNodeName NAME = TextNodeName.with("Placeholder");
 
-    static Text with(final String value) {
+    static TextPlaceholderNode with(final TextPlaceholderName value) {
         Objects.requireNonNull(value, "value");
-        return new Text(NO_INDEX, value);
+        return new TextPlaceholderNode(NO_INDEX, value);
     }
 
-    private Text(final int index, final String text) {
+    private TextPlaceholderNode(final int index, final TextPlaceholderName text) {
         super(index, text);
     }
 
@@ -45,40 +43,33 @@ public final class Text extends TextLeafNode<String> implements HasText {
         return NAME;
     }
 
-    /**
-     * Would be setter that returns a {@link Text} with the given text creating a new instance if necessary
-     */
-    public Text setText(final String text) {
-        return this.setValue0(text).cast();
-    }
-
     @Override
-    public Text removeParent() {
+    public TextPlaceholderNode removeParent() {
         return this.removeParent0().cast();
     }
 
     @Override
-    Text replace1(final int index, final String value) {
-        return new Text(index, value);
+    TextPlaceholderNode replace1(final int index, final TextPlaceholderName value) {
+        return new TextPlaceholderNode(index, value);
     }
 
-    // IsXXXX...........................................................................................................
+    // HasText..........................................................................................................
+
+    @Override
+    public String text() {
+        return "";
+    }
+
+    // isXXX..........................................................................................................
 
     @Override
     public boolean isPlaceholder() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isText() {
-        return true;
-    }
-
-    // HasText.........................................................................................................
-
-    @Override
-    public String text() {
-        return this.value();
+        return false;
     }
 
     // Visitor .......................................................................................................
@@ -92,14 +83,13 @@ public final class Text extends TextLeafNode<String> implements HasText {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof Text;
+        return other instanceof TextPlaceholderNode;
     }
 
     // UsesToStringBuilder..............................................................................................
 
     @Override
     void buildToString0(final ToStringBuilder b) {
-        b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
         b.value(this.value);
     }
 }

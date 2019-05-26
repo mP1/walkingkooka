@@ -92,6 +92,7 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
     public void testIsMethods() {
         final Text text = Text.with("abc");
         assertEquals(true, text.isText(), "isText");
+        assertEquals(false, text.isPlaceholder(), "isPlaceholder");
         assertEquals(false, text.isProperties(), "isProperties");
         assertEquals(false, text.isStyled(), "isStyled");
     }
