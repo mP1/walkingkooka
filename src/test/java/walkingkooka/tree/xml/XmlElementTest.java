@@ -349,6 +349,21 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
 //        this.checkChildCount("parent", 0, parent);
 //    }
 
+    // HasText.........................................................................................................
+
+    @Test
+    public void testTextOffset2() {
+        final XmlElement parent = this.createNode();
+        final XmlElement child1 = parent.createElement(XmlName.element("child1"));
+        final XmlText child2 = parent.createText("text2");
+        final XmlText child3 = parent.createText("text3!!!");
+        final XmlElement parent2 = parent.appendChild(child1)
+                .appendChild(child2)
+                .appendChild(child3);
+
+        this.textOffsetAndCheck(parent2.children().get(2), 5);
+    }
+
     // HashCodeEqualsDefined ..................................................................................................
 
     private final static String TAG = "element123";

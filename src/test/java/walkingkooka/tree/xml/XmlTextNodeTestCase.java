@@ -85,6 +85,8 @@ public abstract class XmlTextNodeTestCase<N extends XmlTextNode> extends XmlLeaf
         this.checkWithParent(node);
     }
 
+    // equals..........................................................................................................
+
     @Test
     public final void testEqualsDifferentText() {
         this.checkNotEquals(this.createNode(this.document(), "different"));
