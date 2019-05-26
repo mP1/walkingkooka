@@ -20,13 +20,14 @@ package walkingkooka.tree.text;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
+import walkingkooka.text.HasText;
 
 import java.util.Objects;
 
 /**
  * Holds plain text which may be empty.
  */
-public final class Text extends TextLeafNode<String> {
+public final class Text extends TextLeafNode<String> implements HasText {
 
     public final static TextNodeName NAME = TextNodeName.with("Text");
 
@@ -42,6 +43,11 @@ public final class Text extends TextLeafNode<String> {
     @Override
     public TextNodeName name() {
         return NAME;
+    }
+
+    @Override
+    public String text() {
+        return this.value();
     }
 
     @Override
