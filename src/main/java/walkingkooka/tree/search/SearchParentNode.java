@@ -48,19 +48,6 @@ abstract class SearchParentNode extends SearchNode {
         this.replaceChildrenCheck(copy);
     }
 
-    public final String text() {
-        final StringBuilder b = new StringBuilder();
-        this.appendText(b);
-        return b.toString();
-    }
-
-    @Override
-    void appendText(final StringBuilder b) {
-        for (SearchNode child : this.children()) {
-            child.appendText(b);
-        }
-    }
-
     @Override
     final SearchParentNode removeParent1() {
         return this.replace0(NO_INDEX, this.defaultName(), this.copyChildren(this.children));

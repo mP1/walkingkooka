@@ -39,6 +39,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         assertEquals(Lists.empty(), node.children(), "children");
         this.checkWithoutParent(node);
         this.checkValue(node, this.value());
+        this.textAndCheck(node, this.text());
     }
 
     @Test
@@ -186,7 +187,17 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
 
     @Test
     public final void testText() {
-        assertEquals(this.text(), this.createSearchNode().text());
+        this.textAndCheck(this.createSearchNode(), this.text());
+    }
+
+    @Test
+    public final void testTextOffset() {
+        this.textOffsetAndCheck(SearchNode.sequence(
+                Lists.of(
+                        SearchNode.text("abc123", "abc123"),
+                        this.createSearchNode())
+                ).children().get(1),
+                6);
     }
 
     @Override

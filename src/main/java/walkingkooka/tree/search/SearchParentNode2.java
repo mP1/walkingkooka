@@ -49,6 +49,33 @@ abstract class SearchParentNode2 extends SearchParentNode {
         return false;
     }
 
+    // HasText ...............................................................................................
+
+    @Override
+    public final String text() {
+        final StringBuilder b = new StringBuilder();
+        this.appendText(b);
+        return b.toString();
+    }
+
+    @Override
+    final void appendText(final StringBuilder b) {
+        for (SearchNode child : this.children()) {
+            child.appendText(b);
+        }
+    }
+
+    // HasTextLength...............................................................................................
+
+    @Override
+    public final int textLength() {
+        return this.children().stream()
+                .mapToInt(c -> c.textLength())
+                .sum();
+    }
+
+    // equals ...............................................................................................
+
     @Override
     final boolean equalsIgnoringParentAndChildren0(final SearchNode other) {
         return this.canBeEqual(other);

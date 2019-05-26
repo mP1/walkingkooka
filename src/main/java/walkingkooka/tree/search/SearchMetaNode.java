@@ -175,6 +175,25 @@ public final class SearchMetaNode extends SearchParentNode {
         return false;
     }
 
+    // HasText ...............................................................................................
+
+    @Override
+    public String text() {
+        return this.child().text();
+    }
+
+    @Override
+    void appendText(final StringBuilder b) {
+        this.child().appendText(b);
+    }
+
+    // HasTextLength...............................................................................................
+
+    @Override
+    public int textLength() {
+        return this.child().textLength();
+    }
+
     // SearchQuery ...............................................................................................
 
     @Override
