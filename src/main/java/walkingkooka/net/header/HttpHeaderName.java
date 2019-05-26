@@ -787,12 +787,17 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Factory that creates a {@link HttpHeaderName}.
      */
     public static HttpHeaderName<?> with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", PREDICATE);
+        Objects.requireNonNull(name, "name");
 
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<>(name, HttpHeaderNameScope.UNKNOWN, HeaderValueConverter.string(), NOT_CONTENT);
+                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderValueConverter.string(), NOT_CONTENT);
+    }
+
+    private static String checkName(final String name) {
+        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", PREDICATE);
+        return name;
     }
 
     /**
