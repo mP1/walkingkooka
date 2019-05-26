@@ -20,6 +20,8 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class TextTest extends TextLeafNodeTestCase<Text, String>{
 
     @Override
@@ -27,8 +29,16 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
     }
 
     @Test
-    public final void testWithEmpty() {
+    public void testWithEmpty() {
         this.createTextNodeAndCheck("");
+    }
+
+    @Test
+    public void testWith2() {
+        final String value = "abc123";
+        final Text text = Text.with(value);
+        assertEquals(value, text.text(), "text");
+        assertEquals(value, text.value(), "value");
     }
 
     @Test
