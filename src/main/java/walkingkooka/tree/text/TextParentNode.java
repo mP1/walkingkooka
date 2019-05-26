@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A parent holding zero or more child expressions.
@@ -113,6 +114,25 @@ abstract class TextParentNode extends TextNode {
     @Override
     public final boolean isText() {
         return false;
+    }
+
+    // HasTextOffset...................................................................................................
+
+    /**
+     * Combine the text of all children(descendants). Note property names and indices will not be included.
+     */
+    @Override
+    public String text() {
+        return this.children().stream()
+                .map(c -> c.text())
+                .collect(Collectors.joining());
+    }
+
+    @Override
+    public int textLength() {
+        return this.children().stream()
+                .mapToInt(c -> c.textLength())
+                .sum();
     }
 
     // Visitor ........................................................................................................

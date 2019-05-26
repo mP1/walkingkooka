@@ -142,6 +142,24 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         assertEquals(attributes, node.attributes(), "attributes");
     }
 
+    // HasText..........................................................................................................
+
+    @Test
+    public void testText() {
+        this.textAndCheck(TextNode.properties(Lists.of(Text.with("a1"), Text.with("b2"))),
+                "a1b2");
+    }
+
+    // HasTextOffset .....................................................................................................
+
+    @Test
+    public void testTextOffsetWithParent() {
+        this.textOffsetAndCheck(TextNode.properties(Lists.of(Text.with("a1"),
+                TextNode.properties(Lists.of(Text.with("b22")))))
+                        .children().get(1),
+                2);
+    }
+
     // Visitor .........................................................................................................
 
     @Test

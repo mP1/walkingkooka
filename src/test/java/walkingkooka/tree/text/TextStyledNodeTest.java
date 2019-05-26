@@ -162,6 +162,25 @@ public final class TextStyledNodeTest extends TextParentNodeTestCase<TextStyledN
                 this.styled("different-parent", child));
     }
 
+    // HasText..........................................................................................................
+
+    @Test
+    public void testText() {
+        this.textAndCheck(TextNode.styled(TextStyleName.with("style123")).setChildren(Lists.of(Text.with("a1"), Text.with("b2"))),
+                "a1b2");
+    }
+
+    // HasTextOffset .....................................................................................................
+
+    @Test
+    public void testTextOffsetWithParent() {
+        this.textOffsetAndCheck(TextNode.properties(Lists.of(Text.with("a1"),
+                TextNode.styled(TextStyleName.with("style123")).setChildren(Lists.of(Text.with("b22"))),
+                Text.with("after!")))
+                        .children().get(1),
+                2);
+    }
+
     // Visitor ........................................................................................................
 
     @Test

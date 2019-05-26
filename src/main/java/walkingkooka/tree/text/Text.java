@@ -45,11 +45,6 @@ public final class Text extends TextLeafNode<String> implements HasText {
         return NAME;
     }
 
-    @Override
-    public String text() {
-        return this.value();
-    }
-
     /**
      * Would be setter that returns a {@link Text} with the given text creating a new instance if necessary
      */
@@ -72,7 +67,14 @@ public final class Text extends TextLeafNode<String> implements HasText {
         return true;
     }
 
-    // Visitor .................................................................................................
+    // HasText.........................................................................................................
+
+    @Override
+    public String text() {
+        return this.value();
+    }
+
+    // Visitor .......................................................................................................
 
     @Override
     void accept(final TextNodeVisitor visitor) {
