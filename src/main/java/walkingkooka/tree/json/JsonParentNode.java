@@ -150,6 +150,15 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
                 .collect(Collectors.joining());
     }
 
+    // HasTextLength...................................................................................................
+
+    @Override
+    public int textLength() {
+        return this.children().stream()
+                .mapToInt(c -> c.textLength())
+                .sum();
+    }
+
     // Object.....................................................................................................
 
     @Override
