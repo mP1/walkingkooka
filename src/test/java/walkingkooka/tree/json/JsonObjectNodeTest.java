@@ -660,6 +660,44 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         });
     }
 
+    // Text ...........................................................................................................
+
+    @Test
+    public void testText() {
+        this.textAndCheck(JsonObjectNode.EMPTY, "");
+    }
+
+    @Test
+    public void testText2() {
+        this.textAndCheck(JsonObjectNode.EMPTY
+                        .set(JsonNodeName.with("a1"), JsonNode.string("v1"))
+                        .set(JsonNodeName.with("b2"), JsonNode.booleanNode(true))
+                        .set(JsonNodeName.with("c3"), JsonNode.number(333)),
+                "v1true333.0");
+    }
+
+    // HasTextOffset...................................................................................................
+
+    @Test
+    public void testTextOffset2() {
+        this.textOffsetAndCheck(this.createNode(), "");
+    }
+
+    @Test
+    public void testTextOffset3() {
+        final JsonNodeName key = JsonNodeName.with("b2");
+
+        this.textOffsetAndCheck(JsonObjectNode.EMPTY
+                        .set(JsonNodeName.with("a1"), JsonNode.string("v1"))
+                        .set(key, JsonObjectNode.EMPTY
+                                .set(JsonNodeName.with("c3"), JsonNode.string("v3")))
+                        .set(JsonNodeName.with("d4"), JsonNode.number(444))
+                        .getOrFail(key),
+                2);
+    }
+
+    // Visitor..........................................................................................................
+
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();

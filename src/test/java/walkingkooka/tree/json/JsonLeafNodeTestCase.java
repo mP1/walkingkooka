@@ -38,6 +38,7 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
         assertEquals(Lists.empty(), node.children(), "children");
         this.checkWithoutParent(node);
         this.checkValue(node, this.value());
+        this.textAndCheck(node, String.valueOf(this.value()));
     }
 
     @Test

@@ -445,6 +445,39 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 node.set(index, value4).get(index));
     }
 
+    // HasText ..........................................................................................................
+
+    @Test
+    public void testText() {
+        this.textAndCheck(JsonArrayNode.EMPTY, "");
+    }
+
+    @Test
+    public void testText2() {
+        this.textAndCheck(JsonArrayNode.EMPTY
+                        .appendChild(JsonNode.string("a1"))
+                        .appendChild(JsonNode.string("b2")),
+                "a1b2");
+    }
+
+    // HasTextOffset...................................................................................................
+
+    @Test
+    public void testTextOffset2() {
+        this.textOffsetAndCheck(this.createNode(), "");
+    }
+
+    @Test
+    public void testTextOffset3() {
+        this.textOffsetAndCheck(JsonArrayNode.EMPTY
+                        .appendChild(JsonNode.string("a1"))
+                        .appendChild(JsonArrayNode.EMPTY
+                                .appendChild(JsonNode.string("b2!")))
+                        .appendChild(JsonNode.string("c3!!"))
+                        .get(1),
+                2);
+    }
+
     // Visitor ...........................................................................................
 
     @Test

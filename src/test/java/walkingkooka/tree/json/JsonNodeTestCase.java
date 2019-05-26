@@ -29,7 +29,9 @@ import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
+import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
@@ -47,6 +49,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesting2<JsonNode>,
         HasJsonNodeTesting<JsonNode>,
         HasSearchNodeTesting<N>,
+        HasTextOffsetTesting,
+        HasTextTesting,
         IsMethodTesting<N>,
         NodeTesting<JsonNode, JsonNodeName, Name, Object> {
 
@@ -142,6 +146,13 @@ public abstract class JsonNodeTestCase<N extends JsonNode> implements ClassTesti
     @Test
     public final void testEqualsDifferentParent() {
         this.checkNotEquals(JsonNode.array().appendChild(this.createObject()));
+    }
+
+    // HasTextOffset....................................................................................................
+
+    @Test
+    public final void testTextOffset() {
+        this.textOffsetAndCheck(this.createNode(), 0);
     }
 
     // HasJsonNode............................................................................................
