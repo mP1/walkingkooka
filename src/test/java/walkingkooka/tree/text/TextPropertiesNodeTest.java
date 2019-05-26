@@ -19,15 +19,17 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPropertiesNode> {
 
@@ -139,6 +141,63 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
     private static void checkAttributes(final TextNode node, final Map<TextPropertyName<?>, Object> attributes) {
         assertEquals(attributes, node.attributes(), "attributes");
     }
+
+    // Visitor .........................................................................................................
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final List<TextNode> visited = Lists.array();
+
+        final TextPropertiesNode properties = TextPropertiesNode.with(Lists.of(TextNode.text("a1"), TextNode.text("b2")));
+        final Text text1 = Cast.to(properties.children().get(0));
+        final Text text2 = Cast.to(properties.children().get(1));
+
+        new FakeTextNodeVisitor() {
+            @Override
+            protected Visiting startVisit(final TextNode n) {
+                b.append("1");
+                visited.add(n);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final TextNode n) {
+                b.append("2");
+                visited.add(n);
+            }
+
+            @Override
+            protected Visiting startVisit(final TextPropertiesNode t) {
+                assertSame(properties, t);
+                b.append("5");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final TextPropertiesNode t) {
+                assertSame(properties, t);
+                b.append("6");
+                visited.add(t);
+            }
+
+            @Override
+            protected void visit(final Text t) {
+                b.append("7");
+                visited.add(t);
+            }
+        }.accept(properties);
+        assertEquals("1517217262", b.toString());
+        assertEquals(Lists.of(properties, properties,
+                text1, text1, text1,
+                text2, text2, text2,
+                properties, properties),
+                visited,
+                "visited");
+    }
+
+    // toString........................................................................................................
 
     @Test
     public void testToStringEmpty() {

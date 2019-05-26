@@ -20,6 +20,7 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -96,6 +97,38 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
     public void testToStringEmpty() {
         this.toStringAndCheck(Text.with(""), "\"\"");
     }
+
+    // Visitor ........................................................................................................
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final TextNode node = this.createTextNode();
+
+        new FakeTextNodeVisitor() {
+            @Override
+            protected Visiting startVisit(final TextNode n) {
+                assertSame(node, n);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final TextNode n) {
+                assertSame(node, n);
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final Text n) {
+                assertSame(node, n);
+                b.append("3");
+            }
+        }.accept(node);
+        assertEquals("132", b.toString());
+    }
+
+    // ToString ........................................................................................................
 
     @Test
     public void testToStringNotEmpty() {

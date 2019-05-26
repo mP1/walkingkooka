@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Map;
@@ -98,7 +99,6 @@ public final class TextStyledNode extends TextParentNode {
         return super.removeChild(child).cast();
     }
 
-
     // attribute........................................................................................................
 
     @Override
@@ -135,6 +135,16 @@ public final class TextStyledNode extends TextParentNode {
     @Override
     public boolean isStyled() {
         return true;
+    }
+
+    // Visitor .................................................................................................
+
+    @Override
+    void accept(final TextNodeVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptValues(visitor);
+        }
+        visitor.endVisit(this);
     }
 
     // Object ..........................................................................................................
