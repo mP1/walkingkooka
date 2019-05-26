@@ -76,7 +76,8 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
     }
 
     private void checkText(final Text text, final String value) {
-        assertEquals(value, text.text(), "text");
+        this.textAndCheck(text, value);
+        this.textLengthAndCheck(text, value);
         assertEquals(value, text.value(), "value");
     }
 
@@ -93,6 +94,15 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
         assertEquals(true, text.isText(), "isText");
         assertEquals(false, text.isProperties(), "isProperties");
         assertEquals(false, text.isStyled(), "isStyled");
+    }
+
+    // HasTextOffset .....................................................................................................
+
+    @Test
+    public void testTextOffsetWithParent() {
+        this.textOffsetAndCheck(TextNode.properties(Lists.of(Text.with("a1"), Text.with("b22")))
+                        .children().get(1),
+                2);
     }
 
     // Visitor ........................................................................................................

@@ -18,8 +18,12 @@
 
 package walkingkooka.tree.text;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.IsMethodTesting;
+import walkingkooka.text.HasTextLengthTesting;
+import walkingkooka.text.HasTextTesting;
+import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
@@ -28,11 +32,23 @@ import java.util.function.Predicate;
 
 public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTestCase<TextNode>
         implements NodeTesting<TextNode, TextNodeName, TextPropertyName<?>, Object>,
+        HasTextLengthTesting,
+        HasTextOffsetTesting,
+        HasTextTesting,
         IsMethodTesting<N> {
 
     TextNodeTestCase2() {
         super();
     }
+
+    // HasTextOffset .....................................................................................................
+
+    @Test
+    public final void testTextOffset() {
+        this.textOffsetAndCheck(this.createTextNode(), 0);
+    }
+
+    // helpers .........................................................................................................
 
     @Override
     public final TextNode createNode() {

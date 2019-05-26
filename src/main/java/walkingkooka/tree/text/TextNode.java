@@ -24,8 +24,10 @@ import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.text.HasText;
 import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.select.NodeSelector;
 
@@ -38,6 +40,8 @@ import java.util.function.Predicate;
  * Base class that may be used to represent rich text, some nodes with styling properties and others with plain text.
  */
 public abstract class TextNode implements Node<TextNode, TextNodeName, TextPropertyName<?>, Object>,
+        HasText,
+        TraversableHasTextOffset<TextNode>,
         UsesToStringBuilder {
     
     /**
