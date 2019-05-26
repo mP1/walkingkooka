@@ -19,8 +19,11 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class TextTest extends TextLeafNodeTestCase<Text, String>{
 
@@ -36,7 +39,42 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
     @Test
     public void testWith2() {
         final String value = "abc123";
+        this.checkText(Text.with(value), value);
+    }
+
+    @Test
+    public void testSetTextSame() {
+        final String value = "abc123";
         final Text text = Text.with(value);
+        assertSame(text, text.setText(value));
+    }
+
+    @Test
+    public void testSetTextDifferent() {
+        final String before = "abc123";
+        final Text text = Text.with(before);
+
+        final String value = "different";
+        final Text different = text.setText(value);
+        assertNotSame(text, different);
+
+        this.checkText(different, value);
+        this.checkText(text, before);
+    }
+
+    @Test
+    public void testSetTextDifferentWithParent() {
+        final TextNode parent1 = Text.properties(Lists.of(Text.with("abc123")));
+        final Text text1 = parent1.children().get(0).cast();
+
+        final String value = "different456";
+        final Text different = text1.setText(value);
+
+        this.checkText(different, value);
+        this.childCountCheck(different.parentOrFail(), different);
+    }
+
+    private void checkText(final Text text, final String value) {
         assertEquals(value, text.text(), "text");
         assertEquals(value, text.value(), "value");
     }
