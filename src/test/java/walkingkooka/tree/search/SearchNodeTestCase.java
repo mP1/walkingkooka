@@ -25,6 +25,9 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.PublicStaticFactoryTesting;
+import walkingkooka.text.HasTextLengthTesting;
+import walkingkooka.text.HasTextTesting;
+import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.type.MemberVisibility;
@@ -39,6 +42,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassTesting2<SearchNode>,
+        HasTextTesting,
+        HasTextLengthTesting,
+        HasTextOffsetTesting,
         IsMethodTesting<N>,
         NodeTesting<SearchNode, SearchNodeName, SearchNodeAttributeName, String> {
 
@@ -151,7 +157,11 @@ public abstract class SearchNodeTestCase<N extends SearchNode> implements ClassT
         assertThrows(NullPointerException.class, () -> {
             this.createSearchNode().replaceSelected(null);
         });
+    }
 
+    @Test
+    public void testTextOffset() {
+        this.textOffsetAndCheck(this.createNode(), 0);
     }
 
     @Override
