@@ -24,18 +24,23 @@ import walkingkooka.tree.Node;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public interface HasTextTesting extends Testing {
+public interface HasTextLengthTesting extends Testing {
 
-    default void textAndCheck(final HasText has,
-                              final String text) {
-        assertEquals(text,
-                has.text(),
-                () -> (has instanceof HasText ? HasText.class.cast(has).text() : has.toString()) + (has instanceof Node ? "\n" + Node.class.cast(has).root() : ""));
+    default void textLengthAndCheck(final HasTextLength has,
+                                    final String text) {
+        this.textLengthAndCheck(has, text.length());
+    }
 
-        if (has instanceof HasTextLength) {
-            final HasTextLength hasTextLength = Cast.to(has);
-            assertEquals(text.length(),
-                    hasTextLength.textLength(),
+    default void textLengthAndCheck(final HasTextLength has,
+                                    final int length) {
+        assertEquals(length,
+                has.textLength(),
+                () -> (has instanceof HasTextLength ? HasTextLength.class.cast(has).textLength() : has.toString()) + (has instanceof Node ? "\n" + Node.class.cast(has).root() : ""));
+
+        if (has instanceof HasText) {
+            final HasText hasText = Cast.to(has);
+            assertEquals(length,
+                    hasText.text().length(),
                     () -> (has.toString()) + (has instanceof Node ? "\n" + Node.class.cast(has).root() : ""));
         }
     }
