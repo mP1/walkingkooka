@@ -89,6 +89,10 @@ abstract public class Color implements HashCodeEqualsDefined,
 
         Color color;
         do {
+            if(text.startsWith("rgba(")) {
+                color = parseRgbaFunction(text);
+                break;
+            }
             if(text.startsWith("rgb(")) {
                 color = parseRgbFunction(text);
                 break;
@@ -107,6 +111,62 @@ abstract public class Color implements HashCodeEqualsDefined,
         return color;
     }
 
+    // parse rgba(12,34,56,0.5).............................................................................................
+
+    private static Color parseRgbaFunction(final String text) {
+        try {
+            return RGBA_FUNCTION_PARSER.parse(TextCursors.charSequence(text),
+                    ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+')))
+                    .map(t -> ColorParserToken.class.cast(t).value())
+                    .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
+        } catch (final ParserException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    /**
+     * This method should only be called to init {@link #RGBA_FUNCTION_PARSER}
+     */
+    private static Parser<ParserContext> rgbaFunctionParser() {
+        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
+        final Parser<ParserContext> component = Parsers.longParser(10);
+        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
+
+        return Parsers.sequenceParserBuilder()
+                .required(Parsers.string("rgba(", CaseSensitivity.SENSITIVE))
+                .optional(whitespace) // red
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // green
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // blue
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // alpha
+                .required(Parsers.doubleParser())
+                .optional(whitespace)
+                .required(Parsers.character(CharPredicates.is(')')))
+                .build()
+                .transform(Color::transformRgbAFunction)
+                .orReport(ParserReporters.basic())
+                .setToString("rgba()");
+    }
+
+    private static ParserToken transformRgbAFunction(final ParserToken token, final ParserContext context) {
+        return transformArgbFunction0(token.cast(), context);
+    }
+
+    private static ColorParserToken transformArgbFunction0(final SequenceParserToken token, final ParserContext context) {
+        return ColorParseArgbFunctionParserTokenVisitor.parseSequenceParserToken(token);
+    }
+
+    private final static Parser<ParserContext> RGBA_FUNCTION_PARSER = rgbaFunctionParser();
+
+    // parse rgb(12,34,56).............................................................................................
     private static Color parseRgbFunction(final String text) {
         try {
             return RGB_FUNCTION_PARSER.parse(TextCursors.charSequence(text),
@@ -155,6 +215,8 @@ abstract public class Color implements HashCodeEqualsDefined,
     }
 
     private final static Parser<ParserContext> RGB_FUNCTION_PARSER = rgbFunctionParser();
+
+    // parseWebColorName................................................................................................
 
     /**
      * Looks up by the given name or fails.

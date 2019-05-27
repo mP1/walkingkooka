@@ -63,6 +63,61 @@ public final class ColorTest implements ClassTesting2<Color>,
         this.parseFails("#1234567", IllegalArgumentException.class);
     }
 
+    // rgba(1,2,3).......................................................................................................
+
+    @Test
+    public void testParseRgbaFunctionIncompleteFails() {
+        this.parseFails("rgba(1", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseRgbaFunctionMissingParensRightFails() {
+        this.parseFails("rgba(1,2,3,0.5", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseRgbaFunction() {
+        this.parseRgbaAndCheck3("rgba(1,2,3,0.5)", 1, 2, 3, 127);
+    }
+
+    @Test
+    public void testParseRgbaFunction2() {
+        this.parseRgbaAndCheck3("rgba(12,34,56,0.5)", 12, 34, 56, 127);
+    }
+
+    @Test
+    public void testParseRgbaFunction3() {
+        this.parseRgbaAndCheck3("rgba(99,128,255,0.5)", 99, 128, 255, 127);
+    }
+
+    @Test
+    public void testParseRgbaFunction4() {
+        this.parseRgbaAndCheck3("rgba(0,0,0,0)", 0, 0, 0, 0);
+    }
+
+    @Test
+    public void testParseRgbaFunction5() {
+        this.parseRgbaAndCheck3("rgba(255,254,253,1.0)", 255, 254, 253, 255);
+    }
+
+    @Test
+    public void testParseRgbaFunctionExtraWhitespace() {
+        this.parseRgbaAndCheck3("rgba( 1,2 , 3, 0 )", 1, 2, 3, 0);
+    }
+
+    private void parseRgbaAndCheck3(final String text,
+                                    final int red,
+                                    final int green,
+                                    final int blue,
+                                    final int alpha) {
+        this.parseAndCheck(text,
+                AlphaColor.with(
+                        RedColorComponent.with((byte) red),
+                        GreenColorComponent.with((byte) green),
+                        BlueColorComponent.with((byte) blue),
+                        AlphaColorComponent.with((byte) alpha)));
+    }
+
     // rgb(1,2,3).......................................................................................................
 
     @Test
