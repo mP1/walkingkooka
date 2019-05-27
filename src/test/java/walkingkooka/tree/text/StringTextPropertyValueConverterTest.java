@@ -20,6 +20,7 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.tree.json.JsonNode;
 
 public final class StringTextPropertyValueConverterTest extends TextPropertyValueConverterTestCase<StringTextPropertyValueConverter, String> {
 
@@ -31,6 +32,18 @@ public final class StringTextPropertyValueConverterTest extends TextPropertyValu
     @Test
     public void testCheckWhitespace() {
         this.check(" \t");
+    }
+
+    @Test
+    public void testFromJsonNode() {
+        final String value = "abc123";
+        this.fromJsonNodeAndCheck(JsonNode.string(value), value);
+    }
+
+    @Test
+    public void testToJsonNode() {
+        final String value = "abc123";
+        this.toJsonNodeAndCheck(value, JsonNode.string(value));
     }
 
     @Test

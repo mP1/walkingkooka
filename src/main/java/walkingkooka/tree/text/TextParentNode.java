@@ -20,6 +20,9 @@ package walkingkooka.tree.text;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.List;
 import java.util.Objects;
@@ -139,6 +142,21 @@ abstract class TextParentNode extends TextNode {
                 .mapToInt(c -> c.textLength())
                 .sum();
     }
+
+    // HasJsonNode.....................................................................................................
+
+    /**
+     * Because there are multiple types of children each json representation must be wrapped with the actual type.
+     */
+    final JsonObjectNode addChildrenValuesJson(final JsonObjectNode node) {
+        final List<TextNode> children = this.children();
+        return children.isEmpty() ?
+                node :
+                node.set(VALUES_PROPERTY, HasJsonNode.toJsonNodeWithTypeList(children));
+    }
+
+    final static String VALUES = "values";
+    final static JsonNodeName VALUES_PROPERTY = JsonNodeName.with(VALUES);
 
     // Visitor ........................................................................................................
 

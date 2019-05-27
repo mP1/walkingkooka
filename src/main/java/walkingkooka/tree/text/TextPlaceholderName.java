@@ -23,6 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.json.JsonNode;
 
 /**
  * The name of a placeholder.
@@ -53,10 +54,20 @@ public final class TextPlaceholderName implements Name,
 
     private final String name;
 
+    // HasJsonNode.....................................................................................................
+
+    static TextPlaceholderName fromJsonNode(final JsonNode from) {
+        return TextPlaceholderName.with(from.stringValueOrFail());
+    }
+
+    JsonNode toJsonNode() {
+        return JsonNode.string(this.name);
+    }
+
     // Object..........................................................................................................
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return CASE_SENSITIVITY.hash(this.name);
     }
 

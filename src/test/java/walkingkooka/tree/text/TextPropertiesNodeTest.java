@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.color.Color;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -160,6 +162,84 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
                 2);
     }
 
+    // HasJsonNode .....................................................................................................
+
+    @Test
+    public void testToJsonNodeWithoutChildren() {
+        this.toJsonNodeAndCheck(TextPropertiesNode.with(TextPropertiesNode.NO_CHILDREN), "{}");
+    }
+
+    @Test
+    public void testToJsonNodeWithChildren() {
+        this.toJsonNodeAndCheck(TextPropertiesNode.with(Lists.of(TextNode.text("text123"))), "{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
+    }
+
+    @Test
+    public void testToJsonNodeWithChildren2() {
+        this.toJsonNodeAndCheck(TextPropertiesNode.with(Lists.of(TextNode.text("text123"), TextNode.text("text456"))),
+                "{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}, {\"type\": \"text\", \"value\": \"text456\"}]}");
+    }
+
+    @Test
+    public void testToJsonNodeWithProperties() {
+        this.toJsonNodeAndCheck(TextPropertiesNode.with(TextPropertiesNode.NO_CHILDREN)
+                .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))),
+                "{\"properties\": {\"background-color\": \"#123456\"}}");
+    }
+
+    @Test
+    public void testToJsonNodeWithPropertiesAndChildren() {
+        this.toJsonNodeAndCheck(TextPropertiesNode.with(Lists.of(TextNode.text("text123")))
+                        .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))),
+                "{\"properties\": {\"background-color\": \"#123456\"}, \"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
+    }
+    @Test
+    public void testFromJsonNodeWithoutChildren() {
+        this.fromJsonNodeAndCheck("{}",
+                TextPropertiesNode.with(TextPropertiesNode.NO_CHILDREN));
+    }
+
+    @Test
+    public void testFromJsonNodeWithChildren() {
+        this.fromJsonNodeAndCheck("{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}",
+                TextPropertiesNode.with(Lists.of(TextNode.text("text123"))));
+    }
+
+    @Test
+    public void testJsonRoundtrip() {
+        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+                TextNode.text("text1"),
+                TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
+                TextNode.properties(Lists.of(TextNode.text("text3"))))));
+    }
+
+    @Test
+    public void testJsonRoundtrip2() {
+        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+                TextNode.text("text1"),
+                TextPropertiesNode.with(Lists.of(
+                        TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
+                        TextNode.properties(Lists.of(TextNode.text("text3"))))))));
+    }
+
+    @Test
+    public void testJsonRoundtripWithProperties() {
+        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+                TextNode.text("text1"),
+                TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
+                TextNode.properties(Lists.of(TextNode.text("text3")))))
+                .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))));
+    }
+
+    @Test
+    public void testJsonRoundtripWithProperties2() {
+        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+                TextNode.text("text1"),
+                TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
+                TextNode.properties(Lists.of(TextNode.text("text3")))))
+                .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456), TextPropertyName.TEXT_COLOR, Color.fromRgb(0x789abc))));
+    }
+
     // Visitor .........................................................................................................
 
     @Test
@@ -265,5 +345,12 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
     @Override
     Class<TextPropertiesNode> textNodeType() {
         return TextPropertiesNode.class;
+    }
+
+    // JsonNodeTesting...................................................................................................
+
+    @Override
+    public final TextPropertiesNode fromJsonNode(final JsonNode from) {
+        return TextPropertiesNode.fromJsonNode(from);
     }
 }

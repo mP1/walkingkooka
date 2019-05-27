@@ -29,10 +29,14 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -40,6 +44,7 @@ import java.util.function.Predicate;
  * Base class that may be used to represent rich text, some nodes with styling properties and others with plain text.
  */
 public abstract class TextNode implements Node<TextNode, TextNodeName, TextPropertyName<?>, Object>,
+        HasJsonNode,
         HasText,
         TraversableHasTextOffset<TextNode>,
         UsesToStringBuilder {
@@ -242,6 +247,21 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     // TextNodeVisitor..................................................................................................
 
     abstract void accept(final TextNodeVisitor visitor);
+
+    // HasJsonNode......................................................................................................
+
+    /**
+     * Creates a {@link TextNode} from a {@link JsonNode}.
+     */
+    public static TextNode fromJsonNode(final JsonNode from) {
+        Objects.requireNonNull(from, "from");
+
+        try {
+            return from.objectOrFail().fromJsonNodeWithType();
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
 
     // Object ..........................................................................................................
 

@@ -19,8 +19,14 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
+import walkingkooka.NeverError;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -137,6 +143,59 @@ public final class TextStyledNode extends TextParentNode {
         return true;
     }
 
+    // HasJsonNode.....................................................................................................
+
+    /**
+     * Accepts a json object which holds a {@link TextStyledNode}.
+     */
+    public static TextStyledNode fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        try {
+            return fromJsonNode0(node.objectOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    private static TextStyledNode fromJsonNode0(final JsonObjectNode node) {
+        TextStyleName styleName = null;
+        List<TextNode> children = NO_CHILDREN;
+
+        for (JsonNode child : node.children()) {
+            switch (child.name().value()) {
+                case STYLE:
+                    styleName = TextStyleName.fromJsonNode(child);
+                    break;
+                case VALUES:
+                    children = child.arrayOrFail().fromJsonNodeWithTypeList();
+                    break;
+                default:
+                    NeverError.unhandledCase(child, STYLE_PROPERTY, VALUES_PROPERTY);
+            }
+        }
+
+        if (null == styleName) {
+            HasJsonNode.requiredPropertyMissing(STYLE_PROPERTY, node);
+        }
+
+        return TextStyledNode.with(styleName)
+                .setChildren(children);
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        return this.addChildrenValuesJson(JsonNode.object()
+                .set(STYLE_PROPERTY, this.styleName.toJsonNode()));
+    }
+
+    final static String STYLE = "style";
+    final static JsonNodeName STYLE_PROPERTY = JsonNodeName.with(STYLE);
+
+    static {
+        HasJsonNode.register("text-styled", TextStyledNode::fromJsonNode, TextStyledNode.class);
+    }
+    
     // Visitor .................................................................................................
 
     @Override

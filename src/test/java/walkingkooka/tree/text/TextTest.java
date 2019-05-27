@@ -20,6 +20,7 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -106,6 +107,20 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
                 2);
     }
 
+    // HasJsonNode .....................................................................................................
+
+    @Test
+    public void testToJsonNode() {
+        final String text = "abc123!\t";
+        this.toJsonNodeAndCheck(Text.with(text), JsonNode.string(text));
+    }
+
+    @Test
+    public void testFromJsonNode() {
+        final String text = "abc123!\t";
+        this.fromJsonNodeAndCheck(JsonNode.string(text), Text.with(text));
+    }
+
     // Visitor ........................................................................................................
 
     @Test
@@ -166,5 +181,12 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
     @Override
     Class<Text> textNodeType() {
         return Text.class;
+    }
+
+    // JsonNodeTesting...................................................................................................
+
+    @Override
+    public final Text fromJsonNode(final JsonNode from) {
+        return Text.fromJsonNode(from);
     }
 }

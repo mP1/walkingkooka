@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import walkingkooka.Cast;
 import walkingkooka.color.Color;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonNode;
 
 /**
  * Base converter that provides support for converting header text to values and back.
@@ -70,6 +71,18 @@ abstract class TextPropertyValueConverter<T> {
         }
         return type.cast(value);
     }
+
+    // fromJsonNode ....................................................................................................
+
+    /**
+     * Transforms a {@link JsonNode} into a value.
+     */
+    abstract T fromJsonNode(final JsonNode node);
+
+    /**
+     * Transforms a value into json, performing the inverse of {@link #fromJsonNode(JsonNode)}
+     */
+    abstract JsonNode toJsonNode(final T value);
 
     // Object .........................................................................................................
 

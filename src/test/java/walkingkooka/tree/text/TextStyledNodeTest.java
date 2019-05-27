@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -181,6 +182,43 @@ public final class TextStyledNodeTest extends TextParentNodeTestCase<TextStyledN
                 2);
     }
 
+    // HasJsonNode .....................................................................................................
+
+    @Test
+    public void testToJsonNodeWithoutChildren() {
+        this.toJsonNodeAndCheck(TextStyledNode.with(TextStyleName.with("abc123")),
+                "{\"style\": \"abc123\"}");
+    }
+
+    @Test
+    public void testToJsonNodeWithChildren() {
+        this.toJsonNodeAndCheck(TextStyledNode.with(TextStyleName.with("abc123"))
+                        .setChildren(Lists.of(TextNode.text("text456"))),
+                "{\"style\": \"abc123\", \"values\": [{\"type\": \"text\", \"value\": \"text456\"}]}");
+    }
+
+    @Test
+    public void testFromJsonNodeWithoutChildren() {
+        this.fromJsonNodeAndCheck("{\"style\": \"abc123\"}",
+                TextStyledNode.with(TextStyleName.with("abc123")));
+    }
+
+    @Test
+    public void testFromJsonNodeWithChildren() {
+        this.fromJsonNodeAndCheck("{\"style\": \"abc123\", \"values\": [{\"type\": \"text\", \"value\": \"text456\"}]}",
+                TextStyledNode.with(TextStyleName.with("abc123"))
+                        .setChildren(Lists.of(TextNode.text("text456"))));
+    }
+
+    @Test
+    public void testJsonRoundtrip() {
+        this.toJsonNodeRoundTripTwiceAndCheck(TextStyledNode.with(TextStyleName.with("style1"))
+                .setChildren(Lists.of(
+                        TextNode.text("text1"),
+                        TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
+                        TextNode.properties(Lists.of(TextNode.text("text3"))))));
+    }
+
     // Visitor ........................................................................................................
 
     @Test
@@ -281,5 +319,12 @@ public final class TextStyledNodeTest extends TextParentNodeTestCase<TextStyledN
 
     private void checkStyleName(final TextStyledNode node, final TextStyleName name) {
         assertEquals(name, node.styleName(), "name");
+    }
+
+    // JsonNodeTesting...................................................................................................
+
+    @Override
+    public final TextStyledNode fromJsonNode(final JsonNode from) {
+        return TextStyledNode.fromJsonNode(from);
     }
 }
