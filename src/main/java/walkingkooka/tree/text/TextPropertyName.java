@@ -69,9 +69,9 @@ public final class TextPropertyName<T> implements Name,
      */
     private static <T> TextPropertyName<T> registerConstant(final String property,
                                                             final TextPropertyValueConverter<T> converter) {
-        final TextPropertyName<T> propertyName = new TextPropertyName<>(property, converter);
-        TextPropertyName.CONSTANTS.put(property, propertyName);
-        return propertyName;
+        final TextPropertyName<T> textPropertyName = new TextPropertyName<>(property, converter);
+        TextPropertyName.CONSTANTS.put(property, textPropertyName);
+        return textPropertyName;
     }
 
     /**
@@ -90,9 +90,9 @@ public final class TextPropertyName<T> implements Name,
     public static TextPropertyName<?> with(final String name) {
         Objects.requireNonNull(name, "name");
 
-        final TextPropertyName<?> httpHeaderName = CONSTANTS.get(name);
-        return null != httpHeaderName ?
-                httpHeaderName :
+        final TextPropertyName<?> textPropertyName = CONSTANTS.get(name);
+        return null != textPropertyName ?
+                textPropertyName :
                 new TextPropertyName<>(checkName(name), TextPropertyValueConverter.string());
     }
 
