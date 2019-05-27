@@ -58,10 +58,10 @@ public final class TextPropertyName<T> implements Name,
     }
 
     /**
-     * Creates and adds a new {@link TextPropertyName} to the cache being built that handles {@link String} values.
+     * Creates and adds a new {@link TextPropertyName} to the cache being built that handles {@link FontFamilyName} values.
      */
-    private static TextPropertyName<String> registerStringConstant(final String property) {
-        return registerConstant(property, TextPropertyValueConverter.string());
+    private static TextPropertyName<FontFamilyName> registerFontFamilyNameConstant(final String property) {
+        return registerConstant(property, TextPropertyValueConverter.fontFamilyName());
     }
 
     /**
@@ -78,6 +78,11 @@ public final class TextPropertyName<T> implements Name,
      * Background color
      */
     public final static TextPropertyName<Color> BACKGROUND_COLOR = registerColorConstant("background-color");
+
+    /**
+     * Background color
+     */
+    public final static TextPropertyName<FontFamilyName> FONT_FAMILY_NAME = registerFontFamilyNameConstant("font-family-name");
 
     /**
      * Text color

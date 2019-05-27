@@ -36,6 +36,13 @@ abstract class TextPropertyValueConverter<T> {
     }
 
     /**
+     * {@see FontFamilyNameTextPropertyValueConverter}
+     */
+    static TextPropertyValueConverter<FontFamilyName> fontFamilyName() {
+        return FontFamilyNameTextPropertyValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see StringTextPropertyValueConverter}
      */
     static TextPropertyValueConverter<String> string() {
