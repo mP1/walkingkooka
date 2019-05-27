@@ -110,6 +110,9 @@ abstract public class Color implements HashCodeEqualsDefined,
             case 4:
                 color = parseRgb(text);
                 break;
+            case 5:
+                color = parseArgb(text);
+                break;
             case 7:
                 color = parseRrggbb(text);
                 break;
@@ -128,6 +131,17 @@ abstract public class Color implements HashCodeEqualsDefined,
     private static Color parseRgb(final String text) {
         final int value = parseHashHexDigits(text);
         return fromRgb((value & 0xF00) * 0x1100 +
+                (value & 0xF0) * 0x110 +
+                (value & 0xF) * 0x11);
+    }
+
+    /**
+     * Handles parsing ARGB 4 hex digits.
+     */
+    private static Color parseArgb(final String text) {
+        final int value = parseHashHexDigits(text);
+        return fromArgb((value & 0xF000) * 0x11000 +
+                (value & 0xF00) * 0x1100 +
                 (value & 0xF0) * 0x110 +
                 (value & 0xF) * 0x11);
     }
