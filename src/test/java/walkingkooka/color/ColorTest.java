@@ -63,6 +63,44 @@ public final class ColorTest implements ClassTesting2<Color>,
         this.parseFails("#1234567", IllegalArgumentException.class);
     }
 
+    // rgb(1,2,3).......................................................................................................
+
+    @Test
+    public void testParseRgbFunctionIncompleteFails() {
+        this.parseFails("rgb(1", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseRgbFunctionMissingParensRightFails() {
+        this.parseFails("rgb(1,2,3", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseRgbFunction() {
+        this.parseRgbAndCheck2("rgb(1,2,3)", 1, 2, 3);
+    }
+
+    @Test
+    public void testParseRgbFunction2() {
+        this.parseRgbAndCheck2("rgb(12,34,56)", 12, 34, 56);
+    }
+
+    @Test
+    public void testParseRgbFunction3() {
+        this.parseRgbAndCheck2("rgb(99,128,255)", 99, 128, 255);
+    }
+
+    @Test
+    public void testParseRgbFunctionExtraWhitespace() {
+        this.parseRgbAndCheck2("rgb( 1,2 , 3 )", 1, 2, 3);
+    }
+
+    private void parseRgbAndCheck2(final String text, final int red, final int green, final int blue) {
+        this.parseAndCheck(text, Color.with(RedColorComponent.with((byte)red),
+                GreenColorComponent.with((byte)green),
+                BlueColorComponent.with((byte)blue)));
+    }
+
     // #123456..........................................................................................................
 
     @Test

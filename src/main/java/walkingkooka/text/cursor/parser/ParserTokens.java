@@ -17,6 +17,7 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.color.Color;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.math.BigDecimal;
@@ -50,6 +51,13 @@ public final class ParserTokens implements PublicStaticHelper {
      */
     public static CharacterParserToken character(final char value, final String text) {
         return CharacterParserToken.with(value, text);
+    }
+
+    /**
+     * {@see ColorParserToken}
+     */
+    public static ColorParserToken color(final Color value, final String text) {
+        return ColorParserToken.with(value, text);
     }
 
     /**

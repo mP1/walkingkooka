@@ -49,6 +49,11 @@ public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
     }
 
     @Override
+    protected void visit(final ColorParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final DoubleParserToken token) {
         throw new UnsupportedOperationException();
     }
