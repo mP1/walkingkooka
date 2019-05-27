@@ -69,11 +69,6 @@ public final class ColorTest implements ClassTesting2<Color>,
     }
 
     @Test
-    public void testParseEightDigitsFails() {
-        this.parseFails("#12345678", IllegalArgumentException.class);
-    }
-
-    @Test
     public void testParseHashRedRedGreenGreenBlueBlue() {
         this.parseRgbAndCheck("#123456", 0x123456);
     }
@@ -110,6 +105,40 @@ public final class ColorTest implements ClassTesting2<Color>,
 
     private void parseRgbAndCheck(final String text, final int rgb) {
         this.parseAndCheck(text, Color.fromRgb(rgb));
+    }
+
+    @Test
+    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlue() {
+        this.parseArgbAndCheck("#01234567", 0x01234567);
+    }
+
+    @Test
+    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlue2() {
+        this.parseArgbAndCheck("#12345678", 0x12345678);
+    }
+
+    @Test
+    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlueZeroes() {
+        this.parseArgbAndCheck("#00000000", 0x0);
+    }
+
+    @Test
+    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlue3() {
+        this.parseArgbAndCheck("#abcdef12", 0xabcdef12);
+    }
+
+    @Test
+    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlueUpperCaseHex() {
+        this.parseArgbAndCheck("#ABCDEF12", 0xABCDEF12);
+    }
+
+    @Test
+    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlueFFFFFFFF() {
+        this.parseArgbAndCheck("#FFFFFFFF", 0xFFFFFFFF);
+    }
+
+    private void parseArgbAndCheck(final String text, final int argb) {
+        this.parseAndCheck(text, Color.fromArgb(argb));
     }
 
     @Override
