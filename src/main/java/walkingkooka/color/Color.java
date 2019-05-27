@@ -30,6 +30,7 @@ import walkingkooka.tree.json.JsonNodeException;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Holds an immutable {@link Color}.
@@ -121,7 +122,8 @@ abstract public class Color implements HashCodeEqualsDefined,
     /**
      * Handles parsing RRGGBB 6 hex digits.
      */
-    private static Color parseRrggbb(final String text) {
+    // WebColorName.registerConstant
+    static Color parseRrggbb(final String text) {
         return fromRgb(parseHashHexDigits(text));
     }
 
@@ -499,6 +501,15 @@ abstract public class Color implements HashCodeEqualsDefined,
     private static float min(final float a, final float b, final float c) {
         return Math.min(a, Math.min(b, c));
     }
+
+    // WebColorName..........................................................................................................
+
+    /**
+     * Returns a {@link WebColorName} for this color if one exists. Note that colors with alpha always returns nothing.
+     */
+    public abstract Optional<WebColorName> webColorName();
+
+    // Object..........................................................................................................
 
     /**
      * Lazily calculates the hash code and stores it for future retrieval.
