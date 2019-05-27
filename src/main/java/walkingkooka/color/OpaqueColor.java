@@ -159,11 +159,4 @@ final class OpaqueColor extends Color {
 
     // Serializable
     private static final long serialVersionUID = 1;
-
-    // HasJsonNode...........................................................................
-
-    @Override
-    public JsonNode toJsonNode() {
-        return JsonNode.string(this.toString());
-    }
 }

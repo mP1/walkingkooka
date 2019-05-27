@@ -104,31 +104,6 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
     // HasJsonNode............................................................................................
 
     @Test
-    public void testFromJsonNodeBooleanFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true));
-    }
-
-    @Test
-    public void testFromJsonNodeNullFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode());
-    }
-
-    @Test
-    public void testFromJsonNodeNumberFails() {
-        this.fromJsonNodeFails(JsonNode.number(123));
-    }
-
-    @Test
-    public void testFromJsonNodeArrayFails() {
-        this.fromJsonNodeFails(JsonNode.array());
-    }
-
-    @Test
-    public void testFromJsonNodeObjectFails() {
-        this.fromJsonNodeFails(JsonNode.object());
-    }
-
-    @Test
     public void testFromJsonNodeString() {
         this.fromJsonNodeAndCheck(JsonNode.string("#123456"),
                 Cast.to(Color.fromRgb(0x123456)));

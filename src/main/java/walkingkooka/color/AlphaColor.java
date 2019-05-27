@@ -163,11 +163,4 @@ final public class AlphaColor extends Color {
 
     // Serializable
     private static final long serialVersionUID = 1L;
-
-    // HasJsonNode...........................................................................
-
-    @Override
-    public JsonNode toJsonNode() {
-        throw new UnsupportedOperationException();
-    }
 }

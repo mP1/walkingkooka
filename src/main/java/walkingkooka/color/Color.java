@@ -559,4 +559,11 @@ abstract public class Color implements HashCodeEqualsDefined,
 
     // Serializable
     private static final long serialVersionUID = 1;
+
+    // HasJsonNode...........................................................................
+
+    @Override
+    public final JsonNode toJsonNode() {
+        return JsonNode.string(this.toString());
+    }
 }
