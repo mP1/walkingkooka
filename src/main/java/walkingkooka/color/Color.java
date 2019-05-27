@@ -94,13 +94,10 @@ abstract public class Color implements HashCodeEqualsDefined,
         final int textLength = text.length();
         switch (textLength) {
             case 4:
-                value = parseHash0(text);
-                value = (value & 0xF00) * 0x1100 +
-                        (value & 0xF0) * 0x110 +
-                        (value & 0xF) * 0x11;
+                value = parseRgb(text);
                 break;
             case 7:
-                value = parseHash0(text);
+                value = parseRrggbb(text);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid text length " + CharSequences.quoteAndEscape(text));
@@ -108,7 +105,24 @@ abstract public class Color implements HashCodeEqualsDefined,
         return fromRgb(value);
     }
 
-    private static int parseHash0(final String text) {
+    /**
+     * Handles parsing RGB 3 hex digits.
+     */
+    private static int parseRgb(final String text) {
+        final int value = parseHashHexDigits(text);
+        return (value & 0xF00) * 0x1100 +
+                (value & 0xF0) * 0x110 +
+                (value & 0xF) * 0x11;
+    }
+
+    /**
+     * Handles parsing RRGGBB 6 hex digits.
+     */
+    private static int parseRrggbb(final String text) {
+        return parseHashHexDigits(text);
+    }
+
+    private static int parseHashHexDigits(final String text) {
         try {
             return Integer.parseInt(text.substring(1), 16);
         } catch (final NumberFormatException cause) {
