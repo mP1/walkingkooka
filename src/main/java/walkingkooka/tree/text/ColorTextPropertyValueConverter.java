@@ -19,6 +19,7 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.color.Color;
+import walkingkooka.tree.json.JsonNode;
 
 /**
  * A {@link TextPropertyValueConverter} for {@link Color} parameter values.
@@ -41,6 +42,20 @@ final class ColorTextPropertyValueConverter extends TextPropertyValueConverter<C
     void check0(final Object value, final TextPropertyName<?> name) {
         this.checkType(value, Color.class, name);
     }
+
+    // fromJsonNode ....................................................................................................
+
+    @Override
+    Color fromJsonNode(final JsonNode node) {
+        return Color.fromJsonNode(node);
+    }
+
+    @Override
+    JsonNode toJsonNode(final Color value) {
+        return value.toJsonNode();
+    }
+
+    // Object ..........................................................................................................
 
     @Override
     public String toString() {

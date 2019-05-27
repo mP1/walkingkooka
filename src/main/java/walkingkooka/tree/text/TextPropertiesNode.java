@@ -19,8 +19,15 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
+import walkingkooka.NeverError;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -153,6 +160,89 @@ public final class TextPropertiesNode extends TextParentNode {
     @Override
     public boolean isStyled() {
         return false;
+    }
+
+    // HasJsonNode.....................................................................................................
+
+    /**
+     * Accepts a json object which holds a {@link TextPropertiesNode}.
+     */
+    public static TextPropertiesNode fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        try {
+            return fromJsonNode0(node.objectOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    private static TextPropertiesNode fromJsonNode0(final JsonObjectNode node) {
+        Map<TextPropertyName<?>, Object> properties = NO_ATTRIBUTES;
+        List<TextNode> children = NO_CHILDREN;
+
+        for (JsonNode child : node.children()) {
+            switch (child.name().value()) {
+                case PROPERTIES:
+                    properties = propertiesFromJson(child.objectOrFail());
+                    break;
+                case VALUES:
+                    children = child.arrayOrFail().fromJsonNodeWithTypeList();
+                    break;
+                default:
+                    NeverError.unhandledCase(child, PROPERTIES_PROPERTY, VALUES_PROPERTY);
+            }
+        }
+
+        return TextPropertiesNode.with(children)
+                .setAttributes(properties);
+    }
+
+    private static Map<TextPropertyName<?>, Object> propertiesFromJson(final JsonObjectNode json) {
+        final Map<TextPropertyName<?>, Object> properties = Maps.ordered();
+
+        for (JsonNode child : json.children()) {
+            final TextPropertyName name = TextPropertyName.fromJsonNodeName(child);
+            properties.put(name,
+                    name.converter.fromJsonNode(child));
+        }
+
+        return properties;
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        JsonObjectNode json = JsonNode.object();
+        if (!this.attributes.isEmpty()) {
+            json = json.set(PROPERTIES_PROPERTY, this.propertiesToJson());
+        }
+
+        return this.addChildrenValuesJson(json);
+    }
+
+    /**
+     * Creates an object where the {@link TextPropertyName} becomes the json property name, and the value is turned into json.
+     * If there are no properties defined, then an empty object will be returned.
+     */
+    private JsonNode propertiesToJson() {
+        final List<JsonNode> json = Lists.array();
+
+        for (Entry<TextPropertyName<?>, Object> propertyAndValue : this.attributes.entrySet()) {
+            final TextPropertyName<?> propertyName = propertyAndValue.getKey();
+            final JsonNode value = propertyName.converter.toJsonNode(Cast.to(propertyAndValue.getValue()));
+
+            json.add(value.setName(propertyName.toJsonNodeName()));
+        }
+
+        return JsonNode.object()
+                .setChildren(json);
+    }
+
+    final static String PROPERTIES = "properties";
+    final static JsonNodeName PROPERTIES_PROPERTY = JsonNodeName.with(PROPERTIES);
+
+    static {
+        HasJsonNode.register("text-properties", TextPropertiesNode::fromJsonNode, TextPropertiesNode.class);
     }
 
     // Visitor .................................................................................................

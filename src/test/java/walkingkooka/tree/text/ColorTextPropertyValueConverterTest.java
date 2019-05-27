@@ -24,6 +24,18 @@ import walkingkooka.color.Color;
 public final class ColorTextPropertyValueConverterTest extends TextPropertyValueConverterTestCase<ColorTextPropertyValueConverter, Color> {
 
     @Test
+    public void testFromJsonNode() {
+        final Color color = Color.fromRgb(0x123456);
+        this.fromJsonNodeAndCheck(color.toJsonNode(), color);
+    }
+
+    @Test
+    public void testToJsonNode() {
+        final Color color = Color.fromRgb(0x123456);
+        this.toJsonNodeAndCheck(color, color.toJsonNode());
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.converter(), "Color");
     }

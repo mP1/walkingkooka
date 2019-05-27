@@ -21,6 +21,8 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
+import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,6 +51,18 @@ public abstract class TextPropertyValueConverterTestCase<P extends TextPropertyV
         this.checkFails(this, "Property " + this.propertyName().inQuotes() + " value " + this + " is not a " + this.propertyValueType());
     }
 
+    @Test
+    public final void testRoundtripJson() {
+        final T value = this.propertyValue();
+        final P converter = this.converter();
+
+        final JsonNode json = converter.toJsonNode(value);
+
+        assertEquals(value,
+                converter.fromJsonNode(json),
+                () -> "value " + CharSequences.quoteIfChars(value) + " to json " + json);
+    }
+
     final void check(final Object value) {
         this.converter().check(value, this.propertyName());
     }
@@ -60,6 +74,19 @@ public abstract class TextPropertyValueConverterTestCase<P extends TextPropertyV
         assertEquals(message, thrown.getMessage(), "message");
     }
 
+    final void fromJsonNodeAndCheck(final JsonNode node, final T value) {
+        assertEquals(value,
+                this.converter().fromJsonNode(node),
+                () -> "from JsonNode " + node);
+    }
+
+    final void toJsonNodeAndCheck(final T value, final JsonNode node) {
+        assertEquals(node,
+                this.converter().toJsonNode(value),
+                () -> "toJsonNode " + CharSequences.quoteIfChars(value));
+    }
+
+    // helper...........................................................................................................
 
     abstract P converter();
 

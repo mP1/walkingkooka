@@ -19,6 +19,7 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonNode;
 
 /**
  * A {@link TextPropertyValueConverter} for non empty {@link String} parameter values.
@@ -44,6 +45,20 @@ final class StringTextPropertyValueConverter extends TextPropertyValueConverter<
             throw new TextPropertyValueException("Property " + name.inQuotes() + " contains an empty/whitespace value " + CharSequences.quoteAndEscape(string));
         }
     }
+
+    // fromJsonNode ....................................................................................................
+
+    @Override
+    String fromJsonNode(final JsonNode node) {
+        return node.stringValueOrFail();
+    }
+
+    @Override
+    JsonNode toJsonNode(final String value) {
+        return JsonNode.string(value);
+    }
+
+    // Object ..........................................................................................................
 
     @Override
     public String toString() {

@@ -23,6 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.json.JsonNode;
 
 /**
  * The name of a style {@link TextNode}.
@@ -55,6 +56,16 @@ public final class TextStyleName implements Name,
     }
 
     private final String name;
+
+    // HasJsonNode.....................................................................................................
+
+    static TextStyleName fromJsonNode(final JsonNode node) {
+        return with(node.stringValueOrFail());
+    }
+
+    JsonNode toJsonNode() {
+        return JsonNode.string(this.name);
+    }
 
     // Object..........................................................................................................
 

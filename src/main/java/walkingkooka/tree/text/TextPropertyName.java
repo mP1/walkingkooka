@@ -26,6 +26,8 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
 
 import java.util.Map;
 import java.util.Objects;
@@ -130,6 +132,16 @@ public final class TextPropertyName<T> implements Name,
      */
     CharSequence inQuotes() {
         return CharSequences.quoteAndEscape(this.name);
+    }
+
+    // HasJsonNode.....................................................................................................
+
+    static TextPropertyName<?> fromJsonNodeName(final JsonNode node) {
+        return TextPropertyName.with(node.name().value());
+    }
+
+    JsonNodeName toJsonNodeName() {
+        return JsonNodeName.with(this.name);
     }
 
     // Object..........................................................................................................

@@ -26,12 +26,14 @@ import walkingkooka.text.HasTextTesting;
 import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
+import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
 public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTestCase<TextNode>
         implements NodeTesting<TextNode, TextNodeName, TextPropertyName<?>, Object>,
+        HasJsonNodeTesting<TextNode>,
         HasTextLengthTesting,
         HasTextOffsetTesting,
         HasTextTesting,
@@ -81,22 +83,29 @@ public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTest
     // IsMethodTesting...................................................................................................
 
     @Override
-    public N createIsMethodObject() {
+    public final N createIsMethodObject() {
         return this.createTextNode();
     }
 
     @Override
-    public String isMethodTypeNamePrefix() {
+    public final String isMethodTypeNamePrefix() {
         return "Text";
     }
 
     @Override
-    public String isMethodTypeNameSuffix() {
+    public final String isMethodTypeNameSuffix() {
         return Node.class.getSimpleName();
     }
 
     @Override
-    public Predicate<String> isMethodIgnoreMethodFilter() {
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (n) -> n.equals("isText") || n.equals("isRoot");
+    }
+
+    // JsonNodeTesting...................................................................................................
+
+    @Override
+    public final TextNode createHasJsonNode() {
+        return this.createTextNode();
     }
 }

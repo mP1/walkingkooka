@@ -19,6 +19,9 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 
 import java.util.Objects;
 
@@ -70,6 +73,30 @@ public final class TextPlaceholderNode extends TextLeafNode<TextPlaceholderName>
     @Override
     public boolean isText() {
         return false;
+    }
+
+    // HasJsonNode.....................................................................................................
+
+    /**
+     * Accepts a json string which holds a {@link TextPlaceholderNode}.
+     */
+    public static TextPlaceholderNode fromJsonNode(final JsonNode node) {
+        Objects.requireNonNull(node, "node");
+
+        try {
+            return TextPlaceholderNode.with(TextPlaceholderName.fromJsonNode(node));
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        return this.value.toJsonNode();
+    }
+
+    static {
+        HasJsonNode.register("text-placeholder", TextPlaceholderNode::fromJsonNode, TextPlaceholderNode.class);
     }
 
     // Visitor .......................................................................................................
