@@ -76,6 +76,10 @@ abstract public class Color implements HashCodeEqualsDefined,
 
         Color color;
         do {
+            if(Character.isLetter(text.charAt(0))) {
+                color = parseWebColorName(text);
+                break;
+            }
             if (text.startsWith("#")) {
                 color = parseHash(text);
                 break;
@@ -84,6 +88,15 @@ abstract public class Color implements HashCodeEqualsDefined,
         } while (false);
 
         return color;
+    }
+
+    /**
+     * Looks up by the given name or fails.
+     */
+    private static Color parseWebColorName(final String name) {
+        return WebColorName.with(name)
+                .map(WebColorName::color)
+                .orElseThrow(()-> new IllegalArgumentException("Unknown color name " + CharSequences.quoteAndEscape(name)));
     }
 
     /**

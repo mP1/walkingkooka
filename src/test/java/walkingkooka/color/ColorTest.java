@@ -141,6 +141,21 @@ public final class ColorTest implements ClassTesting2<Color>,
         this.parseAndCheck(text, Color.fromArgb(argb));
     }
 
+    @Test
+    public void testParseNameUnknownFails() {
+        this.parseFails("Unknown", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseBlack() {
+        this.parseAndCheck("black", Color.BLACK);
+    }
+
+    @Test
+    public void testParseCyan() {
+        this.parseAndCheck("CYAN", WebColorName.CYAN.color());
+    }
+
     @Override
     public Class<Color> type() {
         return Color.class;
