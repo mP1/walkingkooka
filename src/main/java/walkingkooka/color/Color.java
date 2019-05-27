@@ -86,45 +86,56 @@ abstract public class Color implements HashCodeEqualsDefined,
     }
 
     /**
-     * Only parses #RGB and #RRGGBB text, other forms will result in a {@link IllegalArgumentException}.
+     * Only parses several hex digit text, other forms will result in a {@link IllegalArgumentException}.
      */
     private static Color parseHash(final String text) {
-        int value;
+        Color color;
 
         final int textLength = text.length();
         switch (textLength) {
             case 4:
-                value = parseRgb(text);
+                color = parseRgb(text);
                 break;
             case 7:
-                value = parseRrggbb(text);
+                color = parseRrggbb(text);
+                break;
+            case 9:
+                color = parseAarrggbb(text);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid text length " + CharSequences.quoteAndEscape(text));
         }
-        return fromRgb(value);
+        return color;
     }
 
     /**
      * Handles parsing RGB 3 hex digits.
      */
-    private static int parseRgb(final String text) {
+    private static Color parseRgb(final String text) {
         final int value = parseHashHexDigits(text);
-        return (value & 0xF00) * 0x1100 +
+        return fromRgb((value & 0xF00) * 0x1100 +
                 (value & 0xF0) * 0x110 +
-                (value & 0xF) * 0x11;
+                (value & 0xF) * 0x11);
     }
 
     /**
      * Handles parsing RRGGBB 6 hex digits.
      */
-    private static int parseRrggbb(final String text) {
-        return parseHashHexDigits(text);
+    private static Color parseRrggbb(final String text) {
+        return fromRgb(parseHashHexDigits(text));
+    }
+
+    /**
+     * Handles parsing AARRGGBB 8 hex digits.
+     */
+    private static Color parseAarrggbb(final String text) {
+        return fromArgb(parseHashHexDigits(text));
     }
 
     private static int parseHashHexDigits(final String text) {
         try {
-            return Integer.parseInt(text.substring(1), 16);
+            // Integer.parseInt will fail when parsing 8 hex digits...
+            return (int)Long.parseLong(text.substring(1), 16);
         } catch (final NumberFormatException cause) {
             throw new IllegalArgumentException("Invalid color " + CharSequences.quote(text), cause);
         }
