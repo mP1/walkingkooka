@@ -54,11 +54,6 @@ public final class ColorTest implements ClassTesting2<Color>,
     }
 
     @Test
-    public void testParseFourDigitsFails() {
-        this.parseFails("#1234", IllegalArgumentException.class);
-    }
-
-    @Test
     public void testParseFiveDigitsFails() {
         this.parseFails("#12345", IllegalArgumentException.class);
     }
@@ -67,6 +62,8 @@ public final class ColorTest implements ClassTesting2<Color>,
     public void testParseSevenDigitsFails() {
         this.parseFails("#1234567", IllegalArgumentException.class);
     }
+
+    // #123456..........................................................................................................
 
     @Test
     public void testParseHashRedRedGreenGreenBlueBlue() {
@@ -82,6 +79,8 @@ public final class ColorTest implements ClassTesting2<Color>,
     public void testParseHashRedRedGreenGreenBlueBlue3() {
         this.parseRgbAndCheck("#010101", 0x010101);
     }
+
+    // #123.............................................................................................................
 
     @Test
     public void testParseHashRedGreenBlue() {
@@ -106,6 +105,45 @@ public final class ColorTest implements ClassTesting2<Color>,
     private void parseRgbAndCheck(final String text, final int rgb) {
         this.parseAndCheck(text, Color.fromRgb(rgb));
     }
+
+    // #1234.............................................................................................................
+
+    @Test
+    public void testParseHashAlphaRedGreenBlueBlack() {
+        this.parseArgbAndCheck("#F000", 0xFF000000);
+    }
+
+    @Test
+    public void testParseHashAlphaRedGreenBlue() {
+        this.parseArgbAndCheck("#1234", 0x11223344);
+    }
+
+    @Test
+    public void testParseHashAlphaRedGreenBlue2() {
+        this.parseArgbAndCheck("#0001", 0x00000011);
+    }
+
+    @Test
+    public void testParseHashAlphaRedGreenBlue3() {
+        this.parseArgbAndCheck("#0010", 0x00001100);
+    }
+
+    @Test
+    public void testParseHashAlphaRedGreenBlue4() {
+        this.parseArgbAndCheck("#0100", 0x00110000);
+    }
+
+    @Test
+    public void testParseHashAlphaRedGreenBlue5() {
+        this.parseArgbAndCheck("#FEDC", 0xFFEEDDCC);
+    }
+
+    @Test
+    public void testParseHashAlphaRedGreenBlueWhite() {
+        this.parseArgbAndCheck("#ffff", 0xffffffff);
+    }
+
+    // #12345678.......................................................................................................
 
     @Test
     public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlue() {
@@ -140,6 +178,8 @@ public final class ColorTest implements ClassTesting2<Color>,
     private void parseArgbAndCheck(final String text, final int argb) {
         this.parseAndCheck(text, Color.fromArgb(argb));
     }
+
+    // name............................................................................................................
 
     @Test
     public void testParseNameUnknownFails() {
