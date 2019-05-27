@@ -588,7 +588,34 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
         this.toHslAndCheck(0x00BCDE, 189f, 0.871f, 0.435f);
     }
 
-    // factory
+    // HasJsonNode.......................................................................................................
+
+    @Test
+    public final void testFromJsonNodeBooleanFails() {
+        this.fromJsonNodeFails(JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public final void testFromJsonNodeNullFails() {
+        this.fromJsonNodeFails(JsonNode.nullNode());
+    }
+
+    @Test
+    public final void testFromJsonNodeNumberFails() {
+        this.fromJsonNodeFails(JsonNode.number(123));
+    }
+
+    @Test
+    public final void testFromJsonNodeArrayFails() {
+        this.fromJsonNodeFails(JsonNode.array());
+    }
+
+    @Test
+    public final void testFromJsonNodeObjectFails() {
+        this.fromJsonNodeFails(JsonNode.object());
+    }
+
+    // helpers..........................................................................................................
 
     final public C createObject() {
         return this.createObject(RED, GREEN, BLUE);

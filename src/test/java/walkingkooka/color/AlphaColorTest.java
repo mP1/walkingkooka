@@ -19,11 +19,11 @@
 package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
@@ -105,40 +105,25 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
 
     // HasJsonNode............................................................................................
 
-    @Override
-    public void testTypeNameFromClass() {
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripTwice() {
-        // ignore
-    }
-
-    @Override
-    public void testToJsonNodeWithTypeRoundtripTwice() {
-        // ignore
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripList() {
-        // ignore
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripSet() {
-        // ignore
-    }
-
-    @Override
-    public void testToJsonNodeRoundtripMap() {
-        // ignore
+    @Test
+    public void testFromJsonNode() {
+        this.fromJsonNodeAndCheck(JsonNode.string("#04010203"), Color.fromArgb(0x04010203));
     }
 
     @Test
+    public void testFromJsonNodeFEDCBA98() {
+        this.fromJsonNodeAndCheck(JsonNode.string("#fedcba98"), Color.fromArgb(0xFEDCBA98));
+    }
+
+
+    @Test
     public void testToJsonNode() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            Color.fromArgb(0x11223344).toJsonNode();
-        });
+        this.toJsonNodeAndCheck(Color.fromArgb(0x04010203), JsonNode.string("#04010203"));
+    }
+
+    @Test
+    public void testToJsonNodeFEDCBA98() {
+        this.toJsonNodeAndCheck(Color.fromArgb(0xFEDCBA98), JsonNode.string("#fedcba98"));
     }
 
     // Object............................................................................................

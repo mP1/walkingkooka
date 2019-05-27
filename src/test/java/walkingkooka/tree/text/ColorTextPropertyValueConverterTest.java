@@ -30,8 +30,20 @@ public final class ColorTextPropertyValueConverterTest extends TextPropertyValue
     }
 
     @Test
+    public void testFromJsonNodeRgba() {
+        final Color color = Color.fromArgb(0x12345678);
+        this.fromJsonNodeAndCheck(color.toJsonNode(), color);
+    }
+
+    @Test
     public void testToJsonNode() {
         final Color color = Color.fromRgb(0x123456);
+        this.toJsonNodeAndCheck(color, color.toJsonNode());
+    }
+
+    @Test
+    public void testToJsonNodeRgba() {
+        final Color color = Color.fromArgb(0x12345678);
         this.toJsonNodeAndCheck(color, color.toJsonNode());
     }
 
