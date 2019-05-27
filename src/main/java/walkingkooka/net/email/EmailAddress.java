@@ -18,6 +18,7 @@
 
 package walkingkooka.net.email;
 
+import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.net.HostAddress;
 import walkingkooka.test.HashCodeEqualsDefined;
@@ -173,10 +174,11 @@ final public class EmailAddress implements Value<String>,
 
     @Override
     public boolean equals(final Object other) {
-        return (this == other) || ((other instanceof EmailAddress) && this.equals((EmailAddress) other));
+        return (this == other) ||
+                other instanceof EmailAddress && this.equals0(Cast.to(other));
     }
 
-    private boolean equals(final EmailAddress other) {
+    private boolean equals0(final EmailAddress other) {
         return this.user.equals(other.user) && this.host.equals(other.host);
     }
 
