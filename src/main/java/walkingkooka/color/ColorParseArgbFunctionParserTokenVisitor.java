@@ -20,21 +20,33 @@ package walkingkooka.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.text.cursor.parser.ColorParserToken;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
 
 /**
  * Handles converting a {@link SequenceParserToken} into a {@link ColorParserToken}.
  */
-final class ColorParseRgbFunctionParserTokenVisitor extends ColorParseParserTokenVisitor {
+final class ColorParseArgbFunctionParserTokenVisitor extends ColorParseParserTokenVisitor {
 
     static ColorParserToken parseSequenceParserToken(final SequenceParserToken token) {
-        return new ColorParseRgbFunctionParserTokenVisitor().acceptAndCreateColorParserToken(token);
+        return new ColorParseArgbFunctionParserTokenVisitor().acceptAndCreateColorParserToken(token);
+    }
+
+    @Override
+    protected void visit(final DoubleParserToken token) {
+        this.color = AlphaColor.with(this.red,
+                this.green,
+                this.blue,
+                AlphaColorComponent.with((byte)(token.value().floatValue() * ColorComponent.MAX_VALUE)));
     }
 
     @Override
     Color blue(final BlueColorComponent blue) {
-        return Color.with(this.red, this.green, blue);
+        this.blue = blue;
+        return null;
     }
+
+    BlueColorComponent blue;
 
     @Override
     public String toString() {
@@ -43,6 +55,8 @@ final class ColorParseRgbFunctionParserTokenVisitor extends ColorParseParserToke
                 .value(this.red)
                 .label("green")
                 .value(this.green)
+                .label("blue")
+                .value(this.blue)
                 .label("color")
                 .value(this.color)
                 .build();
