@@ -22,8 +22,21 @@ import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.ColorParserToken;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContexts;
+import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.text.cursor.parser.ParserReporters;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.text.cursor.parser.SequenceParserToken;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
@@ -76,6 +89,10 @@ abstract public class Color implements HashCodeEqualsDefined,
 
         Color color;
         do {
+            if(text.startsWith("rgb(")) {
+                color = parseRgbFunction(text);
+                break;
+            }
             if(Character.isLetter(text.charAt(0))) {
                 color = parseWebColorName(text);
                 break;
@@ -89,6 +106,55 @@ abstract public class Color implements HashCodeEqualsDefined,
 
         return color;
     }
+
+    private static Color parseRgbFunction(final String text) {
+        try {
+            return RGB_FUNCTION_PARSER.parse(TextCursors.charSequence(text),
+                    ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+')))
+                    .map(t -> ColorParserToken.class.cast(t).value())
+                    .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
+        } catch (final ParserException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    /**
+     * This method should only be called to init {@link #RGB_FUNCTION_PARSER}
+     */
+    private static Parser<ParserContext> rgbFunctionParser() {
+        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
+        final Parser<ParserContext> component = Parsers.longParser(10);
+        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
+
+        return Parsers.sequenceParserBuilder()
+                .required(Parsers.string("rgb(", CaseSensitivity.SENSITIVE))
+                .optional(whitespace) // red
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // green
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // blue
+                .required(component)
+                .optional(whitespace)
+                .required(Parsers.character(CharPredicates.is(')')))
+                .build()
+                .transform(Color::transformRgbFunction)
+                .orReport(ParserReporters.basic())
+                .setToString("rgb()");
+    }
+
+    private static ParserToken transformRgbFunction(final ParserToken token, final ParserContext context) {
+        return transformRgbFunction0(token.cast(), context);
+    }
+
+    private static ColorParserToken transformRgbFunction0(final SequenceParserToken token, final ParserContext context) {
+        return ColorParseRgbFunctionParserTokenVisitor.parseSequenceParserToken(token);
+    }
+
+    private final static Parser<ParserContext> RGB_FUNCTION_PARSER = rgbFunctionParser();
 
     /**
      * Looks up by the given name or fails.
