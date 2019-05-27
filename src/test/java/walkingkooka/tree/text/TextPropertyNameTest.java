@@ -55,7 +55,7 @@ public final class TextPropertyNameTest extends TextNodeTestCase3<TextPropertyNa
     }
 
     @Override
-    public TextPropertyName createName(final String name) {
+    public TextPropertyName<?> createName(final String name) {
         return TextPropertyName.with(name);
     }
 
