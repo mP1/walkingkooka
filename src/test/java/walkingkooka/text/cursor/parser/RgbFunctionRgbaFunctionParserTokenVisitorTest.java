@@ -16,19 +16,19 @@
  *
  */
 
-package walkingkooka.color;
+package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.ClassTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class ColorParseParserTokenVisitorTest implements ClassTesting<ColorParseParserTokenVisitor> {
+public final class RgbFunctionRgbaFunctionParserTokenVisitorTest implements ClassTesting<RgbFunctionRgbaFunctionParserTokenVisitor> {
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     @Override
-    public Class<ColorParseParserTokenVisitor> type() {
-        return ColorParseParserTokenVisitor.class;
+    public Class<RgbFunctionRgbaFunctionParserTokenVisitor> type() {
+        return RgbFunctionRgbaFunctionParserTokenVisitor.class;
     }
 }
