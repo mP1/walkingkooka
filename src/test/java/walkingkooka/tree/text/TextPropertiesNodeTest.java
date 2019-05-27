@@ -240,6 +240,22 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
                 .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456), TextPropertyName.TEXT_COLOR, Color.fromRgb(0x789abc))));
     }
 
+    @Test
+    public void testJsonRoundtripWithProperties3() {
+        final Map<TextPropertyName<?>, Object> properties = Maps.ordered();
+        properties.put(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456));
+        properties.put(TextPropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
+        properties.put(TextPropertyName.FONT_SIZE, FontSize.with(10));
+        properties.put(TextPropertyName.TEXT_COLOR, Color.fromRgb(0x789abc));
+
+
+        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+                TextNode.text("text1"),
+                TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
+                TextNode.properties(Lists.of(TextNode.text("text3")))))
+                .setAttributes(properties));
+    }
+
     // Visitor .........................................................................................................
 
     @Test

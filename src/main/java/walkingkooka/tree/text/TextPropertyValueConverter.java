@@ -43,6 +43,13 @@ abstract class TextPropertyValueConverter<T> {
     }
 
     /**
+     * {@see FontSizeTextPropertyValueConverter}
+     */
+    static TextPropertyValueConverter<FontSize> fontSize() {
+        return FontSizeTextPropertyValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see StringTextPropertyValueConverter}
      */
     static TextPropertyValueConverter<String> string() {
