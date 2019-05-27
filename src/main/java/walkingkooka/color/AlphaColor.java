@@ -22,6 +22,7 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link Color} that includes an alpha property.
@@ -147,6 +148,18 @@ final public class AlphaColor extends Color {
         return new java.awt.Color(this.red.unsignedIntValue, this.green.unsignedIntValue, this.blue.unsignedIntValue,
                 this.alpha.unsignedIntValue);
     }
+
+    // WebColorName....................................................................................................
+
+    /**
+     * Always returns nothing.
+     */
+    @Override
+    public Optional<WebColorName> webColorName(){
+        return Optional.empty();
+    }
+
+    // Object..........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

@@ -22,6 +22,7 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link Color} that is opaque with a constant alpha component.
@@ -141,6 +142,18 @@ final class OpaqueColor extends Color {
     public java.awt.Color toAwtColor() {
         return new java.awt.Color(this.rgb());
     }
+
+    // WebColorName....................................................................................................
+
+    /**
+     * Returns a {@link WebColorName} for this color if one exists.
+     */
+    @Override
+    public Optional<WebColorName> webColorName() {
+        return Optional.ofNullable(WebColorName.RRGGBB_CONSTANTS.get(this.value()));
+    }
+
+    // Object..........................................................................................................
 
     /**
      * Can only be equal to {@link Color} without an alpha.
