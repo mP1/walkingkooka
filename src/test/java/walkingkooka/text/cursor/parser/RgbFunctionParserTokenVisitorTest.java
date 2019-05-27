@@ -16,37 +16,35 @@
  *
  */
 
-package walkingkooka.color;
+package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenVisitor;
-import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
+import walkingkooka.color.Color;
+import walkingkooka.color.ColorComponent;
 import walkingkooka.type.MemberVisibility;
 
-public final class ColorParseArgbFunctionParserTokenVisitorTest implements ParserTokenVisitorTesting<ColorParseArgbFunctionParserTokenVisitor, ParserToken> {
+public final class RgbFunctionParserTokenVisitorTest implements ParserTokenVisitorTesting<RgbFunctionParserTokenVisitor, ParserToken> {
 
     @Test
     public void testToString() {
-        final ColorParseArgbFunctionParserTokenVisitor visitor = new ColorParseArgbFunctionParserTokenVisitor();
-        visitor.red = RedColorComponent.with((byte) 12);
-        visitor.green = GreenColorComponent.with((byte) 34);
-        visitor.blue = BlueColorComponent.with((byte) 5);
+        final RgbFunctionParserTokenVisitor visitor = new RgbFunctionParserTokenVisitor();
+        visitor.red = ColorComponent.red((byte) 12);
+        visitor.green = ColorComponent.green((byte) 34);
         visitor.color = Color.fromRgb(0x0c2200);
 
-        this.toStringAndCheck(visitor, "red=0c green=22 blue=05 color=#0c2200");
+        this.toStringAndCheck(visitor, "red=0c green=22 color=#0c2200");
     }
 
     @Test
     public void testToString2() {
-        final ColorParseArgbFunctionParserTokenVisitor visitor = new ColorParseArgbFunctionParserTokenVisitor();
-        visitor.red = RedColorComponent.with((byte) 12);
+        final RgbFunctionParserTokenVisitor visitor = new RgbFunctionParserTokenVisitor();
+        visitor.red = ColorComponent.red((byte) 12);
         this.toStringAndCheck(visitor, "red=0c");
     }
 
     @Override
-    public ColorParseArgbFunctionParserTokenVisitor createVisitor() {
-        return new ColorParseArgbFunctionParserTokenVisitor();
+    public RgbFunctionParserTokenVisitor createVisitor() {
+        return new RgbFunctionParserTokenVisitor();
     }
 
     @Override
@@ -55,13 +53,13 @@ public final class ColorParseArgbFunctionParserTokenVisitorTest implements Parse
     }
 
     @Override
-    public Class<ColorParseArgbFunctionParserTokenVisitor> type() {
-        return ColorParseArgbFunctionParserTokenVisitor.class;
+    public Class<RgbFunctionParserTokenVisitor> type() {
+        return RgbFunctionParserTokenVisitor.class;
     }
 
     @Override
     public String typeNamePrefix() {
-        return Color.class.getSimpleName();
+        return "";
     }
 
     @Override

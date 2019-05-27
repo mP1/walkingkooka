@@ -16,24 +16,17 @@
  *
  */
 
-package walkingkooka.color;
+package walkingkooka.text.cursor.parser;
 
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.text.cursor.parser.ColorParserToken;
-import walkingkooka.text.cursor.parser.SequenceParserToken;
 
 /**
  * Handles converting a {@link SequenceParserToken} into a {@link ColorParserToken}.
  */
-final class ColorParseRgbFunctionParserTokenVisitor extends ColorParseParserTokenVisitor {
+final class RgbFunctionParserTokenVisitor extends RgbFunctionRgbaFunctionParserTokenVisitor {
 
     static ColorParserToken parseSequenceParserToken(final SequenceParserToken token) {
-        return new ColorParseRgbFunctionParserTokenVisitor().acceptAndCreateColorParserToken(token);
-    }
-
-    @Override
-    Color blue(final BlueColorComponent blue) {
-        return Color.with(this.red, this.green, blue);
+        return new RgbFunctionParserTokenVisitor().acceptAndCreateColorParserToken(token);
     }
 
     @Override

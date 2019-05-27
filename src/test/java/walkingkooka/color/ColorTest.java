@@ -111,11 +111,10 @@ public final class ColorTest implements ClassTesting2<Color>,
                                     final int blue,
                                     final int alpha) {
         this.parseAndCheck(text,
-                AlphaColor.with(
-                        RedColorComponent.with((byte) red),
+                Color.with(RedColorComponent.with((byte) red),
                         GreenColorComponent.with((byte) green),
-                        BlueColorComponent.with((byte) blue),
-                        AlphaColorComponent.with((byte) alpha)));
+                        BlueColorComponent.with((byte) blue))
+                        .set(AlphaColorComponent.with((byte) alpha)));
     }
 
     // rgb(1,2,3).......................................................................................................

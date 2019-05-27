@@ -16,19 +16,20 @@
  *
  */
 
-package walkingkooka.color;
+package walkingkooka.text.cursor.parser;
 
-import walkingkooka.text.cursor.parser.ColorParserToken;
-import walkingkooka.text.cursor.parser.LongParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenVisitor;
-import walkingkooka.text.cursor.parser.SequenceParserToken;
+import walkingkooka.color.BlueColorComponent;
+import walkingkooka.color.Color;
+import walkingkooka.color.ColorComponent;
+import walkingkooka.color.GreenColorComponent;
+import walkingkooka.color.RedColorComponent;
 
 /**
  * Base class for {@link ParserTokenVisitor} used during color parsing.
  */
-abstract class ColorParseParserTokenVisitor extends ParserTokenVisitor {
+abstract class RgbFunctionRgbaFunctionParserTokenVisitor extends ParserTokenVisitor {
 
-    ColorParseParserTokenVisitor() {
+    RgbFunctionRgbaFunctionParserTokenVisitor() {
         super();
     }
 
@@ -43,20 +44,22 @@ abstract class ColorParseParserTokenVisitor extends ParserTokenVisitor {
             final byte value = token.value().byteValue();
 
             if(null==this.red) {
-                this.red = RedColorComponent.with(value);
+                this.red = ColorComponent.red(value);
                 break;
             }
 
             if(null==this.green) {
-                this.green = GreenColorComponent.with(value);
+                this.green = ColorComponent.green(value);
                 break;
             }
-            this.color = this.blue(BlueColorComponent.with(value));
+            this.color = this.blue(ColorComponent.blue(value));
             break;
         }
     }
 
-    abstract Color blue(final BlueColorComponent blue);
+    final Color blue(final BlueColorComponent blue) {
+        return Color.with(this.red, this.green, blue);
+    }
 
     RedColorComponent red;
     GreenColorComponent green;

@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.PublicStaticHelper;
 
@@ -142,6 +143,112 @@ public final class Parsers implements PublicStaticHelper {
     public static <C extends ParserContext> Parser<C> offsetTime(final DateTimeFormatter formatter, final String pattern) {
         return OffsetTimeDateTimeFormatterParser.with(formatter, pattern);
     }
+
+    // ................................................................................................................
+
+    /**
+     * A parser that handles
+     * <pre>
+     * rgb(RR,GG,BB)
+     * </pre>
+     * into a {@link ColorParserToken}.
+     */
+    public static <C extends ParserContext> Parser<C> rgbFunction() {
+        return RGB_FUNCTION_PARSER.cast();
+    }
+
+    /**
+     * This method should only be called to init {@link #RGB_FUNCTION_PARSER}
+     */
+    private static Parser<ParserContext> rgbFunctionParser() {
+        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
+        final Parser<ParserContext> component = Parsers.longParser(10);
+        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
+
+        return Parsers.sequenceParserBuilder()
+                .required(Parsers.string("rgb(", CaseSensitivity.SENSITIVE))
+                .optional(whitespace) // red
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // green
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // blue
+                .required(component)
+                .optional(whitespace)
+                .required(Parsers.character(CharPredicates.is(')')))
+                .build()
+                .transform(Parsers::transformRgbFunction)
+                .setToString("rgb()");
+    }
+
+    private static ParserToken transformRgbFunction(final ParserToken token, final ParserContext context) {
+        return transformRgbFunction0(token.cast(), context);
+    }
+
+    private static ColorParserToken transformRgbFunction0(final SequenceParserToken token, final ParserContext context) {
+        return RgbFunctionParserTokenVisitor.parseSequenceParserToken(token);
+    }
+
+    private final static Parser<ParserContext> RGB_FUNCTION_PARSER = rgbFunctionParser();
+
+    // ................................................................................................................
+
+    /**
+     * A parser that handles
+     * <pre>
+     * rgba(RR,GG,BB,1.0)
+     * </pre>
+     * into a {@link ColorParserToken}.
+     */
+    public static <C extends ParserContext> Parser<C> rgbaFunction() {
+        return RGBA_FUNCTION_PARSER.cast();
+    }
+
+    /**
+     * This method should only be called to init {@link #RGBA_FUNCTION_PARSER}
+     */
+    private static Parser<ParserContext> rgbaFunctionParser() {
+        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
+        final Parser<ParserContext> component = Parsers.longParser(10);
+        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
+
+        return Parsers.sequenceParserBuilder()
+                .required(Parsers.string("rgba(", CaseSensitivity.SENSITIVE))
+                .optional(whitespace) // red
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // green
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // blue
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // alpha
+                .required(Parsers.doubleParser())
+                .optional(whitespace)
+                .required(Parsers.character(CharPredicates.is(')')))
+                .build()
+                .transform(Parsers::transformRgbAFunction)
+                .setToString("rgba()");
+    }
+
+    private static ParserToken transformRgbAFunction(final ParserToken token, final ParserContext context) {
+        return transformArgbFunction0(token.cast(), context);
+    }
+
+    private static ColorParserToken transformArgbFunction0(final SequenceParserToken token, final ParserContext context) {
+        return RgbaFunctionParserTokenVisitor.parseSequenceParserToken(token);
+    }
+
+    private final static Parser<ParserContext> RGBA_FUNCTION_PARSER = rgbaFunctionParser();
+
+    // ................................................................................................................
 
     /**
      * {@see RepeatedParser}

@@ -16,14 +16,153 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.color.Color;
+import walkingkooka.color.ColorComponent;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class ParsersTest implements ClassTesting2<Parsers>,
         PublicStaticHelperTesting<Parsers> {
+
+    // rgba(1,2,3).......................................................................................................
+
+    @Test
+    public void testParseRgbaFunctionIncompleteFails() {
+        this.parseFails(Parsers.rgbaFunction(),
+                "rgba(1",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseRgbaFunctionMissingParensRightFails() {
+        this.parseFails(Parsers.rgbaFunction(),
+                "rgba(1,2,3,0.5",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseRgbaFunction() {
+        this.parseRgbaAndCheck3("rgba(1,2,3,0.5)", 1, 2, 3, 127);
+    }
+
+    @Test
+    public void testParseRgbaFunction2() {
+        this.parseRgbaAndCheck3("rgba(12,34,56,0.5)", 12, 34, 56, 127);
+    }
+
+    @Test
+    public void testParseRgbaFunction3() {
+        this.parseRgbaAndCheck3("rgba(99,128,255,0.5)", 99, 128, 255, 127);
+    }
+
+    @Test
+    public void testParseRgbaFunction4() {
+        this.parseRgbaAndCheck3("rgba(0,0,0,0)", 0, 0, 0, 0);
+    }
+
+    @Test
+    public void testParseRgbaFunction5() {
+        this.parseRgbaAndCheck3("rgba(255,254,253,1.0)", 255, 254, 253, 255);
+    }
+
+    @Test
+    public void testParseRgbaFunctionExtraWhitespace() {
+        this.parseRgbaAndCheck3("rgba( 1,2 , 3, 0 )", 1, 2, 3, 0);
+    }
+
+    private void parseRgbaAndCheck3(final String text,
+                                    final int red,
+                                    final int green,
+                                    final int blue,
+                                    final int alpha) {
+        this.parseAndCheck(
+                Parsers.rgbaFunction(),
+                text,
+                Color.with(
+                        ColorComponent.red((byte) red),
+                        ColorComponent.green((byte) green),
+                        ColorComponent.blue((byte) blue))
+                        .set(ColorComponent.alpha((byte) alpha)));
+    }
+
+    // rgb(1,2,3).......................................................................................................
+
+    @Test
+    public void testParseRgbFunctionIncompleteFails() {
+        this.parseFails(Parsers.rgbFunction(),
+                "rgb(1",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseRgbFunctionMissingParensRightFails() {
+        this.parseFails(Parsers.rgbFunction(),
+                "rgb(1,2,3",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseRgbFunction() {
+        this.parseRgbAndCheck2("rgb(1,2,3)", 1, 2, 3);
+    }
+
+    @Test
+    public void testParseRgbFunction2() {
+        this.parseRgbAndCheck2("rgb(12,34,56)", 12, 34, 56);
+    }
+
+    @Test
+    public void testParseRgbFunction3() {
+        this.parseRgbAndCheck2("rgb(99,128,255)", 99, 128, 255);
+    }
+
+    @Test
+    public void testParseRgbFunctionExtraWhitespace() {
+        this.parseRgbAndCheck2("rgb( 1,2 , 3 )", 1, 2, 3);
+    }
+
+    private void parseRgbAndCheck2(final String text, final int red, final int green, final int blue) {
+        this.parseAndCheck(Parsers.rgbFunction(),
+                text,
+                Color.with(ColorComponent.red((byte) red),
+                        ColorComponent.green((byte) green),
+                        ColorComponent.blue((byte) blue)));
+    }
+
+    private void parseFails(final Parser<ParserContext> parser,
+                            final String text,
+                            final Class<? extends Throwable> thrown) {
+        assertThrows(thrown, () -> {
+            parser.orReport(ParserReporters.basic())
+                    .parse(TextCursors.charSequence(text), parserContext());
+        });
+    }
+
+    private void parseAndCheck(final Parser<ParserContext> parser,
+                               final String text,
+                               final Color color) {
+        assertEquals(color,
+                parser.orReport(ParserReporters.basic())
+                        .parse(TextCursors.charSequence(text),
+                                this.parserContext())
+                        .map(t -> ColorParserToken.class.cast(t).value())
+                        .orElseThrow(() -> new AssertionError()),
+                () -> "parse " + CharSequences.quoteAndEscape(text));
+    }
+
+    private ParserContext parserContext() {
+        return ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
+    }
 
     @Override
     public Class<Parsers> type() {
