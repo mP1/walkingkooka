@@ -65,20 +65,6 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     }
 
     @Test
-    public void testSetTextEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setText("");
-        });
-    }
-
-    @Test
-    public void testSetTextWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setText("   ");
-        });
-    }
-
-    @Test
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<SpreadsheetParserToken> without = this.createToken().withoutSymbols();
         if (without.isPresent()) {

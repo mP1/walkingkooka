@@ -27,23 +27,13 @@ import java.util.List;
 public final class SpreadsheetEqualsSymbolParserToken extends SpreadsheetComparisonSymbolParserToken {
 
     static SpreadsheetEqualsSymbolParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetEqualsSymbolParserToken(value, text);
     }
 
     private SpreadsheetEqualsSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetEqualsSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetEqualsSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetEqualsSymbolParserToken(this.value, text);
     }
 
     @Override

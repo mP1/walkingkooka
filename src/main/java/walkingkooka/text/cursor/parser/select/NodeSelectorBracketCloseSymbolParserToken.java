@@ -33,21 +33,6 @@ public final class NodeSelectorBracketCloseSymbolParserToken extends NodeSelecto
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorBracketCloseSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorBracketCloseSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorBracketCloseSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
     // is..........................................................................................................
 
     @Override

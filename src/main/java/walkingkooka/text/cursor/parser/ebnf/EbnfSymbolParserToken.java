@@ -36,16 +36,6 @@ final public class EbnfSymbolParserToken extends EbnfLeafParserToken<String> {
     }
 
     @Override
-    public EbnfSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    EbnfSymbolParserToken replaceText(final String text) {
-        return new EbnfSymbolParserToken(this.value, text);
-    }
-
-    @Override
     public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return Optional.empty();
     }

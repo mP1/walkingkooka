@@ -181,7 +181,7 @@ final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor extends
     @Override
     protected void visit(final EbnfWhitespaceParserToken token) {
         // only want a single whitespace not more wasteful examples...
-        this.add(token.setText(" "));
+        this.add(EbnfWhitespaceParserToken.whitespace(" ", " "));
     }
 
     // GENERAL PURPOSE .................................................................................................

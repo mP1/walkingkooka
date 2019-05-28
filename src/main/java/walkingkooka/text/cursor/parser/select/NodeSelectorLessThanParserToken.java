@@ -39,16 +39,6 @@ public final class NodeSelectorLessThanParserToken extends NodeSelectorCompariso
     }
 
     @Override
-    public NodeSelectorLessThanParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorLessThanParserToken replaceText(final String text) {
-        return new NodeSelectorLessThanParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorLessThanParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

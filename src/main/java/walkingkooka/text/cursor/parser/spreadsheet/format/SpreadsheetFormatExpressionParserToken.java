@@ -32,10 +32,8 @@ public final class SpreadsheetFormatExpressionParserToken extends SpreadsheetFor
      * Factory that creates a new {@link SpreadsheetFormatExpressionParserToken}.
      */
     static SpreadsheetFormatExpressionParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
-
-        return new SpreadsheetFormatExpressionParserToken(copy,
-                text,
+        return new SpreadsheetFormatExpressionParserToken(copyAndCheckTokensFailIfEmpty(value),
+                checkTextNotEmpty(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -46,16 +44,6 @@ public final class SpreadsheetFormatExpressionParserToken extends SpreadsheetFor
         super(value, text, valueWithout);
 
         SpreadsheetFormatParentParserToken.class.cast(this.withoutSymbols().get()).value();
-    }
-
-    @Override
-    void checkText(String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatExpressionParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

@@ -61,7 +61,7 @@ final class PrefixedNumberParserTokenBiFunction<C extends ParserContext> impleme
         final StringParserToken prefix = token.required(0, StringParserToken.class);
         final BigIntegerParserToken number = token.required(1, BigIntegerParserToken.class);
 
-        return number.setText(prefix.text().concat(number.text()));
+        return BigIntegerParserToken.with(number.value(), prefix.text().concat(number.text()));
     }
 
     @Override

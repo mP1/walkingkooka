@@ -43,16 +43,6 @@ public final class SingleQuotedParserToken extends QuotedParserToken {
     }
 
     @Override
-    public SingleQuotedParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SingleQuotedParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

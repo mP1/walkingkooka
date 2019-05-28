@@ -59,11 +59,6 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
     }
 
     @Override
-    public EbnfGrammarParserToken setText(String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
     public EbnfGrammarParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

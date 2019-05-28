@@ -33,21 +33,6 @@ public final class NodeSelectorQuotedTextParserToken extends NodeSelectorNonSymb
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorQuotedTextParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorQuotedTextParserToken replaceText(final String text) {
-        return new NodeSelectorQuotedTextParserToken(this.value, text);
-    }
-
     // is................................................................................................
     @Override
     public boolean isAbsolute() {

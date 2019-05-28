@@ -38,16 +38,6 @@ public final class NodeSelectorModuloParserToken extends NodeSelectorArithmeticP
     }
 
     @Override
-    public NodeSelectorModuloParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorModuloParserToken replaceText(final String text) {
-        return new NodeSelectorModuloParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorModuloParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

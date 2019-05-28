@@ -33,21 +33,6 @@ public final class NodeSelectorPrecedingSiblingParserToken extends NodeSelectorN
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorPrecedingSiblingParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorPrecedingSiblingParserToken replaceText(final String text) {
-        return new NodeSelectorPrecedingSiblingParserToken(this.value, text);
-    }
-
     // is................................................................................................
     @Override
     public boolean isAbsolute() {

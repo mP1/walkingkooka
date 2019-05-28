@@ -25,28 +25,13 @@ import walkingkooka.tree.search.SearchNode;
 public final class SpreadsheetFormatQuotedTextParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     static SpreadsheetFormatQuotedTextParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatQuotedTextParserToken(value, text);
     }
 
     private SpreadsheetFormatQuotedTextParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatQuotedTextParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatQuotedTextParserToken replaceText(final String text) {
-        return new SpreadsheetFormatQuotedTextParserToken(this.value, text);
     }
 
     @Override

@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -74,19 +73,6 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
     public final void testWithoutSymbolsDoubleSame() {
         final T token = this.createToken();
         assertSame(token.withoutSymbols(), token.withoutSymbols());
-    }
-
-    @Test
-    public final void testSetTextDifferentWithout() {
-        final T token = this.createToken();
-        final List<?> childrenWithout = Cast.<T>to(token.withoutSymbols().get()).value();
-
-        final String differentText = this.createDifferentToken().text();
-        final T different = token.setText(differentText).cast();
-        final T differentWithout = Cast.to(different.withoutSymbols().get());
-        assertEquals(childrenWithout, differentWithout.value(), "children without");
-
-        assertNotEquals(token.value().size(), differentWithout.value().size(), "without should have less tokens than with");
     }
 
     @Test

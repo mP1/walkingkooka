@@ -30,21 +30,6 @@ public final class NodeSelectorParentOfParserToken extends NodeSelectorNonSymbol
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorParentOfParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorParentOfParserToken replaceText(final String text) {
-        return new NodeSelectorParentOfParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

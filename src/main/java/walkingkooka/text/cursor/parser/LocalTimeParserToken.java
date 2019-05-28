@@ -38,16 +38,6 @@ public final class LocalTimeParserToken extends ParserToken2<LocalTime> implemen
     }
 
     @Override
-    public LocalTimeParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    LocalTimeParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

@@ -31,10 +31,8 @@ import java.util.List;
 public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParserToken<SpreadsheetFunctionParserToken> {
 
     static SpreadsheetFunctionParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokens(value);
-
-        return new SpreadsheetFunctionParserToken(copy,
-                text,
+        return new SpreadsheetFunctionParserToken(copyAndCheckTokens(value),
+                checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -71,11 +69,6 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     }
 
     private final List<ParserToken> parameters;
-
-    @Override
-    public SpreadsheetFunctionParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
 
     @Override
     public SpreadsheetFunctionParserToken setValue(final List<ParserToken> value) {

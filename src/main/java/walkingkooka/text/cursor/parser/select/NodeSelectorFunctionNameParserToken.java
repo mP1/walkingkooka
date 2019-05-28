@@ -33,21 +33,6 @@ public final class NodeSelectorFunctionNameParserToken extends NodeSelectorNonSy
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorFunctionNameParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorFunctionNameParserToken replaceText(final String text) {
-        return new NodeSelectorFunctionNameParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

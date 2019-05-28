@@ -37,16 +37,6 @@ public final class JsonNodeNumberParserToken extends JsonNodeValueParserToken<Do
         super(value, text);
     }
 
-    @Override
-    public JsonNodeNumberParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    JsonNodeNumberParserToken replaceText(final String text) {
-        return new JsonNodeNumberParserToken(this.value, text);
-    }
-
     // is ...............................................................................................
 
     @Override

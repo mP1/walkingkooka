@@ -33,21 +33,6 @@ public final class NodeSelectorFollowingParserToken extends NodeSelectorNonSymbo
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorFollowingParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorFollowingParserToken replaceText(final String text) {
-        return new NodeSelectorFollowingParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

@@ -34,10 +34,8 @@ public final class SpreadsheetFormatColorParserToken extends SpreadsheetFormatPa
      * Factory that creates a new {@link SpreadsheetFormatColorParserToken}.
      */
     static SpreadsheetFormatColorParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
-
-        return new SpreadsheetFormatColorParserToken(copy,
-                text,
+        return new SpreadsheetFormatColorParserToken(copyAndCheckTokensFailIfEmpty(value),
+                checkTextNotEmptyOrWhitespace(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -66,16 +64,6 @@ public final class SpreadsheetFormatColorParserToken extends SpreadsheetFormatPa
     }
 
     private final SpreadsheetFormatParserToken nameOrNumber;
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatColorParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
 
     @Override
     public SpreadsheetFormatColorParserToken setValue(final List<ParserToken> values) {

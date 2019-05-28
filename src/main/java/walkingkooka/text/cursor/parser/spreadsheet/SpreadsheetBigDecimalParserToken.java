@@ -27,23 +27,13 @@ import java.math.BigDecimal;
 public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericParserToken<BigDecimal> {
 
     static SpreadsheetBigDecimalParserToken with(final BigDecimal value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetBigDecimalParserToken(value, text);
     }
 
     private SpreadsheetBigDecimalParserToken(final BigDecimal value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetBigDecimalParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetBigDecimalParserToken replaceText(final String text) {
-        return new SpreadsheetBigDecimalParserToken(this.value, text);
     }
 
     @Override

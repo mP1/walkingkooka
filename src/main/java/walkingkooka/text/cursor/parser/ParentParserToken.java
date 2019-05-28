@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.HasSearchNode;
@@ -45,13 +44,6 @@ public interface ParentParserToken<P extends ParentParserToken> extends ParserTo
      * Would be setter that returns an instance with the given tokens or value, creating a new instance if necessary.
      */
     P setValue(List<ParserToken> tokens);
-
-    /**
-     * Concatenates the text from all child values and returns an instance with that text.
-     */
-    default P setTextFromValues() {
-        return Cast.to(this.setText(ParserToken.text(this.value())));
-    }
 
     /**
      * Creates a {@link SearchNode#sequence(List)} from all the converted child tokens.

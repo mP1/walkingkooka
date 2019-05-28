@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.visit.Visiting;
@@ -422,22 +423,22 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
         return copy;
     }
 
+    static String checkTextNotEmpty(final String text) {
+        CharSequences.failIfNullOrEmpty(text, "text");
+        return text;
+    }
+
+    static String checkTextNotEmptyOrWhitespace(final String text) {
+        Whitespace.failIfNullOrEmptyOrWhitespace(text, "text");
+        return text;
+    }
+
     /**
      * Package private ctor to limit sub classing.
      */
     SpreadsheetFormatParserToken(final String text) {
-        this.checkText(text);
+        super();
         this.text = text;
-    }
-
-    abstract void checkText(final String text);
-
-    static void checkTextNull(final String text) {
-        Objects.requireNonNull(text, "text");
-    }
-
-    static void checkTextNullOrEmpty(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
     }
 
     @Override
@@ -446,15 +447,6 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     }
 
     private final String text;
-
-    final SpreadsheetFormatParserToken setText0(final String text) {
-        Objects.requireNonNull(text, "text");
-        return this.text.equals(text) ?
-                this :
-                replaceText(text);
-    }
-
-    abstract SpreadsheetFormatParserToken replaceText(final String text);
 
     /**
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain

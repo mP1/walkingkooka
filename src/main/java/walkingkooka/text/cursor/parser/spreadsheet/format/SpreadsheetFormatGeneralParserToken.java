@@ -33,10 +33,8 @@ public final class SpreadsheetFormatGeneralParserToken extends SpreadsheetFormat
      * Factory that creates a new {@link SpreadsheetFormatGeneralParserToken}.
      */
     static SpreadsheetFormatGeneralParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
-
-        return new SpreadsheetFormatGeneralParserToken(copy,
-                text,
+        return new SpreadsheetFormatGeneralParserToken(copyAndCheckTokensFailIfEmpty(value),
+                checkTextNotEmptyOrWhitespace(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -47,16 +45,6 @@ public final class SpreadsheetFormatGeneralParserToken extends SpreadsheetFormat
         super(value, text, valueWithout);
 
         SpreadsheetFormatParentParserToken.class.cast(this.withoutSymbols().get()).value();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatGeneralParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

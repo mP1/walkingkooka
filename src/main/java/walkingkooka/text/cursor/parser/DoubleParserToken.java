@@ -37,16 +37,6 @@ public final class DoubleParserToken extends ParserToken2<Double> implements Lea
     }
 
     @Override
-    public DoubleParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    DoubleParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

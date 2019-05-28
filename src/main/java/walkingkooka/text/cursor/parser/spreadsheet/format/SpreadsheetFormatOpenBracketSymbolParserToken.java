@@ -23,23 +23,13 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 public final class SpreadsheetFormatOpenBracketSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
 
     static SpreadsheetFormatOpenBracketSymbolParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatOpenBracketSymbolParserToken(value, text);
     }
 
     private SpreadsheetFormatOpenBracketSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetFormatOpenBracketSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatOpenBracketSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetFormatOpenBracketSymbolParserToken(this.value, text);
     }
 
     @Override

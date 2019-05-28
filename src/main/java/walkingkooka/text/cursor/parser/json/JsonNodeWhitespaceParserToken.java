@@ -36,16 +36,6 @@ public final class JsonNodeWhitespaceParserToken extends JsonNodeSymbolParserTok
         super(value, text);
     }
 
-    @Override
-    public JsonNodeWhitespaceParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    JsonNodeWhitespaceParserToken replaceText(final String text) {
-        return new JsonNodeWhitespaceParserToken(this.value, text);
-    }
-
     // is ...............................................................................................
 
     @Override

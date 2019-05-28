@@ -26,27 +26,13 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonBinary
 
     static SpreadsheetWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
+        CharSequences.failIfNullOrEmpty(text, "text");
 
         return new SpreadsheetWhitespaceParserToken(value, text);
     }
 
     private SpreadsheetWhitespaceParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
-    }
-
-    @Override
-    public SpreadsheetWhitespaceParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetWhitespaceParserToken replaceText(final String text) {
-        return new SpreadsheetWhitespaceParserToken(this.value, text);
     }
 
     @Override

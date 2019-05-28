@@ -28,20 +28,13 @@ import java.util.List;
 public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryParserToken<SpreadsheetSubtractionParserToken> {
 
     static SpreadsheetSubtractionParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokens(value);
-
-        return new SpreadsheetSubtractionParserToken(copy,
-                text,
+        return new SpreadsheetSubtractionParserToken(copyAndCheckTokens(value),
+                checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private SpreadsheetSubtractionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
-    }
-
-    @Override
-    public SpreadsheetSubtractionParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

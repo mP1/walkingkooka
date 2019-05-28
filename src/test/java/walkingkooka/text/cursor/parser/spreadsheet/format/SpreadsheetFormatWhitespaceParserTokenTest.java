@@ -27,6 +27,16 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class SpreadsheetFormatWhitespaceParserTokenTest extends SpreadsheetFormatSymbolParserTokenTestCase<SpreadsheetFormatWhitespaceParserToken> {
 
     @Test
+    public void testWithWHitespaceText() {
+        final SpreadsheetFormatWhitespaceParserToken token = SpreadsheetFormatWhitespaceParserToken.with(" \t", " \t");
+        this.checkText(token, " \t");
+    }
+
+    @Override
+    public void testWithWhitespaceTextFails() {
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final SpreadsheetFormatWhitespaceParserToken token = this.createToken();

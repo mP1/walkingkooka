@@ -23,23 +23,13 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 public final class SpreadsheetCloseParenthesisSymbolParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
 
     static SpreadsheetCloseParenthesisSymbolParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetCloseParenthesisSymbolParserToken(value, text);
     }
 
     private SpreadsheetCloseParenthesisSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetCloseParenthesisSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetCloseParenthesisSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetCloseParenthesisSymbolParserToken(this.value, text);
     }
 
     @Override

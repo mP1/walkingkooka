@@ -36,11 +36,6 @@ final public class EbnfAlternativeParserToken extends EbnfParentParserToken<Ebnf
     }
 
     @Override
-    public EbnfAlternativeParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
     public EbnfAlternativeParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

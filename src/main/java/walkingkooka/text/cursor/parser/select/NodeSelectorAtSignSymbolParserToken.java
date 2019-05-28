@@ -33,21 +33,6 @@ public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorNonBi
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorAtSignSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorAtSignSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorAtSignSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
     // is..........................................................................................................
 
     @Override

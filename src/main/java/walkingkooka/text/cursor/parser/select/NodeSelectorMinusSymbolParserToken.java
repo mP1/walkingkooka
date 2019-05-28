@@ -37,16 +37,6 @@ public final class NodeSelectorMinusSymbolParserToken extends NodeSelectorArithm
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorMinusSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorMinusSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorMinusSymbolParserToken(this.value, text);
-    }
-
     // is..........................................................................................................
 
     @Override

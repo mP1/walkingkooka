@@ -29,20 +29,13 @@ import java.util.List;
 public final class SpreadsheetFormatGreaterThanEqualsParserToken extends SpreadsheetFormatConditionParserToken<SpreadsheetFormatGreaterThanEqualsParserToken> {
 
     static SpreadsheetFormatGreaterThanEqualsParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
-
-        return new SpreadsheetFormatGreaterThanEqualsParserToken(copy,
-                text,
+        return new SpreadsheetFormatGreaterThanEqualsParserToken(copyAndCheckTokensFailIfEmpty(value),
+                checkTextNotEmptyOrWhitespace(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private SpreadsheetFormatGreaterThanEqualsParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
-    }
-
-    @Override
-    public SpreadsheetFormatGreaterThanEqualsParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

@@ -38,16 +38,6 @@ public final class NodeSelectorDivisionParserToken extends NodeSelectorArithmeti
     }
 
     @Override
-    public NodeSelectorDivisionParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorDivisionParserToken replaceText(final String text) {
-        return new NodeSelectorDivisionParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorDivisionParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

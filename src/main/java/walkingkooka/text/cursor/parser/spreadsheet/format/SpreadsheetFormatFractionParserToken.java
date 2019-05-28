@@ -32,10 +32,8 @@ public final class SpreadsheetFormatFractionParserToken extends SpreadsheetForma
      * Factory that creates a new {@link SpreadsheetFormatFractionParserToken}.
      */
     static SpreadsheetFormatFractionParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
-
-        return new SpreadsheetFormatFractionParserToken(copy,
-                text,
+        return new SpreadsheetFormatFractionParserToken(copyAndCheckTokensFailIfEmpty(value),
+                checkTextNotEmptyOrWhitespace(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -46,16 +44,6 @@ public final class SpreadsheetFormatFractionParserToken extends SpreadsheetForma
         super(value, text, valueWithout);
 
         this.withoutSymbols().get();
-    }
-
-    @Override
-    void checkText(String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatFractionParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

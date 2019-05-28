@@ -33,21 +33,6 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorSlashSeparatorSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorSlashSeparatorSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorSlashSeparatorSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
     // is..........................................................................................................
 
     @Override

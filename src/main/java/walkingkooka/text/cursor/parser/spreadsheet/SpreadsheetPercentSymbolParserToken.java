@@ -23,23 +23,13 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
 
     static SpreadsheetPercentSymbolParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetPercentSymbolParserToken(value, text);
     }
 
     private SpreadsheetPercentSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetPercentSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetPercentSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetPercentSymbolParserToken(this.value, text);
     }
 
     @Override

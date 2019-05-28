@@ -26,11 +26,6 @@ abstract class NodeSelectorBinaryOperandSymbolParserToken extends NodeSelectorSy
         super(value, text);
     }
 
-    @Override
-    final void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
     // is..............................................................................................
 
     @Override

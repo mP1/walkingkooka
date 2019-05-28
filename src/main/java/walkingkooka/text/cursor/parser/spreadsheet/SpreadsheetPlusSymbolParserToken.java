@@ -27,23 +27,13 @@ import java.util.List;
 public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetArithmeticSymbolParserToken {
 
     static SpreadsheetPlusSymbolParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetPlusSymbolParserToken(value, text);
     }
 
     private SpreadsheetPlusSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetPlusSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetPlusSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetPlusSymbolParserToken(this.value, text);
     }
 
     @Override

@@ -27,23 +27,13 @@ import java.util.List;
 public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetBinaryOperandSymbolParserToken {
 
     static SpreadsheetBetweenSymbolParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetBetweenSymbolParserToken(value, text);
     }
 
     private SpreadsheetBetweenSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetBetweenSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetBetweenSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetBetweenSymbolParserToken(this.value, text);
     }
 
     @Override

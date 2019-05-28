@@ -102,11 +102,6 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
      */
     final Optional<EbnfParserToken> without;
 
-    @Override
-    final EbnfParserToken replaceText(final String text) {
-        return this.replace(this.value, text, WITHOUT_COMPUTE_REQUIRED);
-    }
-
     /**
      * Factory that creates a new {@link EbnfParentParserToken} with the same text but new tokens.
      * This is only called when creating the withoutCommentsSymbolsOrWhitespace() instance.

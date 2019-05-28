@@ -37,16 +37,6 @@ public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFor
     }
 
     @Override
-    public SpreadsheetFormatWhitespaceParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatWhitespaceParserToken replaceText(final String text) {
-        return new SpreadsheetFormatWhitespaceParserToken(this.value, text);
-    }
-
-    @Override
     public boolean isCloseBracketSymbol() {
         return false;
     }

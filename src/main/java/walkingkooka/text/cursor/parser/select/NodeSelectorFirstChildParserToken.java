@@ -33,21 +33,6 @@ public final class NodeSelectorFirstChildParserToken extends NodeSelectorNonSymb
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorFirstChildParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorFirstChildParserToken replaceText(final String text) {
-        return new NodeSelectorFirstChildParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

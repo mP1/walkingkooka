@@ -24,28 +24,13 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 public final class SpreadsheetFormatDigitLeadingSpaceParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     static SpreadsheetFormatDigitLeadingSpaceParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatDigitLeadingSpaceParserToken(value, text);
     }
 
     private SpreadsheetFormatDigitLeadingSpaceParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatDigitLeadingSpaceParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatDigitLeadingSpaceParserToken replaceText(final String text) {
-        return new SpreadsheetFormatDigitLeadingSpaceParserToken(this.value, text);
     }
 
     @Override

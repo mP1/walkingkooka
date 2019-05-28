@@ -23,9 +23,4 @@ public abstract class SpreadsheetFormatDateDateTimeExpressionTimeParserTokenTest
     public void testWithEmptyTextFails() {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public void testSetTextEmptyFails() {
-        throw new UnsupportedOperationException();
-    }
 }

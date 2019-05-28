@@ -30,21 +30,6 @@ public final class NodeSelectorSelfParserToken extends NodeSelectorNonSymbolPars
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorSelfParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorSelfParserToken replaceText(final String text) {
-        return new NodeSelectorSelfParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

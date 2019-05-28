@@ -25,21 +25,13 @@ import walkingkooka.tree.search.SearchNode;
 public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserToken<Long> {
 
     static SpreadsheetLongParserToken with(final long value, final String text) {
+        checkText(text);
+
         return new SpreadsheetLongParserToken(value, text);
     }
 
     private SpreadsheetLongParserToken(final Long value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetLongParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetLongParserToken replaceText(final String text) {
-        return new SpreadsheetLongParserToken(this.value, text);
     }
 
     @Override

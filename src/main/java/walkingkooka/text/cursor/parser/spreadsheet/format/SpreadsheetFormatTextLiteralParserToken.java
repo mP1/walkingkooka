@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNode;
 
 /**
@@ -26,27 +27,13 @@ public final class SpreadsheetFormatTextLiteralParserToken extends SpreadsheetFo
 
     static SpreadsheetFormatTextLiteralParserToken with(final String value, final String text) {
         checkValue(value);
+        CharSequences.failIfNullOrEmpty(text, "text");
 
         return new SpreadsheetFormatTextLiteralParserToken(value, text);
     }
 
     private SpreadsheetFormatTextLiteralParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatTextLiteralParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatTextLiteralParserToken replaceText(final String text) {
-        return new SpreadsheetFormatTextLiteralParserToken(this.value, text);
     }
 
     @Override

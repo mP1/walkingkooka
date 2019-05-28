@@ -30,7 +30,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelectorParentParserToken<T>> extends NodeSelectorParserTokenTestCase<T> {
 
@@ -70,20 +69,6 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
     public final void testWithoutSymbolsDoubleSame() {
         final T token = this.createToken();
         assertSame(token.withoutSymbols(), token.withoutSymbols());
-    }
-
-    @Test
-    public final void testSetTextDifferentWithout() {
-        final T token = this.createToken();
-        final List<?> childrenWithout = Cast.<T>to(token.withoutSymbols().get()).value();
-
-        final String differentText = this.createDifferentToken().text();
-        final T different = token.setText(differentText).cast();
-        final T differentWithout = Cast.to(different.withoutSymbols().get());
-        assertEquals(childrenWithout, differentWithout.value(), "children without");
-
-        assertTrue(token.value().size() >= differentWithout.value().size(),
-                () -> "without " + token.value().size() + " should have less than or equal tokens than with " + differentWithout.value().size());
     }
 
     @Test

@@ -41,8 +41,7 @@ public final class SpreadsheetFormatTextParserTokenTest extends SpreadsheetForma
     }
 
     @Override
-    public void testSetTextEmptyFails() {
-        throw new UnsupportedOperationException();
+    public void testWithWhitespaceTextFails() {
     }
 
     @Test
@@ -58,13 +57,6 @@ public final class SpreadsheetFormatTextParserTokenTest extends SpreadsheetForma
         final SpreadsheetFormatTextParserToken token = SpreadsheetFormatTextParserToken.with(SpreadsheetFormatTextParserToken.EMPTY, "a");
         this.checkValue(token, SpreadsheetFormatTextParserToken.EMPTY);
         this.checkText(token, "a");
-    }
-
-    @Test
-    public void testSetTextEmpty() {
-        final SpreadsheetFormatTextParserToken token = this.createToken().setText("");
-        this.checkValue(token, this.tokens());
-        this.checkText(token, "");
     }
 
     @Test

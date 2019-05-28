@@ -24,7 +24,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -78,24 +77,6 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
     public void testWithoutCommentsSymbolsOrWhitespaceDoubleSame() {
         final T token = this.createToken();
         assertSame(token.withoutCommentsSymbolsOrWhitespace(), token.withoutCommentsSymbolsOrWhitespace());
-    }
-
-    @Test
-    public final void testSetTextDifferentWithoutCommentsSymbolsOrWhitespace() {
-        final T token = this.createTokenWithNoise();
-
-        final String originalText = token.text();
-        final List<ParserToken> valueWithout = Cast.<T>to(token.withoutCommentsSymbolsOrWhitespace().get()).value();
-
-        final String differentText = "different";
-        final T different = token.setText(differentText).cast();
-        assertEquals(differentText, different.text(), "text");
-        this.checkValue(Cast.<T>to(different.withoutCommentsSymbolsOrWhitespace().get()), valueWithout);
-
-        assertEquals(originalText, token.text(), "original name");
-        this.checkValue(different.withoutCommentsSymbolsOrWhitespace().get().cast(), valueWithout);
-
-        assertNotEquals(token.value().size(), valueWithout.size(), "original token should have some comments/symbols/whitespace");
     }
 
     @Test

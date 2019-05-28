@@ -53,16 +53,6 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
     private final NodeSelectorParserToken parameter;
 
     @Override
-    public NodeSelectorNegativeParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorNegativeParserToken replaceText(final String text) {
-        return new NodeSelectorNegativeParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorNegativeParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

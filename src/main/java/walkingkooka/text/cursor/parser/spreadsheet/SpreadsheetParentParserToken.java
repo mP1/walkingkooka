@@ -42,11 +42,6 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
                 computeWithout(value);
     }
 
-    @Override
-    final void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
     private Optional<SpreadsheetParserToken> computeWithout(final List<ParserToken> value) {
         final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
 
@@ -79,13 +74,6 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
     }
 
     final List<ParserToken> value;
-
-    @Override
-    final SpreadsheetParentParserToken replaceText(final String text) {
-        return this.replace(this.value,
-                text,
-                WITHOUT_COMPUTE_REQUIRED);
-    }
 
     /**
      * Factory that creates a new {@link SpreadsheetParentParserToken} with the same text but new tokens.

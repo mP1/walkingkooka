@@ -25,21 +25,12 @@ import walkingkooka.tree.search.SearchNode;
 public final class SpreadsheetDoubleParserToken extends SpreadsheetNumericParserToken<Double> {
 
     static SpreadsheetDoubleParserToken with(final double value, final String text) {
+        checkText(text);
         return new SpreadsheetDoubleParserToken(value, text);
     }
 
     private SpreadsheetDoubleParserToken(final Double value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetDoubleParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetDoubleParserToken replaceText(final String text) {
-        return new SpreadsheetDoubleParserToken(this.value, text);
     }
 
     @Override

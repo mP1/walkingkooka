@@ -38,16 +38,6 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
     }
 
     @Override
-    public NodeSelectorPredicateParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorPredicateParserToken replaceText(final String text) {
-        return new NodeSelectorPredicateParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorPredicateParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

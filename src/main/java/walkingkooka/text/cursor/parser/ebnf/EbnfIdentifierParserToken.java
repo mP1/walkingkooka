@@ -35,16 +35,6 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIde
     }
 
     @Override
-    public EbnfIdentifierParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    EbnfIdentifierParserToken replaceText(final String text) {
-        return new EbnfIdentifierParserToken(this.value, text);
-    }
-
-    @Override
     public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return Optional.of(this);
     }

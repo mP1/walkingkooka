@@ -33,16 +33,6 @@ public final class JsonNodeSeparatorSymbolParserToken extends JsonNodeSymbolPars
         super(value, text);
     }
 
-    @Override
-    public JsonNodeSeparatorSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    JsonNodeSeparatorSymbolParserToken replaceText(final String text) {
-        return new JsonNodeSeparatorSymbolParserToken(this.value, text);
-    }
-
     // is ...............................................................................................
 
     @Override

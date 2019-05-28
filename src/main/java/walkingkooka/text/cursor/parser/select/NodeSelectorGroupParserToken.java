@@ -38,16 +38,6 @@ public final class NodeSelectorGroupParserToken extends NodeSelectorParentParser
     }
 
     @Override
-    public NodeSelectorGroupParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorGroupParserToken replaceText(final String text) {
-        return new NodeSelectorGroupParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorGroupParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

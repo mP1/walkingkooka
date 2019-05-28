@@ -61,13 +61,6 @@ abstract class NodeSelectorBinaryParserToken<T extends NodeSelectorBinaryParserT
 
     final NodeSelectorParserToken right;
 
-    // text................................................................................................
-
-    @Override
-    final void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
     // is................................................................................................
 
     @Override

@@ -37,16 +37,6 @@ public final class NodeSelectorLessThanSymbolParserToken extends NodeSelectorCom
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorLessThanSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorLessThanSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorLessThanSymbolParserToken(this.value, text);
-    }
-
     // is..........................................................................................................
 
     @Override

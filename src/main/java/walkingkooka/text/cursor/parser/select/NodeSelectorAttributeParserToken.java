@@ -55,16 +55,6 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
     private final NodeSelectorAttributeName attributeName;
 
     @Override
-    public NodeSelectorAttributeParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorAttributeParserToken replaceText(final String text) {
-        return new NodeSelectorAttributeParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorAttributeParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

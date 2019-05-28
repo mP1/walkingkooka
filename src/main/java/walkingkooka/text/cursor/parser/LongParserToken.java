@@ -37,16 +37,6 @@ public final class LongParserToken extends ParserToken2<Long> implements LeafPar
     }
 
     @Override
-    public LongParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    LongParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

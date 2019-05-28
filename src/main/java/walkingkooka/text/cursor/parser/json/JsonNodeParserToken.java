@@ -152,15 +152,6 @@ public abstract class JsonNodeParserToken implements ParserToken {
 
     private final String text;
 
-    final JsonNodeParserToken setText0(final String text) {
-        Objects.requireNonNull(text, "text");
-        return this.text.equals(text) ?
-                this :
-                replaceText(text);
-    }
-
-    abstract JsonNodeParserToken replaceText(final String text);
-
     /**
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain
      * those tokens as text, but the tokens themselves will be removed.

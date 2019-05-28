@@ -29,17 +29,12 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
 
     static SpreadsheetGroupParserToken with(final List<ParserToken> value, final String text) {
         return new SpreadsheetGroupParserToken(copyAndCheckTokens(value),
-                text,
+                checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private SpreadsheetGroupParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
-    }
-
-    @Override
-    public SpreadsheetGroupParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

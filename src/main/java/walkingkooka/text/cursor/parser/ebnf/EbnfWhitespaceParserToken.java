@@ -37,16 +37,6 @@ public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String>
     }
 
     @Override
-    public EbnfWhitespaceParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    EbnfWhitespaceParserToken replaceText(final String text) {
-        return new EbnfWhitespaceParserToken(this.value, text);
-    }
-
-    @Override
     public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return Optional.empty();
     }

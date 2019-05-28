@@ -23,23 +23,13 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 public final class SpreadsheetFormatLessThanEqualsSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
 
     static SpreadsheetFormatLessThanEqualsSymbolParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatLessThanEqualsSymbolParserToken(value, text);
     }
 
     private SpreadsheetFormatLessThanEqualsSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetFormatLessThanEqualsSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatLessThanEqualsSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetFormatLessThanEqualsSymbolParserToken(this.value, text);
     }
 
     @Override

@@ -35,16 +35,6 @@ public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
     }
 
     @Override
-    public EbnfCommentParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    EbnfCommentParserToken replaceText(final String text) {
-        return new EbnfCommentParserToken(this.value, text);
-    }
-
-    @Override
     public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return Optional.empty();
     }

@@ -33,21 +33,6 @@ public final class NodeSelectorLastChildParserToken extends NodeSelectorNonSymbo
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorLastChildParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorLastChildParserToken replaceText(final String text) {
-        return new NodeSelectorLastChildParserToken(this.value, text);
-    }
-
     // is................................................................................................
     @Override
     public boolean isAbsolute() {

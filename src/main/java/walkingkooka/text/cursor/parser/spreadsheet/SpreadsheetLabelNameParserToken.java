@@ -23,28 +23,13 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolParserToken<SpreadsheetLabelName> implements SpreadsheetReferenceParserToken {
 
     static SpreadsheetLabelNameParserToken with(final SpreadsheetLabelName value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetLabelNameParserToken(value, text);
     }
 
     private SpreadsheetLabelNameParserToken(final SpreadsheetLabelName value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    public SpreadsheetLabelNameParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetLabelNameParserToken replaceText(final String text) {
-        return new SpreadsheetLabelNameParserToken(this.value, text);
     }
 
     @Override

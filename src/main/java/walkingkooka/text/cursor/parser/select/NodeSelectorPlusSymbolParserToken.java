@@ -37,17 +37,8 @@ public final class NodeSelectorPlusSymbolParserToken extends NodeSelectorArithme
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorPlusSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorPlusSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorPlusSymbolParserToken(this.value, text);
-    }
-
     // is..........................................................................................................
+
 
     @Override
     public boolean isDivideSymbol() {

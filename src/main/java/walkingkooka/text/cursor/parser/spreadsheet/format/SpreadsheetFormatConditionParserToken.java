@@ -51,11 +51,6 @@ abstract public class SpreadsheetFormatConditionParserToken<T extends Spreadshee
         this.right = bigDecimal.get();
     }
 
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
     /**
      * Returns the matching {@link ComparisonRelation} for this token.
      */

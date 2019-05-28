@@ -28,11 +28,6 @@ public class FakeParserToken implements ParserToken, Fake {
     }
 
     @Override
-    public ParserToken setText(final String text) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public boolean isSymbol() {
         throw new UnsupportedOperationException();
     }

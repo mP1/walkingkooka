@@ -25,23 +25,13 @@ import walkingkooka.tree.search.SearchNode;
 public final class SpreadsheetFormatGeneralSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
 
     static SpreadsheetFormatGeneralSymbolParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatGeneralSymbolParserToken(value, text);
     }
 
     private SpreadsheetFormatGeneralSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetFormatGeneralSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatGeneralSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetFormatGeneralSymbolParserToken(this.value, text);
     }
 
     @Override
