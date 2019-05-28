@@ -19,13 +19,14 @@
 package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> {
+public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseStringTesting<Hsv> {
 
     // constants
 
@@ -229,6 +230,14 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> {
     }
 
     @Test
+    public void testParse() {
+        this.parseAndCheck("hsv(359,1.0,0.5)",
+                Hsv.with(HsvComponent.hue(359),
+                        HsvComponent.saturation(1.0f),
+                        HsvComponent.value(0.5f)));
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(Hsv.with(HUE, SATURATION, VALUE), HUE + "," + SATURATION + "," + VALUE);
     }
@@ -248,6 +257,23 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> {
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // ParseStringTesting .............................................................................................
+
+    @Override
+    public Hsv parse(final String text) {
+        return Hsv.parse(text);
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
     }
 
     // SerializableTesting ............................................................................................

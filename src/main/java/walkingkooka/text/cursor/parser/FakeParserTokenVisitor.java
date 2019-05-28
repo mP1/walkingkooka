@@ -64,6 +64,16 @@ public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
     }
 
     @Override
+    protected void visit(final HslParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final HsvParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final LocalDateParserToken token) {
         throw new UnsupportedOperationException();
     }

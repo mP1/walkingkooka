@@ -20,6 +20,16 @@ package walkingkooka.color;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.HslParserToken;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContexts;
+import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.text.cursor.parser.ParserReporters;
+import walkingkooka.text.cursor.parser.Parsers;
 
 import java.util.Objects;
 
@@ -27,6 +37,27 @@ import java.util.Objects;
  * Holds the hue, saturation and lightness which describe a color.
  */
 final public class Hsl extends ColorHslOrHsv {
+
+    // parse hsl(359,100%,100%)..............................................................................................
+
+    public static Hsl parse(final String text) {
+        return parse0(text, HSL_FUNCTION_PARSER);
+    }
+
+    private final static Parser<ParserContext> HSL_FUNCTION_PARSER = Parsers.hslFunction()
+            .orReport(ParserReporters.basic());
+
+    private static Hsl parse0(final String text,
+                              final Parser<ParserContext> parser) {
+        try {
+            return parser.parse(TextCursors.charSequence(text),
+                    ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+')))
+                    .map(t -> HslParserToken.class.cast(t).value())
+                    .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
+        } catch (final ParserException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
 
     /**
      * Factory that creates a new {@link Hsl}

@@ -69,6 +69,14 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
         // nop
     }
 
+    protected void visit(final HslParserToken token) {
+        // nop
+    }
+
+    protected void visit(final HsvParserToken token) {
+        // nop
+    }
+
     protected void visit(final LocalDateParserToken token) {
         // nop
     }
