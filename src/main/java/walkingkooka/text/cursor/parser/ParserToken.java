@@ -42,11 +42,6 @@ public interface ParserToken extends HasText, HasSearchNode {
     }
 
     /**
-     * Returns the raw text that produced the token.
-     */
-    String text();
-
-    /**
      * Only returns true for noise tokens like whitespace.
      */
     default boolean isNoise() {
