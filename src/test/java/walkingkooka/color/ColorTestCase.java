@@ -21,10 +21,6 @@ package walkingkooka.color;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Equality;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -35,11 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>,
-        HashCodeEqualsDefinedTesting<C>,
-        HasJsonNodeTesting<C>,
-        SerializationTesting<C>,
-        ToStringTesting<C>,
+abstract public class ColorTestCase<C extends Color> extends ColorHslOrHsvTestCase<C> implements HasJsonNodeTesting<C>,
         TypeNameTesting<C> {
 
     ColorTestCase() {
@@ -84,7 +76,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     @Test
     public final void testSetNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createObject().set(null);
+            this.createColorHslOrHsv().set(null);
         });
     }
 
@@ -92,13 +84,13 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testSetSameRed() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         assertSame(color, color.set(RED));
     }
 
     @Test
     public final void testSetDifferentRed() {
-        final C first = this.createObject(RED, GREEN, BLUE);
+        final C first = this.createColorHslOrHsv(RED, GREEN, BLUE);
 
         final RedColorComponent different = ColorComponent.red((byte) 0xFF);
         final Color color = first.set(different);
@@ -112,13 +104,13 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     // green
     @Test
     public final void testSetSameGreen() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         assertSame(color, color.set(GREEN));
     }
 
     @Test
     public final void testSetDifferentGreen() {
-        final C color = this.createObject(RED, GREEN, BLUE);
+        final C color = this.createColorHslOrHsv(RED, GREEN, BLUE);
 
         final GreenColorComponent different = ColorComponent.green((byte) 0xFF);
         this.check(color.set(different), RED, different, BLUE, color.alpha());
@@ -128,13 +120,13 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     // blue
     @Test
     public final void testSetSameBlue() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         assertSame(color, color.set(BLUE));
     }
 
     @Test
     public final void testSetDifferentBlue() {
-        final C color = this.createObject(RED, GREEN, BLUE);
+        final C color = this.createColorHslOrHsv(RED, GREEN, BLUE);
 
         final BlueColorComponent different = ColorComponent.blue((byte) 0xFF);
 
@@ -150,7 +142,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testSetDifferentAlpha() {
-        final C color = this.createObject(RED, GREEN, BLUE);
+        final C color = this.createColorHslOrHsv(RED, GREEN, BLUE);
 
         final AlphaColorComponent different = AlphaColorComponent.with((byte) 0xFF);
 
@@ -165,7 +157,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     @Test
     public final void testSetRedGreenBlue() {
         final byte zero = 0;
-        final C color = this.createObject(ColorComponent.red(zero),
+        final C color = this.createColorHslOrHsv(ColorComponent.red(zero),
                 ColorComponent.green(zero),
                 ColorComponent.blue(zero));
         this.check(color.set(RED).set(BLUE).setGreen(GREEN),
@@ -178,7 +170,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     @Test
     public final void testSetRedGreenBlueAlpha() {
         final byte zero = 0;
-        final C color = this.createObject(ColorComponent.red(zero), ColorComponent.green(zero),
+        final C color = this.createColorHslOrHsv(ColorComponent.red(zero), ColorComponent.green(zero),
                 ColorComponent.blue(zero));
         this.check(color.set(RED).set(BLUE).setGreen(GREEN)
                         .setAlpha(ALPHA),
@@ -204,21 +196,21 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     @Test
     public void testMixNullComponentFails() {
         assertThrows(NullPointerException.class, () -> {
-            this.createObject().mix(null, 1.0f);
+            this.createColorHslOrHsv().mix(null, 1.0f);
         });
     }
 
     @Test
     public void testMixInvalidAmountBelowZeroFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.createObject().mix(RED, -0.1f);
+            this.createColorHslOrHsv().mix(RED, -0.1f);
         });
     }
 
     @Test
     public void testMixInvalidAmountAboveOneFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.createObject().mix(RED, +1.1f);
+            this.createColorHslOrHsv().mix(RED, +1.1f);
         });
     }
 
@@ -226,25 +218,25 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixSameRed() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         this.mixAndCheckSame(color, color.red(), AMOUNT);
     }
 
     @Test
     public final void testMixSameRedVerySmallAmount() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         this.mixAndCheckSame(color, color.red(), SMALL_AMOUNT);
     }
 
     @Test
     public final void testMixDifferentRedVeryLargeAmount() {
         final RedColorComponent replacement = ColorComponent.red(DIFFERENT);
-        this.mixAndCheck(this.createObject(), replacement, LARGE_AMOUNT, replacement);
+        this.mixAndCheck(this.createColorHslOrHsv(), replacement, LARGE_AMOUNT, replacement);
     }
 
     @Test
     public final void testMixRed1() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.red(FROM_COMPONENT)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.red(FROM_COMPONENT)), //
                 ColorComponent.red(TO_COMPONENT),//
                 AMOUNT, //
                 ColorComponent.red(MIXED_COMPONENT));
@@ -252,7 +244,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixRed2() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.red(TO_COMPONENT)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.red(TO_COMPONENT)), //
                 ColorComponent.red(FROM_COMPONENT),//
                 REVERSE_AMOUNT, //
                 ColorComponent.red(MIXED_COMPONENT));
@@ -260,7 +252,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixRed3() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.red(FROM_COMPONENT2)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.red(FROM_COMPONENT2)), //
                 ColorComponent.red(TO_COMPONENT2),//
                 AMOUNT, //
                 ColorComponent.red(MIXED_COMPONENT2));
@@ -268,7 +260,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixRed4() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.red(TO_COMPONENT2)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.red(TO_COMPONENT2)), //
                 ColorComponent.red(FROM_COMPONENT2),//
                 REVERSE_AMOUNT, //
                 ColorComponent.red(MIXED_COMPONENT2));
@@ -278,13 +270,13 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixSameGreen() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         this.mixAndCheckSame(color, color.green(), AMOUNT);
     }
 
     @Test
     public final void testMixSameGreenVeryLargeAmount() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         this.mixAndCheckSame(color, color.green(), LARGE_AMOUNT);
     }
 
@@ -296,7 +288,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixGreen1() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.green(FROM_COMPONENT)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.green(FROM_COMPONENT)), //
                 ColorComponent.green(TO_COMPONENT),//
                 AMOUNT, //
                 ColorComponent.green(MIXED_COMPONENT));
@@ -304,7 +296,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixGreen2() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.green(TO_COMPONENT)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.green(TO_COMPONENT)), //
                 ColorComponent.green(FROM_COMPONENT),//
                 REVERSE_AMOUNT, //
                 ColorComponent.green(MIXED_COMPONENT));
@@ -312,7 +304,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixGreen3() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.green(FROM_COMPONENT2)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.green(FROM_COMPONENT2)), //
                 ColorComponent.green(TO_COMPONENT2),//
                 AMOUNT, //
                 ColorComponent.green(MIXED_COMPONENT2));
@@ -320,7 +312,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixGreen4() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.green(TO_COMPONENT2)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.green(TO_COMPONENT2)), //
                 ColorComponent.green(FROM_COMPONENT2),//
                 REVERSE_AMOUNT, //
                 ColorComponent.green(MIXED_COMPONENT2));
@@ -330,13 +322,13 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixSameBlue() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         this.mixAndCheckSame(color, color.blue(), AMOUNT);
     }
 
     @Test
     public final void testMixSameBlueVerySmallAmount() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         this.mixAndCheckSame(color, color.blue(), SMALL_AMOUNT);
     }
 
@@ -353,7 +345,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixBlue1() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.blue(FROM_COMPONENT)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.blue(FROM_COMPONENT)), //
                 ColorComponent.blue(TO_COMPONENT),//
                 AMOUNT, //
                 ColorComponent.blue(MIXED_COMPONENT));
@@ -361,7 +353,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixBlue2() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.blue(TO_COMPONENT)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.blue(TO_COMPONENT)), //
                 ColorComponent.blue(FROM_COMPONENT),//
                 REVERSE_AMOUNT, //
                 ColorComponent.blue(MIXED_COMPONENT));
@@ -369,7 +361,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixBlue3() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.blue(FROM_COMPONENT2)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.blue(FROM_COMPONENT2)), //
                 ColorComponent.blue(TO_COMPONENT2),//
                 AMOUNT, //
                 ColorComponent.blue(MIXED_COMPONENT2));
@@ -377,7 +369,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixBlue4() {
-        this.mixAndCheck(this.createObject().set(ColorComponent.blue(TO_COMPONENT2)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(ColorComponent.blue(TO_COMPONENT2)), //
                 ColorComponent.blue(FROM_COMPONENT2),//
                 REVERSE_AMOUNT, //
                 ColorComponent.blue(MIXED_COMPONENT2));
@@ -387,13 +379,13 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixSameAlpha() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         this.mixAndCheckSame(color, color.alpha(), AMOUNT);
     }
 
     @Test
     public final void testMixSameAlphaVerySmallAmount() {
-        final C color = this.createObject();
+        final C color = this.createColorHslOrHsv();
         this.mixAndCheckSame(color, color.alpha(), SMALL_AMOUNT);
     }
 
@@ -404,7 +396,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixAlpha1() {
-        this.mixAndCheck(this.createObject().set(AlphaColorComponent.with(FROM_COMPONENT)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(AlphaColorComponent.with(FROM_COMPONENT)), //
                 AlphaColorComponent.with(TO_COMPONENT),//
                 AMOUNT, //
                 AlphaColorComponent.with(MIXED_COMPONENT));
@@ -412,7 +404,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixAlpha2() {
-        this.mixAndCheck(this.createObject().set(AlphaColorComponent.with(TO_COMPONENT)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(AlphaColorComponent.with(TO_COMPONENT)), //
                 AlphaColorComponent.with(FROM_COMPONENT),//
                 REVERSE_AMOUNT, //
                 AlphaColorComponent.with(MIXED_COMPONENT));
@@ -420,7 +412,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixAlpha3() {
-        this.mixAndCheck(this.createObject().set(AlphaColorComponent.with(FROM_COMPONENT2)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(AlphaColorComponent.with(FROM_COMPONENT2)), //
                 AlphaColorComponent.with(TO_COMPONENT2),//
                 AMOUNT, //
                 AlphaColorComponent.with(MIXED_COMPONENT2));
@@ -428,7 +420,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Test
     public final void testMixAlpha4() {
-        this.mixAndCheck(this.createObject().set(AlphaColorComponent.with(TO_COMPONENT2)), //
+        this.mixAndCheck(this.createColorHslOrHsv().set(AlphaColorComponent.with(TO_COMPONENT2)), //
                 AlphaColorComponent.with(FROM_COMPONENT2),//
                 REVERSE_AMOUNT, //
                 AlphaColorComponent.with(MIXED_COMPONENT2));
@@ -617,14 +609,15 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     // helpers..........................................................................................................
 
-    final public C createObject() {
-        return this.createObject(RED, GREEN, BLUE);
+    @Override
+    final C createColorHslOrHsv() {
+        return this.createColorHslOrHsv(RED, GREEN, BLUE);
     }
 
-    abstract C createObject(RedColorComponent red, GreenColorComponent green, BlueColorComponent blue);
+    abstract C createColorHslOrHsv(RedColorComponent red, GreenColorComponent green, BlueColorComponent blue);
 
     final void mixAndCheckSame(final ColorComponent mixed, final float amount) {
-        this.mixAndCheckSame(this.createObject(), mixed, amount);
+        this.mixAndCheckSame(this.createColorHslOrHsv(), mixed, amount);
     }
 
     final void mixAndCheckSame(final Color color, final ColorComponent mixed, final float amount) {
@@ -641,7 +634,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     final void mixAndCheck(final ColorComponent mixed,
                            final float amount,
                            final RedColorComponent red) {
-        this.mixAndCheck(this.createObject(), mixed, amount, red);
+        this.mixAndCheck(this.createColorHslOrHsv(), mixed, amount, red);
     }
 
     final void mixAndCheck(final Color color,
@@ -654,7 +647,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     final void mixAndCheck(final ColorComponent mixed,
                            final float amount,
                            final GreenColorComponent green) {
-        this.mixAndCheck(this.createObject(), mixed, amount, green);
+        this.mixAndCheck(this.createColorHslOrHsv(), mixed, amount, green);
     }
 
     final void mixAndCheck(final Color color,
@@ -667,7 +660,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     final void mixAndCheck(final ColorComponent mixed,
                            final float amount,
                            final BlueColorComponent blue) {
-        this.mixAndCheck(this.createObject(), mixed, amount, blue);
+        this.mixAndCheck(this.createColorHslOrHsv(), mixed, amount, blue);
     }
 
     final void mixAndCheck(final Color color,
@@ -680,7 +673,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
     final void mixAndCheck(final ColorComponent mixed,
                            final float amount,
                            final AlphaColorComponent alpha) {
-        this.mixAndCheck(this.createObject(), mixed, amount, alpha);
+        this.mixAndCheck(this.createColorHslOrHsv(), mixed, amount, alpha);
     }
 
     final void mixAndCheck(final Color color,
@@ -767,15 +760,17 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
         return Equality.isAlmostEquals(component.value(), otherComponent.value(), epislon);
     }
 
+    // ClassTesting ...................................................................................................
+
     @Override
-    public MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 
-    // TypeNameTesting .........................................................................................
+    // TypeNameTesting ................................................................................................
 
     @Override
-    public String typeNamePrefix() {
+    public final String typeNamePrefix() {
         return "";
     }
 
@@ -788,7 +783,7 @@ abstract public class ColorTestCase<C extends Color> implements ClassTesting2<C>
 
     @Override
     public final C createHasJsonNode() {
-        return this.createObject();
+        return this.createColorHslOrHsv();
     }
 
     @Override

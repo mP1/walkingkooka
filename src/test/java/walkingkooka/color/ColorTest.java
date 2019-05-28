@@ -288,6 +288,8 @@ public final class ColorTest implements ClassTesting2<Color>,
         this.parseAndCheck("CYAN", WebColorName.CYAN.color());
     }
 
+    // ClassTesting ...................................................................................................
+
     @Override
     public Class<Color> type() {
         return Color.class;
@@ -298,7 +300,7 @@ public final class ColorTest implements ClassTesting2<Color>,
         return MemberVisibility.PUBLIC;
     }
 
-    // ParseStringTesting ........................................................................................
+    // ParseStringTesting .............................................................................................
 
     @Override
     public Color parse(final String text) {
@@ -314,5 +316,4 @@ public final class ColorTest implements ClassTesting2<Color>,
     public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
         return expected;
     }
-
 }

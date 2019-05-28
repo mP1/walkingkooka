@@ -20,7 +20,6 @@ package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -67,13 +66,13 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
 
     @Test
     public void testSetSameAlpha() {
-        final AlphaColor color = this.createObject();
+        final AlphaColor color = this.createColorHslOrHsv();
         assertSame(color, color.set(ALPHA));
     }
 
     @Test
     public void testSetOpaqueAlphaBecomesOpaqueColor() {
-        final AlphaColor color = this.createObject();
+        final AlphaColor color = this.createColorHslOrHsv();
         final ColorComponent replacement = AlphaColorComponent.OPAQUE;
         final OpaqueColor opaque = (OpaqueColor) color.set(replacement);
         assertSame(color.red(), opaque.red(), "red");
@@ -85,12 +84,12 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
     @Test
     public void testMixDifferentAlphaVeryLargeAmount() {
         final AlphaColorComponent replacement = AlphaColorComponent.with(DIFFERENT);
-        this.mixAndCheck(this.createObject(), replacement, LARGE_AMOUNT, replacement);
+        this.mixAndCheck(this.createColorHslOrHsv(), replacement, LARGE_AMOUNT, replacement);
     }
 
     @Test
     public void testToAwtColor() {
-        final java.awt.Color color = this.createObject().toAwtColor();
+        final java.awt.Color color = this.createColorHslOrHsv().toAwtColor();
         assertEquals(1, color.getRed(), "red");
         assertEquals(2, color.getGreen(), "green");
         assertEquals(3, color.getBlue(), "blue");
@@ -99,7 +98,7 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
 
     @Test
     public void testEqualsDifferentAlpha() {
-        final Color color = this.createObject();
+        final Color color = this.createColorHslOrHsv();
         this.checkNotEquals(AlphaColor.with(color.red(), color.green(), color.blue(), AlphaColorComponent.with((byte) 0xff)));
     }
 
@@ -134,19 +133,14 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
     }
 
     @Override
-    AlphaColor createObject(final RedColorComponent red, final GreenColorComponent green,
-                            final BlueColorComponent blue) {
+    AlphaColor createColorHslOrHsv(final RedColorComponent red, final GreenColorComponent green,
+                                   final BlueColorComponent blue) {
         return AlphaColor.with(red, green, blue, ALPHA);
     }
 
     @Override
     public Class<AlphaColor> type() {
         return AlphaColor.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 
     @Override

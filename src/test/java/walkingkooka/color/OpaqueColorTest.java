@@ -21,7 +21,6 @@ package walkingkooka.color;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -89,7 +88,7 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
 
     @Test
     public void testWithAlpha() {
-        final Color color = this.createObject();
+        final Color color = this.createColorHslOrHsv();
         this.checkNotEquals(AlphaColor.with(color.red(), color.green(), color.blue(), AlphaColorComponent.with((byte) 4)));
     }
 
@@ -123,23 +122,20 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
     }
 
     @Override
-    OpaqueColor createObject(final RedColorComponent red,
-                             final GreenColorComponent green,
-                             final BlueColorComponent blue) {
+    OpaqueColor createColorHslOrHsv(final RedColorComponent red,
+                                    final GreenColorComponent green,
+                                    final BlueColorComponent blue) {
         return OpaqueColor.createOpaqueColor(red, green, blue);
     }
+
+    // ClassTesting ...................................................................................................
 
     @Override
     public Class<OpaqueColor> type() {
         return OpaqueColor.class;
     }
 
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
-    // SerializationTesting..................................................................
+    // SerializableTesting ............................................................................................
 
     @Override
     public OpaqueColor serializableInstance() {

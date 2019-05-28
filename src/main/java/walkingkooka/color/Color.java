@@ -21,9 +21,7 @@ package walkingkooka.color;
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ColorParserToken;
@@ -37,17 +35,13 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Holds an immutable {@link Color}.
  */
-abstract public class Color implements HashCodeEqualsDefined,
-        HasJsonNode,
-        Serializable,
-        UsesToStringBuilder {
+abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
 
     /**
      * A constant holding black
@@ -440,9 +434,37 @@ abstract public class Color implements HashCodeEqualsDefined,
     abstract public int value();
 
     /**
+     * Returns the max of 3 floats.
+     */
+    private static float max(final float a, final float b, final float c) {
+        return Math.max(a, Math.max(b, c));
+    }
+
+    /**
+     * Returns the min of 3 floats.
+     */
+    private static float min(final float a, final float b, final float c) {
+        return Math.min(a, Math.min(b, c));
+    }
+
+    // WebColorName..........................................................................................................
+
+    /**
+     * Returns a {@link WebColorName} for this color if one exists. Note that colors with alpha always returns nothing.
+     */
+    public abstract Optional<WebColorName> webColorName();
+
+    /**
      * Factory that creates a {@link java.awt.Color} holding the same color value.
      */
     abstract public java.awt.Color toAwtColor();
+
+    // ColorHslOrHsv....................................................................................................
+
+    @Override
+    public final Color toColor() {
+        return this;
+    }
 
     /**
      * Returns a {@link Hsl} which is equivalent to this {@link Color} form, ignoring any {@link AlphaColorComponent}.<br>
@@ -480,7 +502,7 @@ abstract public class Color implements HashCodeEqualsDefined,
      * <a>http://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c</a>
      * </pre>
      */
-    final public Hsl toHsl() {
+    public final Hsl toHsl() {
         final float red = this.red.floatValue;
         final float green = this.green.floatValue;
         final float blue = this.blue.floatValue;
@@ -521,7 +543,8 @@ abstract public class Color implements HashCodeEqualsDefined,
     /**
      * Creates a {@link Hsv} holding the equivalent color, ignoring any {@link AlphaColorComponent}.
      */
-    final public Hsv toHsv() {
+    @Override
+    public final Hsv toHsv() {
         final float red = this.red.floatValue;
         final float green = this.green.floatValue;
         final float blue = this.blue.floatValue;
@@ -564,27 +587,6 @@ abstract public class Color implements HashCodeEqualsDefined,
                 HsvComponent.value(value));
     }
 
-    /**
-     * Returns the max of 3 floats.
-     */
-    private static float max(final float a, final float b, final float c) {
-        return Math.max(a, Math.max(b, c));
-    }
-
-    /**
-     * Returns the min of 3 floats.
-     */
-    private static float min(final float a, final float b, final float c) {
-        return Math.min(a, Math.min(b, c));
-    }
-
-    // WebColorName..........................................................................................................
-
-    /**
-     * Returns a {@link WebColorName} for this color if one exists. Note that colors with alpha always returns nothing.
-     */
-    public abstract Optional<WebColorName> webColorName();
-
     // Object..........................................................................................................
 
     /**
@@ -596,32 +598,15 @@ abstract public class Color implements HashCodeEqualsDefined,
     }
 
     /**
-     * Performs some simple checks for nullness, identity and type using {@link #canBeEqual(Object)} before invoking
-     * {@link #equals0(Color)} if types are compatible but different instances.
-     */
-    @Override
-    final public boolean equals(final Object other) {
-        return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
-    }
-
-    /**
-     * Tests if the argument to {@link #equals(Object)} is compatible for purposes of equality.Note the parameter may be null thus the best testing
-     * includes an instance of X test.
-     */
-    abstract boolean canBeEqual(final Object other);
-
-    /**
      * {@link Color colors} are equal if their values are the same.
      */
-    private boolean equals0(final Color other) {
-        return this.value() == other.value();
+    @Override
+    final boolean equals0(final Object other) {
+        return this.equals1(Cast.to(other));
     }
 
-    @Override
-    final public String toString() {
-        return ToStringBuilder.buildFrom(this);
+    private boolean equals1(final Color other) {
+        return this.value() == other.value();
     }
 
     @Override
