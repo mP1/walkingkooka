@@ -77,7 +77,7 @@ public final class ParserTokens implements PublicStaticHelper {
     /**
      * {@see FakeParserToken}
      */
-    public static FakeParserToken bigInteger() {
+    public static FakeParserToken fake() {
         return new FakeParserToken();
     }
 
