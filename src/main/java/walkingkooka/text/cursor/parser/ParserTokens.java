@@ -18,6 +18,8 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.color.Color;
+import walkingkooka.color.Hsl;
+import walkingkooka.color.Hsv;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.math.BigDecimal;
@@ -79,6 +81,20 @@ public final class ParserTokens implements PublicStaticHelper {
      */
     public static FakeParserToken fake() {
         return new FakeParserToken();
+    }
+
+    /**
+     * {@see HslParserToken}
+     */
+    public static HslParserToken hsl(final Hsl value, final String text) {
+        return HslParserToken.with(value, text);
+    }
+
+    /**
+     * {@see HsvParserToken}
+     */
+    public static HsvParserToken hsv(final Hsv value, final String text) {
+        return HsvParserToken.with(value, text);
     }
 
     /**

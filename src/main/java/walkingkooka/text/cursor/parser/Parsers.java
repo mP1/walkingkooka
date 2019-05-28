@@ -102,6 +102,97 @@ public final class Parsers implements PublicStaticHelper {
         return FixedParser.with(result);
     }
 
+    // hsl..............................................................................................................
+
+    /**
+     * A parser that handles
+     * <pre>
+     * hsl(359, 100%, 99%)
+     * </pre>
+     * into a {@link HslParserToken}.
+     */
+    public static <C extends ParserContext> Parser<C> hslFunction() {
+        return HSL_FUNCTION_PARSER.cast();
+    }
+
+    private static ParserToken transformHslFunction(final ParserToken token, final ParserContext context) {
+        return HslFunctionParserTokenVisitor.acceptParserToken(token);
+    }
+
+    private final static Parser<ParserContext> HSL_FUNCTION_PARSER = hslFunctionParser();
+
+    private static Parser<ParserContext> hslFunctionParser() {
+        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
+        final Parser<ParserContext> component = Parsers.doubleParser();
+        final Parser<ParserContext> percentage = Parsers.character(CharPredicates.is('%'));
+        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
+
+        return Parsers.sequenceParserBuilder()
+                .required(Parsers.string("hsl(", CaseSensitivity.SENSITIVE))
+                .optional(whitespace) // hue
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // sat
+                .required(component)
+                .required(percentage)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // value
+                .required(component)
+                .required(percentage)
+                .optional(whitespace)
+                .required(Parsers.character(CharPredicates.is(')')))
+                .build()
+                .transform(Parsers::transformHslFunction)
+                .setToString("hsl()");
+    }
+
+    // hsv..............................................................................................................
+
+    /**
+     * A parser that handles
+     * <pre>
+     * hsv(359, 1.0, 1.0)
+     * </pre>
+     * into a {@link HsvParserToken}.
+     */
+    public static <C extends ParserContext> Parser<C> hsvFunction() {
+        return HSV_FUNCTION_PARSER.cast();
+    }
+
+    private static ParserToken transformHsvFunction(final ParserToken token, final ParserContext context) {
+        return HsvFunctionParserTokenVisitor.acceptParserToken(token);
+    }
+
+    private final static Parser<ParserContext> HSV_FUNCTION_PARSER = hsvFunctionParser();
+
+    private static Parser<ParserContext> hsvFunctionParser() {
+        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
+        final Parser<ParserContext> component = Parsers.doubleParser();
+        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
+
+        return Parsers.sequenceParserBuilder()
+                .required(Parsers.string("hsv(", CaseSensitivity.SENSITIVE))
+                .optional(whitespace) // hue
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // sat
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // value
+                .required(component)
+                .optional(whitespace)
+                .required(Parsers.character(CharPredicates.is(')')))
+                .build()
+                .transform(Parsers::transformHsvFunction)
+                .setToString("hsv()");
+    }
+
+    // ................................................................................................................
+
     /**
      * {@see LocalDateDateTimeFormatterParser}
      */

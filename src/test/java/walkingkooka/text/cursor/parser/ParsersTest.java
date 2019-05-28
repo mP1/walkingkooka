@@ -17,8 +17,14 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Value;
 import walkingkooka.color.Color;
 import walkingkooka.color.ColorComponent;
+import walkingkooka.color.ColorHslOrHsv;
+import walkingkooka.color.Hsl;
+import walkingkooka.color.HslComponent;
+import walkingkooka.color.Hsv;
+import walkingkooka.color.HsvComponent;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
@@ -33,6 +39,98 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParsersTest implements ClassTesting2<Parsers>,
         PublicStaticHelperTesting<Parsers> {
+
+
+    // hsl(359,1.0,1.0).................................................................................................
+
+    @Test
+    public void testParseHslFunctionIncompleteFails() {
+        this.parseFails(Parsers.hslFunction(),
+                "hsl(359",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseHslFunctionMissingPercentSignFails() {
+        this.parseFails(Parsers.hslFunction(),
+                "hsl(359,50,10%)",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseHslFunctionMissingParensRightFails() {
+        this.parseFails(Parsers.hslFunction(),
+                "hsl(359,50%,10%",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseHslFunction() {
+        this.parseHslAndCheck("hsl(359,100%,50%)", 359, 1.0f, 0.5f);
+    }
+
+    @Test
+    public void testParseHslFunction2() {
+        this.parseHslAndCheck("hsl(99,0%,25%)", 99, 0f, 0.25f);
+    }
+
+    @Test
+    public void testParseHslFunctionExtraWhitespace() {
+        this.parseHslAndCheck("hsl( 299,100%, 50% )", 299, 1f, 0.5f);
+    }
+
+    private void parseHslAndCheck(final String text,
+                                  final float hue,
+                                  final float saturation,
+                                  final float value) {
+        this.parseAndCheck(Parsers.hslFunction(),
+                text,
+                Hsl.with(HslComponent.hue(hue),
+                        HslComponent.saturation(saturation),
+                        HslComponent.lightness(value)));
+    }
+
+    // hsv(359,1.0,1.0).................................................................................................
+
+    @Test
+    public void testParseHsvFunctionIncompleteFails() {
+        this.parseFails(Parsers.hsvFunction(),
+                "hsv(359",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseHsvFunctionMissingParensRightFails() {
+        this.parseFails(Parsers.hsvFunction(),
+                "hsv(359,0.5,1.0",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseHsvFunction() {
+        this.parseHsvAndCheck("hsv(359,0.5,1.0)", 359, 0.5f, 1.0f);
+    }
+
+    @Test
+    public void testParseHsvFunction2() {
+        this.parseHsvAndCheck("hsv(99,0.0,0.25)", 99, 0f, 0.25f);
+    }
+
+    @Test
+    public void testParseHsvFunctionExtraWhitespace() {
+        this.parseHsvAndCheck("hsv( 299,1 , 0.5 )", 299, 1f, 0.5f);
+    }
+
+    private void parseHsvAndCheck(final String text,
+                                  final float hue,
+                                  final float saturation,
+                                  final float value) {
+        this.parseAndCheck(Parsers.hsvFunction(),
+                text,
+                Hsv.with(HsvComponent.hue(hue),
+                        HsvComponent.saturation(saturation),
+                        HsvComponent.value(value)));
+    }
 
     // rgba(1,2,3).......................................................................................................
 
@@ -152,12 +250,12 @@ public final class ParsersTest implements ClassTesting2<Parsers>,
 
     private void parseAndCheck(final Parser<ParserContext> parser,
                                final String text,
-                               final Color color) {
-        assertEquals(color,
+                               final ColorHslOrHsv value) {
+        assertEquals(value,
                 parser.orReport(ParserReporters.basic())
                         .parse(TextCursors.charSequence(text),
                                 this.parserContext())
-                        .map(t -> ColorParserToken.class.cast(t).value())
+                        .map(t -> Value.class.cast(t).value())
                         .orElseThrow(() -> new AssertionError()),
                 () -> "parse " + CharSequences.quoteAndEscape(text));
     }
