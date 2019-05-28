@@ -17,12 +17,10 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -77,17 +75,6 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
     @Override
     public final List<ParserToken> value() {
         return this.value;
-    }
-
-    final EbnfParentParserToken setValue0(final List<ParserToken> value) {
-        Objects.requireNonNull(value, "values");
-
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(value);
-
-        return this.value().equals(copy) ?
-                this :
-                this.replace(copy, this.text(), ParentParserToken.filterWithoutNoise(copy));
     }
 
     final List<ParserToken> value;

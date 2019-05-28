@@ -38,11 +38,6 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
     }
 
     @Override
-    public SpreadsheetPercentageParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetPercentageParserToken(tokens,
                 text,

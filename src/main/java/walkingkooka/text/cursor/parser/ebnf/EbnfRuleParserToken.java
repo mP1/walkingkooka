@@ -59,11 +59,6 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
         this.token = token;
     }
 
-    @Override
-    public EbnfRuleParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
     public EbnfIdentifierParserToken identifier() {
         return this.identifier;
     }

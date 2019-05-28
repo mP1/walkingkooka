@@ -19,15 +19,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.text.cursor.parser.ParserToken;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetUnaryParserTokenTestCase<T extends SpreadsheetUnaryParserToken<T>> extends SpreadsheetParentParserTokenTestCase<T> {
@@ -44,38 +36,5 @@ public abstract class SpreadsheetUnaryParserTokenTestCase<T extends SpreadsheetU
         assertThrows(IllegalArgumentException.class, () -> {
             this.createToken("", this.whitespace(), this.whitespace());
         });
-    }
-
-    @Test
-    public final void testSetValueWrongCountFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.of(this.number1(), this.number2()));
-        });
-    }
-
-    @Test
-    public final void testSetValueDifferent() {
-        final T token = this.createToken();
-        final SpreadsheetParserToken value = this.number(123);
-        final T different = token.setValue(Lists.of(value));
-        assertNotSame(token, different);
-        this.checkValue(different, value);
-
-        assertEquals(Optional.of(different), different.withoutSymbols());
-    }
-
-    @Test
-    public final void testSetValueDifferent2() {
-        final T token = this.createToken();
-
-        final List<ParserToken> values = Lists.of(this.number(123), whitespace());
-        final T different = token.setValue(values);
-        assertNotSame(token, different);
-        this.checkValue(different, values);
-
-        final Optional<SpreadsheetParserToken> differentWithout = different.withoutSymbols();
-        assertNotEquals(Optional.of(different), differentWithout);
-
-        this.checkValue(differentWithout.get(), values.subList(0, 1));
     }
 }

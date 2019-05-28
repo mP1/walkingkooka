@@ -36,11 +36,6 @@ public final class EbnfGroupParserToken extends EbnfParentParserToken<EbnfGroupP
     }
 
     @Override
-    public EbnfGroupParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     EbnfGroupParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new EbnfGroupParserToken(tokens, text, without);
     }

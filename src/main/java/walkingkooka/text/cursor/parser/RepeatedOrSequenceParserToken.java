@@ -42,7 +42,7 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
     /**
      * Sub classes must create a public setValue and call this method and cast this.
      */
-    final ParserToken2<List<ParserToken>> setValue0(final List<ParserToken> value) {
+    final ParserToken2<List<ParserToken>> setValue(final List<ParserToken> value) {
         Objects.requireNonNull(value, "values");
 
         final List<ParserToken> copy = Lists.array();

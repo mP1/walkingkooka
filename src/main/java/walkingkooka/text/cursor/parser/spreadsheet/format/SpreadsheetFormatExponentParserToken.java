@@ -47,11 +47,6 @@ public final class SpreadsheetFormatExponentParserToken extends SpreadsheetForma
     }
 
     @Override
-    public SpreadsheetFormatExponentParserToken setValue(final List<ParserToken> values) {
-        return this.setValue0(values).cast();
-    }
-
-    @Override
     SpreadsheetFormatParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetFormatExponentParserToken(tokens, text, without);
     }

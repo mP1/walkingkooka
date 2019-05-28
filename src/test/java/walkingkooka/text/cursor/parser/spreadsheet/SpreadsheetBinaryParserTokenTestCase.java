@@ -96,20 +96,6 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
         this.checkValue(without, left, right);
     }
 
-    @Test
-    public void testSetValueWrongCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.of(this.number1()));
-        });
-    }
-
-    @Test
-    public void testSetValueWrongCountFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.of(this.number1(), this.number2(), this.number(3)));
-        });
-    }
-
     abstract SpreadsheetParserToken leftToken();
 
     abstract SpreadsheetParserToken operatorSymbol();

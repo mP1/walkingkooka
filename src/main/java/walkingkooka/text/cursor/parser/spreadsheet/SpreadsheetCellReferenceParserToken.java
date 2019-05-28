@@ -60,11 +60,6 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
     private final SpreadsheetCellReference cell;
 
     @Override
-    public SpreadsheetCellReferenceParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetCellReferenceParserToken(tokens, text, without);
     }

@@ -31,7 +31,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetFunctionParserToken> {
 
@@ -97,13 +96,6 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         this.checkValue(token2, name, number);
         this.checkFunction(token, this.functionName());
         this.checkParameters(token, number);
-    }
-
-    @Test
-    public void testSetValueMissingFunctionNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.of(this.number1()));
-        });
     }
 
     @Test

@@ -38,11 +38,6 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
     }
 
     @Override
-    public SpreadsheetGroupParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetParentParserToken replace(final List<ParserToken> tokens,
                                          final String text,
                                          final List<ParserToken> without) {

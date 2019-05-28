@@ -38,13 +38,6 @@ public final class SpreadsheetFormatColorParserTokenTest extends SpreadsheetForm
         });
     }
 
-    @Test
-    public void testSetValuesMissingColorNameOrColorNumberFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(this.missingColorNameOrColorNumber());
-        });
-    }
-
     private List<ParserToken> missingColorNameOrColorNumber() {
         return Lists.of(this.openBracket(), this.number1(), this.closeBracket());
     }

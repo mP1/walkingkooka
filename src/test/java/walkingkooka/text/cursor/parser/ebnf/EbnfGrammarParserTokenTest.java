@@ -27,10 +27,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -47,37 +45,6 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     public void testWithoutCommentsSymbolsOrWhitespace() {
         final EbnfGrammarParserToken token = this.createToken();
         assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
-    }
-
-    @Test
-    public final void testSetValueMissingRuleFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.empty());
-        });
-    }
-
-    @Test
-    public final void testSetValueDifferentRules() {
-        final EbnfGrammarParserToken token = this.createToken();
-
-        final List<ParserToken> tokens = Lists.of(this.rule(identifier2()));
-        final EbnfGrammarParserToken different = token.setValue(tokens);
-        this.checkValue(different, tokens);
-        assertEquals(Optional.of(different), different.withoutCommentsSymbolsOrWhitespace());
-    }
-
-    @Test
-    public final void testSetValueDifferentRules2() {
-        final EbnfGrammarParserToken token = this.createToken();
-
-        final List<ParserToken> tokens = Lists.of(this.rule(identifier2()), whitespace());
-        final EbnfGrammarParserToken different = token.setValue(tokens);
-        this.checkValue(different, tokens);
-
-        final Optional<EbnfParserToken> differentWithout = different.withoutCommentsSymbolsOrWhitespace();
-        assertNotEquals(Optional.of(different), different);
-
-        this.checkValue(differentWithout.get(), tokens.get(0));
     }
 
     @Test

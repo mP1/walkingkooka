@@ -59,11 +59,6 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
     }
 
     @Override
-    public EbnfRangeParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     EbnfRangeParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new EbnfRangeParserToken(tokens,
                 text,

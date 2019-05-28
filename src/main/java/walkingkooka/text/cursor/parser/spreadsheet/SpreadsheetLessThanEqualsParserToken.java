@@ -38,11 +38,6 @@ public final class SpreadsheetLessThanEqualsParserToken extends SpreadsheetBinar
     }
 
     @Override
-    public SpreadsheetLessThanEqualsParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetLessThanEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetLessThanEqualsParserToken(tokens,
                 text,

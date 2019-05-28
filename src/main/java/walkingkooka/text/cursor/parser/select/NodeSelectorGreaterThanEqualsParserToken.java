@@ -39,11 +39,6 @@ public final class NodeSelectorGreaterThanEqualsParserToken extends NodeSelector
     }
 
     @Override
-    public NodeSelectorGreaterThanEqualsParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorGreaterThanEqualsParserToken(tokens, this.text(), without);
     }

@@ -42,11 +42,6 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken<EbnfEx
     }
 
     @Override
-    public EbnfExceptionParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     EbnfExceptionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new EbnfExceptionParserToken(tokens, text, without);
     }

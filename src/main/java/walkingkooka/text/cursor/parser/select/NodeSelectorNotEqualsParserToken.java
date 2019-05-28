@@ -39,11 +39,6 @@ public final class NodeSelectorNotEqualsParserToken extends NodeSelectorComparis
     }
 
     @Override
-    public NodeSelectorNotEqualsParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorNotEqualsParserToken(tokens, this.text(), without);
     }

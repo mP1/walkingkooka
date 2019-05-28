@@ -42,10 +42,6 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
         super(tokens, text);
     }
 
-    public SequenceParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
     @Override
     final SequenceParserToken replaceValue(final List<ParserToken> value) {
         return new SequenceParserToken(value, this.text());
@@ -73,7 +69,8 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
 
         return this.setValue(this.value().stream()
                 .filter(keep)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()))
+                .cast();
     }
 
     @Override
@@ -86,7 +83,7 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
 
     @Override
     public SequenceParserToken flat() {
-        return this.setValue(this.flat0());
+        return this.setValue(this.flat0()).cast();
     }
 
     /**

@@ -79,25 +79,6 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         assertSame(token.withoutCommentsSymbolsOrWhitespace(), token.withoutCommentsSymbolsOrWhitespace());
     }
 
-    @Test
-    public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createToken().setValue(null);
-        });
-    }
-
-    @Test
-    public final void testSetValueSame() {
-        final T token = this.createToken();
-        assertSame(token, token.setValue(token.value()));
-    }
-
-    @Test
-    public final void testSetValueSame2() {
-        final T token = this.createToken();
-        assertSame(token, token.setValue(this.tokens()));
-    }
-
     abstract T createTokenWithNoise();
 
     @Override

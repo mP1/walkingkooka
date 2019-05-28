@@ -38,11 +38,6 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
     }
 
     @Override
-    public SpreadsheetLessThanParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetLessThanParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetLessThanParserToken(tokens,
                 text,
