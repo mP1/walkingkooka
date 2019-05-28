@@ -52,29 +52,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         });
     }
 
-    // setValue...........................................................................................................
-
-    @Test
-    public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createToken().setValue(null);
-        });
-    }
-
-    @Test
-    public final void testSetValueSame() {
-        final T token = this.createToken();
-        assertSame(token, token.setValue(token.value()));
-    }
-
-    @Test
-    public final void testSetValueDifferent() {
-        final T token = this.createToken();
-        final List<ParserToken> differentTokens = this.createDifferentToken().value();
-        final T different = token.setValue(differentTokens).cast();
-        assertNotSame(token, different);
-        assertEquals(differentTokens, different.value(), "tokens");
-    }
+    // flat............................................................................................................
 
     @Test
     public final void testFlat() {

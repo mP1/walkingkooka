@@ -26,7 +26,6 @@ import walkingkooka.tree.expression.ExpressionNode;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -65,26 +64,6 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
         this.checkText(cell, text);
         this.checkValue(cell, row, column);
         this.checkCell(cell, row, column);
-
-        assertSame(cell, cell.withoutSymbols().get());
-    }
-
-    @Test
-    public void testSetValueDifferent() {
-        final SpreadsheetColumnReferenceParserToken column = this.column();
-        final SpreadsheetRowReferenceParserToken row = this.row();
-        final String text = ROW_TEXT + ":" + COLUMN_TEXT;
-        final SpreadsheetCellReferenceParserToken cell = this.createToken(text, row, column);
-
-        final SpreadsheetColumnReferenceParserToken differentColumn = this.column(1 + COLUMN_VALUE);
-        final SpreadsheetRowReferenceParserToken differentRow = this.row(1 + ROW_VALUE, "C");
-        final SpreadsheetCellReferenceParserToken differentCell = cell.setValue(Lists.of(differentRow, differentColumn));
-
-        assertNotSame(cell, differentCell);
-
-        this.checkText(differentCell, text);// text not updated even when though child tokens are different.
-        this.checkValue(differentCell, differentRow, differentColumn);
-        this.checkCell(differentCell, differentRow, differentColumn);
 
         assertSame(cell, cell.withoutSymbols().get());
     }

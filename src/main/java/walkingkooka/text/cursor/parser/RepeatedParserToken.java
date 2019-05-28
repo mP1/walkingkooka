@@ -37,10 +37,6 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
         super(tokens, text);
     }
 
-    public RepeatedParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
     @Override
     final RepeatedParserToken replaceValue(final List<ParserToken> value) {
         return new RepeatedParserToken(value, this.text());
@@ -48,7 +44,7 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
 
     @Override
     public RepeatedParserToken flat() {
-        return this.setValue(this.flat0());
+        return this.setValue(this.flat0()).cast();
     }
 
     @Override

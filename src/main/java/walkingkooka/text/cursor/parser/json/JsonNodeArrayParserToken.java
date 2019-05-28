@@ -40,11 +40,6 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<Js
     }
 
     @Override
-    public JsonNodeArrayParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     JsonNodeParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new JsonNodeArrayParserToken(tokens, this.text(), without);
     }

@@ -22,10 +22,8 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -53,41 +51,6 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
         final T without = token.withoutCommentsSymbolsOrWhitespace().get().cast();
         assertNotSame(token, without);
         assertEquals(Lists.of(identifier1), without.value(), "value");
-    }
-
-    @Test
-    public final void testSetValueWrongCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.of(identifier1(), identifier2()));
-        });
-    }
-
-    @Test
-    public final void testSetValueDifferent() {
-        final T token = this.createToken();
-
-        final EbnfParserToken differentValue = this.identifier2();
-        final T different = token.setValue(Lists.of(differentValue));
-        assertNotSame(token, different);
-
-        this.checkValue(different, differentValue);
-        assertEquals(Optional.of(different), different.withoutCommentsSymbolsOrWhitespace());
-    }
-
-    @Test
-    public final void testSetValueDifferent2() {
-        final T token = this.createToken();
-
-        final EbnfParserToken differentValue = this.identifier2();
-        final T different = token.setValue(Lists.of(differentValue, whitespace()));
-        assertNotSame(token, different);
-
-        this.checkValue(different, differentValue, whitespace());
-
-        final Optional<EbnfParserToken> differentWithout = different.withoutCommentsSymbolsOrWhitespace();
-        assertNotEquals(Optional.of(different), differentWithout);
-
-        this.checkValue(differentWithout.get(), differentValue);
     }
 
     @Test

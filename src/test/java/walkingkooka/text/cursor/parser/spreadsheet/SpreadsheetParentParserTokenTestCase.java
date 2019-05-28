@@ -80,25 +80,6 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         assertSame(token.withoutSymbols().get(), token.withoutSymbols().get());
     }
 
-    @Test
-    public final void testSetValueNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createToken().setValue(null);
-        });
-    }
-
-    @Test
-    public final void testSetValueSame() {
-        final T token = this.createToken();
-        assertSame(token, token.setValue(token.value()));
-    }
-
-    @Test
-    public final void testSetValueSame2() {
-        final T token = this.createToken();
-        assertSame(token, token.setValue(this.tokens()));
-    }
-
     abstract T createToken(final String text, final List<ParserToken> tokens);
 
     final public T createToken(final String text) {

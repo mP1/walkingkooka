@@ -38,11 +38,6 @@ public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParse
     }
 
     @Override
-    public SpreadsheetDivisionParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetDivisionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetDivisionParserToken(tokens,
                 text,

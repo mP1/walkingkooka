@@ -18,12 +18,10 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -130,17 +128,6 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
     }
 
     final List<ParserToken> value;
-
-    final JsonNodeParentParserToken setValue0(final List<ParserToken> value) {
-        Objects.requireNonNull(value, "values");
-
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(value);
-
-        return this.value().equals(copy) ?
-                this :
-                this.replaceValue(copy, WITHOUT_COMPUTE_REQUIRED);
-    }
 
     /**
      * Factory that creates a new {@link JsonNodeParentParserToken} with the same text but new tokens.

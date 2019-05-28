@@ -100,20 +100,6 @@ public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelect
         this.checkValue(without, left, right);
     }
 
-    @Test
-    public void testSetValueWrongCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.of(this.leftToken()));
-        });
-    }
-
-    @Test
-    public void testSetValueWrongCountFails2() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.of(this.leftToken(), this.rightToken(), this.rightToken()));
-        });
-    }
-
     final NodeSelectorParserToken leftToken() {
         return this.nodeName();
     }

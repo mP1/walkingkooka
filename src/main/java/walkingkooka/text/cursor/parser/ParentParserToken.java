@@ -41,11 +41,6 @@ public interface ParentParserToken<P extends ParentParserToken> extends ParserTo
     }
 
     /**
-     * Would be setter that returns an instance with the given tokens or value, creating a new instance if necessary.
-     */
-    P setValue(List<ParserToken> tokens);
-
-    /**
      * Creates a {@link SearchNode#sequence(List)} from all the converted child tokens.
      */
     default SearchNode toSearchNode() {

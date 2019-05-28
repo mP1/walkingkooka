@@ -38,11 +38,6 @@ public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserT
     }
 
     @Override
-    public SpreadsheetEqualsParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetEqualsParserToken(tokens,
                 text,

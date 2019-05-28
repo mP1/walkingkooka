@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -59,13 +58,6 @@ public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserT
     public final void testOnlyCommentWhitespaceFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
-        });
-    }
-
-    @Test
-    public final void testSetValueEmptyFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createToken().setValue(Lists.empty());
         });
     }
 

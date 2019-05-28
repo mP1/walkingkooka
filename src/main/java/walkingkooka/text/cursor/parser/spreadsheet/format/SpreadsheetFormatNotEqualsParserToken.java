@@ -39,11 +39,6 @@ public final class SpreadsheetFormatNotEqualsParserToken extends SpreadsheetForm
     }
 
     @Override
-    public SpreadsheetFormatNotEqualsParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetFormatNotEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetFormatNotEqualsParserToken(tokens,
                 text,

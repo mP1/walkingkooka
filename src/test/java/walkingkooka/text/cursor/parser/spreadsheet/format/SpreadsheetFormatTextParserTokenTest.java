@@ -60,13 +60,6 @@ public final class SpreadsheetFormatTextParserTokenTest extends SpreadsheetForma
     }
 
     @Test
-    public void testSetValueWithEmpty() {
-        final SpreadsheetFormatTextParserToken token = this.createToken().setValue(SpreadsheetFormatTextParserToken.EMPTY);
-        this.checkValue(token, SpreadsheetFormatTextParserToken.EMPTY);
-        this.checkText(token, this.text());
-    }
-
-    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<ParserToken> visited = Lists.array();

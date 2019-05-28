@@ -39,11 +39,6 @@ public final class SpreadsheetFormatGreaterThanParserToken extends SpreadsheetFo
     }
 
     @Override
-    public SpreadsheetFormatGreaterThanParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetFormatGreaterThanParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetFormatGreaterThanParserToken(tokens,
                 text,

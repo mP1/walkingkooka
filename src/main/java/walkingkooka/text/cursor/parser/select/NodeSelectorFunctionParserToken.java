@@ -63,11 +63,6 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
     private final List<ParserToken> parameters;
 
     @Override
-    public NodeSelectorFunctionParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorFunctionParserToken(tokens, this.text(), without);
     }

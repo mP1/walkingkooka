@@ -39,11 +39,6 @@ public final class SpreadsheetFormatLessThanEqualsParserToken extends Spreadshee
     }
 
     @Override
-    public SpreadsheetFormatLessThanEqualsParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetFormatLessThanEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetFormatLessThanEqualsParserToken(tokens,
                 text,

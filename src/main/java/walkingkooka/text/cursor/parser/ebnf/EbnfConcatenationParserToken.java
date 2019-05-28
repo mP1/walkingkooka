@@ -36,11 +36,6 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken<Eb
     }
 
     @Override
-    public EbnfConcatenationParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     EbnfConcatenationParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new EbnfConcatenationParserToken(tokens, text, without);
     }

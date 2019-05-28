@@ -18,12 +18,10 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -70,17 +68,6 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
     }
 
     final List<ParserToken> value;
-
-    final NodeSelectorParentParserToken setValue0(final List<ParserToken> value) {
-        Objects.requireNonNull(value, "values");
-
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(value);
-
-        return this.value().equals(copy) ?
-                this :
-                this.replaceValue(copy, WITHOUT_COMPUTE_REQUIRED);
-    }
 
     /**
      * Factory that creates a new {@link NodeSelectorParentParserToken} with the same text but new tokens.

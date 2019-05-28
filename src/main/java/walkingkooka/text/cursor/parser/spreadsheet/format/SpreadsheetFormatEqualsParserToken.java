@@ -39,11 +39,6 @@ public final class SpreadsheetFormatEqualsParserToken extends SpreadsheetFormatC
     }
 
     @Override
-    public SpreadsheetFormatEqualsParserToken setValue(final List<ParserToken> value) {
-        return this.setValue0(value).cast();
-    }
-
-    @Override
     SpreadsheetFormatEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetFormatEqualsParserToken(tokens,
                 text,
