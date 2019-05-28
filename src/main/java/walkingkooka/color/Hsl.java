@@ -19,15 +19,14 @@
 package walkingkooka.color;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.build.tostring.ToStringBuilder;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Holds the hue, saturation and lightness which describe a color.
  */
-final public class Hsl implements HashCodeEqualsDefined, Serializable {
+final public class Hsl extends ColorHslOrHsv {
 
     /**
      * Factory that creates a new {@link Hsl}
@@ -126,6 +125,8 @@ final public class Hsl implements HashCodeEqualsDefined, Serializable {
 
     final LightnessHslComponent lightness;
 
+    // ColorHslOrHsv....................................................................................................
+
     /**
      * Returns the equivalent {@link Color}.<br>
      * Converts an HSL color value to RGB. Conversion formula adapted from <a>http://en.wikipedia.org/wiki/HSL_color_space}</a>.
@@ -160,6 +161,7 @@ final public class Hsl implements HashCodeEqualsDefined, Serializable {
      * <p>
      * <a>http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript</a>
      */
+    @Override
     public Color toColor() {
         // vars
         float red;
@@ -221,7 +223,17 @@ final public class Hsl implements HashCodeEqualsDefined, Serializable {
         return p;
     }
 
-    // Object
+    @Override
+    public Hsl toHsl() {
+        return this;
+    }
+
+    @Override
+    public Hsv toHsv() {
+        return this.toColor().toHsv();
+    }
+
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {
@@ -229,26 +241,30 @@ final public class Hsl implements HashCodeEqualsDefined, Serializable {
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof Hsl &&
-                        this.equals0(Cast.to(other));
+    boolean canBeEqual(final Object other) {
+        return other instanceof Hsl;
     }
 
-    private boolean equals0(final Hsl other) {
+    @Override
+    boolean equals0(final Object other) {
+        return this.equals1(Cast.to(other));
+    }
+
+    private boolean equals1(final Hsl other) {
         return this.hue.equals(other.hue) &&
                 this.saturation.equals(other.saturation) &&
                 this.lightness.equals(other.lightness);
     }
 
-    /**
-     * Dumps all the individual components separated by commas.
-     */
     @Override
-    public String toString() {
-        return this.hue + "," + this.saturation + "," + this.lightness;
+    public void buildToString(final ToStringBuilder builder) {
+        builder.separator(",")
+                .value(this.hue)
+                .value(this.saturation)
+                .value(this.lightness);
     }
 
-    // Serializable
+    // Serializable.....................................................................................................
+
     private static final long serialVersionUID = 1;
 }

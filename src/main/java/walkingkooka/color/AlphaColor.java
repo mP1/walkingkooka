@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * A {@link Color} that includes an alpha property.
  */
-final public class AlphaColor extends Color {
+final class AlphaColor extends Color {
 
     static AlphaColor fromJsonNode0(final JsonNode from) {
         Objects.requireNonNull(from, "from");

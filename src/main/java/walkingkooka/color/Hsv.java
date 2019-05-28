@@ -19,15 +19,14 @@
 package walkingkooka.color;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.build.tostring.ToStringBuilder;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Holds the hue, saturation and value which describe a color.
  */
-final public class Hsv implements HashCodeEqualsDefined, Serializable {
+final public class Hsv extends ColorHslOrHsv {
 
     /**
      * Factory that creates a new {@link Hsv}
@@ -124,10 +123,13 @@ final public class Hsv implements HashCodeEqualsDefined, Serializable {
 
     final ValueHsvComponent value;
 
+    // ColorHslOrHsv....................................................................................................
+
     /**
      * Returns the equivalent {@link Color}.<br>
      * <A>http://en.wikipedia.org/wiki/HSL_and_HSV</A>
      */
+    @Override
     public Color toColor() {
         final float value = this.value.value;
         final float chroma = this.saturation.value * value;
@@ -172,7 +174,17 @@ final public class Hsv implements HashCodeEqualsDefined, Serializable {
         return Color.with(red, green, blue);
     }
 
-    // Object
+    @Override
+    public Hsl toHsl() {
+        return this.toColor().toHsl();
+    }
+
+    @Override
+    public Hsv toHsv() {
+        return this;
+    }
+
+    // Object.........................................................................................................
 
     @Override
     public int hashCode() {
@@ -180,26 +192,30 @@ final public class Hsv implements HashCodeEqualsDefined, Serializable {
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof Hsv &&
-                        this.equals0(Cast.to(other));
+    boolean canBeEqual(final Object other) {
+        return other instanceof Hsv;
     }
 
-    private boolean equals0(final Hsv other) {
+    @Override
+    boolean equals0(final Object other) {
+        return this.equals1(Cast.to(other));
+    }
+
+    private boolean equals1(final Hsv other) {
         return this.hue.equals(other.hue) &&
                 this.saturation.equals(other.saturation) &&
                 this.value.equals(other.value);
     }
 
-    /**
-     * Dumps all the individual components separated by commas.
-     */
     @Override
-    public String toString() {
-        return this.hue + "," + this.saturation + "," + this.value;
+    public void buildToString(final ToStringBuilder builder) {
+        builder.separator(",")
+                .value(this.hue)
+                .value(this.saturation)
+                .value(this.value);
     }
 
-    // Serializable
+    // Serializable....................................................................................................
+
     private static final long serialVersionUID = 1;
 }

@@ -19,20 +19,13 @@
 package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.ToStringTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HsvTest implements ClassTesting2<Hsv>,
-        HashCodeEqualsDefinedTesting<Hsv>,
-        SerializationTesting<Hsv>,
-        ToStringTesting<Hsv> {
+public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> {
 
     // constants
 
@@ -241,6 +234,13 @@ public final class HsvTest implements ClassTesting2<Hsv>,
     }
 
     @Override
+    Hsv createColorHslOrHsv() {
+        return Hsv.with(HUE, SATURATION, VALUE);
+    }
+
+    // ClassTesting ...................................................................................................
+
+    @Override
     public Class<Hsv> type() {
         return Hsv.class;
     }
@@ -250,10 +250,7 @@ public final class HsvTest implements ClassTesting2<Hsv>,
         return MemberVisibility.PUBLIC;
     }
 
-    @Override
-    public Hsv createObject() {
-        return Hsv.with(HUE, SATURATION, VALUE);
-    }
+    // SerializableTesting ............................................................................................
 
     @Override
     public Hsv serializableInstance() {
