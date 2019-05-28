@@ -33,21 +33,6 @@ public final class NodeSelectorAttributeNameParserToken extends NodeSelectorNonS
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorAttributeNameParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorAttributeNameParserToken replaceText(final String text) {
-        return new NodeSelectorAttributeNameParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

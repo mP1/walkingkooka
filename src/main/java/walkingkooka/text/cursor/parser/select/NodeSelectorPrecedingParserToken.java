@@ -33,21 +33,6 @@ public final class NodeSelectorPrecedingParserToken extends NodeSelectorNonSymbo
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorPrecedingParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorPrecedingParserToken replaceText(final String text) {
-        return new NodeSelectorPrecedingParserToken(this.value, text);
-    }
-
     // is................................................................................................
     @Override
     public boolean isAbsolute() {

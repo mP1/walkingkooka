@@ -486,17 +486,6 @@ public abstract class NodeSelectorParserToken implements ParserToken {
 
     private final String text;
 
-    final NodeSelectorParserToken setText0(final String text) {
-        this.checkText(text);
-        return this.text.equals(text) ?
-                this :
-                replaceText(text);
-    }
-
-    abstract void checkText(final String text);
-
-    abstract NodeSelectorParserToken replaceText(final String text);
-
     /**
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain
      * those tokens as text, but the tokens themselves will be removed.

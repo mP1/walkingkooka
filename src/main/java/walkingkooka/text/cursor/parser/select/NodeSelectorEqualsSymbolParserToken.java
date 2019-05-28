@@ -37,16 +37,6 @@ public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorCompa
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorEqualsSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorEqualsSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorEqualsSymbolParserToken(this.value, text);
-    }
-
     // is..........................................................................................................
 
     @Override

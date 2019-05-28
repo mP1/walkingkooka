@@ -25,6 +25,11 @@ import java.util.Objects;
  */
 abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken implements LeafParserToken<T> {
 
+    static void checkValueAndText(final Object value, final String text) {
+        checkValue(value);
+        checkText(text);
+    }
+
     static void checkValue(final Object value) {
         Objects.requireNonNull(value, "value");
     }

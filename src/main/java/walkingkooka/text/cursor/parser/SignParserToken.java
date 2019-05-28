@@ -36,16 +36,6 @@ public final class SignParserToken extends ParserToken2<Boolean> implements Leaf
     }
 
     @Override
-    public SignParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SignParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

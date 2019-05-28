@@ -33,21 +33,6 @@ public final class NodeSelectorAncestorOrSelfParserToken extends NodeSelectorNon
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorAncestorOrSelfParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorAncestorOrSelfParserToken replaceText(final String text) {
-        return new NodeSelectorAncestorOrSelfParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

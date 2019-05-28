@@ -31,11 +31,6 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     }
 
     @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
     public final Optional<SpreadsheetParserToken> withoutSymbols() {
         return Optional.empty();
     }

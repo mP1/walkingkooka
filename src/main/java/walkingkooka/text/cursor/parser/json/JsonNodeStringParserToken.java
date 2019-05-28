@@ -39,16 +39,6 @@ public final class JsonNodeStringParserToken extends JsonNodeValueParserToken<St
         super(value, text);
     }
 
-    @Override
-    public JsonNodeStringParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    JsonNodeStringParserToken replaceText(final String text) {
-        return new JsonNodeStringParserToken(this.value, text);
-    }
-
     // is ...............................................................................................
 
     @Override

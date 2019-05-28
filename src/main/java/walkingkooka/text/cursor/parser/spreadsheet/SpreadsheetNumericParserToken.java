@@ -27,11 +27,6 @@ abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetNonSymbolPars
     }
 
     @Override
-    final void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
     public final boolean isColumnReference() {
         return false;
     }

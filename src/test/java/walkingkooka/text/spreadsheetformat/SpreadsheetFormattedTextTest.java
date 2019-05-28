@@ -75,30 +75,6 @@ public final class SpreadsheetFormattedTextTest implements ClassTesting2<Spreads
         this.check(formatted, color, text);
     }
 
-    // setText...........................................................
-
-    @Test
-    public void testSetTextNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createFormattedText().setText(null);
-        });
-    }
-
-    @Test
-    public void testSetTextSame() {
-        final SpreadsheetFormattedText formatted = this.createFormattedText();
-        assertSame(formatted, formatted.setText(TEXT));
-    }
-
-    @Test
-    public void testSetTextDifferent() {
-        final String differentText = "different";
-        final SpreadsheetFormattedText formatted = this.createFormattedText();
-        final SpreadsheetFormattedText different = formatted.setText(differentText);
-        assertNotSame(formatted, different);
-        this.check(different, COLOR, differentText);
-    }
-
     // setColor...........................................................
 
     @Test

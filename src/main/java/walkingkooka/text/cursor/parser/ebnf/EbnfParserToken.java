@@ -169,15 +169,6 @@ public abstract class EbnfParserToken implements ParserToken {
 
     private final String text;
 
-    final EbnfParserToken setText0(final String text) {
-        Objects.requireNonNull(text, "text");
-        return this.text.equals(text) ?
-                this :
-                replaceText(text);
-    }
-
-    abstract EbnfParserToken replaceText(final String text);
-
     /**
      * Sub classes must override. Not all types of token support this operation, eg this doesnt make sense
      * given a {@link EbnfCommentParserToken} will return empty.

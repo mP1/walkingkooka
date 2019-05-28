@@ -28,46 +28,13 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class SpreadsheetTextParserTokenTest extends SpreadsheetNonSymbolParserTokenTestCase<SpreadsheetTextParserToken, String> {
 
     @Override
-    public void testWithEmptyTextFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void testWithWhitespaceTextFails() {
         throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetTextEmptyFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetTextWhitespaceFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    public void testWithEmpty() {
-        final SpreadsheetTextParserToken token = this.createToken("");
-        this.checkText(token, "");
     }
 
     @Test
     public void testWithWhitespace() {
         final SpreadsheetTextParserToken token = this.createToken("   ");
-        this.checkText(token, "   ");
-    }
-
-    @Test
-    public void testSetTextEmpty() {
-        final SpreadsheetTextParserToken token = this.createToken().setText("");
-        this.checkText(token, "");
-    }
-
-    @Test
-    public void testSetTextWhitespace() {
-        final SpreadsheetTextParserToken token = this.createToken().setText("   ");
         this.checkText(token, "   ");
     }
 

@@ -38,16 +38,6 @@ public final class NodeSelectorAndParserToken extends NodeSelectorBinaryParserTo
     }
 
     @Override
-    public NodeSelectorAndParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorAndParserToken replaceText(final String text) {
-        return new NodeSelectorAndParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorAndParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

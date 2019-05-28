@@ -41,11 +41,6 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
                 computeWithout(value);
     }
 
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
     private Optional<NodeSelectorParserToken> computeWithout(final List<ParserToken> value) {
         final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
 

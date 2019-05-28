@@ -42,16 +42,6 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
         super(tokens, text);
     }
 
-    @Override
-    public SequenceParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SequenceParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
     public SequenceParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

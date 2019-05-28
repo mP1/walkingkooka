@@ -38,16 +38,6 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
     }
 
     @Override
-    public NodeSelectorExpressionParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorExpressionParserToken replaceText(final String text) {
-        return new NodeSelectorExpressionParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorExpressionParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

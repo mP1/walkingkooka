@@ -32,10 +32,8 @@ public final class SpreadsheetFormatExponentParserToken extends SpreadsheetForma
      * Factory that creates a new {@link SpreadsheetFormatExponentParserToken}.
      */
     static SpreadsheetFormatExponentParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
-
-        return new SpreadsheetFormatExponentParserToken(copy,
-                text,
+        return new SpreadsheetFormatExponentParserToken(copyAndCheckTokensFailIfEmpty(value),
+                checkTextNotEmptyOrWhitespace(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -46,16 +44,6 @@ public final class SpreadsheetFormatExponentParserToken extends SpreadsheetForma
         super(value, text, valueWithout);
 
         this.withoutSymbols().get();
-    }
-
-    @Override
-    void checkText(String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatExponentParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

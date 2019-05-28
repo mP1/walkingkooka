@@ -47,11 +47,6 @@ public interface ParserToken extends HasText, HasSearchNode {
     String text();
 
     /**
-     * Would be setter that creates if necessary a token with the new text.
-     */
-    ParserToken setText(final String text);
-
-    /**
      * Only returns true for noise tokens like whitespace.
      */
     default boolean isNoise() {

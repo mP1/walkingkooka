@@ -27,7 +27,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -87,16 +86,6 @@ public abstract class SpreadsheetFormatParentParserTokenTestCase<T extends Sprea
         assertThrows(NullPointerException.class, () -> {
             this.createToken().setValue(null);
         });
-    }
-
-    @Test
-    public final void testSetTextWhitespace() {
-        final T token = this.createToken();
-        final String text = " ";
-        final T different = token.setText(text).cast();
-        assertNotSame(token, different);
-        this.checkText(different, text);
-        this.checkValue(different, this.tokens());
     }
 
     @Test

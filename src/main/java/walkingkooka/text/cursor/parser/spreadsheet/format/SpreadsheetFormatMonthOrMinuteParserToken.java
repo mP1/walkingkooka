@@ -23,28 +23,13 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 public final class SpreadsheetFormatMonthOrMinuteParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     static SpreadsheetFormatMonthOrMinuteParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatMonthOrMinuteParserToken(value, text);
     }
 
     private SpreadsheetFormatMonthOrMinuteParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatMonthOrMinuteParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatMonthOrMinuteParserToken replaceText(final String text) {
-        return new SpreadsheetFormatMonthOrMinuteParserToken(this.value, text);
     }
 
     @Override

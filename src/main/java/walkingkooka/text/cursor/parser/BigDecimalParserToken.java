@@ -38,16 +38,6 @@ public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implem
     }
 
     @Override
-    public BigDecimalParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    BigDecimalParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

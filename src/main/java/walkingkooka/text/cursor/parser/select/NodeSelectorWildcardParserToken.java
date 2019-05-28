@@ -33,21 +33,6 @@ public final class NodeSelectorWildcardParserToken extends NodeSelectorNonSymbol
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorWildcardParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorWildcardParserToken replaceText(final String text) {
-        return new NodeSelectorWildcardParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

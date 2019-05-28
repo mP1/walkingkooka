@@ -31,20 +31,9 @@ public final class SpreadsheetWhitespaceParserTokenTest extends SpreadsheetSymbo
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public void testSetTextWhitespaceFails() {
-        this.createToken().setText("   ");
-    }
-
     @Test
     public void testWithWhitespace() {
         final SpreadsheetWhitespaceParserToken token = this.createToken("   ");
-        this.checkText(token, "   ");
-    }
-
-    @Test
-    public void testSetTextWhitespace() {
-        final SpreadsheetWhitespaceParserToken token = this.createToken().setText("   ");
         this.checkText(token, "   ");
     }
 

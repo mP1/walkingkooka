@@ -24,28 +24,13 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 public final class SpreadsheetFormatDecimalPointParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     static SpreadsheetFormatDecimalPointParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatDecimalPointParserToken(value, text);
     }
 
     private SpreadsheetFormatDecimalPointParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatDecimalPointParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatDecimalPointParserToken replaceText(final String text) {
-        return new SpreadsheetFormatDecimalPointParserToken(this.value, text);
     }
 
     @Override

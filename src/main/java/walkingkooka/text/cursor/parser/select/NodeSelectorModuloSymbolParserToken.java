@@ -37,16 +37,6 @@ public final class NodeSelectorModuloSymbolParserToken extends NodeSelectorArith
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorModuloSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorModuloSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorModuloSymbolParserToken(this.value, text);
-    }
-
     // is..........................................................................................................
 
     @Override

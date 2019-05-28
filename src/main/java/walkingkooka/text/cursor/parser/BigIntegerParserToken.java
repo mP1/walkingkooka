@@ -38,16 +38,6 @@ public final class BigIntegerParserToken extends ParserToken2<BigInteger> implem
     }
 
     @Override
-    public BigIntegerParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    BigIntegerParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

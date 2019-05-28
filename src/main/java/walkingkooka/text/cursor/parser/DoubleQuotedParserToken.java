@@ -43,16 +43,6 @@ public final class DoubleQuotedParserToken extends QuotedParserToken {
     }
 
     @Override
-    public DoubleQuotedParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    DoubleQuotedParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

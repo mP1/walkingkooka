@@ -27,28 +27,13 @@ import java.time.LocalDateTime;
 public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetNonSymbolParserToken<LocalDateTime> {
 
     static SpreadsheetLocalDateTimeParserToken with(final LocalDateTime value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetLocalDateTimeParserToken(value, text);
     }
 
     private SpreadsheetLocalDateTimeParserToken(final LocalDateTime value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    public SpreadsheetLocalDateTimeParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetLocalDateTimeParserToken replaceText(final String text) {
-        return new SpreadsheetLocalDateTimeParserToken(this.value, text);
     }
 
     @Override

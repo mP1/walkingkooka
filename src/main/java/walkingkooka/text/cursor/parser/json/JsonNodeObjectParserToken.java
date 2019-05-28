@@ -64,16 +64,6 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
     }
 
     @Override
-    public JsonNodeObjectParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    JsonNodeObjectParserToken replaceText(final String text) {
-        return new JsonNodeObjectParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public JsonNodeObjectParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

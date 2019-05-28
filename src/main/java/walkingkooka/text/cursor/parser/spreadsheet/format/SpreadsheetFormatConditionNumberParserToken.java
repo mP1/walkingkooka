@@ -27,28 +27,13 @@ import java.math.BigDecimal;
 public final class SpreadsheetFormatConditionNumberParserToken extends SpreadsheetFormatNonSymbolParserToken<BigDecimal> {
 
     static SpreadsheetFormatConditionNumberParserToken with(final BigDecimal value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatConditionNumberParserToken(value, text);
     }
 
     private SpreadsheetFormatConditionNumberParserToken(final BigDecimal value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatConditionNumberParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatConditionNumberParserToken replaceText(final String text) {
-        return new SpreadsheetFormatConditionNumberParserToken(this.value, text);
     }
 
     @Override

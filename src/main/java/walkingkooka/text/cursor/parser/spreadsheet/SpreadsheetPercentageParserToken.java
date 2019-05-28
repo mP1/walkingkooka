@@ -28,20 +28,13 @@ import java.util.List;
 public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryParserToken<SpreadsheetPercentageParserToken> {
 
     static SpreadsheetPercentageParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokens(value);
-
-        return new SpreadsheetPercentageParserToken(copy,
-                text,
+        return new SpreadsheetPercentageParserToken(copyAndCheckTokens(value),
+                checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
-    }
-
-    @Override
-    public SpreadsheetPercentageParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

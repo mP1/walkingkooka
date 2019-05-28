@@ -33,21 +33,6 @@ public final class NodeSelectorParenthesisOpenSymbolParserToken extends NodeSele
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorParenthesisOpenSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorParenthesisOpenSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorParenthesisOpenSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
     // is..........................................................................................................
 
     @Override

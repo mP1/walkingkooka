@@ -38,16 +38,6 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorAri
     }
 
     @Override
-    public NodeSelectorMultiplicationParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorMultiplicationParserToken replaceText(final String text) {
-        return new NodeSelectorMultiplicationParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorMultiplicationParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

@@ -33,21 +33,6 @@ public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbol
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorAbsoluteParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorAbsoluteParserToken replaceText(final String text) {
-        return new NodeSelectorAbsoluteParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

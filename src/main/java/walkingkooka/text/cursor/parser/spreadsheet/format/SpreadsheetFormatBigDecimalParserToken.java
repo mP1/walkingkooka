@@ -32,10 +32,8 @@ public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFor
      * Factory that creates a new {@link SpreadsheetFormatBigDecimalParserToken}.
      */
     static SpreadsheetFormatBigDecimalParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
-
-        return new SpreadsheetFormatBigDecimalParserToken(copy,
-                text,
+        return new SpreadsheetFormatBigDecimalParserToken(copyAndCheckTokensFailIfEmpty(value),
+                checkTextNotEmpty(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -46,16 +44,6 @@ public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFor
         super(value, text, valueWithout);
 
         SpreadsheetFormatParentParserToken.class.cast(this.withoutSymbols().get()).value();
-    }
-
-    @Override
-    void checkText(String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatBigDecimalParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

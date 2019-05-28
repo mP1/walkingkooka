@@ -37,16 +37,6 @@ public final class NodeSelectorMultiplySymbolParserToken extends NodeSelectorAri
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorMultiplySymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorMultiplySymbolParserToken replaceText(final String text) {
-        return new NodeSelectorMultiplySymbolParserToken(this.value, text);
-    }
-
     // is..........................................................................................................
 
     @Override

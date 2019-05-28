@@ -37,16 +37,6 @@ public final class NodeSelectorAndSymbolParserToken extends NodeSelectorBinaryOp
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorAndSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorAndSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorAndSymbolParserToken(this.value, text);
-    }
-
     // is..........................................................................................................
 
     @Override

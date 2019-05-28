@@ -37,16 +37,6 @@ public final class StringParserToken extends ParserToken2<String> implements Lea
     }
 
     @Override
-    public StringParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    StringParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

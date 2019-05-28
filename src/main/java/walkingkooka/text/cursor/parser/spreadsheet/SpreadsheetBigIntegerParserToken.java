@@ -27,23 +27,13 @@ import java.math.BigInteger;
 public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericParserToken<BigInteger> {
 
     static SpreadsheetBigIntegerParserToken with(final BigInteger value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetBigIntegerParserToken(value, text);
     }
 
     private SpreadsheetBigIntegerParserToken(final BigInteger value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public SpreadsheetBigIntegerParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetBigIntegerParserToken replaceText(final String text) {
-        return new SpreadsheetBigIntegerParserToken(this.value, text);
     }
 
     @Override

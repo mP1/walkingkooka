@@ -33,16 +33,6 @@ public final class JsonNodeObjectEndSymbolParserToken extends JsonNodeSymbolPars
         super(value, text);
     }
 
-    @Override
-    public JsonNodeObjectEndSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    JsonNodeObjectEndSymbolParserToken replaceText(final String text) {
-        return new JsonNodeObjectEndSymbolParserToken(this.value, text);
-    }
-
     // is ...............................................................................................
 
     @Override

@@ -51,16 +51,6 @@ public final class SpreadsheetFormatTextParserToken extends SpreadsheetFormatPar
     }
 
     @Override
-    void checkText(final String text) {
-        checkTextNull(text);
-    }
-
-    @Override
-    public SpreadsheetFormatTextParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
     public SpreadsheetFormatTextParserToken setValue(final List<ParserToken> values) {
         return this.setValue0(values).cast();
     }

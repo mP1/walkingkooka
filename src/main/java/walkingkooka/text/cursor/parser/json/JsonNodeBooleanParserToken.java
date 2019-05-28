@@ -38,16 +38,6 @@ public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<B
         super(value, text);
     }
 
-    @Override
-    public JsonNodeBooleanParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    JsonNodeBooleanParserToken replaceText(final String text) {
-        return new JsonNodeBooleanParserToken(this.value, text);
-    }
-
     // is ...............................................................................................
 
     @Override

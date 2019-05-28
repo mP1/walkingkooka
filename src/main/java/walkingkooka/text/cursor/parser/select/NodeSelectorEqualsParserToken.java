@@ -39,16 +39,6 @@ public final class NodeSelectorEqualsParserToken extends NodeSelectorComparisonP
     }
 
     @Override
-    public NodeSelectorEqualsParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorEqualsParserToken replaceText(final String text) {
-        return new NodeSelectorEqualsParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorEqualsParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

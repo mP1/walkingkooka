@@ -33,21 +33,6 @@ public final class NodeSelectorParenthesisCloseSymbolParserToken extends NodeSel
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorParenthesisCloseSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorParenthesisCloseSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorParenthesisCloseSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
     // is................................................................................................
 
     @Override

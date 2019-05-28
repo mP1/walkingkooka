@@ -24,28 +24,13 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 public final class SpreadsheetFormatHourParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     static SpreadsheetFormatHourParserToken with(final String value, final String text) {
-        checkValue(value);
+        checkValueAndText(value, text);
 
         return new SpreadsheetFormatHourParserToken(value, text);
     }
 
     private SpreadsheetFormatHourParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    public SpreadsheetFormatHourParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetFormatHourParserToken replaceText(final String text) {
-        return new SpreadsheetFormatHourParserToken(this.value, text);
     }
 
     @Override

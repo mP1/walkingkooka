@@ -28,20 +28,13 @@ import java.util.List;
 public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParserToken<SpreadsheetDivisionParserToken> {
 
     static SpreadsheetDivisionParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokens(value);
-
-        return new SpreadsheetDivisionParserToken(copy,
-                text,
+        return new SpreadsheetDivisionParserToken(copyAndCheckTokens(value),
+                checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private SpreadsheetDivisionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
-    }
-
-    @Override
-    public SpreadsheetDivisionParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

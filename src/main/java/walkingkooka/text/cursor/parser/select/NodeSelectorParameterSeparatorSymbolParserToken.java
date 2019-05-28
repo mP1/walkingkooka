@@ -33,21 +33,6 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorParameterSeparatorSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorParameterSeparatorSymbolParserToken replaceText(final String text) {
-        return new NodeSelectorParameterSeparatorSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
     // is..........................................................................................................
 
     @Override

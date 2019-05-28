@@ -33,16 +33,6 @@ public final class JsonNodeObjectBeginSymbolParserToken extends JsonNodeSymbolPa
         super(value, text);
     }
 
-    @Override
-    public JsonNodeObjectBeginSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    JsonNodeObjectBeginSymbolParserToken replaceText(final String text) {
-        return new JsonNodeObjectBeginSymbolParserToken(this.value, text);
-    }
-
     // is ...............................................................................................
 
     @Override

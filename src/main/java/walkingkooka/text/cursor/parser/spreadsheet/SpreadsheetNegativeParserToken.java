@@ -28,20 +28,13 @@ import java.util.List;
 public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParserToken<SpreadsheetNegativeParserToken> {
 
     static SpreadsheetNegativeParserToken with(final List<ParserToken> value, final String text) {
-        final List<ParserToken> copy = copyAndCheckTokens(value);
-
-        return new SpreadsheetNegativeParserToken(copy,
-                text,
+        return new SpreadsheetNegativeParserToken(copyAndCheckTokens(value),
+                checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
-    }
-
-    @Override
-    public SpreadsheetNegativeParserToken setText(final String text) {
-        return this.setText0(text).cast();
     }
 
     @Override

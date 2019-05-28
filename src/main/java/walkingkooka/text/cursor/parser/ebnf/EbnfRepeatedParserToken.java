@@ -36,11 +36,6 @@ public final class EbnfRepeatedParserToken extends EbnfParentParserToken<EbnfRep
     }
 
     @Override
-    public EbnfRepeatedParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
     public EbnfRepeatedParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }

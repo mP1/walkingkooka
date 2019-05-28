@@ -30,7 +30,7 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
 
     static SpreadsheetCellReferenceParserToken with(final List<ParserToken> value, final String text) {
         return new SpreadsheetCellReferenceParserToken(copyAndCheckTokens(value),
-                text,
+                checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
@@ -58,11 +58,6 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
     }
 
     private final SpreadsheetCellReference cell;
-
-    @Override
-    public SpreadsheetCellReferenceParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
 
     @Override
     public SpreadsheetCellReferenceParserToken setValue(final List<ParserToken> value) {

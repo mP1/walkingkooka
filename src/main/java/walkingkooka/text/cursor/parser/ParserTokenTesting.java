@@ -35,7 +35,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -172,36 +171,6 @@ public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesti
                 "",
                 ParserToken.class,
                 this.type());
-    }
-
-    @Test
-    default void testSetTextNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createToken().setText(null);
-        });
-    }
-
-    @Test
-    default void testSetTextSame() {
-        final T token = this.createToken();
-        assertSame(token, token.setText(token.text()));
-    }
-
-    @Test
-    default void testSetTextDifferent() {
-        final T token = this.createToken();
-        final String differentText = this.createDifferentToken().text();
-        assertNotEquals(token.text(), differentText, "different text must be different from tokens");
-
-        final ParserToken token2 = token.setText(differentText);
-        assertNotSame(token, token2);
-        checkText(token2, differentText);
-        assertEquals(token.getClass(), token2.getClass(), () -> "type of token after set must remain the same=" + token2);
-
-        assertNotEquals(token, token2, "tokens must be different");
-
-        final ParserToken token3 = token2.setText(token.text());
-        assertEquals(token, token3, "after setting original text tokens must be equal");
     }
 
     @Test

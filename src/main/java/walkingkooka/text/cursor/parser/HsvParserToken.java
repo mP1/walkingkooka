@@ -39,16 +39,6 @@ public final class HsvParserToken extends ParserToken2<Hsv> implements LeafParse
     }
 
     @Override
-    public HsvParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    HsvParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

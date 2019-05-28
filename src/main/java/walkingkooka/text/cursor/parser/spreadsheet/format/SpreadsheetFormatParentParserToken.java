@@ -82,13 +82,6 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
 
     final List<ParserToken> value;
 
-    @Override
-    final SpreadsheetFormatParentParserToken replaceText(final String text) {
-        return this.replace(this.value,
-                text,
-                WITHOUT_COMPUTE_REQUIRED);
-    }
-
     /**
      * Factory that creates a new {@link SpreadsheetFormatParentParserToken} with the same text but new tokens.
      */

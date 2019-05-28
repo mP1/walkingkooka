@@ -34,21 +34,6 @@ public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolPa
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorNumberParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorNumberParserToken replaceText(final String text) {
-        return new NodeSelectorNumberParserToken(this.value, text);
-    }
-
     // is................................................................................................
     @Override
     public boolean isAbsolute() {

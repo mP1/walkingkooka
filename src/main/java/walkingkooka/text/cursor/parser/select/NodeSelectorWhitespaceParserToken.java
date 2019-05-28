@@ -33,21 +33,6 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBina
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorWhitespaceParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
-    NodeSelectorWhitespaceParserToken replaceText(final String text) {
-        return new NodeSelectorWhitespaceParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

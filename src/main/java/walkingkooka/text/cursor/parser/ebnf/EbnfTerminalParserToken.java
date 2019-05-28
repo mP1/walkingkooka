@@ -35,16 +35,6 @@ public final class EbnfTerminalParserToken extends EbnfLeafParserToken<String> {
     }
 
     @Override
-    public EbnfTerminalParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    EbnfTerminalParserToken replaceText(final String text) {
-        return new EbnfTerminalParserToken(this.value, text);
-    }
-
-    @Override
     public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace() {
         return Optional.of(this);
     }

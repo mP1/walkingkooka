@@ -33,21 +33,6 @@ public final class NodeSelectorFollowingSiblingParserToken extends NodeSelectorN
         super(value, text);
     }
 
-    @Override
-    public NodeSelectorFollowingSiblingParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    NodeSelectorFollowingSiblingParserToken replaceText(final String text) {
-        return new NodeSelectorFollowingSiblingParserToken(this.value, text);
-    }
-
     // is................................................................................................
 
     @Override

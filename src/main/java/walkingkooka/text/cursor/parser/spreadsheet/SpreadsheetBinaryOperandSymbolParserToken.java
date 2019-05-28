@@ -27,11 +27,6 @@ abstract class SpreadsheetBinaryOperandSymbolParserToken extends SpreadsheetSymb
     }
 
     @Override
-    final void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
-    }
-
-    @Override
     public final boolean isCloseParenthesisSymbol() {
         return false;
     }

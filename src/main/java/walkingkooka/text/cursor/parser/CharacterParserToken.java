@@ -36,16 +36,6 @@ public final class CharacterParserToken extends ParserToken2<Character> implemen
     }
 
     @Override
-    public CharacterParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    CharacterParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

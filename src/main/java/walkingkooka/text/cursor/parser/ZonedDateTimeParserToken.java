@@ -36,16 +36,6 @@ public final class ZonedDateTimeParserToken extends ParserToken2<ZonedDateTime> 
     }
 
     @Override
-    public ZonedDateTimeParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    ZonedDateTimeParserToken replaceText(final String text) {
-        return with(this.value(), text);
-    }
-
-    @Override
     public void accept(final ParserTokenVisitor visitor) {
         visitor.visit(this);
     }

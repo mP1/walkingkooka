@@ -38,16 +38,6 @@ public final class NodeSelectorAdditionParserToken extends NodeSelectorArithmeti
     }
 
     @Override
-    public NodeSelectorAdditionParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    NodeSelectorAdditionParserToken replaceText(final String text) {
-        return new NodeSelectorAdditionParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
-    }
-
-    @Override
     public NodeSelectorAdditionParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }
