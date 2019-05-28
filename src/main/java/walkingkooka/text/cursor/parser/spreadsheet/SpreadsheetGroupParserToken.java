@@ -39,7 +39,6 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
 
     @Override
     SpreadsheetParentParserToken replace(final List<ParserToken> tokens,
-                                         final String text,
                                          final List<ParserToken> without) {
         return new SpreadsheetGroupParserToken(tokens, text, without);
     }

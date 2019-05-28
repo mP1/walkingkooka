@@ -71,7 +71,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     private final List<ParserToken> parameters;
 
     @Override
-    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetFunctionParserToken(tokens,
                 text,
                 without);

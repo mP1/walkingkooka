@@ -38,9 +38,9 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
     }
 
     @Override
-    SpreadsheetRangeParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetRangeParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetRangeParserToken(tokens,
-                text,
+                this.text,
                 without);
     }
 

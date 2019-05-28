@@ -38,7 +38,7 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
     }
 
     @Override
-    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetNegativeParserToken(tokens,
                 text,
                 without);

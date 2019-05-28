@@ -38,9 +38,9 @@ public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserTo
     }
 
     @Override
-    SpreadsheetPowerParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetPowerParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetPowerParserToken(tokens,
-                text,
+                this.text,
                 without);
     }
 

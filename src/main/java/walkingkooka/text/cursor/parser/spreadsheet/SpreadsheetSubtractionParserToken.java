@@ -38,9 +38,9 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
     }
 
     @Override
-    SpreadsheetSubtractionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetSubtractionParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetSubtractionParserToken(tokens,
-                text,
+                this.text,
                 without);
     }
 

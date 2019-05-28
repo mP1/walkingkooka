@@ -38,9 +38,9 @@ public final class SpreadsheetNotEqualsParserToken extends SpreadsheetBinaryPars
     }
 
     @Override
-    SpreadsheetNotEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetNotEqualsParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetNotEqualsParserToken(tokens,
-                text,
+                this.text,
                 without);
     }
 
