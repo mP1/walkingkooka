@@ -52,18 +52,6 @@ public interface ParserToken extends HasText, HasSearchNode {
     ParserToken setText(final String text);
 
     /**
-     * Returns a {@link ParserTokenNode} for this {@link ParserToken}
-     */
-    default ParserTokenNode asNode() {
-        return ParserTokenNode.with(this);
-    }
-
-    /**
-     * Returns the name of the token
-     */
-    ParserTokenNodeName name();
-
-    /**
      * Only returns true for noise tokens like whitespace.
      */
     default boolean isNoise() {

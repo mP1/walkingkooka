@@ -23,8 +23,6 @@ import java.util.Objects;
  */
 public final class DoubleQuotedParserToken extends QuotedParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DoubleQuotedParserToken.class);
-
     static DoubleQuotedParserToken with(final String value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(value, "value");
@@ -52,11 +50,6 @@ public final class DoubleQuotedParserToken extends QuotedParserToken {
     @Override
     DoubleQuotedParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

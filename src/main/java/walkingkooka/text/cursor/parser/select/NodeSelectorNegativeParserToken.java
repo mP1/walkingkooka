@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * Holds a unary negative token with an argument such as a number or function.
  */
 public final class NodeSelectorNegativeParserToken extends NodeSelectorParentParserToken<NodeSelectorNegativeParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorNegativeParserToken.class);
 
     static NodeSelectorNegativeParserToken with(final List<ParserToken> value, final String text) {
         return new NodeSelectorNegativeParserToken(copyAndCheckTokens(value),
@@ -73,13 +70,6 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
     @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorNegativeParserToken(tokens, this.text(), without);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

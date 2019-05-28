@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.Optional;
 
@@ -25,8 +24,6 @@ import java.util.Optional;
  * Holds the combination of whitespace or comments.
  */
 public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("EbnfWhitespace");
 
     static EbnfWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
@@ -87,11 +84,6 @@ public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String>
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof EbnfWhitespaceParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

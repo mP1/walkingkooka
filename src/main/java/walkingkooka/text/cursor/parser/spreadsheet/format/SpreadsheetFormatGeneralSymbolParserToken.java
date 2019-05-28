@@ -17,15 +17,12 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 /**
  * Holds the literal GENERAL.
  */
 public final class SpreadsheetFormatGeneralSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatGeneralSymbolParserToken.class);
 
     static SpreadsheetFormatGeneralSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -130,11 +127,6 @@ public final class SpreadsheetFormatGeneralSymbolParserToken extends Spreadsheet
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFormatGeneralSymbolParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

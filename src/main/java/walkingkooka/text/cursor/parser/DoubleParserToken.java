@@ -26,8 +26,6 @@ import java.util.Objects;
  */
 public final class DoubleParserToken extends ParserToken2<Double> implements LeafParserToken<Double> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DoubleParserToken.class);
-
     public static DoubleParserToken with(final double value, final String text) {
         Objects.requireNonNull(text, "text");
 
@@ -46,11 +44,6 @@ public final class DoubleParserToken extends ParserToken2<Double> implements Lea
     @Override
     DoubleParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

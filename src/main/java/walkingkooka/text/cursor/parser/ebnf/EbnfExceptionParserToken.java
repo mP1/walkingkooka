@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * Represents an exception token in the grammar. Note the grammar requires an exception to follow another token.
  */
 public final class EbnfExceptionParserToken extends EbnfParentParserToken<EbnfExceptionParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfExceptionParserToken.class);
 
     static EbnfExceptionParserToken with(final List<ParserToken> tokens, final String text) {
         return new EbnfExceptionParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
@@ -135,8 +132,4 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken<EbnfEx
         return other instanceof EbnfExceptionParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

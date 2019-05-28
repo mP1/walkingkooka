@@ -26,8 +26,6 @@ import java.util.Objects;
  */
 public final class LongParserToken extends ParserToken2<Long> implements LeafParserToken<Long> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LongParserToken.class);
-
     public static LongParserToken with(final long value, final String text) {
         Objects.requireNonNull(text, "text");
 
@@ -46,11 +44,6 @@ public final class LongParserToken extends ParserToken2<Long> implements LeafPar
     @Override
     LongParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

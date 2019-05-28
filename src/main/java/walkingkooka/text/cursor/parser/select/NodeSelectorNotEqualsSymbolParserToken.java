@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a NE comparison parser token.
  */
 public final class NodeSelectorNotEqualsSymbolParserToken extends NodeSelectorComparisonSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorNotEqualsSymbolParserToken.class);
 
     static NodeSelectorNotEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -48,13 +45,6 @@ public final class NodeSelectorNotEqualsSymbolParserToken extends NodeSelectorCo
     @Override
     NodeSelectorNotEqualsSymbolParserToken replaceText(final String text) {
         return new NodeSelectorNotEqualsSymbolParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

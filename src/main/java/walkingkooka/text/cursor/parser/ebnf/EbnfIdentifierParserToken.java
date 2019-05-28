@@ -16,16 +16,12 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 import java.util.Optional;
 
 /**
  * Holds the text for an identifier. Identifiers may appear on the left of a definition or as a reference to another rule definition.
  */
 public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIdentifierName> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfIdentifierParserToken.class);
 
     static EbnfIdentifierParserToken with(final EbnfIdentifierName value, final String text) {
         checkValue(value);
@@ -88,8 +84,4 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIde
         return other instanceof EbnfIdentifierParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

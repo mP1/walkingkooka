@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Holds the actual function name within a function token.
  */
 public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymbolParserToken<SpreadsheetFunctionName> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFunctionNameParserToken.class);
 
     static SpreadsheetFunctionNameParserToken with(final SpreadsheetFunctionName value, final String text) {
         checkValue(value);
@@ -49,11 +45,6 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymb
     @Override
     SpreadsheetFunctionNameParserToken replaceText(final String text) {
         return new SpreadsheetFunctionNameParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

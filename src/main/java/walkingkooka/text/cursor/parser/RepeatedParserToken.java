@@ -26,8 +26,6 @@ import java.util.Objects;
  */
 public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<RepeatedParserToken> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(RepeatedParserToken.class);
-
     static RepeatedParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");
         Objects.requireNonNull(text, "text");
@@ -61,11 +59,6 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
     @Override
     public RepeatedParserToken flat() {
         return this.setValue(this.flat0());
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

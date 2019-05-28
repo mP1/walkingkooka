@@ -27,8 +27,6 @@ import java.util.Objects;
  */
 public final class ColorParserToken extends ParserToken2<Color> implements LeafParserToken<Color> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(ColorParserToken.class);
-
     public static ColorParserToken with(final Color value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
@@ -48,11 +46,6 @@ public final class ColorParserToken extends ParserToken2<Color> implements LeafP
     @Override
     ColorParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

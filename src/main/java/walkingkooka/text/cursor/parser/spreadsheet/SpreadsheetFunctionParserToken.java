@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -30,8 +29,6 @@ import java.util.List;
  * SUM(A10:A20)
  */
 public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParserToken<SpreadsheetFunctionParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFunctionParserToken.class);
 
     static SpreadsheetFunctionParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
@@ -90,11 +87,6 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
         return new SpreadsheetFunctionParserToken(tokens,
                 text,
                 without);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

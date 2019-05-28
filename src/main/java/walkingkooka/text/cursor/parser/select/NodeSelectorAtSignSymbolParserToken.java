@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents at sign symbol token that prefixes an attribute name.
  */
 public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAtSignSymbolParserToken.class);
 
     static NodeSelectorAtSignSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorNonBi
     @Override
     void checkText(final String text) {
         checkTextNullOrWhitespace(text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

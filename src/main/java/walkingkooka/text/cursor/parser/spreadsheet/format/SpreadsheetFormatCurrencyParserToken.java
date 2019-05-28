@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a currency token.
  */
 public final class SpreadsheetFormatCurrencyParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatCurrencyParserToken.class);
 
     static SpreadsheetFormatCurrencyParserToken with(final String value, final String text) {
         checkValue(value);
@@ -166,8 +162,4 @@ public final class SpreadsheetFormatCurrencyParserToken extends SpreadsheetForma
         return other instanceof SpreadsheetFormatCurrencyParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

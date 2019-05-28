@@ -27,8 +27,6 @@ import java.util.Objects;
  */
 public final class LocalDateParserToken extends ParserToken2<LocalDate> implements LeafParserToken<LocalDate> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LocalDateParserToken.class);
-
     public static LocalDateParserToken with(final LocalDate value, final String text) {
         Objects.requireNonNull(text, "text");
 
@@ -47,11 +45,6 @@ public final class LocalDateParserToken extends ParserToken2<LocalDate> implemen
     @Override
     LocalDateParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

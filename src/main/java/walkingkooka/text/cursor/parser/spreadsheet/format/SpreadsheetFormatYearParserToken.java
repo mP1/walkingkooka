@@ -18,14 +18,10 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a year placeholder.
  */
 public final class SpreadsheetFormatYearParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatYearParserToken.class);
 
     static SpreadsheetFormatYearParserToken with(final String value, final String text) {
         checkValue(value);
@@ -167,8 +163,4 @@ public final class SpreadsheetFormatYearParserToken extends SpreadsheetFormatNon
         return other instanceof SpreadsheetFormatYearParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * Container for an attribute reference holding its component.
  */
 public final class NodeSelectorAttributeParserToken extends NodeSelectorParentParserToken<NodeSelectorAttributeParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAttributeParserToken.class);
 
     static NodeSelectorAttributeParserToken with(final List<ParserToken> value, final String text) {
         return new NodeSelectorAttributeParserToken(copyAndCheckTokens(value),
@@ -75,13 +72,6 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
     @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorAttributeParserToken(tokens, this.text(), without);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

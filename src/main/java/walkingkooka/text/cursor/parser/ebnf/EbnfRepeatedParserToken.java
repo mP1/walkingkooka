@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents an repeated token in the grammar.
  */
 public final class EbnfRepeatedParserToken extends EbnfParentParserToken<EbnfRepeatedParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfRepeatedParserToken.class);
 
     static EbnfRepeatedParserToken with(final List<ParserToken> tokens, final String text) {
         return new EbnfRepeatedParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
@@ -111,8 +108,4 @@ public final class EbnfRepeatedParserToken extends EbnfParentParserToken<EbnfRep
         return other instanceof EbnfRepeatedParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

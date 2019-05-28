@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * Holds a json null value.
  */
 public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeNullParserToken.class);
 
     static JsonNodeNullParserToken with(final Void value, final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
@@ -48,13 +45,6 @@ public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void
     @Override
     JsonNodeNullParserToken replaceText(final String text) {
         return new JsonNodeNullParserToken(this.value, text);
-    }
-
-    // name ...............................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is ...............................................................................................

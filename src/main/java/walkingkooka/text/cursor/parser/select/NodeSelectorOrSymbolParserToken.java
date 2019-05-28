@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents or symbol token.
  */
 public final class NodeSelectorOrSymbolParserToken extends NodeSelectorBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorOrSymbolParserToken.class);
 
     static NodeSelectorOrSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -48,13 +45,6 @@ public final class NodeSelectorOrSymbolParserToken extends NodeSelectorBinaryOpe
     @Override
     NodeSelectorOrSymbolParserToken replaceText(final String text) {
         return new NodeSelectorOrSymbolParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

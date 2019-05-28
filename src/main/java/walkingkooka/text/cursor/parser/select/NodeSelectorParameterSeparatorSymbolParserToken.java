@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents the separator between elements or key/value pairs belonging to arrays and objects.
  */
 public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorParameterSeparatorSymbolParserToken.class);
 
     static NodeSelectorParameterSeparatorSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
     @Override
     void checkText(final String text) {
         checkTextNullOrWhitespace(text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

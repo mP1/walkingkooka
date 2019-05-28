@@ -17,15 +17,12 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 /**
  * Holds a quoted text.
  */
 public final class SpreadsheetFormatQuotedTextParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatQuotedTextParserToken.class);
 
     static SpreadsheetFormatQuotedTextParserToken with(final String value, final String text) {
         checkValue(value);
@@ -165,11 +162,6 @@ public final class SpreadsheetFormatQuotedTextParserToken extends SpreadsheetFor
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFormatQuotedTextParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

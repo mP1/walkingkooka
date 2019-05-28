@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.search.SearchNode;
 
@@ -27,8 +26,6 @@ import java.util.List;
  * Holds a single integer or decimal number.
  */
 public final class JsonNodeNumberParserToken extends JsonNodeValueParserToken<Double> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeNumberParserToken.class);
 
     static JsonNodeNumberParserToken with(final double value, final String text) {
         checkText(text);
@@ -48,13 +45,6 @@ public final class JsonNodeNumberParserToken extends JsonNodeValueParserToken<Do
     @Override
     JsonNodeNumberParserToken replaceText(final String text) {
         return new JsonNodeNumberParserToken(this.value, text);
-    }
-
-    // name ...............................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is ...............................................................................................

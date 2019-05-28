@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.search.SearchNode;
 
@@ -28,8 +27,6 @@ import java.util.List;
  * Holds a either true or false boolean value
  */
 public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<Boolean> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeBooleanParserToken.class);
 
     static JsonNodeBooleanParserToken with(final boolean value, final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
@@ -49,13 +46,6 @@ public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<B
     @Override
     JsonNodeBooleanParserToken replaceText(final String text) {
         return new JsonNodeBooleanParserToken(this.value, text);
-    }
-
-    // name ...............................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is ...............................................................................................

@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a comma symbol token which is used to separate parameters to a function.
  */
 public final class SpreadsheetFunctionParameterSeparatorSymbolParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFunctionParameterSeparatorSymbolParserToken.class);
 
     static SpreadsheetFunctionParameterSeparatorSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -44,11 +40,6 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserToken extend
     @Override
     SpreadsheetFunctionParameterSeparatorSymbolParserToken replaceText(final String text) {
         return new SpreadsheetFunctionParameterSeparatorSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

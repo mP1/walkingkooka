@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Holds an attribute name.
  */
 public final class NodeSelectorAttributeNameParserToken extends NodeSelectorNonSymbolParserToken<NodeSelectorAttributeName> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAttributeNameParserToken.class);
 
     static NodeSelectorAttributeNameParserToken with(final NodeSelectorAttributeName value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorAttributeNameParserToken extends NodeSelectorNonS
     @Override
     NodeSelectorAttributeNameParserToken replaceText(final String text) {
         return new NodeSelectorAttributeNameParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

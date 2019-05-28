@@ -19,7 +19,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * A token that contains number formatting tokens.
  */
 public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFormatParentParserToken<SpreadsheetFormatBigDecimalParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatBigDecimalParserToken.class);
 
     /**
      * Factory that creates a new {@link SpreadsheetFormatBigDecimalParserToken}.
@@ -171,8 +168,4 @@ public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFor
         return other instanceof SpreadsheetFormatBigDecimalParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

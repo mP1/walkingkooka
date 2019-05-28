@@ -17,15 +17,12 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 /**
  * Holds a single double precision number.
  */
 public final class SpreadsheetDoubleParserToken extends SpreadsheetNumericParserToken<Double> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetDoubleParserToken.class);
 
     static SpreadsheetDoubleParserToken with(final double value, final String text) {
         return new SpreadsheetDoubleParserToken(value, text);
@@ -43,11 +40,6 @@ public final class SpreadsheetDoubleParserToken extends SpreadsheetNumericParser
     @Override
     SpreadsheetDoubleParserToken replaceText(final String text) {
         return new SpreadsheetDoubleParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

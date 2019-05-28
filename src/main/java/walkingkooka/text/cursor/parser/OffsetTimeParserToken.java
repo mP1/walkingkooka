@@ -25,8 +25,6 @@ import java.util.Objects;
  */
 public final class OffsetTimeParserToken extends ParserToken2<OffsetTime> implements LeafParserToken<OffsetTime> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(OffsetTimeParserToken.class);
-
     public static OffsetTimeParserToken with(final OffsetTime value, final String text) {
         Objects.requireNonNull(text, "text");
 
@@ -45,11 +43,6 @@ public final class OffsetTimeParserToken extends ParserToken2<OffsetTime> implem
     @Override
     OffsetTimeParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

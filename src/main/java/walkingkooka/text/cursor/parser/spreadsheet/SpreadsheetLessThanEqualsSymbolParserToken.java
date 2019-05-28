@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a less than equals symbol token.
  */
 public final class SpreadsheetLessThanEqualsSymbolParserToken extends SpreadsheetComparisonSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLessThanEqualsSymbolParserToken.class);
 
     static SpreadsheetLessThanEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -47,11 +44,6 @@ public final class SpreadsheetLessThanEqualsSymbolParserToken extends Spreadshee
     @Override
     SpreadsheetLessThanEqualsSymbolParserToken replaceText(final String text) {
         return new SpreadsheetLessThanEqualsSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

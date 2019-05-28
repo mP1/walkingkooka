@@ -55,6 +55,6 @@ final class SpreadsheetRowReferenceParser extends SpreadsheetColumnOrRowReferenc
 
     @Override
     public String toString() {
-        return SpreadsheetRowReferenceParserToken.NAME.toString();
+        return SpreadsheetRowReference.class.getSimpleName();
     }
 }

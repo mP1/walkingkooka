@@ -18,14 +18,11 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 /**
  * Holds the combination of whitespace or comments.
  */
 public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetWhitespaceParserToken.class);
 
     static SpreadsheetWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,11 +47,6 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonBinary
     @Override
     SpreadsheetWhitespaceParserToken replaceText(final String text) {
         return new SpreadsheetWhitespaceParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

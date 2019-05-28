@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Holds an absolute path
  */
 public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAbsoluteParserToken.class);
 
     static NodeSelectorAbsoluteParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbol
     @Override
     NodeSelectorAbsoluteParserToken replaceText(final String text) {
         return new NodeSelectorAbsoluteParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

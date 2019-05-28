@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a close / right parens symbol token.
  */
 public final class JsonNodeObjectAssignmentSymbolParserToken extends JsonNodeSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeObjectAssignmentSymbolParserToken.class);
 
     static JsonNodeObjectAssignmentSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -45,13 +41,6 @@ public final class JsonNodeObjectAssignmentSymbolParserToken extends JsonNodeSym
     @Override
     JsonNodeObjectAssignmentSymbolParserToken replaceText(final String text) {
         return new JsonNodeObjectAssignmentSymbolParserToken(this.value, text);
-    }
-
-    // name ...............................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is ...............................................................................................

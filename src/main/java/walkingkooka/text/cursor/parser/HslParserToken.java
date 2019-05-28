@@ -27,8 +27,6 @@ import java.util.Objects;
  */
 public final class HslParserToken extends ParserToken2<Hsl> implements LeafParserToken<Hsl> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(HslParserToken.class);
-
     public static HslParserToken with(final Hsl value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
@@ -48,11 +46,6 @@ public final class HslParserToken extends ParserToken2<Hsl> implements LeafParse
     @Override
     HslParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

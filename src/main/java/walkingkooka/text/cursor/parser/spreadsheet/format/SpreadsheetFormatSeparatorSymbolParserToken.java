@@ -18,14 +18,10 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents the pattern separator token.
  */
 public final class SpreadsheetFormatSeparatorSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatSeparatorSymbolParserToken.class);
 
     static SpreadsheetFormatSeparatorSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -132,8 +128,4 @@ public final class SpreadsheetFormatSeparatorSymbolParserToken extends Spreadshe
         return other instanceof SpreadsheetFormatSeparatorSymbolParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

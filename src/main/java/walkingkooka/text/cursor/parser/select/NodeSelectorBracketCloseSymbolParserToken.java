@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a predicate / close bracket symbol token.
  */
 public final class NodeSelectorBracketCloseSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorBracketCloseSymbolParserToken.class);
 
     static NodeSelectorBracketCloseSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorBracketCloseSymbolParserToken extends NodeSelecto
     @Override
     void checkText(final String text) {
         checkTextNullOrEmpty(text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

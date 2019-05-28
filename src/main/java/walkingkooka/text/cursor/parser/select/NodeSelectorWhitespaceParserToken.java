@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Holds the combination any whitespace that may appear within a selector.
  */
 public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorWhitespaceParserToken.class);
 
     static NodeSelectorWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBina
     @Override
     NodeSelectorWhitespaceParserToken replaceText(final String text) {
         return new NodeSelectorWhitespaceParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

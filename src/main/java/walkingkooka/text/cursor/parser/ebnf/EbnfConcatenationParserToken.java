@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a concatenation of tokens in the grammar.
  */
 public final class EbnfConcatenationParserToken extends EbnfParentParserToken<EbnfConcatenationParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfConcatenationParserToken.class);
 
     static EbnfConcatenationParserToken with(final List<ParserToken> tokens, final String text) {
         return new EbnfConcatenationParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
@@ -111,8 +108,4 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken<Eb
         return other instanceof EbnfConcatenationParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a plus symbol token.
  */
 public final class NodeSelectorPlusSymbolParserToken extends NodeSelectorArithmeticSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorPlusSymbolParserToken.class);
 
     static NodeSelectorPlusSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,15 +47,7 @@ public final class NodeSelectorPlusSymbolParserToken extends NodeSelectorArithme
         return new NodeSelectorPlusSymbolParserToken(this.value, text);
     }
 
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
-
     // is..........................................................................................................
-
 
     @Override
     public boolean isDivideSymbol() {

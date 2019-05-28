@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 import java.math.BigInteger;
@@ -26,8 +25,6 @@ import java.math.BigInteger;
  * Holds a single {@link BigInteger} number.
  */
 public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericParserToken<BigInteger> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBigIntegerParserToken.class);
 
     static SpreadsheetBigIntegerParserToken with(final BigInteger value, final String text) {
         checkValue(value);
@@ -47,11 +44,6 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
     @Override
     SpreadsheetBigIntegerParserToken replaceText(final String text) {
         return new SpreadsheetBigIntegerParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

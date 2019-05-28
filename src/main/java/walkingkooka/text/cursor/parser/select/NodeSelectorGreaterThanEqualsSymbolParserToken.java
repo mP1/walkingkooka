@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a greater than equals sign in a comparison parser token.
  */
 public final class NodeSelectorGreaterThanEqualsSymbolParserToken extends NodeSelectorComparisonSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorGreaterThanEqualsSymbolParserToken.class);
 
     static NodeSelectorGreaterThanEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -48,13 +45,6 @@ public final class NodeSelectorGreaterThanEqualsSymbolParserToken extends NodeSe
     @Override
     NodeSelectorGreaterThanEqualsSymbolParserToken replaceText(final String text) {
         return new NodeSelectorGreaterThanEqualsSymbolParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

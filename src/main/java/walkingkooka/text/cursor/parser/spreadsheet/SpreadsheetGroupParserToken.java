@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * A wrapper around a numeric type that is also a percentage.
  */
 public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserToken<SpreadsheetGroupParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetGroupParserToken.class);
 
     static SpreadsheetGroupParserToken with(final List<ParserToken> value, final String text) {
         return new SpreadsheetGroupParserToken(copyAndCheckTokens(value),
@@ -55,11 +52,6 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
                                          final String text,
                                          final List<ParserToken> without) {
         return new SpreadsheetGroupParserToken(tokens, text, without);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

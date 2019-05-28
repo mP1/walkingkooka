@@ -18,14 +18,10 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a digit that replaces leading zeroes with spaces.
  */
 public final class SpreadsheetFormatDigitLeadingSpaceParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatDigitLeadingSpaceParserToken.class);
 
     static SpreadsheetFormatDigitLeadingSpaceParserToken with(final String value, final String text) {
         checkValue(value);
@@ -167,8 +163,4 @@ public final class SpreadsheetFormatDigitLeadingSpaceParserToken extends Spreads
         return other instanceof SpreadsheetFormatDigitLeadingSpaceParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

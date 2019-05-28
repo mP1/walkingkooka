@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 import java.math.BigDecimal;
@@ -26,8 +25,6 @@ import java.math.BigDecimal;
  * Holds a single {@link BigDecimal} number.
  */
 public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericParserToken<BigDecimal> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBigDecimalParserToken.class);
 
     static SpreadsheetBigDecimalParserToken with(final BigDecimal value, final String text) {
         checkValue(value);
@@ -47,11 +44,6 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
     @Override
     SpreadsheetBigDecimalParserToken replaceText(final String text) {
         return new SpreadsheetBigDecimalParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

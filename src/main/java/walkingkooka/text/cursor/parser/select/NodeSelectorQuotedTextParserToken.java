@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Holds quoted text.
  */
 public final class NodeSelectorQuotedTextParserToken extends NodeSelectorNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorQuotedTextParserToken.class);
 
     static NodeSelectorQuotedTextParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorQuotedTextParserToken extends NodeSelectorNonSymb
     @Override
     NodeSelectorQuotedTextParserToken replaceText(final String text) {
         return new NodeSelectorQuotedTextParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

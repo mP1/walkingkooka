@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents the underscore operand which adds a space with a width that matches the next character.
  */
 public final class SpreadsheetFormatUnderscoreParserToken extends SpreadsheetFormatNonSymbolParserToken<Character> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatUnderscoreParserToken.class);
 
     static SpreadsheetFormatUnderscoreParserToken with(final Character value, final String text) {
         checkValue(value);
@@ -166,8 +162,4 @@ public final class SpreadsheetFormatUnderscoreParserToken extends SpreadsheetFor
         return other instanceof SpreadsheetFormatUnderscoreParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

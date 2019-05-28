@@ -17,8 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a color number token within a color declaration such as
  * <pre>
@@ -26,8 +24,6 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
  * </pre>
  */
 public final class SpreadsheetFormatColorNumberParserToken extends SpreadsheetFormatNonSymbolParserToken<Integer> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatColorNumberParserToken.class);
 
     static SpreadsheetFormatColorNumberParserToken with(final Integer value, final String text) {
         checkValue(value);
@@ -168,8 +164,4 @@ public final class SpreadsheetFormatColorNumberParserToken extends SpreadsheetFo
         return other instanceof SpreadsheetFormatColorNumberParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

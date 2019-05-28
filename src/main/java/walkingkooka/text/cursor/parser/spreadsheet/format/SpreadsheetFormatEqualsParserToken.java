@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * Represents a equals test with its right.
  */
 public final class SpreadsheetFormatEqualsParserToken extends SpreadsheetFormatConditionParserToken<SpreadsheetFormatEqualsParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatEqualsParserToken.class);
 
     static SpreadsheetFormatEqualsParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
@@ -110,8 +107,4 @@ public final class SpreadsheetFormatEqualsParserToken extends SpreadsheetFormatC
         return other instanceof SpreadsheetFormatEqualsParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

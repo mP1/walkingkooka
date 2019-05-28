@@ -18,15 +18,12 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 /**
  * Holds the combination of whitespace.
  */
 public final class JsonNodeWhitespaceParserToken extends JsonNodeSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeWhitespaceParserToken.class);
 
     static JsonNodeWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
@@ -47,13 +44,6 @@ public final class JsonNodeWhitespaceParserToken extends JsonNodeSymbolParserTok
     @Override
     JsonNodeWhitespaceParserToken replaceText(final String text) {
         return new JsonNodeWhitespaceParserToken(this.value, text);
-    }
-
-    // name ...............................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is ...............................................................................................

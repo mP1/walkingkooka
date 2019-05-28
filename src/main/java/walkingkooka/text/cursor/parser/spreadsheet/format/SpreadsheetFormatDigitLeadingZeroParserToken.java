@@ -18,14 +18,10 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents the digit including leading zeros.
  */
 public final class SpreadsheetFormatDigitLeadingZeroParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatDigitLeadingZeroParserToken.class);
 
     static SpreadsheetFormatDigitLeadingZeroParserToken with(final String value, final String text) {
         checkValue(value);
@@ -167,8 +163,4 @@ public final class SpreadsheetFormatDigitLeadingZeroParserToken extends Spreadsh
         return other instanceof SpreadsheetFormatDigitLeadingZeroParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

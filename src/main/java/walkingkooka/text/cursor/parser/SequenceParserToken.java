@@ -28,8 +28,6 @@ import java.util.stream.Collectors;
  */
 public final class SequenceParserToken extends RepeatedOrSequenceParserToken<SequenceParserToken> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SequenceParserToken.class);
-
     /**
      * Factory that wraps many tokens in a {@link SequenceParserToken}.
      */
@@ -52,11 +50,6 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
     @Override
     SequenceParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     public SequenceParserToken setValue(final List<ParserToken> value) {

@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a MOD symbol token.
  */
 public final class NodeSelectorModuloSymbolParserToken extends NodeSelectorArithmeticSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorModuloSymbolParserToken.class);
 
     static NodeSelectorModuloSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -48,13 +45,6 @@ public final class NodeSelectorModuloSymbolParserToken extends NodeSelectorArith
     @Override
     NodeSelectorModuloSymbolParserToken replaceText(final String text) {
         return new NodeSelectorModuloSymbolParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................
