@@ -162,7 +162,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     @Test
     public void testFunctionNodeMissingFails() {
-        final BasicNodeSelectorContext context = this.createContext();
+        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
 
         TestNode.clear();
         final TestNode current = TestNode.with("current123");
@@ -174,7 +174,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     @Test
     public void testFunctionNode() {
-        final BasicNodeSelectorContext context = this.createContext();
+        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
 
         TestNode.clear();
         final TestNode current = TestNode.with("current123");
