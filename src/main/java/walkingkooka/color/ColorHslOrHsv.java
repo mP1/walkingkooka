@@ -36,6 +36,12 @@ public abstract class ColorHslOrHsv implements HashCodeEqualsDefined,
         super();
     }
 
+    public abstract boolean isColor();
+
+    public abstract boolean isHsl();
+
+    public abstract boolean isHsv();
+
     public abstract Color toColor();
 
     public abstract Hsl toHsl();

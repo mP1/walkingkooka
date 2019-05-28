@@ -156,6 +156,20 @@ final public class Hsv extends ColorHslOrHsv {
 
     // ColorHslOrHsv....................................................................................................
 
+    @Override
+    public boolean isColor() {
+        return false;
+    }
+
+    @Override
+    public boolean isHsl() {
+        return false;
+    }
+
+    public boolean isHsv() {
+        return true;
+    }
+
     /**
      * Returns the equivalent {@link Color}.<br>
      * <A>http://en.wikipedia.org/wiki/HSL_and_HSV</A>

@@ -24,6 +24,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -34,6 +35,30 @@ public abstract class ColorHslOrHsvTestCase<T extends ColorHslOrHsv> implements 
 
     ColorHslOrHsvTestCase() {
         super();
+    }
+
+    @Test
+    public final void testIsColor() {
+        final T colorHslOrHsv = this.createColorHslOrHsv();
+        assertEquals(colorHslOrHsv instanceof Color,
+                colorHslOrHsv.isColor(),
+                () -> "isColor " + colorHslOrHsv);
+    }
+
+    @Test
+    public final void testIsHsl() {
+        final T colorHslOrHsv = this.createColorHslOrHsv();
+        assertEquals(colorHslOrHsv instanceof Hsl,
+                colorHslOrHsv.isHsl(),
+                () -> "isHsl " + colorHslOrHsv);
+    }
+
+    @Test
+    public final void testIsHsv() {
+        final T colorHslOrHsv = this.createColorHslOrHsv();
+        assertEquals(colorHslOrHsv instanceof Hsv,
+                colorHslOrHsv.isHsv(),
+                () -> "isHsv " + colorHslOrHsv);
     }
 
     @Test
