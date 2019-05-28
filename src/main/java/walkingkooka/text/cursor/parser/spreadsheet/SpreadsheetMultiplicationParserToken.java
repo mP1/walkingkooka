@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * Represents a multiplication operation with its parameters.
  */
 public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinaryParserToken<SpreadsheetMultiplicationParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetMultiplicationParserToken.class);
 
     static SpreadsheetMultiplicationParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
@@ -57,11 +54,6 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
         return new SpreadsheetMultiplicationParserToken(tokens,
                 text,
                 without);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

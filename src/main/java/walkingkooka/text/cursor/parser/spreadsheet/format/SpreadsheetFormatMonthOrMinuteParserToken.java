@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a month or minute token both of which use 'm' using context decide which is meant.
  */
 public final class SpreadsheetFormatMonthOrMinuteParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatMonthOrMinuteParserToken.class);
 
     static SpreadsheetFormatMonthOrMinuteParserToken with(final String value, final String text) {
         checkValue(value);
@@ -166,8 +162,4 @@ public final class SpreadsheetFormatMonthOrMinuteParserToken extends Spreadsheet
         return other instanceof SpreadsheetFormatMonthOrMinuteParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

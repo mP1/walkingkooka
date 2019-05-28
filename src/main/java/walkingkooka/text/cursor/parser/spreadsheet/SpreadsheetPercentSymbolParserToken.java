@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a plus symbol token.
  */
 public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPercentSymbolParserToken.class);
 
     static SpreadsheetPercentSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -44,11 +40,6 @@ public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetNonBin
     @Override
     SpreadsheetPercentSymbolParserToken replaceText(final String text) {
         return new SpreadsheetPercentSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

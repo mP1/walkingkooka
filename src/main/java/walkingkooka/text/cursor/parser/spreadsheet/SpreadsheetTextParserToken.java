@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
@@ -26,8 +25,6 @@ import java.util.Objects;
  * Holds a text which may be empty
  */
 public final class SpreadsheetTextParserToken extends SpreadsheetNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetTextParserToken.class);
 
     static SpreadsheetTextParserToken with(final String value, final String text) {
         checkValue(value);
@@ -52,11 +49,6 @@ public final class SpreadsheetTextParserToken extends SpreadsheetNonSymbolParser
     @Override
     SpreadsheetTextParserToken replaceText(final String text) {
         return new SpreadsheetTextParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

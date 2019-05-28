@@ -29,7 +29,6 @@ import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchSequenceNode;
 import walkingkooka.tree.visit.Visiting;
 
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 
@@ -49,13 +48,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesting<T>,
         TypeNameTesting<T> {
-
-    @Test
-    default void testNameConstantPresent() throws Exception {
-        final Class<T> type = this.type();
-        final Field field = type.getField("NAME");
-        assertEquals(ParserTokenNodeName.fromClass(type), field.get(null), "NAME constant has incorrect value");
-    }
 
     @Test
     default void testImplementsEitherParentParserTokenOrLeafParserToken() {

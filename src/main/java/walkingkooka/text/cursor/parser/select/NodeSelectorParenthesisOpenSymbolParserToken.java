@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a open object (parens) symbol token.
  */
 public final class NodeSelectorParenthesisOpenSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorParenthesisOpenSymbolParserToken.class);
 
     static NodeSelectorParenthesisOpenSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorParenthesisOpenSymbolParserToken extends NodeSele
     @Override
     void checkText(final String text) {
         checkTextNullOrEmpty(text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

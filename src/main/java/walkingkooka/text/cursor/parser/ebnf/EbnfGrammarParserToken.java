@@ -21,7 +21,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformer;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinators;
 import walkingkooka.tree.visit.Visiting;
@@ -37,8 +36,6 @@ import java.util.Set;
  * comments and whitespace until {@link #withoutCommentsSymbolsOrWhitespace()} is invoked.
  */
 public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGrammarParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfGrammarParserToken.class);
 
     static EbnfGrammarParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");
@@ -119,11 +116,6 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
     @Override
     public boolean isRule() {
         return false;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

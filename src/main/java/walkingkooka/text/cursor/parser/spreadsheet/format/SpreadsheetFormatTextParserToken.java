@@ -19,7 +19,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -29,8 +28,6 @@ import java.util.Objects;
  * A token that contains a text formatting tokens.
  */
 public final class SpreadsheetFormatTextParserToken extends SpreadsheetFormatParentParserToken<SpreadsheetFormatTextParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatTextParserToken.class);
 
     /**
      * Factory that creates a new {@link SpreadsheetFormatTextParserToken}.
@@ -173,8 +170,4 @@ public final class SpreadsheetFormatTextParserToken extends SpreadsheetFormatPar
         return other instanceof SpreadsheetFormatTextParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

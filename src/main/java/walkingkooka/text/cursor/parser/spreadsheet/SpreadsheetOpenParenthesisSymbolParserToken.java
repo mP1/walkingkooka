@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a open / left parens symbol token.
  */
 public final class SpreadsheetOpenParenthesisSymbolParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetOpenParenthesisSymbolParserToken.class);
 
     static SpreadsheetOpenParenthesisSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -44,11 +40,6 @@ public final class SpreadsheetOpenParenthesisSymbolParserToken extends Spreadshe
     @Override
     SpreadsheetOpenParenthesisSymbolParserToken replaceText(final String text) {
         return new SpreadsheetOpenParenthesisSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

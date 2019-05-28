@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents an equals symbol token.
  */
 public final class SpreadsheetEqualsSymbolParserToken extends SpreadsheetComparisonSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetEqualsSymbolParserToken.class);
 
     static SpreadsheetEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -47,11 +44,6 @@ public final class SpreadsheetEqualsSymbolParserToken extends SpreadsheetCompari
     @Override
     SpreadsheetEqualsSymbolParserToken replaceText(final String text) {
         return new SpreadsheetEqualsSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

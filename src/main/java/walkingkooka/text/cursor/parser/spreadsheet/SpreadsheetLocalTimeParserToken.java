@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 import java.time.LocalTime;
@@ -26,8 +25,6 @@ import java.time.LocalTime;
  * Holds a single {@link LocalTime} within a formula.
  */
 public final class SpreadsheetLocalTimeParserToken extends SpreadsheetNonSymbolParserToken<LocalTime> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLocalTimeParserToken.class);
 
     static SpreadsheetLocalTimeParserToken with(final LocalTime value, final String text) {
         checkValue(value);
@@ -127,11 +124,6 @@ public final class SpreadsheetLocalTimeParserToken extends SpreadsheetNonSymbolP
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetLocalTimeParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

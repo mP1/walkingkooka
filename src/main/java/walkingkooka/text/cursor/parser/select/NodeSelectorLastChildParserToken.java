@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Holds an last-child axis
  */
 public final class NodeSelectorLastChildParserToken extends NodeSelectorNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorLastChildParserToken.class);
 
     static NodeSelectorLastChildParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorLastChildParserToken extends NodeSelectorNonSymbo
     @Override
     NodeSelectorLastChildParserToken replaceText(final String text) {
         return new NodeSelectorLastChildParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

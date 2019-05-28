@@ -19,7 +19,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * Parser token that represents an less than equals condition including parameters.
  */
 public final class NodeSelectorLessThanEqualsParserToken extends NodeSelectorComparisonParserToken<NodeSelectorLessThanEqualsParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorLessThanEqualsParserToken.class);
 
     static NodeSelectorLessThanEqualsParserToken with(final List<ParserToken> value, final String text) {
         return new NodeSelectorLessThanEqualsParserToken(copyAndCheckTokens(value),
@@ -59,13 +56,6 @@ public final class NodeSelectorLessThanEqualsParserToken extends NodeSelectorCom
     @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorLessThanEqualsParserToken(tokens, this.text(), without);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

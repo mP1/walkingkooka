@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a plus symbol token.
  */
 public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetArithmeticSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPlusSymbolParserToken.class);
 
     static SpreadsheetPlusSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -47,11 +44,6 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetArithmeti
     @Override
     SpreadsheetPlusSymbolParserToken replaceText(final String text) {
         return new SpreadsheetPlusSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

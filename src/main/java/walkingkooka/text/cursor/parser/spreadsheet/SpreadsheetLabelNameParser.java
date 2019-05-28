@@ -74,6 +74,6 @@ final class SpreadsheetLabelNameParser implements Parser<SpreadsheetParserContex
 
     @Override
     public String toString() {
-        return SpreadsheetLabelNameParserToken.NAME.toString();
+        return SpreadsheetLabelName.class.getSimpleName();
     }
 }

@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a thousands token.
  */
 public final class SpreadsheetFormatThousandsParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatThousandsParserToken.class);
 
     static SpreadsheetFormatThousandsParserToken with(final String value, final String text) {
         checkValue(value);
@@ -166,8 +162,4 @@ public final class SpreadsheetFormatThousandsParserToken extends SpreadsheetForm
         return other instanceof SpreadsheetFormatThousandsParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

@@ -16,16 +16,12 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 import java.util.Optional;
 
 /**
  * Holds the text for a comment.
  */
 public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfCommentParserToken.class);
 
     static EbnfCommentParserToken with(final String value, final String text) {
         checkValue(value);
@@ -86,11 +82,6 @@ public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof EbnfCommentParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

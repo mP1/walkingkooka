@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a slash which often separates components.
  */
 public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorSlashSeparatorSymbolParserToken.class);
 
     static NodeSelectorSlashSeparatorSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
     @Override
     void checkText(final String text) {
         checkTextNullOrEmpty(text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

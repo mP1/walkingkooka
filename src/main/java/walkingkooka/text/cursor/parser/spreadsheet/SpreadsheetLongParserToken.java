@@ -17,15 +17,12 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 /**
  * Holds a single long number.
  */
 public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserToken<Long> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLongParserToken.class);
 
     static SpreadsheetLongParserToken with(final long value, final String text) {
         return new SpreadsheetLongParserToken(value, text);
@@ -43,11 +40,6 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     @Override
     SpreadsheetLongParserToken replaceText(final String text) {
         return new SpreadsheetLongParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

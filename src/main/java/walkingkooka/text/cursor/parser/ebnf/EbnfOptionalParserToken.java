@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents an optional token in the grammar.
  */
 public final class EbnfOptionalParserToken extends EbnfParentParserToken<EbnfOptionalParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfOptionalParserToken.class);
 
     static EbnfOptionalParserToken with(final List<ParserToken> tokens, final String text) {
         return new EbnfOptionalParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
@@ -111,8 +108,4 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken<EbnfOpt
         return other instanceof EbnfOptionalParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

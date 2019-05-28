@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.search.SearchNode;
 
@@ -28,8 +27,6 @@ import java.util.List;
  * Holds a json string value.
  */
 public final class JsonNodeStringParserToken extends JsonNodeValueParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeStringParserToken.class);
 
     static JsonNodeStringParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +47,6 @@ public final class JsonNodeStringParserToken extends JsonNodeValueParserToken<St
     @Override
     JsonNodeStringParserToken replaceText(final String text) {
         return new JsonNodeStringParserToken(this.value, text);
-    }
-
-    // name ...............................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is ...............................................................................................

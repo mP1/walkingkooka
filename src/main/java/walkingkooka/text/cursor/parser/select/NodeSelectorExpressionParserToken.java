@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * A parser token that holds an entire expression.
  */
 public final class NodeSelectorExpressionParserToken extends NodeSelectorParentParserToken<NodeSelectorExpressionParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorExpressionParserToken.class);
 
     static NodeSelectorExpressionParserToken with(final List<ParserToken> value, final String text) {
         return new NodeSelectorExpressionParserToken(copyAndCheckTokens(value),
@@ -58,13 +55,6 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
     @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorExpressionParserToken(tokens, this.text(), without);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

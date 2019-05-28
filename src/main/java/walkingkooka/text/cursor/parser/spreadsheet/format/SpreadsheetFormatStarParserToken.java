@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents the star fill with a character.
  */
 public final class SpreadsheetFormatStarParserToken extends SpreadsheetFormatNonSymbolParserToken<Character> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatStarParserToken.class);
 
     static SpreadsheetFormatStarParserToken with(final Character value, final String text) {
         checkValue(value);
@@ -166,8 +162,4 @@ public final class SpreadsheetFormatStarParserToken extends SpreadsheetFormatNon
         return other instanceof SpreadsheetFormatStarParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a between symbol token.
  */
 public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetBinaryOperandSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBetweenSymbolParserToken.class);
 
     static SpreadsheetBetweenSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -47,11 +44,6 @@ public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetBinary
     @Override
     SpreadsheetBetweenSymbolParserToken replaceText(final String text) {
         return new SpreadsheetBetweenSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

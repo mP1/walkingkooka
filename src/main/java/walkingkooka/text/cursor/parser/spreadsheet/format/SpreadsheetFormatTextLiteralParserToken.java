@@ -17,15 +17,12 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 /**
  * Holds literal text.
  */
 public final class SpreadsheetFormatTextLiteralParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatTextLiteralParserToken.class);
 
     static SpreadsheetFormatTextLiteralParserToken with(final String value, final String text) {
         checkValue(value);
@@ -165,11 +162,6 @@ public final class SpreadsheetFormatTextLiteralParserToken extends SpreadsheetFo
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFormatTextLiteralParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

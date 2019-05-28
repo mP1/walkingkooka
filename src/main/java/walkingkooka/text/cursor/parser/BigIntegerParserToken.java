@@ -26,8 +26,6 @@ import java.util.Objects;
  */
 public final class BigIntegerParserToken extends ParserToken2<BigInteger> implements LeafParserToken<BigInteger> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigIntegerParserToken.class);
-
     public static BigIntegerParserToken with(final BigInteger value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
@@ -47,11 +45,6 @@ public final class BigIntegerParserToken extends ParserToken2<BigInteger> implem
     @Override
     BigIntegerParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

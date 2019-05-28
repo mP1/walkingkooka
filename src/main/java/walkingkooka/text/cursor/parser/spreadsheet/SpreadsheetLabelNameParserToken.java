@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a label or name for a cell or range etc.
  */
 public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolParserToken<SpreadsheetLabelName> implements SpreadsheetReferenceParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLabelNameParserToken.class);
 
     static SpreadsheetLabelNameParserToken with(final SpreadsheetLabelName value, final String text) {
         checkValue(value);
@@ -49,11 +45,6 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolP
     @Override
     SpreadsheetLabelNameParserToken replaceText(final String text) {
         return new SpreadsheetLabelNameParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

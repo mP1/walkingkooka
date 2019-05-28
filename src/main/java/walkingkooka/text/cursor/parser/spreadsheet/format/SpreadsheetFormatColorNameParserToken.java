@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a color name token.
  */
 public final class SpreadsheetFormatColorNameParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatColorNameParserToken.class);
 
     static SpreadsheetFormatColorNameParserToken with(final String value, final String text) {
         checkValue(value);
@@ -166,8 +162,4 @@ public final class SpreadsheetFormatColorNameParserToken extends SpreadsheetForm
         return other instanceof SpreadsheetFormatColorNameParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

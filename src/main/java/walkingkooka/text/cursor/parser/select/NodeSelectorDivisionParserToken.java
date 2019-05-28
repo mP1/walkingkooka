@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * Holds a division
  */
 public final class NodeSelectorDivisionParserToken extends NodeSelectorArithmeticParserToken<NodeSelectorDivisionParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorDivisionParserToken.class);
 
     static NodeSelectorDivisionParserToken with(final List<ParserToken> value, final String text) {
         return new NodeSelectorDivisionParserToken(copyAndCheckTokens(value),
@@ -58,13 +55,6 @@ public final class NodeSelectorDivisionParserToken extends NodeSelectorArithmeti
     @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorDivisionParserToken(tokens, this.text(), without);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

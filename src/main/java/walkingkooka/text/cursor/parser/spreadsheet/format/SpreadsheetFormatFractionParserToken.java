@@ -19,7 +19,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * A token that contains an fraction.
  */
 public final class SpreadsheetFormatFractionParserToken extends SpreadsheetFormatParentParserToken<SpreadsheetFormatFractionParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatFractionParserToken.class);
 
     /**
      * Factory that creates a new {@link SpreadsheetFormatFractionParserToken}.
@@ -171,8 +168,4 @@ public final class SpreadsheetFormatFractionParserToken extends SpreadsheetForma
         return other instanceof SpreadsheetFormatFractionParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

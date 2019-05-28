@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * A token that holds a row reference.
  */
 public final class SpreadsheetRowReferenceParserToken extends SpreadsheetNonSymbolParserToken<SpreadsheetRowReference> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetRowReferenceParserToken.class);
 
     static SpreadsheetRowReferenceParserToken with(final SpreadsheetRowReference value, final String text) {
         checkValue(value);
@@ -49,11 +45,6 @@ public final class SpreadsheetRowReferenceParserToken extends SpreadsheetNonSymb
     @Override
     SpreadsheetRowReferenceParserToken replaceText(final String text) {
         return new SpreadsheetRowReferenceParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

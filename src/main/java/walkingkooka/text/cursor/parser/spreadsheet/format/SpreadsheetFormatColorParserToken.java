@@ -20,7 +20,6 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -30,8 +29,6 @@ import java.util.Optional;
  * A token that contains a color declaration which may be a name or color number.
  */
 public final class SpreadsheetFormatColorParserToken extends SpreadsheetFormatParentParserToken<SpreadsheetFormatColorParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatColorParserToken.class);
 
     /**
      * Factory that creates a new {@link SpreadsheetFormatColorParserToken}.
@@ -190,8 +187,4 @@ public final class SpreadsheetFormatColorParserToken extends SpreadsheetFormatPa
         return other instanceof SpreadsheetFormatColorParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

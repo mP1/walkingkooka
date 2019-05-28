@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a single rule definition within a grammar.
  */
 public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRuleParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfRuleParserToken.class);
 
     static EbnfRuleParserToken with(final List<ParserToken> tokens, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(tokens);
@@ -142,11 +139,6 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

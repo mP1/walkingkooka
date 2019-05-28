@@ -19,7 +19,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * A token that contains up to 4 sub expressions.
  */
 public final class SpreadsheetFormatExpressionParserToken extends SpreadsheetFormatParentParserToken<SpreadsheetFormatExpressionParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatExpressionParserToken.class);
 
     /**
      * Factory that creates a new {@link SpreadsheetFormatExpressionParserToken}.
@@ -171,8 +168,4 @@ public final class SpreadsheetFormatExpressionParserToken extends SpreadsheetFor
         return other instanceof SpreadsheetFormatExpressionParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

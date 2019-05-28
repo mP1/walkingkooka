@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
@@ -34,14 +33,6 @@ import java.util.Optional;
  * Represents a token within the grammar.
  */
 public abstract class JsonNodeParserToken implements ParserToken {
-
-    /**
-     * Factory used by all sub classes to create their {@link ParserTokenNodeName} constants.
-     */
-    static ParserTokenNodeName parserTokenNodeName(final Class<? extends JsonNodeParserToken> type) {
-        final String name = type.getSimpleName();
-        return ParserTokenNodeName.with(name.substring(0, name.length() - ParserToken.class.getSimpleName().length()));
-    }
 
     /**
      * {@see JsonNodeArrayParserToken}

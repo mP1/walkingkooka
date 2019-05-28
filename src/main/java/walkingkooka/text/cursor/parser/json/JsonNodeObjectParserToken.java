@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
@@ -31,8 +30,6 @@ import java.util.List;
  * A wrapper around a json object.
  */
 public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<JsonNodeObjectParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeObjectParserToken.class);
 
     static JsonNodeObjectParserToken with(final List<ParserToken> value, final String text) {
         return new JsonNodeObjectParserToken(copyAndCheckTokens(value),
@@ -84,11 +81,6 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
     @Override
     JsonNodeParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new JsonNodeObjectParserToken(tokens, this.text(), without);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

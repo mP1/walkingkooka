@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 import java.math.BigDecimal;
@@ -26,8 +25,6 @@ import java.math.BigDecimal;
  * Holds the condition number argument.
  */
 public final class SpreadsheetFormatConditionNumberParserToken extends SpreadsheetFormatNonSymbolParserToken<BigDecimal> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatConditionNumberParserToken.class);
 
     static SpreadsheetFormatConditionNumberParserToken with(final BigDecimal value, final String text) {
         checkValue(value);
@@ -167,11 +164,6 @@ public final class SpreadsheetFormatConditionNumberParserToken extends Spreadshe
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFormatConditionNumberParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

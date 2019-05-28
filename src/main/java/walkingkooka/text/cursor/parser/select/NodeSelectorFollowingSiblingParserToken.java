@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Holds an following-sibling axis
  */
 public final class NodeSelectorFollowingSiblingParserToken extends NodeSelectorNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorFollowingSiblingParserToken.class);
 
     static NodeSelectorFollowingSiblingParserToken with(final String value, final String text) {
         checkValue(value);
@@ -50,13 +46,6 @@ public final class NodeSelectorFollowingSiblingParserToken extends NodeSelectorN
     @Override
     NodeSelectorFollowingSiblingParserToken replaceText(final String text) {
         return new NodeSelectorFollowingSiblingParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

@@ -33,11 +33,6 @@ public class FakeParserToken implements ParserToken, Fake {
     }
 
     @Override
-    public ParserTokenNodeName name() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public boolean isSymbol() {
         throw new UnsupportedOperationException();
     }

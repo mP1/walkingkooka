@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents an equals symbol token.
  */
 public final class SpreadsheetFormatEqualsSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatEqualsSymbolParserToken.class);
 
     static SpreadsheetFormatEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -131,8 +127,4 @@ public final class SpreadsheetFormatEqualsSymbolParserToken extends SpreadsheetF
         return other instanceof SpreadsheetFormatEqualsSymbolParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

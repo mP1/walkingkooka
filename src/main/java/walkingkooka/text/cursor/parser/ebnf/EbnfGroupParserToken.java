@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents an grouped token in the grammar.
  */
 public final class EbnfGroupParserToken extends EbnfParentParserToken<EbnfGroupParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfGroupParserToken.class);
 
     static EbnfGroupParserToken with(final List<ParserToken> tokens, final String text) {
         return new EbnfGroupParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
@@ -111,8 +108,4 @@ public final class EbnfGroupParserToken extends EbnfParentParserToken<EbnfGroupP
         return other instanceof EbnfGroupParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

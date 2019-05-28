@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * Holds an addition
  */
 public final class NodeSelectorAdditionParserToken extends NodeSelectorArithmeticParserToken<NodeSelectorAdditionParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAdditionParserToken.class);
 
     static NodeSelectorAdditionParserToken with(final List<ParserToken> value, final String text) {
         return new NodeSelectorAdditionParserToken(copyAndCheckTokens(value),
@@ -58,13 +55,6 @@ public final class NodeSelectorAdditionParserToken extends NodeSelectorArithmeti
     @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorAdditionParserToken(tokens, this.text(), without);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

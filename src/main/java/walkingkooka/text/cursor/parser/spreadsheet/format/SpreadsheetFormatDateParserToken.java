@@ -19,7 +19,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * A token that contains date formatting tokens.
  */
 public final class SpreadsheetFormatDateParserToken extends SpreadsheetFormatParentParserToken<SpreadsheetFormatDateParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatDateParserToken.class);
 
     /**
      * Factory that creates a new {@link SpreadsheetFormatDateParserToken}.
@@ -171,8 +168,4 @@ public final class SpreadsheetFormatDateParserToken extends SpreadsheetFormatPar
         return other instanceof SpreadsheetFormatDateParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

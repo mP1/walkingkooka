@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a multiply symbol token.
  */
 public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetArithmeticSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetMultiplySymbolParserToken.class);
 
     static SpreadsheetMultiplySymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -47,11 +44,6 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetArith
     @Override
     SpreadsheetMultiplySymbolParserToken replaceText(final String text) {
         return new SpreadsheetMultiplySymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

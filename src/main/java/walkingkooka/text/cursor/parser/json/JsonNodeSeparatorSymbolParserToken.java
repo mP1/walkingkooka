@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents the separator between elements or key/value pairs belonging to arrays and objects.
  */
 public final class JsonNodeSeparatorSymbolParserToken extends JsonNodeSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeSeparatorSymbolParserToken.class);
 
     static JsonNodeSeparatorSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -45,13 +41,6 @@ public final class JsonNodeSeparatorSymbolParserToken extends JsonNodeSymbolPars
     @Override
     JsonNodeSeparatorSymbolParserToken replaceText(final String text) {
         return new JsonNodeSeparatorSymbolParserToken(this.value, text);
-    }
-
-    // name ...............................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is ...............................................................................................

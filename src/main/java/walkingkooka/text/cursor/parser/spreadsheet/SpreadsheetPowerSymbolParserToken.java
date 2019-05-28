@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a power symbol token.
  */
 public final class SpreadsheetPowerSymbolParserToken extends SpreadsheetArithmeticSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPowerSymbolParserToken.class);
 
     static SpreadsheetPowerSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -47,11 +44,6 @@ public final class SpreadsheetPowerSymbolParserToken extends SpreadsheetArithmet
     @Override
     SpreadsheetPowerSymbolParserToken replaceText(final String text) {
         return new SpreadsheetPowerSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

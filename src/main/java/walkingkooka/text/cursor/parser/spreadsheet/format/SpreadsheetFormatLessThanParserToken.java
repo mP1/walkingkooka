@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * Represents a less than test with its parameters.
  */
 public final class SpreadsheetFormatLessThanParserToken extends SpreadsheetFormatConditionParserToken<SpreadsheetFormatLessThanParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatLessThanParserToken.class);
 
     static SpreadsheetFormatLessThanParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
@@ -110,8 +107,4 @@ public final class SpreadsheetFormatLessThanParserToken extends SpreadsheetForma
         return other instanceof SpreadsheetFormatLessThanParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

@@ -19,7 +19,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -28,8 +27,6 @@ import java.util.List;
  * Parser token that represents an greater than condition including parameters.
  */
 public final class NodeSelectorGreaterThanParserToken extends NodeSelectorComparisonParserToken<NodeSelectorGreaterThanParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorGreaterThanParserToken.class);
 
     static NodeSelectorGreaterThanParserToken with(final List<ParserToken> value, final String text) {
         return new NodeSelectorGreaterThanParserToken(copyAndCheckTokens(value),
@@ -59,13 +56,6 @@ public final class NodeSelectorGreaterThanParserToken extends NodeSelectorCompar
     @Override
     NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new NodeSelectorGreaterThanParserToken(tokens, this.text(), without);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

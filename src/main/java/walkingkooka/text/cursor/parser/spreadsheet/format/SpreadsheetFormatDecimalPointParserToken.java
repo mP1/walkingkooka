@@ -18,14 +18,10 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents the decimal point token.
  */
 public final class SpreadsheetFormatDecimalPointParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatDecimalPointParserToken.class);
 
     static SpreadsheetFormatDecimalPointParserToken with(final String value, final String text) {
         checkValue(value);
@@ -167,8 +163,4 @@ public final class SpreadsheetFormatDecimalPointParserToken extends SpreadsheetF
         return other instanceof SpreadsheetFormatDecimalPointParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

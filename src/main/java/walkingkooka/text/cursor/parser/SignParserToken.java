@@ -25,8 +25,6 @@ import java.util.Objects;
  */
 public final class SignParserToken extends ParserToken2<Boolean> implements LeafParserToken<Boolean> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SignParserToken.class);
-
     static SignParserToken with(final boolean value, final String text) {
         Objects.requireNonNull(text, "text");
 
@@ -45,11 +43,6 @@ public final class SignParserToken extends ParserToken2<Boolean> implements Leaf
     @Override
     SignParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

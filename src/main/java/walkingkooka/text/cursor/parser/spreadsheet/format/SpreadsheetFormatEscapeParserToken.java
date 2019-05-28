@@ -17,15 +17,12 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 /**
  * Represents an excel style escape sequence where the character following the backslash is included verbatim.
  */
 public final class SpreadsheetFormatEscapeParserToken extends SpreadsheetFormatNonSymbolParserToken<Character> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatEscapeParserToken.class);
 
     static SpreadsheetFormatEscapeParserToken with(final Character value, final String text) {
         checkValue(value);
@@ -165,11 +162,6 @@ public final class SpreadsheetFormatEscapeParserToken extends SpreadsheetFormatN
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFormatEscapeParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

@@ -26,8 +26,6 @@ import java.util.Objects;
  */
 public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implements LeafParserToken<BigDecimal> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigDecimalParserToken.class);
-
     public static BigDecimalParserToken with(final BigDecimal value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
@@ -47,11 +45,6 @@ public final class BigDecimalParserToken extends ParserToken2<BigDecimal> implem
     @Override
     BigDecimalParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

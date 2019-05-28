@@ -18,15 +18,12 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 /**
  * Holds whitespace
  */
 public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFormatSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatWhitespaceParserToken.class);
 
     static SpreadsheetFormatWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
@@ -132,11 +129,6 @@ public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFor
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFormatWhitespaceParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

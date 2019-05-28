@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -29,8 +28,6 @@ import java.util.List;
  * Holds a json array which may contain further json values.
  */
 public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<JsonNodeArrayParserToken> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeArrayParserToken.class);
 
     static JsonNodeArrayParserToken with(final List<ParserToken> value, final String text) {
         return new JsonNodeArrayParserToken(copyAndCheckTokens(value),
@@ -60,11 +57,6 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<Js
     @Override
     JsonNodeParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new JsonNodeArrayParserToken(tokens, this.text(), without);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

@@ -17,14 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a fraction symbol token.
  */
 public final class SpreadsheetFormatFractionSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatFractionSymbolParserToken.class);
 
     static SpreadsheetFormatFractionSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -131,8 +127,4 @@ public final class SpreadsheetFormatFractionSymbolParserToken extends Spreadshee
         return other instanceof SpreadsheetFormatFractionSymbolParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

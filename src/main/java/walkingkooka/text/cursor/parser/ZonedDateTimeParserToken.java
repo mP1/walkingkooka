@@ -25,8 +25,6 @@ import java.util.Objects;
  */
 public final class ZonedDateTimeParserToken extends ParserToken2<ZonedDateTime> implements LeafParserToken<ZonedDateTime> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(ZonedDateTimeParserToken.class);
-
     public static ZonedDateTimeParserToken with(final ZonedDateTime value, final String text) {
         Objects.requireNonNull(text, "text");
 
@@ -45,11 +43,6 @@ public final class ZonedDateTimeParserToken extends ParserToken2<ZonedDateTime> 
     @Override
     ZonedDateTimeParserToken replaceText(final String text) {
         return with(this.value(), text);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override

@@ -18,14 +18,10 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 /**
  * Represents a am/pm placeholder.
  */
 public final class SpreadsheetFormatAmPmParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatAmPmParserToken.class);
 
     static SpreadsheetFormatAmPmParserToken with(final String value, final String text) {
         checkValue(value);
@@ -167,8 +163,4 @@ public final class SpreadsheetFormatAmPmParserToken extends SpreadsheetFormatNon
         return other instanceof SpreadsheetFormatAmPmParserToken;
     }
 
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
 }

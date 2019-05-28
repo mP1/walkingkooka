@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ import java.util.List;
  * Represents a minus symbol token.
  */
 public final class NodeSelectorMinusSymbolParserToken extends NodeSelectorArithmeticSymbolParserToken {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorMinusSymbolParserToken.class);
 
     static NodeSelectorMinusSymbolParserToken with(final String value, final String text) {
         checkValue(value);
@@ -48,13 +45,6 @@ public final class NodeSelectorMinusSymbolParserToken extends NodeSelectorArithm
     @Override
     NodeSelectorMinusSymbolParserToken replaceText(final String text) {
         return new NodeSelectorMinusSymbolParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is..........................................................................................................

@@ -17,16 +17,12 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 import java.math.BigDecimal;
 
 /**
  * Holds a single decimal number.
  */
 public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolParserToken<BigDecimal> {
-
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorNumberParserToken.class);
 
     static NodeSelectorNumberParserToken with(final BigDecimal value, final String text) {
         checkTextNullOrWhitespace(text);
@@ -51,13 +47,6 @@ public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolPa
     @Override
     NodeSelectorNumberParserToken replaceText(final String text) {
         return new NodeSelectorNumberParserToken(this.value, text);
-    }
-
-    // name................................................................................................
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // is................................................................................................

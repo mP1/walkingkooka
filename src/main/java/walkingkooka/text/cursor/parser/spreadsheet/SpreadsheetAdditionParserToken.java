@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -27,8 +26,6 @@ import java.util.List;
  * Represents a addition operation with its parameters.
  */
 public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParserToken<SpreadsheetAdditionParserToken> {
-
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetAdditionParserToken.class);
 
     static SpreadsheetAdditionParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
@@ -57,11 +54,6 @@ public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParse
         return new SpreadsheetAdditionParserToken(tokens,
                 text,
                 without);
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     @Override
