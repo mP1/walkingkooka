@@ -53,23 +53,6 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
      */
     public final static Color WHITE = Color.fromRgb(0xFFFFFF);
 
-    static {
-        HasJsonNode.register("color", Color::fromJsonNode, Color.class, AlphaColor.class, OpaqueColor.class);
-    }
-
-    /**
-     * Creates a {@link Color} from a {@link JsonNode}.
-     */
-    public static Color fromJsonNode(final JsonNode from) {
-        Objects.requireNonNull(from, "from");
-
-        try {
-            return parse(from.stringValueOrFail());
-        } catch (final JsonNodeException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-    }
-
     /**
      * Parses a {@link Color}, currently only #RGB and #RRGBB formats are supported<br>
      * <a href="https://en.wikipedia.org/wiki/Web_colors#CSS_colors"></a>
@@ -632,7 +615,24 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
     // Serializable
     private static final long serialVersionUID = 1;
 
-    // HasJsonNode...........................................................................
+    // HasJsonNode......................................................................................................
+
+    static {
+        HasJsonNode.register("color", Color::fromJsonNode, Color.class, AlphaColor.class, OpaqueColor.class);
+    }
+
+    /**
+     * Creates a {@link Color} from a {@link JsonNode}.
+     */
+    public static Color fromJsonNode(final JsonNode from) {
+        Objects.requireNonNull(from, "from");
+
+        try {
+            return parse(from.stringValueOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
 
     @Override
     public final JsonNode toJsonNode() {
