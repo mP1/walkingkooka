@@ -445,6 +445,20 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
     // ColorHslOrHsv....................................................................................................
 
     @Override
+    public final boolean isColor() {
+        return true;
+    }
+
+    @Override
+    public final boolean isHsl() {
+        return false;
+    }
+
+    public final boolean isHsv() {
+        return false;
+    }
+
+    @Override
     public final Color toColor() {
         return this;
     }

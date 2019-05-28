@@ -127,6 +127,20 @@ final public class Hsl extends ColorHslOrHsv {
 
     // ColorHslOrHsv....................................................................................................
 
+    @Override
+    public boolean isColor() {
+        return false;
+    }
+
+    @Override
+    public boolean isHsl() {
+        return true;
+    }
+
+    public boolean isHsv() {
+        return false;
+    }
+
     /**
      * Returns the equivalent {@link Color}.<br>
      * Converts an HSL color value to RGB. Conversion formula adapted from <a>http://en.wikipedia.org/wiki/HSL_color_space}</a>.
