@@ -47,7 +47,7 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
 
         return Optional.of(value.size() == without.size() ?
                 this :
-                this.replace(without, this.text(), without));
+                this.replace(without, without));
     }
 
     @Override
@@ -70,7 +70,7 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
 
         return this.value().equals(copy) ?
                 this :
-                this.replace(copy, this.text(), ParentParserToken.filterWithoutNoise(copy));
+                this.replace(copy, ParentParserToken.filterWithoutNoise(copy));
     }
 
     final List<ParserToken> value;
@@ -78,7 +78,7 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
     /**
      * Factory that creates a new {@link SpreadsheetParentParserToken} with the same text but new tokens.
      */
-    abstract SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without);
+    abstract SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without);
 
     @Override
     public final boolean isBetweenSymbol() {

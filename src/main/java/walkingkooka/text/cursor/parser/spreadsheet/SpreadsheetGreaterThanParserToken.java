@@ -38,9 +38,9 @@ public final class SpreadsheetGreaterThanParserToken extends SpreadsheetBinaryPa
     }
 
     @Override
-    SpreadsheetGreaterThanParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetGreaterThanParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetGreaterThanParserToken(tokens,
-                text,
+                this.text,
                 without);
     }
 

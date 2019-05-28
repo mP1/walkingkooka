@@ -60,7 +60,7 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
     private final SpreadsheetCellReference cell;
 
     @Override
-    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetCellReferenceParserToken(tokens, text, without);
     }
 

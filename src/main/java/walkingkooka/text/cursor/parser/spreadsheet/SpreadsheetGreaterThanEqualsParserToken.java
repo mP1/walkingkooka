@@ -38,9 +38,9 @@ public final class SpreadsheetGreaterThanEqualsParserToken extends SpreadsheetBi
     }
 
     @Override
-    SpreadsheetGreaterThanEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetGreaterThanEqualsParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetGreaterThanEqualsParserToken(tokens,
-                text,
+                this.text,
                 without);
     }
 

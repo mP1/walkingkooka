@@ -392,7 +392,7 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
         return this.text;
     }
 
-    private final String text;
+    final String text;
 
     /**
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain

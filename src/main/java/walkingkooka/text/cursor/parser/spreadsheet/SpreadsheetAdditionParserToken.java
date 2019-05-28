@@ -38,9 +38,9 @@ public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParse
     }
 
     @Override
-    SpreadsheetAdditionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+    SpreadsheetAdditionParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
         return new SpreadsheetAdditionParserToken(tokens,
-                text,
+                this.text,
                 without);
     }
 
