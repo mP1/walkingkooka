@@ -16,14 +16,18 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 import walkingkooka.color.ColorComponent;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.ParserTokenVisitor;
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
+import walkingkooka.text.cursor.parser.color.RgbaFunctionParserTokenVisitor;
 import walkingkooka.type.MemberVisibility;
 
-public final class RgbaFunctionParserTokenVisitorTest implements ParserTokenVisitorTesting<RgbaFunctionParserTokenVisitor, ParserToken> {
+public final class RgbaFunctionParserTokenVisitorTest implements ColorParserTokenVisitorTesting<RgbaFunctionParserTokenVisitor, ColorParserToken> {
 
     @Test
     public void testToString() {

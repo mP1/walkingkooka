@@ -20,6 +20,9 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.color.Color;
 import walkingkooka.color.Hsl;
 import walkingkooka.color.Hsv;
+import walkingkooka.text.cursor.parser.color.ColorParserToken;
+import walkingkooka.text.cursor.parser.color.HslParserToken;
+import walkingkooka.text.cursor.parser.color.HsvParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.math.BigDecimal;

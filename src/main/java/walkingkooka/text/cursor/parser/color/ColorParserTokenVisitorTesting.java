@@ -16,19 +16,12 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
-import walkingkooka.test.ClassTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
 
-public final class RgbFunctionRgbaFunctionParserTokenVisitorTest implements ClassTesting<RgbFunctionRgbaFunctionParserTokenVisitor> {
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
-    public Class<RgbFunctionRgbaFunctionParserTokenVisitor> type() {
-        return RgbFunctionRgbaFunctionParserTokenVisitor.class;
-    }
+/**
+ * A mixin interface with tests and helpers to assist in testing a {@link ColorParserTokenVisitor}
+ */
+public interface ColorParserTokenVisitorTesting<V extends ColorParserTokenVisitor, T extends ColorHslOrHsvParserToken> extends ParserTokenVisitorTesting<V, T> {
 }
