@@ -102,6 +102,11 @@ final public class HueHsvComponent extends HsvComponent {
         return other instanceof HueHsvComponent;
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(Math.round(this.value));
+    }
+
     // Serializable
     private static final long serialVersionUID = 1;
 }

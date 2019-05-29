@@ -33,14 +33,14 @@ public final class HslFunctionParserTokenVisitorTest implements ColorParserToken
         visitor.saturation = HslComponent.saturation(0.25f);
         visitor.hsl = Hsl.with(visitor.hue, visitor.saturation, HslComponent.lightness(0.5f));
 
-        this.toStringAndCheck(visitor, "hue=359.0 saturation=0.25 hsl=359.0,0.25,0.5");
+        this.toStringAndCheck(visitor, "hue=359 saturation=25% hsl=hsl(359,25%,50%)");
     }
 
     @Test
     public void testToString2() {
         final HslFunctionParserTokenVisitor visitor = new HslFunctionParserTokenVisitor();
         visitor.hue = HslComponent.hue(358);
-        this.toStringAndCheck(visitor, "hue=358.0");
+        this.toStringAndCheck(visitor, "hue=358");
     }
 
     @Override

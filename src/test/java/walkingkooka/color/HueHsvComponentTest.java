@@ -27,6 +27,21 @@ public final class HueHsvComponentTest extends HsvComponentTestCase<HueHsvCompon
         this.checkNotEquals(HueHsvComponent.with(0));
     }
 
+    @Test
+    public void testToString0() {
+        this.toStringAndCheck(HueHsvComponent.with(0), "0");
+    }
+
+    @Test
+    public void testToStringTwoHalf() {
+        this.toStringAndCheck(HueHsvComponent.with(2.5f), "3");
+    }
+
+    @Test
+    public void testToString359() {
+        this.toStringAndCheck(HueHsvComponent.with(359), "359");
+    }
+
     @Override
     HueHsvComponent createHsvComponent(final float value) {
         return HueHsvComponent.with(value);

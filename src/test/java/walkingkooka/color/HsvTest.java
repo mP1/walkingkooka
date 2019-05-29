@@ -20,6 +20,7 @@ package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,9 +31,9 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
 
     // constants
 
-    private final static HueHsvComponent HUE = HueHsvComponent.with(0);
-    private final static SaturationHsvComponent SATURATION = SaturationHsvComponent.with(0);
-    private final static ValueHsvComponent VALUE = ValueHsvComponent.with(0);
+    private final static HueHsvComponent HUE = HueHsvComponent.with(359);
+    private final static SaturationHsvComponent SATURATION = SaturationHsvComponent.with(0.25f);
+    private final static ValueHsvComponent VALUE = ValueHsvComponent.with(0.5f);
 
     // tests
 
@@ -113,7 +114,7 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
 
     @Test
     public void testSetDifferentValue() {
-        final ValueHsvComponent different = ValueHsvComponent.with(0.5f);
+        final ValueHsvComponent different = ValueHsvComponent.with(0.99f);
         this.check(Hsv.with(HUE, SATURATION, VALUE).set(different), HUE, SATURATION, different);
     }
 
@@ -216,17 +217,17 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
 
     @Test
     public void testEqualsDifferentHue() {
-        this.checkNotEquals(Hsv.with(HueHsvComponent.with(180), SATURATION, VALUE));
+        this.checkNotEquals(Hsv.with(HueHsvComponent.with(99), SATURATION, VALUE));
     }
 
     @Test
     public void testEqualsDifferentSaturation() {
-        this.checkNotEquals(Hsv.with(HUE, SaturationHsvComponent.with(0.5f), VALUE));
+        this.checkNotEquals(Hsv.with(HUE, SaturationHsvComponent.with(0.99f), VALUE));
     }
 
     @Test
     public void testEqualsDifferentValue() {
-        this.checkNotEquals(Hsv.with(HUE, SATURATION, ValueHsvComponent.with(0.5f)));
+        this.checkNotEquals(Hsv.with(HUE, SATURATION, ValueHsvComponent.with(0.99f)));
     }
 
     @Test
@@ -239,7 +240,14 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(Hsv.with(HUE, SATURATION, VALUE), HUE + "," + SATURATION + "," + VALUE);
+        this.toStringAndCheck(Hsv.with(HUE, SATURATION, VALUE),
+                "hsv(359,0.25,0.5)");
+    }
+
+    @Test
+    public void testToStringZeroes() {
+        this.toStringAndCheck(Hsv.with(HsvComponent.hue(0), HsvComponent.saturation(0), HsvComponent.value(0)),
+                "hsv(0,0.0,0.0)");
     }
 
     @Override
@@ -257,6 +265,13 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // HasJsonNodeTesting..............................................................................................
+
+    @Override
+    public Hsv fromJsonNode(final JsonNode from) {
+        return Hsv.fromJsonNode(from);
     }
 
     // ParseStringTesting .............................................................................................

@@ -105,6 +105,11 @@ final public class ValueHsvComponent extends HsvComponent {
         return other instanceof ValueHsvComponent;
     }
 
+    @Override
+    public String toString() {
+        return this.toStringDecimal();
+    }
+
     // Serializable
     private static final long serialVersionUID = -1;
 }

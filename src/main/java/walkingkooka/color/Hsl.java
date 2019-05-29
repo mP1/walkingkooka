@@ -30,6 +30,9 @@ import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.color.ColorParsers;
 import walkingkooka.text.cursor.parser.color.HslParserToken;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 
 import java.util.Objects;
 
@@ -277,6 +280,25 @@ final public class Hsl extends ColorHslOrHsv {
         return this.toColor().toHsv();
     }
 
+    // HasJsonNode......................................................................................................
+
+    static {
+        HasJsonNode.register("hsl", Hsl::fromJsonNode, Hsl.class);
+    }
+
+    /**
+     * Creates a {@link Hsl} from a {@link JsonNode}.
+     */
+    public static Hsl fromJsonNode(final JsonNode from) {
+        Objects.requireNonNull(from, "from");
+
+        try {
+            return parseHsl(from.stringValueOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
     // Object...........................................................................................................
 
     @Override
@@ -303,9 +325,11 @@ final public class Hsl extends ColorHslOrHsv {
     @Override
     public void buildToString(final ToStringBuilder builder) {
         builder.separator(",")
+                .append("hsl(")
                 .value(this.hue)
                 .value(this.saturation)
-                .value(this.lightness);
+                .value(this.lightness)
+                .append(')');
     }
 
     // Serializable.....................................................................................................

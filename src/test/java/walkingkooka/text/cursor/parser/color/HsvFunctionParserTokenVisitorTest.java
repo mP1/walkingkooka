@@ -21,10 +21,7 @@ package walkingkooka.text.cursor.parser.color;
 import org.junit.jupiter.api.Test;
 import walkingkooka.color.Hsv;
 import walkingkooka.color.HsvComponent;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
-import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
-import walkingkooka.text.cursor.parser.color.HsvFunctionParserTokenVisitor;
 import walkingkooka.type.MemberVisibility;
 
 public final class HsvFunctionParserTokenVisitorTest implements ColorParserTokenVisitorTesting<HsvFunctionParserTokenVisitor, HsvParserToken> {
@@ -36,14 +33,14 @@ public final class HsvFunctionParserTokenVisitorTest implements ColorParserToken
         visitor.saturation = HsvComponent.saturation(0.25f);
         visitor.hsv = Hsv.with(visitor.hue, visitor.saturation, HsvComponent.value(0.5f));
 
-        this.toStringAndCheck(visitor, "hue=359.0 saturation=0.25 hsv=359.0,0.25,0.5");
+        this.toStringAndCheck(visitor, "hue=359 saturation=0.25 hsv=hsv(359,0.25,0.5)");
     }
 
     @Test
     public void testToString2() {
         final HsvFunctionParserTokenVisitor visitor = new HsvFunctionParserTokenVisitor();
         visitor.hue = HsvComponent.hue(358);
-        this.toStringAndCheck(visitor, "hue=358.0");
+        this.toStringAndCheck(visitor, "hue=358");
     }
 
     @Override

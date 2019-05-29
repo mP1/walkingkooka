@@ -164,13 +164,6 @@ abstract public class HslComponentTestCase<C extends HslComponent> implements Cl
         }
     }
 
-    // toString
-
-    @Test
-    public final void testToString() {
-        this.toStringAndCheck(this.createHslComponent(value()), String.valueOf(value()));
-    }
-
     final C createHslComponent() {
         return this.createHslComponent(this.value());
     }

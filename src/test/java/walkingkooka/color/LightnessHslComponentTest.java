@@ -27,6 +27,21 @@ public final class LightnessHslComponentTest extends HslComponentTestCase<Lightn
         this.checkNotEquals(LightnessHslComponent.with(0));
     }
 
+    @Test
+    public void testToString0() {
+        this.toStringAndCheck(LightnessHslComponent.with(0), "0%");
+    }
+
+    @Test
+    public void testToStringHalf() {
+        this.toStringAndCheck(LightnessHslComponent.with(0.5f), "50%");
+    }
+
+    @Test
+    public void testToStringOne() {
+        this.toStringAndCheck(LightnessHslComponent.with(1.0f), "100%");
+    }
+
     @Override
     LightnessHslComponent createHslComponent(final float value) {
         return LightnessHslComponent.with(value);

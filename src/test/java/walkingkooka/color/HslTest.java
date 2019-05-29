@@ -20,6 +20,7 @@ package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,9 +31,9 @@ public final class HslTest extends ColorHslOrHsvTestCase<Hsl> implements ParseSt
 
     // constants
 
-    private final static HueHslComponent HUE = HueHslComponent.with(0);
-    private final static SaturationHslComponent SATURATION = SaturationHslComponent.with(0);
-    private final static LightnessHslComponent LIGHTNESS = LightnessHslComponent.with(0);
+    private final static HueHslComponent HUE = HueHslComponent.with(359);
+    private final static SaturationHslComponent SATURATION = SaturationHslComponent.with(0.5f);
+    private final static LightnessHslComponent LIGHTNESS = LightnessHslComponent.with(0.25f);
 
     // tests
 
@@ -101,7 +102,7 @@ public final class HslTest extends ColorHslOrHsvTestCase<Hsl> implements ParseSt
 
     @Test
     public void testSetDifferentSaturation() {
-        final HslComponent different = SaturationHslComponent.with(0.5f);
+        final HslComponent different = SaturationHslComponent.with(0.99f);
         final Hsl hsl = Hsl.with(HUE, SATURATION, LIGHTNESS).set(different);
         assertSame(HUE, hsl.hue, "hue");
         assertSame(different, hsl.saturation, "saturation");
@@ -224,17 +225,17 @@ public final class HslTest extends ColorHslOrHsvTestCase<Hsl> implements ParseSt
 
     @Test
     public void testEqualsDifferentHue() {
-        this.checkNotEquals(Hsl.with(HueHslComponent.with(180), SATURATION, LIGHTNESS));
+        this.checkNotEquals(Hsl.with(HueHslComponent.with(99), SATURATION, LIGHTNESS));
     }
 
     @Test
     public void testEqualsDifferentSaturation() {
-        this.checkNotEquals(Hsl.with(HUE, SaturationHslComponent.with(0.5f), LIGHTNESS));
+        this.checkNotEquals(Hsl.with(HUE, SaturationHslComponent.with(0.99f), LIGHTNESS));
     }
 
     @Test
     public void testEqualsDifferentLightness() {
-        this.checkNotEquals(Hsl.with(HUE, SATURATION, LightnessHslComponent.with(0.5f)));
+        this.checkNotEquals(Hsl.with(HUE, SATURATION, LightnessHslComponent.with(0.99f)));
     }
 
     @Test
@@ -245,8 +246,16 @@ public final class HslTest extends ColorHslOrHsvTestCase<Hsl> implements ParseSt
                         HslComponent.lightness(0.5f)));
     }
 
+    @Test
     public void testToString() {
-        this.toStringAndCheck(Hsl.with(HUE, SATURATION, LIGHTNESS), HUE + "," + SATURATION + "," + LIGHTNESS);
+        this.toStringAndCheck(Hsl.with(HUE, SATURATION, LIGHTNESS),
+                "hsl(359,50%,25%)");
+    }
+
+    @Test
+    public void testToStringZeroes() {
+        this.toStringAndCheck(Hsl.with(HslComponent.hue(0), HslComponent.saturation(0), HslComponent.lightness(0)),
+                "hsl(0,0%,0%)");
     }
 
     @Override
@@ -264,6 +273,13 @@ public final class HslTest extends ColorHslOrHsvTestCase<Hsl> implements ParseSt
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // HasJsonNodeTesting..............................................................................................
+
+    @Override
+    public Hsl fromJsonNode(final JsonNode from) {
+        return Hsl.fromJsonNode(from);
     }
 
     // ParseStringTesting .............................................................................................

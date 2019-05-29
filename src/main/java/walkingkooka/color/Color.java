@@ -41,7 +41,7 @@ import java.util.Optional;
 /**
  * Holds an immutable {@link Color}.
  */
-abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
+abstract public class Color extends ColorHslOrHsv {
 
     /**
      * A constant holding black
@@ -536,7 +536,7 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
         }
 
         return Hsl.with(//
-                HslComponent.hue(hue * HueHslComponent.MAX), //
+                HslComponent.hue(Math.abs(hue * HueHslComponent.MAX)), //
                 HslComponent.saturation(saturation), //
                 HslComponent.lightness(lightness));
     }
@@ -650,10 +650,5 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
-    }
-
-    @Override
-    public final JsonNode toJsonNode() {
-        return JsonNode.string(this.toString());
     }
 }

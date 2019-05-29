@@ -131,11 +131,7 @@ abstract public class HsvComponent implements HashCodeEqualsDefined, Serializabl
         return this.value == other.value;
     }
 
-    /**
-     * Dumps the value
-     */
-    @Override
-    public String toString() {
+    final String toStringDecimal() {
         return String.valueOf(this.value);
     }
 
