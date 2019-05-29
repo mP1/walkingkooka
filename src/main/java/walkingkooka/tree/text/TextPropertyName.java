@@ -114,6 +114,13 @@ public final class TextPropertyName<T> implements Name,
     public final static TextPropertyName<FontSize> FONT_SIZE = registerFontSizeConstant("font-size");
 
     /**
+     * font-style
+     */
+    public final static TextPropertyName<FontStyle> FONT_STYLE = registerEnumConstant("font-style",
+            FontStyle::valueOf,
+            FontStyle.class);
+
+    /**
      * font-weight
      */
     public final static TextPropertyName<FontWeight> FONT_WEIGHT = registerFontWeightConstant("font-weight");
