@@ -131,6 +131,13 @@ public final class TextPropertyName<T> implements Name,
     public final static TextPropertyName<Color> TEXT_COLOR = registerColorConstant("text-color");
 
     /**
+     * text-decoration: UNDERLINE, OVERLINE, LINE_THROUGH
+     */
+    public final static TextPropertyName<TextDecoration> TEXT_DECORATION = registerEnumConstant("text-decoration",
+            TextDecoration::valueOf,
+            TextDecoration.class);
+
+    /**
      * text-wrapping
      */
     public final static TextPropertyName<TextWrapping> TEXT_WRAPPING = registerEnumConstant("text-wrapping",
