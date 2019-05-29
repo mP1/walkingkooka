@@ -247,7 +247,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         properties.put(TextPropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
         properties.put(TextPropertyName.FONT_SIZE, FontSize.with(10));
         properties.put(TextPropertyName.TEXT_COLOR, Color.fromRgb(0x789abc));
-
+        properties.put(TextPropertyName.TEXT_DECORATION, TextDecoration.UNDERLINE);
 
         this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
                 TextNode.text("text1"),
