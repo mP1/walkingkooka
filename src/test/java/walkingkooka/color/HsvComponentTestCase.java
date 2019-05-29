@@ -46,30 +46,26 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> implements Cl
         super();
     }
 
-    // constants
-
-    private final static float VALUE = 0.5f;
-
     // tests
 
     @Test
     public final void testBelowLowerBoundsFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.createHsvComponent(HueHsvComponent.MIN - 0.1f);
+            this.createHsvComponent(this.min() - 0.1f);
         });
     }
 
     @Test
     public final void testAboveUpperBoundsFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.createHsvComponent(HueHsvComponent.MAX + 0.1f);
+            this.createHsvComponent(this.max() + 0.1f);
         });
     }
 
     @Test
     public final void testWith() {
-        final C component = this.createHsvComponent(VALUE);
-        assertEquals(VALUE, component.value(), 0.1, "value");
+        final C component = this.createHsvComponent(this.value());
+        assertEquals(this.value(), component.value(), 0.1, "value");
     }
 
     // set
@@ -77,7 +73,7 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> implements Cl
     @Test
     public final void testSameValue() {
         final C component = this.createHsvComponent();
-        assertSame(component, component.setValue(VALUE));
+        assertSame(component, component.setValue(this.value()));
     }
 
     @Test
@@ -108,13 +104,13 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> implements Cl
 
     @Test
     public final void testAddZero() {
-        final C component = this.createHsvComponent(VALUE);
+        final C component = this.createHsvComponent(this.value());
         assertSame(component, component.add(0));
     }
 
     @Test
     public final void testAddZero2() {
-        final C component = this.createHsvComponent(VALUE);
+        final C component = this.createHsvComponent(this.value());
         assertSame(component, component.add(0));
     }
 
@@ -147,14 +143,16 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> implements Cl
     // toString
 
     public final void testToString() {
-        this.toStringAndCheck(this.createHsvComponent(VALUE), String.valueOf(VALUE));
+        this.toStringAndCheck(this.createHsvComponent(this.value()), String.valueOf(this.value()));
     }
 
     final C createHsvComponent() {
-        return this.createHsvComponent(VALUE);
+        return this.createHsvComponent(this.value());
     }
 
     abstract C createHsvComponent(float value);
+
+    abstract float value();
 
     abstract float min();
 

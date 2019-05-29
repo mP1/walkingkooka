@@ -33,6 +33,11 @@ public final class ValueHsvComponentTest extends HsvComponentTestCase<ValueHsvCo
     }
 
     @Override
+    float value() {
+        return 0.75f;
+    }
+
+    @Override
     float min() {
         return ValueHsvComponent.MIN;
     }

@@ -33,6 +33,11 @@ public final class HueHsvComponentTest extends HsvComponentTestCase<HueHsvCompon
     }
 
     @Override
+    float value() {
+        return 359;
+    }
+
+    @Override
     float min() {
         return HueHsvComponent.MIN;
     }

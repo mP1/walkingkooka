@@ -33,6 +33,11 @@ public final class SaturationHsvComponentTest extends HsvComponentTestCase<Satur
     }
 
     @Override
+    float value() {
+        return 0.25f;
+    }
+
+    @Override
     float min() {
         return SaturationHsvComponent.MIN;
     }
