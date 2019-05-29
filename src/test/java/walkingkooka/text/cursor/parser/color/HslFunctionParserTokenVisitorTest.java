@@ -16,35 +16,36 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.color.Hsv;
-import walkingkooka.color.HsvComponent;
+import walkingkooka.color.Hsl;
+import walkingkooka.color.HslComponent;
+import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.type.MemberVisibility;
 
-public final class HsvFunctionParserTokenVisitorTest implements ParserTokenVisitorTesting<HsvFunctionParserTokenVisitor, ParserToken> {
+public final class HslFunctionParserTokenVisitorTest implements ColorParserTokenVisitorTesting<HslFunctionParserTokenVisitor, HslParserToken> {
 
     @Test
     public void testToString() {
-        final HsvFunctionParserTokenVisitor visitor = new HsvFunctionParserTokenVisitor();
-        visitor.hue = HsvComponent.hue(359);
-        visitor.saturation = HsvComponent.saturation(0.25f);
-        visitor.hsv = Hsv.with(visitor.hue, visitor.saturation, HsvComponent.value(0.5f));
+        final HslFunctionParserTokenVisitor visitor = new HslFunctionParserTokenVisitor();
+        visitor.hue = HslComponent.hue(359);
+        visitor.saturation = HslComponent.saturation(0.25f);
+        visitor.hsl = Hsl.with(visitor.hue, visitor.saturation, HslComponent.lightness(0.5f));
 
-        this.toStringAndCheck(visitor, "hue=359.0 saturation=0.25 hsv=359.0,0.25,0.5");
+        this.toStringAndCheck(visitor, "hue=359.0 saturation=0.25 hsl=359.0,0.25,0.5");
     }
 
     @Test
     public void testToString2() {
-        final HsvFunctionParserTokenVisitor visitor = new HsvFunctionParserTokenVisitor();
-        visitor.hue = HsvComponent.hue(358);
+        final HslFunctionParserTokenVisitor visitor = new HslFunctionParserTokenVisitor();
+        visitor.hue = HslComponent.hue(358);
         this.toStringAndCheck(visitor, "hue=358.0");
     }
 
     @Override
-    public HsvFunctionParserTokenVisitor createVisitor() {
-        return new HsvFunctionParserTokenVisitor();
+    public HslFunctionParserTokenVisitor createVisitor() {
+        return new HslFunctionParserTokenVisitor();
     }
 
     @Override
@@ -53,13 +54,13 @@ public final class HsvFunctionParserTokenVisitorTest implements ParserTokenVisit
     }
 
     @Override
-    public Class<HsvFunctionParserTokenVisitor> type() {
-        return HsvFunctionParserTokenVisitor.class;
+    public Class<HslFunctionParserTokenVisitor> type() {
+        return HslFunctionParserTokenVisitor.class;
     }
 
     @Override
     public String typeNamePrefix() {
-        return Hsv.class.getSimpleName();
+        return Hsl.class.getSimpleName();
     }
 
     @Override

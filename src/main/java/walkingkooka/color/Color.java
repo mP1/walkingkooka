@@ -24,13 +24,13 @@ import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.text.cursor.parser.ColorParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.text.cursor.parser.color.ColorParserToken;
+import walkingkooka.text.cursor.parser.color.ColorParsers;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
@@ -90,7 +90,7 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
         return parse(text, RGBA_FUNCTION_PARSER);
     }
 
-    private final static Parser<ParserContext> RGBA_FUNCTION_PARSER = Parsers.rgbaFunction()
+    private final static Parser<ParserContext> RGBA_FUNCTION_PARSER = ColorParsers.rgbaFunction()
             .orReport(ParserReporters.basic());
 
     // parse rgb(12,34,56)..............................................................................................
@@ -99,7 +99,7 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
         return parse(text, RGB_FUNCTION_PARSER);
     }
 
-    private final static Parser<ParserContext> RGB_FUNCTION_PARSER = Parsers.rgbFunction()
+    private final static Parser<ParserContext> RGB_FUNCTION_PARSER = ColorParsers.rgbFunction()
             .orReport(ParserReporters.basic());
 
     private static Color parse(final String text,

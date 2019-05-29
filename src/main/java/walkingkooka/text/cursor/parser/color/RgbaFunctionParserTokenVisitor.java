@@ -16,10 +16,12 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.color.ColorComponent;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.SequenceParserToken;
 
 /**
  * Handles converting a {@link SequenceParserToken} into a {@link ColorParserToken}.
@@ -32,7 +34,7 @@ final class RgbaFunctionParserTokenVisitor extends RgbFunctionRgbaFunctionParser
 
     @Override
     protected void visit(final DoubleParserToken token) {
-        this.color = this.color.set(ColorComponent.alpha((byte)(token.value().floatValue() * ColorComponent.MAX_VALUE)));
+        this.color = this.color.set(ColorComponent.alpha((byte) (token.value().floatValue() * ColorComponent.MAX_VALUE)));
     }
 
     @Override

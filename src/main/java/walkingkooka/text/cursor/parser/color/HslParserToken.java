@@ -15,45 +15,46 @@
  *
  *
  */
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
-import walkingkooka.color.Hsv;
+import walkingkooka.color.Hsl;
+import walkingkooka.text.cursor.parser.LeafParserToken;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
 
 /**
- * The parser token for a hsv with the value contained within a {@link Hsv}
+ * The parser token for a hsl with the value contained within a {@link Hsl}
  */
-public final class HsvParserToken extends ParserToken2<Hsv> implements LeafParserToken<Hsv> {
+public final class HslParserToken extends ColorHslOrHsvParserToken<Hsl>
+        implements LeafParserToken<Hsl> {
 
-    public static HsvParserToken with(final Hsv value, final String text) {
+    public static HslParserToken with(final Hsl value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
 
-        return new HsvParserToken(value, text);
+        return new HslParserToken(value, text);
     }
 
-    private HsvParserToken(final Hsv value, final String text) {
+    private HslParserToken(final Hsl value, final String text) {
         super(value, text);
     }
 
+    // ColorParserTokenVisitor.........................................................................................
+
     @Override
-    public void accept(final ParserTokenVisitor visitor) {
+    public void accept(final ColorParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
+    // Object..........................................................................................................
+
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof HsvParserToken;
+        return other instanceof HslParserToken;
     }
 
-    @Override
-    boolean equals1(final ParserToken2<?> other) {
-        return true; // no extra properties to compare
-    }
-
-    // HasSearchNode ...............................................................................................
+    // HasSearchNode ...................................................................................................
 
     /**
      * Returns a {@link SearchNode} with the original text.

@@ -16,12 +16,80 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.test.Fake;
+import walkingkooka.text.cursor.parser.BigDecimalParserToken;
+import walkingkooka.text.cursor.parser.BigIntegerParserToken;
+import walkingkooka.text.cursor.parser.CharacterParserToken;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.DoubleQuotedParserToken;
+import walkingkooka.text.cursor.parser.LocalDateParserToken;
+import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
+import walkingkooka.text.cursor.parser.LocalTimeParserToken;
+import walkingkooka.text.cursor.parser.LongParserToken;
+import walkingkooka.text.cursor.parser.OffsetDateTimeParserToken;
+import walkingkooka.text.cursor.parser.OffsetTimeParserToken;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.RepeatedParserToken;
+import walkingkooka.text.cursor.parser.SequenceParserToken;
+import walkingkooka.text.cursor.parser.SignParserToken;
+import walkingkooka.text.cursor.parser.SingleQuotedParserToken;
+import walkingkooka.text.cursor.parser.StringParserToken;
+import walkingkooka.text.cursor.parser.ZonedDateTimeParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
+public class FakeColorParserTokenVisitor extends ColorParserTokenVisitor implements Fake {
+
+    @Override
+    protected Visiting startVisit(final ParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final ParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final BigDecimalParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final BigIntegerParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final CharacterParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ColorParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final DoubleParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final DoubleQuotedParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final HslParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final HsvParserToken token) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     protected void visit(final LocalDateParserToken token) {

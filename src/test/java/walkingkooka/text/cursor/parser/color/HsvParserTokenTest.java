@@ -15,10 +15,11 @@
  *
  *
  */
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.color.Hsl;
+import walkingkooka.color.Hsv;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
@@ -27,21 +28,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HslParserTokenTest extends ParserTokenTestCase<HslParserToken> {
+public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<HsvParserToken> {
 
     @Test
     public void testWithNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            HslParserToken.with(null, "hsl(60,100%,100%)");
+            HsvParserToken.with(null, "hsv(359,0.5,1.0)");
         });
     }
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final HslParserToken token = this.createToken();
+        final HsvParserToken token = this.createToken();
 
-        new FakeParserTokenVisitor() {
+        new FakeColorParserTokenVisitor() {
             @Override
             protected Visiting startVisit(final ParserToken t) {
                 assertSame(token, t);
@@ -56,7 +57,7 @@ public final class HslParserTokenTest extends ParserTokenTestCase<HslParserToken
             }
 
             @Override
-            protected void visit(final HslParserToken t) {
+            protected void visit(final HsvParserToken t) {
                 assertSame(token, t);
                 b.append("3");
             }
@@ -66,8 +67,8 @@ public final class HslParserTokenTest extends ParserTokenTestCase<HslParserToken
 
     @Test
     public void testToSearchNode() {
-        final String text = "hsl(60,100%,100%)";
-        this.toSearchNodeAndCheck(HslParserToken.with(Hsl.parse(text), text),
+        final String text = "hsv(359,0.5,1.0)";
+        this.toSearchNodeAndCheck(HsvParserToken.with(Hsv.parse(text), text),
                 SearchNode.text(text, text));
     }
 
@@ -79,22 +80,22 @@ public final class HslParserTokenTest extends ParserTokenTestCase<HslParserToken
     }
 
     @Override
-    public HslParserToken createToken(final String text) {
-        return HslParserToken.with(Hsl.parse(text), text);
+    public HsvParserToken createToken(final String text) {
+        return HsvParserToken.with(Hsv.parse(text), text);
     }
 
     @Override
     public String text() {
-        return "hsl(1,2%,3%)";
+        return "hsv(123,0.0,0.25)";
     }
 
     @Override
-    public HslParserToken createDifferentToken() {
-        return HslParserToken.with(Hsl.parse("hsl(359,50%,25%)"), "hsl(359,50%,25%)");
+    public HsvParserToken createDifferentToken() {
+        return HsvParserToken.with(Hsv.parse("hsv(359,0.5,1.0)"), "hsv(359,0.5,1.0)");
     }
 
     @Override
-    public Class<HslParserToken> type() {
-        return HslParserToken.class;
+    public Class<HsvParserToken> type() {
+        return HsvParserToken.class;
     }
 }

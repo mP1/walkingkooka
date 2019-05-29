@@ -15,10 +15,12 @@
  *
  *
  */
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.color.Color;
+import walkingkooka.color.Hsl;
+import walkingkooka.text.cursor.parser.FakeParserTokenVisitor;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
@@ -27,21 +29,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ColorParserTokenTest extends ParserTokenTestCase<ColorParserToken> {
+public final class HslParserTokenTest extends ColorHslOrHsvParserTokenTestCase<HslParserToken> {
 
     @Test
     public void testWithNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            ColorParserToken.with(null, "123");
+            HslParserToken.with(null, "hsl(60,100%,100%)");
         });
     }
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final ColorParserToken token = this.createToken();
+        final HslParserToken token = this.createToken();
 
-        new FakeParserTokenVisitor() {
+        new FakeColorParserTokenVisitor() {
             @Override
             protected Visiting startVisit(final ParserToken t) {
                 assertSame(token, t);
@@ -56,7 +58,7 @@ public final class ColorParserTokenTest extends ParserTokenTestCase<ColorParserT
             }
 
             @Override
-            protected void visit(final ColorParserToken t) {
+            protected void visit(final HslParserToken t) {
                 assertSame(token, t);
                 b.append("3");
             }
@@ -65,16 +67,9 @@ public final class ColorParserTokenTest extends ParserTokenTestCase<ColorParserT
     }
 
     @Test
-    public void testToSearchNodeWithNamedColor() {
-        final String text = "silver";
-        this.toSearchNodeAndCheck(ColorParserToken.with(Color.parse(text), text),
-                SearchNode.text(text, text));
-    }
-
-    @Test
-    public void testToSearchNodeWithUnnamedColor() {
-        final String text = "#987654";
-        this.toSearchNodeAndCheck(ColorParserToken.with(Color.parse("#123456"), text),
+    public void testToSearchNode() {
+        final String text = "hsl(60,100%,100%)";
+        this.toSearchNodeAndCheck(HslParserToken.with(Hsl.parse(text), text),
                 SearchNode.text(text, text));
     }
 
@@ -86,22 +81,22 @@ public final class ColorParserTokenTest extends ParserTokenTestCase<ColorParserT
     }
 
     @Override
-    public ColorParserToken createToken(final String text) {
-        return ColorParserToken.with(Color.parse(text), text);
+    public HslParserToken createToken(final String text) {
+        return HslParserToken.with(Hsl.parse(text), text);
     }
 
     @Override
     public String text() {
-        return "silver";
+        return "hsl(1,2%,3%)";
     }
 
     @Override
-    public ColorParserToken createDifferentToken() {
-        return ColorParserToken.with(Color.parse("aqua"), "aqua");
+    public HslParserToken createDifferentToken() {
+        return HslParserToken.with(Hsl.parse("hsl(359,50%,25%)"), "hsl(359,50%,25%)");
     }
 
     @Override
-    public Class<ColorParserToken> type() {
-        return ColorParserToken.class;
+    public Class<HslParserToken> type() {
+        return HslParserToken.class;
     }
 }

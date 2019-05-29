@@ -23,13 +23,13 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.text.cursor.parser.HsvParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.text.cursor.parser.color.ColorParsers;
+import walkingkooka.text.cursor.parser.color.HsvParserToken;
 
 import java.util.Objects;
 
@@ -44,7 +44,7 @@ final public class Hsv extends ColorHslOrHsv {
         return parse0(text, HSV_FUNCTION_PARSER);
     }
 
-    private final static Parser<ParserContext> HSV_FUNCTION_PARSER = Parsers.hsvFunction()
+    private final static Parser<ParserContext> HSV_FUNCTION_PARSER = ColorParsers.hsvFunction()
             .orReport(ParserReporters.basic());
 
     private static Hsv parse0(final String text,

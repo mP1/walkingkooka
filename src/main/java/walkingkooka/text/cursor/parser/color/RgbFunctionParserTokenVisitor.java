@@ -16,9 +16,11 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.text.cursor.parser.ParserTokenVisitor;
+import walkingkooka.text.cursor.parser.SequenceParserToken;
 
 /**
  * Handles converting a {@link SequenceParserToken} into a {@link ColorParserToken}.

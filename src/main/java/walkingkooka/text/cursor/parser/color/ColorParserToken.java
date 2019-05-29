@@ -15,9 +15,10 @@
  *
  *
  */
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.color.Color;
+import walkingkooka.text.cursor.parser.LeafParserToken;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
@@ -25,7 +26,8 @@ import java.util.Objects;
 /**
  * The parser token for a color with the value contained within a {@link Color}
  */
-public final class ColorParserToken extends ParserToken2<Color> implements LeafParserToken<Color> {
+public final class ColorParserToken extends ColorHslOrHsvParserToken<Color>
+        implements LeafParserToken<Color> {
 
     public static ColorParserToken with(final Color value, final String text) {
         Objects.requireNonNull(value, "value");
@@ -38,19 +40,18 @@ public final class ColorParserToken extends ParserToken2<Color> implements LeafP
         super(value, text);
     }
 
+    // ColorParserTokenVisitor .........................................................................................
+
     @Override
-    public void accept(final ParserTokenVisitor visitor) {
+    public void accept(final ColorParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object.......... ...............................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof ColorParserToken;
-    }
-
-    @Override
-    boolean equals1(final ParserToken2<?> other) {
-        return true; // no extra properties to compare
     }
 
     // HasSearchNode ...............................................................................................

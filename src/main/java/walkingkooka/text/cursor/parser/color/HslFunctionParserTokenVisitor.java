@@ -16,25 +16,28 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.color.Hsl;
 import walkingkooka.color.HslComponent;
 import walkingkooka.color.HueHslComponent;
 import walkingkooka.color.SaturationHslComponent;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.SequenceParserToken;
 
 /**
- * A {@link ParserTokenVisitor} used to parse a {@link SequenceParserToken} into a {@link HslParserToken}
+ * A {@link ColorParserTokenVisitor} used to parse a {@link SequenceParserToken} into a {@link HslParserToken}
  */
-final class HslFunctionParserTokenVisitor extends ParserTokenVisitor {
+final class HslFunctionParserTokenVisitor extends ColorParserTokenVisitor {
 
     static HslParserToken acceptParserToken(final ParserToken token) {
         final HslFunctionParserTokenVisitor visitor = new HslFunctionParserTokenVisitor();
         visitor.accept(token);
         return HslParserToken.with(visitor.hsl, token.text());
     }
-    
+
     HslFunctionParserTokenVisitor() {
         super();
     }
@@ -43,16 +46,16 @@ final class HslFunctionParserTokenVisitor extends ParserTokenVisitor {
     protected final void visit(final DoubleParserToken token) {
         do {
             final float value = token.value().floatValue();
-            if(null==this.hue) {
+            if (null == this.hue) {
                 this.hue = HslComponent.hue(value);
                 break;
             }
-            if(null==this.saturation) {
+            if (null == this.saturation) {
                 this.saturation = HslComponent.saturation(percentToFloat(value));
                 break;
             }
             this.hsl = Hsl.with(this.hue, this.saturation, HslComponent.lightness(percentToFloat(value)));
-        } while(false);
+        } while (false);
     }
 
     private float percentToFloat(final float value) {

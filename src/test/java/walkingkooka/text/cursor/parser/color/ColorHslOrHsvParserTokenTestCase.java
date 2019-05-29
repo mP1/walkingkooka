@@ -13,30 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
-package walkingkooka.text.cursor.parser;
+
+package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.PublicStaticHelperTesting;
+import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.type.MemberVisibility;
 
-import java.lang.reflect.Method;
+public abstract class ColorHslOrHsvParserTokenTestCase<T extends ColorHslOrHsvParserToken> implements ClassTesting2<T>,
+        ParserTokenTesting<T> {
 
-public final class ParsersTest implements ClassTesting2<Parsers>,
-        PublicStaticHelperTesting<Parsers> {
-
-    @Override
-    public Class<Parsers> type() {
-        return Parsers.class;
+    ColorHslOrHsvParserTokenTestCase() {
+        super();
     }
 
     @Override
-    public boolean canHavePublicTypes(final Method method) {
-        return false;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

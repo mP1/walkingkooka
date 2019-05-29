@@ -16,18 +16,21 @@
  *
  */
 
-package walkingkooka.text.cursor.parser;
+package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.color.Hsv;
 import walkingkooka.color.HsvComponent;
 import walkingkooka.color.HueHsvComponent;
 import walkingkooka.color.SaturationHsvComponent;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.SequenceParserToken;
 
 /**
- * A {@link ParserTokenVisitor} used to parse a {@link SequenceParserToken} into a {@link HsvParserToken}
+ * A {@link ColorParserTokenVisitor} used to parse a {@link SequenceParserToken} into a {@link HsvParserToken}
  */
-final class HsvFunctionParserTokenVisitor extends ParserTokenVisitor {
+final class HsvFunctionParserTokenVisitor extends ColorParserTokenVisitor {
 
     static HsvParserToken acceptParserToken(final ParserToken token) {
         final HsvFunctionParserTokenVisitor visitor = new HsvFunctionParserTokenVisitor();
@@ -43,16 +46,16 @@ final class HsvFunctionParserTokenVisitor extends ParserTokenVisitor {
     protected final void visit(final DoubleParserToken token) {
         do {
             final float value = token.value().floatValue();
-            if(null==this.hue) {
+            if (null == this.hue) {
                 this.hue = HsvComponent.hue(value);
                 break;
             }
-            if(null==this.saturation) {
+            if (null == this.saturation) {
                 this.saturation = HsvComponent.saturation(value);
                 break;
             }
             this.hsv = Hsv.with(this.hue, this.saturation, HsvComponent.value(value));
-        } while(false);
+        } while (false);
     }
 
     HueHsvComponent hue;
