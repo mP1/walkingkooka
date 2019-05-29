@@ -33,6 +33,11 @@ public final class SaturationHslComponentTest extends HslComponentTestCase<Satur
     }
 
     @Override
+    float value() {
+        return 0.75f;
+    }
+
+    @Override
     float min() {
         return SaturationHslComponent.MIN;
     }

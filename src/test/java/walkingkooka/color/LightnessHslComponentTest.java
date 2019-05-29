@@ -33,6 +33,11 @@ public final class LightnessHslComponentTest extends HslComponentTestCase<Lightn
     }
 
     @Override
+    float value() {
+        return 0.25f;
+    }
+
+    @Override
     float min() {
         return LightnessHslComponent.MIN;
     }

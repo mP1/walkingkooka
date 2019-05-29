@@ -48,38 +48,34 @@ abstract public class HslComponentTestCase<C extends HslComponent> implements Cl
         super();
     }
 
-    // constants
-
-    private final static float LIGHTNESS = 0.5f;
-
     // tests
 
     @Test
     public final void testBelowLowerBoundsFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.createHslComponent(HueHslComponent.MIN - 0.1f);
+            this.createHslComponent(this.min() - 0.1f);
         });
     }
 
     @Test
     public final void testAboveUpperBoundsFails() {
         assertThrows(IllegalArgumentException.class, () -> {
-            this.createHslComponent(HueHslComponent.MAX + 0.1f);
+            this.createHslComponent(this.max() + 0.1f);
         });
     }
 
     @Test
     public final void testWith() {
-        final C component = this.createHslComponent(LIGHTNESS);
-        assertEquals(LIGHTNESS, component.value(), 0.1, "value");
+        final C component = this.createHslComponent(value());
+        assertEquals(value(), component.value(), 0.1, "value");
     }
 
     // set
 
     @Test
     public final void testSameValue() {
-        final C component = this.createHslComponent(LIGHTNESS);
-        assertSame(component, component.setValue(LIGHTNESS));
+        final C component = this.createHslComponent(value());
+        assertSame(component, component.setValue(value()));
     }
 
     @Test
@@ -110,13 +106,13 @@ abstract public class HslComponentTestCase<C extends HslComponent> implements Cl
 
     @Test
     public final void testAddZero() {
-        final C component = this.createHslComponent(LIGHTNESS);
+        final C component = this.createHslComponent(value());
         assertSame(component, component.add(0));
     }
 
     @Test
     public final void testAddZero2() {
-        final C component = this.createHslComponent(LIGHTNESS);
+        final C component = this.createHslComponent(value());
         assertSame(component, component.add(0));
     }
 
@@ -172,14 +168,16 @@ abstract public class HslComponentTestCase<C extends HslComponent> implements Cl
 
     @Test
     public final void testToString() {
-        this.toStringAndCheck(this.createHslComponent(LIGHTNESS), String.valueOf(LIGHTNESS));
+        this.toStringAndCheck(this.createHslComponent(value()), String.valueOf(value()));
     }
 
     final C createHslComponent() {
-        return this.createHslComponent(LIGHTNESS);
+        return this.createHslComponent(this.value());
     }
 
     abstract C createHslComponent(float value);
+
+    abstract float value();
 
     abstract float min();
 
