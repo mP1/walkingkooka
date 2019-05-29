@@ -132,6 +132,7 @@ public abstract class EbnfParserTokenVisitor extends ParserTokenVisitor {
         if (Visiting.CONTINUE == this.startVisit(token)) {
             this.visit(token);
         }
+        this.endVisit(token);
     }
 
     protected void visit(final EbnfIdentifierParserToken token) {
