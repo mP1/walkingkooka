@@ -23,6 +23,8 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
 
 import java.io.Serializable;
 
@@ -30,6 +32,7 @@ import java.io.Serializable;
  * Base class for all color like value classes.
  */
 public abstract class ColorHslOrHsv implements HashCodeEqualsDefined,
+        HasJsonNode,
         Serializable,
         UsesToStringBuilder {
 
@@ -86,6 +89,13 @@ public abstract class ColorHslOrHsv implements HashCodeEqualsDefined,
     public abstract Hsl toHsl();
 
     public abstract Hsv toHsv();
+
+    // HasJsonNode......................................................................................................
+
+    @Override
+    public final JsonNode toJsonNode() {
+        return JsonNode.string(this.toString());
+    }
 
     // Object .........................................................................................................
 

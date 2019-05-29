@@ -102,6 +102,11 @@ final public class LightnessHslComponent extends HslComponent {
         return other instanceof LightnessHslComponent;
     }
 
+    @Override
+    public String toString() {
+        return toStringPrecentage();
+    }
+
     // Serializable
     private static final long serialVersionUID = 1;
 }

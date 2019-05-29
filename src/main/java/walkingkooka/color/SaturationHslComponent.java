@@ -104,6 +104,11 @@ final public class SaturationHslComponent extends HslComponent {
         return other instanceof SaturationHslComponent;
     }
 
+    @Override
+    public String toString() {
+        return toStringPrecentage();
+    }
+
     // Serializable
     private static final long serialVersionUID = 1;
 }

@@ -779,12 +779,7 @@ abstract public class ColorTestCase<C extends Color> extends ColorHslOrHsvTestCa
         return Color.class.getSimpleName();
     }
 
-    // HasJsonNodeTesting..................................................................
-
-    @Override
-    public final C createHasJsonNode() {
-        return this.createColorHslOrHsv();
-    }
+    // HasJsonNodeTesting...............................................................................................
 
     @Override
     public final C fromJsonNode(final JsonNode from) {

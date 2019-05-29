@@ -106,6 +106,11 @@ final public class SaturationHsvComponent extends HsvComponent {
         return other instanceof SaturationHsvComponent;
     }
 
+    @Override
+    public String toString() {
+        return this.toStringDecimal();
+    }
+
     // Serializable
     private static final long serialVersionUID = 1;
 }

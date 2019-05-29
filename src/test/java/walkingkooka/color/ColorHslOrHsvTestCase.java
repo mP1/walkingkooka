@@ -23,6 +23,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.tree.json.HasJsonNodeTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -30,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ColorHslOrHsvTestCase<T extends ColorHslOrHsv> implements ClassTesting2<T>,
         HashCodeEqualsDefinedTesting<T>,
+        HasJsonNodeTesting<T>,
         SerializationTesting<T>,
         ToStringTesting<T> {
 
@@ -113,6 +115,13 @@ public abstract class ColorHslOrHsvTestCase<T extends ColorHslOrHsv> implements 
 
     @Override
     public final T createObject() {
+        return this.createColorHslOrHsv();
+    }
+
+    // HasJsonNodeTesting..............................................................................................
+
+    @Override
+    public final T createHasJsonNode() {
         return this.createColorHslOrHsv();
     }
 }

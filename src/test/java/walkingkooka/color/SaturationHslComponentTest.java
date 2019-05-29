@@ -27,6 +27,21 @@ public final class SaturationHslComponentTest extends HslComponentTestCase<Satur
         this.checkNotEquals(SaturationHslComponent.with(0));
     }
 
+    @Test
+    public void testToString0() {
+        this.toStringAndCheck(SaturationHslComponent.with(0), "0%");
+    }
+
+    @Test
+    public void testToStringHalf() {
+        this.toStringAndCheck(SaturationHslComponent.with(0.5f), "50%");
+    }
+
+    @Test
+    public void testToStringOne() {
+        this.toStringAndCheck(SaturationHslComponent.with(1.0f), "100%");
+    }
+    
     @Override
     SaturationHslComponent createHslComponent(final float value) {
         return SaturationHslComponent.with(value);

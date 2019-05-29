@@ -27,6 +27,21 @@ public final class SaturationHsvComponentTest extends HsvComponentTestCase<Satur
         this.checkNotEquals(SaturationHslComponent.with(0));
     }
 
+    @Test
+    public void testToString0() {
+        this.toStringAndCheck(SaturationHsvComponent.with(0), "0.0");
+    }
+
+    @Test
+    public void testToStringHalf() {
+        this.toStringAndCheck(SaturationHsvComponent.with(0.5f), "0.5");
+    }
+
+    @Test
+    public void testToStringOne() {
+        this.toStringAndCheck(SaturationHsvComponent.with(1.0f), "1.0");
+    }
+
     @Override
     SaturationHsvComponent createHsvComponent(final float value) {
         return SaturationHsvComponent.with(value);
