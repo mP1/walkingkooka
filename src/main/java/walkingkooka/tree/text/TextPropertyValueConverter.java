@@ -50,6 +50,13 @@ abstract class TextPropertyValueConverter<T> {
     }
 
     /**
+     * {@see FontWeightTextPropertyValueConverter}
+     */
+    static TextPropertyValueConverter<FontWeight> fontWeight() {
+        return FontWeightTextPropertyValueConverter.INSTANCE;
+    }
+    
+    /**
      * {@see StringTextPropertyValueConverter}
      */
     static TextPropertyValueConverter<String> string() {
