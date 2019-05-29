@@ -41,13 +41,6 @@ final public class AlphaColorComponent extends ColorComponent {
         super(value);
     }
 
-    /**
-     * Private constructor use factory.
-     */
-    private AlphaColorComponent(final byte value) {
-        super(value);
-    }
-
     @Override
     public AlphaColorComponent add(final int value) {
         return AlphaColorComponent.with(addUnsignedSaturated(this.unsignedIntValue, value));
