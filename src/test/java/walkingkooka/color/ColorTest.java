@@ -26,82 +26,82 @@ import walkingkooka.type.MemberVisibility;
 public final class ColorTest implements ClassTesting2<Color>,
         ParseStringTesting<Color> {
 
-    // parse..................................................................
+    // parseColor..................................................................
 
     @Test
-    public void testParseMissingLeadingHashFails() {
+    public void testParseColorMissingLeadingHashFails() {
         this.parseFails("123", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseInvalidFails() {
+    public void testParseColorInvalidFails() {
         this.parseFails("xyz", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseInvalidFails2() {
+    public void testParseColorInvalidFails2() {
         this.parseFails("#1x3", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseOneDigitFails() {
+    public void testParseColorOneDigitFails() {
         this.parseFails("#1", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseTwoDigitsFails() {
+    public void testParseColorTwoDigitsFails() {
         this.parseFails("#12", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseFiveDigitsFails() {
+    public void testParseColorFiveDigitsFails() {
         this.parseFails("#12345", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseSevenDigitsFails() {
+    public void testParseColorSevenDigitsFails() {
         this.parseFails("#1234567", IllegalArgumentException.class);
     }
 
     // rgba(1,2,3).......................................................................................................
 
     @Test
-    public void testParseRgbaFunctionIncompleteFails() {
+    public void testParseColorRgbaFunctionIncompleteFails() {
         this.parseFails("rgba(1", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseRgbaFunctionMissingParensRightFails() {
+    public void testParseColorRgbaFunctionMissingParensRightFails() {
         this.parseFails("rgba(1,2,3,0.5", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseRgbaFunction() {
+    public void testParseColorRgbaFunction() {
         this.parseRgbaAndCheck3("rgba(1,2,3,0.5)", 1, 2, 3, 127);
     }
 
     @Test
-    public void testParseRgbaFunction2() {
+    public void testParseColorRgbaFunction2() {
         this.parseRgbaAndCheck3("rgba(12,34,56,0.5)", 12, 34, 56, 127);
     }
 
     @Test
-    public void testParseRgbaFunction3() {
+    public void testParseColorRgbaFunction3() {
         this.parseRgbaAndCheck3("rgba(99,128,255,0.5)", 99, 128, 255, 127);
     }
 
     @Test
-    public void testParseRgbaFunction4() {
+    public void testParseColorRgbaFunction4() {
         this.parseRgbaAndCheck3("rgba(0,0,0,0)", 0, 0, 0, 0);
     }
 
     @Test
-    public void testParseRgbaFunction5() {
+    public void testParseColorRgbaFunction5() {
         this.parseRgbaAndCheck3("rgba(255,254,253,1.0)", 255, 254, 253, 255);
     }
 
     @Test
-    public void testParseRgbaFunctionExtraWhitespace() {
+    public void testParseColorRgbaFunctionExtraWhitespace() {
         this.parseRgbaAndCheck3("rgba( 1,2 , 3, 0 )", 1, 2, 3, 0);
     }
 
@@ -120,32 +120,32 @@ public final class ColorTest implements ClassTesting2<Color>,
     // rgb(1,2,3).......................................................................................................
 
     @Test
-    public void testParseRgbFunctionIncompleteFails() {
+    public void testParseColorRgbFunctionIncompleteFails() {
         this.parseFails("rgb(1", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseRgbFunctionMissingParensRightFails() {
+    public void testParseColorRgbFunctionMissingParensRightFails() {
         this.parseFails("rgb(1,2,3", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseRgbFunction() {
+    public void testParseColorRgbFunction() {
         this.parseRgbAndCheck2("rgb(1,2,3)", 1, 2, 3);
     }
 
     @Test
-    public void testParseRgbFunction2() {
+    public void testParseColorRgbFunction2() {
         this.parseRgbAndCheck2("rgb(12,34,56)", 12, 34, 56);
     }
 
     @Test
-    public void testParseRgbFunction3() {
+    public void testParseColorRgbFunction3() {
         this.parseRgbAndCheck2("rgb(99,128,255)", 99, 128, 255);
     }
 
     @Test
-    public void testParseRgbFunctionExtraWhitespace() {
+    public void testParseColorRgbFunctionExtraWhitespace() {
         this.parseRgbAndCheck2("rgb( 1,2 , 3 )", 1, 2, 3);
     }
 
@@ -158,39 +158,39 @@ public final class ColorTest implements ClassTesting2<Color>,
     // #123456..........................................................................................................
 
     @Test
-    public void testParseHashRedRedGreenGreenBlueBlue() {
+    public void testParseColorHashRedRedGreenGreenBlueBlue() {
         this.parseRgbAndCheck("#123456", 0x123456);
     }
 
     @Test
-    public void testParseHashRedRedGreenGreenBlueBlue2() {
+    public void testParseColorHashRedRedGreenGreenBlueBlue2() {
         this.parseRgbAndCheck("#000011", 0x000011);
     }
 
     @Test
-    public void testParseHashRedRedGreenGreenBlueBlue3() {
+    public void testParseColorHashRedRedGreenGreenBlueBlue3() {
         this.parseRgbAndCheck("#010101", 0x010101);
     }
 
     // #123.............................................................................................................
 
     @Test
-    public void testParseHashRedGreenBlue() {
+    public void testParseColorHashRedGreenBlue() {
         this.parseRgbAndCheck("#123", 0x112233);
     }
 
     @Test
-    public void testParseHashRedGreenBlue2() {
+    public void testParseColorHashRedGreenBlue2() {
         this.parseRgbAndCheck("#001", 0x000011);
     }
 
     @Test
-    public void testParseHashRedGreenBlue3() {
+    public void testParseColorHashRedGreenBlue3() {
         this.parseRgbAndCheck("#010", 0x001100);
     }
 
     @Test
-    public void testParseHashRedGreenBlue4() {
+    public void testParseColorHashRedGreenBlue4() {
         this.parseRgbAndCheck("#100", 0x110000);
     }
 
@@ -201,69 +201,69 @@ public final class ColorTest implements ClassTesting2<Color>,
     // #1234.............................................................................................................
 
     @Test
-    public void testParseHashAlphaRedGreenBlueBlack() {
+    public void testParseColorHashAlphaRedGreenBlueBlack() {
         this.parseArgbAndCheck("#F000", 0xFF000000);
     }
 
     @Test
-    public void testParseHashAlphaRedGreenBlue() {
+    public void testParseColorHashAlphaRedGreenBlue() {
         this.parseArgbAndCheck("#1234", 0x11223344);
     }
 
     @Test
-    public void testParseHashAlphaRedGreenBlue2() {
+    public void testParseColorHashAlphaRedGreenBlue2() {
         this.parseArgbAndCheck("#0001", 0x00000011);
     }
 
     @Test
-    public void testParseHashAlphaRedGreenBlue3() {
+    public void testParseColorHashAlphaRedGreenBlue3() {
         this.parseArgbAndCheck("#0010", 0x00001100);
     }
 
     @Test
-    public void testParseHashAlphaRedGreenBlue4() {
+    public void testParseColorHashAlphaRedGreenBlue4() {
         this.parseArgbAndCheck("#0100", 0x00110000);
     }
 
     @Test
-    public void testParseHashAlphaRedGreenBlue5() {
+    public void testParseColorHashAlphaRedGreenBlue5() {
         this.parseArgbAndCheck("#FEDC", 0xFFEEDDCC);
     }
 
     @Test
-    public void testParseHashAlphaRedGreenBlueWhite() {
+    public void testParseColorHashAlphaRedGreenBlueWhite() {
         this.parseArgbAndCheck("#ffff", 0xffffffff);
     }
 
     // #12345678.......................................................................................................
 
     @Test
-    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlue() {
+    public void testParseColorHashAlphaAlphaRedRedGreenGreenBlueBlue() {
         this.parseArgbAndCheck("#01234567", 0x01234567);
     }
 
     @Test
-    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlue2() {
+    public void testParseColorHashAlphaAlphaRedRedGreenGreenBlueBlue2() {
         this.parseArgbAndCheck("#12345678", 0x12345678);
     }
 
     @Test
-    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlueZeroes() {
+    public void testParseColorHashAlphaAlphaRedRedGreenGreenBlueBlueZeroes() {
         this.parseArgbAndCheck("#00000000", 0x0);
     }
 
     @Test
-    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlue3() {
+    public void testParseColorHashAlphaAlphaRedRedGreenGreenBlueBlue3() {
         this.parseArgbAndCheck("#abcdef12", 0xabcdef12);
     }
 
     @Test
-    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlueUpperCaseHex() {
+    public void testParseColorHashAlphaAlphaRedRedGreenGreenBlueBlueUpperCaseHex() {
         this.parseArgbAndCheck("#ABCDEF12", 0xABCDEF12);
     }
 
     @Test
-    public void testParseHashAlphaAlphaRedRedGreenGreenBlueBlueFFFFFFFF() {
+    public void testParseColorHashAlphaAlphaRedRedGreenGreenBlueBlueFFFFFFFF() {
         this.parseArgbAndCheck("#FFFFFFFF", 0xFFFFFFFF);
     }
 
@@ -274,17 +274,17 @@ public final class ColorTest implements ClassTesting2<Color>,
     // name............................................................................................................
 
     @Test
-    public void testParseNameUnknownFails() {
+    public void testParseColorNameUnknownFails() {
         this.parseFails("Unknown", IllegalArgumentException.class);
     }
 
     @Test
-    public void testParseBlack() {
+    public void testParseColorBlack() {
         this.parseAndCheck("black", Color.BLACK);
     }
 
     @Test
-    public void testParseCyan() {
+    public void testParseColorCyan() {
         this.parseAndCheck("CYAN", WebColorName.CYAN.color());
     }
 
@@ -304,7 +304,7 @@ public final class ColorTest implements ClassTesting2<Color>,
 
     @Override
     public Color parse(final String text) {
-        return Color.parse(text);
+        return Color.parseColor(text);
     }
 
     @Override

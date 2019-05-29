@@ -263,7 +263,7 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
 
     @Override
     public Hsv parse(final String text) {
-        return Hsv.parse(text);
+        return Hsv.parseHsv(text);
     }
 
     @Override

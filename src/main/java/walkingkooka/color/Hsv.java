@@ -38,19 +38,15 @@ import java.util.Objects;
  */
 final public class Hsv extends ColorHslOrHsv {
 
-    // parse hsv(359,1.0,1.0)..............................................................................................
+    // parseColor hsv(359,1.0,1.0)..............................................................................................
 
-    public static Hsv parse(final String text) {
-        return parse0(text, HSV_FUNCTION_PARSER);
+    public static Hsv parseHsv(final String text) {
+        return parseHsv0(text);
     }
 
-    private final static Parser<ParserContext> HSV_FUNCTION_PARSER = ColorParsers.hsvFunction()
-            .orReport(ParserReporters.basic());
-
-    private static Hsv parse0(final String text,
-                              final Parser<ParserContext> parser) {
+    static Hsv parseHsv0(final String text) {
         try {
-            return parser.parse(TextCursors.charSequence(text),
+            return HSV_FUNCTION_PARSER.parse(TextCursors.charSequence(text),
                     ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+')))
                     .map(t -> HsvParserToken.class.cast(t).value())
                     .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
@@ -58,6 +54,9 @@ final public class Hsv extends ColorHslOrHsv {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
     }
+
+    private final static Parser<ParserContext> HSV_FUNCTION_PARSER = ColorParsers.hsvFunction()
+            .orReport(ParserReporters.basic());
 
     /**
      * Factory that creates a new {@link Hsv}

@@ -54,23 +54,27 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
     public final static Color WHITE = Color.fromRgb(0xFFFFFF);
 
     /**
-     * Parses a {@link Color}, currently only #RGB and #RRGBB formats are supported<br>
+     * Parses a {@link Color}, currently only #RGB, #RRGGBB, rgb(), rgba() and web color names formats are supported<br>
      * <a href="https://en.wikipedia.org/wiki/Web_colors#CSS_colors"></a>
      */
-    public static Color parse(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
+    public static Color parseColor(final String text) {
+        checkText(text);
+        return parseColor0(text);
+    }
 
+    static Color parseColor0(final String text) {
         Color color;
+
         do {
-            if(text.startsWith("rgba(")) {
+            if (text.startsWith("rgba(")) {
                 color = parseRgbaFunction(text);
                 break;
             }
-            if(text.startsWith("rgb(")) {
+            if (text.startsWith("rgb(")) {
                 color = parseRgbFunction(text);
                 break;
             }
-            if(Character.isLetter(text.charAt(0))) {
+            if (Character.isLetter(text.charAt(0))) {
                 color = parseWebColorName(text);
                 break;
             }
@@ -84,26 +88,26 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
         return color;
     }
 
-    // parse rgba(12,34,56,0.5).............................................................................................
+    // parseColor rgba(12,34,56,0.5).............................................................................................
 
     private static Color parseRgbaFunction(final String text) {
-        return parse(text, RGBA_FUNCTION_PARSER);
+        return parseColor(text, RGBA_FUNCTION_PARSER);
     }
 
     private final static Parser<ParserContext> RGBA_FUNCTION_PARSER = ColorParsers.rgbaFunction()
             .orReport(ParserReporters.basic());
 
-    // parse rgb(12,34,56)..............................................................................................
+    // parseColor rgb(12,34,56)..............................................................................................
 
     private static Color parseRgbFunction(final String text) {
-        return parse(text, RGB_FUNCTION_PARSER);
+        return parseColor(text, RGB_FUNCTION_PARSER);
     }
 
     private final static Parser<ParserContext> RGB_FUNCTION_PARSER = ColorParsers.rgbFunction()
             .orReport(ParserReporters.basic());
 
-    private static Color parse(final String text,
-                               final Parser<ParserContext> parser) {
+    private static Color parseColor(final String text,
+                                    final Parser<ParserContext> parser) {
         try {
             return parser.parse(TextCursors.charSequence(text),
                     ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+')))
@@ -122,7 +126,7 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
     private static Color parseWebColorName(final String name) {
         return WebColorName.with(name)
                 .map(WebColorName::color)
-                .orElseThrow(()-> new IllegalArgumentException("Unknown color name " + CharSequences.quoteAndEscape(name)));
+                .orElseThrow(() -> new IllegalArgumentException("Unknown color name " + CharSequences.quoteAndEscape(name)));
     }
 
     /**
@@ -642,7 +646,7 @@ abstract public class Color extends ColorHslOrHsv implements HasJsonNode {
         Objects.requireNonNull(from, "from");
 
         try {
-            return parse(from.stringValueOrFail());
+            return parseColor(from.stringValueOrFail());
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }

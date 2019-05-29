@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
 
@@ -31,6 +32,44 @@ import java.io.Serializable;
 public abstract class ColorHslOrHsv implements HashCodeEqualsDefined,
         Serializable,
         UsesToStringBuilder {
+
+    /**
+     * Parses the numerous supported {@link Color}, {@link Hsl} and {@link Hsv}.
+     * This equivalent to calling any of each until success or failure.
+     */
+    public static ColorHslOrHsv parse(final String text) {
+        return parse0(text, true, true, true);
+    }
+
+    static ColorHslOrHsv parse0(final String text,
+                                final boolean tryColor,
+                                final boolean tryHsl,
+                                final boolean tryHsv) {
+        checkText(text);
+
+        ColorHslOrHsv color;
+        do {
+            if(tryHsl && text.startsWith("hsl(")) {
+                color = Hsl.parseHsl0(text);
+                break;
+            }
+            if(tryHsv && text.startsWith("hsv(")) {
+                color = Hsv.parseHsv0(text);
+                break;
+            }
+            if(tryColor) {
+                color = Color.parseColor0(text);
+                break;
+            }
+            throw new IllegalArgumentException("Invalid color " + CharSequences.quoteAndEscape(text));
+        } while (false);
+
+        return color;
+    }
+
+    static void checkText(final String text) {
+        CharSequences.failIfNullOrEmpty(text, "text");
+    }
 
     ColorHslOrHsv() {
         super();
