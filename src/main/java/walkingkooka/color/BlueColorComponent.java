@@ -39,13 +39,6 @@ final public class BlueColorComponent extends ColorComponent {
         super(value);
     }
 
-    /**
-     * Private constructor use factory.
-     */
-    private BlueColorComponent(final byte value) {
-        super(value);
-    }
-
     @Override
     public BlueColorComponent add(final int value) {
         return BlueColorComponent.with(addUnsignedSaturated(this.unsignedIntValue, value));
