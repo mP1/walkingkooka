@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser.color;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.color.Hsl;
-import walkingkooka.text.cursor.parser.FakeParserTokenVisitor;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
@@ -69,7 +68,7 @@ public final class HslParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
     @Test
     public void testToSearchNode() {
         final String text = "hsl(60,100%,100%)";
-        this.toSearchNodeAndCheck(HslParserToken.with(Hsl.parse(text), text),
+        this.toSearchNodeAndCheck(HslParserToken.with(Hsl.parseHsl(text), text),
                 SearchNode.text(text, text));
     }
 
@@ -82,7 +81,7 @@ public final class HslParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
 
     @Override
     public HslParserToken createToken(final String text) {
-        return HslParserToken.with(Hsl.parse(text), text);
+        return HslParserToken.with(Hsl.parseHsl(text), text);
     }
 
     @Override
@@ -92,7 +91,7 @@ public final class HslParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
 
     @Override
     public HslParserToken createDifferentToken() {
-        return HslParserToken.with(Hsl.parse("hsl(359,50%,25%)"), "hsl(359,50%,25%)");
+        return HslParserToken.with(Hsl.parseHsl("hsl(359,50%,25%)"), "hsl(359,50%,25%)");
     }
 
     @Override

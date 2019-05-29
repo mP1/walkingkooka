@@ -18,10 +18,61 @@
 
 package walkingkooka.color;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv> {
+public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv>,
+        ParseStringTesting<ColorHslOrHsv> {
+
+    @Test
+    public void testParseFails() {
+        this.parseFails("abc", IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testParseHsl() {
+        this.parseAndCheck("hsl(359, 0%, 25%)",
+                Hsl.with(HslComponent.hue(359f),
+                        HslComponent.saturation(0.0f),
+                        HslComponent.lightness(0.25f)));
+    }
+
+    @Test
+    public void testParseHsv() {
+        this.parseAndCheck("hsv(359, 0.0, 0.25)",
+                Hsv.with(HsvComponent.hue(359f),
+                        HsvComponent.saturation(0.0f),
+                        HsvComponent.value(0.25f)));
+    }
+
+    @Test
+    public void testParseRgb() {
+        this.parseAndCheck("rgb(12,34,56)",
+                Color.with(ColorComponent.red((byte) 12),
+                        ColorComponent.green((byte) 34),
+                        ColorComponent.blue((byte) 56)));
+    }
+
+    // ParseStringTesting...............................................................................................
+
+    @Override
+    public ColorHslOrHsv parse(final String text) {
+        return ColorHslOrHsv.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    @Override
+    public RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    // ClassTesting....................................................................................................
 
     @Override
     public Class<ColorHslOrHsv> type() {

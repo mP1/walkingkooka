@@ -68,14 +68,14 @@ public final class ColorParserTokenTest extends ColorHslOrHsvParserTokenTestCase
     @Test
     public void testToSearchNodeWithNamedColor() {
         final String text = "silver";
-        this.toSearchNodeAndCheck(ColorParserToken.with(Color.parse(text), text),
+        this.toSearchNodeAndCheck(ColorParserToken.with(Color.parseColor(text), text),
                 SearchNode.text(text, text));
     }
 
     @Test
     public void testToSearchNodeWithUnnamedColor() {
         final String text = "#987654";
-        this.toSearchNodeAndCheck(ColorParserToken.with(Color.parse("#123456"), text),
+        this.toSearchNodeAndCheck(ColorParserToken.with(Color.parseColor("#123456"), text),
                 SearchNode.text(text, text));
     }
 
@@ -88,7 +88,7 @@ public final class ColorParserTokenTest extends ColorHslOrHsvParserTokenTestCase
 
     @Override
     public ColorParserToken createToken(final String text) {
-        return ColorParserToken.with(Color.parse(text), text);
+        return ColorParserToken.with(Color.parseColor(text), text);
     }
 
     @Override
@@ -98,7 +98,7 @@ public final class ColorParserTokenTest extends ColorHslOrHsvParserTokenTestCase
 
     @Override
     public ColorParserToken createDifferentToken() {
-        return ColorParserToken.with(Color.parse("aqua"), "aqua");
+        return ColorParserToken.with(Color.parseColor("aqua"), "aqua");
     }
 
     @Override

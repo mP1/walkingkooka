@@ -270,7 +270,7 @@ public final class HslTest extends ColorHslOrHsvTestCase<Hsl> implements ParseSt
 
     @Override
     public Hsl parse(final String text) {
-        return Hsl.parse(text);
+        return Hsl.parseHsl(text);
     }
 
     @Override

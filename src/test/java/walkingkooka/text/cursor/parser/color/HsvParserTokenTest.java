@@ -68,7 +68,7 @@ public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
     @Test
     public void testToSearchNode() {
         final String text = "hsv(359,0.5,1.0)";
-        this.toSearchNodeAndCheck(HsvParserToken.with(Hsv.parse(text), text),
+        this.toSearchNodeAndCheck(HsvParserToken.with(Hsv.parseHsv(text), text),
                 SearchNode.text(text, text));
     }
 
@@ -81,7 +81,7 @@ public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
 
     @Override
     public HsvParserToken createToken(final String text) {
-        return HsvParserToken.with(Hsv.parse(text), text);
+        return HsvParserToken.with(Hsv.parseHsv(text), text);
     }
 
     @Override
@@ -91,7 +91,7 @@ public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
 
     @Override
     public HsvParserToken createDifferentToken() {
-        return HsvParserToken.with(Hsv.parse("hsv(359,0.5,1.0)"), "hsv(359,0.5,1.0)");
+        return HsvParserToken.with(Hsv.parseHsv("hsv(359,0.5,1.0)"), "hsv(359,0.5,1.0)");
     }
 
     @Override
