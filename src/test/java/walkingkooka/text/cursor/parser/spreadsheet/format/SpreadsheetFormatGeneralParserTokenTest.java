@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -32,12 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class SpreadsheetFormatGeneralParserTokenTest extends SpreadsheetFormatParentParserTokenTestCase<SpreadsheetFormatGeneralParserToken> {
 
     private final static String GENERAL = "GENeral";
-
-    @Test
-    @Disabled("setTextFromValues fails when values is empty.")
-    public void testWithoutSymbolsPropertiesNullCheck() {
-        throw new UnsupportedOperationException();
-    }
 
     @Test
     public void testAccept() {
