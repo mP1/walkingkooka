@@ -31,6 +31,7 @@ import walkingkooka.tree.json.JsonNodeName;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * The name of an expression node.
@@ -58,6 +59,15 @@ public final class TextPropertyName<T> implements Name,
     }
 
     /**
+     * Creates and adds a new {@link TextPropertyName} that handles {@link Enum} values.
+     */
+    private static <E extends Enum<E>> TextPropertyName<E> registerEnumConstant(final String property,
+                                                                                final Function<String, E> factory,
+                                                                                final Class<E> type) {
+        return registerConstant(property, TextPropertyValueConverter.enumTextPropertyValueConverter(factory, type));
+    }
+
+    /**
      * Creates and adds a new {@link TextPropertyName} to the cache being built that handles {@link FontFamilyName} values.
      */
     private static TextPropertyName<FontFamilyName> registerFontFamilyNameConstant(final String property) {
@@ -77,7 +87,7 @@ public final class TextPropertyName<T> implements Name,
     private static TextPropertyName<FontWeight> registerFontWeightConstant(final String property) {
         return registerConstant(property, TextPropertyValueConverter.fontWeight());
     }
-    
+
     /**
      * Creates and adds a new {@link TextPropertyName} to the cache being built.
      */
@@ -109,9 +119,30 @@ public final class TextPropertyName<T> implements Name,
     public final static TextPropertyName<FontWeight> FONT_WEIGHT = registerFontWeightConstant("font-weight");
 
     /**
+     * horizontal-alignment
+     */
+    public final static TextPropertyName<HorizontalAlignment> HORIZONTAL_ALIGNMENT = registerEnumConstant("horizontal-alignment",
+            HorizontalAlignment::valueOf,
+            HorizontalAlignment.class);
+
+    /**
      * Text color
      */
     public final static TextPropertyName<Color> TEXT_COLOR = registerColorConstant("text-color");
+
+    /**
+     * text-wrapping
+     */
+    public final static TextPropertyName<TextWrapping> TEXT_WRAPPING = registerEnumConstant("text-wrapping",
+            TextWrapping::valueOf,
+            TextWrapping.class);
+
+    /**
+     * vertical-alignment
+     */
+    public final static TextPropertyName<VerticalAlignment> VERTICAL_ALIGNMENT = registerEnumConstant("vertical-alignment",
+            VerticalAlignment::valueOf,
+            VerticalAlignment.class);
 
     /**
      * Factory that retrieves an existing property or if unknown a property that assumes non empty string value.

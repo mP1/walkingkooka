@@ -23,6 +23,8 @@ import walkingkooka.color.Color;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
+import java.util.function.Function;
+
 /**
  * Base converter that provides support for converting header text to values and back.
  */
@@ -33,6 +35,14 @@ abstract class TextPropertyValueConverter<T> {
      */
     static TextPropertyValueConverter<Color> color() {
         return ColorTextPropertyValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see EnumTextPropertyValueConverter}
+     */
+    static <E extends Enum<E>> EnumTextPropertyValueConverter<E> enumTextPropertyValueConverter(final Function<String, E> factory,
+                                                                                                final Class<E> type) {
+        return EnumTextPropertyValueConverter.with(factory, type);
     }
 
     /**
