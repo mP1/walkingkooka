@@ -246,6 +246,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         properties.put(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456));
         properties.put(TextPropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
         properties.put(TextPropertyName.FONT_SIZE, FontSize.with(10));
+        properties.put(TextPropertyName.FONT_STYLE, FontStyle.ITALIC);
         properties.put(TextPropertyName.FONT_WEIGHT, FontWeight.with(1000));
         properties.put(TextPropertyName.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
         properties.put(TextPropertyName.TEXT_COLOR, Color.fromRgb(0x789abc));
