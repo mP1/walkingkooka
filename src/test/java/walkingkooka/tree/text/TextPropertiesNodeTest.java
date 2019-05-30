@@ -244,6 +244,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
     public void testJsonRoundtripWithProperties3() {
         final Map<TextPropertyName<?>, Object> properties = Maps.ordered();
         properties.put(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456));
+        properties.put(TextPropertyName.DIRECTION, Direction.LTR);
         properties.put(TextPropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
         properties.put(TextPropertyName.FONT_KERNING, FontKerning.NORMAL);
         properties.put(TextPropertyName.FONT_SIZE, FontSize.with(10));
