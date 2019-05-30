@@ -185,6 +185,13 @@ public final class TextPropertyName<T> implements Name,
             TextDecorationStyle.class);
 
     /**
+     * text-justify
+     */
+    public final static TextPropertyName<TextJustify> TEXT_JUSTIFY = registerEnumConstant("text-justify",
+            TextJustify::valueOf,
+            TextJustify.class);
+
+    /**
      * text-wrapping
      */
     public final static TextPropertyName<TextWrapping> TEXT_WRAPPING = registerEnumConstant("text-wrapping",
