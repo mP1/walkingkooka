@@ -110,29 +110,10 @@ public final class TextPropertiesNode extends TextParentNode {
 
     @Override
     public TextPropertiesNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
-        final Map<TextPropertyName<?>, Object> copy = copyAttributes(attributes);
+        final Map<TextPropertyName<?>, Object> copy = TextPropertiesMap.with(attributes);
         return copy.isEmpty() ?
                 this :
                 this.setAttributes0(attributes);
-    }
-
-    /**
-     * Makes a defensive copy of the provided attributes.
-     */
-    private static Map<TextPropertyName<?>, Object> copyAttributes(final Map<TextPropertyName<?>, Object> attributes) {
-        Objects.requireNonNull(attributes, "attributes");
-
-        final Map<TextPropertyName<?>, Object> copy = Maps.ordered();
-        for (Entry<TextPropertyName<?>, Object> propertyAndValue : attributes.entrySet()) {
-            final TextPropertyName<?> propertyName = propertyAndValue.getKey();
-            final Object value = propertyAndValue.getValue();
-
-            propertyName.check(value);
-
-            copy.put(propertyName, value);
-        }
-
-        return copy;
     }
 
     /**
