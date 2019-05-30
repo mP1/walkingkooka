@@ -22,14 +22,14 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class TextPropertyValueConverterTest implements ClassTesting<TextPropertyValueConverter<?>> {
+public final class TextPropertyValueHandlerTest implements ClassTesting<TextPropertyValueHandler<?>> {
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     @Override
-    public Class<TextPropertyValueConverter<?>> type() {
-        return Cast.to(TextPropertyValueConverter.class);
+    public Class<TextPropertyValueHandler<?>> type() {
+        return Cast.to(TextPropertyValueHandler.class);
     }
 }

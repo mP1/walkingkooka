@@ -21,7 +21,7 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 
-public final class ColorTextPropertyValueConverterTest extends TextPropertyValueConverterTestCase<ColorTextPropertyValueConverter, Color> {
+public final class ColorTextPropertyValueHandlerTest extends TextPropertyValueHandlerTestCase<ColorTextPropertyValueHandler, Color> {
 
     @Test
     public void testFromJsonNode() {
@@ -53,8 +53,8 @@ public final class ColorTextPropertyValueConverterTest extends TextPropertyValue
     }
 
     @Override
-    ColorTextPropertyValueConverter converter() {
-        return ColorTextPropertyValueConverter.INSTANCE;
+    ColorTextPropertyValueHandler converter() {
+        return ColorTextPropertyValueHandler.INSTANCE;
     }
 
     @Override
@@ -78,7 +78,7 @@ public final class ColorTextPropertyValueConverterTest extends TextPropertyValue
     }
 
     @Override
-    public Class<ColorTextPropertyValueConverter> type() {
-        return ColorTextPropertyValueConverter.class;
+    public Class<ColorTextPropertyValueHandler> type() {
+        return ColorTextPropertyValueHandler.class;
     }
 }

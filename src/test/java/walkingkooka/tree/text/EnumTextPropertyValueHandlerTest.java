@@ -19,47 +19,49 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
+import walkingkooka.tree.json.JsonNode;
 
-public final class FontSizeTextPropertyValueConverterTest extends TextPropertyValueConverterTestCase<FontSizeTextPropertyValueConverter, FontSize> {
+public final class EnumTextPropertyValueHandlerTest extends TextPropertyValueHandlerTestCase<EnumTextPropertyValueHandler<TextWrapping>, TextWrapping> {
 
     @Test
     public void testFromJsonNode() {
-        final FontSize fontSize = FontSize.with(123);
-        this.fromJsonNodeAndCheck(fontSize.toJsonNode(), fontSize);
+        final TextWrapping textWrapping = TextWrapping.CLIP;
+        this.fromJsonNodeAndCheck(JsonNode.string(textWrapping.name()), textWrapping);
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.converter(), "FontSize");
+        this.toStringAndCheck(this.converter(), TextWrapping.class.getSimpleName());
     }
 
     @Override
-    FontSizeTextPropertyValueConverter converter() {
-        return FontSizeTextPropertyValueConverter.INSTANCE;
+    EnumTextPropertyValueHandler<TextWrapping> converter() {
+        return EnumTextPropertyValueHandler.with(TextWrapping::valueOf, TextWrapping.class);
     }
 
     @Override
-    TextPropertyName<FontSize> propertyName() {
-        return TextPropertyName.FONT_SIZE;
+    TextPropertyName<TextWrapping> propertyName() {
+        return TextPropertyName.TEXT_WRAPPING;
     }
 
     @Override
-    FontSize propertyValue() {
-        return FontSize.with(12);
+    TextWrapping propertyValue() {
+        return TextWrapping.CLIP;
     }
 
     @Override
     String propertyValueType() {
-        return FontSize.class.getName();
+        return TextWrapping.class.getName();
     }
 
     @Override
     public String typeNamePrefix() {
-        return FontSize.class.getSimpleName();
+        return Enum.class.getSimpleName();
     }
 
     @Override
-    public Class<FontSizeTextPropertyValueConverter> type() {
-        return FontSizeTextPropertyValueConverter.class;
+    public Class<EnumTextPropertyValueHandler<TextWrapping>> type() {
+        return Cast.to(EnumTextPropertyValueHandler.class);
     }
 }

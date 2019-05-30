@@ -21,19 +21,19 @@ package walkingkooka.tree.text;
 import walkingkooka.tree.json.JsonNode;
 
 /**
- * A {@link TextPropertyValueConverter} for {@link FontFamilyName} parameter values.
+ * A {@link TextPropertyValueHandler} for {@link FontFamilyName} parameter values.
  */
-final class FontFamilyNameTextPropertyValueConverter extends TextPropertyValueConverter<FontFamilyName> {
+final class FontFamilyNameTextPropertyValueHandler extends TextPropertyValueHandler<FontFamilyName> {
 
     /**
      * Singleton
      */
-    final static FontFamilyNameTextPropertyValueConverter INSTANCE = new FontFamilyNameTextPropertyValueConverter();
+    final static FontFamilyNameTextPropertyValueHandler INSTANCE = new FontFamilyNameTextPropertyValueHandler();
 
     /**
      * Private ctor
      */
-    private FontFamilyNameTextPropertyValueConverter() {
+    private FontFamilyNameTextPropertyValueHandler() {
         super();
     }
 

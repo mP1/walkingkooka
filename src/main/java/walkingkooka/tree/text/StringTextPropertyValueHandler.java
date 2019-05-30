@@ -18,46 +18,50 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
 /**
- * A {@link TextPropertyValueConverter} for {@link FontWeight} parameter values.
+ * A {@link TextPropertyValueHandler} for non empty {@link String} parameter values.
  */
-final class FontWeightTextPropertyValueConverter extends TextPropertyValueConverter<FontWeight> {
+final class StringTextPropertyValueHandler extends TextPropertyValueHandler<String> {
 
     /**
      * Singleton
      */
-    final static FontWeightTextPropertyValueConverter INSTANCE = new FontWeightTextPropertyValueConverter();
+    final static StringTextPropertyValueHandler INSTANCE = new StringTextPropertyValueHandler();
 
     /**
      * Private ctor
      */
-    private FontWeightTextPropertyValueConverter() {
+    private StringTextPropertyValueHandler() {
         super();
     }
 
     @Override
     void check0(final Object value, final TextPropertyName<?> name) {
-        this.checkType(value, FontWeight.class, name);
+        final String string = this.checkType(value, String.class, name);
+        if (string.isEmpty()) {
+            throw new TextPropertyValueException("Property " + name.inQuotes() + " contains an empty/whitespace value " + CharSequences.quoteAndEscape(string));
+        }
     }
 
     // fromJsonNode ....................................................................................................
 
     @Override
-    FontWeight fromJsonNode(final JsonNode node) {
-        return FontWeight.fromJsonNode(node);
+    String fromJsonNode(final JsonNode node) {
+        return node.stringValueOrFail();
     }
 
     @Override
-    JsonNode toJsonNode(final FontWeight value) {
-        return value.toJsonNode();
+    JsonNode toJsonNode(final String value) {
+        return JsonNode.string(value);
     }
 
     // Object ..........................................................................................................
 
     @Override
     public String toString() {
-        return FontWeight.class.getSimpleName();
+        return String.class.getSimpleName();
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 
-public final class FontWeightTextPropertyValueConverterTest extends TextPropertyValueConverterTestCase<FontWeightTextPropertyValueConverter, FontWeight> {
+public final class FontWeightTextPropertyValueHandlerTest extends TextPropertyValueHandlerTestCase<FontWeightTextPropertyValueHandler, FontWeight> {
 
     @Test
     public void testFromJsonNode() {
@@ -34,8 +34,8 @@ public final class FontWeightTextPropertyValueConverterTest extends TextProperty
     }
 
     @Override
-    FontWeightTextPropertyValueConverter converter() {
-        return FontWeightTextPropertyValueConverter.INSTANCE;
+    FontWeightTextPropertyValueHandler converter() {
+        return FontWeightTextPropertyValueHandler.INSTANCE;
     }
 
     @Override
@@ -59,7 +59,7 @@ public final class FontWeightTextPropertyValueConverterTest extends TextProperty
     }
 
     @Override
-    public Class<FontWeightTextPropertyValueConverter> type() {
-        return FontWeightTextPropertyValueConverter.class;
+    public Class<FontWeightTextPropertyValueHandler> type() {
+        return FontWeightTextPropertyValueHandler.class;
     }
 }

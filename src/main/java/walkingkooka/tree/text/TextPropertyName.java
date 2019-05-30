@@ -55,7 +55,7 @@ public final class TextPropertyName<T> implements Name,
      * Creates and adds a new {@link TextPropertyName} to the cache being built that handles {@link Color} values.
      */
     private static TextPropertyName<Color> registerColorConstant(final String property) {
-        return registerConstant(property, TextPropertyValueConverter.color());
+        return registerConstant(property, TextPropertyValueHandler.color());
     }
 
     /**
@@ -64,36 +64,36 @@ public final class TextPropertyName<T> implements Name,
     private static <E extends Enum<E>> TextPropertyName<E> registerEnumConstant(final String property,
                                                                                 final Function<String, E> factory,
                                                                                 final Class<E> type) {
-        return registerConstant(property, TextPropertyValueConverter.enumTextPropertyValueConverter(factory, type));
+        return registerConstant(property, TextPropertyValueHandler.enumTextPropertyValueHandler(factory, type));
     }
 
     /**
      * Creates and adds a new {@link TextPropertyName} to the cache being built that handles {@link FontFamilyName} values.
      */
     private static TextPropertyName<FontFamilyName> registerFontFamilyNameConstant(final String property) {
-        return registerConstant(property, TextPropertyValueConverter.fontFamilyName());
+        return registerConstant(property, TextPropertyValueHandler.fontFamilyName());
     }
 
     /**
      * Creates and adds a new {@link TextPropertyName} to the cache being built that handles {@link FontSize} values.
      */
     private static TextPropertyName<FontSize> registerFontSizeConstant(final String property) {
-        return registerConstant(property, TextPropertyValueConverter.fontSize());
+        return registerConstant(property, TextPropertyValueHandler.fontSize());
     }
 
     /**
      * Creates and adds a new {@link TextPropertyName} to the cache being built that handles {@link FontWeight} values.
      */
     private static TextPropertyName<FontWeight> registerFontWeightConstant(final String property) {
-        return registerConstant(property, TextPropertyValueConverter.fontWeight());
+        return registerConstant(property, TextPropertyValueHandler.fontWeight());
     }
 
     /**
      * Creates and adds a new {@link TextPropertyName} to the cache being built.
      */
     private static <T> TextPropertyName<T> registerConstant(final String property,
-                                                            final TextPropertyValueConverter<T> converter) {
-        final TextPropertyName<T> textPropertyName = new TextPropertyName<>(property, converter);
+                                                            final TextPropertyValueHandler<T> handler) {
+        final TextPropertyName<T> textPropertyName = new TextPropertyName<>(property, handler);
         TextPropertyName.CONSTANTS.put(property, textPropertyName);
         return textPropertyName;
     }
@@ -270,7 +270,7 @@ public final class TextPropertyName<T> implements Name,
         final TextPropertyName<?> textPropertyName = CONSTANTS.get(name);
         return null != textPropertyName ?
                 textPropertyName :
-                new TextPropertyName<>(checkName(name), TextPropertyValueConverter.string());
+                new TextPropertyName<>(checkName(name), TextPropertyValueHandler.string());
     }
 
     private static String checkName(final String name) {
@@ -286,10 +286,10 @@ public final class TextPropertyName<T> implements Name,
 
     // @VisibleForTesting
     private TextPropertyName(final String name,
-                             final TextPropertyValueConverter<T> converter) {
+                             final TextPropertyValueHandler<T> handler) {
         super();
         this.name = name;
-        this.converter= converter;
+        this.handler= handler;
     }
 
     @Override
@@ -300,9 +300,9 @@ public final class TextPropertyName<T> implements Name,
     private final String name;
 
     /**
-     * Used to convert/validate property values.
+     * Used to handle/validate property values.
      */
-    final TextPropertyValueConverter<T> converter;
+    final TextPropertyValueHandler<T> handler;
 
     /**
      * Returns the name in quotes, useful for error messages.

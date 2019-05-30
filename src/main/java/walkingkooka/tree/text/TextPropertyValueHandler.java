@@ -26,57 +26,57 @@ import walkingkooka.tree.json.JsonNode;
 import java.util.function.Function;
 
 /**
- * Base converter that provides support for converting header text to values and back.
+ * Base converter that provides support for handling property values.
  */
-abstract class TextPropertyValueConverter<T> {
+abstract class TextPropertyValueHandler<T> {
 
     /**
-     * {@see ColorTextPropertyValueConverter}
+     * {@see ColorTextPropertyValueHandler}
      */
-    static TextPropertyValueConverter<Color> color() {
-        return ColorTextPropertyValueConverter.INSTANCE;
+    static TextPropertyValueHandler<Color> color() {
+        return ColorTextPropertyValueHandler.INSTANCE;
     }
 
     /**
-     * {@see EnumTextPropertyValueConverter}
+     * {@see EnumTextPropertyValueHandler}
      */
-    static <E extends Enum<E>> EnumTextPropertyValueConverter<E> enumTextPropertyValueConverter(final Function<String, E> factory,
-                                                                                                final Class<E> type) {
-        return EnumTextPropertyValueConverter.with(factory, type);
+    static <E extends Enum<E>> EnumTextPropertyValueHandler<E> enumTextPropertyValueHandler(final Function<String, E> factory,
+                                                                                            final Class<E> type) {
+        return EnumTextPropertyValueHandler.with(factory, type);
     }
 
     /**
-     * {@see FontFamilyNameTextPropertyValueConverter}
+     * {@see FontFamilyNameTextPropertyValueHandler}
      */
-    static TextPropertyValueConverter<FontFamilyName> fontFamilyName() {
-        return FontFamilyNameTextPropertyValueConverter.INSTANCE;
+    static TextPropertyValueHandler<FontFamilyName> fontFamilyName() {
+        return FontFamilyNameTextPropertyValueHandler.INSTANCE;
     }
 
     /**
-     * {@see FontSizeTextPropertyValueConverter}
+     * {@see FontSizeTextPropertyValueHandler}
      */
-    static TextPropertyValueConverter<FontSize> fontSize() {
-        return FontSizeTextPropertyValueConverter.INSTANCE;
+    static TextPropertyValueHandler<FontSize> fontSize() {
+        return FontSizeTextPropertyValueHandler.INSTANCE;
     }
 
     /**
-     * {@see FontWeightTextPropertyValueConverter}
+     * {@see FontWeightTextPropertyValueHandler}
      */
-    static TextPropertyValueConverter<FontWeight> fontWeight() {
-        return FontWeightTextPropertyValueConverter.INSTANCE;
+    static TextPropertyValueHandler<FontWeight> fontWeight() {
+        return FontWeightTextPropertyValueHandler.INSTANCE;
     }
     
     /**
-     * {@see StringTextPropertyValueConverter}
+     * {@see StringTextPropertyValueHandler}
      */
-    static TextPropertyValueConverter<String> string() {
-        return StringTextPropertyValueConverter.INSTANCE;
+    static TextPropertyValueHandler<String> string() {
+        return StringTextPropertyValueHandler.INSTANCE;
     }
 
     /**
      * Package private to limit sub classing.
      */
-    TextPropertyValueConverter() {
+    TextPropertyValueHandler() {
         super();
     }
 
