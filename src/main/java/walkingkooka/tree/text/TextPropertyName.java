@@ -104,6 +104,13 @@ public final class TextPropertyName<T> implements Name,
     public final static TextPropertyName<Color> BACKGROUND_COLOR = registerColorConstant("background-color");
 
     /**
+     * direction
+     */
+    public final static TextPropertyName<Direction> DIRECTION = registerEnumConstant("direction",
+            Direction::valueOf,
+            Direction.class);
+
+    /**
      * font-family-name
      */
     public final static TextPropertyName<FontFamilyName> FONT_FAMILY_NAME = registerFontFamilyNameConstant("font-family-name");
