@@ -128,6 +128,13 @@ public final class TextPropertyName<T> implements Name,
     public final static TextPropertyName<FontSize> FONT_SIZE = registerFontSizeConstant("font-size");
 
     /**
+     * font-stretch
+     */
+    public final static TextPropertyName<FontStretch> FONT_STRETCH = registerEnumConstant("font-stretch",
+            FontStretch::valueOf,
+            FontStretch.class);
+
+    /**
      * font-style
      */
     public final static TextPropertyName<FontStyle> FONT_STYLE = registerEnumConstant("font-style",
