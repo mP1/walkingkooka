@@ -18,11 +18,12 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.naming.Name;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class TextNodeTestCase3<T> extends TextNodeTestCase<T> {
+public abstract class TextNodeNameNameTestCase<N extends Name & Comparable<N>> extends TextNodeTestCase<N> {
 
-    TextNodeTestCase3() {
+    TextNodeNameNameTestCase() {
         super();
     }
 

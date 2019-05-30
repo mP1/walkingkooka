@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class TextPropertyNameTest extends TextNodeTestCase3<TextPropertyName<?>>
+public final class TextPropertyNameTest extends TextNodeNameNameTestCase<TextPropertyName<?>>
         implements NameTesting2<TextPropertyName<?>, TextPropertyName<?>> {
 
     @Test
