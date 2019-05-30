@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class TextWhitespaceTest extends EnumTextPropertyValueTestCase<TextWhitespace> {
 
-public final class TextWhitespaceTest implements ClassTesting2<TextWhitespace> {
+    @Override
+    TextPropertyName<TextWhitespace> textPropertyName() {
+        return TextPropertyName.WHITE_SPACE;
+    }
+
+    @Override
+    TextWhitespace value() {
+        return TextWhitespace.PRE;
+    }
 
     @Override
     public Class<TextWhitespace> type() {
         return TextWhitespace.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

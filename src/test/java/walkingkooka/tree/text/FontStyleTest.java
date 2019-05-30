@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class FontStyleTest extends EnumTextPropertyValueTestCase<FontStyle> {
 
-public final class FontStyleTest implements ClassTesting2<FontStyle> {
+    @Override
+    TextPropertyName<FontStyle> textPropertyName() {
+        return TextPropertyName.FONT_STYLE;
+    }
+
+    @Override
+    FontStyle value() {
+        return FontStyle.ITALIC;
+    }
 
     @Override
     public Class<FontStyle> type() {
         return FontStyle.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

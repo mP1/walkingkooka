@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class TextJustifyTest extends EnumTextPropertyValueTestCase<TextJustify> {
 
-public final class TextJustifyTest implements ClassTesting2<TextJustify> {
+    @Override
+    TextPropertyName<TextJustify> textPropertyName() {
+        return TextPropertyName.TEXT_JUSTIFY;
+    }
+
+    @Override
+    TextJustify value() {
+        return TextJustify.INTER_CHARACTER;
+    }
 
     @Override
     public Class<TextJustify> type() {
         return TextJustify.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

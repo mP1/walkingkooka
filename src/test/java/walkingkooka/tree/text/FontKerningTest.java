@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class FontKerningTest extends EnumTextPropertyValueTestCase<FontKerning> {
 
-public final class FontKerningTest implements ClassTesting2<FontKerning> {
+    @Override
+    TextPropertyName<FontKerning> textPropertyName() {
+        return TextPropertyName.FONT_KERNING;
+    }
+
+    @Override
+    FontKerning value() {
+        return FontKerning.NORMAL;
+    }
 
     @Override
     public Class<FontKerning> type() {
         return FontKerning.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }
