@@ -154,6 +154,13 @@ public final class TextPropertyName<T> implements Name,
             Hyphens.class);
 
     /**
+     * text-alignment
+     */
+    public final static TextPropertyName<TextAlignment> TEXT_ALIGNMENT = registerEnumConstant("text-align",
+            TextAlignment::valueOf,
+            TextAlignment.class);
+
+    /**
      * Text color
      */
     public final static TextPropertyName<Color> TEXT_COLOR = registerColorConstant("text-color");
