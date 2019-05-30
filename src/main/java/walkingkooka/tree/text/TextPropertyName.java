@@ -121,6 +121,13 @@ public final class TextPropertyName<T> implements Name,
             FontStyle.class);
 
     /**
+     * font-variant
+     */
+    public final static TextPropertyName<FontVariant> FONT_VARIANT = registerEnumConstant("font-variant",
+            FontVariant::valueOf,
+            FontVariant.class);
+
+    /**
      * font-weight
      */
     public final static TextPropertyName<FontWeight> FONT_WEIGHT = registerFontWeightConstant("font-weight");
