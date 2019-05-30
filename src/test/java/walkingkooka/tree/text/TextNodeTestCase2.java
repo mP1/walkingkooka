@@ -50,6 +50,13 @@ public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTest
         this.textOffsetAndCheck(this.createTextNode(), 0);
     }
 
+    // TextNodeVisitor..................................................................................................
+
+    @Test
+    public final void testVisitor() {
+        new TextNodeVisitor(){}.accept(this.createNode());
+    }
+
     // helpers .........................................................................................................
 
     @Override
