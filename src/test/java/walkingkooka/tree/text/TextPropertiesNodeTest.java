@@ -260,6 +260,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         properties.put(TextPropertyName.TEXT_JUSTIFY, TextJustify.INTER_CHARACTER);
         properties.put(TextPropertyName.TEXT_WRAPPING, TextWrapping.OVERFLOW);
         properties.put(TextPropertyName.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+        properties.put(TextPropertyName.WHITE_SPACE, TextWhitespace.PRE);
 
         this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
                 TextNode.text("text1"),

@@ -206,6 +206,13 @@ public final class TextPropertyName<T> implements Name,
             VerticalAlignment.class);
 
     /**
+     * white-space
+     */
+    public final static TextPropertyName<TextWhitespace> WHITE_SPACE = registerEnumConstant("white-space",
+            TextWhitespace::valueOf,
+            TextWhitespace.class);
+
+    /**
      * Factory that retrieves an existing property or if unknown a property that assumes non empty string value.
      */
     public static TextPropertyName<?> with(final String name) {
