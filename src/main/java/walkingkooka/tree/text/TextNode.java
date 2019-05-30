@@ -263,6 +263,10 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
         }
     }
 
+    static {
+        HasJsonNode.register("text-node", TextNode::fromJsonNode, TextNode.class);
+    }
+
     // Object ..........................................................................................................
 
     @Override
