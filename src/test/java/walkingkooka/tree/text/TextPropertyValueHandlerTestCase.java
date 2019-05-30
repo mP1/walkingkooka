@@ -64,7 +64,9 @@ public abstract class TextPropertyValueHandlerTestCase<P extends TextPropertyVal
     }
 
     final void check(final Object value) {
-        this.converter().check(value, this.propertyName());
+        final TextPropertyName<?> propertyName = this.propertyName();
+        this.converter().check(value, propertyName);
+        propertyName.check(value);
     }
 
     final void checkFails(final Object value, final String message) {
@@ -72,6 +74,11 @@ public abstract class TextPropertyValueHandlerTestCase<P extends TextPropertyVal
             this.check(value);
         });
         assertEquals(message, thrown.getMessage(), "message");
+
+        final TextPropertyValueException thrown2 = assertThrows(TextPropertyValueException.class, () -> {
+            this.propertyName().check(value);
+        });
+        assertEquals(message, thrown2.getMessage(), "message");
     }
 
     final void fromJsonNodeAndCheck(final JsonNode node, final T value) {

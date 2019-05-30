@@ -42,6 +42,11 @@ public abstract class EnumTextPropertyValueTestCase<E extends Enum<?>> implement
                 () -> "" + properties);
     }
 
+    @Test
+    public final void testTextPropertyNameCheck() {
+        this.textPropertyName().check(this.value());
+    }
+
     abstract TextPropertyName<E> textPropertyName();
 
     abstract E value();
