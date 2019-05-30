@@ -199,6 +199,13 @@ public final class TextPropertyName<T> implements Name,
             TextJustify.class);
 
     /**
+     * text-transform
+     */
+    public final static TextPropertyName<TextTransform> TEXT_TRANSFORM = registerEnumConstant("text-transform",
+            TextTransform::valueOf,
+            TextTransform.class);
+
+    /**
      * text-wrapping
      */
     public final static TextPropertyName<TextWrapping> TEXT_WRAPPING = registerEnumConstant("text-wrapping",

@@ -259,6 +259,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         properties.put(TextPropertyName.TEXT_DECORATION_COLOR, Color.fromRgb(0xabcdef));
         properties.put(TextPropertyName.TEXT_DECORATION_STYLE, TextDecorationStyle.DASHED);
         properties.put(TextPropertyName.TEXT_JUSTIFY, TextJustify.INTER_CHARACTER);
+        properties.put(TextPropertyName.TEXT_TRANSFORM, TextTransform.CAPITALIZE);
         properties.put(TextPropertyName.TEXT_WRAPPING, TextWrapping.OVERFLOW);
         properties.put(TextPropertyName.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
         properties.put(TextPropertyName.WHITE_SPACE, TextWhitespace.PRE);
