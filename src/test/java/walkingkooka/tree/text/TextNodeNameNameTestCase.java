@@ -19,12 +19,53 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.naming.Name;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class TextNodeNameNameTestCase<N extends Name & Comparable<N>> extends TextNodeTestCase<N> {
+public abstract class TextNodeNameNameTestCase<N extends Name & Comparable<N>> extends TextNodeTestCase<N>
+        implements NameTesting2<N, N> {
 
     TextNodeNameNameTestCase() {
         super();
+    }
+
+    @Override
+    public final String nameText() {
+        return "xyz";
+    }
+
+    @Override
+    public final String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    public final String nameTextLess() {
+        return "before";
+    }
+
+    @Override
+    public final int minLength() {
+        return 1;
+    }
+
+    @Override
+    public final int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public final String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS + "-.";
+    }
+
+    @Override
+    public final String possibleInvalidChars(final int position) {
+        return 0 == position ?
+                CONTROL + ASCII_DIGITS :
+                CONTROL;
     }
 
     // ClassTesting.....................................................................................................
