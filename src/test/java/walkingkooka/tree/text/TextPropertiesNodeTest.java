@@ -265,6 +265,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         properties.put(TextPropertyName.WHITE_SPACE, TextWhitespace.PRE);
         properties.put(TextPropertyName.WORD_BREAK, WordBreak.BREAK_WORD);
         properties.put(TextPropertyName.WORD_WRAP, WordWrap.BREAK_WORD);
+        properties.put(TextPropertyName.WRITING_MODE, WritingMode.VERTICAL_LR);
 
         this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
                 TextNode.text("text1"),

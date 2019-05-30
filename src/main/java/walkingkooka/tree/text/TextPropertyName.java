@@ -241,6 +241,13 @@ public final class TextPropertyName<T> implements Name,
             WordWrap.class);
 
     /**
+     * writing-mode
+     */
+    public final static TextPropertyName<WritingMode> WRITING_MODE = registerEnumConstant("writing-mode",
+            WritingMode::valueOf,
+            WritingMode.class);
+
+    /**
      * Factory that retrieves an existing property or if unknown a property that assumes non empty string value.
      */
     public static TextPropertyName<?> with(final String name) {
