@@ -18,12 +18,37 @@
 
 package walkingkooka.tree.text;
 
+import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.NodeTesting2;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class TextParentNodeTestCase<T extends TextParentNode> extends TextNodeTestCase2<T> implements NodeTesting2<TextNode, TextNodeName, TextPropertyName<?>, Object> {
 
     TextParentNodeTestCase() {
         super();
+    }
+
+    @Test
+    public final void testChildrenReadOnly() {
+        final T parent = this.createTextNode();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            parent.children().add(this.different());
+        });
+    }
+
+    @Test
+    public final void testSetChildrenReadOnly() {
+        final List<TextNode> children = Lists.of(this.text3(), this.text2(), this.text1());
+
+        final TextNode parent = this.createTextNode()
+                .setChildren(children);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            parent.children().add(this.different());
+        });
     }
 
     final Text text1() {

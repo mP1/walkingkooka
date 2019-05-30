@@ -52,7 +52,7 @@ abstract class TextParentNode extends TextNode {
         final Optional<TextNode> p = Optional.of(this);
 
         final List<TextNode> copy = Lists.array();
-        this.children = copy;
+        this.children = Lists.readOnly(copy);
 
         int i = 0;
         for (TextNode child : children) {
