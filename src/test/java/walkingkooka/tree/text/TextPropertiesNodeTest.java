@@ -32,8 +32,37 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPropertiesNode> {
+
+    @Test
+    public void testWithNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            TextPropertiesNode.with(null);
+        });
+    }
+
+    @Test
+    public void testWith() {
+        final TextNode child = TextNode.text("child1");
+        final TextPropertiesNode properties = TextPropertiesNode.with(Lists.of(child));
+        this.childCountCheck(properties, child);
+    }
+
+    @Test
+    public void testWithChildrenDefensiveCopy() {
+        final TextNode child1 = TextNode.text("child1");
+        final TextNode child2 = TextNode.text("child2");
+
+        final List<TextNode> children = Lists.array();
+        children.add(child1);
+        children.add(child2);
+
+        final TextPropertiesNode properties = TextPropertiesNode.with(children);
+        children.clear();
+        this.childCountCheck(properties, child1, child2);
+    }
 
     @Test
     public void testWithParent() {

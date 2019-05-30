@@ -46,7 +46,9 @@ public final class TextPropertiesNode extends TextParentNode {
      * Factory that creates a {@link TextPropertiesNode} with the given children.
      */
     static TextPropertiesNode with(final List<TextNode> children) {
-        return new TextPropertiesNode(NO_INDEX, children, NO_ATTRIBUTES);
+        return new TextPropertiesNode(NO_INDEX,
+                copy(children),
+                NO_ATTRIBUTES);
     }
 
     /**
