@@ -147,6 +147,13 @@ public final class TextPropertyName<T> implements Name,
             HorizontalAlignment.class);
 
     /**
+     * hyphens
+     */
+    public final static TextPropertyName<Hyphens> HYPHENS = registerEnumConstant("hyphens",
+            Hyphens::valueOf,
+            Hyphens.class);
+
+    /**
      * Text color
      */
     public final static TextPropertyName<Color> TEXT_COLOR = registerColorConstant("text-color");
