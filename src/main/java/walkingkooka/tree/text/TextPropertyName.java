@@ -213,6 +213,13 @@ public final class TextPropertyName<T> implements Name,
             TextWhitespace.class);
 
     /**
+     * word-break
+     */
+    public final static TextPropertyName<WordBreak> WORD_BREAK = registerEnumConstant("word-break",
+            WordBreak::valueOf,
+            WordBreak.class);
+
+    /**
      * Factory that retrieves an existing property or if unknown a property that assumes non empty string value.
      */
     public static TextPropertyName<?> with(final String name) {
