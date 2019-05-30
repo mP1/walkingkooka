@@ -272,6 +272,8 @@ public final class TextPropertyName<T> extends TextNodeNameName<TextPropertyName
                              final TextPropertyValueHandler<T> handler) {
         super(name);
         this.handler= handler;
+
+        this.jsonNodeName = JsonNodeName.with(this.name);
     }
 
     /**
@@ -300,8 +302,10 @@ public final class TextPropertyName<T> extends TextNodeNameName<TextPropertyName
     }
 
     JsonNodeName toJsonNodeName() {
-        return JsonNodeName.with(this.name);
+        return this.jsonNodeName;
     }
+
+    private final JsonNodeName jsonNodeName;
 
     // Object..........................................................................................................
 

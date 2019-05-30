@@ -21,7 +21,6 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.NameTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.FieldAttributes;
 
@@ -30,6 +29,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class TextPropertyNameTest extends TextNodeNameNameTestCase<TextPropertyName<?>> {
 
@@ -51,6 +51,12 @@ public final class TextPropertyNameTest extends TextNodeNameNameTestCase<TextPro
         } catch (final Exception cause) {
             throw new AssertionError(cause.getMessage(), cause);
         }
+    }
+
+    @Test
+    public void testJsonNodeNameCached() {
+        final TextPropertyName<?> propertyName = this.createObject();
+        assertSame(propertyName.toJsonNodeName(), propertyName.toJsonNodeName());
     }
 
     @Override
