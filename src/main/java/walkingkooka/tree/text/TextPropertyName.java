@@ -300,6 +300,13 @@ public final class TextPropertyName<T> implements Name,
     private final String name;
 
     /**
+     * Verifies that a value is legal for this {@link TextPropertyName}
+     */
+    public void check(final Object value) {
+        this.handler.check(value, this);
+    }
+
+    /**
      * Used to handle/validate property values.
      */
     final TextPropertyValueHandler<T> handler;

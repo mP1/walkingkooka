@@ -125,7 +125,7 @@ public final class TextPropertiesNode extends TextParentNode {
             final TextPropertyName<?> propertyName = propertyAndValue.getKey();
             final Object value = propertyAndValue.getValue();
 
-            propertyName.handler.check(value, propertyName);
+            propertyName.check(value);
 
             copy.put(propertyName, value);
         }
