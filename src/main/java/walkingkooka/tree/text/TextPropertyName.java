@@ -220,6 +220,13 @@ public final class TextPropertyName<T> implements Name,
             WordBreak.class);
 
     /**
+     * word-wrap
+     */
+    public final static TextPropertyName<WordWrap> WORD_WRAP = registerEnumConstant("word-wrap",
+            WordWrap::valueOf,
+            WordWrap.class);
+
+    /**
      * Factory that retrieves an existing property or if unknown a property that assumes non empty string value.
      */
     public static TextPropertyName<?> with(final String name) {
