@@ -32,6 +32,7 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FontWeightTest implements ClassTesting2<FontWeight>,
@@ -41,7 +42,7 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
         HasJsonNodeTesting<FontWeight>,
         ToStringTesting<FontWeight> {
 
-    private final static int VALUE = 400;
+    private final static int VALUE = 456;
 
     @Test
     public void testWithNegativeValueFails() {
@@ -55,6 +56,16 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
         final Integer value = 400;
         final FontWeight size = FontWeight.with(value);
         assertEquals(value, size.value(), "value");
+    }
+
+    @Test
+    public void testBold() {
+        assertSame(FontWeight.BOLD, FontWeight.with(FontWeight.BOLD.value()));
+    }
+
+    @Test
+    public void testNormal() {
+        assertSame(FontWeight.NORMAL, FontWeight.with(FontWeight.NORMAL.value()));
     }
 
     // HasJsonNode......................................................................................
@@ -106,11 +117,33 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
         this.toJsonNodeRoundTripTwiceAndCheck(this.createObject());
     }
 
-    // Object...........................................................................................
+    // Serializable.....................................................................................................
+
+    @Test
+    public void testSerializeBold() throws Exception {
+        this.serializeSingletonAndCheck(FontWeight.BOLD);
+    }
+
+    @Test
+    public void testSerializeNormal() throws Exception {
+        this.serializeSingletonAndCheck(FontWeight.NORMAL);
+    }
+
+    // Object...........................................................................................................
+
+    @Test
+    public void testToStringNormal() {
+        this.toStringAndCheck(FontWeight.NORMAL, "normal");
+    }
+
+    @Test
+    public void testToStringBold() {
+        this.toStringAndCheck(FontWeight.BOLD, "bold");
+    }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(FontWeight.with(400), "400");
+        this.toStringAndCheck(FontWeight.with(456), "456");
     }
 
     @Override
