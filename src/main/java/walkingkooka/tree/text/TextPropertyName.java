@@ -109,6 +109,13 @@ public final class TextPropertyName<T> implements Name,
     public final static TextPropertyName<FontFamilyName> FONT_FAMILY_NAME = registerFontFamilyNameConstant("font-family-name");
 
     /**
+     * font-kerning
+     */
+    public final static TextPropertyName<FontKerning> FONT_KERNING = registerEnumConstant("font-kerning",
+            FontKerning::valueOf,
+            FontKerning.class);
+
+    /**
      * font-size
      */
     public final static TextPropertyName<FontSize> FONT_SIZE = registerFontSizeConstant("font-size");
