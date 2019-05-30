@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class HangingPunctuationTest extends EnumTextPropertyValueTestCase<HangingPunctuation> {
 
-public final class HangingPunctuationTest implements ClassTesting2<HangingPunctuation> {
+    @Override
+    TextPropertyName<HangingPunctuation> textPropertyName() {
+        return TextPropertyName.HANGING_PUNCTUATION;
+    }
+
+    @Override
+    HangingPunctuation value() {
+        return HangingPunctuation.LAST;
+    }
 
     @Override
     public Class<HangingPunctuation> type() {
         return HangingPunctuation.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

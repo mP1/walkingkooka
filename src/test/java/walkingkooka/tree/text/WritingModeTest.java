@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class WritingModeTest extends EnumTextPropertyValueTestCase<WritingMode> {
 
-public final class WritingModeTest implements ClassTesting2<WritingMode> {
+    @Override
+    TextPropertyName<WritingMode> textPropertyName() {
+        return TextPropertyName.WRITING_MODE;
+    }
+
+    @Override
+    WritingMode value() {
+        return WritingMode.VERTICAL_LR;
+    }
 
     @Override
     public Class<WritingMode> type() {
         return WritingMode.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

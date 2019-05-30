@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class TextTransformTest extends EnumTextPropertyValueTestCase<TextTransform> {
 
-public final class TextTransformTest implements ClassTesting2<TextTransform> {
+    @Override
+    TextPropertyName<TextTransform> textPropertyName() {
+        return TextPropertyName.TEXT_TRANSFORM;
+    }
+
+    @Override
+    TextTransform value() {
+        return TextTransform.CAPITALIZE;
+    }
 
     @Override
     public Class<TextTransform> type() {
         return TextTransform.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

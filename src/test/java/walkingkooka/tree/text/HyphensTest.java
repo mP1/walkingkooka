@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class HyphensTest extends EnumTextPropertyValueTestCase<Hyphens> {
 
-public final class HyphensTest implements ClassTesting2<Hyphens> {
+    @Override
+    TextPropertyName<Hyphens> textPropertyName() {
+        return TextPropertyName.HYPHENS;
+    }
+
+    @Override
+    Hyphens value() {
+        return Hyphens.AUTO;
+    }
 
     @Override
     public Class<Hyphens> type() {
         return Hyphens.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

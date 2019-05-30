@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class TextAlignmentTest extends EnumTextPropertyValueTestCase<TextAlignment> {
 
-public final class TextAlignmentTest implements ClassTesting2<TextAlignment> {
+    @Override
+    TextPropertyName<TextAlignment> textPropertyName() {
+        return TextPropertyName.TEXT_ALIGNMENT;
+    }
+
+    @Override
+    TextAlignment value() {
+        return TextAlignment.LEFT;
+    }
 
     @Override
     public Class<TextAlignment> type() {
         return TextAlignment.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

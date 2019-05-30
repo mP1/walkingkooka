@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class TextDecorationTest extends EnumTextPropertyValueTestCase<TextDecoration> {
 
-public final class TextDecorationTest implements ClassTesting2<TextDecoration> {
+    @Override
+    TextPropertyName<TextDecoration> textPropertyName() {
+        return TextPropertyName.TEXT_DECORATION;
+    }
+
+    @Override
+    TextDecoration value() {
+        return TextDecoration.UNDERLINE;
+    }
 
     @Override
     public Class<TextDecoration> type() {
         return TextDecoration.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

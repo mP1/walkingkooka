@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class WordBreakTest extends EnumTextPropertyValueTestCase<WordBreak> {
 
-public final class WordBreakTest implements ClassTesting2<WordBreak> {
+    @Override
+    TextPropertyName<WordBreak> textPropertyName() {
+        return TextPropertyName.WORD_BREAK;
+    }
+
+    @Override
+    WordBreak value() {
+        return WordBreak.BREAK_WORD;
+    }
 
     @Override
     public Class<WordBreak> type() {
         return WordBreak.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }

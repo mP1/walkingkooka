@@ -18,18 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public final class DirectionTest extends EnumTextPropertyValueTestCase<Direction> {
 
-public final class DirectionTest implements ClassTesting2<Direction> {
+    @Override
+    TextPropertyName<Direction> textPropertyName() {
+        return TextPropertyName.DIRECTION;
+    }
+
+    @Override
+    Direction value() {
+        return Direction.LTR;
+    }
 
     @Override
     public Class<Direction> type() {
         return Direction.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
     }
 }
