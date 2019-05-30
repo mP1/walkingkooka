@@ -24,26 +24,26 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * A {@link TextPropertyValueConverter} for {@link Enum} parameter values.
+ * A {@link TextPropertyValueHandler} for {@link Enum} parameter values.
  */
-final class EnumTextPropertyValueConverter<E extends Enum<E>> extends TextPropertyValueConverter<E> {
+final class EnumTextPropertyValueHandler<E extends Enum<E>> extends TextPropertyValueHandler<E> {
 
     /**
-     * Factory that creates a new {@link EnumTextPropertyValueConverter}.
+     * Factory that creates a new {@link EnumTextPropertyValueHandler}.
      */
-    final static <E extends Enum<E>> EnumTextPropertyValueConverter<E> with(final Function<String, E> factory,
-                                                                            final Class<E> type) {
+    final static <E extends Enum<E>> EnumTextPropertyValueHandler<E> with(final Function<String, E> factory,
+                                                                          final Class<E> type) {
         Objects.requireNonNull(factory, "factory");
         Objects.requireNonNull(type, "type");
 
-        return new EnumTextPropertyValueConverter<>(factory, type);
+        return new EnumTextPropertyValueHandler<>(factory, type);
     }
 
     /**
      * Private ctor
      */
-    private EnumTextPropertyValueConverter(final Function<String, E> factory,
-                                           final Class<E> type) {
+    private EnumTextPropertyValueHandler(final Function<String, E> factory,
+                                         final Class<E> type) {
         super();
         this.factory = factory;
         this.type = type;

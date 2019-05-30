@@ -125,7 +125,7 @@ public final class TextPropertiesNode extends TextParentNode {
             final TextPropertyName<?> propertyName = propertyAndValue.getKey();
             final Object value = propertyAndValue.getValue();
 
-            propertyName.converter.check(value, propertyName);
+            propertyName.handler.check(value, propertyName);
 
             copy.put(propertyName, value);
         }
@@ -204,7 +204,7 @@ public final class TextPropertiesNode extends TextParentNode {
         for (JsonNode child : json.children()) {
             final TextPropertyName name = TextPropertyName.fromJsonNodeName(child);
             properties.put(name,
-                    name.converter.fromJsonNode(child));
+                    name.handler.fromJsonNode(child));
         }
 
         return properties;
@@ -229,7 +229,7 @@ public final class TextPropertiesNode extends TextParentNode {
 
         for (Entry<TextPropertyName<?>, Object> propertyAndValue : this.attributes.entrySet()) {
             final TextPropertyName<?> propertyName = propertyAndValue.getKey();
-            final JsonNode value = propertyName.converter.toJsonNode(Cast.to(propertyAndValue.getValue()));
+            final JsonNode value = propertyName.handler.toJsonNode(Cast.to(propertyAndValue.getValue()));
 
             json.add(value.setName(propertyName.toJsonNodeName()));
         }

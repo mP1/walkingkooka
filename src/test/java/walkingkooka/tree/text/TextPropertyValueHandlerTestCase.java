@@ -28,11 +28,11 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class TextPropertyValueConverterTestCase<P extends TextPropertyValueConverter<T>, T> extends TextNodeTestCase<P>
+public abstract class TextPropertyValueHandlerTestCase<P extends TextPropertyValueHandler<T>, T> extends TextNodeTestCase<P>
         implements ToStringTesting<P>,
         TypeNameTesting<P> {
 
-    TextPropertyValueConverterTestCase() {
+    TextPropertyValueHandlerTestCase() {
         super();
     }
 
@@ -103,6 +103,6 @@ public abstract class TextPropertyValueConverterTestCase<P extends TextPropertyV
 
     @Override
     public final String typeNameSuffix() {
-        return TextPropertyValueConverter.class.getSimpleName();
+        return TextPropertyValueHandler.class.getSimpleName();
     }
 }

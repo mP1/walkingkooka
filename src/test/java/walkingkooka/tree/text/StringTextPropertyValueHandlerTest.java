@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 
-public final class StringTextPropertyValueConverterTest extends TextPropertyValueConverterTestCase<StringTextPropertyValueConverter, String> {
+public final class StringTextPropertyValueHandlerTest extends TextPropertyValueHandlerTestCase<StringTextPropertyValueHandler, String> {
 
     @Test
     public void testCheckEmptyStringFails() {
@@ -52,8 +52,8 @@ public final class StringTextPropertyValueConverterTest extends TextPropertyValu
     }
 
     @Override
-    StringTextPropertyValueConverter converter() {
-        return StringTextPropertyValueConverter.INSTANCE;
+    StringTextPropertyValueHandler converter() {
+        return StringTextPropertyValueHandler.INSTANCE;
     }
 
     @Override
@@ -77,7 +77,7 @@ public final class StringTextPropertyValueConverterTest extends TextPropertyValu
     }
 
     @Override
-    public Class<StringTextPropertyValueConverter> type() {
-        return StringTextPropertyValueConverter.class;
+    public Class<StringTextPropertyValueHandler> type() {
+        return StringTextPropertyValueHandler.class;
     }
 }

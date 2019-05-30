@@ -18,50 +18,46 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
 /**
- * A {@link TextPropertyValueConverter} for non empty {@link String} parameter values.
+ * A {@link TextPropertyValueHandler} for {@link FontSize} parameter values.
  */
-final class StringTextPropertyValueConverter extends TextPropertyValueConverter<String> {
+final class FontSizeTextPropertyValueHandler extends TextPropertyValueHandler<FontSize> {
 
     /**
      * Singleton
      */
-    final static StringTextPropertyValueConverter INSTANCE = new StringTextPropertyValueConverter();
+    final static FontSizeTextPropertyValueHandler INSTANCE = new FontSizeTextPropertyValueHandler();
 
     /**
      * Private ctor
      */
-    private StringTextPropertyValueConverter() {
+    private FontSizeTextPropertyValueHandler() {
         super();
     }
 
     @Override
     void check0(final Object value, final TextPropertyName<?> name) {
-        final String string = this.checkType(value, String.class, name);
-        if (string.isEmpty()) {
-            throw new TextPropertyValueException("Property " + name.inQuotes() + " contains an empty/whitespace value " + CharSequences.quoteAndEscape(string));
-        }
+        this.checkType(value, FontSize.class, name);
     }
 
     // fromJsonNode ....................................................................................................
 
     @Override
-    String fromJsonNode(final JsonNode node) {
-        return node.stringValueOrFail();
+    FontSize fromJsonNode(final JsonNode node) {
+        return FontSize.fromJsonNode(node);
     }
 
     @Override
-    JsonNode toJsonNode(final String value) {
-        return JsonNode.string(value);
+    JsonNode toJsonNode(final FontSize value) {
+        return value.toJsonNode();
     }
 
     // Object ..........................................................................................................
 
     @Override
     public String toString() {
-        return String.class.getSimpleName();
+        return FontSize.class.getSimpleName();
     }
 }

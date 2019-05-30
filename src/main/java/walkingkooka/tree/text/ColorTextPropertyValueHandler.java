@@ -18,39 +18,40 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.color.Color;
 import walkingkooka.tree.json.JsonNode;
 
 /**
- * A {@link TextPropertyValueConverter} for {@link FontSize} parameter values.
+ * A {@link TextPropertyValueHandler} for {@link Color} parameter values.
  */
-final class FontSizeTextPropertyValueConverter extends TextPropertyValueConverter<FontSize> {
+final class ColorTextPropertyValueHandler extends TextPropertyValueHandler<Color> {
 
     /**
      * Singleton
      */
-    final static FontSizeTextPropertyValueConverter INSTANCE = new FontSizeTextPropertyValueConverter();
+    final static ColorTextPropertyValueHandler INSTANCE = new ColorTextPropertyValueHandler();
 
     /**
      * Private ctor
      */
-    private FontSizeTextPropertyValueConverter() {
+    private ColorTextPropertyValueHandler() {
         super();
     }
 
     @Override
     void check0(final Object value, final TextPropertyName<?> name) {
-        this.checkType(value, FontSize.class, name);
+        this.checkType(value, Color.class, name);
     }
 
     // fromJsonNode ....................................................................................................
 
     @Override
-    FontSize fromJsonNode(final JsonNode node) {
-        return FontSize.fromJsonNode(node);
+    Color fromJsonNode(final JsonNode node) {
+        return Color.fromJsonNode(node);
     }
 
     @Override
-    JsonNode toJsonNode(final FontSize value) {
+    JsonNode toJsonNode(final Color value) {
         return value.toJsonNode();
     }
 
@@ -58,6 +59,6 @@ final class FontSizeTextPropertyValueConverter extends TextPropertyValueConverte
 
     @Override
     public String toString() {
-        return FontSize.class.getSimpleName();
+        return Color.class.getSimpleName();
     }
 }
