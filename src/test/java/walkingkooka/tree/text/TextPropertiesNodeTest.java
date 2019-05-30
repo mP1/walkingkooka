@@ -250,6 +250,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         properties.put(TextPropertyName.FONT_STYLE, FontStyle.ITALIC);
         properties.put(TextPropertyName.FONT_VARIANT, FontVariant.SMALL_CAPS);
         properties.put(TextPropertyName.FONT_WEIGHT, FontWeight.with(1000));
+        properties.put(TextPropertyName.HANGING_PUNCTUATION, HangingPunctuation.LAST);
         properties.put(TextPropertyName.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
         properties.put(TextPropertyName.HYPHENS, Hyphens.AUTO);
         properties.put(TextPropertyName.TEXT_ALIGNMENT, TextAlignment.LEFT);

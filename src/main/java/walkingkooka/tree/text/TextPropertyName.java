@@ -140,6 +140,13 @@ public final class TextPropertyName<T> implements Name,
     public final static TextPropertyName<FontWeight> FONT_WEIGHT = registerFontWeightConstant("font-weight");
 
     /**
+     * hanging-punctuation
+     */
+    public final static TextPropertyName<HangingPunctuation> HANGING_PUNCTUATION = registerEnumConstant("hanging-punctuation",
+            HangingPunctuation::valueOf,
+            HangingPunctuation.class);
+
+    /**
      * horizontal-alignment
      */
     public final static TextPropertyName<HorizontalAlignment> HORIZONTAL_ALIGNMENT = registerEnumConstant("horizontal-alignment",
