@@ -21,8 +21,7 @@ package walkingkooka.tree.text;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.text.CaseSensitivity;
 
-public final class TextStyleNameTest extends TextNodeNameNameTestCase<TextStyleName>
-        implements NameTesting2<TextStyleName, TextStyleName> {
+public final class TextStyleNameTest extends TextNodeNameNameTestCase<TextStyleName> {
 
     @Override
     public TextStyleName createName(final String name) {
@@ -32,45 +31,6 @@ public final class TextStyleNameTest extends TextNodeNameNameTestCase<TextStyleN
     @Override
     public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
-    }
-
-    @Override
-    public String nameText() {
-        return "xyz";
-    }
-
-    @Override
-    public String differentNameText() {
-        return "different";
-    }
-
-    @Override
-    public String nameTextLess() {
-        return "before";
-    }
-
-    @Override
-    public int minLength() {
-        return 1;
-    }
-
-    @Override
-    public int maxLength() {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
-    public String possibleValidChars(final int position) {
-        return 0 == position ?
-                ASCII_LETTERS :
-                ASCII_LETTERS_DIGITS + "-.";
-    }
-
-    @Override
-    public String possibleInvalidChars(final int position) {
-        return 0 == position ?
-                CONTROL + ASCII_DIGITS :
-                CONTROL;
     }
 
     @Override

@@ -31,8 +31,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class TextPropertyNameTest extends TextNodeNameNameTestCase<TextPropertyName<?>>
-        implements NameTesting2<TextPropertyName<?>, TextPropertyName<?>> {
+public final class TextPropertyNameTest extends TextNodeNameNameTestCase<TextPropertyName<?>> {
 
     @Test
     public void testConstants() {
@@ -62,45 +61,6 @@ public final class TextPropertyNameTest extends TextNodeNameNameTestCase<TextPro
     @Override
     public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
-    }
-
-    @Override
-    public String nameText() {
-        return "xyz";
-    }
-
-    @Override
-    public String differentNameText() {
-        return "different";
-    }
-
-    @Override
-    public String nameTextLess() {
-        return "before";
-    }
-
-    @Override
-    public int minLength() {
-        return 1;
-    }
-
-    @Override
-    public int maxLength() {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
-    public String possibleValidChars(final int position) {
-        return 0 == position ?
-                ASCII_LETTERS :
-                ASCII_LETTERS_DIGITS + "-.";
-    }
-
-    @Override
-    public String possibleInvalidChars(final int position) {
-        return 0 == position ?
-                CONTROL + ASCII_DIGITS :
-                CONTROL;
     }
 
     @Override
