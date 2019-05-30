@@ -21,7 +21,7 @@ package walkingkooka.tree.text;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.text.CaseSensitivity;
 
-public final class TextNodeNameTest extends TextNodeTestCase3<TextNodeName>
+public final class TextNodeNameTest extends TextNodeNameNameTestCase<TextNodeName>
         implements NameTesting2<TextNodeName, TextNodeName> {
 
     @Override

@@ -18,27 +18,18 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
 /**
  * The name of an {@link TextNode}.
  */
-public final class TextNodeName implements Name, Comparable<TextNodeName> {
+public final class TextNodeName extends TextNodeNameName<TextNodeName> {
 
     public static TextNodeName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
-                "name",
-                INITIAL,
-                PART);
+        checkName(name);
         return new TextNodeName(name);
     }
-
-    private final static CharPredicate INITIAL = CharPredicates.letter();
-    private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
 
     static TextNodeName fromClass(final Class<? extends TextNode> klass) {
         final String name = klass.getSimpleName();
@@ -47,47 +38,13 @@ public final class TextNodeName implements Name, Comparable<TextNodeName> {
 
     // @VisibleForTesting
     private TextNodeName(final String name) {
-        this.name = name;
+        super(name);
     }
 
     @Override
-    public String value() {
-        return this.name;
+    boolean canBeEqual(final Object other) {
+        return other instanceof TextNodeName;
     }
-
-    private final String name;
-
-    // Object..........................................................................................................
-
-    @Override
-    public final int hashCode() {
-        return CASE_SENSITIVITY.hash(this.name);
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof TextNodeName &&
-                        this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final TextNodeName other) {
-        return CASE_SENSITIVITY.equals(this.name, other.name);
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
-    }
-
-    // Comparable ......................................................................................................
-
-    @Override
-    public int compareTo(final TextNodeName other) {
-        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
-    }
-
-    // HasCaseSensitivity................................................................................................
 
     @Override
     public CaseSensitivity caseSensitivity() {

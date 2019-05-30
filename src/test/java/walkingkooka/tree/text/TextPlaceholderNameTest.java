@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.text.CaseSensitivity;
 
-public final class TextPlaceholderNameTest extends TextNodeTestCase3<TextPlaceholderName>
+public final class TextPlaceholderNameTest extends TextNodeNameNameTestCase<TextPlaceholderName>
         implements NameTesting2<TextPlaceholderName, TextPlaceholderName> {
 
     @Override

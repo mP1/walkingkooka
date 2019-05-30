@@ -18,44 +18,26 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.Cast;
-import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.JsonNode;
 
 /**
  * The name of a style {@link TextNode}.
  */
-public final class TextStyleName implements Name,
-        Comparable<TextStyleName> {
+public final class TextStyleName extends TextNodeNameName<TextStyleName> {
 
     /**
      * Factory that creates a new {@link TextStyleName}.
      */
     public static TextStyleName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
-                "name",
-                INITIAL,
-                PART);
+        checkName(name);
         return new TextStyleName(name);
     }
 
-    private final static CharPredicate INITIAL = CharPredicates.letter();
-    private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
-
     // @VisibleForTesting
     private TextStyleName(final String name) {
-        this.name = name;
+        super(name);
     }
-
-    @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
 
     // HasJsonNode.....................................................................................................
 
@@ -63,38 +45,11 @@ public final class TextStyleName implements Name,
         return with(node.stringValueOrFail());
     }
 
-    JsonNode toJsonNode() {
-        return JsonNode.string(this.name);
-    }
-
     // Object..........................................................................................................
 
     @Override
-    public final int hashCode() {
-        return CASE_SENSITIVITY.hash(this.name);
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof TextStyleName &&
-                        this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final TextStyleName other) {
-        return CASE_SENSITIVITY.equals(this.name, other.name);
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
-    }
-
-    // Comparable ......................................................................................................
-
-    @Override
-    public int compareTo(final TextStyleName other) {
-        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
+    boolean canBeEqual(final Object other) {
+        return other instanceof TextStyleName;
     }
 
     // HasCaseSensitivity................................................................................................
