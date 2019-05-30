@@ -33,6 +33,19 @@ import java.util.Objects;
  */
 public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsDefined, Value<Integer>, Serializable, HasJsonNode {
 
+    private final static int NORMAL_VALUE = 400;
+    private final static int BOLD_VALUE = 700;
+
+    /**
+     * A constant holding the font-weight of normal text
+     */
+    public final static FontWeight NORMAL = new FontWeight(NORMAL_VALUE);
+
+    /**
+     * A constant holding the font-weight of bold text
+     */
+    public final static FontWeight BOLD = new FontWeight(BOLD_VALUE);
+
     /**
      * Factory that creates a {@link FontWeight}.
      */
@@ -41,7 +54,11 @@ public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsD
             throw new IllegalArgumentException("Invalid font-weight value=" + value);
         }
 
-        return new FontWeight(value);
+        return NORMAL_VALUE == value ?
+                NORMAL :
+                BOLD_VALUE == value ?
+                        BOLD :
+                        new FontWeight(value);
     }
 
     /**
@@ -120,10 +137,25 @@ public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsD
      */
     @Override
     public String toString() {
-        return String.valueOf(this.value);
+        final int value = this.value;
+        return  NORMAL_VALUE == value ?
+                "normal" :
+                BOLD_VALUE == value ?
+                        "bold" :
+                        String.valueOf(value);
     }
 
     // Serializable ..................................................................................................
 
     private final static long serialVersionUID = 1L;
+
+    private Object readResolve() {
+        final int value = this.value;
+
+        return NORMAL_VALUE == value ?
+                NORMAL :
+                BOLD_VALUE == value ?
+                        BOLD :
+                        this;
+    }
 }
