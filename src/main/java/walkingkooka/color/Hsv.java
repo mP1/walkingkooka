@@ -50,7 +50,7 @@ final public class Hsv extends ColorHslOrHsv {
     static Hsv parseHsv0(final String text) {
         try {
             return HSV_FUNCTION_PARSER.parse(TextCursors.charSequence(text),
-                    ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+')))
+                    ParserContexts.basic(DecimalNumberContexts.american()))
                     .map(t -> HsvParserToken.class.cast(t).value())
                     .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
         } catch (final ParserException cause) {

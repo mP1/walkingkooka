@@ -70,7 +70,7 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
     public static SpreadsheetCellReference parse(final String text) {
         try {
             final SpreadsheetCellReferenceParserToken token = PARSER.parse(TextCursors.charSequence(text),
-                    SpreadsheetParserContexts.basic(DecimalNumberContexts.basic("$", '.', '^', ',', '-', '%', '+')))
+                    SpreadsheetParserContexts.basic(DecimalNumberContexts.american()))
                     .get().cast();
             return token.cell();
         } catch (final ParserException cause) {

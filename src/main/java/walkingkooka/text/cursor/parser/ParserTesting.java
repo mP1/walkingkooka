@@ -291,6 +291,6 @@ public interface ParserTesting<P extends Parser<C>,
     }
 
     default DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+');
+        return DecimalNumberContexts.american();
     }
 }
