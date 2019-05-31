@@ -37,6 +37,14 @@ import java.util.Set;
  */
 final class TextPropertiesMapEntrySet extends AbstractSet<Entry<TextPropertyName<?>, Object>> {
 
+    /**
+     * An empty {@link TextPropertiesMap}.
+     */
+    static TextPropertiesMapEntrySet EMPTY = new TextPropertiesMapEntrySet(Lists.empty());
+
+    /**
+     * Factory that creates a {@link TextPropertiesMapEntrySet}.
+     */
     static TextPropertiesMapEntrySet with(final Map<TextPropertyName<?>, Object> entries) {
         final List<Entry<TextPropertyName<?>, Object>> list = Lists.array();
 
@@ -49,7 +57,9 @@ final class TextPropertiesMapEntrySet extends AbstractSet<Entry<TextPropertyName
         }
 
         list.sort(TextPropertiesMapEntrySet::comparator);
-        return new TextPropertiesMapEntrySet(list);
+        return list.isEmpty() ?
+                EMPTY :
+                new TextPropertiesMapEntrySet(list);
     }
 
     /**

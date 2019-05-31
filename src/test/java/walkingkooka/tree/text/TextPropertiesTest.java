@@ -79,6 +79,11 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
     }
 
     @Test
+    public void testEmpty() {
+        assertSame(TextPropertiesMap.EMPTY, TextPropertiesMap.with(Maps.empty()));
+    }
+
+    @Test
     public void testValue() {
         final Map<TextPropertyName<?>, Object> map = Maps.sorted();
         map.put(this.property1(), this.value1());
@@ -95,6 +100,11 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
         map.put(this.property2(), this.value2());
 
         this.toStringAndCheck(TextProperties.with(map), map.toString());
+    }
+
+    @Test
+    public void testFromEmptyJsonObject() {
+        assertSame(TextProperties.EMPTY, TextProperties.fromJsonNode(JsonNode.object()));
     }
 
     @Override

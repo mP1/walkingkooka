@@ -31,6 +31,11 @@ import java.util.Set;
 final class TextPropertiesMap extends AbstractMap<TextPropertyName<?>, Object> {
 
     /**
+     * An empty {@link TextPropertiesMap}.
+     */
+    static TextPropertiesMap EMPTY = new TextPropertiesMap(TextPropertiesMapEntrySet.EMPTY);
+
+    /**
      * Factory that takes a copy if the given {@link Map} is not a {@link TextPropertiesMap}.
      */
     static TextPropertiesMap with(final Map<TextPropertyName<?>, Object> map) {
@@ -38,7 +43,17 @@ final class TextPropertiesMap extends AbstractMap<TextPropertyName<?>, Object> {
 
         return map instanceof TextPropertiesMap ?
                 TextPropertiesMap.class.cast(map) :
-                  new TextPropertiesMap(TextPropertiesMapEntrySet.with(map));
+                with0(map);
+    }
+
+    private static TextPropertiesMap with0(final Map<TextPropertyName<?>, Object> map) {
+        return with1(TextPropertiesMapEntrySet.with(map));
+    }
+
+    private static TextPropertiesMap with1(final TextPropertiesMapEntrySet entrySet) {
+        return entrySet.isEmpty() ?
+                EMPTY :
+                new TextPropertiesMap(entrySet);
     }
 
     private TextPropertiesMap(final TextPropertiesMapEntrySet entries) {
@@ -56,7 +71,7 @@ final class TextPropertiesMap extends AbstractMap<TextPropertyName<?>, Object> {
     // HasJsonNode......................................................................................................
 
     static TextPropertiesMap fromJson(final JsonNode json) {
-        return new TextPropertiesMap(TextPropertiesMapEntrySet.fromJson(json));
+        return TextPropertiesMap.with1(TextPropertiesMapEntrySet.fromJson(json));
     }
 
     JsonNode toJson() {
