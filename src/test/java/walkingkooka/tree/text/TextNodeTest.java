@@ -20,10 +20,15 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.Converters;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.select.NodeSelectorContexts;
 import walkingkooka.type.MemberVisibility;
+
+import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,6 +55,18 @@ public final class TextNodeTest extends TextNodeTestCase<TextNode> implements Ha
                 TextNode.styled(TextStyleName.with("style123"))
                         .setChildren(Lists.of(TextNode.text("text123"), TextNode.placeholder(TextPlaceholderName.with("place-1")))))),
                 "[style123[\"text123\", place-1]]");
+    }
+
+    @Test
+    public void testSelectorUsage() {
+        final TextNode node = TextNode.properties(Lists.of(
+                TextNode.styled(TextStyleName.with("style123"))
+                        .setChildren(Lists.of(TextNode.text("text-1a"), TextNode.text("text-2b"), TextNode.placeholder(TextPlaceholderName.with("place-1"))))));
+        assertEquals(2, TextNode.absoluteNodeSelector()
+                .descendant()
+                .named(Text.NAME)
+                .stream(node, NodeSelectorContexts.basicFunctions(), Converters.fake(), DecimalNumberContexts.fake(), MathContext.UNLIMITED, TextNode.class)
+                .count());
     }
 
     // ClassTesting.....................................................................................................
