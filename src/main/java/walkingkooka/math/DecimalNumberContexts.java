@@ -25,6 +25,13 @@ import walkingkooka.type.PublicStaticHelper;
 public final class DecimalNumberContexts implements PublicStaticHelper {
 
     /**
+     * {@see AmericanDecimalNumberContext}
+     */
+    public static DecimalNumberContext american() {
+        return AmericanDecimalNumberContext.INSTANCE;
+    }
+
+    /**
      * {@see BasicDecimalNumberContext}
      */
     public static DecimalNumberContext basic(final String currencySymbol,

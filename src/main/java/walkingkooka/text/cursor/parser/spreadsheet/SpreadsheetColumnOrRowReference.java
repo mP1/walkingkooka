@@ -50,7 +50,7 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
                                                        final Class<T> type) {
         try {
             return type.cast(parser.parse(TextCursors.charSequence(text),
-                    SpreadsheetParserContexts.basic(DecimalNumberContexts.basic("$", '.', '^', ',', '-', '%', '+')))
+                    SpreadsheetParserContexts.basic(DecimalNumberContexts.american()))
                     .get());
         } catch (final ParserException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);

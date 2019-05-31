@@ -21,7 +21,6 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
@@ -114,11 +113,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
                 return Converters.collection(Lists.of(
                         Converters.numberInteger(),
                         Converters.function(String.class, Integer.class, Integer::parseInt)))
-                        .convert(value, target, this.converterContext());
-            }
-
-            private ConverterContext converterContext() {
-                return ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
+                        .convert(value, target, ConverterContexts.basic(DecimalNumberContexts.american()));
             }
         });
         context.position = INDEX;

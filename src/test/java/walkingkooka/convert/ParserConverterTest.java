@@ -84,7 +84,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
 
     @Override
     public ConverterContext createContext() {
-        return ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
+        return ConverterContexts.basic(DecimalNumberContexts.american());
     }
 
     private Parser<ParserContext> bigDecimalParser() {

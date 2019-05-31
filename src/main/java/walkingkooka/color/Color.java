@@ -110,7 +110,7 @@ abstract public class Color extends ColorHslOrHsv {
                                     final Parser<ParserContext> parser) {
         try {
             return parser.parse(TextCursors.charSequence(text),
-                    ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+')))
+                    ParserContexts.basic(DecimalNumberContexts.american()))
                     .map(t -> ColorParserToken.class.cast(t).value())
                     .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
         } catch (final ParserException cause) {

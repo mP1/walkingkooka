@@ -267,7 +267,7 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     }
 
     private ParserContext parserContext() {
-        return ParserContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
+        return ParserContexts.basic(DecimalNumberContexts.american());
     }
 
     @Override
