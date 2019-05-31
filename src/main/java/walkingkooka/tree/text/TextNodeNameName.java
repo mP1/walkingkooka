@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
 /**
@@ -53,12 +52,6 @@ abstract class TextNodeNameName<N extends TextNodeNameName<N> & Comparable<N>> i
 
     final String name;
 
-    /**
-     * Returns the name in quotes, useful for error messages.
-     */
-    CharSequence inQuotes() {
-        return CharSequences.quoteAndEscape(this.name);
-    }
 
     final JsonNode toJsonNode() {
         return JsonNode.string(this.name);
