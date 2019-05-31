@@ -18,9 +18,11 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.tree.json.JsonNode;
 
 import java.util.AbstractSet;
 import java.util.Comparator;
@@ -74,4 +76,38 @@ final class TextPropertiesMapEntrySet extends AbstractSet<Entry<TextPropertyName
     }
 
     private final List<Entry<TextPropertyName<?>, Object>> entries;
+
+    // HasJsonNode......................................................................................................
+
+    /**
+     * Recreates this {@link TextPropertiesMapEntrySet} from the json object.
+     */
+    static TextPropertiesMapEntrySet fromJson(final JsonNode json) {
+        final Map<TextPropertyName<?>, Object> properties = Maps.ordered();
+
+        for (JsonNode child : json.children()) {
+            final TextPropertyName name = TextPropertyName.fromJsonNodeName(child);
+            properties.put(name,
+                    name.handler.fromJsonNode(child));
+        }
+
+        return with(properties);
+    }
+
+    /**
+     * Creates a json object using the keys and values from the entries in this {@link Set}.
+     */
+    JsonNode toJson() {
+        final List<JsonNode> json = Lists.array();
+
+        for (Entry<TextPropertyName<?>, Object> propertyAndValue : this.entries) {
+            final TextPropertyName<?> propertyName = propertyAndValue.getKey();
+            final JsonNode value = propertyName.handler.toJsonNode(Cast.to(propertyAndValue.getValue()));
+
+            json.add(value.setName(propertyName.toJsonNodeName()));
+        }
+
+        return JsonNode.object()
+                .setChildren(json);
+    }
 }
