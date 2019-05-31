@@ -23,6 +23,8 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -33,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
         HashCodeEqualsDefinedTesting<TextProperties>,
+        HasJsonNodeTesting<TextProperties>,
         ToStringTesting<TextProperties> {
 
     @Test
@@ -128,5 +131,17 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
     @Override
     public MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    // HasJsonNodeTesting................................................................................................
+
+    @Override
+    public TextProperties fromJsonNode(final JsonNode from) {
+        return TextProperties.fromJsonNode(from);
+    }
+
+    @Override
+    public TextProperties createHasJsonNode() {
+        return this.createObject();
     }
 }
