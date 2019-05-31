@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.tree.json.JsonNode;
+
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Objects;
@@ -50,4 +52,14 @@ final class TextPropertiesMap extends AbstractMap<TextPropertyName<?>, Object> {
     }
 
     private final TextPropertiesMapEntrySet entries;
+
+    // HasJsonNode......................................................................................................
+
+    static TextPropertiesMap fromJson(final JsonNode json) {
+        return new TextPropertiesMap(TextPropertiesMapEntrySet.fromJson(json));
+    }
+
+    JsonNode toJson() {
+        return this.entries.toJson();
+    }
 }

@@ -21,7 +21,6 @@ package walkingkooka.tree.text;
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
@@ -32,7 +31,6 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
@@ -48,15 +46,17 @@ public final class TextPropertiesNode extends TextParentNode {
     static TextPropertiesNode with(final List<TextNode> children) {
         return new TextPropertiesNode(NO_INDEX,
                 copy(children),
-                NO_ATTRIBUTES);
+                NO_ATTRIBUTES_MAP);
     }
+
+    private final static TextPropertiesMap NO_ATTRIBUTES_MAP = TextPropertiesMap.with(Maps.empty());
 
     /**
      * Private ctor
      */
     private TextPropertiesNode(final int index,
                                final List<TextNode> children,
-                               final Map<TextPropertyName<?>, Object> attributes) {
+                               final TextPropertiesMap attributes) {
         super(index, children);
         this.attributes = attributes;
     }
@@ -110,20 +110,20 @@ public final class TextPropertiesNode extends TextParentNode {
 
     @Override
     public TextPropertiesNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
-        final Map<TextPropertyName<?>, Object> copy = TextPropertiesMap.with(attributes);
-        return copy.isEmpty() ?
+        final TextPropertiesMap textPropertiesMap = TextPropertiesMap.with(attributes);
+        return this.attributes.equals(textPropertiesMap) ?
                 this :
-                this.setAttributes0(attributes);
+                this.replaceAttributes(textPropertiesMap);
     }
 
     /**
-     * Most classes except for {@link TextPropertyName} create a new {@link TextPropertyName}.
+     * Create a new {@link TextPropertyName}.
      */
-    private TextPropertiesNode setAttributes0(final Map<TextPropertyName<?>, Object> attributes) {
+    private TextPropertiesNode replaceAttributes(final TextPropertiesMap attributes) {
         return new TextPropertiesNode(this.index, this.children, attributes);
     }
 
-    private final Map<TextPropertyName<?>, Object> attributes;
+    private final TextPropertiesMap attributes;
 
     // replace.........................................................................................................
 
@@ -167,7 +167,7 @@ public final class TextPropertiesNode extends TextParentNode {
         for (JsonNode child : node.children()) {
             switch (child.name().value()) {
                 case PROPERTIES:
-                    properties = propertiesFromJson(child.objectOrFail());
+                    properties = TextPropertiesMap.fromJson(child);
                     break;
                 case VALUES:
                     children = child.arrayOrFail().fromJsonNodeWithTypeList();
@@ -181,44 +181,14 @@ public final class TextPropertiesNode extends TextParentNode {
                 .setAttributes(properties);
     }
 
-    private static Map<TextPropertyName<?>, Object> propertiesFromJson(final JsonObjectNode json) {
-        final Map<TextPropertyName<?>, Object> properties = Maps.ordered();
-
-        for (JsonNode child : json.children()) {
-            final TextPropertyName name = TextPropertyName.fromJsonNodeName(child);
-            properties.put(name,
-                    name.handler.fromJsonNode(child));
-        }
-
-        return properties;
-    }
-
     @Override
     public JsonNode toJsonNode() {
         JsonObjectNode json = JsonNode.object();
         if (!this.attributes.isEmpty()) {
-            json = json.set(PROPERTIES_PROPERTY, this.propertiesToJson());
+            json = json.set(PROPERTIES_PROPERTY, this.attributes.toJson());
         }
 
         return this.addChildrenValuesJson(json);
-    }
-
-    /**
-     * Creates an object where the {@link TextPropertyName} becomes the json property name, and the value is turned into json.
-     * If there are no properties defined, then an empty object will be returned.
-     */
-    private JsonNode propertiesToJson() {
-        final List<JsonNode> json = Lists.array();
-
-        for (Entry<TextPropertyName<?>, Object> propertyAndValue : this.attributes.entrySet()) {
-            final TextPropertyName<?> propertyName = propertyAndValue.getKey();
-            final JsonNode value = propertyName.handler.toJsonNode(Cast.to(propertyAndValue.getValue()));
-
-            json.add(value.setName(propertyName.toJsonNodeName()));
-        }
-
-        return JsonNode.object()
-                .setChildren(json);
     }
 
     final static String PROPERTIES = "properties";
