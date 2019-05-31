@@ -195,7 +195,7 @@ public final class TextPropertiesNode extends TextParentNode {
     final static JsonNodeName PROPERTIES_PROPERTY = JsonNodeName.with(PROPERTIES);
 
     static {
-        HasJsonNode.register("text-properties", TextPropertiesNode::fromJsonNode, TextPropertiesNode.class);
+        HasJsonNode.register("text-properties-node", TextPropertiesNode::fromJsonNode, TextPropertiesNode.class);
     }
 
     // Visitor .................................................................................................
