@@ -22,11 +22,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TextPropertiesMapTest implements MapTesting2<TextPropertiesMap, TextPropertyName<?>, Object> {
@@ -82,6 +84,11 @@ public final class TextPropertiesMapTest implements MapTesting2<TextPropertiesMa
         }
 
         assertEquals(Lists.of(this.property2(), this.property1()), keys);
+    }
+
+    @Test
+    public void testFromEmptyJsonObject() {
+        assertSame(TextPropertiesMap.EMPTY, TextPropertiesMap.fromJson(JsonNode.object()));
     }
 
     @Test

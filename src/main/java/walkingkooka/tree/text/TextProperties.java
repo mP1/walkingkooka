@@ -41,10 +41,18 @@ public final class TextProperties implements HashCodeEqualsDefined,
         Value<Map<TextPropertyName<?>, Object>> {
 
     /**
+     * A {@link TextProperties} with no properties.
+     */
+    public static TextProperties EMPTY = new TextProperties(Maps.empty());
+
+    /**
      * Factory that creates a {@link TextProperties} from a {@link Map}.
      */
     public static TextProperties with(final Map<TextPropertyName<?>, Object> value) {
-        return new TextProperties(TextPropertiesMap.with(value));
+        final TextPropertiesMap map = TextPropertiesMap.with(value);
+        return map.isEmpty() ?
+                EMPTY :
+                new TextProperties(map);
     }
 
     private TextProperties(final Map<TextPropertyName<?>, Object> value) {
@@ -106,7 +114,7 @@ public final class TextProperties implements HashCodeEqualsDefined,
                     name.handler.fromJsonNode(child));
         }
 
-        return new TextProperties(properties);
+        return with(properties);
     }
 
     /**

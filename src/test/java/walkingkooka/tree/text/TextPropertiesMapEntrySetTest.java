@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TextPropertiesMapEntrySetTest implements SetTesting<TextPropertiesMapEntrySet, Entry<TextPropertyName<?>, Object>> {
@@ -35,6 +36,11 @@ public final class TextPropertiesMapEntrySetTest implements SetTesting<TextPrope
         assertThrows(TextPropertyValueException.class, () -> {
             TextPropertiesMapEntrySet.with(Maps.of(TextPropertyName.WORD_BREAK, null));
         });
+    }
+
+    @Test
+    public void testEmpty() {
+        assertSame(TextPropertiesMapEntrySet.EMPTY, TextPropertiesMapEntrySet.with(Maps.empty()));
     }
 
     @Test
