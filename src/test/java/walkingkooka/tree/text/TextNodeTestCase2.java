@@ -20,6 +20,7 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.text.HasTextLengthTesting;
 import walkingkooka.text.HasTextTesting;
@@ -29,7 +30,12 @@ import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Map;
 import java.util.function.Predicate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTestCase<TextNode>
         implements NodeTesting<TextNode, TextNodeName, TextPropertyName<?>, Object>,
@@ -41,6 +47,25 @@ public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTest
 
     TextNodeTestCase2() {
         super();
+    }
+
+    // SetAttributes....................................................................................................
+
+    @Test
+    public final void testSetAttributesEmpty() {
+        final N textNode = this.createTextNode();
+        assertSame(textNode, textNode.setAttributes(TextNode.NO_ATTRIBUTES));
+    }
+
+    final void setAttributeNotEmptyAndCheck() {
+        final N child = this.createTextNode();
+        final Map<TextPropertyName<?>, Object> attributes = Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC);
+        final TextNode parent = child.setAttributes(attributes);
+        assertNotSame(parent, child);
+
+        final TextPropertiesNode textPropertiesNode = Cast.to(parent);
+        this.childCountCheck(parent, child);
+        assertEquals(attributes, textPropertiesNode.attributes(), "attributes");
     }
 
     // HasTextOffset .....................................................................................................

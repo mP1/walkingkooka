@@ -34,8 +34,9 @@ public abstract class TextLeafNodeTestCase<N extends TextLeafNode<V>, V> extends
         this.createTextNodeAndCheck(this.value());
     }
 
-    @Override
-    public final void testSetSameAttributes() {
+    @Test
+    public final void testSetAttributesNotEmpty() {
+        this.setAttributeNotEmptyAndCheck();
     }
 
     @Override
@@ -46,13 +47,6 @@ public abstract class TextLeafNodeTestCase<N extends TextLeafNode<V>, V> extends
     public final void testSetChildrenFails() {
         assertThrows(UnsupportedOperationException.class, () -> {
             this.createNode().setChildren(TextNode.NO_CHILDREN);
-        });
-    }
-
-    @Test
-    public final void testSetAttributesFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createNode().setAttributes(TextNode.NO_ATTRIBUTES);
         });
     }
 

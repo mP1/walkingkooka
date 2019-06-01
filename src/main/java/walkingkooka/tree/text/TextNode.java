@@ -163,6 +163,23 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
      */
     abstract TextNode replace(final int index);
 
+    // setAttributes0...................................................................................................
+
+    /**
+     * Default set attributes for all {@link TextNode} except for {@link TextPropertiesNode}.
+     * If the attributes are empty this node is returned unwrapped, otherwise a {@link TextPropertiesNode} is created
+     * with this {@link TextNode} as the only child, with the given attributes.
+     * <br>
+     * This method should not be called by {@link TextPropertiesNode}, its should probably replace the old attributes
+     * with the new.
+     */
+    final TextNode setAttributes0(final Map<TextPropertyName<?>, Object> attributes) {
+        final TextPropertiesMap textPropertiesMap = TextPropertiesMap.with(attributes);
+        return textPropertiesMap.isEmpty() ?
+                this :
+                TextPropertiesNode.with(Lists.of(this), textPropertiesMap);
+    }
+
     // is...............................................................................................................
 
     /**
