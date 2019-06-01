@@ -114,7 +114,7 @@ public final class TextStyledNode extends TextParentNode {
 
     @Override
     public TextNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
-        throw new UnsupportedOperationException();
+        return this.setAttributes0(attributes);
     }
 
     // replace..........................................................................................................

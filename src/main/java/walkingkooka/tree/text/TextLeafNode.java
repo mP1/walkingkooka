@@ -100,8 +100,8 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
     }
 
     @Override
-    public TextNode setAttributes(Map<TextPropertyName<?>, Object> attributes) {
-        throw new UnsupportedOperationException();
+    public TextNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
+        return this.setAttributes0(attributes);
     }
 
     // is ..............................................................................................................

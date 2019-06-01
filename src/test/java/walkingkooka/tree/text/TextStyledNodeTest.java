@@ -61,15 +61,9 @@ public final class TextStyledNodeTest extends TextParentNodeTestCase<TextStyledN
         this.checkStyleName(node, name);
     }
 
-    @Override
-    public void testSetSameAttributes() {
-    }
-
     @Test
-    public void testSetAttributes() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createTextNode().setAttributes(TextStyledNode.NO_ATTRIBUTES);
-        });
+    public final void testSetAttributesNotEmpty() {
+        this.setAttributeNotEmptyAndCheck();
     }
 
     @Test
