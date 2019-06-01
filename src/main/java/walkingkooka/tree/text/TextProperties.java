@@ -48,7 +48,10 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
      * Factory that creates a {@link TextProperties} from a {@link Map}.
      */
     public static TextProperties with(final Map<TextPropertyName<?>, Object> value) {
-        final TextPropertiesMap map = TextPropertiesMap.with(value);
+        return withTextPropertiesMap(TextPropertiesMap.with(value));
+    }
+
+    static TextProperties withTextPropertiesMap(final TextPropertiesMap map) {
         return map.isEmpty() ?
                 EMPTY :
                 NonEmptyTextProperties.with(map);
