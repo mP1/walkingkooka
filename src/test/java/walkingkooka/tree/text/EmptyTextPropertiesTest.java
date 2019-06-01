@@ -19,8 +19,11 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.JsonNode;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -35,6 +38,47 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
     public void testValue() {
         assertSame(EmptyTextProperties.INSTANCE.value(), EmptyTextProperties.INSTANCE.value());
     }
+
+    // replace...........................................................................................................
+
+    @Test
+    public void testReplaceTextProperties() {
+        this.replaceAndCheck2(TextNode.properties(this.children()));
+    }
+
+    @Test
+    public void testReplaceTextProperties2() {
+        final TextPropertiesNode node = TextNode.properties(children());
+
+        this.replaceAndCheck(EmptyTextProperties.INSTANCE,
+                node.setAttributes(Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC)),
+                node);
+    }
+
+    private List<TextNode> children() {
+        return Lists.of(TextNode.text("a1"), TextNode.text("b2"));
+    }
+
+    @Test
+    public void testReplaceTextStyled() {
+        this.replaceAndCheck2(TextNode.styled(TextStyleName.with("style123")));
+    }
+
+    @Test
+    public void testReplaceText() {
+        this.replaceAndCheck2(TextNode.text("abc123"));
+    }
+
+    @Test
+    public void testReplaceTextPlaceholder() {
+        this.replaceAndCheck2(TextNode.placeholder(TextPlaceholderName.with("placeholder123")));
+    }
+
+    private void replaceAndCheck2(final TextNode textNode) {
+        this.replaceAndCheck(EmptyTextProperties.INSTANCE, textNode);
+    }
+
+    // set..............................................................................................................
 
     @Test
     public void testSet() {

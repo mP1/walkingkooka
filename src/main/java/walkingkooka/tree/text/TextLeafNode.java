@@ -92,7 +92,7 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
         return NeverError.unexpectedMethodCall(this, "setChild", newChild);
     }
 
-    // is ..............................................................................................................
+    // attributes.......................................................................................................
 
     @Override
     public Map<TextPropertyName<?>, Object> attributes() {
@@ -100,8 +100,13 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
     }
 
     @Override
-    public TextNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
-        return this.setAttributes0(attributes);
+    TextNode setAttributesEmptyTextPropertiesMap() {
+        return this;
+    }
+
+    @Override
+    final TextPropertiesNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
+        return this.setAttributesNonEmptyTextPropertiesMap0(textPropertiesMap);
     }
 
     // is ..............................................................................................................

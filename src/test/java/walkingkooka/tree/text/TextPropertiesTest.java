@@ -148,7 +148,7 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
 
     private void setChildrenAndCheck(final TextProperties properties,
                                      final List<TextNode> children,
-                                     final TextPropertiesNode textPropertiesNode) {
+                                     final TextNode textPropertiesNode) {
         assertEquals(textPropertiesNode,
                 properties.setChildren(children),
                 () -> properties + " setChildren " + children);

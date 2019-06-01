@@ -20,11 +20,13 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -72,6 +74,55 @@ public final class NonEmptyTextPropertiesTest extends TextPropertiesTestCase<Non
 
         final NonEmptyTextProperties textProperties = this.createTextProperties(map);
         assertEquals(TextPropertiesMap.class, textProperties.value().getClass(), () -> "" + textProperties.value);
+    }
+
+    // replace...........................................................................................................
+
+    @Test
+    public void testReplaceTextPropertiesWithoutAttributes() {
+        final List<TextNode> children = this.children();
+        final TextProperties textProperties = this.createTextProperties();
+
+        this.replaceAndCheck(textProperties,
+                TextNode.properties(children),
+                TextPropertiesNode.with(children, TextPropertiesMap.with(textProperties.value())));
+    }
+
+    @Test
+    public void testReplaceTextPropertiesWithAttributes() {
+        final List<TextNode> children = this.children();
+        final TextPropertiesNode textProperties = TextPropertiesNode.with(children, this.createTextProperties().textPropertiesMap());
+
+        this.replaceAndCheck(TextProperties.EMPTY,
+                textProperties,
+                TextNode.properties(children));
+    }
+
+    private List<TextNode> children() {
+        return Lists.of(TextNode.text("a1"), TextNode.text("b2"));
+    }
+
+    @Test
+    public void testReplaceTextStyled() {
+        this.replaceAndCheck2(TextNode.styled(TextStyleName.with("style123")));
+    }
+
+    @Test
+    public void testReplaceText() {
+        this.replaceAndCheck2(TextNode.text("abc123"));
+    }
+
+    @Test
+    public void testReplaceTextPlaceholder() {
+        this.replaceAndCheck2(TextNode.placeholder(TextPlaceholderName.with("placeholder123")));
+    }
+
+    private void replaceAndCheck2(final TextNode textNode) {
+        final TextProperties textProperties = this.createTextProperties();
+
+        this.replaceAndCheck(textProperties,
+                textNode,
+                TextNode.properties(Lists.of(textNode)).setAttributes(textProperties.value()));
     }
 
     // get..............................................................................................................

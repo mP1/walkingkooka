@@ -42,11 +42,26 @@ final class EmptyTextProperties extends TextProperties {
         super();
     }
 
+    /**
+     * Always returns true
+     */
+    @Override
+    boolean isEmpty() {
+        return true;
+    }
+
     // Value............................................................................................................
 
     @Override
     public Map<TextPropertyName<?>, Object> value() {
         return Maps.empty();
+    }
+
+    // replace..........................................................................................................
+
+    @Override
+    TextNode replace0(final TextNode textNode) {
+        return textNode.setAttributesEmptyTextPropertiesMap();
     }
 
     // setChildren......................................................................................................

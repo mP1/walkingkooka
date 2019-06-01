@@ -126,7 +126,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         final TextPropertiesNode node = this.createTextNode();
         final Map<TextPropertyName<?>, Object> attributes = Maps.of(TextPropertyName.with("abc"), "xyz");
 
-        final TextPropertiesNode different = node.setAttributes(attributes);
+        final TextNode different = node.setAttributes(attributes);
         assertNotSame(different, node);
         checkAttributes(different, attributes);
 
@@ -138,11 +138,11 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         final TextPropertiesNode node = this.createTextNode();
         final Map<TextPropertyName<?>, Object> attributes = Maps.of(TextPropertyName.with("abc"), "xyz");
 
-        final TextPropertiesNode different = node.setAttributes(attributes);
+        final TextNode different = node.setAttributes(attributes);
         assertNotSame(different, node);
 
         final Map<TextPropertyName<?>, Object> attributes2 = Maps.of(TextPropertyName.with("def"), "qrs");
-        final TextPropertiesNode different2 = different.setAttributes(attributes2);
+        final TextNode different2 = different.setAttributes(attributes2);
         assertNotSame(different, different2);
 
         checkAttributes(different, attributes);
@@ -161,7 +161,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
 
         final Map<TextPropertyName<?>, Object> attributes = Maps.of(TextPropertyName.with("abc"), "xyz");
 
-        final TextPropertiesNode different2 = node.setAttributes(attributes);
+        final TextNode different2 = node.setAttributes(attributes);
         assertNotSame(different2, different);
         checkAttributes(different2, attributes);
 
