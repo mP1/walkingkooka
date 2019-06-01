@@ -39,14 +39,14 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
     @Test
     public void testWithNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            TextPropertiesNode.with(null);
+            TextPropertiesNode.with(null, TextPropertiesNode.NO_ATTRIBUTES_MAP);
         });
     }
 
     @Test
     public void testWith() {
         final TextNode child = TextNode.text("child1");
-        final TextPropertiesNode properties = TextPropertiesNode.with(Lists.of(child));
+        final TextPropertiesNode properties = TextPropertiesNode.with(Lists.of(child), TextPropertiesNode.NO_ATTRIBUTES_MAP);
         this.childCountCheck(properties, child);
     }
 
@@ -59,7 +59,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         children.add(child1);
         children.add(child2);
 
-        final TextPropertiesNode properties = TextPropertiesNode.with(children);
+        final TextPropertiesNode properties = TextPropertiesNode.with(children, TextPropertiesNode.NO_ATTRIBUTES_MAP);
         children.clear();
         this.childCountCheck(properties, child1, child2);
     }
@@ -68,8 +68,8 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
     public void testWithParent() {
         final TextNode child1 = this.text1();
 
-        final TextPropertiesNode parent = this.properties(child1);
-        final TextPropertiesNode grandParent = this.properties(parent);
+        final TextPropertiesNode parent = textPropertiesNode(child1);
+        final TextPropertiesNode grandParent = textPropertiesNode(parent);
 
         final TextNode parent2 = grandParent.children().get(0);
         this.checkWithParent(parent2);
@@ -96,8 +96,8 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
     public void testSetDifferentChildrenWithParent() {
         final TextNode child1 = this.text1();
 
-        final TextPropertiesNode parent = this.properties(child1);
-        final TextPropertiesNode grandParent = this.properties(parent);
+        final TextPropertiesNode parent = textPropertiesNode(child1);
+        final TextPropertiesNode grandParent = textPropertiesNode(parent);
 
         final TextNode child2 = this.text2();
         final TextNode different = grandParent.children().get(0).appendChild(child2);
@@ -195,77 +195,75 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
 
     @Test
     public void testToJsonNodeWithoutChildren() {
-        this.toJsonNodeAndCheck(TextPropertiesNode.with(TextPropertiesNode.NO_CHILDREN), "{}");
+        this.toJsonNodeAndCheck(textPropertiesNode(), "{}");
     }
 
     @Test
     public void testToJsonNodeWithChildren() {
-        this.toJsonNodeAndCheck(TextPropertiesNode.with(Lists.of(TextNode.text("text123"))), "{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
+        this.toJsonNodeAndCheck(textPropertiesNode(TextNode.text("text123")), "{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
     }
 
     @Test
     public void testToJsonNodeWithChildren2() {
-        this.toJsonNodeAndCheck(TextPropertiesNode.with(Lists.of(TextNode.text("text123"), TextNode.text("text456"))),
+        this.toJsonNodeAndCheck(textPropertiesNode(TextNode.text("text123"), TextNode.text("text456")),
                 "{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}, {\"type\": \"text\", \"value\": \"text456\"}]}");
     }
 
     @Test
     public void testToJsonNodeWithProperties() {
-        this.toJsonNodeAndCheck(TextPropertiesNode.with(TextPropertiesNode.NO_CHILDREN)
+        this.toJsonNodeAndCheck(textPropertiesNode()
                 .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))),
                 "{\"properties\": {\"background-color\": \"#123456\"}}");
     }
 
     @Test
     public void testToJsonNodeWithPropertiesAndChildren() {
-        this.toJsonNodeAndCheck(TextPropertiesNode.with(Lists.of(TextNode.text("text123")))
+        this.toJsonNodeAndCheck(textPropertiesNode(TextNode.text("text123"))
                         .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))),
                 "{\"properties\": {\"background-color\": \"#123456\"}, \"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
     }
     @Test
     public void testFromJsonNodeWithoutChildren() {
         this.fromJsonNodeAndCheck("{}",
-                TextPropertiesNode.with(TextPropertiesNode.NO_CHILDREN));
+                textPropertiesNode());
     }
 
     @Test
     public void testFromJsonNodeWithChildren() {
         this.fromJsonNodeAndCheck("{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}",
-                TextPropertiesNode.with(Lists.of(TextNode.text("text123"))));
+                textPropertiesNode(TextNode.text("text123")));
     }
 
     @Test
     public void testJsonRoundtrip() {
-        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
-                TextNode.text("text1"),
+        this.toJsonNodeRoundTripTwiceAndCheck(textPropertiesNode(TextNode.text("text1"),
                 TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                TextNode.properties(Lists.of(TextNode.text("text3"))))));
+                textPropertiesNode(TextNode.text("text3"))));
     }
 
     @Test
     public void testJsonRoundtrip2() {
-        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+        this.toJsonNodeRoundTripTwiceAndCheck(textPropertiesNode(
                 TextNode.text("text1"),
-                TextPropertiesNode.with(Lists.of(
-                        TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                        TextNode.properties(Lists.of(TextNode.text("text3"))))))));
+                textPropertiesNode(TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
+                        textPropertiesNode(TextNode.text("text3")))));
     }
 
     @Test
     public void testJsonRoundtripWithProperties() {
-        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+        this.toJsonNodeRoundTripTwiceAndCheck(textPropertiesNode(
                 TextNode.text("text1"),
                 TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                TextNode.properties(Lists.of(TextNode.text("text3")))))
+                textPropertiesNode(TextNode.text("text3")))
                 .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))));
     }
 
     @Test
     public void testJsonRoundtripWithProperties2() {
-        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+        this.toJsonNodeRoundTripTwiceAndCheck(textPropertiesNode(
                 TextNode.text("text1"),
                 TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                TextNode.properties(Lists.of(TextNode.text("text3")))))
+                TextNode.properties(Lists.of(TextNode.text("text3"))))
                 .setAttributes(Maps.of(TextPropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456), TextPropertyName.TEXT_COLOR, Color.fromRgb(0x789abc))));
     }
 
@@ -298,10 +296,10 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         properties.put(TextPropertyName.WORD_WRAP, WordWrap.BREAK_WORD);
         properties.put(TextPropertyName.WRITING_MODE, WritingMode.VERTICAL_LR);
 
-        this.toJsonNodeRoundTripTwiceAndCheck(TextPropertiesNode.with(Lists.of(
+        this.toJsonNodeRoundTripTwiceAndCheck(textPropertiesNode(
                 TextNode.text("text1"),
                 TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                TextNode.properties(Lists.of(TextNode.text("text3")))))
+                TextNode.properties(Lists.of(TextNode.text("text3"))))
                 .setAttributes(properties));
     }
 
@@ -312,7 +310,7 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
         final StringBuilder b = new StringBuilder();
         final List<TextNode> visited = Lists.array();
 
-        final TextPropertiesNode properties = TextPropertiesNode.with(Lists.of(TextNode.text("a1"), TextNode.text("b2")));
+        final TextPropertiesNode properties = textPropertiesNode(TextNode.text("a1"), TextNode.text("b2"));
         final Text text1 = Cast.to(properties.children().get(0));
         final Text text2 = Cast.to(properties.children().get(1));
 
@@ -364,47 +362,51 @@ public final class TextPropertiesNodeTest extends TextParentNodeTestCase<TextPro
 
     @Test
     public void testToStringEmpty() {
-        this.toStringAndCheck(TextPropertiesNode.with(TextPropertiesNode.NO_CHILDREN), "[]");
+        this.toStringAndCheck(textPropertiesNode(), "[]");
     }
 
     @Test
     public void testToStringWithChild() {
-        this.toStringAndCheck(this.properties(text1()), "[\"text-1a\"]");
+        this.toStringAndCheck(textPropertiesNode(text1()), "[\"text-1a\"]");
     }
 
     @Test
     public void testToStringWithChildren() {
-        this.toStringAndCheck(this.properties(text1(), text2()), "[\"text-1a\", \"text-2b\"]");
+        this.toStringAndCheck(textPropertiesNode(text1(), text2()), "[\"text-1a\", \"text-2b\"]");
     }
 
     @Test
     public void testToStringWithAttributesWithoutChildren() {
-        this.toStringAndCheck(this.properties().setAttributes(Maps.of(TextPropertyName.with("abc"), "123")), "{abc: \"123\"}[]");
+        this.toStringAndCheck(textPropertiesNode().setAttributes(Maps.of(TextPropertyName.with("abc"), "123")), "{abc: \"123\"}[]");
     }
 
     @Test
     public void testToStringWithAttributes2() {
-        this.toStringAndCheck(this.properties().setAttributes(Maps.of(TextPropertyName.with("abc"), "123", TextPropertyName.with("def"), "456")),
+        this.toStringAndCheck(textPropertiesNode().setAttributes(Maps.of(TextPropertyName.with("abc"), "123", TextPropertyName.with("def"), "456")),
                 "{abc: \"123\", def: \"456\"}[]");
     }
 
     @Test
     public void testToStringWithChildrenAndAttributes() {
-        this.toStringAndCheck(this.properties(text1()).setAttributes(Maps.of(TextPropertyName.with("abc"), "123")), "{abc: \"123\"}[\"text-1a\"]");
+        this.toStringAndCheck(textPropertiesNode(text1()).setAttributes(Maps.of(TextPropertyName.with("abc"), "123")), "{abc: \"123\"}[\"text-1a\"]");
     }
 
     @Test
     public void testToStringWithPropertiesWithChildren() {
-        this.toStringAndCheck(this.properties(text1(), this.properties(text2())), "[\"text-1a\", [\"text-2b\"]]");
+        this.toStringAndCheck(textPropertiesNode(text1(), textPropertiesNode(text2())), "[\"text-1a\", [\"text-2b\"]]");
     }
 
     @Override
     TextPropertiesNode createTextNode() {
-        return this.properties(text1(), text2());
+        return textPropertiesNode(text1(), text2());
     }
 
-    private TextPropertiesNode properties(final TextNode...children) {
-        return TextPropertiesNode.with(Lists.of(children));
+    private static TextPropertiesNode textPropertiesNode(final TextNode... children) {
+        return textPropertiesNode(Lists.of(children));
+    }
+
+    private static TextPropertiesNode textPropertiesNode(final List<TextNode> children) {
+        return TextPropertiesNode.with(children, TextPropertiesNode.NO_ATTRIBUTES_MAP);
     }
 
     @Override

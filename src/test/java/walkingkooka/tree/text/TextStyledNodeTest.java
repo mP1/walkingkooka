@@ -159,7 +159,7 @@ public final class TextStyledNodeTest extends TextParentNodeTestCase<TextStyledN
     public void testDifferentParent() {
         final TextStyledNode child = TextStyledNode.with(TextStyleName.with("child"));
 
-        this.checkNotEquals(TextPropertiesNode.with(Lists.of(child)).children().get(0),
+        this.checkNotEquals(TextPropertiesNode.with(Lists.of(child), TextPropertiesNode.NO_ATTRIBUTES_MAP).children().get(0),
                 this.styled("different-parent", child));
     }
 

@@ -40,16 +40,18 @@ public final class TextPropertiesNode extends TextParentNode {
 
     public final static TextNodeName NAME = TextNodeName.fromClass(TextPropertiesNode.class);
 
+    final static TextPropertiesMap NO_ATTRIBUTES_MAP = TextPropertiesMap.with(Maps.empty());
+
     /**
-     * Factory that creates a {@link TextPropertiesNode} with the given children.
+     * Factory that creates a {@link TextPropertiesNode} with the given children and properties.
      */
-    static TextPropertiesNode with(final List<TextNode> children) {
+    // TextProperties.setTextNodes
+    static TextPropertiesNode with(final List<TextNode> children,
+                                   final TextPropertiesMap properties) {
         return new TextPropertiesNode(NO_INDEX,
                 copy(children),
-                NO_ATTRIBUTES_MAP);
+                properties);
     }
-
-    private final static TextPropertiesMap NO_ATTRIBUTES_MAP = TextPropertiesMap.with(Maps.empty());
 
     /**
      * Private ctor
@@ -177,8 +179,7 @@ public final class TextPropertiesNode extends TextParentNode {
             }
         }
 
-        return TextPropertiesNode.with(children)
-                .setAttributes(properties);
+        return TextPropertiesNode.with(children, TextPropertiesMap.with(properties));
     }
 
     @Override
