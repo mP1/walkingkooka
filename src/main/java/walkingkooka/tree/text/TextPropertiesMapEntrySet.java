@@ -56,10 +56,17 @@ final class TextPropertiesMapEntrySet extends AbstractSet<Entry<TextPropertyName
             list.add(Maps.entry(property, value));
         }
 
-        list.sort(TextPropertiesMapEntrySet::comparator);
+        sort(list);
         return list.isEmpty() ?
                 EMPTY :
-                new TextPropertiesMapEntrySet(list);
+                withList(list);
+    }
+
+    /**
+     * Sorts the {@link List} so all properties using the {@link TextPropertyName} {@link Comparator}.
+     */
+    static void sort(final List<Entry<TextPropertyName<?>, Object>> list) {
+        list.sort(TextPropertiesMapEntrySet::comparator);
     }
 
     /**
@@ -68,6 +75,10 @@ final class TextPropertiesMapEntrySet extends AbstractSet<Entry<TextPropertyName
     private static int comparator(final Entry<TextPropertyName<?>, Object> first,
                                   final Entry<TextPropertyName<?>, Object> second) {
         return first.getKey().compareTo(second.getKey());
+    }
+
+    static TextPropertiesMapEntrySet withList(final List<Entry<TextPropertyName<?>, Object>> entries) {
+        return new TextPropertiesMapEntrySet(entries);
     }
 
     private TextPropertiesMapEntrySet(final List<Entry<TextPropertyName<?>, Object>> entries) {

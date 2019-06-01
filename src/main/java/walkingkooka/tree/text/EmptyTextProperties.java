@@ -18,10 +18,12 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * A {@link TextProperties} with no properties and values.
@@ -40,9 +42,28 @@ final class EmptyTextProperties extends TextProperties {
         super();
     }
 
+    // Value............................................................................................................
+
     @Override
     public Map<TextPropertyName<?>, Object> value() {
         return Maps.empty();
+    }
+
+    // get/set/remove...................................................................................................
+
+    @Override
+    <V> Optional<V> get0(final TextPropertyName<V> propertyName) {
+        return Optional.empty();
+    }
+
+    @Override
+    <V> TextProperties set0(final TextPropertyName<V> propertyName, final V value) {
+        return NonEmptyTextProperties.with(TextPropertiesMap.withTextPropertiesMapEntrySet(TextPropertiesMapEntrySet.withList(Lists.of(Maps.entry(propertyName, value)))));
+    }
+
+    @Override
+    TextProperties remove0(final TextPropertyName<?> propertyName) {
+        return this;
     }
 
     // Object..........................................................................................................

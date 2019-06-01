@@ -29,6 +29,7 @@ import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link TextProperties} holds a {@link Map} of {@link TextPropertyName} and values.
@@ -57,6 +58,52 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
      */
     TextProperties() {
         super();
+    }
+
+    // get..............................................................................................................
+
+    /**
+     * Sets a possibly new property returning a {@link TextProperties} with the new definition which may or may not
+     * require creating a new {@link TextProperties}.
+     */
+    public final <V> Optional<V> get(final TextPropertyName<V> propertyName) {
+        checkPropertyName(propertyName);
+
+        return this.get0(propertyName);
+    }
+
+    abstract <V> Optional<V> get0(final TextPropertyName<V> propertyName);
+
+    // set..............................................................................................................
+
+    /**
+     * Sets a possibly new property returning a {@link TextProperties} with the new definition which may or may not
+     * require creating a new {@link TextProperties}.
+     */
+    public final <V> TextProperties set(final TextPropertyName<V> propertyName, final V value) {
+        checkPropertyName(propertyName);
+
+        propertyName.check(value);
+        return this.set0(propertyName, value);
+    }
+
+    abstract <V> TextProperties set0(final TextPropertyName<V> propertyName, final V value);
+
+    // remove...........................................................................................................
+
+    /**
+     * Removes a possibly existing property returning a {@link TextProperties} without.
+     */
+    public final TextProperties remove(final TextPropertyName<?> propertyName) {
+        checkPropertyName(propertyName);
+
+        return this.remove0(propertyName);
+    }
+
+    abstract TextProperties remove0(final TextPropertyName<?> propertyName);
+
+    private static void checkPropertyName(final TextPropertyName<?> propertyName) {
+        Objects.requireNonNull(propertyName, "propertyName");
     }
 
     // Object..........................................................................................................

@@ -53,7 +53,11 @@ final class TextPropertiesMap extends AbstractMap<TextPropertyName<?>, Object> {
     private static TextPropertiesMap with1(final TextPropertiesMapEntrySet entrySet) {
         return entrySet.isEmpty() ?
                 EMPTY :
-                new TextPropertiesMap(entrySet);
+                withTextPropertiesMapEntrySet(entrySet);
+    }
+
+    static TextPropertiesMap withTextPropertiesMapEntrySet(final TextPropertiesMapEntrySet entrySet) {
+        return new TextPropertiesMap(entrySet);
     }
 
     private TextPropertiesMap(final TextPropertiesMapEntrySet entries) {
@@ -66,7 +70,7 @@ final class TextPropertiesMap extends AbstractMap<TextPropertyName<?>, Object> {
         return this.entries;
     }
 
-    private final TextPropertiesMapEntrySet entries;
+    final TextPropertiesMapEntrySet entries;
 
     // HasJsonNode......................................................................................................
 
