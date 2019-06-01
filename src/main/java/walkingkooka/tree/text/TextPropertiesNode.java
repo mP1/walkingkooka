@@ -163,13 +163,13 @@ public final class TextPropertiesNode extends TextParentNode {
     }
 
     private static TextPropertiesNode fromJsonNode0(final JsonObjectNode node) {
-        Map<TextPropertyName<?>, Object> properties = NO_ATTRIBUTES;
+        TextProperties textProperties = TextProperties.EMPTY;
         List<TextNode> children = NO_CHILDREN;
 
         for (JsonNode child : node.children()) {
             switch (child.name().value()) {
                 case PROPERTIES:
-                    properties = TextPropertiesMap.fromJson(child);
+                    textProperties = TextProperties.withTextPropertiesMap(TextPropertiesMap.fromJson(child));
                     break;
                 case VALUES:
                     children = child.arrayOrFail().fromJsonNodeWithTypeList();
@@ -179,7 +179,7 @@ public final class TextPropertiesNode extends TextParentNode {
             }
         }
 
-        return TextPropertiesNode.with(children, TextPropertiesMap.with(properties));
+        return textProperties.setChildren(children);
     }
 
     @Override
