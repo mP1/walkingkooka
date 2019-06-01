@@ -37,6 +37,17 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
     }
 
     @Test
+    public void testSet() {
+        final TextPropertyName<FontFamilyName> propertyName = TextPropertyName.FONT_FAMILY_NAME;
+        final FontFamilyName familyName = FontFamilyName.with("Antiqua");
+
+        this.setAndCheck(EmptyTextProperties.INSTANCE,
+                propertyName,
+                familyName,
+                TextProperties.with(Maps.of(propertyName, familyName)));
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(EmptyTextProperties.INSTANCE, "{}");
     }

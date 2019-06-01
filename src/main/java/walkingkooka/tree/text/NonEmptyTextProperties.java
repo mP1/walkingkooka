@@ -20,11 +20,13 @@ package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 /**
  * A {@link NonEmptyTextProperties} holds a non empty {@link Map} of {@link TextPropertyName} and values.
@@ -38,7 +40,7 @@ final class NonEmptyTextProperties extends TextProperties {
         return new NonEmptyTextProperties(value);
     }
 
-    private NonEmptyTextProperties(final Map<TextPropertyName<?>, Object> value) {
+    private NonEmptyTextProperties(final TextPropertiesMap value) {
         super();
         this.value = value;
     }
@@ -50,7 +52,80 @@ final class NonEmptyTextProperties extends TextProperties {
         return this.value;
     }
 
-    final Map<TextPropertyName<?>, Object> value;
+    final TextPropertiesMap value;
+
+    // get..............................................................................................................
+
+    @Override
+    <V> Optional<V> get0(final TextPropertyName<V> propertyName) {
+        return Optional.ofNullable(Cast.to(this.value.get(propertyName)));
+    }
+
+    // set..............................................................................................................
+
+    @Override
+    <V> TextProperties set0(final TextPropertyName<V> propertyName, final V value) {
+        TextPropertiesMap map = this.value;
+        final List<Entry<TextPropertyName<?>, Object>> list = Lists.array();
+
+        int mode = 0; // new property added.
+
+        for (Entry<TextPropertyName<?>, Object> propertyAndValue : map.entries) {
+            final TextPropertyName<?> property = propertyAndValue.getKey();
+
+            if (propertyName.equals(property)) {
+                if (propertyAndValue.getValue().equals(value)) {
+                    mode = 1; // no change
+                    break;
+                } else {
+                    list.add(Maps.entry(property, value));
+                    mode = 2; // replaced
+                }
+            } else {
+                list.add(propertyAndValue);
+            }
+        }
+
+        // replace didnt happen
+        if (0 == mode) {
+            list.add(Maps.entry(propertyName, value));
+            TextPropertiesMapEntrySet.sort(list);
+        }
+
+        return 1 == mode ?
+                this :
+                new NonEmptyTextProperties(TextPropertiesMap.withTextPropertiesMapEntrySet(TextPropertiesMapEntrySet.withList(list)));
+    }
+
+    // remove...........................................................................................................
+
+    @Override
+    TextProperties remove0(final TextPropertyName<?> propertyName) {
+        final List<Entry<TextPropertyName<?>, Object>> list = Lists.array();
+        boolean removed = false;
+
+        for (Entry<TextPropertyName<?>, Object> propertyAndValue : this.value.entries) {
+            final TextPropertyName<?> property = propertyAndValue.getKey();
+            if (propertyName.equals(property)) {
+                removed = true;
+            } else {
+                list.add(propertyAndValue);
+            }
+        }
+
+        return removed ?
+                this.remove1(list) :
+                this;
+    }
+
+    /**
+     * Accepts a list after removing a property, special casing if the list is empty.
+     */
+    private TextProperties remove1(List<Entry<TextPropertyName<?>, Object>> list) {
+        return list.isEmpty() ?
+                TextProperties.EMPTY :
+                new NonEmptyTextProperties(TextPropertiesMap.withTextPropertiesMapEntrySet(TextPropertiesMapEntrySet.withList(list))); // no need to sort after a delete
+    }
 
     // Object..........................................................................................................
 
