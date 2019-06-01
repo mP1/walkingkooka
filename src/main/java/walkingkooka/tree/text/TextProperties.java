@@ -70,7 +70,7 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
      * Factory that returns a {@link TextPropertiesNode} with the given {@link TextNode}
      * and these properties.
      */
-    public TextPropertiesNode setChildren(final List<TextNode> textNodes) {
+    public final TextPropertiesNode setChildren(final List<TextNode> textNodes) {
         return TextPropertiesNode.with(textNodes, this.textPropertiesMap());
     }
 
