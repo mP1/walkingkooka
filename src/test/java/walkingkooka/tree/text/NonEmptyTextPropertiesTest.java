@@ -19,38 +19,16 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
-        HashCodeEqualsDefinedTesting<TextProperties>,
-        HasJsonNodeTesting<TextProperties>,
-        ToStringTesting<TextProperties> {
-
-    @Test
-    public void testWithNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            TextProperties.with(null);
-        });
-    }
-
-    @Test
-    public void testWithInvalidPropertyFails() {
-        assertThrows(TextPropertyValueException.class, () -> {
-            TextProperties.with(Maps.of(TextPropertyName.WORD_BREAK, null));
-        });
-    }
+public final class NonEmptyTextPropertiesTest extends TextPropertiesTestCase<NonEmptyTextProperties> {
 
     @Test
     public void testWithTextPropertiesMap() {
@@ -59,7 +37,7 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
         map.put(this.property2(), this.value2());
         final TextPropertiesMap textPropertiesMap = TextPropertiesMap.with(map);
 
-        final TextProperties textProperties = TextProperties.with(textPropertiesMap);
+        final NonEmptyTextProperties textProperties = this.createTextProperties(textPropertiesMap);
         assertSame(textPropertiesMap, textProperties.value(), "value");
     }
 
@@ -72,7 +50,7 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
         final Map<TextPropertyName<?>, Object> copy = Maps.sorted();
         copy.putAll(map);
 
-        final TextProperties textProperties = TextProperties.with(map);
+        final NonEmptyTextProperties textProperties = this.createTextProperties(map);
 
         map.clear();
         assertEquals(copy, textProperties.value(), "value");
@@ -89,8 +67,8 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
         map.put(this.property1(), this.value1());
         map.put(this.property2(), this.value2());
 
-        final TextProperties textProperties = TextProperties.with(map);
-        assertEquals(TextPropertiesMap.class, textProperties.value().getClass(), () -> "" + textProperties);
+        final NonEmptyTextProperties textProperties = this.createTextProperties(map);
+        assertEquals(TextPropertiesMap.class, textProperties.value().getClass(), () -> "" + textProperties.value);
     }
 
     @Test
@@ -99,7 +77,7 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
         map.put(this.property1(), this.value1());
         map.put(this.property2(), this.value2());
 
-        this.toStringAndCheck(TextProperties.with(map), map.toString());
+        this.toStringAndCheck(NonEmptyTextProperties.with(map), map.toString());
     }
 
     @Test
@@ -108,11 +86,15 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
     }
 
     @Override
-    public TextProperties createObject() {
+    public NonEmptyTextProperties createObject() {
         final Map<TextPropertyName<?>, Object> map = Maps.ordered();
         map.put(this.property1(), this.value1());
         map.put(this.property2(), this.value2());
-        return TextProperties.with(map);
+        return this.createTextProperties(map);
+    }
+
+    private NonEmptyTextProperties createTextProperties(final Map<TextPropertyName<?>, Object> map) {
+        return Cast.to(TextProperties.with(map));
     }
 
     private TextPropertyName<?> property1() {
@@ -131,27 +113,9 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
         return FontFamilyName.with("Times News Roman");
     }
 
-    // ClassTesting.....................................................................................................
-
     @Override
-    public Class<TextProperties> type() {
-        return TextProperties.class;
+    Class<NonEmptyTextProperties> textPropertiesType() {
+        return NonEmptyTextProperties.class;
     }
 
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
-
-    // HasJsonNodeTesting................................................................................................
-
-    @Override
-    public TextProperties fromJsonNode(final JsonNode from) {
-        return TextProperties.fromJsonNode(from);
-    }
-
-    @Override
-    public TextProperties createHasJsonNode() {
-        return this.createObject();
-    }
 }

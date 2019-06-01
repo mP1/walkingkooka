@@ -20,7 +20,6 @@ package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.json.HasJsonNode;
@@ -28,22 +27,20 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonObjectNode;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
  * A {@link TextProperties} holds a {@link Map} of {@link TextPropertyName} and values.
  */
-public final class TextProperties implements HashCodeEqualsDefined,
+public abstract class TextProperties implements HashCodeEqualsDefined,
         HasJsonNode,
         Value<Map<TextPropertyName<?>, Object>> {
 
     /**
      * A {@link TextProperties} with no properties.
      */
-    public static TextProperties EMPTY = new TextProperties(Maps.empty());
+    public static TextProperties EMPTY = EmptyTextProperties.INSTANCE;
 
     /**
      * Factory that creates a {@link TextProperties} from a {@link Map}.
@@ -52,43 +49,34 @@ public final class TextProperties implements HashCodeEqualsDefined,
         final TextPropertiesMap map = TextPropertiesMap.with(value);
         return map.isEmpty() ?
                 EMPTY :
-                new TextProperties(map);
+                NonEmptyTextProperties.with(map);
     }
 
-    private TextProperties(final Map<TextPropertyName<?>, Object> value) {
+    /**
+     * Private ctor to limit sub classes.
+     */
+    TextProperties() {
         super();
-        this.value = value;
     }
-
-    @Override
-    public Map<TextPropertyName<?>, Object> value() {
-        return this.value;
-    }
-
-    final Map<TextPropertyName<?>, Object> value;
 
     // Object..........................................................................................................
 
     @Override
-    public final int hashCode() {
-        return this.value.hashCode();
-    }
+    abstract public int hashCode();
 
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                other instanceof TextProperties &&
+                this.canBeEquals(other) &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final TextProperties other) {
-        return this.value.equals(other.value);
-    }
+    abstract boolean canBeEquals(final Object other);
+
+    abstract boolean equals0(final TextProperties other);
 
     @Override
-    public final String toString() {
-        return this.value.toString();
-    }
+    abstract public String toString();
 
     // HasJsonNode......................................................................................................
 
@@ -117,25 +105,9 @@ public final class TextProperties implements HashCodeEqualsDefined,
         return with(properties);
     }
 
-    /**
-     * Creates a json-object where the properties are strings, and the value without types.
-     */
-    @Override
-    public JsonNode toJsonNode() {
-        final List<JsonNode> json = Lists.array();
-
-        for (Entry<TextPropertyName<?>, Object> propertyAndValue : this.value.entrySet()) {
-            final TextPropertyName<?> propertyName = propertyAndValue.getKey();
-            final JsonNode value = propertyName.handler.toJsonNode(Cast.to(propertyAndValue.getValue()));
-
-            json.add(value.setName(propertyName.toJsonNodeName()));
-        }
-
-        return JsonNode.object()
-                .setChildren(json);
-    }
-
     static {
-        HasJsonNode.register("text-properties", TextProperties::fromJsonNode, TextProperties.class);
+        HasJsonNode.register("text-properties", TextProperties::fromJsonNode, TextProperties.class,
+                NonEmptyTextProperties.class,
+                EmptyTextProperties.class);
     }
 }
