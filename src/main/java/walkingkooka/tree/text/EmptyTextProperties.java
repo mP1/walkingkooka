@@ -49,6 +49,13 @@ final class EmptyTextProperties extends TextProperties {
         return Maps.empty();
     }
 
+    // setChildren......................................................................................................
+
+    @Override
+    TextPropertiesMap textPropertiesMap() {
+        return TextPropertiesMap.EMPTY;
+    }
+
     // get/set/remove...................................................................................................
 
     @Override

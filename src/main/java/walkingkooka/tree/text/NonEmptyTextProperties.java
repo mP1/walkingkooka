@@ -54,6 +54,13 @@ final class NonEmptyTextProperties extends TextProperties {
 
     final TextPropertiesMap value;
 
+    // setChildren......................................................................................................
+
+    @Override
+    TextPropertiesMap textPropertiesMap() {
+        return this.value;
+    }
+
     // get..............................................................................................................
 
     @Override

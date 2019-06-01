@@ -19,6 +19,7 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -27,6 +28,7 @@ import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -93,6 +95,67 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
         assertEquals(TextPropertiesMap.class, textProperties.value().getClass(), () -> "" + textProperties);
     }
 
+    // setChildren......................................................................................................
+
+    @Test
+    public void testSetChildrenNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            TextProperties.EMPTY.setChildren(null);
+        });
+    }
+
+    @Test
+    public void testSetChildrenEmptyAndNoProperties() {
+        final List<TextNode> children = TextPropertiesNode.NO_CHILDREN;
+
+        this.setChildrenAndCheck(TextProperties.EMPTY,
+                children,
+                TextPropertiesNode.with(children, TextPropertiesMap.EMPTY));
+    }
+
+    @Test
+    public void testSetChildrenEmpty() {
+        final TextProperties textProperties = this.textProperties();
+        final List<TextNode> children = TextPropertiesNode.NO_CHILDREN;
+
+        this.setChildrenAndCheck(textProperties,
+                children,
+                TextNode.properties(children).setAttributes(textProperties.value()));
+    }
+
+    @Test
+    public void testSetChildrenAndNoProperties() {
+        final List<TextNode> children = this.children();
+
+        this.setChildrenAndCheck(TextProperties.EMPTY,
+                children,
+                TextPropertiesNode.with(children, TextPropertiesMap.EMPTY));
+    }
+
+    @Test
+    public void testSetChildrenAndProperties() {
+        final TextProperties textProperties = this.textProperties();
+        final List<TextNode> children = this.children();
+
+        this.setChildrenAndCheck(textProperties,
+                children,
+                TextNode.properties(children).setAttributes(textProperties.value()));
+    }
+
+    private List<TextNode> children() {
+        return Lists.of(TextNode.text("text-1a"), TextNode.text("text-1b"));
+    }
+
+    private void setChildrenAndCheck(final TextProperties properties,
+                                     final List<TextNode> children,
+                                     final TextPropertiesNode textPropertiesNode) {
+        assertEquals(textPropertiesNode,
+                properties.setChildren(children),
+                () -> properties + " setChildren " + children);
+    }
+
+    // toString.........................................................................................................
+
     @Test
     public void testToString() {
         final Map<TextPropertyName<?>, Object> map = Maps.sorted();
@@ -109,6 +172,10 @@ public final class TextPropertiesTest implements ClassTesting2<TextProperties>,
 
     @Override
     public TextProperties createObject() {
+        return this.textProperties();
+    }
+
+    private TextProperties textProperties() {
         final Map<TextPropertyName<?>, Object> map = Maps.ordered();
         map.put(this.property1(), this.value1());
         map.put(this.property2(), this.value2());

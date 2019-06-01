@@ -27,6 +27,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonObjectNode;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -59,6 +60,18 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
     TextProperties() {
         super();
     }
+
+    // setChildren......................................................................................................
+
+    /**
+     * Factory that returns a {@link TextPropertiesNode} with the given {@link TextNode}
+     * and these properties.
+     */
+    public TextPropertiesNode setChildren(final List<TextNode> textNodes) {
+        return TextPropertiesNode.with(textNodes, this.textPropertiesMap());
+    }
+
+    abstract TextPropertiesMap textPropertiesMap();
 
     // get..............................................................................................................
 

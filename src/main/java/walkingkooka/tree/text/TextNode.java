@@ -72,7 +72,7 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
      * {@see TextPropertiesNode}
      */
     public static TextPropertiesNode properties(final List<TextNode> children) {
-        return TextPropertiesNode.with(children);
+        return TextPropertiesNode.with(children, TextPropertiesNode.NO_ATTRIBUTES_MAP);
     }
 
     /**
