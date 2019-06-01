@@ -34,7 +34,7 @@ public abstract class EnumTextPropertyValueTestCase<E extends Enum<?>> implement
 
     @Test
     public final void testTextPropertyNode() {
-        final TextPropertiesNode properties = TextNode.properties(TextPropertiesNode.NO_CHILDREN)
+        final TextNode properties = TextNode.properties(TextPropertiesNode.NO_CHILDREN)
                 .setAttributes(Maps.of(this.textPropertyName(), this.value()));
         final JsonNode json = properties.toJsonNodeWithType();
         assertEquals(properties,

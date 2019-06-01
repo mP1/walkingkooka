@@ -113,8 +113,13 @@ public final class TextStyledNode extends TextParentNode {
     }
 
     @Override
-    public TextNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
-        return this.setAttributes0(attributes);
+    TextNode setAttributesEmptyTextPropertiesMap() {
+        return this;
+    }
+
+    @Override
+    final TextPropertiesNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
+        return this.setAttributesNonEmptyTextPropertiesMap0(textPropertiesMap);
     }
 
     // replace..........................................................................................................

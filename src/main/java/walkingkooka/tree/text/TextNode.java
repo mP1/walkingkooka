@@ -163,21 +163,35 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
      */
     abstract TextNode replace(final int index);
 
-    // setAttributes0...................................................................................................
+    // setAttributes....................................................................................................
 
     /**
-     * Default set attributes for all {@link TextNode} except for {@link TextPropertiesNode}.
-     * If the attributes are empty this node is returned unwrapped, otherwise a {@link TextPropertiesNode} is created
-     * with this {@link TextNode} as the only child, with the given attributes.
-     * <br>
-     * This method should not be called by {@link TextPropertiesNode}, its should probably replace the old attributes
-     * with the new.
+     * If a {@link TextPropertiesNode} the attributes are replaced, for other {@link TextNode} types, when the
+     * attributes are non empty this node is wrapped in a {@link TextPropertiesNode}.
      */
-    final TextNode setAttributes0(final Map<TextPropertyName<?>, Object> attributes) {
+    @Override
+    public final TextNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
         final TextPropertiesMap textPropertiesMap = TextPropertiesMap.with(attributes);
         return textPropertiesMap.isEmpty() ?
-                this :
-                TextPropertiesNode.with(Lists.of(this), textPropertiesMap);
+                this.setAttributesEmptyTextPropertiesMap() :
+                this.setAttributesNonEmptyTextPropertiesMap(textPropertiesMap);
+    }
+
+    /**
+     * Factory called when no attributes.
+     */
+    abstract TextNode setAttributesEmptyTextPropertiesMap();
+
+    /**
+     * Factory that accepts a non empty {@link TextPropertiesNode} either wrapping or replacing (for {@link TextPropertiesNode}.
+     */
+    abstract TextPropertiesNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap);
+
+    /**
+     * Default for all sub classes except for {@link TextPropertiesNode}.
+     */
+    final TextPropertiesNode setAttributesNonEmptyTextPropertiesMap0(final TextPropertiesMap textPropertiesMap) {
+        return TextPropertiesNode.with(Lists.of(this), textPropertiesMap);
     }
 
     // is...............................................................................................................

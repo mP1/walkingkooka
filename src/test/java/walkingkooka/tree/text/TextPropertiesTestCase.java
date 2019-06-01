@@ -43,6 +43,30 @@ public abstract class TextPropertiesTestCase<T extends TextProperties> implement
         super();
     }
 
+    // replace...........................................................................................................
+
+    @Test
+    public final void testReplaceNullTextNodeFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createObject().replace(null);
+        });
+    }
+
+    final void replaceAndCheck(final TextProperties properties,
+                               final TextNode textNode) {
+        assertSame(textNode,
+                properties.replace(textNode),
+                () -> properties + " replace " + textNode);
+    }
+
+    final void replaceAndCheck(final TextProperties properties,
+                               final TextNode textNode,
+                               final TextNode expected) {
+        assertEquals(expected,
+                properties.replace(textNode),
+                () -> properties + " replace " + textNode);
+    }
+
     // get..............................................................................................................
 
     @Test

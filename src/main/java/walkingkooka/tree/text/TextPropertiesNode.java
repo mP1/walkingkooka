@@ -111,8 +111,16 @@ public final class TextPropertiesNode extends TextParentNode {
     }
 
     @Override
-    public TextPropertiesNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
-        final TextPropertiesMap textPropertiesMap = TextPropertiesMap.with(attributes);
+    TextNode setAttributesEmptyTextPropertiesMap() {
+        return this.setAttributesTextPropertiesMap(TextPropertiesMap.EMPTY);
+    }
+
+    @Override
+    final TextPropertiesNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
+        return this.setAttributesTextPropertiesMap(textPropertiesMap);
+    }
+
+    private TextPropertiesNode setAttributesTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
         return this.attributes.equals(textPropertiesMap) ?
                 this :
                 this.replaceAttributes(textPropertiesMap);

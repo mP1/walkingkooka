@@ -64,6 +64,11 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
         super();
     }
 
+    /**
+     * Returns true if the properties is empty.
+     */
+    abstract boolean isEmpty();
+
     // setChildren......................................................................................................
 
     /**
@@ -75,6 +80,19 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
     }
 
     abstract TextPropertiesMap textPropertiesMap();
+
+    // replace............................................................................................................
+
+    /**
+     * If empty returns the given {@link TextNode} otherwise wraps inside a {@link TextPropertiesNode}
+     */
+    public final TextNode replace(final TextNode textNode) {
+        Objects.requireNonNull(textNode, "textNode");
+
+        return this.replace0(textNode);
+    }
+
+    abstract TextNode replace0(final TextNode textNode);
 
     // get..............................................................................................................
 

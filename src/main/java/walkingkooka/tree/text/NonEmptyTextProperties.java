@@ -45,6 +45,14 @@ final class NonEmptyTextProperties extends TextProperties {
         this.value = value;
     }
 
+    /**
+     * Always returns false
+     */
+    @Override
+    boolean isEmpty() {
+        return false;
+    }
+
     // Value..........................................................................................................
 
     @Override
@@ -53,6 +61,13 @@ final class NonEmptyTextProperties extends TextProperties {
     }
 
     final TextPropertiesMap value;
+
+    // replace..........................................................................................................
+
+    @Override
+    TextNode replace0(final TextNode textNode) {
+        return textNode.setAttributesNonEmptyTextPropertiesMap(this.value);
+    }
 
     // setChildren......................................................................................................
 
