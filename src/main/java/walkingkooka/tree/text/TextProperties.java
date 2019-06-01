@@ -81,6 +81,22 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
 
     abstract TextPropertiesMap textPropertiesMap();
 
+    // merge............................................................................................................
+
+    /**
+     * Merges the two {@link TextProperties}, with the value from this having priority when both have the same
+     * {@link TextPropertyName}.
+     */
+    public final TextProperties merge(final TextProperties textProperties) {
+        Objects.requireNonNull(textProperties, "textProperties");
+
+        return this.merge0(textProperties);
+    }
+
+    abstract TextProperties merge0(final TextProperties textProperties);
+
+    abstract TextProperties merge1(final NonEmptyTextProperties textProperties);
+
     // replace............................................................................................................
 
     /**

@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
@@ -30,6 +31,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,6 +55,59 @@ public abstract class TextPropertiesTestCase<T extends TextProperties> implement
         assertEquals(textProperties.value().isEmpty(),
                 textProperties.isEmpty(),
                 () -> "" + textProperties);
+    }
+
+    // merge.............................................................................................................
+
+    @Test
+    public final void testMergeNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+           this.createObject().merge(null);
+        });
+    }
+
+    @Test
+    public final void testMergeEmpty() {
+        final TextProperties textProperties = this.createObject();
+        final TextProperties empty = TextProperties.EMPTY;
+        assertSame(textProperties,
+                textProperties.merge(empty),
+                () -> textProperties + " merge EMPTY");
+    }
+
+    final void mergeAndCheck(final TextProperties textProperties,
+                             final TextProperties other) {
+        final Map<TextPropertyName<?>, Object> expected = Maps.ordered();
+        expected.putAll(other.value());
+        expected.putAll(textProperties.value());
+
+        if (expected.equals(textProperties.value())) {
+            this.mergeAndCheck0(textProperties, other, textProperties);
+        } else {
+            if (expected.equals(other.value())) {
+                this.mergeAndCheck0(textProperties, other, other);
+            } else {
+                final TextProperties expectedTextProperties = TextProperties.with(expected);
+                this.mergeAndCheck1(textProperties, other, expectedTextProperties);
+                this.mergeAndCheck1(other, textProperties, expectedTextProperties);
+            }
+        }
+    }
+
+    private void mergeAndCheck0(final TextProperties textProperties,
+                                final TextProperties other,
+                                final TextProperties expected) {
+        assertSame(expected,
+                textProperties.merge(other),
+                () -> textProperties + " merge " + other);
+    }
+
+    private void mergeAndCheck1(final TextProperties textProperties,
+                                final TextProperties other,
+                                final TextProperties expected) {
+        assertEquals(expected,
+                textProperties.merge(other),
+                () -> textProperties + " merge " + other);
     }
 
     // replace...........................................................................................................

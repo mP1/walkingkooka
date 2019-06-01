@@ -37,6 +37,15 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
         assertSame(TextProperties.EMPTY.value(), TextProperties.EMPTY.value());
     }
 
+    // merge............................................................................................................
+
+    @Test
+    public void testMergeNotEmpty() {
+        final TextProperties notEmpty = TextProperties.with(Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC));
+        assertSame(notEmpty,
+                TextProperties.EMPTY.merge(notEmpty));
+    }
+
     // replace...........................................................................................................
 
     @Test
