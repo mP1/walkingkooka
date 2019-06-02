@@ -45,6 +45,16 @@ public abstract class TextPropertiesTestCase<T extends TextProperties> implement
         super();
     }
 
+    // isEmpty...........................................................................................................
+
+    @Test
+    public final void testIsEmpty() {
+        final TextProperties textProperties = this.createObject();
+        assertEquals(textProperties.value().isEmpty(),
+                textProperties.isEmpty(),
+                () -> "" + textProperties);
+    }
+
     // replace...........................................................................................................
 
     @Test
