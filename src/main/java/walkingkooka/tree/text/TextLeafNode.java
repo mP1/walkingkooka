@@ -55,8 +55,9 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
     }
 
     final TextLeafNode<V> replaceValue(final V value) {
-        return this.replace1(this.index, value)
-                .replaceChild(this.parent())
+        final int index = this.index;
+        return this.replace1(index, value)
+                .replaceChild(this.parent(), index)
                 .cast();
     }
 
@@ -88,8 +89,8 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
     }
 
     @Override
-    final TextNode setChild(final TextNode newChild) {
-        return NeverError.unexpectedMethodCall(this, "setChild", newChild);
+    final TextNode setChild(final TextNode newChild, final int index) {
+        return NeverError.unexpectedMethodCall(this, "setChild", newChild, index);
     }
 
     // attributes.......................................................................................................
@@ -105,7 +106,7 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
     }
 
     @Override
-    final TextPropertiesNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
+    final TextNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
         return this.setAttributesNonEmptyTextPropertiesMap0(textPropertiesMap);
     }
 

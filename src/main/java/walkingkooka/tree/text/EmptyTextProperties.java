@@ -31,9 +31,16 @@ import java.util.Optional;
 final class EmptyTextProperties extends TextProperties {
 
     /**
-     * Singleton
+     * Singleton necessary to avoid race conditions to a init'd static field
      */
-    final static EmptyTextProperties INSTANCE = new EmptyTextProperties();
+    final static EmptyTextProperties instance() {
+        if (null == instance) {
+            instance = new EmptyTextProperties();
+        }
+        return instance;
+    }
+
+    private static EmptyTextProperties instance;
 
     /**
      * Private ctor

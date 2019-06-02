@@ -42,7 +42,7 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
     /**
      * A {@link TextProperties} with no properties.
      */
-    public static TextProperties EMPTY = EmptyTextProperties.INSTANCE;
+    public final static TextProperties EMPTY = EmptyTextProperties.instance();
 
     /**
      * Factory that creates a {@link TextProperties} from a {@link Map}.

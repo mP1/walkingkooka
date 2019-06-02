@@ -20,6 +20,7 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
@@ -28,6 +29,7 @@ import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -149,6 +151,28 @@ public abstract class TextPropertiesTestCase<T extends TextProperties> implement
                 removed,
                 () -> properties + " remove " + propertyName);
         return removed;
+    }
+
+    // helpers .........................................................................................................
+
+    final <T extends TextNode> T setStyledParent(final T child) {
+        return this.styled("parent-style-123")
+                .setChildren(Lists.of(child))
+                .children()
+                .get(0)
+                .cast();
+    }
+
+    final TextPlaceholderNode placeholder(final String placeholderName) {
+        return TextNode.placeholder(TextPlaceholderName.with(placeholderName));
+    }
+
+    final TextStyledNode styled(final String styleName) {
+        return TextNode.styled(TextStyleName.with(styleName));
+    }
+
+    final List<TextNode> children() {
+        return Lists.of(TextNode.text("a1"), TextNode.text("b2"));
     }
 
     // ClassTesting.....................................................................................................

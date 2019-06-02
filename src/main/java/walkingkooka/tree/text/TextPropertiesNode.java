@@ -226,7 +226,8 @@ public final class TextPropertiesNode extends TextParentNode {
 
     @Override
     boolean equalsIgnoringParentAndChildren(final TextNode other) {
-        return this.equalsIgnoringParentAndChildren0(Cast.to(other));
+        return other instanceof TextPropertiesNode &&
+                this.equalsIgnoringParentAndChildren0(Cast.to(other));
     }
 
     private boolean equalsIgnoringParentAndChildren0(final TextPropertiesNode other) {

@@ -98,13 +98,41 @@ public final class NonEmptyTextPropertiesTest extends TextPropertiesTestCase<Non
                 TextNode.properties(children));
     }
 
-    private List<TextNode> children() {
-        return Lists.of(TextNode.text("a1"), TextNode.text("b2"));
+    @Test
+    public void testReplaceTextPropertiesWithParent() {
+        final TextPropertiesNode textPropertiesNode = TextNode.properties(this.children());
+
+        final TextProperties textProperties = this.createTextProperties(this.property2(), this.value2());
+
+        this.replaceAndCheck(textProperties,
+                this.setStyledParent(textPropertiesNode),
+                this.setStyledParent(textPropertiesNode.setAttributes(textProperties.value())));
+    }
+
+    @Test
+    public void testReplaceTextPropertiesWithParent2() {
+        final TextPropertiesNode textPropertiesNode = TextNode.properties(this.children());
+
+        final TextProperties textProperties = this.createTextProperties(this.property2(), this.value2());
+
+        this.replaceAndCheck(textProperties,
+                this.setStyledParent(textPropertiesNode.setAttributes(Maps.of(this.property1(), this.value1()))),
+                this.setStyledParent(textPropertiesNode.setAttributes(textProperties.value())));
     }
 
     @Test
     public void testReplaceTextStyled() {
-        this.replaceAndCheck2(TextNode.styled(TextStyleName.with("style123")));
+        this.replaceAndCheck2(this.styled("style123"));
+    }
+
+    @Test
+    public void testReplaceTextStyledWithParent() {
+        final TextStyledNode styledNode = this.styled("child-style123");
+        final TextProperties  textProperties = this.createTextProperties();
+
+        this.replaceAndCheck(textProperties,
+                this.setStyledParent(styledNode),
+                this.setStyledParent(TextNode.properties(Lists.of(styledNode)).setAttributes(textProperties.value())).children().get(0));
     }
 
     @Test
@@ -113,8 +141,26 @@ public final class NonEmptyTextPropertiesTest extends TextPropertiesTestCase<Non
     }
 
     @Test
+    public void testReplaceTextWithParent() {
+        this.replaceAndCheck3(TextNode.text("child-abc123"));
+    }
+
+    @Test
     public void testReplaceTextPlaceholder() {
-        this.replaceAndCheck2(TextNode.placeholder(TextPlaceholderName.with("placeholder123")));
+        this.replaceAndCheck2(this.placeholder("placeholder123"));
+    }
+
+    @Test
+    public void testReplaceTextPlaceholderWithParent() {
+        this.replaceAndCheck3(this.placeholder("child-placeholder123"));
+    }
+
+    private void replaceAndCheck3(final TextNode textNode) {
+        final TextProperties textProperties = this.createTextProperties();
+
+        this.replaceAndCheck(textProperties,
+                this.setStyledParent(textNode),
+                this.setStyledParent(TextNode.properties(Lists.of(textNode)).setAttributes(textProperties.value())).children().get(0));
     }
 
     private void replaceAndCheck2(final TextNode textNode) {
@@ -122,7 +168,7 @@ public final class NonEmptyTextPropertiesTest extends TextPropertiesTestCase<Non
 
         this.replaceAndCheck(textProperties,
                 textNode,
-                TextNode.properties(Lists.of(textNode)).setAttributes(textProperties.value()));
+                TextNode.properties(Lists.of(textNode)).setAttributes(textProperties.value()).children().get(0));
     }
 
     // get..............................................................................................................

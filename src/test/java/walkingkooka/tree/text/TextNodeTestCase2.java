@@ -58,14 +58,14 @@ public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTest
     }
 
     final void setAttributeNotEmptyAndCheck() {
-        final N child = this.createTextNode();
+        final N before = this.createTextNode();
         final Map<TextPropertyName<?>, Object> attributes = Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC);
-        final TextNode parent = child.setAttributes(attributes);
-        assertNotSame(parent, child);
+        final TextNode after = before.setAttributes(attributes);
+        assertNotSame(after, before);
 
-        final TextPropertiesNode textPropertiesNode = Cast.to(parent);
-        this.childCountCheck(parent, child);
-        assertEquals(attributes, textPropertiesNode.attributes(), "attributes");
+        final TextPropertiesNode parent = after.parentOrFail().cast();
+        this.childCountCheck(parent, before);
+        assertEquals(attributes, parent.attributes(), "attributes");
     }
 
     // HasTextOffset .....................................................................................................
