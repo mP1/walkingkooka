@@ -55,7 +55,7 @@ public final class TextStyleTest implements ClassTesting2<TextStyle>,
     }
 
     @Test
-    public void testWithTextPropertiesMap() {
+    public void testWithTextStyleMap() {
         final Map<TextStylePropertyName<?>, Object> map = Maps.sorted();
         map.put(this.property1(), this.value1());
         map.put(this.property2(), this.value2());
@@ -115,7 +115,7 @@ public final class TextStyleTest implements ClassTesting2<TextStyle>,
 
     @Test
     public void testSetChildrenEmpty() {
-        final TextStyle textStyle = this.textProperties();
+        final TextStyle textStyle = this.textStyle();
         final List<TextNode> children = TextStyleNode.NO_CHILDREN;
 
         this.setChildrenAndCheck(textStyle,
@@ -134,7 +134,7 @@ public final class TextStyleTest implements ClassTesting2<TextStyle>,
 
     @Test
     public void testSetChildrenAndProperties() {
-        final TextStyle textStyle = this.textProperties();
+        final TextStyle textStyle = this.textStyle();
         final List<TextNode> children = this.children();
 
         this.setChildrenAndCheck(textStyle,
@@ -148,8 +148,8 @@ public final class TextStyleTest implements ClassTesting2<TextStyle>,
 
     private void setChildrenAndCheck(final TextStyle properties,
                                      final List<TextNode> children,
-                                     final TextNode textPropertiesNode) {
-        assertEquals(textPropertiesNode,
+                                     final TextNode textStyleNode) {
+        assertEquals(textStyleNode,
                 properties.setChildren(children),
                 () -> properties + " setChildren " + children);
     }
@@ -172,10 +172,10 @@ public final class TextStyleTest implements ClassTesting2<TextStyle>,
 
     @Override
     public TextStyle createObject() {
-        return this.textProperties();
+        return this.textStyle();
     }
 
-    private TextStyle textProperties() {
+    private TextStyle textStyle() {
         final Map<TextStylePropertyName<?>, Object> map = Maps.ordered();
         map.put(this.property1(), this.value1());
         map.put(this.property2(), this.value2());

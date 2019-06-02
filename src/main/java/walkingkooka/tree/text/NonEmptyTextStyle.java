@@ -70,9 +70,9 @@ final class NonEmptyTextStyle extends TextStyle {
     }
 
     @Override
-    TextStyle merge1(final NonEmptyTextStyle textProperties) {
+    TextStyle merge1(final NonEmptyTextStyle textStyle) {
         final Map<TextStylePropertyName<?>, Object> otherBefore = this.value; // because of double dispatch params are reversed.
-        final Map<TextStylePropertyName<?>, Object> before = textProperties.value;
+        final Map<TextStylePropertyName<?>, Object> before = textStyle.value;
 
 
         final Map<TextStylePropertyName<?>, Object> merged = Maps.sorted();
@@ -82,7 +82,7 @@ final class NonEmptyTextStyle extends TextStyle {
         return merged.equals(otherBefore) ?
                 this :
                 merged.equals(before) ?
-                        textProperties :
+                        textStyle :
                         new NonEmptyTextStyle(TextStyleMap.with(merged));
     }
 
@@ -90,13 +90,13 @@ final class NonEmptyTextStyle extends TextStyle {
 
     @Override
     TextNode replace0(final TextNode textNode) {
-        return textNode.setAttributesNonEmptyTextPropertiesMap(this.value);
+        return textNode.setAttributesNonEmptyTextStyleMap(this.value);
     }
 
     // setChildren......................................................................................................
 
     @Override
-    TextStyleMap textPropertiesMap() {
+    TextStyleMap textStyleMap() {
         return this.value;
     }
 
@@ -140,7 +140,7 @@ final class NonEmptyTextStyle extends TextStyle {
 
         return 1 == mode ?
                 this :
-                new NonEmptyTextStyle(TextStyleMap.withTextPropertiesMapEntrySet(TextStyleMapEntrySet.withList(list)));
+                new NonEmptyTextStyle(TextStyleMap.withTextStyleMapEntrySet(TextStyleMapEntrySet.withList(list)));
     }
 
     // remove...........................................................................................................
@@ -170,7 +170,7 @@ final class NonEmptyTextStyle extends TextStyle {
     private TextStyle remove1(List<Entry<TextStylePropertyName<?>, Object>> list) {
         return list.isEmpty() ?
                 TextStyle.EMPTY :
-                new NonEmptyTextStyle(TextStyleMap.withTextPropertiesMapEntrySet(TextStyleMapEntrySet.withList(list))); // no need to sort after a delete
+                new NonEmptyTextStyle(TextStyleMap.withTextStyleMapEntrySet(TextStyleMapEntrySet.withList(list))); // no need to sort after a delete
     }
 
     // Object..........................................................................................................

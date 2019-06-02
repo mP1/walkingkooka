@@ -36,14 +36,14 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextStyle> {
 
     @Test
-    public void testWithTextPropertiesMap() {
+    public void testWithTextStyleMap() {
         final Map<TextStylePropertyName<?>, Object> map = Maps.sorted();
         map.put(this.property1(), this.value1());
         map.put(this.property2(), this.value2());
         final TextStyleMap textStyleMap = TextStyleMap.with(map);
 
-        final NonEmptyTextStyle textProperties = this.createTextProperties(textStyleMap);
-        assertSame(textStyleMap, textProperties.value(), "value");
+        final NonEmptyTextStyle textStyle = this.createTextStyle(textStyleMap);
+        assertSame(textStyleMap, textStyle.value(), "value");
     }
 
     @Test
@@ -55,10 +55,10 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final Map<TextStylePropertyName<?>, Object> copy = Maps.sorted();
         copy.putAll(map);
 
-        final NonEmptyTextStyle textProperties = this.createTextProperties(map);
+        final NonEmptyTextStyle textStyle = this.createTextStyle(map);
 
         map.clear();
-        assertEquals(copy, textProperties.value(), "value");
+        assertEquals(copy, textStyle.value(), "value");
     }
 
     @Test
@@ -72,8 +72,8 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         map.put(this.property1(), this.value1());
         map.put(this.property2(), this.value2());
 
-        final NonEmptyTextStyle textProperties = this.createTextProperties(map);
-        assertEquals(TextStyleMap.class, textProperties.value().getClass(), () -> "" + textProperties.value);
+        final NonEmptyTextStyle textStyle = this.createTextStyle(map);
+        assertEquals(TextStyleMap.class, textStyle.value().getClass(), () -> "" + textStyle.value);
     }
 
     // merge............................................................................................................
@@ -95,9 +95,9 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
     // replace...........................................................................................................
 
     @Test
-    public void testReplaceTextPropertiesWithoutAttributes() {
+    public void testReplaceTextStyleWithoutAttributes() {
         final List<TextNode> children = this.children();
-        final TextStyle textStyle = this.createTextProperties();
+        final TextStyle textStyle = this.createTextStyle();
 
         this.replaceAndCheck(textStyle,
                 TextNode.style(children),
@@ -105,20 +105,20 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
     }
 
     @Test
-    public void testReplaceTextPropertiesWithAttributes() {
+    public void testReplaceTextStyleWithAttributes() {
         final List<TextNode> children = this.children();
-        final TextStyleNode textProperties = TextStyleNode.with(children, this.createTextProperties().textPropertiesMap());
+        final TextStyleNode textStyle = TextStyleNode.with(children, this.createTextStyle().textStyleMap());
 
         this.replaceAndCheck(TextStyle.EMPTY,
-                textProperties,
+                textStyle,
                 TextNode.style(children));
     }
 
     @Test
-    public void testReplaceTextPropertiesWithParent() {
+    public void testReplaceTextStyleWithParent() {
         final TextStyleNode textStyleNode = TextNode.style(this.children());
 
-        final TextStyle textStyle = this.createTextProperties(this.property2(), this.value2());
+        final TextStyle textStyle = this.createTextStyle(this.property2(), this.value2());
 
         this.replaceAndCheck(textStyle,
                 this.setStyleNameParent(textStyleNode),
@@ -126,10 +126,10 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
     }
 
     @Test
-    public void testReplaceTextPropertiesWithParent2() {
+    public void testReplaceTextStyleWithParent2() {
         final TextStyleNode textStyleNode = TextNode.style(this.children());
 
-        final TextStyle textStyle = this.createTextProperties(this.property2(), this.value2());
+        final TextStyle textStyle = this.createTextStyle(this.property2(), this.value2());
 
         this.replaceAndCheck(textStyle,
                 this.setStyleNameParent(textStyleNode.setAttributes(Maps.of(this.property1(), this.value1()))),
@@ -144,7 +144,7 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
     @Test
     public void testReplaceTextStyleNameWithParent() {
         final TextStyleNameNode styleName = this.styleName("child-style123");
-        final TextStyle textStyle = this.createTextProperties();
+        final TextStyle textStyle = this.createTextStyle();
 
         this.replaceAndCheck(textStyle,
                 this.setStyleNameParent(styleName),
@@ -172,7 +172,7 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
     }
 
     private void replaceAndCheck3(final TextNode textNode) {
-        final TextStyle textStyle = this.createTextProperties();
+        final TextStyle textStyle = this.createTextStyle();
 
         this.replaceAndCheck(textStyle,
                 this.setStyleNameParent(textNode),
@@ -180,7 +180,7 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
     }
 
     private void replaceAndCheck2(final TextNode textNode) {
-        final TextStyle textStyle = this.createTextProperties();
+        final TextStyle textStyle = this.createTextStyle();
 
         this.replaceAndCheck(textStyle,
                 textNode,
@@ -191,14 +191,14 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
 
     @Test
     public void testGet() {
-        this.getAndCheck(this.createTextProperties(),
+        this.getAndCheck(this.createTextStyle(),
                 this.property1(),
                 this.value1());
     }
 
     @Test
     public void testGet2() {
-        this.getAndCheck(this.createTextProperties(),
+        this.getAndCheck(this.createTextStyle(),
                 this.property2(),
                 this.value2());
     }
@@ -207,14 +207,14 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
 
     @Test
     public void testSetExistingPropertyAndValue() {
-        this.setAndCheck(this.createTextProperties(),
+        this.setAndCheck(this.createTextStyle(),
                 this.property1(),
                 this.value1());
     }
 
     @Test
     public void testSetExistingPropertyAndValue2() {
-        this.setAndCheck(this.createTextProperties(),
+        this.setAndCheck(this.createTextStyle(),
                 this.property2(),
                 this.value2());
     }
@@ -230,10 +230,10 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final WordWrap different = WordWrap.NORMAL;
         assertNotSame(different, value1);
 
-        this.setAndCheck(this.createTextProperties(property1, value1, property2, value2),
+        this.setAndCheck(this.createTextStyle(property1, value1, property2, value2),
                 property1,
                 different,
-                this.createTextProperties(property1, different, property2, value2));
+                this.createTextStyle(property1, different, property2, value2));
     }
 
     @Test
@@ -247,10 +247,10 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final FontFamilyName different = FontFamilyName.with("different");
         assertNotSame(different, value2);
 
-        this.setAndCheck(this.createTextProperties(property1, value1, property2, value2),
+        this.setAndCheck(this.createTextStyle(property1, value1, property2, value2),
                 property2,
                 different,
-                this.createTextProperties(property1, value1, property2, different));
+                this.createTextStyle(property1, value1, property2, different));
     }
 
     @Test
@@ -264,10 +264,10 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final TextStylePropertyName<WritingMode> property3 = TextStylePropertyName.WRITING_MODE;
         final WritingMode value3 = WritingMode.VERTICAL_LR;
 
-        this.setAndCheck(this.createTextProperties(property1, value1, property2, value2),
+        this.setAndCheck(this.createTextStyle(property1, value1, property2, value2),
                 property3,
                 value3,
-                this.createTextProperties(property1, value1, property2, value2, property3, value3));
+                this.createTextStyle(property1, value1, property2, value2, property3, value3));
     }
 
     @Test
@@ -281,10 +281,10 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final TextStylePropertyName<Color> property3 = TextStylePropertyName.BACKGROUND_COLOR;
         final Color value3 = Color.fromRgb(0x123456);
 
-        this.setAndCheck(this.createTextProperties(property1, value1, property2, value2),
+        this.setAndCheck(this.createTextStyle(property1, value1, property2, value2),
                 property3,
                 value3,
-                this.createTextProperties(property3, value3, property1, value1, property2, value2));
+                this.createTextStyle(property3, value3, property1, value1, property2, value2));
     }
 
     private <T> void setAndCheck(final TextStyle properties,
@@ -304,9 +304,9 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final TextStylePropertyName<FontFamilyName> property2 = this.property2();
         final FontFamilyName value2 = this.value2();
 
-        this.removeAndCheck(this.createTextProperties(property1, this.value1(), property2, value2),
+        this.removeAndCheck(this.createTextStyle(property1, this.value1(), property2, value2),
                 property1,
-                this.createTextProperties(property2, value2));
+                this.createTextStyle(property2, value2));
     }
 
     @Test
@@ -316,9 +316,9 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
 
         final TextStylePropertyName<FontFamilyName> property2 = this.property2();
 
-        this.removeAndCheck(this.createTextProperties(property1, value1, property2, this.value2()),
+        this.removeAndCheck(this.createTextStyle(property1, value1, property2, this.value2()),
                 property2,
-                this.createTextProperties(property1, value1));
+                this.createTextStyle(property1, value1));
     }
 
     @Test
@@ -326,7 +326,7 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final TextStylePropertyName<WordWrap> property1 = this.property1();
         final WordWrap value1 = this.value1();
 
-        this.removeAndCheck(this.createTextProperties(property1, value1),
+        this.removeAndCheck(this.createTextStyle(property1, value1),
                 property1,
                 TextStyle.EMPTY);
     }
@@ -341,7 +341,7 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final TextStyle textStyle1 = this.setAndCheck(TextStyle.EMPTY,
                 property1,
                 value1,
-                this.createTextProperties(property1, value1));
+                this.createTextStyle(property1, value1));
 
         //set
         final TextStylePropertyName<FontFamilyName> property2 = this.property2();
@@ -349,12 +349,12 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final TextStyle textStyle2 = this.setAndCheck(textStyle1,
                 property2,
                 value2,
-                this.createTextProperties(property1, value1, property2, value2));
+                this.createTextStyle(property1, value1, property2, value2));
 
         // remove1
         final TextStyle textStyle3 = this.removeAndCheck(textStyle2,
                 property1,
-                this.createTextProperties(property2, value2));
+                this.createTextStyle(property2, value2));
 
         this.removeAndCheck(textStyle3,
                 property2,
@@ -369,7 +369,7 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final TextStyle textStyle1 = this.setAndCheck(TextStyle.EMPTY,
                 property1,
                 value1,
-                this.createTextProperties(property1, value1));
+                this.createTextStyle(property1, value1));
 
         //set
         final TextStylePropertyName<FontFamilyName> property2 = this.property2();
@@ -377,19 +377,19 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         final TextStyle textStyle2 = this.setAndCheck(textStyle1,
                 property2,
                 value2,
-                this.createTextProperties(property1, value1, property2, value2));
+                this.createTextStyle(property1, value1, property2, value2));
 
         // remove1
         final TextStyle textStyle3 = this.removeAndCheck(textStyle2,
                 property1,
-                this.createTextProperties(property2, value2));
+                this.createTextStyle(property2, value2));
 
 
         //set property1 again
         this.setAndCheck(textStyle3,
                 property1,
                 value1,
-                this.createTextProperties(property1, value1, property2, value2));
+                this.createTextStyle(property1, value1, property2, value2));
     }
 
     // ToString.........................................................................................................
@@ -410,29 +410,29 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
 
     @Override
     public NonEmptyTextStyle createObject() {
-        return this.createTextProperties();
+        return this.createTextStyle();
     }
 
-    private NonEmptyTextStyle createTextProperties() {
-        return this.createTextProperties(this.property1(), this.value1(), this.property2(), this.value2());
+    private NonEmptyTextStyle createTextStyle() {
+        return this.createTextStyle(this.property1(), this.value1(), this.property2(), this.value2());
     }
 
-    private <X> NonEmptyTextStyle createTextProperties(final TextStylePropertyName<X> property1,
+    private <X> NonEmptyTextStyle createTextStyle(final TextStylePropertyName<X> property1,
                                                        final X value1) {
-        return this.createTextProperties(Maps.of(property1, value1));
+        return this.createTextStyle(Maps.of(property1, value1));
     }
 
-    private <X, Y> NonEmptyTextStyle createTextProperties(final TextStylePropertyName<X> property1,
+    private <X, Y> NonEmptyTextStyle createTextStyle(final TextStylePropertyName<X> property1,
                                                           final X value1,
                                                           final TextStylePropertyName<Y> property2,
                                                           final Y value2) {
         final Map<TextStylePropertyName<?>, Object> map = Maps.sorted();
         map.put(property1, value1);
         map.put(property2, value2);
-        return this.createTextProperties(map);
+        return this.createTextStyle(map);
     }
 
-    private <X, Y, Z> NonEmptyTextStyle createTextProperties(final TextStylePropertyName<X> property1,
+    private <X, Y, Z> NonEmptyTextStyle createTextStyle(final TextStylePropertyName<X> property1,
                                                              final X value1,
                                                              final TextStylePropertyName<Y> property2,
                                                              final Y value2,
@@ -442,10 +442,10 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
         map.put(property1, value1);
         map.put(property2, value2);
         map.put(property3, value3);
-        return this.createTextProperties(map);
+        return this.createTextStyle(map);
     }
 
-    private NonEmptyTextStyle createTextProperties(final Map<TextStylePropertyName<?>, Object> map) {
+    private NonEmptyTextStyle createTextStyle(final Map<TextStylePropertyName<?>, Object> map) {
         return Cast.to(TextStyle.with(map));
     }
 
@@ -474,7 +474,7 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
     }
 
     @Override
-    Class<NonEmptyTextStyle> textPropertiesType() {
+    Class<NonEmptyTextStyle> textStyleType() {
         return NonEmptyTextStyle.class;
     }
 
