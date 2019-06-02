@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class WordBreakTest extends EnumTextPropertyValueTestCase<WordBreak> {
 
     @Override
-    TextPropertyName<WordBreak> textPropertyName() {
-        return TextPropertyName.WORD_BREAK;
+    TextStylePropertyName<WordBreak> textStylePropertyName() {
+        return TextStylePropertyName.WORD_BREAK;
     }
 
     @Override

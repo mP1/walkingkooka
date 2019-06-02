@@ -108,7 +108,7 @@ public final class TextStyleNameNode extends TextParentNode {
     // attribute........................................................................................................
 
     @Override
-    public Map<TextPropertyName<?>, Object> attributes() {
+    public Map<TextStylePropertyName<?>, Object> attributes() {
         return Maps.empty();
     }
 
@@ -118,8 +118,8 @@ public final class TextStyleNameNode extends TextParentNode {
     }
 
     @Override
-    final TextNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
-        return this.setAttributesNonEmptyTextPropertiesMap0(textPropertiesMap);
+    final TextNode setAttributesNonEmptyTextPropertiesMap(final TextStyleMap textStyleMap) {
+        return this.setAttributesNonEmptyTextPropertiesMap0(textStyleMap);
     }
 
     // replace..........................................................................................................
@@ -139,7 +139,7 @@ public final class TextStyleNameNode extends TextParentNode {
     // isXXXX...... ....................................................................................................
 
     @Override
-    public boolean isProperties() {
+    public boolean isStyle() {
         return false;
     }
 

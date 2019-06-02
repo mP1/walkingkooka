@@ -96,7 +96,7 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
     // attributes.......................................................................................................
 
     @Override
-    public Map<TextPropertyName<?>, Object> attributes() {
+    public Map<TextStylePropertyName<?>, Object> attributes() {
         return Maps.empty();
     }
 
@@ -106,14 +106,14 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
     }
 
     @Override
-    final TextNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
-        return this.setAttributesNonEmptyTextPropertiesMap0(textPropertiesMap);
+    final TextNode setAttributesNonEmptyTextPropertiesMap(final TextStyleMap textStyleMap) {
+        return this.setAttributesNonEmptyTextPropertiesMap0(textStyleMap);
     }
 
     // is ..............................................................................................................
 
     @Override
-    public final boolean isProperties() {
+    public final boolean isStyle() {
         return false;
     }
 

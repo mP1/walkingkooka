@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class FontStretchTest extends EnumTextPropertyValueTestCase<FontStretch> {
 
     @Override
-    TextPropertyName<FontStretch> textPropertyName() {
-        return TextPropertyName.FONT_STRETCH;
+    TextStylePropertyName<FontStretch> textStylePropertyName() {
+        return TextStylePropertyName.FONT_STRETCH;
     }
 
     @Override

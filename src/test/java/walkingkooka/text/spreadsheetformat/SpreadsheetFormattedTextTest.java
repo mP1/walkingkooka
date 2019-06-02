@@ -27,7 +27,7 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.text.HasTextNodeTesting;
 import walkingkooka.tree.text.TextNode;
-import walkingkooka.tree.text.TextPropertyName;
+import walkingkooka.tree.text.TextStylePropertyName;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
@@ -125,7 +125,7 @@ public final class SpreadsheetFormattedTextTest implements ClassTesting2<Spreads
         final Color color = Color.fromRgb(0x123456);
 
         this.toTextNodeAndCheck(SpreadsheetFormattedText.with(Optional.of(color), text),
-                TextNode.text(text).setAttributes(Maps.of(TextPropertyName.TEXT_COLOR, color)));
+                TextNode.text(text).setAttributes(Maps.of(TextStylePropertyName.TEXT_COLOR, color)));
     }
 
     // HashCodeEqualsDefined ..................................................................................................

@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class DirectionTest extends EnumTextPropertyValueTestCase<Direction> {
 
     @Override
-    TextPropertyName<Direction> textPropertyName() {
-        return TextPropertyName.DIRECTION;
+    TextStylePropertyName<Direction> textStylePropertyName() {
+        return TextStylePropertyName.DIRECTION;
     }
 
     @Override

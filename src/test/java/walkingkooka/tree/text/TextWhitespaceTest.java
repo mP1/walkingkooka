@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class TextWhitespaceTest extends EnumTextPropertyValueTestCase<TextWhitespace> {
 
     @Override
-    TextPropertyName<TextWhitespace> textPropertyName() {
-        return TextPropertyName.WHITE_SPACE;
+    TextStylePropertyName<TextWhitespace> textStylePropertyName() {
+        return TextStylePropertyName.WHITE_SPACE;
     }
 
     @Override

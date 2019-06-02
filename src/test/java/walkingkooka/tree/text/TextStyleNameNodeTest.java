@@ -153,7 +153,7 @@ public final class TextStyleNameNodeTest extends TextParentNodeTestCase<TextStyl
     public void testDifferentParent() {
         final TextStyleNameNode child = TextStyleNameNode.with(TextStyleName.with("child"));
 
-        this.checkNotEquals(TextPropertiesNode.with(Lists.of(child), TextPropertiesNode.NO_ATTRIBUTES_MAP).children().get(0),
+        this.checkNotEquals(TextStyleNode.with(Lists.of(child), TextStyleNode.NO_ATTRIBUTES_MAP).children().get(0),
                 this.styleName("different-parent", child));
     }
 
@@ -169,7 +169,7 @@ public final class TextStyleNameNodeTest extends TextParentNodeTestCase<TextStyl
 
     @Test
     public void testTextOffsetWithParent() {
-        this.textOffsetAndCheck(TextNode.properties(Lists.of(Text.with("a1"),
+        this.textOffsetAndCheck(TextNode.style(Lists.of(Text.with("a1"),
                 TextNode.styleName(TextStyleName.with("style123")).setChildren(Lists.of(Text.with("b22"))),
                 Text.with("after!")))
                         .children().get(1),
@@ -210,7 +210,7 @@ public final class TextStyleNameNodeTest extends TextParentNodeTestCase<TextStyl
                 .setChildren(Lists.of(
                         TextNode.text("text1"),
                         TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                        TextNode.properties(Lists.of(TextNode.text("text3"))))));
+                        TextNode.style(Lists.of(TextNode.text("text3"))))));
     }
 
     // Visitor ........................................................................................................

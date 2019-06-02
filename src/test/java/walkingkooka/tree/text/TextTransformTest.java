@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class TextTransformTest extends EnumTextPropertyValueTestCase<TextTransform> {
 
     @Override
-    TextPropertyName<TextTransform> textPropertyName() {
-        return TextPropertyName.TEXT_TRANSFORM;
+    TextStylePropertyName<TextTransform> textStylePropertyName() {
+        return TextStylePropertyName.TEXT_TRANSFORM;
     }
 
     @Override

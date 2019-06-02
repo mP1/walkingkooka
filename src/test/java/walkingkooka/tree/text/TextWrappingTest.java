@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class TextWrappingTest extends EnumTextPropertyValueTestCase<TextWrapping> {
 
     @Override
-    TextPropertyName<TextWrapping> textPropertyName() {
-        return TextPropertyName.TEXT_WRAPPING;
+    TextStylePropertyName<TextWrapping> textStylePropertyName() {
+        return TextStylePropertyName.TEXT_WRAPPING;
     }
 
     @Override

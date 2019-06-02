@@ -66,7 +66,7 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
 
     @Test
     public void testSetTextDifferentWithParent() {
-        final TextNode parent1 = Text.properties(Lists.of(Text.with("abc123")));
+        final TextNode parent1 = Text.style(Lists.of(Text.with("abc123")));
         final Text text1 = parent1.children().get(0).cast();
 
         final String value = "different456";
@@ -94,7 +94,7 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
         final Text text = Text.with("abc");
         assertEquals(true, text.isText(), "isText");
         assertEquals(false, text.isPlaceholder(), "isPlaceholder");
-        assertEquals(false, text.isProperties(), "isProperties");
+        assertEquals(false, text.isStyle(), "isStyle");
         assertEquals(false, text.isStyleName(), "isStyleName");
     }
 
@@ -102,7 +102,7 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
 
     @Test
     public void testTextOffsetWithParent() {
-        this.textOffsetAndCheck(TextNode.properties(Lists.of(Text.with("a1"), Text.with("b22")))
+        this.textOffsetAndCheck(TextNode.style(Lists.of(Text.with("a1"), Text.with("b22")))
                         .children().get(1),
                 2);
     }

@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class HyphensTest extends EnumTextPropertyValueTestCase<Hyphens> {
 
     @Override
-    TextPropertyName<Hyphens> textPropertyName() {
-        return TextPropertyName.HYPHENS;
+    TextStylePropertyName<Hyphens> textStylePropertyName() {
+        return TextStylePropertyName.HYPHENS;
     }
 
     @Override
