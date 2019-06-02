@@ -67,7 +67,7 @@ public abstract class TextProperties implements HashCodeEqualsDefined,
     /**
      * Returns true if the properties is empty.
      */
-    abstract boolean isEmpty();
+    public abstract boolean isEmpty();
 
     // setChildren......................................................................................................
 
