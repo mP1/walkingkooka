@@ -53,7 +53,7 @@ final class EmptyTextProperties extends TextProperties {
      * Always returns true
      */
     @Override
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return true;
     }
 
