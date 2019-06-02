@@ -51,7 +51,7 @@ public final class TextNodeTest extends TextNodeTestCase<TextNode> implements Ha
 
     @Test
     public void testBuildAndCheckToString() {
-        this.toStringAndCheck(TextNode.properties(Lists.of(
+        this.toStringAndCheck(TextNode.style(Lists.of(
                 TextNode.styleName(TextStyleName.with("style123"))
                         .setChildren(Lists.of(TextNode.text("text123"), TextNode.placeholder(TextPlaceholderName.with("place-1")))))),
                 "[style123[\"text123\", place-1]]");
@@ -59,7 +59,7 @@ public final class TextNodeTest extends TextNodeTestCase<TextNode> implements Ha
 
     @Test
     public void testSelectorUsage() {
-        final TextNode node = TextNode.properties(Lists.of(
+        final TextNode node = TextNode.style(Lists.of(
                 TextNode.styleName(TextStyleName.with("style123"))
                         .setChildren(Lists.of(TextNode.text("text-1a"), TextNode.text("text-2b"), TextNode.placeholder(TextPlaceholderName.with("place-1"))))));
         assertEquals(2, TextNode.absoluteNodeSelector()
@@ -91,7 +91,7 @@ public final class TextNodeTest extends TextNodeTestCase<TextNode> implements Ha
     @Override
     public TextNode createHasJsonNode() {
         return TextNode.styleName(TextStyleName.with("style123"))
-                .setChildren(Lists.of(TextNode.properties(Lists.of(TextNode.text("text1"), TextNode.placeholder(TextPlaceholderName.with("place2"))))));
+                .setChildren(Lists.of(TextNode.style(Lists.of(TextNode.text("text1"), TextNode.placeholder(TextPlaceholderName.with("place2"))))));
     }
 
     // TypeNameTesting...................................................................................................

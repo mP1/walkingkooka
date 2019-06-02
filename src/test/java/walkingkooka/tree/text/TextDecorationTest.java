@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class TextDecorationTest extends EnumTextPropertyValueTestCase<TextDecoration> {
 
     @Override
-    TextPropertyName<TextDecoration> textPropertyName() {
-        return TextPropertyName.TEXT_DECORATION;
+    TextStylePropertyName<TextDecoration> textStylePropertyName() {
+        return TextStylePropertyName.TEXT_DECORATION;
     }
 
     @Override

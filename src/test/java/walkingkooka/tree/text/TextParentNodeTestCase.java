@@ -26,7 +26,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class TextParentNodeTestCase<T extends TextParentNode> extends TextNodeTestCase2<T> implements NodeTesting2<TextNode, TextNodeName, TextPropertyName<?>, Object> {
+public abstract class TextParentNodeTestCase<T extends TextParentNode> extends TextNodeTestCase2<T> implements NodeTesting2<TextNode, TextNodeName, TextStylePropertyName<?>, Object> {
 
     TextParentNodeTestCase() {
         super();

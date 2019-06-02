@@ -28,8 +28,8 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.text.HasTextNode;
 import walkingkooka.tree.text.TextNode;
-import walkingkooka.tree.text.TextProperties;
-import walkingkooka.tree.text.TextPropertyName;
+import walkingkooka.tree.text.TextStyle;
+import walkingkooka.tree.text.TextStylePropertyName;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -110,8 +110,8 @@ public final class SpreadsheetFormattedText implements HasText,
 
     @Override
     public TextNode toTextNode() {
-        return this.color.map(c -> TextProperties.with(Maps.of(TextPropertyName.TEXT_COLOR, c)))
-                .orElse(TextProperties.EMPTY)
+        return this.color.map(c -> TextStyle.with(Maps.of(TextStylePropertyName.TEXT_COLOR, c)))
+                .orElse(TextStyle.EMPTY)
                 .replace(TextNode.text(this.text));
     }
 

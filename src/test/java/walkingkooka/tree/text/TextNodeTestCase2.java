@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTestCase<TextNode>
-        implements NodeTesting<TextNode, TextNodeName, TextPropertyName<?>, Object>,
+        implements NodeTesting<TextNode, TextNodeName, TextStylePropertyName<?>, Object>,
         HasJsonNodeTesting<TextNode>,
         HasTextLengthTesting,
         HasTextOffsetTesting,
@@ -59,11 +59,11 @@ public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTest
 
     final void setAttributeNotEmptyAndCheck() {
         final N before = this.createTextNode();
-        final Map<TextPropertyName<?>, Object> attributes = Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC);
+        final Map<TextStylePropertyName<?>, Object> attributes = Maps.of(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final TextNode after = before.setAttributes(attributes);
         assertNotSame(after, before);
 
-        final TextPropertiesNode parent = after.parentOrFail().cast();
+        final TextStyleNode parent = after.parentOrFail().cast();
         this.childCountCheck(parent, before);
         assertEquals(attributes, parent.attributes(), "attributes");
     }

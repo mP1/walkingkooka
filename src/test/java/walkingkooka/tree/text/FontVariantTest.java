@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class FontVariantTest extends EnumTextPropertyValueTestCase<FontVariant> {
 
     @Override
-    TextPropertyName<FontVariant> textPropertyName() {
-        return TextPropertyName.FONT_VARIANT;
+    TextStylePropertyName<FontVariant> textStylePropertyName() {
+        return TextStylePropertyName.FONT_VARIANT;
     }
 
     @Override

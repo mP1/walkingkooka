@@ -39,7 +39,7 @@ public final class TextPlaceholderNodeTest extends TextLeafNodeTestCase<TextPlac
 
     @Test
     public void testTextOffsetWithParent() {
-        this.textOffsetAndCheck(TextNode.properties(Lists.of(Text.with("a1"), this.createTextNode()))
+        this.textOffsetAndCheck(TextNode.style(Lists.of(Text.with("a1"), this.createTextNode()))
                         .children().get(1),
                 2);
     }

@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class HangingPunctuationTest extends EnumTextPropertyValueTestCase<HangingPunctuation> {
 
     @Override
-    TextPropertyName<HangingPunctuation> textPropertyName() {
-        return TextPropertyName.HANGING_PUNCTUATION;
+    TextStylePropertyName<HangingPunctuation> textStylePropertyName() {
+        return TextStylePropertyName.HANGING_PUNCTUATION;
     }
 
     @Override

@@ -27,7 +27,7 @@ public final class TextNodeVisitorTest implements TextNodeVisitorTesting<TextNod
     @Test
     public void testAcceptProperties() {
         this.createVisitor()
-                .accept(TextNode.properties(Lists.of(TextNode.text("abc123"))));
+                .accept(TextNode.style(Lists.of(TextNode.text("abc123"))));
     }
 
     @Test

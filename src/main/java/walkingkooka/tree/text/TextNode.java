@@ -41,9 +41,9 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Base class that may be used to represent rich text, some nodes with styling properties and others with plain text.
+ * Base class that may be used to represent rich text, some nodes with styling style and others with plain text.
  */
-public abstract class TextNode implements Node<TextNode, TextNodeName, TextPropertyName<?>, Object>,
+public abstract class TextNode implements Node<TextNode, TextNodeName, TextStylePropertyName<?>, Object>,
         HasJsonNode,
         HasText,
         TraversableHasTextOffset<TextNode>,
@@ -57,7 +57,7 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     /**
      * No or empty attributes
      */
-    public final static Map<TextPropertyName<?>, Object> NO_ATTRIBUTES = Maps.empty();
+    public final static Map<TextStylePropertyName<?>, Object> NO_ATTRIBUTES = Maps.empty();
 
     // public factory methods..........................................................................................
 
@@ -69,10 +69,10 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     }
 
     /**
-     * {@see TextPropertiesNode}
+     * {@see TextStyleNode}
      */
-    public static TextPropertiesNode properties(final List<TextNode> children) {
-        return TextPropertiesNode.with(children, TextPropertiesNode.NO_ATTRIBUTES_MAP);
+    public static TextStyleNode style(final List<TextNode> children) {
+        return TextStyleNode.with(children, TextStyleNode.NO_ATTRIBUTES_MAP);
     }
 
     /**
@@ -160,22 +160,22 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     final int index;
 
     /**
-     * Replaces the index, retaining other properties.
+     * Replaces the index, retaining other style.
      */
     abstract TextNode replace(final int index);
 
     // setAttributes....................................................................................................
 
     /**
-     * If a {@link TextPropertiesNode} the attributes are replaced, for other {@link TextNode} types, when the
-     * attributes are non empty this node is wrapped in a {@link TextPropertiesNode}.
+     * If a {@link TextStyleNode} the attributes are replaced, for other {@link TextNode} types, when the
+     * attributes are non empty this node is wrapped in a {@link TextStyleNode}.
      */
     @Override
-    public final TextNode setAttributes(final Map<TextPropertyName<?>, Object> attributes) {
-        final TextPropertiesMap textPropertiesMap = TextPropertiesMap.with(attributes);
-        return textPropertiesMap.isEmpty() ?
+    public final TextNode setAttributes(final Map<TextStylePropertyName<?>, Object> attributes) {
+        final TextStyleMap textStyleMap = TextStyleMap.with(attributes);
+        return textStyleMap.isEmpty() ?
                 this.setAttributesEmptyTextPropertiesMap() :
-                this.setAttributesNonEmptyTextPropertiesMap(textPropertiesMap);
+                this.setAttributesNonEmptyTextPropertiesMap(textStyleMap);
     }
 
     /**
@@ -184,15 +184,15 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     abstract TextNode setAttributesEmptyTextPropertiesMap();
 
     /**
-     * Factory that accepts a non empty {@link TextPropertiesNode} either wrapping or replacing (for {@link TextPropertiesNode}.
+     * Factory that accepts a non empty {@link TextStyleNode} either wrapping or replacing (for {@link TextStyleNode}.
      */
-    abstract TextNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap);
+    abstract TextNode setAttributesNonEmptyTextPropertiesMap(final TextStyleMap textStyleMap);
 
     /**
-     * Default for all sub classes except for {@link TextPropertiesNode}.
+     * Default for all sub classes except for {@link TextStyleNode}.
      */
-    final TextNode setAttributesNonEmptyTextPropertiesMap0(final TextPropertiesMap textPropertiesMap) {
-        return TextPropertiesNode.with(Lists.of(this), textPropertiesMap)
+    final TextNode setAttributesNonEmptyTextPropertiesMap0(final TextStyleMap textStyleMap) {
+        return TextStyleNode.with(Lists.of(this), textStyleMap)
                 .replaceChild(this.parent(), this.index)
                 .children().get(0);
     }
@@ -205,9 +205,9 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     public abstract boolean isPlaceholder();
 
     /**
-     * Only {@link TextPropertiesNode} returns true
+     * Only {@link TextStyleNode} returns true
      */
-    public abstract boolean isProperties();
+    public abstract boolean isStyle();
 
     /**
      * Only {@link TextStyleNameNode} returns true
@@ -274,7 +274,7 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     abstract boolean equalsDescendants0(final TextNode other);
 
     /**
-     * Sub classes should do equals but ignore the parent and children properties.
+     * Sub classes should do equals but ignore the parent and children style.
      */
     abstract boolean equalsIgnoringParentAndChildren(final TextNode other);
 
@@ -328,22 +328,22 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     /**
      * {@see NodeSelector#absolute}
      */
-    public static NodeSelector<TextNode, TextNodeName, TextPropertyName<?>, Object> absoluteNodeSelector() {
+    public static NodeSelector<TextNode, TextNodeName, TextStylePropertyName<?>, Object> absoluteNodeSelector() {
         return NodeSelector.absolute();
     }
 
     /**
      * {@see NodeSelector#relative}
      */
-    public static NodeSelector<TextNode, TextNodeName, TextPropertyName<?>, Object> relativeNodeSelector() {
+    public static NodeSelector<TextNode, TextNodeName, TextStylePropertyName<?>, Object> relativeNodeSelector() {
         return NodeSelector.relative();
     }
 
     /**
      * Creates a {@link NodeSelector} for {@link TextNode} from a {@link NodeSelectorExpressionParserToken}.
      */
-    public static NodeSelector<TextNode, TextNodeName, TextPropertyName<?>, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
-                                                                                                                      final Predicate<ExpressionNodeName> functions) {
+    public static NodeSelector<TextNode, TextNodeName, TextStylePropertyName<?>, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                                           final Predicate<ExpressionNodeName> functions) {
         return NodeSelector.parserToken(token,
                 n -> TextNodeName.with(n.value()),
                 functions,

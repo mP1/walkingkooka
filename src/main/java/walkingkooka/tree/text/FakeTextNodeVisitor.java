@@ -38,12 +38,12 @@ public class FakeTextNodeVisitor extends TextNodeVisitor implements Fake {
     }
 
     @Override
-    protected Visiting startVisit(final TextPropertiesNode node) {
+    protected Visiting startVisit(final TextStyleNode node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final TextPropertiesNode node) {
+    protected void endVisit(final TextStyleNode node) {
         throw new UnsupportedOperationException();
     }
 

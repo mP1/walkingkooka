@@ -34,8 +34,8 @@ public abstract class EnumTextPropertyValueTestCase<E extends Enum<?>> implement
 
     @Test
     public final void testTextPropertyNode() {
-        final TextNode properties = TextNode.properties(TextPropertiesNode.NO_CHILDREN)
-                .setAttributes(Maps.of(this.textPropertyName(), this.value()));
+        final TextNode properties = TextNode.style(TextStyleNode.NO_CHILDREN)
+                .setAttributes(Maps.of(this.textStylePropertyName(), this.value()));
         final JsonNode json = properties.toJsonNodeWithType();
         assertEquals(properties,
                 json.fromJsonNodeWithType(),
@@ -43,11 +43,11 @@ public abstract class EnumTextPropertyValueTestCase<E extends Enum<?>> implement
     }
 
     @Test
-    public final void testTextPropertyNameCheck() {
-        this.textPropertyName().check(this.value());
+    public final void testTextStylePropertyNameCheck() {
+        this.textStylePropertyName().check(this.value());
     }
 
-    abstract TextPropertyName<E> textPropertyName();
+    abstract TextStylePropertyName<E> textStylePropertyName();
 
     abstract E value();
 

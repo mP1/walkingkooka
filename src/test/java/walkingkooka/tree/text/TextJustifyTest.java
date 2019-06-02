@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class TextJustifyTest extends EnumTextPropertyValueTestCase<TextJustify> {
 
     @Override
-    TextPropertyName<TextJustify> textPropertyName() {
-        return TextPropertyName.TEXT_JUSTIFY;
+    TextStylePropertyName<TextJustify> textStylePropertyName() {
+        return TextStylePropertyName.TEXT_JUSTIFY;
     }
 
     @Override

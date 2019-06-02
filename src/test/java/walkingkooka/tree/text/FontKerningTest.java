@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class FontKerningTest extends EnumTextPropertyValueTestCase<FontKerning> {
 
     @Override
-    TextPropertyName<FontKerning> textPropertyName() {
-        return TextPropertyName.FONT_KERNING;
+    TextStylePropertyName<FontKerning> textStylePropertyName() {
+        return TextStylePropertyName.FONT_KERNING;
     }
 
     @Override

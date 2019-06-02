@@ -21,8 +21,8 @@ package walkingkooka.tree.text;
 public final class HorizontalAlignmentTest extends EnumTextPropertyValueTestCase<HorizontalAlignment> {
 
     @Override
-    TextPropertyName<HorizontalAlignment> textPropertyName() {
-        return TextPropertyName.HORIZONTAL_ALIGNMENT;
+    TextStylePropertyName<HorizontalAlignment> textStylePropertyName() {
+        return TextStylePropertyName.HORIZONTAL_ALIGNMENT;
     }
 
     @Override
