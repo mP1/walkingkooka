@@ -29,7 +29,6 @@ import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.text.TextPropertyName;
 import walkingkooka.type.FieldAttributes;
 
 import java.lang.reflect.Field;
@@ -110,7 +109,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         assertEquals(Lists.empty(),
                 Arrays.stream(HttpHeaderName.class.getDeclaredFields())
                         .filter(FieldAttributes.STATIC::is)
-                        .filter(f -> f.getType() == TextPropertyName.class)
+                        .filter(f -> f.getType() == HeaderParameterName.class)
                         .filter(HttpHeaderNameTest::constantNotCached)
                         .collect(Collectors.toList()),
                 "");
