@@ -111,16 +111,16 @@ public final class TextStyleNode extends TextParentNode {
     }
 
     @Override
-    TextNode setAttributesEmptyTextPropertiesMap() {
-        return this.setAttributesTextPropertiesMap(TextStyleMap.EMPTY);
+    TextNode setAttributesEmptyTextStyleMap() {
+        return this.setAttributesTextStyleMap(TextStyleMap.EMPTY);
     }
 
     @Override
-    final TextStyleNode setAttributesNonEmptyTextPropertiesMap(final TextStyleMap textStyleMap) {
-        return this.setAttributesTextPropertiesMap(textStyleMap);
+    final TextStyleNode setAttributesNonEmptyTextStyleMap(final TextStyleMap textStyleMap) {
+        return this.setAttributesTextStyleMap(textStyleMap);
     }
 
-    private TextStyleNode setAttributesTextPropertiesMap(final TextStyleMap textStyleMap) {
+    private TextStyleNode setAttributesTextStyleMap(final TextStyleMap textStyleMap) {
         return this.attributes.equals(textStyleMap) ?
                 this :
                 this.replaceAttributes(textStyleMap);
@@ -177,7 +177,7 @@ public final class TextStyleNode extends TextParentNode {
         for (JsonNode child : node.children()) {
             switch (child.name().value()) {
                 case STYLE:
-                    textStyle = TextStyle.withTextPropertiesMap(TextStyleMap.fromJson(child));
+                    textStyle = TextStyle.withTextStyleMap(TextStyleMap.fromJson(child));
                     break;
                 case VALUES:
                     children = child.arrayOrFail().fromJsonNodeWithTypeList();

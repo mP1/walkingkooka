@@ -59,12 +59,12 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
     }
 
     @Test
-    public void testReplaceTextProperties() {
+    public void testReplaceTextStyle() {
         this.replaceAndCheck2(TextNode.style(this.children()));
     }
 
     @Test
-    public void testReplaceTextProperties2() {
+    public void testReplaceTextStyle2() {
         final TextStyleNode node = TextNode.style(children());
 
         this.replaceAndCheck(TextStyle.EMPTY,
@@ -73,7 +73,7 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
     }
 
     @Test
-    public void testReplaceTextPropertiesNodeWithParent() {
+    public void testReplaceTextStyleNodeWithParent() {
         final TextStyleNode textStyleNode = TextNode.style(this.children());
 
         this.replaceAndCheck(TextStyle.EMPTY,
@@ -136,7 +136,7 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
     }
 
     @Override
-    Class<EmptyTextStyle> textPropertiesType() {
+    Class<EmptyTextStyle> textStyleType() {
         return EmptyTextStyle.class;
     }
 }

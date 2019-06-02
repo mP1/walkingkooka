@@ -72,21 +72,21 @@ final class EmptyTextStyle extends TextStyle {
     }
 
     @Override
-    TextStyle merge1(final NonEmptyTextStyle textProperties) {
-        return textProperties; // EMPTY merge NOTEMPTY -> NOTEMPTY
+    TextStyle merge1(final NonEmptyTextStyle textStyle) {
+        return textStyle; // EMPTY merge NOTEMPTY -> NOTEMPTY
     }
 
     // replace..........................................................................................................
 
     @Override
     TextNode replace0(final TextNode textNode) {
-        return textNode.setAttributesEmptyTextPropertiesMap();
+        return textNode.setAttributesEmptyTextStyleMap();
     }
 
     // setChildren......................................................................................................
 
     @Override
-    TextStyleMap textPropertiesMap() {
+    TextStyleMap textStyleMap() {
         return TextStyleMap.EMPTY;
     }
 
@@ -99,7 +99,7 @@ final class EmptyTextStyle extends TextStyle {
 
     @Override
     <V> TextStyle set0(final TextStylePropertyName<V> propertyName, final V value) {
-        return NonEmptyTextStyle.with(TextStyleMap.withTextPropertiesMapEntrySet(TextStyleMapEntrySet.withList(Lists.of(Maps.entry(propertyName, value)))));
+        return NonEmptyTextStyle.with(TextStyleMap.withTextStyleMapEntrySet(TextStyleMapEntrySet.withList(Lists.of(Maps.entry(propertyName, value)))));
     }
 
     @Override

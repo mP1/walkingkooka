@@ -244,10 +244,10 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
 
     @Override
     public final Class<TextStyle> type() {
-        return Cast.to(this.textPropertiesType());
+        return Cast.to(this.textStyleType());
     }
 
-    abstract Class<T> textPropertiesType();
+    abstract Class<T> textStyleType();
 
     @Override
     public final MemberVisibility typeVisibility() {

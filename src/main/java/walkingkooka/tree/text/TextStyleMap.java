@@ -53,10 +53,10 @@ final class TextStyleMap extends AbstractMap<TextStylePropertyName<?>, Object> {
     private static TextStyleMap with1(final TextStyleMapEntrySet entrySet) {
         return entrySet.isEmpty() ?
                 EMPTY :
-                withTextPropertiesMapEntrySet(entrySet);
+                withTextStyleMapEntrySet(entrySet);
     }
 
-    static TextStyleMap withTextPropertiesMapEntrySet(final TextStyleMapEntrySet entrySet) {
+    static TextStyleMap withTextStyleMapEntrySet(final TextStyleMapEntrySet entrySet) {
         return new TextStyleMap(entrySet);
     }
 
