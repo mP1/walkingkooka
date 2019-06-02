@@ -55,7 +55,7 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
 
     @Test
     public void testReplaceTextPlaceholderNodeWithParent() {
-        this.replaceAndCheck2(setStyledParent(this.placeholder("child-place1")));
+        this.replaceAndCheck2(setStyleNameParent(this.placeholder("child-place1")));
     }
 
     @Test
@@ -77,18 +77,18 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
         final TextPropertiesNode textPropertiesNode = TextNode.properties(this.children());
 
         this.replaceAndCheck(TextProperties.EMPTY,
-                setStyledParent(textPropertiesNode.setAttributes(Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC))),
-                setStyledParent(textPropertiesNode));
+                setStyleNameParent(textPropertiesNode.setAttributes(Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC))),
+                setStyleNameParent(textPropertiesNode));
     }
 
     @Test
-    public void testReplaceTextStyled() {
-        this.replaceAndCheck2(TextNode.styled(TextStyleName.with("style123")));
+    public void testReplaceTextStyleName() {
+        this.replaceAndCheck2(TextNode.styleName(TextStyleName.with("style123")));
     }
 
     @Test
     public void testReplaceTextStyleWithParent() {
-        final TextStyledNode styled = setStyledParent(this.styled("child-style-456"));
+        final TextStyleNameNode styled = setStyleNameParent(this.styleName("child-style-456"));
 
         this.replaceAndCheck2(styled);
     }
@@ -100,7 +100,7 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
 
     @Test
     public void testReplaceTextWithParent() {
-        this.replaceAndCheck2(setStyledParent(TextNode.text("child-abc123")));
+        this.replaceAndCheck2(setStyleNameParent(TextNode.text("child-abc123")));
     }
 
     private void replaceAndCheck2(final TextNode textNode) {

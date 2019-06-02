@@ -50,7 +50,7 @@ final class NonEmptyTextPropertiesMergeOrReplaceTextNodeVisitor extends TextNode
     }
 
     @Override
-    protected Visiting startVisit(final TextStyledNode node) {
+    protected Visiting startVisit(final TextStyleNameNode node) {
         this.setChild(node);
         return Visiting.SKIP;
     }

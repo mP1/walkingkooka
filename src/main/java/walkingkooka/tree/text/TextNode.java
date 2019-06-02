@@ -76,10 +76,10 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     }
 
     /**
-     * {@see TextStyledNode}
+     * {@see TextStyleNameNode}
      */
-    public static TextStyledNode styled(final TextStyleName styleName) {
-        return TextStyledNode.with(styleName);
+    public static TextStyleNameNode styleName(final TextStyleName styleName) {
+        return TextStyleNameNode.with(styleName);
     }
 
     /**
@@ -210,9 +210,9 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     public abstract boolean isProperties();
 
     /**
-     * Only {@link TextStyledNode} returns true
+     * Only {@link TextStyleNameNode} returns true
      */
-    public abstract boolean isStyled();
+    public abstract boolean isStyleName();
 
     /**
      * Only {@link Text} returns true

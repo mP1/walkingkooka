@@ -36,18 +36,18 @@ import java.util.Objects;
 /**
  * A {@link TextNode} with a {@link TextStyleName}.
  */
-public final class TextStyledNode extends TextParentNode {
+public final class TextStyleNameNode extends TextParentNode {
 
     /**
-     * Factory that creates a {@link TextStyledNode}.
+     * Factory that creates a {@link TextStyleNameNode}.
      */
-    static TextStyledNode with(final TextStyleName styleName) {
+    static TextStyleNameNode with(final TextStyleName styleName) {
         checkStyleName(styleName);
 
-        return new TextStyledNode(NO_INDEX, NO_CHILDREN, styleName);
+        return new TextStyleNameNode(NO_INDEX, NO_CHILDREN, styleName);
     }
 
-    private TextStyledNode(final int index, final List<TextNode> children, final TextStyleName styleName) {
+    private TextStyleNameNode(final int index, final List<TextNode> children, final TextStyleName styleName) {
         super(index, children);
 
         this.styleName = styleName;
@@ -58,13 +58,13 @@ public final class TextStyledNode extends TextParentNode {
         return NAME;
     }
 
-    public final static TextNodeName NAME = TextNodeName.fromClass(TextStyledNode.class);
+    public final static TextNodeName NAME = TextNodeName.fromClass(TextStyleNameNode.class);
 
     public TextStyleName styleName() {
         return this.styleName;
     }
 
-    public TextStyledNode setStyleName(final TextStyleName styleName) {
+    public TextStyleNameNode setStyleName(final TextStyleName styleName) {
         checkStyleName(styleName);
 
         return this.styleName.equals(styleName) ?
@@ -75,33 +75,33 @@ public final class TextStyledNode extends TextParentNode {
     private final TextStyleName styleName;
 
     private static void checkStyleName(final TextStyleName styleName) {
-        Objects.requireNonNull(styleName, "styled");
+        Objects.requireNonNull(styleName, "styleName");
     }
 
     @Override
-    public TextStyledNode removeParent() {
+    public TextStyleNameNode removeParent() {
         return this.removeParent0().cast();
     }
 
     // children........................................................................................................
 
     @Override
-    public TextStyledNode setChildren(final List<TextNode> children) {
+    public TextStyleNameNode setChildren(final List<TextNode> children) {
         return this.setChildren0(children).cast();
     }
 
     @Override
-    public TextStyledNode appendChild(final TextNode child) {
+    public TextStyleNameNode appendChild(final TextNode child) {
         return super.appendChild(child).cast();
     }
 
     @Override
-    public TextStyledNode replaceChild(final TextNode oldChild, final TextNode newChild) {
+    public TextStyleNameNode replaceChild(final TextNode oldChild, final TextNode newChild) {
         return super.replaceChild(oldChild, newChild).cast();
     }
 
     @Override
-    public TextStyledNode removeChild(final int child) {
+    public TextStyleNameNode removeChild(final int child) {
         return super.removeChild(child).cast();
     }
 
@@ -125,15 +125,15 @@ public final class TextStyledNode extends TextParentNode {
     // replace..........................................................................................................
 
     @Override
-    TextStyledNode replace0(final int index,
-                            final List<TextNode> children) {
-        return new TextStyledNode(index, children, this.styleName);
+    TextStyleNameNode replace0(final int index,
+                               final List<TextNode> children) {
+        return new TextStyleNameNode(index, children, this.styleName);
     }
 
-    private TextStyledNode replace1(final int index,
-                                    final List<TextNode> children,
-                                    final TextStyleName styleName) {
-        return new TextStyledNode(index, children, styleName);
+    private TextStyleNameNode replace1(final int index,
+                                       final List<TextNode> children,
+                                       final TextStyleName styleName) {
+        return new TextStyleNameNode(index, children, styleName);
     }
 
     // isXXXX...... ....................................................................................................
@@ -144,16 +144,16 @@ public final class TextStyledNode extends TextParentNode {
     }
 
     @Override
-    public boolean isStyled() {
+    public boolean isStyleName() {
         return true;
     }
 
     // HasJsonNode.....................................................................................................
 
     /**
-     * Accepts a json object which holds a {@link TextStyledNode}.
+     * Accepts a json object which holds a {@link TextStyleNameNode}.
      */
-    public static TextStyledNode fromJsonNode(final JsonNode node) {
+    public static TextStyleNameNode fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
@@ -163,7 +163,7 @@ public final class TextStyledNode extends TextParentNode {
         }
     }
 
-    private static TextStyledNode fromJsonNode0(final JsonObjectNode node) {
+    private static TextStyleNameNode fromJsonNode0(final JsonObjectNode node) {
         TextStyleName styleName = null;
         List<TextNode> children = NO_CHILDREN;
 
@@ -184,7 +184,7 @@ public final class TextStyledNode extends TextParentNode {
             HasJsonNode.requiredPropertyMissing(STYLE_PROPERTY, node);
         }
 
-        return TextStyledNode.with(styleName)
+        return TextStyleNameNode.with(styleName)
                 .setChildren(children);
     }
 
@@ -198,7 +198,7 @@ public final class TextStyledNode extends TextParentNode {
     final static JsonNodeName STYLE_PROPERTY = JsonNodeName.with(STYLE);
 
     static {
-        HasJsonNode.register("text-styled", TextStyledNode::fromJsonNode, TextStyledNode.class);
+        HasJsonNode.register("text-styleName", TextStyleNameNode::fromJsonNode, TextStyleNameNode.class);
     }
     
     // Visitor .................................................................................................
@@ -215,16 +215,16 @@ public final class TextStyledNode extends TextParentNode {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof TextStyledNode;
+        return other instanceof TextStyleNameNode;
     }
 
     @Override
     boolean equalsIgnoringParentAndChildren(final TextNode other) {
-        return other instanceof TextStyledNode &&
+        return other instanceof TextStyleNameNode &&
                 this.equalsIgnoringParentAndChildren0(Cast.to(other));
     }
 
-    private boolean equalsIgnoringParentAndChildren0(final TextStyledNode other) {
+    private boolean equalsIgnoringParentAndChildren0(final TextStyleNameNode other) {
         return this.styleName.equals(other.styleName);
     }
 

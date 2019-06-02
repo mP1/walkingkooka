@@ -220,8 +220,8 @@ public abstract class TextPropertiesTestCase<T extends TextProperties> implement
 
     // helpers .........................................................................................................
 
-    final <T extends TextNode> T setStyledParent(final T child) {
-        return this.styled("parent-style-123")
+    final <T extends TextNode> T setStyleNameParent(final T child) {
+        return this.styleName("parent-style-123")
                 .setChildren(Lists.of(child))
                 .children()
                 .get(0)
@@ -232,8 +232,8 @@ public abstract class TextPropertiesTestCase<T extends TextProperties> implement
         return TextNode.placeholder(TextPlaceholderName.with(placeholderName));
     }
 
-    final TextStyledNode styled(final String styleName) {
-        return TextNode.styled(TextStyleName.with(styleName));
+    final TextStyleNameNode styleName(final String styleName) {
+        return TextNode.styleName(TextStyleName.with(styleName));
     }
 
     final List<TextNode> children() {

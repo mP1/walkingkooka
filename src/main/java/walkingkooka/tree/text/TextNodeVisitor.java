@@ -67,11 +67,11 @@ public abstract class TextNodeVisitor extends Visitor<TextNode> {
         // nop
     }
 
-    protected Visiting startVisit(final TextStyledNode node) {
+    protected Visiting startVisit(final TextStyleNameNode node) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final TextStyledNode node) {
+    protected void endVisit(final TextStyleNameNode node) {
         // nop
     }
 }
