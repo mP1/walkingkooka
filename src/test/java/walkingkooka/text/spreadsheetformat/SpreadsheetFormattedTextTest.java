@@ -19,11 +19,15 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.text.HasTextNodeTesting;
+import walkingkooka.tree.text.TextNode;
+import walkingkooka.tree.text.TextPropertyName;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
@@ -35,7 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormattedTextTest implements ClassTesting2<SpreadsheetFormattedText>,
         HashCodeEqualsDefinedTesting<SpreadsheetFormattedText>,
-        ToStringTesting<SpreadsheetFormattedText> {
+        HasTextNodeTesting,
+        ToStringTesting<SpreadsheetFormattedText>{
 
     private final static Optional<Color> COLOR = Optional.of(Color.BLACK);
     private final static String TEXT = "1/1/2000";
@@ -102,6 +107,25 @@ public final class SpreadsheetFormattedTextTest implements ClassTesting2<Spreads
     private void check(final SpreadsheetFormattedText formatted, final Optional<Color> color, final String text) {
         assertEquals(color, formatted.color(), "color");
         assertEquals(text, formatted.text(), "text");
+    }
+
+    // ToTextNode.... ..................................................................................................
+
+    @Test
+    public void testToTextNodeWithoutColor() {
+        final String text = "abc123";
+
+        this.toTextNodeAndCheck(SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, text),
+                TextNode.text(text));
+    }
+
+    @Test
+    public void testToTextNodeWithColor() {
+        final String text = "abc123";
+        final Color color = Color.fromRgb(0x123456);
+
+        this.toTextNodeAndCheck(SpreadsheetFormattedText.with(Optional.of(color), text),
+                TextNode.text(text).setAttributes(Maps.of(TextPropertyName.TEXT_COLOR, color)));
     }
 
     // HashCodeEqualsDefined ..................................................................................................

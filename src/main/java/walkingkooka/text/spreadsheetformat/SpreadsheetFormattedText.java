@@ -22,9 +22,14 @@ import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.HasText;
+import walkingkooka.tree.text.HasTextNode;
+import walkingkooka.tree.text.TextNode;
+import walkingkooka.tree.text.TextProperties;
+import walkingkooka.tree.text.TextPropertyName;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -32,7 +37,10 @@ import java.util.Optional;
 /**
  * Holds the color and text that results from formatting a value.
  */
-public final class SpreadsheetFormattedText implements HasText, HashCodeEqualsDefined, UsesToStringBuilder {
+public final class SpreadsheetFormattedText implements HasText,
+        HasTextNode,
+        HashCodeEqualsDefined,
+        UsesToStringBuilder {
 
     /**
      * Constant that holds an empty color.
@@ -98,7 +106,16 @@ public final class SpreadsheetFormattedText implements HasText, HashCodeEqualsDe
         return new SpreadsheetFormattedText(color, text);
     }
 
-    // Object ............................................................................
+    // HasTextNode......................................................................................................
+
+    @Override
+    public TextNode toTextNode() {
+        return this.color.map(c -> TextProperties.with(Maps.of(TextPropertyName.TEXT_COLOR, c)))
+                .orElse(TextProperties.EMPTY)
+                .replace(TextNode.text(this.text));
+    }
+
+    // Object ..........................................................................................................
 
     @Override
     public int hashCode() {
