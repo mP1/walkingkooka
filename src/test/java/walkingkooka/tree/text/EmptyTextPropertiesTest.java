@@ -19,11 +19,9 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.JsonNode;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -31,15 +29,25 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
 
     @Test
     public void testEmpty() {
-        assertSame(EmptyTextProperties.INSTANCE, TextProperties.with(Maps.empty()));
+        assertSame(TextProperties.EMPTY, TextProperties.with(Maps.empty()));
     }
 
     @Test
     public void testValue() {
-        assertSame(EmptyTextProperties.INSTANCE.value(), EmptyTextProperties.INSTANCE.value());
+        assertSame(TextProperties.EMPTY.value(), TextProperties.EMPTY.value());
     }
 
     // replace...........................................................................................................
+
+    @Test
+    public void testReplaceTextPlaceholderNode() {
+        this.replaceAndCheck2(this.placeholder("place1"));
+    }
+
+    @Test
+    public void testReplaceTextPlaceholderNodeWithParent() {
+        this.replaceAndCheck2(setStyledParent(this.placeholder("child-place1")));
+    }
 
     @Test
     public void testReplaceTextProperties() {
@@ -50,13 +58,18 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
     public void testReplaceTextProperties2() {
         final TextPropertiesNode node = TextNode.properties(children());
 
-        this.replaceAndCheck(EmptyTextProperties.INSTANCE,
+        this.replaceAndCheck(TextProperties.EMPTY,
                 node.setAttributes(Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC)),
                 node);
     }
 
-    private List<TextNode> children() {
-        return Lists.of(TextNode.text("a1"), TextNode.text("b2"));
+    @Test
+    public void testReplaceTextPropertiesNodeWithParent() {
+        final TextPropertiesNode textPropertiesNode = TextNode.properties(this.children());
+
+        this.replaceAndCheck(TextProperties.EMPTY,
+                setStyledParent(textPropertiesNode.setAttributes(Maps.of(TextPropertyName.FONT_STYLE, FontStyle.ITALIC))),
+                setStyledParent(textPropertiesNode));
     }
 
     @Test
@@ -65,17 +78,24 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
     }
 
     @Test
+    public void testReplaceTextStyleWithParent() {
+        final TextStyledNode styled = setStyledParent(this.styled("child-style-456"));
+
+        this.replaceAndCheck2(styled);
+    }
+
+    @Test
     public void testReplaceText() {
         this.replaceAndCheck2(TextNode.text("abc123"));
     }
 
     @Test
-    public void testReplaceTextPlaceholder() {
-        this.replaceAndCheck2(TextNode.placeholder(TextPlaceholderName.with("placeholder123")));
+    public void testReplaceTextWithParent() {
+        this.replaceAndCheck2(setStyledParent(TextNode.text("child-abc123")));
     }
 
     private void replaceAndCheck2(final TextNode textNode) {
-        this.replaceAndCheck(EmptyTextProperties.INSTANCE, textNode);
+        this.replaceAndCheck(TextProperties.EMPTY, textNode);
     }
 
     // set..............................................................................................................
@@ -85,7 +105,7 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
         final TextPropertyName<FontFamilyName> propertyName = TextPropertyName.FONT_FAMILY_NAME;
         final FontFamilyName familyName = FontFamilyName.with("Antiqua");
 
-        this.setAndCheck(EmptyTextProperties.INSTANCE,
+        this.setAndCheck(TextProperties.EMPTY,
                 propertyName,
                 familyName,
                 TextProperties.with(Maps.of(propertyName, familyName)));
@@ -93,7 +113,7 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(EmptyTextProperties.INSTANCE, "{}");
+        this.toStringAndCheck(TextProperties.EMPTY, "{}");
     }
 
     @Test
@@ -103,7 +123,7 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
 
     @Override
     public EmptyTextProperties createObject() {
-        return EmptyTextProperties.INSTANCE;
+        return Cast.to(TextProperties.EMPTY);
     }
 
     @Override

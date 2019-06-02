@@ -118,7 +118,7 @@ public final class TextStyledNode extends TextParentNode {
     }
 
     @Override
-    final TextPropertiesNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
+    final TextNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap) {
         return this.setAttributesNonEmptyTextPropertiesMap0(textPropertiesMap);
     }
 
@@ -220,7 +220,8 @@ public final class TextStyledNode extends TextParentNode {
 
     @Override
     boolean equalsIgnoringParentAndChildren(final TextNode other) {
-        return this.equalsIgnoringParentAndChildren0(Cast.to(other));
+        return other instanceof TextStyledNode &&
+                this.equalsIgnoringParentAndChildren0(Cast.to(other));
     }
 
     private boolean equalsIgnoringParentAndChildren0(final TextStyledNode other) {

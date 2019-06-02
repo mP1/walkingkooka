@@ -83,15 +83,15 @@ abstract class TextParentNode extends TextNode {
     }
 
     @Override
-    final TextNode setChild(final TextNode newChild) {
-        final int index = newChild.index();
+    final TextNode setChild(final TextNode newChild, final int index) {
+        //int index = newChild.index();
         final TextNode previous = this.children().get(index);
         return previous.equalsIgnoringParentAndChildren(newChild) && previous.equalsDescendants(newChild) ?
                 this :
                 this.replaceChild0(newChild, index);
     }
 
-    private TextNode replaceChild0(final TextNode newChild, final int index) {
+    final TextNode replaceChild0(final TextNode newChild, final int index) {
         final List<TextNode> newChildren = Lists.array();
         newChildren.addAll(this.children());
         newChildren.set(index, newChild);
@@ -100,8 +100,9 @@ abstract class TextParentNode extends TextNode {
     }
 
     private TextParentNode replaceChildren(final List<TextNode> children) {
-        return this.replace0(this.index, children)
-                .replaceChild(this.parent())
+        final int index = this.index;
+        return this.replace0(index, children)
+                .replaceChild(this.parent(), index)
                 .cast();
     }
 

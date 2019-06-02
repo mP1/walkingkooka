@@ -134,18 +134,19 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
      * Sub classes must create a new copy of the parent and replace the identified child using its index or similar,
      * and also sets its parent after creation, returning the equivalent child at the same index.
      */
-    abstract TextNode setChild(final TextNode newChild);
+    abstract TextNode setChild(final TextNode newChild, final int index);
 
     /**
      * Only ever called after during the completion of a setChildren, basically used to recreate the parent graph
      * containing this child.
      */
-    final TextNode replaceChild(final Optional<TextNode> previousParent) {
+    final TextNode replaceChild(final Optional<TextNode> previousParent,
+                                final int childIndex) {
         return previousParent.isPresent() ?
                 previousParent.get()
-                        .setChild(this)
+                        .setChild(this, childIndex)
                         .children()
-                        .get(this.index()) :
+                        .get(childIndex) :
                 this;
     }
 
@@ -185,13 +186,15 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextPrope
     /**
      * Factory that accepts a non empty {@link TextPropertiesNode} either wrapping or replacing (for {@link TextPropertiesNode}.
      */
-    abstract TextPropertiesNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap);
+    abstract TextNode setAttributesNonEmptyTextPropertiesMap(final TextPropertiesMap textPropertiesMap);
 
     /**
      * Default for all sub classes except for {@link TextPropertiesNode}.
      */
-    final TextPropertiesNode setAttributesNonEmptyTextPropertiesMap0(final TextPropertiesMap textPropertiesMap) {
-        return TextPropertiesNode.with(Lists.of(this), textPropertiesMap);
+    final TextNode setAttributesNonEmptyTextPropertiesMap0(final TextPropertiesMap textPropertiesMap) {
+        return TextPropertiesNode.with(Lists.of(this), textPropertiesMap)
+                .replaceChild(this.parent(), this.index)
+                .children().get(0);
     }
 
     // is...............................................................................................................
