@@ -62,6 +62,30 @@ final class NonEmptyTextProperties extends TextProperties {
 
     final TextPropertiesMap value;
 
+    // merge............................................................................................................
+
+    @Override
+    TextProperties merge0(final TextProperties textProperties) {
+        return textProperties.merge1(this);
+    }
+
+    @Override
+    TextProperties merge1(final NonEmptyTextProperties textProperties) {
+        final Map<TextPropertyName<?>, Object> otherBefore = this.value; // because of double dispatch params are reversed.
+        final Map<TextPropertyName<?>, Object> before = textProperties.value;
+
+
+        final Map<TextPropertyName<?>, Object> merged = Maps.sorted();
+        merged.putAll(otherBefore);
+        merged.putAll(before);
+
+        return merged.equals(otherBefore) ?
+                this :
+                merged.equals(before) ?
+                        textProperties :
+                        new NonEmptyTextProperties(TextPropertiesMap.with(merged));
+    }
+
     // replace..........................................................................................................
 
     @Override

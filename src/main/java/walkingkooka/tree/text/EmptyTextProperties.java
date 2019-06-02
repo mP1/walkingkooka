@@ -64,6 +64,18 @@ final class EmptyTextProperties extends TextProperties {
         return Maps.empty();
     }
 
+    // merge............................................................................................................
+
+    @Override
+    TextProperties merge0(final TextProperties other) {
+        return other;
+    }
+
+    @Override
+    TextProperties merge1(final NonEmptyTextProperties textProperties) {
+        return textProperties; // EMPTY merge NOTEMPTY -> NOTEMPTY
+    }
+
     // replace..........................................................................................................
 
     @Override

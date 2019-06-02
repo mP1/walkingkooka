@@ -76,6 +76,22 @@ public final class NonEmptyTextPropertiesTest extends TextPropertiesTestCase<Non
         assertEquals(TextPropertiesMap.class, textProperties.value().getClass(), () -> "" + textProperties.value);
     }
 
+    // merge............................................................................................................
+
+    @Test
+    public void testMergeNotEmptySubset() {
+        this.mergeAndCheck(
+                TextProperties.with(Maps.of(this.property1(), this.value1(), this.property2(), this.value2())),
+                TextProperties.with(Maps.of(this.property1(), this.value1())));
+    }
+
+    @Test
+    public void testMergeNotEmptyCombined() {
+        this.mergeAndCheck(
+                TextProperties.with(Maps.of(this.property1(), this.value1(), this.property2(), this.value2())),
+                TextProperties.with(Maps.of(this.property1(), this.value1(), this.property3(), this.value3())));
+    }
+
     // replace...........................................................................................................
 
     @Test
@@ -447,6 +463,14 @@ public final class NonEmptyTextPropertiesTest extends TextPropertiesTestCase<Non
 
     private FontFamilyName value2() {
         return FontFamilyName.with("Times News Roman");
+    }
+
+    private TextPropertyName<FontSize> property3() {
+        return TextPropertyName.FONT_SIZE;
+    }
+
+    private FontSize value3() {
+        return FontSize.with(12);
     }
 
     @Override
