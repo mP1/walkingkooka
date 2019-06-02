@@ -126,7 +126,7 @@ final class EmptyTextProperties extends TextProperties {
 
     @Override
     public String toString() {
-        return "{}";
+        return "";
     }
 
     // HasJsonNode......................................................................................................

@@ -122,7 +122,7 @@ public final class EmptyTextPropertiesTest extends TextPropertiesTestCase<EmptyT
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(TextProperties.EMPTY, "{}");
+        this.toStringAndCheck(TextProperties.EMPTY, "");
     }
 
     @Test
