@@ -19,17 +19,22 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.function.Predicate;
+
 public abstract class LengthTestCase<L extends Length> implements ClassTesting2<L>,
         HashCodeEqualsDefinedTesting<L>,
         HasJsonNodeTesting<L>,
+        IsMethodTesting<L>,
         ParseStringTesting<L>,
         ToStringTesting<L> {
 
@@ -83,6 +88,28 @@ public abstract class LengthTestCase<L extends Length> implements ClassTesting2<
     @Override
     public final L createHasJsonNode() {
         return this.createLength();
+    }
+
+    // IsMethodTesting..................................................................................................
+
+    @Override
+    public final L createIsMethodObject() {
+        return this.createLength();
+    }
+
+    @Override
+    public final String isMethodTypeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String isMethodTypeNameSuffix() {
+        return "";
+    }
+
+    @Override
+    public final Predicate<String> isMethodIgnoreMethodFilter() {
+        return Predicates.never();
     }
 
     // ParseStringTesting...............................................................................................
