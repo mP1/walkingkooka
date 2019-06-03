@@ -65,7 +65,14 @@ abstract class TextStylePropertyValueHandler<T> {
     static TextStylePropertyValueHandler<FontWeight> fontWeight() {
         return FontWeightTextStylePropertyValueHandler.INSTANCE;
     }
-    
+
+    /**
+     * {@see OpacityTextStylePropertyValueHandler}
+     */
+    static TextStylePropertyValueHandler<Opacity> opacity() {
+        return OpacityTextStylePropertyValueHandler.INSTANCE;
+    }
+
     /**
      * {@see StringTextStylePropertyValueHandler}
      */
