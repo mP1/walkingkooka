@@ -32,11 +32,11 @@ public final class EnumTextStylePropertyValueHandlerTest extends TextStyleProper
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.converter(), TextWrapping.class.getSimpleName());
+        this.toStringAndCheck(this.handler(), TextWrapping.class.getSimpleName());
     }
 
     @Override
-    EnumTextStylePropertyValueHandler<TextWrapping> converter() {
+    EnumTextStylePropertyValueHandler<TextWrapping> handler() {
         return EnumTextStylePropertyValueHandler.with(TextWrapping::valueOf, TextWrapping.class);
     }
 

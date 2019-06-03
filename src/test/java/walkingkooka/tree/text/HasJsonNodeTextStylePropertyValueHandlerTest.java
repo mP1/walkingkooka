@@ -51,11 +51,11 @@ public final class HasJsonNodeTextStylePropertyValueHandlerTest extends TextStyl
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.converter(), "Color");
+        this.toStringAndCheck(this.handler(), "Color");
     }
 
     @Override
-    HasJsonNodeTextStylePropertyValueHandler<Color> converter() {
+    HasJsonNodeTextStylePropertyValueHandler<Color> handler() {
         return HasJsonNodeTextStylePropertyValueHandler.with(Color.class, Color::fromJsonNode);
     }
 
