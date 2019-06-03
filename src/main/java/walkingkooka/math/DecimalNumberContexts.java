@@ -19,6 +19,8 @@ package walkingkooka.math;
 
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.MathContext;
+
 /**
  * A collection of factory methods to create {@link DecimalNumberContext}.
  */
@@ -27,8 +29,8 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
     /**
      * {@see AmericanDecimalNumberContext}
      */
-    public static DecimalNumberContext american() {
-        return AmericanDecimalNumberContext.INSTANCE;
+    public static DecimalNumberContext american(final MathContext mathContext) {
+        return AmericanDecimalNumberContext.with(mathContext);
     }
 
     /**
@@ -40,14 +42,16 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
                                              final char groupingSeparator,
                                              final char minusSign,
                                              final char percentageSymbol,
-                                             final char plusSign) {
+                                             final char plusSign,
+                                             final MathContext mathContext) {
         return BasicDecimalNumberContext.with(currencySymbol,
                 decimalPoint,
                 exponentSymbol,
                 groupingSeparator,
                 minusSign,
                 percentageSymbol,
-                plusSign);
+                plusSign,
+                mathContext);
     }
 
     /**

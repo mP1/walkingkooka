@@ -21,7 +21,7 @@ package walkingkooka.math;
 /**
  * Context that typically accompanies another stateless component such as a number parser or formatter that involves decimals.
  */
-public interface DecimalNumberContext extends NumberContext {
+public interface DecimalNumberContext extends NumberContext, HasMathContext{
 
     /**
      * The currency symbol character.

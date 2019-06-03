@@ -28,8 +28,6 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.select.NodeSelectorContexts;
 import walkingkooka.type.MemberVisibility;
 
-import java.math.MathContext;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class TextNodeTest extends TextNodeTestCase<TextNode> implements HasJsonNodeTesting<TextNode>,
@@ -65,7 +63,7 @@ public final class TextNodeTest extends TextNodeTestCase<TextNode> implements Ha
         assertEquals(2, TextNode.absoluteNodeSelector()
                 .descendant()
                 .named(Text.NAME)
-                .stream(node, NodeSelectorContexts.basicFunctions(), Converters.fake(), DecimalNumberContexts.fake(), MathContext.UNLIMITED, TextNode.class)
+                .stream(node, NodeSelectorContexts.basicFunctions(), Converters.fake(), DecimalNumberContexts.fake(), TextNode.class)
                 .count());
     }
 

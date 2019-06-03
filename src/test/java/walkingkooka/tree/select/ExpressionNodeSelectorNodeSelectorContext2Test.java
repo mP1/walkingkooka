@@ -28,6 +28,8 @@ import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
 
+import java.math.MathContext;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -113,7 +115,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
                 return Converters.collection(Lists.of(
                         Converters.numberInteger(),
                         Converters.function(String.class, Integer.class, Integer::parseInt)))
-                        .convert(value, target, ConverterContexts.basic(DecimalNumberContexts.american()));
+                        .convert(value, target, ConverterContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)));
             }
         });
         context.position = INDEX;

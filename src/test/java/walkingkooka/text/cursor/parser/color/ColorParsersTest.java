@@ -39,6 +39,7 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Method;
+import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -267,7 +268,7 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     }
 
     private ParserContext parserContext() {
-        return ParserContexts.basic(DecimalNumberContexts.american());
+        return ParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
     @Override

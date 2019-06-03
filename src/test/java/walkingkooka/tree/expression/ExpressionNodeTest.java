@@ -329,7 +329,7 @@ public final class ExpressionNodeTest implements ClassTesting2<ExpressionNode> {
     private SpreadsheetParserToken parse(final String parse) {
         final TextCursor cursor = TextCursors.charSequence(parse);
         final Optional<ParserToken> spreadsheetFormula = this.createParser().parse(cursor,
-                SpreadsheetParserContexts.basic(DecimalNumberContexts.american()));
+                SpreadsheetParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)));
         if (!spreadsheetFormula.isPresent()) {
             fail("Parser failed to parse " + CharSequences.quoteAndEscape(parse));
         }

@@ -52,7 +52,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                                                                           final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                           final Converter converter,
                                                                           final DecimalNumberContext decimalNumberContext,
-                                                                          final MathContext mathContext,
                                                                           final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
@@ -60,7 +59,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(decimalNumberContext, "decimalNumberContext");
-        Objects.requireNonNull(mathContext, "mathContext");
         Objects.requireNonNull(nodeType, "nodeType");
 
         return new BasicNodeSelectorContext<>(finisher,
@@ -68,8 +66,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                 mapper,
                 functions,
                 converter,
-                decimalNumberContext,
-                mathContext);
+                decimalNumberContext);
     }
 
     private BasicNodeSelectorContext(final BooleanSupplier finisher,
@@ -77,15 +74,13 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                                      final Function<N, N> mapper,
                                      final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                      final Converter converter,
-                                     final DecimalNumberContext decimalNumberContext,
-                                     final MathContext mathContext) {
+                                     final DecimalNumberContext decimalNumberContext) {
         this.finisher = finisher;
         this.filter = filter;
         this.mapper = mapper;
         this.functions = functions;
         this.converter = converter;
         this.decimalNumberContext = decimalNumberContext;
-        this.mathContext = mathContext;
     }
 
     @Override
@@ -167,10 +162,8 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public MathContext mathContext() {
-        return this.mathContext;
+        return this.decimalNumberContext.mathContext();
     }
-
-    private final MathContext mathContext;
 
     /**
      * The current {@link Node} which is also becomes the first argument for all function invocations.
@@ -184,7 +177,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                 this.mapper + " " +
                 this.functions + " " +
                 this.converter + " " +
-                this.decimalNumberContext + " " +
-                this.mathContext;
+                this.decimalNumberContext;
     }
 }

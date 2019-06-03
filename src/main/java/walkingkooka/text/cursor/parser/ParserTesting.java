@@ -26,6 +26,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 
+import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -291,6 +292,6 @@ public interface ParserTesting<P extends Parser<C>,
     }
 
     default DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american();
+        return DecimalNumberContexts.american(MathContext.DECIMAL32);
     }
 }

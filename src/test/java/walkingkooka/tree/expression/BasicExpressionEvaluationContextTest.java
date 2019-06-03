@@ -28,7 +28,6 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
 import walkingkooka.type.MemberVisibility;
 
-import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -46,7 +45,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         assertThrows(NullPointerException.class, () -> {
             BasicExpressionEvaluationContext.with(null,
                     this.references(),
-                    this.mathContext(),
                     this.converter(),
                     this.decimalNumberContext());
         });
@@ -56,18 +54,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     public void testWithNullReferencesFails() {
         assertThrows(NullPointerException.class, () -> {
             BasicExpressionEvaluationContext.with(this.functions(),
-                    null,
-                    this.mathContext(),
-                    this.converter(),
-                    this.decimalNumberContext());
-        });
-    }
-
-    @Test
-    public void testWithNullMathContextFails() {
-        assertThrows(NullPointerException.class, () -> {
-            BasicExpressionEvaluationContext.with(this.functions(),
-                    this.references(),
                     null,
                     this.converter(),
                     this.decimalNumberContext());
@@ -79,7 +65,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         assertThrows(NullPointerException.class, () -> {
             BasicExpressionEvaluationContext.with(this.functions(),
                     this.references(),
-                    this.mathContext(),
                     null,
                     this.decimalNumberContext());
         });
@@ -90,13 +75,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         assertThrows(NullPointerException.class, () -> {
             BasicExpressionEvaluationContext.with(this.functions(),
                     this.references(),
-                    this.mathContext(),
                     this.converter(),
                     null);
 
         });
     }
-
 
     @Test
     public void testFunction() {
@@ -109,11 +92,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testMathContext() {
-        assertEquals(this.mathContext(), this.createContext().mathContext());
-    }
-
-    @Test
     public void testConvert() {
         assertEquals(Long.valueOf(123L), this.createContext().convert(123.0, Long.class));
     }
@@ -122,7 +100,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     public BasicExpressionEvaluationContext createContext() {
         return BasicExpressionEvaluationContext.with(this.functions(),
                 this.references(),
-                this.mathContext(),
                 this.converter(),
                 this.decimalNumberContext());
     }
@@ -164,10 +141,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private ExpressionNode expressionNode() {
         return ExpressionNode.text("expression node 123");
-    }
-
-    private MathContext mathContext() {
-        return MathContext.DECIMAL128;
     }
 
     private Converter converter() {

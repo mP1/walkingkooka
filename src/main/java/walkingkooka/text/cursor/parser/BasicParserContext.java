@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.math.DecimalNumberContext;
 
+import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -76,6 +77,11 @@ final class BasicParserContext implements ParserContext {
     @Override
     public char plusSign() {
         return this.context.plusSign();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.context.mathContext();
     }
 
     private final DecimalNumberContext context;

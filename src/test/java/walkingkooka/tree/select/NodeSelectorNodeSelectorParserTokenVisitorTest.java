@@ -2091,7 +2091,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
                     }
 
-                    private final ConverterContext converterContext = ConverterContexts.basic(DecimalNumberContexts.american());
+                    private final ConverterContext converterContext = ConverterContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32));
                 });
 
         assertEquals(expected, names(selected), () -> expression + "\n" + selector.unwrapIfCustomToStringNodeSelector() + "\n" + root);

@@ -34,6 +34,7 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
+import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -50,7 +51,7 @@ final public class Hsv extends ColorHslOrHsv {
     static Hsv parseHsv0(final String text) {
         try {
             return HSV_FUNCTION_PARSER.parse(TextCursors.charSequence(text),
-                    ParserContexts.basic(DecimalNumberContexts.american()))
+                    ParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
                     .map(t -> HsvParserToken.class.cast(t).value())
                     .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
         } catch (final ParserException cause) {

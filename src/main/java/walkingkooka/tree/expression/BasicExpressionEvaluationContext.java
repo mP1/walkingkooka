@@ -41,16 +41,14 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      */
     static BasicExpressionEvaluationContext with(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
                                                  final Function<ExpressionReference, Optional<ExpressionNode>> references,
-                                                 final MathContext mathContext,
                                                  final Converter converter,
                                                  final DecimalNumberContext context) {
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
-        Objects.requireNonNull(mathContext, "mathContext");
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(context, "context");
 
-        return new BasicExpressionEvaluationContext(functions, references, mathContext, converter, context);
+        return new BasicExpressionEvaluationContext(functions, references, converter, context);
     }
 
     /**
@@ -58,13 +56,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      */
     private BasicExpressionEvaluationContext(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
                                              final Function<ExpressionReference, Optional<ExpressionNode>> references,
-                                             final MathContext mathContext,
                                              final Converter converter,
                                              final DecimalNumberContext context) {
         super();
         this.functions = functions;
         this.references = references;
-        this.mathContext = mathContext;
         this.converter = converter;
         this.decimalNumberContext = context;
 
@@ -106,6 +102,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         return this.decimalNumberContext.plusSign();
     }
 
+    @Override
+    public MathContext mathContext() {
+        return this.decimalNumberContext.mathContext();
+    }
+
     private final DecimalNumberContext decimalNumberContext;
 
     @Override
@@ -127,13 +128,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private final Function<ExpressionReference, Optional<ExpressionNode>> references;
 
     @Override
-    public MathContext mathContext() {
-        return this.mathContext;
-    }
-
-    private final MathContext mathContext;
-
-    @Override
     public <T> T convert(final Object value, final Class<T> target) {
         try {
             return this.converter.convert(value, target, this.converterContext);
@@ -147,6 +141,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public String toString() {
-        return this.decimalNumberContext + " " + this.functions + " " + this.references + " " + this.mathContext + " " + this.converter;
+        return this.decimalNumberContext + " " + this.functions + " " + this.references + " " + this.converter;
     }
 }

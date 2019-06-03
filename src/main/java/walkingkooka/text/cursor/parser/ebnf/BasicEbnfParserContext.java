@@ -20,6 +20,8 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.tostring.ToStringBuilder;
 
+import java.math.MathContext;
+
 final class BasicEbnfParserContext implements EbnfParserContext {
 
     static BasicEbnfParserContext instance() {
@@ -65,6 +67,11 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     @Override
     public char plusSign() {
         return '+';
+    }
+
+    @Override
+    public MathContext mathContext() {
+        throw new UnsupportedOperationException();
     }
 
     @Test

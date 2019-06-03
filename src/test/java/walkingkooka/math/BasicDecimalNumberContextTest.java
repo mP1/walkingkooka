@@ -22,15 +22,26 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
+import java.math.MathContext;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicDecimalNumberContext>,
         DecimalNumberContextTesting<BasicDecimalNumberContext> {
 
+    private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
+
     @Test
     public void testWithNullCurrencySymbol() {
         assertThrows(NullPointerException.class, () -> {
-            BasicDecimalNumberContext.with(null, '.', 'E', ',', '-', '%', '+');
+            BasicDecimalNumberContext.with(null, '.', 'E', ',', '-', '%', '+', MATH_CONTEXT);
+        });
+    }
+
+    @Test
+    public void testWithNullMathContext() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%', '+', null);
         });
     }
 
@@ -48,12 +59,12 @@ public final class BasicDecimalNumberContextTest implements ClassTesting2<BasicD
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createContext(), "\"$\" '.' 'E' ',' '-' '%' '+'");
+        this.toStringAndCheck(this.createContext(), "\"$\" '.' 'E' ',' '-' '%' '+' " + MATH_CONTEXT);
     }
 
     @Override
     public BasicDecimalNumberContext createContext() {
-        return BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%', '+');
+        return BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%', '+', MATH_CONTEXT);
     }
 
     @Override

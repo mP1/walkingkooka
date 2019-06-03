@@ -20,6 +20,8 @@ package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 
+import java.math.MathContext;
+
 /**
  * A {@link JsonNodeParserContext} without any functionality.
  */
@@ -74,6 +76,11 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     @Override
     public char plusSign() {
         return '+';
+    }
+
+    @Override
+    public MathContext mathContext() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
