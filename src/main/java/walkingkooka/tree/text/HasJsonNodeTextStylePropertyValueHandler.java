@@ -18,39 +18,50 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
+import java.util.function.Function;
+
 /**
- * A {@link TextStylePropertyValueHandler} for {@link Opacity} parameter values.
+ * A {@link TextStylePropertyValueHandler} that acts as  bridge to a type that also implements {@link walkingkooka.tree.json.HasJsonNode}
  */
-final class OpacityTextStylePropertyValueHandler extends TextStylePropertyValueHandler<Opacity> {
+final class HasJsonNodeTextStylePropertyValueHandler<H extends HasJsonNode> extends TextStylePropertyValueHandler<H> {
 
     /**
      * Singleton
      */
-    final static OpacityTextStylePropertyValueHandler INSTANCE = new OpacityTextStylePropertyValueHandler();
+    final static <T extends HasJsonNode> HasJsonNodeTextStylePropertyValueHandler<T> with(final Class<T> type,
+                                                                                          final Function<JsonNode, T> fromJsonNode) {
+        return new HasJsonNodeTextStylePropertyValueHandler(type, fromJsonNode);
+    }
 
     /**
      * Private ctor
      */
-    private OpacityTextStylePropertyValueHandler() {
+    private HasJsonNodeTextStylePropertyValueHandler(final Class<H> type,
+                                                     final Function<JsonNode, H> fromJsonNode) {
         super();
+        this.fromJsonNode = fromJsonNode;
+        this.type = type;
     }
 
     @Override
     void check0(final Object value, final TextStylePropertyName<?> name) {
-        this.checkType(value, Opacity.class, name);
+        this.checkType(value, this.type, name);
     }
 
     // fromJsonNode ....................................................................................................
 
     @Override
-    Opacity fromJsonNode(final JsonNode node) {
-        return Opacity.fromJsonNode(node);
+    H fromJsonNode(final JsonNode node) {
+        return this.fromJsonNode.apply(node);
     }
 
+    private final Function<JsonNode, H> fromJsonNode;
+
     @Override
-    JsonNode toJsonNode(final Opacity value) {
+    JsonNode toJsonNode(final H value) {
         return value.toJsonNode();
     }
 
@@ -58,6 +69,8 @@ final class OpacityTextStylePropertyValueHandler extends TextStylePropertyValueH
 
     @Override
     public String toString() {
-        return Opacity.class.getSimpleName();
+        return this.type.getSimpleName();
     }
+
+    private final Class<H> type;
 }

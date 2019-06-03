@@ -19,8 +19,8 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
-import walkingkooka.color.Color;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.function.Function;
@@ -31,13 +31,6 @@ import java.util.function.Function;
 abstract class TextStylePropertyValueHandler<T> {
 
     /**
-     * {@see ColorTextStylePropertyValueHandler}
-     */
-    static TextStylePropertyValueHandler<Color> color() {
-        return ColorTextStylePropertyValueHandler.INSTANCE;
-    }
-
-    /**
      * {@see EnumTextStylePropertyValueHandler}
      */
     static <E extends Enum<E>> EnumTextStylePropertyValueHandler<E> enumTextPropertyValueHandler(final Function<String, E> factory,
@@ -46,31 +39,11 @@ abstract class TextStylePropertyValueHandler<T> {
     }
 
     /**
-     * {@see FontFamilyNameTextStylePropertyValueHandler}
+     * {@see HasJsonNodeTextStylePropertyValueHandler}
      */
-    static TextStylePropertyValueHandler<FontFamilyName> fontFamilyName() {
-        return FontFamilyNameTextStylePropertyValueHandler.INSTANCE;
-    }
-
-    /**
-     * {@see FontSizeTextStylePropertyValueHandler}
-     */
-    static TextStylePropertyValueHandler<FontSize> fontSize() {
-        return FontSizeTextStylePropertyValueHandler.INSTANCE;
-    }
-
-    /**
-     * {@see FontWeightTextStylePropertyValueHandler}
-     */
-    static TextStylePropertyValueHandler<FontWeight> fontWeight() {
-        return FontWeightTextStylePropertyValueHandler.INSTANCE;
-    }
-
-    /**
-     * {@see OpacityTextStylePropertyValueHandler}
-     */
-    static TextStylePropertyValueHandler<Opacity> opacity() {
-        return OpacityTextStylePropertyValueHandler.INSTANCE;
+    static <T extends HasJsonNode> TextStylePropertyValueHandler<T> hasJsonNode(final Class<T> type,
+                                                                                final Function<JsonNode, T> fromJsonNode) {
+        return HasJsonNodeTextStylePropertyValueHandler.with(type, fromJsonNode);
     }
 
     /**
