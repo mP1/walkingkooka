@@ -153,6 +153,13 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             HorizontalAlignment.class);
 
     /**
+     * height
+     */
+    public final static TextStylePropertyName<Height> HEIGHT = registerHasJsonNodeConstant("height",
+            Height.class,
+            Height::fromJsonNode);
+
+    /**
      * hyphens
      */
     public final static TextStylePropertyName<Hyphens> HYPHENS = registerEnumConstant("hyphens",
@@ -235,6 +242,13 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     public final static TextStylePropertyName<TextWhitespace> WHITE_SPACE = registerEnumConstant("white-space",
             TextWhitespace::valueOf,
             TextWhitespace.class);
+
+    /**
+     * width
+     */
+    public final static TextStylePropertyName<Width> WIDTH = registerHasJsonNodeConstant("width",
+            Width.class,
+            Width::fromJsonNode);
 
     /**
      * word-break
