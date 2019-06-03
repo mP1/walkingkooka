@@ -31,6 +31,7 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
+import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -70,7 +71,7 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
     public static SpreadsheetCellReference parse(final String text) {
         try {
             final SpreadsheetCellReferenceParserToken token = PARSER.parse(TextCursors.charSequence(text),
-                    SpreadsheetParserContexts.basic(DecimalNumberContexts.american()))
+                    SpreadsheetParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
                     .get().cast();
             return token.cell();
         } catch (final ParserException cause) {

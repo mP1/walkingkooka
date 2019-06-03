@@ -35,6 +35,7 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
+import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -110,7 +111,7 @@ abstract public class Color extends ColorHslOrHsv {
                                     final Parser<ParserContext> parser) {
         try {
             return parser.parse(TextCursors.charSequence(text),
-                    ParserContexts.basic(DecimalNumberContexts.american()))
+                    ParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
                     .map(t -> ColorParserToken.class.cast(t).value())
                     .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
         } catch (final ParserException cause) {

@@ -21,6 +21,8 @@ package walkingkooka.text.cursor.parser.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.build.tostring.ToStringBuilder;
 
+import java.math.MathContext;
+
 /**
  * A {@link NodeSelectorParserContext} without any functionality.
  */
@@ -75,6 +77,11 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     @Override
     public char plusSign() {
         return '+';
+    }
+
+    @Override
+    public MathContext mathContext() {
+        throw new UnsupportedOperationException();
     }
 
     @Test

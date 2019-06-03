@@ -36,7 +36,6 @@ import walkingkooka.tree.xml.XmlNode;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.math.MathContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -68,7 +67,6 @@ final class LinkRelationConstantGenerator {
                 LinkRelationConstantGenerator::functions,
                 Converters.fake(),
                 DecimalNumberContexts.fake(),
-                MathContext.UNLIMITED,
                 XmlNode.class);
     }
 

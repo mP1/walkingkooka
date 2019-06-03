@@ -28,6 +28,8 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 
+import java.math.MathContext;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetTextFormatter3TestCase<F extends SpreadsheetTextFormatter3<V, T>,
@@ -63,7 +65,10 @@ public abstract class SpreadsheetTextFormatter3TestCase<F extends SpreadsheetTex
 
     final SpreadsheetFormatParserToken parsePatternOrFail(final Parser<SpreadsheetFormatParserContext> parser, final String pattern) {
         return parser.orFailIfCursorNotEmpty(ParserReporters.basic())
-                .parse(TextCursors.charSequence(pattern), SpreadsheetFormatParserContexts.basic(ParserContexts.basic(DecimalNumberContexts.american())))
+                .parse(TextCursors.charSequence(pattern),
+                        SpreadsheetFormatParserContexts.basic(
+                                ParserContexts.basic(
+                                        DecimalNumberContexts.american(MathContext.DECIMAL32))))
                 .get()
                 .cast();
     }

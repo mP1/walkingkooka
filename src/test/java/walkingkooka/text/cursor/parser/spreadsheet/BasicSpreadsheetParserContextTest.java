@@ -23,6 +23,8 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
+import java.math.MathContext;
+
 public final class BasicSpreadsheetParserContextTest implements ClassTesting2<BasicSpreadsheetParserContext>,
         SpreadsheetParserContextTesting<BasicSpreadsheetParserContext> {
 
@@ -33,6 +35,7 @@ public final class BasicSpreadsheetParserContextTest implements ClassTesting2<Ba
     private final static char MINUS = 'M';
     private final static char PERCENTAGE = 'R';
     private final static char PLUS = 'P';
+    private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
     @Test
     public void testWith() {
@@ -43,11 +46,12 @@ public final class BasicSpreadsheetParserContextTest implements ClassTesting2<Ba
         this.checkGroupingSeparator(context, GROUPING);
         this.checkMinusSign(context, MINUS);
         this.checkPlusSign(context, PLUS);
+        this.checkMathContext(context, MATH_CONTEXT);
     }
 
     @Override
     public BasicSpreadsheetParserContext createContext() {
-        return BasicSpreadsheetParserContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
+        return BasicSpreadsheetParserContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS, MATH_CONTEXT));
     }
 
     @Override

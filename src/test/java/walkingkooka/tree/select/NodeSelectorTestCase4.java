@@ -384,7 +384,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 this.functions(),
                 this.converter(),
                 DecimalNumberContexts.fake(),
-                this.mathContext(),
                 TestNode.class);
 
         return new NodeSelectorContext<TestNode, StringName, StringName, Object>() {
@@ -459,10 +458,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 Converters.function(String.class, Integer.class, Integer::parseInt),
                 Converters.simple()
         ));
-    }
-
-    private MathContext mathContext() {
-        return MathContext.DECIMAL32;
     }
 
     // HashCodeEqualsDefinedTesting.....................................................................................

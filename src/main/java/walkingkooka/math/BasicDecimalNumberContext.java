@@ -20,6 +20,7 @@ package walkingkooka.math;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 
+import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -33,9 +34,10 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                                           final char groupingSeparator,
                                           final char minusSign,
                                           final char percentageSymbol,
-                                          final char plusSign) {
+                                          final char plusSign,
+                                          final MathContext mathContext) {
         Objects.requireNonNull(currencySymbol, "currencySymbol");
-
+        Objects.requireNonNull(mathContext, "mathContext");
 
         return new BasicDecimalNumberContext(currencySymbol,
                 decimalPoint,
@@ -43,7 +45,8 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                 groupingSeparator,
                 minusSign,
                 percentageSymbol,
-                plusSign);
+                plusSign,
+                mathContext);
     }
 
     private BasicDecimalNumberContext(final String currencySymbol,
@@ -52,7 +55,8 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                                       final char groupingSeparator,
                                       final char minusSign,
                                       final char percentageSymbol,
-                                      final char plusSign) {
+                                      final char plusSign,
+                                      final MathContext mathContext) {
         super();
         this.currencySymbol = currencySymbol;
         this.decimalPoint = decimalPoint;
@@ -61,6 +65,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
         this.minusSign = minusSign;
         this.percentageSymbol = percentageSymbol;
         this.plusSign = plusSign;
+        this.mathContext = mathContext;
     }
 
     @Override
@@ -113,6 +118,13 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     private final char plusSign;
 
     @Override
+    public MathContext mathContext() {
+        return this.mathContext;
+    }
+
+    private final MathContext mathContext;
+
+    @Override
     public String toString() {
         return ToStringBuilder.empty()
                 .value(this.currencySymbol)
@@ -122,6 +134,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
                 .value(this.minusSign)
                 .value(this.percentageSymbol)
                 .value(this.plusSign)
+                .value(this.mathContext)
                 .build();
     }
 }

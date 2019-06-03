@@ -23,6 +23,8 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
+import java.math.MathContext;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicParserContextTest implements ClassTesting2<BasicParserContext>,
@@ -35,6 +37,7 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
     private final static char MINUS = 'M';
     private final static char PERCENTAGE = 'R';
     private final static char PLUS = 'P';
+    private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
     @Test
     public void testWithNullBasicFails() {
@@ -52,6 +55,7 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
         this.checkGroupingSeparator(context, GROUPING);
         this.checkMinusSign(context, MINUS);
         this.checkPlusSign(context, PLUS);
+        this.checkMathContext(context, MATH_CONTEXT);
     }
 
     @Test
@@ -65,7 +69,7 @@ public final class BasicParserContextTest implements ClassTesting2<BasicParserCo
     }
 
     private BasicParserContext basic() {
-        return BasicParserContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
+        return BasicParserContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS, MATH_CONTEXT));
     }
 
     @Override

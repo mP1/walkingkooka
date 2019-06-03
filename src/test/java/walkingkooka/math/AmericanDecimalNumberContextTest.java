@@ -22,12 +22,60 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
+import java.math.MathContext;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class AmericanDecimalNumberContextTest implements ClassTesting2<AmericanDecimalNumberContext>,
         DecimalNumberContextTesting<AmericanDecimalNumberContext> {
 
+    private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
+
+    @Test
+    public void testWithNullMathContextFails() {
+        assertThrows(NullPointerException.class, () -> {
+            AmericanDecimalNumberContext.with(null);
+        });
+    }
+
+    @Test
+    public void testWithMathContext32() {
+        withConstantAndCheck(MathContext.DECIMAL32);
+    }
+
+    @Test
+    public void testWithMathContext64() {
+        withConstantAndCheck(MathContext.DECIMAL64);
+    }
+
+    @Test
+    public void testWithMathContext128() {
+        withConstantAndCheck(MathContext.DECIMAL128);
+    }
+
+    @Test
+    public void testWithMathContextUnlimited() {
+        withConstantAndCheck(MathContext.UNLIMITED);
+    }
+
+    private void withConstantAndCheck(final MathContext mathContext) {
+        assertSame(AmericanDecimalNumberContext.with(mathContext), AmericanDecimalNumberContext.with(mathContext));
+        withAndCheck(mathContext);
+    }
+
     @Test
     public void testWith() {
-        final AmericanDecimalNumberContext context = this.createContext();
+        this.withAndCheck(MATH_CONTEXT);
+    }
+
+    @Test
+    public void testWithCustomMathContext() {
+        this.withAndCheck(new MathContext(33));
+    }
+
+    private void withAndCheck(final MathContext mathContext) {
+        final AmericanDecimalNumberContext context = AmericanDecimalNumberContext.with(mathContext);
         this.checkCurrencySymbol(context, "$");
         this.checkDecimalPoint(context, '.');
         this.checkExponentSymbol(context, 'E');
@@ -35,16 +83,17 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
         this.checkMinusSign(context, '-');
         this.checkPercentageSymbol(context, '%');
         this.checkPlusSign(context, '+');
+        this.checkMathContext(context, mathContext);
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createContext(), "\"$\" '.' 'E' ',' '-' '%' '+'");
+        this.toStringAndCheck(this.createContext(), "\"$\" '.' 'E' ',' '-' '%' '+' " + MATH_CONTEXT);
     }
 
     @Override
     public AmericanDecimalNumberContext createContext() {
-        return AmericanDecimalNumberContext.INSTANCE;
+        return AmericanDecimalNumberContext.with(MATH_CONTEXT);
     }
 
     @Override

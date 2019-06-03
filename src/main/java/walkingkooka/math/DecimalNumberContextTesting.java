@@ -19,6 +19,8 @@ package walkingkooka.math;
 
 import walkingkooka.ContextTesting;
 
+import java.math.MathContext;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -57,5 +59,9 @@ public interface DecimalNumberContextTesting<C extends DecimalNumberContext> ext
 
     default void checkPlusSign(final DecimalNumberContext context, final char plusSign) {
         assertEquals(plusSign, context.plusSign(), "plusSign");
+    }
+
+    default void checkMathContext(final DecimalNumberContext context, final MathContext mathContext) {
+        assertEquals(mathContext, context.mathContext(), "mathContext");
     }
 }

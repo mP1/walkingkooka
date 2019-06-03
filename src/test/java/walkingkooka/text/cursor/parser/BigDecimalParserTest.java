@@ -384,7 +384,7 @@ public final class BigDecimalParserTest extends Parser2TestCase<BigDecimalParser
 
     private TextCursor parseAndCheck3(final String text, final BigDecimal value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic(DecimalNumberContexts.basic("C", 'D', 'X', 'G', 'M', 'R', 'P')),
+                ParserContexts.basic(DecimalNumberContexts.basic("C", 'D', 'X', 'G', 'M', 'R', 'P', MathContext.DECIMAL32)),
                 text,
                 ParserTokens.bigDecimal(value, text),
                 text,

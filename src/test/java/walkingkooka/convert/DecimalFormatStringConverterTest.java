@@ -23,6 +23,7 @@ import walkingkooka.math.DecimalNumberContexts;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -236,7 +237,8 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
                 groupingSeparator,
                 minusSign,
                 percentageSymbol,
-                plusSign));
+                plusSign,
+                MathContext.DECIMAL32));
     }
 
     @Override

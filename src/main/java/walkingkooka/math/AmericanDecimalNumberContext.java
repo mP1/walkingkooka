@@ -20,6 +20,9 @@ package walkingkooka.math;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 
+import java.math.MathContext;
+import java.util.Objects;
+
 /**
  * A {@link DecimalNumberContext} with all values set to what can broadly be described as american.
  * This is useful for as many internet standards also use the same symbols.
@@ -27,15 +30,33 @@ import walkingkooka.build.tostring.ToStringBuilder;
 final class AmericanDecimalNumberContext implements DecimalNumberContext {
 
     /**
-     * Singleton
+     * Factory that returns a constant if a {@link MathContext} constant is given.
      */
-    final static AmericanDecimalNumberContext INSTANCE = new AmericanDecimalNumberContext();
+    final static AmericanDecimalNumberContext with(final MathContext mathContext) {
+        Objects.requireNonNull(mathContext, "mathContext");
+
+        return UNLIMITED.mathContext.equals(mathContext) ?
+                UNLIMITED :
+                DECIMAL32.mathContext.equals(mathContext) ?
+                        DECIMAL32 :
+                        DECIMAL64.mathContext.equals(mathContext) ?
+                                DECIMAL64 :
+                                DECIMAL128.mathContext.equals(mathContext) ?
+                                        DECIMAL128 :
+                                        new AmericanDecimalNumberContext(mathContext);
+    }
+
+    private final static AmericanDecimalNumberContext UNLIMITED = new AmericanDecimalNumberContext(MathContext.UNLIMITED);
+    private final static AmericanDecimalNumberContext DECIMAL32 = new AmericanDecimalNumberContext(MathContext.DECIMAL32);
+    private final static AmericanDecimalNumberContext DECIMAL64 = new AmericanDecimalNumberContext(MathContext.DECIMAL64);
+    private final static AmericanDecimalNumberContext DECIMAL128 = new AmericanDecimalNumberContext(MathContext.DECIMAL128);
 
     /**
      * Private ctor use singleton.
      */
-    private AmericanDecimalNumberContext() {
+    private AmericanDecimalNumberContext(final MathContext mathContext) {
         super();
+        this.mathContext = mathContext;
     }
 
     @Override
@@ -74,6 +95,13 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
+    public MathContext mathContext() {
+        return this.mathContext;
+    }
+
+    private final MathContext mathContext;
+
+    @Override
     public String toString() {
         return ToStringBuilder.empty()
                 .value(this.currencySymbol())
@@ -83,6 +111,7 @@ final class AmericanDecimalNumberContext implements DecimalNumberContext {
                 .value(this.minusSign())
                 .value(this.percentageSymbol())
                 .value(this.plusSign())
+                .value(this.mathContext())
                 .build();
     }
 }

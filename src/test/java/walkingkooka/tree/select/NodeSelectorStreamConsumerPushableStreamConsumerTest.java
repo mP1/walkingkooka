@@ -55,7 +55,6 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.functions(),
                     this.converter(),
                     this.decimalNumberContext(),
-                    this.mathContext(),
                     this.nodeType());
         });
     }
@@ -70,7 +69,6 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     null,
                     this.converter(),
                     this.decimalNumberContext(),
-                    this.mathContext(),
                     this.nodeType());
         });
     }
@@ -83,7 +81,6 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.functions(),
                     null,
                     this.decimalNumberContext(),
-                    this.mathContext(),
                     this.nodeType());
         });
     }
@@ -96,7 +93,6 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.functions(),
                     this.converter(),
                     null,
-                    this.mathContext(),
                     this.nodeType());
         });
     }
@@ -109,7 +105,6 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                     this.functions(),
                     this.converter(),
                     this.decimalNumberContext(),
-                    this.mathContext(),
                     null);
         });
     }
@@ -123,7 +118,6 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                 this.functions(),
                 this.converter(),
                 this.decimalNumberContext(),
-                this.mathContext(),
                 this.nodeType()),
                 selector.toString());
     }

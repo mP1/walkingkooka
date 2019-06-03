@@ -30,6 +30,7 @@ import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
+import java.math.MathContext;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
@@ -50,7 +51,7 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
                                                        final Class<T> type) {
         try {
             return type.cast(parser.parse(TextCursors.charSequence(text),
-                    SpreadsheetParserContexts.basic(DecimalNumberContexts.american()))
+                    SpreadsheetParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
                     .get());
         } catch (final ParserException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);

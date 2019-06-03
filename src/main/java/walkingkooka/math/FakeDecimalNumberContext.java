@@ -18,6 +18,8 @@
 
 package walkingkooka.math;
 
+import java.math.MathContext;
+
 public class FakeDecimalNumberContext implements DecimalNumberContext {
 
     @Override
@@ -52,6 +54,11 @@ public class FakeDecimalNumberContext implements DecimalNumberContext {
 
     @Override
     public char plusSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MathContext mathContext() {
         throw new UnsupportedOperationException();
     }
 }
