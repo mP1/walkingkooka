@@ -81,8 +81,8 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
     }
 
     @Test
-    public void testFromJsonNodeStringFails() {
-        this.fromJsonNodeFails(JsonNode.string("fails!"));
+    public void testFromJsonNodeInvalidStringFails() {
+        this.fromJsonNodeFails(JsonNode.string("not bold or normal"));
     }
 
     @Test
@@ -101,6 +101,18 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
     }
 
     @Test
+    public void testFromJsonBold() {
+        this.fromJsonNodeAndCheck(JsonNode.string("bold"),
+                FontWeight.BOLD);
+    }
+
+    @Test
+    public void testFromJsonNormal() {
+        this.fromJsonNodeAndCheck(JsonNode.string("normal"),
+                FontWeight.NORMAL);
+    }
+
+    @Test
     public void testFromJsonNumber() {
         final int value = 20;
         this.fromJsonNodeAndCheck(JsonNode.number(value),
@@ -115,6 +127,16 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
     @Test
     public void testToJsonNodeRoundtripTwice() {
         this.toJsonNodeRoundTripTwiceAndCheck(this.createObject());
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripBold() {
+        this.toJsonNodeRoundTripTwiceAndCheck(FontWeight.BOLD);
+    }
+
+    @Test
+    public void testToJsonNodeRoundtripNormal() {
+        this.toJsonNodeRoundTripTwiceAndCheck(FontWeight.NORMAL);
     }
 
     // Serializable.....................................................................................................

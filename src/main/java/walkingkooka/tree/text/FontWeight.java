@@ -36,6 +36,9 @@ public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsD
     private final static int NORMAL_VALUE = 400;
     private final static int BOLD_VALUE = 700;
 
+    private final static String NORMAL_TEXT = "normal";
+    private final static String BOLD_TEXT = "bold";
+
     /**
      * A constant holding the font-weight of normal text
      */
@@ -79,7 +82,7 @@ public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsD
 
     private final int value;
 
-    // HasJsonNode ...................................................................................................
+    // HasJsonNode .....................................................................................................
 
     /**
      * Factory that creates a {@link FontWeight} from the given node.
@@ -88,7 +91,11 @@ public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsD
         Objects.requireNonNull(node, "node");
 
         try {
-            return with(node.numberValueOrFail().intValue());
+            return NORMAL_JSON.equals(node) ?
+                    NORMAL :
+                    BOLD_JSON.equals(node) ?
+                            BOLD :
+                            with(node.numberValueOrFail().intValue());
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
@@ -96,8 +103,15 @@ public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsD
 
     @Override
     public JsonNode toJsonNode() {
-        return JsonNode.number(this.value);
+        return NORMAL_VALUE == this.value ?
+                NORMAL_JSON :
+                BOLD_VALUE == this.value ?
+                        BOLD_JSON :
+                        JsonNode.number(this.value);
     }
+
+    private final static JsonNode NORMAL_JSON = JsonNode.string(NORMAL_TEXT);
+    private final static JsonNode BOLD_JSON = JsonNode.string(BOLD_TEXT);
 
     static {
         HasJsonNode.register("font-weight",
@@ -139,9 +153,9 @@ public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsD
     public String toString() {
         final int value = this.value;
         return  NORMAL_VALUE == value ?
-                "normal" :
+                NORMAL_TEXT :
                 BOLD_VALUE == value ?
-                        "bold" :
+                        BOLD_TEXT :
                         String.valueOf(value);
     }
 
