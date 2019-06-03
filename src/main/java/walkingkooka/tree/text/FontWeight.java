@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
@@ -91,14 +92,22 @@ public final class FontWeight implements Comparable<FontWeight>, HashCodeEqualsD
         Objects.requireNonNull(node, "node");
 
         try {
-            return NORMAL_JSON.equals(node) ?
-                    NORMAL :
-                    BOLD_JSON.equals(node) ?
-                            BOLD :
-                            with(node.numberValueOrFail().intValue());
+            return node.isString() ?
+                    fromJsonStringNode(node.stringValueOrFail()) :
+                    with(node.numberValueOrFail().intValue());
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
+    }
+
+    private static FontWeight fromJsonStringNode(final String value) {
+        return BOLD_TEXT.equals(value) ? BOLD :
+                NORMAL_TEXT.equals(value) ? NORMAL :
+                        fromJsonStringNode0(value);
+    }
+
+    private static FontWeight fromJsonStringNode0(final String value) {
+        throw new IllegalArgumentException("Unknown font weight " + CharSequences.quote(value));
     }
 
     @Override
