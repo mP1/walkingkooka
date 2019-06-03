@@ -48,11 +48,11 @@ public final class StringTextStylePropertyValueHandlerTest extends TextStyleProp
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.converter(), "String");
+        this.toStringAndCheck(this.handler(), "String");
     }
 
     @Override
-    StringTextStylePropertyValueHandler converter() {
+    StringTextStylePropertyValueHandler handler() {
         return StringTextStylePropertyValueHandler.INSTANCE;
     }
 
