@@ -113,6 +113,14 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
     }
 
     @Test
+    public void testFromJsonNormal2() {
+        this.fromJsonNodeAndCheck(JsonNode.array()
+                        .appendChild(JsonNode.string("normal"))
+                        .get(0),
+                FontWeight.NORMAL);
+    }
+
+    @Test
     public void testFromJsonNumber() {
         final int value = 20;
         this.fromJsonNodeAndCheck(JsonNode.number(value),
