@@ -84,6 +84,13 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     }
 
     /**
+     * Creates and adds a new {@link TextStylePropertyName} to the cache being built that handles {@link Opacity} values.
+     */
+    private static TextStylePropertyName<Opacity> registerOpacityConstant(final String property) {
+        return registerConstant(property, TextStylePropertyValueHandler.opacity());
+    }
+    
+    /**
      * Creates and adds a new {@link TextStylePropertyName} to the cache being built.
      */
     private static <T> TextStylePropertyName<T> registerConstant(final String property,
@@ -168,6 +175,11 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     public final static TextStylePropertyName<Hyphens> HYPHENS = registerEnumConstant("hyphens",
             Hyphens::valueOf,
             Hyphens.class);
+
+    /**
+     * opacity
+     */
+    public final static TextStylePropertyName<Opacity> OPACITY = registerOpacityConstant("opacity");
 
     /**
      * text-alignment
