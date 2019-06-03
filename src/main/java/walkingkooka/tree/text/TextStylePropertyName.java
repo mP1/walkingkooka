@@ -22,6 +22,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 
@@ -47,13 +48,6 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     final static Map<String, TextStylePropertyName<?>> CONSTANTS = Maps.sorted(TextStylePropertyName.CASE_SENSITIVITY.comparator());
 
     /**
-     * Creates and adds a new {@link TextStylePropertyName} to the cache being built that handles {@link Color} values.
-     */
-    private static TextStylePropertyName<Color> registerColorConstant(final String property) {
-        return registerConstant(property, TextStylePropertyValueHandler.color());
-    }
-
-    /**
      * Creates and adds a new {@link TextStylePropertyName} that handles {@link Enum} values.
      */
     private static <E extends Enum<E>> TextStylePropertyName<E> registerEnumConstant(final String property,
@@ -63,31 +57,12 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     }
 
     /**
-     * Creates and adds a new {@link TextStylePropertyName} to the cache being built that handles {@link FontFamilyName} values.
+     * Creates and adds a new {@link TextStylePropertyName} that handles {@link Enum} values.
      */
-    private static TextStylePropertyName<FontFamilyName> registerFontFamilyNameConstant(final String property) {
-        return registerConstant(property, TextStylePropertyValueHandler.fontFamilyName());
-    }
-
-    /**
-     * Creates and adds a new {@link TextStylePropertyName} to the cache being built that handles {@link FontSize} values.
-     */
-    private static TextStylePropertyName<FontSize> registerFontSizeConstant(final String property) {
-        return registerConstant(property, TextStylePropertyValueHandler.fontSize());
-    }
-
-    /**
-     * Creates and adds a new {@link TextStylePropertyName} to the cache being built that handles {@link FontWeight} values.
-     */
-    private static TextStylePropertyName<FontWeight> registerFontWeightConstant(final String property) {
-        return registerConstant(property, TextStylePropertyValueHandler.fontWeight());
-    }
-
-    /**
-     * Creates and adds a new {@link TextStylePropertyName} to the cache being built that handles {@link Opacity} values.
-     */
-    private static TextStylePropertyName<Opacity> registerOpacityConstant(final String property) {
-        return registerConstant(property, TextStylePropertyValueHandler.opacity());
+    private static <H extends HasJsonNode> TextStylePropertyName<H> registerHasJsonNodeConstant(final String property,
+                                                                                                final Class<H> type,
+                                                                                                final Function<JsonNode, H> fromJsonNode) {
+        return registerConstant(property, TextStylePropertyValueHandler.hasJsonNode(type, fromJsonNode));
     }
     
     /**
@@ -103,7 +78,9 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * Background color
      */
-    public final static TextStylePropertyName<Color> BACKGROUND_COLOR = registerColorConstant("background-color");
+    public final static TextStylePropertyName<Color> BACKGROUND_COLOR = registerHasJsonNodeConstant("background-color",
+            Color.class,
+            Color::fromJsonNode);
 
     /**
      * direction
@@ -115,7 +92,9 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * font-family-name
      */
-    public final static TextStylePropertyName<FontFamilyName> FONT_FAMILY_NAME = registerFontFamilyNameConstant("font-family-name");
+    public final static TextStylePropertyName<FontFamilyName> FONT_FAMILY_NAME = registerHasJsonNodeConstant("font-family-name",
+            FontFamilyName.class,
+            FontFamilyName::fromJsonNode);
 
     /**
      * font-kerning
@@ -127,7 +106,9 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * font-size
      */
-    public final static TextStylePropertyName<FontSize> FONT_SIZE = registerFontSizeConstant("font-size");
+    public final static TextStylePropertyName<FontSize> FONT_SIZE = registerHasJsonNodeConstant("font-size",
+            FontSize.class,
+            FontSize::fromJsonNode);
 
     /**
      * font-stretch
@@ -153,7 +134,9 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * font-weight
      */
-    public final static TextStylePropertyName<FontWeight> FONT_WEIGHT = registerFontWeightConstant("font-weight");
+    public final static TextStylePropertyName<FontWeight> FONT_WEIGHT = registerHasJsonNodeConstant("font-weight",
+            FontWeight.class,
+            FontWeight::fromJsonNode);
 
     /**
      * hanging-punctuation
@@ -179,7 +162,9 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * opacity
      */
-    public final static TextStylePropertyName<Opacity> OPACITY = registerOpacityConstant("opacity");
+    public final static TextStylePropertyName<Opacity> OPACITY = registerHasJsonNodeConstant("opacity",
+            Opacity.class,
+            Opacity::fromJsonNode);
 
     /**
      * text-alignment
@@ -191,7 +176,9 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * Text color
      */
-    public final static TextStylePropertyName<Color> TEXT_COLOR = registerColorConstant("text-color");
+    public final static TextStylePropertyName<Color> TEXT_COLOR = registerHasJsonNodeConstant("text-color",
+            Color.class,
+            Color::fromJsonNode);
 
     /**
      * text-decoration: UNDERLINE, OVERLINE, LINE_THROUGH
@@ -203,7 +190,9 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * text-decoration-color
      */
-    public final static TextStylePropertyName<Color> TEXT_DECORATION_COLOR = registerColorConstant("text-decoration-color");
+    public final static TextStylePropertyName<Color> TEXT_DECORATION_COLOR = registerHasJsonNodeConstant("text-decoration-color",
+            Color.class,
+            Color::fromJsonNode);
 
     /**
      * text-decoration-style

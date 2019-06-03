@@ -19,9 +19,11 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.color.Color;
+import walkingkooka.tree.json.HasJsonNode;
 
-public final class ColorTextStylePropertyValueHandlerTest extends TextStylePropertyValueHandlerTestCase<ColorTextStylePropertyValueHandler, Color> {
+public final class HasJsonNodeTextStylePropertyValueHandlerTest extends TextStylePropertyValueHandlerTestCase<HasJsonNodeTextStylePropertyValueHandler<Color>, Color> {
 
     @Test
     public void testFromJsonNode() {
@@ -53,8 +55,8 @@ public final class ColorTextStylePropertyValueHandlerTest extends TextStylePrope
     }
 
     @Override
-    ColorTextStylePropertyValueHandler converter() {
-        return ColorTextStylePropertyValueHandler.INSTANCE;
+    HasJsonNodeTextStylePropertyValueHandler<Color> converter() {
+        return HasJsonNodeTextStylePropertyValueHandler.with(Color.class, Color::fromJsonNode);
     }
 
     @Override
@@ -74,11 +76,11 @@ public final class ColorTextStylePropertyValueHandlerTest extends TextStylePrope
 
     @Override
     public String typeNamePrefix() {
-        return Color.class.getSimpleName();
+        return HasJsonNode.class.getSimpleName();
     }
 
     @Override
-    public Class<ColorTextStylePropertyValueHandler> type() {
-        return ColorTextStylePropertyValueHandler.class;
+    public Class<HasJsonNodeTextStylePropertyValueHandler<Color>> type() {
+        return Cast.to(HasJsonNodeTextStylePropertyValueHandler.class);
     }
 }
