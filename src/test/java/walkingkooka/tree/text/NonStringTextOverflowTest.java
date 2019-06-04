@@ -36,6 +36,31 @@ public final class NonStringTextOverflowTest extends TextOverflowTestCase<NonStr
     }
 
     @Test
+    public void testIsClipClip() {
+        assertEquals(true, TextOverflow.CLIP.isClip());
+    }
+
+    @Test
+    public void testIsClipEllipse() {
+        assertEquals(false, TextOverflow.ELLIPSIS.isClip());
+    }
+
+    @Test
+    public void testIsEllipseClip() {
+        assertEquals(false, TextOverflow.CLIP.isEllipse());
+    }
+
+    @Test
+    public void testIsEllipseEllipse() {
+        assertEquals(true, TextOverflow.ELLIPSIS.isEllipse());
+    }
+
+    @Test
+    public void testIsString() {
+        assertEquals(false, TextOverflow.ELLIPSIS.isString());
+    }
+
+    @Test
     public void testDifferent() {
         this.checkNotEquals(TextOverflow.CLIP, TextOverflow.ELLIPSIS);
     }
