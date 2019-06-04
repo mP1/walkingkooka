@@ -107,6 +107,11 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
         // normal
     }
 
+    @Override
+    void numberFail() {
+        this.numberFail0();
+    }
+
     // Object...........................................................................................................
 
     @Override

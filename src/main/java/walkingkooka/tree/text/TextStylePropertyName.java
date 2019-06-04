@@ -181,6 +181,13 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             Opacity::fromJsonNode);
 
     /**
+     * tab-size
+     */
+    public final static TextStylePropertyName<TabSize> TAB_SIZE = registerHasJsonNodeConstant("tab-size",
+            TabSize.class,
+            TabSize::fromJsonNode);
+
+    /**
      * text-alignment
      */
     public final static TextStylePropertyName<TextAlignment> TEXT_ALIGNMENT = registerEnumConstant("text-align",
