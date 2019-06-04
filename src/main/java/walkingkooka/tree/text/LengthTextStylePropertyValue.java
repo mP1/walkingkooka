@@ -32,11 +32,11 @@ abstract class LengthTextStylePropertyValue implements HashCodeEqualsDefined,
         HasJsonNode,
         Value<Length<?>> {
 
-    static void check(final Length length) {
+    static void check(final Length<?> length) {
         Objects.requireNonNull(length, "length");
     }
 
-    LengthTextStylePropertyValue(final Length length) {
+    LengthTextStylePropertyValue(final Length<?> length) {
         super();
         this.length = length;
     }

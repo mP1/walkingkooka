@@ -27,14 +27,14 @@ public final class LineHeight extends LengthTextStylePropertyValue implements Ha
         return with(Length.parse(text));
     }
 
-    public static LineHeight with(final Length length) {
+    public static LineHeight with(final Length<?> length) {
         check(length);
         length.normalOrPixelOrFail();
 
         return new LineHeight(length);
     }
 
-    private LineHeight(final Length length) {
+    private LineHeight(final Length<?> length) {
         super(length);
     }
 
