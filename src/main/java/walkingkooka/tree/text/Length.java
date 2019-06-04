@@ -37,11 +37,15 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
      * Parses text that contains a support measurement mostly a number and unit.
      */
     public static Length<?> parse(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
+        checkText(text);
 
         return NormalLength.TEXT.equals(text) ?
                 NormalLength.INSTANCE :
                 LengthUnit.tryAllParse(text);
+    }
+
+    static void checkText(final String text) {
+        CharSequences.failIfNullOrEmpty(text, "text");
     }
 
     /**
@@ -51,6 +55,13 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
         return NormalLength.INSTANCE;
     }
 
+    /**
+     * {@see NumberLength}
+     */
+    public static NumberLength number(final long value) {
+        return NumberLength.with(value);
+    }
+    
     /**
      * {@see PixelLength}
      */
@@ -66,6 +77,8 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
 
     abstract double doubleValue();
 
+    abstract long longValue();
+
     /**
      * The unit portion of this length.
      */
@@ -77,6 +90,11 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
      * Only {@link NormalLength} returns true.
      */
     public abstract boolean isNormal();
+
+    /**
+     * Only {@link NumberLength} returns true.
+     */
+    public abstract boolean isNumber();
 
     /**
      * Only {@link PixelLength} returns true.
@@ -102,7 +120,7 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
     static {
         HasJsonNode.register("length",
                 Length::fromJsonNode,
-                Length.class, NormalLength.class, PixelLength.class);
+                Length.class, NormalLength.class, NumberLength.class, PixelLength.class);
     }
 
     // HasJsonNode......................................................................................................
