@@ -72,6 +72,12 @@ final class TextStyleMap extends AbstractMap<TextStylePropertyName<?>, Object> {
 
     final TextStyleMapEntrySet entries;
 
+    // TextStyleVisitor.................................................................................................
+
+    void accept(final TextStyleVisitor visitor) {
+        this.entries.accept(visitor);
+    }
+
     // HasJsonNode......................................................................................................
 
     static TextStyleMap fromJson(final JsonNode json) {

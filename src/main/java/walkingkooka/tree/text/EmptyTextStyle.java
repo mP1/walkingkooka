@@ -107,6 +107,13 @@ final class EmptyTextStyle extends TextStyle {
         return this;
     }
 
+    // TextStyleVisitor.................................................................................................
+
+    @Override
+    void accept(final TextStyleVisitor visitor) {
+        // no properties
+    }
+
     // Object..........................................................................................................
 
     @Override

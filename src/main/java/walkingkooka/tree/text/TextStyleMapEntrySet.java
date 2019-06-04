@@ -98,6 +98,13 @@ final class TextStyleMapEntrySet extends AbstractSet<Entry<TextStylePropertyName
 
     private final List<Entry<TextStylePropertyName<?>, Object>> entries;
 
+    // TextStyleVisitor.................................................................................................
+
+    void accept(final TextStyleVisitor visitor) {
+        this.entries.stream()
+                .forEach(visitor::acceptPropertyAndValue);
+    }
+
     // HasJsonNode......................................................................................................
 
     /**

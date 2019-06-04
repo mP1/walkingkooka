@@ -156,6 +156,10 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
         Objects.requireNonNull(propertyName, "propertyName");
     }
 
+    // TextStyleVisitor.................................................................................................
+
+    abstract void accept(final TextStyleVisitor visitor);
+
     // Object..........................................................................................................
 
     @Override
