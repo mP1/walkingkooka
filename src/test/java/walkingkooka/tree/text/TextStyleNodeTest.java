@@ -280,6 +280,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.FONT_VARIANT, FontVariant.SMALL_CAPS);
         properties.put(TextStylePropertyName.FONT_WEIGHT, FontWeight.with(1000));
         properties.put(TextStylePropertyName.HANGING_PUNCTUATION, HangingPunctuation.LAST);
+        properties.put(TextStylePropertyName.HEIGHT, Height.with(Length.pixel(99)));
         properties.put(TextStylePropertyName.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
         properties.put(TextStylePropertyName.HYPHENS, Hyphens.AUTO);
         properties.put(TextStylePropertyName.LINE_HEIGHT, LineHeight.with(Length.pixel(99)));
@@ -294,6 +295,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.TEXT_WRAPPING, TextWrapping.OVERFLOW);
         properties.put(TextStylePropertyName.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
         properties.put(TextStylePropertyName.WHITE_SPACE, TextWhitespace.PRE);
+        properties.put(TextStylePropertyName.WIDTH, Width.with(Length.pixel(99)));
         properties.put(TextStylePropertyName.WORD_BREAK, WordBreak.BREAK_WORD);
         properties.put(TextStylePropertyName.WORD_WRAP, WordWrap.BREAK_WORD);
         properties.put(TextStylePropertyName.WRITING_MODE, WritingMode.VERTICAL_LR);
