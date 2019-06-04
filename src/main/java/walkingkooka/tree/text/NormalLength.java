@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
@@ -29,93 +28,85 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A measurement in pixels.
+ * A normal measurement.
  */
-public final class PixelLength extends Length<Double> implements HasJsonNode, Value<Double> {
+public final class NormalLength extends Length<Void> implements HasJsonNode, Value<Void> {
 
-    private final static LengthUnit<Double, PixelLength> UNIT = LengthUnit.PIXEL;
+    final static String TEXT = "normal";
 
     /**
-     * Parses text that contains a pixel measurement, note the unit is required.
+     * Parses text that contains a normal literal.
      */
-    public static PixelLength parsePixels(final String text) {
+    public static NormalLength parseNormal(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
-        return parsePixels0(text);
+        return parseNormal0(text);
     }
 
-    static PixelLength parsePixels0(final String text) {
-        UNIT.parseUnitTextCheck(text);
+    static NormalLength parseNormal0(final String text) {
+        CharSequences.failIfNullOrEmpty(text, "text");
 
-        try {
-            return with(Double.parseDouble(text.substring(0, text.length() - 2)));
-        } catch (final NumberFormatException cause) {
-            throw new IllegalArgumentException("Invalid pixel count " + CharSequences.quoteAndEscape(text), cause);
+        if(!TEXT.equals(text)) {
+            throw new IllegalArgumentException("Invalid normal text " + CharSequences.quoteAndEscape(text));
         }
+        return INSTANCE;
     }
 
-    static PixelLength with(final double value) {
-        return new PixelLength(value);
-    }
+    final static NormalLength INSTANCE = new NormalLength();
 
-    private PixelLength(final double value) {
+    private NormalLength() {
         super();
-        this.value = value;
     }
 
     @Override
-    public Double value() {
-        return this.value;
+    public Void value() {
+        throw new UnsupportedOperationException();
     }
-
-    private final double value;
 
     @Override
     double doubleValue() {
-        return this.value;
+        throw new UnsupportedOperationException();
     }
 
     // unit.............................................................................................................
 
     @Override
-    public Optional<LengthUnit<Double, Length<Double>>> unit() {
-        return UNIT_OPTIONAL;
+    public Optional<LengthUnit<Void, Length<Void>>> unit() {
+        return Optional.empty();
     }
-
-    private final static Optional<LengthUnit<Double, Length<Double>>> UNIT_OPTIONAL = Cast.to(Optional.of(UNIT));
 
     // isXXX............................................................................................................
 
     @Override
     public boolean isNormal() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isPixel() {
-        return true;
+        return false;
     }
 
     // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return Double.hashCode(this.value);
+        return System.identityHashCode(this);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof PixelLength;
+        return other instanceof NormalLength;
     }
 
     @Override
     boolean equals0(final Length other) {
-        return 0 == Double.compare(this.value, other.doubleValue());
+        return true;
     }
 
     @Override
     public String toString() {
-        return UNIT.toString(this.value);
+        return TEXT;
     }
 
     // HasJsonNode......................................................................................................
@@ -123,11 +114,11 @@ public final class PixelLength extends Length<Double> implements HasJsonNode, Va
     /**
      * Accepts a json string holding a number and px unit suffix.
      */
-    public static PixelLength fromJsonNode(final JsonNode node) {
+    public static NormalLength fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
-            return parsePixels(node.stringValueOrFail());
+            return parseNormal(node.stringValueOrFail());
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }

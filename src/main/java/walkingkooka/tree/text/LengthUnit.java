@@ -44,8 +44,6 @@ public final class LengthUnit<V, L extends Length<V>> {
 
     // @see Length:parse
     static Length tryAllParse(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
-
         return Arrays.stream(UNITS)
                 .filter(u -> u.unitPresent(text))
                 .map(u -> u.parse(text))

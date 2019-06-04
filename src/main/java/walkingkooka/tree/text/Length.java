@@ -20,6 +20,7 @@ package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
@@ -36,7 +37,18 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
      * Parses text that contains a support measurement mostly a number and unit.
      */
     public static Length<?> parse(final String text) {
-        return LengthUnit.tryAllParse(text);
+        CharSequences.failIfNullOrEmpty(text, "text");
+
+        return NormalLength.TEXT.equals(text) ?
+                NormalLength.INSTANCE :
+                LengthUnit.tryAllParse(text);
+    }
+
+    /**
+     * {@see NormalLength}
+     */
+    public static NormalLength normal() {
+        return NormalLength.INSTANCE;
     }
 
     /**
@@ -62,6 +74,11 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
     // is ..............................................................................................................
 
     /**
+     * Only {@link NormalLength} returns true.
+     */
+    public abstract boolean isNormal();
+
+    /**
      * Only {@link PixelLength} returns true.
      */
     public abstract boolean isPixel();
@@ -85,7 +102,7 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
     static {
         HasJsonNode.register("length",
                 Length::fromJsonNode,
-                Length.class, PixelLength.class);
+                Length.class, NormalLength.class, PixelLength.class);
     }
 
     // HasJsonNode......................................................................................................

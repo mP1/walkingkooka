@@ -41,6 +41,11 @@ public final class LengthTest implements ClassTesting2<Length<?>>,
     }
 
     @Test
+    public void testParseNormal() {
+        this.parseAndCheck("normal", Length.normal());
+    }
+
+    @Test
     public void testParsePixels() {
         this.parseAndCheck("12.5px", Length.pixel(12.5));
     }
