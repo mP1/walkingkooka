@@ -287,6 +287,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.LINE_HEIGHT, LineHeight.with(Length.pixel(99.0)));
         properties.put(TextStylePropertyName.OPACITY, Opacity.with(0.5));
         properties.put(TextStylePropertyName.TAB_SIZE, TabSize.with(Length.number(22)));
+        properties.put(TextStylePropertyName.TEXT, "abc123");
         properties.put(TextStylePropertyName.TEXT_ALIGNMENT, TextAlignment.LEFT);
         properties.put(TextStylePropertyName.TEXT_COLOR, Color.fromRgb(0x789abc));
         properties.put(TextStylePropertyName.TEXT_DECORATION, TextDecoration.UNDERLINE);
