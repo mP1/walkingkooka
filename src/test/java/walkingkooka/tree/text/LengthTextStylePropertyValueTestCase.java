@@ -87,9 +87,9 @@ public abstract class LengthTextStylePropertyValueTestCase<L extends LengthTextS
 
     abstract L createPropertyValue(final Length length);
 
-    abstract Length length();
+    abstract Length<?> length();
 
-    abstract Length differentLength();
+    abstract Length<?> differentLength();
 
     // ClassTesting......................................................................................................
 

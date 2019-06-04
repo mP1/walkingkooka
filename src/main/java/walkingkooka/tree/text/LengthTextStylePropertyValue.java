@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 abstract class LengthTextStylePropertyValue implements HashCodeEqualsDefined,
         HasJsonNode,
-        Value<Length> {
+        Value<Length<?>> {
 
     static void check(final Length length) {
         Objects.requireNonNull(length, "length");
@@ -44,11 +44,11 @@ abstract class LengthTextStylePropertyValue implements HashCodeEqualsDefined,
     // Length ...........................................................................................................
 
     @Override
-    public final Length value() {
+    public final Length<?> value() {
         return this.length;
     }
 
-    final Length length;
+    final Length<?> length;
 
     // Object ..........................................................................................................
 

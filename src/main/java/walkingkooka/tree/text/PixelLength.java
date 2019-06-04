@@ -31,7 +31,7 @@ import java.util.Objects;
  */
 public final class PixelLength extends Length implements HasJsonNode, Value<Double> {
 
-    final static String UNIT = "px";
+    private final static LengthUnit<Double, PixelLength> UNIT = LengthUnit.PIXEL;
 
     /**
      * Parses text that contains a pixel measurement, note the unit is required.
@@ -43,9 +43,7 @@ public final class PixelLength extends Length implements HasJsonNode, Value<Doub
     }
 
     static PixelLength parsePixels0(final String text) {
-        if (!text.endsWith(UNIT)) {
-            throw new IllegalArgumentException("Text " + CharSequences.quoteAndEscape(text) + " missing " + CharSequences.quoteAndEscape(UNIT));
-        }
+        UNIT.parseUnitTextCheck(text);
 
         try {
             return with(Double.parseDouble(text.substring(0, text.length() - 2)));
@@ -76,6 +74,11 @@ public final class PixelLength extends Length implements HasJsonNode, Value<Doub
     }
 
     @Override
+    public LengthUnit<Double, PixelLength> unit() {
+        return UNIT;
+    }
+
+    @Override
     public boolean isPixel() {
         return true;
     }
@@ -99,11 +102,7 @@ public final class PixelLength extends Length implements HasJsonNode, Value<Doub
 
     @Override
     public String toString() {
-        final double value = this.value;
-        final long longValue = Math.round(value);
-        return longValue == value ?
-                longValue + UNIT :
-                doubleValue() + UNIT;
+        return UNIT.toString(this.value);
     }
 
     // HasJsonNode......................................................................................................
