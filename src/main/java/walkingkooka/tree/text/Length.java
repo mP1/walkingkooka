@@ -24,6 +24,7 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Base class for any measure.
@@ -56,7 +57,7 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
     /**
      * The unit portion of this length.
      */
-    abstract public LengthUnit<?, ?> unit();
+    abstract public Optional<LengthUnit<V, Length<V>>> unit();
 
     // is ..............................................................................................................
 

@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
@@ -25,6 +26,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A measurement in pixels.
@@ -73,10 +75,16 @@ public final class PixelLength extends Length<Double> implements HasJsonNode, Va
         return this.value;
     }
 
+    // unit.............................................................................................................
+
     @Override
-    public LengthUnit<Double, PixelLength> unit() {
-        return UNIT;
+    public Optional<LengthUnit<Double, Length<Double>>> unit() {
+        return UNIT_OPTIONAL;
     }
+
+    private final static Optional<LengthUnit<Double, Length<Double>>> UNIT_OPTIONAL = Cast.to(Optional.of(UNIT));
+
+    // isXXX............................................................................................................
 
     @Override
     public boolean isPixel() {
