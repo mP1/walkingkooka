@@ -46,6 +46,23 @@ final class NonStringTextOverflow extends TextOverflow {
         return Optional.empty();
     }
 
+    // isXXX............................................................................................................
+
+    @Override
+    public boolean isClip() {
+        return CLIP_TEXT.equals(this.value);
+    }
+
+    @Override
+    public boolean isEllipse() {
+        return ELLIPSIS_TEXT.equals(this.value);
+    }
+
+    @Override
+    public boolean isString() {
+        return false;
+    }
+
     // Object .........................................................................................................
 
     @Override

@@ -75,6 +75,12 @@ public abstract class TextOverflow implements HashCodeEqualsDefined,
      */
     public abstract Optional<String> value();
 
+    public abstract boolean isClip();
+
+    public abstract boolean isEllipse();
+
+    public abstract boolean isString();
+
     @Override
     public abstract String toString();
 

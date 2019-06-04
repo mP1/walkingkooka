@@ -50,6 +50,23 @@ final class StringTextOverflow extends TextOverflow {
 
     private final String value;
 
+    // isXXX............................................................................................................
+
+    @Override
+    public boolean isClip() {
+        return false;
+    }
+
+    @Override
+    public boolean isEllipse() {
+        return false;
+    }
+
+    @Override
+    public boolean isString() {
+        return true;
+    }
+
     // Object .........................................................................................................
 
     @Override

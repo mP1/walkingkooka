@@ -52,6 +52,21 @@ public final class StringTextOverflowTest extends TextOverflowTestCase<StringTex
     }
 
     @Test
+    public void testIsClip() {
+        assertEquals(false, StringTextOverflow.with(TEXT).isClip());
+    }
+
+    @Test
+    public void testIsEllipse() {
+        assertEquals(false, StringTextOverflow.with(TEXT).isEllipse());
+    }
+
+    @Test
+    public void testIsString() {
+        assertEquals(true, StringTextOverflow.with(TEXT).isString());
+    }
+
+    @Test
     public void testDifferentEllipsis() {
         this.checkNotEquals(StringTextOverflow.with("abc123"), TextOverflow.ELLIPSIS);
     }
