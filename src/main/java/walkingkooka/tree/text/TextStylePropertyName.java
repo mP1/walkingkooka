@@ -167,6 +167,13 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             Hyphens.class);
 
     /**
+     * line-height
+     */
+    public final static TextStylePropertyName<LineHeight> LINE_HEIGHT = registerHasJsonNodeConstant("line-height",
+            LineHeight.class,
+            LineHeight::fromJsonNode);
+
+    /**
      * opacity
      */
     public final static TextStylePropertyName<Opacity> OPACITY = registerHasJsonNodeConstant("opacity",
