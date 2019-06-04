@@ -112,6 +112,13 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
         this.numberFail0();
     }
 
+    // LengthVisitor....................................................................................................
+
+    @Override
+    void accept(final LengthVisitor visitor) {
+        visitor.visit(this);
+    }
+
     // Object...........................................................................................................
 
     @Override

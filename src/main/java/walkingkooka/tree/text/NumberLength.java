@@ -122,6 +122,13 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
         // number
     }
 
+    // LengthVisitor....................................................................................................
+
+    @Override
+    void accept(final LengthVisitor visitor) {
+        visitor.visit(this);
+    }
+
     // Object...........................................................................................................
 
     @Override

@@ -20,9 +20,12 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NormalLengthTest extends LengthTestCase<NormalLength, Void> {
@@ -43,6 +46,39 @@ public final class NormalLengthTest extends LengthTestCase<NormalLength, Void> {
             NormalLength.INSTANCE.value();
         });
     }
+
+    // LengthVisitor....................................................................................................
+
+    @Test
+    public void testVisitor() {
+        final StringBuilder b = new StringBuilder();
+
+        final NormalLength length = this.createLength();
+        new FakeLengthVisitor() {
+            @Override
+            protected Visiting startVisit(final Length l) {
+                assertSame(length, l, "length");
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final Length l) {
+                assertSame(length, l, "length");
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final NormalLength l) {
+                assertSame(length, l, "length");
+                b.append("3");
+            }
+        }.accept(length);
+
+        assertEquals("132", b.toString());
+    }
+
+    // toString........................................................................................................
 
     @Test
     public void testToString() {

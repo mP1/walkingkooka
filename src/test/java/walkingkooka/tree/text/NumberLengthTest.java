@@ -20,10 +20,12 @@ package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NumberLengthTest extends LengthTestCase<NumberLength, Long> {
@@ -66,6 +68,40 @@ public final class NumberLengthTest extends LengthTestCase<NumberLength, Long> {
     public void testDifferentValue() {
         this.checkNotEquals(NumberLength.with(99L));
     }
+
+    // LengthVisitor....................................................................................................
+
+    @Test
+    public void testVisitor() {
+        final StringBuilder b = new StringBuilder();
+
+        final NumberLength length = this.createLength();
+        new FakeLengthVisitor() {
+            @Override
+            protected Visiting startVisit(final Length l) {
+                assertSame(length, l, "length");
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final Length l) {
+                assertSame(length, l, "length");
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final NumberLength l) {
+                assertSame(length, l, "length");
+                b.append("3");
+            }
+        }.accept(length);
+
+        assertEquals("132", b.toString());
+    }
+
+    // toString........................................................................................................
+
 
     @Test
     public void testToString() {
