@@ -31,14 +31,14 @@ public final class LengthUnit<V, L extends Length<V>> {
     /**
      * Pixel length unit.
      */
-    public final static LengthUnit<Double, PixelLength> PIXEL = new LengthUnit<Double, PixelLength>("px",
+    public final static LengthUnit<Double, PixelLength> PIXEL = new LengthUnit<>("px",
             PixelLength::parsePixels,
             Length::pixel);
 
     /**
      * Returns all units.
      */
-    public final static LengthUnit<?, ?>[] units() {
+    public static LengthUnit<?, ?>[] units() {
         return UNITS.clone();
     }
 
@@ -105,7 +105,7 @@ public final class LengthUnit<V, L extends Length<V>> {
         return this.factory.apply(value);
     }
 
-    private Function<V, L> factory;
+    private final Function<V, L> factory;
 
     @Override
     public String toString() {

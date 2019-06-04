@@ -52,7 +52,7 @@ public final class FontSizeTest implements ClassTesting2<FontSize>,
 
     @Test
     public void testWith() {
-        final Integer value = 10;
+        final int value = 10;
         final FontSize size = FontSize.with(value);
         assertEquals(value, size.value(), "value");
     }

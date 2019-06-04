@@ -150,9 +150,9 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
                 null);
     }
 
-    final <T> void getAndCheck(final TextStyle properties,
-                               final TextStylePropertyName<T> propertyName,
-                               final T value) {
+    final <TT> void getAndCheck(final TextStyle properties,
+                               final TextStylePropertyName<TT> propertyName,
+                               final TT value) {
         assertEquals(Optional.ofNullable(value),
                 properties.get(propertyName),
                 () -> properties + " get " + propertyName);

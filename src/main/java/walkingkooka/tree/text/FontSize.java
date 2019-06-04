@@ -46,7 +46,7 @@ public final class FontSize implements Comparable<FontSize>, HashCodeEqualsDefin
      */
     private static FontSize[] registerConstants() {
         return IntStream.rangeClosed(0, CONSTANT_COUNT)
-                .mapToObj(value -> new FontSize(value))
+                .mapToObj(FontSize::new)
                 .toArray(FontSize[]::new);
     }
 

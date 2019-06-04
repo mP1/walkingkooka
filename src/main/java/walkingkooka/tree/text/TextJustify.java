@@ -22,5 +22,5 @@ public enum TextJustify {
     AUTO,
     INTER_WORD,
     INTER_CHARACTER,
-    NONE;
+    NONE
 }

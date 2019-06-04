@@ -22,5 +22,5 @@ public enum TextAlignment {
     LEFT,
     RIGHT,
     CENTER,
-    JUSTIFY;
+    JUSTIFY
 }

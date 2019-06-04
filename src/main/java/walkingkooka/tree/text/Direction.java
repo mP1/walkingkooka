@@ -20,5 +20,5 @@ package walkingkooka.tree.text;
 
 public enum Direction {
     LTR,
-    RTL;
+    RTL
 }

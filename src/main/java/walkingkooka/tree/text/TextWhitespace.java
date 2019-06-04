@@ -23,5 +23,5 @@ public enum TextWhitespace {
     NOWRAP,
     PRE,
     PRE_LINE,
-    PRE_WRAP;
+    PRE_WRAP
 }

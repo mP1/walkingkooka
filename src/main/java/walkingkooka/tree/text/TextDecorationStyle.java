@@ -23,5 +23,5 @@ public enum TextDecorationStyle {
     DOUBLE,
     DOTTED,
     DASHED,
-    WAVY;
+    WAVY
 }

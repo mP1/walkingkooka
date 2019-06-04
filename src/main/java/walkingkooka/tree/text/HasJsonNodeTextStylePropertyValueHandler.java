@@ -31,9 +31,9 @@ final class HasJsonNodeTextStylePropertyValueHandler<H extends HasJsonNode> exte
     /**
      * Singleton
      */
-    final static <T extends HasJsonNode> HasJsonNodeTextStylePropertyValueHandler<T> with(final Class<T> type,
+    static <T extends HasJsonNode> HasJsonNodeTextStylePropertyValueHandler<T> with(final Class<T> type,
                                                                                           final Function<JsonNode, T> fromJsonNode) {
-        return new HasJsonNodeTextStylePropertyValueHandler(type, fromJsonNode);
+        return new HasJsonNodeTextStylePropertyValueHandler<>(type, fromJsonNode);
     }
 
     /**

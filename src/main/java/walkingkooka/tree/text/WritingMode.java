@@ -21,5 +21,5 @@ package walkingkooka.tree.text;
 public enum WritingMode {
     HORIZONTAL_TB,
     VERTICAL_RL,
-    VERTICAL_LR;
+    VERTICAL_LR
 }

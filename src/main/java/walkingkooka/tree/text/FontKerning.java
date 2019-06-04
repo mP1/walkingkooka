@@ -19,5 +19,5 @@
 package walkingkooka.tree.text;
 
 public enum FontKerning {
-    NORMAL;
+    NORMAL
 }
