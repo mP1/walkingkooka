@@ -29,6 +29,7 @@ public final class Height extends LengthTextStylePropertyValue implements HasJso
 
     public static Height with(final Length length) {
         check(length);
+        length.pixelOrFail();
 
         return new Height(length);
     }

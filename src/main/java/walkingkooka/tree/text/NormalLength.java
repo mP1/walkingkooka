@@ -97,6 +97,16 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
         return false;
     }
 
+    @Override
+    void pixelOrFail() {
+        this.pixelOrFail0();
+    }
+
+    @Override
+    void normalOrPixelOrFail() {
+        // normal
+    }
+
     // Object...........................................................................................................
 
     @Override
