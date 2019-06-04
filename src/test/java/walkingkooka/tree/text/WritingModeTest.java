@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.text;
 
-public final class WritingModeTest extends EnumTextPropertyValueTestCase<WritingMode> {
+public final class WritingModeTest extends EnumTextStylePropertyValueTestCase<WritingMode> {
 
     @Override
     TextStylePropertyName<WritingMode> textStylePropertyName() {
@@ -26,7 +26,7 @@ public final class WritingModeTest extends EnumTextPropertyValueTestCase<Writing
     }
 
     @Override
-    WritingMode value() {
+    WritingMode createTextStylePropertyValue() {
         return WritingMode.VERTICAL_LR;
     }
 

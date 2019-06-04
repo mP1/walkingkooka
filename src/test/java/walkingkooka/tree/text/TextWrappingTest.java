@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class TextWrappingTest extends EnumTextPropertyValueTestCase<TextWrapping> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class TextWrappingTest extends EnumTextStylePropertyValueTestCase<TextWrapping> {
 
     @Override
     TextStylePropertyName<TextWrapping> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class TextWrappingTest extends EnumTextPropertyValueTestCase<TextWr
     }
 
     @Override
-    TextWrapping value() {
+    TextWrapping createTextStylePropertyValue() {
         return TextWrapping.CLIP;
     }
 

@@ -18,22 +18,20 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.HasJsonNodeTesting;
 
-public final class TextTransformTest extends EnumTextStylePropertyValueTestCase<TextTransform> {
+public abstract class TextStylePropertyValueTestCase2<V extends HasJsonNode> extends TextStylePropertyValueTestCase<V>
+        implements HasJsonNodeTesting<V> {
 
-    @Override
-    TextStylePropertyName<TextTransform> textStylePropertyName() {
-        return TextStylePropertyName.TEXT_TRANSFORM;
+    TextStylePropertyValueTestCase2() {
+        super();
     }
 
-    @Override
-    TextTransform createTextStylePropertyValue() {
-        return TextTransform.CAPITALIZE;
-    }
+    // HasJsonNode......................................................................................................
 
     @Override
-    public Class<TextTransform> type() {
-        return TextTransform.class;
+    public final V createHasJsonNode() {
+        return this.createTextStylePropertyValue();
     }
 }

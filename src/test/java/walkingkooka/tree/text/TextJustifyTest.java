@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class TextJustifyTest extends EnumTextPropertyValueTestCase<TextJustify> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class TextJustifyTest extends EnumTextStylePropertyValueTestCase<TextJustify> {
 
     @Override
     TextStylePropertyName<TextJustify> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class TextJustifyTest extends EnumTextPropertyValueTestCase<TextJus
     }
 
     @Override
-    TextJustify value() {
+    TextJustify createTextStylePropertyValue() {
         return TextJustify.INTER_CHARACTER;
     }
 

@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class FontStretchTest extends EnumTextPropertyValueTestCase<FontStretch> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class FontStretchTest extends EnumTextStylePropertyValueTestCase<FontStretch> {
 
     @Override
     TextStylePropertyName<FontStretch> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class FontStretchTest extends EnumTextPropertyValueTestCase<FontStr
     }
 
     @Override
-    FontStretch value() {
+    FontStretch createTextStylePropertyValue() {
         return FontStretch.NORMAL;
     }
 

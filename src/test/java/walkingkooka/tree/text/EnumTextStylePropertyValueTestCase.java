@@ -18,22 +18,9 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.tree.json.JsonNode;
+public abstract class EnumTextStylePropertyValueTestCase<E extends Enum<?>> extends TextStylePropertyValueTestCase<E> {
 
-public final class TextTransformTest extends EnumTextStylePropertyValueTestCase<TextTransform> {
-
-    @Override
-    TextStylePropertyName<TextTransform> textStylePropertyName() {
-        return TextStylePropertyName.TEXT_TRANSFORM;
-    }
-
-    @Override
-    TextTransform createTextStylePropertyValue() {
-        return TextTransform.CAPITALIZE;
-    }
-
-    @Override
-    public Class<TextTransform> type() {
-        return TextTransform.class;
+    EnumTextStylePropertyValueTestCase() {
+        super();
     }
 }

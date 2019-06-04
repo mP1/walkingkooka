@@ -21,13 +21,9 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
@@ -35,12 +31,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FontWeightTest implements ClassTesting2<FontWeight>,
-        ComparableTesting<FontWeight>,
+public final class FontWeightTest extends TextStylePropertyValueTestCase2<FontWeight>
+        implements ComparableTesting<FontWeight>,
         ConstantsTesting<FontWeight>,
-        SerializationTesting<FontWeight>,
-        HasJsonNodeTesting<FontWeight>,
-        ToStringTesting<FontWeight> {
+        SerializationTesting<FontWeight>  {
 
     private final static int VALUE = 456;
 
@@ -177,14 +171,44 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
     }
 
     @Override
+    FontWeight createTextStylePropertyValue() {
+        return FontWeight.with(VALUE);
+    }
+
+    @Override
+    TextStylePropertyName<FontWeight> textStylePropertyName() {
+        return TextStylePropertyName.FONT_WEIGHT;
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<FontWeight> type() {
+        return FontWeight.class;
+    }
+
+    // ComparableTesting................................................................................................
+
+    @Override
+    public FontWeight createComparable() {
+        return this.createTextStylePropertyValue();
+    }
+
+    // ConstantsTesting.................................................................................................
+
+    @Override
     public Set<FontWeight> intentionalDuplicateConstants() {
         return Sets.empty();
     }
 
+    // HasJsonNodeTesting...............................................................................................
+
     @Override
-    public FontWeight createComparable() {
-        return FontWeight.with(VALUE);
+    public FontWeight fromJsonNode(final JsonNode jsonNode) {
+        return FontWeight.fromJsonNode(jsonNode);
     }
+
+    // SerializationTesting.............................................................................................
 
     @Override
     public FontWeight serializableInstance() {
@@ -194,27 +218,5 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
     @Override
     public boolean serializableInstanceIsSingleton() {
         return false;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
-
-    @Override
-    public Class<FontWeight> type() {
-        return FontWeight.class;
-    }
-
-    // HasJsonNodeTesting.....................................................................
-
-    @Override
-    public FontWeight createHasJsonNode() {
-        return this.createObject();
-    }
-
-    @Override
-    public FontWeight fromJsonNode(final JsonNode jsonNode) {
-        return FontWeight.fromJsonNode(jsonNode);
     }
 }

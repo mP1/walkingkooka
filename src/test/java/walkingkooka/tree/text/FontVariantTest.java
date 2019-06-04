@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class FontVariantTest extends EnumTextPropertyValueTestCase<FontVariant> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class FontVariantTest extends EnumTextStylePropertyValueTestCase<FontVariant> {
 
     @Override
     TextStylePropertyName<FontVariant> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class FontVariantTest extends EnumTextPropertyValueTestCase<FontVar
     }
 
     @Override
-    FontVariant value() {
+    FontVariant createTextStylePropertyValue() {
         return FontVariant.SMALL_CAPS;
     }
 

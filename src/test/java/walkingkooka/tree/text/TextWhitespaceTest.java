@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class TextWhitespaceTest extends EnumTextPropertyValueTestCase<TextWhitespace> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class TextWhitespaceTest extends EnumTextStylePropertyValueTestCase<TextWhitespace> {
 
     @Override
     TextStylePropertyName<TextWhitespace> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class TextWhitespaceTest extends EnumTextPropertyValueTestCase<Text
     }
 
     @Override
-    TextWhitespace value() {
+    TextWhitespace createTextStylePropertyValue() {
         return TextWhitespace.PRE;
     }
 
