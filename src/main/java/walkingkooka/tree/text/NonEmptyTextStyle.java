@@ -173,6 +173,13 @@ final class NonEmptyTextStyle extends TextStyle {
                 new NonEmptyTextStyle(TextStyleMap.withTextStyleMapEntrySet(TextStyleMapEntrySet.withList(list))); // no need to sort after a delete
     }
 
+    // TextStyleVisitor.................................................................................................
+
+    @Override
+    void accept(final TextStyleVisitor visitor) {
+        this.value.accept(visitor);
+    }
+
     // Object..........................................................................................................
 
     @Override
