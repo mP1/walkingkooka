@@ -18,9 +18,25 @@
 
 package walkingkooka.tree.text;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 
 public final class WidthTest extends LengthTextStylePropertyValueTestCase<Width> {
+
+    @Test
+    public void testWithNumberFails() {
+        this.withFails(Length.number(1));
+    }
+
+    @Test
+    public void testWithNormalFails() {
+        this.withFails(Length.normal());
+    }
+
+    @Test
+    public void testWithPixel() {
+        this.withAndCheck(Length.pixel(12.0));
+    }
 
     @Override
     Width createPropertyValue(final Length length) {

@@ -106,6 +106,16 @@ public final class PixelLength extends Length<Double> implements HasJsonNode, Va
         return true;
     }
 
+    @Override
+    void pixelOrFail() {
+        // pixel
+    }
+
+    @Override
+    void normalOrPixelOrFail() {
+        // pixel
+    }
+
     // Object...........................................................................................................
 
     @Override

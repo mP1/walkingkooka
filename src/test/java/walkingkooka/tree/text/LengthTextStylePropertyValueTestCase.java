@@ -27,6 +27,7 @@ import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class LengthTextStylePropertyValueTestCase<L extends LengthTextStylePropertyValue> implements ClassTesting2<L>,
@@ -90,6 +91,16 @@ public abstract class LengthTextStylePropertyValueTestCase<L extends LengthTextS
     abstract Length<?> length();
 
     abstract Length<?> differentLength();
+
+    final void withAndCheck(final Length<?> length) {
+        assertSame(length, this.createPropertyValue(length).value(), "length");
+    }
+
+    final void withFails(final Length<?> length) {
+        assertThrows(IllegalArgumentException.class, () -> {
+           this.createPropertyValue(length);
+        });
+    }
 
     // ClassTesting......................................................................................................
 
