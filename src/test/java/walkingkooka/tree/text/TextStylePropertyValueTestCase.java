@@ -23,7 +23,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,11 +50,4 @@ public abstract class TextStylePropertyValueTestCase<V> implements ClassTesting2
     abstract V createTextStylePropertyValue();
 
     abstract TextStylePropertyName<V> textStylePropertyName();
-
-    // ClassTyping......................................................................................................
-
-    @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
 }

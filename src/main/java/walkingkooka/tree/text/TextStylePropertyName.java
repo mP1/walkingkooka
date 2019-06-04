@@ -237,6 +237,13 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             TextJustify.class);
 
     /**
+     * text-overflow
+     */
+    public final static TextStylePropertyName<TextOverflow> TEXT_OVERFLOW = registerHasJsonNodeConstant("text-overflow",
+            TextOverflow.class,
+            TextOverflow::fromJsonNode);
+
+    /**
      * text-transform
      */
     public final static TextStylePropertyName<TextTransform> TEXT_TRANSFORM = registerEnumConstant("text-transform",

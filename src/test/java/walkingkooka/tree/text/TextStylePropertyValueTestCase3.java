@@ -22,10 +22,10 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class TextStylePropertyValueTestCase2<V extends HasJsonNode> extends TextStylePropertyValueTestCase<V>
+public abstract class TextStylePropertyValueTestCase3<V extends HasJsonNode> extends TextStylePropertyValueTestCase<V>
         implements HasJsonNodeTesting<V> {
 
-    TextStylePropertyValueTestCase2() {
+    TextStylePropertyValueTestCase3() {
         super();
     }
 
@@ -33,7 +33,7 @@ public abstract class TextStylePropertyValueTestCase2<V extends HasJsonNode> ext
 
     @Override
     public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     // HasJsonNode......................................................................................................
