@@ -279,6 +279,13 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             WordBreak.class);
 
     /**
+     * word-spacing
+     */
+    public final static TextStylePropertyName<WordSpacing> WORD_SPACING = registerHasJsonNodeConstant("word-spacing",
+            WordSpacing.class,
+            WordSpacing::fromJsonNode);
+
+    /**
      * word-wrap
      */
     public final static TextStylePropertyName<WordWrap> WORD_WRAP = registerEnumConstant("word-wrap",
