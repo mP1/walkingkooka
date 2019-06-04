@@ -64,7 +64,14 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
                                                                                                 final Function<JsonNode, H> fromJsonNode) {
         return registerConstant(property, TextStylePropertyValueHandler.hasJsonNode(type, fromJsonNode));
     }
-    
+
+    /**
+     * Creates and adds a new {@link TextStylePropertyName} that handles {@link String} values.
+     */
+    private static TextStylePropertyName<String> registerStringConstant(final String property) {
+        return registerConstant(property, TextStylePropertyValueHandler.string());
+    }
+
     /**
      * Creates and adds a new {@link TextStylePropertyName} to the cache being built.
      */
@@ -228,6 +235,11 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     public final static TextStylePropertyName<TextDecorationStyle> TEXT_DECORATION_STYLE = registerEnumConstant("text-decoration-style",
             TextDecorationStyle::valueOf,
             TextDecorationStyle.class);
+
+    /**
+     * text
+     */
+    public final static TextStylePropertyName<String> TEXT = registerStringConstant("text");
 
     /**
      * text-justify
