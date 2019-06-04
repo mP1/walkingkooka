@@ -282,6 +282,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.HANGING_PUNCTUATION, HangingPunctuation.LAST);
         properties.put(TextStylePropertyName.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
         properties.put(TextStylePropertyName.HYPHENS, Hyphens.AUTO);
+        properties.put(TextStylePropertyName.LINE_HEIGHT, LineHeight.with(Length.pixel(99)));
         properties.put(TextStylePropertyName.OPACITY, Opacity.with(0.5));
         properties.put(TextStylePropertyName.TEXT_ALIGNMENT, TextAlignment.LEFT);
         properties.put(TextStylePropertyName.TEXT_COLOR, Color.fromRgb(0x789abc));
