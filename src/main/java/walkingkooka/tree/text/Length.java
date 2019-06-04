@@ -40,8 +40,8 @@ public abstract class Length implements HashCodeEqualsDefined,
 
         Length length;
         for(;;) {
-            if(text.endsWith(Pixels.UNIT)) {
-                length = Pixels.parsePixels(text);
+            if(text.endsWith(PixelLength.UNIT)) {
+                length = PixelLength.parsePixels(text);
                 break;
             }
             throw new IllegalArgumentException("Invalid text or missing unit " + CharSequences.quoteAndEscape(text));
@@ -51,10 +51,10 @@ public abstract class Length implements HashCodeEqualsDefined,
     }
 
     /**
-     * {@see Pixels}
+     * {@see PixelLength}
      */
-    public static Pixels pixels(final double value) {
-        return Pixels.with(value);
+    public static PixelLength pixel(final double value) {
+        return PixelLength.with(value);
     }
 
     /**
@@ -68,9 +68,9 @@ public abstract class Length implements HashCodeEqualsDefined,
     // is ..............................................................................................................
 
     /**
-     * Only {@link Pixels} returns true.
+     * Only {@link PixelLength} returns true.
      */
-    public abstract boolean isPixels();
+    public abstract boolean isPixel();
 
     // Object ..........................................................................................................
 
@@ -91,7 +91,7 @@ public abstract class Length implements HashCodeEqualsDefined,
     static {
         HasJsonNode.register("length",
                 Length::fromJsonNode,
-                Length.class, Pixels.class);
+                Length.class, PixelLength.class);
     }
 
     // HasJsonNode......................................................................................................

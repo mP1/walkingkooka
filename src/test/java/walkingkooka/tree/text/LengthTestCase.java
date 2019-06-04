@@ -25,6 +25,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
@@ -36,7 +37,8 @@ public abstract class LengthTestCase<L extends Length> implements ClassTesting2<
         HasJsonNodeTesting<L>,
         IsMethodTesting<L>,
         ParseStringTesting<L>,
-        ToStringTesting<L> {
+        ToStringTesting<L>,
+        TypeNameTesting<L> {
 
     LengthTestCase() {
         super();
@@ -104,7 +106,7 @@ public abstract class LengthTestCase<L extends Length> implements ClassTesting2<
 
     @Override
     public final String isMethodTypeNameSuffix() {
-        return "";
+        return Length.class.getSimpleName();
     }
 
     @Override
@@ -122,5 +124,17 @@ public abstract class LengthTestCase<L extends Length> implements ClassTesting2<
     @Override
     public final RuntimeException parseFailedExpected(final RuntimeException expected) {
         return expected;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Length.class.getSimpleName();
     }
 }

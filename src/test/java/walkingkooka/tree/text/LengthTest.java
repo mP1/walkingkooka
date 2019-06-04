@@ -41,7 +41,7 @@ public final class LengthTest implements ClassTesting2<Length>,
 
     @Test
     public void testParsePixels() {
-        this.parseAndCheck("12.5px", Length.pixels(12.5));
+        this.parseAndCheck("12.5px", Length.pixel(12.5));
     }
 
     // ClassTesting.....................................................................................................
@@ -82,6 +82,6 @@ public final class LengthTest implements ClassTesting2<Length>,
 
     @Override
     public Length createHasJsonNode() {
-        return Length.pixels(123);
+        return Length.pixel(123);
     }
 }
