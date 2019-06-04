@@ -26,7 +26,7 @@ import java.util.function.Function;
 /**
  * The unit portion of a length. This is basically an ENUMS with type parameters
  */
-public final class LengthUnit<V, L extends Length> {
+public final class LengthUnit<V, L extends Length<V>> {
 
     /**
      * Pixel length unit.
