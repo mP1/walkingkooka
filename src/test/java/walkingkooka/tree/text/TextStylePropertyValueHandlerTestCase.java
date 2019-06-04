@@ -47,11 +47,6 @@ public abstract class TextStylePropertyValueHandlerTestCase<P extends TextStyleP
     }
 
     @Test
-    public final void testCheckWrongValueTypeFails() {
-        this.checkFails(this, "Property " + this.propertyName().inQuotes() + " value " + this + " is not a " + this.propertyValueType());
-    }
-
-    @Test
     public final void testRoundtripJson() {
         final T value = this.propertyValue();
         final P converter = this.handler();

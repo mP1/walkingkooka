@@ -327,7 +327,7 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
         final TextStylePropertyName<?> textStylePropertyName = CONSTANTS.get(name);
         return null != textStylePropertyName ?
                 textStylePropertyName :
-                new TextStylePropertyName<>(checkName(name), TextStylePropertyValueHandler.string());
+                new TextStylePropertyName<>(checkName(name), TextStylePropertyValueHandler.hasJsonNodeWithType());
     }
 
     private TextStylePropertyName(final String name,
