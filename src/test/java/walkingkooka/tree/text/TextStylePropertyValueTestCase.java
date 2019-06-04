@@ -21,21 +21,22 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class EnumTextPropertyValueTestCase<E extends Enum<?>> implements ClassTesting2<E> {
+public abstract class TextStylePropertyValueTestCase<V> implements ClassTesting2<V>, ToStringTesting<V> {
 
-    EnumTextPropertyValueTestCase() {
+    TextStylePropertyValueTestCase() {
         super();
     }
 
     @Test
-    public final void testTextPropertyNode() {
+    public final void testTextStylePropertyNode() {
         final TextNode properties = TextNode.style(TextStyleNode.NO_CHILDREN)
-                .setAttributes(Maps.of(this.textStylePropertyName(), this.value()));
+                .setAttributes(Maps.of(this.textStylePropertyName(), this.createTextStylePropertyValue()));
         final JsonNode json = properties.toJsonNodeWithType();
         assertEquals(properties,
                 json.fromJsonNodeWithType(),
@@ -44,12 +45,12 @@ public abstract class EnumTextPropertyValueTestCase<E extends Enum<?>> implement
 
     @Test
     public final void testTextStylePropertyNameCheck() {
-        this.textStylePropertyName().check(this.value());
+        this.textStylePropertyName().check(this.createTextStylePropertyValue());
     }
 
-    abstract TextStylePropertyName<E> textStylePropertyName();
+    abstract V createTextStylePropertyValue();
 
-    abstract E value();
+    abstract TextStylePropertyName<V> textStylePropertyName();
 
     // ClassTyping......................................................................................................
 

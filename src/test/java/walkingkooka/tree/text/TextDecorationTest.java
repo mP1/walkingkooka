@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class TextDecorationTest extends EnumTextPropertyValueTestCase<TextDecoration> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class TextDecorationTest extends EnumTextStylePropertyValueTestCase<TextDecoration> {
 
     @Override
     TextStylePropertyName<TextDecoration> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class TextDecorationTest extends EnumTextPropertyValueTestCase<Text
     }
 
     @Override
-    TextDecoration value() {
+    TextDecoration createTextStylePropertyValue() {
         return TextDecoration.UNDERLINE;
     }
 

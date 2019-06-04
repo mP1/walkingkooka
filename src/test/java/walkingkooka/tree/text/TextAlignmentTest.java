@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class TextAlignmentTest extends EnumTextPropertyValueTestCase<TextAlignment> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class TextAlignmentTest extends EnumTextStylePropertyValueTestCase<TextAlignment> {
 
     @Override
     TextStylePropertyName<TextAlignment> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class TextAlignmentTest extends EnumTextPropertyValueTestCase<TextA
     }
 
     @Override
-    TextAlignment value() {
+    TextAlignment createTextStylePropertyValue() {
         return TextAlignment.LEFT;
     }
 

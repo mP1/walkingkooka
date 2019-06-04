@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class HangingPunctuationTest extends EnumTextPropertyValueTestCase<HangingPunctuation> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class HangingPunctuationTest extends EnumTextStylePropertyValueTestCase<HangingPunctuation> {
 
     @Override
     TextStylePropertyName<HangingPunctuation> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class HangingPunctuationTest extends EnumTextPropertyValueTestCase<
     }
 
     @Override
-    HangingPunctuation value() {
+    HangingPunctuation createTextStylePropertyValue() {
         return HangingPunctuation.LAST;
     }
 

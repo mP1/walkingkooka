@@ -21,25 +21,19 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FontSizeTest implements ClassTesting2<FontSize>,
-        ComparableTesting<FontSize>,
+public final class FontSizeTest extends TextStylePropertyValueTestCase2<FontSize>
+        implements ComparableTesting<FontSize>,
         ConstantsTesting<FontSize>,
-        SerializationTesting<FontSize>,
-        HasJsonNodeTesting<FontSize>,
-        ToStringTesting<FontSize> {
+        SerializationTesting<FontSize> {
 
     private final static int VALUE = 10;
 
@@ -114,14 +108,44 @@ public final class FontSizeTest implements ClassTesting2<FontSize>,
     }
 
     @Override
+    TextStylePropertyName<FontSize> textStylePropertyName() {
+        return TextStylePropertyName.FONT_SIZE;
+    }
+
+    @Override
+    FontSize createTextStylePropertyValue() {
+        return FontSize.with(VALUE);
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public Class<FontSize> type() {
+        return FontSize.class;
+    }
+
+    // ComparableTesting.................................................................................................
+
+    @Override
+    public FontSize createComparable() {
+        return this.createTextStylePropertyValue();
+    }
+
+    // ConstantsTesting.................................................................................................
+
+    @Override
     public Set<FontSize> intentionalDuplicateConstants() {
         return Sets.empty();
     }
 
+    // HasJsonNodeTesting...............................................................................................
+
     @Override
-    public FontSize createComparable() {
-        return FontSize.with(VALUE);
+    public FontSize fromJsonNode(final JsonNode jsonNode) {
+        return FontSize.fromJsonNode(jsonNode);
     }
+
+    // SerializationTesting.............................................................................................
 
     @Override
     public FontSize serializableInstance() {
@@ -131,27 +155,5 @@ public final class FontSizeTest implements ClassTesting2<FontSize>,
     @Override
     public boolean serializableInstanceIsSingleton() {
         return true;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
-
-    @Override
-    public Class<FontSize> type() {
-        return FontSize.class;
-    }
-
-    // HasJsonNodeTesting.....................................................................
-
-    @Override
-    public FontSize createHasJsonNode() {
-        return this.createObject();
-    }
-
-    @Override
-    public FontSize fromJsonNode(final JsonNode jsonNode) {
-        return FontSize.fromJsonNode(jsonNode);
     }
 }

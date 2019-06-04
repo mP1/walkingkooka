@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class FontStyleTest extends EnumTextPropertyValueTestCase<FontStyle> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class FontStyleTest extends EnumTextStylePropertyValueTestCase<FontStyle> {
 
     @Override
     TextStylePropertyName<FontStyle> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class FontStyleTest extends EnumTextPropertyValueTestCase<FontStyle
     }
 
     @Override
-    FontStyle value() {
+    FontStyle createTextStylePropertyValue() {
         return FontStyle.ITALIC;
     }
 

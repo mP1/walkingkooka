@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.text;
 
-public final class HyphensTest extends EnumTextPropertyValueTestCase<Hyphens> {
+import walkingkooka.tree.json.JsonNode;
+
+public final class HyphensTest extends EnumTextStylePropertyValueTestCase<Hyphens> {
 
     @Override
     TextStylePropertyName<Hyphens> textStylePropertyName() {
@@ -26,7 +28,7 @@ public final class HyphensTest extends EnumTextPropertyValueTestCase<Hyphens> {
     }
 
     @Override
-    Hyphens value() {
+    Hyphens createTextStylePropertyValue() {
         return Hyphens.AUTO;
     }
 
