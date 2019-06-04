@@ -75,6 +75,11 @@ public final class PixelLength extends Length<Double> implements HasJsonNode, Va
         return this.value;
     }
 
+    @Override
+    long longValue() {
+        throw new UnsupportedOperationException();
+    }
+
     // unit.............................................................................................................
 
     @Override
@@ -88,6 +93,11 @@ public final class PixelLength extends Length<Double> implements HasJsonNode, Va
 
     @Override
     public boolean isNormal() {
+        return false;
+    }
+
+    @Override
+    public boolean isNumber() {
         return false;
     }
 

@@ -28,40 +28,50 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A normal measurement.
+ * A positive whole number
  */
-public final class NormalLength extends Length<Void> implements HasJsonNode, Value<Void> {
-
-    final static String TEXT = "normal";
+public final class NumberLength extends Length<Long> implements HasJsonNode, Value<Long> {
 
     /**
-     * Parses text that contains a normal literal.
+     * Parses text that contains a number measurement.
      */
-    public static NormalLength parseNormal(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
-
-        return parseNormal0(text);
-    }
-
-    static NormalLength parseNormal0(final String text) {
+    public static NumberLength parseNumber(final String text) {
         checkText(text);
 
-        if(!TEXT.equals(text)) {
-            throw new IllegalArgumentException("Invalid normal text " + CharSequences.quoteAndEscape(text));
-        }
-        return INSTANCE;
+        return parseNumber0(text);
     }
 
-    final static NormalLength INSTANCE = new NormalLength();
+    static NumberLength parseNumber0(final String text) {
+        checkText(text);
 
-    private NormalLength() {
+        try {
+            return with(Long.parseLong(text));
+        } catch (final NumberFormatException cause) {
+            throw new IllegalArgumentException("Invalid text " + CharSequences.quoteAndEscape(text), cause);
+        }
+    }
+
+    static NumberLength with(final Long value) {
+        Objects.requireNonNull(value, "value");
+
+        if(value < 0) {
+            throw new IllegalArgumentException("Invalid value " + value);
+        }
+
+        return new NumberLength(value);
+    }
+
+    private NumberLength(final Long value) {
         super();
+        this.value = value;
     }
 
     @Override
-    public Void value() {
-        throw new UnsupportedOperationException();
+    public Long value() {
+        return this.value;
     }
+
+    private final Long value;
 
     @Override
     double doubleValue() {
@@ -70,13 +80,13 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
 
     @Override
     long longValue() {
-        throw new UnsupportedOperationException();
+        return this.value;
     }
 
     // unit.............................................................................................................
 
     @Override
-    public Optional<LengthUnit<Void, Length<Void>>> unit() {
+    public Optional<LengthUnit<Long, Length<Long>>> unit() {
         return Optional.empty();
     }
 
@@ -84,12 +94,12 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
 
     @Override
     public boolean isNormal() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isNumber() {
-        return false;
+        return true;
     }
 
     @Override
@@ -101,22 +111,22 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
 
     @Override
     public int hashCode() {
-        return System.identityHashCode(this);
+        return Long.hashCode(this.value);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NormalLength;
+        return other instanceof NumberLength;
     }
 
     @Override
     boolean equals0(final Length other) {
-        return true;
+        return 0 == Long.compare(this.value, other.longValue());
     }
 
     @Override
     public String toString() {
-        return TEXT;
+        return String.valueOf(this.value);
     }
 
     // HasJsonNode......................................................................................................
@@ -124,11 +134,11 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
     /**
      * Accepts a json string holding a number and px unit suffix.
      */
-    public static NormalLength fromJsonNode(final JsonNode node) {
+    public static NumberLength fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
-            return parseNormal(node.stringValueOrFail());
+            return parseNumber(node.stringValueOrFail());
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }

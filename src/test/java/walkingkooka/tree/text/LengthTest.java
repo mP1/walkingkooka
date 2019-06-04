@@ -31,11 +31,6 @@ public final class LengthTest implements ClassTesting2<Length<?>>,
         ParseStringTesting<Length<?>> {
 
     @Test
-    public void testParseMissingUnitFails() {
-        this.parseFails("12", IllegalArgumentException.class);
-    }
-
-    @Test
     public void testParseIncorrectUnitFails() {
         this.parseFails("12EM", IllegalArgumentException.class);
     }
@@ -43,6 +38,11 @@ public final class LengthTest implements ClassTesting2<Length<?>>,
     @Test
     public void testParseNormal() {
         this.parseAndCheck("normal", Length.normal());
+    }
+
+    @Test
+    public void testParseNumber() {
+        this.parseAndCheck("123", Length.number(123L));
     }
 
     @Test

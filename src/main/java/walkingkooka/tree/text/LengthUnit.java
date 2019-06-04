@@ -44,11 +44,11 @@ public final class LengthUnit<V, L extends Length<V>> {
 
     // @see Length:parse
     static Length tryAllParse(final String text) {
-        return Arrays.stream(UNITS)
+        return Arrays.asList(UNITS).stream()
                 .filter(u -> u.unitPresent(text))
                 .map(u -> u.parse(text))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Invalid text or missing unit " + CharSequences.quoteAndEscape(text)));
+                .orElseGet(() -> NumberLength.parseNumber(text));
     }
 
     private final static LengthUnit[] UNITS = new LengthUnit[]{PIXEL};
