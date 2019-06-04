@@ -27,14 +27,14 @@ public final class Width extends LengthTextStylePropertyValue implements HasJson
         return with(Length.parse(text));
     }
 
-    public static Width with(final Length length) {
+    public static Width with(final Length<?> length) {
         check(length);
         length.pixelOrFail();
 
         return new Width(length);
     }
 
-    private Width(final Length length) {
+    private Width(final Length<?> length) {
         super(length);
     }
 
