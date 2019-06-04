@@ -117,6 +117,11 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
         this.normalOrPixelOrFail0();
     }
 
+    @Override
+    void numberFail() {
+        // number
+    }
+
     // Object...........................................................................................................
 
     @Override

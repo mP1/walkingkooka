@@ -115,6 +115,12 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
         throw new IllegalArgumentException("Expected normal or pixel length but got " + this);
     }
 
+    abstract void numberFail();
+
+    final void numberFail0() {
+        throw new IllegalArgumentException("Expected number but got " + this);
+    }
+
     // Object ..........................................................................................................
 
     @Override

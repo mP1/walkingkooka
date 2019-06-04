@@ -116,6 +116,11 @@ public final class PixelLength extends Length<Double> implements HasJsonNode, Va
         // pixel
     }
 
+    @Override
+    void numberFail() {
+        this.numberFail0();
+    }
+
     // Object...........................................................................................................
 
     @Override
