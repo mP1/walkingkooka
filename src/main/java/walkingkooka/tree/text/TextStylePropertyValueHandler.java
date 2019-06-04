@@ -47,6 +47,13 @@ abstract class TextStylePropertyValueHandler<T> {
     }
 
     /**
+     * {@see HasJsonNodeWithTypeTextStylePropertyValueHandler}
+     */
+    static HasJsonNodeWithTypeTextStylePropertyValueHandler hasJsonNodeWithType() {
+        return HasJsonNodeWithTypeTextStylePropertyValueHandler.INSTANCE;
+    }
+
+    /**
      * {@see StringTextStylePropertyValueHandler}
      */
     static TextStylePropertyValueHandler<String> string() {

@@ -19,14 +19,13 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 
-public final class StringTextStylePropertyValueHandlerTest extends TextStylePropertyValueHandlerTestCase<StringTextStylePropertyValueHandler, String> {
+public final class StringTextStylePropertyValueHandlerTest extends TextStylePropertyValueHandlerTestCase2<StringTextStylePropertyValueHandler, String> {
 
     @Test
     public void testCheckEmptyStringFails() {
-        this.checkFails("", "Property \"A\" contains an empty/whitespace value \"\"");
+        this.checkFails("", "Property \"text\" contains an empty/whitespace value \"\"");
     }
 
     @Test
@@ -58,7 +57,7 @@ public final class StringTextStylePropertyValueHandlerTest extends TextStyleProp
 
     @Override
     TextStylePropertyName<String> propertyName() {
-        return Cast.to(TextStylePropertyName.with("A"));
+        return TextStylePropertyName.TEXT;
     }
 
     @Override

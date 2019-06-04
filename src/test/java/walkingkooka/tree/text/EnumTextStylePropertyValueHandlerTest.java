@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 
-public final class EnumTextStylePropertyValueHandlerTest extends TextStylePropertyValueHandlerTestCase<EnumTextStylePropertyValueHandler<TextWrapping>, TextWrapping> {
+public final class EnumTextStylePropertyValueHandlerTest extends TextStylePropertyValueHandlerTestCase2<EnumTextStylePropertyValueHandler<TextWrapping>, TextWrapping> {
 
     @Test
     public void testFromJsonNode() {

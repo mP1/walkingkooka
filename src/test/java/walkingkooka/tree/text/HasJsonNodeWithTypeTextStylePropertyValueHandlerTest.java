@@ -21,47 +21,53 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.color.Color;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.tree.json.HasJsonNode;
 
-public final class HasJsonNodeTextStylePropertyValueHandlerTest extends TextStylePropertyValueHandlerTestCase2<HasJsonNodeTextStylePropertyValueHandler<Color>, Color> {
+public final class HasJsonNodeWithTypeTextStylePropertyValueHandlerTest extends TextStylePropertyValueHandlerTestCase<HasJsonNodeWithTypeTextStylePropertyValueHandler, Object> {
+
+    @Test
+    public void testCheckWrongValueTypeFails() {
+        this.checkFails(this, "Property " + this.propertyName().inQuotes() + " value " + this + " is not a supported type");
+    }
 
     @Test
     public void testFromJsonNode() {
         final Color color = Color.fromRgb(0x123456);
-        this.fromJsonNodeAndCheck(color.toJsonNode(), color);
+        this.fromJsonNodeAndCheck(color.toJsonNodeWithType(), color);
     }
 
     @Test
-    public void testFromJsonNodeRgba() {
-        final Color color = Color.fromArgb(0x12345678);
-        this.fromJsonNodeAndCheck(color.toJsonNode(), color);
+    public void testFromJsonNode2() {
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+        this.fromJsonNodeAndCheck(emailAddress.toJsonNodeWithType(), emailAddress);
     }
 
     @Test
     public void testToJsonNode() {
         final Color color = Color.fromRgb(0x123456);
-        this.toJsonNodeAndCheck(color, color.toJsonNode());
+        this.toJsonNodeAndCheck(color, color.toJsonNodeWithType());
     }
 
     @Test
     public void testToJsonNodeRgba() {
-        final Color color = Color.fromArgb(0x12345678);
-        this.toJsonNodeAndCheck(color, color.toJsonNode());
+        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
+        this.toJsonNodeAndCheck(emailAddress, emailAddress.toJsonNodeWithType());
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.handler(), "Color");
+        this.toStringAndCheck(this.handler(), "HasJsonNodeWithType");
     }
 
     @Override
-    HasJsonNodeTextStylePropertyValueHandler<Color> handler() {
-        return HasJsonNodeTextStylePropertyValueHandler.with(Color.class, Color::fromJsonNode);
+    HasJsonNodeWithTypeTextStylePropertyValueHandler handler() {
+        return HasJsonNodeWithTypeTextStylePropertyValueHandler.INSTANCE;
     }
 
     @Override
-    TextStylePropertyName<Color> propertyName() {
-        return TextStylePropertyName.BACKGROUND_COLOR;
+    TextStylePropertyName<Object> propertyName() {
+        return Cast.to(TextStylePropertyName.with("unknown"));
     }
 
     @Override
@@ -80,7 +86,7 @@ public final class HasJsonNodeTextStylePropertyValueHandlerTest extends TextStyl
     }
 
     @Override
-    public Class<HasJsonNodeTextStylePropertyValueHandler<Color>> type() {
-        return Cast.to(HasJsonNodeTextStylePropertyValueHandler.class);
+    public Class<HasJsonNodeWithTypeTextStylePropertyValueHandler> type() {
+        return HasJsonNodeWithTypeTextStylePropertyValueHandler.class;
     }
 }

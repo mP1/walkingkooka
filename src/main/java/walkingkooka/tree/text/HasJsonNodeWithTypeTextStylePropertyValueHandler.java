@@ -18,59 +18,50 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
-import java.util.function.Function;
-
 /**
- * A {@link TextStylePropertyValueHandler} that acts as  bridge to a type that also implements {@link walkingkooka.tree.json.HasJsonNode}
+ * A {@link TextStylePropertyValueHandler} that acts as  bridge to a type that also implements {@link HasJsonNode} and also
+ * records the type.
  */
-final class HasJsonNodeTextStylePropertyValueHandler<H extends HasJsonNode> extends TextStylePropertyValueHandler<H> {
+final class HasJsonNodeWithTypeTextStylePropertyValueHandler extends TextStylePropertyValueHandler<Object> {
 
     /**
-     * Factory
+     * Singleton
      */
-    static <T extends HasJsonNode> HasJsonNodeTextStylePropertyValueHandler<T> with(final Class<T> type,
-                                                                                          final Function<JsonNode, T> fromJsonNode) {
-        return new HasJsonNodeTextStylePropertyValueHandler<>(type, fromJsonNode);
-    }
+    static HasJsonNodeWithTypeTextStylePropertyValueHandler INSTANCE = new HasJsonNodeWithTypeTextStylePropertyValueHandler();
 
     /**
      * Private ctor
      */
-    private HasJsonNodeTextStylePropertyValueHandler(final Class<H> type,
-                                                     final Function<JsonNode, H> fromJsonNode) {
+    private HasJsonNodeWithTypeTextStylePropertyValueHandler() {
         super();
-        this.fromJsonNode = fromJsonNode;
-        this.type = type;
     }
 
     @Override
     void check0(final Object value, final TextStylePropertyName<?> name) {
-        this.checkType(value, this.type, name);
+        HasJsonNode.typeName(value.getClass())
+                .orElseThrow(() -> new TextStylePropertyValueException("Property " + name.inQuotes() + " value " + CharSequences.quoteIfChars(value) + " is not a supported type"));
     }
 
     // fromJsonNode ....................................................................................................
 
     @Override
-    H fromJsonNode(final JsonNode node) {
-        return this.fromJsonNode.apply(node);
+    Object fromJsonNode(final JsonNode node) {
+        return node.objectOrFail().fromJsonNodeWithType();
     }
 
-    private final Function<JsonNode, H> fromJsonNode;
-
     @Override
-    JsonNode toJsonNode(final H value) {
-        return value.toJsonNode();
+    JsonNode toJsonNode(final Object value) {
+        return HasJsonNode.toJsonNodeWithType(value);
     }
 
     // Object ..........................................................................................................
 
     @Override
     public String toString() {
-        return this.type.getSimpleName();
+        return "HasJsonNodeWithType";
     }
-
-    private final Class<H> type;
 }
