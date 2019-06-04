@@ -283,6 +283,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.HEIGHT, Height.with(Length.pixel(99.0)));
         properties.put(TextStylePropertyName.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
         properties.put(TextStylePropertyName.HYPHENS, Hyphens.AUTO);
+        properties.put(TextStylePropertyName.LETTER_SPACE, LetterSpace.with(Length.normal()));
         properties.put(TextStylePropertyName.LINE_HEIGHT, LineHeight.with(Length.pixel(99.0)));
         properties.put(TextStylePropertyName.OPACITY, Opacity.with(0.5));
         properties.put(TextStylePropertyName.TAB_SIZE, TabSize.with(Length.number(22)));

@@ -167,6 +167,13 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             Hyphens.class);
 
     /**
+     * letter-space
+     */
+    public final static TextStylePropertyName<LetterSpace> LETTER_SPACE = registerHasJsonNodeConstant("letter-space",
+            LetterSpace.class,
+            LetterSpace::fromJsonNode);
+
+    /**
      * line-height
      */
     public final static TextStylePropertyName<LineHeight> LINE_HEIGHT = registerHasJsonNodeConstant("line-height",
