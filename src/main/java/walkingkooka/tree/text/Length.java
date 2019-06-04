@@ -20,7 +20,6 @@ package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
@@ -29,31 +28,20 @@ import java.util.Objects;
 /**
  * Base class for any measure.
  */
-public abstract class Length implements HashCodeEqualsDefined,
+public abstract class Length<V> implements HashCodeEqualsDefined,
         HasJsonNode{
 
     /**
      * Parses text that contains a support measurement mostly a number and unit.
      */
-    public static Length parse(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
-
-        Length length;
-        for(;;) {
-            if(text.endsWith(PixelLength.UNIT)) {
-                length = PixelLength.parsePixels(text);
-                break;
-            }
-            throw new IllegalArgumentException("Invalid text or missing unit " + CharSequences.quoteAndEscape(text));
-        }
-
-        return length;
+    public static Length<?> parse(final String text) {
+        return LengthUnit.tryAllParse(text);
     }
 
     /**
      * {@see PixelLength}
      */
-    public static PixelLength pixel(final double value) {
+    public static PixelLength pixel(final Double value) {
         return PixelLength.with(value);
     }
 
@@ -64,6 +52,11 @@ public abstract class Length implements HashCodeEqualsDefined,
     }
 
     abstract double doubleValue();
+
+    /**
+     * The unit portion of this length.
+     */
+    abstract public LengthUnit<?, ?> unit();
 
     // is ..............................................................................................................
 

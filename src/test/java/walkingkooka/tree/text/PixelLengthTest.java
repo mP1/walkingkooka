@@ -23,7 +23,7 @@ import walkingkooka.tree.json.JsonNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class PixelLengthTest extends LengthTestCase<PixelLength> {
+public final class PixelLengthTest extends LengthTestCase<PixelLength, Double> {
 
     @Test
     public void testParseMissingUnitFails() {
@@ -92,6 +92,11 @@ public final class PixelLengthTest extends LengthTestCase<PixelLength> {
     @Override
     PixelLength createLength() {
         return PixelLength.with(123.5);
+    }
+
+    @Override
+    LengthUnit<Double, PixelLength> unit() {
+        return LengthUnit.PIXEL;
     }
 
     // ClassTesting.....................................................................................................

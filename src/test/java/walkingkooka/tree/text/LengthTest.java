@@ -19,15 +19,16 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-public final class LengthTest implements ClassTesting2<Length>,
-        HasJsonNodeTesting<Length>,
-        ParseStringTesting<Length> {
+public final class LengthTest implements ClassTesting2<Length<?>>,
+        HasJsonNodeTesting<Length<?>>,
+        ParseStringTesting<Length<?>> {
 
     @Test
     public void testParseMissingUnitFails() {
@@ -47,8 +48,8 @@ public final class LengthTest implements ClassTesting2<Length>,
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<Length> type() {
-        return Length.class;
+    public Class<Length<?>> type() {
+        return Cast.to(Length.class);
     }
 
     @Override
@@ -59,7 +60,7 @@ public final class LengthTest implements ClassTesting2<Length>,
     // ParseStringTesting...............................................................................................
 
     @Override
-    public Length parse(final String text) {
+    public Length<?> parse(final String text) {
         return Length.parse(text);
     }
 
@@ -82,6 +83,6 @@ public final class LengthTest implements ClassTesting2<Length>,
 
     @Override
     public Length createHasJsonNode() {
-        return Length.pixel(123);
+        return Length.pixel(123.0);
     }
 }

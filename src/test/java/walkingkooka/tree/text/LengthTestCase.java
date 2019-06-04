@@ -32,7 +32,9 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
-public abstract class LengthTestCase<L extends Length> implements ClassTesting2<L>,
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+public abstract class LengthTestCase<L extends Length, V> implements ClassTesting2<L>,
         HashCodeEqualsDefinedTesting<L>,
         HasJsonNodeTesting<L>,
         IsMethodTesting<L>,
@@ -69,7 +71,15 @@ public abstract class LengthTestCase<L extends Length> implements ClassTesting2<
         this.fromJsonNodeFails(JsonNode.object());
     }
 
+    @Test
+    public final void testUnit() {
+        final L length = this.createLength();
+        assertSame(this.unit(), length.unit(), "unit");
+    }
+
     abstract L createLength();
+
+    abstract LengthUnit<V, L> unit();
 
     // ClassTesting.....................................................................................................
 
