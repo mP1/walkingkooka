@@ -121,6 +121,10 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
         throw new IllegalArgumentException("Expected number but got " + this);
     }
 
+    // LengthVisitor....................................................................................................
+
+    abstract void accept(final LengthVisitor visitor);
+
     // Object ..........................................................................................................
 
     @Override

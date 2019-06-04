@@ -21,10 +21,12 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class PixelLengthTest extends LengthTestCase<PixelLength, Double> {
 
@@ -76,6 +78,40 @@ public final class PixelLengthTest extends LengthTestCase<PixelLength, Double> {
     public void testDifferentValue() {
         this.checkNotEquals(PixelLength.with(99));
     }
+
+    // LengthVisitor....................................................................................................
+
+    @Test
+    public void testVisitor() {
+        final StringBuilder b = new StringBuilder();
+
+        final PixelLength length = this.createLength();
+        new FakeLengthVisitor() {
+            @Override
+            protected Visiting startVisit(final Length l) {
+                assertSame(length, l, "length");
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final Length l) {
+                assertSame(length, l, "length");
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final PixelLength l) {
+                assertSame(length, l, "length");
+                b.append("3");
+            }
+        }.accept(length);
+
+        assertEquals("132", b.toString());
+    }
+
+    // toString........................................................................................................
+
 
     @Test
     public void testToString() {
