@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * A measurement in pixels.
  */
-public final class PixelLength extends Length implements HasJsonNode, Value<Double> {
+public final class PixelLength extends Length<Double> implements HasJsonNode, Value<Double> {
 
     private final static LengthUnit<Double, PixelLength> UNIT = LengthUnit.PIXEL;
 
