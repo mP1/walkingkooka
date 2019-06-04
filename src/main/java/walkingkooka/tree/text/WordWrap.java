@@ -20,5 +20,5 @@ package walkingkooka.tree.text;
 
 public enum WordWrap {
     NORMAL,
-    BREAK_WORD;
+    BREAK_WORD
 }

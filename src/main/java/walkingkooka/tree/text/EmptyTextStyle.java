@@ -33,7 +33,7 @@ final class EmptyTextStyle extends TextStyle {
     /**
      * Singleton necessary to avoid race conditions to a init'd static field
      */
-    final static EmptyTextStyle instance() {
+    static EmptyTextStyle instance() {
         if (null == instance) {
             instance = new EmptyTextStyle();
         }

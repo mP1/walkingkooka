@@ -20,6 +20,7 @@ package walkingkooka.tree.text;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.HasText;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
@@ -133,14 +134,14 @@ abstract class TextParentNode extends TextNode {
     @Override
     public String text() {
         return this.children().stream()
-                .map(c -> c.text())
+                .map(HasText::text)
                 .collect(Collectors.joining());
     }
 
     @Override
     public int textLength() {
         return this.children().stream()
-                .mapToInt(c -> c.textLength())
+                .mapToInt(HasText::textLength)
                 .sum();
     }
 

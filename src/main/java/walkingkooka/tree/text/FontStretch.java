@@ -27,5 +27,5 @@ public enum FontStretch {
     SEMI_EXPANDED,
     EXPANDED,
     EXTRA_EXPANDED,
-    ULTRA_EXPANDED;
+    ULTRA_EXPANDED
 }

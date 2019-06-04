@@ -23,5 +23,5 @@ public enum HangingPunctuation {
     FIRST,
     LAST,
     ALLOW_END,
-    FORCE_END;
+    FORCE_END
 }

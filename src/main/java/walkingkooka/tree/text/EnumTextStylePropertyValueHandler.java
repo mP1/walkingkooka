@@ -31,7 +31,7 @@ final class EnumTextStylePropertyValueHandler<E extends Enum<E>> extends TextSty
     /**
      * Factory that creates a new {@link EnumTextStylePropertyValueHandler}.
      */
-    final static <E extends Enum<E>> EnumTextStylePropertyValueHandler<E> with(final Function<String, E> factory,
+    static <E extends Enum<E>> EnumTextStylePropertyValueHandler<E> with(final Function<String, E> factory,
                                                                                final Class<E> type) {
         Objects.requireNonNull(factory, "factory");
         Objects.requireNonNull(type, "type");

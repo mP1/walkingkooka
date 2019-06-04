@@ -22,5 +22,5 @@ public enum WordBreak {
     NORMAL,
     BREAK_ALL,
     KEEP_ALL,
-    BREAK_WORD;
+    BREAK_WORD
 }

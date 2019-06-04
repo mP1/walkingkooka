@@ -19,5 +19,5 @@
 package walkingkooka.tree.text;
 
 public enum FontVariant {
-    SMALL_CAPS;
+    SMALL_CAPS
 }

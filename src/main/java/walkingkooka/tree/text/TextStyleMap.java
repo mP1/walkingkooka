@@ -33,7 +33,7 @@ final class TextStyleMap extends AbstractMap<TextStylePropertyName<?>, Object> {
     /**
      * An empty {@link TextStyleMap}.
      */
-    static TextStyleMap EMPTY = new TextStyleMap(TextStyleMapEntrySet.EMPTY);
+    static final TextStyleMap EMPTY = new TextStyleMap(TextStyleMapEntrySet.EMPTY);
 
     /**
      * Factory that takes a copy if the given {@link Map} is not a {@link TextStyleMap}.

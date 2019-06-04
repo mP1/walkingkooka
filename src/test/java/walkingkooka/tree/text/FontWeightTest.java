@@ -53,7 +53,7 @@ public final class FontWeightTest implements ClassTesting2<FontWeight>,
 
     @Test
     public void testWith() {
-        final Integer value = 400;
+        final int value = 400;
         final FontWeight size = FontWeight.with(value);
         assertEquals(value, size.value(), "value");
     }

@@ -22,5 +22,5 @@ public enum TextTransform {
     NONE,
     CAPITALIZE,
     UPPERCASE,
-    LOWERCASE;
+    LOWERCASE
 }

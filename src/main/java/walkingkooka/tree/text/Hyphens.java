@@ -21,5 +21,5 @@ package walkingkooka.tree.text;
 public enum Hyphens {
     NONE,
     MANUAL,
-    AUTO;
+    AUTO
 }
