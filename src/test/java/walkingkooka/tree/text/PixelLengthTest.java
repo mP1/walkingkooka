@@ -19,7 +19,10 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -95,8 +98,8 @@ public final class PixelLengthTest extends LengthTestCase<PixelLength, Double> {
     }
 
     @Override
-    LengthUnit<Double, PixelLength> unit() {
-        return LengthUnit.PIXEL;
+    Optional<LengthUnit<Double, Length<Double>>> unit() {
+        return Cast.to(Optional.of(LengthUnit.PIXEL));
     }
 
     // ClassTesting.....................................................................................................
