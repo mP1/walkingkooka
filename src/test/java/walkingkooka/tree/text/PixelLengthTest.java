@@ -23,7 +23,7 @@ import walkingkooka.tree.json.JsonNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class PixelsTest extends LengthTestCase<Pixels> {
+public final class PixelLengthTest extends LengthTestCase<PixelLength> {
 
     @Test
     public void testParseMissingUnitFails() {
@@ -42,76 +42,76 @@ public final class PixelsTest extends LengthTestCase<Pixels> {
 
     @Test
     public void testParse() {
-        this.parseAndCheck("12px", Pixels.with(12));
+        this.parseAndCheck("12px", PixelLength.with(12));
     }
 
     @Test
     public void testParse2() {
-        this.parseAndCheck("12.5px", Pixels.with(12.5));
+        this.parseAndCheck("12.5px", PixelLength.with(12.5));
     }
 
     @Test
     public void testParse3() {
-        this.parseAndCheck("345.75px", Pixels.with(345.75));
+        this.parseAndCheck("345.75px", PixelLength.with(345.75));
     }
 
     @Test
     public void testWith() {
         final double value = 12.5;
-        final Pixels pixels = Pixels.with(value);
+        final PixelLength pixels = PixelLength.with(value);
         assertEquals(value, pixels.value(), "value");
     }
 
     @Test
     public void testWithNegative() {
         final double value = -12.5;
-        final Pixels pixels = Pixels.with(value);
+        final PixelLength pixels = PixelLength.with(value);
         assertEquals(value, pixels.value(), "value");
     }
 
     @Test
     public void testDifferentValue() {
-        this.checkNotEquals(Pixels.with(99));
+        this.checkNotEquals(PixelLength.with(99));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(Pixels.with(0), "0px");
+        this.toStringAndCheck(PixelLength.with(0), "0px");
     }
 
     @Test
     public void testToStringDecimal() {
-        this.toStringAndCheck(Pixels.with(10.5), "10.5px");
+        this.toStringAndCheck(PixelLength.with(10.5), "10.5px");
     }
 
     @Test
     public void testToString2() {
-        this.toStringAndCheck(Pixels.with(99), "99px");
+        this.toStringAndCheck(PixelLength.with(99), "99px");
     }
 
     @Override
-    Pixels createLength() {
-        return Pixels.with(123.5);
+    PixelLength createLength() {
+        return PixelLength.with(123.5);
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<Pixels> type() {
-        return Pixels.class;
+    public Class<PixelLength> type() {
+        return PixelLength.class;
     }
 
     // ParseStringTesting...............................................................................................
 
     @Override
-    public Pixels parse(String text) {
-        return Pixels.parsePixels(text);
+    public PixelLength parse(String text) {
+        return PixelLength.parsePixels(text);
     }
     // HasJsonNodeTesting...............................................................................................
 
     @Override
-    public Pixels fromJsonNode(final JsonNode from) {
-        return Pixels.fromJsonNode(from);
+    public PixelLength fromJsonNode(final JsonNode from) {
+        return PixelLength.fromJsonNode(from);
     }
 
 }

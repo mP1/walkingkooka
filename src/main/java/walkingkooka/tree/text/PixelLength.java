@@ -29,20 +29,20 @@ import java.util.Objects;
 /**
  * A measurement in pixels.
  */
-public final class Pixels extends Length implements HasJsonNode, Value<Double> {
+public final class PixelLength extends Length implements HasJsonNode, Value<Double> {
 
     final static String UNIT = "px";
 
     /**
      * Parses text that contains a pixel measurement, note the unit is required.
      */
-    public static Pixels parsePixels(final String text) {
+    public static PixelLength parsePixels(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
         return parsePixels0(text);
     }
 
-    static Pixels parsePixels0(final String text) {
+    static PixelLength parsePixels0(final String text) {
         if (!text.endsWith(UNIT)) {
             throw new IllegalArgumentException("Text " + CharSequences.quoteAndEscape(text) + " missing " + CharSequences.quoteAndEscape(UNIT));
         }
@@ -54,11 +54,11 @@ public final class Pixels extends Length implements HasJsonNode, Value<Double> {
         }
     }
 
-    static Pixels with(final double value) {
-        return new Pixels(value);
+    static PixelLength with(final double value) {
+        return new PixelLength(value);
     }
 
-    private Pixels(final double value) {
+    private PixelLength(final double value) {
         super();
         this.value = value;
     }
@@ -76,7 +76,7 @@ public final class Pixels extends Length implements HasJsonNode, Value<Double> {
     }
 
     @Override
-    public boolean isPixels() {
+    public boolean isPixel() {
         return true;
     }
 
@@ -89,7 +89,7 @@ public final class Pixels extends Length implements HasJsonNode, Value<Double> {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof Pixels;
+        return other instanceof PixelLength;
     }
 
     @Override
@@ -111,7 +111,7 @@ public final class Pixels extends Length implements HasJsonNode, Value<Double> {
     /**
      * Accepts a json string holding a number and px unit suffix.
      */
-    public static Pixels fromJsonNode(final JsonNode node) {
+    public static PixelLength fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {

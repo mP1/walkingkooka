@@ -29,12 +29,12 @@ public final class WidthTest extends LengthTextStylePropertyValueTestCase<Width>
 
     @Override
     Length length() {
-        return Length.pixels(12.5);
+        return Length.pixel(12.5);
     }
 
     @Override
     Length differentLength() {
-        return Length.pixels(99);
+        return Length.pixel(99);
     }
 
     // ParseStringTesting...............................................................................................
