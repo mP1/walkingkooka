@@ -21,31 +21,31 @@ package walkingkooka.tree.text;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 
-public final class LetterSpace extends LengthTextStylePropertyValue implements HasJsonNode {
+public final class LetterSpacing extends LengthTextStylePropertyValue implements HasJsonNode {
 
-    public static LetterSpace parse(final String text) {
+    public static LetterSpacing parse(final String text) {
         return with(Length.parse(text));
     }
 
-    public static LetterSpace with(final Length<?> length) {
+    public static LetterSpacing with(final Length<?> length) {
         check(length);
         length.normalOrPixelOrFail();
 
-        return new LetterSpace(length);
+        return new LetterSpacing(length);
     }
 
-    private LetterSpace(final Length<?> length) {
+    private LetterSpacing(final Length<?> length) {
         super(length);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LetterSpace;
+        return other instanceof LetterSpacing;
     }
 
     // HasJsonNode.....................................................................................................
 
-    public static LetterSpace fromJsonNode(final JsonNode node) {
+    public static LetterSpacing fromJsonNode(final JsonNode node) {
         return with(Length.fromJsonNode(node));
     }
 
@@ -55,8 +55,8 @@ public final class LetterSpace extends LengthTextStylePropertyValue implements H
     }
 
     static {
-        HasJsonNode.register("letter-space",
-                LetterSpace::fromJsonNode,
-                LetterSpace.class);
+        HasJsonNode.register("letter-spacing",
+                LetterSpacing::fromJsonNode,
+                LetterSpacing.class);
     }
 }

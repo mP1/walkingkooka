@@ -21,7 +21,7 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 
-public final class LetterSpaceTest extends LengthTextStylePropertyValueTestCase<LetterSpace> {
+public final class LetterSpacingTest extends LengthTextStylePropertyValueTestCase<LetterSpacing> {
 
     @Test
     public void testWithNumberFails() {
@@ -39,8 +39,8 @@ public final class LetterSpaceTest extends LengthTextStylePropertyValueTestCase<
     }
 
     @Override
-    LetterSpace createPropertyValue(final Length length) {
-        return LetterSpace.with(length);
+    LetterSpacing createPropertyValue(final Length length) {
+        return LetterSpacing.with(length);
     }
 
     @Override
@@ -56,21 +56,21 @@ public final class LetterSpaceTest extends LengthTextStylePropertyValueTestCase<
     // ParseStringTesting...............................................................................................
 
     @Override
-    public LetterSpace parse(final String text) {
-        return LetterSpace.parse(text);
+    public LetterSpacing parse(final String text) {
+        return LetterSpacing.parse(text);
     }
 
     // HasJsonNodeTesting...............................................................................................
 
     @Override
-    public LetterSpace fromJsonNode(final JsonNode from) {
-        return LetterSpace.fromJsonNode(from);
+    public LetterSpacing fromJsonNode(final JsonNode from) {
+        return LetterSpacing.fromJsonNode(from);
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<LetterSpace> type() {
-        return LetterSpace.class;
+    public Class<LetterSpacing> type() {
+        return LetterSpacing.class;
     }
 }

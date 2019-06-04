@@ -169,9 +169,9 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * letter-space
      */
-    public final static TextStylePropertyName<LetterSpace> LETTER_SPACE = registerHasJsonNodeConstant("letter-space",
-            LetterSpace.class,
-            LetterSpace::fromJsonNode);
+    public final static TextStylePropertyName<LetterSpacing> LETTER_SPACING = registerHasJsonNodeConstant("letter-spacing",
+            LetterSpacing.class,
+            LetterSpacing::fromJsonNode);
 
     /**
      * line-height
