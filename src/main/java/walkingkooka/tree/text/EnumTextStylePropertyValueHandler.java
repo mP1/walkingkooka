@@ -54,12 +54,17 @@ final class EnumTextStylePropertyValueHandler<E extends Enum<E>> extends TextSty
         this.checkType(value, this.type, name);
     }
 
+    @Override
+    String expectedTypeName(final Class<?> type) {
+        return this.type.getSimpleName();
+    }
+
     private final Class<E> type;
 
     // fromJsonNode ....................................................................................................
 
     @Override
-    E fromJsonNode(final JsonNode node) {
+    E fromJsonNode(final JsonNode node, final TextStylePropertyName<?> name) {
         return this.factory.apply(node.stringValueOrFail());
     }
 

@@ -104,22 +104,22 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
-    protected void visitBorderWidthBottom(final BorderWidthBottom borderWidthBottom) {
+    protected void visitBorderWidthBottom(final Length<?> borderWidthBottom) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderWidthLeft(final BorderWidthLeft borderWidthLeft) {
+    protected void visitBorderWidthLeft(final Length<?> borderWidthLeft) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderWidthRight(final BorderWidthRight borderWidthRight) {
+    protected void visitBorderWidthRight(final Length<?> borderWidthRight) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderWidthTop(final BorderWidthTop borderWidthTop) {
+    protected void visitBorderWidthTop(final Length<?> borderWidthTop) {
         throw new UnsupportedOperationException();
     }
 
@@ -174,7 +174,7 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
-    protected void visitHeight(final Height height) {
+    protected void visitHeight(final Length<?> height) {
         throw new UnsupportedOperationException();
     }
 
@@ -189,27 +189,27 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
-    protected void visitLineHeight(final LineHeight lineHeight) {
+    protected void visitLineHeight(final Length<?> lineHeight) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitMarginBottom(final MarginBottom marginBottom) {
+    protected void visitMarginBottom(final Length<?> marginBottom) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitMarginLeft(final MarginLeft marginLeft) {
+    protected void visitMarginLeft(final Length<?> marginLeft) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitMarginRight(final MarginRight marginRight) {
+    protected void visitMarginRight(final Length<?> marginRight) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitMarginTop(final MarginTop marginTop) {
+    protected void visitMarginTop(final Length<?> marginTop) {
         throw new UnsupportedOperationException();
     }
     
@@ -219,27 +219,27 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
-    protected void visitPaddingBottom(final PaddingBottom paddingBottom) {
+    protected void visitPaddingBottom(final Length<?> paddingBottom) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitPaddingLeft(final PaddingLeft paddingLeft) {
+    protected void visitPaddingLeft(final Length<?> paddingLeft) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitPaddingRight(final PaddingRight paddingRight) {
+    protected void visitPaddingRight(final Length<?> paddingRight) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitPaddingTop(final PaddingTop paddingTop) {
+    protected void visitPaddingTop(final Length<?> paddingTop) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitTabSize(final TabSize tabSize) {
+    protected void visitTabSize(final Length<?> tabSize) {
         throw new UnsupportedOperationException();
     }
 
@@ -304,7 +304,7 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
-    protected void visitWidth(final Width width) {
+    protected void visitWidth(final Length<?> width) {
         throw new UnsupportedOperationException();
     }
 

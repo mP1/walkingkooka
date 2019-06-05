@@ -46,10 +46,15 @@ final class HasJsonNodeWithTypeTextStylePropertyValueHandler extends TextStylePr
                 .orElseThrow(() -> new TextStylePropertyValueException("Property " + name.inQuotes() + " value " + CharSequences.quoteIfChars(value) + " is not a supported type"));
     }
 
+    @Override
+    String expectedTypeName(final Class<?> type) {
+        return "String";
+    }
+
     // fromJsonNode ....................................................................................................
 
     @Override
-    Object fromJsonNode(final JsonNode node) {
+    Object fromJsonNode(final JsonNode node, final TextStylePropertyName<?> name) {
         return node.objectOrFail().fromJsonNodeWithType();
     }
 
