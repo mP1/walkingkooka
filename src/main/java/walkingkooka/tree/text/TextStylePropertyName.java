@@ -391,6 +391,12 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (t, v) -> v.visitOutlineColor(t));
 
     /**
+     * outline-width
+     */
+    public final static TextStylePropertyName<Length<?>> OUTLINE_WIDTH = registerPixelLengthConstant("outline-width",
+            (l, v) -> v.visitOutlineWidth(l));
+
+    /**
      * padding-bottom
      */
     public final static TextStylePropertyName<Length<?>> PADDING_BOTTOM = registerPixelLengthConstant("padding-bottom",

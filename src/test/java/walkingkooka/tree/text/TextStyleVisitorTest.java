@@ -436,6 +436,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitOutlineWidth() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitOutlineWidth(final Length<?> l) {
+                this.visited = l;
+            }
+        }.accept(TextStylePropertyName.OUTLINE_WIDTH, Length.pixel(2.0));
+    }
+
+    @Test
     public void testVisitPaddingBottom() {
         new TestTextStyleVisitor() {
             @Override
