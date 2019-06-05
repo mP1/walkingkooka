@@ -222,6 +222,10 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitOutlineStyle(final OutlineStyle outlineStyle) {
+        // nop
+    }
+
     protected void visitOutlineWidth(final Length<?> length) {
         // nop
     }
