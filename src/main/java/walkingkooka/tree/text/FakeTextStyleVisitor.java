@@ -128,6 +128,26 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitPaddingBottom(final PaddingBottom paddingBottom) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitPaddingLeft(final PaddingLeft paddingLeft) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitPaddingRight(final PaddingRight paddingRight) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitPaddingTop(final PaddingTop paddingTop) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitTabSize(final TabSize tabSize) {
         throw new UnsupportedOperationException();
     }

@@ -223,6 +223,38 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (o, v) -> v.visitOpacity(o));
 
     /**
+     * padding-bottom
+     */
+    public final static TextStylePropertyName<PaddingBottom> PADDING_BOTTOM = registerHasJsonNodeConstant("padding-bottom",
+            PaddingBottom.class,
+            PaddingBottom::fromJsonNode,
+            (p, v) -> v.visitPaddingBottom(p));
+
+    /**
+     * padding-left
+     */
+    public final static TextStylePropertyName<PaddingLeft> PADDING_LEFT = registerHasJsonNodeConstant("padding-left",
+            PaddingLeft.class,
+            PaddingLeft::fromJsonNode,
+            (p, v) -> v.visitPaddingLeft(p));
+
+    /**
+     * padding-right
+     */
+    public final static TextStylePropertyName<PaddingRight> PADDING_RIGHT = registerHasJsonNodeConstant("padding-right",
+            PaddingRight.class,
+            PaddingRight::fromJsonNode,
+            (p, v) -> v.visitPaddingRight(p));
+
+    /**
+     * padding-top
+     */
+    public final static TextStylePropertyName<PaddingTop> PADDING_TOP = registerHasJsonNodeConstant("padding-top",
+            PaddingTop.class,
+            PaddingTop::fromJsonNode,
+            (p, v) -> v.visitPaddingTop(p));
+
+    /**
      * tab-size
      */
     public final static TextStylePropertyName<TabSize> TAB_SIZE = registerHasJsonNodeConstant("tab-size",

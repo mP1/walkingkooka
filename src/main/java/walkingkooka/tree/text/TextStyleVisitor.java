@@ -141,6 +141,22 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitPaddingBottom(final PaddingBottom paddingBottom) {
+        // nop
+    }
+
+    protected void visitPaddingLeft(final PaddingLeft paddingLeft) {
+        // nop
+    }
+
+    protected void visitPaddingRight(final PaddingRight paddingRight) {
+        // nop
+    }
+
+    protected void visitPaddingTop(final PaddingTop paddingTop) {
+        // nop
+    }
+
     protected void visitTabSize(final TabSize tabSize) {
         // nop
     }
