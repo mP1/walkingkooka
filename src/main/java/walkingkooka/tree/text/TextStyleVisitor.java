@@ -82,23 +82,43 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitBorderBottomColor(final ColorHslOrHsv color) {
+        // nop
+    }
+
+    protected void visitBorderBottomStyle(final BorderStyle borderStyle) {
+        // nop
+    }
+
+    protected void visitBorderBottomWidth(final Length<?> length) {
+        // nop
+    }
+
     protected void visitBorderCollapse(final BorderCollapse borderCollapse) {
         // nop
     }
 
-    protected void visitBorderColorBottom(final ColorHslOrHsv borderColorBottom) {
+    protected void visitBorderLeftColor(final ColorHslOrHsv color) {
         // nop
     }
 
-    protected void visitBorderColorLeft(final ColorHslOrHsv borderColorLeft) {
+    protected void visitBorderLeftStyle(final BorderStyle borderStyle) {
         // nop
     }
 
-    protected void visitBorderColorRight(final ColorHslOrHsv borderColorRight) {
+    protected void visitBorderLeftWidth(final Length<?> length) {
         // nop
     }
 
-    protected void visitBorderColorTop(final ColorHslOrHsv borderColorTop) {
+    protected void visitBorderRightColor(final ColorHslOrHsv color) {
+        // nop
+    }
+
+    protected void visitBorderRightStyle(final BorderStyle borderStyle) {
+        // nop
+    }
+
+    protected void visitBorderRightWidth(final Length<?> length) {
         // nop
     }
 
@@ -106,35 +126,15 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
-    protected void visitBorderStyleBottom(final BorderStyle borderStyleBottom) {
+    protected void visitBorderTopColor(final ColorHslOrHsv color) {
         // nop
     }
 
-    protected void visitBorderStyleLeft(final BorderStyle borderStyleLeft) {
+    protected void visitBorderTopStyle(final BorderStyle borderStyle) {
         // nop
     }
 
-    protected void visitBorderStyleRight(final BorderStyle borderStyleRight) {
-        // nop
-    }
-
-    protected void visitBorderStyleTop(final BorderStyle borderStyleTop) {
-        // nop
-    }
-
-    protected void visitBorderWidthBottom(final Length<?> borderWidthBottom) {
-        // nop
-    }
-
-    protected void visitBorderWidthLeft(final Length<?> borderWidthLeft) {
-        // nop
-    }
-
-    protected void visitBorderWidthRight(final Length<?> borderWidthRight) {
-        // nop
-    }
-
-    protected void visitBorderWidthTop(final Length<?> borderWidthTop) {
+    protected void visitBorderTopWidth(final Length<?> length) {
         // nop
     }
 

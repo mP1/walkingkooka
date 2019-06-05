@@ -54,27 +54,52 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitBorderBottomColor(final ColorHslOrHsv color) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitBorderBottomStyle(final BorderStyle borderStyle) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitBorderBottomWidth(final Length<?> length) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitBorderCollapse(final BorderCollapse borderCollapse) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderColorBottom(final ColorHslOrHsv borderColorBottom) {
+    protected void visitBorderLeftColor(final ColorHslOrHsv color) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderColorLeft(final ColorHslOrHsv borderColorLeft) {
+    protected void visitBorderLeftStyle(final BorderStyle borderStyle) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderColorRight(final ColorHslOrHsv borderColorRight) {
+    protected void visitBorderLeftWidth(final Length<?> length) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderColorTop(final ColorHslOrHsv borderColorTop) {
+    protected void visitBorderRightColor(final ColorHslOrHsv color) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitBorderRightStyle(final BorderStyle borderStyle) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitBorderRightWidth(final Length<?> length) {
         throw new UnsupportedOperationException();
     }
 
@@ -84,42 +109,17 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
-    protected void visitBorderStyleBottom(final BorderStyle borderStyleBottom) {
+    protected void visitBorderTopColor(final ColorHslOrHsv color) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderStyleLeft(final BorderStyle borderStyleLeft) {
+    protected void visitBorderTopStyle(final BorderStyle borderStyle) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderStyleRight(final BorderStyle borderStyleRight) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visitBorderStyleTop(final BorderStyle borderStyleTop) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visitBorderWidthBottom(final Length<?> borderWidthBottom) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visitBorderWidthLeft(final Length<?> borderWidthLeft) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visitBorderWidthRight(final Length<?> borderWidthRight) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visitBorderWidthTop(final Length<?> borderWidthTop) {
+    protected void visitBorderTopWidth(final Length<?> length) {
         throw new UnsupportedOperationException();
     }
 
