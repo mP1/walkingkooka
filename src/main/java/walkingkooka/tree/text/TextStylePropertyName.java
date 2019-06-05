@@ -103,12 +103,20 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (c, v) -> v.visitBackgroundColor(c));
 
     /**
-     * direction
+     * border-collapse
      */
     public final static TextStylePropertyName<BorderCollapse> BORDER_COLLAPSE = registerEnumConstant("border-collapse",
             BorderCollapse::valueOf,
             BorderCollapse.class,
             (b, v) -> v.visitBorderCollapse(b));
+
+    /**
+     * border-space
+     */
+    public final static TextStylePropertyName<BorderSpacing> BORDER_SPACING = registerHasJsonNodeConstant("border-spacing",
+            BorderSpacing.class,
+            BorderSpacing::fromJsonNode,
+            (l, v) -> v.visitBorderSpacing(l));
 
     /**
      * direction
