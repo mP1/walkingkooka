@@ -155,7 +155,7 @@ public final class PixelLength extends Length<Double> implements HasJsonNode, Va
     /**
      * Accepts a json string holding a number and px unit suffix.
      */
-    public static PixelLength fromJsonNode(final JsonNode node) {
+    public static PixelLength fromJsonNodePixel(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
