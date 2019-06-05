@@ -273,6 +273,10 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456));
         properties.put(TextStylePropertyName.BORDER_COLLAPSE, BorderCollapse.SEPARATE);
         properties.put(TextStylePropertyName.BORDER_SPACING, BorderSpacing.with(Length.pixel(1.0)));
+        properties.put(TextStylePropertyName.BORDER_STYLE_BOTTOM, BorderStyle.DASHED);
+        properties.put(TextStylePropertyName.BORDER_STYLE_LEFT, BorderStyle.HIDDEN);
+        properties.put(TextStylePropertyName.BORDER_STYLE_RIGHT, BorderStyle.DOTTED);
+        properties.put(TextStylePropertyName.BORDER_STYLE_TOP, BorderStyle.OUTSET);
         properties.put(TextStylePropertyName.BORDER_WIDTH_BOTTOM, BorderWidthBottom.with(Length.pixel(1.0)));
         properties.put(TextStylePropertyName.BORDER_WIDTH_LEFT, BorderWidthLeft.with(Length.pixel(1.0)));
         properties.put(TextStylePropertyName.BORDER_WIDTH_RIGHT, BorderWidthRight.with(Length.pixel(1.0)));
