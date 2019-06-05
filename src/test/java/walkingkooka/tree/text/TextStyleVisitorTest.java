@@ -436,6 +436,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitOutlineOffset() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitOutlineOffset(final Length<?> l) {
+                this.visited = l;
+            }
+        }.accept(TextStylePropertyName.OUTLINE_OFFSET, Length.pixel(2.0));
+    }
+
+    @Test
     public void testVisitOutlineWidth() {
         new TestTextStyleVisitor() {
             @Override
