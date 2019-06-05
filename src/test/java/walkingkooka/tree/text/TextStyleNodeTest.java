@@ -304,6 +304,8 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.OUTLINE_OFFSET, Length.pixel(0.25));
         properties.put(TextStylePropertyName.OUTLINE_STYLE, OutlineStyle.HIDDEN);
         properties.put(TextStylePropertyName.OUTLINE_WIDTH, Length.pixel(0.5));
+        properties.put(TextStylePropertyName.OVERFLOW_X, Overflow.AUTO);
+        properties.put(TextStylePropertyName.OVERFLOW_Y, Overflow.AUTO);
         properties.put(TextStylePropertyName.PADDING_BOTTOM, Length.pixel(5.0));
         properties.put(TextStylePropertyName.PADDING_LEFT, Length.pixel(6.0));
         properties.put(TextStylePropertyName.PADDING_RIGHT, Length.pixel(7.0));

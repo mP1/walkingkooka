@@ -239,6 +239,16 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitOverflowX(final Overflow overflow) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitOverflowY(final Overflow overflow) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitPaddingBottom(final Length<?> paddingBottom) {
         throw new UnsupportedOperationException();
     }
