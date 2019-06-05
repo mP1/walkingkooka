@@ -137,6 +137,22 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitMarginBottom(final MarginBottom marginBottom) {
+        // nop
+    }
+
+    protected void visitMarginLeft(final MarginLeft marginLeft) {
+        // nop
+    }
+
+    protected void visitMarginRight(final MarginRight marginRight) {
+        // nop
+    }
+
+    protected void visitMarginTop(final MarginTop marginTop) {
+        // nop
+    }
+
     protected void visitOpacity(final Opacity opacity) {
         // nop
     }

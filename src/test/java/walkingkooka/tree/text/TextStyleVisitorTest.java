@@ -245,6 +245,46 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitMarginBottom() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitMarginBottom(final MarginBottom p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.MARGIN_BOTTOM, MarginBottom.parse("1px"));
+    }
+
+    @Test
+    public void testVisitMarginLeft() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitMarginLeft(final MarginLeft p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.MARGIN_LEFT, MarginLeft.parse("1px"));
+    }
+
+    @Test
+    public void testVisitMarginRight() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitMarginRight(final MarginRight p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.MARGIN_RIGHT, MarginRight.parse("1px"));
+    }
+
+    @Test
+    public void testVisitMarginTop() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitMarginTop(final MarginTop p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.MARGIN_TOP, MarginTop.parse("1px"));
+    }
+
+    @Test
     public void testVisitPaddingBottom() {
         new TestTextStyleVisitor() {
             @Override

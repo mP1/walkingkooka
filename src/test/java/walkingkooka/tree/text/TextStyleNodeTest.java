@@ -285,6 +285,10 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.HYPHENS, Hyphens.AUTO);
         properties.put(TextStylePropertyName.LETTER_SPACING, LetterSpacing.with(Length.normal()));
         properties.put(TextStylePropertyName.LINE_HEIGHT, LineHeight.with(Length.pixel(99.0)));
+        properties.put(TextStylePropertyName.MARGIN_BOTTOM, MarginBottom.with(Length.pixel(1.0)));
+        properties.put(TextStylePropertyName.MARGIN_LEFT, MarginLeft.with(Length.pixel(1.0)));
+        properties.put(TextStylePropertyName.MARGIN_RIGHT, MarginRight.with(Length.pixel(1.0)));
+        properties.put(TextStylePropertyName.MARGIN_TOP, MarginTop.with(Length.pixel(1.0)));
         properties.put(TextStylePropertyName.OPACITY, Opacity.with(0.5));
         properties.put(TextStylePropertyName.PADDING_BOTTOM, PaddingBottom.with(Length.pixel(1.0)));
         properties.put(TextStylePropertyName.PADDING_LEFT, PaddingLeft.with(Length.pixel(1.0)));
