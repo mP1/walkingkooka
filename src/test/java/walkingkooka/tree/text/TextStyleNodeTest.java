@@ -322,6 +322,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.TEXT_TRANSFORM, TextTransform.CAPITALIZE);
         properties.put(TextStylePropertyName.TEXT_WRAPPING, TextWrapping.OVERFLOW);
         properties.put(TextStylePropertyName.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+        properties.put(TextStylePropertyName.VISIBILITY, Visibility.COLLAPSE);
         properties.put(TextStylePropertyName.WHITE_SPACE, TextWhitespace.PRE);
         properties.put(TextStylePropertyName.WIDTH, Length.pixel(320.0));
         properties.put(TextStylePropertyName.WORD_BREAK, WordBreak.BREAK_WORD);

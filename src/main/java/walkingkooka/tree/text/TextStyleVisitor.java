@@ -302,6 +302,10 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitVisibility(final Visibility visibility) {
+        // nop
+    }
+
     protected void visitWhitespace(final TextWhitespace whitespace) {
         // nop
     }
