@@ -53,6 +53,11 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitBorderCollapse(final BorderCollapse borderCollapse) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitDirection(final Direction direction) {
         throw new UnsupportedOperationException();
     }

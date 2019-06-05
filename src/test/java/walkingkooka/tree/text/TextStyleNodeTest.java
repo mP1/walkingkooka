@@ -271,6 +271,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
     public void testJsonRoundtripWithProperties3() {
         final Map<TextStylePropertyName<?>, Object> properties = Maps.ordered();
         properties.put(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456));
+        properties.put(TextStylePropertyName.BORDER_COLLAPSE, BorderCollapse.SEPARATE);
         properties.put(TextStylePropertyName.DIRECTION, Direction.LTR);
         properties.put(TextStylePropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
         properties.put(TextStylePropertyName.FONT_KERNING, FontKerning.NORMAL);
