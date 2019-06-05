@@ -199,6 +199,11 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitListStyleType(final ListStyleType type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitMarginBottom(final Length<?> marginBottom) {
         throw new UnsupportedOperationException();
     }
