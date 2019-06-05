@@ -218,6 +218,10 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitOutlineOffset(final Length<?> length) {
+        // nop
+    }
+
     protected void visitOutlineWidth(final Length<?> length) {
         // nop
     }

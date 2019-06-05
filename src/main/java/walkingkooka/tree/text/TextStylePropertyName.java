@@ -391,6 +391,12 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (t, v) -> v.visitOutlineColor(t));
 
     /**
+     * outline-offset
+     */
+    public final static TextStylePropertyName<Length<?>> OUTLINE_OFFSET = registerPixelLengthConstant("outline-offset",
+            (l, v) -> v.visitOutlineOffset(l));
+
+    /**
      * outline-width
      */
     public final static TextStylePropertyName<Length<?>> OUTLINE_WIDTH = registerPixelLengthConstant("outline-width",
