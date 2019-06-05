@@ -466,6 +466,26 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitOverflowX() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitOverflowX(final Overflow x) {
+                this.visited = x;
+            }
+        }.accept(TextStylePropertyName.OVERFLOW_X, Overflow.AUTO);
+    }
+
+    @Test
+    public void testVisitOverflowY() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitOverflowY(final Overflow y) {
+                this.visited = y;
+            }
+        }.accept(TextStylePropertyName.OVERFLOW_Y, Overflow.AUTO);
+    }
+
+    @Test
     public void testVisitPaddingBottom() {
         new TestTextStyleVisitor() {
             @Override

@@ -230,6 +230,14 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitOverflowX(final Overflow overflow) {
+        // nop
+    }
+
+    protected void visitOverflowY(final Overflow overflow) {
+        // nop
+    }
+
     protected void visitPaddingBottom(final Length<?> paddingBottom) {
         // nop
     }

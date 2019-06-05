@@ -411,6 +411,22 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (l, v) -> v.visitOutlineWidth(l));
 
     /**
+     * overflow-x
+     */
+    public final static TextStylePropertyName<Overflow> OVERFLOW_X = registerEnumConstant("overflow-x",
+            Overflow::valueOf,
+            Overflow.class,
+            (o, v) -> v.visitOverflowX(o));
+
+    /**
+     * overflow-y
+     */
+    public final static TextStylePropertyName<Overflow> OVERFLOW_Y = registerEnumConstant("overflow-y",
+            Overflow::valueOf,
+            Overflow.class,
+            (o, v) -> v.visitOverflowY(o));
+
+    /**
      * padding-bottom
      */
     public final static TextStylePropertyName<Length<?>> PADDING_BOTTOM = registerPixelLengthConstant("padding-bottom",
