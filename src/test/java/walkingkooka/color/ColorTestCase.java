@@ -783,6 +783,6 @@ abstract public class ColorTestCase<C extends Color> extends ColorHslOrHsvTestCa
 
     @Override
     public final C fromJsonNode(final JsonNode from) {
-        return Cast.to(Color.fromJsonNode(from));
+        return Cast.to(Color.fromJsonNodeColor(from));
     }
 }

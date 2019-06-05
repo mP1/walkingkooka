@@ -19,7 +19,6 @@
 package walkingkooka.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -28,16 +27,6 @@ import java.util.Optional;
  * An {@link Color} that is opaque with a constant alpha component.
  */
 final class OpaqueColor extends Color {
-
-    static OpaqueColor fromJsonNode0(final JsonNode from) {
-        Objects.requireNonNull(from, "from");
-
-        try {
-            return OpaqueColor.class.cast(fromJsonNode(from));
-        } catch (final ClassCastException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-    }
 
     /**
      * Creates a new {@link Color} with the provided components.

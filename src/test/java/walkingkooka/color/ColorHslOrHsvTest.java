@@ -21,10 +21,15 @@ package walkingkooka.color;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv>,
+        HasJsonNodeTesting<ColorHslOrHsv>,
         ParseStringTesting<ColorHslOrHsv> {
+
+    // parse...........................................................................................................
 
     @Test
     public void testParseFails() {
@@ -53,6 +58,47 @@ public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv>,
                 Color.with(ColorComponent.red((byte) 12),
                         ColorComponent.green((byte) 34),
                         ColorComponent.blue((byte) 56)));
+    }
+
+    // fromJsonNode.....................................................................................................
+
+    @Override
+    public void testHasJsonNodeFactoryRegistered() {
+    }
+
+    @Test
+    public void testFromJsonNodeFails() {
+        this.fromJsonNodeFails("\"abc\"");
+    }
+
+    @Test
+    public void testFromJsonNodeColor() {
+        final Color color = Color.fromRgb(0x123456);
+        this.fromJsonNodeAndCheck(color.toJsonNode(), color);
+    }
+
+    @Test
+    public void testFromJsonNodeHsl() {
+        final Hsl hsl = Hsl.with(HslComponent.hue(99), HslComponent.saturation(0.25f), HslComponent.lightness(0.75f));
+        this.fromJsonNodeAndCheck(hsl.toJsonNode(), hsl);
+    }
+
+    @Test
+    public void testFromJsonNodeHsv() {
+        final Hsv hsv = Color.fromRgb(0x123456).toHsv();
+        this.fromJsonNodeAndCheck(hsv.toJsonNode(), hsv);
+    }
+
+    // HasJsonNode.....................................................................................................
+
+    @Override
+    public ColorHslOrHsv fromJsonNode(final JsonNode from) {
+        return ColorHslOrHsv.fromJsonNode(from);
+    }
+
+    @Override
+    public ColorHslOrHsv createHasJsonNode() {
+        return Color.fromArgb(0x123456);
     }
 
     // ParseStringTesting...............................................................................................
