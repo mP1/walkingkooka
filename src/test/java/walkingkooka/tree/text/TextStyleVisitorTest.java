@@ -376,6 +376,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitLineHeight() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitLineHeight(final Length<?> l) {
+                this.visited = l;
+            }
+        }.accept(TextStylePropertyName.LINE_HEIGHT, Length.parse("1px"));
+    }
+
+    @Test
     public void testVisitListStylePosition() {
         new TestTextStyleVisitor() {
             @Override
