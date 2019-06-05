@@ -296,6 +296,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.LETTER_SPACING, LetterSpacing.with(Length.normal()));
         properties.put(TextStylePropertyName.LINE_HEIGHT, Length.pixel(100.0));
         properties.put(TextStylePropertyName.LIST_STYLE_POSITION, ListStylePosition.INSIDE);
+        properties.put(TextStylePropertyName.LIST_STYLE_TYPE, ListStyleType.DECIMAL_LEADING_ZERO);
         properties.put(TextStylePropertyName.MARGIN_BOTTOM, Length.pixel(1.0));
         properties.put(TextStylePropertyName.MARGIN_LEFT, Length.pixel(2.0));
         properties.put(TextStylePropertyName.MARGIN_RIGHT, Length.pixel(3.0));
