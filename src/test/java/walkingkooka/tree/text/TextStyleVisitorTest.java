@@ -245,6 +245,46 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitPaddingBottom() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitPaddingBottom(final PaddingBottom p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.PADDING_BOTTOM, PaddingBottom.parse("1px"));
+    }
+
+    @Test
+    public void testVisitPaddingLeft() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitPaddingLeft(final PaddingLeft p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.PADDING_LEFT, PaddingLeft.parse("1px"));
+    }
+
+    @Test
+    public void testVisitPaddingRight() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitPaddingRight(final PaddingRight p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.PADDING_RIGHT, PaddingRight.parse("1px"));
+    }
+
+    @Test
+    public void testVisitPaddingTop() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitPaddingTop(final PaddingTop p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.PADDING_TOP, PaddingTop.parse("1px"));
+    }
+    
+    @Test
     public void testVisitTabSize() {
         new TestTextStyleVisitor() {
             @Override
