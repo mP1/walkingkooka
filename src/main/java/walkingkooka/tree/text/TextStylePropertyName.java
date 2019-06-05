@@ -119,6 +119,38 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (l, v) -> v.visitBorderSpacing(l));
 
     /**
+     * border-width-bottom
+     */
+    public final static TextStylePropertyName<BorderWidthBottom> BORDER_WIDTH_BOTTOM = registerHasJsonNodeConstant("border-width-bottom",
+            BorderWidthBottom.class,
+            BorderWidthBottom::fromJsonNode,
+            (p, v) -> v.visitBorderWidthBottom(p));
+
+    /**
+     * border-width-left
+     */
+    public final static TextStylePropertyName<BorderWidthLeft> BORDER_WIDTH_LEFT = registerHasJsonNodeConstant("border-width-left",
+            BorderWidthLeft.class,
+            BorderWidthLeft::fromJsonNode,
+            (p, v) -> v.visitBorderWidthLeft(p));
+
+    /**
+     * border-width-right
+     */
+    public final static TextStylePropertyName<BorderWidthRight> BORDER_WIDTH_RIGHT = registerHasJsonNodeConstant("border-width-right",
+            BorderWidthRight.class,
+            BorderWidthRight::fromJsonNode,
+            (p, v) -> v.visitBorderWidthRight(p));
+
+    /**
+     * border-width-top
+     */
+    public final static TextStylePropertyName<BorderWidthTop> BORDER_WIDTH_TOP = registerHasJsonNodeConstant("border-width-top",
+            BorderWidthTop.class,
+            BorderWidthTop::fromJsonNode,
+            (p, v) -> v.visitBorderWidthTop(p));
+
+    /**
      * direction
      */
     public final static TextStylePropertyName<Direction> DIRECTION = registerEnumConstant("direction",

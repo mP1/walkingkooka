@@ -272,6 +272,10 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         final Map<TextStylePropertyName<?>, Object> properties = Maps.ordered();
         properties.put(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456));
         properties.put(TextStylePropertyName.BORDER_COLLAPSE, BorderCollapse.SEPARATE);
+        properties.put(TextStylePropertyName.BORDER_WIDTH_BOTTOM, BorderWidthBottom.with(Length.pixel(1.0)));
+        properties.put(TextStylePropertyName.BORDER_WIDTH_LEFT, BorderWidthLeft.with(Length.pixel(1.0)));
+        properties.put(TextStylePropertyName.BORDER_WIDTH_RIGHT, BorderWidthRight.with(Length.pixel(1.0)));
+        properties.put(TextStylePropertyName.BORDER_WIDTH_TOP, BorderWidthTop.with(Length.pixel(1.0)));
         properties.put(TextStylePropertyName.DIRECTION, Direction.LTR);
         properties.put(TextStylePropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
         properties.put(TextStylePropertyName.FONT_KERNING, FontKerning.NORMAL);

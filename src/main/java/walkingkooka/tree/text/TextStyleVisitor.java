@@ -89,6 +89,22 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitBorderWidthBottom(final BorderWidthBottom borderWidthBottom) {
+        // nop
+    }
+
+    protected void visitBorderWidthLeft(final BorderWidthLeft borderWidthLeft) {
+        // nop
+    }
+
+    protected void visitBorderWidthRight(final BorderWidthRight borderWidthRight) {
+        // nop
+    }
+
+    protected void visitBorderWidthTop(final BorderWidthTop borderWidthTop) {
+        // nop
+    }
+
     protected void visitDirection(final Direction direction) {
         // nop
     }
