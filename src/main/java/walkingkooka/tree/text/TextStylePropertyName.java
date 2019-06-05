@@ -215,6 +215,38 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (lh, v) -> v.visitLineHeight(lh));
 
     /**
+     * margin-bottom
+     */
+    public final static TextStylePropertyName<MarginBottom> MARGIN_BOTTOM = registerHasJsonNodeConstant("margin-bottom",
+            MarginBottom.class,
+            MarginBottom::fromJsonNode,
+            (p, v) -> v.visitMarginBottom(p));
+
+    /**
+     * margin-left
+     */
+    public final static TextStylePropertyName<MarginLeft> MARGIN_LEFT = registerHasJsonNodeConstant("margin-left",
+            MarginLeft.class,
+            MarginLeft::fromJsonNode,
+            (p, v) -> v.visitMarginLeft(p));
+
+    /**
+     * margin-right
+     */
+    public final static TextStylePropertyName<MarginRight> MARGIN_RIGHT = registerHasJsonNodeConstant("margin-right",
+            MarginRight.class,
+            MarginRight::fromJsonNode,
+            (p, v) -> v.visitMarginRight(p));
+
+    /**
+     * margin-top
+     */
+    public final static TextStylePropertyName<MarginTop> MARGIN_TOP = registerHasJsonNodeConstant("margin-top",
+            MarginTop.class,
+            MarginTop::fromJsonNode,
+            (p, v) -> v.visitMarginTop(p));
+    
+    /**
      * opacity
      */
     public final static TextStylePropertyName<Opacity> OPACITY = registerHasJsonNodeConstant("opacity",

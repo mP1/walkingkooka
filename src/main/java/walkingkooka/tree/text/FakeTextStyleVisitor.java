@@ -123,6 +123,26 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitMarginBottom(final MarginBottom marginBottom) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitMarginLeft(final MarginLeft marginLeft) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitMarginRight(final MarginRight marginRight) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitMarginTop(final MarginTop marginTop) {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
     protected void visitOpacity(final Opacity opacity) {
         throw new UnsupportedOperationException();
     }
