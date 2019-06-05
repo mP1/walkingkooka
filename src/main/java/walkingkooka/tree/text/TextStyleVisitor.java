@@ -19,6 +19,7 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.color.Color;
+import walkingkooka.color.ColorHslOrHsv;
 import walkingkooka.tree.visit.Visiting;
 import walkingkooka.tree.visit.Visitor;
 
@@ -85,19 +86,19 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
-    protected void visitBorderColorBottom(final BorderColorBottom borderColorBottom) {
+    protected void visitBorderColorBottom(final ColorHslOrHsv borderColorBottom) {
         // nop
     }
 
-    protected void visitBorderColorLeft(final BorderColorLeft borderColorLeft) {
+    protected void visitBorderColorLeft(final ColorHslOrHsv borderColorLeft) {
         // nop
     }
 
-    protected void visitBorderColorRight(final BorderColorRight borderColorRight) {
+    protected void visitBorderColorRight(final ColorHslOrHsv borderColorRight) {
         // nop
     }
 
-    protected void visitBorderColorTop(final BorderColorTop borderColorTop) {
+    protected void visitBorderColorTop(final ColorHslOrHsv borderColorTop) {
         // nop
     }
 

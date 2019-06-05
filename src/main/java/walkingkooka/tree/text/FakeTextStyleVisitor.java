@@ -19,6 +19,7 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.color.Color;
+import walkingkooka.color.ColorHslOrHsv;
 import walkingkooka.tree.visit.Visiting;
 
 public class FakeTextStyleVisitor extends TextStyleVisitor {
@@ -58,22 +59,22 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
-    protected void visitBorderColorBottom(final BorderColorBottom borderColorBottom) {
+    protected void visitBorderColorBottom(final ColorHslOrHsv borderColorBottom) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderColorLeft(final BorderColorLeft borderColorLeft) {
+    protected void visitBorderColorLeft(final ColorHslOrHsv borderColorLeft) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderColorRight(final BorderColorRight borderColorRight) {
+    protected void visitBorderColorRight(final ColorHslOrHsv borderColorRight) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visitBorderColorTop(final BorderColorTop borderColorTop) {
+    protected void visitBorderColorTop(final ColorHslOrHsv borderColorTop) {
         throw new UnsupportedOperationException();
     }
 

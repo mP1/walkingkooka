@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
+import walkingkooka.color.ColorHslOrHsv;
 import walkingkooka.tree.visit.Visiting;
 import walkingkooka.type.MemberVisibility;
 
@@ -118,40 +119,40 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     public void testVisitBorderColorBottom() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderColorBottom(final BorderColorBottom b) {
-                this.visited = b;
+            protected void visitBorderColorBottom(final ColorHslOrHsv c) {
+                this.visited = c;
             }
-        }.accept(TextStylePropertyName.BORDER_COLOR_BOTTOM, BorderColorBottom.parse("red"));
+        }.accept(TextStylePropertyName.BORDER_COLOR_BOTTOM, ColorHslOrHsv.parse("red"));
     }
 
     @Test
     public void testVisitBorderColorLeft() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderColorLeft(final BorderColorLeft b) {
-                this.visited = b;
+            protected void visitBorderColorLeft(final ColorHslOrHsv c) {
+                this.visited = c;
             }
-        }.accept(TextStylePropertyName.BORDER_COLOR_LEFT, BorderColorLeft.parse("green"));
+        }.accept(TextStylePropertyName.BORDER_COLOR_LEFT, ColorHslOrHsv.parse("green"));
     }
 
     @Test
     public void testVisitBorderColorRight() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderColorRight(final BorderColorRight b) {
-                this.visited = b;
+            protected void visitBorderColorRight(final ColorHslOrHsv c) {
+                this.visited = c;
             }
-        }.accept(TextStylePropertyName.BORDER_COLOR_RIGHT, BorderColorRight.parse("yellow"));
+        }.accept(TextStylePropertyName.BORDER_COLOR_RIGHT, ColorHslOrHsv.parse("yellow"));
     }
 
     @Test
     public void testVisitBorderColorTop() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderColorTop(final BorderColorTop b) {
-                this.visited = b;
+            protected void visitBorderColorTop(final ColorHslOrHsv c) {
+                this.visited = c;
             }
-        }.accept(TextStylePropertyName.BORDER_COLOR_TOP, BorderColorTop.parse("pink"));
+        }.accept(TextStylePropertyName.BORDER_COLOR_TOP, ColorHslOrHsv.parse("pink"));
     }
 
     @Test
