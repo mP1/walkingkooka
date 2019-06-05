@@ -304,6 +304,11 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitTextIndent(final Length<?> length) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitTextJustify(final TextJustify textJustify) {
         throw new UnsupportedOperationException();
     }

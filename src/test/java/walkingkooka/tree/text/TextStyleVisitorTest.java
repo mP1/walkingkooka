@@ -586,6 +586,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitTextIndent() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitTextIndent(final Length<?> l) {
+                this.visited = l;
+            }
+        }.accept(TextStylePropertyName.TEXT_INDENT, Length.parse("1px"));
+    }
+
+    @Test
     public void testVisitTextJustify() {
         new TestTextStyleVisitor() {
             @Override

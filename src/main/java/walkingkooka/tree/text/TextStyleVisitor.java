@@ -282,6 +282,10 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitTextIndent(final Length<?> length) {
+        // nop
+    }
+
     protected void visitTextJustify(final TextJustify textJustify) {
         // nop
     }

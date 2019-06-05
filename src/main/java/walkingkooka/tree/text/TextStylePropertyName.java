@@ -503,6 +503,12 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (t, v) -> v.visitTextDecorationStyle(t));
 
     /**
+     * text-indent
+     */
+    public final static TextStylePropertyName<Length<?>> TEXT_INDENT = registerPixelLengthConstant("text-indent",
+            (l, v) -> v.visitTextIndent(l));
+
+    /**
      * text-justify
      */
     public final static TextStylePropertyName<TextJustify> TEXT_JUSTIFY = registerEnumConstant("text-justify",
