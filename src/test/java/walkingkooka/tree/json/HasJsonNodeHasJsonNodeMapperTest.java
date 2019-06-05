@@ -25,7 +25,7 @@ public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeMapperTes
 
     @Override
     HasJsonNodeHasJsonNodeMapper<Color> mapper() {
-        return HasJsonNodeHasJsonNodeMapper.with("color", Color::fromJsonNode, Color.class);
+        return HasJsonNodeHasJsonNodeMapper.with("color", Color::fromJsonNodeColor, Color.class);
     }
 
     @Override

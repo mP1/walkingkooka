@@ -284,13 +284,13 @@ final public class Hsl extends ColorHslOrHsv {
     // HasJsonNode......................................................................................................
 
     static {
-        HasJsonNode.register("hsl", Hsl::fromJsonNode, Hsl.class);
+        HasJsonNode.register("hsl", Hsl::fromJsonNodeHsl, Hsl.class);
     }
 
     /**
      * Creates a {@link Hsl} from a {@link JsonNode}.
      */
-    public static Hsl fromJsonNode(final JsonNode from) {
+    public static Hsl fromJsonNodeHsl(final JsonNode from) {
         Objects.requireNonNull(from, "from");
 
         try {

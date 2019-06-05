@@ -279,7 +279,7 @@ public final class HslTest extends ColorHslOrHsvTestCase<Hsl> implements ParseSt
 
     @Override
     public Hsl fromJsonNode(final JsonNode from) {
-        return Hsl.fromJsonNode(from);
+        return Hsl.fromJsonNodeHsl(from);
     }
 
     // ParseStringTesting .............................................................................................

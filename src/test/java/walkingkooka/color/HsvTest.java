@@ -271,7 +271,7 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
 
     @Override
     public Hsv fromJsonNode(final JsonNode from) {
-        return Hsv.fromJsonNode(from);
+        return Hsv.fromJsonNodeHsv(from);
     }
 
     // ParseStringTesting .............................................................................................

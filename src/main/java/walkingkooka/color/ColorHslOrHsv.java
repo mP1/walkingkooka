@@ -25,8 +25,10 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Base class for all color like value classes.
@@ -91,6 +93,19 @@ public abstract class ColorHslOrHsv implements HashCodeEqualsDefined,
     public abstract Hsv toHsv();
 
     // HasJsonNode......................................................................................................
+
+    /**
+     * Creates a {@link ColorHslOrHsv} from a {@link JsonNode}.
+     */
+    public static ColorHslOrHsv fromJsonNode(final JsonNode from) {
+        Objects.requireNonNull(from, "from");
+
+        try {
+            return parse(from.stringValueOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
 
     @Override
     public final JsonNode toJsonNode() {

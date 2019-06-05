@@ -19,25 +19,13 @@
 package walkingkooka.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.tree.json.JsonNode;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
  * A {@link Color} that includes an alpha property.
  */
 final class AlphaColor extends Color {
-
-    static AlphaColor fromJsonNode0(final JsonNode from) {
-        Objects.requireNonNull(from, "from");
-
-        try {
-            return AlphaColor.class.cast(fromJsonNode(from));
-        } catch (final ClassCastException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
-    }
 
     /**
      * Factory that creates a {@link AlphaColor} with the given argb value.

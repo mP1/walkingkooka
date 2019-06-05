@@ -637,13 +637,13 @@ abstract public class Color extends ColorHslOrHsv {
     // HasJsonNode......................................................................................................
 
     static {
-        HasJsonNode.register("color", Color::fromJsonNode, Color.class, AlphaColor.class, OpaqueColor.class);
+        HasJsonNode.register("color", Color::fromJsonNodeColor, Color.class, AlphaColor.class, OpaqueColor.class);
     }
 
     /**
      * Creates a {@link Color} from a {@link JsonNode}.
      */
-    public static Color fromJsonNode(final JsonNode from) {
+    public static Color fromJsonNodeColor(final JsonNode from) {
         Objects.requireNonNull(from, "from");
 
         try {

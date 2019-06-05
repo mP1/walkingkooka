@@ -99,7 +99,7 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
      */
     public final static TextStylePropertyName<Color> BACKGROUND_COLOR = registerHasJsonNodeConstant("background-color",
             Color.class,
-            Color::fromJsonNode,
+            Color::fromJsonNodeColor,
             (c, v) -> v.visitBackgroundColor(c));
 
     /**
@@ -361,7 +361,7 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
      */
     public final static TextStylePropertyName<Color> TEXT_COLOR = registerHasJsonNodeConstant("text-color",
             Color.class,
-            Color::fromJsonNode,
+            Color::fromJsonNodeColor,
             (t, v) -> v.visitTextColor(t));
 
     /**
@@ -377,7 +377,7 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
      */
     public final static TextStylePropertyName<Color> TEXT_DECORATION_COLOR = registerHasJsonNodeConstant("text-decoration-color",
             Color.class,
-            Color::fromJsonNode,
+            Color::fromJsonNodeColor,
             (t, v) -> v.visitTextDecorationColor(t));
 
     /**
