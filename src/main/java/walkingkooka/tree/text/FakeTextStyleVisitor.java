@@ -58,6 +58,11 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitBorderSpacing(final BorderSpacing borderSpacing) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitDirection(final Direction direction) {
         throw new UnsupportedOperationException();
     }

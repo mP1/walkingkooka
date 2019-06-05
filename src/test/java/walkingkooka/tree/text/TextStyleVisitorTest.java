@@ -113,6 +113,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
             }
         }.accept(TextStylePropertyName.BORDER_COLLAPSE, BorderCollapse.SEPARATE);
     }
+
+    @Test
+    public void testVisitBorderSpacing() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderSpacing(final BorderSpacing b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_SPACING, BorderSpacing.with(Length.pixel(1.0)));
+    }
     
     @Test
     public void testVisitDirection() {
