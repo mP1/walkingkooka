@@ -300,6 +300,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.MARGIN_RIGHT, Length.pixel(3.0));
         properties.put(TextStylePropertyName.MARGIN_TOP, Length.pixel(4.0));
         properties.put(TextStylePropertyName.OPACITY, Opacity.with(0.5));
+        properties.put(TextStylePropertyName.OUTLINE_COLOR, Color.parseColor("red"));
         properties.put(TextStylePropertyName.PADDING_BOTTOM, Length.pixel(5.0));
         properties.put(TextStylePropertyName.PADDING_LEFT, Length.pixel(6.0));
         properties.put(TextStylePropertyName.PADDING_RIGHT, Length.pixel(7.0));

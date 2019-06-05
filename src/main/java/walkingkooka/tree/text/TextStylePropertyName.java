@@ -383,6 +383,14 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (o, v) -> v.visitOpacity(o));
 
     /**
+     * outline-color
+     */
+    public final static TextStylePropertyName<Color> OUTLINE_COLOR = registerHasJsonNodeConstant("outline-color",
+            Color.class,
+            Color::fromJsonNodeColor,
+            (t, v) -> v.visitOutlineColor(t));
+
+    /**
      * padding-bottom
      */
     public final static TextStylePropertyName<Length<?>> PADDING_BOTTOM = registerPixelLengthConstant("padding-bottom",
