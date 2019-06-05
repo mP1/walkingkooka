@@ -194,6 +194,10 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitListStylePosition(final ListStylePosition position) {
+        // nop
+    }
+
     protected void visitMarginBottom(final Length<?> marginBottom) {
         // nop
     }

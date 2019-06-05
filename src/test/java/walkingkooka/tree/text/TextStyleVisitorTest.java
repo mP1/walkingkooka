@@ -376,6 +376,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitListStylePosition() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitListStylePosition(final ListStylePosition p) {
+                this.visited = p;
+            }
+        }.accept(TextStylePropertyName.LIST_STYLE_POSITION, ListStylePosition.INSIDE);
+    }
+
+    @Test
     public void testVisitMarginBottom() {
         new TestTextStyleVisitor() {
             @Override

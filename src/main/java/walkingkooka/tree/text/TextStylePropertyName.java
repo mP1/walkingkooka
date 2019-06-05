@@ -351,6 +351,14 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (l, v) -> v.visitLineHeight(l));
 
     /**
+     * list-style-position
+     */
+    public final static TextStylePropertyName<ListStylePosition> LIST_STYLE_POSITION = registerEnumConstant("list-style-position",
+            ListStylePosition::valueOf,
+            ListStylePosition.class,
+            (p, v) -> v.visitListStylePosition(p));
+
+    /**
      * margin-bottom
      */
     public final static TextStylePropertyName<Length<?>> MARGIN_BOTTOM = registerPixelLengthConstant("margin-bottom",
