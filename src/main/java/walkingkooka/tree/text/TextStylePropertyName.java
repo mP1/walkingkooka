@@ -105,6 +105,14 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * direction
      */
+    public final static TextStylePropertyName<BorderCollapse> BORDER_COLLAPSE = registerEnumConstant("border-collapse",
+            BorderCollapse::valueOf,
+            BorderCollapse.class,
+            (b, v) -> v.visitBorderCollapse(b));
+
+    /**
+     * direction
+     */
     public final static TextStylePropertyName<Direction> DIRECTION = registerEnumConstant("direction",
             Direction::valueOf,
             Direction.class,

@@ -81,6 +81,10 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitBorderCollapse(final BorderCollapse borderCollapse) {
+        // nop
+    }
+
     protected void visitDirection(final Direction direction) {
         // nop
     }

@@ -105,6 +105,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitBorderCollapse() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderCollapse(final BorderCollapse d) {
+                this.visited = d;
+            }
+        }.accept(TextStylePropertyName.BORDER_COLLAPSE, BorderCollapse.SEPARATE);
+    }
+    
+    @Test
     public void testVisitDirection() {
         new TestTextStyleVisitor() {
             @Override
