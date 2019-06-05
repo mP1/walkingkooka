@@ -397,6 +397,14 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (l, v) -> v.visitOutlineOffset(l));
 
     /**
+     * outline-style
+     */
+    public final static TextStylePropertyName<OutlineStyle> OUTLINE_STYLE = registerEnumConstant("outline-style",
+            OutlineStyle::valueOf,
+            OutlineStyle.class,
+            (s, v) -> v.visitOutlineStyle(s));
+
+    /**
      * outline-width
      */
     public final static TextStylePropertyName<Length<?>> OUTLINE_WIDTH = registerPixelLengthConstant("outline-width",

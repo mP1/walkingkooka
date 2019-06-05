@@ -229,6 +229,11 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitOutlineStyle(final OutlineStyle outlineStyle) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitOutlineWidth(final Length<?> length) {
         throw new UnsupportedOperationException();
     }

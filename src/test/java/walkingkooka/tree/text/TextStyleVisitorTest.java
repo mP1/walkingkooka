@@ -446,6 +446,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitOutlineStyle() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitOutlineStyle(final OutlineStyle s) {
+                this.visited = s;
+            }
+        }.accept(TextStylePropertyName.OUTLINE_STYLE, OutlineStyle.DASHED);
+    }
+
+    @Test
     public void testVisitOutlineWidth() {
         new TestTextStyleVisitor() {
             @Override
