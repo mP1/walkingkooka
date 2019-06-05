@@ -376,16 +376,6 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
-    public void testVisitOpacity() {
-        new TestTextStyleVisitor() {
-            @Override
-            protected void visitOpacity(final Opacity o) {
-                this.visited = o;
-            }
-        }.accept(TextStylePropertyName.OPACITY, Opacity.OPAQUE);
-    }
-
-    @Test
     public void testVisitMarginBottom() {
         new TestTextStyleVisitor() {
             @Override
@@ -423,6 +413,26 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
                 this.visited = l;
             }
         }.accept(TextStylePropertyName.MARGIN_TOP, Length.parse("1px"));
+    }
+
+    @Test
+    public void testVisitOpacity() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitOpacity(final Opacity o) {
+                this.visited = o;
+            }
+        }.accept(TextStylePropertyName.OPACITY, Opacity.OPAQUE);
+    }
+
+    @Test
+    public void testVisitOutlineColor() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitOutlineColor(final Color c) {
+                this.visited = c;
+            }
+        }.accept(TextStylePropertyName.OUTLINE_COLOR, Color.parseColor("red"));
     }
 
     @Test
