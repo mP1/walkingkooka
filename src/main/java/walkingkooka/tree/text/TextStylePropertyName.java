@@ -151,6 +151,38 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (l, v) -> v.visitBorderSpacing(l));
 
     /**
+     * border-style-bottom
+     */
+    public final static TextStylePropertyName<BorderStyle> BORDER_STYLE_BOTTOM = registerEnumConstant("border-style-bottom",
+            BorderStyle::valueOf,
+            BorderStyle.class,
+            (s, v) -> v.visitBorderStyleBottom(s));
+
+    /**
+     * border-style-left
+     */
+    public final static TextStylePropertyName<BorderStyle> BORDER_STYLE_LEFT = registerEnumConstant("border-style-left",
+            BorderStyle::valueOf,
+            BorderStyle.class,
+            (s, v) -> v.visitBorderStyleLeft(s));
+
+    /**
+     * border-style-right
+     */
+    public final static TextStylePropertyName<BorderStyle> BORDER_STYLE_RIGHT = registerEnumConstant("border-style-right",
+            BorderStyle::valueOf,
+            BorderStyle.class,
+            (s, v) -> v.visitBorderStyleRight(s));
+
+    /**
+     * border-style-top
+     */
+    public final static TextStylePropertyName<BorderStyle> BORDER_STYLE_TOP = registerEnumConstant("border-style-top",
+            BorderStyle::valueOf,
+            BorderStyle.class,
+            (s, v) -> v.visitBorderStyleTop(s));
+
+    /**
      * border-width-bottom
      */
     public final static TextStylePropertyName<BorderWidthBottom> BORDER_WIDTH_BOTTOM = registerHasJsonNodeConstant("border-width-bottom",
