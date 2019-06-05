@@ -146,7 +146,7 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
     /**
      * Accepts a json string holding a number and px unit suffix.
      */
-    public static NormalLength fromJsonNode(final JsonNode node) {
+    public static NormalLength fromJsonNodeNormal(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {

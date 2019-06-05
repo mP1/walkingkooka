@@ -156,7 +156,7 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
     /**
      * Accepts a json string holding a number and px unit suffix.
      */
-    public static NumberLength fromJsonNode(final JsonNode node) {
+    public static NumberLength fromJsonNodeNumber(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
