@@ -138,6 +138,28 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (c, v) -> v.visitBackgroundColor(c));
 
     /**
+     * border-bottom-color
+     */
+    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_BOTTOM_COLOR = registerHasJsonNodeConstant("border-bottom-color",
+            ColorHslOrHsv.class,
+            ColorHslOrHsv::fromJsonNode,
+            (c, v) -> v.visitBorderBottomColor(c));
+
+    /**
+     * border-bottom-style
+     */
+    public final static TextStylePropertyName<BorderStyle> BORDER_BOTTOM_STYLE = registerEnumConstant("border-bottom-style",
+            BorderStyle::valueOf,
+            BorderStyle.class,
+            (s, v) -> v.visitBorderBottomStyle(s));
+
+    /**
+     * border-bottom-width
+     */
+    public final static TextStylePropertyName<Length<?>> BORDER_BOTTOM_WIDTH = registerPixelLengthConstant("border-bottom-width",
+            (l, v) -> v.visitBorderBottomWidth(l));
+
+    /**
      * border-collapse
      */
     public final static TextStylePropertyName<BorderCollapse> BORDER_COLLAPSE = registerEnumConstant("border-collapse",
@@ -146,36 +168,27 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (b, v) -> v.visitBorderCollapse(b));
 
     /**
-     * border-color-bottom
+     * border-left-color
      */
-    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_COLOR_BOTTOM = registerHasJsonNodeConstant("border-color-bottom",
+    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_LEFT_COLOR = registerHasJsonNodeConstant("border-left-color",
             ColorHslOrHsv.class,
             ColorHslOrHsv::fromJsonNode,
-            (c, v) -> v.visitBorderColorBottom(c));
+            (c, v) -> v.visitBorderLeftColor(c));
 
     /**
-     * border-color-left
+     * border-left-style
      */
-    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_COLOR_LEFT = registerHasJsonNodeConstant("border-color-left",
-            ColorHslOrHsv.class,
-            ColorHslOrHsv::fromJsonNode,
-            (c, v) -> v.visitBorderColorLeft(c));
+    public final static TextStylePropertyName<BorderStyle> BORDER_LEFT_STYLE = registerEnumConstant("border-left-style",
+            BorderStyle::valueOf,
+            BorderStyle.class,
+            (s, v) -> v.visitBorderLeftStyle(s));
 
     /**
-     * border-color-right
+     * border-left-width
      */
-    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_COLOR_RIGHT = registerHasJsonNodeConstant("border-color-right",
-            ColorHslOrHsv.class,
-            ColorHslOrHsv::fromJsonNode,
-            (c, v) -> v.visitBorderColorRight(c));
+    public final static TextStylePropertyName<Length<?>> BORDER_LEFT_WIDTH = registerPixelLengthConstant("border-left-width",
+            (l, v) -> v.visitBorderLeftWidth(l));
 
-    /**
-     * border-color-top
-     */
-    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_COLOR_TOP = registerHasJsonNodeConstant("border-color-top",
-            ColorHslOrHsv.class,
-            ColorHslOrHsv::fromJsonNode,
-            (c, v) -> v.visitBorderColorTop(c));
 
     /**
      * border-space
@@ -186,60 +199,48 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (l, v) -> v.visitBorderSpacing(l));
 
     /**
-     * border-style-bottom
+     * border-right-color
      */
-    public final static TextStylePropertyName<BorderStyle> BORDER_STYLE_BOTTOM = registerEnumConstant("border-style-bottom",
+    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_RIGHT_COLOR = registerHasJsonNodeConstant("border-right-color",
+            ColorHslOrHsv.class,
+            ColorHslOrHsv::fromJsonNode,
+            (c, v) -> v.visitBorderRightColor(c));
+
+    /**
+     * border-right-style
+     */
+    public final static TextStylePropertyName<BorderStyle> BORDER_RIGHT_STYLE = registerEnumConstant("border-right-style",
             BorderStyle::valueOf,
             BorderStyle.class,
-            (s, v) -> v.visitBorderStyleBottom(s));
+            (s, v) -> v.visitBorderRightStyle(s));
 
     /**
-     * border-style-left
+     * border-right-width
      */
-    public final static TextStylePropertyName<BorderStyle> BORDER_STYLE_LEFT = registerEnumConstant("border-style-left",
+    public final static TextStylePropertyName<Length<?>> BORDER_RIGHT_WIDTH = registerPixelLengthConstant("border-right-width",
+            (l, v) -> v.visitBorderRightWidth(l));
+
+    /**
+     * border-top-color
+     */
+    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_TOP_COLOR = registerHasJsonNodeConstant("border-top-color",
+            ColorHslOrHsv.class,
+            ColorHslOrHsv::fromJsonNode,
+            (c, v) -> v.visitBorderTopColor(c));
+
+    /**
+     * border-top-style
+     */
+    public final static TextStylePropertyName<BorderStyle> BORDER_TOP_STYLE = registerEnumConstant("border-top-style",
             BorderStyle::valueOf,
             BorderStyle.class,
-            (s, v) -> v.visitBorderStyleLeft(s));
+            (s, v) -> v.visitBorderTopStyle(s));
 
     /**
-     * border-style-right
+     * border-top-width
      */
-    public final static TextStylePropertyName<BorderStyle> BORDER_STYLE_RIGHT = registerEnumConstant("border-style-right",
-            BorderStyle::valueOf,
-            BorderStyle.class,
-            (s, v) -> v.visitBorderStyleRight(s));
-
-    /**
-     * border-style-top
-     */
-    public final static TextStylePropertyName<BorderStyle> BORDER_STYLE_TOP = registerEnumConstant("border-style-top",
-            BorderStyle::valueOf,
-            BorderStyle.class,
-            (s, v) -> v.visitBorderStyleTop(s));
-
-    /**
-     * border-width-bottom
-     */
-    public final static TextStylePropertyName<Length<?>> BORDER_WIDTH_BOTTOM = registerPixelLengthConstant("border-width-bottom",
-            (l, v) -> v.visitBorderWidthBottom(l));
-
-    /**
-     * border-width-left
-     */
-    public final static TextStylePropertyName<Length<?>> BORDER_WIDTH_LEFT = registerPixelLengthConstant("border-width-left",
-            (l, v) -> v.visitBorderWidthLeft(l));
-
-    /**
-     * border-width-right
-     */
-    public final static TextStylePropertyName<Length<?>> BORDER_WIDTH_RIGHT = registerPixelLengthConstant("border-width-right",
-            (l, v) -> v.visitBorderWidthRight(l));
-
-    /**
-     * border-width-top
-     */
-    public final static TextStylePropertyName<Length<?>> BORDER_WIDTH_TOP = registerPixelLengthConstant("border-width-top",
-            (l, v) -> v.visitBorderWidthTop(l));
+    public final static TextStylePropertyName<Length<?>> BORDER_TOP_WIDTH = registerPixelLengthConstant("border-top-width",
+            (l, v) -> v.visitBorderTopWidth(l));
 
     /**
      * direction

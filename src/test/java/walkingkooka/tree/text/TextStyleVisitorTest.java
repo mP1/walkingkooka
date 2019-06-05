@@ -106,6 +106,36 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitBorderBottomColor() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderBottomColor(final ColorHslOrHsv c) {
+                this.visited = c;
+            }
+        }.accept(TextStylePropertyName.BORDER_BOTTOM_COLOR, ColorHslOrHsv.parse("red"));
+    }
+
+    @Test
+    public void testVisitBorderBottomStyle() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderBottomStyle(final BorderStyle b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_BOTTOM_STYLE, BorderStyle.DOTTED);
+    }
+
+    @Test
+    public void testVisitBorderBottomWidth() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderBottomWidth(final Length<?> b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_BOTTOM_WIDTH, Length.parse("1px"));
+    }
+
+    @Test
     public void testVisitBorderCollapse() {
         new TestTextStyleVisitor() {
             @Override
@@ -116,43 +146,63 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
-    public void testVisitBorderColorBottom() {
+    public void testVisitBorderLeftColor() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderColorBottom(final ColorHslOrHsv c) {
+            protected void visitBorderLeftColor(final ColorHslOrHsv c) {
                 this.visited = c;
             }
-        }.accept(TextStylePropertyName.BORDER_COLOR_BOTTOM, ColorHslOrHsv.parse("red"));
+        }.accept(TextStylePropertyName.BORDER_LEFT_COLOR, ColorHslOrHsv.parse("green"));
     }
 
     @Test
-    public void testVisitBorderColorLeft() {
+    public void testVisitBorderLeftStyle() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderColorLeft(final ColorHslOrHsv c) {
-                this.visited = c;
+            protected void visitBorderLeftStyle(final BorderStyle b) {
+                this.visited = b;
             }
-        }.accept(TextStylePropertyName.BORDER_COLOR_LEFT, ColorHslOrHsv.parse("green"));
+        }.accept(TextStylePropertyName.BORDER_LEFT_STYLE, BorderStyle.DOTTED);
     }
 
     @Test
-    public void testVisitBorderColorRight() {
+    public void testVisitBorderLeftWidth() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderColorRight(final ColorHslOrHsv c) {
-                this.visited = c;
+            protected void visitBorderLeftWidth(final Length<?> b) {
+                this.visited = b;
             }
-        }.accept(TextStylePropertyName.BORDER_COLOR_RIGHT, ColorHslOrHsv.parse("yellow"));
+        }.accept(TextStylePropertyName.BORDER_LEFT_WIDTH, Length.parse("1px"));
     }
 
     @Test
-    public void testVisitBorderColorTop() {
+    public void testVisitBorderRightColor() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderColorTop(final ColorHslOrHsv c) {
+            protected void visitBorderRightColor(final ColorHslOrHsv c) {
                 this.visited = c;
             }
-        }.accept(TextStylePropertyName.BORDER_COLOR_TOP, ColorHslOrHsv.parse("pink"));
+        }.accept(TextStylePropertyName.BORDER_RIGHT_COLOR, ColorHslOrHsv.parse("yellow"));
+    }
+
+    @Test
+    public void testVisitBorderRightStyle() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderRightStyle(final BorderStyle b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_RIGHT_STYLE, BorderStyle.DOTTED);
+    }
+
+    @Test
+    public void testVisitBorderRightWidth() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderRightWidth(final Length<?> b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_RIGHT_WIDTH, Length.parse("1px"));
     }
 
     @Test
@@ -166,43 +216,33 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
-    public void testVisitBorderWidthBottom() {
+    public void testVisitBorderTopColor() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderWidthBottom(final Length<?> b) {
-                this.visited = b;
+            protected void visitBorderTopColor(final ColorHslOrHsv c) {
+                this.visited = c;
             }
-        }.accept(TextStylePropertyName.BORDER_WIDTH_BOTTOM, Length.parse("1px"));
+        }.accept(TextStylePropertyName.BORDER_TOP_COLOR, ColorHslOrHsv.parse("pink"));
     }
 
     @Test
-    public void testVisitBorderWidthLeft() {
+    public void testVisitBorderTopStyle() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderWidthLeft(final Length<?> b) {
+            protected void visitBorderTopStyle(final BorderStyle b) {
                 this.visited = b;
             }
-        }.accept(TextStylePropertyName.BORDER_WIDTH_LEFT, Length.parse("1px"));
+        }.accept(TextStylePropertyName.BORDER_TOP_STYLE, BorderStyle.DOTTED);
     }
 
     @Test
-    public void testVisitBorderWidthRight() {
+    public void testVisitBorderTopWidth() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderWidthRight(final Length<?> b) {
+            protected void visitBorderTopWidth(final Length<?> b) {
                 this.visited = b;
             }
-        }.accept(TextStylePropertyName.BORDER_WIDTH_RIGHT, Length.parse("1px"));
-    }
-
-    @Test
-    public void testVisitBorderWidthTop() {
-        new TestTextStyleVisitor() {
-            @Override
-            protected void visitBorderWidthTop(final Length<?> b) {
-                this.visited = b;
-            }
-        }.accept(TextStylePropertyName.BORDER_WIDTH_TOP, Length.parse("1px"));
+        }.accept(TextStylePropertyName.BORDER_TOP_WIDTH, Length.parse("1px"));
     }
 
     @Test

@@ -22,7 +22,7 @@ public final class BorderStyleTest extends EnumTextStylePropertyValueTestCase<Bo
 
     @Override
     TextStylePropertyName<BorderStyle> textStylePropertyName() {
-        return TextStylePropertyName.BORDER_STYLE_BOTTOM;
+        return TextStylePropertyName.BORDER_BOTTOM_STYLE;
     }
 
     @Override
