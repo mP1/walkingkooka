@@ -123,7 +123,47 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
             }
         }.accept(TextStylePropertyName.BORDER_SPACING, BorderSpacing.with(Length.pixel(1.0)));
     }
-    
+
+    @Test
+    public void testVisitBorderWidthBottom() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderWidthBottom(final BorderWidthBottom b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_WIDTH_BOTTOM, BorderWidthBottom.parse("1px"));
+    }
+
+    @Test
+    public void testVisitBorderWidthLeft() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderWidthLeft(final BorderWidthLeft b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_WIDTH_LEFT, BorderWidthLeft.parse("1px"));
+    }
+
+    @Test
+    public void testVisitBorderWidthRight() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderWidthRight(final BorderWidthRight b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_WIDTH_RIGHT, BorderWidthRight.parse("1px"));
+    }
+
+    @Test
+    public void testVisitBorderWidthTop() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderWidthTop(final BorderWidthTop b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_WIDTH_TOP, BorderWidthTop.parse("1px"));
+    }
+
     @Test
     public void testVisitDirection() {
         new TestTextStyleVisitor() {

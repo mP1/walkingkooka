@@ -63,6 +63,26 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitBorderWidthBottom(final BorderWidthBottom borderWidthBottom) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitBorderWidthLeft(final BorderWidthLeft borderWidthLeft) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitBorderWidthRight(final BorderWidthRight borderWidthRight) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitBorderWidthTop(final BorderWidthTop borderWidthTop) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitDirection(final Direction direction) {
         throw new UnsupportedOperationException();
     }
