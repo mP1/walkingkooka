@@ -543,6 +543,14 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (va, v) -> v.visitVerticalAlignment(va));
 
     /**
+     * visibility
+     */
+    public final static TextStylePropertyName<Visibility> VISIBILITY = registerEnumConstant("visibility",
+            Visibility::valueOf,
+            Visibility.class,
+            (o, v) -> v.visitVisibility(o));
+
+    /**
      * white-space
      */
     public final static TextStylePropertyName<TextWhitespace> WHITE_SPACE = registerEnumConstant("white-space",

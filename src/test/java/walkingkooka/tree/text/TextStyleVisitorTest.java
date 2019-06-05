@@ -636,6 +636,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitVisibility() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitVisibility(final Visibility v) {
+                this.visited = v;
+            }
+        }.accept(TextStylePropertyName.VISIBILITY, Visibility.COLLAPSE);
+    }
+
+    @Test
     public void testVisitWidth() {
         new TestTextStyleVisitor() {
             @Override

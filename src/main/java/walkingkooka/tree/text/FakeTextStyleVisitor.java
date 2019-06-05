@@ -329,6 +329,11 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
+    protected void visitVisibility(final Visibility visibility) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visitWhitespace(final TextWhitespace whitespace) {
         throw new UnsupportedOperationException();
     }
