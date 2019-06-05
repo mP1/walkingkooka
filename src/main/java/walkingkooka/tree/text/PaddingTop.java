@@ -28,8 +28,7 @@ public final class PaddingTop extends Padding {
     }
 
     public static PaddingTop with(final Length<?> length) {
-        check(length);
-        length.normalOrPixelOrFail();
+        paddingCheck(length);
 
         return new PaddingTop(length);
     }
