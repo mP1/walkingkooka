@@ -46,10 +46,15 @@ final class StringTextStylePropertyValueHandler extends TextStylePropertyValueHa
         }
     }
 
+    @Override
+    String expectedTypeName(final Class<?> type) {
+        return "String";
+    }
+
     // fromJsonNode ....................................................................................................
 
     @Override
-    String fromJsonNode(final JsonNode node) {
+    String fromJsonNode(final JsonNode node, final TextStylePropertyName<?> name) {
         return node.stringValueOrFail();
     }
 

@@ -75,6 +75,40 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     }
 
     /**
+     * Creates and adds a new {@link TextStylePropertyName} that handles {@link NormalLength} or {@link PixelLength} values.
+     */
+    private static TextStylePropertyName<Length<?>> registerNormalLengthPixelLengthConstant(final String property,
+                                                                                            final BiConsumer<Length<?>, TextStyleVisitor> visitor) {
+        return registerConstant(property,
+                TextStylePropertyValueHandler.normalLengthPixelLength(),
+                visitor);
+    }
+
+    /**
+     * Creates and adds a new {@link TextStylePropertyName} that handles {@link PixelLength} values.
+     */
+    private static TextStylePropertyName<Length<?>> registerPixelLengthConstant(final String property,
+                                                                                final BiConsumer<Length<?>, TextStyleVisitor> visitor) {
+        final Class<Length<?>> length = Cast.to(Length.class);
+        return registerHasJsonNodeConstant(property,
+                length,
+                PixelLength::fromJsonNodePixel,
+                visitor);
+    }
+
+    /**
+     * Creates and adds a new {@link TextStylePropertyName} that handles {@link NumberLength} values.
+     */
+    private static TextStylePropertyName<Length<?>> registerNumberLengthConstant(final String property,
+                                                                                 final BiConsumer<Length<?>, TextStyleVisitor> visitor) {
+        final Class<Length<?>> length = Cast.to(Length.class);
+        return registerHasJsonNodeConstant(property,
+                length,
+                NumberLength::fromJsonNode,
+                visitor);
+    }
+
+    /**
      * Creates and adds a new {@link TextStylePropertyName} that handles {@link String} values.
      */
     private static TextStylePropertyName<String> registerStringConstant(final String property,
@@ -186,34 +220,26 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * border-width-bottom
      */
-    public final static TextStylePropertyName<BorderWidthBottom> BORDER_WIDTH_BOTTOM = registerHasJsonNodeConstant("border-width-bottom",
-            BorderWidthBottom.class,
-            BorderWidthBottom::fromJsonNode,
-            (p, v) -> v.visitBorderWidthBottom(p));
+    public final static TextStylePropertyName<Length<?>> BORDER_WIDTH_BOTTOM = registerPixelLengthConstant("border-width-bottom",
+            (l, v) -> v.visitBorderWidthBottom(l));
 
     /**
      * border-width-left
      */
-    public final static TextStylePropertyName<BorderWidthLeft> BORDER_WIDTH_LEFT = registerHasJsonNodeConstant("border-width-left",
-            BorderWidthLeft.class,
-            BorderWidthLeft::fromJsonNode,
-            (p, v) -> v.visitBorderWidthLeft(p));
+    public final static TextStylePropertyName<Length<?>> BORDER_WIDTH_LEFT = registerPixelLengthConstant("border-width-left",
+            (l, v) -> v.visitBorderWidthLeft(l));
 
     /**
      * border-width-right
      */
-    public final static TextStylePropertyName<BorderWidthRight> BORDER_WIDTH_RIGHT = registerHasJsonNodeConstant("border-width-right",
-            BorderWidthRight.class,
-            BorderWidthRight::fromJsonNode,
-            (p, v) -> v.visitBorderWidthRight(p));
+    public final static TextStylePropertyName<Length<?>> BORDER_WIDTH_RIGHT = registerPixelLengthConstant("border-width-right",
+            (l, v) -> v.visitBorderWidthRight(l));
 
     /**
      * border-width-top
      */
-    public final static TextStylePropertyName<BorderWidthTop> BORDER_WIDTH_TOP = registerHasJsonNodeConstant("border-width-top",
-            BorderWidthTop.class,
-            BorderWidthTop::fromJsonNode,
-            (p, v) -> v.visitBorderWidthTop(p));
+    public final static TextStylePropertyName<Length<?>> BORDER_WIDTH_TOP = registerPixelLengthConstant("border-width-top",
+            (l, v) -> v.visitBorderWidthTop(l));
 
     /**
      * direction
@@ -298,10 +324,8 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * height
      */
-    public final static TextStylePropertyName<Height> HEIGHT = registerHasJsonNodeConstant("height",
-            Height.class,
-            Height::fromJsonNode,
-            (h, v) -> v.visitHeight(h));
+    public final static TextStylePropertyName<Length<?>> HEIGHT = registerPixelLengthConstant("height",
+            (l, v) -> v.visitHeight(l));
 
     /**
      * hyphens
@@ -322,42 +346,32 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * line-height
      */
-    public final static TextStylePropertyName<LineHeight> LINE_HEIGHT = registerHasJsonNodeConstant("line-height",
-            LineHeight.class,
-            LineHeight::fromJsonNode,
-            (lh, v) -> v.visitLineHeight(lh));
+    public final static TextStylePropertyName<Length<?>> LINE_HEIGHT = registerNormalLengthPixelLengthConstant("line-height",
+            (l, v) -> v.visitLineHeight(l));
 
     /**
      * margin-bottom
      */
-    public final static TextStylePropertyName<MarginBottom> MARGIN_BOTTOM = registerHasJsonNodeConstant("margin-bottom",
-            MarginBottom.class,
-            MarginBottom::fromJsonNode,
-            (p, v) -> v.visitMarginBottom(p));
+    public final static TextStylePropertyName<Length<?>> MARGIN_BOTTOM = registerPixelLengthConstant("margin-bottom",
+            (l, v) -> v.visitMarginBottom(l));
 
     /**
      * margin-left
      */
-    public final static TextStylePropertyName<MarginLeft> MARGIN_LEFT = registerHasJsonNodeConstant("margin-left",
-            MarginLeft.class,
-            MarginLeft::fromJsonNode,
-            (p, v) -> v.visitMarginLeft(p));
+    public final static TextStylePropertyName<Length<?>> MARGIN_LEFT = registerPixelLengthConstant("margin-left",
+            (l, v) -> v.visitMarginLeft(l));
 
     /**
      * margin-right
      */
-    public final static TextStylePropertyName<MarginRight> MARGIN_RIGHT = registerHasJsonNodeConstant("margin-right",
-            MarginRight.class,
-            MarginRight::fromJsonNode,
-            (p, v) -> v.visitMarginRight(p));
+    public final static TextStylePropertyName<Length<?>> MARGIN_RIGHT = registerPixelLengthConstant("margin-right",
+            (l, v) -> v.visitMarginRight(l));
 
     /**
      * margin-top
      */
-    public final static TextStylePropertyName<MarginTop> MARGIN_TOP = registerHasJsonNodeConstant("margin-top",
-            MarginTop.class,
-            MarginTop::fromJsonNode,
-            (p, v) -> v.visitMarginTop(p));
+    public final static TextStylePropertyName<Length<?>> MARGIN_TOP = registerPixelLengthConstant("margin-top",
+            (l, v) -> v.visitMarginTop(l));
     
     /**
      * opacity
@@ -370,42 +384,32 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * padding-bottom
      */
-    public final static TextStylePropertyName<PaddingBottom> PADDING_BOTTOM = registerHasJsonNodeConstant("padding-bottom",
-            PaddingBottom.class,
-            PaddingBottom::fromJsonNode,
-            (p, v) -> v.visitPaddingBottom(p));
+    public final static TextStylePropertyName<Length<?>> PADDING_BOTTOM = registerPixelLengthConstant("padding-bottom",
+            (l, v) -> v.visitPaddingBottom(l));
 
     /**
      * padding-left
      */
-    public final static TextStylePropertyName<PaddingLeft> PADDING_LEFT = registerHasJsonNodeConstant("padding-left",
-            PaddingLeft.class,
-            PaddingLeft::fromJsonNode,
-            (p, v) -> v.visitPaddingLeft(p));
+    public final static TextStylePropertyName<Length<?>> PADDING_LEFT = registerPixelLengthConstant("padding-left",
+            (l, v) -> v.visitPaddingLeft(l));
 
     /**
      * padding-right
      */
-    public final static TextStylePropertyName<PaddingRight> PADDING_RIGHT = registerHasJsonNodeConstant("padding-right",
-            PaddingRight.class,
-            PaddingRight::fromJsonNode,
-            (p, v) -> v.visitPaddingRight(p));
+    public final static TextStylePropertyName<Length<?>> PADDING_RIGHT = registerPixelLengthConstant("padding-right",
+            (l, v) -> v.visitPaddingRight(l));
 
     /**
      * padding-top
      */
-    public final static TextStylePropertyName<PaddingTop> PADDING_TOP = registerHasJsonNodeConstant("padding-top",
-            PaddingTop.class,
-            PaddingTop::fromJsonNode,
-            (p, v) -> v.visitPaddingTop(p));
+    public final static TextStylePropertyName<Length<?>> PADDING_TOP = registerPixelLengthConstant("padding-top",
+            (l, v) -> v.visitPaddingTop(l));
 
     /**
      * tab-size
      */
-    public final static TextStylePropertyName<TabSize> TAB_SIZE = registerHasJsonNodeConstant("tab-size",
-            TabSize.class,
-            TabSize::fromJsonNode,
-            (t, v) -> v.visitTabSize(t));
+    public final static TextStylePropertyName<Length<?>> TAB_SIZE = registerNumberLengthConstant("tab-size",
+            (l, v) -> v.visitTabSize(l));
 
     /**
      * text
@@ -504,9 +508,7 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * width
      */
-    public final static TextStylePropertyName<Width> WIDTH = registerHasJsonNodeConstant("width",
-            Width.class,
-            Width::fromJsonNode,
+    public final static TextStylePropertyName<Length<?>> WIDTH = registerPixelLengthConstant("width",
             (w, v) -> v.visitWidth(w));
 
     /**

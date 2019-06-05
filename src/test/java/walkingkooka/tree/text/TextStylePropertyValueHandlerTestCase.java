@@ -49,12 +49,12 @@ public abstract class TextStylePropertyValueHandlerTestCase<P extends TextStyleP
     @Test
     public final void testRoundtripJson() {
         final T value = this.propertyValue();
-        final P converter = this.handler();
+        final P handler = this.handler();
 
-        final JsonNode json = converter.toJsonNode(value);
+        final JsonNode json = handler.toJsonNode(value);
 
         assertEquals(value,
-                converter.fromJsonNode(json),
+                handler.fromJsonNode(json, this.propertyName()),
                 () -> "value " + CharSequences.quoteIfChars(value) + " to json " + json);
     }
 
@@ -78,7 +78,7 @@ public abstract class TextStylePropertyValueHandlerTestCase<P extends TextStyleP
 
     final void fromJsonNodeAndCheck(final JsonNode node, final T value) {
         assertEquals(value,
-                this.handler().fromJsonNode(node),
+                this.handler().fromJsonNode(node, this.propertyName()),
                 () -> "from JsonNode " + node);
     }
 

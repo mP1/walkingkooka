@@ -169,40 +169,40 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     public void testVisitBorderWidthBottom() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderWidthBottom(final BorderWidthBottom b) {
+            protected void visitBorderWidthBottom(final Length<?> b) {
                 this.visited = b;
             }
-        }.accept(TextStylePropertyName.BORDER_WIDTH_BOTTOM, BorderWidthBottom.parse("1px"));
+        }.accept(TextStylePropertyName.BORDER_WIDTH_BOTTOM, Length.parse("1px"));
     }
 
     @Test
     public void testVisitBorderWidthLeft() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderWidthLeft(final BorderWidthLeft b) {
+            protected void visitBorderWidthLeft(final Length<?> b) {
                 this.visited = b;
             }
-        }.accept(TextStylePropertyName.BORDER_WIDTH_LEFT, BorderWidthLeft.parse("1px"));
+        }.accept(TextStylePropertyName.BORDER_WIDTH_LEFT, Length.parse("1px"));
     }
 
     @Test
     public void testVisitBorderWidthRight() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderWidthRight(final BorderWidthRight b) {
+            protected void visitBorderWidthRight(final Length<?> b) {
                 this.visited = b;
             }
-        }.accept(TextStylePropertyName.BORDER_WIDTH_RIGHT, BorderWidthRight.parse("1px"));
+        }.accept(TextStylePropertyName.BORDER_WIDTH_RIGHT, Length.parse("1px"));
     }
 
     @Test
     public void testVisitBorderWidthTop() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitBorderWidthTop(final BorderWidthTop b) {
+            protected void visitBorderWidthTop(final Length<?> b) {
                 this.visited = b;
             }
-        }.accept(TextStylePropertyName.BORDER_WIDTH_TOP, BorderWidthTop.parse("1px"));
+        }.accept(TextStylePropertyName.BORDER_WIDTH_TOP, Length.parse("1px"));
     }
 
     @Test
@@ -299,10 +299,10 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     public void testVisitHeight() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitHeight(final Height h) {
+            protected void visitHeight(final Length<?> h) {
                 this.visited = h;
             }
-        }.accept(TextStylePropertyName.HEIGHT, Height.parse("1px"));
+        }.accept(TextStylePropertyName.HEIGHT, Length.parse("1px"));
     }
 
     @Test
@@ -349,90 +349,90 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     public void testVisitMarginBottom() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitMarginBottom(final MarginBottom p) {
-                this.visited = p;
+            protected void visitMarginBottom(final Length<?> m) {
+                this.visited = m;
             }
-        }.accept(TextStylePropertyName.MARGIN_BOTTOM, MarginBottom.parse("1px"));
+        }.accept(TextStylePropertyName.MARGIN_BOTTOM, Length.parse("1px"));
     }
 
     @Test
     public void testVisitMarginLeft() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitMarginLeft(final MarginLeft p) {
-                this.visited = p;
+            protected void visitMarginLeft(final Length<?> l) {
+                this.visited = l;
             }
-        }.accept(TextStylePropertyName.MARGIN_LEFT, MarginLeft.parse("1px"));
+        }.accept(TextStylePropertyName.MARGIN_LEFT, Length.parse("1px"));
     }
 
     @Test
     public void testVisitMarginRight() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitMarginRight(final MarginRight p) {
-                this.visited = p;
+            protected void visitMarginRight(final Length<?> l) {
+                this.visited = l;
             }
-        }.accept(TextStylePropertyName.MARGIN_RIGHT, MarginRight.parse("1px"));
+        }.accept(TextStylePropertyName.MARGIN_RIGHT, Length.parse("1px"));
     }
 
     @Test
     public void testVisitMarginTop() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitMarginTop(final MarginTop p) {
-                this.visited = p;
+            protected void visitMarginTop(final Length<?> l) {
+                this.visited = l;
             }
-        }.accept(TextStylePropertyName.MARGIN_TOP, MarginTop.parse("1px"));
+        }.accept(TextStylePropertyName.MARGIN_TOP, Length.parse("1px"));
     }
 
     @Test
     public void testVisitPaddingBottom() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitPaddingBottom(final PaddingBottom p) {
-                this.visited = p;
+            protected void visitPaddingBottom(final Length<?> l) {
+                this.visited = l;
             }
-        }.accept(TextStylePropertyName.PADDING_BOTTOM, PaddingBottom.parse("1px"));
+        }.accept(TextStylePropertyName.PADDING_BOTTOM, Length.parse("1px"));
     }
 
     @Test
     public void testVisitPaddingLeft() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitPaddingLeft(final PaddingLeft p) {
-                this.visited = p;
+            protected void visitPaddingLeft(final Length<?> l) {
+                this.visited = l;
             }
-        }.accept(TextStylePropertyName.PADDING_LEFT, PaddingLeft.parse("1px"));
+        }.accept(TextStylePropertyName.PADDING_LEFT, Length.parse("1px"));
     }
 
     @Test
     public void testVisitPaddingRight() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitPaddingRight(final PaddingRight p) {
-                this.visited = p;
+            protected void visitPaddingRight(final Length<?> l) {
+                this.visited = l;
             }
-        }.accept(TextStylePropertyName.PADDING_RIGHT, PaddingRight.parse("1px"));
+        }.accept(TextStylePropertyName.PADDING_RIGHT, Length.parse("1px"));
     }
 
     @Test
     public void testVisitPaddingTop() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitPaddingTop(final PaddingTop p) {
-                this.visited = p;
+            protected void visitPaddingTop(final Length<?> l) {
+                this.visited = l;
             }
-        }.accept(TextStylePropertyName.PADDING_TOP, PaddingTop.parse("1px"));
+        }.accept(TextStylePropertyName.PADDING_TOP, Length.parse("1px"));
     }
     
     @Test
     public void testVisitTabSize() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitTabSize(final TabSize t) {
+            protected void visitTabSize(final Length<?> t) {
                 this.visited = t;
             }
-        }.accept(TextStylePropertyName.TAB_SIZE, TabSize.parse("1"));
+        }.accept(TextStylePropertyName.TAB_SIZE, Length.parse("1"));
     }
 
     @Test
@@ -539,10 +539,10 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     public void testVisitWidth() {
         new TestTextStyleVisitor() {
             @Override
-            protected void visitWidth(final Width w) {
+            protected void visitWidth(final Length<?> w) {
                 this.visited = w;
             }
-        }.accept(TextStylePropertyName.WIDTH, Width.parse("1px"));
+        }.accept(TextStylePropertyName.WIDTH, Length.parse("1px"));
     }
 
     @Test

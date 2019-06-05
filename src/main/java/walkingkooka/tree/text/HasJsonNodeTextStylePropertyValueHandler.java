@@ -51,10 +51,15 @@ final class HasJsonNodeTextStylePropertyValueHandler<H extends HasJsonNode> exte
         this.checkType(value, this.type, name);
     }
 
+    @Override
+    String expectedTypeName(final Class<?> type) {
+        return this.type.getSimpleName();
+    }
+
     // fromJsonNode ....................................................................................................
 
     @Override
-    H fromJsonNode(final JsonNode node) {
+    H fromJsonNode(final JsonNode node, final TextStylePropertyName<?> name) {
         return this.fromJsonNode.apply(node);
     }
 

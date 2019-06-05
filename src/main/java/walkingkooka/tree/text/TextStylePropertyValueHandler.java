@@ -54,6 +54,13 @@ abstract class TextStylePropertyValueHandler<T> {
     }
 
     /**
+     * {@see NormalLengthPixelLengthTextStylePropertyValueHandler}
+     */
+    static NormalLengthPixelLengthTextStylePropertyValueHandler normalLengthPixelLength() {
+        return NormalLengthPixelLengthTextStylePropertyValueHandler.INSTANCE;
+    }
+
+    /**
      * {@see StringTextStylePropertyValueHandler}
      */
     static TextStylePropertyValueHandler<String> string() {
@@ -92,16 +99,18 @@ abstract class TextStylePropertyValueHandler<T> {
                 typeName = typeName.substring(1 + typeName.lastIndexOf('.'));
             }
 
-            throw new TextStylePropertyValueException("Property " + name.inQuotes() + " value " + CharSequences.quoteIfChars(value) + "(" + typeName + ") is not a " + type.getSimpleName());
+            throw new TextStylePropertyValueException("Property " + name.inQuotes() + " value " + CharSequences.quoteIfChars(value) + "(" + typeName + ") is not a " + this.expectedTypeName(type));
         }
         return type.cast(value);
     }
 
-    private boolean textStylePropertyType(final String type) {
+    abstract String expectedTypeName(final Class<?> type);
+
+    final boolean textStylePropertyType(final String type) {
         return type.startsWith(PACKAGE) && type.indexOf('.', 1 + PACKAGE.length()) == -1;
     }
 
-    private boolean hasJsonType(final Class<?> type) {
+    final boolean hasJsonType(final Class<?> type) {
         return HasJsonNode.typeName(type).isPresent();
     }
 
@@ -112,10 +121,10 @@ abstract class TextStylePropertyValueHandler<T> {
     /**
      * Transforms a {@link JsonNode} into a value.
      */
-    abstract T fromJsonNode(final JsonNode node);
+    abstract T fromJsonNode(final JsonNode node, final TextStylePropertyName<?> name);
 
     /**
-     * Transforms a value into json, performing the inverse of {@link #fromJsonNode(JsonNode)}
+     * Transforms a value into json, performing the inverse of {@link #fromJsonNode(JsonNode, TextStylePropertyName)}
      */
     abstract JsonNode toJsonNode(final T value);
 

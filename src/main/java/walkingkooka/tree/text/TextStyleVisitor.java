@@ -122,19 +122,19 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
-    protected void visitBorderWidthBottom(final BorderWidthBottom borderWidthBottom) {
+    protected void visitBorderWidthBottom(final Length<?> borderWidthBottom) {
         // nop
     }
 
-    protected void visitBorderWidthLeft(final BorderWidthLeft borderWidthLeft) {
+    protected void visitBorderWidthLeft(final Length<?> borderWidthLeft) {
         // nop
     }
 
-    protected void visitBorderWidthRight(final BorderWidthRight borderWidthRight) {
+    protected void visitBorderWidthRight(final Length<?> borderWidthRight) {
         // nop
     }
 
-    protected void visitBorderWidthTop(final BorderWidthTop borderWidthTop) {
+    protected void visitBorderWidthTop(final Length<?> borderWidthTop) {
         // nop
     }
 
@@ -174,7 +174,7 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
-    protected void visitHeight(final Height height) {
+    protected void visitHeight(final Length<?> height) {
         // nop
     }
 
@@ -190,23 +190,23 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
-    protected void visitLineHeight(final LineHeight lineHeight) {
+    protected void visitLineHeight(final Length<?> lineHeight) {
         // nop
     }
 
-    protected void visitMarginBottom(final MarginBottom marginBottom) {
+    protected void visitMarginBottom(final Length<?> marginBottom) {
         // nop
     }
 
-    protected void visitMarginLeft(final MarginLeft marginLeft) {
+    protected void visitMarginLeft(final Length<?> marginLeft) {
         // nop
     }
 
-    protected void visitMarginRight(final MarginRight marginRight) {
+    protected void visitMarginRight(final Length<?> marginRight) {
         // nop
     }
 
-    protected void visitMarginTop(final MarginTop marginTop) {
+    protected void visitMarginTop(final Length<?> marginTop) {
         // nop
     }
 
@@ -214,23 +214,23 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
-    protected void visitPaddingBottom(final PaddingBottom paddingBottom) {
+    protected void visitPaddingBottom(final Length<?> paddingBottom) {
         // nop
     }
 
-    protected void visitPaddingLeft(final PaddingLeft paddingLeft) {
+    protected void visitPaddingLeft(final Length<?> paddingLeft) {
         // nop
     }
 
-    protected void visitPaddingRight(final PaddingRight paddingRight) {
+    protected void visitPaddingRight(final Length<?> paddingRight) {
         // nop
     }
 
-    protected void visitPaddingTop(final PaddingTop paddingTop) {
+    protected void visitPaddingTop(final Length<?> paddingTop) {
         // nop
     }
 
-    protected void visitTabSize(final TabSize tabSize) {
+    protected void visitTabSize(final Length<?> tabSize) {
         // nop
     }
 
@@ -282,7 +282,7 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
-    protected void visitWidth(final Width width) {
+    protected void visitWidth(final Length<?> width) {
         // nop
     }
 
