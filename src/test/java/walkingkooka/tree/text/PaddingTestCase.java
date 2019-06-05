@@ -18,24 +18,36 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.tree.json.HasJsonNode;
-import walkingkooka.tree.json.JsonNode;
+import org.junit.jupiter.api.Test;
 
-abstract class Padding extends LengthTextStylePropertyValue implements HasJsonNode {
+public abstract class PaddingTestCase<P extends Padding> extends LengthTextStylePropertyValueTestCase<P> {
 
-    static void paddingCheck(final Length<?> length) {
-        check(length);
-        length.pixelOrFail();
+    PaddingTestCase() {
+        super();
     }
 
-    Padding(final Length<?> length) {
-        super(length);
+    @Test
+    public final void testWithNumberFails() {
+        this.withFails(Length.number(1));
     }
 
-    // HasJsonNode.....................................................................................................
+    @Test
+    public final void testWithNormalFails() {
+        this.withFails(Length.normal());
+    }
+
+    @Test
+    public final void testWithPixel() {
+        this.withAndCheck(Length.pixel(12.0));
+    }
 
     @Override
-    public final JsonNode toJsonNode() {
-        return this.length.toJsonNode();
+    final Length<?> length() {
+        return Length.pixel(12.5);
+    }
+
+    @Override
+    final Length<?> differentLength() {
+        return Length.pixel(99.0);
     }
 }

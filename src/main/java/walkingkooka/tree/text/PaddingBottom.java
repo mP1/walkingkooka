@@ -28,8 +28,7 @@ public final class PaddingBottom extends Padding {
     }
 
     public static PaddingBottom with(final Length<?> length) {
-        check(length);
-        length.normalOrPixelOrFail();
+        paddingCheck(length);
 
         return new PaddingBottom(length);
     }

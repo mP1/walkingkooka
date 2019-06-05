@@ -28,8 +28,7 @@ public final class PaddingLeft extends Padding {
     }
 
     public static PaddingLeft with(final Length<?> length) {
-        check(length);
-        length.normalOrPixelOrFail();
+        paddingCheck(length);
 
         return new PaddingLeft(length);
     }
