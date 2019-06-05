@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
+import walkingkooka.color.ColorHslOrHsv;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.HasJsonNode;
@@ -113,33 +114,33 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     /**
      * border-color-bottom
      */
-    public final static TextStylePropertyName<BorderColorBottom> BORDER_COLOR_BOTTOM = registerHasJsonNodeConstant("border-color-bottom",
-            BorderColorBottom.class,
-            BorderColorBottom::fromJsonNode,
+    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_COLOR_BOTTOM = registerHasJsonNodeConstant("border-color-bottom",
+            ColorHslOrHsv.class,
+            ColorHslOrHsv::fromJsonNode,
             (c, v) -> v.visitBorderColorBottom(c));
 
     /**
      * border-color-left
      */
-    public final static TextStylePropertyName<BorderColorLeft> BORDER_COLOR_LEFT = registerHasJsonNodeConstant("border-color-left",
-            BorderColorLeft.class,
-            BorderColorLeft::fromJsonNode,
+    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_COLOR_LEFT = registerHasJsonNodeConstant("border-color-left",
+            ColorHslOrHsv.class,
+            ColorHslOrHsv::fromJsonNode,
             (c, v) -> v.visitBorderColorLeft(c));
 
     /**
      * border-color-right
      */
-    public final static TextStylePropertyName<BorderColorRight> BORDER_COLOR_RIGHT = registerHasJsonNodeConstant("border-color-right",
-            BorderColorRight.class,
-            BorderColorRight::fromJsonNode,
+    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_COLOR_RIGHT = registerHasJsonNodeConstant("border-color-right",
+            ColorHslOrHsv.class,
+            ColorHslOrHsv::fromJsonNode,
             (c, v) -> v.visitBorderColorRight(c));
 
     /**
      * border-color-top
      */
-    public final static TextStylePropertyName<BorderColorTop> BORDER_COLOR_TOP = registerHasJsonNodeConstant("border-color-top",
-            BorderColorTop.class,
-            BorderColorTop::fromJsonNode,
+    public final static TextStylePropertyName<ColorHslOrHsv> BORDER_COLOR_TOP = registerHasJsonNodeConstant("border-color-top",
+            ColorHslOrHsv.class,
+            ColorHslOrHsv::fromJsonNode,
             (c, v) -> v.visitBorderColorTop(c));
 
     /**
