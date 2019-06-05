@@ -71,7 +71,7 @@ public final class HasJsonNodeTextStylePropertyValueHandlerTest extends TextStyl
 
     @Override
     String propertyValueType() {
-        return Color.class.getName();
+        return Color.class.getSimpleName();
     }
 
     @Override
