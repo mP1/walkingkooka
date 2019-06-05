@@ -111,6 +111,38 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (b, v) -> v.visitBorderCollapse(b));
 
     /**
+     * border-color-bottom
+     */
+    public final static TextStylePropertyName<BorderColorBottom> BORDER_COLOR_BOTTOM = registerHasJsonNodeConstant("border-color-bottom",
+            BorderColorBottom.class,
+            BorderColorBottom::fromJsonNode,
+            (c, v) -> v.visitBorderColorBottom(c));
+
+    /**
+     * border-color-left
+     */
+    public final static TextStylePropertyName<BorderColorLeft> BORDER_COLOR_LEFT = registerHasJsonNodeConstant("border-color-left",
+            BorderColorLeft.class,
+            BorderColorLeft::fromJsonNode,
+            (c, v) -> v.visitBorderColorLeft(c));
+
+    /**
+     * border-color-right
+     */
+    public final static TextStylePropertyName<BorderColorRight> BORDER_COLOR_RIGHT = registerHasJsonNodeConstant("border-color-right",
+            BorderColorRight.class,
+            BorderColorRight::fromJsonNode,
+            (c, v) -> v.visitBorderColorRight(c));
+
+    /**
+     * border-color-top
+     */
+    public final static TextStylePropertyName<BorderColorTop> BORDER_COLOR_TOP = registerHasJsonNodeConstant("border-color-top",
+            BorderColorTop.class,
+            BorderColorTop::fromJsonNode,
+            (c, v) -> v.visitBorderColorTop(c));
+
+    /**
      * border-space
      */
     public final static TextStylePropertyName<BorderSpacing> BORDER_SPACING = registerHasJsonNodeConstant("border-spacing",

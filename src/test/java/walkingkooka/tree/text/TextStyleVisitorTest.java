@@ -115,6 +115,46 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitBorderColorBottom() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderColorBottom(final BorderColorBottom b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_COLOR_BOTTOM, BorderColorBottom.parse("red"));
+    }
+
+    @Test
+    public void testVisitBorderColorLeft() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderColorLeft(final BorderColorLeft b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_COLOR_LEFT, BorderColorLeft.parse("green"));
+    }
+
+    @Test
+    public void testVisitBorderColorRight() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderColorRight(final BorderColorRight b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_COLOR_RIGHT, BorderColorRight.parse("yellow"));
+    }
+
+    @Test
+    public void testVisitBorderColorTop() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitBorderColorTop(final BorderColorTop b) {
+                this.visited = b;
+            }
+        }.accept(TextStylePropertyName.BORDER_COLOR_TOP, BorderColorTop.parse("pink"));
+    }
+
+    @Test
     public void testVisitBorderSpacing() {
         new TestTextStyleVisitor() {
             @Override
