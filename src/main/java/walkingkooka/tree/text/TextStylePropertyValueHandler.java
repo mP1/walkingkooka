@@ -85,10 +85,27 @@ abstract class TextStylePropertyValueHandler<T> {
      */
     final <U> U checkType(final Object value, final Class<U> type, final TextStylePropertyName<?> name) {
         if (!type.isInstance(value)) {
-            throw new TextStylePropertyValueException("Property " + name.inQuotes() + " value " + CharSequences.quoteIfChars(value) + " is not a " + type.getName());
+            final Class<?> valueType = value.getClass();
+
+            String typeName = valueType.getName();
+            if (textStylePropertyType(typeName) || hasJsonType(valueType)) {
+                typeName = typeName.substring(1 + typeName.lastIndexOf('.'));
+            }
+
+            throw new TextStylePropertyValueException("Property " + name.inQuotes() + " value " + CharSequences.quoteIfChars(value) + "(" + typeName + ") is not a " + type.getSimpleName());
         }
         return type.cast(value);
     }
+
+    private boolean textStylePropertyType(final String type) {
+        return type.startsWith(PACKAGE) && type.indexOf('.', 1 + PACKAGE.length()) == -1;
+    }
+
+    private boolean hasJsonType(final Class<?> type) {
+        return HasJsonNode.typeName(type).isPresent();
+    }
+
+    private final static String PACKAGE = "walkingkooka.tree.text";
 
     // fromJsonNode ....................................................................................................
 

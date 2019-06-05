@@ -52,7 +52,7 @@ public final class EnumTextStylePropertyValueHandlerTest extends TextStyleProper
 
     @Override
     String propertyValueType() {
-        return TextWrapping.class.getName();
+        return TextWrapping.class.getSimpleName();
     }
 
     @Override

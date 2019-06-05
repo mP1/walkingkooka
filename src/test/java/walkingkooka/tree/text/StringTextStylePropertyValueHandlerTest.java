@@ -67,7 +67,7 @@ public final class StringTextStylePropertyValueHandlerTest extends TextStyleProp
 
     @Override
     String propertyValueType() {
-        return String.class.getName();
+        return String.class.getSimpleName();
     }
 
     @Override
