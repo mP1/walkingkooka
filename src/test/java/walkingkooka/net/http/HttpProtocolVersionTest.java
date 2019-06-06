@@ -42,6 +42,11 @@ final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocol
     }
 
     @Test
+    public void testTwo() {
+        assertEquals("HTTP/2", HttpProtocolVersion.VERSION_2.value());
+    }
+
+    @Test
     public void testFromNullVersionFails() {
         assertThrows(NullPointerException.class, () -> {
             HttpProtocolVersion.with(null);
@@ -59,6 +64,11 @@ final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocol
     }
 
     @Test
+    public void testFromTwo() {
+        assertSame(HttpProtocolVersion.VERSION_2, HttpProtocolVersion.with("HTTP/2"));
+    }
+
+    @Test
     public void testFromUnknownFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             HttpProtocolVersion.with("unknown/???");
@@ -66,13 +76,18 @@ final public class HttpProtocolVersionTest implements ClassTesting2<HttpProtocol
     }
 
     @Test
-    public void testToStringVersion0() {
+    public void testToStringVersion10() {
         this.toStringAndCheck(HttpProtocolVersion.VERSION_1_0, "HTTP/1.0");
     }
 
     @Test
-    public void testToStringVersion1() {
+    public void testToStringVersion11() {
         this.toStringAndCheck(HttpProtocolVersion.VERSION_1_1, "HTTP/1.1");
+    }
+
+    @Test
+    public void testToStringVersion2() {
+        this.toStringAndCheck(HttpProtocolVersion.VERSION_2, "HTTP/2");
     }
 
     @Override

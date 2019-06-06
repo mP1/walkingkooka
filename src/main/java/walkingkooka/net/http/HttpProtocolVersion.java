@@ -35,7 +35,12 @@ public enum HttpProtocolVersion implements Value<String> {
     /**
      * Version 1.1
      */
-    VERSION_1_1("HTTP/1.1");
+    VERSION_1_1("HTTP/1.1"),
+
+    /**
+     * Version 2
+     */
+    VERSION_2("HTTP/2");
 
     /**
      * Lookups and returns the {@link HttpProtocolVersion} for the given version. If the version is unknown an
