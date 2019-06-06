@@ -83,6 +83,11 @@ public final class NormalLength extends Length<Void> implements HasJsonNode, Val
     // isXXX............................................................................................................
 
     @Override
+    public boolean isNone() {
+        return false;
+    }
+
+    @Override
     public boolean isNormal() {
         return true;
     }

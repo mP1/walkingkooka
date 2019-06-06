@@ -37,6 +37,11 @@ public class FakeLengthVisitor extends LengthVisitor implements Fake {
     }
 
     @Override
+    protected void visit(final NoneLength length) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final NormalLength length) {
         throw new UnsupportedOperationException();
     }

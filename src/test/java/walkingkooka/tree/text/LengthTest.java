@@ -36,6 +36,11 @@ public final class LengthTest implements ClassTesting2<Length<?>>,
     }
 
     @Test
+    public void testParseNone() {
+        this.parseAndCheck("none", Length.none());
+    }
+
+    @Test
     public void testParseNormal() {
         this.parseAndCheck("normal", Length.normal());
     }

@@ -49,6 +49,10 @@ public abstract class LengthVisitor extends Visitor<Length<?>> {
         // nop
     }
 
+    protected void visit(final NoneLength length) {
+        // nop
+    }
+
     protected void visit(final NormalLength length) {
         // nop
     }

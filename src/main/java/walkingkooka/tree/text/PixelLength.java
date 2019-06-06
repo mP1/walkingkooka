@@ -92,6 +92,11 @@ public final class PixelLength extends Length<Double> implements HasJsonNode, Va
     // isXXX............................................................................................................
 
     @Override
+    public boolean isNone() {
+        return false;
+    }
+
+    @Override
     public boolean isNormal() {
         return false;
     }

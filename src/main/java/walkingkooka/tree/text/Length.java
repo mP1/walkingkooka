@@ -39,13 +39,22 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
     public static Length<?> parse(final String text) {
         checkText(text);
 
-        return NormalLength.TEXT.equals(text) ?
-                NormalLength.INSTANCE :
-                LengthUnit.tryAllParse(text);
+        return NoneLength.TEXT.equals(text) ?
+                NoneLength.INSTANCE :
+                NormalLength.TEXT.equals(text) ?
+                        NormalLength.INSTANCE :
+                        LengthUnit.tryAllParse(text);
     }
 
     static void checkText(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
+    }
+
+    /**
+     * {@see NoneLength}
+     */
+    public static NoneLength none() {
+        return NoneLength.INSTANCE;
     }
 
     /**
@@ -85,6 +94,11 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
     abstract public Optional<LengthUnit<V, Length<V>>> unit();
 
     // is ..............................................................................................................
+
+    /**
+     * Only {@link NoneLength} returns true.
+     */
+    public abstract boolean isNone();
 
     /**
      * Only {@link NormalLength} returns true.
@@ -144,7 +158,7 @@ public abstract class Length<V> implements HashCodeEqualsDefined,
     static {
         HasJsonNode.register("length",
                 Length::fromJsonNode,
-                Length.class, NormalLength.class, NumberLength.class, PixelLength.class);
+                Length.class, NoneLength.class, NormalLength.class, NumberLength.class, PixelLength.class);
     }
 
     // HasJsonNode......................................................................................................

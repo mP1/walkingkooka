@@ -28,50 +28,40 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A positive whole number
+ * A normal measurement.
  */
-public final class NumberLength extends Length<Long> implements HasJsonNode, Value<Long> {
+public final class NoneLength extends Length<Void> implements HasJsonNode, Value<Void> {
+
+    final static String TEXT = "none";
 
     /**
-     * Parses text that contains a number measurement.
+     * Parses text that contains a normal literal.
      */
-    public static NumberLength parseNumber(final String text) {
+    public static NoneLength parseNormal(final String text) {
+        CharSequences.failIfNullOrEmpty(text, "text");
+
+        return parseNormal0(text);
+    }
+
+    static NoneLength parseNormal0(final String text) {
         checkText(text);
 
-        return parseNumber0(text);
-    }
-
-    static NumberLength parseNumber0(final String text) {
-        checkText(text);
-
-        try {
-            return with(Long.parseLong(text));
-        } catch (final NumberFormatException cause) {
-            throw new IllegalArgumentException("Invalid text " + CharSequences.quoteAndEscape(text), cause);
+        if(!TEXT.equals(text)) {
+            throw new IllegalArgumentException("Invalid normal text " + CharSequences.quoteAndEscape(text));
         }
+        return INSTANCE;
     }
 
-    static NumberLength with(final Long value) {
-        Objects.requireNonNull(value, "value");
+    final static NoneLength INSTANCE = new NoneLength();
 
-        if(value < 0) {
-            throw new IllegalArgumentException("Invalid value " + value);
-        }
-
-        return new NumberLength(value);
-    }
-
-    private NumberLength(final Long value) {
+    private NoneLength() {
         super();
-        this.value = value;
     }
 
     @Override
-    public Long value() {
-        return this.value;
+    public Void value() {
+        throw new UnsupportedOperationException();
     }
-
-    private final Long value;
 
     @Override
     double doubleValue() {
@@ -80,13 +70,13 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
 
     @Override
     long longValue() {
-        return this.value;
+        throw new UnsupportedOperationException();
     }
 
     // unit.............................................................................................................
 
     @Override
-    public Optional<LengthUnit<Long, Length<Long>>> unit() {
+    public Optional<LengthUnit<Void, Length<Void>>> unit() {
         return Optional.empty();
     }
 
@@ -94,7 +84,7 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
 
     @Override
     public boolean isNone() {
-        return false;
+        return true;
     }
 
     @Override
@@ -104,7 +94,7 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
 
     @Override
     public boolean isNumber() {
-        return true;
+        return false;
     }
 
     @Override
@@ -119,12 +109,12 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
 
     @Override
     void normalOrPixelOrFail() {
-        this.normalOrPixelOrFail0();
+        // normal
     }
 
     @Override
     void numberFail() {
-        // number
+        this.numberFail0();
     }
 
     // LengthVisitor....................................................................................................
@@ -138,22 +128,22 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
 
     @Override
     public int hashCode() {
-        return Long.hashCode(this.value);
+        return System.identityHashCode(this);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NumberLength;
+        return other instanceof NoneLength;
     }
 
     @Override
     boolean equals0(final Length other) {
-        return 0 == Long.compare(this.value, other.longValue());
+        return true;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(this.value);
+        return TEXT;
     }
 
     // HasJsonNode......................................................................................................
@@ -161,11 +151,11 @@ public final class NumberLength extends Length<Long> implements HasJsonNode, Val
     /**
      * Accepts a json string holding a number and px unit suffix.
      */
-    public static NumberLength fromJsonNodeNumber(final JsonNode node) {
+    public static NoneLength fromJsonNodeNormal(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
-            return parseNumber(node.stringValueOrFail());
+            return parseNormal(node.stringValueOrFail());
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
