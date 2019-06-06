@@ -52,8 +52,9 @@ final class JettyHttpServerHandler extends AbstractHandler {
                        final HttpServletResponse httpServletResponse) throws IOException, ServletException {
         final JettyHttpServerHandlerHttpResponse httpResponse = JettyHttpServerHandlerHttpResponse.create();
 
-        this.handle(HttpRequests.httpServletRequest(httpServletRequest),
-                HttpResponses.headerScope(httpResponse));
+        final HttpRequest httpRequest = HttpRequests.httpServletRequest(httpServletRequest);
+        this.handle(httpRequest,
+                HttpResponses.requiredHeaders(httpRequest, HttpResponses.headerScope(httpResponse)));
 
         httpResponse.commit(httpServletResponse);
 
