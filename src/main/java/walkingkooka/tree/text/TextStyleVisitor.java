@@ -138,10 +138,6 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
-    protected void visitDirection(final Direction direction) {
-        // nop
-    }
-
     protected void visitFontFamilyName(final FontFamilyName fontFamilyName) {
         // nop
     }
@@ -287,6 +283,10 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
     }
 
     protected void visitTextDecorationStyle(final TextDecorationStyle textDecorationStyle) {
+        // nop
+    }
+
+    protected void visitTextDirection(final TextDirection textDirection) {
         // nop
     }
 

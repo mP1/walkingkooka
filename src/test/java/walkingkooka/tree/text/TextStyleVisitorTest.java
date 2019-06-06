@@ -246,16 +246,6 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
-    public void testVisitDirection() {
-        new TestTextStyleVisitor() {
-            @Override
-            protected void visitDirection(final Direction d) {
-                this.visited = d;
-            }
-        }.accept(TextStylePropertyName.DIRECTION, Direction.LTR);
-    }
-
-    @Test
     public void testVisitFontFamilyName() {
         new TestTextStyleVisitor() {
             @Override
@@ -613,6 +603,16 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
                 this.visited = t;
             }
         }.accept(TextStylePropertyName.TEXT_DECORATION_STYLE, TextDecorationStyle.DASHED);
+    }
+
+    @Test
+    public void testVisitTextDirection() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitTextDirection(final TextDirection d) {
+                this.visited = d;
+            }
+        }.accept(TextStylePropertyName.TEXT_DIRECTION, TextDirection.LTR);
     }
 
     @Test

@@ -60,7 +60,7 @@ public final class TextStyleMapTest implements MapTesting2<TextStyleMap, TextSty
 
     @Test
     public void testGetUnknown() {
-        this.getAndCheckAbsent(TextStylePropertyName.DIRECTION);
+        this.getAndCheckAbsent(TextStylePropertyName.TEXT_DIRECTION);
     }
 
     @Test
