@@ -243,14 +243,6 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (l, v) -> v.visitBorderTopWidth(l));
 
     /**
-     * direction
-     */
-    public final static TextStylePropertyName<Direction> DIRECTION = registerEnumConstant("direction",
-            Direction::valueOf,
-            Direction.class,
-            (d, v) -> v.visitDirection(d));
-
-    /**
      * font-family-name
      */
     public final static TextStylePropertyName<FontFamilyName> FONT_FAMILY_NAME = registerHasJsonNodeConstant("font-family-name",
@@ -517,6 +509,14 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             TextDecorationStyle::valueOf,
             TextDecorationStyle.class,
             (t, v) -> v.visitTextDecorationStyle(t));
+
+    /**
+     * text-direction
+     */
+    public final static TextStylePropertyName<TextDirection> TEXT_DIRECTION = registerEnumConstant("text-direction",
+            TextDirection::valueOf,
+            TextDirection.class,
+            (d, v) -> v.visitTextDirection(d));
 
     /**
      * text-indent

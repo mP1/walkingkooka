@@ -124,11 +124,6 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     }
 
     @Override
-    protected void visitDirection(final Direction direction) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     protected void visitFontFamilyName(final FontFamilyName fontFamilyName) {
         throw new UnsupportedOperationException();
     }
@@ -310,6 +305,11 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
 
     @Override
     protected void visitTextDecorationStyle(final TextDecorationStyle textDecorationStyle) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitTextDirection(final TextDirection textDirection) {
         throw new UnsupportedOperationException();
     }
 

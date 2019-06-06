@@ -281,7 +281,6 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.BORDER_LEFT_WIDTH, Length.pixel(2.0));
         properties.put(TextStylePropertyName.BORDER_RIGHT_WIDTH, Length.pixel(3.0));
         properties.put(TextStylePropertyName.BORDER_TOP_WIDTH, Length.pixel(4.0));
-        properties.put(TextStylePropertyName.DIRECTION, Direction.LTR);
         properties.put(TextStylePropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
         properties.put(TextStylePropertyName.FONT_KERNING, FontKerning.NORMAL);
         properties.put(TextStylePropertyName.FONT_SIZE, FontSize.with(10));
@@ -319,6 +318,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.TEXT_DECORATION, TextDecoration.UNDERLINE);
         properties.put(TextStylePropertyName.TEXT_DECORATION_COLOR, Color.fromRgb(0xabcdef));
         properties.put(TextStylePropertyName.TEXT_DECORATION_STYLE, TextDecorationStyle.DASHED);
+        properties.put(TextStylePropertyName.TEXT_DIRECTION, TextDirection.LTR);
         properties.put(TextStylePropertyName.TEXT_INDENT, Length.pixel(40.0));
         properties.put(TextStylePropertyName.TEXT_JUSTIFY, TextJustify.INTER_CHARACTER);
         properties.put(TextStylePropertyName.TEXT_OVERFLOW, TextOverflow.string("abc123"));
