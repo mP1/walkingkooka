@@ -50,6 +50,21 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         NameTesting2<HttpHeaderName<?>, HttpHeaderName<?>> {
 
     @Test
+    public void testIsConditional() {
+        assertEquals(Sets.of(HttpHeaderName.IF_MATCH, HttpHeaderName.IF_NONE_MATCHED, HttpHeaderName.IF_MODIFIED_SINCE, HttpHeaderName.IF_UNMODIFIED_SINCE, HttpHeaderName.IF_RANGE),
+                HttpHeaderName.CONSTANTS.values()
+                .stream()
+                .filter(h -> h.isConditional())
+                .collect(Collectors.toCollection(Sets::sorted)));
+    }
+
+    @Test
+    public void testCustomHeaderIsConditiojnal() {
+        final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
+        assertEquals(false, header.isConditional(), header + ".isConditional");
+    }
+
+    @Test
     public void testCustomHeaderIsContent() {
         final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
         assertEquals(false, header.isContent(), header + ".isContent");
