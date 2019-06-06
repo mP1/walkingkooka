@@ -23,6 +23,7 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.HttpResponses;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,8 @@ final class JettyHttpServerHandler extends AbstractHandler {
                        final HttpServletResponse httpServletResponse) throws IOException, ServletException {
         final JettyHttpServerHandlerHttpResponse httpResponse = JettyHttpServerHandlerHttpResponse.create();
 
-        this.handle(HttpRequests.httpServletRequest(httpServletRequest), httpResponse);
+        this.handle(HttpRequests.httpServletRequest(httpServletRequest),
+                HttpResponses.headerScope(httpResponse));
 
         httpResponse.commit(httpServletResponse);
 
