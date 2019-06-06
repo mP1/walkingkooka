@@ -286,9 +286,27 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     private static <T> HttpHeaderName<T> registerConstant(final String header,
                                                           final HttpHeaderNameScope scope,
                                                           final HeaderValueConverter<T> headerValue) {
+
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
+        boolean conditional;
+
+        switch (header.toLowerCase()) {
+            case "if-match":
+            case "if-none-match":
+            case "if-modified-since":
+            case "if-unmodified-since":
+            case "if-range":
+                conditional = true;
+                break;
+            default:
+                conditional = false;
+                break;
+        }
+
         final HttpHeaderName<T> httpHeader = new HttpHeaderName<T>(header,
                 scope,
                 headerValue,
+                conditional,
                 CaseSensitivity.INSENSITIVE.startsWith(header, CONTENT_HEADER_PREFIX));
         HttpHeaderName.CONSTANTS.put(header, httpHeader);
         return httpHeader;
@@ -792,7 +810,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderValueConverter.string(), NOT_CONTENT);
+                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderValueConverter.string(), NOT_CONDITIONAL, NOT_CONTENT);
     }
 
     private static String checkName(final String name) {
@@ -820,10 +838,12 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     private HttpHeaderName(final String name,
                            final HttpHeaderNameScope scope,
                            final HeaderValueConverter<T> valueConverter,
+                           final boolean conditional,
                            final boolean content) {
         super(name);
         this.scope = scope;
         this.valueConverter = valueConverter;
+        this.conditional = conditional;
         this.content = content;
     }
 
@@ -834,6 +854,33 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     public HttpHeaderName<String> stringValues() {
         return this.valueConverter.httpHeaderNameCast(this);
     }
+
+    private final static boolean NOT_CONDITIONAL = false;
+
+    /**
+     * Only conditional headers return true.
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests"></a>
+     * <pre>
+     * Conditional headersSection
+     * Several HTTP headers, called conditional headers, lead to conditional requests. These are:
+     *
+     * If-Match
+     * Succeeds if the ETag of the distant resource is equal to one listed in this header. By default, unless the etag is prefixed with 'W/', it performs a strong validation.
+     * If-None-Match
+     * Succeeds if the ETag of the distant resource is different to each listed in this header. By default, unless the etag is prefixed with 'W/', it performs a strong validation.
+     * If-Modified-Since
+     * Succeeds if the Last-Modified date of the distant resource is more recent than the one given in this header.
+     * If-Unmodified-Since
+     * Succeeds if the Last-Modified date of the distant resource is older or the same than the one given in this header.
+     * If-Range
+     * Similar to If-Match, or If-Unmodified-Since, but can have only one single etag, or one date. If it fails, the range request fails, and instead of a 206 Partial Content response, a 200 OK is sent with the complete resource.
+     * </pre>
+     */
+    public boolean isConditional() {
+        return this.conditional;
+    }
+
+    private final boolean conditional;
 
     private final static boolean NOT_CONTENT = false;
 
