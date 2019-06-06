@@ -51,7 +51,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     @Test
     public void testIsConditional() {
-        assertEquals(Sets.of(HttpHeaderName.IF_MATCH, HttpHeaderName.IF_NONE_MATCHED, HttpHeaderName.IF_MODIFIED_SINCE, HttpHeaderName.IF_UNMODIFIED_SINCE, HttpHeaderName.IF_RANGE),
+        assertEquals(Sets.of(HttpHeaderName.E_TAG, HttpHeaderName.IF_MATCH, HttpHeaderName.IF_NONE_MATCHED, HttpHeaderName.IF_MODIFIED_SINCE, HttpHeaderName.IF_UNMODIFIED_SINCE, HttpHeaderName.IF_RANGE),
                 HttpHeaderName.CONSTANTS.values()
                 .stream()
                 .filter(h -> h.isConditional())

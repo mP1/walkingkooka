@@ -291,6 +291,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         boolean conditional;
 
         switch (header.toLowerCase()) {
+            case "etag":
             case "if-match":
             case "if-none-match":
             case "if-modified-since":
