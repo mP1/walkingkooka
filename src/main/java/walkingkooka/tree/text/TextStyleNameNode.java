@@ -122,6 +122,11 @@ public final class TextStyleNameNode extends TextParentNode {
         return this.setAttributesNonEmptyTextStyleMap0(textStyleMap);
     }
 
+    @Override
+    public TextStyle textStyle() {
+        return TextStyle.EMPTY;
+    }
+
     // replace..........................................................................................................
 
     @Override

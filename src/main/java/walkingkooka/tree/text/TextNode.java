@@ -197,6 +197,11 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextStyle
                 .children().get(0);
     }
 
+    /**
+     * Getter that returns a {@link TextStyle} view over attributes.
+     */
+    public abstract TextStyle textStyle();
+
     // is...............................................................................................................
 
     /**
