@@ -108,6 +108,14 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
+     * {@see RequiredHeadersHttpResponse}
+     */
+    public static HttpResponse requiredHeaders(final HttpRequest request,
+                                               final HttpResponse response) {
+        return RequiredHeadersHttpResponse.with(request, response);
+    }
+
+    /**
      * Stop creation
      */
     private HttpResponses() {
