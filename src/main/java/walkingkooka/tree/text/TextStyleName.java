@@ -22,7 +22,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.JsonNode;
 
 /**
- * The name of a style {@link TextNode}.
+ * The name of a textStyle {@link TextNode}.
  */
 public final class TextStyleName extends TextNodeNameName<TextStyleName> {
 

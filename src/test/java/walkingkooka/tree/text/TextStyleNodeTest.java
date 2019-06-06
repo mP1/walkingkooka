@@ -213,14 +213,14 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
     public void testToJsonNodeWithProperties() {
         this.toJsonNodeAndCheck(textStyleNode()
                 .setAttributes(Maps.of(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))),
-                "{\"style\": {\"background-color\": \"#123456\"}}");
+                "{\"textStyle\": {\"background-color\": \"#123456\"}}");
     }
 
     @Test
     public void testToJsonNodeWithPropertiesAndChildren() {
         this.toJsonNodeAndCheck(textStyleNode(TextNode.text("text123"))
                         .setAttributes(Maps.of(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))),
-                "{\"style\": {\"background-color\": \"#123456\"}, \"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
+                "{\"textStyle\": {\"background-color\": \"#123456\"}, \"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
     }
     @Test
     public void testFromJsonNodeWithoutChildren() {

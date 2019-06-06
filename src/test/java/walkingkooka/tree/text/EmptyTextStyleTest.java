@@ -88,7 +88,7 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
 
     @Test
     public void testReplaceTextStyleWithParent() {
-        final TextStyleNameNode styled = setStyleNameParent(this.styleName("child-style-456"));
+        final TextStyleNameNode styled = setStyleNameParent(this.styleName("child-textStyle-456"));
 
         this.replaceAndCheck2(styled);
     }

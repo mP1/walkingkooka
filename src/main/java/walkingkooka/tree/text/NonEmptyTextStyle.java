@@ -180,7 +180,24 @@ final class NonEmptyTextStyle extends TextStyle {
         this.value.accept(visitor);
     }
 
-    // Object..........................................................................................................
+    // Direction........................................................................................................
+
+    @Override
+    Border border(final Direction direction) {
+        return Border.with(direction, this);
+    }
+
+    @Override
+    Margin margin(final Direction direction) {
+        return Margin.with(direction, this);
+    }
+
+    @Override
+    Padding padding(final Direction direction) {
+        return Padding.with(direction, this);
+    }
+
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

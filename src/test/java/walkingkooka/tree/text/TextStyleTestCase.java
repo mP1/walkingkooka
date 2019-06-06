@@ -221,7 +221,7 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
     // helpers .........................................................................................................
 
     final <T extends TextNode> T setStyleNameParent(final T child) {
-        return this.styleName("parent-style-123")
+        return this.styleName("parent-textStyle-123")
                 .setChildren(Lists.of(child))
                 .children()
                 .get(0)

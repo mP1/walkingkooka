@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A {@link TextStyle} with no style and values.
+ * A {@link TextStyle} with no textStyle and values.
  */
 final class EmptyTextStyle extends TextStyle {
 
@@ -112,6 +112,23 @@ final class EmptyTextStyle extends TextStyle {
     @Override
     void accept(final TextStyleVisitor visitor) {
         // no properties
+    }
+
+    // Direction........................................................................................................
+
+    @Override
+    Border border(final Direction direction) {
+        return direction.emptyBorder;
+    }
+
+    @Override
+    Margin margin(final Direction direction) {
+        return direction.emptyMargin;
+    }
+
+    @Override
+    Padding padding(final Direction direction) {
+        return direction.emptyPadding;
     }
 
     // Object..........................................................................................................

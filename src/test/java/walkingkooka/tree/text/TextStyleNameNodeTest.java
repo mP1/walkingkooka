@@ -181,25 +181,25 @@ public final class TextStyleNameNodeTest extends TextParentNodeTestCase<TextStyl
     @Test
     public void testToJsonNodeWithoutChildren() {
         this.toJsonNodeAndCheck(TextStyleNameNode.with(TextStyleName.with("abc123")),
-                "{\"style\": \"abc123\"}");
+                "{\"textStyle\": \"abc123\"}");
     }
 
     @Test
     public void testToJsonNodeWithChildren() {
         this.toJsonNodeAndCheck(TextStyleNameNode.with(TextStyleName.with("abc123"))
                         .setChildren(Lists.of(TextNode.text("text456"))),
-                "{\"style\": \"abc123\", \"values\": [{\"type\": \"text\", \"value\": \"text456\"}]}");
+                "{\"textStyle\": \"abc123\", \"values\": [{\"type\": \"text\", \"value\": \"text456\"}]}");
     }
 
     @Test
     public void testFromJsonNodeWithoutChildren() {
-        this.fromJsonNodeAndCheck("{\"style\": \"abc123\"}",
+        this.fromJsonNodeAndCheck("{\"textStyle\": \"abc123\"}",
                 TextStyleNameNode.with(TextStyleName.with("abc123")));
     }
 
     @Test
     public void testFromJsonNodeWithChildren() {
-        this.fromJsonNodeAndCheck("{\"style\": \"abc123\", \"values\": [{\"type\": \"text\", \"value\": \"text456\"}]}",
+        this.fromJsonNodeAndCheck("{\"textStyle\": \"abc123\", \"values\": [{\"type\": \"text\", \"value\": \"text456\"}]}",
                 TextStyleNameNode.with(TextStyleName.with("abc123"))
                         .setChildren(Lists.of(TextNode.text("text456"))));
     }

@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Represents a collection of style properties that apply upon a list of {@link TextNode children}.
+ * Represents a collection of textStyle properties that apply upon a list of {@link TextNode children}.
  */
 public final class TextStyleNode extends TextParentNode {
 
@@ -43,7 +43,7 @@ public final class TextStyleNode extends TextParentNode {
     final static TextStyleMap NO_ATTRIBUTES_MAP = TextStyleMap.with(Maps.empty());
 
     /**
-     * Factory that creates a {@link TextStyleNode} with the given children and style.
+     * Factory that creates a {@link TextStyleNode} with the given children and textStyle.
      */
     // TextStyle.setTextNodes
     static TextStyleNode with(final List<TextNode> children,
@@ -200,11 +200,11 @@ public final class TextStyleNode extends TextParentNode {
         return this.addChildrenValuesJson(json);
     }
 
-    final static String STYLE = "style";
+    final static String STYLE = "textStyle";
     final static JsonNodeName STYLE_PROPERTY = JsonNodeName.with(STYLE);
 
     static {
-        HasJsonNode.register("text-style-node", TextStyleNode::fromJsonNode, TextStyleNode.class);
+        HasJsonNode.register("text-textStyle-node", TextStyleNode::fromJsonNode, TextStyleNode.class);
     }
 
     // Visitor .................................................................................................

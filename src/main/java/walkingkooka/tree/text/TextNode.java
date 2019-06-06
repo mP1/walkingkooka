@@ -41,7 +41,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Base class that may be used to represent rich text, some nodes with styling style and others with plain text.
+ * Base class that may be used to represent rich text, some nodes with styling textStyle and others with plain text.
  */
 public abstract class TextNode implements Node<TextNode, TextNodeName, TextStylePropertyName<?>, Object>,
         HasJsonNode,
@@ -160,7 +160,7 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextStyle
     final int index;
 
     /**
-     * Replaces the index, retaining other style.
+     * Replaces the index, retaining other textStyle.
      */
     abstract TextNode replace(final int index);
 
@@ -274,7 +274,7 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextStyle
     abstract boolean equalsDescendants0(final TextNode other);
 
     /**
-     * Sub classes should do equals but ignore the parent and children style.
+     * Sub classes should do equals but ignore the parent and children textStyle.
      */
     abstract boolean equalsIgnoringParentAndChildren(final TextNode other);
 
