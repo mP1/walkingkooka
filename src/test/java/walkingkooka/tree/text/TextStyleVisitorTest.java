@@ -435,7 +435,7 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
         }.accept(TextStylePropertyName.MARGIN_TOP, Length.parse("1px"));
     }
 
-    @Test
+       @Test
     public void testVisitMaxHeight() {
         new TestTextStyleVisitor() {
             @Override
@@ -453,6 +453,26 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
                 this.visited = l;
             }
         }.accept(TextStylePropertyName.MAX_WIDTH, Length.parse("1px"));
+    }
+
+    @Test
+    public void testVisitMinHeight() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitMinHeight(final Length<?> l) {
+                this.visited = l;
+            }
+        }.accept(TextStylePropertyName.MIN_HEIGHT, Length.parse("1px"));
+    }
+
+    @Test
+    public void testVisitMinWidth() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitMinWidth(final Length<?> l) {
+                this.visited = l;
+            }
+        }.accept(TextStylePropertyName.MIN_WIDTH, Length.parse("1px"));
     }
 
     @Test

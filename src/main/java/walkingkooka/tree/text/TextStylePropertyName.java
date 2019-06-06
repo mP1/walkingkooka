@@ -405,6 +405,18 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
             (m, v) -> v.visitMaxWidth(m));
 
     /**
+     * min-height
+     */
+    public final static TextStylePropertyName<Length<?>> MIN_HEIGHT = registerPixelLengthConstant("min-height",
+            (m, v) -> v.visitMinHeight(m));
+
+    /**
+     * min-width
+     */
+    public final static TextStylePropertyName<Length<?>> MIN_WIDTH = registerPixelLengthConstant("min-width",
+            (m, v) -> v.visitMinWidth(m));
+
+    /**
      * opacity
      */
     public final static TextStylePropertyName<Opacity> OPACITY = registerHasJsonNodeConstant("opacity",

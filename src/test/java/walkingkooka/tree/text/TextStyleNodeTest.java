@@ -302,6 +302,8 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         properties.put(TextStylePropertyName.MARGIN_TOP, Length.pixel(4.0));
         properties.put(TextStylePropertyName.MAX_HEIGHT, Length.pixel(1024.0));
         properties.put(TextStylePropertyName.MAX_WIDTH, Length.none());
+        properties.put(TextStylePropertyName.MIN_HEIGHT, Length.pixel(10.0));
+        properties.put(TextStylePropertyName.MIN_WIDTH, Length.pixel(11.0));
         properties.put(TextStylePropertyName.OPACITY, Opacity.with(0.5));
         properties.put(TextStylePropertyName.OUTLINE_COLOR, Color.parseColor("red"));
         properties.put(TextStylePropertyName.OUTLINE_OFFSET, Length.pixel(0.25));
