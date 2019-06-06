@@ -214,6 +214,14 @@ public abstract class TextStyleVisitor extends Visitor<TextStyle> {
         // nop
     }
 
+    protected void visitMaxHeight(final Length<?> maxHeight) {
+        // nop
+    }
+
+    protected void visitMaxWidth(final Length<?> maxWidth) {
+        // nop
+    }
+
     protected void visitOpacity(final Opacity opacity) {
         // nop
     }
