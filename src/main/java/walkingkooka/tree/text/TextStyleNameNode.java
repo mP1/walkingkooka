@@ -194,7 +194,7 @@ public final class TextStyleNameNode extends TextParentNode {
                 .set(STYLE_PROPERTY, this.styleName.toJsonNode()));
     }
 
-    final static String STYLE = "style";
+    final static String STYLE = "textStyle";
     final static JsonNodeName STYLE_PROPERTY = JsonNodeName.with(STYLE);
 
     static {

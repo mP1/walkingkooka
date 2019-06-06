@@ -40,7 +40,7 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
         Value<Map<TextStylePropertyName<?>, Object>> {
 
     /**
-     * A {@link TextStyle} with no style.
+     * A {@link TextStyle} with no textStyle.
      */
     public final static TextStyle EMPTY = EmptyTextStyle.instance();
 
@@ -65,7 +65,7 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
     }
 
     /**
-     * Returns true if the style is empty.
+     * Returns true if the textStyle is empty.
      */
     public abstract boolean isEmpty();
 
@@ -73,7 +73,7 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
 
     /**
      * Factory that returns a {@link TextStyleNode} with the given {@link TextNode}
-     * and these style.
+     * and these textStyle.
      */
     public final TextStyleNode setChildren(final List<TextNode> textNodes) {
         return TextStyleNode.with(textNodes, this.textStyleMap());
@@ -160,7 +160,16 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
 
     abstract void accept(final TextStyleVisitor visitor);
 
-    // Object..........................................................................................................
+    // Direction........................................................................................................
+
+    abstract Border border(final Direction direction);
+
+    abstract Margin margin(final Direction direction);
+
+    abstract Padding padding(final Direction direction);
+
+
+    // Object...........................................................................................................
 
     @Override
     abstract public int hashCode();
@@ -182,7 +191,7 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
     // HasJsonNode......................................................................................................
 
     /**
-     * Accepts a json object holding the style as a map.
+     * Accepts a json object holding the textStyle as a map.
      */
     public static TextStyle fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
@@ -207,7 +216,7 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
     }
 
     static {
-        HasJsonNode.register("text-style", TextStyle::fromJsonNode, TextStyle.class,
+        HasJsonNode.register("text-textStyle", TextStyle::fromJsonNode, TextStyle.class,
                 NonEmptyTextStyle.class,
                 EmptyTextStyle.class);
     }
