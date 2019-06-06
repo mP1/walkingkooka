@@ -133,6 +133,11 @@ public final class TextStyleNode extends TextParentNode {
         return new TextStyleNode(this.index, this.children, attributes);
     }
 
+    @Override
+    public final TextStyle textStyle() {
+        return TextStyle.with(this.attributes);
+    }
+
     private final TextStyleMap attributes;
 
     // replace.........................................................................................................

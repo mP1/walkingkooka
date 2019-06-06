@@ -68,6 +68,15 @@ public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTest
         assertEquals(attributes, parent.attributes(), "attributes");
     }
 
+    // textStyle........................................................................................................
+
+    @Test
+    public final void testTextStyle() {
+        final N textNode = this.createTextNode();
+        assertEquals(textNode.attributes(), textNode.textStyle().textStyleMap());
+        assertEquals(TextStyle.with(textNode.attributes()), textNode.textStyle());
+    }
+
     // HasTextOffset .....................................................................................................
 
     @Test

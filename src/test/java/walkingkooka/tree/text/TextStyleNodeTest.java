@@ -173,6 +173,18 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         assertEquals(attributes, node.attributes(), "attributes");
     }
 
+    @Test
+    public void testSetAttributesAndTextStyle() {
+        final Map<TextStylePropertyName<?>, Object> style = Maps.sorted();
+        style.put(TextStylePropertyName.BORDER_RIGHT_COLOR, Color.parseColor("blue"));
+        style.put(TextStylePropertyName.TEXT_COLOR, Color.parseColor("lime"));
+        style.put(TextStylePropertyName.TEXT_ALIGNMENT, TextAlignment.RIGHT);
+
+        final TextNode node = TextNode.style(TextNode.NO_CHILDREN)
+                .setAttributes(style);
+        assertEquals(TextStyle.with(style), node.textStyle(), "textStyle");
+    }
+
     // HasText..........................................................................................................
 
     @Test

@@ -110,6 +110,11 @@ abstract class TextLeafNode<V> extends TextNode implements Value<V> {
         return this.setAttributesNonEmptyTextStyleMap0(textStyleMap);
     }
 
+    @Override
+    public final TextStyle textStyle() {
+        return TextStyle.EMPTY;
+    }
+
     // is ..............................................................................................................
 
     @Override
