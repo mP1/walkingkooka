@@ -75,6 +75,16 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
     }
 
     /**
+     * Creates and adds a new {@link TextStylePropertyName} that handles {@link NoneLength} or {@link PixelLength} values.
+     */
+    private static TextStylePropertyName<Length<?>> registerNoneLengthPixelLengthConstant(final String property,
+                                                                                          final BiConsumer<Length<?>, TextStyleVisitor> visitor) {
+        return registerConstant(property,
+                TextStylePropertyValueHandler.noneLengthPixelLength(),
+                visitor);
+    }
+
+    /**
      * Creates and adds a new {@link TextStylePropertyName} that handles {@link NormalLength} or {@link PixelLength} values.
      */
     private static TextStylePropertyName<Length<?>> registerNormalLengthPixelLengthConstant(final String property,
@@ -381,7 +391,19 @@ public final class TextStylePropertyName<T> extends TextNodeNameName<TextStylePr
      */
     public final static TextStylePropertyName<Length<?>> MARGIN_TOP = registerPixelLengthConstant("margin-top",
             (l, v) -> v.visitMarginTop(l));
-    
+
+    /**
+     * max-height
+     */
+    public final static TextStylePropertyName<Length<?>> MAX_HEIGHT = registerNoneLengthPixelLengthConstant("max-height",
+            (m, v) -> v.visitMaxHeight(m));
+
+    /**
+     * max-width
+     */
+    public final static TextStylePropertyName<Length<?>> MAX_WIDTH = registerNoneLengthPixelLengthConstant("max-width",
+            (m, v) -> v.visitMaxWidth(m));
+
     /**
      * opacity
      */

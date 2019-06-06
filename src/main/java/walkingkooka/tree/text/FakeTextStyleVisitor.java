@@ -217,6 +217,16 @@ public class FakeTextStyleVisitor extends TextStyleVisitor {
     protected void visitMarginTop(final Length<?> marginTop) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    protected void visitMaxHeight(final Length<?> maxHeight) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visitMaxWidth(final Length<?> maxWidth) {
+        throw new UnsupportedOperationException();
+    }
     
     @Override
     protected void visitOpacity(final Opacity opacity) {

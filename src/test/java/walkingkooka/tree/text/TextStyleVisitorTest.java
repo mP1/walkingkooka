@@ -436,6 +436,26 @@ public final class TextStyleVisitorTest implements TextStyleVisitorTesting<TextS
     }
 
     @Test
+    public void testVisitMaxHeight() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitMaxHeight(final Length<?> l) {
+                this.visited = l;
+            }
+        }.accept(TextStylePropertyName.MAX_HEIGHT, Length.parse("1px"));
+    }
+
+    @Test
+    public void testVisitMaxWidth() {
+        new TestTextStyleVisitor() {
+            @Override
+            protected void visitMaxWidth(final Length<?> l) {
+                this.visited = l;
+            }
+        }.accept(TextStylePropertyName.MAX_WIDTH, Length.parse("1px"));
+    }
+
+    @Test
     public void testVisitOpacity() {
         new TestTextStyleVisitor() {
             @Override
