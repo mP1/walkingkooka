@@ -91,6 +91,13 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
+     * {@see MultiPartAwareHttpResponse}
+     */
+    public static HttpResponse multiPartAware(final HttpResponse response) {
+        return MultiPartAwareHttpResponse.with(response);
+    }
+
+    /**
      * {@see RangeAwareHttpResponse}
      */
     public static HttpResponse rangeAware(final HttpRequest request,

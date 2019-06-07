@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * header if the response status code is 2xx and the request method a GET or HEAD, and if the test is true a
  * NOT_MODIFIED without body is sent.
  */
-final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
+final class IfNoneMatchAwareHttpResponse extends NonMultiPartAwareBufferingHttpResponse {
 
     /**
      * Conditionally creates a {@link IfNoneMatchAwareHttpResponse} if the request was a GET or HEAD and
@@ -85,8 +85,8 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
     }
 
     @Override
-    void addEntity(final HttpStatus status,
-                   final HttpEntity entity) {
+    void addFirstEntity(final HttpStatus status,
+                        final HttpEntity entity) {
         HttpStatus finalStatus = status;
         HttpEntity addEntity = entity;
 

@@ -33,7 +33,7 @@ import walkingkooka.net.http.HttpStatusCodeCategory;
  * Mandatory since HTTP/1.1.[16] If the request is generated directly in HTTP/2, it should not be used.[17]
  * </pre>
  */
-final class RequiredHeadersHttpResponse extends BufferingHttpResponse {
+final class RequiredHeadersHttpResponse extends NonMultiPartAwareBufferingHttpResponse {
 
     /**
      * Conditionally creates a {@link RequiredHeadersHttpResponse} if the request has a range header.
@@ -56,36 +56,32 @@ final class RequiredHeadersHttpResponse extends BufferingHttpResponse {
     }
 
     @Override
-    void addEntity(final HttpStatus status,
-                   final HttpEntity entity) {
+    void addFirstEntity(final HttpStatus status,
+                        final HttpEntity entity) {
         final HttpResponse response = this.response;
 
-        if (0 == this.entityCount++) {
-            final HttpStatusCodeCategory codeCategory = status.value().category();
-            switch (codeCategory) {
-                case SUCCESSFUL:
-                case REDIRECTION:
-                    if (this.isServerPresent(entity)) {
-                        response.setStatus(status);
-                        response.addEntity(entity);
-                    } else {
-                        response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.status());
-                        this.committed = true;
-                    }
-                    break;
-                case INFORMATION:
-                case CLIENT_ERROR:
-                case SERVER_ERROR:
+        final HttpStatusCodeCategory codeCategory = status.value().category();
+        switch (codeCategory) {
+            case SUCCESSFUL:
+            case REDIRECTION:
+                if (this.isServerPresent(entity)) {
                     response.setStatus(status);
                     response.addEntity(entity);
-                    break;
-                default:
-                    NeverError.unhandledCase(codeCategory, HttpStatusCodeCategory.values());
-            }
+                } else {
+                    response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.status());
+                    this.committed = true;
+                }
+                break;
+            case INFORMATION:
+            case CLIENT_ERROR:
+            case SERVER_ERROR:
+                response.setStatus(status);
+                response.addEntity(entity);
+                break;
+            default:
+                NeverError.unhandledCase(codeCategory, HttpStatusCodeCategory.values());
         }
     }
-
-    private int entityCount;
 
     private boolean isServerPresent(final HttpEntity entity) {
         return HttpHeaderName.SERVER.headerValue(entity.headers()).isPresent();

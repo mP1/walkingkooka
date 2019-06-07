@@ -131,14 +131,14 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
                         assertEquals(HttpEntity.with(expectedHeaders, Binary.with(expectedBody)),
                                 e,
                                 "entity");
-                        set.set("addEntity");
+                        set.set("addFirstEntity");
                     }
                 });
         if (null != contentEncoding) {
             headers.put(HttpHeaderName.CONTENT_ENCODING, ContentEncoding.parse(contentEncoding));
         }
         response.addEntity(HttpEntity.with(headers, Binary.with(body)));
-        assertTrue(set.value(), "wrapped response addEntity(body) not called");
+        assertTrue(set.value(), "wrapped response addFirstEntity(body) not called");
     }
 
     private AutoGzipEncodingHttpResponse createResponse(final String acceptEncoding, final HttpResponse response) {
