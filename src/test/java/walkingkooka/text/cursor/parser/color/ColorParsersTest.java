@@ -97,6 +97,57 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
                         HslComponent.lightness(value)));
     }
 
+    // hsla(359,1.0,1.0).................................................................................................
+
+    @Test
+    public void testParseHslaFunctionIncompleteFails() {
+        this.parseFails(ColorParsers.hslaFunction(),
+                "hsla(359",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseHslaFunctionMissingPercentSignFails() {
+        this.parseFails(ColorParsers.hslaFunction(),
+                "hsla(359,50,10%)",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseHslaFunctionMissingParensRightFails() {
+        this.parseFails(ColorParsers.hslaFunction(),
+                "hsla(359,50%,10%",
+                ParserReporterException.class);
+    }
+
+    @Test
+    public void testParseHslaFunction() {
+        this.parseHslaAndCheck("hsla(359,100%,50%,25%)", 359, 1.0f, 0.5f, 0.25f);
+    }
+
+    @Test
+    public void testParseHslaFunction2() {
+        this.parseHslaAndCheck("hsla(99,0%,25%,50%)", 99, 0f, 0.25f, 0.5f);
+    }
+
+    @Test
+    public void testParseHslaFunctionExtraWhitespace() {
+        this.parseHslaAndCheck("hsla( 299,100%, 50%, 0%)", 299, 1f, 0.5f, 0);
+    }
+
+    private void parseHslaAndCheck(final String text,
+                                  final float hue,
+                                  final float saturation,
+                                  final float value,
+                                   final float alpha) {
+        this.parseAndCheck(ColorParsers.hslaFunction(),
+                text,
+                Hsl.with(HslComponent.hue(hue),
+                        HslComponent.saturation(saturation),
+                        HslComponent.lightness(value))
+                        .set(HslComponent.alpha(alpha)));
+    }
+
     // hsv(359,1.0,1.0).................................................................................................
 
     @Test

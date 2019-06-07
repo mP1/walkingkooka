@@ -50,6 +50,13 @@ abstract public class HslComponent implements HashCodeEqualsDefined, Serializabl
     }
 
     /**
+     * {@see AlphaHslComponent}
+     */
+    public static AlphaHslComponent alpha(final float value) {
+        return AlphaHslComponent.with(value);
+    }
+
+    /**
      * Package private to limit sub classing
      */
     HslComponent(final float value) {
@@ -105,6 +112,11 @@ abstract public class HslComponent implements HashCodeEqualsDefined, Serializabl
      * Returns true if this is a {@link LightnessHslComponent}.
      */
     public abstract boolean isLightness();
+
+    /**
+     * Returns true if this is a {@link AlphaHslComponent}.
+     */
+    public abstract boolean isAlpha();
 
     /**
      * Setter used to create a new {@link Hsl} with this component replaced if different

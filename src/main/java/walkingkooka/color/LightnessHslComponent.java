@@ -21,7 +21,7 @@ package walkingkooka.color;
 /**
  * A {@link HslComponent} holding the hue component which is a value between <code>0</code> and <code>1.0</code>.
  */
-final public class LightnessHslComponent extends LightnessOrSaturationHslComponent {
+final public class LightnessHslComponent extends AlphaLightnessOrSaturationHslComponent {
 
     /**
      * Factory that creates a new {@link LightnessHslComponent}
@@ -66,6 +66,11 @@ final public class LightnessHslComponent extends LightnessOrSaturationHslCompone
     @Override
     public boolean isLightness() {
         return true;
+    }
+
+    @Override
+    public boolean isAlpha() {
+        return false;
     }
 
     @Override

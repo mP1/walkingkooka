@@ -21,11 +21,11 @@ package walkingkooka.color;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class LightnessOrSaturationHslComponentTest implements ClassTesting2<LightnessOrSaturationHslComponent> {
+public final class AlphaLightnessOrSaturationHslComponentTest implements ClassTesting2<AlphaLightnessOrSaturationHslComponent> {
 
     @Override
-    public Class<LightnessOrSaturationHslComponent> type() {
-        return LightnessOrSaturationHslComponent.class;
+    public Class<AlphaLightnessOrSaturationHslComponent> type() {
+        return AlphaLightnessOrSaturationHslComponent.class;
     }
 
     @Override

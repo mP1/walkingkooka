@@ -20,6 +20,7 @@ package walkingkooka.color;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -34,15 +35,11 @@ import java.util.Objects;
 /**
  * Holds the hue, saturation and lightness which describe a color.
  */
-final public class Hsl extends ColorHslOrHsv {
+public abstract class Hsl extends ColorHslOrHsv {
 
     // parseColor hsl(359,100%,100%)..............................................................................................
 
     public static Hsl parseHsl(final String text) {
-        return parseHsl0(text);
-    }
-
-    static Hsl parseHsl0(final String text) {
         return parseColorHslOrHsvParserToken(text,
                 HSL_FUNCTION_PARSER,
                 HslParserToken.class)
@@ -50,6 +47,36 @@ final public class Hsl extends ColorHslOrHsv {
     }
 
     private final static Parser<ParserContext> HSL_FUNCTION_PARSER = ColorParsers.hslFunction()
+            .orReport(ParserReporters.basic());
+
+    // parseColor hsla(359,100%,100%,50%)..............................................................................................
+
+    public static Hsl parseHsla(final String text) {
+        return parseColorHslOrHsvParserToken(text,
+                HSLA_FUNCTION_PARSER,
+                HslParserToken.class)
+                .value();
+    }
+
+    static Hsl parseHslOrHsla(final String text) {
+        Hsl hsl;
+
+        do {
+            if (text.startsWith("hsl(")) {
+                hsl = parseHsl(text);
+                break;
+            }
+            if (text.startsWith("hsla(")) {
+                hsl = parseHsla(text);
+                break;
+            }
+            throw new IllegalArgumentException("Invalid color: " + CharSequences.quoteAndEscape(text));
+        } while(false);
+
+        return hsl;
+    }
+
+    private final static Parser<ParserContext> HSLA_FUNCTION_PARSER = ColorParsers.hslaFunction()
             .orReport(ParserReporters.basic());
 
     /**
@@ -62,15 +89,17 @@ final public class Hsl extends ColorHslOrHsv {
         Objects.requireNonNull(saturation, "saturation");
         Objects.requireNonNull(lightness, "lightness");
 
-        return new Hsl(hue, saturation, lightness);
+        return OpaqueHsl.withOpaque(hue, saturation, lightness);
     }
 
     /**
-     * Private constructor use factory.
+     * Package private constructor to limit sub classing.
      */
-    private Hsl(final HueHslComponent hue,
-                final SaturationHslComponent saturation,
-                final LightnessHslComponent lightness) {
+    Hsl(final HueHslComponent hue,
+        final SaturationHslComponent saturation,
+        final LightnessHslComponent lightness) {
+        super();
+
         this.hue = hue;
         this.saturation = saturation;
         this.lightness = lightness;
@@ -79,7 +108,7 @@ final public class Hsl extends ColorHslOrHsv {
     /**
      * Would be setter that returns a {@link Hsl} holding the new component. If the component is not new this will be returned.
      */
-    public Hsl set(final HslComponent component) {
+    public final Hsl set(final HslComponent component) {
         Objects.requireNonNull(component, "component");
 
         return component.setComponent(this);
@@ -88,7 +117,7 @@ final public class Hsl extends ColorHslOrHsv {
     /**
      * Factory that creates a new {@link Hsl} with the new {@link HueHslComponent}.
      */
-    Hsl setHue(final HueHslComponent hue) {
+    final Hsl setHue(final HueHslComponent hue) {
         return this.hue.equals(hue) ?
                 this :
                 this.replace(hue, this.saturation, this.lightness);
@@ -97,7 +126,7 @@ final public class Hsl extends ColorHslOrHsv {
     /**
      * Factory that creates a new {@link Hsl} with the new {@link SaturationHslComponent}.
      */
-    Hsl setSaturation(final SaturationHslComponent saturation) {
+    final Hsl setSaturation(final SaturationHslComponent saturation) {
         return this.saturation.equals(saturation) ?
                 this :
                 this.replace(this.hue, saturation, this.lightness);
@@ -106,27 +135,37 @@ final public class Hsl extends ColorHslOrHsv {
     /**
      * Factory that creates a new {@link Hsl} with the new {@link LightnessHslComponent}.
      */
-    Hsl setValue(final LightnessHslComponent lightness) {
+    final Hsl setValue(final LightnessHslComponent lightness) {
         return this.lightness.equals(lightness) ?
                 this :
                 this.replace(this.hue, this.saturation, lightness);
     }
 
     /**
+     * Factory that creates a new {@link Hsl} with the new {@link LightnessHslComponent}.
+     */
+    final Hsl setAlpha(final AlphaHslComponent alpha) {
+        return this.alpha().equals(alpha) ?
+                this :
+                AlphaHsl.withAlpha(this.hue,
+                        this.saturation,
+                        this.lightness,
+                        alpha);
+    }
+
+    /**
      * Factory that creates a {@link Hsl} with the given {@link HslComponent components}.
      */
-    private Hsl replace(final HueHslComponent hue,
-                        final SaturationHslComponent saturation,
-                        final LightnessHslComponent lightness) {
-        return new Hsl(hue, saturation, lightness);
-    }
+    abstract Hsl replace(final HueHslComponent hue,
+                         final SaturationHslComponent saturation,
+                         final LightnessHslComponent lightness);
 
     // properties
 
     /**
      * Getter that returns only the {@link HueHslComponent}
      */
-    public HueHslComponent hue() {
+    public final HueHslComponent hue() {
         return this.hue;
     }
 
@@ -135,7 +174,7 @@ final public class Hsl extends ColorHslOrHsv {
     /**
      * Getter that returns only the {@link SaturationHslComponent}
      */
-    public SaturationHslComponent saturation() {
+    public final SaturationHslComponent saturation() {
         return this.saturation;
     }
 
@@ -144,25 +183,30 @@ final public class Hsl extends ColorHslOrHsv {
     /**
      * Getter that returns only the {@link LightnessHslComponent}
      */
-    public LightnessHslComponent lightness() {
+    public final LightnessHslComponent lightness() {
         return this.lightness;
     }
 
     final LightnessHslComponent lightness;
 
+    /**
+     * Getter that returns the alpha component.
+     */
+    public abstract AlphaHslComponent alpha();
+
     // ColorHslOrHsv....................................................................................................
 
     @Override
-    public boolean isColor() {
+    public final boolean isColor() {
         return false;
     }
 
     @Override
-    public boolean isHsl() {
+    public final boolean isHsl() {
         return true;
     }
 
-    public boolean isHsv() {
+    public final boolean isHsv() {
         return false;
     }
 
@@ -201,7 +245,7 @@ final public class Hsl extends ColorHslOrHsv {
      * <a>http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript</a>
      */
     @Override
-    public Color toColor() {
+    public final Color toColor() {
         // vars
         float red;
         float green;
@@ -226,8 +270,13 @@ final public class Hsl extends ColorHslOrHsv {
             blue = Hsl.hue2rgb(p, q, hue - (1f / 3));
         }
 
-        return Color.with(red, green, blue);
+        return this.color(Color.with(red, green, blue));
     }
+
+    /**
+     * Provides an opportunity to add any alpha component.
+     */
+    abstract Color color(final Color color);
 
     /**
      * <pre>
@@ -265,19 +314,21 @@ final public class Hsl extends ColorHslOrHsv {
     }
 
     @Override
-    public Hsl toHsl() {
+    public final Hsl toHsl() {
         return this;
     }
 
     @Override
-    public Hsv toHsv() {
+    public final Hsv toHsv() {
         return this.toColor().toHsv();
     }
 
     // HasJsonNode......................................................................................................
 
     static {
-        HasJsonNode.register("hsl", Hsl::fromJsonNodeHsl, Hsl.class);
+        HasJsonNode.register("hsl",
+                Hsl::fromJsonNodeHsl,
+                Hsl.class, AlphaHsl.class, OpaqueHsl.class);
     }
 
     /**
@@ -287,7 +338,7 @@ final public class Hsl extends ColorHslOrHsv {
         Objects.requireNonNull(from, "from");
 
         try {
-            return parseHsl(from.stringValueOrFail());
+            return parseHslOrHsla(from.stringValueOrFail());
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
@@ -301,11 +352,6 @@ final public class Hsl extends ColorHslOrHsv {
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof Hsl;
-    }
-
-    @Override
     boolean equals0(final Object other) {
         return this.equals1(Cast.to(other));
     }
@@ -313,18 +359,26 @@ final public class Hsl extends ColorHslOrHsv {
     private boolean equals1(final Hsl other) {
         return this.hue.equals(other.hue) &&
                 this.saturation.equals(other.saturation) &&
-                this.lightness.equals(other.lightness);
+                this.lightness.equals(other.lightness) &&
+                this.equals2(other);
     }
 
+    abstract boolean equals2(final Hsl other);
+
     @Override
-    public void buildToString(final ToStringBuilder builder) {
+    public final void buildToString(final ToStringBuilder builder) {
         builder.separator(",")
-                .append("hsl(")
+                .append(this.functionName())
                 .value(this.hue)
                 .value(this.saturation)
-                .value(this.lightness)
-                .append(')');
+                .value(this.lightness);
+        this.buildToStringAlpha(builder);
+        builder.append(')');
     }
+
+    abstract String functionName();
+
+    abstract void buildToStringAlpha(final ToStringBuilder builder);
 
     // Serializable.....................................................................................................
 

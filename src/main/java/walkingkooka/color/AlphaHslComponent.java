@@ -19,49 +19,56 @@
 package walkingkooka.color;
 
 /**
- * A {@link HslComponent} holding the hue component which is a value between 0 and 360 degrees.
+ * A {@link HslComponent} holding the alpha component which is a value between 0.0 and 1.0
  */
-final public class SaturationHslComponent extends AlphaLightnessOrSaturationHslComponent {
+final public class AlphaHslComponent extends AlphaLightnessOrSaturationHslComponent {
 
     /**
-     * Factory that creates a new {@link SaturationHslComponent}
+     * An opaque alpha component returned by {@link OpaqueHsl#alpha()}.
      */
-    static SaturationHslComponent with(final float value) {
-        SaturationHslComponent.check(value);
-        return new SaturationHslComponent(value);
+    final static AlphaHslComponent OPAQUE = AlphaHslComponent.with(MAX);
+
+    /**
+     * Factory that creates a new {@link AlphaHslComponent}
+     */
+    static AlphaHslComponent with(final float value) {
+        AlphaHslComponent.check(value);
+        return new AlphaHslComponent(value);
     }
 
     /**
      * Private constructor use factory
      */
-    private SaturationHslComponent(final float value) {
+    private AlphaHslComponent(final float value) {
         super(value);
     }
 
     @Override
-    public SaturationHslComponent add(final float value) {
-        return 0 == value ? this
-                : new SaturationHslComponent(
-                HslComponent.add(value, SaturationHslComponent.MIN, SaturationHslComponent.MAX));
+    public AlphaHslComponent add(final float value) {
+        return 0 == value ? this : new AlphaHslComponent(HslComponent.add(value, AlphaHslComponent.MIN, AlphaHslComponent.MAX));
     }
 
     @Override
-    public SaturationHslComponent setValue(final float value) {
-        SaturationHslComponent.check(value);
+    public AlphaHslComponent setValue(final float value) {
+        AlphaHslComponent.check(value);
         return this.value == value ? this : this.replace(value);
     }
 
     /**
-     * Factory that creates a new {@link SaturationHslComponent}
+     * Factory that creates a new {@link AlphaHslComponent}
      */
     @Override
-    SaturationHslComponent replace(final float value) {
-        return new SaturationHslComponent(value);
+    AlphaHslComponent replace(final float value) {
+        return new AlphaHslComponent(value);
+    }
+
+    AlphaColorComponent toAlphaColorComponent() {
+        return AlphaColorComponent.with(ColorComponent.toByte(this.value));
     }
 
     @Override
     public boolean isSaturation() {
-        return true;
+        return false;
     }
 
     @Override
@@ -71,17 +78,17 @@ final public class SaturationHslComponent extends AlphaLightnessOrSaturationHslC
 
     @Override
     public boolean isAlpha() {
-        return false;
+        return true;
     }
 
     @Override
     Hsl setComponent(final Hsl hsl) {
-        return hsl.setSaturation(this);
+        return hsl.setAlpha(this);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SaturationHslComponent;
+        return other instanceof AlphaHslComponent;
     }
 
     // Serializable

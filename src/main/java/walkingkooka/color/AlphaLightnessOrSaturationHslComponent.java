@@ -21,7 +21,7 @@ package walkingkooka.color;
 /**
  * A {@link HslComponent} holding the hue component which is a value between 0 and 360 degrees.
  */
-abstract class LightnessOrSaturationHslComponent extends HslComponent {
+abstract class AlphaLightnessOrSaturationHslComponent extends HslComponent {
 
     /**
      * The lowest possible legal value.
@@ -37,16 +37,16 @@ abstract class LightnessOrSaturationHslComponent extends HslComponent {
      * Verifies that the value is within the acceptable range.
      */
     static void check(final float value) {
-        if ((value < LightnessOrSaturationHslComponent.MIN) || (value > LightnessOrSaturationHslComponent.MAX)) {
+        if ((value < AlphaLightnessOrSaturationHslComponent.MIN) || (value > AlphaLightnessOrSaturationHslComponent.MAX)) {
             throw new IllegalArgumentException(
-                    "value not between " + LightnessOrSaturationHslComponent.MIN + " and " + LightnessOrSaturationHslComponent.MAX + "=" + value);
+                    "value not between " + AlphaLightnessOrSaturationHslComponent.MIN + " and " + AlphaLightnessOrSaturationHslComponent.MAX + "=" + value);
         }
     }
 
     /**
      * Package private to limit sub classing.
      */
-    LightnessOrSaturationHslComponent(final float value) {
+    AlphaLightnessOrSaturationHslComponent(final float value) {
         super(value);
     }
 
