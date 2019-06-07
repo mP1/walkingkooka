@@ -96,6 +96,11 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
     public final static Map<HttpHeaderName<?>, Object> NO_HEADERS = Maps.empty();
 
     /**
+     * A {@link HttpEntity} with no headers and no content.
+     */
+    public final static HttpEntity EMPTY = new HttpEntity(NO_HEADERS, NO_BODY);
+
+    /**
      * Creates a new {@link HttpEntity}
      */
     public static HttpEntity with(final Map<HttpHeaderName<?>, Object> headers, final Binary body) {
