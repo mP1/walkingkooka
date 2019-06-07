@@ -23,9 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.Latch;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 
@@ -33,8 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> implements ClassTesting2<R>,
-        HttpResponseTesting<R> {
+public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> extends HttpResponseTestCase2<R> {
 
     WrapperHttpResponseTestCase() {
         super();
@@ -164,10 +161,5 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         entities.forEach(response::addEntity);
 
         this.checkResponse(wrapped, request, expectedStatus, expectedEntities);
-    }
-
-    @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

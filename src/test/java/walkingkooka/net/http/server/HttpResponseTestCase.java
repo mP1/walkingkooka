@@ -21,15 +21,13 @@ package walkingkooka.net.http.server;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.MemberVisibility;
 
-public final class WrapperHttpRequestHttpResponseTest implements ClassTesting2<WrapperHttpRequestHttpResponse> {
+public abstract class HttpResponseTestCase<R extends HttpResponse> implements ClassTesting2<R> {
 
-    @Override
-    public Class<WrapperHttpRequestHttpResponse> type() {
-        return WrapperHttpRequestHttpResponse.class;
+    HttpResponseTestCase() {
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

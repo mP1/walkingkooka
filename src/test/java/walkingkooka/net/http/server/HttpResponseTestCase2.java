@@ -18,18 +18,9 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+public abstract class HttpResponseTestCase2<R extends HttpResponse> extends HttpResponseTestCase
+        implements HttpResponseTesting<R> {
 
-public final class WrapperHttpRequestHttpResponseTest implements ClassTesting2<WrapperHttpRequestHttpResponse> {
-
-    @Override
-    public Class<WrapperHttpRequestHttpResponse> type() {
-        return WrapperHttpRequestHttpResponse.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    HttpResponseTestCase2() {
     }
 }
