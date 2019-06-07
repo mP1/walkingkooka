@@ -80,6 +80,11 @@ public final class WebColorNameTest implements NameTesting2<WebColorName, WebCol
         this.colorAndCheck("silver", Color.fromRgb(0xc0c0c0));
     }
 
+    @Test
+    public void testTransparent() {
+        this.colorAndCheck("transparent", Color.parseColor("#00000000"));
+    }
+
     private void colorAndCheck(final String name, final Color color) {
         assertEquals(Optional.ofNullable(color),
                 Optional.ofNullable(WebColorName.with(name).map(c -> c.color()).orElse(null)),
