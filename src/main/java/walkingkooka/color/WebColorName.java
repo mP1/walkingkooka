@@ -223,6 +223,16 @@ public final class WebColorName implements Name, Comparable<WebColorName> {
     public final static WebColorName YELLOWGREEN = registerConstant("yellowgreen", "#9acd32");
     public final static WebColorName REBECCAPURPLE = registerConstant("rebeccapurple", "#663399");
 
+
+    /**
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value"></a>
+     * <pre>
+     * The transparent keyword represents a fully transparent color.
+     * This makes the background behind the colored item completely visible. Technically, transparent is a shortcut for rgba(0,0,0,0).
+     * </pre>
+     */
+    public final static WebColorName TRANSPARENT = registerConstant("transparent", "#00000000");
+
     // generated constants end..........................................................................................
 
     /**
@@ -238,7 +248,7 @@ public final class WebColorName implements Name, Comparable<WebColorName> {
             throw new IllegalArgumentException("Empty text for " + CharSequences.quoteAndEscape(name));
         }
 
-        final WebColorName webColorName = new WebColorName(name, Color.parseRrggbb(text));
+        final WebColorName webColorName = new WebColorName(name, Color.parseColor(text));
         WebColorName.NAME_CONSTANTS.put(name, webColorName);
         return webColorName;
     }
