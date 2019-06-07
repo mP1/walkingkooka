@@ -32,7 +32,7 @@ import java.util.Optional;
  * A {link HttpResponse} wrapper that sends a {@link HttpStatusCode#NOT_MODIFIED} if the request is a GET or HEAD,
  * without a if-none-matched header, and the response last-modified is before or equal to the request last-modified.
  */
-final class LastModifiedAwareHttpResponse extends BufferingHttpResponse {
+final class LastModifiedAwareHttpResponse extends NonMultiPartAwareBufferingHttpResponse {
 
     /**
      * Conditionally creates a {@link LastModifiedAwareHttpResponse} if the request was a GET or HEAD and
@@ -75,8 +75,8 @@ final class LastModifiedAwareHttpResponse extends BufferingHttpResponse {
      * the request last modified, then a {@link HttpStatusCode#NO_CONTENT} is sent instead and TRUE returned.
      */
     @Override
-    void addEntity(final HttpStatus status,
-                   final HttpEntity entity) {
+    void addFirstEntity(final HttpStatus status,
+                        final HttpEntity entity) {
         HttpStatus finalStatus = status;
         HttpEntity addEntity = entity;
 
