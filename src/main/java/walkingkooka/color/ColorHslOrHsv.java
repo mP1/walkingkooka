@@ -62,8 +62,8 @@ public abstract class ColorHslOrHsv implements HashCodeEqualsDefined,
 
         ColorHslOrHsv color;
         do {
-            if(tryHsl && text.startsWith("hsl(")) {
-                color = Hsl.parseHsl0(text);
+            if(tryHsl && text.startsWith("hsl")) {
+                color = Hsl.parseHslOrHsla(text);
                 break;
             }
             if(tryHsv && text.startsWith("hsv(")) {

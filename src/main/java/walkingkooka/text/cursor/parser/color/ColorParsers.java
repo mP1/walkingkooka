@@ -77,6 +77,57 @@ public final class ColorParsers implements PublicStaticHelper {
                 .setToString("hsl()");
     }
 
+    // hsla..............................................................................................................
+
+    /**
+     * A parser that handles
+     * <pre>
+     * hsla(359, 100%, 99%, 50%)
+     * </pre>
+     * into a {@link HslParserToken}.
+     */
+    public static <C extends ParserContext> Parser<C> hslaFunction() {
+        return HSLA_FUNCTION_PARSER.cast();
+    }
+
+    private static ParserToken transformHslaFunction(final ParserToken token, final ParserContext context) {
+        return HslaFunctionParserTokenVisitor.acceptParserToken(token);
+    }
+
+    private final static Parser<ParserContext> HSLA_FUNCTION_PARSER = hslaFunctionParser();
+
+    private static Parser<ParserContext> hslaFunctionParser() {
+        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
+        final Parser<ParserContext> component = Parsers.doubleParser();
+        final Parser<ParserContext> percentage = Parsers.character(CharPredicates.is('%'));
+        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
+
+        return Parsers.sequenceParserBuilder()
+                .required(Parsers.string("hsla(", CaseSensitivity.SENSITIVE))
+                .optional(whitespace) // hue
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // sat
+                .required(component)
+                .required(percentage)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // value
+                .required(component)
+                .required(percentage)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace)
+                .required(component) // alpha
+                .required(percentage)
+                .optional(whitespace)
+                .required(Parsers.character(CharPredicates.is(')')))
+                .build()
+                .transform(ColorParsers::transformHslaFunction)
+                .setToString("hsla()");
+    }
+
     // hsv..............................................................................................................
 
     /**

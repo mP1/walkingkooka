@@ -93,6 +93,11 @@ final public class HueHslComponent extends HslComponent {
     }
 
     @Override
+    public boolean isAlpha() {
+        return false;
+    }
+
+    @Override
     Hsl setComponent(final Hsl hsl) {
         return hsl.setHue(this);
     }

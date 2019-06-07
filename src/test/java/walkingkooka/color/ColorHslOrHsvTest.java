@@ -45,6 +45,15 @@ public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv>,
     }
 
     @Test
+    public void testParseHsla() {
+        this.parseAndCheck("hsla(359, 0%, 25%, 50%)",
+                Hsl.with(HslComponent.hue(359f),
+                        HslComponent.saturation(0.0f),
+                        HslComponent.lightness(0.25f))
+                        .set(HslComponent.alpha(0.5f)));
+    }
+
+    @Test
     public void testParseHsv() {
         this.parseAndCheck("hsv(359, 0.0, 0.25)",
                 Hsv.with(HsvComponent.hue(359f),
