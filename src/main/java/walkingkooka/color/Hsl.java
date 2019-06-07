@@ -78,7 +78,8 @@ final public class Hsl extends ColorHslOrHsv {
     /**
      * Private constructor use factory.
      */
-    private Hsl(final HueHslComponent hue, final SaturationHslComponent saturation,
+    private Hsl(final HueHslComponent hue,
+                final SaturationHslComponent saturation,
                 final LightnessHslComponent lightness) {
         this.hue = hue;
         this.saturation = saturation;
@@ -252,7 +253,9 @@ final public class Hsl extends ColorHslOrHsv {
      *
      * <a>http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript</a>
      */
-    private static float hue2rgb(final float p, final float q, float t) {
+    private static float hue2rgb(final float p,
+                                 final float q,
+                                 float t) {
         if (t < 0) {
             t += 1;
         }

@@ -343,12 +343,15 @@ abstract public class Color extends ColorHslOrHsv {
     /**
      * Factory called by the various setters that creates a new {@link Color} with the given components.
      */
-    abstract Color replace(final RedColorComponent red, final GreenColorComponent green, final BlueColorComponent blue);
+    abstract Color replace(final RedColorComponent red,
+                           final GreenColorComponent green,
+                           final BlueColorComponent blue);
 
     /**
      * Mixes the given {@link ColorComponent} by the provided amount and returns a {@link Color} with that amount.
      */
-    public Color mix(final ColorComponent component, final float amount) {
+    public Color mix(final ColorComponent component,
+                     final float amount) {
         Objects.requireNonNull(component, "component");
 
         if ((amount < 0f) || (amount > 1.0f)) {
@@ -637,7 +640,9 @@ abstract public class Color extends ColorHslOrHsv {
     // HasJsonNode......................................................................................................
 
     static {
-        HasJsonNode.register("color", Color::fromJsonNodeColor, Color.class, AlphaColor.class, OpaqueColor.class);
+        HasJsonNode.register("color",
+                Color::fromJsonNodeColor,
+                Color.class, AlphaColor.class, OpaqueColor.class);
     }
 
     /**

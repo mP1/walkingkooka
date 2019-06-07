@@ -48,7 +48,9 @@ final class AlphaColor extends Color {
     /**
      * Factory that creates a {@link AlphaColor}
      */
-    static AlphaColor with(final RedColorComponent red, final GreenColorComponent green, final BlueColorComponent blue,
+    static AlphaColor with(final RedColorComponent red,
+                           final GreenColorComponent green,
+                           final BlueColorComponent blue,
                            final AlphaColorComponent alpha) {
         return new AlphaColor(red, green, blue, alpha);
     }
@@ -56,7 +58,9 @@ final class AlphaColor extends Color {
     /**
      * Private constructor use factory. Note the argb is calculated and cached.
      */
-    private AlphaColor(final RedColorComponent red, final GreenColorComponent green, final BlueColorComponent blue,
+    private AlphaColor(final RedColorComponent red,
+                       final GreenColorComponent green,
+                       final BlueColorComponent blue,
                        final AlphaColorComponent alpha) {
         super(red, green, blue);
         this.alpha = alpha;
@@ -78,7 +82,9 @@ final class AlphaColor extends Color {
      * Unconditionally creates a new a {@link AlphaColor}
      */
     @Override
-    Color replace(final RedColorComponent red, final GreenColorComponent green, final BlueColorComponent blue) {
+    Color replace(final RedColorComponent red,
+                  final GreenColorComponent green,
+                  final BlueColorComponent blue) {
         return new AlphaColor(red, green, blue, this.alpha);
     }
 
@@ -133,7 +139,9 @@ final class AlphaColor extends Color {
 
     @Override
     public java.awt.Color toAwtColor() {
-        return new java.awt.Color(this.red.unsignedIntValue, this.green.unsignedIntValue, this.blue.unsignedIntValue,
+        return new java.awt.Color(this.red.unsignedIntValue,
+                this.green.unsignedIntValue,
+                this.blue.unsignedIntValue,
                 this.alpha.unsignedIntValue);
     }
 

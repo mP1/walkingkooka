@@ -55,7 +55,9 @@ final class OpaqueColor extends Color {
     /**
      * Factory that creates with out any parameter checking.
      */
-    static OpaqueColor with(final RedColorComponent red, final GreenColorComponent green, final BlueColorComponent blue,
+    static OpaqueColor with(final RedColorComponent red,
+                            final GreenColorComponent green,
+                            final BlueColorComponent blue,
                             final int rgb) {
         return new OpaqueColor(red, green, blue, rgb);
     }
@@ -63,7 +65,9 @@ final class OpaqueColor extends Color {
     /**
      * Private constructor use factory.
      */
-    private OpaqueColor(final RedColorComponent red, final GreenColorComponent green, final BlueColorComponent blue,
+    private OpaqueColor(final RedColorComponent red,
+                        final GreenColorComponent green,
+                        final BlueColorComponent blue,
                         final int rgb) {
         super(red, green, blue);
         this.rgb = rgb;
@@ -90,7 +94,9 @@ final class OpaqueColor extends Color {
      * Factory called by the various setters that creates a new {@link OpaqueColor} with the given components.
      */
     @Override
-    Color replace(final RedColorComponent red, final GreenColorComponent green, final BlueColorComponent blue) {
+    Color replace(final RedColorComponent red,
+                  final GreenColorComponent green,
+                  final BlueColorComponent blue) {
         return OpaqueColor.computeRgbAndCreate(red, green, blue);
     }
 
