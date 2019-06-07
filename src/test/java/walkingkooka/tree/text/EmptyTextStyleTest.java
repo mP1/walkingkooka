@@ -55,7 +55,7 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
 
     @Test
     public void testReplaceTextPlaceholderNodeWithParent() {
-        this.replaceAndCheck2(setStyleNameParent(this.placeholder("child-place1")));
+        this.replaceAndCheck2(makeStyleNameParent(this.placeholder("child-place1")));
     }
 
     @Test
@@ -65,7 +65,7 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
 
     @Test
     public void testReplaceTextStyle2() {
-        final TextStyleNode node = TextNode.style(children());
+        final TextNode node = TextNode.style(children());
 
         this.replaceAndCheck(TextStyle.EMPTY,
                 node.setAttributes(Maps.of(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC)),
@@ -74,11 +74,11 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
 
     @Test
     public void testReplaceTextStyleNodeWithParent() {
-        final TextStyleNode textStyleNode = TextNode.style(this.children());
+        final TextNode textStyleNode = TextNode.style(this.children());
 
         this.replaceAndCheck(TextStyle.EMPTY,
-                setStyleNameParent(textStyleNode.setAttributes(Maps.of(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC))),
-                setStyleNameParent(textStyleNode));
+                makeStyleNameParent(textStyleNode.setAttributes(Maps.of(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC))),
+                makeStyleNameParent(textStyleNode));
     }
 
     @Test
@@ -88,7 +88,7 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
 
     @Test
     public void testReplaceTextStyleWithParent() {
-        final TextStyleNameNode styled = setStyleNameParent(this.styleName("child-textStyle-456"));
+        final TextStyleNameNode styled = makeStyleNameParent(this.styleName("child-textStyle-456"));
 
         this.replaceAndCheck2(styled);
     }
@@ -100,7 +100,7 @@ public final class EmptyTextStyleTest extends TextStyleTestCase<EmptyTextStyle> 
 
     @Test
     public void testReplaceTextWithParent() {
-        this.replaceAndCheck2(setStyleNameParent(TextNode.text("child-abc123")));
+        this.replaceAndCheck2(makeStyleNameParent(TextNode.text("child-abc123")));
     }
 
     private void replaceAndCheck2(final TextNode textNode) {

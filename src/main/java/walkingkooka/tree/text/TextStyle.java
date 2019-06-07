@@ -75,7 +75,7 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
      * Factory that returns a {@link TextStyleNode} with the given {@link TextNode}
      * and these textStyle.
      */
-    public final TextStyleNode setChildren(final List<TextNode> textNodes) {
+    public final TextNode setChildren(final List<TextNode> textNodes) {
         return TextStyleNode.with(textNodes, this.textStyleMap());
     }
 

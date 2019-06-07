@@ -129,9 +129,10 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
     final void replaceAndCheck(final TextStyle textStyle,
                                final TextNode textNode,
                                final TextNode expected) {
+        final TextNode actual = textStyle.replace(textNode);
         assertEquals(expected,
-                textStyle.replace(textNode),
-                () -> textStyle + " replace " + textNode);
+                actual,
+                () -> textStyle + " replace " + textNode + "\nEXPECTED.root\n" + expected.root() + "\nACTUAL.root\n" + actual.root() + '\n');
     }
 
     // get..............................................................................................................
@@ -220,7 +221,7 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
 
     // helpers .........................................................................................................
 
-    final <T extends TextNode> T setStyleNameParent(final T child) {
+    final <T extends TextNode> T makeStyleNameParent(final T child) {
         return this.styleName("parent-textStyle-123")
                 .setChildren(Lists.of(child))
                 .children()

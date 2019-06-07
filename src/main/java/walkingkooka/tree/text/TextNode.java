@@ -71,7 +71,7 @@ public abstract class TextNode implements Node<TextNode, TextNodeName, TextStyle
     /**
      * {@see TextStyleNode}
      */
-    public static TextStyleNode style(final List<TextNode> children) {
+    public static TextNode style(final List<TextNode> children) {
         return TextStyleNode.with(children, TextStyleNode.NO_ATTRIBUTES_MAP);
     }
 
