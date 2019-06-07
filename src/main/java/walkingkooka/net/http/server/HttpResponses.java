@@ -74,6 +74,13 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
+     * {@see HttpStatusCodeRequiredHeadersHttpResponse}
+     */
+    public static HttpResponse httpStatusCodeRequiredHeaders(final HttpResponse response) {
+        return HttpStatusCodeRequiredHeadersHttpResponse.with(response);
+    }
+
+    /**
      * {@see IfNoneMatchAwareHttpResponse}
      */
     public static HttpResponse ifNoneMatchAware(final HttpRequest request,

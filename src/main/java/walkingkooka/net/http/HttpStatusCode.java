@@ -18,9 +18,12 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.collect.set.Sets;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.text.CharSequences;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Set;
 
 /**
  * Holds all possible http status codes.<br>
@@ -73,7 +76,7 @@ public enum HttpStatusCode {
     /**
      * Partial content={@link HttpServletResponse#SC_PARTIAL_CONTENT}
      */
-    PARTIAL_CONTENT(HttpServletResponse.SC_PARTIAL_CONTENT, "Partial content"),
+    PARTIAL_CONTENT(HttpServletResponse.SC_PARTIAL_CONTENT, "Partial content", HttpHeaderName.RANGE),
 
     // Redirect
 
@@ -241,11 +244,24 @@ public enum HttpStatusCode {
      */
     HTTP_VERSION_NOT_SUPPORTED(HttpServletResponse.SC_HTTP_VERSION_NOT_SUPPORTED, "HTTP Version Not Supported");
 
-    HttpStatusCode(final int code, final String message) {
+    HttpStatusCode(final int code,
+                   final String message,
+                   final HttpHeaderName<?>...requiredHttpHeaders) {
         this.code = code;
         this.message = message;
-        this.category = HttpStatusCodeCategory.category(code);
+
+        final HttpStatusCodeCategory category = HttpStatusCodeCategory.category(code);
+        this.category = category;
         this.status = HttpStatus.with(this, this.message);
+
+        // all redirects except for multiple choices require a location header.
+        this.requiredHttpHeaders = this.isNotMultipleChoicesAndDirect(code, category) ?
+                Sets.of(HttpHeaderName.LOCATION) :
+                Sets.of(requiredHttpHeaders);
+    }
+
+    private static boolean isNotMultipleChoicesAndDirect(final int code, final HttpStatusCodeCategory category) {
+        return HttpServletResponse.SC_MULTIPLE_CHOICES != code && category == HttpStatusCodeCategory.REDIRECTION;
     }
 
     /**
@@ -298,4 +314,13 @@ public enum HttpStatusCode {
      * The default message for this code.
      */
     final String message;
+
+    /**
+     * Some http status codes require one or more heades, eg a {@link #TEMPORARY_REDIRECT} require a {@link HttpHeaderName#LOCATION} header.
+     */
+    public Set<HttpHeaderName<?>> requiredHttpHeaders() {
+        return this.requiredHttpHeaders;
+    }
+
+    private final Set<HttpHeaderName<?>> requiredHttpHeaders;
 }
