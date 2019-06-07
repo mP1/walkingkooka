@@ -131,10 +131,6 @@ abstract public class HslComponent implements HashCodeEqualsDefined, Serializabl
         return this.value == other.value;
     }
 
-    final String toStringPrecentage() {
-        return Math.round(100 * this.value) + "%";
-    }
-
     // Serializable
 
     private static final long serialVersionUID = 1;

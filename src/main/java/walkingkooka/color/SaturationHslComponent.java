@@ -21,17 +21,7 @@ package walkingkooka.color;
 /**
  * A {@link HslComponent} holding the hue component which is a value between 0 and 360 degrees.
  */
-final public class SaturationHslComponent extends HslComponent {
-
-    /**
-     * The lowest possible legal value.
-     */
-    public final static float MIN = 0.0f;
-
-    /**
-     * The highest possible legal value.
-     */
-    public final static float MAX = 1.0f;
+final public class SaturationHslComponent extends LightnessOrSaturationHslComponent {
 
     /**
      * Factory that creates a new {@link SaturationHslComponent}
@@ -39,16 +29,6 @@ final public class SaturationHslComponent extends HslComponent {
     static SaturationHslComponent with(final float value) {
         SaturationHslComponent.check(value);
         return new SaturationHslComponent(value);
-    }
-
-    /**
-     * Verifies that the value is within the acceptable range.
-     */
-    private static void check(final float value) {
-        if ((value < SaturationHslComponent.MIN) || (value > SaturationHslComponent.MAX)) {
-            throw new IllegalArgumentException(
-                    "value not between " + SaturationHslComponent.MIN + " and " + SaturationHslComponent.MAX + "=" + value);
-        }
     }
 
     /**
@@ -80,11 +60,6 @@ final public class SaturationHslComponent extends HslComponent {
     }
 
     @Override
-    public boolean isHue() {
-        return false;
-    }
-
-    @Override
     public boolean isSaturation() {
         return true;
     }
@@ -102,11 +77,6 @@ final public class SaturationHslComponent extends HslComponent {
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SaturationHslComponent;
-    }
-
-    @Override
-    public String toString() {
-        return toStringPrecentage();
     }
 
     // Serializable
