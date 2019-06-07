@@ -21,13 +21,21 @@ package walkingkooka.color;
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContexts;
+import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.text.cursor.parser.color.ColorHslOrHsvParserToken;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
 import java.io.Serializable;
+import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -74,6 +82,18 @@ public abstract class ColorHslOrHsv implements HashCodeEqualsDefined,
 
     static void checkText(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
+    }
+
+    static <T extends ColorHslOrHsvParserToken> T parseColorHslOrHsvParserToken(final String text,
+                                                                                final Parser<ParserContext> parser,
+                                                                                final Class<T> type) {
+        try {
+            return parser.parse(TextCursors.charSequence(text), ParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
+                    .map(t -> type.cast(t))
+                    .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
+        } catch (final ParserException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
     }
 
     ColorHslOrHsv() {
