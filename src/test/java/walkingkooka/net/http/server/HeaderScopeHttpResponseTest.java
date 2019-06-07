@@ -22,34 +22,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpStatus;
-import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.test.Latch;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCase<HeaderScopeHttpResponse> {
-
-    @Test
-    public void testSetStatus() {
-        final Latch set = Latch.create();
-        final HttpStatus status = HttpStatusCode.BAD_REQUEST.status();
-
-        HeaderScopeHttpResponse.with(new FakeHttpResponse() {
-
-            @Override
-            public void setStatus(final HttpStatus s) {
-                set.set("Status already set to " + status);
-                assertSame(status, s, "status");
-            }
-
-        }).setStatus(status);
-
-        assertEquals(true, set.value(), "status not set");
-    }
 
     @Test
     public void testAddEntity() {
