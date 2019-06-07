@@ -56,7 +56,7 @@ final class JettyHttpServerHandler extends AbstractHandler {
         this.handle(httpRequest,
                 HttpResponses.requiredHeaders(httpRequest,
                         HttpResponses.headerScope(
-                                HttpResponses.multiPartAware(httpResponse))));
+                                HttpResponses.multiPartAware(HttpResponses.httpStatusCodeRequiredHeaders(httpResponse)))));
 
         httpResponse.commit(httpServletResponse);
 
