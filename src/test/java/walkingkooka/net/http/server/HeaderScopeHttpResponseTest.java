@@ -32,7 +32,7 @@ public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCa
     @Test
     public void testAddEntity() {
         final List<HttpEntity> added = Lists.array();
-        final HttpEntity entity = HttpEntity.with(HttpEntity.NO_HEADERS, Binary.with(new byte[123]));
+        final HttpEntity entity = HttpEntity.EMPTY.setBody(Binary.with(new byte[123]));
 
         HeaderScopeHttpResponse.with(new FakeHttpResponse() {
 

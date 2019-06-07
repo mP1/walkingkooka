@@ -83,6 +83,11 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
         this.check(HttpEntity.with(HEADERS, this.body()));
     }
 
+    @Test
+    public void testEmptyConstant() {
+        this.check(HttpEntity.EMPTY, HttpEntity.NO_HEADERS, HttpEntity.NO_BODY);
+    }
+
     // setHeaders ....................................................................................................
 
     @Test
