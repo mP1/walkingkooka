@@ -20,13 +20,8 @@ package walkingkooka.color;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserContexts;
-import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.color.ColorParsers;
 import walkingkooka.text.cursor.parser.color.HsvParserToken;
@@ -34,7 +29,6 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 
-import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -49,14 +43,10 @@ final public class Hsv extends ColorHslOrHsv {
     }
 
     static Hsv parseHsv0(final String text) {
-        try {
-            return HSV_FUNCTION_PARSER.parse(TextCursors.charSequence(text),
-                    ParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
-                    .map(t -> HsvParserToken.class.cast(t).value())
-                    .orElseThrow(() -> new IllegalArgumentException("Parsing " + CharSequences.quoteAndEscape(text) + " failed."));
-        } catch (final ParserException cause) {
-            throw new IllegalArgumentException(cause.getMessage(), cause);
-        }
+        return parseColorHslOrHsvParserToken(text,
+                HSV_FUNCTION_PARSER,
+                HsvParserToken.class)
+                .value();
     }
 
     private final static Parser<ParserContext> HSV_FUNCTION_PARSER = ColorParsers.hsvFunction()
