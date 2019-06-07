@@ -78,7 +78,9 @@ final public class Hsv extends ColorHslOrHsv {
     /**
      * Private constructor use factory.
      */
-    private Hsv(final HueHsvComponent hue, final SaturationHsvComponent saturation, final ValueHsvComponent value) {
+    private Hsv(final HueHsvComponent hue,
+                final SaturationHsvComponent saturation,
+                final ValueHsvComponent value) {
         this.hue = hue;
         this.saturation = saturation;
         this.value = value;
@@ -124,7 +126,9 @@ final public class Hsv extends ColorHslOrHsv {
     /**
      * Factory that creates a {@link Hsv} with the given {@link HsvComponent components}.
      */
-    private Hsv replace(final HueHsvComponent hue, final SaturationHsvComponent saturation, final ValueHsvComponent value) {
+    private Hsv replace(final HueHsvComponent hue,
+                        final SaturationHsvComponent saturation,
+                        final ValueHsvComponent value) {
         return new Hsv(hue, saturation, value);
     }
 
