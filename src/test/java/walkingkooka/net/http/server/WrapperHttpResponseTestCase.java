@@ -19,12 +19,15 @@
 package walkingkooka.net.http.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.Latch;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,7 +44,6 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     public final void testWithNullResponseFails() {
         assertThrows(NullPointerException.class, () -> {
             this.createResponse(null);
-
         });
     }
 
@@ -100,20 +102,42 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     }
 
     final void setStatusAddEntityAndCheck(final HttpStatus status,
+                                          final HttpEntity... entities) {
+        this.setStatusAddEntityAndCheck(status,
+                Lists.of(entities),
+                status,
+                entities);
+    }
+
+    final void setStatusAddEntityAndCheck(final HttpStatus status,
                                           final HttpEntity entity,
+                                          final HttpStatus expectedStatus,
+                                          final HttpEntity... expectedEntities) {
+        this.setStatusAddEntityAndCheck(status,
+                Lists.of(entity),
+                expectedStatus,
+                expectedEntities);
+    }
+
+    final void setStatusAddEntityAndCheck(final HttpStatus status,
+                                          final List<HttpEntity> entities,
                                           final HttpStatus expectedStatus,
                                           final HttpEntity... expectedEntities) {
         this.setStatusAddEntityAndCheck(this.createRequest(),
                 status,
-                entity,
+                entities,
                 expectedStatus,
                 expectedEntities);
     }
 
     final void setStatusAddEntityAndCheck(final HttpRequest request,
                                           final HttpStatus status,
-                                          final HttpEntity entity) {
-        this.setStatusAddEntityAndCheck(request, status, entity, status, entity);
+                                          final HttpEntity... entities) {
+        this.setStatusAddEntityAndCheck(request,
+                status,
+                Lists.of(entities),
+                status,
+                entities);
     }
 
     final void setStatusAddEntityAndCheck(final HttpRequest request,
@@ -121,11 +145,23 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
                                           final HttpEntity entity,
                                           final HttpStatus expectedStatus,
                                           final HttpEntity... expectedEntities) {
+        this.setStatusAddEntityAndCheck(request,
+                status,
+                Lists.of(entity),
+                expectedStatus,
+                expectedEntities);
+    }
+
+    final void setStatusAddEntityAndCheck(final HttpRequest request,
+                                          final HttpStatus status,
+                                          final List<HttpEntity> entities,
+                                          final HttpStatus expectedStatus,
+                                          final HttpEntity... expectedEntities) {
         final RecordingHttpResponse wrapped = RecordingHttpResponse.with();
 
         final R response = this.createResponse(request, wrapped);
         response.setStatus(status);
-        response.addEntity(entity);
+        entities.forEach(response::addEntity);
 
         this.checkResponse(wrapped, request, expectedStatus, expectedEntities);
     }
