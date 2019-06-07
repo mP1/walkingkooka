@@ -44,13 +44,15 @@ public final class TextStyleNode extends TextParentNode {
 
     /**
      * Factory that creates a {@link TextStyleNode} with the given children and textStyle.
+     * If the textStyle is empty and there is only one child it will be unwrapped.
      */
     // TextStyle.setTextNodes
-    static TextStyleNode with(final List<TextNode> children,
-                              final TextStyleMap properties) {
-        return new TextStyleNode(NO_INDEX,
-                copy(children),
-                properties);
+    static TextNode with(final List<TextNode> children,
+                         final TextStyleMap properties) {
+        final List<TextNode> copy = copy(children);
+        return properties.isEmpty() && copy.size() == 1 ?
+                copy.get(0) :
+                new TextStyleNode(NO_INDEX, copy, properties);
     }
 
     /**
@@ -165,7 +167,7 @@ public final class TextStyleNode extends TextParentNode {
     /**
      * Accepts a json object which holds a {@link TextStyleNode}.
      */
-    public static TextStyleNode fromJsonNode(final JsonNode node) {
+    public static TextNode fromJsonNode(final JsonNode node) {
         Objects.requireNonNull(node, "node");
 
         try {
@@ -175,7 +177,7 @@ public final class TextStyleNode extends TextParentNode {
         }
     }
 
-    private static TextStyleNode fromJsonNode0(final JsonObjectNode node) {
+    private static TextNode fromJsonNode0(final JsonObjectNode node) {
         TextStyle textStyle = TextStyle.EMPTY;
         List<TextNode> children = NO_CHILDREN;
 

@@ -50,9 +50,10 @@ public final class TextNodeTest extends TextNodeTestCase<TextNode> implements Ha
     @Test
     public void testBuildAndCheckToString() {
         this.toStringAndCheck(TextNode.style(Lists.of(
+                TextNode.text("text-1a"),
                 TextNode.styleName(TextStyleName.with("style123"))
-                        .setChildren(Lists.of(TextNode.text("text123"), TextNode.placeholder(TextPlaceholderName.with("place-1")))))),
-                "[style123[\"text123\", place-1]]");
+                        .setChildren(Lists.of(TextNode.text("text-2b"), TextNode.placeholder(TextPlaceholderName.with("place-1")))))),
+                "[\"text-1a\", style123[\"text-2b\", place-1]]");
     }
 
     @Test

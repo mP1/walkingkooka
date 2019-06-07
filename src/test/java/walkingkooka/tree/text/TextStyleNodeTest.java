@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,10 +45,24 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
     }
 
     @Test
-    public void testWith() {
+    public void testWithOneChildNoAttributes() {
         final TextNode child = TextNode.text("child1");
-        final TextStyleNode properties = TextStyleNode.with(Lists.of(child), TextStyleNode.NO_ATTRIBUTES_MAP);
-        this.childCountCheck(properties, child);
+        assertSame(child, TextStyleNode.with(Lists.of(child), TextStyleNode.NO_ATTRIBUTES_MAP));
+    }
+
+    @Test
+    public void testWithOneChildAndAttributes() {
+        final TextNode child = TextNode.text("child");
+        final TextNode styleNode = TextStyleNode.with(Lists.of(child), TextStyleMap.with(Maps.of(TextStylePropertyName.WIDTH, Length.pixel(1.0))));
+        this.childCountCheck(styleNode, child);
+    }
+
+    @Test
+    public void testWithSeveralChildrenNoAttributes() {
+        final TextNode child1 = TextNode.text("child1");
+        final TextNode child2 = TextNode.text("child2");
+        final TextNode styleNode = TextStyleNode.with(Lists.of(child1, child2), TextStyleNode.NO_ATTRIBUTES_MAP);
+        this.childCountCheck(styleNode, child1, child2);
     }
 
     @Test
@@ -59,24 +74,26 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         children.add(child1);
         children.add(child2);
 
-        final TextStyleNode properties = TextStyleNode.with(children, TextStyleNode.NO_ATTRIBUTES_MAP);
+        final TextNode styleNode = TextStyleNode.with(children, TextStyleNode.NO_ATTRIBUTES_MAP);
         children.clear();
-        this.childCountCheck(properties, child1, child2);
+        this.childCountCheck(styleNode, child1, child2);
     }
 
     @Test
     public void testWithParent() {
         final TextNode child1 = this.text1();
+        final TextNode child2 = this.text2();
+        final TextNode child3 = this.text3();
 
-        final TextStyleNode parent = textStyleNode(child1);
-        final TextStyleNode grandParent = textStyleNode(parent);
+        final TextStyleNode parent = textStyleNode(child1, child2);
+        final TextStyleNode grandParent = textStyleNode(parent, child3);
 
         final TextNode parent2 = grandParent.children().get(0);
         this.checkWithParent(parent2);
-        this.childCountCheck(parent2, child1);
+        this.childCountCheck(parent2, child1, child2);
 
         final TextNode grandParent2 = parent2.parentOrFail();
-        this.childCountCheck(grandParent2, parent);
+        this.childCountCheck(grandParent2, parent, child3);
         this.checkWithoutParent(grandParent2);
     }
 
@@ -95,17 +112,20 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
     @Test
     public void testSetDifferentChildrenWithParent() {
         final TextNode child1 = this.text1();
-
-        final TextStyleNode parent = textStyleNode(child1);
-        final TextStyleNode grandParent = textStyleNode(parent);
-
         final TextNode child2 = this.text2();
-        final TextNode different = grandParent.children().get(0).appendChild(child2);
+
+        final TextStyleNode parent = textStyleNode(child1, child2);
+
+        final TextNode parent2 = this.text3();
+        final TextStyleNode grandParent = textStyleNode(parent, parent2);
+
+        final TextNode differentChild = TextNode.text("different");
+        final TextNode different = grandParent.children().get(0).appendChild(differentChild);
         this.checkWithParent(different);
-        this.childCountCheck(different, child1, child2);
+        this.childCountCheck(different, child1, child2, differentChild);
 
         final TextNode grandParent2 = different.parentOrFail();
-        this.childCountCheck(grandParent2, different);
+        this.childCountCheck(grandParent2, different, parent2);
         this.checkWithoutParent(grandParent2);
     }
 
@@ -212,7 +232,8 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
 
     @Test
     public void testToJsonNodeWithChildren() {
-        this.toJsonNodeAndCheck(textStyleNode(TextNode.text("text123")), "{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
+        this.toJsonNodeAndCheck(textStyleNode(TextNode.text("text-1a"), TextNode.text("text-2b")),
+                "{\"values\": [{\"type\": \"text\", \"value\": \"text-1a\"}, {\"type\": \"text\", \"value\": \"text-2b\"}]}");
     }
 
     @Test
@@ -222,16 +243,17 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
     }
 
     @Test
-    public void testToJsonNodeWithProperties() {
+    public void testToJsonNodeWithStyleNode() {
         this.toJsonNodeAndCheck(textStyleNode()
                 .setAttributes(Maps.of(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))),
                 "{\"textStyle\": {\"background-color\": \"#123456\"}}");
     }
 
     @Test
-    public void testToJsonNodeWithPropertiesAndChildren() {
-        this.toJsonNodeAndCheck(textStyleNode(TextNode.text("text123"))
-                        .setAttributes(Maps.of(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))),
+    public void testToJsonNodeWithStyleNodeAndChildren() {
+        this.toJsonNodeAndCheck(TextNode.text("text123")
+                        .setAttributes(Maps.of(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456)))
+                        .parentOrFail(),
                 "{\"textStyle\": {\"background-color\": \"#123456\"}, \"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}");
     }
     @Test
@@ -242,15 +264,15 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
 
     @Test
     public void testFromJsonNodeWithChildren() {
-        this.fromJsonNodeAndCheck("{\"values\": [{\"type\": \"text\", \"value\": \"text123\"}]}",
-                textStyleNode(TextNode.text("text123")));
+        this.fromJsonNodeAndCheck("{\"values\": [{\"type\": \"text\", \"value\": \"text-1a\"}, {\"type\": \"text\", \"value\": \"text-2b\"}]}",
+                textStyleNode(TextNode.text("text-1a"), TextNode.text("text-2b")));
     }
 
     @Test
     public void testJsonRoundtrip() {
         this.toJsonNodeRoundTripTwiceAndCheck(textStyleNode(TextNode.text("text1"),
                 TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                textStyleNode(TextNode.text("text3"))));
+                textStyleNode(TextNode.text("text3"), TextNode.text("text4"))));
     }
 
     @Test
@@ -258,20 +280,20 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         this.toJsonNodeRoundTripTwiceAndCheck(textStyleNode(
                 TextNode.text("text1"),
                 textStyleNode(TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                        textStyleNode(TextNode.text("text3")))));
+                        textStyleNode(TextNode.text("text3"), TextNode.text("text4")))));
     }
 
     @Test
-    public void testJsonRoundtripWithProperties() {
+    public void testJsonRoundtripWithStyleNode() {
         this.toJsonNodeRoundTripTwiceAndCheck(textStyleNode(
                 TextNode.text("text1"),
                 TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
-                textStyleNode(TextNode.text("text3")))
+                textStyleNode(TextNode.text("text3"), TextNode.text("text4")))
                 .setAttributes(Maps.of(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456))));
     }
 
     @Test
-    public void testJsonRoundtripWithProperties2() {
+    public void testJsonRoundtripWithStyleNode2() {
         this.toJsonNodeRoundTripTwiceAndCheck(textStyleNode(
                 TextNode.text("text1"),
                 TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
@@ -280,80 +302,80 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
     }
 
     @Test
-    public void testJsonRoundtripWithProperties3() {
-        final Map<TextStylePropertyName<?>, Object> properties = Maps.ordered();
-        properties.put(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456));
-        properties.put(TextStylePropertyName.BORDER_COLLAPSE, BorderCollapse.SEPARATE);
-        properties.put(TextStylePropertyName.BORDER_SPACING, BorderSpacing.with(Length.pixel(1.0)));
-        properties.put(TextStylePropertyName.BORDER_BOTTOM_STYLE, BorderStyle.DASHED);
-        properties.put(TextStylePropertyName.BORDER_LEFT_STYLE, BorderStyle.HIDDEN);
-        properties.put(TextStylePropertyName.BORDER_RIGHT_STYLE, BorderStyle.DOTTED);
-        properties.put(TextStylePropertyName.BORDER_TOP_STYLE, BorderStyle.OUTSET);
-        properties.put(TextStylePropertyName.BORDER_BOTTOM_WIDTH, Length.pixel(1.0));
-        properties.put(TextStylePropertyName.BORDER_LEFT_WIDTH, Length.pixel(2.0));
-        properties.put(TextStylePropertyName.BORDER_RIGHT_WIDTH, Length.pixel(3.0));
-        properties.put(TextStylePropertyName.BORDER_TOP_WIDTH, Length.pixel(4.0));
-        properties.put(TextStylePropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
-        properties.put(TextStylePropertyName.FONT_KERNING, FontKerning.NORMAL);
-        properties.put(TextStylePropertyName.FONT_SIZE, FontSize.with(10));
-        properties.put(TextStylePropertyName.FONT_STRETCH, FontStretch.CONDENSED);
-        properties.put(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
-        properties.put(TextStylePropertyName.FONT_VARIANT, FontVariant.SMALL_CAPS);
-        properties.put(TextStylePropertyName.FONT_WEIGHT, FontWeight.with(1000));
-        properties.put(TextStylePropertyName.HANGING_PUNCTUATION, HangingPunctuation.LAST);
-        properties.put(TextStylePropertyName.HEIGHT, Length.pixel(99.5));
-        properties.put(TextStylePropertyName.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
-        properties.put(TextStylePropertyName.HYPHENS, Hyphens.AUTO);
-        properties.put(TextStylePropertyName.LETTER_SPACING, LetterSpacing.with(Length.normal()));
-        properties.put(TextStylePropertyName.LINE_HEIGHT, Length.pixel(100.0));
-        properties.put(TextStylePropertyName.LIST_STYLE_POSITION, ListStylePosition.INSIDE);
-        properties.put(TextStylePropertyName.LIST_STYLE_TYPE, ListStyleType.DECIMAL_LEADING_ZERO);
-        properties.put(TextStylePropertyName.MARGIN_BOTTOM, Length.pixel(1.0));
-        properties.put(TextStylePropertyName.MARGIN_LEFT, Length.pixel(2.0));
-        properties.put(TextStylePropertyName.MARGIN_RIGHT, Length.pixel(3.0));
-        properties.put(TextStylePropertyName.MARGIN_TOP, Length.pixel(4.0));
-        properties.put(TextStylePropertyName.MAX_HEIGHT, Length.pixel(1024.0));
-        properties.put(TextStylePropertyName.MAX_WIDTH, Length.none());
-        properties.put(TextStylePropertyName.MIN_HEIGHT, Length.pixel(10.0));
-        properties.put(TextStylePropertyName.MIN_WIDTH, Length.pixel(11.0));
-        properties.put(TextStylePropertyName.OPACITY, Opacity.with(0.5));
-        properties.put(TextStylePropertyName.OUTLINE_COLOR, Color.parseColor("red"));
-        properties.put(TextStylePropertyName.OUTLINE_OFFSET, Length.pixel(0.25));
-        properties.put(TextStylePropertyName.OUTLINE_STYLE, OutlineStyle.HIDDEN);
-        properties.put(TextStylePropertyName.OUTLINE_WIDTH, Length.pixel(0.5));
-        properties.put(TextStylePropertyName.OVERFLOW_X, Overflow.AUTO);
-        properties.put(TextStylePropertyName.OVERFLOW_Y, Overflow.AUTO);
-        properties.put(TextStylePropertyName.PADDING_BOTTOM, Length.pixel(5.0));
-        properties.put(TextStylePropertyName.PADDING_LEFT, Length.pixel(6.0));
-        properties.put(TextStylePropertyName.PADDING_RIGHT, Length.pixel(7.0));
-        properties.put(TextStylePropertyName.PADDING_TOP, Length.pixel(8.0));
-        properties.put(TextStylePropertyName.TAB_SIZE, Length.number(12));
-        properties.put(TextStylePropertyName.TEXT, "abc123");
-        properties.put(TextStylePropertyName.TEXT_ALIGNMENT, TextAlignment.LEFT);
-        properties.put(TextStylePropertyName.TEXT_COLOR, Color.fromRgb(0x789abc));
-        properties.put(TextStylePropertyName.TEXT_DECORATION, TextDecoration.UNDERLINE);
-        properties.put(TextStylePropertyName.TEXT_DECORATION_COLOR, Color.fromRgb(0xabcdef));
-        properties.put(TextStylePropertyName.TEXT_DECORATION_STYLE, TextDecorationStyle.DASHED);
-        properties.put(TextStylePropertyName.TEXT_DIRECTION, TextDirection.LTR);
-        properties.put(TextStylePropertyName.TEXT_INDENT, Length.pixel(40.0));
-        properties.put(TextStylePropertyName.TEXT_JUSTIFY, TextJustify.INTER_CHARACTER);
-        properties.put(TextStylePropertyName.TEXT_OVERFLOW, TextOverflow.string("abc123"));
-        properties.put(TextStylePropertyName.TEXT_TRANSFORM, TextTransform.CAPITALIZE);
-        properties.put(TextStylePropertyName.TEXT_WRAPPING, TextWrapping.OVERFLOW);
-        properties.put(TextStylePropertyName.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
-        properties.put(TextStylePropertyName.VISIBILITY, Visibility.COLLAPSE);
-        properties.put(TextStylePropertyName.WHITE_SPACE, TextWhitespace.PRE);
-        properties.put(TextStylePropertyName.WIDTH, Length.pixel(320.0));
-        properties.put(TextStylePropertyName.WORD_BREAK, WordBreak.BREAK_WORD);
-        properties.put(TextStylePropertyName.WORD_SPACING, WordSpacing.with(Length.normal()));
-        properties.put(TextStylePropertyName.WORD_WRAP, WordWrap.BREAK_WORD);
-        properties.put(TextStylePropertyName.WRITING_MODE, WritingMode.VERTICAL_LR);
+    public void testJsonRoundtripWithStyleNode3() {
+        final Map<TextStylePropertyName<?>, Object> styleNode = Maps.ordered();
+        styleNode.put(TextStylePropertyName.BACKGROUND_COLOR, Color.fromRgb(0x123456));
+        styleNode.put(TextStylePropertyName.BORDER_COLLAPSE, BorderCollapse.SEPARATE);
+        styleNode.put(TextStylePropertyName.BORDER_SPACING, BorderSpacing.with(Length.pixel(1.0)));
+        styleNode.put(TextStylePropertyName.BORDER_BOTTOM_STYLE, BorderStyle.DASHED);
+        styleNode.put(TextStylePropertyName.BORDER_LEFT_STYLE, BorderStyle.HIDDEN);
+        styleNode.put(TextStylePropertyName.BORDER_RIGHT_STYLE, BorderStyle.DOTTED);
+        styleNode.put(TextStylePropertyName.BORDER_TOP_STYLE, BorderStyle.OUTSET);
+        styleNode.put(TextStylePropertyName.BORDER_BOTTOM_WIDTH, Length.pixel(1.0));
+        styleNode.put(TextStylePropertyName.BORDER_LEFT_WIDTH, Length.pixel(2.0));
+        styleNode.put(TextStylePropertyName.BORDER_RIGHT_WIDTH, Length.pixel(3.0));
+        styleNode.put(TextStylePropertyName.BORDER_TOP_WIDTH, Length.pixel(4.0));
+        styleNode.put(TextStylePropertyName.FONT_FAMILY_NAME, FontFamilyName.with("Antiqua"));
+        styleNode.put(TextStylePropertyName.FONT_KERNING, FontKerning.NORMAL);
+        styleNode.put(TextStylePropertyName.FONT_SIZE, FontSize.with(10));
+        styleNode.put(TextStylePropertyName.FONT_STRETCH, FontStretch.CONDENSED);
+        styleNode.put(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
+        styleNode.put(TextStylePropertyName.FONT_VARIANT, FontVariant.SMALL_CAPS);
+        styleNode.put(TextStylePropertyName.FONT_WEIGHT, FontWeight.with(1000));
+        styleNode.put(TextStylePropertyName.HANGING_PUNCTUATION, HangingPunctuation.LAST);
+        styleNode.put(TextStylePropertyName.HEIGHT, Length.pixel(99.5));
+        styleNode.put(TextStylePropertyName.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
+        styleNode.put(TextStylePropertyName.HYPHENS, Hyphens.AUTO);
+        styleNode.put(TextStylePropertyName.LETTER_SPACING, LetterSpacing.with(Length.normal()));
+        styleNode.put(TextStylePropertyName.LINE_HEIGHT, Length.pixel(100.0));
+        styleNode.put(TextStylePropertyName.LIST_STYLE_POSITION, ListStylePosition.INSIDE);
+        styleNode.put(TextStylePropertyName.LIST_STYLE_TYPE, ListStyleType.DECIMAL_LEADING_ZERO);
+        styleNode.put(TextStylePropertyName.MARGIN_BOTTOM, Length.pixel(1.0));
+        styleNode.put(TextStylePropertyName.MARGIN_LEFT, Length.pixel(2.0));
+        styleNode.put(TextStylePropertyName.MARGIN_RIGHT, Length.pixel(3.0));
+        styleNode.put(TextStylePropertyName.MARGIN_TOP, Length.pixel(4.0));
+        styleNode.put(TextStylePropertyName.MAX_HEIGHT, Length.pixel(1024.0));
+        styleNode.put(TextStylePropertyName.MAX_WIDTH, Length.none());
+        styleNode.put(TextStylePropertyName.MIN_HEIGHT, Length.pixel(10.0));
+        styleNode.put(TextStylePropertyName.MIN_WIDTH, Length.pixel(11.0));
+        styleNode.put(TextStylePropertyName.OPACITY, Opacity.with(0.5));
+        styleNode.put(TextStylePropertyName.OUTLINE_COLOR, Color.parseColor("red"));
+        styleNode.put(TextStylePropertyName.OUTLINE_OFFSET, Length.pixel(0.25));
+        styleNode.put(TextStylePropertyName.OUTLINE_STYLE, OutlineStyle.HIDDEN);
+        styleNode.put(TextStylePropertyName.OUTLINE_WIDTH, Length.pixel(0.5));
+        styleNode.put(TextStylePropertyName.OVERFLOW_X, Overflow.AUTO);
+        styleNode.put(TextStylePropertyName.OVERFLOW_Y, Overflow.AUTO);
+        styleNode.put(TextStylePropertyName.PADDING_BOTTOM, Length.pixel(5.0));
+        styleNode.put(TextStylePropertyName.PADDING_LEFT, Length.pixel(6.0));
+        styleNode.put(TextStylePropertyName.PADDING_RIGHT, Length.pixel(7.0));
+        styleNode.put(TextStylePropertyName.PADDING_TOP, Length.pixel(8.0));
+        styleNode.put(TextStylePropertyName.TAB_SIZE, Length.number(12));
+        styleNode.put(TextStylePropertyName.TEXT, "abc123");
+        styleNode.put(TextStylePropertyName.TEXT_ALIGNMENT, TextAlignment.LEFT);
+        styleNode.put(TextStylePropertyName.TEXT_COLOR, Color.fromRgb(0x789abc));
+        styleNode.put(TextStylePropertyName.TEXT_DECORATION, TextDecoration.UNDERLINE);
+        styleNode.put(TextStylePropertyName.TEXT_DECORATION_COLOR, Color.fromRgb(0xabcdef));
+        styleNode.put(TextStylePropertyName.TEXT_DECORATION_STYLE, TextDecorationStyle.DASHED);
+        styleNode.put(TextStylePropertyName.TEXT_DIRECTION, TextDirection.LTR);
+        styleNode.put(TextStylePropertyName.TEXT_INDENT, Length.pixel(40.0));
+        styleNode.put(TextStylePropertyName.TEXT_JUSTIFY, TextJustify.INTER_CHARACTER);
+        styleNode.put(TextStylePropertyName.TEXT_OVERFLOW, TextOverflow.string("abc123"));
+        styleNode.put(TextStylePropertyName.TEXT_TRANSFORM, TextTransform.CAPITALIZE);
+        styleNode.put(TextStylePropertyName.TEXT_WRAPPING, TextWrapping.OVERFLOW);
+        styleNode.put(TextStylePropertyName.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+        styleNode.put(TextStylePropertyName.VISIBILITY, Visibility.COLLAPSE);
+        styleNode.put(TextStylePropertyName.WHITE_SPACE, TextWhitespace.PRE);
+        styleNode.put(TextStylePropertyName.WIDTH, Length.pixel(320.0));
+        styleNode.put(TextStylePropertyName.WORD_BREAK, WordBreak.BREAK_WORD);
+        styleNode.put(TextStylePropertyName.WORD_SPACING, WordSpacing.with(Length.normal()));
+        styleNode.put(TextStylePropertyName.WORD_WRAP, WordWrap.BREAK_WORD);
+        styleNode.put(TextStylePropertyName.WRITING_MODE, WritingMode.VERTICAL_LR);
 
         this.toJsonNodeRoundTripTwiceAndCheck(textStyleNode(
                 TextNode.text("text1"),
                 TextNode.placeholder(TextPlaceholderName.with("placeholder2")),
                 TextNode.style(Lists.of(TextNode.text("text3"))))
-                .setAttributes(properties));
+                .setAttributes(styleNode));
     }
 
     // Visitor .........................................................................................................
@@ -363,9 +385,9 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
         final StringBuilder b = new StringBuilder();
         final List<TextNode> visited = Lists.array();
 
-        final TextStyleNode properties = textStyleNode(TextNode.text("a1"), TextNode.text("b2"));
-        final Text text1 = Cast.to(properties.children().get(0));
-        final Text text2 = Cast.to(properties.children().get(1));
+        final TextStyleNode styleNode = textStyleNode(TextNode.text("a1"), TextNode.text("b2"));
+        final Text text1 = Cast.to(styleNode.children().get(0));
+        final Text text2 = Cast.to(styleNode.children().get(1));
 
         new FakeTextNodeVisitor() {
             @Override
@@ -383,7 +405,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
 
             @Override
             protected Visiting startVisit(final TextStyleNode t) {
-                assertSame(properties, t);
+                assertSame(styleNode, t);
                 b.append("5");
                 visited.add(t);
                 return Visiting.CONTINUE;
@@ -391,7 +413,7 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
 
             @Override
             protected void endVisit(final TextStyleNode t) {
-                assertSame(properties, t);
+                assertSame(styleNode, t);
                 b.append("6");
                 visited.add(t);
             }
@@ -401,12 +423,12 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
                 b.append("7");
                 visited.add(t);
             }
-        }.accept(properties);
+        }.accept(styleNode);
         assertEquals("1517217262", b.toString());
-        assertEquals(Lists.of(properties, properties,
+        assertEquals(Lists.of(styleNode, styleNode,
                 text1, text1, text1,
                 text2, text2, text2,
-                properties, properties),
+                styleNode, styleNode),
                 visited,
                 "visited");
     }
@@ -416,11 +438,6 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
     @Test
     public void testToStringEmpty() {
         this.toStringAndCheck(textStyleNode(), "[]");
-    }
-
-    @Test
-    public void testToStringWithChild() {
-        this.toStringAndCheck(textStyleNode(text1()), "[\"text-1a\"]");
     }
 
     @Test
@@ -441,12 +458,15 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
 
     @Test
     public void testToStringWithChildrenAndAttributes() {
-        this.toStringAndCheck(textStyleNode(text1()).setAttributes(Maps.of(TextStylePropertyName.with("abc"), "123")), "{abc: \"123\"}[\"text-1a\"]");
+        this.toStringAndCheck(text1()
+                .setAttributes(Maps.of(TextStylePropertyName.with("style-1"), "value-1"))
+                .parentOrFail(),
+                "{style-1: \"value-1\"}[\"text-1a\"]");
     }
 
     @Test
-    public void testToStringWithPropertiesWithChildren() {
-        this.toStringAndCheck(textStyleNode(text1(), textStyleNode(text2())), "[\"text-1a\", [\"text-2b\"]]");
+    public void testToStringWithStyleNodeWithChildren() {
+        this.toStringAndCheck(textStyleNode(text1(), textStyleNode(text2(), text3())), "[\"text-1a\", [\"text-2b\", \"text-3c\"]]");
     }
 
     @Override
@@ -459,7 +479,8 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
     }
 
     private static TextStyleNode textStyleNode(final List<TextNode> children) {
-        return TextStyleNode.with(children, TextStyleNode.NO_ATTRIBUTES_MAP);
+        assertNotEquals(1, children.size(), () -> "children must not be 1=" + children);
+        return Cast.to(TextStyleNode.with(children, TextStyleNode.NO_ATTRIBUTES_MAP));
     }
 
     @Override
@@ -471,6 +492,6 @@ public final class TextStyleNodeTest extends TextParentNodeTestCase<TextStyleNod
 
     @Override
     public final TextStyleNode fromJsonNode(final JsonNode from) {
-        return TextStyleNode.fromJsonNode(from);
+        return Cast.to(TextStyleNode.fromJsonNode(from));
     }
 }

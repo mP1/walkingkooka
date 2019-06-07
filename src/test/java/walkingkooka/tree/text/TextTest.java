@@ -66,14 +66,15 @@ public final class TextTest extends TextLeafNodeTestCase<Text, String>{
 
     @Test
     public void testSetTextDifferentWithParent() {
-        final TextNode parent1 = Text.style(Lists.of(Text.with("abc123")));
+        final TextNode parent1 = Text.style(Lists.of(Text.with("text-abc-123"), Text.with("text-def456")));
         final Text text1 = parent1.children().get(0).cast();
+        final Text text2 = parent1.children().get(1).cast();
 
-        final String value = "different456";
+        final String value = "different-text-789";
         final Text different = text1.setText(value);
 
         this.checkText(different, value);
-        this.childCountCheck(different.parentOrFail(), different);
+        this.childCountCheck(different.parentOrFail(), different, text2);
     }
 
     private void checkText(final Text text, final String value) {

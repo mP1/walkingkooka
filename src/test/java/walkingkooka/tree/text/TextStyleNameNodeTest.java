@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -151,9 +152,9 @@ public final class TextStyleNameNodeTest extends TextParentNodeTestCase<TextStyl
 
     @Test
     public void testDifferentParent() {
-        final TextStyleNameNode child = TextStyleNameNode.with(TextStyleName.with("child"));
+        final TextStyleNameNode child = TextStyleNameNode.with(TextStyleName.with("child-1a"));
 
-        this.checkNotEquals(TextStyleNode.with(Lists.of(child), TextStyleNode.NO_ATTRIBUTES_MAP).children().get(0),
+        this.checkNotEquals(TextStyleNode.with(Lists.of(child), TextStyleMap.with(Maps.of(TextStylePropertyName.WORD_WRAP, WordWrap.BREAK_WORD))).children().get(0),
                 this.styleName("different-parent", child));
     }
 
