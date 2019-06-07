@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.util.systemproperty.SystemProperty;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -53,13 +54,27 @@ public abstract class HeaderValueConverterTestCase2<C extends HeaderValueConvert
 
     @Test
     public void testCheckWrongTypeFails() {
+        this.checkTypeFails(this, "Header \"" + this.name() + ": " + this + "\" value type(" + this.getClass().getSimpleName() + ") is not a " + this.valueType());
+    }
+
+    @Test
+    public void testCheckWrongTypeJavaLangFails() {
+        this.checkTypeFails(new StringBuilder(), "Header \"" + this.name() + ": \" value type(StringBuilder) is not a " + this.valueType());
+    }
+
+    @Test
+    public void testCheckWrongTypeFullyQualifiedTypeNameFails() {
+        this.checkTypeFails(SystemProperty.FILE_SEPARATOR, "Header \"" + this.name() + ": " + SystemProperty.FILE_SEPARATOR + "\" value type(" + SystemProperty.class.getName() + ") is not a " + this.valueType());
+    }
+
+    private void checkTypeFails(final Object value, final String message) {
         try {
-            this.check(this);
+            this.check(value);
             fail(HeaderValueException.class.getName() + " was not thrown");
         } catch (final HeaderValueException expected) {
             expected.printStackTrace();
 
-            assertEquals(this.name() + " value " + this + " is not a " + this.valueType(),
+            assertEquals(message,
                     expected.getMessage(),
                     "message");
         }
@@ -154,7 +169,7 @@ public abstract class HeaderValueConverterTestCase2<C extends HeaderValueConvert
     abstract String valueType();
 
     final String valueType(final Class<?> type) {
-        return type.getName();
+        return type.getSimpleName();
     }
 
     final String listValueType(final Class<?> type) {

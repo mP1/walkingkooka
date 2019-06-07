@@ -359,27 +359,55 @@ abstract class HeaderValueConverter<T> {
      */
     final <U> U checkType(final Object value, final Class<U> type, final Name name) {
         if (!type.isInstance(value)) {
-            throw new HeaderValueException(name + " value " + CharSequences.quoteIfChars(value) + " is not a " + type.getName());
+            throw new HeaderValueException(invalidTypeNameMessage(name, value, type.getSimpleName()));
         }
         return type.cast(value);
     }
+
+    private final static String JAVA_LANG = "java.lang";
+    private final static String PACKAGE = HeaderValueConverter.class.getPackage().getName();
 
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.
      */
     final <U> List<U> checkListOfType(final Object value, final Class<U> type, final Name name) {
         if (!(value instanceof List)) {
-            throw new HeaderValueException(name + " value " + CharSequences.quoteIfChars(value) + " is not a List of " + type.getName());
+            throw new HeaderValueException(invalidTypeNameMessage(name, value, "List of " + type.getSimpleName()));
         }
 
         final List<U> list = Cast.to(value);
         for (Object element : list) {
+            if (null == element) {
+                throw new HeaderValueException(header(name, value) + " includes a null");
+            }
             if (!type.isInstance(element)) {
-                throw new HeaderValueException(name + " list value " + CharSequences.quoteIfChars(value) +
-                        " includes an element that is not a " + type.getName());
+                throw new HeaderValueException(header(name, value) + " includes an element " + CharSequences.quoteIfChars(element) + "(" + typeName(element) + ") that is not a " + type.getName());
             }
         }
         return Cast.to(list);
+    }
+
+    private static String invalidTypeNameMessage(final Name name,
+                                                 final Object value,
+                                                 final String requiredType) {
+        return header(name, value) + " value type(" + typeName(value) + ") is not a " + requiredType;
+    }
+
+    private static String header(final Name name, final Object value) {
+        return "Header " + CharSequences.quote(name + ": " + value);
+    }
+
+    private static String typeName(final Object value) {
+        // try and use simple name otherwise include fqn in message.
+        String typeName = value.getClass().getName();
+        if (typeName.startsWith(JAVA_LANG)) {
+            typeName = typeName.substring(JAVA_LANG.length() + 1);
+        } else {
+            if (typeName.startsWith(PACKAGE) && typeName.indexOf(PACKAGE.length() + 1) == -1) {
+                typeName = typeName.substring(PACKAGE.length() + 1);
+            }
+        }
+        return typeName;
     }
 
     // toText ....................................................................................................
