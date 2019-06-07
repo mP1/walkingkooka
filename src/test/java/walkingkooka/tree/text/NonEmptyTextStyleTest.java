@@ -287,12 +287,12 @@ public final class NonEmptyTextStyleTest extends TextStyleTestCase<NonEmptyTextS
                 this.createTextStyle(property3, value3, property1, value1, property2, value2));
     }
 
-    private <T> void setAndCheck(final TextStyle properties,
+    private <T> void setAndCheck(final TextStyle textStyle,
                                  final TextStylePropertyName<T> propertyName,
                                  final T value) {
-        assertSame(properties,
-                properties.set(propertyName, value),
-                () -> properties + " set " + propertyName + " and " + CharSequences.quoteIfChars(value));
+        assertSame(textStyle,
+                textStyle.set(propertyName, value),
+                () -> textStyle + " set " + propertyName + " and " + CharSequences.quoteIfChars(value));
     }
 
     // remove...........................................................................................................

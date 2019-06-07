@@ -119,19 +119,19 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
         });
     }
 
-    final void replaceAndCheck(final TextStyle properties,
+    final void replaceAndCheck(final TextStyle textStyle,
                                final TextNode textNode) {
         assertSame(textNode,
-                properties.replace(textNode),
-                () -> properties + " replace " + textNode);
+                textStyle.replace(textNode),
+                () -> textStyle + " replace " + textNode);
     }
 
-    final void replaceAndCheck(final TextStyle properties,
+    final void replaceAndCheck(final TextStyle textStyle,
                                final TextNode textNode,
                                final TextNode expected) {
         assertEquals(expected,
-                properties.replace(textNode),
-                () -> properties + " replace " + textNode);
+                textStyle.replace(textNode),
+                () -> textStyle + " replace " + textNode);
     }
 
     // get..............................................................................................................
@@ -150,12 +150,12 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
                 null);
     }
 
-    final <TT> void getAndCheck(final TextStyle properties,
+    final <TT> void getAndCheck(final TextStyle textStyle,
                                final TextStylePropertyName<TT> propertyName,
                                final TT value) {
         assertEquals(Optional.ofNullable(value),
-                properties.get(propertyName),
-                () -> properties + " get " + propertyName);
+                textStyle.get(propertyName),
+                () -> textStyle + " get " + propertyName);
     }
 
     // set..............................................................................................................
@@ -182,14 +182,14 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
         });
     }
 
-    final <T> TextStyle setAndCheck(final TextStyle properties,
+    final <T> TextStyle setAndCheck(final TextStyle textStyle,
                                     final TextStylePropertyName<T> propertyName,
                                     final T value,
                                     final TextStyle expected) {
-        final TextStyle set = properties.set(propertyName, value);
+        final TextStyle set = textStyle.set(propertyName, value);
         assertEquals(expected,
                 set,
-                () -> properties + " set " + propertyName + " and " + CharSequences.quoteIfChars(value));
+                () -> textStyle + " set " + propertyName + " and " + CharSequences.quoteIfChars(value));
         return set;
     }
 
@@ -204,17 +204,17 @@ public abstract class TextStyleTestCase<T extends TextStyle> implements ClassTes
 
     @Test
     public final void testRemoveUnknown() {
-        final TextStyle properties = this.createObject();
-        assertSame(properties, properties.remove(TextStylePropertyName.HYPHENS));
+        final TextStyle textStyle = this.createObject();
+        assertSame(textStyle, textStyle.remove(TextStylePropertyName.HYPHENS));
     }
 
-    final <T> TextStyle removeAndCheck(final TextStyle properties,
+    final <T> TextStyle removeAndCheck(final TextStyle textStyle,
                                        final TextStylePropertyName<T> propertyName,
                                        final TextStyle expected) {
-        final TextStyle removed = properties.remove(propertyName);
+        final TextStyle removed = textStyle.remove(propertyName);
         assertEquals(expected,
                 removed,
-                () -> properties + " remove " + propertyName);
+                () -> textStyle + " remove " + propertyName);
         return removed;
     }
 
