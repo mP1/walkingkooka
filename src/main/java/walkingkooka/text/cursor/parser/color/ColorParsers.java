@@ -133,7 +133,7 @@ public final class ColorParsers implements PublicStaticHelper {
     /**
      * A parser that handles
      * <pre>
-     * hsv(359, 1.0, 1.0)
+     * hsv(359, 100%, 99%)
      * </pre>
      * into a {@link HsvParserToken}.
      */
@@ -150,6 +150,7 @@ public final class ColorParsers implements PublicStaticHelper {
     private static Parser<ParserContext> hsvFunctionParser() {
         final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
         final Parser<ParserContext> component = Parsers.doubleParser();
+        final Parser<ParserContext> percentage = Parsers.character(CharPredicates.is('%'));
         final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
 
         return Parsers.sequenceParserBuilder()
@@ -160,10 +161,12 @@ public final class ColorParsers implements PublicStaticHelper {
                 .required(comma)
                 .optional(whitespace) // sat
                 .required(component)
+                .required(percentage)
                 .optional(whitespace)
                 .required(comma)
                 .optional(whitespace) // value
                 .required(component)
+                .required(percentage)
                 .optional(whitespace)
                 .required(Parsers.character(CharPredicates.is(')')))
                 .build()
@@ -193,6 +196,7 @@ public final class ColorParsers implements PublicStaticHelper {
     private static Parser<ParserContext> hsvaFunctionParser() {
         final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
         final Parser<ParserContext> component = Parsers.doubleParser();
+        final Parser<ParserContext> percentage = Parsers.character(CharPredicates.is('%'));
         final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
 
         return Parsers.sequenceParserBuilder()
@@ -203,14 +207,17 @@ public final class ColorParsers implements PublicStaticHelper {
                 .required(comma)
                 .optional(whitespace) // sat
                 .required(component)
+                .required(percentage)
                 .optional(whitespace)
                 .required(comma)
                 .optional(whitespace) // value
                 .required(component)
+                .required(percentage)
                 .optional(whitespace)
                 .required(comma)
                 .optional(whitespace)
                 .required(component) // alpha
+                .required(percentage)
                 .optional(whitespace)
                 .required(Parsers.character(CharPredicates.is(')')))
                 .build()

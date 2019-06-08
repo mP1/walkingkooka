@@ -50,4 +50,9 @@ public abstract class ColorParserTokenVisitor extends ParserTokenVisitor {
     protected void endVisit(final ColorHslOrHsvParserToken token) {
         // nop
     }
+
+
+    float percentToFloat(final float value) {
+        return value / 100;
+    }
 }

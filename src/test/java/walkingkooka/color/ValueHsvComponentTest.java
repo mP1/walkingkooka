@@ -29,17 +29,17 @@ public final class ValueHsvComponentTest extends HsvComponentTestCase<ValueHsvCo
 
     @Test
     public void testToString0() {
-        this.toStringAndCheck(ValueHsvComponent.with(0), "0.0");
+        this.toStringAndCheck(ValueHsvComponent.with(0), "0%");
     }
 
     @Test
     public void testToStringHalf() {
-        this.toStringAndCheck(ValueHsvComponent.with(0.5f), "0.5");
+        this.toStringAndCheck(ValueHsvComponent.with(0.5f), "50%");
     }
 
     @Test
     public void testToStringOne() {
-        this.toStringAndCheck(ValueHsvComponent.with(1.0f), "1.0");
+        this.toStringAndCheck(ValueHsvComponent.with(1.0f), "100%");
     }
     
     @Override

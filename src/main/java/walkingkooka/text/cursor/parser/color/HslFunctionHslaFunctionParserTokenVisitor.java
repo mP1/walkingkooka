@@ -52,10 +52,6 @@ abstract class HslFunctionHslaFunctionParserTokenVisitor extends ColorParserToke
 
     abstract void visit0(final float percentToFloat);
 
-    private float percentToFloat(final float value) {
-        return value / 100;
-    }
-
     HueHslComponent hue;
     SaturationHslComponent saturation;
     Hsl hsl;

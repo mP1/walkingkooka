@@ -46,8 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
         PublicStaticHelperTesting<ColorParsers> {
-
-
+    
     // hsl(359,1.0,1.0).................................................................................................
 
     @Test
@@ -158,25 +157,32 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     }
 
     @Test
+    public void testParseHsvFunctionMissingPercentSignFails() {
+        this.parseFails(ColorParsers.hsvFunction(),
+                "hsv(359,50,10%)",
+                ParserReporterException.class);
+    }
+
+    @Test
     public void testParseHsvFunctionMissingParensRightFails() {
         this.parseFails(ColorParsers.hsvFunction(),
-                "hsv(359,0.5,1.0",
+                "hsv(359,50%,10%",
                 ParserReporterException.class);
     }
 
     @Test
     public void testParseHsvFunction() {
-        this.parseHsvAndCheck("hsv(359,0.5,1.0)", 359, 0.5f, 1.0f);
+        this.parseHsvAndCheck("hsv(359,100%,50%)", 359, 1.0f, 0.5f);
     }
 
     @Test
     public void testParseHsvFunction2() {
-        this.parseHsvAndCheck("hsv(99,0.0,0.25)", 99, 0f, 0.25f);
+        this.parseHsvAndCheck("hsv(99,0%,25%)", 99, 0f, 0.25f);
     }
 
     @Test
     public void testParseHsvFunctionExtraWhitespace() {
-        this.parseHsvAndCheck("hsv( 299,1 , 0.5 )", 299, 1f, 0.5f);
+        this.parseHsvAndCheck("hsv( 299,100%, 50% )", 299, 1f, 0.5f);
     }
 
     private void parseHsvAndCheck(final String text,
@@ -202,30 +208,30 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     @Test
     public void testParseHsvaFunctionMissingPercentSignFails() {
         this.parseFails(ColorParsers.hsvaFunction(),
-                "hsva(359,0.5,0.1)",
+                "hsva(359,50,10%)",
                 ParserReporterException.class);
     }
 
     @Test
     public void testParseHsvaFunctionMissingParensRightFails() {
         this.parseFails(ColorParsers.hsvaFunction(),
-                "hsva(359,0.5,0.1",
+                "hsva(359,50%,10%",
                 ParserReporterException.class);
     }
 
     @Test
     public void testParseHsvaFunction() {
-        this.parseHsvaAndCheck("hsva(359,1.0,0.5,0.25)", 359, 1.0f, 0.5f, 0.25f);
+        this.parseHsvaAndCheck("hsva(359,100%,50%,25%)", 359, 1.0f, 0.5f, 0.25f);
     }
 
     @Test
     public void testParseHsvaFunction2() {
-        this.parseHsvaAndCheck("hsva(99,0,0.25,0.5)", 99, 0f, 0.25f, 0.5f);
+        this.parseHsvaAndCheck("hsva(99,0%,25%,50%)", 99, 0f, 0.25f, 0.5f);
     }
 
     @Test
     public void testParseHsvaFunctionExtraWhitespace() {
-        this.parseHsvaAndCheck("hsva( 299,1.0, 0.5, 0)", 299, 1f, 0.5f, 0);
+        this.parseHsvaAndCheck("hsva( 299,100%, 50%, 0%)", 299, 1f, 0.5f, 0);
     }
 
     private void parseHsvaAndCheck(final String text,

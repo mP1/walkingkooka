@@ -45,10 +45,7 @@ final public class HueHslComponent extends HslComponent {
      * Verifies that the value is within the acceptable range.
      */
     private static void check(final float value) {
-        if ((value < HueHslComponent.MIN) || (value > HueHslComponent.MAX)) {
-            throw new IllegalArgumentException(
-                    "value not between " + HueHslComponent.MIN + " and " + HueHslComponent.MAX + "=" + value);
-        }
+        check(value, MIN, MAX);
     }
 
     /**

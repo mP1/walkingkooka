@@ -34,7 +34,7 @@ public final class HsvaFunctionParserTokenVisitorTest implements ColorParserToke
         visitor.visit0(0.5f);
         visitor.visit0(0.75f);
 
-        this.toStringAndCheck(visitor, "hue=359 saturation=0.25 value=0.5 hsv=hsva(359,0.25,0.5,0.75)");
+        this.toStringAndCheck(visitor, "hue=359 saturation=25% value=50% hsv=hsva(359,25%,50%,75%)");
     }
 
     @Test

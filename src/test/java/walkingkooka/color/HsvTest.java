@@ -232,7 +232,7 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
 
     @Test
     public void testParse() {
-        this.parseAndCheck("hsv(359,1.0,0.5)",
+        this.parseAndCheck("hsv(359,100%,50%)",
                 Hsv.with(HsvComponent.hue(359),
                         HsvComponent.saturation(1.0f),
                         HsvComponent.value(0.5f)));
@@ -241,13 +241,15 @@ public final class HsvTest extends ColorHslOrHsvTestCase<Hsv> implements ParseSt
     @Test
     public void testToString() {
         this.toStringAndCheck(Hsv.with(HUE, SATURATION, VALUE),
-                "hsv(359,0.25,0.5)");
+                "hsv(359,25%,50%)");
     }
 
     @Test
     public void testToStringZeroes() {
-        this.toStringAndCheck(Hsv.with(HsvComponent.hue(0), HsvComponent.saturation(0), HsvComponent.value(0)),
-                "hsv(0,0.0,0.0)");
+        this.toStringAndCheck(Hsv.with(HsvComponent.hue(0),
+                HsvComponent.saturation(0),
+                HsvComponent.value(0)),
+                "hsv(0,0%,0%)");
     }
 
     @Override

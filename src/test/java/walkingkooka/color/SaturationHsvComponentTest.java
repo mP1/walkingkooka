@@ -29,17 +29,17 @@ public final class SaturationHsvComponentTest extends HsvComponentTestCase<Satur
 
     @Test
     public void testToString0() {
-        this.toStringAndCheck(SaturationHsvComponent.with(0), "0.0");
+        this.toStringAndCheck(SaturationHsvComponent.with(0), "0%");
     }
 
     @Test
     public void testToStringHalf() {
-        this.toStringAndCheck(SaturationHsvComponent.with(0.5f), "0.5");
+        this.toStringAndCheck(SaturationHsvComponent.with(0.5f), "50%");
     }
 
     @Test
     public void testToStringOne() {
-        this.toStringAndCheck(SaturationHsvComponent.with(1.0f), "1.0");
+        this.toStringAndCheck(SaturationHsvComponent.with(1.0f), "100%");
     }
 
     @Override
