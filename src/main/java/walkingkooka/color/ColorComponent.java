@@ -26,6 +26,8 @@ import java.util.stream.IntStream;
  */
 abstract public class ColorComponent extends ColorHslOrHsvComponent {
 
+    final static char SEPARATOR = ',';
+
     static <C extends ColorComponent> C[] createConstants(final C[] constants,
                                                           final IntFunction<C> factory) {
         IntStream.rangeClosed(0, 255)
@@ -219,15 +221,15 @@ abstract public class ColorComponent extends ColorHslOrHsvComponent {
      * Formats the given value adding a leading 0 to ensure the {@link String} is two characters.
      */
     private String toHexString() {
-        return ColorComponent.TO_STRING[this.unsignedIntValue];
+        return ColorComponent.TO_HEX_STRING[this.unsignedIntValue];
     }
 
     /**
      * Prebuilt cache of {@link String} which may be looked up using an unsigned byte value.
      */
-    private final static String[] TO_STRING = ColorComponent.buildToStringLookup();
+    private final static String[] TO_HEX_STRING = buildHexToStringLookup();
 
-    private static String[] buildToStringLookup() {
+    private static String[] buildHexToStringLookup() {
         final String[] toString = new String[256];
         for (int i = 0; i < 16; i++) {
             toString[i] = '0' + Integer.toHexString(i).toLowerCase();
@@ -238,7 +240,50 @@ abstract public class ColorComponent extends ColorHslOrHsvComponent {
         return toString;
     }
 
-    // Serializable
+    // ColorString................................................................................
+
+    final void toStringAlphaAppend(final ColorString format,
+                                   final StringBuilder b) {
+
+    }
+
+    /**
+     * Formats the value as a decimal between 0 and 255.
+     */
+    final String toDecimalString() {
+        return ColorComponent.TO_DECIMAL_STRING[this.unsignedIntValue];
+    }
+
+    /**
+     * Prebuilt cache of {@link String} which may be looked up using an unsigned byte value.
+     */
+    private final static String[] TO_DECIMAL_STRING = IntStream.rangeClosed(0, MAX_VALUE)
+            .mapToObj(ColorComponent::toDecimalString)
+            .toArray(String[]::new);
+
+    private static String toDecimalString(final int value) {
+        return String.valueOf(value);
+    }
+
+    /**
+     * Formats the value as a rounded percentage between 0 and 100%.
+     */
+    final String toPercentageString() {
+        return ColorComponent.TO_PERCENTAGE_STRING[this.unsignedIntValue];
+    }
+
+    /**
+     * Prebuilt cache of {@link String} which may be looked up using an unsigned byte value.
+     */
+    private final static String[] TO_PERCENTAGE_STRING = IntStream.rangeClosed(0, MAX_VALUE)
+            .mapToObj(ColorComponent::toPercentageString)
+            .toArray(String[]::new);
+
+    private static String toPercentageString(final int value) {
+        return String.valueOf(Math.round(100f * value / MAX_VALUE)) + '%';
+    }
+
+    // Serializable.....................................................................................................
 
     private static final long serialVersionUID = 1;
 }

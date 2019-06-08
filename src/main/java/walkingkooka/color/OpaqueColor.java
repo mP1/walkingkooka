@@ -165,6 +165,23 @@ final class OpaqueColor extends Color {
         this.addRedGreenBlueComponents(builder);
     }
 
-    // Serializable
+    // ColorString................................................................................
+
+    /**
+     * Always rgb
+     */
+    @Override
+    String rgbFunctionName() {
+        return "rgb";
+    }
+
+    @Override
+    void alphaComponentToString( final StringBuilder b,
+                                 final ColorString format) {
+        // no alpha component.
+    }
+
+    // Serializable.....................................................................................................
+
     private static final long serialVersionUID = 1;
 }
