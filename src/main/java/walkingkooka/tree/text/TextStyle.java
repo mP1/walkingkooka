@@ -207,7 +207,7 @@ public abstract class TextStyle implements HashCodeEqualsDefined,
         final Map<TextStylePropertyName<?>, Object> properties = Maps.ordered();
 
         for (JsonNode child : json.children()) {
-            final TextStylePropertyName name = TextStylePropertyName.fromJsonNodeName(child);
+            final TextStylePropertyName<?> name = TextStylePropertyName.fromJsonNodeName(child);
             properties.put(name,
                     name.handler.fromJsonNode(child, name));
         }
