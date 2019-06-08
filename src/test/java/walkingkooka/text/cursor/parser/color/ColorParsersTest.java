@@ -89,12 +89,12 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     private void parseHslAndCheck(final String text,
                                   final float hue,
                                   final float saturation,
-                                  final float value) {
+                                  final float lightness) {
         this.parseAndCheck(ColorParsers.hslFunction(),
                 text,
                 Hsl.with(HslComponent.hue(hue),
                         HslComponent.saturation(saturation),
-                        HslComponent.lightness(value)));
+                        HslComponent.lightness(lightness)));
     }
 
     // hsla(359,1.0,1.0).................................................................................................
@@ -136,15 +136,15 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     }
 
     private void parseHslaAndCheck(final String text,
-                                  final float hue,
-                                  final float saturation,
-                                  final float value,
+                                   final float hue,
+                                   final float saturation,
+                                   final float lightness,
                                    final float alpha) {
         this.parseAndCheck(ColorParsers.hslaFunction(),
                 text,
                 Hsl.with(HslComponent.hue(hue),
                         HslComponent.saturation(saturation),
-                        HslComponent.lightness(value))
+                        HslComponent.lightness(lightness))
                         .set(HslComponent.alpha(alpha)));
     }
 
