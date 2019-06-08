@@ -639,7 +639,17 @@ abstract public class Color extends ColorHslOrHsv {
         builder.value(this.blue);
     }
 
-    // Serializable
+    // ColorString................................................................................
+
+    /**
+     * Returns either <code>rgb</code> or <code>rgba</code>
+     */
+    abstract String rgbFunctionName();
+
+    abstract void alphaComponentToString(final StringBuilder b,
+                                         final ColorString format);
+
+    // Serializable.....................................................................................................
     private static final long serialVersionUID = 1;
 
     // HasJsonNode......................................................................................................

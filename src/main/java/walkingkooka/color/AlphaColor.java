@@ -170,6 +170,24 @@ final class AlphaColor extends Color {
         builder.value(this.alpha);
     }
 
-    // Serializable
+    // ColorString................................................................................
+
+    /**
+     * Always rgba
+     */
+    @Override
+    String rgbFunctionName() {
+        return "rgba";
+    }
+
+    @Override
+    void alphaComponentToString(final StringBuilder b,
+                                final ColorString format) {
+        b.append(ColorComponent.SEPARATOR);
+        b.append(format.componentToString(this.alpha));
+    }
+
+    // Serializable.....................................................................................................
+
     private static final long serialVersionUID = 1L;
 }
