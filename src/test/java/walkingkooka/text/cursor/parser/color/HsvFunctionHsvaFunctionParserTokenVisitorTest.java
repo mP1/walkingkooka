@@ -16,20 +16,15 @@
  *
  */
 
-package walkingkooka.color;
+package walkingkooka.text.cursor.parser.color;
 
-import walkingkooka.test.ClassTesting2;
+import walkingkooka.test.ClassTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class SaturationOrValueHsvComponentTest implements ClassTesting2<SaturationOrValueHsvComponent> {
+public final class HsvFunctionHsvaFunctionParserTokenVisitorTest extends ColorParserTokenVisitorTestCase<HsvFunctionHsvaFunctionParserTokenVisitor> {
 
     @Override
-    public Class<SaturationOrValueHsvComponent> type() {
-        return SaturationOrValueHsvComponent.class;
-    }
-
-    @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public Class<HsvFunctionHsvaFunctionParserTokenVisitor> type() {
+        return HsvFunctionHsvaFunctionParserTokenVisitor.class;
     }
 }

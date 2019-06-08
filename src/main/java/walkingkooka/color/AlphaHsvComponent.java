@@ -19,43 +19,52 @@
 package walkingkooka.color;
 
 /**
- * A {@link HsvComponent} holding the value component which is a value between <code>0.0</code> and <code>1.0</code>
+ * A {@link HsvComponent} holding the alpha component which is a value between <code>0.0</code> and <code>1.0</code>
  */
-final public class ValueHsvComponent extends AlphaSaturationOrValueHsvComponent {
+final public class AlphaHsvComponent extends AlphaSaturationOrValueHsvComponent {
 
     /**
-     * Factory that creates a new {@link ValueHsvComponent}
+     * An opaque alpha component returned by {@link OpaqueHsv#alpha()}.
      */
-    static ValueHsvComponent with(final float value) {
-        ValueHsvComponent.check(value);
-        return new ValueHsvComponent(value);
+    final static AlphaHsvComponent OPAQUE = AlphaHsvComponent.with(MAX);
+    
+    /**
+     * Factory that creates a new {@link AlphaHsvComponent}
+     */
+    static AlphaHsvComponent with(final float value) {
+        AlphaHsvComponent.check(value);
+        return new AlphaHsvComponent(value);
     }
 
     /**
      * Private constructor use factory
      */
-    private ValueHsvComponent(final float value) {
+    private AlphaHsvComponent(final float value) {
         super(value);
     }
 
     @Override
-    public ValueHsvComponent add(final float value) {
+    public AlphaHsvComponent add(final float value) {
         return 0 == value ? this
-                : new ValueHsvComponent(HsvComponent.add(value, ValueHsvComponent.MIN, ValueHsvComponent.MAX));
+                : new AlphaHsvComponent(HsvComponent.add(value, AlphaHsvComponent.MIN, AlphaHsvComponent.MAX));
     }
 
     @Override
-    public ValueHsvComponent setValue(final float value) {
-        ValueHsvComponent.check(value);
+    public AlphaHsvComponent setValue(final float value) {
+        AlphaHsvComponent.check(value);
         return this.value == value ? this : this.replace(value);
     }
 
     /**
-     * Factory that creates a new {@link ValueHsvComponent}
+     * Factory that creates a new {@link AlphaHsvComponent}
      */
     @Override
-    ValueHsvComponent replace(final float value) {
-        return new ValueHsvComponent(value);
+    AlphaHsvComponent replace(final float value) {
+        return new AlphaHsvComponent(value);
+    }
+
+    AlphaColorComponent toAlphaColorComponent() {
+        return AlphaColorComponent.with(ColorComponent.toByte(this.value));
     }
 
     @Override
@@ -65,24 +74,24 @@ final public class ValueHsvComponent extends AlphaSaturationOrValueHsvComponent 
 
     @Override
     public boolean isValue() {
-        return true;
-    }
-
-    @Override
-    public boolean isAlpha() {
         return false;
     }
 
     @Override
+    public boolean isAlpha() {
+        return true;
+    }
+
+    @Override
     Hsv setComponent(final Hsv hsv) {
-        return hsv.setValue(this);
+        return hsv.setAlpha(this);
     }
 
     // Object
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ValueHsvComponent;
+        return other instanceof AlphaHsvComponent;
     }
 
     // Serializable

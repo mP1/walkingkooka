@@ -171,6 +171,53 @@ public final class ColorParsers implements PublicStaticHelper {
                 .setToString("hsv()");
     }
 
+    // hsva..............................................................................................................
+
+    /**
+     * A parser that handles
+     * <pre>
+     * hsva(359, 100%, 99%, 50%)
+     * </pre>
+     * into a {@link HsvParserToken}.
+     */
+    public static <C extends ParserContext> Parser<C> hsvaFunction() {
+        return HSVA_FUNCTION_PARSER.cast();
+    }
+
+    private static ParserToken transformHsvaFunction(final ParserToken token, final ParserContext context) {
+        return HsvaFunctionParserTokenVisitor.acceptParserToken(token);
+    }
+
+    private final static Parser<ParserContext> HSVA_FUNCTION_PARSER = hsvaFunctionParser();
+
+    private static Parser<ParserContext> hsvaFunctionParser() {
+        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
+        final Parser<ParserContext> component = Parsers.doubleParser();
+        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
+
+        return Parsers.sequenceParserBuilder()
+                .required(Parsers.string("hsva(", CaseSensitivity.SENSITIVE))
+                .optional(whitespace) // hue
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // sat
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace) // value
+                .required(component)
+                .optional(whitespace)
+                .required(comma)
+                .optional(whitespace)
+                .required(component) // alpha
+                .optional(whitespace)
+                .required(Parsers.character(CharPredicates.is(')')))
+                .build()
+                .transform(ColorParsers::transformHsvaFunction)
+                .setToString("hsva()");
+    }
+    
     // ................................................................................................................
 
     /**

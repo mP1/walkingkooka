@@ -20,6 +20,7 @@ package walkingkooka.color;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -34,15 +35,11 @@ import java.util.Objects;
 /**
  * Holds the hue, saturation and value which describe a color.
  */
-final public class Hsv extends ColorHslOrHsv {
+public abstract class Hsv extends ColorHslOrHsv {
 
-    // parseColor hsv(359,1.0,1.0)..............................................................................................
+    // parse hsv(359,100%,100%)..............................................................................................
 
     public static Hsv parseHsv(final String text) {
-        return parseHsv0(text);
-    }
-
-    static Hsv parseHsv0(final String text) {
         return parseColorHslOrHsvParserToken(text,
                 HSV_FUNCTION_PARSER,
                 HsvParserToken.class)
@@ -52,6 +49,36 @@ final public class Hsv extends ColorHslOrHsv {
     private final static Parser<ParserContext> HSV_FUNCTION_PARSER = ColorParsers.hsvFunction()
             .orReport(ParserReporters.basic());
 
+    // parse hsva(359,100%,100%,50%)..............................................................................................
+
+    public static Hsv parseHsva(final String text) {
+        return parseColorHslOrHsvParserToken(text,
+                HSVA_FUNCTION_PARSER,
+                HsvParserToken.class)
+                .value();
+    }
+
+    static Hsv parseHsvOrHsva(final String text) {
+        Hsv hsv;
+
+        do {
+            if (text.startsWith("hsv(")) {
+                hsv = parseHsv(text);
+                break;
+            }
+            if (text.startsWith("hsva(")) {
+                hsv = parseHsva(text);
+                break;
+            }
+            throw new IllegalArgumentException("Invalid color: " + CharSequences.quoteAndEscape(text));
+        } while (false);
+
+        return hsv;
+    }
+
+    private final static Parser<ParserContext> HSVA_FUNCTION_PARSER = ColorParsers.hsvaFunction()
+            .orReport(ParserReporters.basic());
+    
     /**
      * Factory that creates a new {@link Hsv}
      */
@@ -62,15 +89,15 @@ final public class Hsv extends ColorHslOrHsv {
         Objects.requireNonNull(saturation, "saturation");
         Objects.requireNonNull(value, "value");
 
-        return new Hsv(hue, saturation, value);
+        return OpaqueHsv.withOpaque(hue, saturation, value);
     }
 
     /**
-     * Private constructor use factory.
+     * Package private to limit sub classing.
      */
-    private Hsv(final HueHsvComponent hue,
-                final SaturationHsvComponent saturation,
-                final ValueHsvComponent value) {
+    Hsv(final HueHsvComponent hue,
+        final SaturationHsvComponent saturation,
+        final ValueHsvComponent value) {
         this.hue = hue;
         this.saturation = saturation;
         this.value = value;
@@ -79,7 +106,7 @@ final public class Hsv extends ColorHslOrHsv {
     /**
      * Would be setter that returns a {@link Hsv} holding the new component. If the component is not new this will be returned.
      */
-    public Hsv set(final HsvComponent component) {
+    public final Hsv set(final HsvComponent component) {
         Objects.requireNonNull(component, "component");
 
         return component.setComponent(this);
@@ -88,7 +115,7 @@ final public class Hsv extends ColorHslOrHsv {
     /**
      * Factory that creates a new {@link Hsv} with the new {@link HueHsvComponent}.
      */
-    Hsv setHue(final HueHsvComponent hue) {
+    final Hsv setHue(final HueHsvComponent hue) {
         return this.hue.equals(hue) ?
                 this :
                 this.replace(hue, this.saturation, this.value);
@@ -97,7 +124,7 @@ final public class Hsv extends ColorHslOrHsv {
     /**
      * Factory that creates a new {@link Hsv} with the new {@link SaturationHsvComponent}.
      */
-    Hsv setSaturation(final SaturationHsvComponent saturation) {
+    final Hsv setSaturation(final SaturationHsvComponent saturation) {
         return this.saturation.equals(saturation) ?
                 this :
                 this.replace(this.hue, saturation, this.value);
@@ -106,7 +133,7 @@ final public class Hsv extends ColorHslOrHsv {
     /**
      * Factory that creates a new {@link Hsv} with the new {@link ValueHsvComponent}.
      */
-    Hsv setValue(final ValueHsvComponent value) {
+    final Hsv setValue(final ValueHsvComponent value) {
 
         return this.value.equals(value) ?
                 this :
@@ -114,20 +141,29 @@ final public class Hsv extends ColorHslOrHsv {
     }
 
     /**
+     * Factory that creates a new {@link Hsv} with the new {@link AlphaHsvComponent}.
+     */
+    final Hsv setAlpha(final AlphaHsvComponent alpha) {
+
+        return this.alpha().equals(alpha) ?
+                this :
+                AlphaHsv.withAlpha(this.hue, this.saturation, this.value, alpha);
+    }
+
+    /**
      * Factory that creates a {@link Hsv} with the given {@link HsvComponent components}.
      */
-    private Hsv replace(final HueHsvComponent hue,
-                        final SaturationHsvComponent saturation,
-                        final ValueHsvComponent value) {
-        return new Hsv(hue, saturation, value);
-    }
+    abstract
+    Hsv replace(final HueHsvComponent hue,
+                final SaturationHsvComponent saturation,
+                final ValueHsvComponent value);
 
     // properties
 
     /**
      * Getter that returns only the {@link HueHsvComponent}
      */
-    public HueHsvComponent hue() {
+    public final HueHsvComponent hue() {
         return this.hue;
     }
 
@@ -136,7 +172,7 @@ final public class Hsv extends ColorHslOrHsv {
     /**
      * Getter that returns only the {@link SaturationHsvComponent}
      */
-    public SaturationHsvComponent saturation() {
+    public final SaturationHsvComponent saturation() {
         return this.saturation;
     }
 
@@ -145,25 +181,30 @@ final public class Hsv extends ColorHslOrHsv {
     /**
      * Getter that returns only the {@link ValueHsvComponent}
      */
-    public ValueHsvComponent value() {
+    public final ValueHsvComponent value() {
         return this.value;
     }
 
     final ValueHsvComponent value;
 
+    /**
+     * Getter that returns only the {@link AlphaHsvComponent}
+     */
+    public abstract AlphaHsvComponent alpha();
+
     // ColorHslOrHsv....................................................................................................
 
     @Override
-    public boolean isColor() {
+    public final boolean isColor() {
         return false;
     }
 
     @Override
-    public boolean isHsl() {
+    public final boolean isHsl() {
         return false;
     }
 
-    public boolean isHsv() {
+    public final boolean isHsv() {
         return true;
     }
 
@@ -216,8 +257,10 @@ final public class Hsv extends ColorHslOrHsv {
         return Color.with(red, green, blue);
     }
 
+    abstract Color toColor0(final Color color);
+
     @Override
-    public Hsl toHsl() {
+    public final Hsl toHsl() {
         return this.toColor().toHsl();
     }
 
@@ -229,7 +272,9 @@ final public class Hsv extends ColorHslOrHsv {
     // HasJsonNode......................................................................................................
 
     static {
-        HasJsonNode.register("hsv", Hsv::fromJsonNodeHsv, Hsv.class);
+        HasJsonNode.register("hsv",
+                Hsv::fromJsonNodeHsv,
+                Hsv.class, AlphaHsv.class, OpaqueHsv.class);
     }
 
     /**
@@ -245,38 +290,40 @@ final public class Hsv extends ColorHslOrHsv {
         }
     }
 
-    // Object.........................................................................................................
+    // Object...........................................................................................................
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(this.hue, this.saturation, this.value);
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof Hsv;
-    }
-
-    @Override
-    boolean equals0(final Object other) {
+    @Override final boolean equals0(final Object other) {
         return this.equals1(Cast.to(other));
     }
 
     private boolean equals1(final Hsv other) {
         return this.hue.equals(other.hue) &&
                 this.saturation.equals(other.saturation) &&
-                this.value.equals(other.value);
+                this.value.equals(other.value) &&
+                this.equals2(other);
     }
 
+    abstract boolean equals2(final Hsv other);
+
     @Override
-    public void buildToString(final ToStringBuilder builder) {
+    public final void buildToString(final ToStringBuilder builder) {
         builder.separator(",")
-                .append("hsv(")
+                .append(this.functionName())
                 .value(this.hue)
                 .value(this.saturation)
-                .value(this.value)
-                .append(')');
+                .value(this.value);
+        this.buildToStringAlpha(builder);
+        builder.append(')');
     }
+
+    abstract String functionName();
+
+    abstract void buildToStringAlpha(final ToStringBuilder builder);
 
     // Serializable....................................................................................................
 

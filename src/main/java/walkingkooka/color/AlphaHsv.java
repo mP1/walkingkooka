@@ -21,63 +21,67 @@ package walkingkooka.color;
 import walkingkooka.build.tostring.ToStringBuilder;
 
 /**
- * A {@link Hsl} that includes an alpha property.
+ * A {@link Color} that includes an alpha property.
  */
-final class OpaqueHsl extends Hsl {
+final class AlphaHsv extends Hsv {
 
-    static OpaqueHsl withOpaque(final HueHslComponent hue,
-                                final SaturationHslComponent saturation,
-                                final LightnessHslComponent lightness) {
-        return new OpaqueHsl(hue, saturation, lightness);
+    static AlphaHsv withAlpha(final HueHsvComponent hue,
+                              final SaturationHsvComponent saturation,
+                              final ValueHsvComponent value,
+                              final AlphaHsvComponent alpha) {
+        return new AlphaHsv(hue, saturation, value, alpha);
     }
 
-    private OpaqueHsl(final HueHslComponent hue,
-                      final SaturationHslComponent saturation,
-                      final LightnessHslComponent lightness) {
-        super(hue, saturation, lightness);
-    }
+    private AlphaHsv(final HueHsvComponent hue,
+                     final SaturationHsvComponent saturation,
+                     final ValueHsvComponent value,
+                     final AlphaHsvComponent alpha) {
+        super(hue, saturation, value);
 
-    @Override
-    public AlphaHslComponent alpha() {
-        return AlphaHslComponent.OPAQUE;
-    }
-
-    /**
-     * Factory that creates a {@link Hsl} with the given {@link HslComponent components}.
-     */
-    @Override
-    Hsl replace(final HueHslComponent hue,
-                final SaturationHslComponent saturation,
-                final LightnessHslComponent lightness) {
-        return withOpaque(hue, saturation, lightness);
+        this.alpha = alpha;
     }
 
     @Override
-    Color color(final Color color) {
-        return color;
+    public AlphaHsvComponent alpha() {
+        return this.alpha;
+    }
+
+    private final AlphaHsvComponent alpha;
+
+    @Override
+    Hsv replace(final HueHsvComponent hue,
+                final SaturationHsvComponent saturation,
+                final ValueHsvComponent value) {
+        return new AlphaHsv(hue, saturation, value, this.alpha);
+    }
+
+    @Override
+    Color toColor0(final Color color) {
+        return color.set(this.alpha.toAlphaColorComponent());
     }
 
     // Object..........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof OpaqueHsl;
+        return other instanceof AlphaHsv;
     }
 
     @Override
-    boolean equals2(final Hsl other) {
-        return true; // no alpha component to compare.
+    boolean equals2(final Hsv other) {
+        return this.alpha.equals(other.alpha());
     }
 
     // UsesToStringBuilder..............................................................................................
 
     @Override
     String functionName() {
-        return "hsl(";
+        return "hsva(";
     }
 
     @Override
     void buildToStringAlpha(final ToStringBuilder builder) {
+        builder.value(this.alpha);
     }
 
     // Serializable

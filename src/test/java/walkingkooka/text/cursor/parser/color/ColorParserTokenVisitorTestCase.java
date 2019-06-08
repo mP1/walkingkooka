@@ -18,12 +18,17 @@
 
 package walkingkooka.text.cursor.parser.color;
 
-import walkingkooka.test.ClassTesting;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.type.MemberVisibility;
 
-public final class HslFunctionHslaFunctionParserTokenVisitorTest extends ColorParserTokenVisitorTestCase {
+public abstract class ColorParserTokenVisitorTestCase<V extends ColorParserTokenVisitor> implements ClassTesting2<V> {
+
+    ColorParserTokenVisitorTestCase() {
+        super();
+    }
 
     @Override
-    public Class<HslFunctionHslaFunctionParserTokenVisitor> type() {
-        return HslFunctionHslaFunctionParserTokenVisitor.class;
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

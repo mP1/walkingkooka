@@ -19,9 +19,9 @@
 package walkingkooka.color;
 
 /**
- * A {@link HsvComponent} holding the hue component which is a value between 0 and 360 degrees.
+ * A {@link HsvComponent} holding the saturation component which is a value between 0 and 360 degrees.
  */
-final public class SaturationHsvComponent extends SaturationOrValueHsvComponent {
+final public class SaturationHsvComponent extends AlphaSaturationOrValueHsvComponent {
 
     /**
      * Factory that creates a new {@link SaturationHsvComponent}
@@ -66,6 +66,11 @@ final public class SaturationHsvComponent extends SaturationOrValueHsvComponent 
 
     @Override
     public boolean isValue() {
+        return false;
+    }
+
+    @Override
+    public boolean isAlpha() {
         return false;
     }
 
