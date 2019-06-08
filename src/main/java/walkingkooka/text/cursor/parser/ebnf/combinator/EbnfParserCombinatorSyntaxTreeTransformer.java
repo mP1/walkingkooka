@@ -32,8 +32,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfRepeatedParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
 
 /**
- * The {@link Context} accompanying a conversion of a {@link walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParser}
- * tokens (the lexer part) into a syntax tree token using this {@link EbnfParserCombinatorSyntaxTreeTransformer}.
+ * The {@link Context} that provides callbacks for a grammar that defines multiple {@link Parser parses}.
  * <br>
  * Note if a different parser object is returned by {@link #terminal(EbnfTerminalParserToken, Parser)},
  * it will be ignored by {@link #range(EbnfRangeParserToken, Parser)} which reads the
@@ -53,7 +52,7 @@ public interface EbnfParserCombinatorSyntaxTreeTransformer extends Context {
 
     Parser<ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserContext> parser);
 
-    Parser<ParserContext> range(final EbnfRangeParserToken token, final Parser<ParserContext> parserd);
+    Parser<ParserContext> range(final EbnfRangeParserToken token, final Parser<ParserContext> parser);
 
     Parser<ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<ParserContext> parser);
 
