@@ -37,10 +37,7 @@ abstract class AlphaSaturationOrValueHsvComponent extends HsvComponent {
      * Verifies that the value is within the acceptable range.
      */
     static void check(final float value) {
-        if ((value < AlphaSaturationOrValueHsvComponent.MIN) || (value > AlphaSaturationOrValueHsvComponent.MAX)) {
-            throw new IllegalArgumentException(
-                    "value not between " + AlphaSaturationOrValueHsvComponent.MIN + " and " + AlphaSaturationOrValueHsvComponent.MAX + "=" + value);
-        }
+        check(value, MIN, MAX);
     }
 
     /**
@@ -57,7 +54,7 @@ abstract class AlphaSaturationOrValueHsvComponent extends HsvComponent {
 
     @Override
     public final String toString() {
-        return String.valueOf(this.value);
+        return this.toStringPercentage();
     }
 
     // Serializable

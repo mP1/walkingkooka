@@ -33,7 +33,7 @@ public final class HsvFunctionParserTokenVisitorTest implements ColorParserToken
         visitor.saturation = HsvComponent.saturation(0.25f);
         visitor.hsv = Hsv.with(visitor.hue, visitor.saturation, HsvComponent.value(0.5f));
 
-        this.toStringAndCheck(visitor, "hue=359 saturation=0.25 hsv=hsv(359,0.25,0.5)");
+        this.toStringAndCheck(visitor, "hue=359 saturation=25% hsv=hsv(359,25%,50%)");
     }
 
     @Test

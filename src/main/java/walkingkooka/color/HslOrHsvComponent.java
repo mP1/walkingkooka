@@ -22,6 +22,18 @@ import walkingkooka.Cast;
 
 abstract class HslOrHsvComponent extends ColorHslOrHsvComponent {
 
+    /**
+     * Verifies that the value is within the acceptable range.
+     */
+    static void check(final float value,
+                      final float min,
+                      final float max) {
+        if (value < min || value > max) {
+            throw new IllegalArgumentException(
+                    "value not between " + min + " and " + max + "=" + value);
+        }
+    }
+
     HslOrHsvComponent(final float value) {
         super();
         this.value = value;
@@ -60,6 +72,10 @@ abstract class HslOrHsvComponent extends ColorHslOrHsvComponent {
 
     private boolean equals0(final HslOrHsvComponent other) {
         return this.value == other.value;
+    }
+
+    final String toStringPercentage() {
+        return Math.round(100 * this.value) + "%";
     }
 
     // Serializable......................................................................................................

@@ -18,8 +18,8 @@
 
 package walkingkooka.text.cursor.parser.color;
 
-import walkingkooka.color.Hsv;
 import walkingkooka.color.HsvComponent;
+import walkingkooka.color.Hsv;
 import walkingkooka.color.HueHsvComponent;
 import walkingkooka.color.SaturationHsvComponent;
 import walkingkooka.text.cursor.parser.DoubleParserToken;
@@ -41,11 +41,12 @@ abstract class HsvFunctionHsvaFunctionParserTokenVisitor extends ColorParserToke
                 this.hue = HsvComponent.hue(value);
                 break;
             }
+            final float percentToFloat = this.percentToFloat(value);
             if (null == this.saturation) {
-                this.saturation = HsvComponent.saturation(value);
+                this.saturation = HsvComponent.saturation(percentToFloat);
                 break;
             }
-            this.visit0(value);
+            this.visit0(percentToFloat);
         } while (false);
     }
 

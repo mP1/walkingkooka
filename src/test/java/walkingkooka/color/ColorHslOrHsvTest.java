@@ -55,7 +55,7 @@ public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv>,
 
     @Test
     public void testParseHsv() {
-        this.parseAndCheck("hsv(359, 0.0, 0.25)",
+        this.parseAndCheck("hsv(359, 0%, 25%)",
                 Hsv.with(HsvComponent.hue(359f),
                         HsvComponent.saturation(0.0f),
                         HsvComponent.value(0.25f)));
@@ -88,13 +88,17 @@ public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv>,
 
     @Test
     public void testFromJsonNodeHsl() {
-        final Hsl hsl = Hsl.with(HslComponent.hue(99), HslComponent.saturation(0.25f), HslComponent.lightness(0.75f));
+        final Hsl hsl = Hsl.with(HslComponent.hue(99),
+                HslComponent.saturation(0.25f),
+                HslComponent.lightness(0.75f));
         this.fromJsonNodeAndCheck(hsl.toJsonNode(), hsl);
     }
 
     @Test
     public void testFromJsonNodeHsv() {
-        final Hsv hsv = Color.fromRgb(0x123456).toHsv();
+        final Hsv hsv = Hsv.with(HsvComponent.hue(99),
+                HsvComponent.saturation(0.25f),
+                HsvComponent.value(0.75f));
         this.fromJsonNodeAndCheck(hsv.toJsonNode(), hsv);
     }
 

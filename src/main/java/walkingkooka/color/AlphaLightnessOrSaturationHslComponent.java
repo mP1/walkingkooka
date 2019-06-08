@@ -31,16 +31,13 @@ abstract class AlphaLightnessOrSaturationHslComponent extends HslComponent {
     /**
      * The highest possible legal value.
      */
-    public final static float MAX = 360.0f;
+    public final static float MAX = 1.0f;
 
     /**
      * Verifies that the value is within the acceptable range.
      */
     static void check(final float value) {
-        if ((value < AlphaLightnessOrSaturationHslComponent.MIN) || (value > AlphaLightnessOrSaturationHslComponent.MAX)) {
-            throw new IllegalArgumentException(
-                    "value not between " + AlphaLightnessOrSaturationHslComponent.MIN + " and " + AlphaLightnessOrSaturationHslComponent.MAX + "=" + value);
-        }
+        check(value, MIN, MAX);
     }
 
     /**
@@ -57,7 +54,7 @@ abstract class AlphaLightnessOrSaturationHslComponent extends HslComponent {
 
     @Override
     public final String toString() {
-        return Math.round(100 * this.value) + "%";
+        return this.toStringPercentage();
     }
 
     // Serializable

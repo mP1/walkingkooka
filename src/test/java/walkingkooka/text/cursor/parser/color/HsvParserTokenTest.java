@@ -33,7 +33,7 @@ public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
     @Test
     public void testWithNullValueFails() {
         assertThrows(NullPointerException.class, () -> {
-            HsvParserToken.with(null, "hsv(359,0.5,1.0)");
+            HsvParserToken.with(null, "hsv(359,50%,100%)");
         });
     }
 
@@ -67,7 +67,7 @@ public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
 
     @Test
     public void testToSearchNode() {
-        final String text = "hsv(359,0.5,1.0)";
+        final String text = "hsv(359,50%,100%)";
         this.toSearchNodeAndCheck(HsvParserToken.with(Hsv.parseHsv(text), text),
                 SearchNode.text(text, text));
     }
@@ -86,12 +86,12 @@ public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
 
     @Override
     public String text() {
-        return "hsv(123,0.0,0.25)";
+        return "hsv(123,0%,25%)";
     }
 
     @Override
     public HsvParserToken createDifferentToken() {
-        return HsvParserToken.with(Hsv.parseHsv("hsv(359,0.5,1.0)"), "hsv(359,0.5,1.0)");
+        return HsvParserToken.with(Hsv.parseHsv("hsv(359,50%,100%)"), "hsv(359,50%,100%)");
     }
 
     @Override
