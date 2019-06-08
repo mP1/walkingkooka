@@ -18,15 +18,10 @@
 
 package walkingkooka.color;
 
-import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
-
-import java.io.Serializable;
-
 /**
  * Common base for all {@link Hsv} components.
  */
-abstract public class HsvComponent implements HashCodeEqualsDefined, Serializable {
+abstract public class HsvComponent extends HslOrHsvComponent {
 
     /**
      * {@see HueHsvComponent}
@@ -60,8 +55,7 @@ abstract public class HsvComponent implements HashCodeEqualsDefined, Serializabl
      * Package private to limit sub classing
      */
     HsvComponent(final float value) {
-        super();
-        this.value = value;
+        super(value);
     }
 
     /**
@@ -70,28 +64,9 @@ abstract public class HsvComponent implements HashCodeEqualsDefined, Serializabl
     abstract public HsvComponent add(float value);
 
     /**
-     * Performs a saturated add.
-     */
-    static float add(final float value, final float min, final float max) {
-        return value < min ? min : value > max ? max : value;
-    }
-
-    /**
-     * Getter that returns the value.
-     */
-    public float value() {
-        return this.value;
-    }
-
-    /**
      * Would be setter that returns a {@link HsvComponent} with the new value.
      */
     abstract public HsvComponent setValue(float value);
-
-    /**
-     * The <code>float</code> value.
-     */
-    final float value;
 
     /**
      * Factory that creates a new {@link HsvComponent} of the same type with the given value.
@@ -121,29 +96,13 @@ abstract public class HsvComponent implements HashCodeEqualsDefined, Serializabl
     /**
      * Setter used to create a new {@link Hsv} with this component replaced if different
      */
-    abstract Hsv setComponent(Hsv hsv);
+    abstract Hsv setComponent(final Hsv hsv);
 
-    // Object
-
-    @Override
-    final public int hashCode() {
-        return Float.hashCode(this.value);
-    }
-
-    @Override
-    final public boolean equals(final Object other) {
-        return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
-    }
+    // Object...........................................................................................................
 
     abstract boolean canBeEqual(Object other);
 
-    private boolean equals0(final HsvComponent other) {
-        return this.value == other.value;
-    }
-
-    // Serializable
+    // Serializable....................................................................................................
 
     private static final long serialVersionUID = 1;
 }

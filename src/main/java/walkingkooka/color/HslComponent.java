@@ -18,15 +18,10 @@
 
 package walkingkooka.color;
 
-import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
-
-import java.io.Serializable;
-
 /**
  * Common base for all {@link Hsl} components.
  */
-abstract public class HslComponent implements HashCodeEqualsDefined, Serializable {
+abstract public class HslComponent extends HslOrHsvComponent {
 
     /**
      * {@see HueHslComponent}
@@ -60,8 +55,7 @@ abstract public class HslComponent implements HashCodeEqualsDefined, Serializabl
      * Package private to limit sub classing
      */
     HslComponent(final float value) {
-        super();
-        this.value = value;
+        super(value);
     }
 
     /**
@@ -70,28 +64,9 @@ abstract public class HslComponent implements HashCodeEqualsDefined, Serializabl
     abstract public HslComponent add(float value);
 
     /**
-     * Performs a saturated add.
-     */
-    static float add(final float value, final float min, final float max) {
-        return value < min ? min : value > max ? max : value;
-    }
-
-    /**
-     * Getter that returns the value.
-     */
-    public float value() {
-        return this.value;
-    }
-
-    /**
      * Would be setter that returns a {@link HslComponent} with the new value.
      */
     abstract public HslComponent setValue(float value);
-
-    /**
-     * The <code>float</code> value.
-     */
-    final float value;
 
     /**
      * Factory that creates a new {@link HslComponent} of the same type with the given value.
@@ -123,27 +98,7 @@ abstract public class HslComponent implements HashCodeEqualsDefined, Serializabl
      */
     abstract Hsl setComponent(Hsl hsl);
 
-    // Object
-
-    @Override
-    final public int hashCode() {
-        return Float.hashCode(this.value);
-    }
-
-    @Override
-    final public boolean equals(final Object other) {
-        return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
-    }
-
-    abstract boolean canBeEqual(Object other);
-
-    private boolean equals0(final HslComponent other) {
-        return this.value == other.value;
-    }
-
-    // Serializable
+    // Serializable.....................................................................................................
 
     private static final long serialVersionUID = 1;
 }

@@ -19,78 +19,22 @@
 package walkingkooka.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.test.IsMethodTesting;
-import walkingkooka.test.SerializationTesting;
-import walkingkooka.test.ToStringTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
-import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class HslComponentTestCase<C extends HslComponent> implements ClassTesting2<C>,
-        HashCodeEqualsDefinedTesting<C>,
-        IsMethodTesting<C>,
-        SerializationTesting<C>,
-        ToStringTesting<C>,
-        TypeNameTesting<C> {
+abstract public class HslComponentTestCase<C extends HslComponent> extends HslOrHsvComponentTestCase<C> {
 
     HslComponentTestCase() {
         super();
     }
 
     // tests
-
-    @Test
-    public final void testBelowLowerBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createHslComponent(this.min() - 0.1f);
-        });
-    }
-
-    @Test
-    public final void testAboveUpperBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createHslComponent(this.max() + 0.1f);
-        });
-    }
-
-    @Test
-    public final void testWith() {
-        final C component = this.createHslComponent(value());
-        assertEquals(value(), component.value(), 0.1, "value");
-    }
-
-    // set
-
-    @Test
-    public final void testSameValue() {
-        final C component = this.createHslComponent(value());
-        assertSame(component, component.setValue(value()));
-    }
-
-    @Test
-    public final void testSetBelowLowerBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createHslComponent(this.min()).setValue(this.min() - 0.1f);
-        });
-    }
-
-    @Test
-    public final void testSetAboveUpperBoundsFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createHslComponent(this.min()).setValue(this.max() + 0.1f);
-        });
-    }
 
     @Test
     public final void testSet() {
@@ -168,52 +112,21 @@ abstract public class HslComponentTestCase<C extends HslComponent> implements Cl
         return this.createHslComponent(this.value());
     }
 
-    abstract C createHslComponent(float value);
-
-    abstract float value();
-
-    abstract float min();
-
-    abstract float max();
+    abstract C createHslComponent(final float value);
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
-    }
-
-    @Override
-    public final C createObject() {
-        return this.createHslComponent();
+    final C createHslOrHsvComponent(final float value) {
+        return this.createHslComponent(value);
     }
 
     // IsMethodTesting.................................................................................................
-
-    @Override
-    public final C createIsMethodObject() {
-        return this.createObject();
-    }
-
-    @Override
-    public final String isMethodTypeNamePrefix() {
-        return "";
-    }
 
     @Override
     public final String isMethodTypeNameSuffix() {
         return HslComponent.class.getSimpleName();
     }
 
-    @Override
-    public final Predicate<String> isMethodIgnoreMethodFilter() {
-        return (m) -> false;
-    }
-
     // TypeNameTesting .........................................................................................
-
-    @Override
-    public final String typeNamePrefix() {
-        return "";
-    }
 
     @Override
     public final String typeNameSuffix() {
