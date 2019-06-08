@@ -102,6 +102,6 @@ public final class AlphaHslTest extends HslTestCase<AlphaHsl> {
 
     @Override
     public AlphaHsl parse(final String text) {
-        return Cast.to(Hsl.parseHsla(text));
+        return Cast.to(Hsl.parseHsl(text));
     }
 }

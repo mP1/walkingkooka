@@ -1,0 +1,75 @@
+(* rgb ...............................................................................................................*)
+RGB             = ( "rgba(" | "rgb(" ),
+                  [SPACE],
+                  ( RGB_ARGUMENTS_PERCENTAGE_COMMA | RGB_ARGUMENTS_PERCENTAGE_SPACE | RGB_ARGUMENTS_NUMBER_COMMA | RGB_ARGUMENTS_NUMBER_SPACE ),
+                  [SPACE],
+                  ")";
+
+RGB_ARGUMENTS_PERCENTAGE_COMMA = RGB_PERCENTAGE, [SPACE], SEPARATOR, [SPACE],
+                                 RGB_PERCENTAGE, [SPACE], SEPARATOR, [SPACE],
+                                 RGB_PERCENTAGE,
+                                 [ [SPACE], SEPARATOR, [SPACE], RGB_ALPHA ];
+
+RGB_ARGUMENTS_PERCENTAGE_SPACE = RGB_PERCENTAGE, SPACE,
+                                 RGB_PERCENTAGE, SPACE,
+                                 RGB_PERCENTAGE,
+                                 [ [SPACE], "/", [SPACE], RGB_ALPHA ];
+
+RGB_ARGUMENTS_NUMBER_COMMA     = NUMBER, [SPACE], SEPARATOR, [SPACE],
+                                 NUMBER, [SPACE], SEPARATOR, [SPACE],
+                                 NUMBER,
+                                 [ [SPACE], SEPARATOR, [SPACE], RGB_ALPHA ];
+
+RGB_ARGUMENTS_NUMBER_SPACE     = NUMBER, SPACE,
+                                 NUMBER, SPACE,
+                                 NUMBER,
+                                 [ [SPACE], "/", [SPACE], RGB_ALPHA ];
+
+RGB_PERCENTAGE                 = NUMBER, "%";
+RGB_ALPHA                      = RGB_PERCENTAGE | NUMBER;
+
+(* hsl ...............................................................................................................*)
+HSL                = ( "hsla(" | "hsl(" ),
+                     [SPACE],
+                     ( HSL_HSV_ARGUMENTS_PERCENTAGE_COMMA | HSL_HSV_ARGUMENTS_PERCENTAGE_SPACE | HSL_HSV_ARGUMENTS_NUMBER_COMMA | HSL_HSV_ARGUMENTS_NUMBER_SPACE ),
+                     [SPACE],
+                     ")";
+
+
+(* hsv ...............................................................................................................*)
+HSV                = ( "hsva(" | "hsv(" ),
+                     [SPACE],
+                     ( HSL_HSV_ARGUMENTS_PERCENTAGE_COMMA | HSL_HSV_ARGUMENTS_PERCENTAGE_SPACE | HSL_HSV_ARGUMENTS_NUMBER_COMMA | HSL_HSV_ARGUMENTS_NUMBER_SPACE ),
+                     [SPACE],
+                     ")";
+
+
+(* hsl/hsv common ....................................................................................................*)
+
+HSL_HSV_ARGUMENTS_PERCENTAGE_COMMA = HUE, [SPACE], SEPARATOR, [SPACE],
+                                     PERCENTAGE, [SPACE], SEPARATOR, [SPACE],
+                                     PERCENTAGE,
+                                     [ [SPACE], SEPARATOR, [SPACE], ALPHA ];
+
+HSL_HSV_ARGUMENTS_PERCENTAGE_SPACE = HUE, SPACE,
+                                     PERCENTAGE, SPACE,
+                                     PERCENTAGE,
+                                     [ [SPACE], "/", [SPACE], ALPHA ];
+
+HSL_HSV_ARGUMENTS_NUMBER_COMMA     = HUE, [SPACE], SEPARATOR, [SPACE],
+                                     NUMBER, [SPACE], SEPARATOR, [SPACE],
+                                     NUMBER,
+                                     [ [SPACE], SEPARATOR, [SPACE], ALPHA ];
+
+HSL_HSV_ARGUMENTS_NUMBER_SPACE     = HUE, SPACE,
+                                     NUMBER, SPACE,
+                                     NUMBER,
+                                     [ [SPACE], "/", [SPACE], ALPHA ];
+
+HUE                                = ( NUMBER, "deg" ) |
+                                     NUMBER;
+
+(* common ............................................................................................................*)
+
+PERCENTAGE   = NUMBER, "%";
+ALPHA        = PERCENTAGE | NUMBER;

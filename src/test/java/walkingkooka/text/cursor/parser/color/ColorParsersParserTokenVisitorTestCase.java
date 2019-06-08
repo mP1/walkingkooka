@@ -18,13 +18,29 @@
 
 package walkingkooka.text.cursor.parser.color;
 
-import walkingkooka.test.ClassTesting;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.ParserTokenVisitor;
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
 import walkingkooka.type.MemberVisibility;
 
-public final class HsvFunctionHsvaFunctionParserTokenVisitorTest extends ColorParserTokenVisitorTestCase<HsvFunctionHsvaFunctionParserTokenVisitor> {
+public abstract class ColorParsersParserTokenVisitorTestCase<P extends ParserTokenVisitor> implements ParserTokenVisitorTesting<P, ParserToken> {
+
+    ColorParsersParserTokenVisitorTestCase() {
+        super();
+    }
 
     @Override
-    public Class<HsvFunctionHsvaFunctionParserTokenVisitor> type() {
-        return HsvFunctionHsvaFunctionParserTokenVisitor.class;
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public final String typeNamePrefix() {
+        return ColorParsers.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return ParserTokenVisitor.class.getSimpleName();
     }
 }

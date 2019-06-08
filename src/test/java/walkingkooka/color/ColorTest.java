@@ -77,27 +77,27 @@ public final class ColorTest implements ClassTesting2<Color>,
 
     @Test
     public void testParseColorRgbaFunction() {
-        this.parseRgbaAndCheck3("rgba(1,2,3,0.5)", 1, 2, 3, 127);
+        this.parseRgbaAndCheck3("rgba(1,2,3,127)", 1, 2, 3, 127);
     }
 
     @Test
     public void testParseColorRgbaFunction2() {
-        this.parseRgbaAndCheck3("rgba(12,34,56,0.5)", 12, 34, 56, 127);
+        this.parseRgbaAndCheck3("rgba(12,34,56,127)", 12, 34, 56, 127);
     }
 
     @Test
     public void testParseColorRgbaFunction3() {
-        this.parseRgbaAndCheck3("rgba(99,128,255,0.5)", 99, 128, 255, 127);
+        this.parseRgbaAndCheck3("rgba(99,128,255,127)", 99, 128, 255, 127);
     }
 
     @Test
     public void testParseColorRgbaFunction4() {
-        this.parseRgbaAndCheck3("rgba(0,0,0,0)", 0, 0, 0, 0);
+        this.parseRgbaAndCheck3("rgba(0,0,0,0%)", 0, 0, 0, 0);
     }
 
     @Test
     public void testParseColorRgbaFunction5() {
-        this.parseRgbaAndCheck3("rgba(255,254,253,1.0)", 255, 254, 253, 255);
+        this.parseRgbaAndCheck3("rgba(255,254,253,100%)", 255, 254, 253, 255);
     }
 
     @Test
