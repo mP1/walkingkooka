@@ -17,19 +17,135 @@
  */
 package walkingkooka.text.cursor.parser.color;
 
+import walkingkooka.collect.map.Maps;
+import walkingkooka.color.BlueColorComponent;
+import walkingkooka.color.Color;
+import walkingkooka.color.ColorComponent;
+import walkingkooka.color.GreenColorComponent;
+import walkingkooka.color.Hsl;
+import walkingkooka.color.HslComponent;
+import walkingkooka.color.Hsv;
+import walkingkooka.color.HsvComponent;
+import walkingkooka.color.HueHslComponent;
+import walkingkooka.color.HueHsvComponent;
+import walkingkooka.color.LightnessHslComponent;
+import walkingkooka.color.RedColorComponent;
+import walkingkooka.color.SaturationHslComponent;
+import walkingkooka.color.SaturationHsvComponent;
+import walkingkooka.color.ValueHsvComponent;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
-import walkingkooka.text.cursor.parser.SequenceParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarLoader;
+import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
+import walkingkooka.text.cursor.parser.select.NodeSelectorParserException;
 import walkingkooka.type.PublicStaticHelper;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * A collection of factory methods to create parsers.
+ * <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color"></a>
+ * <pre>
+ * <color>
+ * where
+ * &lt;color&gt; = &lt;rgb()&gt; | &lt;rgba()&gt; | &lt;hsl()&gt; | &lt;hsla()&gt; | &lt;hex-color&gt; | &lt;named-color&gt; | currentcolor | &lt;deprecated-system-color&gt;
+ *
+ * where
+ * &lt;rgb()&gt; = rgb( &lt;percentage&gt;{3} [ / &lt;alpha-value&gt; ]? ) | rgb( &lt;number&gt;{3} [ / &lt;alpha-value&gt; ]? ) | rgb( &lt;percentage&gt;#{3} , &lt;alpha-value&gt;? ) | rgb( &lt;number&gt;#{3} , &lt;alpha-value&gt;? )
+ * &lt;rgba()&gt; = rgba( &lt;percentage&gt;{3} [ / &lt;alpha-value&gt; ]? ) | rgba( &lt;number&gt;{3} [ / &lt;alpha-value&gt; ]? ) | rgba( &lt;percentage&gt;#{3} , &lt;alpha-value&gt;? ) | rgba( &lt;number&gt;#{3} , &lt;alpha-value&gt;? )
+ * &lt;hsl()&gt; = hsl( &lt;hue&gt; &lt;percentage&gt; &lt;percentage&gt; [ / &lt;alpha-value&gt; ]? ) | hsl( &lt;hue&gt;, &lt;percentage&gt;, &lt;percentage&gt;, &lt;alpha-value&gt;? )
+ * &lt;hsla()&gt; = hsla( &lt;hue&gt; &lt;percentage&gt; &lt;percentage&gt; [ / &lt;alpha-value&gt; ]? ) | hsla( &lt;hue&gt;, &lt;percentage&gt;, &lt;percentage&gt;, &lt;alpha-value&gt;? )
+ *
+ * where
+ * &lt;alpha-value&gt; = &lt;number&gt; | &lt;percentage&gt;
+ * &lt;hue&gt; = &lt;number&gt; | &lt;angle&gt;
+ * </pre>
  */
 public final class ColorParsers implements PublicStaticHelper {
+
+    static final EbnfIdentifierName PREDICATE_IDENTIFIER = EbnfIdentifierName.with("PREDICATE");
+
+    /**
+     * Loads the grammar and sets some {@link Parser} constants.
+     */
+    static {
+        try {
+            final Optional<EbnfGrammarParserToken> grammar = EbnfGrammarLoader.with("color-parsers.grammar", ColorParsers.class)
+                    .grammar();
+
+            final Map<EbnfIdentifierName, Parser<ParserContext>> predefined = Maps.sorted();
+            predefined.put(EbnfIdentifierName.with("SPACE"), Parsers.character(CharPredicates.is(' ')));
+            predefined.put(EbnfIdentifierName.with("SEPARATOR"), Parsers.string(",", CaseSensitivity.SENSITIVE));
+            predefined.put(EbnfIdentifierName.with("NUMBER"), Parsers.doubleParser());
+
+            final Map<EbnfIdentifierName, Parser<ParserContext>> result = grammar.get()
+                    .combinator(predefined, ColorParsersEbnfParserCombinatorSyntaxTreeTransformer.INSTANCE);
+
+            RGB_PARSER = result.get(EbnfIdentifierName.with("RGB"))
+                    .transform(ColorParsers::transformColor);
+            HSL_PARSER = result.get(EbnfIdentifierName.with("HSL"))
+                    .transform(ColorParsers::transformHsl);
+            HSV_PARSER = result.get(EbnfIdentifierName.with("HSV"))
+                    .transform(ColorParsers::transformHsv);
+
+        } catch (final RuntimeException rethrow) {
+            throw rethrow;
+        } catch (final Exception cause) {
+            throw new NodeSelectorParserException("Failed to init parsers from grammar file, message: " + cause.getMessage(), cause);
+        }
+    }
+
+    private static ColorParserToken transformColor(final ParserToken token, final ParserContext context) {
+        final List<Float> values = ColorParsersComponentsParserTokenVisitor.transform(token);
+
+        final RedColorComponent red = ColorComponent.red(values.get(0).byteValue());
+        final GreenColorComponent green = ColorComponent.green(values.get(1).byteValue());
+        final BlueColorComponent blue = ColorComponent.blue(values.get(2).byteValue());
+
+        Color color = Color.with(red, green, blue);
+        if (values.size() == 4) {
+            color = color.set(ColorComponent.alpha(values.get(3).byteValue()));
+        }
+
+        return ColorParserToken.with(color, token.text());
+    }
+
+    private static HslParserToken transformHsl(final ParserToken token, final ParserContext context) {
+        final List<Float> values = ColorParsersComponentsParserTokenVisitor.transform(token);
+
+        final HueHslComponent hue = HslComponent.hue(values.get(0));
+        final SaturationHslComponent saturation = HslComponent.saturation(values.get(1));
+        final LightnessHslComponent lightness = HslComponent.lightness(values.get(2));
+
+        Hsl hsl = Hsl.with(hue, saturation, lightness);
+        if (values.size() == 4) {
+            hsl = hsl.set(HslComponent.alpha(values.get(3)));
+        }
+
+        return HslParserToken.with(hsl, token.text());
+    }
+
+    private static HsvParserToken transformHsv(final ParserToken token, final ParserContext context) {
+        final List<Float> values = ColorParsersComponentsParserTokenVisitor.transform(token);
+
+        final HueHsvComponent hue = HsvComponent.hue(values.get(0));
+        final SaturationHsvComponent saturation = HsvComponent.saturation(values.get(1));
+        final ValueHsvComponent value = HsvComponent.value(values.get(2));
+
+        Hsv hsv = Hsv.with(hue, saturation, value);
+        if (values.size() == 4) {
+            hsv = hsv.set(HsvComponent.alpha(values.get(3)));
+        }
+
+        return HsvParserToken.with(hsv, token.text());
+    }
 
     // hsl..............................................................................................................
 
@@ -40,93 +156,11 @@ public final class ColorParsers implements PublicStaticHelper {
      * </pre>
      * into a {@link HslParserToken}.
      */
-    public static <C extends ParserContext> Parser<C> hslFunction() {
-        return HSL_FUNCTION_PARSER.cast();
+    public static <C extends ParserContext> Parser<C> hsl() {
+        return HSL_PARSER.cast();
     }
 
-    private static ParserToken transformHslFunction(final ParserToken token, final ParserContext context) {
-        return HslFunctionParserTokenVisitor.acceptParserToken(token);
-    }
-
-    private final static Parser<ParserContext> HSL_FUNCTION_PARSER = hslFunctionParser();
-
-    private static Parser<ParserContext> hslFunctionParser() {
-        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
-        final Parser<ParserContext> component = Parsers.doubleParser();
-        final Parser<ParserContext> percentage = Parsers.character(CharPredicates.is('%'));
-        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
-
-        return Parsers.sequenceParserBuilder()
-                .required(Parsers.string("hsl(", CaseSensitivity.SENSITIVE))
-                .optional(whitespace) // hue
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // sat
-                .required(component)
-                .required(percentage)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // value
-                .required(component)
-                .required(percentage)
-                .optional(whitespace)
-                .required(Parsers.character(CharPredicates.is(')')))
-                .build()
-                .transform(ColorParsers::transformHslFunction)
-                .setToString("hsl()");
-    }
-
-    // hsla..............................................................................................................
-
-    /**
-     * A parser that handles
-     * <pre>
-     * hsla(359, 100%, 99%, 50%)
-     * </pre>
-     * into a {@link HslParserToken}.
-     */
-    public static <C extends ParserContext> Parser<C> hslaFunction() {
-        return HSLA_FUNCTION_PARSER.cast();
-    }
-
-    private static ParserToken transformHslaFunction(final ParserToken token, final ParserContext context) {
-        return HslaFunctionParserTokenVisitor.acceptParserToken(token);
-    }
-
-    private final static Parser<ParserContext> HSLA_FUNCTION_PARSER = hslaFunctionParser();
-
-    private static Parser<ParserContext> hslaFunctionParser() {
-        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
-        final Parser<ParserContext> component = Parsers.doubleParser();
-        final Parser<ParserContext> percentage = Parsers.character(CharPredicates.is('%'));
-        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
-
-        return Parsers.sequenceParserBuilder()
-                .required(Parsers.string("hsla(", CaseSensitivity.SENSITIVE))
-                .optional(whitespace) // hue
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // sat
-                .required(component)
-                .required(percentage)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // value
-                .required(component)
-                .required(percentage)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace)
-                .required(component) // alpha
-                .required(percentage)
-                .optional(whitespace)
-                .required(Parsers.character(CharPredicates.is(')')))
-                .build()
-                .transform(ColorParsers::transformHslaFunction)
-                .setToString("hsla()");
-    }
+    private final static Parser<ParserContext> HSL_PARSER;
 
     // hsv..............................................................................................................
 
@@ -137,94 +171,12 @@ public final class ColorParsers implements PublicStaticHelper {
      * </pre>
      * into a {@link HsvParserToken}.
      */
-    public static <C extends ParserContext> Parser<C> hsvFunction() {
-        return HSV_FUNCTION_PARSER.cast();
+    public static <C extends ParserContext> Parser<C> hsv() {
+        return HSV_PARSER.cast();
     }
 
-    private static ParserToken transformHsvFunction(final ParserToken token, final ParserContext context) {
-        return HsvFunctionParserTokenVisitor.acceptParserToken(token);
-    }
+    private final static Parser<ParserContext> HSV_PARSER;
 
-    private final static Parser<ParserContext> HSV_FUNCTION_PARSER = hsvFunctionParser();
-
-    private static Parser<ParserContext> hsvFunctionParser() {
-        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
-        final Parser<ParserContext> component = Parsers.doubleParser();
-        final Parser<ParserContext> percentage = Parsers.character(CharPredicates.is('%'));
-        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
-
-        return Parsers.sequenceParserBuilder()
-                .required(Parsers.string("hsv(", CaseSensitivity.SENSITIVE))
-                .optional(whitespace) // hue
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // sat
-                .required(component)
-                .required(percentage)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // value
-                .required(component)
-                .required(percentage)
-                .optional(whitespace)
-                .required(Parsers.character(CharPredicates.is(')')))
-                .build()
-                .transform(ColorParsers::transformHsvFunction)
-                .setToString("hsv()");
-    }
-
-    // hsva..............................................................................................................
-
-    /**
-     * A parser that handles
-     * <pre>
-     * hsva(359, 100%, 99%, 50%)
-     * </pre>
-     * into a {@link HsvParserToken}.
-     */
-    public static <C extends ParserContext> Parser<C> hsvaFunction() {
-        return HSVA_FUNCTION_PARSER.cast();
-    }
-
-    private static ParserToken transformHsvaFunction(final ParserToken token, final ParserContext context) {
-        return HsvaFunctionParserTokenVisitor.acceptParserToken(token);
-    }
-
-    private final static Parser<ParserContext> HSVA_FUNCTION_PARSER = hsvaFunctionParser();
-
-    private static Parser<ParserContext> hsvaFunctionParser() {
-        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
-        final Parser<ParserContext> component = Parsers.doubleParser();
-        final Parser<ParserContext> percentage = Parsers.character(CharPredicates.is('%'));
-        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
-
-        return Parsers.sequenceParserBuilder()
-                .required(Parsers.string("hsva(", CaseSensitivity.SENSITIVE))
-                .optional(whitespace) // hue
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // sat
-                .required(component)
-                .required(percentage)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // value
-                .required(component)
-                .required(percentage)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace)
-                .required(component) // alpha
-                .required(percentage)
-                .optional(whitespace)
-                .required(Parsers.character(CharPredicates.is(')')))
-                .build()
-                .transform(ColorParsers::transformHsvaFunction)
-                .setToString("hsva()");
-    }
-    
     // ................................................................................................................
 
     /**
@@ -234,100 +186,11 @@ public final class ColorParsers implements PublicStaticHelper {
      * </pre>
      * into a {@link ColorParserToken}.
      */
-    public static <C extends ParserContext> Parser<C> rgbFunction() {
-        return RGB_FUNCTION_PARSER.cast();
+    public static <C extends ParserContext> Parser<C> rgb() {
+        return RGB_PARSER.cast();
     }
 
-    /**
-     * This method should only be called to init {@link #RGB_FUNCTION_PARSER}
-     */
-    private static Parser<ParserContext> rgbFunctionParser() {
-        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
-        final Parser<ParserContext> component = Parsers.longParser(10);
-        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
-
-        return Parsers.sequenceParserBuilder()
-                .required(Parsers.string("rgb(", CaseSensitivity.SENSITIVE))
-                .optional(whitespace) // red
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // green
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // blue
-                .required(component)
-                .optional(whitespace)
-                .required(Parsers.character(CharPredicates.is(')')))
-                .build()
-                .transform(ColorParsers::transformRgbFunction)
-                .setToString("rgb()");
-    }
-
-    private static ParserToken transformRgbFunction(final ParserToken token, final ParserContext context) {
-        return transformRgbFunction0(token.cast(), context);
-    }
-
-    private static ColorParserToken transformRgbFunction0(final SequenceParserToken token, final ParserContext context) {
-        return RgbFunctionParserTokenVisitor.parseSequenceParserToken(token);
-    }
-
-    private final static Parser<ParserContext> RGB_FUNCTION_PARSER = rgbFunctionParser();
-
-    // ................................................................................................................
-
-    /**
-     * A parser that handles
-     * <pre>
-     * rgba(RR,GG,BB,1.0)
-     * </pre>
-     * into a {@link ColorParserToken}.
-     */
-    public static <C extends ParserContext> Parser<C> rgbaFunction() {
-        return RGBA_FUNCTION_PARSER.cast();
-    }
-
-    /**
-     * This method should only be called to init {@link #RGBA_FUNCTION_PARSER}
-     */
-    private static Parser<ParserContext> rgbaFunctionParser() {
-        final Parser<ParserContext> whitespace = Parsers.repeated(Parsers.character(CharPredicates.whitespace()));
-        final Parser<ParserContext> component = Parsers.longParser(10);
-        final Parser<ParserContext> comma = Parsers.character(CharPredicates.is(','));
-
-        return Parsers.sequenceParserBuilder()
-                .required(Parsers.string("rgba(", CaseSensitivity.SENSITIVE))
-                .optional(whitespace) // red
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // green
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // blue
-                .required(component)
-                .optional(whitespace)
-                .required(comma)
-                .optional(whitespace) // alpha
-                .required(Parsers.doubleParser())
-                .optional(whitespace)
-                .required(Parsers.character(CharPredicates.is(')')))
-                .build()
-                .transform(ColorParsers::transformRgbAFunction)
-                .setToString("rgba()");
-    }
-
-    private static ParserToken transformRgbAFunction(final ParserToken token, final ParserContext context) {
-        return transformArgbFunction0(token.cast(), context);
-    }
-
-    private static ColorParserToken transformArgbFunction0(final SequenceParserToken token, final ParserContext context) {
-        return RgbaFunctionParserTokenVisitor.parseSequenceParserToken(token);
-    }
-
-    private final static Parser<ParserContext> RGBA_FUNCTION_PARSER = rgbaFunctionParser();
+    private final static Parser<ParserContext> RGB_PARSER;
 
     // ................................................................................................................
 

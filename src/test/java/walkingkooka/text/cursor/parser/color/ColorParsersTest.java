@@ -50,96 +50,141 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     // hsl(359,1.0,1.0).................................................................................................
 
     @Test
-    public void testParseHslFunctionIncompleteFails() {
-        this.parseFails(ColorParsers.hslFunction(),
+    public void testParseHslIncompleteFails() {
+        this.parseFails(ColorParsers.hsl(),
                 "hsl(359",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHslFunctionMissingPercentSignFails() {
-        this.parseFails(ColorParsers.hslFunction(),
+    public void testParseHslNumberCommaNumberCommaPercentageFails() {
+        this.parseFails(ColorParsers.hsl(),
                 "hsl(359,50,10%)",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHslFunctionMissingParensRightFails() {
-        this.parseFails(ColorParsers.hslFunction(),
-                "hsl(359,50%,10%",
+    public void testParseHslNumberCommaPercentageCommaNumberFails() {
+        this.parseFails(ColorParsers.hsl(),
+                "hsl(359,50%,10)",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHslFunction() {
-        this.parseHslAndCheck("hsl(359,100%,50%)", 359, 1.0f, 0.5f);
+    public void testParseHslNumberCommaNumberCommaNumber() {
+        this.parseHslAndCheck("hsl(359,0,1)", 359, 0f, 1f);
     }
 
     @Test
-    public void testParseHslFunction2() {
-        this.parseHslAndCheck("hsl(99,0%,25%)", 99, 0f, 0.25f);
+    public void testParseHslNumberDegCommaNumberCommaNumber() {
+        this.parseHslAndCheck("hsl(359deg,1.0,0.5)", 359, 1.0f, 0.5f);
     }
 
     @Test
-    public void testParseHslFunctionExtraWhitespace() {
-        this.parseHslAndCheck("hsl( 299,100%, 50% )", 299, 1f, 0.5f);
+    public void testParseHslNumberSpaceNumberSpaceNumber() {
+        this.parseHslAndCheck("hsl(359 0.25 0.5)", 359, 0.25f, 0.5f);
+    }
+
+    @Test
+    public void testParseHslSpaceNumberSpaceNumberSpaceNumberSpace() {
+        this.parseHslAndCheck("hsl( 99 0.25 0.5 )", 99, 0.25f, 0.5f);
+    }
+
+    @Test
+    public void testParseHslPercentageCommaPercentageCommaPercentage() {
+        this.parseHslAndCheck("hsl(359,0%,1%)", 359, 0f, 0.01f);
+    }
+
+    @Test
+    public void testParseHslPercentageDegCommaPercentageCommaPercentage() {
+        this.parseHslAndCheck("hsl(359deg,100%,50%)", 359, 1.0f, 0.5f);
+    }
+
+    @Test
+    public void testParseHslPercentageSpacePercentageSpacePercentage() {
+        this.parseHslAndCheck("hsl(359 25% 50%)", 359, 0.25f, 0.5f);
     }
 
     private void parseHslAndCheck(final String text,
                                   final float hue,
                                   final float saturation,
                                   final float lightness) {
-        this.parseAndCheck(ColorParsers.hslFunction(),
+        this.parseAndCheck(ColorParsers.hsl(),
                 text,
                 Hsl.with(HslComponent.hue(hue),
                         HslComponent.saturation(saturation),
                         HslComponent.lightness(lightness)));
     }
 
-    // hsla(359,1.0,1.0).................................................................................................
+    // hsl(359,1.0,1.0).................................................................................................
 
     @Test
-    public void testParseHslaFunctionIncompleteFails() {
-        this.parseFails(ColorParsers.hslaFunction(),
-                "hsla(359",
+    public void testParseHslaIncompleteFails() {
+        this.parseFails(ColorParsers.hsl(),
+                "hsl(359",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHslaFunctionMissingPercentSignFails() {
-        this.parseFails(ColorParsers.hslaFunction(),
-                "hsla(359,50,10%)",
+    public void testParseHslaNumberCommaNumberCommaPercentageFails() {
+        this.parseFails(ColorParsers.hsl(),
+                "hsl(359,50,10%)",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHslaFunctionMissingParensRightFails() {
-        this.parseFails(ColorParsers.hslaFunction(),
-                "hsla(359,50%,10%",
+    public void testParseHslaNumberCommaPercentageCommaNumberFails() {
+        this.parseFails(ColorParsers.hsl(),
+                "hsl(359,50%,10)",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHslaFunction() {
-        this.parseHslaAndCheck("hsla(359,100%,50%,25%)", 359, 1.0f, 0.5f, 0.25f);
+    public void testParseHslaNumberCommaNumberCommaNumberCommaNumber() {
+        this.parseHslAndCheck("hsla(359,0,0.5,1.0)", 359, 0f, 0.5f, 1f);
     }
 
     @Test
-    public void testParseHslaFunction2() {
-        this.parseHslaAndCheck("hsla(99,0%,25%,50%)", 99, 0f, 0.25f, 0.5f);
+    public void testParseHslaNumberDegCommaNumberCommaNumberCommaNumber() {
+        this.parseHslAndCheck("hsla(359deg,1.0,0.5,0.25)", 359, 1.0f, 0.5f, 0.25f);
     }
 
     @Test
-    public void testParseHslaFunctionExtraWhitespace() {
-        this.parseHslaAndCheck("hsla( 299,100%, 50%, 0%)", 299, 1f, 0.5f, 0);
+    public void testParseHslaNumberSpaceNumberSpaceNumberSlashNumber() {
+        this.parseHslAndCheck("hsla(359 0.25 0.5/0.75)", 359, 0.25f, 0.5f, 0.75f);
     }
 
-    private void parseHslaAndCheck(final String text,
+    @Test
+    public void testParseHslaSpaceNumberSpaceNumberSpaceNumberSpaceSlashNumber() {
+        this.parseHslAndCheck("hsla( 99 0.25 0.5/0.75)", 99, 0.25f, 0.5f, 0.75f);
+    }
+
+    @Test
+    public void testParseHslaPercentageCommaPercentageCommaPercentage() {
+        this.parseHslAndCheck("hsla(359,0%,1%,2%)", 359, 0f, 0.01f, 0.02f);
+    }
+
+    @Test
+    public void testParseHslaPercentageDegCommaPercentageCommaPercentage() {
+        this.parseHslAndCheck("hsla(359deg,100%,50%,25%)", 359, 1.0f, 0.5f, 0.25f);
+    }
+
+    @Test
+    public void testParseHslaPercentageSpacePercentageSlashPercentage() {
+        this.parseHslAndCheck("hsla(359 25% 50%/75%)", 359, 0.25f, 0.5f, 0.75f);
+    }
+
+    @Test
+    public void testParseHslaPercentageSpacePercentageSpaceSlashSpacePercentage() {
+        this.parseHslAndCheck("hsla(359 25% 50% / 75%)", 359, 0.25f, 0.5f, 0.75f);
+    }
+
+    private void parseHslAndCheck(final String text,
                                    final float hue,
                                    final float saturation,
                                    final float lightness,
                                    final float alpha) {
-        this.parseAndCheck(ColorParsers.hslaFunction(),
+        this.parseAndCheck(ColorParsers.hsl(),
                 text,
                 Hsl.with(HslComponent.hue(hue),
                         HslComponent.saturation(saturation),
@@ -147,91 +192,130 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
                         .set(HslComponent.alpha(alpha)));
     }
 
+
     // hsv(359,1.0,1.0).................................................................................................
 
     @Test
-    public void testParseHsvFunctionIncompleteFails() {
-        this.parseFails(ColorParsers.hsvFunction(),
+    public void testParseHsvIncompleteFails() {
+        this.parseFails(ColorParsers.hsv(),
                 "hsv(359",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHsvFunctionMissingPercentSignFails() {
-        this.parseFails(ColorParsers.hsvFunction(),
+    public void testParseHsvNumberCommaNumberCommaPercentageFails() {
+        this.parseFails(ColorParsers.hsv(),
                 "hsv(359,50,10%)",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHsvFunctionMissingParensRightFails() {
-        this.parseFails(ColorParsers.hsvFunction(),
-                "hsv(359,50%,10%",
+    public void testParseHsvNumberCommaPercentageCommaNumberFails() {
+        this.parseFails(ColorParsers.hsv(),
+                "hsv(359,50%,10)",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHsvFunction() {
-        this.parseHsvAndCheck("hsv(359,100%,50%)", 359, 1.0f, 0.5f);
+    public void testParseHsvNumberCommaNumberCommaNumber() {
+        this.parseHsvAndCheck("hsv(359,0,1)", 359, 0f, 1f);
     }
 
     @Test
-    public void testParseHsvFunction2() {
-        this.parseHsvAndCheck("hsv(99,0%,25%)", 99, 0f, 0.25f);
+    public void testParseHsvNumberDegCommaNumberCommaNumber() {
+        this.parseHsvAndCheck("hsv(359deg,1.0,0.5)", 359, 1.0f, 0.5f);
     }
 
     @Test
-    public void testParseHsvFunctionExtraWhitespace() {
-        this.parseHsvAndCheck("hsv( 299,100%, 50% )", 299, 1f, 0.5f);
+    public void testParseHsvNumberSpaceNumberSpaceNumber() {
+        this.parseHsvAndCheck("hsv(359 0.25 0.5)", 359, 0.25f, 0.5f);
+    }
+
+    @Test
+    public void testParseHsvSpaceNumberSpaceNumberSpaceNumberSpace() {
+        this.parseHsvAndCheck("hsv( 99 0.25 0.5 )", 99, 0.25f, 0.5f);
+    }
+
+    @Test
+    public void testParseHsvPercentageCommaPercentageCommaPercentage() {
+        this.parseHsvAndCheck("hsv(359,0%,1%)", 359, 0f, 0.01f);
+    }
+
+    @Test
+    public void testParseHsvPercentageDegCommaPercentageCommaPercentage() {
+        this.parseHsvAndCheck("hsv(359deg,100%,50%)", 359, 1.0f, 0.5f);
+    }
+
+    @Test
+    public void testParseHsvPercentageSpacePercentageSpacePercentage() {
+        this.parseHsvAndCheck("hsv(359 25% 50%)", 359, 0.25f, 0.5f);
     }
 
     private void parseHsvAndCheck(final String text,
                                   final float hue,
                                   final float saturation,
                                   final float value) {
-        this.parseAndCheck(ColorParsers.hsvFunction(),
+        this.parseAndCheck(ColorParsers.hsv(),
                 text,
                 Hsv.with(HsvComponent.hue(hue),
                         HsvComponent.saturation(saturation),
                         HsvComponent.value(value)));
     }
 
-    // hsva(359,1.0,1.0).................................................................................................
+    // hsv(359,1.0,1.0).................................................................................................
 
     @Test
-    public void testParseHsvaFunctionIncompleteFails() {
-        this.parseFails(ColorParsers.hsvaFunction(),
-                "hsva(359",
+    public void testParseHsvaIncompleteFails() {
+        this.parseFails(ColorParsers.hsv(),
+                "hsv(359",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHsvaFunctionMissingPercentSignFails() {
-        this.parseFails(ColorParsers.hsvaFunction(),
-                "hsva(359,50,10%)",
+    public void testParseHsvaNumberCommaNumberCommaPercentageFails() {
+        this.parseFails(ColorParsers.hsv(),
+                "hsv(359,50,10%)",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseHsvaFunctionMissingParensRightFails() {
-        this.parseFails(ColorParsers.hsvaFunction(),
-                "hsva(359,50%,10%",
-                ParserReporterException.class);
+    public void testParseHsvaNumberCommaNumberCommaNumberCommaNumber() {
+        this.parseHsvaAndCheck("hsva(359,0,0.5,1.0)", 359, 0f, 0.5f, 1.0f);
     }
 
     @Test
-    public void testParseHsvaFunction() {
-        this.parseHsvaAndCheck("hsva(359,100%,50%,25%)", 359, 1.0f, 0.5f, 0.25f);
+    public void testParseHsvaNumberDegCommaNumberCommaNumberCommaNumber() {
+        this.parseHsvaAndCheck("hsva(359deg,1.0,0.5,0.25)", 359, 1.0f, 0.5f, 0.25f);
     }
 
     @Test
-    public void testParseHsvaFunction2() {
-        this.parseHsvaAndCheck("hsva(99,0%,25%,50%)", 99, 0f, 0.25f, 0.5f);
+    public void testParseHsvaNumberSpaceNumberSpaceNumberSpaceNumber() {
+        this.parseHsvaAndCheck("hsva(359 0.25 0.5 / 0.75)", 359, 0.25f, 0.5f, 0.75f);
     }
 
     @Test
-    public void testParseHsvaFunctionExtraWhitespace() {
-        this.parseHsvaAndCheck("hsva( 299,100%, 50%, 0%)", 299, 1f, 0.5f, 0);
+    public void testParseHsvaSpaceNumberSpaceNumberSpaceNumberSpaceSlashNumber() {
+        this.parseHsvaAndCheck("hsva( 99 0.25 0.5/0.75)", 99, 0.25f, 0.5f, 0.75f);
+    }
+
+    @Test
+    public void testParseHsvaPercentageCommaPercentageCommaPercentage() {
+        this.parseHsvaAndCheck("hsva(359,0%,1%,2%)", 359, 0f, 0.01f, 0.02f);
+    }
+
+    @Test
+    public void testParseHsvaPercentageDegCommaPercentageCommaPercentage() {
+        this.parseHsvaAndCheck("hsva(359deg,100%,50%,25%)", 359, 1.0f, 0.5f, 0.25f);
+    }
+
+    @Test
+    public void testParseHsvaPercentageSpacePercentageSlashPercentage() {
+        this.parseHsvaAndCheck("hsva(359 25% 50%/75%)", 359, 0.25f, 0.5f, 0.75f);
+    }
+
+    @Test
+    public void testParseHsvaPercentageSpacePercentageSpaceSlashSpacePercentage() {
+        this.parseHsvaAndCheck("hsva(359 25% 50% / 75%)", 359, 0.25f, 0.5f, 0.75f);
     }
 
     private void parseHsvaAndCheck(final String text,
@@ -239,7 +323,7 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
                                    final float saturation,
                                    final float value,
                                    final float alpha) {
-        this.parseAndCheck(ColorParsers.hsvaFunction(),
+        this.parseAndCheck(ColorParsers.hsv(),
                 text,
                 Hsv.with(HsvComponent.hue(hue),
                         HsvComponent.saturation(saturation),
@@ -250,47 +334,64 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     // rgba(1,2,3).......................................................................................................
 
     @Test
-    public void testParseRgbaFunctionIncompleteFails() {
-        this.parseFails(ColorParsers.rgbaFunction(),
+    public void testParseRgbaIncompleteFails() {
+        this.parseFails(ColorParsers.rgb(),
                 "rgba(1",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseRgbaFunctionMissingParensRightFails() {
-        this.parseFails(ColorParsers.rgbaFunction(),
+    public void testParseRgbaMissingParensRightFails() {
+        this.parseFails(ColorParsers.rgb(),
                 "rgba(1,2,3,0.5",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseRgbaFunction() {
-        this.parseRgbaAndCheck("rgba(1,2,3,0.5)", 1, 2, 3, 127);
+    public void testParseRgbaNumberCommaPercentageCommaNumberCommaNumberFails() {
+        this.parseFails(ColorParsers.rgb(),
+                "rgba(1,100%,3,0.5)",
+                ParserReporterException.class);
     }
 
     @Test
-    public void testParseRgbaFunction2() {
-        this.parseRgbaAndCheck("rgba(12,34,56,0.5)", 12, 34, 56, 127);
+    public void testParseRgbaNumberCommaNumberCommaNumberCommaNumber() {
+        this.parseRgbaAndCheck("rgba(0,1,255,127)", 0, 1, 255, 127);
     }
 
     @Test
-    public void testParseRgbaFunction3() {
-        this.parseRgbaAndCheck("rgba(99,128,255,0.5)", 99, 128, 255, 127);
+    public void testParseRgbaNumberCommaNumberCommaNumberCommaPercentage() {
+        this.parseRgbaAndCheck("rgba(0,1,254,50%)", 0, 1, 254, 127);
     }
 
     @Test
-    public void testParseRgbaFunction4() {
-        this.parseRgbaAndCheck("rgba(0,0,0,0)", 0, 0, 0, 0);
+    public void testParseRgbaPercentageCommaPercentageCommaPercentageCommaNumber() {
+        this.parseRgbaAndCheck("rgba(0%,1%,100%,127)", 0, 2, 255, 127);
     }
 
     @Test
-    public void testParseRgbaFunction5() {
-        this.parseRgbaAndCheck("rgba(255,254,253,1.0)", 255, 254, 253, 255);
+    public void testParseRgbaPercentageCommaPercentageCommaPercentageCommaPercentage() {
+        this.parseRgbaAndCheck("rgba(0%,1%,100%,25%)", 0, 2, 255, 63);
     }
 
     @Test
-    public void testParseRgbaFunctionExtraWhitespace() {
-        this.parseRgbaAndCheck("rgba( 1,2 , 3, 0 )", 1, 2, 3, 0);
+    public void testParseRgbaSpacePercentageSpaceCommaPercentageCommaPercentageCommaPercentage() {
+        this.parseRgbaAndCheck("rgba( 0% ,1%,100%,50%)", 0, 2, 255, 127);
+    }
+
+    @Test
+    public void testParseRgbaSpacePercentageSpaceCommaPercentageCommaPercentageCommaSpacePercentageSpace() {
+        this.parseRgbaAndCheck("rgba( 0% ,1%,100%, 50% )", 0, 2, 255, 127);
+    }
+
+    @Test
+    public void testParseRgbaSpaceNumberSpaceNumberSpaceNumberSlashNumber() {
+        this.parseRgbaAndCheck("rgba( 0 1 2/3 )", 0, 1, 2, 3);
+    }
+
+    @Test
+    public void testParseRgbaSpaceNumberSpaceNumberSpaceNumberSpaceSlashSpaceNumber() {
+        this.parseRgbaAndCheck("rgba( 0 1 2 / 3 )", 0, 1, 2, 3);
     }
 
     private void parseRgbaAndCheck(final String text,
@@ -299,7 +400,7 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
                                    final int blue,
                                    final int alpha) {
         this.parseAndCheck(
-                ColorParsers.rgbaFunction(),
+                ColorParsers.rgb(),
                 text,
                 Color.with(
                         ColorComponent.red((byte) red),
@@ -311,41 +412,63 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     // rgb(1,2,3).......................................................................................................
 
     @Test
-    public void testParseRgbFunctionIncompleteFails() {
-        this.parseFails(ColorParsers.rgbFunction(),
+    public void testParseRgbIncompleteFails() {
+        this.parseFails(ColorParsers.rgb(),
                 "rgb(1",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseRgbFunctionMissingParensRightFails() {
-        this.parseFails(ColorParsers.rgbFunction(),
+    public void testParseRgbMissingParensRightFails() {
+        this.parseFails(ColorParsers.rgb(),
                 "rgb(1,2,3",
                 ParserReporterException.class);
     }
 
     @Test
-    public void testParseRgbFunction() {
-        this.parseRgbAndCheck("rgb(1,2,3)", 1, 2, 3);
+    public void testParseRgbNumberCommaPercentageCommaNumberFails() {
+        this.parseFails(ColorParsers.rgb(),
+                "rgb(1,2%,3)",
+                ParserReporterException.class);
     }
 
     @Test
-    public void testParseRgbFunction2() {
-        this.parseRgbAndCheck("rgb(12,34,56)", 12, 34, 56);
+    public void testParseRgbNumberCommaNumberCommaNumber() {
+        this.parseRgbAndCheck("rgb(0,1,2)", 0, 1, 2);
     }
 
     @Test
-    public void testParseRgbFunction3() {
+    public void testParseRgbNumberCommaNumberCommaNumber2() {
         this.parseRgbAndCheck("rgb(99,128,255)", 99, 128, 255);
     }
 
     @Test
-    public void testParseRgbFunctionExtraWhitespace() {
-        this.parseRgbAndCheck("rgb( 1,2 , 3 )", 1, 2, 3);
+    public void testParseRgbNumberCommaNumberCommaPercentage() {
+        this.parseRgbAndCheck("rgb(25%,50%,100%)", 63, 127, 255);
+    }
+
+    @Test
+    public void testParseRgbWhitespaceNumberCommaWhitespaceNumberCommaWhitespaceNumberCommaWhitespaceNumber() {
+        this.parseRgbAndCheck("rgb( 1, 2, 3)", 1, 2, 3);
+    }
+
+    @Test
+    public void testParseRgbNumberWhitespaceCommaNumberWhitespaceCommaNumberWhitespaceCommaNumberWhitespace() {
+        this.parseRgbAndCheck("rgb(1 ,2 ,3 )", 1, 2, 3);
+    }
+
+    @Test
+    public void testParseRgbPercentageSpacePercentageSpacePercentageSpace() {
+        this.parseRgbAndCheck("rgb(0% 1% 2%)", 0, 2, 5);
+    }
+
+    @Test
+    public void testParseRgbSpacePercentageSpacePercentageSpacePercentageSpace() {
+        this.parseRgbAndCheck("rgb( 0% 1% 2% )", 0, 2, 5);
     }
 
     private void parseRgbAndCheck(final String text, final int red, final int green, final int blue) {
-        this.parseAndCheck(ColorParsers.rgbFunction(),
+        this.parseAndCheck(ColorParsers.rgb(),
                 text,
                 Color.with(ColorComponent.red((byte) red),
                         ColorComponent.green((byte) green),

@@ -18,12 +18,24 @@
 
 package walkingkooka.text.cursor.parser.color;
 
-import walkingkooka.test.ClassTesting;
+import walkingkooka.text.cursor.parser.ParserException;
 
-public final class HslFunctionHslaFunctionParserTokenVisitorTest extends ColorParserTokenVisitorTestCase {
+/**
+ * The {@link ParserException} that is thrown whenever json parsing fails
+ */
+public class ColorParserException extends ParserException {
 
-    @Override
-    public Class<HslFunctionHslaFunctionParserTokenVisitor> type() {
-        return HslFunctionHslaFunctionParserTokenVisitor.class;
+    protected ColorParserException() {
+        super();
     }
+
+    public ColorParserException(final String message) {
+        super(message);
+    }
+
+    public ColorParserException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    private final static long serialVersionUID = 1L;
 }

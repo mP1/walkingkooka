@@ -19,33 +19,38 @@
 package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.color.ColorComponent;
 import walkingkooka.text.cursor.parser.DoubleParserToken;
-import walkingkooka.text.cursor.parser.SequenceParserToken;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 
 /**
- * Handles converting a {@link SequenceParserToken} into a {@link ColorParserToken}.
+ * Accepts PERCENTAGE tokens replacing them with just a single {@link DoubleParserToken} with a value from the percentage.
  */
-final class RgbaFunctionParserTokenVisitor extends RgbFunctionRgbaFunctionParserTokenVisitor {
+final class ColorParsersPercentageParserTokenVisitor extends ParserTokenVisitor {
 
-    static ColorParserToken parseSequenceParserToken(final SequenceParserToken token) {
-        return new RgbaFunctionParserTokenVisitor().acceptAndCreateColorParserToken(token);
+    static DoubleParserToken transform(final ParserToken token, final ParserContext context) {
+        final ColorParsersPercentageParserTokenVisitor visitor = new ColorParsersPercentageParserTokenVisitor();
+        visitor.accept(token);
+        return DoubleParserToken.with(visitor.value, token.text());
+    }
+
+    ColorParsersPercentageParserTokenVisitor() {
+        super();
     }
 
     @Override
     protected void visit(final DoubleParserToken token) {
-        this.color = this.color.set(ColorComponent.alpha((byte) (token.value().floatValue() * ColorComponent.MAX_VALUE)));
+        this.value = token.value() / 100;
     }
+
+    private double value;
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .label("red")
-                .value(this.red)
-                .label("green")
-                .value(this.green)
-                .label("color")
-                .value(this.color)
+                .label("percentage")
+                .value(this.value)
                 .build();
     }
 }

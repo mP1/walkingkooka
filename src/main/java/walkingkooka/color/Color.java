@@ -62,11 +62,7 @@ abstract public class Color extends ColorHslOrHsv {
         Color color;
 
         do {
-            if (text.startsWith("rgba(")) {
-                color = parseRgbaFunction(text);
-                break;
-            }
-            if (text.startsWith("rgb(")) {
+            if (text.startsWith("rgb")) {
                 color = parseRgbFunction(text);
                 break;
             }
@@ -84,18 +80,6 @@ abstract public class Color extends ColorHslOrHsv {
         return color;
     }
 
-    // parseColor rgba(12,34,56,0.5).............................................................................................
-
-    private static Color parseRgbaFunction(final String text) {
-        return parseColorHslOrHsvParserToken(text,
-                RGBA_FUNCTION_PARSER,
-                ColorParserToken.class)
-                .value();
-    }
-
-    private final static Parser<ParserContext> RGBA_FUNCTION_PARSER = ColorParsers.rgbaFunction()
-            .orReport(ParserReporters.basic());
-
     // parseColor rgb(12,34,56)..............................................................................................
 
     private static Color parseRgbFunction(final String text) {
@@ -105,7 +89,7 @@ abstract public class Color extends ColorHslOrHsv {
                 .value();
     }
 
-    private final static Parser<ParserContext> RGB_FUNCTION_PARSER = ColorParsers.rgbFunction()
+    private final static Parser<ParserContext> RGB_FUNCTION_PARSER = ColorParsers.rgb()
             .orReport(ParserReporters.basic());
 
     // parseWebColorName................................................................................................

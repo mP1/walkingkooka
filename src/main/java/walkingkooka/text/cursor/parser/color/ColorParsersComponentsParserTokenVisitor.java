@@ -19,37 +19,43 @@
 package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.color.Hsv;
-import walkingkooka.color.HsvComponent;
+import walkingkooka.build.tostring.ToStringBuilderOption;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.SequenceParserToken;
+import walkingkooka.text.cursor.parser.ParserTokenVisitor;
+
+import java.util.List;
 
 /**
- * A {@link ColorParserTokenVisitor} used to parse a {@link SequenceParserToken} into a {@link HsvParserToken}
+ * Collects all double values from a {@link ParserToken}.
  */
-final class HsvFunctionParserTokenVisitor extends HsvFunctionHsvaFunctionParserTokenVisitor {
+final class ColorParsersComponentsParserTokenVisitor extends ParserTokenVisitor {
 
-    static HsvParserToken acceptParserToken(final ParserToken token) {
-        final HsvFunctionParserTokenVisitor visitor = new HsvFunctionParserTokenVisitor();
+    static List<Float> transform(final ParserToken token) {
+        final ColorParsersComponentsParserTokenVisitor visitor = new ColorParsersComponentsParserTokenVisitor();
         visitor.accept(token);
-        return HsvParserToken.with(visitor.hsv, token.text());
+        return visitor.values;
     }
 
-    HsvFunctionParserTokenVisitor() {
+    ColorParsersComponentsParserTokenVisitor() {
         super();
     }
 
     @Override
-    void visit0(final float percentToFloat) {
-        this.hsv = Hsv.with(this.hue, this.saturation, HsvComponent.value(percentToFloat));
+    protected void visit(final DoubleParserToken token) {
+        this.values.add(token.value().floatValue());
     }
+
+    private final List<Float> values = Lists.array();
+
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .label("hue").value(this.hue)
-                .label("saturation").value(this.saturation)
-                .label("hsv").value(this.hsv)
+                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+                .label("values")
+                .value(this.values)
                 .build();
     }
 }

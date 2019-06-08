@@ -20,7 +20,6 @@ package walkingkooka.color;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -46,39 +45,9 @@ public abstract class Hsv extends ColorHslOrHsv {
                 .value();
     }
 
-    private final static Parser<ParserContext> HSV_FUNCTION_PARSER = ColorParsers.hsvFunction()
+    private final static Parser<ParserContext> HSV_FUNCTION_PARSER = ColorParsers.hsv()
             .orReport(ParserReporters.basic());
 
-    // parse hsva(359,100%,100%,50%)..............................................................................................
-
-    public static Hsv parseHsva(final String text) {
-        return parseColorHslOrHsvParserToken(text,
-                HSVA_FUNCTION_PARSER,
-                HsvParserToken.class)
-                .value();
-    }
-
-    static Hsv parseHsvOrHsva(final String text) {
-        Hsv hsv;
-
-        do {
-            if (text.startsWith("hsv(")) {
-                hsv = parseHsv(text);
-                break;
-            }
-            if (text.startsWith("hsva(")) {
-                hsv = parseHsva(text);
-                break;
-            }
-            throw new IllegalArgumentException("Invalid color: " + CharSequences.quoteAndEscape(text));
-        } while (false);
-
-        return hsv;
-    }
-
-    private final static Parser<ParserContext> HSVA_FUNCTION_PARSER = ColorParsers.hsvaFunction()
-            .orReport(ParserReporters.basic());
-    
     /**
      * Factory that creates a new {@link Hsv}
      */

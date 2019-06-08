@@ -19,37 +19,40 @@
 package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.color.Hsl;
-import walkingkooka.color.HslComponent;
+import walkingkooka.color.ColorComponent;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.SequenceParserToken;
+import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 
 /**
- * A {@link ColorParserTokenVisitor} used to parse a {@link SequenceParserToken} into a {@link HslParserToken}
+ * Accepts PERCENTAGE tokens replacing them with just a single {@link DoubleParserToken} with a value from the percentage.
  */
-final class HslFunctionParserTokenVisitor extends HslFunctionHslaFunctionParserTokenVisitor {
+final class ColorParsersRgbPercentageParserTokenVisitor extends ParserTokenVisitor {
 
-    static HslParserToken acceptParserToken(final ParserToken token) {
-        final HslFunctionParserTokenVisitor visitor = new HslFunctionParserTokenVisitor();
+    static DoubleParserToken transform(final ParserToken token, final ParserContext context) {
+        final ColorParsersRgbPercentageParserTokenVisitor visitor = new ColorParsersRgbPercentageParserTokenVisitor();
         visitor.accept(token);
-        return HslParserToken.with(visitor.hsl, token.text());
+        return DoubleParserToken.with(visitor.value, token.text());
     }
 
-    HslFunctionParserTokenVisitor() {
+    ColorParsersRgbPercentageParserTokenVisitor() {
         super();
     }
 
     @Override
-    void visit0(final float percentToFloat) {
-        this.hsl = Hsl.with(this.hue, this.saturation, HslComponent.lightness(percentToFloat));
+    protected void visit(final DoubleParserToken token) {
+        this.value = token.value() * ColorComponent.MAX_VALUE / 100;
     }
+
+    private double value;
+
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .label("hue").value(this.hue)
-                .label("saturation").value(this.saturation)
-                .label("hsl").value(this.hsl)
+                .label("component")
+                .value(this.value)
                 .build();
     }
 }

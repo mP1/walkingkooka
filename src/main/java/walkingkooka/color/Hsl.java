@@ -20,7 +20,6 @@ package walkingkooka.color;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -37,7 +36,7 @@ import java.util.Objects;
  */
 public abstract class Hsl extends ColorHslOrHsv {
 
-    // parseColor hsl(359,100%,100%)..............................................................................................
+    // parseColor hsl(359,100%,100%) / hsla(359,100%,100%)..............................................................
 
     public static Hsl parseHsl(final String text) {
         return parseColorHslOrHsvParserToken(text,
@@ -46,37 +45,7 @@ public abstract class Hsl extends ColorHslOrHsv {
                 .value();
     }
 
-    private final static Parser<ParserContext> HSL_FUNCTION_PARSER = ColorParsers.hslFunction()
-            .orReport(ParserReporters.basic());
-
-    // parseColor hsla(359,100%,100%,50%)..............................................................................................
-
-    public static Hsl parseHsla(final String text) {
-        return parseColorHslOrHsvParserToken(text,
-                HSLA_FUNCTION_PARSER,
-                HslParserToken.class)
-                .value();
-    }
-
-    static Hsl parseHslOrHsla(final String text) {
-        Hsl hsl;
-
-        do {
-            if (text.startsWith("hsl(")) {
-                hsl = parseHsl(text);
-                break;
-            }
-            if (text.startsWith("hsla(")) {
-                hsl = parseHsla(text);
-                break;
-            }
-            throw new IllegalArgumentException("Invalid color: " + CharSequences.quoteAndEscape(text));
-        } while(false);
-
-        return hsl;
-    }
-
-    private final static Parser<ParserContext> HSLA_FUNCTION_PARSER = ColorParsers.hslaFunction()
+    private final static Parser<ParserContext> HSL_FUNCTION_PARSER = ColorParsers.hsl()
             .orReport(ParserReporters.basic());
 
     /**
@@ -338,7 +307,7 @@ public abstract class Hsl extends ColorHslOrHsv {
         Objects.requireNonNull(from, "from");
 
         try {
-            return parseHslOrHsla(from.stringValueOrFail());
+            return parseHsl(from.stringValueOrFail());
         } catch (final JsonNodeException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);
         }
