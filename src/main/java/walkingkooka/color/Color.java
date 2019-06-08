@@ -131,13 +131,13 @@ abstract public class Color extends ColorHslOrHsv {
                 color = parseRgb(text);
                 break;
             case 5:
-                color = parseArgb(text);
+                color = parseRgba(text);
                 break;
             case 7:
                 color = parseRrggbb(text);
                 break;
             case 9:
-                color = parseAarrggbb(text);
+                color = parseRrggbbaa(text);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid text length " + CharSequences.quoteAndEscape(text));
@@ -156,14 +156,20 @@ abstract public class Color extends ColorHslOrHsv {
     }
 
     /**
-     * Handles parsing ARGB 4 hex digits.
+     * Handles parsing RGBA 4 hex digits.
      */
-    private static Color parseArgb(final String text) {
+    private static Color parseRgba(final String text) {
         final int value = parseHashHexDigits(text);
-        return fromArgb((value & 0xF000) * 0x11000 +
-                (value & 0xF00) * 0x1100 +
-                (value & 0xF0) * 0x110 +
-                (value & 0xF) * 0x11);
+
+        final int red = ((value >> 12) & 0xf) * 0x11;
+        final int green = ((value >> 8) & 0xf) * 0x11;
+        final int blue = ((value >> 4) & 0xf) * 0x11;
+        final int alpha = (value & 0xf) * 0x11;
+
+        return fromArgb((alpha << 24) +
+                (red << 16) +
+                (green << 8) +
+                (blue << 0));
     }
 
     /**
@@ -175,10 +181,20 @@ abstract public class Color extends ColorHslOrHsv {
     }
 
     /**
-     * Handles parsing AARRGGBB 8 hex digits.
+     * Handles parsing RRGGBBAA 8 hex digits.
      */
-    private static Color parseAarrggbb(final String text) {
-        return fromArgb(parseHashHexDigits(text));
+    private static Color parseRrggbbaa(final String text) {
+        final int value = parseHashHexDigits(text);
+
+        final int red = (value >> 24) & 0xff;
+        final int green = (value >> 16) & 0xff;
+        final int blue = (value >>8) & 0xff;
+        final int alpha = value & 0xff;
+
+        return fromArgb((alpha << 24) +
+                (red << 16) +
+                (green << 8) +
+                (blue << 0));
     }
 
     private static int parseHashHexDigits(final String text) {
