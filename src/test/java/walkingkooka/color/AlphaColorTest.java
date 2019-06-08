@@ -106,34 +106,35 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
 
     @Test
     public void testFromJsonNode() {
-        this.fromJsonNodeAndCheck(JsonNode.string("#04010203"), Color.fromArgb(0x04010203));
+        this.fromJsonNodeAndCheck(JsonNode.string("#01020304"), Color.fromArgb(0x04010203));
     }
 
     @Test
     public void testFromJsonNodeFEDCBA98() {
-        this.fromJsonNodeAndCheck(JsonNode.string("#fedcba98"), Color.fromArgb(0xFEDCBA98));
+        this.fromJsonNodeAndCheck(JsonNode.string("#fedcba98"), Color.fromArgb(0x98FEDCBA));
     }
 
 
     @Test
     public void testToJsonNode() {
-        this.toJsonNodeAndCheck(Color.fromArgb(0x04010203), JsonNode.string("#04010203"));
+        this.toJsonNodeAndCheck(Color.fromArgb(0x04010203), JsonNode.string("#01020304"));
     }
 
     @Test
     public void testToJsonNodeFEDCBA98() {
-        this.toJsonNodeAndCheck(Color.fromArgb(0xFEDCBA98), JsonNode.string("#fedcba98"));
+        this.toJsonNodeAndCheck(Color.fromArgb(0x98FEDCBA), JsonNode.string("#fedcba98"));
     }
 
     // Object............................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(Color.fromArgb(0x04010203), "#04010203");
+        this.toStringAndCheck(Color.fromArgb(0x04010203), "#01020304");
     }
 
     @Override
-    AlphaColor createColorHslOrHsv(final RedColorComponent red, final GreenColorComponent green,
+    AlphaColor createColorHslOrHsv(final RedColorComponent red,
+                                   final GreenColorComponent green,
                                    final BlueColorComponent blue) {
         return AlphaColor.with(red, green, blue, ALPHA);
     }

@@ -166,8 +166,8 @@ final class AlphaColor extends Color {
 
     @Override
     void buildColorComponentsToString(final ToStringBuilder builder) {
-        builder.value(this.alpha);
         this.addRedGreenBlueComponents(builder);
+        builder.value(this.alpha);
     }
 
     // Serializable
