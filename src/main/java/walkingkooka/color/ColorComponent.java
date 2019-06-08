@@ -18,16 +18,13 @@
 
 package walkingkooka.color;
 
-import walkingkooka.test.HashCodeEqualsDefined;
-
-import java.io.Serializable;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
 /**
  * A value that holds a pixel color component such as the alpha channel component in a RGBA image.
  */
-abstract public class ColorComponent implements HashCodeEqualsDefined, Serializable {
+abstract public class ColorComponent extends ColorHslOrHsvComponent {
 
     static <C extends ColorComponent> C[] createConstants(final C[] constants,
                                                           final IntFunction<C> factory) {
