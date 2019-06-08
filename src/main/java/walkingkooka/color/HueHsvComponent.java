@@ -93,6 +93,11 @@ final public class HueHsvComponent extends HsvComponent {
     }
 
     @Override
+    public boolean isAlpha() {
+        return false;
+    }
+
+    @Override
     Hsv setComponent(final Hsv hsv) {
         return hsv.setHue(this);
     }

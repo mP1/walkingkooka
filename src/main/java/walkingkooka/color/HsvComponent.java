@@ -50,6 +50,13 @@ abstract public class HsvComponent implements HashCodeEqualsDefined, Serializabl
     }
 
     /**
+     * {@see AlphaHsvComponent}
+     */
+    public static AlphaHsvComponent alpha(final float value) {
+        return AlphaHsvComponent.with(value);
+    }
+
+    /**
      * Package private to limit sub classing
      */
     HsvComponent(final float value) {
@@ -105,6 +112,11 @@ abstract public class HsvComponent implements HashCodeEqualsDefined, Serializabl
      * Returns true if this is a {@link ValueHsvComponent}
      */
     public abstract boolean isValue();
+
+    /**
+     * Returns true if this is a {@link AlphaHsvComponent}
+     */
+    public abstract boolean isAlpha();
 
     /**
      * Setter used to create a new {@link Hsv} with this component replaced if different

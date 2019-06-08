@@ -16,14 +16,20 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.color;
+package walkingkooka.color;
 
-import walkingkooka.test.ClassTesting;
+import walkingkooka.test.ClassTesting2;
+import walkingkooka.type.MemberVisibility;
 
-public final class HslFunctionHslaFunctionParserTokenVisitorTest extends ColorParserTokenVisitorTestCase {
+public final class AlphaSaturationOrValueHsvComponentTest implements ClassTesting2<AlphaSaturationOrValueHsvComponent> {
 
     @Override
-    public Class<HslFunctionHslaFunctionParserTokenVisitor> type() {
-        return HslFunctionHslaFunctionParserTokenVisitor.class;
+    public Class<AlphaSaturationOrValueHsvComponent> type() {
+        return AlphaSaturationOrValueHsvComponent.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

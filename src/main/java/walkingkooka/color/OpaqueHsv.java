@@ -21,39 +21,39 @@ package walkingkooka.color;
 import walkingkooka.build.tostring.ToStringBuilder;
 
 /**
- * A {@link Hsl} that includes an alpha property.
+ * A {@link Hsv} that includes an alpha property.
  */
-final class OpaqueHsl extends Hsl {
+final class OpaqueHsv extends Hsv {
 
-    static OpaqueHsl withOpaque(final HueHslComponent hue,
-                                final SaturationHslComponent saturation,
-                                final LightnessHslComponent lightness) {
-        return new OpaqueHsl(hue, saturation, lightness);
+    static OpaqueHsv withOpaque(final HueHsvComponent hue,
+                                final SaturationHsvComponent saturation,
+                                final ValueHsvComponent value) {
+        return new OpaqueHsv(hue, saturation, value);
     }
 
-    private OpaqueHsl(final HueHslComponent hue,
-                      final SaturationHslComponent saturation,
-                      final LightnessHslComponent lightness) {
-        super(hue, saturation, lightness);
+    private OpaqueHsv(final HueHsvComponent hue,
+                      final SaturationHsvComponent saturation,
+                      final ValueHsvComponent value) {
+        super(hue, saturation, value);
     }
 
     @Override
-    public AlphaHslComponent alpha() {
-        return AlphaHslComponent.OPAQUE;
+    public AlphaHsvComponent alpha() {
+        return AlphaHsvComponent.OPAQUE;
     }
 
     /**
-     * Factory that creates a {@link Hsl} with the given {@link HslComponent components}.
+     * Factory that creates a {@link Hsv} with the given {@link HsvComponent components}.
      */
     @Override
-    Hsl replace(final HueHslComponent hue,
-                final SaturationHslComponent saturation,
-                final LightnessHslComponent lightness) {
-        return withOpaque(hue, saturation, lightness);
+    Hsv replace(final HueHsvComponent hue,
+                final SaturationHsvComponent saturation,
+                final ValueHsvComponent value) {
+        return withOpaque(hue, saturation, value);
     }
 
     @Override
-    Color color(final Color color) {
+    Color toColor0(final Color color) {
         return color;
     }
 
@@ -61,11 +61,11 @@ final class OpaqueHsl extends Hsl {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof OpaqueHsl;
+        return other instanceof OpaqueHsv;
     }
 
     @Override
-    boolean equals2(final Hsl other) {
+    boolean equals2(final Hsv other) {
         return true; // no alpha component to compare.
     }
 
@@ -73,7 +73,7 @@ final class OpaqueHsl extends Hsl {
 
     @Override
     String functionName() {
-        return "hsl(";
+        return "hsv(";
     }
 
     @Override

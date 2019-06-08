@@ -21,7 +21,7 @@ package walkingkooka.color;
 /**
  * A {@link HsvComponent} base class for saturation and value.
  */
-abstract class SaturationOrValueHsvComponent extends HsvComponent {
+abstract class AlphaSaturationOrValueHsvComponent extends HsvComponent {
 
     /**
      * The lowest possible legal value.
@@ -37,16 +37,16 @@ abstract class SaturationOrValueHsvComponent extends HsvComponent {
      * Verifies that the value is within the acceptable range.
      */
     static void check(final float value) {
-        if ((value < SaturationOrValueHsvComponent.MIN) || (value > SaturationOrValueHsvComponent.MAX)) {
+        if ((value < AlphaSaturationOrValueHsvComponent.MIN) || (value > AlphaSaturationOrValueHsvComponent.MAX)) {
             throw new IllegalArgumentException(
-                    "value not between " + SaturationOrValueHsvComponent.MIN + " and " + SaturationOrValueHsvComponent.MAX + "=" + value);
+                    "value not between " + AlphaSaturationOrValueHsvComponent.MIN + " and " + AlphaSaturationOrValueHsvComponent.MAX + "=" + value);
         }
     }
 
     /**
      * Package private to limit sub classing.
      */
-    SaturationOrValueHsvComponent(final float value) {
+    AlphaSaturationOrValueHsvComponent(final float value) {
         super(value);
     }
 
