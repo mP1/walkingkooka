@@ -416,21 +416,21 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     // misc..............................................................................................................
 
     private static void misc(final Map<EbnfIdentifierName, Parser<ParserContext>> predefined) {
-        predefined.put(OPEN_SQUARE_BRACKET_IDENTIFIER, OPEN_SQUARE_BRACKET);
-        predefined.put(CLOSE_SQUARE_BRACKET_IDENTIFIER, CLOSE_SQUARE_BRACKET);
+        predefined.put(BRACKET_OPEN_IDENTIFIER, BRACKET_OPEN);
+        predefined.put(BRACKET_CLOSE_IDENTIFIER, BRACKET_CLOSE);
 
         predefined.put(ESCAPE_IDENTIFIER, ESCAPE);
         predefined.put(LITERAL_IDENTIFIER, LITERAL);
         predefined.put(LITERAL2_IDENTIFIER, LITERAL2);
     }
 
-    private static final EbnfIdentifierName OPEN_SQUARE_BRACKET_IDENTIFIER = EbnfIdentifierName.with("OPEN_SQUARE_BRACKET");
-    private static final Parser<ParserContext> OPEN_SQUARE_BRACKET = symbol('[',
+    private static final EbnfIdentifierName BRACKET_OPEN_IDENTIFIER = EbnfIdentifierName.with("BRACKET_OPEN");
+    private static final Parser<ParserContext> BRACKET_OPEN = symbol('[',
             SpreadsheetFormatParserToken::bracketOpenSymbol,
             SpreadsheetFormatBracketOpenSymbolParserToken.class);
 
-    private static final EbnfIdentifierName CLOSE_SQUARE_BRACKET_IDENTIFIER = EbnfIdentifierName.with("CLOSE_SQUARE_BRACKET");
-    private static final Parser<ParserContext> CLOSE_SQUARE_BRACKET = symbol(']',
+    private static final EbnfIdentifierName BRACKET_CLOSE_IDENTIFIER = EbnfIdentifierName.with("BRACKET_CLOSE");
+    private static final Parser<ParserContext> BRACKET_CLOSE = symbol(']',
             SpreadsheetFormatParserToken::bracketCloseSymbol,
             SpreadsheetFormatBracketCloseSymbolParserToken.class);
 
