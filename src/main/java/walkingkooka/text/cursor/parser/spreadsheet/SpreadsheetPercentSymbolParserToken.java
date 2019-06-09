@@ -33,17 +33,17 @@ public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetNonBin
     }
 
     @Override
-    public boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isFunctionParameterSeparatorSymbol() {
         return false;
     }
 
     @Override
-    public boolean isOpenParenthesisSymbol() {
+    public boolean isParenthesisCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isParenthesisOpenSymbol() {
         return false;
     }
 

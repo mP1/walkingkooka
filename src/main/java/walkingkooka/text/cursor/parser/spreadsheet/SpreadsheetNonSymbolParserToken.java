@@ -42,22 +42,17 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
     }
 
     @Override
-    public final boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
     public final boolean isDivideSymbol() {
         return false;
     }
 
     @Override
-    public final boolean isFunctionParameterSeparatorSymbol() {
+    public final boolean isEqualsSymbol() {
         return false;
     }
 
     @Override
-    public final boolean isEqualsSymbol() {
+    public final boolean isFunctionParameterSeparatorSymbol() {
         return false;
     }
 
@@ -97,7 +92,12 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
     }
 
     @Override
-    public final boolean isOpenParenthesisSymbol() {
+    public final boolean isParenthesisCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isParenthesisOpenSymbol() {
         return false;
     }
 

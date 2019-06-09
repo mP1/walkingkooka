@@ -76,13 +76,6 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     }
 
     /**
-     * {@see SpreadsheetCloseParenthesisSymbolParserToken}
-     */
-    public static SpreadsheetCloseParenthesisSymbolParserToken closeParenthesisSymbol(final String value, final String text) {
-        return SpreadsheetCloseParenthesisSymbolParserToken.with(value, text);
-    }
-
-    /**
      * {@see SpreadsheetColumnReferenceParserToken}
      */
     public static SpreadsheetColumnReferenceParserToken columnReference(final SpreadsheetColumnReference value, final String text) {
@@ -286,10 +279,17 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     }
 
     /**
-     * {@see SpreadsheetOpenParenthesisSymbolParserToken}
+     * {@see SpreadsheetParenthesisCloseSymbolParserToken}
      */
-    public static SpreadsheetOpenParenthesisSymbolParserToken openParenthesisSymbol(final String value, final String text) {
-        return SpreadsheetOpenParenthesisSymbolParserToken.with(value, text);
+    public static SpreadsheetParenthesisCloseSymbolParserToken parenthesisCloseSymbol(final String value, final String text) {
+        return SpreadsheetParenthesisCloseSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetParenthesisOpenSymbolParserToken}
+     */
+    public static SpreadsheetParenthesisOpenSymbolParserToken parenthesisOpenSymbol(final String value, final String text) {
+        return SpreadsheetParenthesisOpenSymbolParserToken.with(value, text);
     }
 
     /**
@@ -424,11 +424,6 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
      * Only {@link SpreadsheetCellReferenceParserToken} return true
      */
     public abstract boolean isCellReference();
-
-    /**
-     * Only {@link SpreadsheetCloseParenthesisSymbolParserToken} return true
-     */
-    public abstract boolean isCloseParenthesisSymbol();
 
     /**
      * Only {@link SpreadsheetColumnReferenceParserToken} return true
@@ -576,9 +571,14 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     public abstract boolean isNotEqualsSymbol();
 
     /**
-     * Only {@link SpreadsheetOpenParenthesisSymbolParserToken} return true
+     * Only {@link SpreadsheetParenthesisCloseSymbolParserToken} return true
      */
-    public abstract boolean isOpenParenthesisSymbol();
+    public abstract boolean isParenthesisCloseSymbol();
+
+    /**
+     * Only {@link SpreadsheetParenthesisOpenSymbolParserToken} return true
+     */
+    public abstract boolean isParenthesisOpenSymbol();
 
     /**
      * Only {@link SpreadsheetPercentageParserToken} return true

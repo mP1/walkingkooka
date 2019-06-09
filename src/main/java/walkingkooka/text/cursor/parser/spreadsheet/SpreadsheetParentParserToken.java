@@ -96,11 +96,6 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
     }
 
     @Override
-    public final boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
     public final boolean isColumnReference() {
         return false;
     }
@@ -191,7 +186,12 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
     }
 
     @Override
-    public final boolean isOpenParenthesisSymbol() {
+    public final boolean isParenthesisCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isParenthesisOpenSymbol() {
         return false;
     }
 

@@ -288,11 +288,6 @@ final class SpreadsheetParserPrettySpreadsheetParserTokenVisitor extends Spreads
     }
 
     @Override
-    protected void visit(final SpreadsheetCloseParenthesisSymbolParserToken token) {
-        this.printer.leaf(token);
-    }
-
-    @Override
     protected void visit(final SpreadsheetColumnReferenceParserToken token) {
         this.printer.leaf(token);
     }
@@ -386,7 +381,12 @@ final class SpreadsheetParserPrettySpreadsheetParserTokenVisitor extends Spreads
     }
 
     @Override
-    protected void visit(final SpreadsheetOpenParenthesisSymbolParserToken token) {
+    protected void visit(final SpreadsheetParenthesisCloseSymbolParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetParenthesisOpenSymbolParserToken token) {
         this.printer.leaf(token);
     }
 

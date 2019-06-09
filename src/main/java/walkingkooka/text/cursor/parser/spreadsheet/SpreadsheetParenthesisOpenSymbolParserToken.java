@@ -18,23 +18,18 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 /**
- * Represents a close / right parens symbol token.
+ * Represents a open / left parens symbol token.
  */
-public final class SpreadsheetCloseParenthesisSymbolParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
+public final class SpreadsheetParenthesisOpenSymbolParserToken extends SpreadsheetNonBinaryOperandSymbolParserToken {
 
-    static SpreadsheetCloseParenthesisSymbolParserToken with(final String value, final String text) {
+    static SpreadsheetParenthesisOpenSymbolParserToken with(final String value, final String text) {
         checkValueAndText(value, text);
 
-        return new SpreadsheetCloseParenthesisSymbolParserToken(value, text);
+        return new SpreadsheetParenthesisOpenSymbolParserToken(value, text);
     }
 
-    private SpreadsheetCloseParenthesisSymbolParserToken(final String value, final String text) {
+    private SpreadsheetParenthesisOpenSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    @Override
-    public boolean isCloseParenthesisSymbol() {
-        return true;
     }
 
     @Override
@@ -43,8 +38,13 @@ public final class SpreadsheetCloseParenthesisSymbolParserToken extends Spreadsh
     }
 
     @Override
-    public boolean isOpenParenthesisSymbol() {
+    public boolean isParenthesisCloseSymbol() {
         return false;
+    }
+
+    @Override
+    public boolean isParenthesisOpenSymbol() {
+        return true;
     }
 
     @Override
@@ -64,6 +64,6 @@ public final class SpreadsheetCloseParenthesisSymbolParserToken extends Spreadsh
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetCloseParenthesisSymbolParserToken;
+        return other instanceof SpreadsheetParenthesisOpenSymbolParserToken;
     }
 }

@@ -55,9 +55,9 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         final String text = FUNCTION + "(" + NUMBER1 + ")";
 
         final SpreadsheetFunctionNameParserToken name = this.function();
-        final SpreadsheetOpenParenthesisSymbolParserToken left = this.openParenthesisSymbol();
+        final SpreadsheetParenthesisOpenSymbolParserToken left = this.openParenthesisSymbol();
         final SpreadsheetParserToken number = this.number1();
-        final SpreadsheetCloseParenthesisSymbolParserToken right = this.closeParenthesisSymbol();
+        final SpreadsheetParenthesisCloseSymbolParserToken right = this.closeParenthesisSymbol();
 
         final SpreadsheetFunctionParserToken token = this.createToken(text, name, left, number, right);
         this.checkText(token, text);
@@ -78,11 +78,11 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         final String text = FUNCTION + "( " + NUMBER1 + " )";
 
         final SpreadsheetFunctionNameParserToken name = this.function();
-        final SpreadsheetOpenParenthesisSymbolParserToken left = this.openParenthesisSymbol();
+        final SpreadsheetParenthesisOpenSymbolParserToken left = this.openParenthesisSymbol();
         final SpreadsheetWhitespaceParserToken whitespace1 = this.whitespace();
         final SpreadsheetParserToken number = this.number1();
         final SpreadsheetWhitespaceParserToken whitespace2 = this.whitespace();
-        final SpreadsheetCloseParenthesisSymbolParserToken right = this.closeParenthesisSymbol();
+        final SpreadsheetParenthesisCloseSymbolParserToken right = this.closeParenthesisSymbol();
 
         final SpreadsheetFunctionParserToken token = this.createToken(text, name, left, whitespace1, number, whitespace2, right);
         this.checkText(token, text);

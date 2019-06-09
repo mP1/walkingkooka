@@ -244,8 +244,8 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
         predefined.put(NUMBER_IDENTIFIER, NUMBER);
         predefined.put(PERCENT_SYMBOL_IDENTIFIER, PERCENT_SYMBOL);
 
-        predefined.put(OPEN_PARENTHESIS_SYMBOL_IDENTIFIER, OPEN_PARENTHESIS_SYMBOL);
-        predefined.put(CLOSE_PARENTHESIS_SYMBOL_IDENTIFIER, CLOSE_PARENTHESIS_SYMBOL);
+        predefined.put(PARENTHESIS_OPEN_SYMBOL_IDENTIFIER, PARENTHESIS_OPEN_SYMBOL);
+        predefined.put(PARENTHESIS_CLOSE_SYMBOL_IDENTIFIER, PARENTHESIS_CLOSE_SYMBOL);
 
         predefined.put(TEXT_IDENTIFIER, text());
 
@@ -258,20 +258,20 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             .cast();
 
     private static final EbnfIdentifierName PERCENT_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("PERCENT_SYMBOL");
-    private static final EbnfIdentifierName OPEN_PARENTHESIS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OPEN_PARENTHESIS_SYMBOL");
-    private static final EbnfIdentifierName CLOSE_PARENTHESIS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("CLOSE_PARENTHESIS_SYMBOL");
+    private static final EbnfIdentifierName PARENTHESIS_OPEN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("PARENTHESIS_OPEN_SYMBOL");
+    private static final EbnfIdentifierName PARENTHESIS_CLOSE_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("PARENTHESIS_CLOSE_SYMBOL");
     private static final EbnfIdentifierName TEXT_IDENTIFIER = EbnfIdentifierName.with("TEXT");
     private static final EbnfIdentifierName WHITESPACE_IDENTIFIER = EbnfIdentifierName.with("WHITESPACE");
 
     private static final Parser<ParserContext> PERCENT_SYMBOL = symbol('%',
             SpreadsheetParserToken::percentSymbol,
             SpreadsheetPercentSymbolParserToken.class);
-    private static final Parser<ParserContext> OPEN_PARENTHESIS_SYMBOL = symbol('(',
-            SpreadsheetParserToken::openParenthesisSymbol,
-            SpreadsheetOpenParenthesisSymbolParserToken.class);
-    private static final Parser<ParserContext> CLOSE_PARENTHESIS_SYMBOL = symbol(')',
-            SpreadsheetParserToken::closeParenthesisSymbol,
-            SpreadsheetCloseParenthesisSymbolParserToken.class);
+    private static final Parser<ParserContext> PARENTHESIS_OPEN_SYMBOL = symbol('(',
+            SpreadsheetParserToken::parenthesisOpenSymbol,
+            SpreadsheetParenthesisOpenSymbolParserToken.class);
+    private static final Parser<ParserContext> PARENTHESIS_CLOSE_SYMBOL = symbol(')',
+            SpreadsheetParserToken::parenthesisCloseSymbol,
+            SpreadsheetParenthesisCloseSymbolParserToken.class);
 
     /**
      * Text

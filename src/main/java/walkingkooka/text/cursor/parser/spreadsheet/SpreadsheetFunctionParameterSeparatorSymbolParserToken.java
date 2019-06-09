@@ -33,17 +33,17 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserToken extend
     }
 
     @Override
-    public boolean isCloseParenthesisSymbol() {
-        return false;
-    }
-
-    @Override
     public boolean isFunctionParameterSeparatorSymbol() {
         return true;
     }
 
     @Override
-    public boolean isOpenParenthesisSymbol() {
+    public boolean isParenthesisCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isParenthesisOpenSymbol() {
         return false;
     }
 
