@@ -71,10 +71,14 @@ public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetArithmet
         return SpreadsheetParserToken.subtraction(tokens, text);
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

@@ -63,6 +63,8 @@ public final class SpreadsheetDoubleParserToken extends SpreadsheetNumericParser
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);

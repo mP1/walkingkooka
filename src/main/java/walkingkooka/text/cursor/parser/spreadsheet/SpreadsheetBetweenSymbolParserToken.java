@@ -106,10 +106,14 @@ public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetBinary
         return SpreadsheetParserToken.range(tokens, text);
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

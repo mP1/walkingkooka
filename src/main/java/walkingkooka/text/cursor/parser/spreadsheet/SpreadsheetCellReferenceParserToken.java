@@ -64,6 +64,8 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
         return new SpreadsheetCellReferenceParserToken(tokens, text, without);
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isAddition() {
         return false;
@@ -149,6 +151,8 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -156,6 +160,8 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

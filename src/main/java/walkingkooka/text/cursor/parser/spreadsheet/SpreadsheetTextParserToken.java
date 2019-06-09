@@ -101,6 +101,8 @@ public final class SpreadsheetTextParserToken extends SpreadsheetNonSymbolParser
         return true;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);

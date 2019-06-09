@@ -35,6 +35,8 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonBinary
         super(value, text);
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isFunctionParameterSeparatorSymbol() {
         return false;
@@ -60,10 +62,14 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonBinary
         return true;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

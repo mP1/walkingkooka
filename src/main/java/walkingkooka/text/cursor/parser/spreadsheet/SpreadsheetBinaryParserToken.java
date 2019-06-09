@@ -59,6 +59,8 @@ abstract class SpreadsheetBinaryParserToken<T extends SpreadsheetBinaryParserTok
 
     final SpreadsheetParserToken right;
 
+    // isXXX............................................................................................................
+
     @Override
     public final boolean isCellReference() {
         return false;

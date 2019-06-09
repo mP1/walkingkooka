@@ -66,6 +66,8 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);

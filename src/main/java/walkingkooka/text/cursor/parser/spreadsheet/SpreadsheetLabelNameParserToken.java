@@ -97,6 +97,8 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolP
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);

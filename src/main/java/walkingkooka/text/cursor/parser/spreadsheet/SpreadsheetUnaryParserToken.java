@@ -44,6 +44,8 @@ abstract class SpreadsheetUnaryParserToken<T extends SpreadsheetUnaryParserToken
 
     final SpreadsheetParserToken parameter;
 
+    // isXXX............................................................................................................
+
     @Override
     public final boolean isAddition() {
         return false;

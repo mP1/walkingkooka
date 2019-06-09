@@ -395,10 +395,17 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     final String text;
 
     /**
+     * Value getter which may be a scalar or list of child tokens.
+     */
+    abstract Object value();
+
+    /**
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain
      * those tokens as text, but the tokens themselves will be removed.
      */
     abstract public Optional<SpreadsheetParserToken> withoutSymbols();
+
+    // isXXX............................................................................................................
 
     /**
      * Only {@link SpreadsheetAdditionParserToken} return true
@@ -648,6 +655,8 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
      */
     abstract SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text);
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     public final void accept(final ParserTokenVisitor visitor) {
         final SpreadsheetParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);
         final SpreadsheetParserToken token = this;
@@ -660,7 +669,7 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
 
     abstract public void accept(final SpreadsheetParserTokenVisitor visitor);
 
-    // Has
+    // HasExpressionNode................................................................................................
 
     /**
      * Converts this token to its {@link ExpressionNode} equivalent.
@@ -673,7 +682,7 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
 
     @Override
     public final int hashCode() {
-        return this.text().hashCode();
+        return Objects.hash(this.text, this.value());
     }
 
     @Override
@@ -686,11 +695,9 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final SpreadsheetParserToken other) {
-        return this.text().equals(other.text()) &&
-                this.equals1(other);
+        return this.text.equals(other.text) &&
+                this.value().equals(other.value());
     }
-
-    abstract boolean equals1(SpreadsheetParserToken other);
 
     @Override
     public final String toString() {
