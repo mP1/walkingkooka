@@ -27,22 +27,26 @@ import java.util.List;
  */
 public final class NodeSelectorModuloParserToken extends NodeSelectorArithmeticParserToken<NodeSelectorModuloParserToken> {
 
-    static NodeSelectorModuloParserToken with(final List<ParserToken> value, final String text) {
+    static NodeSelectorModuloParserToken with(final List<ParserToken> value,
+                                              final String text) {
         return new NodeSelectorModuloParserToken(copyAndCheckTokens(value),
                 checkTextNullOrWhitespace(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private NodeSelectorModuloParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    private NodeSelectorModuloParserToken(final List<ParserToken> value,
+                                          final String text,
+                                          final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
     @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
+    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
+                                               final List<ParserToken> without) {
         return new NodeSelectorModuloParserToken(tokens, this.text(), without);
     }
 
-    // is................................................................................................
+    // is..............................................................................................................
 
     @Override
     public boolean isAddition() {

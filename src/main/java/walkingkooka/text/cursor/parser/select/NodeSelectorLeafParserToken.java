@@ -24,7 +24,8 @@ import java.util.Objects;
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken implements LeafParserToken<T> {
+abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken
+        implements LeafParserToken<T> {
 
     static void checkValue(final Object value) {
         Objects.requireNonNull(value, "value");
@@ -35,13 +36,14 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken im
         this.value = value;
     }
 
+    @Override
     public final T value() {
         return this.value;
     }
 
     final T value;
 
-    // is..............................................................................................
+    // is...............................................................................................................
 
     @Override
     public final boolean isAddition() {
@@ -136,16 +138,5 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken im
     @Override
     public final boolean isSubtraction() {
         return false;
-    }
-
-    // Object..........................................................................................
-
-    @Override
-    final boolean equals1(final NodeSelectorParserToken other) {
-        return this.equals2(other.cast());
-    }
-
-    private boolean equals2(final NodeSelectorLeafParserToken other) {
-        return Objects.equals(this.value, other.value);
     }
 }

@@ -28,22 +28,26 @@ import java.util.List;
  */
 public final class NodeSelectorGreaterThanParserToken extends NodeSelectorComparisonParserToken<NodeSelectorGreaterThanParserToken> {
 
-    static NodeSelectorGreaterThanParserToken with(final List<ParserToken> value, final String text) {
+    static NodeSelectorGreaterThanParserToken with(final List<ParserToken> value,
+                                                   final String text) {
         return new NodeSelectorGreaterThanParserToken(copyAndCheckTokens(value),
                 checkTextNullOrWhitespace(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private NodeSelectorGreaterThanParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    private NodeSelectorGreaterThanParserToken(final List<ParserToken> value,
+                                               final String text,
+                                               final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
     @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
+    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
+                                               final List<ParserToken> without) {
         return new NodeSelectorGreaterThanParserToken(tokens, this.text(), without);
     }
 
-    // is................................................................................................
+    // is...............................................................................................................
 
     @Override
     public boolean isEquals() {

@@ -29,9 +29,13 @@ abstract public class NodeSelectorComparisonParserToken<T extends NodeSelectorCo
     /**
      * Package private to limit sub classing.
      */
-    NodeSelectorComparisonParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    NodeSelectorComparisonParserToken(final List<ParserToken> value,
+                                      final String text,
+                                      final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
+
+    // isXXX............................................................................................................
 
     @Override
     public final boolean isAddition() {
