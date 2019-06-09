@@ -219,11 +219,6 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
-    protected void visit(final SpreadsheetCloseParenthesisSymbolParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     protected void visit(final SpreadsheetDivideSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
@@ -309,7 +304,12 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
-    protected void visit(final SpreadsheetOpenParenthesisSymbolParserToken token) {
+    protected void visit(final SpreadsheetParenthesisCloseSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetParenthesisOpenSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
 

@@ -161,11 +161,11 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         return SpreadsheetParserToken.text(text, '"' + text + '"');
     }
 
-    final SpreadsheetOpenParenthesisSymbolParserToken openParenthesisSymbol() {
-        return SpreadsheetParserToken.openParenthesisSymbol("(", "(");
+    final SpreadsheetParenthesisOpenSymbolParserToken openParenthesisSymbol() {
+        return SpreadsheetParserToken.parenthesisOpenSymbol("(", "(");
     }
 
-    final SpreadsheetCloseParenthesisSymbolParserToken closeParenthesisSymbol() {
-        return SpreadsheetParserToken.closeParenthesisSymbol(")", ")");
+    final SpreadsheetParenthesisCloseSymbolParserToken closeParenthesisSymbol() {
+        return SpreadsheetParserToken.parenthesisCloseSymbol(")", ")");
     }
 }

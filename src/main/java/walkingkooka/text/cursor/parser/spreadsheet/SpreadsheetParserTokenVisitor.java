@@ -208,10 +208,6 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
-    protected void visit(final SpreadsheetCloseParenthesisSymbolParserToken token) {
-        // nop
-    }
-
     protected void visit(final SpreadsheetColumnReferenceParserToken token) {
         // nop
     }
@@ -284,7 +280,11 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
-    protected void visit(final SpreadsheetOpenParenthesisSymbolParserToken token) {
+    protected void visit(final SpreadsheetParenthesisCloseSymbolParserToken token) {
+        // nop
+    }
+
+    protected void visit(final SpreadsheetParenthesisOpenSymbolParserToken token) {
         // nop
     }
 

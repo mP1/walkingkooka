@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class SpreadsheetOpenParenthesisSymbolParserTokenTest extends SpreadsheetSymbolParserTokenTestCase<SpreadsheetOpenParenthesisSymbolParserToken> {
+public final class SpreadsheetParenthesisCloseSymbolParserTokenTest extends SpreadsheetSymbolParserTokenTestCase<SpreadsheetParenthesisCloseSymbolParserToken> {
 
     @Test
     public void testAccept() {
@@ -59,7 +59,7 @@ public final class SpreadsheetOpenParenthesisSymbolParserTokenTest extends Sprea
             }
 
             @Override
-            protected void visit(final SpreadsheetOpenParenthesisSymbolParserToken t) {
+            protected void visit(final SpreadsheetParenthesisCloseSymbolParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -69,7 +69,7 @@ public final class SpreadsheetOpenParenthesisSymbolParserTokenTest extends Sprea
 
     @Override
     public String text() {
-        return "(";
+        return ")";
     }
 
     @Override
@@ -78,17 +78,17 @@ public final class SpreadsheetOpenParenthesisSymbolParserTokenTest extends Sprea
     }
 
     @Override
-    SpreadsheetOpenParenthesisSymbolParserToken createToken(final String value, final String text) {
-        return SpreadsheetOpenParenthesisSymbolParserToken.with(value, text);
+    SpreadsheetParenthesisCloseSymbolParserToken createToken(final String value, final String text) {
+        return SpreadsheetParenthesisCloseSymbolParserToken.with(value, text);
     }
 
     @Override
-    public SpreadsheetOpenParenthesisSymbolParserToken createDifferentToken() {
-        return SpreadsheetOpenParenthesisSymbolParserToken.with(this.text(), "different");
+    public SpreadsheetParenthesisCloseSymbolParserToken createDifferentToken() {
+        return SpreadsheetParenthesisCloseSymbolParserToken.with(this.text(), "different");
     }
 
     @Override
-    public Class<SpreadsheetOpenParenthesisSymbolParserToken> type() {
-        return SpreadsheetOpenParenthesisSymbolParserToken.class;
+    public Class<SpreadsheetParenthesisCloseSymbolParserToken> type() {
+        return SpreadsheetParenthesisCloseSymbolParserToken.class;
     }
 }

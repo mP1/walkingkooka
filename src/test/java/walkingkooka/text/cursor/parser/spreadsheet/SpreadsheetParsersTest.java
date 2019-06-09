@@ -869,11 +869,11 @@ public final class SpreadsheetParsersTest implements ParserTesting<Parser<Spread
     }
 
     private SpreadsheetParserToken openParenthesis() {
-        return SpreadsheetParserToken.openParenthesisSymbol("(", "(");
+        return SpreadsheetParserToken.parenthesisOpenSymbol("(", "(");
     }
 
     private SpreadsheetParserToken closeParenthesis() {
-        return SpreadsheetParserToken.closeParenthesisSymbol(")", ")");
+        return SpreadsheetParserToken.parenthesisCloseSymbol(")", ")");
     }
 
     private SpreadsheetRangeParserToken range(final SpreadsheetParserToken from, final SpreadsheetParserToken to) {
