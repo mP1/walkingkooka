@@ -426,13 +426,13 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
 
     private static final EbnfIdentifierName OPEN_SQUARE_BRACKET_IDENTIFIER = EbnfIdentifierName.with("OPEN_SQUARE_BRACKET");
     private static final Parser<ParserContext> OPEN_SQUARE_BRACKET = symbol('[',
-            SpreadsheetFormatParserToken::openBracketSymbol,
-            SpreadsheetFormatOpenBracketSymbolParserToken.class);
+            SpreadsheetFormatParserToken::bracketOpenSymbol,
+            SpreadsheetFormatBracketOpenSymbolParserToken.class);
 
     private static final EbnfIdentifierName CLOSE_SQUARE_BRACKET_IDENTIFIER = EbnfIdentifierName.with("CLOSE_SQUARE_BRACKET");
     private static final Parser<ParserContext> CLOSE_SQUARE_BRACKET = symbol(']',
-            SpreadsheetFormatParserToken::closeBracketSymbol,
-            SpreadsheetFormatCloseBracketSymbolParserToken.class);
+            SpreadsheetFormatParserToken::bracketCloseSymbol,
+            SpreadsheetFormatBracketCloseSymbolParserToken.class);
 
     private static final EbnfIdentifierName ESCAPE_IDENTIFIER = EbnfIdentifierName.with("ESCAPE");
     private static final Parser<ParserContext> ESCAPE = escapeStarOrUnderline('\\',

@@ -249,7 +249,12 @@ final class SpreadsheetFormatParserPrettySpreadsheetFormatParserTokenVisitor ext
     }
 
     @Override
-    protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken token) {
+    protected void visit(final SpreadsheetFormatBracketCloseSymbolParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetFormatBracketOpenSymbolParserToken token) {
         this.printer.leaf(token);
     }
 
@@ -355,11 +360,6 @@ final class SpreadsheetFormatParserPrettySpreadsheetFormatParserTokenVisitor ext
 
     @Override
     protected void visit(final SpreadsheetFormatNotEqualsSymbolParserToken token) {
-        this.printer.leaf(token);
-    }
-
-    @Override
-    protected void visit(final SpreadsheetFormatOpenBracketSymbolParserToken token) {
         this.printer.leaf(token);
     }
 

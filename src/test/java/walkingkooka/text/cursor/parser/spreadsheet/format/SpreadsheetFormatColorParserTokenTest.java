@@ -83,7 +83,7 @@ public final class SpreadsheetFormatColorParserTokenTest extends SpreadsheetForm
             }
 
             @Override
-            protected void visit(final SpreadsheetFormatOpenBracketSymbolParserToken t) {
+            protected void visit(final SpreadsheetFormatBracketOpenSymbolParserToken t) {
                 assertSame(open, t);
                 b.append("5");
                 visited.add(t);
@@ -104,7 +104,7 @@ public final class SpreadsheetFormatColorParserTokenTest extends SpreadsheetForm
             }
 
             @Override
-            protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken t) {
+            protected void visit(final SpreadsheetFormatBracketCloseSymbolParserToken t) {
                 assertSame(close, t);
                 b.append("8");
                 visited.add(t);

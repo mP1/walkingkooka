@@ -37,7 +37,12 @@ public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFor
     }
 
     @Override
-    public boolean isCloseBracketSymbol() {
+    public boolean isBracketCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isBracketOpenSymbol() {
         return false;
     }
 
@@ -88,11 +93,6 @@ public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFor
 
     @Override
     public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOpenBracketSymbol() {
         return false;
     }
 

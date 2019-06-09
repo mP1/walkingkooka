@@ -111,11 +111,11 @@ public abstract class SpreadsheetFormatParentParserTokenTestCase<T extends Sprea
     }
 
     final SpreadsheetFormatParserToken closeBracket() {
-        return SpreadsheetFormatParserToken.closeBracketSymbol("]", "]");
+        return SpreadsheetFormatParserToken.bracketCloseSymbol("]", "]");
     }
 
     final SpreadsheetFormatParserToken openBracket() {
-        return SpreadsheetFormatParserToken.openBracketSymbol("[", "[");
+        return SpreadsheetFormatParserToken.bracketOpenSymbol("[", "[");
     }
 
     final SpreadsheetFormatParserToken digit() {

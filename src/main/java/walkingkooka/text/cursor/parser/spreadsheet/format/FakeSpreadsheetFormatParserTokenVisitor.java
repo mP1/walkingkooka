@@ -201,7 +201,12 @@ public class FakeSpreadsheetFormatParserTokenVisitor extends SpreadsheetFormatPa
     }
 
     @Override
-    protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken token) {
+    protected void visit(final SpreadsheetFormatBracketCloseSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetFormatBracketOpenSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -312,11 +317,6 @@ public class FakeSpreadsheetFormatParserTokenVisitor extends SpreadsheetFormatPa
 
     @Override
     protected void visit(final SpreadsheetFormatNotEqualsSymbolParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final SpreadsheetFormatOpenBracketSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
 

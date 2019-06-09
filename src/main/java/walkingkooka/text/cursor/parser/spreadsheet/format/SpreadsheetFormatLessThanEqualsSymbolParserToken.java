@@ -33,7 +33,12 @@ public final class SpreadsheetFormatLessThanEqualsSymbolParserToken extends Spre
     }
 
     @Override
-    public boolean isCloseBracketSymbol() {
+    public boolean isBracketCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isBracketOpenSymbol() {
         return false;
     }
 
@@ -84,11 +89,6 @@ public final class SpreadsheetFormatLessThanEqualsSymbolParserToken extends Spre
 
     @Override
     public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOpenBracketSymbol() {
         return false;
     }
 

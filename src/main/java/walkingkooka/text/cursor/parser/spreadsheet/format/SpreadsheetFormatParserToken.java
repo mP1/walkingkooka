@@ -55,10 +55,17 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     }
 
     /**
-     * {@see SpreadsheetFormatCloseBracketSymbolParserToken}
+     * {@see SpreadsheetFormatBracketCloseSymbolParserToken}
      */
-    public static SpreadsheetFormatCloseBracketSymbolParserToken closeBracketSymbol(final String value, final String text) {
-        return SpreadsheetFormatCloseBracketSymbolParserToken.with(value, text);
+    public static SpreadsheetFormatBracketCloseSymbolParserToken bracketCloseSymbol(final String value, final String text) {
+        return SpreadsheetFormatBracketCloseSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetFormatBracketOpenSymbolParserToken}
+     */
+    public static SpreadsheetFormatBracketOpenSymbolParserToken bracketOpenSymbol(final String value, final String text) {
+        return SpreadsheetFormatBracketOpenSymbolParserToken.with(value, text);
     }
 
     /**
@@ -307,13 +314,6 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     }
 
     /**
-     * {@see SpreadsheetFormatOpenBracketSymbolParserToken}
-     */
-    public static SpreadsheetFormatOpenBracketSymbolParserToken openBracketSymbol(final String value, final String text) {
-        return SpreadsheetFormatOpenBracketSymbolParserToken.with(value, text);
-    }
-
-    /**
      * {@see SpreadsheetFormatPercentSymbolParserToken}
      */
     public static SpreadsheetFormatPercentSymbolParserToken percentSymbol(final String value, final String text) {
@@ -467,9 +467,14 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     public abstract boolean isBigDecimal();
 
     /**
-     * Only {@link SpreadsheetFormatCloseBracketSymbolParserToken} return true
+     * Only {@link SpreadsheetFormatBracketCloseSymbolParserToken} return true
      */
-    public abstract boolean isCloseBracketSymbol();
+    public abstract boolean isBracketCloseSymbol();
+
+    /**
+     * Only {@link SpreadsheetFormatBracketOpenSymbolParserToken} return true
+     */
+    public abstract boolean isBracketOpenSymbol();
 
     /**
      * Only {@link SpreadsheetFormatColorParserToken} return true
@@ -650,11 +655,6 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
      * Only {@link SpreadsheetFormatNotEqualsSymbolParserToken} return true
      */
     public abstract boolean isNotEqualsSymbol();
-
-    /**
-     * Only {@link SpreadsheetFormatOpenBracketSymbolParserToken} return true
-     */
-    public abstract boolean isOpenBracketSymbol();
 
     /**
      * Only {@link SpreadsheetFormatPercentSymbolParserToken} return true
