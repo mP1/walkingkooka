@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
@@ -61,6 +60,8 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
     final List<ParserToken> valueIfWithoutSymbolsOrNull() {
         return this == this.without.get() ? this.value : null;
     }
+
+    // isXXX............................................................................................................
 
     @Override
     public final boolean isArrayBeginSymbol() {
@@ -138,14 +139,5 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
         for (ParserToken token : this.value()) {
             visitor.accept(token);
         }
-    }
-
-    @Override
-    final boolean equals1(final JsonNodeParserToken other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final JsonNodeParentParserToken other) {
-        return this.value.equals(other.value);
     }
 }

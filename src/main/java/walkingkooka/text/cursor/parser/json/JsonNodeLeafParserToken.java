@@ -35,6 +35,7 @@ abstract class JsonNodeLeafParserToken<T> extends JsonNodeParserToken implements
         this.value = value;
     }
 
+    @Override
     public final T value() {
         return this.value;
     }
@@ -52,13 +53,4 @@ abstract class JsonNodeLeafParserToken<T> extends JsonNodeParserToken implements
     }
 
     abstract public void accept(final JsonNodeParserTokenVisitor visitor);
-
-    @Override
-    final boolean equals1(final JsonNodeParserToken other) {
-        return this.equals2(other.cast());
-    }
-
-    private boolean equals2(final JsonNodeLeafParserToken other) {
-        return Objects.equals(this.value, other.value);
-    }
 }

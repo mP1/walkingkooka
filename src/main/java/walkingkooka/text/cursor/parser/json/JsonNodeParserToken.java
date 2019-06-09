@@ -153,10 +153,17 @@ public abstract class JsonNodeParserToken implements ParserToken {
     private final String text;
 
     /**
+     * Fetches the value which may be a scalar or child tokens.
+     */
+    abstract Object value();
+
+    /**
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain
      * those tokens as text, but the tokens themselves will be removed.
      */
     abstract public Optional<JsonNodeParserToken> withoutSymbols();
+
+    // isXXX.............................................................................................................
 
     /**
      * Only {@link JsonNodeArrayParserToken} return true
@@ -262,7 +269,7 @@ public abstract class JsonNodeParserToken implements ParserToken {
 
     @Override
     public final int hashCode() {
-        return this.text().hashCode();
+        return Objects.hash(this.text, this.value());
     }
 
     @Override
@@ -276,10 +283,8 @@ public abstract class JsonNodeParserToken implements ParserToken {
 
     private boolean equals0(final JsonNodeParserToken other) {
         return this.text().equals(other.text()) &&
-                this.equals1(other);
+                Objects.equals(this.value(), other.value()); // needs to be null safe because of JsonNodeNullParserToken
     }
-
-    abstract boolean equals1(JsonNodeParserToken other);
 
     @Override
     public final String toString() {

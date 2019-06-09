@@ -37,7 +37,7 @@ public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void
         super(value, text);
     }
 
-    // is ...............................................................................................
+    // is ..............................................................................................................
 
     @Override
     public boolean isBoolean() {
@@ -58,6 +58,8 @@ public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void
     public boolean isString() {
         return false;
     }
+
+    // JsonNodeParserTokenVisitor.......................................................................................
 
     @Override
     public void accept(final JsonNodeParserTokenVisitor visitor) {
