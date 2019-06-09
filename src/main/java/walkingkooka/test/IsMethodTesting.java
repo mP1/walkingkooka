@@ -53,7 +53,7 @@ public interface IsMethodTesting<T> extends Testing {
         isMethod.setAccessible(true);
         assertEquals(true,
                 isMethod.invoke(object),
-                () -> "Is method should have returned true for " + object);
+                () -> "Is method " + isMethod.toGenericString() + " should have returned true for " + object);
 
         final Predicate<String> filter = this.isMethodIgnoreMethodFilter();
 
