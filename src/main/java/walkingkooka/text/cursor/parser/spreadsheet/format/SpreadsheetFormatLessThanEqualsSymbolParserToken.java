@@ -32,6 +32,8 @@ public final class SpreadsheetFormatLessThanEqualsSymbolParserToken extends Spre
         super(value, text);
     }
 
+    // is...............................................................................................................
+
     @Override
     public boolean isBracketCloseSymbol() {
         return false;
@@ -107,10 +109,14 @@ public final class SpreadsheetFormatLessThanEqualsSymbolParserToken extends Spre
         return false;
     }
 
+    // SpreadsheetFormatParserTokenVisitor..............................................................................
+
     @Override
     public void accept(final SpreadsheetFormatParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

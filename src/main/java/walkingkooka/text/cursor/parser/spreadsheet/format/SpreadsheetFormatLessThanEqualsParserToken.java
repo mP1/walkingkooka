@@ -82,6 +82,8 @@ public final class SpreadsheetFormatLessThanEqualsParserToken extends Spreadshee
         return false;
     }
 
+    // SpreadsheetFormatParserTokenVisitor..............................................................................
+
     @Override
     public void accept(final SpreadsheetFormatParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -89,6 +91,8 @@ public final class SpreadsheetFormatLessThanEqualsParserToken extends Spreadshee
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

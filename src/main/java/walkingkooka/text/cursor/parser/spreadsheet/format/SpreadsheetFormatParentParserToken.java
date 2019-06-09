@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -87,7 +86,7 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
      */
     abstract SpreadsheetFormatParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without);
 
-    // isXXX......................................................................................................
+    // isXXX............................................................................................................
 
     @Override
     public final boolean isAmPm() {
@@ -274,20 +273,11 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
         return false;
     }
 
-    // Visitor......................................................................................................
+    // SpreadsheetFormatParserTokenVisitor..............................................................................
 
     final void acceptValues(final SpreadsheetFormatParserTokenVisitor visitor) {
         for (ParserToken token : this.value()) {
             visitor.accept(token);
         }
-    }
-
-    @Override
-    final boolean equals1(final SpreadsheetFormatParserToken other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final SpreadsheetFormatParentParserToken other) {
-        return this.value.equals(other.value);
     }
 }

@@ -36,6 +36,8 @@ abstract class SpreadsheetFormatNonSymbolParserToken<T> extends SpreadsheetForma
         return Optional.of(this);
     }
 
+    // is...............................................................................................................
+
     @Override
     public final boolean isBracketCloseSymbol() {
         return false;
