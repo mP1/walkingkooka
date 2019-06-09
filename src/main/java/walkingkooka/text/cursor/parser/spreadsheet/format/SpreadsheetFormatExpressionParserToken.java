@@ -138,6 +138,8 @@ public final class SpreadsheetFormatExpressionParserToken extends SpreadsheetFor
         return false;
     }
 
+    // SpreadsheetFormatParserTokenVisitor..............................................................................
+
     @Override
     public void accept(SpreadsheetFormatParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -145,6 +147,8 @@ public final class SpreadsheetFormatExpressionParserToken extends SpreadsheetFor
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

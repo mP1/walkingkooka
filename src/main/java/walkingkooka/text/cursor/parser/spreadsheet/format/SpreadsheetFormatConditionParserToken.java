@@ -62,6 +62,8 @@ abstract public class SpreadsheetFormatConditionParserToken<T extends Spreadshee
 
     final SpreadsheetFormatParserToken right;
 
+    // is...............................................................................................................
+
     @Override
     public final boolean isBigDecimal() {
         return false;

@@ -35,6 +35,8 @@ abstract class SpreadsheetFormatSymbolParserToken extends SpreadsheetFormatLeafP
         return Optional.empty();
     }
 
+    // is...............................................................................................................
+
     @Override
     public final boolean isAmPm() {
         return false;

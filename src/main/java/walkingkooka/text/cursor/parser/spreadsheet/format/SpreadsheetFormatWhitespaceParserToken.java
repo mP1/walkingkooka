@@ -36,6 +36,8 @@ public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFor
         super(value, text);
     }
 
+    // is...............................................................................................................
+
     @Override
     public boolean isBracketCloseSymbol() {
         return false;
@@ -111,10 +113,14 @@ public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFor
         return true;
     }
 
+    // SpreadsheetFormatParserTokenVisitor..............................................................................
+
     @Override
     public void accept(final SpreadsheetFormatParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

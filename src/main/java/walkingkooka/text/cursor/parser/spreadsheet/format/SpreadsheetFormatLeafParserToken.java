@@ -40,6 +40,7 @@ abstract class SpreadsheetFormatLeafParserToken<T> extends SpreadsheetFormatPars
         this.value = value;
     }
 
+    @Override
     public final T value() {
         return this.value;
     }
@@ -131,16 +132,5 @@ abstract class SpreadsheetFormatLeafParserToken<T> extends SpreadsheetFormatPars
     @Override
     public final boolean isTime() {
         return false;
-    }
-
-    abstract public void accept(final SpreadsheetFormatParserTokenVisitor visitor);
-
-    @Override
-    final boolean equals1(final SpreadsheetFormatParserToken other) {
-        return this.equals2(other.cast());
-    }
-
-    private boolean equals2(final SpreadsheetFormatLeafParserToken other) {
-        return this.value.equals(other.value);
     }
 }

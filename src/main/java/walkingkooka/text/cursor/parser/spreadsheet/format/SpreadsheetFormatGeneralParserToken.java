@@ -139,6 +139,8 @@ public final class SpreadsheetFormatGeneralParserToken extends SpreadsheetFormat
         return false;
     }
 
+    // SpreadsheetFormatParserTokenVisitor..............................................................................
+
     @Override
     public void accept(SpreadsheetFormatParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -146,6 +148,8 @@ public final class SpreadsheetFormatGeneralParserToken extends SpreadsheetFormat
         }
         visitor.endVisit(this);
     }
+
+    // toSearchNode.....................................................................................................
 
     @Override
     public SearchNode toSearchNode() {
@@ -158,6 +162,8 @@ public final class SpreadsheetFormatGeneralParserToken extends SpreadsheetFormat
         final String text = this.text();
         return SearchNode.text(text, text);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

@@ -449,6 +449,11 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     private final String text;
 
     /**
+     * Getter that returns the scalar or child tokens.
+     */
+    abstract Object value();
+
+    /**
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain
      * those tokens as text, but the tokens themselves will be removed.
      */
@@ -757,11 +762,9 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final SpreadsheetFormatParserToken other) {
-        return this.text().equals(other.text()) &&
-                this.equals1(other);
+        return this.text.equals(other.text) &&
+                this.value().equals(other.value());
     }
-
-    abstract boolean equals1(SpreadsheetFormatParserToken other);
 
     @Override
     public final String toString() {
