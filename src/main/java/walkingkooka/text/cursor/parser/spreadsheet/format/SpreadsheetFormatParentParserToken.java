@@ -95,7 +95,12 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
     }
 
     @Override
-    public final boolean isCloseBracketSymbol() {
+    public final boolean isBracketCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isBracketOpenSymbol() {
         return false;
     }
 
@@ -206,11 +211,6 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
 
     @Override
     public final boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public final boolean isOpenBracketSymbol() {
         return false;
     }
 

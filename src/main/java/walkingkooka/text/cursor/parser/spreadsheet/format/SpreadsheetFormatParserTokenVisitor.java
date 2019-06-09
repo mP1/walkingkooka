@@ -162,7 +162,11 @@ public abstract class SpreadsheetFormatParserTokenVisitor extends ParserTokenVis
         // nop
     }
 
-    protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken token) {
+    protected void visit(final SpreadsheetFormatBracketCloseSymbolParserToken token) {
+        // nop
+    }
+
+    protected void visit(final SpreadsheetFormatBracketOpenSymbolParserToken token) {
         // nop
     }
 
@@ -251,10 +255,6 @@ public abstract class SpreadsheetFormatParserTokenVisitor extends ParserTokenVis
     }
 
     protected void visit(final SpreadsheetFormatNotEqualsSymbolParserToken token) {
-        // nop
-    }
-
-    protected void visit(final SpreadsheetFormatOpenBracketSymbolParserToken token) {
         // nop
     }
 

@@ -3916,7 +3916,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
     }
 
     private static SpreadsheetFormatParserToken closeSquareBracket() {
-        return SpreadsheetFormatParserToken.closeBracketSymbol("]", "]");
+        return SpreadsheetFormatParserToken.bracketCloseSymbol("]", "]");
     }
 
     private static SpreadsheetFormatParserToken color() {
@@ -4073,7 +4073,7 @@ public final class SpreadsheetFormatParsersTest implements ParserTesting<Parser<
     }
 
     private static SpreadsheetFormatParserToken openSquareBracket() {
-        return SpreadsheetFormatParserToken.openBracketSymbol("[", "[");
+        return SpreadsheetFormatParserToken.bracketOpenSymbol("[", "[");
     }
 
     private static SpreadsheetFormatParserToken percentage() {

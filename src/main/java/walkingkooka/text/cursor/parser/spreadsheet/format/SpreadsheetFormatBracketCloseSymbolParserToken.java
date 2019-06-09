@@ -18,22 +18,27 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 /**
- * Represents a left bracket '[' symbol token.
+ * Represents a right bracket ']' symbol token.
  */
-public final class SpreadsheetFormatOpenBracketSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
+public final class SpreadsheetFormatBracketCloseSymbolParserToken extends SpreadsheetFormatSymbolParserToken {
 
-    static SpreadsheetFormatOpenBracketSymbolParserToken with(final String value, final String text) {
+    static SpreadsheetFormatBracketCloseSymbolParserToken with(final String value, final String text) {
         checkValueAndText(value, text);
 
-        return new SpreadsheetFormatOpenBracketSymbolParserToken(value, text);
+        return new SpreadsheetFormatBracketCloseSymbolParserToken(value, text);
     }
 
-    private SpreadsheetFormatOpenBracketSymbolParserToken(final String value, final String text) {
+    private SpreadsheetFormatBracketCloseSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
     @Override
-    public boolean isCloseBracketSymbol() {
+    public boolean isBracketCloseSymbol() {
+        return true;
+    }
+
+    @Override
+    public boolean isBracketOpenSymbol() {
         return false;
     }
 
@@ -88,11 +93,6 @@ public final class SpreadsheetFormatOpenBracketSymbolParserToken extends Spreads
     }
 
     @Override
-    public boolean isOpenBracketSymbol() {
-        return true;
-    }
-
-    @Override
     public boolean isPercentSymbol() {
         return false;
     }
@@ -114,7 +114,7 @@ public final class SpreadsheetFormatOpenBracketSymbolParserToken extends Spreads
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetFormatOpenBracketSymbolParserToken;
+        return other instanceof SpreadsheetFormatBracketCloseSymbolParserToken;
     }
 
 }

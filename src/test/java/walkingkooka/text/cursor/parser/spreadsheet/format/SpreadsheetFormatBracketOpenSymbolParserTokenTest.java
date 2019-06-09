@@ -24,12 +24,12 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class SpreadsheetFormatCloseBracketSymbolParserTokenTest extends SpreadsheetFormatSymbolParserTokenTestCase<SpreadsheetFormatCloseBracketSymbolParserToken> {
+public final class SpreadsheetFormatBracketOpenSymbolParserTokenTest extends SpreadsheetFormatSymbolParserTokenTestCase<SpreadsheetFormatBracketOpenSymbolParserToken> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final SpreadsheetFormatCloseBracketSymbolParserToken token = this.createToken();
+        final SpreadsheetFormatBracketOpenSymbolParserToken token = this.createToken();
 
         new FakeSpreadsheetFormatParserTokenVisitor() {
             @Override
@@ -59,7 +59,7 @@ public final class SpreadsheetFormatCloseBracketSymbolParserTokenTest extends Sp
             }
 
             @Override
-            protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken t) {
+            protected void visit(final SpreadsheetFormatBracketOpenSymbolParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -73,17 +73,17 @@ public final class SpreadsheetFormatCloseBracketSymbolParserTokenTest extends Sp
     }
 
     @Override
-    SpreadsheetFormatCloseBracketSymbolParserToken createToken(final String value, final String text) {
-        return SpreadsheetFormatCloseBracketSymbolParserToken.with(value, text);
+    SpreadsheetFormatBracketOpenSymbolParserToken createToken(final String value, final String text) {
+        return SpreadsheetFormatBracketOpenSymbolParserToken.with(value, text);
     }
 
     @Override
-    public SpreadsheetFormatCloseBracketSymbolParserToken createDifferentToken() {
-        return SpreadsheetFormatCloseBracketSymbolParserToken.with(this.text(), "different");
+    public SpreadsheetFormatBracketOpenSymbolParserToken createDifferentToken() {
+        return SpreadsheetFormatBracketOpenSymbolParserToken.with(this.text(), "different");
     }
 
     @Override
-    public Class<SpreadsheetFormatCloseBracketSymbolParserToken> type() {
-        return SpreadsheetFormatCloseBracketSymbolParserToken.class;
+    public Class<SpreadsheetFormatBracketOpenSymbolParserToken> type() {
+        return SpreadsheetFormatBracketOpenSymbolParserToken.class;
     }
 }

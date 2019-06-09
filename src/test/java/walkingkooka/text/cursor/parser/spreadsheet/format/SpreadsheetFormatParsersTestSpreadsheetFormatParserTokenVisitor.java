@@ -224,7 +224,12 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
     }
 
     @Override
-    protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken token) {
+    protected void visit(final SpreadsheetFormatBracketCloseSymbolParserToken token) {
+        this.add(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetFormatBracketOpenSymbolParserToken token) {
         this.add(token);
     }
 
@@ -335,11 +340,6 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatNotEqualsSymbolParserToken token) {
-        this.add(token);
-    }
-
-    @Override
-    protected void visit(final SpreadsheetFormatOpenBracketSymbolParserToken token) {
         this.add(token);
     }
 

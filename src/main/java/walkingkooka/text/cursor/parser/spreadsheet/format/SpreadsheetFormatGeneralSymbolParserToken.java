@@ -35,7 +35,12 @@ public final class SpreadsheetFormatGeneralSymbolParserToken extends Spreadsheet
     }
 
     @Override
-    public boolean isCloseBracketSymbol() {
+    public boolean isBracketCloseSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isBracketOpenSymbol() {
         return false;
     }
 
@@ -86,11 +91,6 @@ public final class SpreadsheetFormatGeneralSymbolParserToken extends Spreadsheet
 
     @Override
     public boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isOpenBracketSymbol() {
         return false;
     }
 
