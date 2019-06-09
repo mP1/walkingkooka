@@ -33,6 +33,8 @@ abstract class JsonNodeValueParserToken<V> extends JsonNodeLeafParserToken<V> {
         return Optional.of(this);
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public final boolean isArrayBeginSymbol() {
         return false;
