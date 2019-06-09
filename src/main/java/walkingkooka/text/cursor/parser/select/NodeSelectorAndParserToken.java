@@ -33,12 +33,15 @@ public final class NodeSelectorAndParserToken extends NodeSelectorBinaryParserTo
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private NodeSelectorAndParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    private NodeSelectorAndParserToken(final List<ParserToken> value,
+                                       final String text,
+                                       final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
     @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
+    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
+                                               final List<ParserToken> without) {
         return new NodeSelectorAndParserToken(tokens, this.text(), without);
     }
 

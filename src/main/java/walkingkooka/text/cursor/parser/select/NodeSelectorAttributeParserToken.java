@@ -33,7 +33,9 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private NodeSelectorAttributeParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    private NodeSelectorAttributeParserToken(final List<ParserToken> value,
+                                             final String text,
+                                             final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
         final List<ParserToken> without = NodeSelectorAttributeParserToken.class.cast(this.withoutSymbols().get()).value();
@@ -55,7 +57,8 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
     private final NodeSelectorAttributeName attributeName;
 
     @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
+    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
+                                               final List<ParserToken> without) {
         return new NodeSelectorAttributeParserToken(tokens, this.text(), without);
     }
 

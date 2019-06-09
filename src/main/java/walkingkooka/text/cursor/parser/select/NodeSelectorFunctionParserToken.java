@@ -27,13 +27,16 @@ import java.util.List;
  */
 public final class NodeSelectorFunctionParserToken extends NodeSelectorParentParserToken<NodeSelectorFunctionParserToken> {
 
-    static NodeSelectorFunctionParserToken with(final List<ParserToken> value, final String text) {
+    static NodeSelectorFunctionParserToken with(final List<ParserToken> value,
+                                                final String text) {
         return new NodeSelectorFunctionParserToken(copyAndCheckTokens(value),
                 checkTextNullOrWhitespace(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private NodeSelectorFunctionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    private NodeSelectorFunctionParserToken(final List<ParserToken> value,
+                                            final String text,
+                                            final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
         final List<ParserToken> without = NodeSelectorFunctionParserToken.class.cast(this.withoutSymbols().get()).value();
@@ -63,11 +66,12 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
     private final List<ParserToken> parameters;
 
     @Override
-    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
+    NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
+                                               final List<ParserToken> without) {
         return new NodeSelectorFunctionParserToken(tokens, this.text(), without);
     }
 
-    // is................................................................................................
+    // is...............................................................................................................
 
     @Override
     public boolean isAddition() {

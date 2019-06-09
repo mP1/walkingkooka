@@ -30,7 +30,9 @@ abstract class NodeSelectorBinaryParserToken<T extends NodeSelectorBinaryParserT
     /**
      * Package private to limit sub classing.
      */
-    NodeSelectorBinaryParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    NodeSelectorBinaryParserToken(final List<ParserToken> value,
+                                  final String text,
+                                  final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
         final List<ParserToken> without = Cast.to(NodeSelectorParentParserToken.class.cast(this.withoutSymbols().get()).value());

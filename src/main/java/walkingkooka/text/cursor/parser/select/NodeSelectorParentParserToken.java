@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
@@ -27,11 +26,14 @@ import java.util.Optional;
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserToken> extends NodeSelectorParserToken implements ParentParserToken<T> {
+abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserToken> extends NodeSelectorParserToken
+        implements ParentParserToken<T> {
 
     final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 
-    NodeSelectorParentParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    NodeSelectorParentParserToken(final List<ParserToken> value,
+                                  final String text,
+                                  final List<ParserToken> valueWithout) {
         super(text);
         this.value = value;
         this.without = value.equals(valueWithout) ?
@@ -72,9 +74,10 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
     /**
      * Factory that creates a new {@link NodeSelectorParentParserToken} with the same text but new tokens.
      */
-    abstract NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without);
+    abstract NodeSelectorParentParserToken replaceValue(final List<ParserToken> tokens,
+                                                        final List<ParserToken> without);
 
-    // is..........................................................................................................
+    // is...............................................................................................................
 
     @Override
     public final boolean isAbsolute() {
@@ -304,16 +307,5 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
         for (ParserToken token : this.value()) {
             visitor.accept(token);
         }
-    }
-
-    // Object................................................................................................
-
-    @Override
-    final boolean equals1(final NodeSelectorParserToken other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final NodeSelectorParentParserToken other) {
-        return this.value.equals(other.value);
     }
 }

@@ -486,6 +486,8 @@ public abstract class NodeSelectorParserToken implements ParserToken {
 
     private final String text;
 
+    abstract Object value();
+
     /**
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain
      * those tokens as text, but the tokens themselves will be removed.
@@ -830,7 +832,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
 
     @Override
     public final int hashCode() {
-        return this.text().hashCode();
+        return Objects.hash(this.text, this.value());
     }
 
     @Override
@@ -843,11 +845,9 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final NodeSelectorParserToken other) {
-        return this.text().equals(other.text()) &&
-                this.equals1(other);
+        return this.text.equals(other.text) &&
+                this.value().equals(other.value());
     }
-
-    abstract boolean equals1(NodeSelectorParserToken other);
 
     @Override
     public final String toString() {
