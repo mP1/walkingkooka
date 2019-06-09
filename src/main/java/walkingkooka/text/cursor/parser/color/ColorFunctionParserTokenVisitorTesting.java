@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.color;
 import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
 
 /**
- * A mixin interface with tests and helpers to assist in testing a {@link ColorParserTokenVisitor}
+ * A mixin interface with tests and helpers to assist in testing a {@link ColorFunctionParserTokenVisitor}
  */
-public interface ColorParserTokenVisitorTesting<V extends ColorParserTokenVisitor, T extends ColorHslOrHsvParserToken> extends ParserTokenVisitorTesting<V, T> {
+public interface ColorFunctionParserTokenVisitorTesting<V extends ColorFunctionParserTokenVisitor, T extends ColorFunctionParserToken> extends ParserTokenVisitorTesting<V, T> {
 }

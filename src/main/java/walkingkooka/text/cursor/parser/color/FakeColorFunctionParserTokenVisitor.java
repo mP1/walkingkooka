@@ -39,7 +39,73 @@ import walkingkooka.text.cursor.parser.StringParserToken;
 import walkingkooka.text.cursor.parser.ZonedDateTimeParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-public class FakeColorParserTokenVisitor extends ColorParserTokenVisitor implements Fake {
+public class FakeColorFunctionParserTokenVisitor extends ColorFunctionParserTokenVisitor implements Fake {
+
+    protected FakeColorFunctionParserTokenVisitor() {
+        super();
+    }
+
+    // ColorFunctionParserTokenVisitor..................................................................................
+
+    @Override
+    protected Visiting startVisit(final ColorFunctionParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    @Override
+    protected void endVisit(final ColorFunctionParserToken token) {
+    }
+
+    @Override
+    protected Visiting startVisit(final ColorFunctionFunctionParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    @Override
+    protected void endVisit(final ColorFunctionFunctionParserToken token) {
+    }
+
+    @Override
+    protected void visit(final ColorFunctionDegreesUnitSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ColorFunctionFunctionNameParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ColorFunctionNumberParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ColorFunctionParenthesisCloseSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ColorFunctionParenthesisOpenSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ColorFunctionPercentageParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ColorFunctionSeparatorSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ColorFunctionWhitespaceParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    // ParserTokenVisitor...............................................................................................
 
     @Override
     protected Visiting startVisit(final ParserToken token) {
@@ -67,27 +133,12 @@ public class FakeColorParserTokenVisitor extends ColorParserTokenVisitor impleme
     }
 
     @Override
-    protected void visit(final ColorParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     protected void visit(final DoubleParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected void visit(final DoubleQuotedParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final HslParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final HsvParserToken token) {
         throw new UnsupportedOperationException();
     }
 

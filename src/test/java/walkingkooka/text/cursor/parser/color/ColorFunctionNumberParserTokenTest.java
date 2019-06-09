@@ -15,34 +15,24 @@
  *
  *
  */
+
 package walkingkooka.text.cursor.parser.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.color.Hsv;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.search.HasSearchNode;
-import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<HsvParserToken> {
-
-    @Test
-    public void testWithNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            HsvParserToken.with(null, "hsv(359,50%,100%)");
-        });
-    }
+public final class ColorFunctionNumberParserTokenTest extends ColorFunctionNonSymbolParserTokenTestCase<ColorFunctionNumberParserToken, Double> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final HsvParserToken token = this.createToken();
+        final ColorFunctionNumberParserToken token = this.createToken();
 
-        new FakeColorParserTokenVisitor() {
+        new FakeColorFunctionParserTokenVisitor() {
             @Override
             protected Visiting startVisit(final ParserToken t) {
                 assertSame(token, t);
@@ -57,45 +47,47 @@ public final class HsvParserTokenTest extends ColorHslOrHsvParserTokenTestCase<H
             }
 
             @Override
-            protected void visit(final HsvParserToken t) {
+            protected Visiting startVisit(final ColorFunctionParserToken t) {
                 assertSame(token, t);
                 b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ColorFunctionParserToken t) {
+                assertSame(token, t);
+                b.append("4");
+            }
+
+            @Override
+            protected void visit(final ColorFunctionNumberParserToken t) {
+                assertSame(token, t);
+                b.append("5");
             }
         }.accept(token);
-        assertEquals("132", b.toString());
-    }
-
-    @Test
-    public void testToSearchNode() {
-        final String text = "hsv(359,50%,100%)";
-        this.toSearchNodeAndCheck(HsvParserToken.with(Hsv.parseHsv(text), text),
-                SearchNode.text(text, text));
-    }
-
-    private void toSearchNodeAndCheck(final HasSearchNode has,
-                                      final SearchNode searchNode) {
-        assertEquals(searchNode,
-                has.toSearchNode(),
-                () -> "to search node " + has);
+        assertEquals("13542", b.toString());
     }
 
     @Override
-    public HsvParserToken createToken(final String text) {
-        return HsvParserToken.with(Hsv.parseHsv(text), text);
+    ColorFunctionNumberParserToken createToken(final String text, final Double value) {
+        return ColorFunctionNumberParserToken.with(value, text);
+    }
+
+    @Override
+    public Class<ColorFunctionNumberParserToken> type() {
+        return ColorFunctionNumberParserToken.class;
     }
 
     @Override
     public String text() {
-        return "hsv(123,0%,25%)";
+        return "99";
     }
 
-    @Override
-    public HsvParserToken createDifferentToken() {
-        return HsvParserToken.with(Hsv.parseHsv("hsv(359,50%,100%)"), "hsv(359,50%,100%)");
+    Double value() {
+        return 99.0;
     }
 
-    @Override
-    public Class<HsvParserToken> type() {
-        return HsvParserToken.class;
+    Double differentValue() {
+        return 99999.0;
     }
 }

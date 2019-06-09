@@ -25,7 +25,6 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.color.ColorParserToken;
 import walkingkooka.text.cursor.parser.color.ColorParsers;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
@@ -83,10 +82,8 @@ abstract public class Color extends ColorHslOrHsv {
     // parseColor rgb(12,34,56)..............................................................................................
 
     private static Color parseRgbFunction(final String text) {
-        return parseColorHslOrHsvParserToken(text,
-                RGB_FUNCTION_PARSER,
-                ColorParserToken.class)
-                .value();
+        return parseColorHslOrHsvParserToken(text, RGB_FUNCTION_PARSER)
+                .toColor();
     }
 
     private final static Parser<ParserContext> RGB_FUNCTION_PARSER = ColorParsers.rgb()

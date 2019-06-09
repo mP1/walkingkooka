@@ -19,24 +19,23 @@
 package walkingkooka.text.cursor.parser.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.text.cursor.parser.DoubleParserToken;
 
-public final class ColorParsersComponentsParserTokenVisitorTest extends ColorParsersParserTokenVisitorTestCase<ColorParsersComponentsParserTokenVisitor> {
+public final class ColorParsersComponentsColorFunctionParserTokenVisitorTest extends ColorParsersParserTokenVisitorTestCase<ColorParsersComponentsColorFunctionParserTokenVisitor> {
 
     @Test
     public void testToString() {
-        final ColorParsersComponentsParserTokenVisitor visitor = new ColorParsersComponentsParserTokenVisitor();
-        visitor.accept(DoubleParserToken.with(123, "123"));
-        this.toStringAndCheck(visitor, "values=123.0");
+        final ColorParsersComponentsColorFunctionParserTokenVisitor visitor = new ColorParsersComponentsColorFunctionParserTokenVisitor();
+        visitor.accept(ColorFunctionParserToken.number(123.0, "123"));
+        this.toStringAndCheck(visitor, "values=123");
     }
 
     @Override
-    public ColorParsersComponentsParserTokenVisitor createVisitor() {
-        return new ColorParsersComponentsParserTokenVisitor();
+    public ColorParsersComponentsColorFunctionParserTokenVisitor createVisitor() {
+        return new ColorParsersComponentsColorFunctionParserTokenVisitor();
     }
 
     @Override
-    public Class<ColorParsersComponentsParserTokenVisitor> type() {
-        return ColorParsersComponentsParserTokenVisitor.class;
+    public Class<ColorParsersComponentsColorFunctionParserTokenVisitor> type() {
+        return ColorParsersComponentsColorFunctionParserTokenVisitor.class;
     }
 }

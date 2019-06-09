@@ -24,7 +24,6 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.color.ColorParsers;
-import walkingkooka.text.cursor.parser.color.HsvParserToken;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
@@ -39,10 +38,8 @@ public abstract class Hsv extends ColorHslOrHsv {
     // parse hsv(359,100%,100%)..............................................................................................
 
     public static Hsv parseHsv(final String text) {
-        return parseColorHslOrHsvParserToken(text,
-                HSV_FUNCTION_PARSER,
-                HsvParserToken.class)
-                .value();
+        return parseColorHslOrHsvParserToken(text, HSV_FUNCTION_PARSER)
+                .toHsv();
     }
 
     private final static Parser<ParserContext> HSV_FUNCTION_PARSER = ColorParsers.hsv()
