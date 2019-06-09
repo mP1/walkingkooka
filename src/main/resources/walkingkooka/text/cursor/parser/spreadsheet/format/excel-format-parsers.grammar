@@ -10,10 +10,10 @@ EXPRESSION_COMPONENT              = GENERAL | DATETIME2 | FRACTION | BIGDECIMAL;
 
 
 (* color .................................................................................*)
-COLOR                             = OPEN_SQUARE_BRACKET,
+COLOR                             = BRACKET_OPEN,
                                     ( COLOR_AND_NUMBER | COLOR_NAME ),
                                     [ WHITESPACE ],
-                                    CLOSE_SQUARE_BRACKET;
+                                    BRACKET_CLOSE;
 
 
 
@@ -21,53 +21,53 @@ COLOR                             = OPEN_SQUARE_BRACKET,
 CONDITION                         = CONDITION_EQUAL | CONDITION_GREATER_THAN_EQUAL | CONDITION_GREATER_THAN |
                                     CONDITION_LESS_THAN_EQUAL | CONDITION_LESS_THAN | CONDITION_NOT_EQUAL;
 
-CONDITION_EQUAL                   = OPEN_SQUARE_BRACKET,
+CONDITION_EQUAL                   = BRACKET_OPEN,
                                     [ WHITESPACE ],
                                     EQUALS,
                                     [ WHITESPACE ],
                                     CONDITION_NUMBER,
                                     [ WHITESPACE ],
-                                    CLOSE_SQUARE_BRACKET;
+                                    BRACKET_CLOSE;
                                     
-CONDITION_GREATER_THAN            = OPEN_SQUARE_BRACKET,
+CONDITION_GREATER_THAN            = BRACKET_OPEN,
                                     [ WHITESPACE ],
                                     GREATER_THAN,
                                     [ WHITESPACE ],
                                     CONDITION_NUMBER,
                                     [ WHITESPACE ],
-                                    CLOSE_SQUARE_BRACKET;
+                                    BRACKET_CLOSE;
 
-CONDITION_GREATER_THAN_EQUAL      = OPEN_SQUARE_BRACKET,
+CONDITION_GREATER_THAN_EQUAL      = BRACKET_OPEN,
                                     [ WHITESPACE ],
                                     GREATER_THAN_EQUALS,
                                     [ WHITESPACE ],
                                     CONDITION_NUMBER,
                                     [ WHITESPACE ],
-                                    CLOSE_SQUARE_BRACKET;
+                                    BRACKET_CLOSE;
                                     
-CONDITION_LESS_THAN               = OPEN_SQUARE_BRACKET,
+CONDITION_LESS_THAN               = BRACKET_OPEN,
                                     [ WHITESPACE ],
                                     LESS_THAN,
                                     [ WHITESPACE ],
                                     CONDITION_NUMBER,
                                     [ WHITESPACE ],
-                                    CLOSE_SQUARE_BRACKET;
+                                    BRACKET_CLOSE;
 
-CONDITION_LESS_THAN_EQUAL         = OPEN_SQUARE_BRACKET,
+CONDITION_LESS_THAN_EQUAL         = BRACKET_OPEN,
                                     [ WHITESPACE ],
                                     LESS_THAN_EQUALS,
                                     [ WHITESPACE ],
                                     CONDITION_NUMBER,
                                     [ WHITESPACE ],
-                                    CLOSE_SQUARE_BRACKET;
+                                    BRACKET_CLOSE;
                                     
-CONDITION_NOT_EQUAL               = OPEN_SQUARE_BRACKET,
+CONDITION_NOT_EQUAL               = BRACKET_OPEN,
                                     [ WHITESPACE ],
                                     NOT_EQUALS,
                                     [ WHITESPACE ],
                                     CONDITION_NUMBER,
                                     [ WHITESPACE ],
-                                    CLOSE_SQUARE_BRACKET;
+                                    BRACKET_CLOSE;
 
 
 
