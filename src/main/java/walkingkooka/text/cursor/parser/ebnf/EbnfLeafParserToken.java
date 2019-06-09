@@ -34,6 +34,7 @@ abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements LeafPar
         this.value = value;
     }
 
+    @Override
     public final T value() {
         return this.value;
     }
@@ -86,13 +87,4 @@ abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements LeafPar
     }
 
     abstract public void accept(final EbnfParserTokenVisitor visitor);
-
-    @Override
-    final boolean equals1(final EbnfParserToken other) {
-        return this.equals2(other.cast());
-    }
-
-    private boolean equals2(final EbnfLeafParserToken other) {
-        return this.value.equals(other.value);
-    }
 }

@@ -39,6 +39,8 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIde
         return Optional.of(this);
     }
 
+    // ixXXX............................................................................................................
+
     @Override
     public boolean isComment() {
         return false;
@@ -64,10 +66,14 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIde
         return false;
     }
 
+    // EbnfParserTokenVisitor............................................................................................
+
     @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
