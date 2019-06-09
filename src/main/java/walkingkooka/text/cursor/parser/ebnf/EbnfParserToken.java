@@ -29,7 +29,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Represents a token within the grammar.
+ * Represents a token within an EBNF grammar.
  */
 public abstract class EbnfParserToken implements ParserToken {
 
@@ -170,10 +170,17 @@ public abstract class EbnfParserToken implements ParserToken {
     private final String text;
 
     /**
+     * Value getter, used within equals.
+     */
+    abstract Object value();
+
+    /**
      * Sub classes must override. Not all types of token support this operation, eg this doesnt make sense
      * given a {@link EbnfCommentParserToken} will return empty.
      */
     abstract public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace();
+
+    // isXXX............................................................................................................
 
     /**
      * Only alternative tokens return true
@@ -240,7 +247,7 @@ public abstract class EbnfParserToken implements ParserToken {
      */
     public abstract boolean isTerminal();
 
-    // Visitor......................................................................................................
+    // EbnfParserTokenVisitor............................................................................................
 
     public final void accept(final ParserTokenVisitor visitor) {
         final EbnfParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);
@@ -258,7 +265,7 @@ public abstract class EbnfParserToken implements ParserToken {
 
     @Override
     public final int hashCode() {
-        return this.text().hashCode();
+        return Objects.hash(this.text, this.value());
     }
 
     @Override
@@ -271,11 +278,9 @@ public abstract class EbnfParserToken implements ParserToken {
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final EbnfParserToken other) {
-        return this.text().equals(other.text()) &&
-                this.equals1(other);
+        return this.text.equals(other.text) &&
+                this.value().equals(other.value());
     }
-
-    abstract boolean equals1(EbnfParserToken other);
 
     @Override
     public final String toString() {

@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
@@ -124,14 +123,5 @@ abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends Eb
         for (ParserToken token : this.value()) {
             visitor.accept(token);
         }
-    }
-
-    @Override
-    final boolean equals1(final EbnfParserToken other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final EbnfParentParserToken other) {
-        return this.value.equals(other.value);
     }
 }

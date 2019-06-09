@@ -40,6 +40,8 @@ final public class EbnfSymbolParserToken extends EbnfLeafParserToken<String> {
         return Optional.empty();
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isComment() {
         return false;
@@ -66,17 +68,21 @@ final public class EbnfSymbolParserToken extends EbnfLeafParserToken<String> {
     }
 
     @Override
+    public boolean isNoise() {
+        return true;
+    }
+
+    // EbnfParserTokenVisitor............................................................................................
+
+    @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
+    // Object...........................................................................................................
+
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof EbnfSymbolParserToken;
-    }
-
-    @Override
-    public boolean isNoise() {
-        return true;
     }
 }

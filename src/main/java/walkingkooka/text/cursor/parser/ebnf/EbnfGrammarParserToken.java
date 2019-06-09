@@ -63,6 +63,49 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         return new EbnfGrammarParserToken(tokens, text, without);
     }
 
+
+    /**
+     * Constant to be passed to {@link #checkIdentifiers(Set)} if no external references exist.
+     */
+    public final static Set<EbnfIdentifierName> NO_EXTERNALS = Sets.empty();
+
+    /**
+     * Verifies that all identifiers that appear on the RHS of all rules, must be valid.
+     */
+    public void checkIdentifiers(final Set<EbnfIdentifierName> external) {
+        Objects.requireNonNull(external, "external");
+
+        final EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor visitor = new EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor();
+        visitor.accept(this);
+
+        final Map<EbnfIdentifierName, Set<EbnfRuleParserToken>> identifiers = visitor.ruleIdentifiers;
+        final Set<EbnfRuleParserToken> duplicates = Sets.ordered();
+
+        identifiers.values()
+                .stream()
+                .filter(e -> e.size() > 1)
+                .forEach(e -> duplicates.addAll(e));
+        if (!duplicates.isEmpty()) {
+            throw new EbnfGrammarParserTokenDuplicateIdentifiersException(duplicates.size() + " rules with the same identifier=" + duplicates, duplicates);
+        }
+
+        final Set<EbnfIdentifierName> missing = Sets.sorted();
+        missing.addAll(visitor.references);
+        missing.removeAll(identifiers.keySet());
+        missing.removeAll(external);
+
+        if (!missing.isEmpty()) {
+            throw new EbnfGrammarParserTokenInvalidReferencesException(missing.size() + " invalid (unknown) references=" + missing, missing);
+        }
+    }
+
+    public <C extends ParserContext> Map<EbnfIdentifierName, Parser<ParserContext>> combinator(final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
+                                                                                               final EbnfParserCombinatorSyntaxTreeTransformer transformer) {
+        return EbnfParserCombinators.transform(this, identifierToParser, transformer);
+    }
+
+    // isXXX............................................................................................................
+
     @Override
     public boolean isAlternative() {
         return false;
@@ -108,6 +151,8 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         return false;
     }
 
+    // EbnfParserTokenVisitor............................................................................................
+
     @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -116,45 +161,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         visitor.endVisit(this);
     }
 
-    /**
-     * Constant to be passed to {@link #checkIdentifiers(Set)} if no external references exist.
-     */
-    public final static Set<EbnfIdentifierName> NO_EXTERNALS = Sets.empty();
-
-    /**
-     * Verifies that all identifiers that appear on the RHS of all rules, must be valid.
-     */
-    public void checkIdentifiers(final Set<EbnfIdentifierName> external) {
-        Objects.requireNonNull(external, "external");
-
-        final EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor visitor = new EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor();
-        visitor.accept(this);
-
-        final Map<EbnfIdentifierName, Set<EbnfRuleParserToken>> identifiers = visitor.ruleIdentifiers;
-        final Set<EbnfRuleParserToken> duplicates = Sets.ordered();
-
-        identifiers.values()
-                .stream()
-                .filter(e -> e.size() > 1)
-                .forEach(e -> duplicates.addAll(e));
-        if (!duplicates.isEmpty()) {
-            throw new EbnfGrammarParserTokenDuplicateIdentifiersException(duplicates.size() + " rules with the same identifier=" + duplicates, duplicates);
-        }
-
-        final Set<EbnfIdentifierName> missing = Sets.sorted();
-        missing.addAll(visitor.references);
-        missing.removeAll(identifiers.keySet());
-        missing.removeAll(external);
-
-        if (!missing.isEmpty()) {
-            throw new EbnfGrammarParserTokenInvalidReferencesException(missing.size() + " invalid (unknown) references=" + missing, missing);
-        }
-    }
-
-    public <C extends ParserContext> Map<EbnfIdentifierName, Parser<ParserContext>> combinator(final Map<EbnfIdentifierName, Parser<ParserContext>> identifierToParser,
-                                                                                               final EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer) {
-        return EbnfParserCombinators.transform(this, identifierToParser, syntaxTreeTransformer);
-    }
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

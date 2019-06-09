@@ -77,6 +77,8 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
 
     private final EbnfParserToken end;
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isAlternative() {
         return false;
@@ -122,6 +124,8 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
         return false;
     }
 
+    // EbnfParserTokenVisitor............................................................................................
+
     @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -129,6 +133,8 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeP
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

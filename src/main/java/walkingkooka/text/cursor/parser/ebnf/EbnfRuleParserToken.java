@@ -78,6 +78,8 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
                 without);
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isAlternative() {
         return false;
@@ -123,6 +125,8 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
         return true;
     }
 
+    // EbnfParserTokenVisitor............................................................................................
+
     @Override
     public void accept(final EbnfParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -130,6 +134,8 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRulePar
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
