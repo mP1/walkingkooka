@@ -156,6 +156,7 @@ public interface ParserTokenTesting<T extends ParserToken> extends ToStringTesti
                         "child count should be the same");
                 break;
             }
+            fail(token + "(" + token.getClass().getName() + ") does not implement " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName());
         }
     }
 
