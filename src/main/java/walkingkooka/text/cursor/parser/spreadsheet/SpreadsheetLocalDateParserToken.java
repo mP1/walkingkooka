@@ -101,6 +101,8 @@ public final class SpreadsheetLocalDateParserToken extends SpreadsheetNonSymbolP
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);

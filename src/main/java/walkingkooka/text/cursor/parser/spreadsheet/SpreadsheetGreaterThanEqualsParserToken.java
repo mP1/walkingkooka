@@ -44,6 +44,8 @@ public final class SpreadsheetGreaterThanEqualsParserToken extends SpreadsheetBi
                 without);
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isAddition() {
         return false;
@@ -104,6 +106,8 @@ public final class SpreadsheetGreaterThanEqualsParserToken extends SpreadsheetBi
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -111,6 +115,8 @@ public final class SpreadsheetGreaterThanEqualsParserToken extends SpreadsheetBi
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

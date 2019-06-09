@@ -97,6 +97,8 @@ public final class SpreadsheetRowReferenceParserToken extends SpreadsheetNonSymb
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);

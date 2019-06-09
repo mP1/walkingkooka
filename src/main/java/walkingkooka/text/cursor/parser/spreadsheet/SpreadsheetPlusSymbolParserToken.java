@@ -62,11 +62,6 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetArithmeti
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     final int operatorPriority() {
         return ADDITION_SUBTRACTION_PRIORITY;
     }
@@ -75,6 +70,15 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetArithmeti
     final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.addition(tokens, text);
     }
+
+    // SpreadsheetParserTokenVisitor....................................................................................
+
+    @Override
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

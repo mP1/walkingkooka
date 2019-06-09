@@ -37,6 +37,8 @@ public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetNonBin
         return false;
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isParenthesisCloseSymbol() {
         return false;
@@ -57,10 +59,14 @@ public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetNonBin
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

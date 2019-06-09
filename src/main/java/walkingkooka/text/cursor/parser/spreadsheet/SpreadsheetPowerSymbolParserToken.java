@@ -71,10 +71,14 @@ public final class SpreadsheetPowerSymbolParserToken extends SpreadsheetArithmet
         return SpreadsheetParserToken.power(tokens, text);
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

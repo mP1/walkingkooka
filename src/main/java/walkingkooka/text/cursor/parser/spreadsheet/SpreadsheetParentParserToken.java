@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -240,18 +239,11 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
         throw new UnsupportedOperationException();
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     final void acceptValues(final SpreadsheetParserTokenVisitor visitor) {
         for (ParserToken token : this.value()) {
             visitor.accept(token);
         }
-    }
-
-    @Override
-    final boolean equals1(final SpreadsheetParserToken other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final SpreadsheetParentParserToken other) {
-        return this.value.equals(other.value);
     }
 }

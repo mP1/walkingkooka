@@ -43,6 +43,8 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
         return new SpreadsheetGroupParserToken(tokens, text, without);
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isAddition() {
         return false;
@@ -128,6 +130,8 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -135,6 +139,8 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

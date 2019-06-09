@@ -97,6 +97,8 @@ public final class SpreadsheetColumnReferenceParserToken extends SpreadsheetNonS
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);

@@ -71,10 +71,14 @@ public final class SpreadsheetNotEqualsSymbolParserToken extends SpreadsheetComp
         return SpreadsheetParserToken.notEquals(tokens, text);
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

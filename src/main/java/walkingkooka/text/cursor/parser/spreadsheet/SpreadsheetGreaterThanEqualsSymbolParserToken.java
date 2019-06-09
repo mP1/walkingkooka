@@ -71,10 +71,14 @@ public final class SpreadsheetGreaterThanEqualsSymbolParserToken extends Spreads
         return SpreadsheetParserToken.greaterThanEquals(tokens, text);
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

@@ -27,22 +27,28 @@ import java.util.List;
  */
 public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParserToken<SpreadsheetNegativeParserToken> {
 
-    static SpreadsheetNegativeParserToken with(final List<ParserToken> value, final String text) {
+    static SpreadsheetNegativeParserToken with(final List<ParserToken> value,
+                                               final String text) {
         return new SpreadsheetNegativeParserToken(copyAndCheckTokens(value),
                 checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    private SpreadsheetNegativeParserToken(final List<ParserToken> value,
+                                           final String text,
+                                           final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
     @Override
-    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens,
+                                         final List<ParserToken> without) {
         return new SpreadsheetNegativeParserToken(tokens,
                 text,
                 without);
     }
+
+    // isXXX............................................................................................................
 
     @Override
     public boolean isNegative() {
@@ -54,6 +60,8 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -61,6 +69,8 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

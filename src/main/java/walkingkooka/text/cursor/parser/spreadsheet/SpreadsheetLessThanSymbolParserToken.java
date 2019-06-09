@@ -71,10 +71,15 @@ public final class SpreadsheetLessThanSymbolParserToken extends SpreadsheetCompa
         return SpreadsheetParserToken.lessThan(tokens, text);
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

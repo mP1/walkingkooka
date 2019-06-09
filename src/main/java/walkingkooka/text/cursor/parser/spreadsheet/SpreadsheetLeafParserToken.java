@@ -23,7 +23,8 @@ import java.util.Objects;
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken implements LeafParserToken<T> {
+abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken
+        implements LeafParserToken<T> {
 
     static void checkValueAndText(final Object value, final String text) {
         checkValue(value);
@@ -39,6 +40,7 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
         this.value = value;
     }
 
+    @Override
     public final T value() {
         return this.value;
     }
@@ -130,14 +132,7 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     abstract public void accept(final SpreadsheetParserTokenVisitor visitor);
-
-    @Override
-    final boolean equals1(final SpreadsheetParserToken other) {
-        return this.equals2(other.cast());
-    }
-
-    private boolean equals2(final SpreadsheetLeafParserToken other) {
-        return this.value.equals(other.value);
-    }
 }

@@ -32,6 +32,8 @@ public final class SpreadsheetParenthesisOpenSymbolParserToken extends Spreadshe
         super(value, text);
     }
 
+    // isXXX............................................................................................................
+
     @Override
     public boolean isFunctionParameterSeparatorSymbol() {
         return false;
@@ -57,10 +59,14 @@ public final class SpreadsheetParenthesisOpenSymbolParserToken extends Spreadshe
         return false;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

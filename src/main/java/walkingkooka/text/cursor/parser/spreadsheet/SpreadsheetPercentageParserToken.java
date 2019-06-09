@@ -27,22 +27,28 @@ import java.util.List;
  */
 public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryParserToken<SpreadsheetPercentageParserToken> {
 
-    static SpreadsheetPercentageParserToken with(final List<ParserToken> value, final String text) {
+    static SpreadsheetPercentageParserToken with(final List<ParserToken> value,
+                                                 final String text) {
         return new SpreadsheetPercentageParserToken(copyAndCheckTokens(value),
                 checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+    private SpreadsheetPercentageParserToken(final List<ParserToken> value,
+                                             final String text,
+                                             final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
     @Override
-    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final List<ParserToken> without) {
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens,
+                                         final List<ParserToken> without) {
         return new SpreadsheetPercentageParserToken(tokens,
                 text,
                 without);
     }
+
+    // isXXX............................................................................................................
 
     @Override
     public boolean isNegative() {
@@ -54,6 +60,8 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
         return true;
     }
 
+    // SpreadsheetParserTokenVisitor....................................................................................
+
     @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         if (Visiting.CONTINUE == visitor.startVisit(this)) {
@@ -61,6 +69,8 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
         }
         visitor.endVisit(this);
     }
+
+    // Object...........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
