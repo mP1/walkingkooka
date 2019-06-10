@@ -23,6 +23,7 @@ import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.zip.GZIPOutputStream;
@@ -30,7 +31,9 @@ import java.util.zip.GZIPOutputStream;
 /**
  * A {@link Value} that holds a byte array.
  */
-public final class Binary implements HashCodeEqualsDefined, Value<byte[]> {
+public final class Binary implements HashCodeEqualsDefined,
+        Serializable,
+        Value<byte[]> {
 
     /**
      * A {@link Binary} with zero bytes.
@@ -114,4 +117,8 @@ public final class Binary implements HashCodeEqualsDefined, Value<byte[]> {
     public String toString() {
         return Arrays.toString(this.value);
     }
+
+    // Serializable.....................................................................................................
+
+    private final static long serialVersionUID = 1L;
 }
