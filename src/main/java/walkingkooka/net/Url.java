@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.tree.visit.Visitable;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -29,7 +30,9 @@ import java.util.Optional;
 /**
  * Base class with getters that return the common components of a {@link Url}.
  */
-public abstract class Url implements HashCodeEqualsDefined, Value<String> {
+public abstract class Url implements HashCodeEqualsDefined,
+        Value<String>,
+        Visitable {
 
     // constants.......................................................................................................
 
@@ -147,6 +150,10 @@ public abstract class Url implements HashCodeEqualsDefined, Value<String> {
      * Only {@link AbsoluteUrl} returns true.
      */
     public abstract boolean isAbsolute();
+
+    // UrlVisitor........................................................................................................
+
+    abstract void accept(final UrlVisitor visitor);
 
     // helper...........................................................................................................
 

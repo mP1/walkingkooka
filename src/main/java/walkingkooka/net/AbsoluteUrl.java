@@ -261,7 +261,14 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
         return RelativeUrl.with(this.path, this.query, this.fragment);
     }
 
-    // Object ......................................................................................................
+    // UrlVisitor........................................................................................................
+
+    @Override
+    void accept(final UrlVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    // Object ..........................................................................................................
 
     @Override
     public int hashCode() {

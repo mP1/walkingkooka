@@ -129,7 +129,14 @@ public final class RelativeUrl extends AbsoluteOrRelativeUrl {
         return this;
     }
 
-    // Object..........................................................................................................
+    // UrlVisitor........................................................................................................
+
+    @Override
+    void accept(final UrlVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    // Object ..........................................................................................................
 
     @Override
     public int hashCode() {
