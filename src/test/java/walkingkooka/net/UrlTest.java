@@ -19,9 +19,14 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.MemberVisibility;
+
+import java.nio.charset.Charset;
+import java.util.Optional;
 
 public final class UrlTest implements ClassTesting2<Url>,
         ParseStringTesting<Url> {
@@ -36,6 +41,13 @@ public final class UrlTest implements ClassTesting2<Url>,
         final String text = "http://example.com";
 
         this.parseAndCheck(text, Url.parseAbsolute(text));
+    }
+
+    @Test
+    public void testParseDataUrl() {
+        final DataUrl url = Url.data(Optional.of(MediaType.TEXT_PLAIN), Binary.with("abc123".getBytes(Charset.defaultCharset())));
+
+        this.parseAndCheck(url.value(), Url.parseData(url.value()));
     }
 
     @Test

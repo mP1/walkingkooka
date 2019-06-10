@@ -22,6 +22,7 @@ import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.io.serialize.SerializationProxy;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.Base64;
@@ -53,7 +54,8 @@ import java.util.Optional;
  */
 public final class DataUrl extends Url {
 
-    final static UrlScheme SCHEME = UrlScheme.with("data");
+    final static String SCHEME = "data:";
+    private final static int CONTENT_TYPE_START = SCHEME.length();
 
     /**
      * <pre>
@@ -66,7 +68,7 @@ public final class DataUrl extends Url {
     static DataUrl parseData0(final String url) {
         CharSequences.failIfNullOrEmpty(url, "url");
 
-        if (!SCHEME.caseSensitivity().startsWith(url, SCHEME.value())) {
+        if (!CaseSensitivity.INSENSITIVE.startsWith(url, SCHEME)) {
             throw new IllegalArgumentException("Url missing data: =" + CharSequences.quoteAndEscape(url));
         }
 
@@ -95,8 +97,6 @@ public final class DataUrl extends Url {
                 Optional.of(complainIfWithParameters(MediaType.parse(url.substring(CONTENT_TYPE_START, contentTypeEnd)))) :
                 Optional.empty();
     }
-
-    private final static int CONTENT_TYPE_START = SCHEME.value().length() + 1;
 
     private static Binary decodeBase64(final String data) {
         return Binary.with(Base64.getDecoder().decode(data));
@@ -143,8 +143,7 @@ public final class DataUrl extends Url {
      */
     @Override
     public String value() {
-        return SCHEME.value() +
-                ":" +
+        return SCHEME +
                 (this.mediaType.map(MediaType::toString).orElse("")) +
                 ";base64," +
                 Base64.getEncoder().encodeToString(binary.value());
