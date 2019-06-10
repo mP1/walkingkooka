@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * A {@link RelativeUrl} holds a URL with getters available to retrieve components.
  */
-public final class RelativeUrl extends Url {
+public final class RelativeUrl extends AbsoluteOrRelativeUrl {
 
     /**
      * Parses a {@link String url} into a {@link RelativeUrl}
