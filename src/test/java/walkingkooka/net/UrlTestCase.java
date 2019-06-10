@@ -84,6 +84,25 @@ abstract public class UrlTestCase<U extends AbsoluteOrRelativeUrl> implements Cl
         return (m) -> false;
     }
 
+    // ParseStringTesting ..............................................................................................
+
+    @Override
+    public final RuntimeException parseFailedExpected(final RuntimeException expected) {
+        return expected;
+    }
+
+    @Override
+    public final Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
+        return expected;
+    }
+
+    // SerializationTesting.............................................................................................
+
+    @Override
+    public final boolean serializableInstanceIsSingleton() {
+        return false;
+    }
+
     // TypeNameTesting .................................................................................................
 
     @Override

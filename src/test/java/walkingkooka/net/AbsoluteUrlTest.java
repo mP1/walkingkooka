@@ -510,17 +510,7 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
         return AbsoluteUrl.parseAbsolute0(text);
     }
 
-    @Override
-    public RuntimeException parseFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
-    // SerializationTesting........................................................................................
+    // SerializationTesting.............................................................................................
 
     @Override
     public AbsoluteUrl serializableInstance() {
@@ -531,10 +521,5 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
                 UrlPath.parse("/path"), //
                 UrlQueryString.with("query"),//
                 UrlFragment.with("fragment123"));
-    }
-
-    @Override
-    public boolean serializableInstanceIsSingleton() {
-        return false;
     }
 }
