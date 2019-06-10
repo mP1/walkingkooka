@@ -43,9 +43,10 @@ import java.util.List;
  */
 final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
 
-    static JsonNodeEbnfParserCombinatorSyntaxTreeTransformer create() {
-        return new JsonNodeEbnfParserCombinatorSyntaxTreeTransformer();
-    }
+    /**
+     * Singleton
+     */
+    static final JsonNodeEbnfParserCombinatorSyntaxTreeTransformer INSTANCE = new JsonNodeEbnfParserCombinatorSyntaxTreeTransformer();
 
     private JsonNodeEbnfParserCombinatorSyntaxTreeTransformer() {
         super();
@@ -60,7 +61,7 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
     @Override
     public Parser<ParserContext> concatenation(final EbnfConcatenationParserToken token,
                                                final Parser<ParserContext> parser) {
-        return parser.cast();
+        return parser;
     }
 
     @Override
@@ -83,23 +84,25 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
                                             final Parser<ParserContext> parser) {
         final EbnfIdentifierName name = token.value();
         return name.equals(JsonNodeParsers.ARRAY_IDENTIFIER) ?
-                parser.transform(this::array) :
+                parser.transform(JsonNodeEbnfParserCombinatorSyntaxTreeTransformer::array) :
                 name.equals(JsonNodeParsers.OBJECT_IDENTIFIER) ?
-                        parser.transform(this::object) :
+                        parser.transform(JsonNodeEbnfParserCombinatorSyntaxTreeTransformer::object) :
                         this.requiredCheck(name, parser);
     }
 
-    private ParserToken array(final ParserToken token, final ParserContext context) {
-        return JsonNodeParserToken.array(this.clean(token.cast()),
+    private static ParserToken array(final ParserToken token,
+                                     final ParserContext context) {
+        return JsonNodeParserToken.array(JsonNodeEbnfParserCombinatorSyntaxTreeTransformer.clean(token.cast()),
                 token.text());
     }
 
-    private ParserToken object(final ParserToken token, final ParserContext context) {
-        return JsonNodeParserToken.object(this.clean(token.cast()),
+    private static ParserToken object(final ParserToken token,
+                                      final ParserContext context) {
+        return JsonNodeParserToken.object(JsonNodeEbnfParserCombinatorSyntaxTreeTransformer.clean(token.cast()),
                 token.text());
     }
 
-    private List<ParserToken> clean(final SequenceParserToken token) {
+    private static List<ParserToken> clean(final SequenceParserToken token) {
         return token.flat().value();
     }
 
