@@ -21,6 +21,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -70,7 +71,7 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
     @Override
     public RelativeUrl url() {
         if (null == this.url) {
-            this.url = RelativeUrl.parse(this.request.getRequestURI());
+            this.url = Url.parseRelative(this.request.getRequestURI());
         }
         return this.url;
     }

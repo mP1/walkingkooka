@@ -30,14 +30,7 @@ import java.util.Optional;
  */
 public final class RelativeUrl extends AbsoluteOrRelativeUrl {
 
-    /**
-     * Parses a {@link String url} into a {@link RelativeUrl}
-     */
-    public static RelativeUrl parse(final String url) {
-        return parseRelative0(url);
-    }
-
-    private static RelativeUrl parseRelative0(final String url) {
+    static RelativeUrl parseRelative0(final String url) {
         Objects.requireNonNull(url, "url");
 
         if (url.contains("://")) {

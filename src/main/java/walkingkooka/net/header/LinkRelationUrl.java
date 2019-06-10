@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.Url;
 
 /**
  * Holds a link relation that holds a URN (AbsoluteUrl) value.
@@ -29,7 +30,7 @@ final class LinkRelationUrl extends LinkRelation<AbsoluteUrl> {
      * Returns a {@link LinkRelation}
      */
     static LinkRelationUrl url(final String value) {
-        return new LinkRelationUrl(AbsoluteUrl.parse(value));
+        return new LinkRelationUrl(Url.parseAbsolute(value));
     }
 
     /**

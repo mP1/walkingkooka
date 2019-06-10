@@ -91,14 +91,14 @@ public abstract class Url implements HashCodeEqualsDefined,
      * Parses a {@link String url} into a {@link AbsoluteUrl}
      */
     public static AbsoluteUrl parseAbsolute(final String url) {
-        return AbsoluteUrl.parse(url);
+        return AbsoluteUrl.parseAbsolute0(url);
     }
 
     /**
      * Parses a {@link String url} into a {@link RelativeUrl}
      */
     public static RelativeUrl parseRelative(final String url) {
-        return RelativeUrl.parse(url);
+        return RelativeUrl.parseRelative0(url);
     }
 
     /**

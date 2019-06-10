@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.Url;
 
 /**
  * A {@link HeaderValueConverter} that parses a header value into a {@link AbsoluteUrl}.
@@ -41,7 +42,7 @@ final class AbsoluteUrlHeaderValueConverter extends NonStringHeaderValueConverte
 
     @Override
     AbsoluteUrl parse0(final String text, final Name name) {
-        return AbsoluteUrl.parse(text);
+        return Url.parseAbsolute(text);
     }
 
     @Override

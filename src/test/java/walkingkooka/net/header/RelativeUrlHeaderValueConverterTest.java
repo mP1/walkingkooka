@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.Url;
 
 public final class RelativeUrlHeaderValueConverterTest extends
         NonStringHeaderValueConverterTestCase<RelativeUrlHeaderValueConverter, RelativeUrl> {
@@ -32,7 +33,7 @@ public final class RelativeUrlHeaderValueConverterTest extends
     @Test
     public void testContentLocation() {
         final String url = "/relative/url/file.html";
-        this.parseAndToTextAndCheck(url, RelativeUrl.parse(url));
+        this.parseAndToTextAndCheck(url, Url.parseRelative(url));
     }
 
     @Override
@@ -52,7 +53,7 @@ public final class RelativeUrlHeaderValueConverterTest extends
 
     @Override
     RelativeUrl value() {
-        return RelativeUrl.parse("/file?p1=v1");
+        return Url.parseRelative("/file?p1=v1");
     }
 
     @Override
