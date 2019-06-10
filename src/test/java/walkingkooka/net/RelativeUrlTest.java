@@ -19,17 +19,13 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class RelativeUrlTest extends UrlTestCase<RelativeUrl>
-        implements ParseStringTesting<RelativeUrl>,
-        SerializationTesting<RelativeUrl> {
+public final class RelativeUrlTest extends AbsoluteOrRelativeUrlTestCase<RelativeUrl> {
 
     // parseRelative..........................................................................................
 
@@ -150,17 +146,14 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl>
         return Url.relative(path, query, fragment);
     }
 
+    // ClassTesting ....................................................................................................
+
     @Override
     public Class<RelativeUrl> type() {
         return RelativeUrl.class;
     }
 
-    @Override
-    RelativeUrl createObject(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
-        return Url.relative(path, query, fragment);
-    }
-
-    // ParseStringTesting ........................................................................................
+    // ParseStringTesting ..............................................................................................
 
     @Override
     public RelativeUrl parse(final String text) {

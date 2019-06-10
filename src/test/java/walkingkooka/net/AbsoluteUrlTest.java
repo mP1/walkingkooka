@@ -19,8 +19,6 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.ParseStringTesting;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.Optional;
@@ -29,9 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
-        implements ParseStringTesting<AbsoluteUrl>,
-        SerializationTesting<AbsoluteUrl> {
+public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<AbsoluteUrl> {
 
     // constants
 
@@ -500,24 +496,14 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
         assertEquals(port, url.port(), "port");
     }
 
+    // ClassTesting ....................................................................................................
 
     @Override
     public Class<AbsoluteUrl> type() {
         return AbsoluteUrl.class;
     }
 
-    @Override
-    AbsoluteUrl createObject(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
-        return Url.absolute(SCHEME,
-                CREDENTIALS,
-                HOST,
-                PORT,
-                path,
-                query,
-                fragment);
-    }
-
-    // ParseStringTesting ........................................................................................
+    // ParseStringTesting ..............................................................................................
 
     @Override
     public AbsoluteUrl parse(final String text) {
