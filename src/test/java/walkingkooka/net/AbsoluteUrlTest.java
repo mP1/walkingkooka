@@ -249,7 +249,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeHost() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -261,7 +261,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeHost2() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("https://example.com");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com");
         this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -273,7 +273,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeHostSlash() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("https://example.com/");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("https://example.com/");
         this.checkScheme(url, UrlScheme.HTTPS);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -285,7 +285,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeHostPort() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com:789");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com:789");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -297,7 +297,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeHostPortSlash() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com:789/");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com:789/");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -309,7 +309,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeCredentialsHost() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("http://abc:def@example.com");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://abc:def@example.com");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentials(url, UrlCredentials.with("abc", "def"));
         this.checkHost(url, HostAddress.with("example.com"));
@@ -321,7 +321,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeHostPath() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com/path/to/file");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path/to/file");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -333,7 +333,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeHostPathEndsSlash() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com/path/to/file/");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path/to/file/");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -345,7 +345,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Test
     public void testParseSchemeHostPathQueryStringFragment() {
-        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com/path123?query456#fragment789");
+        final AbsoluteUrl url = AbsoluteUrl.parseAbsolute0("http://example.com/path123?query456#fragment789");
         this.checkScheme(url, UrlScheme.HTTP);
         this.checkCredentialsAbsent(url);
         this.checkHost(url, HostAddress.with("example.com"));
@@ -363,7 +363,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
     @Test
     public void testTryParseSuccess() {
         final String url = "http://example.com/path123?query456#fragment789";
-        assertEquals(Optional.of(AbsoluteUrl.parse(url)), AbsoluteUrl.tryParse(url));
+        assertEquals(Optional.of(AbsoluteUrl.parseAbsolute0(url)), AbsoluteUrl.tryParse(url));
     }
 
     // HashCodeEqualsDefined ..................................................................................................
@@ -521,7 +521,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
 
     @Override
     public AbsoluteUrl parse(final String text) {
-        return AbsoluteUrl.parse(text);
+        return AbsoluteUrl.parseAbsolute0(text);
     }
 
     @Override

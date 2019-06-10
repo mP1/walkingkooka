@@ -64,7 +64,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     @Test
     public void testWithRelativeUrl() {
-        final RelativeUrl url = RelativeUrl.parse("/path/file");
+        final RelativeUrl url = Url.parseRelative("/path/file");
         this.check(Link.with(url), url, Link.NO_PARAMETERS);
     }
 
@@ -90,7 +90,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     @Test
     public void testSetValueDifferent() {
         final Link link = this.createLink();
-        final AbsoluteUrl value = AbsoluteUrl.parse("http://example2.com");
+        final AbsoluteUrl value = Url.parseAbsolute("http://example2.com");
         final Link different = link.setValue(value);
         assertNotSame(link, different);
 
@@ -306,7 +306,7 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     private AbsoluteUrl value() {
-        return AbsoluteUrl.parse("http://example.com");
+        return Url.parseAbsolute("http://example.com");
     }
 
     @Override

@@ -40,7 +40,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
     public static Optional<AbsoluteUrl> tryParse(final String url) {
         AbsoluteUrl absoluteUrl = null;
         try {
-            absoluteUrl = parse(url);
+            absoluteUrl = parseAbsolute0(url);
         } catch (final IllegalArgumentException fail) {
             // nop
         }
@@ -50,14 +50,7 @@ public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
     /**
      * Parses a {@link String url} into a {@link AbsoluteUrl}
      */
-    public static AbsoluteUrl parse(final String url) {
-        return parseAbsolute0(url);
-    }
-
-    /**
-     * Parses a {@link String url} into a {@link AbsoluteUrl}
-     */
-    private static AbsoluteUrl parseAbsolute0(final String url) {
+    static AbsoluteUrl parseAbsolute0(final String url) {
         Objects.requireNonNull(url, "url");
 
         try {

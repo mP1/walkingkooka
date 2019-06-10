@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.Url;
 
 public final class AbsoluteUrlHeaderValueConverterTest extends
         NonStringHeaderValueConverterTestCase<AbsoluteUrlHeaderValueConverter, AbsoluteUrl> {
@@ -33,7 +34,7 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
 
     @Test
     public void testReferer() {
-        this.parseAndToTextAndCheck(URL, AbsoluteUrl.parse(URL));
+        this.parseAndToTextAndCheck(URL, Url.parseAbsolute(URL));
     }
 
     @Override
@@ -53,7 +54,7 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
 
     @Override
     AbsoluteUrl value() {
-        return AbsoluteUrl.parse(URL);
+        return Url.parseAbsolute(URL);
     }
 
     @Override

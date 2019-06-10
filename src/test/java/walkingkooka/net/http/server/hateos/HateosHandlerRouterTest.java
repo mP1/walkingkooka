@@ -963,7 +963,7 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
 
             @Override
             public RelativeUrl url() {
-                return RelativeUrl.parse(url);
+                return Url.parseRelative(url);
             }
 
             @Override

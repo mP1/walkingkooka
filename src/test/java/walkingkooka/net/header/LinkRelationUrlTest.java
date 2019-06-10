@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.Url;
 import walkingkooka.type.MemberVisibility;
 
 public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelationUrl, AbsoluteUrl> {
@@ -48,12 +49,12 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
 
     @Override
     AbsoluteUrl value() {
-        return AbsoluteUrl.parse(TEXT);
+        return Url.parseAbsolute(TEXT);
     }
 
     @Override
     AbsoluteUrl differentValue() {
-        return AbsoluteUrl.parse("http://example.com/different");
+        return Url.parseAbsolute("http://example.com/different");
     }
 
     @Override

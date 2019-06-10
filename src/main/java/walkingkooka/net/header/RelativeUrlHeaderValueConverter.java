@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.Url;
 
 /**
  * A {@link HeaderValueConverter} that parses a header value into a {@link RelativeUrl}.
@@ -41,7 +42,7 @@ final class RelativeUrlHeaderValueConverter extends NonStringHeaderValueConverte
 
     @Override
     RelativeUrl parse0(final String text, final Name name) {
-        return RelativeUrl.parse(text);
+        return Url.parseRelative(text);
     }
 
     @Override

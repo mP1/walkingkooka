@@ -24,6 +24,7 @@ import org.junit.jupiter.api.io.TempDir;
 import walkingkooka.Binary;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -260,7 +261,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
 
             @Override
             public RelativeUrl url() {
-                return RelativeUrl.parse(url);
+                return Url.parseRelative(url);
             }
 
             @Override

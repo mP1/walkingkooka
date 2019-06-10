@@ -21,7 +21,7 @@ package walkingkooka.net.http.server.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTesting;
-import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.server.HttpRequest;
@@ -166,7 +166,7 @@ public final class HateosHandlerRouterBuilderTest extends HateosHandlerRouterTes
 
     private HateosHandlerRouterBuilder<JsonNode> createBuilder(final String url,
                                                                final HateosContentType<JsonNode> contentType) {
-        return HateosHandlerRouterBuilder.with(AbsoluteUrl.parse(url), contentType);
+        return HateosHandlerRouterBuilder.with(Url.parseAbsolute(url), contentType);
     }
 
     private HateosContentType<JsonNode> contentType() {
