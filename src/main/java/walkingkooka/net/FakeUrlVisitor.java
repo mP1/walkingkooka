@@ -29,21 +29,21 @@ public class FakeUrlVisitor extends UrlVisitor implements Fake {
 
     @Override
     protected Visiting startVisit(final Url url) {
-        return super.startVisit(url);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected void endVisit(final Url Url) {
-        super.endVisit(Url);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected void visit(final AbsoluteUrl url) {
-        super.visit(url);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected void visit(final RelativeUrl url) {
-        super.visit(url);
+        throw new UnsupportedOperationException();
     }
 }
