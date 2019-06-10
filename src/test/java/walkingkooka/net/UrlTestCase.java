@@ -32,7 +32,7 @@ import java.util.function.Predicate;
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
-abstract public class UrlTestCase<U extends AbsoluteOrRelativeUrl> implements ClassTesting2<U>,
+abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
         HashCodeEqualsDefinedTesting<U>,
         IsMethodTesting<U>,
         ParseStringTesting<U>,
