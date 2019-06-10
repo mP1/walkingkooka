@@ -19,6 +19,7 @@
 package walkingkooka.net;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.Optional;
@@ -501,6 +502,13 @@ public final class AbsoluteUrlTest extends AbsoluteOrRelativeUrlTestCase<Absolut
     @Override
     public Class<AbsoluteUrl> type() {
         return AbsoluteUrl.class;
+    }
+
+    // HasJsonNodeTesting...............................................................................................
+
+    @Override
+    public AbsoluteUrl fromJsonNode(final JsonNode node) {
+        return Url.fromJsonNodeAbsolute(node);
     }
 
     // ParseStringTesting ..............................................................................................

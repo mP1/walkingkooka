@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.nio.charset.Charset;
@@ -126,10 +127,21 @@ public final class DataUrlTest extends UrlTestCase<DataUrl> {
         return Binary.with("abc123".getBytes(Charset.defaultCharset()));
     }
 
+    // HasJsonNodeTesting...............................................................................................
+
+    @Override
+    public DataUrl fromJsonNode(final JsonNode node) {
+        return Url.fromJsonNodeData(node);
+    }
+
+    // ParseStringTesting...............................................................................................
+
     @Override
     public DataUrl parse(final String text) {
         return DataUrl.parseData0(text);
     }
+
+    // SerializableTesting...............................................................................................
 
     @Override
     public DataUrl serializableInstance() {

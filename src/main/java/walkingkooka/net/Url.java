@@ -25,16 +25,21 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.visit.Visitable;
 
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Base class with getters that return the common components of a {@link Url}.
  */
 public abstract class Url implements HashCodeEqualsDefined,
+        HasJsonNode,
         Serializable,
         Value<String>,
         Visitable {
@@ -85,12 +90,10 @@ public abstract class Url implements HashCodeEqualsDefined,
         Objects.requireNonNull(url, "url");
 
         final int colon = url.indexOf(':');
-        final int slash = url.indexOf('/');
-
-        return -1 != colon && colon < slash ?
-                CaseSensitivity.INSENSITIVE.startsWith(DataUrl.SCHEME.value(), url) ?
+        return -1 != colon ?
+                CaseSensitivity.INSENSITIVE.startsWith(url, DataUrl.SCHEME) ?
                         parseData(url) :
-        parseAbsolute(url) :
+                        parseAbsolute(url) :
                 parseRelative(url);
     }
 
@@ -194,4 +197,56 @@ public abstract class Url implements HashCodeEqualsDefined,
     // Serializable
 
     private final static long serialVersionUID = 1L;
+
+    // HasJsonNode......................................................................................................
+
+    /**
+     * Accepts a json string holding an {@link Url}.
+     */
+    public static Url fromJsonNode(final JsonNode node) {
+        return fromJsonNode0(node, Url::parse);
+    }
+
+    /**
+     * Accepts a json string holding an {@link AbsoluteUrl}.
+     */
+    public static AbsoluteUrl fromJsonNodeAbsolute(final JsonNode node) {
+        return fromJsonNode0(node, Url::parseAbsolute);
+    }
+
+    /**
+     * Accepts a json string holding an {@link DataUrl}.
+     */
+    public static DataUrl fromJsonNodeData(final JsonNode node) {
+        return fromJsonNode0(node, Url::parseData);
+    }
+
+    /**
+     * Accepts a json string holding an {@link RelativeUrl}.
+     */
+    public static RelativeUrl fromJsonNodeRelative(final JsonNode node) {
+        return fromJsonNode0(node, Url::parseRelative);
+    }
+
+    private static <U extends Url> U fromJsonNode0(final JsonNode node,
+                                                   final Function<String, U> parse) {
+        Objects.requireNonNull(node, "node");
+
+        try {
+            return parse.apply(node.stringValueOrFail());
+        } catch (final JsonNodeException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    @Override
+    public JsonNode toJsonNode() {
+        return JsonNode.string(this.value());
+    }
+
+    static {
+        HasJsonNode.register("url",
+                Url::fromJsonNode,
+                Url.class, AbsoluteUrl.class, DataUrl.class, RelativeUrl.class);
+    }
 }
