@@ -21,6 +21,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Optional;
 
@@ -398,6 +399,36 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl>
                 PATH,
                 QUERY,
                 FRAGMENT));
+    }
+
+    // UrlVisitor......................................................................................................
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final AbsoluteUrl url = this.createUrl();
+
+        new FakeUrlVisitor() {
+            @Override
+            protected Visiting startVisit(final Url u) {
+                assertSame(url, u);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final Url u) {
+                assertSame(url, u);
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final AbsoluteUrl u) {
+                assertSame(url, u);
+                b.append("5");
+            }
+        }.accept(url);
+        assertEquals("152", b.toString());
     }
 
     // toString..........................................................................................

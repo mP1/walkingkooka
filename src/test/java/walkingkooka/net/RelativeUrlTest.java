@@ -21,7 +21,9 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.tree.visit.Visiting;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -82,7 +84,37 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl>
         this.checkFragment(url, UrlFragment.with("fragment789"));
     }
 
-    // toString........................................................................
+    // UrlVisitor......................................................................................................
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final RelativeUrl url = this.createUrl();
+
+        new FakeUrlVisitor() {
+            @Override
+            protected Visiting startVisit(final Url u) {
+                assertSame(url, u);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final Url u) {
+                assertSame(url, u);
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final RelativeUrl u) {
+                assertSame(url, u);
+                b.append("5");
+            }
+        }.accept(url);
+        assertEquals("152", b.toString());
+    }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
