@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.collect.map.Maps;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
@@ -58,7 +57,7 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
 
         new EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor(identifierToParser, syntaxTreeTransformer)
                 .accept(grammar);
-        return Maps.readOnly(identifierToParser);
+        return EbnfParserCombinatorsTransformMap.with(identifierToParser);
     }
 
     /**
