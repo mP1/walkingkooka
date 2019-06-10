@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * Note that equality is based by comparing all components, with only the scheme being compared while ignoring case.
  */
-public final class AbsoluteUrl extends Url {
+public final class AbsoluteUrl extends AbsoluteOrRelativeUrl {
 
     public final static Optional<UrlCredentials> NO_CREDENTIALS = Optional.empty();
     public final static Optional<IpPort> NO_PORT = Optional.empty();

@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
-abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
+abstract public class UrlTestCase<U extends AbsoluteOrRelativeUrl> implements ClassTesting2<U>,
         HashCodeEqualsDefinedTesting<U>,
         IsMethodTesting<U>,
         ToStringTesting<U>,
@@ -219,15 +219,15 @@ abstract public class UrlTestCase<U extends Url> implements ClassTesting2<U>,
 
     abstract U createUrl(UrlPath path, UrlQueryString query, UrlFragment fragment);
 
-    final void checkPath(final Url url, final UrlPath path) {
+    final void checkPath(final AbsoluteOrRelativeUrl url, final UrlPath path) {
         assertEquals(path, url.path(), "path");
     }
 
-    final void checkQueryString(final Url url, final UrlQueryString queryString) {
+    final void checkQueryString(final AbsoluteOrRelativeUrl url, final UrlQueryString queryString) {
         assertEquals(queryString, url.query(), "queryString");
     }
 
-    final void checkFragment(final Url url, final UrlFragment fragment) {
+    final void checkFragment(final AbsoluteOrRelativeUrl url, final UrlFragment fragment) {
         assertEquals(fragment, url.fragment(), "fragment");
     }
 
