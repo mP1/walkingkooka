@@ -18,12 +18,16 @@
 
 package walkingkooka.net;
 
+import walkingkooka.Binary;
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.visit.Visitable;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,6 +35,7 @@ import java.util.Optional;
  * Base class with getters that return the common components of a {@link Url}.
  */
 public abstract class Url implements HashCodeEqualsDefined,
+        Serializable,
         Value<String>,
         Visitable {
 
@@ -83,7 +88,9 @@ public abstract class Url implements HashCodeEqualsDefined,
         final int slash = url.indexOf('/');
 
         return -1 != colon && colon < slash ?
-                parseAbsolute(url) :
+                CaseSensitivity.INSENSITIVE.startsWith(DataUrl.SCHEME.value(), url) ?
+                        parseData(url) :
+        parseAbsolute(url) :
                 parseRelative(url);
     }
 
@@ -92,6 +99,13 @@ public abstract class Url implements HashCodeEqualsDefined,
      */
     public static AbsoluteUrl parseAbsolute(final String url) {
         return AbsoluteUrl.parseAbsolute0(url);
+    }
+
+    /**
+     * Parses a {@link String url} into a {@link DataUrl}
+     */
+    public static DataUrl parseData(final String url) {
+        return DataUrl.parseData0(url);
     }
 
     /**
@@ -112,6 +126,14 @@ public abstract class Url implements HashCodeEqualsDefined,
                                        final UrlQueryString query,
                                        final UrlFragment fragment) {
         return AbsoluteUrl.with(scheme, credentials, host, port, path, query, fragment);
+    }
+
+    /**
+     * Creates a {@link DataUrl}.
+     */
+    public static DataUrl data(final Optional<MediaType> mediaType,
+                               final Binary binary) {
+        return DataUrl.with(mediaType, binary);
     }
 
     /**
@@ -142,14 +164,19 @@ public abstract class Url implements HashCodeEqualsDefined,
     // isXXX............................................................................................................
 
     /**
-     * Only {@link RelativeUrl} returns true
-     */
-    public abstract boolean isRelative();
-
-    /**
      * Only {@link AbsoluteUrl} returns true.
      */
     public abstract boolean isAbsolute();
+
+    /**
+     * Only {@link DataUrl} returns true.
+     */
+    public abstract boolean isData();
+
+    /**
+     * Only {@link RelativeUrl} returns true
+     */
+    public abstract boolean isRelative();
 
     // UrlVisitor........................................................................................................
 

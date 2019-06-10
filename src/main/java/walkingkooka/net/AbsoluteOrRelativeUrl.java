@@ -21,7 +21,6 @@ package walkingkooka.net;
 import walkingkooka.Value;
 import walkingkooka.text.ShouldBeQuoted;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -119,8 +118,7 @@ import java.util.Optional;
  * </pre>
  */
 public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>,
-        ShouldBeQuoted,
-        Serializable {
+        ShouldBeQuoted {
 
     /**
      * Helper used by all parse methods.
@@ -248,6 +246,13 @@ public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>
      * Factory that creates a new {@link AbsoluteOrRelativeUrl}
      */
     abstract AbsoluteOrRelativeUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment);
+
+    // Object...........................................................................................................
+
+    @Override
+    public final boolean isData() {
+        return false;
+    }
 
     // Object...........................................................................................................
 
