@@ -15,20 +15,21 @@
  *
  *
  */
+
 package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.test.TypeNameTesting;
 
-public final class ColorHslOrHsvParserTokenTest implements ClassTesting2<ColorHslOrHsvParserToken> {
+public abstract class ColorFunctionTestCase<T> implements ClassTesting2<T>,
+        TypeNameTesting<T> {
 
-    @Override
-    public Class<ColorHslOrHsvParserToken> type() {
-        return ColorHslOrHsvParserToken.class;
+    ColorFunctionTestCase() {
+        super();
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final String typeNamePrefix() {
+        return "ColorFunction";
     }
 }

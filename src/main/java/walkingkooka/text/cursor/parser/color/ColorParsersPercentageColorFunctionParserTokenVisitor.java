@@ -19,43 +19,36 @@
 package walkingkooka.text.cursor.parser.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenVisitor;
-
-import java.util.List;
 
 /**
- * Collects all double values from a {@link ParserToken}.
+ * Accepts (@link ParserToken) tokens and replaces it with a {@link ColorFunctionPercentageParserToken}.
  */
-final class ColorParsersComponentsParserTokenVisitor extends ParserTokenVisitor {
+final class ColorParsersPercentageColorFunctionParserTokenVisitor extends ColorFunctionParserTokenVisitor {
 
-    static List<Float> transform(final ParserToken token) {
-        final ColorParsersComponentsParserTokenVisitor visitor = new ColorParsersComponentsParserTokenVisitor();
+    static ColorFunctionParserToken transform(final ParserToken token, final ParserContext context) {
+        final ColorParsersPercentageColorFunctionParserTokenVisitor visitor = new ColorParsersPercentageColorFunctionParserTokenVisitor();
         visitor.accept(token);
-        return visitor.values;
+        return ColorFunctionParserToken.percentage(visitor.value, token.text());
     }
 
-    ColorParsersComponentsParserTokenVisitor() {
+    ColorParsersPercentageColorFunctionParserTokenVisitor() {
         super();
     }
 
     @Override
-    protected void visit(final DoubleParserToken token) {
-        this.values.add(token.value().floatValue());
+    protected void visit(final ColorFunctionNumberParserToken token) {
+        this.value = token.value();
     }
 
-    private final List<Float> values = Lists.array();
-
+    private double value;
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .label("values")
-                .value(this.values)
+                .label("percentage")
+                .value(this.value)
                 .build();
     }
 }

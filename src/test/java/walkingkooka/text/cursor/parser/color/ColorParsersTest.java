@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.color;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Value;
 import walkingkooka.color.Color;
 import walkingkooka.color.ColorComponent;
 import walkingkooka.color.ColorHslOrHsv;
@@ -361,27 +360,27 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
 
     @Test
     public void testParseRgbaNumberCommaNumberCommaNumberCommaPercentage() {
-        this.parseRgbaAndCheck("rgba(0,1,254,50%)", 0, 1, 254, 127);
+        this.parseRgbaAndCheck("rgba(0,1,254,50%)", 0, 1, 254, 128);
     }
 
     @Test
     public void testParseRgbaPercentageCommaPercentageCommaPercentageCommaNumber() {
-        this.parseRgbaAndCheck("rgba(0%,1%,100%,127)", 0, 2, 255, 127);
+        this.parseRgbaAndCheck("rgba(0%,1%,100%,127)", 0, 3, 255, 127);
     }
 
     @Test
     public void testParseRgbaPercentageCommaPercentageCommaPercentageCommaPercentage() {
-        this.parseRgbaAndCheck("rgba(0%,1%,100%,25%)", 0, 2, 255, 63);
+        this.parseRgbaAndCheck("rgba(0%,1%,100%,25%)", 0, 3, 255, 64);
     }
 
     @Test
     public void testParseRgbaSpacePercentageSpaceCommaPercentageCommaPercentageCommaPercentage() {
-        this.parseRgbaAndCheck("rgba( 0% ,1%,100%,50%)", 0, 2, 255, 127);
+        this.parseRgbaAndCheck("rgba( 0% ,1%,100%,50%)", 0, 3, 255, 128);
     }
 
     @Test
     public void testParseRgbaSpacePercentageSpaceCommaPercentageCommaPercentageCommaSpacePercentageSpace() {
-        this.parseRgbaAndCheck("rgba( 0% ,1%,100%, 50% )", 0, 2, 255, 127);
+        this.parseRgbaAndCheck("rgba( 0% ,1%,100%, 50% )", 0, 3, 255, 128);
     }
 
     @Test
@@ -444,7 +443,7 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
 
     @Test
     public void testParseRgbNumberCommaNumberCommaPercentage() {
-        this.parseRgbAndCheck("rgb(25%,50%,100%)", 63, 127, 255);
+        this.parseRgbAndCheck("rgb(25%,50%,100%)", 64, 128, 255);
     }
 
     @Test
@@ -459,12 +458,12 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
 
     @Test
     public void testParseRgbPercentageSpacePercentageSpacePercentageSpace() {
-        this.parseRgbAndCheck("rgb(0% 1% 2%)", 0, 2, 5);
+        this.parseRgbAndCheck("rgb(0% 1% 2%)", 0, 3, 5);
     }
 
     @Test
     public void testParseRgbSpacePercentageSpacePercentageSpacePercentageSpace() {
-        this.parseRgbAndCheck("rgb( 0% 1% 2% )", 0, 2, 5);
+        this.parseRgbAndCheck("rgb( 0% 1% 2% )", 0, 3, 5);
     }
 
     private void parseRgbAndCheck(final String text, final int red, final int green, final int blue) {
@@ -493,7 +492,7 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
                 parser.orReport(ParserReporters.basic())
                         .parse(TextCursors.charSequence(text),
                                 this.parserContext())
-                        .map(t -> Value.class.cast(t).value())
+                        .map(t -> ColorFunctionFunctionParserToken.class.cast(t).toColorHslOrHsv())
                         .orElseThrow(() -> new AssertionError()),
                 () -> "parse " + CharSequences.quoteAndEscape(text));
     }
