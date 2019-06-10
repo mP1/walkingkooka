@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.io.serialize.SerializationProxy;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -27,6 +28,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.Whitespace;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -53,7 +55,8 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
         MediaTypeParameterName<?>,
         String>
         implements HasQFactorWeight,
-        Predicate<MediaType> {
+        Predicate<MediaType>,
+        Serializable {
 
     private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
 
@@ -468,4 +471,23 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
     boolean equals1(final String value, final String otherValue) {
         return CASE_SENSITIVITY.equals(this.value, otherValue);
     }
+
+    // Serializable.....................................................................................................
+
+    /**
+     * Returns either of the two {@link SerializationProxy}
+     */
+    // @VisibleForTesting
+    final Object writeReplace() {
+        return MediaTypeSerializationProxy.with(this);
+    }
+
+    /**
+     * Should never be called expect a serialization proxy
+     */
+    private Object readResolve() {
+        throw new UnsupportedOperationException();
+    }
+
+    private final static long serialVersionUID = 1L;
 }
