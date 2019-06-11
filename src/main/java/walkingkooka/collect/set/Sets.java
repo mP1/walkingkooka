@@ -42,7 +42,9 @@ final public class Sets implements PublicStaticHelper {
     /**
      * Tests if both {@link Set} are equal using the {@link BiPredicate} to test each and every element.
      */
-    public static <T> boolean equals(final Set<T> Set, final Set<T> other, final BiPredicate<? super T, ? super T> equivalency) {
+    public static <T> boolean equals(final Set<T> Set,
+                                     final Set<T> other,
+                                     final BiPredicate<? super T, ? super T> equivalency) {
         return Iterables.equals(Set, other, equivalency);
     }
 
@@ -51,6 +53,13 @@ final public class Sets implements PublicStaticHelper {
      */
     public static <E> Set<E> hash() {
         return new HashSet<E>();
+    }
+
+    /**
+     * Returns a {@link Set} that is immutable, making a defensive copy if necessary.
+     */
+    public static <E> Set<E> immutable(final Set<E> set) {
+        return ImmutableSet.with(set);
     }
 
     /**
@@ -64,7 +73,7 @@ final public class Sets implements PublicStaticHelper {
      * {@see Collections#singleton(Object)}
      */
     public static <T> Set<T> of(final T item) {
-        return Collections.singleton(item);
+        return ImmutableSet.singleton(item);
     }
 
     /**
@@ -77,7 +86,7 @@ final public class Sets implements PublicStaticHelper {
 
         final Set<E> set = ordered();
         Collections.addAll(set, elements);
-        return set;
+        return ImmutableSet.copy(set);
     }
 
     /**
@@ -88,10 +97,12 @@ final public class Sets implements PublicStaticHelper {
     }
 
     /**
-     * {@see Collections#unmodifiableSet(Set)}
+     * Returns a read only {@link Set} view, not an immutable set. The original may still be modified.
      */
     public static <T> Set<T> readOnly(final Set<T> set) {
-        return Collections.unmodifiableSet(set);
+        return ImmutableSet.isImmutable(set) ?
+                set :
+                Collections.unmodifiableSet(set);
     }
 
     /**
