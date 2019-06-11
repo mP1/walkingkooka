@@ -33,11 +33,7 @@ final class SetContainsPredicate<T> implements Predicate<T> {
      * Factory that takes a copy of the {@link Set} and creates a new {@link SetContainsPredicate}
      */
     static <T> SetContainsPredicate<T> with(final Set<T> set) {
-        Objects.requireNonNull(set, "set");
-
-        final Set<T> copy = Sets.ordered();
-        copy.addAll(set);
-        return new SetContainsPredicate<>(copy);
+        return new SetContainsPredicate<>(Sets.immutable(set));
     }
 
     /**
