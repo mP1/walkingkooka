@@ -43,6 +43,12 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest implement
     private final static String VALUE2 = "Server2";
 
     @Test
+    public void testAddFails() {
+        this.addFails(this.createSet(),
+                Maps.entry(HEADER1, VALUE1));
+    }
+
+    @Test
     public void testContains() {
         final HttpServletRequest request = this.request();
         this.containsAndCheck(HttpServletRequestHttpRequestHeadersMapEntrySet.with(request),
@@ -59,6 +65,12 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest implement
         }
 
         assertEquals(Maps.of(HEADER1, VALUE1, HEADER2, VALUE2), entries, "iterator entries");
+    }
+
+    @Test
+    public void testRemoveFails() {
+        this.removeFails(this.createSet(),
+                Maps.entry(HEADER1, VALUE1));
     }
 
     @Test

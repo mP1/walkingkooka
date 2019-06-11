@@ -45,6 +45,11 @@ final class HttpServletRequestHttpRequestParametersMapEntrySet extends AbstractS
     }
 
     @Override
+    public boolean remove(final Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public int size() {
         return this.parameters.size();
     }

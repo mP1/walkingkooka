@@ -19,6 +19,7 @@
 package walkingkooka.tree.text;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.iterator.IteratorTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting;
 
@@ -29,7 +30,8 @@ import java.util.Map.Entry;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TextStyleMapEntrySetTest implements SetTesting<TextStyleMapEntrySet, Entry<TextStylePropertyName<?>, Object>> {
+public final class TextStyleMapEntrySetTest implements SetTesting<TextStyleMapEntrySet, Entry<TextStylePropertyName<?>, Object>>,
+        IteratorTesting {
 
     @Test
     public void testWithInvalidPropertyFails() {
@@ -50,9 +52,7 @@ public final class TextStyleMapEntrySetTest implements SetTesting<TextStyleMapEn
 
     @Test
     public void testAddFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createSet().add(Maps.entry(this.property1(), this.value1()));
-        });
+        this.addFails(this.createSet(), Maps.entry(this.property1(), this.value1()));
     }
 
     @Test
