@@ -40,6 +40,12 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest implem
     private final static String VALUE2 = "value2";
 
     @Test
+    public void testAddFails() {
+        this.addFails(this.createSet(),
+                this.entry(HttpRequestParameterName.with(KEY1), VALUE1A));
+    }
+
+    @Test
     public void testContains() {
         this.containsAndCheck(this.createSet(),
                 this.entry(HttpRequestParameterName.with(KEY1), VALUE1A, VALUE1B));
@@ -49,6 +55,12 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest implem
     public void testContains2() {
         this.containsAndCheck(this.createSet(),
                 this.entry(HttpRequestParameterName.with(KEY2), VALUE2));
+    }
+
+    @Test
+    public void testRemoveFails() {
+        this.removeFails(this.createSet(),
+                this.entry(HttpRequestParameterName.with(KEY1), VALUE1A));
     }
 
     @Test

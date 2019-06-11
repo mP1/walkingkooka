@@ -56,7 +56,19 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.of(HttpHeaderName.CONTENT_LENGTH, "1",
             HttpHeaderName.COOKIE, COOKIES);
 
-    // tests................................................................................................
+    // tests............................................................................................................
+
+    @Test
+    public void testAddFails() {
+        this.addFails(this.createSet(),
+                Maps.entry(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED));
+    }
+
+    @Test
+    public void testRemoveFails() {
+        this.removeFails(this.createSet(),
+                Maps.entry(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED));
+    }
 
     @Test
     public void testSize() {
