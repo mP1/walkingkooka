@@ -21,6 +21,7 @@ package walkingkooka.tree.text;
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
@@ -49,7 +50,7 @@ public final class TextStyleNode extends TextParentNode {
     // TextStyle.setTextNodes
     static TextNode with(final List<TextNode> children,
                          final TextStyleMap properties) {
-        final List<TextNode> copy = copy(children);
+        final List<TextNode> copy = Lists.immutable(children);
         return properties.isEmpty() && copy.size() == 1 ?
                 copy.get(0) :
                 new TextStyleNode(NO_INDEX, copy, properties);

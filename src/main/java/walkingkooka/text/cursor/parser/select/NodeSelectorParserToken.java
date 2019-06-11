@@ -458,9 +458,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(tokens);
-        return Lists.readOnly(copy);
+        return Lists.immutable(tokens);
     }
 
     static void checkTextNullOrEmpty(final String text) {

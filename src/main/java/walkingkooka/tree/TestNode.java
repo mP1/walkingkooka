@@ -166,10 +166,14 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         return this.children().get(i);
     }
 
+    /**
+     * It is necessary to take copies of children because mutations will reset in the parent being set again for the new graph.
+     */
     private static List<TestNode> copyChildren(final List<TestNode> children) {
-        return children.stream()
+        return Lists.immutable(children.stream()
                 .map(c -> c.copy())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())
+        );
     }
 
     private TestNode copy() {

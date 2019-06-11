@@ -75,15 +75,6 @@ abstract class SearchParentNode extends SearchNode {
      */
     abstract List<SearchNode> copyChildren(final List<SearchNode> children);
 
-    /**
-     * Makes a copy of the list.
-     */
-    static List<SearchNode> copy(final List<SearchNode> nodes) {
-        List<SearchNode> copy = Lists.array();
-        copy.addAll(nodes);
-        return copy;
-    }
-
     @Override
     final SearchNode setChild(final SearchNode newChild, final int index) {
         final SearchNode previous = this.children().get(index);

@@ -93,7 +93,7 @@ public final class SearchMetaNode extends SearchParentNode {
      */
     @Override
     final List<SearchNode> copyChildren(final List<SearchNode> children) {
-        return copy(children);
+        return Lists.immutable(children);
     }
 
     @Override

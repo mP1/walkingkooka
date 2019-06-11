@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
@@ -28,7 +29,7 @@ import java.util.List;
 public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserToken<SpreadsheetEqualsParserToken> {
 
     static SpreadsheetEqualsParserToken with(final List<ParserToken> value, final String text) {
-        return new SpreadsheetEqualsParserToken(copyAndCheckTokens(value),
+        return new SpreadsheetEqualsParserToken(Lists.immutable(value),
                 checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }

@@ -59,6 +59,13 @@ final public class Lists implements PublicStaticHelper {
     }
 
     /**
+     * Returns a {@link List} that is immutable, making a defensive copy if necessary.
+     */
+    public static <E> List<E> immutable(final List<E> list) {
+        return ImmutableList.with(list);
+    }
+
+    /**
      * {@see LinkedList}
      */
     public static <T> List<T> linkedList() {
@@ -66,25 +73,27 @@ final public class Lists implements PublicStaticHelper {
     }
 
     /**
-     * {@see Collections#singletonList(Object)}
+     * {@see ImmutableList#singleton}.
      */
     public static <T> List<T> of(final T item) {
-        return Collections.singletonList(item);
+        return ImmutableList.singleton(item);
     }
 
     /**
-     * {@see Arrays#asList}
+     * {@see ImmutableList#wrap}
      */
     @SafeVarargs
     public static <T> List<T> of(final T... items) {
-        return Arrays.asList(items);
+        return ImmutableList.select(Arrays.asList(items.clone()));
     }
 
     /**
-     * {@see Collections#unmodifiableList(List)}
+     * Returns a read only view of the given list. If the list is modified then the read only view will also contain different elements.
      */
     public static <T> List<T> readOnly(final List<T> list) {
-        return Collections.unmodifiableList(list);
+        return ImmutableList.isImmutable(list) ?
+                list :
+                Collections.unmodifiableList(list);
     }
 
     /**

@@ -45,8 +45,7 @@ abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequence
     final ParserToken2<List<ParserToken>> setValue(final List<ParserToken> value) {
         Objects.requireNonNull(value, "values");
 
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(value);
+        final List<ParserToken> copy = Lists.immutable(value);
         return this.value().equals(copy) ?
                 this :
                 this.replaceValue(copy);

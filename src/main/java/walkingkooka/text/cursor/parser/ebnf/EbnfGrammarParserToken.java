@@ -41,10 +41,9 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGram
         Objects.requireNonNull(tokens, "tokens");
         checkText(text);
 
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(tokens);
-
-        return new EbnfGrammarParserToken(copy, text, WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfGrammarParserToken(Lists.immutable(tokens),
+                text,
+                WITHOUT_COMPUTE_REQUIRED);
     }
 
     private EbnfGrammarParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
