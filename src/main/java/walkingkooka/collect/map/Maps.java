@@ -17,16 +17,19 @@
 
 package walkingkooka.collect.map;
 
+import walkingkooka.Cast;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
+import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.WeakHashMap;
@@ -77,6 +80,69 @@ final public class Maps implements PublicStaticHelper {
     }
 
     /**
+     * Returns an immutable {@link Map}.
+     */
+    static public <K, V> Map<K, V> immutable(final Map<K, V> map) {
+        Objects.requireNonNull(map, "map");
+
+        return ImmutableMap.isImmutable(map) ?
+                map :
+                copyAndSelect(map);
+    }
+
+    /**
+     * Makes a defensive copy and then wraps or selects a {@link Map}.
+     */
+    private static <K, V> Map<K, V> copyAndSelect(final Map<K, V> map) {
+        final Map<K, V> copy = map instanceof SortedMap ?
+                sortedMap(Cast.to(map)) :
+                ordered();
+        copy.putAll(map);
+
+        Map<K, V> immutable = null;
+        switch (copy.size()) {
+            case 0:
+                immutable = empty();
+                break;
+            case 1:
+                final Entry<K, V> entry = copy.entrySet().iterator().next();
+                immutable = of(entry.getKey(), entry.getValue());
+                break;
+            case 2:
+                final Iterator<Entry<K, V>> entries2 = copy.entrySet().iterator();
+                immutable = ImmutableMap.array(entries2.next(),
+                        entries2.next());
+                break;
+            case 3:
+                final Iterator<Entry<K, V>> entries3 = copy.entrySet().iterator();
+                immutable = ImmutableMap.array(entries3.next(),
+                        entries3.next(),
+                        entries3.next());
+                break;
+            case 4:
+                final Iterator<Entry<K, V>> entries4 = copy.entrySet().iterator();
+                immutable = ImmutableMap.array(entries4.next(),
+                        entries4.next(),
+                        entries4.next(),
+                        entries4.next());
+                break;
+            default:
+                immutable = ImmutableMap.map(copy);
+                break;
+        }
+        return immutable;
+    }
+
+    /**
+     * Factory that creates a {@link SortedMap} with the {@link Comparator} if present.
+     */
+    private static <K, V> Map<K, V> sortedMap(final SortedMap<K, V> map) {
+        return null == map.comparator() ?
+                sorted() :
+                sorted(map.comparator());
+    }
+
+    /**
      * {@see TreeMap}
      */
     static public <K, V> NavigableMap<K, V> navigable() {
@@ -94,55 +160,65 @@ final public class Maps implements PublicStaticHelper {
      * {@see Collections#singletonMap(Object, Object)
      */
     static public <K, V> Map<K, V> of(final K key, final V value) {
-        return Collections.singletonMap(key, value);
+        return ImmutableMap.singleton(entry(key, value));
     }
 
     /**
      * A Map with two key/value pairs
      */
-    static public <K, V> Map<K, V> of(final K key1,
-                                      final V value1,
-                                      final K key2,
-                                      final V value2) {
-        final Map<K, V> map = ordered();
-        map.put(key1, value1);
-        map.put(key2, value2);
-        return readOnly(map); // TODO update to 1.9
+    static public <K, V> Map<K, V> of(final K key0,
+                                      final V value0,
+                                      final K key1,
+                                      final V value1) {
+        final Entry<K, V>[] entries = entriesArray(2);
+
+        entries[0] = entry(key0, value0);
+        entries[1] = entry(key1, value1);
+
+        return ImmutableMap.array(entries);
     }
 
     /**
      * A Map with three key/value pairs
      */
-    static public <K, V> Map<K, V> of(final K key1,
+    static public <K, V> Map<K, V> of(final K key0,
+                                      final V value0,
+                                      final K key1,
                                       final V value1,
                                       final K key2,
-                                      final V value2,
-                                      final K key3,
-                                      final V value3) {
-        final Map<K, V> map = ordered();
-        map.put(key1, value1);
-        map.put(key2, value2);
-        map.put(key3, value3);
-        return readOnly(map); // TODO update to 1.9
+                                      final V value2) {
+        final Entry<K, V>[] entries = entriesArray(3);
+
+        entries[0] = entry(key0, value0);
+        entries[1] = entry(key1, value1);
+        entries[2] = entry(key2, value2);
+
+        return ImmutableMap.array(entries);
     }
 
     /**
      * A Map with four key/value pairs
      */
-    static public <K, V> Map<K, V> of(final K key1,
+    static public <K, V> Map<K, V> of(final K key0,
+                                      final V value0,
+                                      final K key1,
                                       final V value1,
                                       final K key2,
                                       final V value2,
                                       final K key3,
-                                      final V value3,
-                                      final K key4,
-                                      final V value4) {
-        final Map<K, V> map = ordered();
-        map.put(key1, value1);
-        map.put(key2, value2);
-        map.put(key3, value3);
-        map.put(key4, value4);
-        return readOnly(map); // TODO update to 1.9
+                                      final V value3) {
+        final Entry<K, V>[] entries = entriesArray(4);
+
+        entries[0] = entry(key0, value0);
+        entries[1] = entry(key1, value1);
+        entries[2] = entry(key2, value2);
+        entries[3] = entry(key3, value3);
+
+        return ImmutableMap.array(entries);
+    }
+
+    private static <K, V> Entry<K, V>[] entriesArray(final int size) {
+        return new Entry[size];
     }
 
     /**
@@ -156,7 +232,9 @@ final public class Maps implements PublicStaticHelper {
      * {@see Collections#unmodifiableMap(Map)
      */
     static public <K, V> Map<K, V> readOnly(final Map<K, V> map) {
-        return Collections.unmodifiableMap(map);
+        return ImmutableMap.isImmutable(map) ?
+                map :
+                Collections.unmodifiableMap(map);
     }
 
     /**

@@ -119,7 +119,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
     @Override
     public Map<HttpHeaderName<?>, Object> headers() {
-        return Maps.readOnly(this.headers);
+        return this.headers;
     }
 
     /**
@@ -186,7 +186,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
             final HttpHeaderName<?> name = nameAndValue.getKey();
             copy.put(name, name.checkValue(nameAndValue.getValue()));
         }
-        return copy;
+        return Maps.immutable(copy);
     }
 
     // body ...................................................................................

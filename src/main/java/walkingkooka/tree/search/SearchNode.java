@@ -143,9 +143,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     static Map<SearchNodeAttributeName, String> copyAttributes(final Map<SearchNodeAttributeName, String> attributes) {
         Objects.requireNonNull(attributes, "attributes");
 
-        final Map<SearchNodeAttributeName, String> copy = Maps.ordered();
-        copy.putAll(attributes);
-        return copy;
+        return Maps.immutable(attributes);
     }
 
     /**

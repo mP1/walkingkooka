@@ -92,7 +92,7 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
             copy.put(name,
                     name.checkValue(nameAndValue.getValue()));
         }
-        return Maps.readOnly(copy);
+        return Maps.immutable(copy);
     }
 
     // replace................................................................................................................
