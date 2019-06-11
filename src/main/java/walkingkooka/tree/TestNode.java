@@ -180,7 +180,7 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
         return new TestNode(this.name,
                 NO_PARENT,
                 copyChildren(this.children),
-                this.copyAttributes());
+                this.attributes);
     }
 
     private final List<TestNode> children;
@@ -199,18 +199,11 @@ public class TestNode implements Node<TestNode, StringName, StringName, Object> 
     public TestNode setAttributes(final Map<StringName, Object> attributes) {
         Objects.requireNonNull(attributes, "attributes");
 
-        final Map<StringName, Object> copy = Maps.ordered();
-        copy.putAll(attributes);
+        final Map<StringName, Object> copy = Maps.immutable(attributes);
         return this.attributes.equals(copy) ?
                 this :
-                new TestNode(this.name, NO_PARENT, copyChildren(this.children), Maps.readOnly(copy))
+                new TestNode(this.name, NO_PARENT, copyChildren(this.children), copy)
                         .replace(this.parent, this.index);
-    }
-
-    private Map<StringName, Object> copyAttributes() {
-        final Map<StringName, Object> copy = Maps.ordered();
-        copy.putAll(this.attributes);
-        return copy;
     }
 
     private final Map<StringName, Object> attributes;

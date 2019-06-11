@@ -60,7 +60,7 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
 
         new CharPredicateGrammarEbnfParserTokenVisitor(copy).accept(grammar);
 
-        return Maps.readOnly(copy);
+        return Maps.immutable(copy);
     }
 
     private CharPredicateGrammarEbnfParserTokenVisitor(final Map<EbnfIdentifierName, CharPredicate> identifierToCharPredicate) {

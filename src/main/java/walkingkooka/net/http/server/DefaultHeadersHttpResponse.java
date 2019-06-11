@@ -36,9 +36,7 @@ final class DefaultHeadersHttpResponse extends WrapperHttpResponse {
                              final HttpResponse response) {
         check(response);
 
-        final Map<HttpHeaderName<?>, Object> copy = Maps.ordered();
-        copy.putAll(headers);
-
+        final Map<HttpHeaderName<?>, Object> copy = Maps.immutable(headers);
         return copy.isEmpty() ?
                 response :
                 new DefaultHeadersHttpResponse(copy, response);
