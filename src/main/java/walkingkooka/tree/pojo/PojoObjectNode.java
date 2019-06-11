@@ -100,7 +100,7 @@ final class PojoObjectNode extends PojoNode2 {
     }
 
     /**
-     * Accepts the value after setting all properties, and if its different from the original, wrap it,
+     * Accepts the value after setting all properties, and if its different from the original, replace it,
      * and also notify any present parent.
      */
     private PojoNode wrapIfDifferent(final Object before, final Object after) {

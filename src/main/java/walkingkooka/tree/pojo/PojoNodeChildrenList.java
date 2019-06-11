@@ -36,9 +36,9 @@ abstract class PojoNodeChildrenList<P extends PojoNode> extends PojoNodeList<P, 
 
     abstract Object elementValue(final int index);
 
-    abstract PojoNode wrap(final int index);
+    abstract PojoNode replace(final int index);
 
-    final PojoNode wrap0(final PojoName name, final Object instance, final int index) {
+    final PojoNode replace0(final PojoName name, final Object instance, final int index) {
         return PojoNode.wrap0(
                 name,
                 instance,

@@ -36,7 +36,7 @@ abstract class PojoNodeFixedChildrenList<P extends PojoNode2> extends PojoNodeCh
     public final PojoNode get(final int index) {
         PojoNode node = this.nodes[index];
         if (null == node) {
-            node = this.wrap(index);
+            node = this.replace(index);
             this.nodes[index] = node;
         }
         return node;
