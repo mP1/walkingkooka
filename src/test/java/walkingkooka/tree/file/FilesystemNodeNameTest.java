@@ -29,6 +29,11 @@ public final class FilesystemNodeNameTest implements ClassTesting2<FilesystemNod
         NameTesting<FilesystemNodeName, FilesystemNodeName> {
 
     @Override
+    @Disabled
+    public void testCaseSensitivity() {
+    }
+
+    @Override
     @Test
     @Disabled
     public void testCompareDifferentCase() {
