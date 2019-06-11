@@ -25,8 +25,10 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public interface CollectionTesting<C extends Collection<E>, E> extends ToStringTesting<C> {
@@ -55,6 +57,20 @@ public interface CollectionTesting<C extends Collection<E>, E> extends ToStringT
 
     C createCollection();
 
+    default void addFails(final Collection<E> collection,
+                          final E add) {
+        final List<E> before = Lists.array();
+        before.addAll(collection);
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            collection.add(add);
+        });
+
+        final List<E> after = Lists.array();
+        after.addAll(collection);
+        assertEquals(before, after, () -> "add modified collection " + collection);
+    }
+
     default void containsAndCheck(final Collection<E> collection, final E element) {
         assertTrue(collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
         assertTrue(collection.containsAll(Lists.of(element)),
@@ -63,6 +79,20 @@ public interface CollectionTesting<C extends Collection<E>, E> extends ToStringT
 
     default void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
         assertEquals(empty, collection.isEmpty(), () -> "isEmpty of " + collection);
+    }
+
+    default void removeFails(final Collection<E> collection,
+                             final E remove) {
+        final List<E> before = Lists.array();
+        before.addAll(collection);
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            collection.remove(remove);
+        });
+
+        final List<E> after = Lists.array();
+        after.addAll(collection);
+        assertEquals(before, after, () -> "remove modified collection " + collection);
     }
 
     default void sizeAndCheck(final Collection<?> collection, final int size) {
