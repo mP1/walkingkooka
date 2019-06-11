@@ -20,7 +20,10 @@ package walkingkooka.collect.map;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MapTestingTest implements MapTesting<Map<String, Integer>, String, Integer> {
 
@@ -67,6 +70,21 @@ public final class MapTestingTest implements MapTesting<Map<String, Integer>, St
         map.put(KEY2, VALUE2);
 
         this.getAndCheck(map, KEY1, VALUE1);
+    }
+
+    @Test
+    public void testPutFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            Collections.emptyMap().put("key", "value");
+        });
+    }
+
+    @Test
+    public void testRemoveFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            Collections.singletonMap("key", "value")
+                    .remove("key");
+        });
     }
 
     @Override
