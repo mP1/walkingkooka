@@ -27,6 +27,7 @@ import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -144,6 +145,21 @@ public interface MapTesting<M extends Map<K, V>, K, V> {
 
     default void isEmptyAndCheck(final Map<K, V> map, final boolean empty) {
         assertEquals(empty, map.isEmpty(), () -> "isEmpty of " + map);
+    }
+
+    default void putFails(final Map<K, V> map,
+                          final K key,
+                          final V value) {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            map.put(key, value);
+        });
+    }
+
+    default void removeFails(final Map<K, V> map,
+                             final K key) {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            map.remove(key);
+        });
     }
 
     default void sizeAndCheck(final Map<K, V> map, final int size) {
