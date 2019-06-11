@@ -38,10 +38,10 @@ final class PojoObjectNodeChildrenList extends PojoNodeFixedChildrenList<PojoObj
     }
 
     @Override
-    PojoNode wrap(final int index) {
+    PojoNode replace(final int index) {
         final PojoProperty property = this.property(index);
 
-        return this.wrap0(property.name(),// the name of the property(field)
+        return this.replace0(property.name(),// the name of the property(field)
                 property.get(this.parent.value()),
                 index);
     }

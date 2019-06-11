@@ -46,7 +46,7 @@ final class PojoArrayOrCollectionNodeChildrenList<P extends PojoArrayOrCollectio
 
         PojoNode node = this.nodes.get(index);
         if (null == node) {
-            node = this.wrap(index);
+            node = this.replace(index);
             this.nodes.set(index, node);
         }
         return node;
@@ -71,8 +71,8 @@ final class PojoArrayOrCollectionNodeChildrenList<P extends PojoArrayOrCollectio
     }
 
     @Override
-    PojoNode wrap(final int index) {
-        return this.wrap0(PojoName.index(index),
+    PojoNode replace(final int index) {
+        return this.replace0(PojoName.index(index),
                 this.elementValue(index),
                 index);
     }

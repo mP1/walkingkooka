@@ -61,7 +61,7 @@ final class PojoSetNode extends PojoCollectionNode {
                 .map(child -> child.value())
                 .collect(Collectors.toCollection(() -> this.createSet()));
 
-        return this.wrap(copy);
+        return this.replace(copy);
     }
 
     @Override
@@ -77,7 +77,7 @@ final class PojoSetNode extends PojoCollectionNode {
             i++;
         }
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -90,14 +90,14 @@ final class PojoSetNode extends PojoCollectionNode {
         final Set<Object> copy = this.createSet();
         copy.addAll(values);
 
-        return this.wrap(copy);
+        return this.replace(copy);
     }
 
     private Set<Object> createSet() {
         return this.context.createSet(this.value.getClass());
     }
 
-    private PojoNode wrap(final Set<Object> values) {
+    private PojoNode replace(final Set<Object> values) {
         return new PojoSetNode(this.name(),
                 values,
                 this.index(),

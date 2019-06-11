@@ -51,7 +51,7 @@ final class PojoObjectArrayNode extends PojoArrayNode {
             i++;
         }
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -60,7 +60,7 @@ final class PojoObjectArrayNode extends PojoArrayNode {
 
         newChildren[newChild.index()] = newChild.value();
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -73,14 +73,14 @@ final class PojoObjectArrayNode extends PojoArrayNode {
             i++;
         }
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     private Object[] createArray(final int size) {
         return Cast.to(Array.newInstance(this.value().getClass().getComponentType(), size));
     }
 
-    private PojoNode wrap(final Object[] values) {
+    private PojoNode replace(final Object[] values) {
         return new PojoObjectArrayNode(this.name(),
                 values,
                 this.index(),
