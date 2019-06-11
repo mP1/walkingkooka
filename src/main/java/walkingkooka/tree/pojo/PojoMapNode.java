@@ -62,7 +62,7 @@ final class PojoMapNode extends PojoCollectionNode {
             final Entry<Object, Object> value = Cast.to(child.value());
             newChildren.put(value.getKey(), value.getValue());
         }
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -83,7 +83,7 @@ final class PojoMapNode extends PojoCollectionNode {
             newChildren.put(key, value);
             i++;
         }
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -100,14 +100,14 @@ final class PojoMapNode extends PojoCollectionNode {
             copy.put(entry.getKey(), entry.getValue());
         }
 
-        return this.wrap(copy);
+        return this.replace(copy);
     }
 
     private Map<Object, Object> createMap() {
         return this.context.createMap(this.value.getClass());
     }
 
-    private PojoNode wrap(final Map<Object, Object> values) {
+    private PojoNode replace(final Map<Object, Object> values) {
         return new PojoMapNode(this.name(),
                 values,
                 this.index(),

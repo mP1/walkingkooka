@@ -50,7 +50,7 @@ final class PojoDoubleArrayNode extends PojoArrayNode {
             i++;
         }
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -59,7 +59,7 @@ final class PojoDoubleArrayNode extends PojoArrayNode {
 
         newChildren[newChild.index()] = (double) newChild.value();
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -72,10 +72,10 @@ final class PojoDoubleArrayNode extends PojoArrayNode {
             i++;
         }
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
-    private PojoNode wrap(final double[] values) {
+    private PojoNode replace(final double[] values) {
         return new PojoDoubleArrayNode(this.name(),
                 values,
                 this.index(),

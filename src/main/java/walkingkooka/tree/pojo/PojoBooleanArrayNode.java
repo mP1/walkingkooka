@@ -50,7 +50,7 @@ final class PojoBooleanArrayNode extends PojoArrayNode {
             i++;
         }
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -59,7 +59,7 @@ final class PojoBooleanArrayNode extends PojoArrayNode {
 
         newChildren[newChild.index()] = (boolean) newChild.value();
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -72,10 +72,10 @@ final class PojoBooleanArrayNode extends PojoArrayNode {
             i++;
         }
 
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
-    private PojoNode wrap(final boolean[] values) {
+    private PojoNode replace(final boolean[] values) {
         return new PojoBooleanArrayNode(this.name(),
                 values,
                 this.index(),

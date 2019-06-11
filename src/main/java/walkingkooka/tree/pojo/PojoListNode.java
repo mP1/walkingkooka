@@ -54,7 +54,7 @@ final class PojoListNode extends PojoCollectionNode {
                 .map(child -> child.value())
                 .collect(Collectors.toCollection(() -> this.createList()));
 
-        return this.wrap(copy);
+        return this.replace(copy);
     }
 
     @Override
@@ -68,7 +68,7 @@ final class PojoListNode extends PojoCollectionNode {
             newChildren.add(i == index ? newChild.value() : child);
             i++;
         }
-        return this.wrap(newChildren);
+        return this.replace(newChildren);
     }
 
     @Override
@@ -81,7 +81,7 @@ final class PojoListNode extends PojoCollectionNode {
         final List<Object> copy = this.createList();
         copy.addAll(values);
 
-        return this.wrap(values);
+        return this.replace(values);
     }
 
     /**
@@ -91,7 +91,7 @@ final class PojoListNode extends PojoCollectionNode {
         return this.context.createList(this.value.getClass());
     }
 
-    private PojoNode wrap(final List<Object> values) {
+    private PojoNode replace(final List<Object> values) {
         return new PojoListNode(this.name(),
                 values,
                 this.index(),
