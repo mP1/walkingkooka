@@ -25,6 +25,8 @@ import walkingkooka.collect.list.Lists;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class CollectionTestingTest implements CollectionTesting<List<String>, String> {
 
     private final static String ELEMENT1 = "a1";
@@ -33,6 +35,30 @@ public final class CollectionTestingTest implements CollectionTesting<List<Strin
     @Test
     public void testAddFails() {
         this.addFails(Collections.emptyList(), "add!");
+    }
+
+    @Test
+    public void testContains() {
+        this.containsAndCheck(Collections.singleton(ELEMENT1), ELEMENT1);
+    }
+
+    @Test
+    public void testContainsPresentAbsent() {
+        assertThrows(AssertionError.class, () -> {
+            this.containsAndCheck(Collections.singleton(ELEMENT1), ELEMENT2);
+        });
+    }
+
+    @Test
+    public void testContainsAbsent() {
+        this.containsAndCheckAbsent(Collections.singleton(ELEMENT1), ELEMENT2);
+    }
+
+    @Test
+    public void testContainsAbsentPresent() {
+        assertThrows(AssertionError.class, () -> {
+            this.containsAndCheckAbsent(Collections.singleton(ELEMENT1), ELEMENT1);
+        });
     }
 
     @Test
