@@ -17,12 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -68,11 +66,8 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
         return this.value;
     }
 
-    final SpreadsheetFormatParentParserToken setValue0(final List<ParserToken> value) {
-        Objects.requireNonNull(value, "values");
-
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(value);
+    final SpreadsheetFormatParentParserToken setValue0(final List<ParserToken> tokens) {
+        final List<ParserToken> copy = copyAndCheckTokens(tokens);
 
         return this.value().equals(copy) ?
                 this :

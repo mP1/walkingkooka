@@ -21,6 +21,7 @@ package walkingkooka.convert;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,8 +35,9 @@ final class ConverterCollection implements Converter {
      * Providing zero will result in an {@link IllegalArgumentException}.
      */
     static Converter with(final List<Converter> converters) {
-        final List<Converter> copy = Lists.array();
-        copy.addAll(converters);
+        Objects.requireNonNull(converters, "converters");
+
+        final List<Converter> copy = Lists.immutable(converters);
 
         Converter result;
         final int count = copy.size();

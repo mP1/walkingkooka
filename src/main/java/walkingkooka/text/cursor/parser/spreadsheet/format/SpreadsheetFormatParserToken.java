@@ -409,9 +409,7 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(tokens);
-        return copy;
+        return Lists.immutable(tokens);
     }
 
     static List<ParserToken> copyAndCheckTokensFailIfEmpty(final List<ParserToken> tokens) {

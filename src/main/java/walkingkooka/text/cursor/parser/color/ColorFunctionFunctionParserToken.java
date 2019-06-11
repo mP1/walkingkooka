@@ -46,20 +46,14 @@ public final class ColorFunctionFunctionParserToken extends ColorFunctionParserT
 
     static ColorFunctionFunctionParserToken with(final List<ParserToken> value,
                                                  final String text) {
-        return new ColorFunctionFunctionParserToken(copyAndCheckTokens(value),
+        Objects.requireNonNull(value, "tokens");
+
+        return new ColorFunctionFunctionParserToken(Lists.immutable(value),
                 Objects.requireNonNull(text, "text"),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
-
-    private static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
-        Objects.requireNonNull(tokens, "tokens");
-
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(tokens);
-        return Lists.readOnly(copy);
-    }
 
     private ColorFunctionFunctionParserToken(final List<ParserToken> value,
                                              final String text,

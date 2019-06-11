@@ -29,12 +29,6 @@ import java.util.Optional;
  */
 abstract class ExpressionParentNode extends ExpressionNode {
 
-    static List<ExpressionNode> copy(final List<ExpressionNode> expressions) {
-        List<ExpressionNode> copy = Lists.array();
-        copy.addAll(expressions);
-        return copy;
-    }
-
     ExpressionParentNode(final int index, final List<ExpressionNode> children) {
         super(index);
 
@@ -60,7 +54,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
     final ExpressionNode setChildren0(final List<ExpressionNode> children) {
         Objects.requireNonNull(children, "children");
 
-        final List<ExpressionNode> copy = copy(children);
+        final List<ExpressionNode> copy = Lists.immutable(children);
         return Lists.equals(this.children(), copy, (first, other) -> first.equalsIgnoringParentAndChildren(other) && first.equalsDescendants0(other)) ?
                 this :
                 this.replaceChildren(copy);

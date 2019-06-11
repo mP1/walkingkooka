@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
@@ -29,7 +30,7 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
         implements SpreadsheetReferenceParserToken {
 
     static SpreadsheetCellReferenceParserToken with(final List<ParserToken> value, final String text) {
-        return new SpreadsheetCellReferenceParserToken(copyAndCheckTokens(value),
+        return new SpreadsheetCellReferenceParserToken(Lists.immutable(value),
                 checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }

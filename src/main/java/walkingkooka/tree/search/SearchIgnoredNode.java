@@ -80,9 +80,9 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
      */
     @Override
     final List<SearchNode> copyChildren(final List<SearchNode> children) {
-        return children.stream()
+        return Lists.immutable(children.stream()
                 .map(SearchIgnoredNode::maybeUnwrap)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     private static SearchNode maybeUnwrap(final SearchNode node) {

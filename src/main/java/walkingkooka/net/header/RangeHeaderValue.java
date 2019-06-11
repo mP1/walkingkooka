@@ -172,8 +172,7 @@ public final class RangeHeaderValue implements HeaderValue,
     private static List<Range<Long>> copyAndCheckValue(final List<Range<Long>> ranges) {
         Objects.requireNonNull(ranges, "ranges");
 
-        final List<Range<Long>> copy = Lists.array();
-        copy.addAll(ranges);
+        final List<Range<Long>> copy = Lists.immutable(ranges);
 
         final int count = ranges.size();
         if (0 == count) {

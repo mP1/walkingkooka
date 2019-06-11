@@ -36,15 +36,6 @@ import java.util.stream.Collectors;
 abstract class TextParentNode extends TextNode {
 
     /**
-     * Makes a copy of the given list.
-     */
-    static List<TextNode> copy(final List<TextNode> from) {
-        List<TextNode> copy = Lists.array();
-        copy.addAll(from);
-        return copy;
-    }
-
-    /**
      * Package private to limit sub classing.
      */
     TextParentNode(final int index, final List<TextNode> children) {
@@ -77,7 +68,7 @@ abstract class TextParentNode extends TextNode {
     final TextNode setChildren0(final List<TextNode> children) {
         Objects.requireNonNull(children, "children");
 
-        final List<TextNode> copy = copy(children);
+        final List<TextNode> copy = Lists.immutable(children);
         return Lists.equals(this.children(), copy, (first, other) -> first.equalsIgnoringParentAndChildren(other) && first.equalsDescendants0(other)) ?
                 this :
                 this.replaceChildren(copy);

@@ -215,7 +215,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>> {
     }
 
     /**
-     * Creates a defensive copy of all children.
+     * Copies the current children {@link List} into a new one ready for modification.
      */
     private List<JsonNode> copyChildren() {
         final List<JsonNode> copy = Lists.array();

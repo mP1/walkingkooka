@@ -59,7 +59,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
 
     @Override
     List<SearchNode> copyChildren(final List<SearchNode> children) {
-        return copy(children);
+        return Lists.immutable(children);
     }
 
     @Override

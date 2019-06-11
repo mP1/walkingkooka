@@ -365,9 +365,7 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
-        final List<ParserToken> copy = Lists.array();
-        copy.addAll(tokens);
-
+        final List<ParserToken> copy = Lists.immutable(tokens);
         if (copy.isEmpty()) {
             throw new IllegalArgumentException("Tokens is empty");
         }
