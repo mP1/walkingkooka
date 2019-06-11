@@ -29,7 +29,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public interface CollectionTesting<C extends Collection<E>, E> extends ToStringTesting<C> {
 
@@ -71,10 +70,18 @@ public interface CollectionTesting<C extends Collection<E>, E> extends ToStringT
         assertEquals(before, after, () -> "add modified collection " + collection);
     }
 
-    default void containsAndCheck(final Collection<E> collection, final E element) {
-        assertTrue(collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
-        assertTrue(collection.containsAll(Lists.of(element)),
-                () -> collection + " should contain Collection of " + CharSequences.quoteIfChars(element));
+    default void containsAndCheck(final Collection<E> collection,
+                                  final E element) {
+        assertEquals(true, collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
+        assertEquals(true, collection.containsAll(Lists.of(element)),
+                () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element));
+    }
+
+    default void containsAndCheckAbsent(final Collection<E> collection,
+                                        final E element) {
+        assertEquals(false, collection.contains(element), () -> collection + " should contain " + CharSequences.quoteIfChars(element));
+        assertEquals(false, collection.containsAll(Lists.of(element)),
+                () -> collection + " should NOT contain Collection of " + CharSequences.quoteIfChars(element));
     }
 
     default void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
