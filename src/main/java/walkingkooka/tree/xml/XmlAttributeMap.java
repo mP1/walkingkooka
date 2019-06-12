@@ -31,6 +31,10 @@ import java.util.Map;
  */
 final class XmlAttributeMap extends XmlMap<XmlAttributeName, String> {
 
+    static {
+        Maps.registerImmutableType(XmlAttributeMap.class);
+    }
+
     static Map<XmlAttributeName, String> from(final NamedNodeMap attributes) {
         return isEmpty(attributes) ?
                 Maps.empty() :

@@ -19,6 +19,7 @@
 package walkingkooka.tree.xml;
 
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.set.Sets;
 
 import java.util.AbstractSet;
 import java.util.Iterator;
@@ -28,6 +29,10 @@ import java.util.Map.Entry;
  * A readonly {@link java.util.Set} view of a {@link XmlMap}
  */
 final class XmlMapEntrySet<K, V> extends AbstractSet<Entry<K, V>> {
+
+    static {
+        Sets.registerImmutableType(XmlMapEntrySet.class);
+    }
 
     static <K, V> XmlMapEntrySet<K, V> with(final XmlMap<K, V> map) {
         return new XmlMapEntrySet<K, V>(map);

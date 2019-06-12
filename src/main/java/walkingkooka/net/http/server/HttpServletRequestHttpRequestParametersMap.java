@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 
 import java.util.AbstractMap;
 import java.util.List;
@@ -29,6 +30,10 @@ import java.util.Set;
  * A readonly parameter map view of the parameters from a {@link javax.servlet.http.HttpServletRequest}.
  */
 final class HttpServletRequestHttpRequestParametersMap extends AbstractMap<HttpRequestParameterName, List<String>> {
+
+    static {
+        Maps.registerImmutableType(HttpServletRequestHttpRequestParametersMap.class);
+    }
 
     static HttpServletRequestHttpRequestParametersMap with(final Map<String, String[]> parameters) {
         return new HttpServletRequestHttpRequestParametersMap(parameters);

@@ -18,6 +18,7 @@
 
 package walkingkooka.collect.map;
 
+import walkingkooka.collect.ImmutableTypeRegistry;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.AbstractMap;
@@ -30,16 +31,16 @@ import java.util.Map;
 abstract class ImmutableMap<K, V> extends AbstractMap<K, V> implements HashCodeEqualsDefined {
 
     /**
-     * Special case checking for empty map created by {@link Collections#emptyMap()}.
+     * Special case checking for empty {@link Map} created by {@link Collections#emptyMap()}.
      */
-    private final static Class<?> EMPTY = Maps.empty().getClass();
+    final static ImmutableTypeRegistry TYPES = ImmutableTypeRegistry.with(Map.class)
+            .add(Maps.empty().getClass());
 
     /**
      * Returns true if the {@link Map} is immutable. This may not detect all but tries to attempt a few known to {@link Map}.
      */
     static boolean isImmutable(final Map<?, ?> map) {
-        final Class<?> type = map.getClass();
-        return EMPTY == type || map instanceof ImmutableMap;
+        return map instanceof ImmutableMap || TYPES.contains(map.getClass());
     }
 
     /**

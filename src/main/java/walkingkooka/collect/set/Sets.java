@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.Set;
@@ -32,6 +33,13 @@ import java.util.TreeSet;
 import java.util.function.BiPredicate;
 
 final public class Sets implements PublicStaticHelper {
+    /**
+     * Registers a {@link List} type as immutable.
+     */
+    public static void registerImmutableType(final Class<? extends Set> type) {
+        ImmutableSet.TYPES.add(type);
+    }
+
     /**
      * {@see Collections#empty()}
      */

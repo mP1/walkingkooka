@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.HttpHeaderScope;
 
@@ -31,6 +32,10 @@ import java.util.Set;
  * A {@link Map} that checks the header (or key) passed to {@link #containsKey(Object)} and {@link #get(Object)}.
  */
 final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
+
+    static {
+        Maps.registerImmutableType(HeaderScopeHttpRequestHeadersMap.class);
+    }
 
     static HeaderScopeHttpRequestHeadersMap with(final Map<HttpHeaderName<?>, Object> map,
                                                  final HttpHeaderScope scope) {

@@ -19,6 +19,7 @@
 package walkingkooka.collect.set;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.ImmutableTypeRegistry;
 
 import java.util.AbstractSet;
 import java.util.Collections;
@@ -32,16 +33,16 @@ import java.util.SortedSet;
 abstract class ImmutableSet<T> extends AbstractSet<T> {
 
     /**
-     * Special case checking for empty sets created by {@link Collections#emptySet()}.
+     * Special case checking for empty {@link Set} created by {@link Collections#emptySet()}.
      */
-    private final static Class<?> EMPTY = Sets.empty().getClass();
+    final static ImmutableTypeRegistry TYPES = ImmutableTypeRegistry.with(Set.class)
+            .add(Sets.empty().getClass());
 
     /**
-     * Returns true if the {@link Set} is immutable. This may not detect all but tries to attempt a few known to {@link Sets}.
+     * Returns true if the {@link Set} is immutable. This may not detect all but tries to attempt a few known to {@link Set}.
      */
     static boolean isImmutable(final Set<?> set) {
-        final Class<?> type = set.getClass();
-        return EMPTY == type || set instanceof ImmutableSet;
+        return set instanceof ImmutableSet || TYPES.contains(set.getClass());
     }
 
     /**

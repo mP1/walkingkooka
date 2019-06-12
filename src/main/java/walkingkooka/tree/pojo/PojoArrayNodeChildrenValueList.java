@@ -17,10 +17,16 @@
 
 package walkingkooka.tree.pojo;
 
+import walkingkooka.collect.list.Lists;
+
 /**
  * Readonly list view of {@link PojoObjectNode#childrenValues()}
  */
 final class PojoArrayNodeChildrenValueList extends PojoNodeList<PojoArrayNode, Object> {
+
+    static {
+        Lists.registerImmutableType(PojoArrayNodeChildrenValueList.class);
+    }
 
     static PojoArrayNodeChildrenValueList with(final PojoArrayNode parent) {
         return new PojoArrayNodeChildrenValueList(parent);

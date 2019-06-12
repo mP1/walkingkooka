@@ -19,6 +19,7 @@
 package walkingkooka.tree.file;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 
 import java.util.AbstractMap;
 import java.util.Set;
@@ -27,6 +28,10 @@ import java.util.Set;
  * A {@link java.util.Map} that holds the attributes for both files and directories.
  */
 final class FilesystemNodeAttributeMap extends AbstractMap<FilesystemNodeAttributeName, String> {
+
+    static {
+        Maps.registerImmutableType(FilesystemNodeAttributeMap.class);
+    }
 
     /**
      * Factory only called by the {@link FilesystemNode} ctor.

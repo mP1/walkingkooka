@@ -29,6 +29,10 @@ import java.util.List;
  */
 final class UrlParameterValueList extends AbstractList<String> {
 
+    static {
+        Lists.registerImmutableType(UrlParameterValueList.class);
+    }
+
     static UrlParameterValueList empty() {
         return new UrlParameterValueList();
     }
