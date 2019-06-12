@@ -24,7 +24,10 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -267,7 +270,29 @@ public final class BinaryTest implements HashCodeEqualsDefinedTesting<Binary>,
         assertTrue(gzipped.size() < length, () -> "gzipped " + gzipped.size() + " < " + length);
     }
 
-    // equals.........................................................................................................
+    // InputStream......................................................................................................
+
+    @Test
+    public void testInputStream() throws Exception {
+        final byte[] bytes = "ABC123".getBytes(Charset.defaultCharset());
+
+        try (final ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+            try (final InputStream input = Binary.with(bytes).inputStream()) {
+
+                for (; ; ) {
+                    final int b = input.read();
+                    if (-1 == b) {
+                        break;
+                    }
+                    output.write(b);
+                }
+            }
+
+            assertArrayEquals(bytes, output.toByteArray());
+        }
+    }
+
+    // equals...........................................................................................................
 
     @Test
     public void testDifferent() {
