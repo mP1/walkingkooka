@@ -21,8 +21,10 @@ package walkingkooka;
 import walkingkooka.compare.Range;
 import walkingkooka.test.HashCodeEqualsDefined;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
@@ -99,6 +101,15 @@ public final class Binary implements HashCodeEqualsDefined,
             return new Binary(outputStream.toByteArray());
         }
     }
+
+    /**
+     * Returns a {@link InputStream} which may be used to read the bytes inside this {@link Binary}
+     */
+    public InputStream inputStream() {
+        return new ByteArrayInputStream(this.value);
+    }
+
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {
