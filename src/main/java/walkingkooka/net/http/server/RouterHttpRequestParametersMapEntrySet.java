@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
 
@@ -32,6 +33,10 @@ import java.util.Map.Entry;
  * The {@link Map#entrySet()} for {@link RouterHttpRequestParametersMap}.
  */
 final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<HttpRequestAttribute<?>, Object>> {
+
+    static {
+        Sets.registerImmutableType(RouterHttpRequestParametersMapEntrySet.class);
+    }
 
     /**
      * Factory only called by {@link RouterHttpRequestParametersMap}.

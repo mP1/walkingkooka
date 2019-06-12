@@ -18,6 +18,8 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.set.Sets;
+
 import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +31,10 @@ import java.util.Set;
  * The {@link Set} view of all entries in a parameters {@link Map}.
  */
 final class HttpServletRequestHttpRequestParametersMapEntrySet extends AbstractSet<Entry<HttpRequestParameterName, List<String>>> {
+
+    static {
+        Sets.registerImmutableType(HttpServletRequestHttpRequestParametersMapEntrySet.class);
+    }
 
     static HttpServletRequestHttpRequestParametersMapEntrySet with(final Set<Entry<String, String[]>> parameters) {
         return new HttpServletRequestHttpRequestParametersMapEntrySet(parameters);

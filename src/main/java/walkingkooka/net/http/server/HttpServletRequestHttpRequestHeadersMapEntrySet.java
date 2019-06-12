@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,10 @@ import java.util.Set;
  * The {@link Set} view of all entries in a headers from a request.
  */
 final class HttpServletRequestHttpRequestHeadersMapEntrySet extends AbstractSet<Entry<HttpHeaderName<?>, Object>> {
+
+    static {
+        Sets.registerImmutableType(HttpServletRequestHttpRequestHeadersMapEntrySet.class);
+    }
 
     static HttpServletRequestHttpRequestHeadersMapEntrySet with(final HttpServletRequest request) {
         return new HttpServletRequestHttpRequestHeadersMapEntrySet(request);

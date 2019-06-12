@@ -29,6 +29,10 @@ import java.util.Map;
  */
 final class XmlEntityMap extends XmlMap<XmlName, XmlEntity> {
 
+    static {
+        Maps.registerImmutableType(XmlEntityMap.class);
+    }
+
     static Map<XmlName, XmlEntity> from(final NamedNodeMap entities) {
         return isEmpty(entities) ?
                 Maps.empty() :

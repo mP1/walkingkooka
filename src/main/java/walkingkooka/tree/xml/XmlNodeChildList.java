@@ -30,6 +30,10 @@ import java.util.Optional;
  */
 final class XmlNodeChildList extends AbstractList<XmlNode> {
 
+    static {
+        Lists.registerImmutableType(XmlNodeChildList.class);
+    }
+
     static List<XmlNode> wrap(final org.w3c.dom.Node node, final XmlNode parent) {
         final NodeList children = node.getChildNodes();
         return children.getLength() == 0 ? Lists.empty() : new XmlNodeChildList(parent, children.getLength());

@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.UrlPathName;
@@ -35,6 +36,10 @@ import java.util.Set;
  * A {@link Map} view of a {@link HttpRequest}.
  */
 final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttribute<?>, Object> {
+
+    static {
+        Maps.registerImmutableType(RouterHttpRequestParametersMap.class);
+    }
 
     /**
      * Factory that creates a map of parameters from a {@link HttpRequest}.

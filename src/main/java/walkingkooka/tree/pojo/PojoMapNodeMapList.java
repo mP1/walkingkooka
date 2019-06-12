@@ -31,6 +31,10 @@ import java.util.Map.Entry;
  */
 final class PojoMapNodeMapList extends AbstractList<Object> {
 
+    static {
+        Lists.registerImmutableType(PojoMapNodeMapList.class);
+    }
+
     PojoMapNodeMapList(final Map<Object, Object> map) {
         this.map = map;
         this.list = Lists.array();

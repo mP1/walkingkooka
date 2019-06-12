@@ -37,6 +37,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 final public class Maps implements PublicStaticHelper {
+
+    /**
+     * Registers a {@link Map} type as immutable.
+     */
+    public static void registerImmutableType(final Class<? extends Map> type) {
+        ImmutableMap.TYPES.add(type);
+    }
+
     /**
      * {@see ConcurrentHashMap}
      */

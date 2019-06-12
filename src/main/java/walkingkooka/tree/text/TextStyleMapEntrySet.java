@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.AbstractSet;
@@ -36,6 +37,10 @@ import java.util.Set;
  * A read only {@link Set} sorted view of textStyle that have had their values checked.
  */
 final class TextStyleMapEntrySet extends AbstractSet<Entry<TextStylePropertyName<?>, Object>> {
+
+    static {
+        Sets.registerImmutableType(TextStyleMapEntrySet.class);
+    }
 
     /**
      * An empty {@link TextStyleMap}.

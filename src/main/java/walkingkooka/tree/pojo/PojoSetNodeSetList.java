@@ -30,6 +30,10 @@ import java.util.Set;
  */
 final class PojoSetNodeSetList extends AbstractList<Object> {
 
+    static {
+        Lists.registerImmutableType(PojoSetNodeSetList.class);
+    }
+
     static PojoSetNodeSetList with(final Set<Object> set) {
         return new PojoSetNodeSetList(set);
     }

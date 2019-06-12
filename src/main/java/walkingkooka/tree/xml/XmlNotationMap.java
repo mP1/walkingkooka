@@ -29,6 +29,10 @@ import java.util.Map;
  */
 final class XmlNotationMap extends XmlMap<XmlName, XmlNotation> {
 
+    static {
+        Maps.registerImmutableType(XmlNotationMap.class);
+    }
+
     static Map<XmlName, XmlNotation> from(final NamedNodeMap notations) {
         return isEmpty(notations) ?
                 Maps.empty() :

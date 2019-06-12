@@ -32,6 +32,10 @@ import java.util.Set;
  */
 final class EbnfParserCombinatorsTransformMap extends AbstractMap<EbnfIdentifierName, Parser<ParserContext>> {
 
+    static {
+        Maps.registerImmutableType(EbnfParserCombinatorsTransformMap.class);
+    }
+
     static EbnfParserCombinatorsTransformMap with(final Map<EbnfIdentifierName, Parser<ParserContext>> map) {
         return new EbnfParserCombinatorsTransformMap(map);
     }

@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.text;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.AbstractMap;
@@ -26,9 +27,13 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * A read only sorted view of attributes or text property to values that appear within a {@link TextStyleNode}.
+ * A read only sorted view of attributes or text style to values that appear within a {@link TextStyleNode}.
  */
 final class TextStyleMap extends AbstractMap<TextStylePropertyName<?>, Object> {
+
+    static {
+        Maps.registerImmutableType(TextStyleMap.class);
+    }
 
     /**
      * An empty {@link TextStyleMap}.

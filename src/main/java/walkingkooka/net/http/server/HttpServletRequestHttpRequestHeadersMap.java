@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,10 @@ import java.util.Set;
  * A read only parameter map view of the request from a {@link javax.servlet.http.HttpServletRequest}.
  */
 final class HttpServletRequestHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
+
+    static {
+        Maps.registerImmutableType(HttpServletRequestHttpRequestHeadersMap.class);
+    }
 
     static HttpServletRequestHttpRequestHeadersMap with(final HttpServletRequest request) {
         return new HttpServletRequestHttpRequestHeadersMap(request);
