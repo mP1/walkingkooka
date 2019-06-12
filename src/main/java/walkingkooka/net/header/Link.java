@@ -203,7 +203,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
             final LinkParameterName<?> name = parameterNameAndValue.getKey();
 
             json = json.set(JsonNodeName.with(name.value()),
-                    JsonNode.string(name.converter.toText(Cast.to(parameterNameAndValue.getValue()), name)));
+                    JsonNode.string(name.handler.toText(Cast.to(parameterNameAndValue.getValue()), name)));
         }
 
 
@@ -236,7 +236,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
             final LinkParameterName<?> name = parameterNameAndValue.getKey();
 
             attributes.put(XmlAttributeName.with(name.value(), XmlAttributeName.NO_PREFIX),
-                    name.converter.toText(Cast.to(parameterNameAndValue.getValue()), name));
+                    name.handler.toText(Cast.to(parameterNameAndValue.getValue()), name));
         }
 
         return document.createElement(LINK)

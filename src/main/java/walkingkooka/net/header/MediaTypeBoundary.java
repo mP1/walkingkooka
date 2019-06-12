@@ -125,7 +125,7 @@ public final class MediaTypeBoundary implements Value<String>,
      * Parses the text into a {@link MediaTypeBoundary}.
      */
     public static MediaTypeBoundary parse(final String value) {
-        return MediaTypeBoundaryHeaderValueConverter.INSTANCE.parse(value, MediaTypeParameterName.BOUNDARY);
+        return MediaTypeBoundaryHeaderValueHandler.INSTANCE.parse(value, MediaTypeParameterName.BOUNDARY);
     }
 
     /**

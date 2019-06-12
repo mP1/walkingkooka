@@ -32,9 +32,9 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
     /**
      * Private ctor to limit sub classing.
      */
-    HeaderParameterName(final String name, final HeaderValueConverter<V> converter) {
+    HeaderParameterName(final String name, final HeaderValueHandler<V> handler) {
         super(name);
-        this.converter = converter;
+        this.handler = handler;
     }
 
     /**
@@ -53,7 +53,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
     public final V toValue(final String text) {
         Objects.requireNonNull(text, "text");
 
-        return this.converter.parse(text, this);
+        return this.handler.parse(text, this);
     }
 
     /**
@@ -61,10 +61,10 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
      */
     @Override
     public final V checkValue(final Object value) {
-        return this.converter.check(value, this);
+        return this.handler.check(value, this);
     }
 
-    final HeaderValueConverter<V> converter;
+    final HeaderValueHandler<V> handler;
 
     /**
      * Gets a value wrapped in an {@link Optional} in a type safe manner.

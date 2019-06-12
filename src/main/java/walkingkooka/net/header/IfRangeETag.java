@@ -54,7 +54,7 @@ final class IfRangeETag extends IfRange<ETag> {
     }
 
     @Override
-    HeaderValueConverter<ETag> converter() {
+    HeaderValueHandler<ETag> handler() {
         return ETAG;
     }
 

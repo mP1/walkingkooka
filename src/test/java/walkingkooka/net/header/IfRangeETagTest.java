@@ -52,7 +52,7 @@ public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, Lo
 
     @Override
     String headerText() {
-        return HeaderValueConverter.eTag().toText(this.value(), HttpHeaderName.E_TAG);
+        return HeaderValueHandler.eTag().toText(this.value(), HttpHeaderName.E_TAG);
     }
 
     @Override

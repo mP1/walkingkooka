@@ -32,7 +32,7 @@ enum CacheControlDirectiveNameParameter {
         @Override
         <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
             if (value.isPresent()) {
-                name.converter.check(value.get(), name);
+                name.handler.check(value.get(), name);
             } else {
                 fail("Directive " + name + " missing required parameter.");
             }
@@ -42,7 +42,7 @@ enum CacheControlDirectiveNameParameter {
     OPTIONAL {
         @Override
         <T> Optional<T> check0(final Optional<T> value, final CacheControlDirectiveName<T> name) {
-            value.ifPresent((v) -> {name.converter.check(v, name);});
+            value.ifPresent((v) -> {name.handler.check(v, name);});
 
             return value;
         }

@@ -25,7 +25,7 @@ final public class LanguageTagParameterName<V> extends HeaderParameterName<V> im
 
     private final static HeaderParameterNameConstants<LanguageTagParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             LanguageTagParameterName::new,
-            HeaderValueConverter.quotedUnquotedString(
+            HeaderValueHandler.quotedUnquotedString(
                     LanguageTagHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
                     LanguageTagHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
@@ -35,7 +35,7 @@ final public class LanguageTagParameterName<V> extends HeaderParameterName<V> im
      * The q factor weight parameter.
      */
     public final static LanguageTagParameterName<Float> Q_FACTOR = CONSTANTS.register("q",
-            HeaderValueConverter.qWeight());
+            HeaderValueHandler.qWeight());
 
     /**
      * Factory that creates a {@link LanguageTagParameterName}
@@ -48,8 +48,8 @@ final public class LanguageTagParameterName<V> extends HeaderParameterName<V> im
      * Private ctor use factory.
      */
     private LanguageTagParameterName(final String value,
-                                     final HeaderValueConverter<V> converter) {
-        super(value, converter);
+                                     final HeaderValueHandler<V> handler) {
+        super(value, handler);
     }
 
     // Comparable......................................................................................................

@@ -128,14 +128,14 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
     abstract String toHeaderTextValue();
 
     /**
-     * Helper that converts the parameter key/value into text using the name's {@link HeaderValueConverter}.
+     * Helper that converts the parameter key/value into text using the name's {@link HeaderValueHandler}.
      */
     private String toHeaderTextParameter(final Entry<P, Object> nameAndValue) {
         final P name = nameAndValue.getKey();
         return this.toHeaderTextParameterSeparator() +
                 name.value() +
                 PARAMETER_NAME_VALUE_SEPARATOR.character() +
-                name.converter.toText(Cast.to(nameAndValue.getValue()), name);
+                name.handler.toText(Cast.to(nameAndValue.getValue()), name);
     }
 
     /**

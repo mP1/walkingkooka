@@ -38,7 +38,7 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
      */
     private final static HeaderParameterNameConstants<LinkParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             LinkParameterName::new,
-            HeaderValueConverter.quotedUnquotedString(
+            HeaderValueHandler.quotedUnquotedString(
                     LinkHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
                     LinkHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
@@ -47,22 +47,22 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
     /**
      * Holds the rel parameter name.
      */
-    public final static LinkParameterName<List<LinkRelation<?>>> REL = CONSTANTS.register("rel", HeaderValueConverter.relation());
+    public final static LinkParameterName<List<LinkRelation<?>>> REL = CONSTANTS.register("rel", HeaderValueHandler.relation());
 
     /**
      * Holds the anchor parameter name.
      */
-    public final static LinkParameterName<Url> ANCHOR = CONSTANTS.register("anchor", HeaderValueConverter.absoluteUrl());
+    public final static LinkParameterName<Url> ANCHOR = CONSTANTS.register("anchor", HeaderValueHandler.absoluteUrl());
 
     /**
      * Holds the rev parameter name.
      */
-    public final static LinkParameterName<List<LinkRelation<?>>> REV = CONSTANTS.register("rev", HeaderValueConverter.relation());
+    public final static LinkParameterName<List<LinkRelation<?>>> REV = CONSTANTS.register("rev", HeaderValueHandler.relation());
 
     /**
      * Holds the hreflang parameter name.
      */
-    public final static LinkParameterName<LanguageTagName> HREFLANG = CONSTANTS.register("hreflang", HeaderValueConverter.languageTagName());
+    public final static LinkParameterName<LanguageTagName> HREFLANG = CONSTANTS.register("hreflang", HeaderValueHandler.languageTagName());
 
     /**
      * The media type parameter.<br>
@@ -106,20 +106,20 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
      * Note. Style sheets may include media-dependent variations within them (e.g., the CSS @media construct). In such cases it may be appropriate to use "media=all".
      * </pre>
      */
-    public final static LinkParameterName<String> MEDIA = CONSTANTS.register("media", HeaderValueConverter.quotedUnquotedString(LinkHeaderValueParser.QUOTED_PARAMETER_VALUE,
+    public final static LinkParameterName<String> MEDIA = CONSTANTS.register("media", HeaderValueHandler.quotedUnquotedString(LinkHeaderValueParser.QUOTED_PARAMETER_VALUE,
             true, // backslash escaping...
             LinkHeaderValueParser.UNQUOTED_PARAMETER_VALUE));
 
     /**
      * A non standard parameter to hold the {@link HttpMethod} for this resource
      */
-    public final static LinkParameterName<HttpMethod> METHOD = CONSTANTS.register("method", HeaderValueConverter.method());
+    public final static LinkParameterName<HttpMethod> METHOD = CONSTANTS.register("method", HeaderValueHandler.method());
 
     /**
      * The title parameter.
      * This should be used for ascii only title text.
      */
-    public final static LinkParameterName<EncodedText> TITLE = CONSTANTS.register("title", HeaderValueConverter.quotedUnquotedString(
+    public final static LinkParameterName<EncodedText> TITLE = CONSTANTS.register("title", HeaderValueHandler.quotedUnquotedString(
             CharPredicates.asciiPrintable(),
             false,
             CharPredicates.rfc2045Token()));
@@ -128,12 +128,12 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
      * The title star parameter.
      * This should be used for all non ascii safe title text.
      */
-    public final static LinkParameterName<EncodedText> TITLE_STAR = CONSTANTS.register("title*", HeaderValueConverter.encodedText());
+    public final static LinkParameterName<EncodedText> TITLE_STAR = CONSTANTS.register("title*", HeaderValueHandler.encodedText());
 
     /**
      * The type parameter, which holds the {@link MediaType content type} for this link.
      */
-    public final static LinkParameterName<MediaType> TYPE = CONSTANTS.register("type", HeaderValueConverter.mediaType());
+    public final static LinkParameterName<MediaType> TYPE = CONSTANTS.register("type", HeaderValueHandler.mediaType());
 
     /**
      * Factory that creates a {@link LinkParameterName}
@@ -146,8 +146,8 @@ final public class LinkParameterName<V> extends HeaderParameterName<V> implement
      * Private ctor use factory.
      */
     private LinkParameterName(final String value,
-                              final HeaderValueConverter<V> converter) {
-        super(value, converter);
+                              final HeaderValueHandler<V> handler) {
+        super(value, handler);
     }
 
     // Comparable......................................................................................................

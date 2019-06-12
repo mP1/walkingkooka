@@ -25,7 +25,7 @@ final public class EncodingParameterName<V> extends HeaderParameterName<V> imple
 
     private final static HeaderParameterNameConstants<EncodingParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             EncodingParameterName::new,
-            HeaderValueConverter.quotedUnquotedString(
+            HeaderValueHandler.quotedUnquotedString(
                     AcceptEncodingHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
                     AcceptEncodingHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
@@ -35,7 +35,7 @@ final public class EncodingParameterName<V> extends HeaderParameterName<V> imple
      * The q factor weight parameter.
      */
     public final static EncodingParameterName<Float> Q_FACTOR = CONSTANTS.register("q",
-            HeaderValueConverter.qWeight());
+            HeaderValueHandler.qWeight());
 
     /**
      * Factory that creates a {@link EncodingParameterName}
@@ -48,8 +48,8 @@ final public class EncodingParameterName<V> extends HeaderParameterName<V> imple
      * Private ctor use factory.
      */
     private EncodingParameterName(final String value,
-                                  final HeaderValueConverter<V> converter) {
-        super(value, converter);
+                                  final HeaderValueHandler<V> handler) {
+        super(value, handler);
     }
 
     // Comparable......................................................................................................

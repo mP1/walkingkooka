@@ -37,29 +37,29 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
     /**
      * Creates a new empty constants. One or more constants need to be registered before lookups can work.
      */
-    static <R extends HeaderParameterName<?>> HeaderParameterNameConstants<R> empty(final BiFunction<String, HeaderValueConverter<?>, R> factory,
-                                                                                    final HeaderValueConverter<?> defaultConverter) {
-        return new HeaderParameterNameConstants<>(factory, defaultConverter);
+    static <R extends HeaderParameterName<?>> HeaderParameterNameConstants<R> empty(final BiFunction<String, HeaderValueHandler<?>, R> factory,
+                                                                                    final HeaderValueHandler<?> defaultHandler) {
+        return new HeaderParameterNameConstants<>(factory, defaultHandler);
     }
 
     /**
      * Private ctor use factory.
      */
-    private HeaderParameterNameConstants(final BiFunction<String, HeaderValueConverter<?>, N> factory,
-                                         final HeaderValueConverter<?> defaultConverter) {
+    private HeaderParameterNameConstants(final BiFunction<String, HeaderValueHandler<?>, N> factory,
+                                         final HeaderValueHandler<?> defaultHandler) {
         super();
         this.factory = factory;
-        this.defaultConverter = defaultConverter;
+        this.defaultHandler = defaultHandler;
     }
 
     /**
      * Registers a new parameter name constant.
      */
-    <T, NN extends N> NN register(final String name, final HeaderValueConverter<T> converter) {
+    <T, NN extends N> NN register(final String name, final HeaderValueHandler<T> handler) {
         if (this.nameToConstant.containsKey(name)) {
             throw new IllegalArgumentException("Constant already registered " + CharSequences.quote(name));
         }
-        final N instance = this.factory.apply(name, converter);
+        final N instance = this.factory.apply(name, handler);
         this.nameToConstant.put(name, instance);
         return Cast.to(instance);
     }
@@ -81,7 +81,7 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
      */
     private N checkAndCreate(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", RFC2045);
-        return this.factory.apply(name, this.defaultConverter);
+        return this.factory.apply(name, this.defaultHandler);
     }
 
     private final static CharPredicate RFC2045 = CharPredicates.rfc2045Token();
@@ -89,7 +89,7 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
     /**
      * Basically calls the ctor for the parameter name. Should not perform any character checking of the provided name.
      */
-    private final BiFunction<String, HeaderValueConverter<?>, N> factory;
+    private final BiFunction<String, HeaderValueHandler<?>, N> factory;
 
     /**
      * A map that provides lookups ignoring case sensitivity of previously registered constants.
@@ -97,9 +97,9 @@ final class HeaderParameterNameConstants<N extends HeaderParameterName<?>> {
     private final Map<String, N> nameToConstant = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
-     * The default converter for non constant parameter names.
+     * The default handler for non constant parameter names.
      */
-    private final HeaderValueConverter<?> defaultConverter;
+    private final HeaderValueHandler<?> defaultHandler;
 
     @Override
     public final String toString() {

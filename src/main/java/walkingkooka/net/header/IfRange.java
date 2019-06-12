@@ -76,11 +76,11 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
     public static IfRange<?> parse(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
-        return IfRangeHeaderValueConverter.INSTANCE.parse(text, HEADER_NAME);
+        return IfRangeHeaderValueHandler.INSTANCE.parse(text, HEADER_NAME);
     }
 
-    final static HeaderValueConverter<ETag> ETAG = HeaderValueConverter.eTag();
-    final static HeaderValueConverter<LocalDateTime> DATE_TIME = HeaderValueConverter.localDateTime();
+    final static HeaderValueHandler<ETag> ETAG = HeaderValueHandler.eTag();
+    final static HeaderValueHandler<LocalDateTime> DATE_TIME = HeaderValueHandler.localDateTime();
 
     /**
      * Factory that creates an {@link IfRange} expecting an etag or date/time.
@@ -159,7 +159,7 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
 
     @Override
     public final String toHeaderText() {
-        return this.converter().toText(this.value(), HEADER_NAME);
+        return this.handler().toText(this.value(), HEADER_NAME);
     }
 
     @Override
@@ -168,9 +168,9 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
     }
 
     /**
-     * A converter used to format the value as a header text.
+     * A handler used to format the value as a header text.
      */
-    abstract HeaderValueConverter<T> converter();
+    abstract HeaderValueHandler<T> handler();
 
     // HasHeaderScope ....................................................................................................
 

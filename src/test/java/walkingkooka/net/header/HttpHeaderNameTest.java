@@ -335,7 +335,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
 
         this.toValueAndCheck(HttpHeaderName.IF_RANGE,
-                HeaderValueConverter.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
+                HeaderValueHandler.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
                 IfRange.with(lastModified));
     }
 
