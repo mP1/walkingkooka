@@ -74,7 +74,7 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
      */
     private final static HeaderParameterNameConstants<ContentDispositionParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             ContentDispositionParameterName::new,
-            HeaderValueConverter.quotedUnquotedString(
+            HeaderValueHandler.quotedUnquotedString(
                     ContentDispositionHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
                     ContentDispositionHeaderValueParser.UNQUOTED_PARAMETER_VALUE
@@ -84,36 +84,36 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
      * A {@link ContentDispositionParameterName} holding <code>creation-date</code>
      */
     public final static ContentDispositionParameterName<OffsetDateTime> CREATION_DATE = CONSTANTS.register("creation-date",
-            HeaderValueConverter.offsetDateTime());
+            HeaderValueHandler.offsetDateTime());
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>filename</code>
      */
     public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = CONSTANTS.register("filename",
-            ContentDispositionFileNameNotEncodedHeaderValueConverter.INSTANCE);
+            ContentDispositionFileNameNotEncodedHeaderValueHandler.INSTANCE);
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>filename*</code>
      */
     public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME_STAR = CONSTANTS.register("filename*",
-            HeaderValueConverter.contentDispositionFilename());
+            HeaderValueHandler.contentDispositionFilename());
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>modification-date</code>
      */
     public final static ContentDispositionParameterName<OffsetDateTime> MODIFICATION_DATE = CONSTANTS.register("modification-date",
-            HeaderValueConverter.offsetDateTime());
+            HeaderValueHandler.offsetDateTime());
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>read-date</code>
      */
     public final static ContentDispositionParameterName<OffsetDateTime> READ_DATE = CONSTANTS.register("read-date",
-            HeaderValueConverter.offsetDateTime());
+            HeaderValueHandler.offsetDateTime());
     /**
      * A {@link ContentDispositionParameterName} holding <code>size</code>
      */
     public final static ContentDispositionParameterName<Long> SIZE = CONSTANTS.register("size",
-            HeaderValueConverter.longConverter());
+            HeaderValueHandler.longHandler());
 
     // factory ......................................................................................................
 
@@ -129,8 +129,8 @@ final public class ContentDispositionParameterName<V> extends HeaderParameterNam
      * Private constructor use factory.
      */
     private ContentDispositionParameterName(final String name,
-                                            final HeaderValueConverter<V> converter) {
-        super(name, converter);
+                                            final HeaderValueHandler<V> handler) {
+        super(name, handler);
     }
 
     // Comparable......................................................................................................

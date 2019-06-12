@@ -54,7 +54,7 @@ final class IfRangeLastModified extends IfRange<LocalDateTime> {
     }
 
     @Override
-    HeaderValueConverter<LocalDateTime> converter() {
+    HeaderValueHandler<LocalDateTime> handler() {
         return DATE_TIME;
     }
 

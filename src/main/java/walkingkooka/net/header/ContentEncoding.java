@@ -100,7 +100,7 @@ public final class ContentEncoding implements Value<String>,
      * Parses the text into a {@link List} of {@link ContentEncoding}.
      */
     public static List<ContentEncoding> parse(final String text) {
-        return ContentEncodingListHeaderValueConverter.INSTANCE.parse(text, HttpHeaderName.CONTENT_ENCODING);
+        return ContentEncodingListHeaderValueHandler.INSTANCE.parse(text, HttpHeaderName.CONTENT_ENCODING);
     }
 
     /**

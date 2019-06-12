@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CaseSensitivity;
 
 import java.util.Optional;
 
@@ -80,7 +79,7 @@ final class ContentDispositionFileNameNotEncoded extends ContentDispositionFileN
 
     @Override
     public String toHeaderText() {
-        return ContentDispositionFileNameNotEncodedHeaderValueConverter.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
+        return ContentDispositionFileNameNotEncodedHeaderValueHandler.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
     }
 
     @Override

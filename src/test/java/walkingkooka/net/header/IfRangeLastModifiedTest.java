@@ -52,7 +52,7 @@ public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastMo
 
     @Override
     String headerText() {
-        return HeaderValueConverter.localDateTime().toText(this.value(), HttpHeaderName.LAST_MODIFIED);
+        return HeaderValueHandler.localDateTime().toText(this.value(), HttpHeaderName.LAST_MODIFIED);
     }
 
     @Override

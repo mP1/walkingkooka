@@ -50,7 +50,7 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
                                                                                         final CacheControlDirectiveNameScope scope) {
         return register(name,
                 CacheControlDirectiveNameParameter.REQUIRED,
-                HeaderValueConverter.longConverter(),
+                HeaderValueHandler.longHandler(),
                 scope);
     }
 
@@ -59,9 +59,9 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
      */
     private static <V> CacheControlDirectiveName<V> register(final String name,
                                                              final CacheControlDirectiveNameParameter required,
-                                                             final HeaderValueConverter<V> value,
+                                                             final HeaderValueHandler<V> handler,
                                                              final CacheControlDirectiveNameScope scope) {
-        final CacheControlDirectiveName<V> constant = new CacheControlDirectiveName<V>(name, required, value, scope);
+        final CacheControlDirectiveName<V> constant = new CacheControlDirectiveName<V>(name, required, handler, scope);
         CONSTANTS.put(name, constant);
         return constant;
     }
@@ -82,7 +82,7 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
      */
     public final static CacheControlDirectiveName<Long> MAX_STALE = register("max-stale",
             CacheControlDirectiveNameParameter.OPTIONAL,
-            HeaderValueConverter.longConverter(),
+            HeaderValueHandler.longHandler(),
             CacheControlDirectiveNameScope.REQUEST);
 
     /**
@@ -171,7 +171,7 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
                 directiveName :
                 new CacheControlDirectiveName<>(name,
                         CacheControlDirectiveNameParameter.OPTIONAL,
-                        CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE, // maybe
+                        CacheControlDirectiveExtensionHeaderValueHandler.INSTANCE, // maybe
                         CacheControlDirectiveNameScope.UNKNOWN);
     }
 
@@ -180,11 +180,11 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
      */
     private CacheControlDirectiveName(final String name,
                                       final CacheControlDirectiveNameParameter parameter,
-                                      final HeaderValueConverter<V> converter,
+                                      final HeaderValueHandler<V> handler,
                                       final CacheControlDirectiveNameScope scope) {
         super(name);
         this.parameter = parameter;
-        this.converter = converter;
+        this.handler = handler;
         this.scope = scope;
     }
 
@@ -203,11 +203,11 @@ public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
 
     private final CacheControlDirectiveNameParameter parameter;
 
-    final HeaderValueConverter<V> converter;
+    final HeaderValueHandler<V> handler;
 
     @Override
     public Optional<V> toValue(final String text) {
-        return Optional.of(this.converter.parse(text, this));
+        return Optional.of(this.handler.parse(text, this));
     }
 
     boolean requiresParameter() {

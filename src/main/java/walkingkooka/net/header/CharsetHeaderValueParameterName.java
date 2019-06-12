@@ -32,7 +32,7 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
 
     private final static HeaderParameterNameConstants<CharsetHeaderValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             CharsetHeaderValueParameterName::new,
-            HeaderValueConverter.quotedUnquotedString(
+            HeaderValueHandler.quotedUnquotedString(
                     AcceptCharsetHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     false,
                     AcceptCharsetHeaderValueParser.UNQUOTED_PARAMETER_VALUE));
@@ -40,7 +40,7 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
     /**
      * The q factor weight parameter.
      */
-    public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueConverter.qWeight());
+    public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueHandler.qWeight());
 
     /**
      * Factory that creates a {@link CharsetHeaderValueParameterName}
@@ -53,8 +53,8 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
      * Private ctor use factory.
      */
     private CharsetHeaderValueParameterName(final String value,
-                                            final HeaderValueConverter<V> converter) {
-        super(value, converter);
+                                            final HeaderValueHandler<V> handler) {
+        super(value, handler);
     }
 
     // Comparable..................................................................................................

@@ -32,7 +32,7 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
      */
     private final static HeaderParameterNameConstants<MediaTypeParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             MediaTypeParameterName::new,
-            HeaderValueConverter.quotedUnquotedString(
+            HeaderValueHandler.quotedUnquotedString(
                     MediaTypeHeaderValueParser.QUOTED_PARAMETER_VALUE,
                     true,
                     MediaTypeHeaderValueParser.UNQUOTED_PARAMETER_VALUE)
@@ -41,22 +41,22 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
     /**
      * Holds the boundary parameter name.
      */
-    public final static MediaTypeParameterName<MediaTypeBoundary> BOUNDARY = CONSTANTS.register("boundary", MediaTypeBoundaryHeaderValueConverter.INSTANCE);
+    public final static MediaTypeParameterName<MediaTypeBoundary> BOUNDARY = CONSTANTS.register("boundary", MediaTypeBoundaryHeaderValueHandler.INSTANCE);
 
     /**
      * Holds the charset parameter name.
      */
-    public final static MediaTypeParameterName<CharsetName> CHARSET = CONSTANTS.register("charset", HeaderValueConverter.charsetName());
+    public final static MediaTypeParameterName<CharsetName> CHARSET = CONSTANTS.register("charset", HeaderValueHandler.charsetName());
 
     /**
      * The q factor weight parameter.
      */
-    public final static MediaTypeParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueConverter.qWeight());
+    public final static MediaTypeParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueHandler.qWeight());
 
     /**
      * The title star parameter.
      */
-    public final static MediaTypeParameterName<EncodedText> TITLE_STAR = CONSTANTS.register("title*", HeaderValueConverter.encodedText());
+    public final static MediaTypeParameterName<EncodedText> TITLE_STAR = CONSTANTS.register("title*", HeaderValueHandler.encodedText());
 
     /**
      * Factory that creates a {@link MediaTypeParameterName}
@@ -69,8 +69,8 @@ final public class MediaTypeParameterName<V> extends HeaderParameterName<V> impl
      * Private ctor use factory.
      */
     private MediaTypeParameterName(final String value,
-                                   final HeaderValueConverter<V> converter) {
-        super(value, converter);
+                                   final HeaderValueHandler<V> handler) {
+        super(value, handler);
     }
 
     // Comparable......................................................................................................

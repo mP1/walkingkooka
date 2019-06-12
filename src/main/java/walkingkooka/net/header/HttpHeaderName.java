@@ -60,7 +60,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<AbsoluteUrl> registerAbsoluteUrlConstant(final String header,
                                                                            final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.absoluteUrl());
+        return registerConstant(header, scope, HeaderValueHandler.absoluteUrl());
     }
 
     /**
@@ -68,7 +68,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<AcceptEncoding> registerAcceptEncodingConstant(final String header,
                                                                                  final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.acceptEncoding());
+        return registerConstant(header, scope, HeaderValueHandler.acceptEncoding());
     }
 
     /**
@@ -78,7 +78,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
                                                                                final HttpHeaderNameScope scope) {
         return registerConstant(header,
                 scope,
-                HeaderValueConverter.acceptCharset());
+                HeaderValueHandler.acceptCharset());
     }
 
     /**
@@ -88,7 +88,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
                                                                                                             final HttpHeaderNameScope scope) {
         return registerConstant(header,
                 scope,
-                HeaderValueConverter.cacheControlDirectiveList());
+                HeaderValueHandler.cacheControlDirectiveList());
     }
 
     /**
@@ -96,7 +96,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<List<ClientCookie>> registerClientCookieListConstant(final String header,
                                                                                        final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.clientCookieList());
+        return registerConstant(header, scope, HeaderValueHandler.clientCookieList());
     }
 
     /**
@@ -104,7 +104,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<List<ContentEncoding>> registerContentEncodingListConstant(final String header,
                                                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.contentEncodingList());
+        return registerConstant(header, scope, HeaderValueHandler.contentEncodingList());
     }
 
     /**
@@ -112,7 +112,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<ContentRange> registerContentRangeConstant(final String header,
                                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.contentRange());
+        return registerConstant(header, scope, HeaderValueHandler.contentRange());
     }
 
     /**
@@ -120,7 +120,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<EmailAddress> registerEmailAddressConstant(final String header,
                                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.emailAddress());
+        return registerConstant(header, scope, HeaderValueHandler.emailAddress());
     }
 
     /**
@@ -128,7 +128,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<ETag> registerETagConstant(final String header,
                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.eTag());
+        return registerConstant(header, scope, HeaderValueHandler.eTag());
     }
 
     /**
@@ -136,7 +136,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<List<ETag>> registerETagListConstant(final String header,
                                                                        final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.eTagList());
+        return registerConstant(header, scope, HeaderValueHandler.eTagList());
     }
 
     /**
@@ -144,7 +144,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<List<HttpHeaderName<?>>> registerHttpHeaderNameListConstant(final String header,
                                                                                               final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.httpHeaderNameList());
+        return registerConstant(header, scope, HeaderValueHandler.httpHeaderNameList());
     }
 
     /**
@@ -152,7 +152,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<IfRange<?>> registerIfRangeConstant(final String header,
                                                                       final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.ifRange());
+        return registerConstant(header, scope, HeaderValueHandler.ifRange());
     }
 
     /**
@@ -160,7 +160,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<LanguageTag> registerLanguageTagConstant(final String header,
                                                                            final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.languageTag());
+        return registerConstant(header, scope, HeaderValueHandler.languageTag());
     }
 
     /**
@@ -168,7 +168,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<List<LanguageTag>> registerLanguageTagListConstant(final String header,
                                                                                      final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.languageTagList());
+        return registerConstant(header, scope, HeaderValueHandler.languageTagList());
     }
 
     /**
@@ -176,7 +176,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<List<Link>> registerLinkConstant(final String header,
                                                                    final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.link());
+        return registerConstant(header, scope, HeaderValueHandler.link());
     }
 
     /**
@@ -184,7 +184,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String header,
                                                                                final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.localDateTime());
+        return registerConstant(header, scope, HeaderValueHandler.localDateTime());
     }
 
     /**
@@ -192,7 +192,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<Long> registerLongConstant(final String header,
                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.longConverter());
+        return registerConstant(header, scope, HeaderValueHandler.longHandler());
     }
 
     /**
@@ -200,7 +200,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<List<HttpMethod>> registerMethodListConstant(final String header,
                                                                                final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.methodList());
+        return registerConstant(header, scope, HeaderValueHandler.methodList());
     }
 
     /**
@@ -208,7 +208,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<MediaType> registerMediaTypeConstant(final String header,
                                                                           final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.mediaType());
+        return registerConstant(header, scope, HeaderValueHandler.mediaType());
     }
 
     /**
@@ -216,7 +216,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<List<MediaType>> registerMediaTypeListConstant(final String header,
                                                                                  final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.mediaTypeList());
+        return registerConstant(header, scope, HeaderValueHandler.mediaTypeList());
     }
 
     /**
@@ -224,7 +224,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<RangeHeaderValue> registerRangeConstant(final String header,
                                                                           final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.range());
+        return registerConstant(header, scope, HeaderValueHandler.range());
     }
 
     /**
@@ -232,7 +232,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<RangeHeaderValueUnit> registerRangeUnitConstant(final String header,
                                                                                   final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.rangeUnit());
+        return registerConstant(header, scope, HeaderValueHandler.rangeUnit());
     }
 
     /**
@@ -240,7 +240,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<RelativeUrl> registerRelativeUrlConstant(final String header,
                                                                            final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.relativeUrl());
+        return registerConstant(header, scope, HeaderValueHandler.relativeUrl());
     }
 
     /**
@@ -248,13 +248,13 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<ServerCookie> registerServerCookieConstant(final String header,
                                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.serverCookie());
+        return registerConstant(header, scope, HeaderValueHandler.serverCookie());
     }
 
     /**
      * Allow quoted and unquoted strings.
      */
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
+    private final static HeaderValueHandler<String> QUOTED_UNQUOTED_STRING = HeaderValueHandler.quotedUnquotedString(
             CharPredicates.rfc2045Token().or(CharPredicates.rfc2045TokenSpecial()),
             true,
             CharPredicates.rfc2045Token()
@@ -265,14 +265,14 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static HttpHeaderName<String> registerStringConstant(final String header,
                                                                  final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.string());
+        return registerConstant(header, scope, HeaderValueHandler.string());
     }
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link Url} header values.
      */
     private static HttpHeaderName<Url> registerUrlConstant(final String header, final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.url());
+        return registerConstant(header, scope, HeaderValueHandler.url());
     }
 
     /**
@@ -285,7 +285,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private static <T> HttpHeaderName<T> registerConstant(final String header,
                                                           final HttpHeaderNameScope scope,
-                                                          final HeaderValueConverter<T> headerValue) {
+                                                          final HeaderValueHandler<T> headerValue) {
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
         boolean conditional;
@@ -445,7 +445,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     public final static HttpHeaderName<ContentDisposition> CONTENT_DISPOSITION = registerConstant("Content-Disposition",
             HttpHeaderNameScope.REQUEST_RESPONSE,
-            HeaderValueConverter.contentDisposition());
+            HeaderValueHandler.contentDisposition());
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Encoding</code>
@@ -811,7 +811,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderValueConverter.string(), NOT_CONDITIONAL, NOT_CONTENT);
+                new HttpHeaderName<>(checkName(name), HttpHeaderNameScope.UNKNOWN, HeaderValueHandler.string(), NOT_CONDITIONAL, NOT_CONTENT);
     }
 
     private static String checkName(final String name) {
@@ -838,12 +838,12 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     private HttpHeaderName(final String name,
                            final HttpHeaderNameScope scope,
-                           final HeaderValueConverter<T> valueConverter,
+                           final HeaderValueHandler<T> handler,
                            final boolean conditional,
                            final boolean content) {
         super(name);
         this.scope = scope;
-        this.valueConverter = valueConverter;
+        this.handler = handler;
         this.conditional = conditional;
         this.content = content;
     }
@@ -853,7 +853,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * this will fail.
      */
     public HttpHeaderName<String> stringValues() {
-        return this.valueConverter.httpHeaderNameCast(this);
+        return this.handler.httpHeaderNameCast(this);
     }
 
     private final static boolean NOT_CONDITIONAL = false;
@@ -899,7 +899,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     @Override
     public T checkValue(final Object value) {
-        return this.valueConverter.check(value, this);
+        return this.handler.check(value, this);
     }
 
     /**
@@ -929,7 +929,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     public T toValue(final String value) {
         Objects.requireNonNull(value, "value");
 
-        return this.valueConverter.parse(value, this);
+        return this.handler.parse(value, this);
     }
 
     /**
@@ -938,10 +938,10 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     public String headerText(final T value) {
         Objects.requireNonNull(value, "value");
 
-        return this.valueConverter.toText(value, this);
+        return this.handler.toText(value, this);
     }
 
-    private final HeaderValueConverter<T> valueConverter;
+    private final HeaderValueHandler<T> handler;
 
     // HttpRequestAttribute..............................................................................................
 
