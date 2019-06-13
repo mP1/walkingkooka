@@ -24,7 +24,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class LengthTest implements ClassTesting2<Length<?>>,
         HasJsonNodeTesting<Length<?>>,
@@ -63,8 +63,8 @@ public final class LengthTest implements ClassTesting2<Length<?>>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // ParseStringTesting...............................................................................................

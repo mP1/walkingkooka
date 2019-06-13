@@ -18,7 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class SequenceParserComponentTestCase<C extends SequenceParserComponent> implements ClassTesting2<C>,
         ToStringTesting<C> {
@@ -28,7 +28,7 @@ public abstract class SequenceParserComponentTestCase<C extends SequenceParserCo
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

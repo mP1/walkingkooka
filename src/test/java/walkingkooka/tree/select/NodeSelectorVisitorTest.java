@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.cursor.parser.select.NodeSelectorVisitorTesting;
 import walkingkooka.tree.TestNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorVisitorTest implements NodeSelectorVisitorTesting<NodeSelectorVisitor<TestNode, StringName, StringName, Object>, TestNode, StringName, StringName, Object> {
 
@@ -36,8 +36,8 @@ public final class NodeSelectorVisitorTest implements NodeSelectorVisitorTesting
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

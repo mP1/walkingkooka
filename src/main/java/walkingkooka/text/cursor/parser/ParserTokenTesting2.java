@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
@@ -49,7 +49,7 @@ final class ParserTokenTesting2 {
         final String factoryMethodName = factoryMethodNameSpecialFixup(without, suffix);
 
         final List<Method> publicStaticMethods = Arrays.stream(base.getMethods())
-                .filter(m -> MethodAttributes.STATIC.is(m) && MemberVisibility.PUBLIC.is(m))
+                .filter(m -> MethodAttributes.STATIC.is(m) && JavaVisibility.PUBLIC.is(m))
                 .collect(Collectors.toList());
 
         final List<Method> factoryMethods = publicStaticMethods.stream()

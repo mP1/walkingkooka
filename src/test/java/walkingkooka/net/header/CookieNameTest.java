@@ -25,7 +25,7 @@ import walkingkooka.naming.NameTesting2;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
 import java.util.Optional;
@@ -255,7 +255,7 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

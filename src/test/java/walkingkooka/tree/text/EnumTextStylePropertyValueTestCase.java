@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class EnumTextStylePropertyValueTestCase<E extends Enum<?>> extends TextStylePropertyValueTestCase<E> {
 
@@ -29,7 +29,7 @@ public abstract class EnumTextStylePropertyValueTestCase<E extends Enum<?>> exte
     // ClassTyping......................................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

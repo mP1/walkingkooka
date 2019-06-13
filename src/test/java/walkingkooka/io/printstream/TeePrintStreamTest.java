@@ -23,7 +23,7 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.Latch;
 import walkingkooka.text.LineEnding;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.io.PrintStream;
 import java.nio.charset.Charset;
@@ -453,7 +453,7 @@ final public class TeePrintStreamTest implements ClassTesting2<TeePrintStream>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

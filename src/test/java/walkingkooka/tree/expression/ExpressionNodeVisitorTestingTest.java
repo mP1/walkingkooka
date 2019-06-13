@@ -19,7 +19,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.test.Fake;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionNodeVisitorTestingTest implements ExpressionNodeVisitorTesting<FakeExpressionNodeVisitor> {
 
@@ -37,8 +37,8 @@ public final class ExpressionNodeVisitorTestingTest implements ExpressionNodeVis
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

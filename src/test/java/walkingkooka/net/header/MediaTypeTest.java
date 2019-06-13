@@ -24,7 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
 import java.util.Optional;
@@ -769,8 +769,8 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // SerializationTesting.............................................................................................

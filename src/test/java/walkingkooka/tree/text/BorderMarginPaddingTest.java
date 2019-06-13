@@ -19,7 +19,7 @@
 package walkingkooka.tree.text;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class BorderMarginPaddingTest implements ClassTesting2<BorderMarginPadding> {
 
@@ -29,7 +29,7 @@ public final class BorderMarginPaddingTest implements ClassTesting2<BorderMargin
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.tree.file;
 
 import walkingkooka.collect.set.SetTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -71,7 +71,7 @@ public final class FilesystemNodeAttributeMapEntrySetTest implements ClassTestin
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

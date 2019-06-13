@@ -81,7 +81,7 @@ public final class FieldAttributesTest implements ClassTesting2<FieldAttributes>
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

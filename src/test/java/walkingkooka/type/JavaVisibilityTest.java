@@ -24,26 +24,26 @@ import walkingkooka.test.ToStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class MemberVisibilityTest implements ClassTesting2<MemberVisibility>,
-        ToStringTesting<MemberVisibility> {
+public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
+        ToStringTesting<JavaVisibility> {
 
     @Test
     public void testClassPublic() {
-        check(MemberVisibility.PUBLIC, this.getClass());
+        check(JavaVisibility.PUBLIC, this.getClass());
     }
 
     @Test
     public void testClassProtected() {
-        check(MemberVisibility.PROTECTED, ProtectedClass.class);
+        check(JavaVisibility.PROTECTED, ProtectedClass.class);
     }
 
     @Test
     public void testClassPackagePrivate() {
-        check(MemberVisibility.PACKAGE_PRIVATE, PackagePrivateClass.class);
+        check(JavaVisibility.PACKAGE_PRIVATE, PackagePrivateClass.class);
     }
 
-    private void check(final MemberVisibility visibility, final Class<?> klass) {
-        assertEquals(visibility, MemberVisibility.get(klass), klass.getName());
+    private void check(final JavaVisibility visibility, final Class<?> klass) {
+        assertEquals(visibility, JavaVisibility.get(klass), klass.getName());
     }
 
     protected class ProtectedClass {
@@ -53,12 +53,12 @@ public final class MemberVisibilityTest implements ClassTesting2<MemberVisibilit
     }
 
     @Override
-    public Class<MemberVisibility> type() {
-        return MemberVisibility.class;
+    public Class<JavaVisibility> type() {
+        return JavaVisibility.class;
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

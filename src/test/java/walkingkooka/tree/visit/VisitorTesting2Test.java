@@ -20,7 +20,7 @@ package walkingkooka.tree.visit;
 
 import walkingkooka.test.ClassTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class VisitorTesting2Test implements ClassTesting<VisitorTesting2>,
         TypeNameTesting<VisitorTesting2> {
@@ -33,8 +33,8 @@ public final class VisitorTesting2Test implements ClassTesting<VisitorTesting2>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting..........................................................................................

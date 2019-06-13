@@ -22,7 +22,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 import java.util.TreeSet;
@@ -64,8 +64,8 @@ public final class PojoNodeTest implements ClassTesting2<PojoNode>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     private class TestBean {

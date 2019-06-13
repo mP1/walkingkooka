@@ -25,7 +25,7 @@ import walkingkooka.net.header.HeaderValueTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.type.FieldAttributes;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Field;
 import java.util.Set;
@@ -159,7 +159,7 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
             if (false == constant.getType().equals(HttpMethod.class)) {
                 continue;
             }
-            assertTrue(MemberVisibility.PUBLIC.is(constant), constant + " is NOT public");
+            assertTrue(JavaVisibility.PUBLIC.is(constant), constant + " is NOT public");
             assertTrue(FieldAttributes.STATIC.is(constant), constant + " is NOT static");
 
             methods.add((HttpMethod) constant.get(null));
@@ -232,8 +232,8 @@ final public class HttpMethodTest implements ClassTesting2<HttpMethod>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // ConstantsTesting.................................................................................

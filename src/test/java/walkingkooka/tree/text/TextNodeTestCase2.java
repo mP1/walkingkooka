@@ -28,7 +28,7 @@ import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
 import java.util.function.Predicate;
@@ -110,8 +110,8 @@ public abstract class TextNodeTestCase2<N extends TextNode> extends TextNodeTest
     abstract Class<N> textNodeType();
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // TypeNameTesting...................................................................................................

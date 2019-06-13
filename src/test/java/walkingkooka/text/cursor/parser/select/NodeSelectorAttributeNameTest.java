@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.select;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 final public class NodeSelectorAttributeNameTest implements ClassTesting2<NodeSelectorAttributeName>,
         NameTesting2<NodeSelectorAttributeName, NodeSelectorAttributeName> {
@@ -79,7 +79,7 @@ final public class NodeSelectorAttributeNameTest implements ClassTesting2<NodeSe
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

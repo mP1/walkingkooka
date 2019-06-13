@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Comparable<C> & HashCodeEqualsDefined>
         implements ClassTesting2<N>,
@@ -37,7 +37,7 @@ public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Co
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

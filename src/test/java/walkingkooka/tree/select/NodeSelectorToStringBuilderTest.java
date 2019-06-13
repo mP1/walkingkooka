@@ -27,7 +27,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
 
@@ -572,7 +572,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

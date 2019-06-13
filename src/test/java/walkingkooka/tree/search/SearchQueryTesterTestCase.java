@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester<V>, V> implements ClassTesting2<T>,
         HashCodeEqualsDefinedTesting<T>,
@@ -38,8 +38,8 @@ public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester<V>, 
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

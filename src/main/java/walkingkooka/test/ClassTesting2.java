@@ -21,7 +21,7 @@ package walkingkooka.test;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.type.ClassAttributes;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
             if (!ClassAttributes.ABSTRACT.is(type)) {
                 boolean mustBeFinal = true;
                 for (final Constructor<?> constructor : type.getDeclaredConstructors()) {
-                    if (false == MemberVisibility.PRIVATE.is(constructor)) {
+                    if (false == JavaVisibility.PRIVATE.is(constructor)) {
                         mustBeFinal = false;
                         break;
                     }
@@ -65,11 +65,11 @@ public interface ClassTesting2<T> extends ClassTesting<T> {
     default void testAllConstructorsVisibility() {
         final Class<T> type = this.type();
 
-        final MemberVisibility visibility = Fake.class.isAssignableFrom(type) ?
-                MemberVisibility.PUBLIC :
+        final JavaVisibility visibility = Fake.class.isAssignableFrom(type) ?
+                JavaVisibility.PUBLIC :
                 ClassAttributes.FINAL.is(type) ?
-                        MemberVisibility.PRIVATE :
-                        MemberVisibility.PACKAGE_PRIVATE;
+                        JavaVisibility.PRIVATE :
+                        JavaVisibility.PACKAGE_PRIVATE;
         assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getConstructors())
                         .filter(c -> false == visibility.is(c))

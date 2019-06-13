@@ -23,7 +23,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> implements ClassTesting2<Q>,
         HashCodeEqualsDefinedTesting<Q>,
@@ -54,8 +54,8 @@ public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> im
     abstract String searchQueryValueToString();
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

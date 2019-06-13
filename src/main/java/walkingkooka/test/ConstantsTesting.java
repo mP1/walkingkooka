@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.FieldAttributes;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Field;
 import java.util.Set;
@@ -55,7 +55,7 @@ public interface ConstantsTesting<T> extends Testing {
         final Field field2 = field;
         assertEquals(fieldType, field.getType(), "The field " + name + " is wrong the type");
         assertTrue(FieldAttributes.STATIC.is(field), () -> "The field " + name + " must be static =" + field2);
-        assertSame(MemberVisibility.PUBLIC, MemberVisibility.get(field), () -> "The field " + name + " must be public =" + field2);
+        assertSame(JavaVisibility.PUBLIC, JavaVisibility.get(field), () -> "The field " + name + " must be public =" + field2);
         assertTrue(FieldAttributes.FINAL.is(field), () -> "The field " + name + " must be final=" + field2);
     }
 
@@ -73,8 +73,8 @@ public interface ConstantsTesting<T> extends Testing {
             if (false == constant.getType().equals(type)) {
                 continue;
             }
-            assertSame(MemberVisibility.PUBLIC,
-                    MemberVisibility.get(constant),
+            assertSame(JavaVisibility.PUBLIC,
+                    JavaVisibility.get(constant),
                     "Constant must be public");
             if (false == FieldAttributes.STATIC.is(constant)) {
                 fail("Constant is not static=" + constant.getName());

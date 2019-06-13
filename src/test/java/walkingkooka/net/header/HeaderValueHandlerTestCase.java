@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class HeaderValueHandlerTestCase<T> implements ClassTesting2<T>,
         TypeNameTesting<T> {
@@ -30,8 +30,8 @@ public abstract class HeaderValueHandlerTestCase<T> implements ClassTesting2<T>,
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................

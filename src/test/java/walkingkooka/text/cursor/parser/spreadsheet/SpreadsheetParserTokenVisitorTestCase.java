@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class SpreadsheetParserTokenVisitorTestCase<V extends SpreadsheetParserTokenVisitor> implements SpreadsheetParserTokenVisitorTesting<V> {
 
@@ -32,7 +32,7 @@ public abstract class SpreadsheetParserTokenVisitorTestCase<V extends Spreadshee
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

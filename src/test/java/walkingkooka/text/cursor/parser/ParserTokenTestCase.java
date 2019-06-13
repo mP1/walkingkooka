@@ -18,7 +18,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class ParserTokenTestCase<T extends ParserToken> implements ClassTesting2<T>,
         ParserTokenTesting<T> {
@@ -28,7 +28,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> implements Clas
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

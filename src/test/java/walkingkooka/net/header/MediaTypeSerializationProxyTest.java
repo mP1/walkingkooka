@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.io.serialize.SerializationProxyTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class MediaTypeSerializationProxyTest implements ClassTesting2<MediaTypeSerializationProxy>,
         SerializationProxyTesting<MediaTypeSerializationProxy> {
@@ -38,7 +38,7 @@ public final class MediaTypeSerializationProxyTest implements ClassTesting2<Medi
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.collect.iterator;
 import walkingkooka.Cast;
 import walkingkooka.build.chain.ChainFactoryTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Iterator;
 
@@ -38,7 +38,7 @@ final public class IteratorChainFactoryTest implements ClassTesting2<IteratorCha
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

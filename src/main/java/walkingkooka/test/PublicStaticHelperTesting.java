@@ -19,7 +19,7 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 import walkingkooka.type.MethodAttributes;
 import walkingkooka.type.PublicStaticHelper;
 
@@ -79,7 +79,7 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     @Test
     default void testCheckVisibilityOfAllStaticMethods() {
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
-                m -> MemberVisibility.PROTECTED.is(m),
+                m -> JavaVisibility.PROTECTED.is(m),
                 "All methods must be public or package private");
     }
 
@@ -89,9 +89,9 @@ public interface PublicStaticHelperTesting<H extends PublicStaticHelper> extends
     @Test
     default void testPublicStaticMethodsParameterAndReturnTypesArePublic() {
         final Predicate<Method> publicReturnTypeAndParameters = (m) -> {
-            return !MemberVisibility.PUBLIC.is(m.getReturnType()) ||
+            return !JavaVisibility.PUBLIC.is(m.getReturnType()) ||
                     Arrays.stream(m.getParameterTypes())
-                            .anyMatch(t -> !MemberVisibility.PUBLIC.is(t));
+                            .anyMatch(t -> !JavaVisibility.PUBLIC.is(t));
         };
         PublicStaticHelperTesting2.methodFilterAndCheckNone(this.type(),
                 publicReturnTypeAndParameters,

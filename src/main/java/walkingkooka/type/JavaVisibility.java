@@ -24,7 +24,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Objects;
 
-public enum MemberVisibility {
+/**
+ * The visibility of a {@link Class}, {@link Constructor}, {@link Method} or {@link Field}.
+ */
+public enum JavaVisibility {
     PUBLIC {
         boolean testModifiers(final int modifiers) {
             return this.isPublic(modifiers);
@@ -72,30 +75,30 @@ public enum MemberVisibility {
         return Modifier.isProtected(modifiers);
     }
 
-    public static MemberVisibility get(final Class<?> classs) {
+    public static JavaVisibility get(final Class<?> classs) {
         Objects.requireNonNull(classs, "class");
         return get0(classs.getModifiers());
     }
 
-    public static MemberVisibility get(final Constructor<?> constructor) {
+    public static JavaVisibility get(final Constructor<?> constructor) {
         Objects.requireNonNull(constructor, "constructor");
         return get0(constructor.getModifiers());
     }
 
-    public static MemberVisibility get(final Field field) {
+    public static JavaVisibility get(final Field field) {
         Objects.requireNonNull(field, "field");
         return get0(field.getModifiers());
     }
 
-    public static MemberVisibility get(final Method method) {
+    public static JavaVisibility get(final Method method) {
         Objects.requireNonNull(method, "method");
         return get0(method.getModifiers());
     }
 
-    private static MemberVisibility get0(final int modifiers) {
-        MemberVisibility result = null;
+    private static JavaVisibility get0(final int modifiers) {
+        JavaVisibility result = null;
 
-        for (MemberVisibility possible : values()) {
+        for (JavaVisibility possible : values()) {
             if (possible.testModifiers(modifiers)) {
                 result = possible;
                 break;

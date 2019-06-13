@@ -23,7 +23,7 @@ import walkingkooka.build.BuilderException;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.Fake;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
 
@@ -335,8 +335,8 @@ final public class ChainFactoryChainBuilderTest implements ClassTesting2<ChainFa
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     static private Fake createFake(final int value) {

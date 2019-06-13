@@ -21,7 +21,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.ListTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class UrlParameterValueListTest implements ClassTesting2<UrlParameterValueList>,
         ListTesting<UrlParameterValueList, String> {
@@ -76,7 +76,7 @@ public final class UrlParameterValueListTest implements ClassTesting2<UrlParamet
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

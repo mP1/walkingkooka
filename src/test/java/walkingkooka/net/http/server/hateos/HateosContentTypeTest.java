@@ -20,7 +20,7 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class HateosContentTypeTest implements ClassTesting2<HateosContentType<?>> {
 
@@ -30,7 +30,7 @@ public final class HateosContentTypeTest implements ClassTesting2<HateosContentT
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

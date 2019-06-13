@@ -23,7 +23,7 @@ import walkingkooka.Binary;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -70,8 +70,8 @@ public final class UrlTest implements ClassTesting2<Url>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // ParseStringTesting ........................................................................................

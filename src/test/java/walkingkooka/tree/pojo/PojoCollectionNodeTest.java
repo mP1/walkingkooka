@@ -18,7 +18,7 @@
 package walkingkooka.tree.pojo;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class PojoCollectionNodeTest implements ClassTesting2<PojoCollectionNode> {
     @Override
@@ -27,7 +27,7 @@ public final class PojoCollectionNodeTest implements ClassTesting2<PojoCollectio
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.collect.enumeration;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 final public class EmptyEnumerationTest implements ClassTesting2<EmptyEnumeration<Void>>,
         EnumerationTesting<EmptyEnumeration<Void>, Void> {
@@ -46,7 +46,7 @@ final public class EmptyEnumerationTest implements ClassTesting2<EmptyEnumeratio
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

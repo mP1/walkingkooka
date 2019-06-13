@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -48,7 +48,7 @@ public interface VisitorTesting<V extends Visitor<T>, T>
     default void testAllConstructorsVisibility() throws Exception {
         assertEquals(Lists.empty(),
                 Arrays.stream(this.type().getConstructors())
-                        .filter(c -> !MemberVisibility.PROTECTED.is(c))
+                        .filter(c -> !JavaVisibility.PROTECTED.is(c))
                         .collect(Collectors.toList()));
     }
 

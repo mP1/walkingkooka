@@ -20,7 +20,7 @@ package walkingkooka.collect.stack;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 /**
  * Base class for testing a {@link Stack} in this package.
@@ -33,7 +33,7 @@ abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, 
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -354,7 +354,7 @@ final public class CharPredicateBuilderTest implements ClassTesting2<CharPredica
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

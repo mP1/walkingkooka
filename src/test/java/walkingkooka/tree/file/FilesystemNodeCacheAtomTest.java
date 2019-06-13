@@ -20,7 +20,7 @@ package walkingkooka.tree.file;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -53,7 +53,7 @@ public final class FilesystemNodeCacheAtomTest implements ClassTesting2<Filesyst
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

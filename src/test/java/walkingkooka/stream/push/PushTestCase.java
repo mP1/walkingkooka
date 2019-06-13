@@ -19,7 +19,7 @@
 package walkingkooka.stream.push;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class PushTestCase<T> implements ClassTesting2<T> {
 
@@ -28,7 +28,7 @@ public abstract class PushTestCase<T> implements ClassTesting2<T> {
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -26,7 +26,7 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -42,7 +42,7 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
 
     @Test
     default void testPublicClass() {
-        assertEquals(MemberVisibility.PUBLIC,
+        assertEquals(JavaVisibility.PUBLIC,
                 this.typeVisibility(),
                 "Visibility of name");
     }
@@ -143,8 +143,8 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
 
     Class<N> type();
 
-    default MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    default JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

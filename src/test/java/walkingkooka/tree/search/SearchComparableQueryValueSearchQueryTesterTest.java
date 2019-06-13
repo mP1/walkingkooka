@@ -19,7 +19,7 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class SearchComparableQueryValueSearchQueryTesterTest implements ClassTesting2<SearchComparableQueryValueSearchQueryTester> {
 
@@ -29,7 +29,7 @@ public final class SearchComparableQueryValueSearchQueryTesterTest implements Cl
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

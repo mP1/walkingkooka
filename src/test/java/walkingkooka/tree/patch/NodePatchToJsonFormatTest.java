@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodePatchToJsonFormatTest extends NodePatchTestCase<NodePatchToJsonFormat> {
 
@@ -28,7 +28,7 @@ public final class NodePatchToJsonFormatTest extends NodePatchTestCase<NodePatch
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

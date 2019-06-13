@@ -28,7 +28,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.text.HasTextNodeTesting;
 import walkingkooka.tree.text.TextNode;
 import walkingkooka.tree.text.TextStylePropertyName;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 
@@ -168,8 +168,8 @@ public final class SpreadsheetFormattedTextTest implements ClassTesting2<Spreads
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

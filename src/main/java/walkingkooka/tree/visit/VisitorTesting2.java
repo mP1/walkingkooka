@@ -19,7 +19,7 @@
 package walkingkooka.tree.visit;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
@@ -41,7 +41,7 @@ final class VisitorTesting2 {
     static void protectedMethodCheck(final String methodName, final Class<? extends Visitor<?>> type) {
         allMethodsAndCheck(methodName,
                 type,
-                (m) -> MemberVisibility.PROTECTED.is(m));
+                (m) -> JavaVisibility.PROTECTED.is(m));
     }
 
     static void singleParameterCheck(final String methodName, final Class<? extends Visitor<?>> type) {
@@ -58,7 +58,7 @@ final class VisitorTesting2 {
 
     private static boolean allParametersTypesPublic(final Method method) {
         return Arrays.stream(method.getParameterTypes())
-                .filter(t -> MemberVisibility.PUBLIC.is(t))
+                .filter(t -> JavaVisibility.PUBLIC.is(t))
                 .count() == method.getParameterTypes().length;
     }
 

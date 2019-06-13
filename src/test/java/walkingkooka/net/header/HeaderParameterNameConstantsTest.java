@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class HeaderParameterNameConstantsTest implements ClassTesting2<HeaderParameterNameConstants<?>>,
         TypeNameTesting<HeaderParameterNameConstants<?>> {
@@ -32,8 +32,8 @@ public final class HeaderParameterNameConstantsTest implements ClassTesting2<Hea
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................

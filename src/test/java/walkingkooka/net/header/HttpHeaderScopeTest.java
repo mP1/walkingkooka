@@ -27,7 +27,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 import java.util.Set;
@@ -176,7 +176,7 @@ public final class HttpHeaderScopeTest implements ClassTesting2<HttpHeaderScope>
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -18,7 +18,7 @@
 package walkingkooka.util.systemproperty;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 final public class SystemPropertyValueClearPrivilegedActionTest implements ClassTesting2<SystemPropertyValueClearPrivilegedAction> {
 
@@ -28,7 +28,7 @@ final public class SystemPropertyValueClearPrivilegedActionTest implements Class
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

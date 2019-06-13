@@ -48,7 +48,7 @@ import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.routing.RouterTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -1033,8 +1033,8 @@ public final class HateosHandlerRouterTest extends HateosHandlerRouterTestCase<H
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

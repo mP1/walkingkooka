@@ -21,7 +21,7 @@ package walkingkooka.tree.file;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class FilesystemNodeAttributeNameTest implements ClassTesting2<FilesystemNodeAttributeName>,
         NameTesting<FilesystemNodeAttributeName, FilesystemNodeAttributeName> {
@@ -72,7 +72,7 @@ public final class FilesystemNodeAttributeNameTest implements ClassTesting2<File
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

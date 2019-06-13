@@ -19,7 +19,7 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
 
@@ -34,8 +34,8 @@ public interface ThrowableTesting<T extends Throwable> extends Testing {
     default void testClassVisibility() {
         final Class<?> type = this.type();
 
-        assertEquals(MemberVisibility.PUBLIC,
-                MemberVisibility.get(type),
+        assertEquals(JavaVisibility.PUBLIC,
+                JavaVisibility.get(type),
                 type.getName() + " visibility");
     }
 
@@ -46,7 +46,7 @@ public interface ThrowableTesting<T extends Throwable> extends Testing {
     default void testNoDefaultArgumentProtected() throws Throwable {
         Arrays.stream(this.type().getDeclaredConstructors())
                 .filter(c -> c.getParameterTypes().length == 0)
-                .forEach(c -> assertEquals(MemberVisibility.PROTECTED, MemberVisibility.get(c),
+                .forEach(c -> assertEquals(JavaVisibility.PROTECTED, JavaVisibility.get(c),
                         () -> "ctor visibility incorrect " + c));
     }
 
@@ -59,8 +59,8 @@ public interface ThrowableTesting<T extends Throwable> extends Testing {
         Arrays.stream(type.getDeclaredConstructors())
                 .filter(c -> c.getParameterTypes().length != 0)
                 .forEach(c ->
-                        assertEquals(MemberVisibility.PUBLIC,
-                                MemberVisibility.get(c),
+                        assertEquals(JavaVisibility.PUBLIC,
+                                JavaVisibility.get(c),
                                 () -> "ctor visibility incorrect " + c));
     }
 

@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ParserReporterConditionTest implements ClassTesting2<ParserReporterCondition> {
 
@@ -29,7 +29,7 @@ public final class ParserReporterConditionTest implements ClassTesting2<ParserRe
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

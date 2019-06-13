@@ -20,7 +20,7 @@ package walkingkooka.stream.push;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class PushableStreamStreamPushableStreamConsumerTestCase<P extends PushableStreamStreamPushableStreamConsumer<String>>
     implements ClassTesting2<P>,
@@ -31,8 +31,8 @@ public abstract class PushableStreamStreamPushableStreamConsumerTestCase<P exten
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

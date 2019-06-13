@@ -26,7 +26,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorFunctionName;
 import walkingkooka.text.cursor.parser.select.NodeSelectorFunctionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 
@@ -64,7 +64,7 @@ public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest impl
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

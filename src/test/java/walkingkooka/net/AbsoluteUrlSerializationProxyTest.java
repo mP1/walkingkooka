@@ -21,7 +21,7 @@ package walkingkooka.net;
 import org.junit.jupiter.api.Test;
 import walkingkooka.io.serialize.SerializationProxyTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 
@@ -43,7 +43,7 @@ public final class AbsoluteUrlSerializationProxyTest implements ClassTesting2<Ab
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

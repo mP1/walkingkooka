@@ -19,7 +19,7 @@
 package walkingkooka.convert;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -46,7 +46,7 @@ public abstract class FixedTypeConverterTestCase<C extends Converter, T> impleme
     abstract Class<T> onlySupportedType();
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

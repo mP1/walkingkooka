@@ -18,7 +18,7 @@
 
 package walkingkooka.test;
 
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
@@ -39,7 +39,7 @@ final class ClassMethodTesting<T> {
      * If a method is not overridden it should be package private or private.
      */
     static void testAllMethodsVisibility(final Class<?> type) {
-        if (MemberVisibility.PACKAGE_PRIVATE.is(type)) {
+        if (JavaVisibility.PACKAGE_PRIVATE.is(type)) {
 
             final Set<Method> overridable = overridableMethods(type);
 
@@ -48,7 +48,7 @@ final class ClassMethodTesting<T> {
                     if (isMainMethod(method) || isEnumMethod(method)) {
                         continue;
                     }
-                    if (MemberVisibility.PUBLIC.is(method) || MemberVisibility.PROTECTED.is(method)) {
+                    if (JavaVisibility.PUBLIC.is(method) || JavaVisibility.PROTECTED.is(method)) {
                         fail("Static methods should be package private="
                                 + method.toGenericString());
                     }
@@ -59,7 +59,7 @@ final class ClassMethodTesting<T> {
                 if (MethodAttributes.BRIDGE.is(method) || MethodAttributes.SYNTHETIC.is(method) || isGeneric(method)) {
                     continue;
                 }
-                if (MemberVisibility.PUBLIC.is(method) || MemberVisibility.PROTECTED.is(method)) {
+                if (JavaVisibility.PUBLIC.is(method) || JavaVisibility.PROTECTED.is(method)) {
                     fail(
                             "Method must be package private/private of it does not override a public/protected method="
                                     + method.toGenericString());

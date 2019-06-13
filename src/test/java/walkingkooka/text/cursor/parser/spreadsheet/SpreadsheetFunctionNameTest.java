@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 final public class SpreadsheetFunctionNameTest implements ClassTesting2<SpreadsheetFunctionName>,
         NameTesting2<SpreadsheetFunctionName, SpreadsheetFunctionName> {
@@ -79,7 +79,7 @@ final public class SpreadsheetFunctionNameTest implements ClassTesting2<Spreadsh
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

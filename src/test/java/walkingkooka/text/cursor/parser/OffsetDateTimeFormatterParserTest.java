@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class OffsetDateTimeFormatterParserTest implements ClassTesting2<OffsetDateTimeFormatterParser> {
     @Override
@@ -28,7 +28,7 @@ public final class OffsetDateTimeFormatterParserTest implements ClassTesting2<Of
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

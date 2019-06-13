@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.test.Fake;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<FakeNodeSelectorParserTokenVisitor> {
 
@@ -39,7 +39,7 @@ public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorPa
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

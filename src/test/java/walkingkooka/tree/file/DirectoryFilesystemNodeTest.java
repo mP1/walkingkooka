@@ -19,7 +19,7 @@
 package walkingkooka.tree.file;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class DirectoryFilesystemNodeTest implements ClassTesting2<DirectoryFilesystemNode> {
 
@@ -29,7 +29,7 @@ public final class DirectoryFilesystemNodeTest implements ClassTesting2<Director
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

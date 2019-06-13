@@ -24,7 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -111,7 +111,7 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetTest implement
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

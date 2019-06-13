@@ -19,7 +19,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionVariableNodeTest implements ClassTesting2<ExpressionVariableNode> {
     @Override
@@ -28,7 +28,7 @@ public final class ExpressionVariableNodeTest implements ClassTesting2<Expressio
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

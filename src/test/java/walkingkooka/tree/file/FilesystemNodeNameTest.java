@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class FilesystemNodeNameTest implements ClassTesting2<FilesystemNodeName>,
         NameTesting<FilesystemNodeName, FilesystemNodeName> {
@@ -71,7 +71,7 @@ public final class FilesystemNodeNameTest implements ClassTesting2<FilesystemNod
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

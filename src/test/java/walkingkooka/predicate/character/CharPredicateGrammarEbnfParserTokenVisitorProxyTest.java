@@ -19,7 +19,7 @@
 package walkingkooka.predicate.character;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class CharPredicateGrammarEbnfParserTokenVisitorProxyTest implements ClassTesting2<CharPredicateGrammarEbnfParserTokenVisitorProxy> {
 
@@ -29,7 +29,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorProxyTest implement
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -25,7 +25,7 @@ import walkingkooka.naming.PathTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Set;
 
@@ -234,7 +234,7 @@ public final class UrlPathTest implements ClassTesting2<UrlPath>,
     // ClassTestCase ........................................................................................
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

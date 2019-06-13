@@ -17,8 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.color;
 
-import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ColorFunctionParserTokenTest extends ColorFunctionParserTokenTestCase<ColorFunctionParserToken> {
 
@@ -28,7 +27,7 @@ public final class ColorFunctionParserTokenTest extends ColorFunctionParserToken
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.net.http;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
         ToStringTesting<HttpTransport> {
@@ -31,7 +31,7 @@ public final class HttpTransportTest implements ClassTesting2<HttpTransport>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

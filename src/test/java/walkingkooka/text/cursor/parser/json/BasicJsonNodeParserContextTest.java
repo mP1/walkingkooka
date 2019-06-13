@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class BasicJsonNodeParserContextTest implements ClassTesting2<BasicJsonNodeParserContext>,
         JsonNodeParserContextTesting<BasicJsonNodeParserContext> {
@@ -42,7 +42,7 @@ public final class BasicJsonNodeParserContextTest implements ClassTesting2<Basic
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

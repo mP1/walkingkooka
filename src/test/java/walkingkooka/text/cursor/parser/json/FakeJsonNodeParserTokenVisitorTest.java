@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.test.Fake;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class FakeJsonNodeParserTokenVisitorTest implements JsonNodeParserTokenVisitorTesting<FakeJsonNodeParserTokenVisitor> {
 
@@ -39,7 +39,7 @@ public final class FakeJsonNodeParserTokenVisitorTest implements JsonNodeParserT
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

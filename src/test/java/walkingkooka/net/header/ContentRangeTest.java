@@ -23,7 +23,7 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.compare.Range;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 
@@ -572,8 +572,8 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> im
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // ParseStringTesting ........................................................................................

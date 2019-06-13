@@ -20,7 +20,7 @@ package walkingkooka.tree.json;
 
 import walkingkooka.test.ClassTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class HasJsonNodeMapperTestCase<M extends HasJsonNodeMapper<T>, T> implements ClassTesting<M>,
         TypeNameTesting<M> {
@@ -32,8 +32,8 @@ public abstract class HasJsonNodeMapperTestCase<M extends HasJsonNodeMapper<T>, 
     // ClassTesting................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting................................................................................

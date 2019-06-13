@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ListTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -67,8 +67,8 @@ public final class XmlNodeChildListTest implements ClassTesting2<XmlNodeChildLis
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
 

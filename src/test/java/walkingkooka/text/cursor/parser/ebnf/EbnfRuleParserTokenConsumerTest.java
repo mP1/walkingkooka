@@ -17,7 +17,7 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class EbnfRuleParserTokenConsumerTest implements ClassTesting2<EbnfRuleParserTokenConsumer> {
     @Override
@@ -26,7 +26,7 @@ public final class EbnfRuleParserTokenConsumerTest implements ClassTesting2<Ebnf
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -19,7 +19,7 @@
 package walkingkooka.color;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class AlphaLightnessOrSaturationHslComponentTest implements ClassTesting2<AlphaLightnessOrSaturationHslComponent> {
 
@@ -29,7 +29,7 @@ public final class AlphaLightnessOrSaturationHslComponentTest implements ClassTe
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

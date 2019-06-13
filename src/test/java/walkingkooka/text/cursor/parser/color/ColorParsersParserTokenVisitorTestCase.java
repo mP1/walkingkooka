@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.color;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.text.cursor.parser.ParserTokenVisitorTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class ColorParsersParserTokenVisitorTestCase<P extends ParserTokenVisitor> implements ParserTokenVisitorTesting<P, ParserToken> {
 
@@ -30,8 +30,8 @@ public abstract class ColorParsersParserTokenVisitorTestCase<P extends ParserTok
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

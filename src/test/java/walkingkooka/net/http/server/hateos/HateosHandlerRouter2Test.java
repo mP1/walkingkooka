@@ -20,7 +20,7 @@ package walkingkooka.net.http.server.hateos;
 
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class HateosHandlerRouter2Test implements ClassTesting2<HateosHandlerRouter2<?>> {
     @Override
@@ -29,7 +29,7 @@ public final class HateosHandlerRouter2Test implements ClassTesting2<HateosHandl
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

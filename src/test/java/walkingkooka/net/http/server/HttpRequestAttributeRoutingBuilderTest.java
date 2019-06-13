@@ -39,7 +39,7 @@ import walkingkooka.routing.Router;
 import walkingkooka.routing.RouterBuilder;
 import walkingkooka.routing.Routing;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
 import java.util.Optional;
@@ -696,7 +696,7 @@ public final class HttpRequestAttributeRoutingBuilderTest implements ClassTestin
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

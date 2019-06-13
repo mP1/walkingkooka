@@ -19,7 +19,7 @@
 package walkingkooka.color;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class HsvComponentTest implements ClassTesting2<HsvComponent> {
 
@@ -29,7 +29,7 @@ public final class HsvComponentTest implements ClassTesting2<HsvComponent> {
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

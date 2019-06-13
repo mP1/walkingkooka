@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorLeafParserTokenTest implements ClassTesting2<NodeSelectorLeafParserToken> {
     @Override
@@ -28,7 +28,7 @@ public final class NodeSelectorLeafParserTokenTest implements ClassTesting2<Node
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.SetTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -64,8 +64,8 @@ public final class XmlMapEntrySetTest implements ClassTesting2<XmlMapEntrySet<Xm
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
 

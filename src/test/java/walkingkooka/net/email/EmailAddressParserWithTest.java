@@ -19,7 +19,7 @@
 package walkingkooka.net.email;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class EmailAddressParserWithTest implements ClassTesting2<EmailAddressParserWith> {
     @Override
@@ -28,7 +28,7 @@ public final class EmailAddressParserWithTest implements ClassTesting2<EmailAddr
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

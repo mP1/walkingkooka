@@ -20,7 +20,7 @@ package walkingkooka.compare;
 
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class RangeBoundTest implements ClassTesting2<RangeBound<?>> {
     @Override
@@ -29,7 +29,7 @@ public final class RangeBoundTest implements ClassTesting2<RangeBound<?>> {
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

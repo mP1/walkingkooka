@@ -19,7 +19,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class LanguageTagNameTest implements ClassTesting2<LanguageTagName> {
 
@@ -29,7 +29,7 @@ public final class LanguageTagNameTest implements ClassTesting2<LanguageTagName>
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }
