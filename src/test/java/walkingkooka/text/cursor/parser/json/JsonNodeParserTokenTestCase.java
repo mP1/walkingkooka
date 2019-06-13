@@ -25,7 +25,7 @@ import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
 
@@ -142,7 +142,7 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

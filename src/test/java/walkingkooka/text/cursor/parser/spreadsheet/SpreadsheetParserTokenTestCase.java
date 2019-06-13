@@ -26,7 +26,7 @@ import walkingkooka.test.PublicStaticFactoryTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -115,7 +115,7 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     // ClassTestCase..............................................................................................
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

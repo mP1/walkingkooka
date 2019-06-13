@@ -19,7 +19,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T>, T> implements ExpressionFunctionTesting<F, T>,
         ClassTesting2<F> {
@@ -29,7 +29,7 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T>
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

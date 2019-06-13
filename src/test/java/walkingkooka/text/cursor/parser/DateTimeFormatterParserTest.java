@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.time.ZoneId;
 import java.util.function.Predicate;
@@ -55,7 +55,7 @@ public final class DateTimeFormatterParserTest implements ClassTesting2<DateTime
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

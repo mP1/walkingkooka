@@ -19,7 +19,7 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.test.Fake;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class FakeJsonNodeVisitorTest implements JsonNodeVisitorTesting<FakeJsonNodeVisitor> {
 
@@ -39,7 +39,7 @@ public final class FakeJsonNodeVisitorTest implements JsonNodeVisitorTesting<Fak
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

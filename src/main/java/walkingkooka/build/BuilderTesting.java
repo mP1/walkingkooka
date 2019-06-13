@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Objects;
 import java.util.Set;
@@ -39,8 +39,8 @@ public interface BuilderTesting<B extends Builder<T>, T> extends ToStringTesting
     @Test
     default void testBuilderProductTypePublic() {
         final Class<T> type = this.builderProductType();
-        assertEquals(MemberVisibility.PUBLIC,
-                MemberVisibility.get(type),
+        assertEquals(JavaVisibility.PUBLIC,
+                JavaVisibility.get(type),
                 "Builder product type " + type.getName() + " is not public");
     }
 

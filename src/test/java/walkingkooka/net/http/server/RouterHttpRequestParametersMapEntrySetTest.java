@@ -32,7 +32,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Iterator;
 import java.util.List;
@@ -253,7 +253,7 @@ public class RouterHttpRequestParametersMapEntrySetTest implements ClassTesting2
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

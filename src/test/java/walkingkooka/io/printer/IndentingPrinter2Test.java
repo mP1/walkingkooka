@@ -18,7 +18,7 @@
 package walkingkooka.io.printer;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 final public class IndentingPrinter2Test
         implements ClassTesting2<IndentingPrinter2> {
@@ -29,7 +29,7 @@ final public class IndentingPrinter2Test
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

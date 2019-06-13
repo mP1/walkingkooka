@@ -22,7 +22,7 @@ import walkingkooka.build.BuilderTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
@@ -716,7 +716,7 @@ final public class ToStringBuilderTest implements ClassTesting2<ToStringBuilder>
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

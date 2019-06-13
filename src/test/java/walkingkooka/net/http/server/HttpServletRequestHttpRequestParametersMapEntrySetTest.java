@@ -23,7 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -93,7 +93,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest implem
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

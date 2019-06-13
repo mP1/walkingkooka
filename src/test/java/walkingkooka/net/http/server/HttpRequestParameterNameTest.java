@@ -25,7 +25,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 import java.util.Optional;
@@ -91,7 +91,7 @@ final public class HttpRequestParameterNameTest implements ClassTesting2<HttpReq
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

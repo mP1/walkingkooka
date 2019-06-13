@@ -23,7 +23,7 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.FakeNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionNodeNameFunctionTest implements ClassTesting2<ExpressionNodeNameFunction>,
         ExpressionFunctionTesting<ExpressionNodeNameFunction, String> {
@@ -61,7 +61,7 @@ public final class ExpressionNodeNameFunctionTest implements ClassTesting2<Expre
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
 
@@ -266,8 +266,8 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // PredicateTesting................................................................................................

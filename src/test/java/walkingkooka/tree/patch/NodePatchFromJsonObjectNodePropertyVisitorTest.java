@@ -18,13 +18,13 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodePatchFromJsonObjectNodePropertyVisitorTest extends NodePatchTestCase<NodePatchFromJsonObjectNodePropertyVisitor> {
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

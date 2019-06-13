@@ -19,7 +19,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class AbsoluteOrAxisNodeSelectorTest implements ClassTesting2<AbsoluteOrAxisNodeSelector> {
     @Override
@@ -28,7 +28,7 @@ public final class AbsoluteOrAxisNodeSelectorTest implements ClassTesting2<Absol
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

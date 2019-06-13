@@ -23,7 +23,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -61,7 +61,7 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

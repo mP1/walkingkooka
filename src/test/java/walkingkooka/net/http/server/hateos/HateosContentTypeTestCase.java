@@ -25,7 +25,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.Node;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -110,8 +110,8 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
     // ClassTesting.....................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................

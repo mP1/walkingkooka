@@ -20,7 +20,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
@@ -38,7 +38,7 @@ public class ExpressionFunctionContextsTest implements ClassTesting2<ExpressionF
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

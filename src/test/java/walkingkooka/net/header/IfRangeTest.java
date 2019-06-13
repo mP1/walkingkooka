@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.time.LocalDateTime;
 
@@ -116,7 +116,7 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> implement
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

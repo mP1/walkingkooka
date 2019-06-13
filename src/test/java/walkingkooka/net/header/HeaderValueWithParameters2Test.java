@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class HeaderValueWithParameters2Test implements ClassTesting2<HeaderValueWithParameters2<?, ?, ?>> {
     @Override
@@ -29,7 +29,7 @@ public final class HeaderValueWithParameters2Test implements ClassTesting2<Heade
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

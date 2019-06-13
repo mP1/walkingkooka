@@ -20,12 +20,12 @@ package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class TextNodeNameNameTest extends TextNodeTestCase<TextNodeNameName<?>> {
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

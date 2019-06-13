@@ -27,7 +27,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -176,8 +176,8 @@ public final class UrlParameterNameTest implements ClassTesting2<UrlParameterNam
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

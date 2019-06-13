@@ -23,7 +23,7 @@ import walkingkooka.naming.NameTesting2;
 import walkingkooka.naming.PropertiesPath;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -104,7 +104,7 @@ final public class EbnfIdentifierNameTest implements ClassTesting2<EbnfIdentifie
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

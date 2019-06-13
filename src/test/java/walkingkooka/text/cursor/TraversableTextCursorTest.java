@@ -21,7 +21,7 @@ package walkingkooka.text.cursor;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class TraversableTextCursorTest implements ClassTesting2<TraversableTextCursor<NodeTextCursorTestNode>>,
         TextCursorTesting2<TraversableTextCursor<NodeTextCursorTestNode>> {
@@ -147,7 +147,7 @@ public final class TraversableTextCursorTest implements ClassTesting2<Traversabl
     // ClassTestCase.......................................................................................
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

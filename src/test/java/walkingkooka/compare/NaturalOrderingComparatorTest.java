@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 final public class NaturalOrderingComparatorTest implements ClassTesting2<NaturalOrderingComparator<Integer>>,
         ComparatorTesting<NaturalOrderingComparator<Integer>, Integer>,
@@ -50,8 +50,8 @@ final public class NaturalOrderingComparatorTest implements ClassTesting2<Natura
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

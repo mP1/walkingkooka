@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformerTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformerTest implements ClassTesting2<JsonNodeEbnfParserCombinatorSyntaxTreeTransformer>,
         EbnfParserCombinatorSyntaxTreeTransformerTesting<JsonNodeEbnfParserCombinatorSyntaxTreeTransformer> {
@@ -31,7 +31,7 @@ public final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformerTest impleme
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

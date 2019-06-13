@@ -33,7 +33,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.text.LineEnding;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -543,8 +543,8 @@ public final class HttpEntityTest implements ClassTesting2<HttpEntity>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

@@ -19,7 +19,7 @@
 package walkingkooka.tree.xml;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class XmlTextNodeTest implements ClassTesting2<XmlTextNode> {
 
@@ -29,8 +29,8 @@ public final class XmlTextNodeTest implements ClassTesting2<XmlTextNode> {
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
 

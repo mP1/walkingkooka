@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -89,7 +89,7 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

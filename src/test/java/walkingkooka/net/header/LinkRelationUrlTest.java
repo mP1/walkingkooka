@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelationUrl, AbsoluteUrl> {
 
@@ -63,7 +63,7 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.tree.text;
 
 import walkingkooka.naming.Name;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class TextNodeNameNameTestCase<N extends Name & Comparable<N>> extends TextNodeTestCase<N>
         implements NameTesting2<N, N> {
@@ -71,8 +71,8 @@ public abstract class TextNodeNameNameTestCase<N extends Name & Comparable<N>> e
     // ClassTesting.....................................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // TypeNameTesting...................................................................................................

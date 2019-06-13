@@ -24,7 +24,7 @@ import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -85,8 +85,8 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

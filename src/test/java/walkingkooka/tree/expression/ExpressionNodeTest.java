@@ -32,7 +32,7 @@ import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParsers;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -353,7 +353,7 @@ public final class ExpressionNodeTest implements ClassTesting2<ExpressionNode> {
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.time.format.DateTimeFormatter;
 
@@ -120,7 +120,7 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
     // ClassTestCase............................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

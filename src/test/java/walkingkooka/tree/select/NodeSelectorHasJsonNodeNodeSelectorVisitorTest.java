@@ -23,7 +23,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.text.cursor.parser.select.NodeSelectorVisitorTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.json.HasJsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorHasJsonNodeNodeSelectorVisitorTest implements NodeSelectorVisitorTesting<NodeSelectorHasJsonNodeNodeSelectorVisitor<TestNode, StringName, StringName, Object>,
         TestNode, StringName, StringName, Object> {
@@ -34,8 +34,8 @@ public final class NodeSelectorHasJsonNodeNodeSelectorVisitorTest implements Nod
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

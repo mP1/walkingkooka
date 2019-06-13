@@ -23,7 +23,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionNodeNameTest implements ClassTesting2<ExpressionNodeName>,
         HasJsonNodeTesting<ExpressionNodeName>,
@@ -82,8 +82,8 @@ public final class ExpressionNodeNameTest implements ClassTesting2<ExpressionNod
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // HasJsonNodeTesting............................................................................................

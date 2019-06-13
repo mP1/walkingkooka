@@ -18,7 +18,7 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class JsonNodeSymbolParserTokenTest implements ClassTesting2<JsonNodeSymbolParserToken> {
 
@@ -28,7 +28,7 @@ public final class JsonNodeSymbolParserTokenTest implements ClassTesting2<JsonNo
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

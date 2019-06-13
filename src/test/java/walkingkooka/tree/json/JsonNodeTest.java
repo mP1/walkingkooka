@@ -23,7 +23,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.tree.HasTextOffsetTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class JsonNodeTest implements ClassTesting2<JsonNode>,
         HasTextOffsetTesting,
@@ -130,8 +130,8 @@ public final class JsonNodeTest implements ClassTesting2<JsonNode>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // ParseStringTesting ........................................................................................

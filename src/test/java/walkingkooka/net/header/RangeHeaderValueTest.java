@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 
@@ -438,7 +438,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

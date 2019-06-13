@@ -20,7 +20,7 @@ package walkingkooka.net;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -40,8 +40,8 @@ abstract public class HostAddressProblemTestCase<P extends HostAddressProblem> i
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................

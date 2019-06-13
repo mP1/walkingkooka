@@ -24,7 +24,7 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Function;
 
@@ -45,7 +45,7 @@ public final class JsonPatchNodePatchFromJsonFormatTest extends NodePatchTestCas
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

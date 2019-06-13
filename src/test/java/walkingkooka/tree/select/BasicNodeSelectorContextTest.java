@@ -30,7 +30,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -234,7 +234,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

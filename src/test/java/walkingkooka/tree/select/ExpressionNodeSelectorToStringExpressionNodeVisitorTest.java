@@ -31,7 +31,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorPredicateParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.ExpressionNodeVisitorTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -275,8 +275,8 @@ public final class ExpressionNodeSelectorToStringExpressionNodeVisitorTest imple
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

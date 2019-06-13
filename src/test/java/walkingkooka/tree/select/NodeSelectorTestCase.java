@@ -20,7 +20,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 abstract public class NodeSelectorTestCase<S> implements ClassTesting2<S>, TypeNameTesting<S> {
 
@@ -31,7 +31,7 @@ abstract public class NodeSelectorTestCase<S> implements ClassTesting2<S>, TypeN
     // ClassTypeTesting .........................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

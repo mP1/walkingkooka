@@ -25,7 +25,7 @@ import walkingkooka.color.Hsl;
 import walkingkooka.color.HslComponent;
 import walkingkooka.color.Hsv;
 import walkingkooka.color.HsvComponent;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 
@@ -296,8 +296,8 @@ public final class ColorFunctionTransformerTest extends ColorFunctionTestCase<Co
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting..................................................................................................

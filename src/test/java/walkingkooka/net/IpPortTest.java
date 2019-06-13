@@ -25,7 +25,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -96,8 +96,8 @@ public final class IpPortTest implements ClassTesting2<IpPort>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

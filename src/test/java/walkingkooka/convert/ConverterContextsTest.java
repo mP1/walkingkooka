@@ -19,7 +19,7 @@ package walkingkooka.convert;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
@@ -37,7 +37,7 @@ public final class ConverterContextsTest implements ClassTesting2<ConverterConte
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

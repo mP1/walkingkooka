@@ -19,7 +19,7 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ColorSpreadsheetTextFormatterColorSourceTest implements ClassTesting2<ColorSpreadsheetTextFormatterColorSource> {
 
@@ -29,7 +29,7 @@ public final class ColorSpreadsheetTextFormatterColorSourceTest implements Class
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -24,7 +24,7 @@ import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Locale;
 import java.util.Map;
@@ -75,8 +75,8 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> impleme
     abstract Class<L> languageTagNameType();
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................

@@ -26,7 +26,7 @@ import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Set;
 
@@ -90,8 +90,8 @@ public final class LengthUnitTest implements ClassTesting2<LengthUnit<?, ?>>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // ConstantsTesting.................................................................................................

@@ -19,7 +19,7 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class BigDecimalFractionTextFormatterTestCase<T> implements ClassTesting2<T> {
 
@@ -28,7 +28,7 @@ public abstract class BigDecimalFractionTextFormatterTestCase<T> implements Clas
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

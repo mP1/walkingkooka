@@ -19,7 +19,7 @@
 package walkingkooka.tree.file;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class FilesystemNodeAttributeMapEntrySetIteratorTest implements ClassTesting2<FilesystemNodeAttributeMapEntrySetIterator> {
     @Override
@@ -28,7 +28,7 @@ public final class FilesystemNodeAttributeMapEntrySetIteratorTest implements Cla
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

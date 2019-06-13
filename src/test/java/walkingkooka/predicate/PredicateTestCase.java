@@ -19,7 +19,7 @@ package walkingkooka.predicate;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
 
@@ -43,7 +43,7 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T> implements Cl
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

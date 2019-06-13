@@ -28,7 +28,7 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -85,8 +85,8 @@ public abstract class LengthTestCase<L extends Length, V> implements ClassTestin
     // ClassTesting.....................................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // HashCodeEqualsDefinedTesting.....................................................................................

@@ -20,7 +20,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.visit.Visiting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -199,8 +199,8 @@ public final class ExpressionNumberVisitorTest implements ExpressionNumberVisito
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

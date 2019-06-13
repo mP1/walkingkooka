@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class TextOverflowTest implements ClassTesting2<TextOverflow>, HasJsonNodeTesting<TextOverflow> {
 
@@ -59,8 +59,8 @@ public final class TextOverflowTest implements ClassTesting2<TextOverflow>, HasJ
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // HasJsonNodeTesting...............................................................................................

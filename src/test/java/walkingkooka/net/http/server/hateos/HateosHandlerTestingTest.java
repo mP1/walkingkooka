@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -136,8 +136,8 @@ public final class HateosHandlerTestingTest implements HateosHandlerTesting<Fake
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

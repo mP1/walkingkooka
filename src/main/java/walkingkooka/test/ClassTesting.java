@@ -19,7 +19,7 @@
 package walkingkooka.test;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,12 +31,12 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
     @Test
     default void testClassVisibility() {
         final Class<?> type = this.type();
-        final MemberVisibility visibility = Fake.class.isAssignableFrom(type) ?
-                MemberVisibility.PUBLIC :
+        final JavaVisibility visibility = Fake.class.isAssignableFrom(type) ?
+                JavaVisibility.PUBLIC :
                 this.typeVisibility();
 
         assertEquals(visibility,
-                MemberVisibility.get(type),
+                JavaVisibility.get(type),
                 () -> type.getName() + " visibility");
     }
 
@@ -45,5 +45,5 @@ public interface ClassTesting<T> extends TestSuiteNameTesting<T> {
         ClassMethodTesting.testAllMethodsVisibility(this.type());
     }
 
-    MemberVisibility typeVisibility();
+    JavaVisibility typeVisibility();
 }

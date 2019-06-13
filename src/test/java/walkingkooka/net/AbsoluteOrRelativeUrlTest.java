@@ -19,7 +19,7 @@
 package walkingkooka.net;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class AbsoluteOrRelativeUrlTest implements ClassTesting2<AbsoluteOrRelativeUrl> {
 
@@ -29,7 +29,7 @@ public final class AbsoluteOrRelativeUrlTest implements ClassTesting2<AbsoluteOr
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

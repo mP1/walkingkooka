@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.tree.NodeTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 import java.util.Optional;
@@ -158,7 +158,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> implements ClassTe
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

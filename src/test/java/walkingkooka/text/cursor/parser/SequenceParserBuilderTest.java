@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.build.BuilderTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -99,7 +99,7 @@ public final class SequenceParserBuilderTest implements ClassTesting2<SequencePa
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

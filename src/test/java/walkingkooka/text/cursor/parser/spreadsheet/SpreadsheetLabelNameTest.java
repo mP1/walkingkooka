@@ -23,7 +23,7 @@ import walkingkooka.naming.NameTesting;
 import walkingkooka.naming.PropertiesPath;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -180,8 +180,8 @@ final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferen
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // HasJsonNodeTesting..........................................................................

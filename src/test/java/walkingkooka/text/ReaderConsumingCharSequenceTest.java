@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.io.StringReader;
 
@@ -164,8 +164,8 @@ public class ReaderConsumingCharSequenceTest implements ClassTesting2<ReaderCons
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

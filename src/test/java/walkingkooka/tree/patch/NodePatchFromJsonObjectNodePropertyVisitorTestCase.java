@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.visit.VisitorTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class NodePatchFromJsonObjectNodePropertyVisitorTestCase<V extends NodePatchFromJsonObjectNodePropertyVisitor> extends NodePatchTestCase<V>
         implements VisitorTesting<V, JsonNode> {
@@ -46,8 +46,8 @@ public abstract class NodePatchFromJsonObjectNodePropertyVisitorTestCase<V exten
     abstract V createVisitor(final JsonObjectNode patch);
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

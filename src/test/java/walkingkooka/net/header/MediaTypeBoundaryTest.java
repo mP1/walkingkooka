@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -265,8 +265,8 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

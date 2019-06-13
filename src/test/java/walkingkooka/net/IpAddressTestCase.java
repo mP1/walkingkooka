@@ -24,7 +24,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -73,8 +73,8 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> imp
     abstract int bitCount();
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

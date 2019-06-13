@@ -26,7 +26,7 @@ import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitorTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 
@@ -86,7 +86,7 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

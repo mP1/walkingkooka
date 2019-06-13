@@ -23,7 +23,7 @@ import walkingkooka.Binary;
 import walkingkooka.io.serialize.SerializationProxyTesting;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -45,7 +45,7 @@ public final class DataUrlSerializationProxyTest implements ClassTesting2<DataUr
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

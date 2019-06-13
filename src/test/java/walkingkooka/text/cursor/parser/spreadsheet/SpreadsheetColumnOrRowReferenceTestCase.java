@@ -26,7 +26,7 @@ import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -246,8 +246,8 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<R extends Spreadsh
     abstract int maxValue();
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

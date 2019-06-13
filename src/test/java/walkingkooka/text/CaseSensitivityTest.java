@@ -21,7 +21,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Comparables;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 import walkingkooka.util.systemproperty.SystemProperty;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -1103,7 +1103,7 @@ final public class CaseSensitivityTest implements ClassTesting2<CaseSensitivity>
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

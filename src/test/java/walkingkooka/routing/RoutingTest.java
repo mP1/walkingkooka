@@ -25,7 +25,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -92,7 +92,7 @@ public final class RoutingTest implements ClassTesting2<Routing<StringName, Stri
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

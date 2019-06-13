@@ -20,7 +20,7 @@ package walkingkooka.naming;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
@@ -36,7 +36,7 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     // ClassTestCase .........................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

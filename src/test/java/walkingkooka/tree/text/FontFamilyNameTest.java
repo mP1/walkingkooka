@@ -24,7 +24,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class FontFamilyNameTest implements ClassTesting2<FontFamilyName>,
         NameTesting<FontFamilyName, FontFamilyName>,
@@ -111,8 +111,8 @@ public final class FontFamilyNameTest implements ClassTesting2<FontFamilyName>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // HasJsonNodeTesting............................................................

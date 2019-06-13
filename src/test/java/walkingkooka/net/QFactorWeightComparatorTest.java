@@ -24,7 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparatorTesting;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
 
@@ -96,7 +96,7 @@ public final class QFactorWeightComparatorTest implements ClassTesting2<QFactorW
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

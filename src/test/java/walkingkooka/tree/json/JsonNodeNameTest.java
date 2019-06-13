@@ -24,7 +24,7 @@ import walkingkooka.naming.NameTesting;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -161,8 +161,8 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // HasJsonNodeTesting.....................................................................

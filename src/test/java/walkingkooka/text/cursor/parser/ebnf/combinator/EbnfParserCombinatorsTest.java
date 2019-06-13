@@ -54,7 +54,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfRangeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRepeatedParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -533,8 +533,8 @@ public final class EbnfParserCombinatorsTest implements ClassTesting2<EbnfParser
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // PublicStaticHelperTesting................................................................

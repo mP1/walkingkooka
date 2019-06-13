@@ -19,7 +19,7 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class SearchBinaryQueryContextTest implements ClassTesting2<SearchBinaryQueryContext> {
 
@@ -29,7 +29,7 @@ public final class SearchBinaryQueryContextTest implements ClassTesting2<SearchB
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

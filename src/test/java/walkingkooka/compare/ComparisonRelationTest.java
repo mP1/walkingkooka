@@ -21,7 +21,7 @@ package walkingkooka.compare;
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
 
@@ -352,7 +352,7 @@ public final class ComparisonRelationTest implements ClassTesting2<ComparisonRel
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

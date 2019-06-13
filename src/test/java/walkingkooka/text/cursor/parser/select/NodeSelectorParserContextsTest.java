@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.PublicStaticHelperTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 
@@ -38,7 +38,7 @@ public final class NodeSelectorParserContextsTest implements ClassTesting2<NodeS
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

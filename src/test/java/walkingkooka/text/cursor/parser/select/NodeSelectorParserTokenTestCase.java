@@ -26,7 +26,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.tree.select.NodeSelector;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.util.function.Predicate;
@@ -377,7 +377,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

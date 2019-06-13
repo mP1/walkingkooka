@@ -36,7 +36,7 @@ import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -521,8 +521,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> implement
     // ClassTestCase.........................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // HasJsonNodeTesting...........................................................................................

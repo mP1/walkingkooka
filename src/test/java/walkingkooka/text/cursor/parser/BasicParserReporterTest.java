@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class BasicParserReporterTest implements ClassTesting2<BasicParserReporter<FakeParserContext>>,
         ParserReporterTesting<BasicParserReporter<FakeParserContext>, StringParserToken, FakeParserContext> {
@@ -67,7 +67,7 @@ public final class BasicParserReporterTest implements ClassTesting2<BasicParserR
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

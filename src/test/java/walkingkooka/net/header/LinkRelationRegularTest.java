@@ -19,7 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -88,7 +88,7 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

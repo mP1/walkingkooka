@@ -35,7 +35,7 @@ import walkingkooka.tree.HasTextOffsetTesting;
 import walkingkooka.tree.NodeTesting;
 import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.tree.search.SearchNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -343,7 +343,7 @@ public abstract class XmlNodeTestCase<N extends XmlNode> implements ClassTesting
     // ClassTestCase.........................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

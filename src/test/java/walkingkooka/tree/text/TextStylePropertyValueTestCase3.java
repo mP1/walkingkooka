@@ -20,7 +20,7 @@ package walkingkooka.tree.text;
 
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.HasJsonNodeTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class TextStylePropertyValueTestCase3<V extends HasJsonNode> extends TextStylePropertyValueTestCase<V>
         implements HasJsonNodeTesting<V> {
@@ -32,8 +32,8 @@ public abstract class TextStylePropertyValueTestCase3<V extends HasJsonNode> ext
     // ClassTyping......................................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // HasJsonNode......................................................................................................

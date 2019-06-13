@@ -26,7 +26,7 @@ import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -134,7 +134,7 @@ public final class HttpServletRequestHttpRequestHeadersMapTest implements ClassT
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

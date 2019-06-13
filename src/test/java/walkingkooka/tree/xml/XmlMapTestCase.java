@@ -20,7 +20,7 @@ package walkingkooka.tree.xml;
 
 import walkingkooka.collect.map.MapTesting2;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -50,7 +50,7 @@ public abstract class XmlMapTestCase<M extends XmlMap<K, V>, K, V> implements Cl
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

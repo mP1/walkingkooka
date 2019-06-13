@@ -23,7 +23,7 @@ import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTesting;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class SpreadsheetParserTestCase<P extends Parser<SpreadsheetParserContext>,
         T extends SpreadsheetParserToken>
@@ -60,7 +60,7 @@ public abstract class SpreadsheetParserTestCase<P extends Parser<SpreadsheetPars
     // ClassTestCase .........................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

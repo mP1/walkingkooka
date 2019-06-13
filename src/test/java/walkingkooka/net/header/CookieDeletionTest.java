@@ -19,7 +19,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 final public class CookieDeletionTest implements ClassTesting2<CookieDeletion> {
 
@@ -29,7 +29,7 @@ final public class CookieDeletionTest implements ClassTesting2<CookieDeletion> {
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

@@ -21,7 +21,7 @@ package walkingkooka.tree.xml;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.Node;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class XmlNodeTest implements ClassTesting2<XmlNode>, TypeNameTesting<XmlNode> {
 
@@ -31,8 +31,8 @@ public final class XmlNodeTest implements ClassTesting2<XmlNode>, TypeNameTestin
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

@@ -21,7 +21,7 @@ package walkingkooka.tree.xml;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class XmlNameTest implements ClassTesting2<XmlName>,
         NameTesting<XmlName, XmlName> {
@@ -57,7 +57,7 @@ public final class XmlNameTest implements ClassTesting2<XmlName>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

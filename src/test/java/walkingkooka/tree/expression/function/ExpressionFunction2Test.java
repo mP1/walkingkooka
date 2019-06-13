@@ -20,7 +20,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ExpressionFunction2Test implements ClassTesting2<ExpressionFunction2<?>> {
 
@@ -30,7 +30,7 @@ public final class ExpressionFunction2Test implements ClassTesting2<ExpressionFu
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

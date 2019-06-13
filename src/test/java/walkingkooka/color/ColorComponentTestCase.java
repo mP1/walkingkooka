@@ -27,7 +27,7 @@ import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Predicate;
 
@@ -193,8 +193,8 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> implement
     abstract C createColorComponent(byte value);
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

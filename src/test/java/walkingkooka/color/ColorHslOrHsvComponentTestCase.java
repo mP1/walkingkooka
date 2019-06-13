@@ -24,7 +24,7 @@ import walkingkooka.test.IsMethodTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class ColorHslOrHsvComponentTestCase<C extends ColorHslOrHsvComponent>  implements ClassTesting2<C>,
         HashCodeEqualsDefinedTesting<C>,
@@ -40,8 +40,8 @@ public abstract class ColorHslOrHsvComponentTestCase<C extends ColorHslOrHsvComp
     // ClassTesting....................................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // IsMethodTesting.................................................................................................

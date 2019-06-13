@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.math.MathContext;
 
@@ -60,7 +60,7 @@ public final class BasicSpreadsheetParserContextTest implements ClassTesting2<Ba
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

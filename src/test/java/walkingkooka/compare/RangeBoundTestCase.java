@@ -20,7 +20,7 @@ package walkingkooka.compare;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> implements ClassTesting2<B>,
         TypeNameTesting<B> {
@@ -32,8 +32,8 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> implemen
     // ClassTesting2...........................................................................................
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting .........................................................................................

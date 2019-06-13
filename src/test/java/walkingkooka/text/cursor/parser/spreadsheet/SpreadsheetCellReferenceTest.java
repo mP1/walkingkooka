@@ -24,7 +24,7 @@ import walkingkooka.compare.LowerOrUpperTesting;
 import walkingkooka.compare.Range;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -491,8 +491,8 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // ParseStringTesting.........................................................................................

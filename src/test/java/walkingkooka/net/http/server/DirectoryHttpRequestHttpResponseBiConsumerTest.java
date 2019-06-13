@@ -32,7 +32,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.io.File;
 import java.io.IOException;
@@ -284,7 +284,7 @@ public final class DirectoryHttpRequestHttpResponseBiConsumerTest implements Cla
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

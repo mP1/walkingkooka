@@ -19,7 +19,7 @@
 package walkingkooka;
 
 import walkingkooka.compare.RangeVisitorTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryRangeVisitor, Long> {
     @Override
@@ -28,8 +28,8 @@ public final class BinaryRangeVisitorTest implements RangeVisitorTesting<BinaryR
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

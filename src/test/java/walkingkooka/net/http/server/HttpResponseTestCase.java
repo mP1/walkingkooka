@@ -19,7 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class HttpResponseTestCase<R extends HttpResponse> implements ClassTesting2<R> {
 
@@ -27,7 +27,7 @@ public abstract class HttpResponseTestCase<R extends HttpResponse> implements Cl
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

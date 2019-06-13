@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class EbnfGrammarLoaderTest implements ClassTesting2<EbnfGrammarLoader> {
 
@@ -29,7 +29,7 @@ public final class EbnfGrammarLoaderTest implements ClassTesting2<EbnfGrammarLoa
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

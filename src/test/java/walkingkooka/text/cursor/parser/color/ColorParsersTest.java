@@ -35,7 +35,7 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.lang.reflect.Method;
 import java.math.MathContext;
@@ -512,7 +512,7 @@ public final class ColorParsersTest implements ClassTesting2<ColorParsers>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

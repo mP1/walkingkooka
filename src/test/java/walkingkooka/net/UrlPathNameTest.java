@@ -24,7 +24,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Arrays;
 
@@ -124,8 +124,8 @@ public final class UrlPathNameTest implements ClassTesting2<UrlPathName>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     @Override

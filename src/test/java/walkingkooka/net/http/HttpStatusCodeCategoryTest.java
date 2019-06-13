@@ -20,7 +20,7 @@ package walkingkooka.net.http;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatusCodeCategory>,
         TypeNameTesting<HttpStatusCodeCategory> {
@@ -31,8 +31,8 @@ public final class HttpStatusCodeCategoryTest implements ClassTesting2<HttpStatu
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // TypeNameTesting .........................................................................................

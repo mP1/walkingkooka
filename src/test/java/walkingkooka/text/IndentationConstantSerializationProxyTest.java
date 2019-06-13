@@ -20,7 +20,7 @@ package walkingkooka.text;
 import org.junit.jupiter.api.Test;
 import walkingkooka.io.serialize.SerializationProxyTesting;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -41,7 +41,7 @@ final public class IndentationConstantSerializationProxyTest implements ClassTes
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

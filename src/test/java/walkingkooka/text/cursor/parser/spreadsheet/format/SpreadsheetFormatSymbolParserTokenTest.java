@@ -18,7 +18,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class SpreadsheetFormatSymbolParserTokenTest implements ClassTesting2<SpreadsheetFormatSymbolParserToken> {
 
@@ -28,7 +28,7 @@ public final class SpreadsheetFormatSymbolParserTokenTest implements ClassTestin
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

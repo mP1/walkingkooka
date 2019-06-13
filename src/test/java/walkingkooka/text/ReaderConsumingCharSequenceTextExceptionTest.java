@@ -18,7 +18,7 @@
 package walkingkooka.text;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 final public class ReaderConsumingCharSequenceTextExceptionTest implements ClassTesting2<ReaderConsumingCharSequenceTextException> {
 
@@ -28,7 +28,7 @@ final public class ReaderConsumingCharSequenceTextExceptionTest implements Class
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

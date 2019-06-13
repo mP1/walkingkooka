@@ -19,7 +19,7 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class JsonLeafNodeTest implements ClassTesting2<JsonLeafNode> {
     @Override
@@ -28,7 +28,7 @@ public final class JsonLeafNodeTest implements ClassTesting2<JsonLeafNode> {
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

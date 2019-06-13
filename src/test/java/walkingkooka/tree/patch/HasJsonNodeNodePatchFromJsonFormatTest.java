@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.HasJsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class HasJsonNodeNodePatchFromJsonFormatTest extends NodePatchTestCase<HasJsonNodeNodePatchFromJsonFormat> {
 
@@ -35,7 +35,7 @@ public final class HasJsonNodeNodePatchFromJsonFormatTest extends NodePatchTestC
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

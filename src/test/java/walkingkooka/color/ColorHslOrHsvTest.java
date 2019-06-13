@@ -23,7 +23,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv>,
         HasJsonNodeTesting<ColorHslOrHsv>,
@@ -139,7 +139,7 @@ public final class ColorHslOrHsvTest implements ClassTesting2<ColorHslOrHsv>,
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

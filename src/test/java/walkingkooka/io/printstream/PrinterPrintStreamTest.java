@@ -23,7 +23,7 @@ import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.LineEnding;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -461,7 +461,7 @@ final public class PrinterPrintStreamTest implements ClassTesting2<PrinterPrintS
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

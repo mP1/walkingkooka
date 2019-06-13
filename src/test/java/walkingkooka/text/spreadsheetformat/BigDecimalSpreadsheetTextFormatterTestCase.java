@@ -20,7 +20,7 @@ package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 public abstract class BigDecimalSpreadsheetTextFormatterTestCase<T> implements ClassTesting2<T>,
         ToStringTesting<T> {
@@ -30,7 +30,7 @@ public abstract class BigDecimalSpreadsheetTextFormatterTestCase<T> implements C
     }
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

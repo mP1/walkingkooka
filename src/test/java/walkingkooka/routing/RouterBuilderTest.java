@@ -25,7 +25,7 @@ import walkingkooka.build.BuilderTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -74,7 +74,7 @@ public final class RouterBuilderTest implements ClassTesting2<RouterBuilder<Stri
     }
 
     @Override
-    public MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

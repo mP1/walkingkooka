@@ -24,7 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.JavaVisibility;
 
 import java.util.Map;
 
@@ -148,8 +148,8 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
     // ClassTesting................................................................................................
 
     @Override
-    public final MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override
