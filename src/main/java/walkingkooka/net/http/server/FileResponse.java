@@ -26,11 +26,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Holds A file response.
+ * Holds A file response the filename and binary.
  */
 public final class FileResponse {
 
-    static FileResponse with(final String filename, final Binary binary) {
+    /**
+     * Factory that creates a {@link FileResponse}
+     */
+    public static FileResponse with(final String filename, final Binary binary) {
         Objects.requireNonNull(filename, "filename");
         Objects.requireNonNull(binary, "binary");
 
