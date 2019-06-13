@@ -166,16 +166,21 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
             }
 
             final String invalid = this.possibleInvalidChars(last);
+
+            int i = 0;
             for (char c : invalid.toCharArray()) {
                 chars[last] = c;
                 final String text = new String(chars);
 
                 final InvalidCharacterException expected = assertThrows(InvalidCharacterException.class, () -> {
-                    this.createName(text);
-                });
+                            this.createName(text);
+                        },
+                        () -> "Name text=" + CharSequences.quoteAndEscape(text).toString());
+                final int j = i;
                 assertEquals(last,
                         expected.position(),
-                        () -> "Incorrect position reported " + CharSequences.quoteAndEscape(text));
+                        () -> "Incorrect position " + j + " reported for " + CharSequences.quoteAndEscape(text));
+                i++;
             }
         }
     }
