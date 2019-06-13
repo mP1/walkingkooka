@@ -1,0 +1,214 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ */
+
+package walkingkooka.type;
+
+import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
+
+import java.util.function.Predicate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<TypeName> {
+
+    @Test
+    public void testFromClassNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            TypeName.fromClass(null);
+        });
+    }
+
+    @Test
+    public void testFromClass() throws Exception {
+        final TypeName p = TypeName.fromClass(this.getClass());
+        this.checkValue(p, "walkingkooka.type.TypeNameTest");
+    }
+
+    @Test
+    public void testWithTrailingDotFails() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("pkg1.ClassName.");
+        });
+    }
+
+    @Test
+    public void testWithEmptyPackageFails() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("before..after");
+        });
+    }
+
+    @Test
+    public void testWithEmptyPackageFails2() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("pkg123..");
+        });
+    }
+
+    @Test
+    public void testWithEmptyPackageFails3() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("..after");
+        });
+    }
+
+    @Test
+    public void testWithPartInsteadOfInitialFails() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("pkg123.1ClassName");
+        });
+    }
+
+    @Test
+    public void testWithPartInsteadOfInitialFails2() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("1abc.ClassName");
+        });
+    }
+
+    @Test
+    public void testWithPartInsteadOfInitialFails3() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("pkg123.1");
+        });
+    }
+
+    @Test
+    public void testWithPartInsteadOfInitialFails4() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("pkg123.1");
+        });
+    }
+
+    @Test
+    public void testWithInvalidPartFails() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("pkg123.a\nb.ClassName");
+        });
+    }
+
+    @Test
+    public void testWithInvalidPartFails2() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName("pkg123.A\n");
+        });
+    }
+
+    @Test
+    public void testWithArrayClassNameFails() {
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName(Object[].class.getName());
+        });
+    }
+
+    @Test
+    public void testWithLambdaClassNameFails() {
+        final Predicate<?> lambda = (t) -> true;
+        assertThrows(InvalidCharacterException.class, () -> {
+            this.createName(lambda.getClass().getName());
+        });
+    }
+
+    @Test
+    public void testWithClassWithoutPackage() {
+        this.createNameAndCheck("A");
+    }
+
+
+    @Test
+    public void testWithJavaLangString() {
+        this.createNameAndCheck("java.lang.String");
+    }
+
+    @Test
+    public void testWithJavaLangReflectMethod() {
+        this.createNameAndCheck("java.lang.reflect.Method");
+    }
+
+    @Test
+    public void testWithJavaUtilHashMap() {
+        this.createNameAndCheck("java.util.HashMap");
+    }
+
+    @Test
+    public void testNameWithoutPackage() {
+        this.withoutPackageNameAndCheck(String.class);
+    }
+
+    @Test
+    public void testNameWithoutPackage2() {
+        final Predicate<?> lambda = (t) -> true;
+        this.withoutPackageNameAndCheck(lambda.getClass());
+    }
+
+    private void withoutPackageNameAndCheck(final Class<?> type) {
+        this.withoutPackageNameAndCheck(TypeName.fromClass(type), type.getSimpleName());
+    }
+
+    private void withoutPackageNameAndCheck(final String name, final String without) {
+        this.withoutPackageNameAndCheck(TypeName.with(name), without);
+    }
+
+    private void withoutPackageNameAndCheck(final TypeName typeName, final String without) {
+        assertEquals(without, typeName.nameWithoutPackage(), "nameWithoutPackage");
+    }
+
+    @Test
+    public void testPackage() {
+        this.packageAndCheck(this.getClass());
+    }
+
+    private void packageAndCheck(final Class<?> type) {
+        this.packageAndCheck(type.getName(), type.getPackage().getName());
+
+        assertEquals(PackageName.from(type.getPackage()), TypeName.with(type.getName()).parentPackage(), "parentPackage");
+    }
+
+    private void packageAndCheck(final String name, final String pkg) {
+        final TypeName typeName = TypeName.with(name);
+        assertEquals(PackageName.with(pkg), typeName.parentPackage(), "parentPackage");
+
+    }
+
+    @Override
+    public TypeName createName(final String name) {
+        return TypeName.with(name);
+    }
+
+    @Override
+    public String nameText() {
+        return this.getClass().getName();
+    }
+
+    @Override
+    public String differentNameText() {
+        return "walkingkooka";
+    }
+
+    @Override
+    public String nameTextLess() {
+        return "before.before2.ClassName123";
+    }
+
+    @Override
+    public Class<TypeName> type() {
+        return TypeName.class;
+    }
+}
