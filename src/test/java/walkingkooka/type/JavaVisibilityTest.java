@@ -85,7 +85,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     }
 
     @Test
-    protected void testVisitorProtected() {
+    public void testVisitorProtected() {
         final StringBuilder b = new StringBuilder();
 
         final JavaVisibility visibility = JavaVisibility.PROTECTED;
@@ -113,7 +113,7 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
     }
 
     @Test
-    private void testVisitorPackagePrivate() {
+    public void testVisitorPackagePrivate() {
         final StringBuilder b = new StringBuilder();
 
         final JavaVisibility visibility = JavaVisibility.PACKAGE_PRIVATE;

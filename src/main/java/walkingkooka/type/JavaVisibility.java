@@ -59,7 +59,7 @@ public enum JavaVisibility implements Visitable {
 
         @Override
         void accept(final JavaVisibilityVisitor visitor) {
-            visitor.visitProtected();
+            visitor.visitPackagePrivate();
         }
     },
     PRIVATE {
