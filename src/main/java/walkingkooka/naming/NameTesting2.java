@@ -167,7 +167,6 @@ public interface NameTesting2<N extends Name, C extends Comparable<C> & HashCode
 
             final String invalid = this.possibleInvalidChars(last);
 
-            int i = 0;
             for (char c : invalid.toCharArray()) {
                 chars[last] = c;
                 final String text = new String(chars);
