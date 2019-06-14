@@ -20,9 +20,9 @@ package walkingkooka.text.spreadsheetformat;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserContext;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParsers;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatTextParserToken;
 
 public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextFormatter3TestCase<TextSpreadsheetTextFormatter, String, SpreadsheetFormatTextParserToken> {
 

@@ -24,9 +24,9 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.Fraction;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatExpressionParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatExpressionParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserContext;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParsers;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

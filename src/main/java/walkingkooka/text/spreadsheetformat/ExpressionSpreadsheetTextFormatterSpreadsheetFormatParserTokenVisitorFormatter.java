@@ -22,12 +22,12 @@ import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatGreaterThanEqualsParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatGreaterThanParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatLessThanParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatColorParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatConditionParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatGreaterThanEqualsParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatGreaterThanParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatLessThanParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserToken;
 
 import java.math.BigDecimal;
 import java.util.List;

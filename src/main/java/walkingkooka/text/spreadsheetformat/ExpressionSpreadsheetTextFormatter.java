@@ -19,8 +19,8 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.math.Fraction;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatExpressionParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatExpressionParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatTextParserToken;
 import walkingkooka.util.Optionals;
 
 import java.math.BigDecimal;

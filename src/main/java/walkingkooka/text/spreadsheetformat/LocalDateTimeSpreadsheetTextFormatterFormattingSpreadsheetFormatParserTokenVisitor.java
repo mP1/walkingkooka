@@ -18,23 +18,24 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatAmPmParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDayParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatEscapeParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatHourParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatMonthOrMinuteParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatQuotedTextParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatSecondParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextLiteralParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatYearParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatAmPmParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatDayParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatEscapeParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatHourParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatMonthOrMinuteParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserTokenVisitor;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatQuotedTextParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatSecondParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatTextLiteralParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatYearParserToken;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
  * This visitor is used exclusively by {@link TextSpreadsheetTextFormatter#format(Object, SpreadsheetTextFormatContext)}.
- * Only some methods in {@link walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor} are overridden, all other tokens will be ignored.
+ * Only some methods in {@link SpreadsheetFormatParserTokenVisitor} are overridden, all other tokens will be ignored.
  */
 final class LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor extends TextFormatterSpreadsheetFormatParserTokenVisitor {
 

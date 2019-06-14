@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatExponentParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatExponentParserToken;
 
 /**
  * Keeps track of the three modes or phases of a number, the integer, fractionDigitSymbolCount and exponentDigitSymbolCount digits.

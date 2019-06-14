@@ -24,9 +24,9 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContexts;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserContext;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserContexts;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserToken;
 
 import java.math.MathContext;
 

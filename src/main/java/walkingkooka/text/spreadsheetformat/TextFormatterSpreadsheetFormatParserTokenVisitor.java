@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserTokenVisitor;
 
 /**
  * A {@link SpreadsheetFormatParserTokenVisitor} sub classed and used by {@link SpreadsheetTextFormatter3}.
