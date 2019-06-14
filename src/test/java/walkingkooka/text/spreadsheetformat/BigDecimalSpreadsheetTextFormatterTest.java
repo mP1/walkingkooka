@@ -21,9 +21,9 @@ package walkingkooka.text.spreadsheetformat;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporterException;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatBigDecimalParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserContext;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParsers;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

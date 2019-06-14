@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserToken;
 
 import java.util.Objects;
 

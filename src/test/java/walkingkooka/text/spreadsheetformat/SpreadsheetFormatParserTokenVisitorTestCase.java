@@ -18,8 +18,8 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitorTesting;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserTokenVisitor;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserTokenVisitorTesting;
 import walkingkooka.type.JavaVisibility;
 
 /**

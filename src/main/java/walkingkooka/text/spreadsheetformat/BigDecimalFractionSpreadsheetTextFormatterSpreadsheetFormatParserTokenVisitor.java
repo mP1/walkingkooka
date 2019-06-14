@@ -19,17 +19,17 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatCurrencyParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDigitLeadingSpaceParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDigitLeadingZeroParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDigitParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatEscapeParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatFractionSymbolParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatPercentSymbolParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatQuotedTextParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextLiteralParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatThousandsParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatCurrencyParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatDigitLeadingSpaceParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatDigitLeadingZeroParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatDigitParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatEscapeParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatFractionSymbolParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatPercentSymbolParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatQuotedTextParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatTextLiteralParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatThousandsParserToken;
 
 import java.math.BigDecimal;
 import java.util.List;

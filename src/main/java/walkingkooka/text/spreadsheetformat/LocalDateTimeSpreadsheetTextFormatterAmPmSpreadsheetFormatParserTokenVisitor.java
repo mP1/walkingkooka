@@ -18,8 +18,8 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatAmPmParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatAmPmParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserToken;
 
 /**
  * This visitor only returns true if a {@link SpreadsheetFormatAmPmParserToken} is present which means future formats

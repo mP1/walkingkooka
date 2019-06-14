@@ -20,14 +20,14 @@ package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.Value;
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNameParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNumberParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatColorNameParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatColorNumberParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatColorParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserTokenVisitor;
 
 /**
- * Finds the color name or color number in the {@link walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken}.
+ * Finds the color name or color number in the {@link SpreadsheetFormatColorParserToken}.
  */
 final class ColorSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor extends SpreadsheetFormatParserTokenVisitor {
 

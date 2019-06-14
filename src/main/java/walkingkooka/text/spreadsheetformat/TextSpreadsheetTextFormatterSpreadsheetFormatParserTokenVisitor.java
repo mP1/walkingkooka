@@ -18,17 +18,18 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatEscapeParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatQuotedTextParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatStarParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextLiteralParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextPlaceholderParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatUnderscoreParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatEscapeParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserTokenVisitor;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatQuotedTextParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatStarParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatTextLiteralParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatTextParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatTextPlaceholderParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatUnderscoreParserToken;
 
 /**
  * This visitor is used exclusively by {@link TextSpreadsheetTextFormatter#format(Object, SpreadsheetTextFormatContext)}.
- * Only some methods in {@link walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor} are overridden, all other tokens will be ignored.
+ * Only some methods in {@link SpreadsheetFormatParserTokenVisitor} are overridden, all other tokens will be ignored.
  */
 final class TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor extends TextFormatterSpreadsheetFormatParserTokenVisitor {
 

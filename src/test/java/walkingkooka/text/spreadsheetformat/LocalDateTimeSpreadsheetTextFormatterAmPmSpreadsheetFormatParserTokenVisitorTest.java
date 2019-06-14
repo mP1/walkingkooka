@@ -19,7 +19,7 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserToken;
 
 public final class LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitorTest extends
         TextFormatterSpreadsheetFormatParserTokenVisitorTestCase<LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor> {

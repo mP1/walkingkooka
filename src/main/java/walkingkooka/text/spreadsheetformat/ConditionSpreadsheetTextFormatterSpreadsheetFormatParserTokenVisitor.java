@@ -20,15 +20,15 @@ package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.compare.ComparisonRelation;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionNumberParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatEqualsParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatGreaterThanEqualsParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatGreaterThanParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatLessThanEqualsParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatLessThanParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatNotEqualsParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatConditionNumberParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatConditionParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatEqualsParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatGreaterThanEqualsParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatGreaterThanParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatLessThanEqualsParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatLessThanParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatNotEqualsParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserTokenVisitor;
 
 import java.math.BigDecimal;
 import java.util.function.Predicate;

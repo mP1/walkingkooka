@@ -19,7 +19,7 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.convert.ConversionException;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatConditionParserToken;
 
 import java.math.BigDecimal;
 import java.util.Objects;

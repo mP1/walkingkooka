@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatBigDecimalParserToken;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

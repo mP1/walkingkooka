@@ -19,13 +19,13 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.math.Fraction;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatExpressionParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatFractionParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatBigDecimalParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatColorParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatConditionParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatDateTimeParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatExpressionParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatFractionParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatTextParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.math.BigDecimal;

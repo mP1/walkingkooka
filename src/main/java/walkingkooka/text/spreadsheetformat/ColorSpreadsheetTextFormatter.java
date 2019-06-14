@@ -20,7 +20,7 @@ package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.Cast;
 import walkingkooka.color.Color;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatColorParserToken;
 
 import java.util.Objects;
 import java.util.Optional;

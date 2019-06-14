@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatDateTimeParserToken;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

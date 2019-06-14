@@ -22,9 +22,9 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.color.Color;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatColorParserToken;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParserContext;
+import walkingkooka.text.spreadsheetformat.parser.SpreadsheetFormatParsers;
 
 import java.util.Optional;
 
