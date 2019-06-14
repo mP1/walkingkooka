@@ -24,9 +24,8 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.ShouldBeQuoted;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ComparableTesting<P>,
         ConstantsTesting<P>,
+        ToStringTesting<P>,
         TypeNameTesting<P> {
 
     @Test
@@ -163,10 +163,7 @@ public interface PathTesting<P extends Path<P, N> & HashCodeEqualsDefined & Comp
     @Test
     default void testToString() {
         final P path = this.createPath();
-        assertEquals(path instanceof ShouldBeQuoted ?
-                        CharSequences.quote(path.value()).toString() :
-                        path.value(),
-                path.toString());
+        this.toStringAndCheck(path, path.value());
     }
 
     // factory

@@ -357,7 +357,7 @@ public final class RouterBuilderRouterTest implements ClassTesting2<RouterBuilde
                 .add(routing1)
                 .build();
         this.toStringAndCheck(routers,
-                "\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1");
+                "path-0=dir-1-abc & path-1=file-1-one.txt ->target-1");
     }
 
     @Test
@@ -375,7 +375,7 @@ public final class RouterBuilderRouterTest implements ClassTesting2<RouterBuilde
                 .add(routing2)
                 .build();
         this.toStringAndCheck(routers,
-                "(\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1) | (\"path-0\"=\"dir-2-def\" & \"path-1\"=\"file-2-two.txt\" ->target-2)");
+                "(path-0=dir-1-abc & path-1=file-1-one.txt ->target-1) | (path-0=dir-2-def & path-1=file-2-two.txt ->target-2)");
     }
 
     private StringName dir1() {

@@ -19,7 +19,6 @@
 package walkingkooka.net;
 
 import walkingkooka.Value;
-import walkingkooka.text.ShouldBeQuoted;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -117,8 +116,7 @@ import java.util.Optional;
  *                  / "*" / "+" / "," / ";" / "="
  * </pre>
  */
-public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String>,
-        ShouldBeQuoted {
+public abstract class AbsoluteOrRelativeUrl extends Url implements Value<String> {
 
     /**
      * Helper used by all parse methods.

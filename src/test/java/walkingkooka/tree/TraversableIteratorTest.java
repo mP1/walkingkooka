@@ -182,7 +182,7 @@ public final class TraversableIteratorTest implements ClassTesting2<TraversableI
     @Test
     public void testToStringNextAvailable() {
         final Iterator<TestNode> iterator = this.createIterator();
-        this.toStringAndCheck(iterator, "\"root\"");
+        this.toStringAndCheck(iterator, "root");
     }
 
     private TraversableIterator<TestNode> createIterator() {

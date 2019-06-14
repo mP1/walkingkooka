@@ -21,7 +21,6 @@ package walkingkooka.naming;
 import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.text.Whitespace;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
@@ -34,7 +33,6 @@ import java.util.Objects;
  */
 final public class StringName implements Name,
         Comparable<StringName>,
-        ShouldBeQuoted,
         Serializable,
         HasJsonNode {
 
@@ -98,7 +96,7 @@ final public class StringName implements Name,
 
     @Override
     public String toString() {
-        return CharSequences.quote(this.name).toString();
+        return this.name;
     }
 
     // Comparable ...................................................................................................
