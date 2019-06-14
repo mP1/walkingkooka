@@ -17,9 +17,6 @@
 
 package walkingkooka.collect.iterator;
 
-import walkingkooka.build.chain.ChainType;
-import walkingkooka.build.chain.Chained;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -28,33 +25,30 @@ import java.util.Objects;
  * An {@link Iterator} that chains two {@link Iterator iterators together}. When the first becomes
  * empty the next is called.
  */
-final class IteratorChain<E> implements Iterator<E>, Chained<Iterator<E>> {
+final class ChainIterator<E> implements Iterator<E> {
 
     /**
-     * Creates an {@link IteratorChain} from two {@link Iterators}.
+     * Creates an {@link ChainIterator} from two {@link Iterators}.
      */
-    static <E> Iterator<E> wrap(final Iterator<E> first, final Iterator<E> second) {
-        Objects.requireNonNull(first, "first Iterator");
-        Objects.requireNonNull(second, "second Iterator");
+    static <E> Iterator<E> with(final Iterator<E> first,
+                                final Iterator<E>... iterators) {
+        Objects.requireNonNull(first, "first");
+        Objects.requireNonNull(iterators, "iterators");
 
-        return Iterators.<E>builder().add(first).add(second).build();
-    }
-
-    /**
-     * Wraps without copying the array and is called by {@link IteratorChainFactory}
-     */
-    static <E> Iterator<E> wrap(final Iterator<E>[] iterators) {
-        return new IteratorChain<E>(iterators);
+        return iterators.length == 0 ?
+                first :
+                new ChainIterator<E>(first, iterators.clone());
     }
 
     /**
      * Private constructor use static factory.
      */
-    private IteratorChain(final Iterator<E>[] iterators) {
+    private ChainIterator(final Iterator<E> first,
+                          final Iterator<E>[] iterators) {
         super();
-        this.current = iterators[0];
+        this.current = first;
         this.iterators = iterators;
-        this.next = 1;
+        this.next = 0;
     }
 
     /**
@@ -150,26 +144,6 @@ final class IteratorChain<E> implements Iterator<E>, Chained<Iterator<E>> {
      * remove.
      */
     private Iterator<E> remove;
-
-    // Chained
-
-    /**
-     * Returns a clone of all {@link Iterator iterators}.
-     */
-    @Override
-    public Iterator<E>[] chained() {
-        return this.iterators.clone();
-    }
-
-    /**
-     * Returns {@link ChainType#ALL} because all {@link Iterator iterators} are read.
-     */
-    @Override
-    public ChainType chainType() {
-        return IteratorChain.TYPE;
-    }
-
-    final static ChainType TYPE = ChainType.ALL;
 
     /**
      * Dumps the current {@link Iterator} with trailing ellipses if it is not the last.

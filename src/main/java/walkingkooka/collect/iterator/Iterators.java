@@ -17,8 +17,6 @@
 
 package walkingkooka.collect.iterator;
 
-import walkingkooka.build.chain.ChainBuilder;
-import walkingkooka.build.chain.ChainBuilders;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Enumeration;
@@ -35,17 +33,11 @@ final public class Iterators implements PublicStaticHelper {
     }
 
     /**
-     * {@see IteratorChainFactory}
+     * {@see ChainIterator}
      */
-    public static <E> ChainBuilder<Iterator<E>> builder() {
-        return ChainBuilders.chainFactory(IteratorChain.TYPE, IteratorChainFactory.instance());
-    }
-
-    /**
-     * {@see IteratorChain}
-     */
-    public static <E> Iterator<E> chain(final Iterator<E> first, final Iterator<E> second) {
-        return IteratorChain.wrap(first, second);
+    public static <E> Iterator<E> chain(final Iterator<E> first,
+                                        final Iterator<E>... iterators) {
+        return ChainIterator.with(first, iterators);
     }
 
     /**

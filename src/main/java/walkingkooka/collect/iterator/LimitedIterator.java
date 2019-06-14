@@ -29,7 +29,7 @@ import java.util.Objects;
 final class LimitedIterator<E> implements Iterator<E> {
 
     /**
-     * Factory that creates a {@link LimitedIterator} skipping the wrap if the wrapped has a lesser
+     * Factory that creates a {@link LimitedIterator} skipping the with if the wrapped has a lesser
      * count.
      */
     static <E> LimitedIterator<E> wrap(final Iterator<E> iterator, final int count) {

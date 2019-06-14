@@ -17,9 +17,6 @@
 
 package walkingkooka.collect.enumeration;
 
-import walkingkooka.build.chain.ChainType;
-import walkingkooka.build.chain.Chained;
-
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -28,33 +25,30 @@ import java.util.Objects;
  * An {@link Enumeration} that chains two {@link Enumeration enumerations together}. When the first
  * becomes empty the next is called.
  */
-final class EnumerationChain<E> implements Enumeration<E>, Chained<Enumeration<E>> {
+final class ChainEnumeration<E> implements Enumeration<E> {
 
     /**
-     * Creates an {@link EnumerationChain} from two {@link Enumerations}.
+     * Creates an {@link ChainEnumeration} from two {@link Enumerations}.
      */
-    static <E> Enumeration<E> wrap(final Enumeration<E> first, final Enumeration<E> second) {
-        Objects.requireNonNull(first, "first enumeration");
-        Objects.requireNonNull(second, "second enumeration");
+    static <E> Enumeration<E> with(final Enumeration<E> first,
+                                   final Enumeration<E>... enumerations) {
+        Objects.requireNonNull(first, "first");
+        Objects.requireNonNull(enumerations, "enumerations");
 
-        return Enumerations.<E>builder().add(first).add(second).build();
-    }
-
-    /**
-     * Wraps without copying the array and is called by {@link EnumerationChainFactory}
-     */
-    static <E> Enumeration<E> wrap(final Enumeration<E>[] enumerations) {
-        return new EnumerationChain<E>(enumerations);
+        return enumerations.length == 0 ?
+                first :
+                new ChainEnumeration<E>(first, enumerations.clone());
     }
 
     /**
      * Private constructor use static factory.
      */
-    private EnumerationChain(final Enumeration<E>[] enumerations) {
+    private ChainEnumeration(final Enumeration<E> first,
+                             final Enumeration<E>[] enumerations) {
         super();
-        this.current = enumerations[0];
+        this.current = first;
         this.enumerations = enumerations;
-        this.next = 1;
+        this.next = 0;
     }
 
     /**
@@ -129,26 +123,6 @@ final class EnumerationChain<E> implements Enumeration<E>, Chained<Enumeration<E
         this.current = current;
         return current;
     }
-
-    // Chained
-
-    /**
-     * Returns a clone of all {@link Enumeration enumerations}.
-     */
-    @Override
-    public Enumeration<E>[] chained() {
-        return this.enumerations.clone();
-    }
-
-    /**
-     * Returns {@link ChainType#ALL} because all {@link Enumeration enumerations} are read
-     */
-    @Override
-    public ChainType chainType() {
-        return EnumerationChain.TYPE;
-    }
-
-    final static ChainType TYPE = ChainType.ALL;
 
     /**
      * Dumps the current {@link Enumeration} with trailing ellipses if it is not the last.
