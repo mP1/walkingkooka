@@ -21,11 +21,12 @@ package walkingkooka.naming;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -114,8 +115,12 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
 
     @Test
     default void testToString() {
-        final String name = "ABC123";
-        this.toStringAndCheck(HttpRequestParameterName.with(name), name);
+        final String nameText = this.nameText();
+        final N name = this.createName(nameText);
+        this.toStringAndCheck(name,
+                name instanceof ShouldBeQuoted ?
+                        CharSequences.quoteAndEscape(nameText).toString() :
+                        nameText);
     }
 
     N createName(final String name);

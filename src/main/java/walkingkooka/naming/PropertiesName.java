@@ -79,7 +79,7 @@ final public class PropertiesName implements Name, Comparable<PropertiesName>, S
 
     @Override
     public String toString() {
-        return CharSequences.quote(this.name).toString();
+        return this.name;
     }
 
     // Comparable ...................................................................................................
