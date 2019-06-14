@@ -39,7 +39,7 @@ public final class LetterSpacingTest extends LengthTextStylePropertyValueTestCas
     }
 
     @Override
-    LetterSpacing createPropertyValue(final Length length) {
+    LetterSpacing createPropertyValue(final Length<?> length) {
         return LetterSpacing.with(length);
     }
 

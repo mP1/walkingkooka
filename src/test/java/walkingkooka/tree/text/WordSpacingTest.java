@@ -39,7 +39,7 @@ public final class WordSpacingTest extends LengthTextStylePropertyValueTestCase<
     }
 
     @Override
-    WordSpacing createPropertyValue(final Length length) {
+    WordSpacing createPropertyValue(final Length<?> length) {
         return WordSpacing.with(length);
     }
 

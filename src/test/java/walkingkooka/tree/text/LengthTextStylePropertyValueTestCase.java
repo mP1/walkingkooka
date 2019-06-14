@@ -67,7 +67,7 @@ public abstract class LengthTextStylePropertyValueTestCase<L extends LengthTextS
 
     @Test
     public final void testToJsonNode() {
-        final Length length = this.length();
+        final Length<?> length = this.length();
         this.toJsonNodeAndCheck(this.createPropertyValue(length), length.toJsonNode());
     }
 
@@ -78,7 +78,7 @@ public abstract class LengthTextStylePropertyValueTestCase<L extends LengthTextS
 
     @Test
     public final void testToString() {
-        final Length length = this.length();
+        final Length<?> length = this.length();
         this.toStringAndCheck(this.createPropertyValue(length), length.toString());
     }
 
@@ -86,7 +86,7 @@ public abstract class LengthTextStylePropertyValueTestCase<L extends LengthTextS
         return this.createPropertyValue(this.length());
     }
 
-    abstract L createPropertyValue(final Length length);
+    abstract L createPropertyValue(final Length<?> length);
 
     abstract Length<?> length();
 

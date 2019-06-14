@@ -39,7 +39,7 @@ public final class BorderSpacingTest extends LengthTextStylePropertyValueTestCas
     }
 
     @Override
-    BorderSpacing createPropertyValue(final Length length) {
+    BorderSpacing createPropertyValue(final Length<?> length) {
         return BorderSpacing.with(length);
     }
 
