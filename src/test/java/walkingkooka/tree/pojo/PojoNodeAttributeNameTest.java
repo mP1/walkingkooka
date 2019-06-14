@@ -16,6 +16,7 @@
  */
 package walkingkooka.tree.pojo;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
@@ -42,6 +43,12 @@ public final class PojoNodeAttributeNameTest implements ClassTesting2<PojoNodeAt
     @Override
     public void testDifferentText() {
         throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Override
+    public void testToString() {
+        this.toStringAndCheck(PojoNodeAttributeName.CLASS, "class");
     }
 
     @Override
