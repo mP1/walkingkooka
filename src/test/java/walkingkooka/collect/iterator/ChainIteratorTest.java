@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class IteratorChainTest extends IteratorTestCase<IteratorChain<String>, String> {
+final public class ChainIteratorTest extends IteratorTestCase<ChainIterator<String>, String> {
 
     // constants
 
@@ -40,28 +40,24 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
     // tests
 
-    @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
     @Test
-    public void testWrapNullFirstFails() {
+    public void testWithNullFirstFails() {
         assertThrows(NullPointerException.class, () -> {
-            IteratorChain.wrap(null, SECOND);
+            ChainIterator.with(null, SECOND);
         });
     }
 
     @Test
-    public void testWrapNullSecondFails() {
+    public void testWithNullIteratorsFails() {
         assertThrows(NullPointerException.class, () -> {
-            IteratorChain.wrap(FIRST, null);
+            ChainIterator.with(FIRST, null);
         });
     }
 
     @Test
-    public void testDoesntWrapEqualFirstAndSecond() {
-        assertSame(FIRST, IteratorChain.wrap(FIRST, FIRST));
+    public void testWithOne() {
+        final Iterator<?> only = Iterators.fake();
+        assertSame(only, ChainIterator.with(only));
     }
 
     @Test
@@ -73,7 +69,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         second.add("3");
         second.add("4");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("1", iterator.next(), "next from 1st iterator");
@@ -101,7 +97,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         second.add("3");
         second.add("4");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(), second.iterator());
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(), second.iterator());
         assertSame("1", iterator.next(), "next from 1st iterator");
         assertSame("2", iterator.next(), "next from 1st iterator");
         assertSame("3", iterator.next(), "next from last iterator");
@@ -117,7 +113,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         second.add("3");
         second.add("4");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
         iterator.next();
         iterator.next();
@@ -141,7 +137,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         second.add("3");
         second.add("4");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("1", iterator.next(), "next from 1st iterator");
@@ -171,7 +167,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         final List<String> first = Lists.empty();
         final List<String> second = Lists.empty();
 
-        final Iterator<String> iterator = IteratorChain.wrap(first.iterator(), second.iterator());
+        final Iterator<String> iterator = ChainIterator.with(first.iterator(), second.iterator());
         this.hasNextCheckFalse(iterator);
         this.nextFails(iterator);
     }
@@ -181,7 +177,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         final List<String> first = Lists.empty();
         final List<String> second = Lists.of("1");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
         assertTrue(iterator.hasNext(), "hasNext from 2nd iterator");
         assertSame("1", iterator.next(), "next from 2nd iterator");
@@ -195,7 +191,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         final List<String> first = Lists.empty();
         final List<String> second = Lists.of("1");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
         assertSame("1", iterator.next(), "next from 2nd iterator");
 
@@ -210,7 +206,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         second.add("3");
         second.add("4");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
         iterator.next();
         iterator.next();
@@ -231,7 +227,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         second.add("3");
         second.add("4");
 
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
         assertTrue(iterator.hasNext(), "hasNext from 1st iterator");
         assertSame("1", iterator.next(), "next from 1st iterator");
@@ -267,7 +263,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         second.add("3");
 
         final Iterator<String> secondIterator = second.iterator();
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 secondIterator);
         iterator.next();
         iterator.hasNext();
@@ -279,7 +275,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
     public void testToStringWhenEmpty() {
         final List<String> first = Lists.empty();
         final List<String> second = Lists.of("1");
-        final IteratorChain<String> iterator = this.createIterator(first.iterator(),
+        final ChainIterator<String> iterator = this.createIterator(first.iterator(),
                 second.iterator());
         iterator.next();
         iterator.hasNext();
@@ -288,17 +284,17 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
     }
 
     @Override
-    public IteratorChain<String> createIterator() {
+    public ChainIterator<String> createIterator() {
         return this.createIterator(FIRST, SECOND);
     }
 
-    private IteratorChain<String> createIterator(final Iterator<String> first,
+    private ChainIterator<String> createIterator(final Iterator<String> first,
                                                  final Iterator<String> second) {
-        return Cast.to(IteratorChain.wrap(first, second));
+        return Cast.to(ChainIterator.with(first, second));
     }
 
     @Override
-    public Class<IteratorChain<String>> type() {
-        return Cast.to(IteratorChain.class);
+    public Class<ChainIterator<String>> type() {
+        return Cast.to(ChainIterator.class);
     }
 }

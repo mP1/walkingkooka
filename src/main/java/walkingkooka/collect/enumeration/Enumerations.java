@@ -17,8 +17,6 @@
 
 package walkingkooka.collect.enumeration;
 
-import walkingkooka.build.chain.ChainBuilder;
-import walkingkooka.build.chain.ChainBuilders;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Enumeration;
@@ -34,18 +32,11 @@ final public class Enumerations implements PublicStaticHelper {
     }
 
     /**
-     * {@see EnumerationChainFactory}
+     * {@see ChainEnumeration}
      */
-    public static <E> ChainBuilder<Enumeration<E>> builder() {
-        return ChainBuilders.chainFactory(EnumerationChain.TYPE,
-                EnumerationChainFactory.instance());
-    }
-
-    /**
-     * {@see EnumerationChain}
-     */
-    public static <E> Enumeration<E> chain(final Enumeration<E> first, final Enumeration<E> second) {
-        return EnumerationChain.wrap(first, second);
+    public static <E> Enumeration<E> chain(final Enumeration<E> first,
+                                           final Enumeration<E>... enumerations) {
+        return ChainEnumeration.with(first, enumerations);
     }
 
     /**

@@ -31,8 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final public class EnumerationChainTest implements ClassTesting2<EnumerationChain<String>>,
-        EnumerationTesting<EnumerationChain<String>, String> {
+final public class ChainEnumerationTest implements ClassTesting2<ChainEnumeration<String>>,
+        EnumerationTesting<ChainEnumeration<String>, String> {
 
     // constants
 
@@ -42,29 +42,24 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
 
     // tests
 
-    @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
     @Test
-    public void testWrapNullFirstFails() {
+    public void testWithNullFirstFails() {
         assertThrows(NullPointerException.class, () -> {
-            EnumerationChain.wrap(null, SECOND);
+            ChainEnumeration.with(null, SECOND);
         });
     }
 
     @Test
-    public void testWrapNullSecondFails() {
+    public void testWithNullEnumerationsFails() {
         assertThrows(NullPointerException.class, () -> {
-            EnumerationChain.wrap(FIRST, null);
+            ChainEnumeration.with(FIRST, null);
         });
     }
 
     @Test
-    public void testDoesntWrapEqualFirstAndSecond() {
-        assertSame(FIRST,
-                EnumerationChain.wrap(FIRST, FIRST));
+    public void testWithOne() {
+        final Enumeration<?> only = Enumerations.fake();
+        assertSame(only, Enumerations.chain(only));
     }
 
     @Test
@@ -76,7 +71,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         second.add("3");
         second.add("4");
 
-        final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
+        final ChainEnumeration<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
         assertTrue(enumerator.hasMoreElements(), "hasMoreElements from 1st enumerator");
         assertSame("1", enumerator.nextElement(), "next from 1st enumerator");
@@ -103,7 +98,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         second.add("3");
         second.add("4");
 
-        final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
+        final ChainEnumeration<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
         assertSame("1", enumerator.nextElement(), "next from 1st enumerator");
         assertSame("2", enumerator.nextElement(), "next from 1st enumerator");
@@ -120,7 +115,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         second.add("3");
         second.add("4");
 
-        final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
+        final ChainEnumeration<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
         enumerator.nextElement();
         enumerator.nextElement();
@@ -135,7 +130,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         final Vector<String> first = Lists.vector();
         final Vector<String> second = Lists.vector();
 
-        final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
+        final ChainEnumeration<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
         assertFalse(enumerator.hasMoreElements(), "hasMoreElements from 1st enumerator");
         this.checkNextElementFails(enumerator);
@@ -147,7 +142,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         final Vector<String> second = Lists.vector();
         second.add("1");
 
-        final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
+        final ChainEnumeration<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
         assertTrue(enumerator.hasMoreElements(), "hasMoreElements from 2nd enumerator");
         assertSame("1", enumerator.nextElement(), "next from 2nd enumerator");
@@ -162,7 +157,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         final Vector<String> second = Lists.vector();
         second.add("1");
 
-        final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
+        final ChainEnumeration<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
         assertSame("1", enumerator.nextElement(), "next from 2nd enumerator");
 
@@ -184,7 +179,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         second.add("3");
 
         final Enumeration<String> secondEnumeration = second.elements();
-        final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
+        final ChainEnumeration<String> enumerator = this.createEnumeration(first.elements(),
                 secondEnumeration);
         enumerator.nextElement();
         enumerator.hasMoreElements();
@@ -198,7 +193,7 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
         final Vector<String> second = Lists.vector();
         second.add("1");
 
-        final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
+        final ChainEnumeration<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
         enumerator.nextElement();
         enumerator.hasMoreElements();
@@ -207,18 +202,18 @@ final public class EnumerationChainTest implements ClassTesting2<EnumerationChai
     }
 
     @Override
-    public EnumerationChain<String> createEnumeration() {
+    public ChainEnumeration<String> createEnumeration() {
         return this.createEnumeration(FIRST, SECOND);
     }
 
-    private EnumerationChain<String> createEnumeration(final Enumeration<String> first,
+    private ChainEnumeration<String> createEnumeration(final Enumeration<String> first,
                                                        final Enumeration<String> second) {
-        return Cast.to(EnumerationChain.wrap(first, second));
+        return Cast.to(ChainEnumeration.with(first, second));
     }
 
     @Override
-    public Class<EnumerationChain<String>> type() {
-        return Cast.to(EnumerationChain.class);
+    public Class<ChainEnumeration<String>> type() {
+        return Cast.to(ChainEnumeration.class);
     }
 
     @Override
