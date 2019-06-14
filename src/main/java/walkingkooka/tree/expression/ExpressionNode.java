@@ -23,12 +23,12 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.file.FilesystemNode;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

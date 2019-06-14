@@ -20,11 +20,11 @@ package walkingkooka.tree.pojo;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
 import java.util.List;
 import java.util.Map;

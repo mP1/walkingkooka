@@ -20,9 +20,9 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
-import walkingkooka.text.cursor.parser.select.NodeSelectorVisitorTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.select.parser.NodeSelectorVisitorTesting;
 import walkingkooka.type.JavaVisibility;
 
 public final class NodeSelectorHasJsonNodeNodeSelectorVisitorTest implements NodeSelectorVisitorTesting<NodeSelectorHasJsonNodeNodeSelectorVisitor<TestNode, StringName, StringName, Object>,

@@ -22,9 +22,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.test.BeanPropertiesTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
+import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.visit.VisitableTesting;
 import walkingkooka.type.MethodAttributes;
 

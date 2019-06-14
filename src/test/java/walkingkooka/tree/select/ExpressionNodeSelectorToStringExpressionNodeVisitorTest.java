@@ -25,12 +25,12 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.select.NodeSelectorParserContexts;
-import walkingkooka.text.cursor.parser.select.NodeSelectorParsers;
-import walkingkooka.text.cursor.parser.select.NodeSelectorPredicateParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.ExpressionNodeVisitorTesting;
+import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
+import walkingkooka.tree.select.parser.NodeSelectorParsers;
+import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;
