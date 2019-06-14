@@ -55,7 +55,7 @@ public final class RouterBuilderTest implements ClassTesting2<RouterBuilder<Stri
         final RouterBuilder<StringName, String> builder = RouterBuilder.<StringName, String>empty()
                 .add(routing1);
         this.toStringAndCheck(builder,
-                "\"path-0\"=\"dir-1\" & \"path-1\"=\"file-2.txt\" ->one");
+                "path-0=\"dir-1\" & path-1=\"file-2.txt\" ->one");
     }
 
     @Override

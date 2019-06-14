@@ -20,7 +20,6 @@ package walkingkooka.naming;
 import walkingkooka.io.serialize.SerializationProxy;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.ShouldBeQuoted;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -30,7 +29,9 @@ import java.util.Optional;
  * A {@link Path} that wraps a {@link String} which may contain any character.
  */
 final public class StringPath
-        implements Path<StringPath, StringName>, ShouldBeQuoted, Comparable<StringPath>, HashCodeEqualsDefined,
+        implements Path<StringPath, StringName>,
+        Comparable<StringPath>,
+        HashCodeEqualsDefined,
         Serializable {
 
     /**
@@ -170,6 +171,6 @@ final public class StringPath
 
     @Override
     public String toString() {
-        return CharSequences.quote(this.path).toString();
+        return this.path;
     }
 }

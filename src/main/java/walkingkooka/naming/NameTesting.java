@@ -25,8 +25,6 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -116,11 +114,7 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
     @Test
     default void testToString() {
         final String nameText = this.nameText();
-        final N name = this.createName(nameText);
-        this.toStringAndCheck(name,
-                name instanceof ShouldBeQuoted ?
-                        CharSequences.quoteAndEscape(nameText).toString() :
-                        nameText);
+        this.toStringAndCheck(this.createName(nameText), nameText);
     }
 
     N createName(final String name);
