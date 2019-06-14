@@ -88,14 +88,14 @@ public final class PixelLengthTest extends LengthTestCase<PixelLength, Double> {
         final PixelLength length = this.createLength();
         new FakeLengthVisitor() {
             @Override
-            protected Visiting startVisit(final Length l) {
+            protected Visiting startVisit(final Length<?> l) {
                 assertSame(length, l, "length");
                 b.append("1");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final Length l) {
+            protected void endVisit(final Length<?> l) {
                 assertSame(length, l, "length");
                 b.append("2");
             }
