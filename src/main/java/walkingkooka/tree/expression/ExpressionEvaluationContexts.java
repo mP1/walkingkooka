@@ -22,7 +22,6 @@ import walkingkooka.convert.Converter;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
 
-import java.math.MathContext;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
