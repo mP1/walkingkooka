@@ -21,8 +21,10 @@ package walkingkooka.type;
 import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ToStringTesting;
+import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
         ToStringTesting<JavaVisibility> {
@@ -51,6 +53,122 @@ public final class JavaVisibilityTest implements ClassTesting2<JavaVisibility>,
 
     class PackagePrivateClass {
     }
+
+    // JavaVisibilityVisitor............................................................................................
+
+    @Test
+    public void testVisitorPublic() {
+        final StringBuilder b = new StringBuilder();
+
+        final JavaVisibility visibility = JavaVisibility.PUBLIC;
+        new FakeJavaVisibilityVisitor() {
+            @Override
+            protected Visiting startVisit(final JavaVisibility v) {
+                assertSame(visibility, v, "visibility");
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final JavaVisibility v) {
+                assertSame(visibility, v, "visibility");
+                b.append("2");
+            }
+
+            @Override
+            protected void visitPublic() {
+                b.append("3");
+            }
+        }.accept(visibility);
+
+        assertEquals("132", b.toString());
+    }
+
+    @Test
+    protected void testVisitorProtected() {
+        final StringBuilder b = new StringBuilder();
+
+        final JavaVisibility visibility = JavaVisibility.PROTECTED;
+        new FakeJavaVisibilityVisitor() {
+            @Override
+            protected Visiting startVisit(final JavaVisibility v) {
+                assertSame(visibility, v, "visibility");
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final JavaVisibility v) {
+                assertSame(visibility, v, "visibility");
+                b.append("2");
+            }
+
+            @Override
+            protected void visitProtected() {
+                b.append("3");
+            }
+        }.accept(visibility);
+
+        assertEquals("132", b.toString());
+    }
+
+    @Test
+    private void testVisitorPackagePrivate() {
+        final StringBuilder b = new StringBuilder();
+
+        final JavaVisibility visibility = JavaVisibility.PACKAGE_PRIVATE;
+        new FakeJavaVisibilityVisitor() {
+            @Override
+            protected Visiting startVisit(final JavaVisibility v) {
+                assertSame(visibility, v, "visibility");
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final JavaVisibility v) {
+                assertSame(visibility, v, "visibility");
+                b.append("2");
+            }
+
+            @Override
+            protected void visitPackagePrivate() {
+                b.append("3");
+            }
+        }.accept(visibility);
+
+        assertEquals("132", b.toString());
+    }
+
+    @Test
+    public void testVisitorPrivate() {
+        final StringBuilder b = new StringBuilder();
+
+        final JavaVisibility visibility = JavaVisibility.PRIVATE;
+        new FakeJavaVisibilityVisitor() {
+            @Override
+            protected Visiting startVisit(final JavaVisibility v) {
+                assertSame(visibility, v, "visibility");
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final JavaVisibility v) {
+                assertSame(visibility, v, "visibility");
+                b.append("2");
+            }
+
+            @Override
+            protected void visitPrivate() {
+                b.append("3");
+            }
+        }.accept(visibility);
+
+        assertEquals("132", b.toString());
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<JavaVisibility> type() {
