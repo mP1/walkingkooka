@@ -28,9 +28,9 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
 import java.util.Iterator;
 import java.util.List;

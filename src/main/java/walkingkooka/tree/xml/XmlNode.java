@@ -32,13 +32,13 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Whitespace;
-import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;

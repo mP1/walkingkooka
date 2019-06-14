@@ -25,7 +25,6 @@ import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.HasText;
-import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TraversableHasTextOffset;
 import walkingkooka.tree.expression.ExpressionNodeName;
@@ -33,6 +32,7 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
 import java.util.List;
 import java.util.Map;

@@ -22,10 +22,10 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.text.cursor.parser.select.NodeSelectorFunctionName;
-import walkingkooka.text.cursor.parser.select.NodeSelectorFunctionParserToken;
-import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
-import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTesting;
+import walkingkooka.tree.select.parser.NodeSelectorFunctionName;
+import walkingkooka.tree.select.parser.NodeSelectorFunctionParserToken;
+import walkingkooka.tree.select.parser.NodeSelectorParserToken;
+import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigDecimal;

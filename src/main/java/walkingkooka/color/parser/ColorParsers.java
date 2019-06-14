@@ -27,7 +27,7 @@ import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarLoader;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
-import walkingkooka.text.cursor.parser.select.NodeSelectorParserException;
+import walkingkooka.tree.select.parser.NodeSelectorParserException;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Map;

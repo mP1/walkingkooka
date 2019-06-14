@@ -21,12 +21,12 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
-import walkingkooka.text.cursor.parser.select.NodeSelectorAttributeName;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
 import java.util.List;
