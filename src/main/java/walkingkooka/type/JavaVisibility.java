@@ -17,6 +17,8 @@
 
 package walkingkooka.type;
 
+import walkingkooka.tree.visit.Visitable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
@@ -27,15 +29,25 @@ import java.util.Objects;
 /**
  * The visibility of a {@link Class}, {@link Constructor}, {@link Method} or {@link Field}.
  */
-public enum JavaVisibility {
+public enum JavaVisibility implements Visitable {
     PUBLIC {
         boolean testModifiers(final int modifiers) {
             return this.isPublic(modifiers);
+        }
+
+        @Override
+        void accept(final JavaVisibilityVisitor visitor) {
+            visitor.visitPublic();
         }
     },
     PROTECTED {
         boolean testModifiers(final int modifiers) {
             return this.isProtected(modifiers);
+        }
+
+        @Override
+        void accept(final JavaVisibilityVisitor visitor) {
+            visitor.visitProtected();
         }
     },
     PACKAGE_PRIVATE {
@@ -44,10 +56,20 @@ public enum JavaVisibility {
                     this.isProtected(modifiers) ||
                     this.isPrivate(modifiers));
         }
+
+        @Override
+        void accept(final JavaVisibilityVisitor visitor) {
+            visitor.visitProtected();
+        }
     },
     PRIVATE {
         boolean testModifiers(final int modifiers) {
             return this.isPrivate(modifiers);
+        }
+
+        @Override
+        void accept(final JavaVisibilityVisitor visitor) {
+            visitor.visitPrivate();
         }
     };
 
@@ -107,4 +129,8 @@ public enum JavaVisibility {
 
         return result;
     }
+
+    // JavaVisibilityVisitor............................................................................................
+
+    abstract void accept(final JavaVisibilityVisitor visitor);
 }
