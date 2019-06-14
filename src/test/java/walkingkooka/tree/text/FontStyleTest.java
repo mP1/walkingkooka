@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.tree.json.JsonNode;
-
 public final class FontStyleTest extends EnumTextStylePropertyValueTestCase<FontStyle> {
 
     @Override

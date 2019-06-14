@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.tree.json.JsonNode;
-
 public final class HorizontalAlignmentTest extends EnumTextStylePropertyValueTestCase<HorizontalAlignment> {
 
     @Override
