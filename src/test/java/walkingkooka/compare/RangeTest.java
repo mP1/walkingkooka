@@ -23,7 +23,6 @@ import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.ParseStringTesting;
-import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.VisitableTesting;
@@ -1007,13 +1006,6 @@ public final class RangeTest implements ClassTesting2<Range<Integer>>,
     @Test
     public void testToJsonNodeRoundtripInclusiveInclusive() {
         this.toJsonNodeRoundTripTwiceAndCheck(Range.greaterThanEquals(123).and(Range.greaterThanEquals(456)));
-    }
-
-    @Test
-    public void testToJsonNodeRoundtripInclusiveInclusiveSpreadsheetCellReference() {
-        this.toJsonNodeRoundTripTwiceAndCheck(
-                Range.greaterThanEquals(SpreadsheetCellReference.parse("A1"))
-                        .and(Range.greaterThanEquals(SpreadsheetCellReference.parse("B2"))));
     }
 
     // Parse ..........................................................................................
