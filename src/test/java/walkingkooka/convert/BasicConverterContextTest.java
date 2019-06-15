@@ -46,16 +46,6 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
     }
 
     @Test
-    public void testWith() {
-        final BasicConverterContext context = this.createContext();
-        this.checkDecimalPoint(context, DECIMAL);
-        this.checkExponentSymbol(context, EXPONENT);
-        this.checkMinusSign(context, MINUS);
-        this.checkPlusSign(context, PLUS);
-        this.checkMathContext(context, MATH_CONTEXT);
-    }
-
-    @Test
     public void testToString() {
         this.toStringAndCheck(this.createContext(), this.basic().toString());
     }
@@ -67,6 +57,46 @@ public final class BasicConverterContextTest implements ClassTesting2<BasicConve
 
     private BasicConverterContext basic() {
         return BasicConverterContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS, MATH_CONTEXT));
+    }
+
+    @Override
+    public String currencySymbol() {
+        return CURRENCY;
+    }
+
+    @Override
+    public char decimalPoint() {
+        return DECIMAL;
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return EXPONENT;
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return GROUPING;
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return MATH_CONTEXT;
+    }
+
+    @Override
+    public char minusSign() {
+        return MINUS;
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return PERCENTAGE;
+    }
+
+    @Override
+    public char plusSign() {
+        return PLUS;
     }
 
     @Override

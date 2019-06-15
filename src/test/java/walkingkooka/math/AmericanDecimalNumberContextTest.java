@@ -96,6 +96,46 @@ public final class AmericanDecimalNumberContextTest implements ClassTesting2<Ame
     }
 
     @Override
+    public String currencySymbol() {
+        return "$";
+    }
+
+    @Override
+    public char decimalPoint() {
+        return '.';
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return 'E';
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return ',';
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return MATH_CONTEXT;
+    }
+
+    @Override
+    public char minusSign() {
+        return '-';
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return '%';
+    }
+
+    @Override
+    public char plusSign() {
+        return '+';
+    }
+
+    @Override
     public Class<AmericanDecimalNumberContext> type() {
         return AmericanDecimalNumberContext.class;
     }
