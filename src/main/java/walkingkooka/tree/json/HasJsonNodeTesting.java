@@ -37,6 +37,8 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
     @Test
     default void testHasJsonNodeFactoryRegistered() throws Exception {
+        this.createHasJsonNode();
+
         final Class<H> type = this.type();
         final String typeName = this.type().getName();
 
