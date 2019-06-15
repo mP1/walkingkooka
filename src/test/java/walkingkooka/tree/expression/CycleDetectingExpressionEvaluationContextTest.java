@@ -24,9 +24,6 @@ import walkingkooka.convert.Converters;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
-import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
-import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
-import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetReferenceKind;
 import walkingkooka.type.JavaVisibility;
 
 import java.math.BigInteger;
@@ -43,6 +40,19 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         ExpressionEvaluationContextTesting<CycleDetectingExpressionEvaluationContext> {
 
     private final static String VALUE = "text123";
+
+    private final static ExpressionReference A1 = reference("A1");
+    private final static ExpressionReference B2 = reference("B2");
+    private final static ExpressionReference C3 = reference("C3");
+
+    private static ExpressionReference reference(final String label) {
+        return new ExpressionReference() {
+            @Override
+            public String toString() {
+                return label;
+            }
+        };
+    }
 
     @Test
     public void testWithNullContextFails() {
@@ -69,33 +79,30 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testReference() {
-        final SpreadsheetCellReference cell = this.cell();
-        final ExpressionNode text = this.text();
+        final ExpressionNode target = this.text();
 
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
             public Optional<ExpressionNode> reference(final ExpressionReference reference) {
-                assertSame(cell, reference, "cell");
-                return Optional.of(text);
+                assertSame(A1, reference, "reference");
+                return Optional.of(target);
             }
         });
-        assertSame(text, context.reference(cell).get());
+        assertSame(target, context.reference(A1).get());
     }
 
     @Test
     public void testReferenceToReference() {
-        final SpreadsheetLabelName label = SpreadsheetLabelName.with("label");
-
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
             public Optional<ExpressionNode> reference(final ExpressionReference reference) {
-                assertSame(label, reference, "label");
+                assertSame(A1, reference, "reference");
                 return Optional.of(text());
             }
         });
-        final ExpressionNode expression = ExpressionNode.reference(label);
+        final ExpressionNode expression = ExpressionNode.reference(A1);
 
         this.toValueAndCheck(expression, context, VALUE);
         this.toValueAndCheck(expression, context, VALUE);
@@ -104,14 +111,10 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testReferenceToReferenceToReference() {
-        // label2 -> label1 -> cell
-        final SpreadsheetLabelName label1 = label1();
-        final SpreadsheetLabelName label2 = label2();
-        final SpreadsheetCellReference cell = this.cell();
-
-        final ExpressionNode label2Expression = ExpressionNode.reference(label1);
-        final ExpressionNode label1Expression = ExpressionNode.reference(cell);
-        final ExpressionNode cellExpression = this.text();
+        // B2 -> A1 -> C3
+        final ExpressionNode b2 = ExpressionNode.reference(A1);
+        final ExpressionNode a1 = ExpressionNode.reference(C3);
+        final ExpressionNode c3 = this.text();
 
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
@@ -121,14 +124,14 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             private ExpressionNode reference0(final ExpressionReference reference) {
-                if (label2 == reference) {
-                    return label2Expression;
+                if (B2 == reference) {
+                    return b2;
                 }
-                if (label1 == reference) {
-                    return label1Expression;
+                if (A1 == reference) {
+                    return a1;
                 }
-                if (cell == reference) {
-                    return cellExpression;
+                if (C3 == reference) {
+                    return c3;
                 }
                 return this.unknownReference(reference);
             }
@@ -139,24 +142,22 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
         });
 
-        this.toValueAndCheck(cellExpression, context, VALUE);
-        this.toValueAndCheck(label1Expression, context, VALUE);
-        this.toValueAndCheck(label2Expression, context, VALUE);
+        this.toValueAndCheck(c3, context, VALUE);
+        this.toValueAndCheck(a1, context, VALUE);
+        this.toValueAndCheck(b2, context, VALUE);
     }
 
     @Test
     public void testReferenceToSelfCycleFails() {
-        // label2 -> label1 -> cell
-        final SpreadsheetLabelName label = label1();
-
-        final ExpressionNode labelExpression = ExpressionNode.reference(label);
+        // A1 -> target
+        final ExpressionNode target = ExpressionNode.reference(A1);
 
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
             public Optional<ExpressionNode> reference(final ExpressionReference reference) {
-                if (label == reference) {
-                    return Optional.of(labelExpression);
+                if (A1 == reference) {
+                    return Optional.of(target);
                 }
                 return this.unknownReference(reference);
             }
@@ -168,19 +169,13 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         });
 
         assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
-            labelExpression.toValue(context);
+            target.toValue(context);
         });
     }
 
     @Test
     public void testReferenceWithCycleFails() {
-        // label2 -> label1 -> cell
-        final SpreadsheetLabelName label1 = label1();
-        final SpreadsheetLabelName label2 = label2();
-
-        final ExpressionNode label2Expression = ExpressionNode.reference(label1);
-        final ExpressionNode label1Expression = ExpressionNode.reference(label2);
-
+        // B2 -> A1 -> target
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
@@ -189,11 +184,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             private ExpressionNode reference0(final ExpressionReference reference) {
-                if (label2 == reference) {
-                    return label1Expression;
+                if (B2 == reference) {
+                    return ExpressionNode.reference(B2);
                 }
-                if (label1 == reference) {
-                    return label2Expression;
+                if (A1 == reference) {
+                    return ExpressionNode.reference(A1);
                 }
                 return this.unknownReference(reference);
             }
@@ -204,20 +199,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
         });
         assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
-            label2Expression.toValue(context);
+            ExpressionNode.reference(A1).toValue(context);
         });
     }
 
     @Test
     public void testReferenceWithCycleFails2() {
-        final SpreadsheetLabelName label1 = label1();
-        final SpreadsheetLabelName label2 = label2();
-        final SpreadsheetLabelName label3 = label3();
-
-        final ExpressionNode label2Expression = ExpressionNode.reference(label1);
-        final ExpressionNode label1Expression = ExpressionNode.reference(label2);
-        final ExpressionNode label3Expression = ExpressionNode.reference(label2);
-
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
@@ -226,11 +213,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             private ExpressionNode reference0(final ExpressionReference reference) {
-                if (label2 == reference || label3 == reference) {
-                    return label1Expression;
+                if (B2 == reference || C3 == reference) {
+                    return ExpressionNode.reference(B2);
                 }
-                if (label1 == reference) {
-                    return label2Expression;
+                if (A1 == reference) {
+                    return ExpressionNode.reference(A1);
                 }
                 return this.unknownReference(reference);
             }
@@ -242,19 +229,19 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         });
 
         assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
-            label3Expression.toValue(context); // --> label2 --> label1 --> label2 cycle!!!
+            ExpressionNode.reference(B2).toValue(context); // --> B2 --> A1 --> B2 cycle!!!
         });
     }
 
     @Test
     public void testReferenceAfterCycleDetected() {
-        // label2 -> label1 -> cell
-        final SpreadsheetLabelName label1 = label1();
-        final SpreadsheetLabelName label2 = label2();
+        // B2 -> A1 -> expression
+        final ExpressionReference a1 = reference("A1");
+        final ExpressionReference b2 = reference("B2");
 
-        final ExpressionNode label2Expression = ExpressionNode.reference(label1);
-        final ExpressionNode label1Expression = ExpressionNode.reference(label2);
-        final ExpressionNode cellExpression = this.text();
+        final ExpressionNode b2Expression = ExpressionNode.reference(a1);
+        final ExpressionNode a1Expression = ExpressionNode.reference(b2);
+        final ExpressionNode expression = this.text();
 
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
@@ -264,11 +251,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             private ExpressionNode reference0(final ExpressionReference reference) {
-                if (label2 == reference) {
-                    return label1Expression;
+                if (b2 == reference) {
+                    return a1Expression;
                 }
-                if (label1 == reference) {
-                    return label2Expression;
+                if (a1 == reference) {
+                    return b2Expression;
                 }
                 return this.unknownReference(reference);
             }
@@ -280,9 +267,9 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         });
 
         assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
-            label2Expression.toValue(context);
+            b2Expression.toValue(context);
         });
-        this.toValueAndCheck(cellExpression, context, VALUE);
+        this.toValueAndCheck(expression, context, VALUE);
     }
 
     @Test
@@ -328,28 +315,6 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {
         return CycleDetectingExpressionEvaluationContext.with(context);
-    }
-
-    private SpreadsheetLabelName label1() {
-        return SpreadsheetLabelName.with("label1");
-    }
-
-    private SpreadsheetLabelName label2() {
-        return SpreadsheetLabelName.with("label2");
-    }
-
-    private SpreadsheetLabelName label3() {
-        return SpreadsheetLabelName.with("label3");
-    }
-
-    private SpreadsheetCellReference cell() {
-        return this.cell(12, 34);
-    }
-
-    private SpreadsheetCellReference cell(final int column, final int row) {
-        return SpreadsheetCellReference.with(
-                SpreadsheetReferenceKind.ABSOLUTE.column(column),
-                SpreadsheetReferenceKind.ABSOLUTE.row(row));
     }
 
     private ExpressionNode text() {
