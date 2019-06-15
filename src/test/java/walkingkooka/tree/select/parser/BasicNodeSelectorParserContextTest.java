@@ -18,11 +18,27 @@
 package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
 
+import java.math.MathContext;
+
 public final class BasicNodeSelectorParserContextTest implements ClassTesting2<BasicNodeSelectorParserContext>,
         NodeSelectorParserContextTesting<BasicNodeSelectorParserContext> {
+
+    @Override
+    public void testCurrencySymbol() {
+    }
+
+    @Override
+    public void testGroupingSeparator() {
+    }
+
+    @Override
+    public void testMathContext() {
+    }
 
     @Test
     public void testToString() {
@@ -33,6 +49,50 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     @Override
     public BasicNodeSelectorParserContext createContext() {
         return BasicNodeSelectorParserContext.instance();
+    }
+
+    @Override
+    public String currencySymbol() {
+        return this.decimalNumberContext().currencySymbol();
+    }
+
+    @Override
+    public char decimalPoint() {
+        return this.decimalNumberContext().decimalPoint();
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return this.decimalNumberContext().exponentSymbol();
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return this.decimalNumberContext().groupingSeparator();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return MathContext.DECIMAL32;
+    }
+    
+    @Override
+    public char minusSign() {
+        return this.decimalNumberContext().minusSign();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.decimalNumberContext().percentageSymbol();
+    }
+
+    @Override
+    public char plusSign() {
+        return this.decimalNumberContext().plusSign();
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.american(this.mathContext());
     }
 
     @Override

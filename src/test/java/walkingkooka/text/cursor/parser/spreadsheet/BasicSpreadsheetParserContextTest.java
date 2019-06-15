@@ -17,7 +17,6 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.type.JavaVisibility;
@@ -36,21 +35,49 @@ public final class BasicSpreadsheetParserContextTest implements ClassTesting2<Ba
     private final static char PLUS = 'P';
     private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
 
-    @Test
-    public void testWith() {
-        final BasicSpreadsheetParserContext context = this.createContext();
-        this.checkCurrencySymbol(context, CURRENCY);
-        this.checkDecimalPoint(context, DECIMAL);
-        this.checkExponentSymbol(context, EXPONENT);
-        this.checkGroupingSeparator(context, GROUPING);
-        this.checkMinusSign(context, MINUS);
-        this.checkPlusSign(context, PLUS);
-        this.checkMathContext(context, MATH_CONTEXT);
-    }
-
     @Override
     public BasicSpreadsheetParserContext createContext() {
         return BasicSpreadsheetParserContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS, MATH_CONTEXT));
+    }
+
+    @Override
+    public String currencySymbol() {
+        return CURRENCY;
+    }
+
+    @Override
+    public char decimalPoint() {
+        return DECIMAL;
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return EXPONENT;
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return GROUPING;
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return MathContext.DECIMAL32;
+    }
+
+    @Override
+    public char minusSign() {
+        return MINUS;
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return PERCENTAGE;
+    }
+
+    @Override
+    public char plusSign() {
+        return PLUS;
     }
 
     @Override
