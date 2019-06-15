@@ -17,7 +17,7 @@
 
 package walkingkooka.color.parser;
 
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.color.ColorHslOrHsv;
 import walkingkooka.text.CharSequences;

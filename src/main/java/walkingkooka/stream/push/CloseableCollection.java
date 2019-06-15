@@ -17,8 +17,8 @@
 
 package walkingkooka.stream.push;
 
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 
 import java.util.List;
 import java.util.Objects;

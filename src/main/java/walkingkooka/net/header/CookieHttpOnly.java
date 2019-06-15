@@ -17,7 +17,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 
 /**
  * The {@link Cookie} http only attribute.

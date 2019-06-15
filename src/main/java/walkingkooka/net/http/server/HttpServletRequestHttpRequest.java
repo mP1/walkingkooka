@@ -17,8 +17,8 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.HttpHeaderName;

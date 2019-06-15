@@ -20,7 +20,7 @@ package walkingkooka.tree.xml;
 import org.w3c.dom.EntityReference;
 import org.w3c.dom.Node;
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 

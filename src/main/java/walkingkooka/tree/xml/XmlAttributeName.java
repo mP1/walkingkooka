@@ -17,9 +17,9 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;

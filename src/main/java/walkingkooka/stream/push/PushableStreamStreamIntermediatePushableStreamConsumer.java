@@ -18,7 +18,7 @@
 package walkingkooka.stream.push;
 
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 
 /**
  * Base class for all INTERMEDIATE {@link PushableStreamConsumer} returned by {@link PushableStreamStreamIntermediate#createWithNext(PushableStreamConsumer)}.

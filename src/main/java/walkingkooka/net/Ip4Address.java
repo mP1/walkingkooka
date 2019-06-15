@@ -17,8 +17,8 @@
 
 package walkingkooka.net;
 
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.Arrays;

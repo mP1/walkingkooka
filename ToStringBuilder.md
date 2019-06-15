@@ -1,4 +1,4 @@
-# [ToStringBuilder](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/build/tostring/ToStringBuilder.java)
+# [ToStringBuilder](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/ToStringBuilder.java)
 
 There are plenty of open source ToString helpers, like those present in Guava and Apache Commons Lang. 
 However they are fairly simple and can be reduced to appending labels and values in pairs. While functional, this can 
@@ -15,7 +15,7 @@ be improved, to help make the String a little more helpful for logs and debuggin
 - Hard limits on value and length
 - Auto delimiters between elements, entries etc.
 
-Many of these can be enabled or disabled via [ToStringBuilderOption](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/build/tostring/ToStringBuilderOption.java)
+Many of these can be enabled or disabled via [ToStringBuilderOption](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/ToStringBuilderOption.java)
 
 ## Url value type sample
 

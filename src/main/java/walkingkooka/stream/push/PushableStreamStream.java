@@ -19,8 +19,8 @@ package walkingkooka.stream.push;
 
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.HashCodeEqualsDefined;

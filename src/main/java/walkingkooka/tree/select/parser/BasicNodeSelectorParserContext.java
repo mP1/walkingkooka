@@ -18,7 +18,7 @@
 package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 
 import java.math.MathContext;
 

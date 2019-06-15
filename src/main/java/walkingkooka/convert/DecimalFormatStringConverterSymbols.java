@@ -18,7 +18,7 @@
 package walkingkooka.convert;
 
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.text.DecimalFormatSymbols;

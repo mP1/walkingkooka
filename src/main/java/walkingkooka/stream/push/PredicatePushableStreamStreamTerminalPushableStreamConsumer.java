@@ -18,8 +18,8 @@
 package walkingkooka.stream.push;
 
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 
 import java.util.function.Predicate;
 

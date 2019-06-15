@@ -17,7 +17,7 @@
 
 package walkingkooka.color;
 
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 
 /**
  * A {@link Hsl} that includes an alpha property.

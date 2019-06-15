@@ -18,8 +18,8 @@
 package walkingkooka.stream.push;
 
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 
 /**
  * Base class for all TERMINAL {@link PushableStreamConsumer}.

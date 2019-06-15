@@ -19,7 +19,7 @@ package walkingkooka.tree;
 
 
 import org.junit.jupiter.api.Assertions;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;

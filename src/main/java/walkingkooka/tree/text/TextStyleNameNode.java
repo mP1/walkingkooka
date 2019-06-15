@@ -19,7 +19,7 @@ package walkingkooka.tree.text;
 
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;

@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.tree.search.SearchNodeName;
 
 /**

@@ -18,8 +18,8 @@
 package walkingkooka.color;
 
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.color.parser.ColorFunctionFunctionParserToken;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.HashCodeEqualsDefined;

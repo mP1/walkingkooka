@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.text;
 
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
