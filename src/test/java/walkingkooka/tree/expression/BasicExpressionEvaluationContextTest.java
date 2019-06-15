@@ -24,7 +24,6 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTesting2;
-import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
@@ -38,6 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
         ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext> {
+
+    private final static ExpressionReference REFERENCE = new ExpressionReference() {};
 
     @Test
     public void testWithNullFunctionsFails() {
@@ -87,7 +88,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testReferences() {
-        assertEquals(Optional.of(this.expressionNode()), this.createContext().reference(this.expressionReference()));
+        assertEquals(Optional.of(this.expressionNode()), this.createContext().reference(REFERENCE));
     }
 
     @Test
@@ -129,13 +130,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private Function<ExpressionReference, Optional<ExpressionNode>> references() {
         return (r -> {
             Objects.requireNonNull(r, "references");
-            assertEquals(this.expressionReference(), r, "reference");
+            assertEquals(REFERENCE, r, "reference");
             return Optional.of(this.expressionNode());
         });
-    }
-
-    private ExpressionReference expressionReference() {
-        return SpreadsheetLabelName.with("label123");
     }
 
     private ExpressionNode expressionNode() {
