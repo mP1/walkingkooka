@@ -18,8 +18,8 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.Value;
-import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;

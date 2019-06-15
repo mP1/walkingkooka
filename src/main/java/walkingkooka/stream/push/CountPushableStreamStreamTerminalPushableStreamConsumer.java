@@ -18,7 +18,7 @@
 package walkingkooka.stream.push;
 
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 
 /**
  * The COUNT TERMINAL {@link PushableStreamConsumer}.

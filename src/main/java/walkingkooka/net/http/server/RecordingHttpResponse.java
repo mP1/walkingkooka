@@ -18,7 +18,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;

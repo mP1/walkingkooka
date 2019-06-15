@@ -32,7 +32,7 @@ into a tree. This later feature makes it easy to grab grammars from RFC and asse
 Click [here](Parser.md) to read more about the basic building blocks of parsing and [here](Parser-Grammar-Ebnf.md) for more
 advanced features and use cases.
 
-## [ToStringBuilder](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/build/tostring/ToStringBuilder.java)
+## [ToStringBuilder](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/ToStringBuilder.java)
 
 Yet another toString builder, that actually produces significantly more readable output when compared to Guava and
 Apache Common equivalents.

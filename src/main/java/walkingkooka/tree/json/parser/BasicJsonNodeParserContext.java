@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.json.parser;
 
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 
 import java.math.MathContext;
 

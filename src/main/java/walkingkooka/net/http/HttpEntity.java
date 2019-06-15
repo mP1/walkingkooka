@@ -19,8 +19,8 @@ package walkingkooka.net.http;
 
 import walkingkooka.Binary;
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.net.header.CharsetName;

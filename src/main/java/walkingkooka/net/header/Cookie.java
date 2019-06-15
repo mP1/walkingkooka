@@ -19,10 +19,10 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.Value;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;

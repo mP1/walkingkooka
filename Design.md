@@ -96,7 +96,7 @@ Method overloading almost never exist but do appear in a few exceptions as the a
 choice. Wherever possible, related methods are given a "different" but similar name.
 
 One example where overloading is used is by `Visitors` as this aides the simplicity of using the double dispatch pattern,
-and [ToStringBuilder](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/build/tostring/ToStringBuilder.java)
+and [ToStringBuilder](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/ToStringBuilder.java)
 which has many overloaded methods that accept values, basically because java primitives and object dont have a common
 base type.
 

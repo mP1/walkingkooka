@@ -17,7 +17,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.Whitespace;
 

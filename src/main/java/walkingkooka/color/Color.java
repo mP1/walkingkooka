@@ -18,8 +18,8 @@
 package walkingkooka.color;
 
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 import walkingkooka.color.parser.ColorParsers;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;

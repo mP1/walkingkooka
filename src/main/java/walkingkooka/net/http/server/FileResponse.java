@@ -18,7 +18,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Binary;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.io.file.FileExtension;
 
 import java.util.Objects;

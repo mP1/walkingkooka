@@ -17,7 +17,7 @@
 
 package walkingkooka.color;
 
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 
 import java.util.Objects;
 import java.util.Optional;

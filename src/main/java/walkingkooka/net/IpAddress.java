@@ -17,9 +17,9 @@
 
 package walkingkooka.net;
 
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.Value;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.compare.Comparables;
 import walkingkooka.test.HashCodeEqualsDefined;
 

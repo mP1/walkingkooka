@@ -18,7 +18,7 @@
 package walkingkooka.stream.push;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 
 public abstract class PushableStreamStreamIntermediatePushableStreamConsumerTestCase<P extends PushableStreamStreamIntermediatePushableStreamConsumer<String>>
 extends PushableStreamStreamPushableStreamConsumerTestCase2<P> {

@@ -18,7 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.ToStringBuilder;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.type.JavaVisibility;
