@@ -37,12 +37,6 @@ public final class HasJsonNodeWithTypeTextStylePropertyValueHandlerTest extends 
     }
 
     @Test
-    public void testFromJsonNode2() {
-        final EmailAddress emailAddress = EmailAddress.parse("user@example.com");
-        this.fromJsonNodeAndCheck(emailAddress.toJsonNodeWithType(), emailAddress);
-    }
-
-    @Test
     public void testToJsonNode() {
         final Color color = Color.fromRgb(0x123456);
         this.toJsonNodeAndCheck(color, color.toJsonNodeWithType());
