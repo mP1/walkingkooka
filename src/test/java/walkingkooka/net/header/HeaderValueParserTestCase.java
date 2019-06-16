@@ -21,6 +21,7 @@ import walkingkooka.test.ClassTesting2;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
+import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.List;
@@ -37,6 +38,11 @@ public abstract class HeaderValueParserTestCase<P extends HeaderValueParser, V> 
     }
 
     // parse ...........................................................................................
+
+    final void parseCommentFails(final String text, final int pos) {
+        this.parseFails(text,
+                this.parseFailedExpected(new CommentHeaderValueException("Comment present at " + pos + " in " + CharSequences.quoteAndEscape(text))));
+    }
 
     final void parseMissingClosingQuoteFails(final String text) {
         this.parseFails(text, HeaderValueParser.missingClosingQuote(text));
