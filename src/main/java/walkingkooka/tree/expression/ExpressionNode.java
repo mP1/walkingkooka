@@ -23,7 +23,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.file.FilesystemNode;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.select.NodeSelector;
@@ -672,7 +671,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
-     * Creates a {@link NodeSelector} for {@link FilesystemNode} from a {@link NodeSelectorExpressionParserToken}.
+     * Creates a {@link NodeSelector} for {@link ExpressionNode} from a {@link NodeSelectorExpressionParserToken}.
      */
     public static NodeSelector<ExpressionNode, ExpressionNodeName, Name, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
                                                                                                                    final Predicate<ExpressionNodeName> functions) {
