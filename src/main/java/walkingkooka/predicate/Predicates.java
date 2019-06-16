@@ -29,13 +29,6 @@ import java.util.function.Predicate;
 final public class Predicates implements PublicStaticHelper {
 
     /**
-     * {@see AbsoluteUrlPredicate}
-     */
-    public static Predicate<String> absoluteUrl() {
-        return AbsoluteUrlPredicate.INSTANCE;
-    }
-
-    /**
      * /**
      * {@see AlwaysPredicate}.
      */
@@ -94,13 +87,6 @@ final public class Predicates implements PublicStaticHelper {
      */
     public static <T> Predicate<T> customToString(final Predicate<T> predicate, final String toString) {
         return CustomToStringPredicate.wrap(predicate, toString);
-    }
-
-    /**
-     * {@see EmailAddressPredicate}
-     */
-    public static Predicate<String> email() {
-        return EmailAddressPredicate.INSTANCE;
     }
 
     /**
