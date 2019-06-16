@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.test.ClassTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -58,8 +57,8 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
     @Test
     public void testToJsonNodeMap() {
-        final EmailAddress key = EmailAddress.parse("email@example.com");
-        final Color value = Color.fromRgb(0x123);
+        final Color key = Color.fromRgb(0x123);
+        final Color value = Color.fromRgb(0x456);
 
         assertEquals(JsonNode.array()
                         .appendChild(JsonNode.object()
@@ -88,8 +87,8 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
     @Test
     public void testToJsonNodeWithTypeMap() {
-        final EmailAddress key = EmailAddress.parse("email@example.com");
-        final Color value = Color.fromRgb(0x123);
+        final Color key = Color.fromRgb(0x123);
+        final Color value = Color.fromRgb(0x456);
 
         assertEquals(JsonNode.array()
                         .appendChild(JsonNode.object()
@@ -100,7 +99,7 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
     @Test
     public void testToJsonNodeWithType() {
-        final EmailAddress value = EmailAddress.parse("email@example.com");
+        final Color value = Color.fromRgb(0x123);
 
         assertEquals(value.toJsonNodeWithType(),
                 HasJsonNode.toJsonNodeWithType(value));
