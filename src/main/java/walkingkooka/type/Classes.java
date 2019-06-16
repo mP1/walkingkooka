@@ -21,66 +21,66 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Objects;
 
-final public class Types implements PublicStaticHelper {
+final public class Classes implements PublicStaticHelper {
 
     /**
      * Tests if the given type is a primitive or its matching wrapper type.
      */
-    public static boolean isPrimitiveOrWrapper(final Class<?> type) {
-        Objects.requireNonNull(type, "type");
-        return type.isPrimitive() ||
-                type == Boolean.class ||
-                type == Byte.class ||
-                type == Character.class ||
-                type == Double.class ||
-                type == Float.class ||
-                type == Integer.class ||
-                type == Long.class ||
-                type == Number.class ||
-                type == Short.class ||
-                type == Void.class;
+    public static boolean isPrimitiveOrWrapper(final Class<?> classs) {
+        Objects.requireNonNull(classs, "type");
+        return classs.isPrimitive() ||
+                classs == Boolean.class ||
+                classs == Byte.class ||
+                classs == Character.class ||
+                classs == Double.class ||
+                classs == Float.class ||
+                classs == Integer.class ||
+                classs == Long.class ||
+                classs == Number.class ||
+                classs == Short.class ||
+                classs == Void.class;
     }
 
     /**
      * Tests if the given {@link Class} is static.
      */
-    public static boolean isStatic(final Class<?> klass) {
-        return Modifier.isStatic(Types.modifiers(klass));
+    public static boolean isStatic(final Class<?> classs) {
+        return Modifier.isStatic(Classes.modifiers(classs));
     }
 
     /**
      * Tests if the given {@link Class} is abstract.
      */
-    public static boolean isAbstract(final Class<?> klass) {
-        return Modifier.isAbstract(Types.modifiers(klass));
+    public static boolean isAbstract(final Class<?> classs) {
+        return Modifier.isAbstract(Classes.modifiers(classs));
     }
 
     /**
      * Tests if the given {@link Class} is final.
      */
-    public static boolean isFinal(final Class<?> klass) {
-        return Modifier.isFinal(Types.modifiers(klass));
+    public static boolean isFinal(final Class<?> classs) {
+        return Modifier.isFinal(Classes.modifiers(classs));
     }
 
     /**
      * Tests if the given {@link Class} is public.
      */
-    public static boolean isPublic(final Class<?> klass) {
-        return Modifier.isPublic(Types.modifiers(klass));
+    public static boolean isPublic(final Class<?> classs) {
+        return Modifier.isPublic(Classes.modifiers(classs));
     }
 
     /**
      * Tests if the given {@link Class} is private.
      */
-    public static boolean isPrivate(final Class<?> klass) {
-        return Modifier.isPrivate(Types.modifiers(klass));
+    public static boolean isPrivate(final Class<?> classs) {
+        return Modifier.isPrivate(Classes.modifiers(classs));
     }
 
     /**
      * Tests if the given {@link Class} is package private.
      */
-    public static boolean isPackagePrivate(final Class<?> klass) {
-        final int modifiers = Types.modifiers(klass);
+    public static boolean isPackagePrivate(final Class<?> classs) {
+        final int modifiers = Classes.modifiers(classs);
         return (false == Modifier.isPublic(modifiers)) && (false == Modifier.isPrivate(modifiers));
     }
 
@@ -88,9 +88,9 @@ final public class Types implements PublicStaticHelper {
      * Checks then returns the integer holding the modifiers for the given non null {@link
      * Class}.
      */
-    private static int modifiers(final Class<?> klass) {
-        Objects.requireNonNull(klass, "class");
-        return klass.getModifiers();
+    private static int modifiers(final Class<?> classs) {
+        Objects.requireNonNull(classs, "class");
+        return classs.getModifiers();
     }
 
     /**
@@ -100,7 +100,7 @@ final public class Types implements PublicStaticHelper {
         Objects.requireNonNull(intf, "intf");
 
         if (false == intf.isInstance(instance)) {
-            throw new IllegalArgumentException(Types.interfaceNotImplemented(intf, instance));
+            throw new IllegalArgumentException(Classes.interfaceNotImplemented(intf, instance));
         }
     }
 
@@ -134,40 +134,40 @@ final public class Types implements PublicStaticHelper {
      * Returns the primitive {@link Class} for the given {@link Class}. if the input is not a
      * wrapper type null is returned.
      */
-    public static Class<?> primitive(final Class<?> klass) {
-        Objects.requireNonNull(klass, "class");
+    public static Class<?> primitive(final Class<?> classs) {
+        Objects.requireNonNull(classs, "class");
 
         Class<?> result = null;
         do {
-            if (Boolean.class == klass) {
+            if (Boolean.class == classs) {
                 result = Boolean.TYPE;
                 break;
             }
-            if (Byte.class == klass) {
+            if (Byte.class == classs) {
                 result = Byte.TYPE;
                 break;
             }
-            if (Character.class == klass) {
+            if (Character.class == classs) {
                 result = Character.TYPE;
                 break;
             }
-            if (Double.class == klass) {
+            if (Double.class == classs) {
                 result = Double.TYPE;
                 break;
             }
-            if (Float.class == klass) {
+            if (Float.class == classs) {
                 result = Float.TYPE;
                 break;
             }
-            if (Integer.class == klass) {
+            if (Integer.class == classs) {
                 result = Integer.TYPE;
                 break;
             }
-            if (Long.class == klass) {
+            if (Long.class == classs) {
                 result = Long.TYPE;
                 break;
             }
-            if (Short.class == klass) {
+            if (Short.class == classs) {
                 result = Short.TYPE;
                 break;
             }
@@ -179,40 +179,40 @@ final public class Types implements PublicStaticHelper {
      * Returns the primitive {@link Class} for the given {@link Class}. if the input is not a
      * wrapper type null is returned.
      */
-    public static Class<?> wrapper(final Class<?> klass) {
-        Objects.requireNonNull(klass, "class");
+    public static Class<?> wrapper(final Class<?> classs) {
+        Objects.requireNonNull(classs, "class");
 
         Class<?> result = null;
         do {
-            if (Boolean.TYPE == klass) {
+            if (Boolean.TYPE == classs) {
                 result = Boolean.class;
                 break;
             }
-            if (Byte.TYPE == klass) {
+            if (Byte.TYPE == classs) {
                 result = Byte.class;
                 break;
             }
-            if (Character.TYPE == klass) {
+            if (Character.TYPE == classs) {
                 result = Character.class;
                 break;
             }
-            if (Double.TYPE == klass) {
+            if (Double.TYPE == classs) {
                 result = Double.class;
                 break;
             }
-            if (Float.TYPE == klass) {
+            if (Float.TYPE == classs) {
                 result = Float.class;
                 break;
             }
-            if (Integer.TYPE == klass) {
+            if (Integer.TYPE == classs) {
                 result = Integer.class;
                 break;
             }
-            if (Long.TYPE == klass) {
+            if (Long.TYPE == classs) {
                 result = Long.class;
                 break;
             }
-            if (Short.TYPE == klass) {
+            if (Short.TYPE == classs) {
                 result = Short.class;
                 break;
             }
@@ -223,7 +223,7 @@ final public class Types implements PublicStaticHelper {
     /**
      * Stop creation
      */
-    private Types() {
+    private Classes() {
         throw new UnsupportedOperationException();
     }
 }

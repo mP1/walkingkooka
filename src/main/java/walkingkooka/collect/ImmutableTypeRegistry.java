@@ -18,7 +18,7 @@
 package walkingkooka.collect;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.type.Types;
+import walkingkooka.type.Classes;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -53,7 +53,7 @@ public final class ImmutableTypeRegistry {
             throw new IllegalArgumentException("Type " + type.getName() + " is not a sub class of " + this.base.getName());
         }
 
-        if(Types.isAbstract(type)) {
+        if(Classes.isAbstract(type)) {
             throw new IllegalArgumentException("Type " + type.getName() + " is abstract");
         }
 
