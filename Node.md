@@ -31,7 +31,6 @@ Several implementations are available along with helpers that can assist in writ
 - [Expression](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/expression) Abstraction over an expression AST
 - [File](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/file) Abstraction over a file system
 - [Json](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/json) Json objects
-- [Pojo](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/pojo) Node abstraction over java objects.
 - [Search](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/search) Text with highlight support
 - [Xml](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/xml) Xml documents
 
