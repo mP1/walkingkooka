@@ -62,40 +62,6 @@ an individual node relative to its root.
 
 [JsonPointer RFC6901](https://tools.ietf.org/html/rfc6901)
 
-
-## [Patch](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/patch)
-A `patch` is a `Node` equivalent as what `json-patch` is for json objects or diff patch is for files, namely a set
-of discrete operations to test and apply changes to some artifact. The advantage over json-patch implementations is that
-any failed patch leaves the original source unmodified and successful patches return a new tree.
-
-The remainder of this section below contains the sample taken from [jsonpatch.com](http://jsonpatch.com/).
-The original document
-
-```json
-  {
-    "baz": "qux",
-    "foo": "bar"
-  }
-```  
-
-The patch
-
-```json
-  [
-    { "op": "replace", "path": "/baz", "value": "boo" },
-    { "op": "add", "path": "/hello", "value": ["world"] },
-    { "op": "remove", "path": "/foo" }
-  ]
-```
-
-The result
-```json
-  {
-    "baz": "boo",
-    "hello": ["world"]
-  }
-```
-
 ## [NodeSelector](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/tree/select/NodeSelector.java) 
 A `NodeSelector` provides all xpath selectors to all `Nodes`. Predicate expressions and many xpath like functions are
 implemented, with support for custom functions. Many xpath like functions (eg: `starts-with()`) are already implemented

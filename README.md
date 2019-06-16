@@ -17,7 +17,6 @@ trees:
 This project starting with its Node interface, includes implementations that make all tech work for all nodes.
 
 - [stream](https://github.com/mP1/walkingkooka/blob/master/src/main/java/walkingkooka/tree/select/NodeSelector.java) X-path selected `Node` stream provider
-- [NodePatch](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/patch/NodePatch.java) json patch for all `Nodes`.
 - [NodePointer](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/pointer/NodePointer.java) json pointer for all `Nodes`.
 - [NodeSelector](https://github.com/mP1/walkingkooka/tree/master/src/main/java/walkingkooka/tree/select/NodeSelector.java) xpath for all `Nodes`.
 
