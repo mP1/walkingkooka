@@ -24,7 +24,6 @@ import walkingkooka.test.ToStringTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.patch.NodePatchException;
 import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
@@ -99,7 +98,7 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
     final void addAndFail(final NodePointer<JsonNode, JsonNodeName> pointer,
                           final JsonNode base,
                           final JsonNode add) {
-        assertThrows(NodePatchException.class, () -> {
+        assertThrows(NodePointerException.class, () -> {
             pointer.add(base, add);
         });
     }
@@ -114,7 +113,7 @@ public abstract class NodePointerTestCase<N extends NodePointer<JsonNode, JsonNo
 
     final void removeAndFail(final NodePointer<JsonNode, JsonNodeName> pointer,
                              final JsonNode node) {
-        assertThrows(NodePatchException.class, () -> {
+        assertThrows(NodePointerException.class, () -> {
             pointer.remove(node);
         });
     }
