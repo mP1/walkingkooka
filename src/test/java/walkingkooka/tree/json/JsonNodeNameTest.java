@@ -19,8 +19,8 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.color.Color;
 import walkingkooka.naming.NameTesting;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.JavaVisibility;
@@ -103,27 +103,27 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     @Test
     public void testFromJsonNodeWithTypeFactory() {
         final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
-        final Function<JsonNode, EmailAddress> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
-                        .set(typeNameProperty, HasJsonNode.typeName(EmailAddress.class).get()),
-                EmailAddress.class);
+        final Function<JsonNode, Color> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
+                        .set(typeNameProperty, HasJsonNode.typeName(Color.class).get()),
+                Color.class);
 
-        final EmailAddress email = EmailAddress.parse("user1@example.com");
-        assertEquals(email, factory.apply(email.toJsonNode()));
+        final Color color = Color.fromRgb(0x123456);
+        assertEquals(color, factory.apply(color.toJsonNode()));
     }
 
     @Test
     public void testFromJsonNodeWithTypeFactoryFromArray() {
         final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
-        final Function<JsonNode, EmailAddress> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
-                        .set(typeNameProperty, HasJsonNode.typeName(EmailAddress.class).get()),
-                EmailAddress.class);
+        final Function<JsonNode, Color> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
+                        .set(typeNameProperty, HasJsonNode.typeName(Color.class).get()),
+                Color.class);
 
-        final EmailAddress email1 = EmailAddress.parse("user1@example.com");
-        final EmailAddress email2 = EmailAddress.parse("user23@example.com");
-        final EmailAddress email3 = EmailAddress.parse("user345@example.com");
+        final Color color1 = Color.fromRgb(1);
+        final Color color2 = Color.fromRgb(2);
+        final Color color3 = Color.fromRgb(3);
 
-        assertEquals(Lists.of(email1, email2, email3),
-                Lists.of(email1, email2, email3).stream()
+        assertEquals(Lists.of(color1, color2, color3),
+                Lists.of(color1, color2, color3).stream()
                         .map(e -> e.toJsonNode())
                         .map(factory::apply)
                         .collect(Collectors.toList()));

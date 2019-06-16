@@ -19,7 +19,7 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.net.email.EmailAddress;
+import walkingkooka.color.Color;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.util.FunctionTesting;
 
@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implements FunctionTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<EmailAddress>,
+public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implements FunctionTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color>,
         JsonNode,
-        EmailAddress>,
-        ToStringTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<EmailAddress>> {
+        Color>,
+        ToStringTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color>> {
 
     @Test
     public void testWithNullSourceFails() {
@@ -48,35 +48,35 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
 
     @Test
     public void testWith() {
-        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<EmailAddress> function = this.createFunction();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> function = this.createFunction();
         assertEquals(null, function.mapper, "mapper");
     }
 
     @Test
     public void testApply() {
-        final EmailAddress email = this.value();
-        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<EmailAddress> function = this.createFunction();
+        final Color color = this.value();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> function = this.createFunction();
 
         this.applyAndCheck(function,
-                email.toJsonNode(),
-                email);
+                color.toJsonNode(),
+                color);
 
         assertNotEquals(null, function.mapper, "mapper");
     }
 
     @Test
     public void testApplyTwice() {
-        final EmailAddress email1 = this.value();
-        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<EmailAddress> function = this.createFunction();
+        final Color color1 = this.value();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> function = this.createFunction();
 
         this.applyAndCheck(function,
-                email1.toJsonNode(),
-                email1);
+                color1.toJsonNode(),
+                color1);
 
-        final EmailAddress email2 = EmailAddress.parse("user2@example.com");
+        final Color color2 = Color.fromRgb(0x123456);
         this.applyAndCheck(function,
-                email2.toJsonNode(),
-                email2);
+                color2.toJsonNode(),
+                color2);
     }
 
     @Test
@@ -90,17 +90,17 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
 
     @Test
     public void testToString() {
-        final JsonObjectNode object = this.objectWithType(EmailAddress.class);
+        final JsonObjectNode object = this.objectWithType(Color.class);
         this.toStringAndCheck(this.createFunction(object), this.typeNameProperty() + " in " + object);
     }
 
     @Override
-    public JsonNodeNameFromJsonNodeWithTypeFactoryFunction<EmailAddress> createFunction() {
-        return this.createFunction(this.objectWithType(EmailAddress.class));
+    public JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> createFunction() {
+        return this.createFunction(this.objectWithType(Color.class));
     }
 
-    public JsonNodeNameFromJsonNodeWithTypeFactoryFunction<EmailAddress> createFunction(final JsonObjectNode objectWithType) {
-        final Class<EmailAddress> type = this.valueType();
+    public JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> createFunction(final JsonObjectNode objectWithType) {
+        final Class<Color> type = this.valueType();
 
         return Cast.to(this.typeNameProperty()
                 .fromJsonNodeWithTypeFactory(objectWithType, type));
@@ -116,16 +116,16 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
                 .set(typeNameProperty(), HasJsonNode.typeName(type).get());
     }
 
-    private EmailAddress value() {
-        return EmailAddress.parse("user@example.com");
+    private Color value() {
+        return Color.fromRgb(0x123456);
     }
 
-    private Class<EmailAddress> valueType() {
-        return EmailAddress.class;
+    private Class<Color> valueType() {
+        return Color.class;
     }
 
     @Override
-    public Class<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<EmailAddress>> type() {
+    public Class<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color>> type() {
         return Cast.to(JsonNodeNameFromJsonNodeWithTypeFactoryFunction.class);
     }
 }
