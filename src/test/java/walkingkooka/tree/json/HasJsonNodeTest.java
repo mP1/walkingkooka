@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.color.Color;
 import walkingkooka.test.ClassTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -31,34 +30,34 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
     @Test
     public void testToJsonNodeObject() {
-        final Color color = Color.fromRgb(0x123);
+        final TestHasJsonNode has = TestHasJsonNode.with("text-HasJsonNode-a1");
 
-        assertEquals(color.toJsonNode(),
-                HasJsonNode.toJsonNodeObject(color));
+        assertEquals(has.toJsonNode(),
+                HasJsonNode.toJsonNodeObject(has));
     }
 
     @Test
     public void testToJsonNodeList() {
-        final Color color = Color.fromRgb(0x123);
+        final TestHasJsonNode has = TestHasJsonNode.with("text-HasJsonNode-a1");
 
         assertEquals(JsonNode.array()
-                        .appendChild(color.toJsonNode()),
-                HasJsonNode.toJsonNodeList(Lists.of(color)));
+                        .appendChild(has.toJsonNode()),
+                HasJsonNode.toJsonNodeList(Lists.of(has)));
     }
 
     @Test
     public void testToJsonNodeSet() {
-        final Color color = Color.fromRgb(0x123);
+        final TestHasJsonNode has = TestHasJsonNode.with("text-HasJsonNode-a1");
 
         assertEquals(JsonNode.array()
-                        .appendChild(color.toJsonNode()),
-                HasJsonNode.toJsonNodeSet(Sets.of(color)));
+                        .appendChild(has.toJsonNode()),
+                HasJsonNode.toJsonNodeSet(Sets.of(has)));
     }
 
     @Test
     public void testToJsonNodeMap() {
-        final Color key = Color.fromRgb(0x123);
-        final Color value = Color.fromRgb(0x456);
+        final TestHasJsonNode key = TestHasJsonNode.with("text-HasJsonNode-key");
+        final TestHasJsonNode value = TestHasJsonNode.with("text-HasJsonNode-value");
 
         assertEquals(JsonNode.array()
                         .appendChild(JsonNode.object()
@@ -69,26 +68,26 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
     @Test
     public void testToJsonNodeWithTypeList() {
-        final Color color = Color.fromRgb(0x123);
+        final TestHasJsonNode has = TestHasJsonNode.with("text-HasJsonNode-a1");
 
         assertEquals(JsonNode.array()
-                        .appendChild(color.toJsonNodeWithType()),
-                HasJsonNode.toJsonNodeWithTypeList(Lists.of(color)));
+                        .appendChild(has.toJsonNodeWithType()),
+                HasJsonNode.toJsonNodeWithTypeList(Lists.of(has)));
     }
 
     @Test
     public void testToJsonNodeWithTypeSet() {
-        final Color color = Color.fromRgb(0x123);
+        final TestHasJsonNode has = TestHasJsonNode.with("text-HasJsonNode-a1");
 
         assertEquals(JsonNode.array()
-                        .appendChild(color.toJsonNodeWithType()),
-                HasJsonNode.toJsonNodeWithTypeSet(Sets.of(color)));
+                        .appendChild(has.toJsonNodeWithType()),
+                HasJsonNode.toJsonNodeWithTypeSet(Sets.of(has)));
     }
 
     @Test
     public void testToJsonNodeWithTypeMap() {
-        final Color key = Color.fromRgb(0x123);
-        final Color value = Color.fromRgb(0x456);
+        final TestHasJsonNode key = TestHasJsonNode.with("text-HasJsonNode-key");
+        final TestHasJsonNode value = TestHasJsonNode.with("text-HasJsonNode-value");
 
         assertEquals(JsonNode.array()
                         .appendChild(JsonNode.object()
@@ -99,7 +98,7 @@ public final class HasJsonNodeTest implements ClassTesting<HasJsonNode> {
 
     @Test
     public void testToJsonNodeWithType() {
-        final Color value = Color.fromRgb(0x123);
+        final TestHasJsonNode value = TestHasJsonNode.with("text-HasJsonNode-a1");
 
         assertEquals(value.toJsonNodeWithType(),
                 HasJsonNode.toJsonNodeWithType(value));

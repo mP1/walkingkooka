@@ -20,7 +20,6 @@ package walkingkooka.tree.json;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.color.Color;
 
 import java.util.Set;
 
@@ -48,7 +47,7 @@ public final class HasJsonNodeSetMapperTest extends HasJsonNodeMapperTestCase2<H
 
     @Override
     Set<?> value() {
-        return Sets.of(null, true, 123.5, "abc123", Color.fromRgb(0x777));
+        return Sets.of(null, true, 123.5, "abc123", TestHasJsonNode.with("test-HasJsonNode-a1"));
     }
 
     @Override
@@ -63,7 +62,7 @@ public final class HasJsonNodeSetMapperTest extends HasJsonNodeMapperTestCase2<H
                 .appendChild(JsonNode.booleanNode(true))
                 .appendChild(JsonNode.number(123.5))
                 .appendChild(JsonNode.string("abc123"))
-                .appendChild(Color.fromRgb(0x777).toJsonNodeWithType());
+                .appendChild(TestHasJsonNode.with("test-HasJsonNode-a1").toJsonNodeWithType());
     }
 
     @Override

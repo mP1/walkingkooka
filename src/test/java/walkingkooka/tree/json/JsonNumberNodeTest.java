@@ -19,7 +19,6 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.color.Color;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -113,7 +112,7 @@ public final class JsonNumberNodeTest extends JsonLeafNonNullNodeTestCase<JsonNu
 
     @Test
     public void testFromJsonNodeHasJsonNodeFails() {
-        this.fromJsonNodeAndFail(Color.class, JsonNodeException.class);
+        this.fromJsonNodeAndFail(TestHasJsonNode.class, JsonNodeException.class);
     }
 
     // toSearchNode.........................................................................................

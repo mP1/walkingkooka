@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.color.Color;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
@@ -626,7 +625,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     @Test
     public void testFromJsonNodeWithTypeMap2() {
         final String key = "key1";
-        final Color value = Color.fromRgb(0x123);
+        final TestHasJsonNode value = TestHasJsonNode.with("test-HasJsonNode-value");
 
         this.fromJsonNodeWithTypeMapAndCheck(JsonNode.array()
                         .appendChild(JsonNode.object()
@@ -702,16 +701,16 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeListHasJson() {
-        final Color color1 = Color.fromRgb(0x122);
-        final Color color2 = Color.fromRgb(0x222);
-        final Color color3 = Color.fromRgb(0x333);
+        final TestHasJsonNode has1 = TestHasJsonNode.with("test-HasJsonNode-a1");
+        final TestHasJsonNode has2 = TestHasJsonNode.with("test-HasJsonNode-b2");
+        final TestHasJsonNode has3 = TestHasJsonNode.with("test-HasJsonNode-c3");
 
         this.fromJsonNodeListAndCheck(JsonNode.array()
-                        .appendChild(color1.toJsonNode())
-                        .appendChild(color2.toJsonNode())
-                        .appendChild(color3.toJsonNode()),
-                Color.class,
-                Lists.of(color1, color2, color3));
+                        .appendChild(has1.toJsonNode())
+                        .appendChild(has2.toJsonNode())
+                        .appendChild(has3.toJsonNode()),
+                TestHasJsonNode.class,
+                Lists.of(has1, has2, has3));
     }
 
     @Test
@@ -802,16 +801,16 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeSetHasJson() {
-        final Color color1 = Color.fromRgb(0x122);
-        final Color color2 = Color.fromRgb(0x222);
-        final Color color3 = Color.fromRgb(0x333);
+        final TestHasJsonNode has1 = TestHasJsonNode.with("test-HasJsonNode-a1");
+        final TestHasJsonNode has2 = TestHasJsonNode.with("test-HasJsonNode-b2");
+        final TestHasJsonNode has3 = TestHasJsonNode.with("test-HasJsonNode-c3");
 
         this.fromJsonNodeSetAndCheck(JsonNode.array()
-                        .appendChild(color1.toJsonNode())
-                        .appendChild(color2.toJsonNode())
-                        .appendChild(color3.toJsonNode()),
-                Color.class,
-                Sets.of(color1, color2, color3));
+                        .appendChild(has1.toJsonNode())
+                        .appendChild(has2.toJsonNode())
+                        .appendChild(has3.toJsonNode()),
+                TestHasJsonNode.class,
+                Sets.of(has1, has2, has3));
     }
 
     @Test
@@ -854,19 +853,19 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeMapHasJsonNode() {
-        this.fromJsonNodeMapAndCheck(Color.fromRgb(0x111),
-                Color.fromRgb(0x222),
-                Color.class,
-                Color.class);
+        this.fromJsonNodeMapAndCheck(TestHasJsonNode.with("test-HasJsonNode-a1"),
+                TestHasJsonNode.with("test-HasJsonNode-b2"),
+                TestHasJsonNode.class,
+                TestHasJsonNode.class);
     }
 
     @Test
     public void testFromJsonNodeMap2() {
         final String key1 = "key1";
-        final Color value1 = Color.fromRgb(0x111);
+        final TestHasJsonNode value1 = TestHasJsonNode.with("test-HasJsonNode-a1");
 
         final String key2 = "key2";
-        final Color value2 = Color.fromRgb(0x222);
+        final TestHasJsonNode value2 = TestHasJsonNode.with("test-HasJsonNode-b2");
 
         this.fromJsonNodeMapAndCheck(JsonNode.array()
                         .appendChild(JsonNode.object()
@@ -877,7 +876,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                                 .set(HasJsonNodeMapper.ENTRY_VALUE, value2.toJsonNode())),
                 Maps.of(key1, value1, key2, value2),
                 String.class,
-                Color.class);
+                TestHasJsonNode.class);
     }
 
     private <K, V> void fromJsonNodeMapAndCheck(final K key,
@@ -955,13 +954,13 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeWithTypeListHasJsonNode() {
-        final Color color1 = Color.fromRgb(0x111);
-        final Color color2 = Color.fromRgb(0x222);
+        final TestHasJsonNode has1 = TestHasJsonNode.with("test-HasJsonNode-a1");
+        final TestHasJsonNode has2 = TestHasJsonNode.with("test-HasJsonNode-b2");
 
         this.fromJsonNodeWithTypeListAndCheck(JsonNode.array()
-                        .appendChild(color1.toJsonNodeWithType())
-                        .appendChild(color2.toJsonNodeWithType()),
-                color1, color2);
+                        .appendChild(has1.toJsonNodeWithType())
+                        .appendChild(has2.toJsonNodeWithType()),
+                has1, has2);
     }
 
     private void fromJsonNodeWithTypeListAndCheck(final JsonArrayNode array,
@@ -1045,13 +1044,13 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
 
     @Test
     public void testFromJsonNodeWithTypeSetHasJsonNode() {
-        final Color color1 = Color.fromRgb(0x111);
-        final Color color2 = Color.fromRgb(0x222);
+        final TestHasJsonNode has1 = TestHasJsonNode.with("test-HasJsonNode-a1");
+        final TestHasJsonNode has2 = TestHasJsonNode.with("test-HasJsonNode-b2");
 
         this.fromJsonNodeWithTypeSetAndCheck(JsonNode.array()
-                        .appendChild(color1.toJsonNodeWithType())
-                        .appendChild(color2.toJsonNodeWithType()),
-                color1, color2);
+                        .appendChild(has1.toJsonNodeWithType())
+                        .appendChild(has2.toJsonNodeWithType()),
+                has1, has2);
     }
 
     private void fromJsonNodeWithTypeSetAndCheck(final JsonArrayNode array,

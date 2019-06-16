@@ -18,18 +18,17 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
-import walkingkooka.color.Color;
 
-public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeHasJsonNodeMapper<Color>, Color> {
+public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeMapperTestCase2<HasJsonNodeHasJsonNodeMapper<TestHasJsonNode>, TestHasJsonNode> {
 
     @Override
-    HasJsonNodeHasJsonNodeMapper<Color> mapper() {
-        return HasJsonNodeHasJsonNodeMapper.with("color", Color::fromJsonNodeColor, Color.class);
+    HasJsonNodeHasJsonNodeMapper<TestHasJsonNode> mapper() {
+        return HasJsonNodeHasJsonNodeMapper.with("test-HasJsonNode", TestHasJsonNode::fromJsonNode, TestHasJsonNode.class);
     }
 
     @Override
-    Color value() {
-        return Color.fromRgb(0x123);
+    TestHasJsonNode value() {
+        return TestHasJsonNode.with("a1");
     }
 
     @Override
@@ -43,22 +42,22 @@ public final class HasJsonNodeHasJsonNodeMapperTest extends HasJsonNodeMapperTes
     }
 
     @Override
-    Color jsonNullNode() {
+    TestHasJsonNode jsonNullNode() {
         return null;
     }
 
     @Override
     String typeName() {
-        return "color";
+        return "test-HasJsonNode";
     }
 
     @Override
-    Class<Color> mapperType() {
-        return Color.class;
+    Class<TestHasJsonNode> mapperType() {
+        return TestHasJsonNode.class;
     }
 
     @Override
-    public Class<HasJsonNodeHasJsonNodeMapper<Color>> type() {
+    public Class<HasJsonNodeHasJsonNodeMapper<TestHasJsonNode>> type() {
         return Cast.to(HasJsonNodeHasJsonNodeMapper.class);
     }
 }

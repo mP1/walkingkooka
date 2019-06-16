@@ -19,7 +19,6 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.color.Color;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTesting2;
 import walkingkooka.text.CaseSensitivity;
@@ -103,27 +102,27 @@ public final class JsonNodeNameTest implements ClassTesting2<JsonNodeName>,
     @Test
     public void testFromJsonNodeWithTypeFactory() {
         final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
-        final Function<JsonNode, Color> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
-                        .set(typeNameProperty, HasJsonNode.typeName(Color.class).get()),
-                Color.class);
+        final Function<JsonNode, TestHasJsonNode> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
+                        .set(typeNameProperty, HasJsonNode.typeName(TestHasJsonNode.class).get()),
+                TestHasJsonNode.class);
 
-        final Color color = Color.fromRgb(0x123456);
-        assertEquals(color, factory.apply(color.toJsonNode()));
+        final TestHasJsonNode has = TestHasJsonNode.with("test-HasJsonNode-a1");
+        assertEquals(has, factory.apply(has.toJsonNode()));
     }
 
     @Test
     public void testFromJsonNodeWithTypeFactoryFromArray() {
         final JsonNodeName typeNameProperty = JsonNodeName.with("typeName123");
-        final Function<JsonNode, Color> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
-                        .set(typeNameProperty, HasJsonNode.typeName(Color.class).get()),
-                Color.class);
+        final Function<JsonNode, TestHasJsonNode> factory = typeNameProperty.fromJsonNodeWithTypeFactory(JsonNode.object()
+                        .set(typeNameProperty, HasJsonNode.typeName(TestHasJsonNode.class).get()),
+                TestHasJsonNode.class);
 
-        final Color color1 = Color.fromRgb(1);
-        final Color color2 = Color.fromRgb(2);
-        final Color color3 = Color.fromRgb(3);
+        final TestHasJsonNode has1 = TestHasJsonNode.with("test-HasJsonNode-a1");
+        final TestHasJsonNode has2 = TestHasJsonNode.with("test-HasJsonNode-b2");
+        final TestHasJsonNode has3 = TestHasJsonNode.with("test-HasJsonNode-c3");
 
-        assertEquals(Lists.of(color1, color2, color3),
-                Lists.of(color1, color2, color3).stream()
+        assertEquals(Lists.of(has1, has2, has3),
+                Lists.of(has1, has2, has3).stream()
                         .map(e -> e.toJsonNode())
                         .map(factory::apply)
                         .collect(Collectors.toList()));
