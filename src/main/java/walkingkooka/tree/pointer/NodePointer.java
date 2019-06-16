@@ -23,7 +23,6 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.patch.NodePatchException;
 import walkingkooka.tree.visit.Visitable;
 
 import java.util.Objects;
@@ -200,12 +199,12 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     }
 
     /**
-     * Executes this pointer, throwing a {@link NodePatchException} if the traverse is unsuccessful.
+     * Executes this pointer, throwing a {@link NodePointerException} if the traverse is unsuccessful.
      */
     final N traverseOrFail(final N node) {
         final N found = this.traverseOrNull(node);
         if (null == found) {
-            throw new NodePatchException("Unable to find " + this + " starting at " + node);
+            throw new NodePointerException("Unable to find " + this + " starting at " + node);
         }
         return found;
     }
@@ -264,7 +263,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
         }
 
         if (null == result) {
-            throw new NodePatchException("Unable to find " + pointer + " starting at " + node);
+            throw new NodePointerException("Unable to find " + pointer + " starting at " + node);
         }
         return result;
     }
