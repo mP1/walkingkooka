@@ -18,7 +18,7 @@
 package walkingkooka.tree.pojo;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.type.Types;
+import walkingkooka.type.Classes;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +36,7 @@ final class PojoBasicNode extends PojoNode {
     private static boolean isBasicType(final Class<?> type) {
         return type == Class.class ||
                 type == String.class ||
-                Types.isPrimitiveOrWrapper(type);
+                Classes.isPrimitiveOrWrapper(type);
     }
 
     PojoBasicNode(final PojoName name,

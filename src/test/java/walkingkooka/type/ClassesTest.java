@@ -26,112 +26,112 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class TypesTest implements ClassTesting2<Types>,
-        PublicStaticHelperTesting<Types> {
+public final class ClassesTest implements ClassTesting2<Classes>,
+        PublicStaticHelperTesting<Classes> {
 
     @Test
     public void testIsPrimitiveOrWrapperBooleanPrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Boolean.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Boolean.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperBooleanWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Boolean.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Boolean.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperBytePrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Byte.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Byte.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperByteWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Byte.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Byte.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperCharacterPrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Character.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Character.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperCharacterWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Character.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Character.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperDoublePrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Double.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Double.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperDoubleWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Double.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Double.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperFloatPrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Float.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Float.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperFloatWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Float.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Float.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperIntegerPrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Integer.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Integer.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperIntegerWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Integer.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Integer.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperLongPrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Long.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Long.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperLongWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Long.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Long.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperNumber() {
-        assertTrue(Types.isPrimitiveOrWrapper(Number.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Number.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperShortPrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Short.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Short.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperShortWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Short.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Short.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperVoidPrimitive() {
-        assertTrue(Types.isPrimitiveOrWrapper(Void.TYPE));
+        assertTrue(Classes.isPrimitiveOrWrapper(Void.TYPE));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperVoidWrapper() {
-        assertTrue(Types.isPrimitiveOrWrapper(Void.class));
+        assertTrue(Classes.isPrimitiveOrWrapper(Void.class));
     }
 
     @Test
     public void testIsPrimitiveOrWrapperObject() {
-        assertFalse(Types.isPrimitiveOrWrapper(Object.class));
+        assertFalse(Classes.isPrimitiveOrWrapper(Object.class));
     }
 
     @Override
-    public Class<Types> type() {
-        return Types.class;
+    public Class<Classes> type() {
+        return Classes.class;
     }
 
     @Override
