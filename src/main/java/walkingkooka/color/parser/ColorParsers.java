@@ -26,7 +26,6 @@ import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarLoader;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
-import walkingkooka.tree.select.parser.NodeSelectorParserException;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Map;
@@ -74,7 +73,7 @@ public final class ColorParsers implements PublicStaticHelper {
         } catch (final RuntimeException rethrow) {
             throw rethrow;
         } catch (final Exception cause) {
-            throw new NodeSelectorParserException("Failed to init parsers from grammar file, message: " + cause.getMessage(), cause);
+            throw new ColorParserException("Failed to init parsers from grammar file, message: " + cause.getMessage(), cause);
         }
     }
 
