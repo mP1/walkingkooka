@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.color.Color;
 import walkingkooka.text.CharSequences;
 
 import java.math.BigDecimal;
@@ -193,7 +192,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testToJsonNodeWithTypeListHasJsonNode() {
-        final List<Object> list = Lists.of(Color.fromRgb(0x123));
+        final List<Object> list = Lists.of(TestHasJsonNode.with("a1"));
         this.toJsonNodeWithTypeAndCheck(list,
                 this.typeNameAndValue("list",
                         HasJsonNodeMapper.toJsonNodeWithTypeList(list)));
@@ -209,7 +208,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testToJsonNodeWithTypeSetHasJsonNode() {
-        final Set<Object> set = Sets.of(Color.fromRgb(0x123));
+        final Set<Object> set = Sets.of(TestHasJsonNode.with("a1"));
         this.toJsonNodeWithTypeAndCheck(set,
                 this.typeNameAndValue("set",
                         HasJsonNodeMapper.toJsonNodeWithTypeSet(set)));
@@ -233,7 +232,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testToJsonNodeWithTypeMapHasJsonNode() {
-        final Map<Object, Object> map = Maps.of("key", Color.fromRgb(0x123));
+        final Map<Object, Object> map = Maps.of("key", TestHasJsonNode.with("test-HasJsonNode-key"));
         this.toJsonNodeWithTypeAndCheck(map,
                 this.typeNameAndValue("map",
                         HasJsonNodeMapper.toJsonNodeWithTypeMap(map)));
@@ -294,7 +293,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testRoundtripHasJsonNode() {
-        this.roundtripAndCheck(Color.fromRgb(0x123));
+        this.roundtripAndCheck(TestHasJsonNode.with("test-HasJsonNode-a1"));
     }
 
     @Test
@@ -304,7 +303,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testRoundtripList() {
-        this.roundtripAndCheck(Lists.of(Color.fromRgb(0x123)));
+        this.roundtripAndCheck(Lists.of(TestHasJsonNode.with("test-HasJsonNode-a1")));
     }
 
     @Test
@@ -314,7 +313,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testRoundtripSet() {
-        this.roundtripAndCheck(Sets.of(Color.fromRgb(0x123)));
+        this.roundtripAndCheck(Sets.of(TestHasJsonNode.with("test-HasJsonNode-a1")));
     }
 
     @Test
@@ -333,7 +332,7 @@ public final class HasJsonNodeMapperTest extends HasJsonNodeMapperTestCase<HasJs
 
     @Test
     public void testRoundtripMapHasJsonNode() {
-        this.roundtripAndCheck(Maps.of(Color.fromRgb(0x1), Color.fromRgb(0x2)));
+        this.roundtripAndCheck(Maps.of(TestHasJsonNode.with("a1"), TestHasJsonNode.with("b2")));
     }
 
     private void roundtripAndCheck(final Object value) {

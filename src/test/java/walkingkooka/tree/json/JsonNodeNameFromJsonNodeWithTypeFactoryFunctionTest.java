@@ -19,7 +19,6 @@ package walkingkooka.tree.json;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.color.Color;
 import walkingkooka.test.ToStringTesting;
 import walkingkooka.util.FunctionTesting;
 
@@ -27,10 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implements FunctionTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color>,
+public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implements FunctionTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode>,
         JsonNode,
-        Color>,
-        ToStringTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color>> {
+        TestHasJsonNode>,
+        ToStringTesting<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode>> {
 
     @Test
     public void testWithNullSourceFails() {
@@ -48,35 +47,35 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
 
     @Test
     public void testWith() {
-        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> function = this.createFunction();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode> function = this.createFunction();
         assertEquals(null, function.mapper, "mapper");
     }
 
     @Test
     public void testApply() {
-        final Color color = this.value();
-        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> function = this.createFunction();
+        final TestHasJsonNode has = this.value();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode> function = this.createFunction();
 
         this.applyAndCheck(function,
-                color.toJsonNode(),
-                color);
+                has.toJsonNode(),
+                has);
 
         assertNotEquals(null, function.mapper, "mapper");
     }
 
     @Test
     public void testApplyTwice() {
-        final Color color1 = this.value();
-        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> function = this.createFunction();
+        final TestHasJsonNode has1 = this.value();
+        final JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode> function = this.createFunction();
 
         this.applyAndCheck(function,
-                color1.toJsonNode(),
-                color1);
+                has1.toJsonNode(),
+                has1);
 
-        final Color color2 = Color.fromRgb(0x123456);
+        final TestHasJsonNode has2 = TestHasJsonNode.with("test-HasJsonNode-b2");
         this.applyAndCheck(function,
-                color2.toJsonNode(),
-                color2);
+                has2.toJsonNode(),
+                has2);
     }
 
     @Test
@@ -90,17 +89,17 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
 
     @Test
     public void testToString() {
-        final JsonObjectNode object = this.objectWithType(Color.class);
+        final JsonObjectNode object = this.objectWithType(TestHasJsonNode.class);
         this.toStringAndCheck(this.createFunction(object), this.typeNameProperty() + " in " + object);
     }
 
     @Override
-    public JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> createFunction() {
-        return this.createFunction(this.objectWithType(Color.class));
+    public JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode> createFunction() {
+        return this.createFunction(this.objectWithType(TestHasJsonNode.class));
     }
 
-    public JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color> createFunction(final JsonObjectNode objectWithType) {
-        final Class<Color> type = this.valueType();
+    public JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode> createFunction(final JsonObjectNode objectWithType) {
+        final Class<TestHasJsonNode> type = this.valueType();
 
         return Cast.to(this.typeNameProperty()
                 .fromJsonNodeWithTypeFactory(objectWithType, type));
@@ -116,16 +115,16 @@ public final class JsonNodeNameFromJsonNodeWithTypeFactoryFunctionTest implement
                 .set(typeNameProperty(), HasJsonNode.typeName(type).get());
     }
 
-    private Color value() {
-        return Color.fromRgb(0x123456);
+    private TestHasJsonNode value() {
+        return TestHasJsonNode.with("test-HasJsonNode-a1");
     }
 
-    private Class<Color> valueType() {
-        return Color.class;
+    private Class<TestHasJsonNode> valueType() {
+        return TestHasJsonNode.class;
     }
 
     @Override
-    public Class<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<Color>> type() {
+    public Class<JsonNodeNameFromJsonNodeWithTypeFactoryFunction<TestHasJsonNode>> type() {
         return Cast.to(JsonNodeNameFromJsonNodeWithTypeFactoryFunction.class);
     }
 }
