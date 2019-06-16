@@ -24,20 +24,20 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * A valid legal fully qualified name of java type.
+ * A valid legal fully qualified name of java {@link Class}.
  */
-public final class TypeName extends JavaName<TypeName> {
+public final class ClassName extends JavaName<ClassName> {
 
     /**
      * A map of all constants.
      */
-    private final static Map<String, TypeName> CONSTANTS = Maps.ordered();
+    private final static Map<String, ClassName> CONSTANTS = Maps.ordered();
 
     /**
      * Internal method used to register a constant.
      */
-    private static TypeName registerConstant(final String name) {
-        final TypeName typeName = new TypeName(name);
+    private static ClassName registerConstant(final String name) {
+        final ClassName typeName = new ClassName(name);
         CONSTANTS.put(name, typeName);
         return typeName;
     }
@@ -45,74 +45,74 @@ public final class TypeName extends JavaName<TypeName> {
     /**
      * {@see Boolean#TYPE}
      */
-    public final static TypeName BOOLEAN = registerConstant("boolean");
+    public final static ClassName BOOLEAN = registerConstant("boolean");
 
     /**
      * {@see Byte#TYPE}
      */
-    public final static TypeName BYTE = registerConstant("byte");
+    public final static ClassName BYTE = registerConstant("byte");
 
     /**
      * {@see Short#TYPE}
      */
-    public final static TypeName SHORT = registerConstant("short");
+    public final static ClassName SHORT = registerConstant("short");
 
     /**
      * {@see Integer#TYPE}
      */
-    public final static TypeName INT = registerConstant("int");
+    public final static ClassName INT = registerConstant("int");
 
     /**
      * {@see Long#TYPE}
      */
-    public final static TypeName LONG = registerConstant("long");
+    public final static ClassName LONG = registerConstant("long");
 
     /**
      * {@see Float#TYPE}
      */
-    public final static TypeName FLOAT = registerConstant("float");
+    public final static ClassName FLOAT = registerConstant("float");
 
     /**
      * {@see Double#TYPE}
      */
-    public final static TypeName DOUBLE = registerConstant("double");
+    public final static ClassName DOUBLE = registerConstant("double");
 
     /**
      * {@see Character#TYPE}
      */
-    public final static TypeName CHAR = registerConstant("char");
+    public final static ClassName CHAR = registerConstant("char");
 
     /**
      * {@see Void#TYPE}
      */
-    public final static TypeName VOID = registerConstant("void");
+    public final static ClassName VOID = registerConstant("void");
 
     /**
      * {@see String#TYPE}
      */
-    public final static TypeName STRING = registerConstant("java.lang.String");
+    public final static ClassName STRING = registerConstant("java.lang.String");
 
     /**
-     * Factory that creates a {@link TypeName} given a {@link Class}
+     * Factory that creates a {@link ClassName} given a {@link Class}
      */
-    public static TypeName fromClass(final Class<?> klass) {
+    public static ClassName fromClass(final Class<?> klass) {
         Objects.requireNonNull(klass, "class");
 
         final String name = klass.getName();
-        final TypeName typeName = CONSTANTS.get(name);
+        final ClassName typeName = CONSTANTS.get(name);
         return null != typeName ?
                 typeName :
-                new TypeName(klass.getName());
+                new ClassName(klass.getName());
     }
 
     /**
-     * Creates a {@link TypeName} from a String containing a fully qualified class name. If this factory is called within a {@link ClassLoader} any
+     * Creates a {@link ClassName} from a String containing a fully qualified class name. If this factory is called within a {@link ClassLoader} any
      * thrown {@link IllegalArgumentException} should be wrapped inside a {@link ClassNotFoundException}.
      */
-    public static TypeName with(final String name) {
+    public static ClassName with(final String name) {
         Objects.requireNonNull(name, "name");
 
-        final TypeName typeName = CONSTANTS.get(name);
+        final ClassName typeName = CONSTANTS.get(name);
         return null != typeName ?
                 typeName :
                 notConstant(name);
@@ -121,7 +121,7 @@ public final class TypeName extends JavaName<TypeName> {
     /**
      * Handles the case where the input {@Link String} is not a constant, and must be verified.
      */
-    private static TypeName notConstant(final String name) {
+    private static ClassName notConstant(final String name) {
         checkNotEmpty(name);
         checkLength(name);
 
@@ -146,13 +146,13 @@ public final class TypeName extends JavaName<TypeName> {
             }
         }
 
-        return new TypeName(name);
+        return new ClassName(name);
     }
 
     /**
      * Package private use ctor
      */
-    private TypeName(final String name) {
+    private ClassName(final String name) {
         super(name);
     }
 
@@ -200,14 +200,15 @@ public final class TypeName extends JavaName<TypeName> {
 
     // Object...........................................................................................................
 
-    @Override final boolean canBeEqual(final Object other) {
-        return other instanceof TypeName;
+    @Override
+    final boolean canBeEqual(final Object other) {
+        return other instanceof ClassName;
     }
 
     // Comparable ......................................................................................................
 
     @Override
-    public int compareTo(final TypeName other) {
+    public int compareTo(final ClassName other) {
         return this.compareTo0(other);
     }
 }
