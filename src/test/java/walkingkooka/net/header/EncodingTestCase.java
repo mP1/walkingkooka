@@ -185,7 +185,7 @@ public abstract class EncodingTestCase<A extends Encoding> extends HeaderValueWi
         return this.createHeaderValueWithParameters();
     }
 
-    // TypeName..Testing...............................................................................................
+    // ClassName..Testing...............................................................................................
 
     @Override
     public final String typeNamePrefix() {

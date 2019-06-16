@@ -25,18 +25,18 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<TypeName> {
+public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<ClassName> {
 
     @Test
     public void testFromClassNullFails() {
         assertThrows(NullPointerException.class, () -> {
-            TypeName.fromClass(null);
+            ClassName.fromClass(null);
         });
     }
 
     @Test
     public void testFromClass() throws Exception {
-        final TypeName p = TypeName.fromClass(this.getClass());
+        final ClassName p = ClassName.fromClass(this.getClass());
         this.checkValue(p, "walkingkooka.type.TypeNameTest");
     }
 
@@ -158,14 +158,14 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Ty
     }
 
     private void withoutPackageNameAndCheck(final Class<?> type) {
-        this.withoutPackageNameAndCheck(TypeName.fromClass(type), type.getSimpleName());
+        this.withoutPackageNameAndCheck(ClassName.fromClass(type), type.getSimpleName());
     }
 
     private void withoutPackageNameAndCheck(final String name, final String without) {
-        this.withoutPackageNameAndCheck(TypeName.with(name), without);
+        this.withoutPackageNameAndCheck(ClassName.with(name), without);
     }
 
-    private void withoutPackageNameAndCheck(final TypeName typeName, final String without) {
+    private void withoutPackageNameAndCheck(final ClassName typeName, final String without) {
         assertEquals(without, typeName.nameWithoutPackage(), "nameWithoutPackage");
     }
 
@@ -177,18 +177,18 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Ty
     private void packageAndCheck(final Class<?> type) {
         this.packageAndCheck(type.getName(), type.getPackage().getName());
 
-        assertEquals(PackageName.from(type.getPackage()), TypeName.with(type.getName()).parentPackage(), "parentPackage");
+        assertEquals(PackageName.from(type.getPackage()), ClassName.with(type.getName()).parentPackage(), "parentPackage");
     }
 
     private void packageAndCheck(final String name, final String pkg) {
-        final TypeName typeName = TypeName.with(name);
+        final ClassName typeName = ClassName.with(name);
         assertEquals(PackageName.with(pkg), typeName.parentPackage(), "parentPackage");
 
     }
 
     @Override
-    public TypeName createName(final String name) {
-        return TypeName.with(name);
+    public ClassName createName(final String name) {
+        return ClassName.with(name);
     }
 
     @Override
@@ -207,7 +207,7 @@ public final class TypeNameTest extends PackageNameOrTypeNameJavaNameTestCase<Ty
     }
 
     @Override
-    public Class<TypeName> type() {
-        return TypeName.class;
+    public Class<ClassName> type() {
+        return ClassName.class;
     }
 }

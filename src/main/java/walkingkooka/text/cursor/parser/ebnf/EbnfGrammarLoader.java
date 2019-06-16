@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.type.TypeName;
+import walkingkooka.type.ClassName;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -107,6 +107,6 @@ public final class EbnfGrammarLoader {
 
     @Override
     public String toString() {
-        return TypeName.fromClass(this.klass).nameWithoutPackage() + "/" + this.filename;
+        return ClassName.fromClass(this.klass).nameWithoutPackage() + "/" + this.filename;
     }
 }
