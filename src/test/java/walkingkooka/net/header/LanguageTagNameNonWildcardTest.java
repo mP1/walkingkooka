@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.NameTesting2;
 
 import java.util.Locale;
@@ -48,7 +49,7 @@ public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCas
 
     @Test
     public void testWithInvalidLanguageTagNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             LanguageTagNameNonWildcard.nonWildcard("\0xyz");
         });
     }

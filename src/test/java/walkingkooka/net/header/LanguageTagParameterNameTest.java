@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -30,7 +31,7 @@ final public class LanguageTagParameterNameTest extends HeaderParameterNameTestC
 
     @Test
     public void testWithIncludesWhitespaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             LanguageTagParameterName.with("paramet er");
         });
     }

@@ -91,7 +91,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extend
             HateosResourceName resourceName;
             try {
                 resourceName = HateosResourceName.with(resourceNameString);
-            } catch (final IllegalArgumentException invalid) {
+            } catch (final RuntimeException invalid) {
                 this.badRequest("Invalid resource name " + CharSequences.quoteAndEscape(resourceNameString));
                 break;
             }
@@ -238,7 +238,7 @@ final class HateosHandlerRouterHttpRequestHttpResponseBiConsumerRequest<N extend
             if (!CharSequences.isNullOrEmpty(relationString)) {
                 try {
                     relation = LinkRelation.with(relationString);
-                } catch (final IllegalArgumentException invalid) {
+                } catch (final RuntimeException invalid) {
                     relation = null;
                     badRequest("Invalid link relation " + CharSequences.quoteAndEscape(relationString));
                 }

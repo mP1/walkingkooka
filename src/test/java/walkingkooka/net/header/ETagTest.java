@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.JavaVisibility;
@@ -41,7 +42,7 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
 
     @Test
     public void testWithInvalidValueCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             ETag.with("abc def", ETagValidator.STRONG);
         });
     }

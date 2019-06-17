@@ -17,10 +17,10 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CharSequences;
 
 import java.util.Locale;
 import java.util.Map;
@@ -66,7 +66,7 @@ final class LanguageTagNameNonWildcard extends LanguageTagName {
 
         final Locale locale = Locale.forLanguageTag(value);
         if (locale.toString().isEmpty()) {
-            throw new IllegalArgumentException("Invalid language tag " + CharSequences.quoteAndEscape(value));
+            throw new InvalidTextLengthException("language tag", value, 0, Integer.MAX_VALUE);
         }
         return new LanguageTagNameNonWildcard(value, Optional.of(locale));
     }

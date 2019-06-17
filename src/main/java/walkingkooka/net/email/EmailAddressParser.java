@@ -121,7 +121,7 @@ abstract class EmailAddressParser {
 
                     try {
                         hostAddress = HostAddress.withEmail(email, i + 1);
-                    } catch (final IllegalArgumentException cause) {
+                    } catch (final RuntimeException cause) {
                         this.invalidHostAddress(cause);
                     }
                     break;
@@ -178,5 +178,5 @@ abstract class EmailAddressParser {
     /**
      * An invalid host address.
      */
-    abstract void invalidHostAddress(final IllegalArgumentException failed);
+    abstract void invalidHostAddress(final RuntimeException failed);
 }

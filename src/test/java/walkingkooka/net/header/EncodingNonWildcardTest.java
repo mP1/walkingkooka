@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -41,7 +42,7 @@ public final class EncodingNonWildcardTest extends EncodingTestCase<EncodingNonW
 
     @Test
     public void testWithInvalidCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             Encoding.with("\u001f");
         });
     }

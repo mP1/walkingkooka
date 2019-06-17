@@ -19,6 +19,7 @@ package walkingkooka.net.header;
 
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.net.http.server.FakeHttpRequest;
@@ -45,105 +46,105 @@ final public class CookieNameTest implements ClassTesting2<CookieName>,
      */
     @Test
     public void testIncludeParensOpenFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie(");
         });
     }
 
     @Test
     public void testIncludeParensCloseFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie)");
         });
     }
 
     @Test
     public void testIncludeLessThanFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie<");
         });
     }
 
     @Test
     public void testIncludeGreaterThanFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie>");
         });
     }
 
     @Test
     public void testIncludeAtSignFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie@");
         });
     }
 
     @Test
     public void testIncludeCommaFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie,");
         });
     }
 
     @Test
     public void testIncludeSemiColonFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie;");
         });
     }
 
     @Test
     public void testIncludeColonFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie:");
         });
     }
 
     @Test
     public void testIncludeBackslashFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie\\");
         });
     }
 
     @Test
     public void testIncludeDoubleQuoteFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie\"");
         });
     }
 
     @Test
     public void testIncludeForwardSlashFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie/");
         });
     }
 
     @Test
     public void testIncludeBracketOpenFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie[");
         });
     }
 
     @Test
     public void testIncludeBracketCloseFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie]");
         });
     }
 
     @Test
     public void testQuestionMarkFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie?");
         });
     }
 
     @Test
     public void testEqualsSignFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CookieName.with("cookie=");
         });
     }

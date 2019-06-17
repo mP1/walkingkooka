@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -30,28 +31,28 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
 
     @Test
     public void testControlCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CharsetHeaderValueParameterName.with("parameter\u0001;");
         });
     }
 
     @Test
     public void testSpaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CharsetHeaderValueParameterName.with("parameter ");
         });
     }
 
     @Test
     public void testTabFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CharsetHeaderValueParameterName.with("parameter\t");
         });
     }
 
     @Test
     public void testNonAsciiFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             CharsetHeaderValueParameterName.with("parameter\u0100;");
         });
     }

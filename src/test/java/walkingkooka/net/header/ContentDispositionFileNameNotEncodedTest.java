@@ -37,7 +37,7 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
 
     @Test
     public void testWithInvalidCharFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             ContentDispositionFileNameNotEncoded.with("\0");
         });
     }

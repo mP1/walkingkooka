@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -32,28 +33,28 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
 
     @Test
     public void testControlCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             ContentDispositionParameterName.with("parameter\u0001;");
         });
     }
 
     @Test
     public void testSpaceFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             ContentDispositionParameterName.with("parameter ");
         });
     }
 
     @Test
     public void testTabFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             ContentDispositionParameterName.with("parameter\t");
         });
     }
 
     @Test
     public void testNonAsciiFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             ContentDispositionParameterName.with("parameter\u0100;");
         });
     }

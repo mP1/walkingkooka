@@ -194,7 +194,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     private void withFails(final String email, final String message) {
-        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+        final Exception expected = assertThrows(RuntimeException.class, () -> {
             EmailAddress.parse(email);
         });
         expected.printStackTrace();
@@ -1599,7 +1599,7 @@ final public class EmailAddressTest implements ClassTesting2<EmailAddress>,
     }
 
     private void parseFails2(final String address, final String comment) {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             this.parse(address);
         }, "Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed="
                 + this.makeEmptyIfNull(comment));

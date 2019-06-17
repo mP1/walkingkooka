@@ -18,6 +18,8 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ParseStringTesting;
@@ -51,7 +53,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Test
     public void testWithInvalidCharacterFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             MediaTypeBoundary.with("abc\"def");
         });
     }
@@ -60,7 +62,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     public void testWithTooLongFails() {
         final char[] c = new char[MediaTypeBoundary.MAX_LENGTH];
         Arrays.fill(c, 'a');
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidTextLengthException.class, () -> {
             MediaTypeBoundary.with(new String(c));
         });
     }

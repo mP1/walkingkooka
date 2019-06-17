@@ -18,6 +18,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.type.JavaVisibility;
 
@@ -48,7 +49,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     @Test
     public final void testSetValueInvalidCharactersFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidCharacterException.class, () -> {
             this.createETag().setValue(" ");
         });
     }

@@ -165,7 +165,7 @@ public final class ContentRange implements HeaderValue {
 
         try {
             return parse0(text);
-        } catch (final IllegalArgumentException cause) {
+        } catch (final RuntimeException cause) {
             throw new HeaderValueException(cause.getMessage(), cause);
         }
     }

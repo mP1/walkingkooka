@@ -58,7 +58,7 @@ final class EmailAddressParserTryParse extends EmailAddressParser {
     }
 
     @Override
-    void invalidHostAddress(final IllegalArgumentException failed) {
+    void invalidHostAddress(final RuntimeException failed) {
         //nop
     }
 
