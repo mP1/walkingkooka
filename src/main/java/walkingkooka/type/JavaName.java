@@ -19,6 +19,7 @@ package walkingkooka.type;
 
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -45,9 +46,8 @@ abstract class JavaName<N extends JavaName> implements Name, Comparable<N> {
     }
 
     final static void checkLength(final String name) {
-        final int length = name.length();
-        if (length > MAX_LENGTH) {
-            throw new IllegalArgumentException("Invalid name length " + length + " > " + MAX_LENGTH);
+        if (name.length() > MAX_LENGTH) {
+            throw new InvalidTextLengthException("name", name, 0, MAX_LENGTH);
         }
     }
 
